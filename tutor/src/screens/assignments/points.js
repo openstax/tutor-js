@@ -1,25 +1,52 @@
 import { React, PropTypes, styled, action, observer, computed } from 'vendor';
+import { colors } from 'theme';
 import { AssignmentBuilder } from './builder';
 import { flatMap } from 'lodash';
 import { SuretyGuard } from 'shared';
 import { Icon } from 'shared';
 import Question from 'shared/components/question';
+import S from '../../helpers/string';
+
+const QuestionPreview = styled.div`
+  border: 1px solid ${colors.neutral.lighter};
+  margin: 2rem;
+  &:first-of-type {
+   .ox-icon-arrow-up { display: none; }
+  }
+  &:last-of-type {
+   .ox-icon-arrow-down { display: none; }
+  }
+`;
+
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid lightGray;
+  background: ${colors.neutral.lighter}
   padding: 1rem;
-`;
-
-const ExerciseNumber = styled.div`
+  margin-bottom: 1rem;
   font-weight: bold;
 `;
 
-const Controls = styled.div`
+const ExerciseNumber = styled.div`
+  font-size: 1.5rem;
+`;
+
+const Actions = styled.div`
   flex: 1;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const Controls = styled.div`
+  flex-basis: 10rem;
+  display: flex;
+  justify-content: flex-end;
+  input {
+    padding: 0.5rem;
+  }
 `;
 
 const Input = styled.input`
@@ -31,15 +58,6 @@ const Input = styled.input`
 
 const MoveIcon = styled(Icon)`
   border-radius: 50%;
-`;
-
-const QuestionPreview = styled.div`
-  &:first-of-type {
-   .ox-icon-arrow-up { display: none; }
-  }
-  &:last-of-type {
-   .ox-icon-arrow-down { display: none; }
-  }
 `;
 
 @observer
@@ -87,23 +105,25 @@ class ReviewExerciseCard extends React.Component {
     if (!ux.canEdit) { return null; }
 
     return (
-      <Controls className="pull-right card-actions">
-        <Input value={this.points} onChange={this.setPoints} />
-        {this.props.questionIndex == 0 && (
-          <>
-            <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
-            <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
+      <Actions>
+        <Input value={S.numberWithOneDecimalPlace(this.points)} onChange={this.setPoints} /> Points
+        <Controls>
+          {this.props.questionIndex == 0 && (
+            <>
+              <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
+              <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
             </>)}
-        <SuretyGuard
-          title={false}
-          onConfirm={this.removeExercise}
-          okButtonLabel="Remove"
-          placement="left"
-          message="Are you sure you want to remove this exercise?"
-        >
-          <Icon size="xs" className="-remove-exercise circle" type="close" />
-        </SuretyGuard>
-      </Controls>
+          <SuretyGuard
+            title={false}
+            onConfirm={this.removeExercise}
+            okButtonLabel="Remove"
+            placement="left"
+            message="Are you sure you want to remove this exercise?"
+          >
+            <Icon size="xs" className="-remove-exercise circle" type="close" />
+          </SuretyGuard>
+        </Controls>
+      </Actions>
     );
   }
 
@@ -113,14 +133,13 @@ class ReviewExerciseCard extends React.Component {
 
     return (
       <QuestionPreview className="openstax-exercise-preview">
+        <Header>
+          <ExerciseNumber>
+            Question {this.props.index + 1}
+          </ExerciseNumber>
+          {this.getActionButtons()}
+        </Header>
         <div className="card-body">
-          <Header>
-            <ExerciseNumber>
-              {this.props.index + 1}
-            </ExerciseNumber>
-            {this.getActionButtons()}
-          </Header>
-
           <Question
             className="openstax-question-preview"
             question={question}
