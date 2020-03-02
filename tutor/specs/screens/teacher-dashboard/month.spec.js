@@ -4,7 +4,7 @@ import Month from '../../../src/screens/teacher-dashboard/month';
 import Factory from '../../factories';
 import TimeHelper from '../../../src/helpers/time';
 
-xdescribe('CourseCalendar Month display', () => {
+describe('CourseCalendar Month display', () => {
   let course;
   let props = {};
 

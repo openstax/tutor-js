@@ -70,7 +70,7 @@ describe('Analytics', function() {
     expect(ga).toHaveBeenCalledWith('tutor.set', 'dimension1', COURSE.appearance_code);
   });
 
-  fit('translates reference-view sections', () => {
+  it('translates reference-view sections', () => {
     const book = Courses.get(COURSE.id).referenceBook;
     book.children.push(new ReferenceBookNode({ id: 1, chapter_section: '2', type: 'chapter' }));
     book.children[0].children.push(

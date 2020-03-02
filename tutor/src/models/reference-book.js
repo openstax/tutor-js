@@ -46,7 +46,6 @@ class ReferenceBook extends BaseModel {
   @readonly index = 0;
 
   @computed get chapters() {
-
     return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
   }
 
