@@ -88,11 +88,11 @@ export const colors = {
     },
     external: {
       background: tasks.external,
-      border: '#34bdd7',
+      border: '#233066',
     },
     event: {
-      background: tasks.event,
-      border: '#34bdd7',
+      background: '#63a52433',
+      border: '#63a524',
     },
     neutral: {
       background: neutral.pale,

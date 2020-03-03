@@ -46,7 +46,7 @@ const RightButton = styled(Button)`
 
 const Controls = observer(({ middleControls, ux: {
   onPublishClick, onSaveAsDraftClick, onCancel, steps: {
-    isFirst, isLast, goForward, goBackward, canGoForward,
+    isFirst, isLast, goForward, goBackward, canGoForward, canSubmit,
   } } }) => {
 
   let rightButtons = [];
@@ -54,7 +54,7 @@ const Controls = observer(({ middleControls, ux: {
   if (isLast) {
     rightButtons = [
       <RightButton key="draft" variant="secondary" onClick={onSaveAsDraftClick}>Save as Draft</RightButton>,
-      <RightButton key="publish" variant="primary" onClick={onPublishClick}>Publish</RightButton>,
+      <RightButton key="publish" variant="primary" disabled={!canSubmit} onClick={onPublishClick}>Publish</RightButton>,
     ];
   } else {
     rightButtons = [

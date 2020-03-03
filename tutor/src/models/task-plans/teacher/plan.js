@@ -68,7 +68,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_deleting;
   @field publish_job_url;
   @field grading_template_id;
-  @field({ type: 'object' }) settings = {}
+  @field({ type: 'object' }) settings = {};
 
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
@@ -104,7 +104,13 @@ class TeacherTaskPlan extends BaseModel {
           exercises_count_dynamic: SELECTION_COUNTS.default,
         };
       }
+      if (this.isExternal) {
+        this.settings = {
+          external_url: '',
+        };
+      }
     }
+
     observe(this, 'grading_template_id', ({ oldValue, newValue }) => {
       const previousTemplate = this.course.gradingTemplates.get(oldValue);
       const currentTemplate = this.course.gradingTemplates.get(newValue);

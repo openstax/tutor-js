@@ -58,7 +58,8 @@ class AssignmentBuilderUX {
         this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
       );
       if (due_at) {
-        this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
+        const defaults = { defaultOpenTime: '12:01', defaultDueTime: '21:00' };
+        this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt({ dueAt: due_at, ...defaults }));
       }
     } else {
       await this.plan.ensureLoaded();

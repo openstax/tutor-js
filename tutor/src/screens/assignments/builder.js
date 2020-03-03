@@ -23,6 +23,7 @@ const Header = styled.div`
 const HeaderStep = styled.div`
   font-size: 1.2rem;
   margin-right: 2.4rem;
+  min-width: 4.1rem;
 `;
 
 const BodyWrapper = styled.div`
@@ -116,7 +117,7 @@ const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => 
       <FormWrapper>
         <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
           <HeaderStep>
-            STEP {ux.steps.number}
+            {ux.steps.headerText}
           </HeaderStep>
           {title}
         </Header>

@@ -30,7 +30,7 @@ context('Dashboard', () => {
     cy.get('.heading').should('contain.text', 'STEP 4')
     cy.get('.openstax-exercise-preview').should('have.length', 3)
 
-    cy.get('button.ox-icon-arrow-up').eq(1).click()
+    cy.get('button.ox-icon-arrow-up').eq(1).click({ force: true })
   });
 
   it('loads and advances reading', () => {
@@ -100,6 +100,13 @@ context('Dashboard', () => {
     cy.get('.settings-edit-course-modal .async-button').click()
     cy.get('.settings-edit-course-modal').should('not.exist')
     cy.get('[data-test-id="change-timezone"').should( 'contain.text', 'Hawaii')
+  });
+
+  it('renders external assignment', () => {
+    cy.visit('/course/2/assignment/external/new')
+    cy.disableTours()
+    cy.get('.heading').should('not.contain.text', 'STEP 1')
+    cy.get('[name="settings.external_url"').type('url')
   });
 
   it('can add a new template', () => {
