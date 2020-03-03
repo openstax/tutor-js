@@ -12,7 +12,7 @@ class Validations {
   }
 
   get plan() {
-    return this.form.values;
+    return this.ux.plan;
   }
 
   @computed get isValid() {
