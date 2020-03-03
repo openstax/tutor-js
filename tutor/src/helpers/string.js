@@ -8,6 +8,10 @@ export default {
     return Math.round(num * 100);
   },
 
+  numberWithOneDecimalPlace(num) {
+    return parseFloat(Math.round(parseFloat(num) * 10) / 10).toFixed(1);
+  },
+
   numberWithTwoDecimalPlaces(num) {
     return parseFloat(Math.round(parseFloat(num) * 100) / 100).toFixed(2);
   },
