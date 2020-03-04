@@ -140,7 +140,7 @@ class SupportMenu extends React.Component {
           >
             <Icon type="question-circle" />
             <span title="Page tips and support" className="control-label">Help</span>
-            <Icon type="angle-down" className="toggle" />
+            <Icon type="chevron-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
         <Dropdown.Menu className={this.hide ? ' hide' : null}>

@@ -147,7 +147,7 @@ class ActionsMenu extends React.Component {
         >
           <Icon type="bars" />
           <span className="control-label" title="Menu and settings">Menu</span>
-          <Icon type="angle-down" className="toggle" />
+          <Icon type="chevron-down" className="toggle" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {flatMap(menuRoutes, this.renderDropdownItem)}
