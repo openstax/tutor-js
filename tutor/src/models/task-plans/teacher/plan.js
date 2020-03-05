@@ -4,7 +4,7 @@ import {
 import { action, computed, observable, createAtom, observe } from 'mobx';
 import Exercises from '../../exercises';
 import {
-  first, last, map, find, get, pick, extend, every, isEmpty, compact, findIndex,
+  first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -254,6 +254,7 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
+
   @computed get exerciseIds() {
     return map(this.settings.exercises, 'id');
   }
@@ -261,6 +262,17 @@ class TeacherTaskPlan extends BaseModel {
   @computed get exercises() {
     return compact(this.exerciseIds.map(exId => this.exercisesMap.get(exId)));
   }
+
+  @computed get questionsInfo() {
+    return flatMap(this.exercises, (exercise, exerciseIndex) => (
+      exercise.content.questions.map((question, questionIndex) => ({
+        key: `${exerciseIndex}-${questionIndex}`,
+        question, exercise, exerciseIndex, questionIndex,
+        points: this.settings.exercises[exerciseIndex].points[questionIndex],
+      }))
+    ));
+  }
+
 
   isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
