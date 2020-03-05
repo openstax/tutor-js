@@ -142,7 +142,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                         </tr>
                                                       </thead>
                                                       <tbody>
-                                                        <tr data-ex-id={1}>
+                                                        <tr data-ex-id={5}>
                                                           <td className=\\"exercise-number\\">
                                                             1
                                                           </td>
@@ -150,7 +150,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                             <ChapterSection chapterSection={{...}} />
                                                           </td>
                                                           <td>
-                                                            <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
+                                                            <Component block={false} html=\\"Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?\\">
                                                               <div dangerouslySetInnerHTML={{...}} />
                                                             </Component>
                                                           </td>
@@ -171,8 +171,8 @@ exports[`choose exercises component matches snapshot 1`] = `
                                               <ReviewExerciseCard ux={{...}} range=\\"1\\" exercise={{...}} isFirst={true} canEdit={true} isLast={true}>
                                                 <div className=\\"openstax exercise-wrapper\\">
                                                   <ExercisePreview exercise={{...}} className=\\"exercise-card\\" isInteractive={false} isVerticallyTruncated={true} isSelected={false} header={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
-                                                    <Card className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"1@1\\" tabIndex={-1} body={false}>
-                                                      <div data-exercise-id=\\"1@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card\\">
+                                                    <Card className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"5@1\\" tabIndex={-1} body={false}>
+                                                      <div data-exercise-id=\\"5@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card\\">
                                                         <CardHeader>
                                                           <div className=\\"card-header\\">
                                                             <styled.div className=\\"-exercise-header\\">
@@ -226,23 +226,23 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                 <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                                                   <QuestionHtml type=\\"context\\" html=\\"\\" />
                                                                   <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                                                                  <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
-                                                                    <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
+                                                                  <QuestionHtml type=\\"stem\\" html=\\"Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?\\" questionNumber={[undefined]}>
+                                                                    <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?\\" data-question-number={[undefined]}>
                                                                       <div dangerouslySetInnerHTML={{...}} />
                                                                     </Component>
                                                                   </QuestionHtml>
                                                                   <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={false} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                                                     <div className=\\"answers-table\\">
-                                                                      <Answer answer={{...}} iter={0} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                      <Answer answer={{...}} iter={0} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
                                                                         <div className=\\"openstax-answer\\">
                                                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                                             <div className=\\"correct-incorrect\\" />
-                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-0\\" className=\\"answer-label\\">
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"5-option-0\\" className=\\"answer-label\\">
                                                                               <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
                                                                                 a
                                                                               </button>
                                                                               <div className=\\"answer-answer\\">
-                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"Natural philosophy and physics are different.\\">
                                                                                   <div dangerouslySetInnerHTML={{...}} />
                                                                                 </Component>
                                                                               </div>
@@ -250,16 +250,16 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                           </section>
                                                                         </div>
                                                                       </Answer>
-                                                                      <Answer answer={{...}} iter={1} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                      <Answer answer={{...}} iter={1} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
                                                                         <div className=\\"openstax-answer\\">
                                                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                                             <div className=\\"correct-incorrect\\" />
-                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-1\\" className=\\"answer-label\\">
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"5-option-1\\" className=\\"answer-label\\">
                                                                               <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
                                                                                 b
                                                                               </button>
                                                                               <div className=\\"answer-answer\\">
-                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"Natural philosophy included all aspects of nature excluding physics.\\">
                                                                                   <div dangerouslySetInnerHTML={{...}} />
                                                                                 </Component>
                                                                               </div>
@@ -267,16 +267,16 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                           </section>
                                                                         </div>
                                                                       </Answer>
-                                                                      <Answer answer={{...}} iter={2} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                      <Answer answer={{...}} iter={2} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
                                                                         <div className=\\"openstax-answer\\">
                                                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                                             <div className=\\"correct-incorrect\\" />
-                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-2\\" className=\\"answer-label\\">
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"5-option-2\\" className=\\"answer-label\\">
                                                                               <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
                                                                                 c
                                                                               </button>
                                                                               <div className=\\"answer-answer\\">
-                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"Natural philosophy included all aspects of nature including physics.\\">
                                                                                   <div dangerouslySetInnerHTML={{...}} />
                                                                                 </Component>
                                                                               </div>
@@ -284,16 +284,16 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                           </section>
                                                                         </div>
                                                                       </Answer>
-                                                                      <Answer answer={{...}} iter={3} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                      <Answer answer={{...}} iter={3} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
                                                                         <div className=\\"openstax-answer\\">
                                                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                                             <div className=\\"correct-incorrect\\" />
-                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-3\\" className=\\"answer-label\\">
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"5-option-3\\" className=\\"answer-label\\">
                                                                               <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true}>
                                                                                 d
                                                                               </button>
                                                                               <div className=\\"answer-answer\\">
-                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"Natural philosophy and physics are essentially the same thing.\\">
                                                                                   <div dangerouslySetInnerHTML={{...}} />
                                                                                 </Component>
                                                                               </div>
@@ -301,16 +301,16 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                           </section>
                                                                         </div>
                                                                       </Answer>
-                                                                      <Answer answer={{...}} iter={4} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                      <Answer answer={{...}} iter={4} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
                                                                         <div className=\\"openstax-answer\\">
                                                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                                             <div className=\\"correct-incorrect\\" />
-                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-4\\" className=\\"answer-label\\">
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"5-option-4\\" className=\\"answer-label\\">
                                                                               <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true}>
                                                                                 e
                                                                               </button>
                                                                               <div className=\\"answer-answer\\">
-                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"Natural philosophy and physics are different.\\">
                                                                                   <div dangerouslySetInnerHTML={{...}} />
                                                                                 </Component>
                                                                               </div>
@@ -345,7 +345,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                 time:long
                                                               </span>
                                                               <span className=\\"exercise-tag\\">
-                                                                ID:1@1
+                                                                ID:5@1
                                                               </span>
                                                             </div>
                                                           </div>
