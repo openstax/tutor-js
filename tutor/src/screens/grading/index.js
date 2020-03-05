@@ -34,7 +34,7 @@ const Heading = styled.div`
 @observer
 class Grading extends React.Component {
 
-  static displayName = 'AssignmentBuilder';
+  static displayName = 'Grading';
 
   static propTypes = {
     params: PropTypes.shape({
@@ -97,9 +97,7 @@ class Grading extends React.Component {
             onSelect={this.onTabSelection}
             tabs={AvailableTabs.map(t => t.title)}
           />
-
           <Tab ux={this.ux} />
-
         </ScrollToTop>
       </BackgroundWrapper>
     );

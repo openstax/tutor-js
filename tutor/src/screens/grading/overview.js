@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import S from '../../helpers/string';
+import HomeworkQuestions from '../../components/homework-questions';
 
 const Wrapper = styled.div`
   margin-top: 4rem;
@@ -21,8 +22,26 @@ ExerciseType.propTypes = {
   exercise: PropTypes.object.isRequired,
 };
 
+const ControlsWrapper = styled.div`
+
+`;
+
+const QuestionControls = ({ info }) => {
+  return (
+    <ControlsWrapper>{S.numberWithOneDecimalPlace(info.points)} Points</ControlsWrapper>
+  );
+};
+QuestionControls.propTypes = {
+  info:  PropTypes.object.isRequired,
+};
 
 const Overview = observer(({ ux: { plan, stats } }) => {
+  const planInfo = plan.questionsInfo;
+  planInfo.forEach(pi => {
+    pi.stats = stats.statsForQuestion(pi.question);
+    pi.question = pi.stats.forReview;
+  });
+
   return (
     <Wrapper>
       <StickyTable>
@@ -46,6 +65,12 @@ const Overview = observer(({ ux: { plan, stats } }) => {
           })}
         </Row>
       </StickyTable>
+
+      <HomeworkQuestions
+        questionsInfo={planInfo}
+        questionType="teacher-review"
+        controlsComponent={QuestionControls}
+      />
 
     </Wrapper>
   );

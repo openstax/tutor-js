@@ -1,43 +1,9 @@
 import { React, PropTypes, styled, action, observer } from 'vendor';
-import { colors } from 'theme';
 import { AssignmentBuilder } from './builder';
-import { SuretyGuard } from 'shared';
-import { Icon } from 'shared';
-import Question from 'shared/components/question';
+import HomeworkQuestions from '../../components/homework-questions';
+import { Icon, SuretyGuard } from 'shared';
 import S from '../../helpers/string';
 
-const QuestionPreview = styled.div`
-  border: 1px solid ${colors.neutral.lighter};
-  margin: 2rem;
-  &:first-of-type {
-   .ox-icon-arrow-up { display: none; }
-  }
-  &:last-of-type {
-   .ox-icon-arrow-down { display: none; }
-  }
-`;
-
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: ${colors.neutral.lighter}
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
-`;
-
-const ExerciseNumber = styled.div`
-  font-size: 1.5rem;
-`;
-
-const Actions = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
 
 const Controls = styled.div`
   flex-basis: 10rem;
@@ -46,6 +12,13 @@ const Controls = styled.div`
   input {
     padding: 0.5rem;
   }
+`;
+
+const Actions = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const Input = styled.input`
@@ -59,13 +32,12 @@ const MoveIcon = styled(Icon)`
   border-radius: 50%;
 `;
 
-@observer
-class ReviewExerciseCard extends React.Component {
+
+class QuestionControls extends React.Component {
 
   static propTypes = {
     ux:    PropTypes.object.isRequired,
     info:  PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
   };
 
   @action.bound moveExerciseUp() {
@@ -86,14 +58,15 @@ class ReviewExerciseCard extends React.Component {
     this.props.ux.plan.settings.exercises[exerciseIndex].points[questionIndex] = points;
   }
 
-  getActionButtons() {
+  render() {
     const { ux, info: { questionIndex, points } } = this.props;
+    const formattedPoints = S.numberWithOneDecimalPlace(points);
 
-    if (!ux.canEdit) { return null; }
+    if (!ux.canEdit) { return <Actions>{formattedPoints} Points</Actions>; }
 
     return (
       <Actions>
-        <Input value={S.numberWithOneDecimalPlace(points)} onChange={this.setPoints} /> Points
+        <Input value={formattedPoints} onChange={this.setPoints} /> Points
         <Controls>
           {questionIndex == 0 && (
             <>
@@ -113,53 +86,20 @@ class ReviewExerciseCard extends React.Component {
       </Actions>
     );
   }
-
-
-  render() {
-    const { index, info: {
-      question,
-    } } = this.props;
-
-    return (
-      <QuestionPreview className="openstax-exercise-preview">
-        <Header>
-          <ExerciseNumber>
-            Question {index + 1}
-          </ExerciseNumber>
-          {this.getActionButtons()}
-        </Header>
-        <div className="card-body">
-          <Question
-            className="openstax-question-preview"
-            question={question}
-            hideAnswers={false}
-            choicesEnabled={false}
-            displayFormats={false}
-            type="teacher-preview"
-          />
-        </div>
-      </QuestionPreview>
-    );
-  }
-
 }
 
-const Review = observer(({ ux }) => (
-  <AssignmentBuilder
-    ux={ux}
-    title="Set points and review"
-  >
-    {ux.plan.questionsInfo.map((info, index) => (
-      <ReviewExerciseCard
-        ux={ux}
-        info={info}
-        index={index}
-        key={info.key}
-        canEdit={ux.canEdit}
+const Review = observer(({ ux }) => {
+  const controlsComponent = (props) => <QuestionControls {...props} ux={ux} />;
+
+  return (
+    <AssignmentBuilder ux={ux} title="Set points and review">
+      <HomeworkQuestions
+        questionsInfo={ux.plan.questionsInfo}
+        controlsComponent={controlsComponent}
       />
-    ))}
-  </AssignmentBuilder>
-));
+    </AssignmentBuilder>
+  );
+});
 
 Review.propTypes = {
   ux: PropTypes.object.isRequired,
