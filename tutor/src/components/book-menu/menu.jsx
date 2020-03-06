@@ -19,7 +19,7 @@ const Title = ({ node, pageLinkProps }) => {
   return useObserver(() => {
     const title =  (
       <StyledTitle>
-        {node.isChapterSectionDisplayed && <ChapterSection chapterSection={node.chapter_section} />}
+        <ChapterSection chapterSection={node.chapter_section} />
         <BookPartTitle title={node.title} />
       </StyledTitle>
     );
@@ -90,7 +90,7 @@ const Summary = styled.summary`
   }
 `;
 
-const Branch = ({ node, ux, ...props }) => {
+const Branch = ({ node, depth, ux, ...props }) => {
   return useObserver(() => {
     const isExpanded = ux.isExpanded(node);
     return (
@@ -106,13 +106,12 @@ const Branch = ({ node, ux, ...props }) => {
             <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
               <div>
                 <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
-                <ChapterSection chapterSection={node.chapter_section} />
                 <Title {...props} node={node} />
               </div>
             </Summary>
             <Ol>
               {map(node.children, (child, i) => (
-                <Node key={i} {...props} ux={ux} node={child} />
+                <Node key={i} {...props} depth={depth+1} ux={ux} node={child} />
               ))}
             </Ol>
           </Details>
@@ -124,14 +123,19 @@ const Branch = ({ node, ux, ...props }) => {
 Branch.propTypes = {
   ux: PropTypes.instanceOf(MenuUX).isRequired,
   pageLinkProps: PropTypes.func.isRequired,
+  depth: PropTypes.number.isRequired,
   node: PropTypes.object,
 };
 
 
-const Leaf = ({ node, ux, ...props }) => {
+const Leaf = ({ node, ux, depth, ...props }) => {
+  const title = <Title {...props} node={node} />;
+  if (0 == depth) {
+    return title;
+  }
   return useObserver(() => (
     <Li data-node-id={node.pathId} className={cn({ active: ux.currentPage == node })}>
-      <Title {...props} node={node} />
+      {title}
     </Li>
   ));
 };
@@ -139,6 +143,7 @@ const Leaf = ({ node, ux, ...props }) => {
 Leaf.propTypes = {
   pageLinkProps: PropTypes.func.isRequired,
   node: PropTypes.object.isRequired,
+  depth: PropTypes.number.isRequired,
   ux: PropTypes.instanceOf(MenuUX).isRequired,
 };
 
@@ -152,7 +157,6 @@ Node.propTypes = {
   node: PropTypes.object,
 };
 
-
 const StyledMenu = styled.div`
   width: ${Theme.sizes.bookTocWidth};
   position: fixed;
@@ -160,16 +164,14 @@ const StyledMenu = styled.div`
   left: 0;
   background: white;
   margin-left: -${Theme.sizes.bookTocWidth};
+  padding-top: 1.5rem;
   bottom: 0;
   z-index: 3;  // on top of book elements (booksplash, forward/prev controls)
   max-height: 100%;
   overflow-y: scroll;
   &.open {
-
     margin-left: 0;
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-
     &.ontop {
       z-index: 1130;
       box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
@@ -177,6 +179,13 @@ const StyledMenu = styled.div`
   }
   .chapter-section {
     margin-right: 0.4rem;
+  }
+  > a {
+    display: flex;
+    padding: 1rem 0 0 1rem;
+  }
+  > ol + a {
+    padding-top: 0;
   }
 `;
 
@@ -214,6 +223,7 @@ class BookMenu extends React.Component {
             ux={this.ux}
             node={child}
             key={i}
+            depth={0}
             pageLinkProps={pageLinkProps}
           />
         ))}
