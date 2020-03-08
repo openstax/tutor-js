@@ -51,6 +51,7 @@ class Tasking extends React.Component {
 
   @computed get plan() { return this.props.ux.plan; }
   @computed get course() { return this.props.ux.course; }
+  @computed get form() { return this.props.ux.form; }
 
   @computed get taskings() {
     if (this.props.period) {
@@ -89,16 +90,25 @@ class Tasking extends React.Component {
     return this.plan.due_date || end;
   }
 
-  @action.bound onOpensChange({ target: { value: date } }) {
-    this.taskings.forEach(t => t.setOpensDate(date));
+  @action.bound onOpensChange({ target: { value: date, name: name } }) {
+    this.taskings.forEach(t => {
+      t.setOpensDate(date);
+      this.form.setFieldValue(name, t.opens_at);
+    });
   }
 
-  @action.bound onDueChange({ target: { value: date } }) {
-    this.taskings.forEach(t => t.setDueDate(date));
+  @action.bound onDueChange({ target: { value: date, name: name } }) {
+    this.taskings.forEach(t => {
+      t.setDueDate(date);
+      this.form.setFieldValue(name, t.due_at);
+    });
   }
 
-  @action.bound onClosesChange({ target: { value: date } }) {
-    this.taskings.forEach(t => t.setClosesDate(date));
+  @action.bound onClosesChange({ target: { value: date, name: name } }) {
+    this.taskings.forEach(t => {
+      t.setClosesDate(date);
+      this.form.setFieldValue(name, t.closes_at);
+    });
   }
 
   renderDueAtError() {

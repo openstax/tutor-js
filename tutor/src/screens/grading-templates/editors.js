@@ -1,6 +1,6 @@
 import { React, PropTypes, action, observer, styled } from 'vendor';
 import { Button, Modal, Alert } from 'react-bootstrap';
-import { isEmpty, range, map, omit } from 'lodash';
+import { isEmpty, range, map } from 'lodash';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors, fonts } from '../../theme';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -8,38 +8,17 @@ import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
+import TemplateModal from '../../components/template-modal';
 
 const propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
-const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitProps)} />)`
+const StyledTemplateModal = styled(TemplateModal)`
   .modal-dialog {
     max-width: 680px;
-
-    .modal-header {
-      border-left: 8px solid ${props => props.templateColors.border};
-      background-color: ${props => props.templateColors.background};
-      font-size: 1.8rem;
-      font-weight: bold;
-      border-bottom: 0;
-      border-radius: 0;
-    }
-
-    .modal-body {
-      line-height: 2rem;
-    }
-
-    .close {
-      font-size: 3rem;
-      margin-top: -1.5rem;
-    }
   }
 `;
-
-StyledModal.OmitProps = [
-  'templateColors',
-];
 
 const Row = styled.div`
   margin: 2.4rem 0;
@@ -363,11 +342,11 @@ class TemplateForm extends React.Component {
     const { template, onComplete } = this.props;
 
     return (
-      <StyledModal
+      <StyledTemplateModal
         show={true}
         backdrop="static"
         onHide={onComplete}
-        templateColors={colors.templates[template.task_plan_type]}
+        templateType={template.task_plan_type}
       >
         <Modal.Header closeButton>
           {template.isNew ? 'Add' : 'Edit'} {template.task_plan_type} grading template
@@ -382,7 +361,7 @@ class TemplateForm extends React.Component {
           </Formik>
         </Modal.Body>
 
-      </StyledModal>
+      </StyledTemplateModal>
     );
   }
 
@@ -521,11 +500,11 @@ const create = observer((props) => {
   const { onComplete, onCreateTypeSelection: onSelection } = props;
 
   return (
-    <StyledModal
+    <StyledTemplateModal
       show={true}
       backdrop="static"
       onHide={onComplete}
-      templateColors={colors.templates.neutral}
+      templateType="neutral"
     >
       <Modal.Header closeButton>
         Select assignment type
@@ -547,7 +526,7 @@ const create = observer((props) => {
           </Row>
         </CenteredRow>
       </Modal.Body>
-    </StyledModal>
+    </StyledTemplateModal>
   );
 
 });

@@ -1,9 +1,9 @@
 import {
   React, PropTypes, observer, inject,
-  computed, observable, action, cn,
+  computed, observable, action, cn, styled,
 } from 'vendor';
 import Course from '../../models/course';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Alert, Card  } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
@@ -12,6 +12,39 @@ import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import SupportEmailLink from '../../components/support-email-link';
+import DateTime from '../../components/date-time-input';
+import moment from 'moment';
+import Time from '../../models/time';
+import { Formik } from 'formik';
+import TemplateModal from '../../components/template-modal';
+import { colors } from 'theme';
+
+const StyledAlert = styled(Alert)`
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+`;
+
+const CantEditExplanation = () => (
+  <StyledAlert variant="secondary">
+    Cannot be edited after assignment is visible
+  </StyledAlert>
+);
+
+const DateFieldsWrapper = styled.div`
+  padding-bottom: 1.25rem;
+  margin-top: 4rem;
+`;
+
+const StyledTemplateModal = styled(TemplateModal)`
+  & .modal-dialog {
+    max-width: 72rem;
+  }
+
+  h6 {
+    font-weight: bold;
+  }
+`;
+
 
 export default
 @inject((allStores, props) => ({
@@ -42,6 +75,7 @@ class CoursePlanDetails extends React.Component {
   }
 
   @observable showAssignmentLinks = false;
+  @observable selectedPeriodId;
 
   @computed get linkParams() {
     const { course, plan } = this.props;
@@ -59,9 +93,22 @@ class CoursePlanDetails extends React.Component {
   @computed get assignmentLinksButton() {
     if (this.props.plan.type === 'event'){ return null; }
     return (
-      <Button variant="default" onClick={this.onShowAssignmentLinks}>
+      <button className="btn btn-form-action" onClick={this.onShowAssignmentLinks}>
         Get assignment link
-      </Button>
+      </button>
+    );
+  }
+
+  @computed get gradeAnswersButton() {
+    if (this.props.plan.type === 'event'){ return null; }
+    return (
+      <TutorLink
+        className="btn btn-form-action btn-primary"
+        to={'gradeTask'}
+        params={{ id: this.props.plan.id, courseId: this.props.course.id }}
+      >
+        Grade answers
+      </TutorLink>
     );
   }
 
@@ -74,7 +121,7 @@ class CoursePlanDetails extends React.Component {
 
         <TutorLink
           disabled={!plan.isPublished}
-          className="btn btn-default"
+          className="btn btn-form-action"
           to={plan.isExternal ? 'viewScores' : 'reviewTask'}
           params={this.linkParams}
         >
@@ -82,7 +129,7 @@ class CoursePlanDetails extends React.Component {
         </TutorLink>
 
         <TutorLink
-          className="btn btn-default"
+          className="btn btn-form-action"
           to="editAssignment"
           params={this.linkParams}
         >
@@ -92,6 +139,7 @@ class CoursePlanDetails extends React.Component {
         </TutorLink>
 
         {this.assignmentLinksButton}
+        {this.gradeAnswersButton}
       </div>
     );
   }
@@ -113,7 +161,7 @@ class CoursePlanDetails extends React.Component {
         );
       } else {
         return (
-          <Stats plan={plan} course={course} />
+          <Stats plan={plan} course={course} handlePeriodSelect={this.onPeriodSelect} />
         );
       }
     } else if (plan.isFailed) {
@@ -128,16 +176,107 @@ class CoursePlanDetails extends React.Component {
     return null;
   }
 
+  @action.bound onPeriodSelect(period) {
+    this.selectedPeriodId = period.id;
+  }
+
+  @action.bound onOpensChange({ target: { value: date } }, setFieldValue) {
+    this.tasking.setOpensDate(date);
+    setFieldValue('opens_at', this.tasking.opens_at);
+    this.tasking.plan.save();
+  }
+
+  @action.bound onDueChange({ target: { value: date } }, setFieldValue) {
+    this.tasking.setDueDate(date);
+    setFieldValue('due_at', this.tasking.due_at);
+    this.tasking.plan.save();
+  }
+
+  @action.bound onClosesChange({ target: { value: date } }, setFieldValue) {
+    this.tasking.setClosesDate(date);
+    setFieldValue('closes_at', this.tasking.closes_at);
+    this.tasking.plan.save();
+  }
+
+  @computed get tasking() {
+    const periodId = this.selectedPeriodId || this.props.course.periods[0].id;
+
+    return this.props.plan.tasking_plans.find(t =>
+      t.target_id == periodId && t.target_type === 'period'
+    );
+  }
+
+  renderDueAtError() {
+      if (this.tasking.isValid || !this.tasking.due_at) { return null; }
+
+      let msg = null;
+      const due = moment(this.tasking.due_at);
+      if (due.isBefore(Time.now)) {
+        msg = 'Due time has already passed';
+      } else if (due.isBefore(this.tasking.opens_at)) {
+        msg = 'Due time cannot come before task opens';
+      }
+      if (!msg) { return null; }
+      return (
+        <StyledAlert variant="danger">
+          {msg}
+        </StyledAlert>
+      );
+    }
+
+  renderDateFields() {
+    const format = 'MMM D hh:mm A';
+
+    return (
+      <DateFieldsWrapper>
+        <Formik
+          enableReinitialize
+          initialValues={this.tasking}
+          render={({ setFieldValue }) => (
+            <Row className="tasking-date-time">
+              <Col xs={12} md={4} className="opens-at">
+                <DateTime
+                  label="Open date & time"
+                  name="opens_at"
+                  onChange={e => this.onOpensChange(e, setFieldValue)}
+                  format={format}
+                />
+                {!this.tasking.canEditOpensAt && <CantEditExplanation />}
+              </Col>
+              <Col xs={12} md={4} className="due-at">
+                <DateTime
+                  label="Due date & time"
+                  name="due_at"
+                  onChange={e => this.onDueChange(e, setFieldValue)}
+                  format={format}
+                />
+                {this.renderDueAtError()}
+              </Col>
+              <Col xs={12} md={4} className="closes-at">
+                <DateTime
+                  label="Close date & time"
+                  name="closes_at"
+                  onChange={e => this.onClosesChange(e, setFieldValue)}
+                  format={format}
+                />
+              </Col>
+            </Row>
+          )}
+        />
+      </DateFieldsWrapper>
+    );
+  }
+
   render() {
     const { course, plan: { title, type }, className, onHide } = this.props;
 
     return (
-      <Modal
+      <StyledTemplateModal
         onHide={onHide}
         show={true}
         enforceFocus={false}
         data-assignment-type={type}
-        className={cn('plan-modal', className)}
+        templateType={type}
       >
         <TourRegion
           id="analytics-modal"
@@ -148,12 +287,14 @@ class CoursePlanDetails extends React.Component {
               {title}
             </Modal.Title>
           </Modal.Header>
-          <div className="modal-body">
+          <Modal.Body>
             {this.body}
-          </div>
+            {this.tasking && this.renderDateFields()}
+            <hr />
+          </Modal.Body>
           {this.footer}
         </TourRegion>
-      </Modal>
+      </StyledTemplateModal>
     );
   }
 }

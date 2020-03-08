@@ -119,5 +119,4 @@ context('Dashboard', () => {
     cy.get('.modal [type="submit"]').click()
     cy.get('[data-test-id="grading-templates"]').should('contain.text', 'NewTemplate')
   });
-
 });

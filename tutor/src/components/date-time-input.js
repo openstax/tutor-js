@@ -9,9 +9,8 @@ import 'rc-picker/assets/index.css';
 import { Icon } from 'shared';
 import { colors } from '../theme';
 
-const StyledWrapper = styled.span`
+const StyledWrapper = styled.div`
   position: relative;
-  display: inline-block;
 `;
 
 const Label = styled.label`
@@ -28,6 +27,7 @@ const StyledPicker = styled(Picker)`
   && {
     padding: 0;
     border-radius: 4px;
+    flex-basis: 100%;
 
     input {
       padding-left: 1.2rem;

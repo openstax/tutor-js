@@ -208,8 +208,8 @@ class TaskingPlan extends BaseModel {
 
   @action setClosesDate(date) {
     this.closes_at = findLatest(
-      moment(this.due_at),
-      dateWithUnchangedTime(moment(date), moment(this.closes_at)),
+      moment(this.due_at).add(1, 'minute'),
+      date,
     ).toISOString();
   }
 

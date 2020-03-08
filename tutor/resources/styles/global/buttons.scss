@@ -3,6 +3,9 @@ $default-background: rgba(245,245,245,.4);
 $default-background-hover: rgba(255,255,255,.8);
 $primary-background: #f47642;
 $primary-background-hover: #fa804d;
+$form-action-background: #fff;
+$form-action-color: #5e6062;
+$form-action-border: #d5d5d5;
 
 .btn + .btn { margin-left: 0.5rem; }
 
@@ -140,4 +143,19 @@ $primary-background-hover: #fa804d;
     margin: 0;
     border-width: 1px;
   }
+}
+
+.btn.btn-form-action {
+  &:not(.btn-primary) {
+    background: $form-action-background;
+    color: $form-action-color;
+    border: 1px solid $form-action-border;
+  }
+
+  height: 4.8rem;
+  min-width: 12rem;
+  padding: 0 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { map, partial } from 'lodash';
 import { Container, Row, Col } from 'react-bootstrap';
-
 import { Icon } from 'shared';
 
 class CourseBar extends React.Component {
@@ -89,10 +88,8 @@ so it may differ from the average you see in Student Scores.\
       <Col xs={cols} className={stat.type} key={stat.type}>
         <label>
           {stat.label}
+          : <span className={`data-container-value text-${stat.type}`}>{stat.value}</span>
         </label>
-        <div className={`data-container-value text-${stat.type}`}>
-          {stat.value}
-        </div>
       </Col>
     );
   };
@@ -105,8 +102,8 @@ so it may differ from the average you see in Student Scores.\
     const statsColumns = map(stats, partial(this.renderCourseStat, partial.placeholder, cols));
 
     return (
-      <Container className="data-container" key="course-bar">
-        <Row className="stats">
+      <Container className="data-container" key="course-bar" bsPrefix=" ">
+        <Row className="stats" noGutters={true}>
           {statsColumns}
         </Row>
       </Container>
