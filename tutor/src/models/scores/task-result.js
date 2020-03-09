@@ -66,6 +66,10 @@ class TaskResult extends BaseModel {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
 
+  @computed get isTrouble() {
+    return this.isStarted && this.score < 0.5;
+  }
+
   @computed get reportHeading() {
     return this.student.period.data_headings[this.columnIndex];
   }
