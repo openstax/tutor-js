@@ -1,4 +1,4 @@
-import { React, C, TimeMock, ld, createUX } from '../helpers';
+import { React, C, TimeMock, createUX } from '../helpers';
 import AddExercises from '../../../../src/screens/assignment-builder/homework/add-exercises';
 import Factory from '../../../factories';
 
@@ -20,8 +20,8 @@ describe('choose exercises component', () => {
 
   it('selects exercises', () => {
     const add = mount(<C><AddExercises {...props} /></C>);
-    expect(add).not.toHaveRendered('.no-exercises-found');
-    const exercise = ld.first(ux.exercises.array);
+    expect(add).not.toHaveRendered('NoExercisesFound');
+    const exercise = ux.exercises.array.find(e=> e.isHomework)
     add.find(
       `[data-exercise-id="${exercise.content.uid}"] .action.include`
     ).simulate('click');

@@ -1,38 +1,32 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { idType } from 'shared';
+import { React, PropTypes, idType, cn } from 'vendor';
+import { capitalize } from 'lodash';
 import Courses from '../models/courses-map';
 
-class CourseGroupingLabel extends React.Component {
-  static displayName = 'CourseGroupingLabel';
+const CourseGroupingLabel = ({ course, courseId, plural, lowercase, className }) => {
 
-  static propTypes = {
-    courseId: idType.isRequired,
-    plural: PropTypes.bool,
-    lowercase: PropTypes.bool,
-  };
-
-  period = () => {
-    if (this.props.lowercase) { return 'period'; } else { return 'Period'; }
-  };
-
-  section = () => {
-    if (this.props.lowercase) { return 'section'; } else { return 'Section'; }
-  };
-
-  render() {
-    let name = __guard__(Courses.get(this.props.courseId), x => x.is_college) ? this.section() : this.period();
-    if (this.props.plural) { name += 's'; }
-    return (
-      <span>
-        {name}
-      </span>
-    );
+  if (!course) {
+    course = Courses.get(courseId);
   }
-}
+  if (!course) { return null; }
+
+  let name = course.is_college ? 'section' : 'period';
+  if (plural) { name += 's'; }
+  if (!lowercase) { name = capitalize(name); }
+
+  return (
+    <span className={cn(className, 'cgl')}>
+      {name}
+    </span>
+  );
+};
+
+CourseGroupingLabel.displayName = 'CourseGroupingLabel';
+CourseGroupingLabel.propTypes = {
+  courseId: idType,
+  course: PropTypes.object,
+  plural: PropTypes.bool,
+  lowercase: PropTypes.bool,
+  className: PropTypes.string,
+};
 
 export default CourseGroupingLabel;
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

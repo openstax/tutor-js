@@ -27,4 +27,5 @@ describe('Stats Screen', () => {
   it('renders and matches snapshot', () => {
     expect(<R><Stats {...props} /></R>).toMatchSnapshot();
   });
+
 });

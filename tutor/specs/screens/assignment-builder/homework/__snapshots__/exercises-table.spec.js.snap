@@ -43,7 +43,7 @@ exports[`review exercises table matches snapshot 1`] = `
                                                     </tr>
                                                   </thead>
                                                   <tbody>
-                                                    <tr data-ex-id={1}>
+                                                    <tr data-ex-id={5}>
                                                       <td className=\\"exercise-number\\">
                                                         1
                                                       </td>
@@ -51,7 +51,7 @@ exports[`review exercises table matches snapshot 1`] = `
                                                         <ChapterSection chapterSection={{...}} />
                                                       </td>
                                                       <td>
-                                                        <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
+                                                        <Component block={false} html=\\"Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?\\">
                                                           <div dangerouslySetInnerHTML={{...}} />
                                                         </Component>
                                                       </td>

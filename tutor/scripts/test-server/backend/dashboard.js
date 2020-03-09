@@ -1,22 +1,15 @@
 const Factory = require('object-factory-bot');
 require('../../../specs/factories/student-task');
 require ('../../../specs/factories/research_survey');
-const { times, pick, clone, find } = require('lodash');
+const { times, range, pick, clone, omit, find } = require('lodash');
 const { data: bootstrapData } = require('./bootstrap');
 const { now } = require('../time-now');
-
+const fake = require('faker');
 let survey = Factory.create('ResearchSurvey');
 
-const tasks = {
-  teacher: times(25, (i) => Factory.create('TeacherTaskPlan',
-    { now, days_ago: i-10 }
-  )),
-  student: times(25, (i) => Factory.create('StudentDashboardTask',
-    { now, days_ago: i-10 }
-  )),
-};
-
 let ROLE = 'teacher';
+
+const TITLES = times(50, () => fake.company.bs());
 
 module.exports = {
 
@@ -32,15 +25,19 @@ module.exports = {
     const data = { };
 
     if (ROLE === 'student') {
-      data.tasks = tasks.student;
+      data.tasks = range(1, 25).map(id => omit(Factory.create('StudentDashboardTask', {
+        now, days_ago: id-10,
+        title: TITLES[id],
+      }), 'course'));
     } else {
       let days = -50;
-      data.plans = tasks.teacher;
-      data.plans.forEach(plan => {
-        plan.tasking_plans = course.periods.map(period =>
-          Factory.create('TeacherTaskPlan', { now, period, days_ago: (days+=1) }),
-        );
-      });
+
+      data.plans = range(1, 25).map(id => omit(Factory.create('TeacherTaskPlan', {
+        id, course, now,
+        title: TITLES[id],
+        days_ago: (days+=id),
+      }), 'course'));
+
       data.tasks = [];
     }
 

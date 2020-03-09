@@ -152,7 +152,8 @@ class Answer extends React.Component {
         onChange={onChange}
         disabled={disabled} />;
     }
-
+    // TODO by jivey - style correct/incorrect and counts per
+    // https://projects.invisionapp.com/d/main#/console/18937568/401682233/preview
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
       selectedCount = (

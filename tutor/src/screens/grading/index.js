@@ -6,6 +6,7 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { withRouter } from 'react-router';
 import UX from './ux';
 import Tabs from '../../components/tabs';
+import CoursePeriodSelect from '../../components/course-period-select';
 import { navbars } from '../../theme.js';
 import Details from './details';
 import Overview from './overview';
@@ -23,11 +24,17 @@ const BackgroundWrapper = styled.div`
   padding: 0 2.4rem;
 `;
 
+const Heading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 @withRouter
 @observer
 class Grading extends React.Component {
 
-  static displayName = 'AssignmentBuilder';
+  static displayName = 'Grading';
 
   static propTypes = {
     params: PropTypes.shape({
@@ -64,7 +71,7 @@ class Grading extends React.Component {
   }
 
   render() {
-    const { isReady, course, plan } = this.ux;
+    const { isReady, course, plan, selectedPeriod, setSelectedPeriod } = this.ux;
 
     if (!isReady) {
       return <LoadingScreen message="Loading Assignment…" />;
@@ -75,17 +82,22 @@ class Grading extends React.Component {
     return (
       <BackgroundWrapper>
         <ScrollToTop>
-          {course.name} >
-          <h1>{plan.title}</h1>
+          <Heading>
+            <div>
+              {course.name} >
+              <h1>{plan.title}</h1>
+            </div>
+            <div>
+              <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod}/>
+            </div>
+          </Heading>
           <Tabs
             selectedIndex={this.tabIndex}
             params={this.props.params}
             onSelect={this.onTabSelection}
             tabs={AvailableTabs.map(t => t.title)}
           />
-
           <Tab ux={this.ux} />
-
         </ScrollToTop>
       </BackgroundWrapper>
     );

@@ -2,7 +2,7 @@ import { Factory } from '../../helpers';
 import Exercise from '../../../src/screens/teacher-review-metrics/exercise';
 
 
-describe('Task Teacher Review', () => {
+xdescribe('Task Teacher Review: Review Exercises', () => {
 
   let stat, course, props;
 

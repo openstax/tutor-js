@@ -3,12 +3,14 @@ const {
   Factory, sequence, uuid, reference,
   fake, APPEARANCE_CODES, PLAN_TYPES,
 } = require('./helpers');
+const { times } = require('lodash');
 
 Factory.define('TeacherTaskPlanTasking')
   .target_id(({ period }) => period ? period.id : 1 )
   .target_type('period')
   .opens_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').toISOString())
-  .due_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(3, 'days').toISOString());
+  .due_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(3, 'days').toISOString())
+  .closes_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(1, 'days').toISOString());
 
 
 Factory.define('TeacherTaskPlan')
@@ -27,8 +29,21 @@ Factory.define('TeacherTaskPlan')
   .publish_job_url(`/api/jobs/${uuid()}`)
   .last_published_at(({ object }) => object.first_published_at)
   .publish_last_requested_at(({ object }) => object.first_published_at)
-  .settings({ page_ids: ['3', '4', '7'] })
+  .settings(({ type, exercises }) => {
+    const s = { page_ids: ['3', '4', '7'] };
+    if (type == 'homework') {
+      s.exercises = (exercises || times(4).map(() => Factory.create('TutorExercise'))).map(ex => ({
+        id: ex.id,
+        points: Array(ex.content.questions.length).fill(1.0),
+      }))
+    }
+  })
   .tasking_plans(reference('TeacherTaskPlanTasking', {
     count({ course }) { return course ? course.periods.length : 0; },
-    defaults({ course }, index) { return course ? { period: course.periods[index] } : null; },
+    defaults({ course, days_ago }, index) {
+      return {
+        ...(course ? { period: course.periods[index] } : {}),
+        days_ago,
+      };
+    },
   }));

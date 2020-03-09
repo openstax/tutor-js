@@ -6,7 +6,7 @@ import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
 
-describe('Task Teacher Review: Breadcrumbs', function() {
+xdescribe('Task Teacher Review: Breadcrumbs', function() {
   let plan;
   let course;
   let props;

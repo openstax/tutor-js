@@ -1,6 +1,6 @@
 import { Factory, ld, TimeMock } from '../../../helpers';
 
-describe('CourseCalendar Header', function() {
+describe('Task Plan Model', function() {
   TimeMock.setTo('2015-01-12T10:00:00.000Z');
   let plan;
 
