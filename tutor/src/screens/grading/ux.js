@@ -1,11 +1,14 @@
 import { observable, action, computed } from 'vendor';
 import { first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
+import ScoresUX from './scores-ux';
 
 export default class GradingUX {
 
   @observable isReady = false
   @observable selectedPeriod;
+
+  scores = new ScoresUX(this);
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -25,6 +28,7 @@ export default class GradingUX {
     await this.plan.analytics.fetchReview();
     await gradingTemplates.ensureLoaded();
     await this.plan.exercisesMap.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
+    await this.course.scores.fetch();
     this.isReady = true;
   }
 
@@ -35,4 +39,5 @@ export default class GradingUX {
   @computed get stats() {
     return this.plan.analytics.stats.find(s => s.period_id == this.selectedPeriod.id);
   }
+
 }
