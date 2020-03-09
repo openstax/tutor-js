@@ -25,7 +25,7 @@ describe('choose exercises component', () => {
     const exId = card.props()['data-exercise-id'];
     card.find('.action.include').simulate('click');
     expect(
-      ux.exercises.get(ux.plan.settings.exercise_ids[0]).content.uid
+      ux.exercises.get(ux.plan.settings.exercises[0].id).content.uid
     ).toEqual(exId);
     add.unmount();
   });
