@@ -5,7 +5,7 @@ import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
 import { Notes } from '../../models/notes';
-import Page from '../../models/reference-book/page';
+import ReferenceBookNode from '../../models/reference-book/node';
 import LoadingAnimation from 'shared/components/loading-animation';
 import BookPartTitle from '../book-part-title';
 
@@ -43,7 +43,7 @@ export default
 class NoteSummaryPage extends React.Component {
 
   static propTypes = {
-    page: PropTypes.instanceOf(Page).isRequired,
+    page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
     notes: PropTypes.instanceOf(Notes).isRequired,
     onDelete: PropTypes.func.isRequired,
   };

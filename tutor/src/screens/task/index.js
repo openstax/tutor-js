@@ -99,7 +99,7 @@ class TaskGetter extends React.Component {
   constructor(props) {
     super(props);
     if (!this.task.api.isFetchedOrFetching) {
-      this.task.fetch();
+      this.task.load();
     }
   }
 
@@ -113,7 +113,7 @@ class TaskGetter extends React.Component {
       return <Failure task={task} />;
     }
 
-    if (!task.api.hasBeenFetched) {
+    if (!task.isLoaded) {
       return <StepCard><PendingLoad /></StepCard>;
     }
 

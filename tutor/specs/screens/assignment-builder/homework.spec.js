@@ -43,7 +43,7 @@ describe('Homework Builder', function() {
     jest.spyOn(props.ux.plan, 'save');
     hw.find('SaveButton AsyncButton').simulate('click');
     expect(props.ux.plan.save).toHaveBeenCalled();
-    expect(props.ux.plan.dataForSave).toEqual({
+    expect(props.ux.plan.dataForSave).toMatchObject({
       type: 'homework',
       title: 'a homework',
       ecosystem_id: 1,
@@ -59,7 +59,7 @@ describe('Homework Builder', function() {
       settings: {
         exercises_count_dynamic: 3,
         exercises: [ { id: exercise.wrapper.id, points: 1 } ],
-        page_ids: props.ux.referenceBook.children[1].children.map(p => p.id),
+        page_ids: props.ux.referenceBook.children[1].children.assignable.map(p => p.id),
       },
     });
     hw.unmount();

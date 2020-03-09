@@ -11,7 +11,9 @@ describe('review reading selection', () => {
   });
 
   it('can review selections', () => {
-    expect(<Review {...props} />).toMatchSnapshot();
+    const rs = mount(<Review {...props} />);
+    expect(rs).toHaveRendered('ReadingSection');
+    rs.unmount();
   });
 
   it('renders html', () => {
@@ -21,6 +23,5 @@ describe('review reading selection', () => {
     expect(rv.text()).toContain('I am in italics');
     rv.unmount();
   });
-
 
 });

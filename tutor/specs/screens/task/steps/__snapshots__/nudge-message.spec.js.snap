@@ -314,6 +314,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "isLoading": false,
         "is_deleted": undefined,
         "spy": Object {},
         "steps": Array [
@@ -653,6 +654,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "isLoading": false,
         "is_deleted": undefined,
         "spy": Object {},
         "steps": Array [
@@ -996,6 +998,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "isLoading": false,
         "is_deleted": undefined,
         "spy": Object {},
         "steps": Array [
@@ -1339,6 +1342,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "isLoading": false,
         "is_deleted": undefined,
         "spy": Object {},
         "steps": Array [
@@ -1682,6 +1686,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "isLoading": false,
         "is_deleted": undefined,
         "spy": Object {},
         "steps": Array [

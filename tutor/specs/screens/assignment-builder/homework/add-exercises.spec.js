@@ -21,16 +21,13 @@ describe('choose exercises component', () => {
   it('selects exercises', () => {
     const add = mount(<C><AddExercises {...props} /></C>);
     expect(add).not.toHaveRendered('NoExercisesFound');
-    const exercise = ux.exercises.array.find(e=> e.isHomework)
-    add.find(
-      `[data-exercise-id="${exercise.content.uid}"] .action.include`
-    ).simulate('click');
-    expect(ux.plan.exerciseIds).toContain(exercise.id);
+    const card= add.find('[data-exercise-id]').first();
+    const exId = card.props()['data-exercise-id'];
+    card.find('.action.include').simulate('click');
+    expect(
+      ux.exercises.get(ux.plan.settings.exercise_ids[0]).content.uid
+    ).toEqual(exId);
     add.unmount();
-  });
-
-  it('matches snapshot', () => {
-    expect.snapshot(<C><AddExercises {...props} /></C>).toMatchSnapshot();
   });
 
   it ('always displays previous selections', () => {

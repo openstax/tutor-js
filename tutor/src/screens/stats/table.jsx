@@ -24,11 +24,11 @@ const DataTable = ({ row }) => {
         <tbody>
           <tr>
             <td>Courses</td>
-            <td>{stats.active_courses}</td>
+            <td>{stats.new_courses}</td>
           </tr>
           <tr>
             <td>Instructors/Students</td>
-            <td>{stats.active_instructors}/{stats.active_students}</td>
+            <td>{stats.new_instructors}/{stats.new_students}</td>
           </tr>
           <tr>
             <td>Assignments: Reading/HW</td>

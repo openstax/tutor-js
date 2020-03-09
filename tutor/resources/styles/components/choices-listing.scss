@@ -19,10 +19,7 @@
   .list-group-item:last-child {
     border-bottom: none;
   }
-
   .choice {
-
-    //    padding: 0px 35px 0px 0px;
     display: flex;
 
     height: $choice-height;
@@ -33,6 +30,9 @@
     flex-direction: row;
     align-items: center;
     cursor: pointer;
+    &.disabled {
+      color: $tutor-neutral;
+    }
     &:focus {
       outline: none;
     }

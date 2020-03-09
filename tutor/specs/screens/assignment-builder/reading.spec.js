@@ -53,7 +53,7 @@ describe('Reading Builder', function() {
         closes_at: ux.course.momentInZone('2015-10-15 07:00').format('YYYY-MM-DD HH:mm'),
       })),
       settings: {
-        page_ids: props.ux.referenceBook.children[1].children.map(p => p.id),
+        page_ids: props.ux.referenceBook.children[1].children.assignable.map(p => p.id),
       },
     });
 

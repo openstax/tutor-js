@@ -31,11 +31,7 @@ describe('choose exercises component', function() {
     );
   });
 
-  it('renders selections', () => {
-    expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
-  });
-
-  xit('can select exercises', () => {
+  it('can select exercises', () => {
     const ce = renderExerciseCards(props);
     const exercise = ux.exercises.array[2];
     exercise.pool_types = ['homework_core'];

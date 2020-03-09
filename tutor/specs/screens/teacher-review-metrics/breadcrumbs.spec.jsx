@@ -30,12 +30,6 @@ xdescribe('Task Teacher Review: Breadcrumbs', function() {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(
-      <C><Breadcrumbs {...props} /></C>
-    ).toMatchSnapshot();
-  });
-
   it('attempts to scroll when click', function() {
     const bc = mount(<C><Breadcrumbs {...props} /></C>);
     bc.find('Breadcrumb').first().simulate('click');

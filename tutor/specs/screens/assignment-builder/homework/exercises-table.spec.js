@@ -1,4 +1,4 @@
-import { React, C, TimeMock, createUX } from '../helpers';
+import { React, TimeMock, createUX } from '../helpers';
 import ExercisesTable from '../../../../src/screens/assignment-builder/homework/exercises-table';
 
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -15,12 +15,6 @@ describe('review exercises table', function() {
     props = { ux };
   });
 
-  it('matches snapshot', () => {
-    const revex = mount(<C><ExercisesTable {...props} /></C>);
-    expect.snapshot(revex.debug()).toMatchSnapshot();
-    revex.unmount();
-  });
-
   it('strips images', () => {
     const [ex] = props.ux.exercises.array;
     ex.content.questions[0].stem_html = `
@@ -35,7 +29,6 @@ describe('review exercises table', function() {
     const html = et.find(`tr[data-ex-id=${ex.id}] div[dangerouslySetInnerHTML]`).props().dangerouslySetInnerHTML.__html;
     expect(html).toContain('this is a test exercise');
     expect(html).not.toContain('img');
-    expect(html).toMatchSnapshot();
     et.unmount();
   });
 

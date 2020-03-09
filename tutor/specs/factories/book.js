@@ -6,6 +6,7 @@ const {
 
 const physics = require('../../api/ecosystems/1/readings.json')[0];
 const biology = require('../../api/ecosystems/2/readings.json')[0];
+
 const TYPES = { biology, physics };
 
 

@@ -31,6 +31,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "due_at": undefined,
       "feedback_at": undefined,
       "id": 4321,
+      "isLoading": false,
       "is_deleted": undefined,
       "spy": Object {},
       "steps": Array [],

@@ -16,12 +16,6 @@ describe('choose exercises component', function() {
     props = { ux };
   });
 
-  it('matches snapshot', () => {
-    const revex = mount(<C><ReviewExercises {...props} /></C>);
-    expect.snapshot(revex.debug()).toMatchSnapshot();
-    revex.unmount();
-  });
-
   it('renders MPQ individually', () => {
     props.ux.selectedExercises[0].content.questions = [
       props.ux.selectedExercises[0].content.questions[0],
