@@ -37,19 +37,34 @@ class AnswerStat extends BaseModel {
   }
 }
 
+
+@identifiedBy('task-plan/stats/student')
+class Student extends BaseModel {
+
+  @identifier id;
+  @field name;
+
+}
+
 @identifiedBy('task-plan/stats/answer')
 class Answer extends BaseModel {
 
-  @session({ type: 'array' }) student_names;
   @session free_response;
   @session answer_id;
-
+  @hasMany({ model: Student }) students;
   @belongsTo({ model: 'task-plan/stats/question' }) question;
 
   @computed get selected_count() {
     return find(this.question.answer_stats, anst => anst.answer_id == this.answer_id).selected_count || 0;
   }
 
+  @computed get exerciseAnswer() {
+    return this.question.content.answers.find(ea => ea.id == this.answer_id);
+  }
+
+  @computed get isCorrect() {
+    return Boolean(this.exerciseAnswer && this.exerciseAnswer.isCorrect);
+  }
 }
 
 
@@ -83,6 +98,17 @@ class QuestionStats extends BaseModel {
       q.id == this.question_id
     ) || {};
   }
+
+  answerForStudent(student) {
+    for (let i in this.answers) {
+      const answer = this.answers[i];
+      const st = answer.students.find(s => s.id == student.id);
+      if (st) {
+        return answer;
+      }
+    }
+    return null;
+  }
 }
 
 @identifiedBy('task-plan/stats/page')
@@ -99,7 +125,6 @@ class Page extends BaseModel {
   @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
 
 }
-
 
 @identifiedBy('task-plan/stats/stat')
 class Stats extends BaseModel {

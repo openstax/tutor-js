@@ -44,6 +44,14 @@ const calculateDefaultOpensAt = ({ course }) => {
 };
 export { calculateDefaultOpensAt };
 
+
+class QuestionInfo {
+  constructor(attrs) {
+    Object.assign(this, attrs);
+  }
+}
+
+
 export default
 @identifiedBy('task-plans/teacher/plan')
 class TeacherTaskPlan extends BaseModel {
@@ -271,9 +279,9 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get questionsInfo() {
     return flatMap(this.exercises, (exercise, exerciseIndex) => (
-      exercise.content.questions.map((question, questionIndex) => ({
+      exercise.content.questions.map((question, questionIndex) => new QuestionInfo({
         key: `${exerciseIndex}-${questionIndex}`,
-        question, exercise, exerciseIndex, questionIndex,
+        question, exercise, exerciseIndex, questionIndex, plan: this,
         points: this.settings.exercises[exerciseIndex].points[questionIndex],
       }))
     ));

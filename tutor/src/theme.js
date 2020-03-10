@@ -54,7 +54,8 @@ export const colors = {
     active:   neutral.dark,
     disabled: neutral.std,
     disabled_light: '#c1c1c1',
-    correct:  '#009c10',
+    correct: '#009c10',
+    trouble: '#fbe7ea',
   },
 
   controls: {
