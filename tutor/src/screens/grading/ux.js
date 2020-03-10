@@ -28,7 +28,8 @@ export default class GradingUX {
     await this.plan.analytics.fetchReview();
     await gradingTemplates.ensureLoaded();
     await this.plan.exercisesMap.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
-    await this.course.scores.fetch();
+    await this.course.roster.ensureLoaded();
+
     this.isReady = true;
   }
 
@@ -36,8 +37,8 @@ export default class GradingUX {
     this.selectedPeriod = period;
   }
 
-  @computed get stats() {
-    return this.plan.analytics.stats.find(s => s.period_id == this.selectedPeriod.id);
+  @computed get students() {
+    return this.course.roster.students;
   }
 
 }

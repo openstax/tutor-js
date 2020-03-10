@@ -84,6 +84,9 @@ class CourseStudent extends BaseModel {
     return this.savePeriod();
   }
 
+  @computed get is_dropped() {
+    return !this.is_active;
+  }
 
   // following methods are called by api
   drop() { }

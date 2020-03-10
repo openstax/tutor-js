@@ -3,6 +3,7 @@ import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import ExerciseType from './exercise-type';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -155,44 +156,47 @@ const StudentCell = ({ student }) => {
   ));
 };
 
-const AssignmentHeading = ({ heading }) => {
+const AssignmentHeading = ({ info, index }) => {
   return useObserver(() => (
     <Cell>
       <Heading>
         <HeadingTop>
-          {heading.title}
+          Q{index+1}
         </HeadingTop>
         <HeadingMiddle>
-          MPQ/SPQ/WRM
+          <ExerciseType exercise={info.exercise} />
         </HeadingMiddle>
         <HeadingBottom>
-          {S.numberWithOneDecimalPlace(heading.average_score)}
+          {S.numberWithOneDecimalPlace(info.points)}
         </HeadingBottom>
       </Heading>
     </Cell>
   ));
 };
 
-const TaskResult = ({ result }) => {
+const TaskResult = ({ info, answer }) => {
   return useObserver(() => (
     <Cell>
-      <Result isTrouble={result.isTrouble}>{result.isStarted ? S.numberWithOneDecimalPlace(result.score) : '…'}</Result>
+      <Result isTrouble={false}>{answer ? S.numberWithOneDecimalPlace(info.points) : '…'}</Result>
     </Cell>
   ));
 };
 
 const Scores = ({ ux }) => {
-  const scoresUX = ux.scores;
+  const { scores } = ux;
+
   return useObserver(() => (
     <StickyTable>
       <Row>
-        <StudentColumnHeader ux={scoresUX} />
-        {scoresUX.headings.map((h,i) => <AssignmentHeading key={i} heading={h} />)}
+        <StudentColumnHeader scores={scores} />
+        {scores.questionsInfo.map((info, i) => <AssignmentHeading key={info.key} index={i} info={info} />)}
       </Row>
-      {scoresUX.students.map((student,i) => (
+      {scores.sortedStudents.map((student,i) => (
         <Row key={i}>
-          <StudentCell ux={scoresUX} student={student} />
-          {student.data.map((score, i) => <TaskResult key={i} result={score} />)}
+          <StudentCell student={student} />
+          {scores.questionsInfo.map((info, i) => (
+            <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} />
+          ))}
         </Row>))}
     </StickyTable>
   ));

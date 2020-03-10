@@ -12,8 +12,8 @@ export default class ScoresReportUX {
     this.reportUX = ux;
   }
 
-  @computed get scores() {
-    return this.reportUX.course.scores;
+  @computed get analytics() {
+    return this.reportUX.plan.analytics.stats.find(s => s.period_id == this.reportUX.selectedPeriod.id);
   }
 
   @action.bound changeSortingOrder(key, dataType) {
@@ -30,13 +30,9 @@ export default class ScoresReportUX {
     return studentDataSorter({ sort: this.sort, displayAs: this.displayAs });
   }
 
-  @computed get selectedPeriod() {
-    return this.scores.periods.get(this.reportUX.selectedPeriod.id);
-  }
-
-  @computed get students() {
+  @computed get sortedStudents() {
     const students = sortBy(
-      filter(this.selectedPeriod.students, s => !s.is_dropped),
+      filter(this.reportUX.students, 'is_active'),
       this.studentSorter,
     );
     if (!this.sort.asc) {
@@ -48,13 +44,21 @@ export default class ScoresReportUX {
 
   @computed get droppedStudents() {
     return sortBy(
-      filter(this.reportUX.selectedPeriod.students, 'is_dropped'),
+      filter(this.reportUX.students, 'is_dropped'),
       this.studentSorter,
     );
   }
 
-  @computed get headings() {
-    return this.selectedPeriod.data_headings;
+  @computed get questionsInfo() {
+    return this.reportUX.plan.questionsInfo.map((info) => {
+      info.stats = this.analytics.statsForQuestion(info.question);
+      return info;
+    });
   }
+
+  @computed get headings() {
+    return this.scores.data_headings;
+  }
+
 
 }

@@ -5,7 +5,7 @@ const { capitalize } = require('lodash');
 require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanExerciseAnswer')
-  .student_names(() => [ fake.name.findName() ])
+  .students(() => [ { id: 1, name: fake.name.findName() } ])
   .free_response(() => fake.lorem.sentences())
   .answer_id(sequence)
 

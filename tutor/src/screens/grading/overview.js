@@ -1,5 +1,6 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, useObserver } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
+import ExerciseType from './exercise-type';
 import S from '../../helpers/string';
 import HomeworkQuestions from '../../components/homework-questions';
 
@@ -7,20 +8,6 @@ const Wrapper = styled.div`
   margin-top: 4rem;
 `;
 
-const ExerciseType = ({ exercise: { content } }) => {
-  let type = 'unknown';
-  if (content.isMultiPart) {
-    type = 'MPQ';
-  } else if (content.isWRM) {
-    type = 'WRM';
-  } else if (content.isSinglePart) {
-    type = 'SPQ';
-  }
-  return <span>{type}</span>;
-};
-ExerciseType.propTypes = {
-  exercise: PropTypes.object.isRequired,
-};
 
 const ControlsWrapper = styled.div`
 
@@ -35,19 +22,13 @@ QuestionControls.propTypes = {
   info:  PropTypes.object.isRequired,
 };
 
-const Overview = observer(({ ux: { plan, stats } }) => {
-  const planInfo = plan.questionsInfo;
-  planInfo.forEach(pi => {
-    pi.stats = stats.statsForQuestion(pi.question);
-    pi.question = pi.stats.forReview;
-  });
-
-  return (
+const Overview = ({ ux: { plan, scores } }) => {
+  return useObserver(() => (
     <Wrapper>
       <StickyTable>
         <Row>
           <Cell>Question Number</Cell>
-          {plan.exerciseIds.map((exId, i) => <Cell key={i}>{i + 1}</Cell>)}
+          {plan.exerciseIds.map((exId, i) => <Cell key={i}>Q{i + 1}</Cell>)}
         </Row>
         <Row>
           <Cell>Question Type</Cell>
@@ -59,27 +40,20 @@ const Overview = observer(({ ux: { plan, stats } }) => {
         </Row>
         <Row>
           <Cell>Correct Responses</Cell>
-          {plan.questionsInfo.map(({ key, question }) => {
-            const stat = stats.statsForQuestion(question);
-            return <Cell key={key}>{stat.answer_stats.correct.selected_count} / {stat.answered_count}</Cell>;
-          })}
+          {scores.questionsInfo.map(({ key, stats }) => <Cell key={key}>{stats.answer_stats.correct.selected_count} / {stats.answered_count}</Cell>)}
         </Row>
       </StickyTable>
 
       <HomeworkQuestions
-        questionsInfo={planInfo}
+        questionsInfo={scores.questionsInfo}
         questionType="teacher-review"
         controlsComponent={QuestionControls}
       />
 
     </Wrapper>
-  );
-
-
-});
-
+  ));
+};
 Overview.title = 'Submission Overview';
-
 Overview.propTypes = {
   ux: PropTypes.object.isRequired,
 };
