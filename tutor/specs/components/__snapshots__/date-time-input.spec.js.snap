@@ -8,7 +8,6 @@ exports[`DateTimeInput matches snapshot 1`] = `
 
 .c0 {
   position: relative;
-  display: inline-block;
 }
 
 .c1 {
@@ -30,6 +29,9 @@ exports[`DateTimeInput matches snapshot 1`] = `
 .c3.c3 {
   padding: 0;
   border-radius: 4px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
 }
 
 .c3.c3 input {
@@ -68,7 +70,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
   border-radius: 0 4px 4px 0;
 }
 
-<span
+<div
   className="c0"
 >
   <label
@@ -121,5 +123,5 @@ exports[`DateTimeInput matches snapshot 1`] = `
       </svg>
     </div>
   </div>
-</span>
+</div>
 `;

@@ -21,7 +21,7 @@ describe('TaskPlan stats progress bar', function() {
     const wrapper = mount(<R><Stats {...props} /></R>);
 
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    wrapper.find('.nav-tabs li a').last().simulate('click');
+    wrapper.find('input[type="radio"]').last().simulate('click');
     expect(wrapper.find('.text-not-started').text()).toEqual('0'); // not NaN
   });
 
