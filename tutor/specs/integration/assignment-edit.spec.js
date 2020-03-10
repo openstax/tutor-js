@@ -9,7 +9,7 @@ context('Dashboard', () => {
   }
 
   it('loads and advances homework', () => {
-    cy.visit('/course/2/assignment/homework/new')
+    cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours();
     fillDetails()
     cy.get('.controls .btn-primary').click()
@@ -34,7 +34,7 @@ context('Dashboard', () => {
   });
 
   it('loads and advances reading', () => {
-    cy.visit('/course/1/assignment/reading/new')
+    cy.visit('/course/1/assignment/edit/reading/new')
     cy.disableTours();
     fillDetails()
     cy.get('.controls .btn-primary').click()
@@ -59,7 +59,7 @@ context('Dashboard', () => {
   });
 
   it('increases selections', () => {
-    cy.visit('/course/2/assignment/homework/new')
+    cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     fillDetails()
     cy.get('.controls .btn-primary').click()
@@ -79,7 +79,7 @@ context('Dashboard', () => {
   });
 
   it('filters question types', () => {
-    cy.visit('/course/2/assignment/homework/new')
+    cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     fillDetails()
     cy.get('.controls .btn-primary').click()
@@ -92,7 +92,7 @@ context('Dashboard', () => {
   });
 
   it('can change course timezone', () => {
-    cy.visit('/course/2/assignment/homework/new')
+    cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('[data-test-id="change-timezone"]').click()
     cy.get('.settings-edit-course-modal').should('be.visible')
@@ -103,14 +103,14 @@ context('Dashboard', () => {
   });
 
   it('renders external assignment', () => {
-    cy.visit('/course/2/assignment/external/new')
+    cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
     cy.get('.heading').should('not.contain.text', 'STEP 1')
     cy.get('[name="settings.external_url"').type('url')
   });
 
   it('can add a new template', () => {
-    cy.visit('/course/2/assignment/homework/new')
+    cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('[data-test-id="grading-templates"]').click()
     cy.get('[data-test-id="add-template"]').click()
