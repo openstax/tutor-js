@@ -50,9 +50,7 @@ const getRoutes = (router) => {
         }, {
           path: 'metrics/:id', name: 'reviewTask',
           renderer: r(() => import('./screens/teacher-review-metrics')) },
-        {
-          path: 'grade/:id', name: 'gradeTask',
-          renderer: r(() => import('./screens/grading')) },
+
         { path: 'task/:id', name: 'viewTask',
           renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
@@ -63,12 +61,14 @@ const getRoutes = (router) => {
           ],
         }, {
           path: 'practice/:taskId?', name: 'practiceTopics',
-          renderer: r(() => import('./screens/task/practice'), 'Practice'),
-        }, {
-          path: 'assignment/:type/:id/:step?', name: 'editAssignment',
-          renderer: r(() => import('./screens/assignments'), 'Assignment Builder'),
-        }, {
-          path: 'settings', name: 'courseSettings',
+          renderer: r(() => import('./screens/task/practice'), 'Practice') },
+        {
+          path: 'assignment/edit/:type/:id/:step?', name: 'editAssignment',
+          renderer: r(() => import('./screens/assignment-edit'), 'Assignment Builder') },
+        {
+          path: 'assignment/review/:id', name: 'reviewAssignment',
+          renderer: r(() => import('./screens/assignment-review')) },
+        { path: 'settings', name: 'courseSettings',
           renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
         { path: 'roster', name: 'courseRoster',
           renderer: r(() => import('./screens/course-roster'), 'Course Roster') },

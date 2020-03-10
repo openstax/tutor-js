@@ -1,9 +1,9 @@
 import {
   React, PropTypes, observer, inject,
-  computed, observable, action, cn, styled,
+  computed, observable, action, styled,
 } from 'vendor';
 import Course from '../../models/course';
-import { Modal, Button, Row, Col, Alert, Card  } from 'react-bootstrap';
+import { Modal, Row, Col, Alert } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
@@ -17,7 +17,6 @@ import moment from 'moment';
 import Time from '../../models/time';
 import { Formik } from 'formik';
 import TemplateModal from '../../components/template-modal';
-import { colors } from 'theme';
 
 const StyledAlert = styled(Alert)`
   margin-top: 0.5rem;
@@ -104,7 +103,7 @@ class CoursePlanDetails extends React.Component {
     return (
       <TutorLink
         className="btn btn-form-action btn-primary"
-        to={'gradeTask'}
+        to='reviewAssignment'
         params={{ id: this.props.plan.id, courseId: this.props.course.id }}
       >
         Grade answers
@@ -207,22 +206,22 @@ class CoursePlanDetails extends React.Component {
   }
 
   renderDueAtError() {
-      if (this.tasking.isValid || !this.tasking.due_at) { return null; }
+    if (this.tasking.isValid || !this.tasking.due_at) { return null; }
 
-      let msg = null;
-      const due = moment(this.tasking.due_at);
-      if (due.isBefore(Time.now)) {
-        msg = 'Due time has already passed';
-      } else if (due.isBefore(this.tasking.opens_at)) {
-        msg = 'Due time cannot come before task opens';
-      }
-      if (!msg) { return null; }
-      return (
-        <StyledAlert variant="danger">
-          {msg}
-        </StyledAlert>
-      );
+    let msg = null;
+    const due = moment(this.tasking.due_at);
+    if (due.isBefore(Time.now)) {
+      msg = 'Due time has already passed';
+    } else if (due.isBefore(this.tasking.opens_at)) {
+      msg = 'Due time cannot come before task opens';
     }
+    if (!msg) { return null; }
+    return (
+      <StyledAlert variant="danger">
+        {msg}
+      </StyledAlert>
+    );
+  }
 
   renderDateFields() {
     const format = 'MMM D hh:mm A';
@@ -277,6 +276,7 @@ class CoursePlanDetails extends React.Component {
         enforceFocus={false}
         data-assignment-type={type}
         templateType={type}
+        className={className}
       >
         <TourRegion
           id="analytics-modal"

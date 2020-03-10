@@ -79,8 +79,8 @@ class AssignmentBuilder extends React.Component {
             courseId={ux.course.id}
           >
             {!ux.plan.isNew && ux.plan.isHomework && (
-              <TutorLink to="gradeTask" params={{ id: ux.plan.id, courseId: ux.course.id }}>
-                Grade Task
+              <TutorLink to="reviewAssignment" params={{ id: ux.plan.id, courseId: ux.course.id }}>
+                Review Assignment
               </TutorLink>)}
             <Formik
               initialValues={ux.formValues}
