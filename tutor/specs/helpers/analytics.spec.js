@@ -85,21 +85,21 @@ describe('Analytics', function() {
   it('translates known urls when sending', function() {
     const c = '/course/1';
     const tests = {
-      [c]:                                  '/student/dashboard/1',
-      [`${c}/practice`]:                    '/student/practice/1',
-      [`${c}/guide`]:                       '/student/performance-forecast/1',
-      [`${c}/t/month/2011-11-11`]:          '/teacher/calendar/1',
-      [`${c}/scores`]:                      '/teacher/student-scores/1',
-      [`${c}/settings`]:                    '/teacher/roster/1',
-      [`${c}/assignment/reading/11`]:           '/teacher/assignment/edit/assignment/1',
-      [`${c}/assignment/homework/11`]:          '/teacher/assignment/edit/assignment/1',
-      [`${c}/assignment/external/11`]:          '/teacher/assignment/edit/assignment/1',
-      [`${c}/assignment/reading/new`]:          '/teacher/assignment/create/assignment/1',
-      [`${c}/assignment/homework/new`]:         '/teacher/assignment/create/assignment/1',
-      [`${c}/assignment/event/new`]:            '/teacher/assignment/create/assignment/1',
-      [`${c}/assignment/external/new`]:         '/teacher/assignment/create/assignment/1',
-      [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
-      '/book/1':                            '/reference-view/1',
+      [c]:                                   '/student/dashboard/1',
+      [`${c}/practice`]:                     '/student/practice/1',
+      [`${c}/guide`]:                        '/student/performance-forecast/1',
+      [`${c}/t/month/2011-11-11`]:           '/teacher/calendar/1',
+      [`${c}/scores`]:                       '/teacher/student-scores/1',
+      [`${c}/settings`]:                     '/teacher/roster/1',
+      [`${c}/assignment/edit/reading/11`]:   '/teacher/assignment/edit/assignment/1',
+      [`${c}/assignment/edit/homework/11`]:  '/teacher/assignment/edit/assignment/1',
+      [`${c}/assignment/edit/external/11`]:  '/teacher/assignment/edit/assignment/1',
+      [`${c}/assignment/edit/reading/new`]:  '/teacher/assignment/create/assignment/1',
+      [`${c}/assignment/edit/homework/new`]: '/teacher/assignment/create/assignment/1',
+      [`${c}/assignment/edit/event/new`]:    '/teacher/assignment/create/assignment/1',
+      [`${c}/assignment/edit/external/new`]: '/teacher/assignment/create/assignment/1',
+      [`${c}/t/month/2011-11-11/plan/66`]:   '/teacher/metrics/quick/1',
+      '/book/1':                             '/reference-view/1',
     };
     for (let route in tests) {
       const translated = tests[route];
