@@ -64,7 +64,7 @@ class ReferenceBookNode extends BaseModel {
     return 'unit' === this.type;
   }
   @computed get isChapter() {
-    return 'chapter' === this.type;
+    return 'chapter' === this.type || 'part' == this.type;
   }
   @computed get isPage() {
     return 'page' === this.type;

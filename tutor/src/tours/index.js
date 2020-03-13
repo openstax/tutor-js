@@ -3,7 +3,7 @@
 const TOURS = {};
 
 [
-  require('./scores.json'),
+  require('./gradebook.json'),
   require('./analytics-modal.json'),
   require('./teacher-calendar.json'),
   require('./performance-forecast.json'),

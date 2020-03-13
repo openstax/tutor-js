@@ -68,6 +68,9 @@ const getRoutes = (router) => {
         {
           path: 'assignment/review/:id', name: 'reviewAssignment',
           renderer: r(() => import('./screens/assignment-review')) },
+        {
+          path: 'gradebook', name: 'viewGradebook',
+          renderer: r(() => import('./screens/gradebook/index.js')) },
         { path: 'settings', name: 'courseSettings',
           renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
         { path: 'roster', name: 'courseRoster',

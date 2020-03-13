@@ -1,36 +1,36 @@
 [{
-  "id": "preview-scores",
+  "id": "preview-gradebook",
   "showOverlay": false,
   "audience_tags": [
     "teacher"
   ],
   "steps": [
     {
-      "title": "Student Scores",
+      "title": "Student Gradebook",
       "body": "See the percentage of questions that students get correct and how many assignments they’ve completed here."
     }, {
       "title": "See student progress on a reading",
       "body": "Once students have completed assignments, see student progress on a reading assignment and the student view of the assignment by hovering over a pie chart and clicking “review.”",
-      "anchor_id": "scores-reading-header"
+      "anchor_id": "gradebook-reading-header"
     }, {
       "title": "See student progress on a homework",
       "body": "Once students have completed assignments, see student progress on a homework assignment and the student view of the assignment by clicking a student’s score.",
-      "anchor_id": "scores-homework-header"
+      "anchor_id": "gradebook-homework-header"
     }, {
-      "title": "Export scores",
+      "title": "Export Gradebook",
       "body": "Download an Excel document containing student scores for easy upload into your learning management system. [Coming soon: LMS integration.]",
-      "anchor_id": "scores-export-button"
+      "anchor_id": "gradebook-export-button"
     }
   ]
 }, {
-  "id": "scores",
+  "id": "gradebook",
   "showOverlay": false,
   "audience_tags": [
     "teacher-preview"
   ],
   "steps": [
     {
-      "title": "Student Scores",
+      "title": "Student Gradebook",
       "body": "See the percentage of questions that students get correct and how many assignments they’ve completed here."
     }, {
       "title": "See student progress on a reading",
@@ -41,7 +41,7 @@
       "body": "See student progress on a homework assignment and the student view of the assignment by clicking a student’s score.",
       "anchor_id": "homework-score"
     }, {
-      "title": "Export Scores",
+      "title": "Export Gradebook",
       "body": "Download an Excel document containing student scores for easy upload into your learning management system. [Coming soon: LMS integration.]"
     }
   ]
