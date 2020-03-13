@@ -21,4 +21,7 @@ Factory.define('Offering')
   .appearance_code(({ type = 'physics' }) => APPEARANCE_CODES[type])
   .default_course_name(({ type = 'physics' }) => TITLES[type])
   .does_cost(true)
-  .active_term_years(reference('OfferingTerm', { count: 4 }));
+  .active_term_years(reference('OfferingTerm', { count: 4 }))
+  .is_available(true)
+  .is_preview_available(true)
+  .preview_message(fake.company.bsBuzz);

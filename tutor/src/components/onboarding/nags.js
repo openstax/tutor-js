@@ -5,7 +5,7 @@ import freshlyCreatedCourse from './freshly-created-course';
 import courseUseTips from './course-use-tips';
 
 import thanksForNow from './thank-you-for-now';
-
+import displayPreviewMessage from './display-preview-message';
 import payNowOrLater      from './pay-now-or-later';
 import makePayment        from './make-payment';
 import payDisabled        from './payments-disabled';
@@ -16,6 +16,7 @@ export default {
   previewOnlyWarning,
   secondSessionWarning,
   expiredPreviewWarning,
+  displayPreviewMessage,
 
   freshlyCreatedCourse,
   courseUseTips,

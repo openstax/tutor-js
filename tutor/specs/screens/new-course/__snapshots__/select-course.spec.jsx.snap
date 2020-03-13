@@ -113,7 +113,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      AP US History
+      College Physics
     </div>
     <svg
       aria-hidden="true"

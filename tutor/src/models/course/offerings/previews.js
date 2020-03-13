@@ -59,7 +59,7 @@ const Previews = {
   },
 
   get all() {
-    const tutor = sortBy(Offerings.fetched.available.array, 'title');
+    const tutor = sortBy(Offerings.fetched.previewable.array, 'title');
     return tutor.map(o => new PreviewCourseOffering(o));
   },
 
