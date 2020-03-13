@@ -110,6 +110,7 @@ const Total = styled.div`
 
 const isTroubleCSS = css`
   background-color: ${colors.states.trouble}
+  border-color: ${colors.danger};
   border-top: 1px solid ${colors.danger};
   border-bottom: 1px solid ${colors.danger};
 `;
@@ -124,6 +125,32 @@ const Result = styled.div`
 
 const StyledButton = styled(Button)`
   && { padding: 0; }
+`;
+
+const DefinitionsWrapper = styled.dl`
+  margin: 1.4rem 0;
+  display: flex;
+  align-items: center;
+  dd + dt {
+    margin-left: 4.8rem;
+  }
+`;
+
+const Term = styled.dt`
+  border: 1px solid ${colors.neutral.light};
+  ${props => props.variant === 'trouble' && isTroubleCSS}
+  display: flex;
+  justify-content: center;
+  width: 5.6rem;
+  height: 2.8rem;
+  margin-right: 1.1rem;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+`;
+
+const Definition = styled.dd`
+  margin: 0;
+  color: ${colors.neutral.thin}
 `;
 
 const StudentColumnHeader = () => {
@@ -227,19 +254,27 @@ const Scores = ({ ux }) => {
   const { scores } = ux;
 
   return useObserver(() => (
-    <StyledStickyTable>
-      <Row>
-        <StudentColumnHeader scores={scores} />
-        {scores.questionsInfo.map((info, i) => <AssignmentHeading key={info.key} index={i} info={info} />)}
-      </Row>
-      {scores.sortedStudents.map((student,sIndex) => (
-        <Row key={sIndex}>
-          <StudentCell student={student} striped={0 === sIndex % 2} />
-          {scores.questionsInfo.map((info, i) => (
-            <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} striped={0 === sIndex % 2} />
-          ))}
-        </Row>))}
-    </StyledStickyTable>
+    <>
+      <StyledStickyTable>
+        <Row>
+          <StudentColumnHeader scores={scores} />
+          {scores.questionsInfo.map((info, i) => <AssignmentHeading key={info.key} index={i} info={info} />)}
+        </Row>
+        {scores.sortedStudents.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell student={student} striped={0 === sIndex % 2} />
+            {scores.questionsInfo.map((info, i) => (
+              <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} striped={0 === sIndex % 2} />
+            ))}
+          </Row>))}
+      </StyledStickyTable>
+      <DefinitionsWrapper>
+        <Term variant="trouble" aria-label="Less than 50%"></Term>
+        <Definition>Scores less than 50% of question's point value</Definition>
+        <Term aria-label="Unattempted">&hellip;</Term>
+        <Definition>Unattempted question of ungraded responses</Definition>
+      </DefinitionsWrapper>
+    </>
   ));
 };
 
