@@ -185,7 +185,7 @@ const StudentCell = ({ student, striped }) => {
           </StyledButton>
         </Heading>
 
-        <Total displayName="Total">
+        <Total>
           {S.numberWithOneDecimalPlace(student.course_average)}
         </Total>
 
