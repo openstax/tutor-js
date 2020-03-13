@@ -29,6 +29,7 @@ const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitPro
 
 StyledModal.OmitProps = [
   'templateType',
+  'templateColors',
   'template',
 ];
 

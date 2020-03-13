@@ -105,6 +105,21 @@ export const colors = {
     selected: colorDefinitions.highlight,
     hovered:  'rgba(241, 241, 241, 0.4)',
   },
+
+  assignments: {
+    submissions: {
+      background: '#fafafa',
+      correct: {
+        background: '#ECF7D1',
+        foreground: '#3B7800',
+        inverse: {
+          background: '#63A524',
+          foreground: '#FFFFFF',
+          border: '#4B8315',
+        },
+      },
+    },
+  },
 };
 
 export const fonts = {
