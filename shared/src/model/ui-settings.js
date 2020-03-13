@@ -37,6 +37,10 @@ const UiSettings = {
     if (!isNil(id) && isObject(obj)) { return obj[id]; } else { return obj; }
   },
 
+  has(key) {
+    return SETTINGS.has(key);
+  },
+
   set(key, id, value) {
     if (isObject(key)) {
       SETTINGS.merge(key);
@@ -55,6 +59,23 @@ const UiSettings = {
       }
     }
     return saveSettings();
+  },
+
+  // a es7 decorator function to add a settings backing to a property
+  decorate(key) {
+    return (_, __, d) => {
+      const { configurable, enumerable, initializer } = d;
+      return {
+        configurable, enumerable,
+        get() {
+          if (initializer && !UiSettings.has(key)) {
+            return initializer();
+          }
+          return UiSettings.get(key);
+        },
+        set(val) { return UiSettings.set(key, val); },
+      };
+    };
   },
 
   // for use by specs to reset

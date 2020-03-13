@@ -74,4 +74,19 @@ describe('UiSettings', function() {
     obj = UiSettings.get('deep', 'bar');
     return expect(obj.toJS()).toEqual([2, 3]);
   });
+
+  it('can decorate properties', () => {
+    class Foo {
+      @UiSettings.decorate('fb') bar = 1;
+    }
+    const foo = new Foo();
+    expect(foo.bar).toEqual(1);
+
+    UiSettings.set({ fb: 2 });
+    expect(foo.bar).toEqual(2);
+
+    foo.bar = 'test';
+    expect(foo.bar).toEqual('test');
+    expect(saveSettings).toHaveBeenCalledTimes(2);
+  });
 });
