@@ -31,7 +31,7 @@ class LmsPush extends React.Component {
     if (lastPushedAt) {
       return <span>Last sent to LMS: {lastPushedAt}</span>;
     }
-    return null;
+    return <span>Send individual course averages to LMS</span>;
   }
 
   render() {

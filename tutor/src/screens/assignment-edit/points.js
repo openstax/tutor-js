@@ -66,7 +66,7 @@ class QuestionControls extends React.Component {
 
     return (
       <Actions>
-        <Input value={formattedPoints} onChange={this.setPoints} /> Points
+        <Input defaultValue={formattedPoints} onChange={this.setPoints} /> Points
         <Controls>
           {questionIndex == 0 && (
             <>
