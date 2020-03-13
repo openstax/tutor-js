@@ -150,7 +150,7 @@ const Term = styled.dt`
 
 const Definition = styled.dd`
   margin: 0;
-  color: ${colors.neutral.thin}
+  color: ${colors.neutral.thin};
 `;
 
 const StudentColumnHeader = () => {
