@@ -27,7 +27,7 @@ class DisplayPreviewMessage extends React.Component {
     return (
       <OnboardingNag className="only-preview">
         <Body>
-          <p>{this.props.ux.course.offering.preview_message}</p>
+          <p dangerouslySetInnerHTML={{ __html: this.props.ux.course.offering.preview_message }} />
         </Body>
         <Footer>
           <Button onClick={() => this.onContinue(onContinue)} className="continue">Ok</Button>
