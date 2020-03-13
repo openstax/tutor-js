@@ -2,15 +2,16 @@ import {
   computed, observable,
 } from 'mobx';
 
-import { filter, includes } from 'lodash';
+import { filter, includes, isEmpty } from 'lodash';
 
 import BaseOnboarding from './base';
 import Courses from '../../courses-map';
+import UiSettings from 'shared/model/ui-settings';
 
 import Nags from '../../../components/onboarding/nags';
 
 const HAS_PUBLISHED = observable.box(false);
-
+const VIEWED_PREVIEW_MESSAGE  = 'VPM';
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
 export default class PreviewOnboarding extends BaseOnboarding {
@@ -20,13 +21,19 @@ export default class PreviewOnboarding extends BaseOnboarding {
     this.dismissNag();
   }
 
+  hasViewedDisplayPreviewMessage() {
+    UiSettings.set(VIEWED_PREVIEW_MESSAGE, this.course.id, true);
+  }
+
   dismissNag() {
     this.isDismissed = true;
   }
 
   @computed get shouldWarnPreviewOnly() {
     if (!HAS_PUBLISHED.get() ||
-      this.hasCreatedRealCourse ||
+        this.hasCreatedRealCourse ||
+        !this.course.offering ||
+        !this.course.offering.is_available ||
       this.course.teacherTaskPlans.api.isPending
     ) { return false; }
 
@@ -37,8 +44,19 @@ export default class PreviewOnboarding extends BaseOnboarding {
     return (realPlanCount > 0 && realPlanCount % 2 === 0);
   }
 
+  @computed get shouldDisplayPreviewMessage() {
+    return Boolean(
+      this.course.offering &&
+        !isEmpty(this.course.offering.preview_message) &&
+        !UiSettings.get(VIEWED_PREVIEW_MESSAGE, this.course.id)
+    );
+  }
+
   @computed get nagComponent() {
+
     if (this.otherModalsAreDisplaying) { return null; }
+
+    if (this.shouldDisplayPreviewMessage) { return Nags.displayPreviewMessage; }
 
     // we warn about creating assigments in a preview regardless of previous dismissals
     if (this.shouldWarnPreviewOnly)  { return Nags.previewOnlyWarning;  }
@@ -58,7 +76,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
   }
 
   @computed get showCreateCourseAction() {
-    return !this.hasCreatedRealCourse;
+    return !this.hasCreatedRealCourse && this.course.offering && this.course.offering.is_available;
   }
 
   _setTaskPlanPublish(v = true) {

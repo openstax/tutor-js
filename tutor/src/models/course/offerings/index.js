@@ -20,6 +20,10 @@ class OfferingsMap extends Map {
     return this.where(c => !c.is_concept_coach);
   }
 
+  @computed get previewable() {
+    return this.where(c => c.is_preview_available);
+  }
+
   @computed get available() {
     return this.where(c => c.is_available && !c.is_concept_coach);
   }
