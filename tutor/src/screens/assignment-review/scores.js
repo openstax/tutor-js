@@ -1,5 +1,6 @@
 import { React, PropTypes, styled, useObserver, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
+import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
@@ -7,9 +8,19 @@ import ExerciseType from './exercise-type';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
+const StyledStickyTable = styled(StickyTable)`
+  margin: 2.2rem 0 1.4rem;
+`;
+
 const Cell = styled(TableCell)`
   padding: 0;
-  height: 4.5rem;
+  border-left: 1px solid ${colors.neutral.pale};
+  &:last-child {
+    border-right: 1px solid ${colors.neutral.pale};
+  }
+  ${props => props.striped && css`
+    background: ${colors.neutral.lighter};
+  `}
 `;
 
 const centeredCSS = css`
@@ -18,34 +29,65 @@ const centeredCSS = css`
   align-items: center;
 `;
 
+const headingCSS = css`
+  height: 100%;
+  flex-direction: column;
+`;
+
+const paddingCSS = css`
+  padding: 1.2rem 1.6rem;
+`;
+
 const CellContents = styled.div`
   ${centeredCSS}
-  height: 100%;
   > * { width: 80px; }
-  > *:first-child { width: 200px; }
+  > *:first-child {
+    width: 16rem;
+  }
 `;
 
 const Heading = styled.div`
-  height: 100%;
-  padding: 0.5rem;
-  ${centeredCSS}
-  flex-direction: column;
-  border-right: 1px solid ${colors.neutral.lite};
+  ${props => !props.first && centeredCSS}
+  ${props => props.first && css`
+    border-right: 1px solid ${colors.neutral.pale};
+  `}
+  ${headingCSS}
+  ${paddingCSS}
 `;
 
 const HeadingTop = styled.div`
-  ${centeredCSS}
+  ${paddingCSS}
+  align-self: stretch;
   font-weight: bold;
 `;
 
 const HeadingMiddle = styled.div`
-  ${centeredCSS}
+  ${paddingCSS}
+  align-self: stretch;
+  padding-top: 0;
+  font-size: 1rem;
+  color: ${colors.neutral.thin};
 `;
 
 const HeadingBottom = styled.div`
-  ${centeredCSS}
-  font-weight: 100;
-  font-size: 80%;
+  ${paddingCSS}
+  align-self: stretch;
+  font-size: 1rem;
+  background: #fff;
+`;
+
+const ColumnHeading = styled.div`
+  ${headingCSS}
+  background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
+  border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.homework.border : colors.neutral.std};
+  &:not(:last-child) {
+    border-right: 1px solid ${colors.neutral.pale};
+  }
+  > * {
+    ${props => !props.first && css`
+      ${centeredCSS}
+    `}
+  }
 `;
 
 const SplitCell = styled.div`
@@ -57,14 +99,13 @@ const LateWork = styled.div`
   padding: 0;
   height: 100%;
   ${centeredCSS}
-  border-right: 1px solid ${colors.neutral.lite};
 `;
 
 const Total = styled.div`
   padding: 0;
-  height: 100%;
+  align-self: stretch;
+  border-right: 1px solid  ${colors.neutral.pale};
   ${centeredCSS}
-  border-right: 1px solid ${colors.neutral.lite};
 `;
 
 const isTroubleCSS = css`
@@ -74,7 +115,6 @@ const isTroubleCSS = css`
 `;
 
 const Result = styled.div`
-  border-right: 1px solid ${colors.neutral.lite};
   display: flex;
   height: 100%;
   justify-content: center;
@@ -82,11 +122,15 @@ const Result = styled.div`
   ${props => props.isTrouble && isTroubleCSS}
 `;
 
+const StyledButton = styled(Button)`
+  && { padding: 0; }
+`;
+
 const StudentColumnHeader = () => {
   return useObserver(() => (
-    <Cell>
+    <Cell leftBorder={true}>
       <CellContents>
-        <Heading>
+        <ColumnHeading first={true}>
           <HeadingTop>
             Student Name
           </HeadingTop>
@@ -96,8 +140,8 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             Available Points
           </HeadingBottom>
-        </Heading>
-        <Heading>
+        </ColumnHeading>
+        <ColumnHeading>
           <HeadingTop>
             Total <Icon type="sort" />
           </HeadingTop>
@@ -112,8 +156,8 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             {20.0}
           </HeadingBottom>
-        </Heading>
-        <Heading>
+        </ColumnHeading>
+        <ColumnHeading>
           <HeadingTop>
             Late work
           </HeadingTop>
@@ -123,28 +167,25 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             {-10.0}
           </HeadingBottom>
-        </Heading>
+        </ColumnHeading>
       </CellContents>
     </Cell>
   ));
 };
 
-const StudentCell = ({ student }) => {
+const StudentCell = ({ student, striped }) => {
 
   return useObserver(() => (
-    <Cell>
+    <Cell striped={striped}>
       <CellContents>
 
-        <Heading>
-          <HeadingTop>
+        <Heading first={true}>
+          <StyledButton variant="link">
             {student.name}
-          </HeadingTop>
-          <HeadingBottom>
-            {student.student_identifier}
-          </HeadingBottom>
+          </StyledButton>
         </Heading>
 
-        <Total>
+        <Total displayName="Total">
           {S.numberWithOneDecimalPlace(student.course_average)}
         </Total>
 
@@ -159,7 +200,7 @@ const StudentCell = ({ student }) => {
 const AssignmentHeading = ({ info, index }) => {
   return useObserver(() => (
     <Cell>
-      <Heading>
+      <ColumnHeading variant="q">
         <HeadingTop>
           Q{index+1}
         </HeadingTop>
@@ -169,14 +210,14 @@ const AssignmentHeading = ({ info, index }) => {
         <HeadingBottom>
           {S.numberWithOneDecimalPlace(info.points)}
         </HeadingBottom>
-      </Heading>
+      </ColumnHeading>
     </Cell>
   ));
 };
 
-const TaskResult = ({ info, answer }) => {
+const TaskResult = ({ info, answer, striped }) => {
   return useObserver(() => (
-    <Cell>
+    <Cell striped={striped}>
       <Result isTrouble={false}>{answer ? S.numberWithOneDecimalPlace(info.points) : '…'}</Result>
     </Cell>
   ));
@@ -186,19 +227,19 @@ const Scores = ({ ux }) => {
   const { scores } = ux;
 
   return useObserver(() => (
-    <StickyTable>
+    <StyledStickyTable>
       <Row>
         <StudentColumnHeader scores={scores} />
         {scores.questionsInfo.map((info, i) => <AssignmentHeading key={info.key} index={i} info={info} />)}
       </Row>
-      {scores.sortedStudents.map((student,i) => (
-        <Row key={i}>
-          <StudentCell student={student} />
+      {scores.sortedStudents.map((student,sIndex) => (
+        <Row key={sIndex}>
+          <StudentCell student={student} striped={0 === sIndex % 2} />
           {scores.questionsInfo.map((info, i) => (
-            <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} />
+            <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} striped={0 === sIndex % 2} />
           ))}
         </Row>))}
-    </StickyTable>
+    </StyledStickyTable>
   ));
 };
 

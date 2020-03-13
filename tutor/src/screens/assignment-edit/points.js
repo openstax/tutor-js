@@ -3,6 +3,7 @@ import { AssignmentBuilder } from './builder';
 import HomeworkQuestions from '../../components/homework-questions';
 import { Icon, SuretyGuard } from 'shared';
 import S from '../../helpers/string';
+import { colors } from 'theme';
 
 
 const Controls = styled.div`
@@ -30,6 +31,13 @@ const Input = styled.input`
 
 const MoveIcon = styled(Icon)`
   border-radius: 50%;
+`;
+
+const StyledHomeworkQuestions = styled(HomeworkQuestions)`
+  padding: 0 3.8rem;
+  overflow: hidden;
+  border: 1px solid ${colors.neutral.pale};
+  border-width: 0 1px;
 `;
 
 
@@ -93,7 +101,7 @@ const Review = observer(({ ux }) => {
 
   return (
     <AssignmentBuilder ux={ux} title="Set points and review">
-      <HomeworkQuestions
+      <StyledHomeworkQuestions
         questionsInfo={ux.plan.questionsInfo}
         controlsComponent={controlsComponent}
       />

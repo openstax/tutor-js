@@ -20,8 +20,8 @@ const CoursePeriodSelect = observer(({ course, period, onChange }) => {
   return (
     <Dropdown alignRight onSelect={onSelect}>
       <Label>
-        <CGL course={course} />
-        <Dropdown.Toggle variant="success" id="course-period-select">
+        <Dropdown.Toggle id="course-period-select" variant="outline-secondary">
+          <CGL course={course} />
           {period.name}
         </Dropdown.Toggle>
       </Label>

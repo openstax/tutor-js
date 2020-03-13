@@ -30,6 +30,13 @@ const Heading = styled.div`
   align-items: center;
 `;
 
+const StyledTabs = styled(Tabs)`
+  && > .nav-tabs li a {
+    text-transform: capitalize;
+  }
+`;
+
+
 @withRouter
 @observer
 class Grading extends React.Component {
@@ -91,7 +98,7 @@ class Grading extends React.Component {
               <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod}/>
             </div>
           </Heading>
-          <Tabs
+          <StyledTabs
             selectedIndex={this.tabIndex}
             params={this.props.params}
             onSelect={this.onTabSelection}
