@@ -10,10 +10,12 @@ import ExerciseType from './exercise-type';
 
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
+  border-bottom: 1px solid ${colors.neutral.pale};
 `;
 
 const Cell = styled(TableCell)`
   padding: 0;
+  border-bottom: 0;
   border-left: 1px solid ${colors.neutral.pale};
   &:last-child {
     border-right: 1px solid ${colors.neutral.pale};
@@ -31,7 +33,6 @@ const centeredCSS = css`
 
 const headingCSS = css`
   height: 100%;
-  flex-direction: column;
 `;
 
 const paddingCSS = css`
@@ -57,6 +58,7 @@ const Heading = styled.div`
 
 const HeadingTop = styled.div`
   ${paddingCSS}
+  padding-top: 1.2rem;
   align-self: stretch;
   font-weight: bold;
 `;
@@ -74,6 +76,8 @@ const HeadingBottom = styled.div`
   align-self: stretch;
   font-size: 1rem;
   background: #fff;
+  position: relative;
+  ${props => props.isDropped && blueTriangleCSS};
 `;
 
 const ColumnHeading = styled.div`
@@ -97,8 +101,10 @@ const SplitCell = styled.div`
 
 const LateWork = styled.div`
   padding: 0;
-  height: 100%;
   ${centeredCSS}
+  align-self: stretch;
+  position: relative;
+  ${props => props.hasExtension && greenTriangleCSS}
 `;
 
 const Total = styled.div`
@@ -115,9 +121,37 @@ const isTroubleCSS = css`
   border-bottom: 1px solid ${colors.danger};
 `;
 
+const triangleCSS = css`
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 1rem 1rem 0;
+    border-color: transparent #000 transparent transparent;
+  }
+`;
+
+const greenTriangleCSS = css`
+  ${triangleCSS}
+  &::after {
+    border-color: transparent ${colors.assignments.scores.extension} transparent transparent;
+  }
+`;
+
+const blueTriangleCSS = css`
+  ${triangleCSS}
+  &::after {
+    border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
+  }
+`;
+
 const Result = styled.div`
   display: flex;
-  height: 100%;
+  height: 5rem;
   justify-content: center;
   align-items: center;
   ${props => props.isTrouble && isTroubleCSS}
@@ -216,7 +250,7 @@ const StudentCell = ({ student, striped }) => {
           {S.numberWithOneDecimalPlace(student.course_average)}
         </Total>
 
-        <LateWork>
+        <LateWork hasExtension={false}>
           ??
         </LateWork>
       </CellContents>
@@ -234,7 +268,7 @@ const AssignmentHeading = ({ info, index }) => {
         <HeadingMiddle>
           <ExerciseType exercise={info.exercise} />
         </HeadingMiddle>
-        <HeadingBottom>
+        <HeadingBottom isDropped={false}>
           {S.numberWithOneDecimalPlace(info.points)}
         </HeadingBottom>
       </ColumnHeading>
@@ -245,7 +279,9 @@ const AssignmentHeading = ({ info, index }) => {
 const TaskResult = ({ info, answer, striped }) => {
   return useObserver(() => (
     <Cell striped={striped}>
-      <Result isTrouble={false}>{answer ? S.numberWithOneDecimalPlace(info.points) : '…'}</Result>
+      <Result isTrouble={false}>
+        {answer ? S.numberWithOneDecimalPlace(info.points) : '…'}
+      </Result>
     </Cell>
   ));
 };

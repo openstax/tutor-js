@@ -33,6 +33,7 @@ const colorDefinitions = {
   teal:          '#0C9372',
   highlight:     '#d2f7fc', // light blue
   bright_green:  '#61b22a',
+  bright_blue:   '#0dc0dc',
 };
 
 const tasks = {
@@ -73,7 +74,7 @@ export const colors = {
   forms: {
     borders: {
       light: neutral.pale,
-      focus: '#0dc0dc',
+      focus: colorDefinitions.bright_blue,
       focusShadow: 'rgba(13,192,220,0.5)',
     },
   },
@@ -107,6 +108,10 @@ export const colors = {
   },
 
   assignments: {
+    scores: {
+      dropped:   colorDefinitions.bright_blue,
+      extension: '#009670',
+    },
     submissions: {
       background: '#fafafa',
       correct: {
