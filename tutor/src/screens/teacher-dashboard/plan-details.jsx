@@ -231,37 +231,37 @@ class CoursePlanDetails extends React.Component {
         <Formik
           enableReinitialize
           initialValues={this.tasking}
-          render={({ setFieldValue }) => (
-            <Row className="tasking-date-time">
-              <Col xs={12} md={4} className="opens-at">
-                <DateTime
-                  label="Open date & time"
-                  name="opens_at"
-                  onChange={e => this.onOpensChange(e, setFieldValue)}
-                  format={format}
-                />
-                {!this.tasking.canEditOpensAt && <CantEditExplanation />}
-              </Col>
-              <Col xs={12} md={4} className="due-at">
-                <DateTime
-                  label="Due date & time"
-                  name="due_at"
-                  onChange={e => this.onDueChange(e, setFieldValue)}
-                  format={format}
-                />
-                {this.renderDueAtError()}
-              </Col>
-              <Col xs={12} md={4} className="closes-at">
-                <DateTime
-                  label="Close date & time"
-                  name="closes_at"
-                  onChange={e => this.onClosesChange(e, setFieldValue)}
-                  format={format}
-                />
-              </Col>
-            </Row>
-          )}
-        />
+        >
+        {(setFieldValue) => (
+          <Row className="tasking-date-time">
+            <Col xs={12} md={4} className="opens-at">
+              <DateTime
+                label="Open date & time"
+                name="opens_at"
+                onChange={e => this.onOpensChange(e, setFieldValue)}
+                format={format}
+              />
+              {!this.tasking.canEditOpensAt && <CantEditExplanation />}
+            </Col>
+            <Col xs={12} md={4} className="due-at">
+              <DateTime
+                label="Due date & time"
+                name="due_at"
+                onChange={e => this.onDueChange(e, setFieldValue)}
+                format={format}
+              />
+              {this.renderDueAtError()}
+            </Col>
+            <Col xs={12} md={4} className="closes-at">
+              <DateTime
+                label="Close date & time"
+                name="closes_at"
+                onChange={e => this.onClosesChange(e, setFieldValue)}
+                format={format}
+              />
+            </Col>
+          </Row>)}
+        </Formik>
       </DateFieldsWrapper>
     );
   }
