@@ -121,7 +121,7 @@ class CoursePlanDetails extends React.Component {
         <TutorLink
           disabled={!plan.isPublished}
           className="btn btn-form-action"
-          to={plan.isExternal ? 'viewScores' : 'reviewTask'}
+          to={plan.isExternal ? 'viewGradebook' : 'reviewTask'}
           params={this.linkParams}
         >
           {plan.isExternal ? 'View Scores' : 'Review Metrics'}

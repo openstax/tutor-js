@@ -26,8 +26,8 @@ Array [
     },
   },
   Object {
-    "label": "Scores",
-    "name": "viewScores",
+    "label": "Gradebook",
+    "name": "viewGradebook",
     "options": Object {},
     "params": Object {
       "courseId": 2,
@@ -104,8 +104,8 @@ Array [
     },
   },
   Object {
-    "label": "Student Scores",
-    "name": "viewScores",
+    "label": "Gradebook",
+    "name": "viewGradebook",
     "options": Object {},
     "params": Object {
       "courseId": 1,
