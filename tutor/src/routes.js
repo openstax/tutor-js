@@ -28,9 +28,6 @@ const getRoutes = (router) => {
       path: '/course/:courseId', name: 'dashboard',
       renderer:  ConditionalHandlers.dashboard,
       routes: [
-        {
-          path: 'scores', name: 'viewGradebook',
-          renderer: r(() => import('./screens/scores-report/index.jsx')) },
         { path: 'guide/:roleId?', name: 'viewPerformanceGuide',
           renderer: r(() => import('./screens/performance-forecast')) },
         {

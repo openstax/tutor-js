@@ -89,7 +89,7 @@ describe('Analytics', function() {
       [`${c}/practice`]:                     '/student/practice/1',
       [`${c}/guide`]:                        '/student/performance-forecast/1',
       [`${c}/t/month/2011-11-11`]:           '/teacher/calendar/1',
-      [`${c}/scores`]:                       '/teacher/student-scores/1',
+      [`${c}/gradebook`]:                    '/teacher/student-scores/1',
       [`${c}/settings`]:                     '/teacher/roster/1',
       [`${c}/assignment/edit/reading/11`]:   '/teacher/assignment/edit/assignment/1',
       [`${c}/assignment/edit/homework/11`]:  '/teacher/assignment/edit/assignment/1',
