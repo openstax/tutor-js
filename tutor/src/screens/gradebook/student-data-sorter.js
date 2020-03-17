@@ -7,19 +7,15 @@ const getSortValue = function(student, index, dataType, displayAs) {
   if (!isNumber(index)) { return (student.last_name || student.name).toLowerCase(); }
   const task = student.data[index];
   if (!task) { return -1; }
-
   let score;
   switch (task.type) {
     case 'reading':
-      var progress = task.is_late_work_accepted ?
-        task.completed_step_count : task.completed_on_time_step_count;
+      var progress = task.completed_on_time_step_count;
       return percent(progress, task.step_count);
     case 'homework':
       switch (dataType) {
         case 'score':
-          score =
-            task.is_late_work_accepted ?
-              task.correct_exercise_count : task.correct_on_time_exercise_count;
+          score = task.score;
           if (displayAs === 'number') {
             return score || 0;
           } else {
@@ -36,7 +32,32 @@ const getSortValue = function(student, index, dataType, displayAs) {
 };
 
 
-const StudentDataSorter = ({ sort, displayAs }) =>
-  score => getSortValue(score, sort.key, sort.dataType, displayAs);
+const StudentDataSorter = {
+  rows({ sort, displayAs }) {
+    return score => getSortValue(score, sort.key, sort.dataType, displayAs);
+  },
+  columns: {
+    points: {
+      tasks(task) { return task.available_points; },
+      headings(heading){ return heading.available_points; },
+    },
+    type: {
+      tasks(task) { return task.type; },
+      headings(heading){ return heading.type; },
+    },
+    type_and_points: {
+      tasks(task) { return [
+        StudentDataSorter.columns.type.tasks(task), StudentDataSorter.columns.points.tasks(task),
+      ]; },
+      headings(heading) { return [
+        StudentDataSorter.columns.type.headings(heading), StudentDataSorter.columns.points.headings(heading),
+      ]; },
+    },
+    date: {
+      tasks(task) { return task.due_at; },
+      headings(heading) { return heading.due_at; },
+    },
+  },
+};
 
 export default StudentDataSorter;

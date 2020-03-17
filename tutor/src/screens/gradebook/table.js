@@ -3,6 +3,8 @@ import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import TaskResultCell from './task-result-cell';
+import SortingIcon from './sorting-icon';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/402445519/preview
 
@@ -28,8 +30,12 @@ const Heading = styled.div`
   height: 100%;
   padding: 0.5rem;
   ${centeredCSS}
-  flex-direction: column;
   border-right: 1px solid ${colors.neutral.lite};
+`;
+
+const HeadingLabel = styled.div`
+  ${centeredCSS}
+  flex-direction: column;
 `;
 
 const HeadingTop = styled.div`
@@ -66,26 +72,11 @@ const Total = styled.div`
   border-right: 1px solid ${colors.neutral.lite};
 `;
 
-const isTroubleCSS = css`
-  background-color: ${colors.states.trouble}
-  border-top: 1px solid ${colors.danger};
-  border-bottom: 1px solid ${colors.danger};
-`;
-
-const Result = styled.div`
-  border-right: 1px solid ${colors.neutral.lite};
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  ${props => props.isTrouble && isTroubleCSS}
-`;
-
 const StudentColumnHeader = () => {
   return useObserver(() => (
     <Cell>
       <CellContents>
-        <Heading>
+        <HeadingLabel>
           <HeadingTop>
             Student Name
           </HeadingTop>
@@ -95,8 +86,8 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             Available Points
           </HeadingBottom>
-        </Heading>
-        <Heading>
+        </HeadingLabel>
+        <HeadingLabel>
           <HeadingTop>
             Total <Icon type="sort" />
           </HeadingTop>
@@ -111,8 +102,8 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             {20.0}
           </HeadingBottom>
-        </Heading>
-        <Heading>
+        </HeadingLabel>
+        <HeadingLabel>
           <HeadingTop>
             Late work
           </HeadingTop>
@@ -122,7 +113,7 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             {-10.0}
           </HeadingBottom>
-        </Heading>
+        </HeadingLabel>
       </CellContents>
     </Cell>
   ));
@@ -134,14 +125,14 @@ const StudentCell = ({ student }) => {
     <Cell>
       <CellContents>
 
-        <Heading>
+        <HeadingLabel>
           <HeadingTop>
             {student.name}
           </HeadingTop>
           <HeadingBottom>
             {student.student_identifier}
           </HeadingBottom>
-        </Heading>
+        </HeadingLabel>
 
         <Total>
           {S.numberWithOneDecimalPlace(student.course_average)}
@@ -155,31 +146,30 @@ const StudentCell = ({ student }) => {
   ));
 };
 
-const AssignmentHeading = ({ heading }) => {
-  return useObserver(() => (
-    <Cell>
+const AssignmentHeading = ({ ux, heading, sortKey }) => useObserver(() => {
+
+  const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
+
+  return (
+    <Cell onClick={onClick}>
       <Heading>
-        <HeadingTop>
-          {heading.title}
-        </HeadingTop>
-        <HeadingMiddle>
-          MPQ/SPQ/WRM
-        </HeadingMiddle>
-        <HeadingBottom>
-          {S.numberWithOneDecimalPlace(heading.average_score)}
-        </HeadingBottom>
+        <HeadingLabel>
+          <HeadingTop>
+            {heading.title}
+          </HeadingTop>
+          <HeadingMiddle>
+            MPQ/SPQ/WRM
+          </HeadingMiddle>
+          <HeadingBottom>
+            {S.numberWithOneDecimalPlace(heading.average_score)}
+          </HeadingBottom>
+        </HeadingLabel>
+        <SortingIcon ux={ux} heading={heading} dataType="score" sortKey={sortKey} />
       </Heading>
     </Cell>
-  ));
-};
+  );
+});
 
-const TaskResult = ({ result }) => {
-  return useObserver(() => (
-    <Cell>
-      <Result isTrouble={result.isTrouble}>{result.isStarted ? S.numberWithOneDecimalPlace(result.score) : '…'}</Result>
-    </Cell>
-  ));
-};
 
 const GradebookTable = ({ ux }) => {
 
@@ -187,12 +177,12 @@ const GradebookTable = ({ ux }) => {
     <StickyTable>
       <Row>
         <StudentColumnHeader />
-        {ux.headings.map((h,i) => <AssignmentHeading key={i} heading={h} />)}
+        {ux.headings.map((h,i) => <AssignmentHeading key={i} sortKey={i} ux={ux} heading={h} />)}
       </Row>
       {ux.students.map((student,i) => (
         <Row key={i}>
           <StudentCell ux={ux} student={student} />
-          {student.data.map((score, i) => <TaskResult key={i} result={score} />)}
+          {ux.studentTasks(student).map((score, i) => <TaskResultCell key={i} ux={ux} task={score} />)}
         </Row>))}
     </StickyTable>
   ));

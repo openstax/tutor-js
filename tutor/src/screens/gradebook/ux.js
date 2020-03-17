@@ -35,7 +35,7 @@ export default class GradeBookUX {
   windowSize = new WindowSize();
 
   @observable sortIndex;
-  @observable sort = { key: 'name', asc: true, dataType: 'score' };
+  @observable rowSort = { key: 'name', asc: true, dataType: 'score' };
 
 
   @observable searchingMatcher = null;
@@ -85,18 +85,31 @@ export default class GradeBookUX {
     return this.course.scores;
   }
 
-  @action.bound changeSortingOrder(key, dataType) {
-    this.sort.asc = this.sort.key === key ? (!this.sort.asc) : false;
-    this.sort.key = key;
-    this.sort.dataType = dataType;
+  @action.bound changeRowSortingOrder(key, dataType) {
+    this.rowSort.asc = this.rowSort.key === key ? (!this.rowSort.asc) : false;
+    this.rowSort.key = key;
+    this.rowSort.dataType = dataType;
   }
 
-  isSortedBy({ sortKey, dataType }) {
-    return (this.sort.key === sortKey) && (this.sort.dataType === dataType);
+  isRowSortedBy({ sortKey, dataType }) {
+    return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
   }
 
-  @computed get studentSorter() {
-    return studentDataSorter({ sort: this.sort, displayAs: this.displayAs });
+  @computed get studentRowSorter() {
+    return studentDataSorter.rows({ sort: this.rowSort, displayAs: this.displayAs });
+  }
+
+  @computed get columnSorter() {
+    const sorter = studentDataSorter.columns;
+    if (this.arrangeColumnsByType) {
+      if (this.arrangeColumnsByPoints) {
+        return sorter.type_and_points;
+      }
+      return sorter.type;
+    } else if (this.arrangeColumnsByPoints) {
+      return sorter.points;
+    }
+    return sorter.date;
   }
 
   @computed get period() {
@@ -106,9 +119,9 @@ export default class GradeBookUX {
   @computed get students() {
     const students = sortBy(
       filter(this.period.students, s => !s.is_dropped),
-      this.studentSorter,
+      this.studentRowSorter,
     );
-    if (!this.sort.asc) {
+    if (!this.rowSort.asc) {
       students.reverse();
     }
     if (this.showDroppedStudents) {
@@ -123,12 +136,16 @@ export default class GradeBookUX {
   @computed get droppedStudents() {
     return sortBy(
       filter(this.period.students, 'is_dropped'),
-      this.studentSorter,
+      this.studentRowSorter,
     );
   }
 
   @computed get headings() {
-    return this.period.data_headings;
+    return sortBy(this.period.data_headings, this.columnSorter.headings);
+  }
+
+  studentTasks(student) {
+    return sortBy(student.data, this.columnSorter.tasks);
   }
 
   @action updateProps(props) {

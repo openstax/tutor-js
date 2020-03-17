@@ -23,8 +23,8 @@ const CourseCalendarHeader = observer((props) => {
           </TutorLink>
         </TourAnchor>
         <TourAnchor id="student-scores-button">
-          <TutorLink className="btn btn-default" to="viewScores" params={{ courseId: course.id }}>
-            Student Scores
+          <TutorLink className="btn btn-default" to="viewGradebook" params={{ courseId: course.id }}>
+            Gradebook
           </TutorLink>
         </TourAnchor>
         <TourAnchor id="performance-forecast-button">
