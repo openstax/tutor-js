@@ -11,6 +11,7 @@ import { navbars } from '../../theme.js';
 import Details from './details';
 import Overview from './overview';
 import Scores from './scores';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
 
@@ -90,13 +91,12 @@ class Grading extends React.Component {
       <BackgroundWrapper>
         <ScrollToTop>
           <Heading>
-            <div>
-              {course.name} >
-              <h1>{planScores.title}</h1>
-            </div>
-            <div>
-              <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod}/>
-            </div>
+            <CourseBreadcrumb
+              course={course}
+              currentTitle={planScores.title}
+              titleSize="lg"
+            />
+            <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod} />
           </Heading>
           <StyledTabs
             selectedIndex={this.tabIndex}
