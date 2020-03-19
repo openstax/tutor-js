@@ -76,6 +76,7 @@ const Icons = {
   'question-circle':      require('@fortawesome/free-solid-svg-icons/faQuestionCircle'),
   'recycle':              require('@fortawesome/free-solid-svg-icons/faRecycle'),
   'search':               require('@fortawesome/free-solid-svg-icons/faSearch'),
+  'share-square':         require('@fortawesome/free-solid-svg-icons/faShareSquare'),
   'sort':                 require('@fortawesome/free-solid-svg-icons/faSort'),
   'sort-down':            require('@fortawesome/free-solid-svg-icons/faSortDown'),
   'sort-up':              require('@fortawesome/free-solid-svg-icons/faSortUp'),

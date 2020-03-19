@@ -1,5 +1,7 @@
 import { React, PropTypes, styled, useObserver } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
+import { Button } from 'react-bootstrap';
+import ExerciseType from './exercise-type';
 import S from '../../helpers/string';
 import { Icon } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -89,10 +91,45 @@ const Legend = styled.div`
   color: ${colors.neutral.thin};
 `;
 
-const Overview = ({ ux, ux: { scores } }) => {
+const Toolbar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+`;
 
+const Center = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-size: 1.6rem;
+`;
+
+const Right = styled.div`
+
+`;
+
+const GradeButton = styled(Button)`
+  && {
+    padding: 1.2rem 2.1rem 1.6rem 1.1rem;
+    line-height: 1.9rem;
+  }
+`;
+
+const Overview = ({ ux, ux: { scores } }) => {
   return useObserver(() => (
     <Wrapper data-test-id="overview">
+      <Toolbar>
+        <Center>
+          This assignment is now open for grading.
+        </Center>
+        <Right>
+          <GradeButton variant="primary" className="btn-new-flag">
+            <span className="flag">72 New</span>
+            <span>Grade answers</span>
+          </GradeButton>
+        </Right>
+      </Toolbar>
       <StyledStickyTable>
         <Row>
           <Header>Question Number</Header>

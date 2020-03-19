@@ -7,6 +7,7 @@ export default class ScoresReportUX {
 
   @observable sortIndex;
   @observable sort = { key: 'name', asc: true, dataType: 'score' };
+  @observable searchingMatcher = null;
 
   constructor(ux) {
     this.reportUX = ux;
@@ -14,6 +15,10 @@ export default class ScoresReportUX {
 
   @computed get analytics() {
     return this.reportUX.plan.analytics.stats.find(s => s.period_id == this.reportUX.selectedPeriod.id);
+  }
+
+  @action.bound onSearchStudentChange({ target: { value } }) {
+    this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
   @action.bound changeSortingOrder(key, dataType) {
@@ -39,7 +44,10 @@ export default class ScoresReportUX {
       students.reverse();
     }
     students.push(...this.droppedStudents);
-    return students;
+    if (!this.searchingMatcher) {
+      return students;
+    }
+    return filter(students, s => s.name.match(this.searchingMatcher));
   }
 
   @computed get droppedStudents() {

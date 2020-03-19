@@ -159,3 +159,36 @@ $form-action-border: #d5d5d5;
   align-items: center;
   justify-content: center;
 }
+
+.btn-new-flag {
+  display: inline-flex;
+  align-items: center;
+
+  .flag {
+    background: #fff;
+    color: $primary-background;
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.3rem;
+    position: relative;
+    margin-right: 2.6rem;
+    height: 1.6rem;
+    width: 3.8rem;
+
+    &:before {
+      content: "";
+      position: absolute;
+      right: -1.6rem;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-right: 0.8rem solid transparent;
+      border-top: 0.8rem solid #fff;
+      border-left: 0.8rem solid #fff;
+      border-bottom: 0.8rem solid #fff;
+    }
+  }
+}

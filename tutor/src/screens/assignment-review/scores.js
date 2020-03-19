@@ -4,6 +4,8 @@ import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import ExerciseType from './exercise-type';
+import SearchInput from '../../components/search-input';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -186,6 +188,12 @@ const Definition = styled.dd`
   color: ${colors.neutral.thin};
 `;
 
+const ToolbarButton = styled(Button)`
+  && {
+    border: 1px solid ${colors.neutral.pale};
+  }
+`;
+
 const StudentColumnHeader = () => {
   return useObserver(() => (
     <Cell leftBorder={true}>
@@ -284,11 +292,59 @@ const TaskResult = ({ result, striped }) => {
   ));
 };
 
+const ControlsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+`;
+
+const ControlGroup = styled.div`
+  display: flex;
+
+  .input-group {
+    width: 25.6rem;
+
+    input {
+      height: 100%;
+    }
+  }
+
+  && {
+    > *:not(:first-child), > .btn + .btn {
+      margin-left: 1.6rem;
+    }
+    .btn:not(.btn-icon) {
+      padding: 0.5rem 3.3rem 0.75rem;
+    }
+  }
+`;
+
+const TableHeader = ({ scores }) => {
+  return (
+    <ControlsWrapper>
+      <ControlGroup>
+        <SearchInput onChange={scores.onSearchStudentChange} />
+        <ToolbarButton variant="plain">Grant extension</ToolbarButton>
+        <ToolbarButton variant="plain">Drop question</ToolbarButton>
+      </ControlGroup>
+      <ControlGroup>
+        <ToolbarButton variant="icon"><Icon type="download" /></ToolbarButton>
+        <ToolbarButton variant="primary">Publish scores</ToolbarButton>
+      </ControlGroup>
+    </ControlsWrapper>
+  );
+};
+TableHeader.propTypes = {
+  scores: PropTypes.object.isRequired,
+};
+
 const Scores = ({ ux }) => {
   const { scores } = ux;
 
   return useObserver(() => (
     <>
+      <TableHeader scores={scores} />
       <StyledStickyTable data-test-id="scores">
         <Row>
           <StudentColumnHeader scores={scores} />
