@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import { Milestones } from '../../../src/screens/task/milestones';
-import { Factory, ld, TestRouter, TimeMock } from '../../helpers';
+import { Factory, Router, ld, TestRouter, TimeMock } from '../../helpers';
 
 describe('Reading Milestones Component', () => {
   let props, history;
@@ -20,11 +20,11 @@ describe('Reading Milestones Component', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<Milestones {...props} />).toMatchSnapshot();
+    expect(<Router><Milestones {...props} /></Router>).toMatchSnapshot();
   });
 
   it('goes to step', () => {
-    const ms = mount(<Milestones {...props} />);
+    const ms = mount(<Router><Milestones {...props} /></Router>);
     ms.find('Breadcrumb[stepIndex=0]').simulate('click');
     expect(props.ux._stepIndex).toEqual(0);
     expect(props.onHide).toHaveBeenCalled();
@@ -37,7 +37,7 @@ describe('Reading Milestones Component', () => {
     step.is_completed = true;
     step.answer_id = step.correct_answer_id = 1;
 
-    const ms = mount(<Milestones {...props} />);
+    const ms = mount(<Router><Milestones {...props} /></Router>);
 
     expect(ms).toHaveRendered(`[data-step-id=${step.id}] .icon-correct`);
     expect(ms).not.toHaveRendered(`[data-step-id=${step.id}] .icon-incorrect`);
