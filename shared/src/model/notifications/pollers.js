@@ -18,8 +18,16 @@ class Poller {
     this.type = type;
     this.notices = notices;
     this.interval = interval;
+    this.lastPoll = moment.unix(0);
     this.prefsStorageKey = `${STORAGE_KEY}-${this.type}`;
     bindAll(this, 'poll', 'onReply', 'onError');
+    document.addEventListener('visibilitychange', this.onVisiblityChange);
+  }
+
+  onVisiblityChange = () => {
+    if (this.shouldPoll) {
+      this.poll();
+    }
   }
 
   setUrl(url) {
@@ -29,17 +37,29 @@ class Poller {
 
   destroy() {
     if (this.polling) { this.notices.windowImpl.clearInterval(this.polling); }
+    document.removeEventListener('visibilitychange', this.onVisiblityChange);
     return delete this.polling;
   }
 
   startPolling() {
     this.polling = this.notices.windowImpl.setInterval(this.poll, this.interval.asMilliseconds());
+
     return this.poll();
+
+  }
+
+  get shouldPoll() {
+    // we poll if the document is visible and a poll is due
+    return this.notices.windowImpl.document.hidden !== true &&
+      moment().isSameOrAfter(this.lastPoll.add(this.interval));
   }
 
   poll() {
-    if (this.notices.windowImpl.document.hidden === true) { return Promise.resolve(); }
-    return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
+    if (this.shouldPoll) {
+      this.lastPoll = moment();
+      return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
+    }
+    return Promise.resolve();
   }
 
   onReply() {
