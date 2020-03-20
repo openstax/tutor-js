@@ -2,6 +2,7 @@ import { ld } from '../../helpers';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import Notifications from 'model/notifications';
 import UiSettings from 'model/ui-settings';
+import moment from 'moment';
 import TEST_NOTICES from '../../../api/notifications';
 import Poller from 'model/notifications/pollers';
 
@@ -84,5 +85,14 @@ describe('Notification Pollers', function() {
     });
     // 1 and 2 are removed
     expect(UiSettings.set).toHaveBeenLastCalledWith('ox-notifications-tutor', []);
+  });
+
+  it('polls when becomes visible', () => {
+    notices.windowImpl.document.hidden = true;
+    expect(tutor.shouldPoll).toBe(false);
+    notices.windowImpl.document.hidden = false;
+    expect(tutor.shouldPoll).toBe(true);
+    tutor.lastPoll = moment();
+    expect(tutor.shouldPoll).toBe(false);
   });
 });
