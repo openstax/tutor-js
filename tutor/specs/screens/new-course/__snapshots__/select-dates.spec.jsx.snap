@@ -9,7 +9,7 @@ Array [
 
 .c1 {
   font-size: 12px;
-  text-transform: unset;
+  text-transform: lowercase;
   margin-top: 0.5rem;
   font-weight: 100;
 }
@@ -207,7 +207,7 @@ Array [
   </div>,
   .c0 {
   font-size: 12px;
-  text-transform: unset;
+  text-transform: lowercase;
   margin-top: 0.5rem;
   font-weight: 100;
   margin-top: 1.5rem;
@@ -217,7 +217,7 @@ Array [
 <div
     className="c0"
   >
-    Fall and Winter 2020 courses will be available with written-response questions and a new improved Student Scores page.
+    Fall and Winter 2020 courses will be available with written-response questions and a new, improved Student Scores page.
   </div>,
 ]
 `;

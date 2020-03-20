@@ -7,7 +7,7 @@ import BuilderUX from './ux';
 
 const Subnote = styled.div`
   font-size: 12px;
-  text-transform: unset;
+  text-transform: lowercase;
   margin-top: 0.5rem;
   font-weight: 100;
 `;
@@ -85,7 +85,7 @@ class SelectDates extends React.Component {
         </Listing>
         <DisabledLegend>
           Fall and Winter 2020 courses will be available with
-          written-response questions and a new improved Student Scores page.
+          written-response questions and a new, improved Student Scores page.
         </DisabledLegend>
       </>
     );
