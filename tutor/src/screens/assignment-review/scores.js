@@ -11,7 +11,10 @@ import SearchInput from '../../components/search-input';
 
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
-  border-bottom: 1px solid ${colors.neutral.pale};
+
+  .sticky-table-row:last-child .sticky-table-cell {
+    border-bottom: 1px solid ${colors.neutral.pale};
+  }
 `;
 
 const Cell = styled(TableCell)`
