@@ -1,6 +1,6 @@
 import { range } from 'lodash';
 
-context('Dashboard', () => {
+context('Assignment Edit', () => {
   const fillDetails = () => {
     cy.get('.heading').should('contain.text', 'STEP 1')
     cy.get('.controls .btn-primary').should('be.disabled')

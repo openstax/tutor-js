@@ -86,6 +86,13 @@ class ExerciseQuestion extends BaseModel {
     }
   }
 
+  @computed get formatId() {
+    if (this.isMultipleChoice) {
+      return 'MC';
+    }
+    return 'UNK';
+  }
+
   @computed get requiresChoicesFormat() {
     return !this.hasFormat('free-response');
   }

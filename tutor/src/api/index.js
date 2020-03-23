@@ -40,6 +40,7 @@ import TaskResult from '../models/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
+import TaskPlanScores from '../models/task-plans/teacher/scores';
 import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 import Stats from '../models/stats';
@@ -255,6 +256,12 @@ const startAPI = function() {
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
 
   connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
+
+  connectModelRead(TaskPlanScores, 'fetch', {
+    onSuccess: 'onApiRequestComplete',
+    pattern: 'plans/{id}/scores',
+    query() { return { course_id: this.course.id }; },
+  });
 
   connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
 

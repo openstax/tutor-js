@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
-import ExerciseType from './exercise-type';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -258,29 +257,29 @@ const StudentCell = ({ student, striped }) => {
   ));
 };
 
-const AssignmentHeading = ({ info, index }) => {
+const AssignmentHeading = ({ heading }) => {
   return useObserver(() => (
     <Cell>
       <ColumnHeading variant="q">
         <HeadingTop>
-          Q{index+1}
+          {heading.title}
         </HeadingTop>
         <HeadingMiddle>
-          <ExerciseType exercise={info.exercise} />
+          ??
         </HeadingMiddle>
         <HeadingBottom isDropped={false}>
-          {S.numberWithOneDecimalPlace(info.points)}
+          {S.numberWithOneDecimalPlace(heading.points)}
         </HeadingBottom>
       </ColumnHeading>
     </Cell>
   ));
 };
 
-const TaskResult = ({ info, answer, striped }) => {
+const TaskResult = ({ result, striped }) => {
   return useObserver(() => (
     <Cell striped={striped}>
       <Result isTrouble={false}>
-        {answer ? S.numberWithOneDecimalPlace(info.points) : '…'}
+        {result.is_completed ? S.numberWithOneDecimalPlace(result.points) : '…'}
       </Result>
     </Cell>
   ));
@@ -291,16 +290,16 @@ const Scores = ({ ux }) => {
 
   return useObserver(() => (
     <>
-      <StyledStickyTable>
+      <StyledStickyTable data-test-id="scores">
         <Row>
           <StudentColumnHeader scores={scores} />
-          {scores.questionsInfo.map((info, i) => <AssignmentHeading key={info.key} index={i} info={info} />)}
+          {scores.question_headings.map((h, i) => <AssignmentHeading key={i} heading={h} />)}
         </Row>
-        {scores.sortedStudents.map((student,sIndex) => (
+        {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell student={student} striped={0 === sIndex % 2} />
-            {scores.questionsInfo.map((info, i) => (
-              <TaskResult key={info.key} index={i} info={info} answer={info.stats.answerForStudent(student)} striped={0 === sIndex % 2} />
+            {student.questions.map((result, i) => (
+              <TaskResult key={i} index={i} result={result} striped={0 === sIndex % 2} />
             ))}
           </Row>))}
       </StyledStickyTable>

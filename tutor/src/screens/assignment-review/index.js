@@ -78,9 +78,9 @@ class Grading extends React.Component {
   }
 
   render() {
-    const { isReady, course, plan, selectedPeriod, setSelectedPeriod } = this.ux;
+    const { isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod } = this.ux;
 
-    if (!isReady) {
+    if (!isScoresReady) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
 
@@ -92,7 +92,7 @@ class Grading extends React.Component {
           <Heading>
             <div>
               {course.name} >
-              <h1>{plan.title}</h1>
+              <h1>{planScores.title}</h1>
             </div>
             <div>
               <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod}/>

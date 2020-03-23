@@ -1,44 +1,56 @@
 import { observable, action, computed } from 'vendor';
 import { first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import ScoresUX from './scores-ux';
+import TaskPlanScores from '../../models/task-plans/teacher/scores';
+import Exercises from '../../models/exercises';
 
-export default class GradingUX {
+export default class AssignmentReviewUX {
 
-  @observable isReady = false
   @observable selectedPeriod;
+  @observable exercisesHaveBeenFetched = false
 
-  scores = new ScoresUX(this);
+  freeResponseQuestions = observable.map();
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
 
   @action async initialize({
-    id, plan, course,
-    gradingTemplates = course.gradingTemplates,
+    id, scores, course,
     windowImpl = window,
   }) {
     this.scroller = new ScrollTo({ windowImpl });
-    this.plan = plan || course.teacherTaskPlans.withPlanId(id);
+    this.planScores = scores || new TaskPlanScores({ id, course });
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
 
-    await this.plan.ensureLoaded();
-    await this.plan.analytics.fetchReview();
-    await gradingTemplates.ensureLoaded();
-    await this.plan.exercisesMap.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
-    await this.course.roster.ensureLoaded();
+    await this.planScores.fetch();
 
-    this.isReady = true;
+    await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
+    this.exercisesHaveBeenFetched = true;
   }
+
+  @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }
+  @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
 
   @action.bound setSelectedPeriod(period) {
     this.selectedPeriod = period;
   }
 
-  @computed get students() {
-    return this.course.roster.students;
+  @computed get scores() {
+    return this.planScores.periods.find(period => this.selectedPeriod.period_id == period.id);
   }
 
+
+  @computed get sortedStudents() {
+    return this.scores.students; // TODO: sort this ;)
+  }
+
+  isShowingFreeResponseForQuestion(question) {
+    return Boolean(this.freeResponseQuestions.get(question.id));
+  }
+
+  @action.bound toggleFreeResponseForQuestion(question) {
+    this.freeResponseQuestions.set(question.id, !this.isShowingFreeResponseForQuestion(question));
+  }
 }
