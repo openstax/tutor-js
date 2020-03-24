@@ -5,6 +5,7 @@ import { Course } from '../models/courses-map';
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 2rem 0;
@@ -27,6 +28,15 @@ const TaskTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  ${props => props.titleSize === 'lg' && css`
+    overflow: initial;
+    max-width: initial;
+    width: 100%;
+    margin-top: 1.8rem;
+    font-size: 3.6rem;
+    font-weight: bold;
+    color: ${Theme.colors.neutral.darker};
+  `}
 `;
 
 export default class CourseBreadcrumb extends React.Component {
@@ -34,18 +44,20 @@ export default class CourseBreadcrumb extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     currentTitle: PropTypes.string.isRequired,
+    titleSize: PropTypes.string,
   }
 
   render() {
+    const { course, currentTitle, titleSize } = this.props;
     return (
       <Wrapper>
-        <TutorLink to="dashboard" params={{ courseId: this.props.course.id }}>
-          {this.props.course.name}
+        <TutorLink to="dashboard" params={{ courseId: course.id }}>
+          {course.name}
         </TutorLink>
         <AngleDivider>
           <Icon type="angle-right" />
         </AngleDivider>
-        <TaskTitle>{this.props.currentTitle}</TaskTitle>
+        <TaskTitle titleSize={titleSize}>{currentTitle}</TaskTitle>
       </Wrapper>
     );
   }

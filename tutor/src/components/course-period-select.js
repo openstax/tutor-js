@@ -3,10 +3,23 @@ import { find, without } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import Course  from '../models/course';
 import Period from '../models/course/period';
+import { colors } from 'theme';
 import CGL from './course-grouping-label';
 
 const Label = styled.label`
   .cgl { margin-right: 1rem; }
+`;
+
+const StyledDropdownToggle = styled(Dropdown.Toggle)`
+  && {
+    border: 1px solid ${colors.forms.borders.light};
+    color: ${colors.neutral.dark};
+    border-radius: 4px;
+    min-width: 18rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const CoursePeriodSelect = observer(({ course, period, onChange }) => {
@@ -20,10 +33,12 @@ const CoursePeriodSelect = observer(({ course, period, onChange }) => {
   return (
     <Dropdown alignRight onSelect={onSelect}>
       <Label>
-        <Dropdown.Toggle id="course-period-select" variant="outline-secondary">
-          <CGL course={course} />
-          {period.name}
-        </Dropdown.Toggle>
+        <StyledDropdownToggle id="course-period-select" variant="outline-secondary">
+          <span>
+            <CGL course={course} />
+            {period.name}
+          </span>
+        </StyledDropdownToggle>
       </Label>
       <Dropdown.Menu>
         {choices.map(p => <Dropdown.Item eventKey={p.id} key={p.id}>{p.name}</Dropdown.Item>)}

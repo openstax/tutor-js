@@ -11,6 +11,9 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 2rem 0;

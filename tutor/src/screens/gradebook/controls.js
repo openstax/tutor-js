@@ -1,9 +1,10 @@
 import { React, PropTypes, styled, useState, useRef, useObserver } from 'vendor';
-import { InputGroup, FormControl, Button, Popover, Overlay } from 'react-bootstrap';
+import { Button, Popover, Overlay } from 'react-bootstrap';
 import { Icon } from 'shared';
 import LMSPushBtn from './lms-push-btn';
 import ExportBtn from './export-btn';
 import UX from './ux';
+import SearchInput from '../../components/search-input';
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,21 +26,6 @@ const RightSide = styled.div`
   align-items: center;
   justify-items: center;
 `;
-
-const SearchInput = ({ ux }) => {
-
-  return (
-    <InputGroup>
-      <FormControl
-        placeholder="Search by student name"
-        onChange={ux.onSearchStudentChange}
-      />
-      <InputGroup.Append>
-        <Button variant="outline-secondary"><Icon type="search" /></Button>
-      </InputGroup.Append>
-    </InputGroup>
-  );
-};
 
 const Toggles = styled(Popover.Content)`
   padding: 1rem;
@@ -96,7 +82,7 @@ const SelectionTypes = ({ ux }) => {
 const Controls = ({ ux }) => {
   return (
     <Wrapper>
-      {ux.isTeacher && <SearchInput ux={ux} />}
+      {ux.isTeacher && <SearchInput onChange={ux.onSearchStudentChange} />}
       <RightSide>
         <LMSPushBtn course={ux.course} />
         <ExportBtn course={ux.course} />
