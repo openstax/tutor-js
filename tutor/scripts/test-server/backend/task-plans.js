@@ -3,9 +3,11 @@ const moment = require('moment');
 const { times, merge } = require('lodash');
 const { now } = require('../time-now');
 const fake = require('faker');
+const { getExercise } = require('./exercises');
 const { getCourse } = require('./bootstrap');
 require('../../../specs/factories/teacher-task-plan');
 require('../../../specs/factories/task-plan-stats');
+require('../../../specs/factories/task-scores');
 require('../../../specs/factories/exercise');
 
 let ROLE = 'teacher';
@@ -54,6 +56,14 @@ module.exports = {
     res.json(stat);
   },
 
+  getScores(req, res) {
+    const course = getCourse(req.query.course_id);
+    const plan = planForId(req.params.id);
+    const exercises = times(8).map((id) => getExercise(id));
+    const scores = Factory.create('TaskPlanScores', { task_plan: plan, course, exercises });
+    res.json(scores);
+  },
+
   update(req, res) {
     const plan = req.params.id ? planForId(req.params.id) : Factory.create('TeacherTaskPlan', req.body);
     merge(plan, req.body);
@@ -65,6 +75,7 @@ module.exports = {
     server.get('/api/plans/:id', this.get);
     server.get('/api/courses/:courseId/plans/past*', this.getPast);
     server.patch('/api/plans/:id', this.update);
+    server.get('/api/plans/:id/scores', this.getScores);
     server.get('/api/plans/:id/stats', this.getStats);
     server.get('/api/plans/:id/review', this.getStats);
     server.post('/api/courses/:courseId/plans', this.update);

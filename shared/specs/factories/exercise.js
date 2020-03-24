@@ -12,7 +12,7 @@ Factory.define('ExerciseUser')
 
 Factory.define('ExerciseAnswer')
   .id(sequence)
-  .correctness('0.0')
+  .correctness(({ siblings }) => siblings.find(a => a.correctness > 0) ? 0 : fake.random.arrayElement([1.0, 1.0, 1.0, 0]))
   .content_html(({ parent, object }) => [
     [
       'Natural philosophy and physics are essentially the same thing.',
@@ -98,7 +98,7 @@ Factory.define('ExerciseQuestion')
     'In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?',
     'Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.',
   ][ object.id % 5 ])
-  .answers(reference('ExerciseAnswer', { count: 5 }))
+  .answers(reference('ExerciseAnswer', { count: () => fake.random.number({ min: 2, max: 5 }) }))
   .hints(() => [])
   .formats(() => [
     'free-response',

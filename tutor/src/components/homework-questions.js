@@ -36,6 +36,7 @@ const Header = styled.div`
   `}
 `;
 
+
 const ExerciseNumber = styled.div`
   font-size: 1.5rem;
 
@@ -44,20 +45,18 @@ const ExerciseNumber = styled.div`
     font-weight: bold;
   `}
 `;
-
+export { ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
   index, info,
-  controlsComponent: Controls,
+  questionInfoRenderer: QuestionInfo,
+  headerContentRenderer: HeaderContent,
   questionType = 'teacher-preview',
   styleVariant = 'points',
 }) => (
   <QuestionPreview className="openstax-exercise-preview">
     <Header variant={styleVariant}>
-      <ExerciseNumber variant={styleVariant}>
-        Question {index + 1}
-      </ExerciseNumber>
-      <Controls info={info} />
+      <HeaderContent styleVariant={styleVariant} info={info} label={`Question ${index + 1}`} />
     </Header>
     <div className="card-body">
       <Question
@@ -68,19 +67,22 @@ const ReviewExerciseCard = observer(({
         displayFormats={false}
         type={questionType}
       />
+      {QuestionInfo && <QuestionInfo info={info} />}
     </div>
   </QuestionPreview>
 ));
 ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
 ReviewExerciseCard.propTypes = {
-  controlsComponent: PropTypes.func.isRequired,
+  headerContentRenderer: PropTypes.func.isRequired,
+  questionInfoRenderer: PropTypes.func,
 };
 
 const HomeworkQuestions = observer(({
   questionsInfo,
   questionType,
   className,
-  controlsComponent,
+  headerContentRenderer,
+  questionInfoRenderer,
   styleVariant,
 }) => (
   <HomeworkQuestionsWrapper className={cn('homework-questions', className)}>
@@ -90,7 +92,8 @@ const HomeworkQuestions = observer(({
         index={index}
         questionType={questionType}
         key={info.key}
-        controlsComponent={controlsComponent}
+        headerContentRenderer={headerContentRenderer}
+        questionInfoRenderer={questionInfoRenderer}
         styleVariant={styleVariant}
       />
     ))}
@@ -99,7 +102,8 @@ const HomeworkQuestions = observer(({
 
 HomeworkQuestions.displayName = 'HomeworkQuestions';
 HomeworkQuestions.propTypes = {
-  controlsComponent: PropTypes.func.isRequired,
+  headerContentRenderer: PropTypes.func.isRequired,
+  questionInfoRenderer: PropTypes.func,
   questionType: PropTypes.string,
   questionsInfo: PropTypes.array.isRequired,
   styleVariant: PropTypes.string,
