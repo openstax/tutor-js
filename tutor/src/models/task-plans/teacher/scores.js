@@ -12,7 +12,6 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field points = 0;
   @field selected_answer_id;
   @field free_response;
-
 }
 
 @identifiedBy('task-plan/scores/student')
@@ -22,6 +21,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field last_name;
   @field student_identifier;
   @field is_dropped;
+  @field is_late;
   @field available_points;
   @field total_points;
   @field total_fraction;
@@ -113,6 +113,15 @@ class TaskPlanPeriodScore extends BaseModel {
     });
   }
 
+  @computed get hasEqualTutorQuestions() {
+    for (const student of this.students) {
+      if (student.questions.length != this.question_headings.length) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }
 
 export default
@@ -124,10 +133,8 @@ class TaskPlanScores extends BaseModel {
   @field type;
 
   @hasMany({ model: TaskPlanPeriodScore, inverseOf: 'plan' }) periods;
-
   @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
   @belongsTo({ model: 'course' }) course;
-
 
   @computed get exerciseIds() {
     const ids = [];
