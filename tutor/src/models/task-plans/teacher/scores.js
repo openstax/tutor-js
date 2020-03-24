@@ -18,7 +18,8 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 @identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
   @identifier student_id;
-  @field name;
+  @field first_name;
+  @field last_name;
   @field student_identifier;
   @field is_dropped;
   @field available_points;
@@ -30,6 +31,9 @@ class TaskPlanScoreStudent extends BaseModel {
   @hasMany({ model: TaskPlanScoreStudentQuestion }) questions;
   @belongsTo({ model: 'task-plan/scores/period' }) period;
 
+  @computed get name() {
+    return `${this.last_name}, ${this.first_name}`;
+  }
 }
 
 

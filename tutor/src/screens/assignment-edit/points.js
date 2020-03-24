@@ -1,10 +1,16 @@
-import { React, PropTypes, styled, action, observer } from 'vendor';
+import { React, PropTypes, styled, action, useObserver } from 'vendor';
 import { AssignmentBuilder } from './builder';
-import HomeworkQuestions from '../../components/homework-questions';
+import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import { Icon, SuretyGuard } from 'shared';
 import S from '../../helpers/string';
 import { colors } from 'theme';
 
+const Heading = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const Controls = styled.div`
   flex-basis: 10rem;
@@ -41,11 +47,13 @@ const StyledHomeworkQuestions = styled(HomeworkQuestions)`
 `;
 
 
-class QuestionControls extends React.Component {
+class QuestionHeading extends React.Component {
 
   static propTypes = {
     ux:    PropTypes.object.isRequired,
     info:  PropTypes.object.isRequired,
+    styleVariant: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
   };
 
   @action.bound moveExerciseUp() {
@@ -67,47 +75,50 @@ class QuestionControls extends React.Component {
   }
 
   render() {
-    const { ux, info: { questionIndex, points } } = this.props;
+    const { styleVariant, label, ux, info: { questionIndex, points } } = this.props;
     const formattedPoints = S.numberWithOneDecimalPlace(points);
 
     if (!ux.canEdit) { return <Actions>{formattedPoints} Points</Actions>; }
 
     return (
-      <Actions>
-        <Input defaultValue={formattedPoints} onChange={this.setPoints} /> Points
-        <Controls>
-          {questionIndex == 0 && (
-            <>
-              <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
-              <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
-            </>)}
-          <SuretyGuard
-            title={false}
-            onConfirm={this.removeExercise}
-            okButtonLabel="Remove"
-            placement="left"
-            message="Are you sure you want to remove this exercise?"
-          >
-            <Icon size="xs" className="-remove-exercise circle" type="close" />
-          </SuretyGuard>
-        </Controls>
-      </Actions>
+      <Heading>
+        <ExerciseNumber variant={styleVariant}>
+          {label}
+        </ExerciseNumber>
+        <Actions>
+
+          <Input defaultValue={formattedPoints} onChange={this.setPoints} /> Points
+          <Controls>
+            {questionIndex == 0 && (
+              <>
+                <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
+                <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
+              </>)}
+            <SuretyGuard
+              title={false}
+              onConfirm={this.removeExercise}
+              okButtonLabel="Remove"
+              placement="left"
+              message="Are you sure you want to remove this exercise?"
+            >
+              <Icon size="xs" className="-remove-exercise circle" type="close" />
+            </SuretyGuard>
+          </Controls>
+        </Actions>
+      </Heading>
     );
   }
 }
 
-const Review = observer(({ ux }) => {
-  const controlsComponent = (props) => <QuestionControls {...props} ux={ux} />;
+const Review = ({ ux }) => useObserver(() => (
+  <AssignmentBuilder ux={ux} title="Set points and review">
+    <StyledHomeworkQuestions
+      questionsInfo={ux.plan.questionsInfo}
+      headerContentRenderer={(props) => <QuestionHeading {...props} ux={ux} />}
+    />
+  </AssignmentBuilder>
+));
 
-  return (
-    <AssignmentBuilder ux={ux} title="Set points and review">
-      <StyledHomeworkQuestions
-        questionsInfo={ux.plan.questionsInfo}
-        controlsComponent={controlsComponent}
-      />
-    </AssignmentBuilder>
-  );
-});
 
 Review.propTypes = {
   ux: PropTypes.object.isRequired,

@@ -234,7 +234,6 @@ const StudentColumnHeader = () => {
 };
 
 const StudentCell = ({ student, striped }) => {
-
   return useObserver(() => (
     <Cell striped={striped}>
       <CellContents>
@@ -246,11 +245,11 @@ const StudentCell = ({ student, striped }) => {
         </Heading>
 
         <Total>
-          {S.numberWithOneDecimalPlace(student.course_average)}
+          {S.numberWithOneDecimalPlace(student.total_points)}
         </Total>
 
         <LateWork hasExtension={false}>
-          ??
+          {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
         </LateWork>
       </CellContents>
     </Cell>
@@ -265,7 +264,7 @@ const AssignmentHeading = ({ heading }) => {
           {heading.title}
         </HeadingTop>
         <HeadingMiddle>
-          ??
+          {heading.type}
         </HeadingMiddle>
         <HeadingBottom isDropped={false}>
           {S.numberWithOneDecimalPlace(heading.points)}

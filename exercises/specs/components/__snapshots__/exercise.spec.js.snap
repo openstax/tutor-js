@@ -532,30 +532,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ox-icon-arrow-circle-down btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
-                      data-icon="arrow-circle-down"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
                     className="ox-icon-arrow-circle-up btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
@@ -619,230 +595,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <textarea
                   onChange={[Function]}
                   value="A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
-                />
-              </li>
-              <li
-                className="answer"
-              >
-                <div
-                  className="answer-actions"
-                >
-                  <label>
-                    Distractor
-                  </label>
-                  <button
-                    className="ox-icon-check-circle is-correct btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
-                      color="lightGray"
-                      data-icon="check-circle"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="ox-icon-arrow-circle-down btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
-                      data-icon="arrow-circle-down"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="ox-icon-arrow-circle-up btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
-                      data-icon="arrow-circle-up"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="ox-icon-ban btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
-                      data-icon="ban"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <textarea
-                  onChange={[Function]}
-                  value="<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are large enough to be seen with the naked eye, and</li>
-  <li>there is the involvement of a weak gravitational field</li>
-</ol>
-"
-                />
-                <label>
-                  Choice-Level Feedback
-                </label>
-                <textarea
-                  onChange={[Function]}
-                  value="Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
-                />
-              </li>
-              <li
-                className="answer"
-              >
-                <div
-                  className="answer-actions"
-                >
-                  <label>
-                    Distractor
-                  </label>
-                  <button
-                    className="ox-icon-check-circle is-correct btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
-                      color="lightGray"
-                      data-icon="check-circle"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="ox-icon-arrow-circle-up btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
-                      data-icon="arrow-circle-up"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="ox-icon-ban btn btn-plain"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
-                      data-icon="ban"
-                      data-prefix="fas"
-                      focusable="false"
-                      role="img"
-                      style={Object {}}
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
-                        fill="currentColor"
-                        style={Object {}}
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <textarea
-                  onChange={[Function]}
-                  value="<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are too small to be seen with the naked eye, and</li>
-  <li>there is the involvement of only a weak gravitational field</li>
-</ol>
-"
-                />
-                <label>
-                  Choice-Level Feedback
-                </label>
-                <textarea
-                  onChange={[Function]}
-                  value="Objects far smaller than what is visible may require quantum mechanics."
                 />
               </li>
             </ol>
@@ -1903,106 +1655,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </label>
                   </section>
                 </div>
-                <div
-                  className="openstax-answer"
-                >
-                  <section
-                    className="answers-answer disabled"
-                    role="region"
-                  >
-                    <div
-                      className="correct-incorrect"
-                    />
-                    <label
-                      className="answer-label"
-                      htmlFor="1-option-3"
-                      onKeyPress={[Function]}
-                    >
-                      <button
-                        aria-label="Choice d:"
-                        className="answer-letter"
-                        disabled={true}
-                      >
-                        d
-                      </button>
-                      <div
-                        className="answer-answer"
-                      >
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are large enough to be seen with the naked eye, and</li>
-  <li>there is the involvement of a weak gravitational field</li>
-</ol>
-",
-                            }
-                          }
-                        />
-                        <aside>
-                          <div
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.",
-                              }
-                            }
-                          />
-                        </aside>
-                      </div>
-                    </label>
-                  </section>
-                </div>
-                <div
-                  className="openstax-answer"
-                >
-                  <section
-                    className="answers-answer disabled"
-                    role="region"
-                  >
-                    <div
-                      className="correct-incorrect"
-                    />
-                    <label
-                      className="answer-label"
-                      htmlFor="1-option-4"
-                      onKeyPress={[Function]}
-                    >
-                      <button
-                        aria-label="Choice e:"
-                        className="answer-letter"
-                        disabled={true}
-                      >
-                        e
-                      </button>
-                      <div
-                        className="answer-answer"
-                      >
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are too small to be seen with the naked eye, and</li>
-  <li>there is the involvement of only a weak gravitational field</li>
-</ol>
-",
-                            }
-                          }
-                        />
-                        <aside>
-                          <div
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "Objects far smaller than what is visible may require quantum mechanics.",
-                              }
-                            }
-                          />
-                        </aside>
-                      </div>
-                    </label>
-                  </section>
-                </div>
               </div>
               <div
                 className="formats-listing"
@@ -2173,7 +1825,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                           <div className=\\"nickname\\">
                             <label>
                               Exercise Nickname:
-                              <input onChange={[Function: res]} value=\\"burley\\" />
+                              <input onChange={[Function: res]} value=\\"ilene\\" />
                             </label>
                           </div>
                           <Question onRemove={[Function: onRemove]} onMove={[Function: onMove]} question={{...}}>
@@ -2299,233 +1951,85 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
-                                      <label>
-                                        Choice-Level Feedback
-                                      </label>
-                                      <textarea onChange={[Function: res]} value=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" />
-                                    </li>
-                                  </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
-                                    <li className=\\"answer\\">
-                                      <div className=\\"answer-actions\\">
-                                        <label>
-                                          Distractor
-                                        </label>
-                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                      </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
-                                      <label>
-                                        Choice-Level Feedback
-                                      </label>
-                                      <textarea onChange={[Function: res]} value=\\"Objects far smaller than what is visible may require quantum mechanics.\\" />
-                                    </li>
-                                  </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
-                                    <li className=\\"answer\\">
-                                      <div className=\\"answer-actions\\">
-                                        <label>
-                                          Distractor
-                                        </label>
-                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                      </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
-                                      <label>
-                                        Choice-Level Feedback
-                                      </label>
-                                      <textarea onChange={[Function: res]} value=\\"Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.\\" />
-                                    </li>
-                                  </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
-                                    <li className=\\"answer\\">
-                                      <div className=\\"answer-actions\\">
-                                        <label>
-                                          Distractor
-                                        </label>
-                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                        <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
-                                              </IconWrapper>
-                                            </button>
-                                          </Button>
-                                        </Icon>
-                                      </div>
                                       <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
                                       <textarea onChange={[Function: res]} value=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" />
+                                    </li>
+                                  </Answer>
+                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                    <li className=\\"answer\\">
+                                      <div className=\\"answer-actions\\">
+                                        <label>
+                                          Distractor
+                                        </label>
+                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
+                                                </StyledComponent>
+                                              </IconWrapper>
+                                            </button>
+                                          </Button>
+                                        </Icon>
+                                        <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
+                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
+                                                </StyledComponent>
+                                              </IconWrapper>
+                                            </button>
+                                          </Button>
+                                        </Icon>
+                                        <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
+                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
+                                                </StyledComponent>
+                                              </IconWrapper>
+                                            </button>
+                                          </Button>
+                                        </Icon>
+                                        <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
+                                                </StyledComponent>
+                                              </IconWrapper>
+                                            </button>
+                                          </Button>
+                                        </Icon>
+                                      </div>
+                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <label>
+                                        Choice-Level Feedback
+                                      </label>
+                                      <textarea onChange={[Function: res]} value=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" />
                                     </li>
                                   </Answer>
                                   <Answer answer={{...}} canMoveUp={false} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
@@ -2580,11 +2084,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" />
+                                      <textarea onChange={[Function: res]} value=\\"Objects far smaller than what is visible may require quantum mechanics.\\" />
                                     </li>
                                   </Answer>
                                 </ol>
@@ -3189,7 +2693,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 READ ONLY
                               </div>
                               <div>
-                                Author: Tyler
+                                Author: Deshawn
                               </div>
                             </div>
                           </StyledComponent>
@@ -3223,12 +2727,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       a
                                                     </button>
                                                     <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
                                                         <div dangerouslySetInnerHTML={{...}} />
                                                       </Component>
                                                       <Memo(wrappedComponent)>
                                                         <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
+                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
                                                             <div dangerouslySetInnerHTML={{...}} />
                                                           </Component>
                                                         </aside>
@@ -3247,12 +2751,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       b
                                                     </button>
                                                     <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                         <div dangerouslySetInnerHTML={{...}} />
                                                       </Component>
                                                       <Memo(wrappedComponent)>
                                                         <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
+                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
                                                             <div dangerouslySetInnerHTML={{...}} />
                                                           </Component>
                                                         </aside>
@@ -3271,60 +2775,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       c
                                                     </button>
                                                     <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                         <div dangerouslySetInnerHTML={{...}} />
                                                       </Component>
                                                       <Memo(wrappedComponent)>
                                                         <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.\\" block={true}>
-                                                            <div dangerouslySetInnerHTML={{...}} />
-                                                          </Component>
-                                                        </aside>
-                                                      </Memo(wrappedComponent)>
-                                                    </div>
-                                                  </label>
-                                                </section>
-                                              </div>
-                                            </Answer>
-                                            <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                              <div className=\\"openstax-answer\\">
-                                                <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                  <div className=\\"correct-incorrect\\" />
-                                                  <label onKeyPress={[Function]} htmlFor=\\"16-option-3\\" className=\\"answer-label\\">
-                                                    <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true}>
-                                                      d
-                                                    </button>
-                                                    <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                      <Memo(wrappedComponent)>
-                                                        <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
-                                                            <div dangerouslySetInnerHTML={{...}} />
-                                                          </Component>
-                                                        </aside>
-                                                      </Memo(wrappedComponent)>
-                                                    </div>
-                                                  </label>
-                                                </section>
-                                              </div>
-                                            </Answer>
-                                            <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                              <div className=\\"openstax-answer\\">
-                                                <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                  <div className=\\"correct-incorrect\\" />
-                                                  <label onKeyPress={[Function]} htmlFor=\\"16-option-4\\" className=\\"answer-label\\">
-                                                    <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true}>
-                                                      e
-                                                    </button>
-                                                    <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                      <Memo(wrappedComponent)>
-                                                        <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
+                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
                                                             <div dangerouslySetInnerHTML={{...}} />
                                                           </Component>
                                                         </aside>
@@ -3392,7 +2848,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       type:conceptual
                                     </span>
                                     <span className=\\"exercise-tag\\">
-                                      Nickname:burley
+                                      Nickname:ilene
                                     </span>
                                     <span className=\\"exercise-tag\\">
                                       ID:14@1
