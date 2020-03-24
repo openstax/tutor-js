@@ -127,23 +127,31 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const AvailablePoints = ({ value }) => {
-  if (!value) { return (
-    <OverlayTrigger
-      placement="right"
-      overlay={
-        <StyledTooltip>
-          Students received different numbers of Tutor-selected questions. This can happen when questions aren’t
-          available, a student works an assignment late, or a student hasn’t started the assignment.
-        </StyledTooltip>
-      }
-    >
-      <Icon variant="infoCircle" />
-    </OverlayTrigger>
-  )};
+  if (!value) {
+    return (
+      <OverlayTrigger
+        placement="right"
+        overlay={
+          <StyledTooltip>
+            Students received different numbers of Tutor-selected questions. This can happen when questions aren’t
+            available, a student works an assignment late, or a student hasn’t started the assignment.
+          </StyledTooltip>
+        }
+      >
+        <Icon variant="infoCircle" />
+      </OverlayTrigger>
+    );
+  }
   return (
     <strong>({S.numberWithOneDecimalPlace(value)})</strong>
   );
-}
+};
+AvailablePoints.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+};
 
 const Overview = ({ ux, ux: { scores } }) => {
   return useObserver(() => (
