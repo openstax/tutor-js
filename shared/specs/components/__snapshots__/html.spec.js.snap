@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arbitrary Html Component renders html 1`] = `"<div class=\\"openstax-has-html html\\"><span>a test phrase</span></div>"`;
+exports[`Arbitrary Html Component renders html 1`] = `"<div history=\\"[object Object]\\" location=\\"[object Object]\\" match=\\"[object Object]\\" class=\\"openstax-has-html html\\"><span>a test phrase</span></div>"`;
 
-exports[`Arbitrary Html Component renders using span when block is false 1`] = `"<span class=\\"openstax-has-html html\\"><span>a test phrase</span></span>"`;
+exports[`Arbitrary Html Component renders using span when block is false 1`] = `"<span history=\\"[object Object]\\" location=\\"[object Object]\\" match=\\"[object Object]\\" class=\\"openstax-has-html html\\"><span>a test phrase</span></span>"`;
