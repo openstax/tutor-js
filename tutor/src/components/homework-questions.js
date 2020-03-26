@@ -18,7 +18,7 @@ const QuestionPreview = styled.div`
 `;
 
 
-const Header = styled.div`
+const QuestionHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +45,8 @@ const ExerciseNumber = styled.div`
     font-weight: bold;
   `}
 `;
-export { ExerciseNumber };
+
+export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
   index, info,
@@ -55,9 +56,9 @@ const ReviewExerciseCard = observer(({
   styleVariant = 'points',
 }) => (
   <QuestionPreview className="openstax-exercise-preview">
-    <Header variant={styleVariant}>
+    <QuestionHeader variant={styleVariant}>
       <HeaderContent styleVariant={styleVariant} info={info} label={`Question ${index + 1}`} />
-    </Header>
+    </QuestionHeader>
     <div className="card-body">
       <Question
         className="openstax-question-preview"

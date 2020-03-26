@@ -32,6 +32,7 @@ export default class AssignmentReviewUX {
 
   @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }
   @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
+  @computed get planId() { return this.planScores.id; }
 
   @action.bound setSelectedPeriod(period) {
     this.selectedPeriod = period;

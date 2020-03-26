@@ -12,11 +12,25 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field points = 0;
   @field selected_answer_id;
   @field free_response;
+
+  @belongsTo({ model: 'task-plan/scores/student' }) student;
+
+  @computed get index() {
+    return this.student && this.student.questions.indexOf(this);
+  }
+
+  @computed get questionHeading() {
+    return this.student.period.question_headings[this.index];
+  }
+
+  @computed get availablePoints() {
+    return this.questionHeading.points;
+  }
 }
 
 @identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
-  @identifier student_id;
+  @identifier id;
   @field first_name;
   @field last_name;
   @field student_identifier;
@@ -28,7 +42,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field late_work_point_penalty;
   @field late_work_fraction_penalty;
 
-  @hasMany({ model: TaskPlanScoreStudentQuestion }) questions;
+  @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
   @belongsTo({ model: 'task-plan/scores/period' }) period;
 
   @computed get name() {
@@ -73,6 +87,10 @@ class TaskPlanPeriodScore extends BaseModel {
 
   @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'period' }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'period' }) students;
+
+  @computed get coreQuestionHeadings() {
+    return filter(this.question_headings, h => h.type != 'Tutor');
+  }
 
   // this returns all of the quesions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions

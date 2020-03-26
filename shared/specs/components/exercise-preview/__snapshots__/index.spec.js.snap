@@ -70,7 +70,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                        "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
                       }
                     }
                   />
@@ -106,115 +106,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="7-option-2"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice c:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  c
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
                         "__html": "Physics helps in predicting the motion of tectonic plates.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="7-option-3"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice d:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  d
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="7-option-4"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice e:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  e
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
                       }
                     }
                   />
@@ -407,7 +299,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
                       }
                     }
                   />
@@ -443,7 +335,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                       }
                     }
                   />
@@ -479,7 +371,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
                       }
                     }
                   />
@@ -515,7 +407,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                       }
                     }
                   />
@@ -551,7 +443,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
                       }
                     }
                   />
@@ -686,7 +578,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                        "__html": "It describes how different parts of the universe are far apart and do not affect each other",
                       }
                     }
                   />
@@ -722,7 +614,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                        "__html": "It describes how speed affects different observers’ measurements of time and space.",
                       }
                     }
                   />
@@ -751,78 +643,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   disabled={true}
                 >
                   c
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "It describes how different parts of the universe are far apart and do not affect each other",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="8-option-3"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice d:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  d
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "It describes how speed affects different observers’ measurements of time and space.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="8-option-4"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice e:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  e
                 </button>
                 <div
                   className="answer-answer"
@@ -980,114 +800,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="9-option-2"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice c:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  c
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="9-option-3"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice d:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  d
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="9-option-4"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice e:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  e
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
                       }
                     }
                   />
@@ -1325,88 +1037,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               </label>
             </section>
           </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="1-option-3"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice d:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  d
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are large enough to be seen with the naked eye, and</li>
-  <li>there is the involvement of a weak gravitational field</li>
-</ol>
-",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
-          <div
-            className="openstax-answer"
-          >
-            <section
-              className="answers-answer disabled"
-              role="region"
-            >
-              <div
-                className="correct-incorrect"
-              />
-              <label
-                className="answer-label"
-                htmlFor="1-option-4"
-                onKeyPress={[Function]}
-              >
-                <button
-                  aria-label="Choice e:"
-                  className="answer-letter"
-                  disabled={true}
-                >
-                  e
-                </button>
-                <div
-                  className="answer-answer"
-                >
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are too small to be seen with the naked eye, and</li>
-  <li>there is the involvement of only a weak gravitational field</li>
-</ol>
-",
-                      }
-                    }
-                  />
-                </div>
-              </label>
-            </section>
-          </div>
         </div>
         <div
           className="detailed-solution"
@@ -1512,7 +1142,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                        "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
                       }
                     }
                   />
@@ -1520,7 +1150,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     <div
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                          "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
                         }
                       }
                     />
@@ -1557,7 +1187,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                        "__html": "Physics helps in predicting the motion of tectonic plates.",
                       }
                     }
                   />
@@ -1565,7 +1195,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     <div
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "This would be chemistry rather than physics.",
+                          "__html": "This is true, but it is not involved in day to day weather prediction.",
                         }
                       }
                     />
@@ -1602,7 +1232,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                        "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
                       }
                     }
                   />
@@ -1610,7 +1240,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     <div
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
+                          "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
                         }
                       }
                     />
@@ -1647,7 +1277,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting the motion of tectonic plates.",
+                        "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
                       }
                     }
                   />
@@ -1655,7 +1285,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     <div
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "This is true, but it is not involved in day to day weather prediction.",
+                          "__html": "This would be chemistry rather than physics.",
                         }
                       }
                     />
@@ -1692,7 +1322,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                        "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
                       }
                     }
                   />
@@ -1700,7 +1330,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     <div
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                          "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
                         }
                       }
                     />
