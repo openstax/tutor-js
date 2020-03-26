@@ -3,7 +3,7 @@ import React from 'react';
 import { isEmpty, compact, map, pick } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-
+import { idType } from '../../helpers/react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
@@ -57,7 +57,7 @@ class Question extends React.Component {
     ]).isRequired,
     children: PropTypes.node,
     task: PropTypes.object,
-    correct_answer_id: PropTypes.string,
+    correct_answer_id: idType.isRequired,
     hideAnswers: PropTypes.bool,
     exercise_uid: PropTypes.string,
     displayFormats:  PropTypes.bool,

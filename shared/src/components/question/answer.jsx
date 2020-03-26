@@ -6,6 +6,7 @@ import { action } from 'mobx';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 import Icon from '../icon';
+import { idType } from '../../helpers/react';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
@@ -25,12 +26,7 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
   );
 };
 
-const isAnswerChecked = function(answer, chosenAnswer) {
-  return (
-    (chosenAnswer || []).includes(answer.id)
-  );
-};
-
+const isAnswerChecked = (answer, chosenAnswer) => Boolean((chosenAnswer || []).find( a => a == answer.id));
 
 export default
 @observer
@@ -48,7 +44,7 @@ class Answer extends React.Component {
     onChangeAnswer: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     chosenAnswer: PropTypes.array,
-    correctAnswerId: PropTypes.string,
+    correctAnswerId: idType,
     answered_count: PropTypes.number,
     show_all_feedback: PropTypes.bool,
     keyControl: PropTypes.oneOfType([
