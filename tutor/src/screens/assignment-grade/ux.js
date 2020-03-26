@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter } from 'lodash';
+import { first, find, filter } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
@@ -76,6 +76,20 @@ export default class AssignmentGradingUX {
     this.gradedAnswers.set(`${question.id}-${student.id}`, {
       points, comment, question, student,
     });
+  }
+
+
+  @computed get currentStudentQuestionInfo() {
+    const student = first(this.unViewedStudents);
+    return student.questions.find(q => q.id == this.selectedQuestion.id);
+  }
+
+  @computed get selectedAnswerId() {
+    return this.currentStudentQuestionInfo ? this.currentStudentQuestionInfo.selected_answer_id : null;
+  }
+  @computed get correctAnswerid() {
+    const correct = find(this.selectedQuestion.answers, 'isCorrect');
+    return correct ? correct.id : null;
   }
 
 }

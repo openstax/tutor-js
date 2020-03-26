@@ -23,6 +23,10 @@ const Heading = styled.div`
   align-items: center;
 `;
 
+const QuestionWithAnswer = styled(QuestionPreview)`
+  padding: 4rem;
+`;
+
 const AssignmentGrading = (props) => {
   const params = useParams();
   const [ux] = useState(() => new UX({ ...props, ...params }));
@@ -43,7 +47,7 @@ const AssignmentGrading = (props) => {
             />
           </Heading>
           <QuestionsBar ux={ux} />
-          <QuestionPreview className="openstax-exercise-preview">
+          <QuestionWithAnswer>
             <QuestionHeader variant="points">
               <ExerciseNumber>
                 Question {ux.questionIndex + 1}
@@ -51,17 +55,17 @@ const AssignmentGrading = (props) => {
             </QuestionHeader>
             <div className="card-body">
               <Question
-                className="openstax-question-preview"
                 question={ux.selectedQuestion}
                 hideAnswers={false}
+                answer_id={ux.selectedAnswerId}
+                correct_answer_id={ux.correctAnswerid}
                 choicesEnabled={false}
                 displayFormats={false}
-                type="teacher-review"
               />
               {ux.unViewedStudents.map((student, index) =>
                 <Student key={index} index={index} question={ux.selectedQuestion} student={student} ux={ux} />)}
             </div>
-          </QuestionPreview>
+          </QuestionWithAnswer>
         </ScrollToTop>
       </BackgroundWrapper>
     );
