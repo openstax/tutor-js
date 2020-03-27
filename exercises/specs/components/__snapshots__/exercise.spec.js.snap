@@ -274,7 +274,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               className="answer-choices"
             >
               <li
-                className="answer"
+                className="answer correct-answer"
               >
                 <div
                   className="answer-actions"
@@ -291,7 +291,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     <svg
                       aria-hidden="true"
                       className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
-                      color="lightGray"
+                      color="green"
                       data-icon="check-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1900,18 +1900,18 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </Icon>
                                 <ol className=\\"answer-choices\\">
                                   <Answer answer={{...}} canMoveUp={true} canMoveDown={false} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
-                                    <li className=\\"answer\\">
+                                    <li className=\\"answer correct-answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
                                           Distractor
                                         </label>
-                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
+                                        <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"green\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                           <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
-                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"green\\">
+                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"green\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"green\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"green\\">
                                                       <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                     </svg>
                                                   </FontAwesomeIcon>

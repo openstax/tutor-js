@@ -1,4 +1,4 @@
-import { React, useObserver, useState, useParams, styled } from 'vendor';
+import { React, PropTypes, withRouter, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import UX from './ux';
 import { navbars } from 'theme';
@@ -27,10 +27,34 @@ const QuestionWithAnswer = styled(QuestionPreview)`
   padding: 4rem;
 `;
 
-const AssignmentGrading = (props) => {
-  const params = useParams();
-  const [ux] = useState(() => new UX({ ...props, ...params }));
-  return useObserver(() => {
+@withRouter
+@observer
+class AssignmentGrading extends React.Component {
+
+  static displayName = 'AssignmentGrading';
+
+  static propTypes = {
+    params: PropTypes.shape({
+      id: PropTypes.string,
+      courseId: PropTypes.string.isRequired,
+    }),
+    history: PropTypes.object.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.ux = new UX();
+
+    this.ux.initialize({
+      ...props.params,
+      history: props.history,
+      onComplete: this.onComplete,
+    });
+  }
+
+  render() {
+    const { ux } = this;
 
     if (!ux.isExercisesReady) {
       return <LoadingScreen message="Loading Assignment…" />;
@@ -62,7 +86,7 @@ const AssignmentGrading = (props) => {
                 choicesEnabled={false}
                 displayFormats={false}
               />
-              {ux.unViewedStudents.map((student, index) =>
+              {ux.unGradedStudents.map((student, index) =>
                 <Student key={index} index={index} question={ux.selectedQuestion} student={student} ux={ux} />)}
             </div>
           </QuestionWithAnswer>
@@ -70,9 +94,8 @@ const AssignmentGrading = (props) => {
       </BackgroundWrapper>
     );
 
-  });
-
-};
+  }
+}
 
 
 export default AssignmentGrading;

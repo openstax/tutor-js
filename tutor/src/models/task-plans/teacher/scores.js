@@ -6,7 +6,7 @@ import { filter, sumBy, find } from 'lodash';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
-  @identifier role_id;
+  @identifier id;
   @field exercise_id;
   @field is_completed = false;
   @field points = 0;
@@ -30,7 +30,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
 @identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
-  @identifier id;
+  @identifier role_id;
   @field first_name;
   @field last_name;
   @field student_identifier;
@@ -54,8 +54,14 @@ class TaskPlanScoreStudent extends BaseModel {
 @identifiedBy('task-plan/scores/question')
 class TaskPlanScoreHeading extends BaseModel {
   @identifier title;
+  @field core_question_id;
   @field type;
   @field points;
+
+  @computed get isCore() {
+    return 'Tutor' !== this.type;
+  }
+
   @computed get index() {
     return this.period && this.period.question_headings.indexOf(this);
   }

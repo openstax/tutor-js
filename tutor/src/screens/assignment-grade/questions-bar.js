@@ -51,7 +51,7 @@ const Question = ({ heading, ux, index }) => useObserver(() => {
 const QuestionsBar = ({ ux }) => useObserver(() => {
 
   return (
-    <Bar data-test-id="questions-bar">
+    <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
         {ux.scores.coreQuestionHeadings.map((heading, index) =>
           <Question key={index} heading={heading} ux={ux} index={index} />)}

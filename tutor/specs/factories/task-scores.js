@@ -5,7 +5,7 @@ const { capitalize, get, flatMap } = require('lodash');
 require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanPeriodStudent')
-  .id(sequence)
+  .role_id(sequence)
   .first_name(fake.name.firstName)
   .last_name(fake.name.lastName)
   .student_identifier(() => fake.random.alphaNumeric(fake.random.number({ min: 5, max: 12 })))

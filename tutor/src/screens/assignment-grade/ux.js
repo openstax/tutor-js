@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, find, filter } from 'lodash';
+import { first, find, filter, isEmpty } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
@@ -44,6 +44,7 @@ export default class AssignmentGradingUX {
 
   @computed get selectedQuestion() {
     const info = this.scores.students[0].questions[this.questionIndex];
+
     const exercise = Exercises.get(info.exercise_id);
     if (exercise) {
       return exercise.content.questions.find(q => q.id == info.id);
@@ -51,7 +52,7 @@ export default class AssignmentGradingUX {
     return null;
   }
 
-  @computed get unViewedStudents() {
+  @computed get unGradedStudents() {
     return filter(this.scores.students, s => !this.hasViewedStudentQuestion(this.selectedQuestion, s));
   }
 
@@ -76,17 +77,21 @@ export default class AssignmentGradingUX {
     this.gradedAnswers.set(`${question.id}-${student.role_id}`, {
       points, comment, question, student,
     });
+    if (isEmpty(this.unGradedStudents) && this.questionIndex < this.scores.question_headings.length) {
+      this.questionIndex += 1;
+      this.scroller.scrollToSelector('.questions-bar');
+    }
   }
 
-
   @computed get currentStudentQuestionInfo() {
-    const student = first(this.unViewedStudents);
+    const student = first(this.unGradedStudents);
     return student.questions.find(q => q.id == this.selectedQuestion.id);
   }
 
   @computed get selectedAnswerId() {
     return this.currentStudentQuestionInfo ? this.currentStudentQuestionInfo.selected_answer_id : null;
   }
+
   @computed get correctAnswerid() {
     const correct = find(this.selectedQuestion.answers, 'isCorrect');
     return correct ? correct.id : null;

@@ -87,7 +87,7 @@ const Student = ({ index, question, student, ...props }) => useObserver(() => {
   if (!questionInfo) {
     return null;
   }
-  return <Component key={student.id} index={index} question={questionInfo} student={student} {...props} />;
+  return <Component key={student.role_id} index={index} question={questionInfo} student={student} {...props} />;
 });
 
 
