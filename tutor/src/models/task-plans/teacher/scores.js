@@ -6,7 +6,7 @@ import { filter, sumBy, find } from 'lodash';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
-  @identifier id;
+  @identifier role_id;
   @field exercise_id;
   @field is_completed = false;
   @field points = 0;

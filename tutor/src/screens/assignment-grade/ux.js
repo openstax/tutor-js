@@ -69,11 +69,11 @@ export default class AssignmentGradingUX {
   }
 
   hasViewedStudentQuestion(question, student) {
-    return this.gradedAnswers.get(`${question.id}-${student.id}`);
+    return this.gradedAnswers.get(`${question.id}-${student.role_id}`);
   }
 
   @action saveScore({ student, question, points, comment }) {
-    this.gradedAnswers.set(`${question.id}-${student.id}`, {
+    this.gradedAnswers.set(`${question.id}-${student.role_id}`, {
       points, comment, question, student,
     });
   }
