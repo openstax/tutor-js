@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, useObserver, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
@@ -81,7 +81,6 @@ const HeadingBottom = styled.div`
   font-size: 1rem;
   background: #fff;
   position: relative;
-  ${props => props.isDropped && blueTriangleCSS};
 `;
 
 const ColumnHeading = styled.div`
@@ -108,7 +107,6 @@ const LateWork = styled.div`
   ${centeredCSS}
   align-self: stretch;
   position: relative;
-  ${props => props.hasExtension && greenTriangleCSS}
 `;
 
 const Total = styled.div`
@@ -123,34 +121,6 @@ const isTroubleCSS = css`
   border-color: ${colors.danger};
   border-top: 1px solid ${colors.danger};
   border-bottom: 1px solid ${colors.danger};
-`;
-
-const triangleCSS = css`
-  &::after {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-style: solid;
-    border-width: 0 1rem 1rem 0;
-    border-color: transparent #000 transparent transparent;
-  }
-`;
-
-const greenTriangleCSS = css`
-  ${triangleCSS}
-  &::after {
-    border-color: transparent ${colors.assignments.scores.extension} transparent transparent;
-  }
-`;
-
-const blueTriangleCSS = css`
-  ${triangleCSS}
-  &::after {
-    border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
-  }
 `;
 
 const Result = styled.div`
@@ -195,6 +165,42 @@ const ToolbarButton = styled(Button)`
   && {
     border: 1px solid ${colors.neutral.pale};
   }
+`;
+
+const CornerTriangle = ({ color, tooltip }) => {
+  return (
+    <OverlayTrigger
+      placement="right"
+      overlay={
+        <Tooltip>
+          {tooltip}
+        </Tooltip>
+      }
+    >
+      <StyledTriangle color={color} />
+    </OverlayTrigger>
+  );
+};
+CornerTriangle.propTypes = {
+  color: PropTypes.string.isRequired,
+  tooltip: PropTypes.string.isRequired,
+};
+
+const StyledTriangle = styled.div`
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 1rem 1rem 0;
+  border-color: transparent #000 transparent transparent;
+  ${props => props.color === 'green' && css`
+    border-color: transparent ${colors.assignments.scores.extension} transparent transparent;
+  `}
+  ${props => props.color === 'blue' && css`
+    border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
+  `}
 `;
 
 const StudentColumnHeader = () => {
@@ -258,8 +264,8 @@ const StudentCell = ({ student, striped }) => {
         <Total>
           {S.numberWithOneDecimalPlace(student.total_points)}
         </Total>
-
-        <LateWork hasExtension={false}>
+        <LateWork>
+          {false && <CornerTriangle color="green" tooltip="Student was granted an extension" />}
           {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
         </LateWork>
       </CellContents>
@@ -277,7 +283,8 @@ const AssignmentHeading = ({ heading }) => {
         <HeadingMiddle>
           {heading.type}
         </HeadingMiddle>
-        <HeadingBottom isDropped={false}>
+        <HeadingBottom>
+          {false && <CornerTriangle color="blue" tooltip="Dropped" />}
           {S.numberWithOneDecimalPlace(heading.points)}
         </HeadingBottom>
       </ColumnHeading>

@@ -128,6 +128,10 @@ const Variants = {
     color: '#007da4',
     type: 'exclamation-circle',
   },
+  infoCircle: {
+    color: '#f47641',
+    type: 'info-circle',
+  },
   activity: {
     type: 'spinner',
     spin: true,

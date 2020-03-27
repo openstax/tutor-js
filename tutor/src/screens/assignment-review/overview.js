@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, useObserver } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ExerciseType from './exercise-type';
 import S from '../../helpers/string';
 import { Icon } from 'shared';
@@ -116,6 +116,43 @@ const GradeButton = styled(Button)`
   }
 `;
 
+const StyledTooltip = styled(Tooltip)`
+  max-width: 30rem;
+  &.tooltip.show { opacity: 1; }
+
+  .tooltip-inner {
+    padding: 2.2rem 1.6rem;
+    text-align: left;
+  }
+`;
+
+const AvailablePoints = ({ value }) => {
+  if (!value) {
+    return (
+      <OverlayTrigger
+        placement="right"
+        overlay={
+          <StyledTooltip>
+            Students received different numbers of Tutor-selected questions. This can happen when questions aren’t
+            available, a student works an assignment late, or a student hasn’t started the assignment.
+          </StyledTooltip>
+        }
+      >
+        <Icon variant="infoCircle" />
+      </OverlayTrigger>
+    );
+  }
+  return (
+    <strong>({S.numberWithOneDecimalPlace(value)})</strong>
+  );
+};
+AvailablePoints.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+};
+
 const Overview = ({ ux, ux: { scores } }) => {
   return useObserver(() => (
     <Wrapper data-test-id="overview">
@@ -140,7 +177,9 @@ const Overview = ({ ux, ux: { scores } }) => {
           {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
         </Row>
         <Row>
-          <Header>Available Points</Header>
+          <Header>
+            Available Points <AvailablePoints value={scores.hasEqualTutorQuestions && scores.questionsInfo.totalPoints} />
+          </Header>
           {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
         </Row>
         <Row>
