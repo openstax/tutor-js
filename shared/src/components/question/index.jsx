@@ -57,7 +57,7 @@ class Question extends React.Component {
     ]).isRequired,
     children: PropTypes.node,
     task: PropTypes.object,
-    correct_answer_id: idType.isRequired,
+    correct_answer_id: idType,
     hideAnswers: PropTypes.bool,
     exercise_uid: PropTypes.string,
     displayFormats:  PropTypes.bool,

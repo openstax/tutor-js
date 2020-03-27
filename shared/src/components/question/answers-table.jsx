@@ -43,7 +43,7 @@ class AnswersTable extends React.Component {
     ]).isRequired,
     type: PropTypes.string.isRequired,
     answer_id: idType.isRequired,
-    correct_answer_id: idType.isRequired,
+    correct_answer_id: idType,
     feedback_html: PropTypes.string,
     answered_count: PropTypes.number,
     show_all_feedback: PropTypes.bool,
