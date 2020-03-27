@@ -164,7 +164,11 @@ const Overview = ({ ux, ux: { scores } }) => {
           This assignment is now open for grading.
         </Center>
         <Right>
-          <GradeButton variant="primary" className="btn-new-flag">
+          <GradeButton
+            variant="primary"
+            className="btn-new-flag"
+            params={{ courseId: ux.course.id, id: ux.planId }}
+          >
             <span className="flag">72 New</span>
             <span>Grade answers</span>
           </GradeButton>
