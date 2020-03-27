@@ -1,4 +1,4 @@
-import { Factory } from '../../helpers';
+import { Router, Factory } from '../../helpers';
 import Exercise from '../../../src/screens/teacher-review-metrics/exercise';
 
 
@@ -14,7 +14,7 @@ describe('Task Teacher Review', () => {
   });
 
   it('renders exercise', async () => {
-    const wrapper = mount(<Exercise {...props} />);
+    const wrapper = mount(<Router><Exercise {...props} /></Router>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('Question');
   });
