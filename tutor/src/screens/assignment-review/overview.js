@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, useObserver, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import S from '../../helpers/string';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -17,9 +17,6 @@ const Wrapper = styled.div`
   margin-top: 4rem;
 `;
 
-const ControlsWrapper = styled.div`
-
-`;
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
@@ -36,7 +33,7 @@ const QuestionHeader = ({ ux, styleVariant, label, info }) => useObserver(() => 
           />)}
         {label}
       </ExerciseNumber>
-      <ControlsWrapper>{S.numberWithOneDecimalPlace(info.points)} Points</ControlsWrapper>
+      <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
     </>
   );
 });
@@ -46,7 +43,6 @@ QuestionHeader.propTypes = {
   label: PropTypes.string.isRequired,
   info:  PropTypes.object.isRequired,
 };
-
 
 const StyledQuestionFreeResponse = styled.div`
   margin-bottom: 1.6rem;
