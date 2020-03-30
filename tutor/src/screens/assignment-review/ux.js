@@ -7,9 +7,10 @@ import Exercises from '../../models/exercises';
 export default class AssignmentReviewUX {
 
   @observable selectedPeriod;
-  @observable exercisesHaveBeenFetched = false
-
+  @observable exercisesHaveBeenFetched = false;
+  @observable isDisplayingGrantExtension = false;
   freeResponseQuestions = observable.map();
+  pendingExtensions = observable.map();
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -54,4 +55,21 @@ export default class AssignmentReviewUX {
   @action.bound toggleFreeResponseForQuestion(question) {
     this.freeResponseQuestions.set(question.id, !this.isShowingFreeResponseForQuestion(question));
   }
+
+  @action.bound onSearchStudentChange() {
+
+  }
+
+  // methods relating to granting extensions
+
+  @action.bound cancelDisplayingGrantExtension() {
+    this.pendingExtensions.clear();
+    this.isDisplayingGrantExtension = false;
+  }
+
+  @action.bound saveDisplayingGrantExtension() {
+    // TODO: actually save
+    this.cancelDisplayingGrantExtension();
+  }
+
 }
