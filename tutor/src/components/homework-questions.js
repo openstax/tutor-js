@@ -7,7 +7,7 @@ const HomeworkQuestionsWrapper = styled.div`
 `;
 
 const QuestionPreview = styled.div`
-  border: 1px solid ${colors.neutral.lighter};
+  border: 1px solid ${colors.neutral.pale};
   margin: 2.4rem 0;
   &:first-of-type {
    .ox-icon-arrow-up { display: none; }
@@ -25,17 +25,108 @@ const QuestionHeader = styled.div`
   width: 100%;
   background: ${colors.neutral.lighter}
   padding: 1rem;
-  margin-bottom: 1rem;
   font-weight: bold;
 
   ${props => props.variant === 'submission' && css`
     background: ${colors.templates.homework.background};
     font-size: 1.8rem;
     font-weight: normal;
-    padding: 1.4rem 5rem;
+    padding: 1.4rem 2.2rem;
   `}
 `;
 
+const Body = styled.div`
+  ${props => props.variant === 'submission' && css`
+    && {
+      background: ${colors.assignments.submissions.background};
+      padding: 3.2rem 2.8rem;
+
+      &.card-body .question-stem {
+        font-size: 1.8rem;
+        font-weight: normal;
+        line-height: 3.0rem;
+        margin-bottom: 2.2rem;
+      }
+
+      .answer-answer {
+        margin: 0 0 1.2rem 1.5rem;
+        font-size: 1.6rem;
+      }
+    }
+
+    .review-count {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 25%/50%;
+      min-width: 5.6rem;
+      padding: 0.1rem;
+      font-weight: bold;
+
+      .selected-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.5rem;
+        height: 1.9rem;
+        margin-right: 0.2rem;
+        border-right: 1px solid rgba(0,0,0,0.15);
+        font-size: 1.4rem;
+      }
+
+      .letter {
+        height: 2.5rem;
+        width: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.25);
+        border-radius: 100%;
+        font-size: 1.2rem;
+      }
+
+      &.red {
+        background: #FFE6EA;
+        .selected-count {
+          color:  #C22032;
+          border-color: #E9C4CA;
+        }
+      }
+      &.green {
+        background: #ECF7D1;
+        color:  #3B7800;
+        .selected-count {
+          border-color: #D7E3B8;
+        }
+      }
+    }
+
+    .letter {
+      height: 2.5rem;
+      width: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.25);
+      border-radius: 100%;
+      font-size: 1.2rem;
+
+      &.red {
+        border-color: rgba(194,32,50,0.5);
+        color: ${colors.neutral.grayblue};
+      }
+
+      &.green {
+        background-color: #63A524;
+        color: #fff;
+        border-color: #4B8315;
+      }
+    }
+  `}
+`;
 
 const ExerciseNumber = styled.div`
   font-size: 1.5rem;
@@ -59,7 +150,7 @@ const ReviewExerciseCard = observer(({
     <QuestionHeader variant={styleVariant}>
       <HeaderContent styleVariant={styleVariant} info={info} label={`Question ${index + 1}`} />
     </QuestionHeader>
-    <div className="card-body">
+    <Body className="card-body" variant={styleVariant}>
       <Question
         className="openstax-question-preview"
         question={info.question}
@@ -69,7 +160,7 @@ const ReviewExerciseCard = observer(({
         type={questionType}
       />
       {QuestionInfo && <QuestionInfo info={info} />}
-    </div>
+    </Body>
   </QuestionPreview>
 ));
 ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
