@@ -64,14 +64,14 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       checked={false}
       className="answer-input-box"
       disabled={false}
-      id="6-option-1"
-      name="6-options"
+      id="4-option-1"
+      name="4-options"
       onChange={[Function]}
       type="radio"
     />
     <label
       className="answer-label"
-      htmlFor="6-option-1"
+      htmlFor="4-option-1"
       onKeyPress={[Function]}
     >
       <button
@@ -89,7 +89,7 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
           className="answer-content"
           dangerouslySetInnerHTML={
             Object {
-              "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+              "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
             }
           }
         />
@@ -98,7 +98,7 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
             className="question-feedback-content has-html"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
               }
             }
           />

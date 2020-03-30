@@ -3,6 +3,7 @@ import React from 'react';
 import { range, map, zip, keys, isNil, extend } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
+import { idType } from '../../helpers/react';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
 import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
@@ -41,8 +42,8 @@ class AnswersTable extends React.Component {
       PropTypes.instanceOf(ReviewQuestion),
     ]).isRequired,
     type: PropTypes.string.isRequired,
-    answer_id: PropTypes.string,
-    correct_answer_id: PropTypes.string,
+    answer_id: idType.isRequired,
+    correct_answer_id: idType,
     feedback_html: PropTypes.string,
     answered_count: PropTypes.number,
     show_all_feedback: PropTypes.bool,

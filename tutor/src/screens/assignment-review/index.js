@@ -40,9 +40,9 @@ const StyledTabs = styled(Tabs)`
 
 @withRouter
 @observer
-class Grading extends React.Component {
+class AssignmentReview extends React.Component {
 
-  static displayName = 'Grading';
+  static displayName = 'AssignmentReview';
 
   static propTypes = {
     params: PropTypes.shape({
@@ -111,4 +111,4 @@ class Grading extends React.Component {
   }
 }
 
-export default Grading;
+export default AssignmentReview;

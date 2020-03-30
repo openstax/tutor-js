@@ -103,7 +103,7 @@ class CoursePlanDetails extends React.Component {
     return (
       <TutorLink
         className="btn btn-form-action btn-primary"
-        to='reviewAssignment'
+        to='gradeAssignment'
         params={{ id: this.props.plan.id, courseId: this.props.course.id }}
       >
         Grade answers
@@ -117,11 +117,10 @@ class CoursePlanDetails extends React.Component {
 
     return (
       <div className="modal-footer">
-
         <TutorLink
           disabled={!plan.isPublished}
           className="btn btn-form-action"
-          to={plan.isExternal ? 'viewGradebook' : 'reviewTask'}
+          to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
           params={this.linkParams}
         >
           {plan.isExternal ? 'View Scores' : 'Review Metrics'}
@@ -232,35 +231,35 @@ class CoursePlanDetails extends React.Component {
           enableReinitialize
           initialValues={this.tasking}
         >
-        {(setFieldValue) => (
-          <Row className="tasking-date-time">
-            <Col xs={12} md={4} className="opens-at">
-              <DateTime
-                label="Open date & time"
-                name="opens_at"
-                onChange={e => this.onOpensChange(e, setFieldValue)}
-                format={format}
-              />
-              {!this.tasking.canEditOpensAt && <CantEditExplanation />}
-            </Col>
-            <Col xs={12} md={4} className="due-at">
-              <DateTime
-                label="Due date & time"
-                name="due_at"
-                onChange={e => this.onDueChange(e, setFieldValue)}
-                format={format}
-              />
-              {this.renderDueAtError()}
-            </Col>
-            <Col xs={12} md={4} className="closes-at">
-              <DateTime
-                label="Close date & time"
-                name="closes_at"
-                onChange={e => this.onClosesChange(e, setFieldValue)}
-                format={format}
-              />
-            </Col>
-          </Row>)}
+          {(setFieldValue) => (
+            <Row className="tasking-date-time">
+              <Col xs={12} md={4} className="opens-at">
+                <DateTime
+                  label="Open date & time"
+                  name="opens_at"
+                  onChange={e => this.onOpensChange(e, setFieldValue)}
+                  format={format}
+                />
+                {!this.tasking.canEditOpensAt && <CantEditExplanation />}
+              </Col>
+              <Col xs={12} md={4} className="due-at">
+                <DateTime
+                  label="Due date & time"
+                  name="due_at"
+                  onChange={e => this.onDueChange(e, setFieldValue)}
+                  format={format}
+                />
+                {this.renderDueAtError()}
+              </Col>
+              <Col xs={12} md={4} className="closes-at">
+                <DateTime
+                  label="Close date & time"
+                  name="closes_at"
+                  onChange={e => this.onClosesChange(e, setFieldValue)}
+                  format={format}
+                />
+              </Col>
+            </Row>)}
         </Formik>
       </DateFieldsWrapper>
     );

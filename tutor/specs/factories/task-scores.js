@@ -5,9 +5,9 @@ const { capitalize, get, flatMap } = require('lodash');
 require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanPeriodStudent')
-  .id(sequence)
-  .name(() => `${fake.name.firstName()} ${fake.name.lastName()}`)
-
+  .role_id(sequence)
+  .first_name(fake.name.firstName)
+  .last_name(fake.name.lastName)
   .student_identifier(() => fake.random.alphaNumeric(fake.random.number({ min: 5, max: 12 })))
   .is_dropped(() => fake.random.arrayElement([false,false,false,false,false,false,false,false,false,false,false,false,true]))
   .available_points(({ parent: { object } }) => object.question_headings.length)
@@ -48,8 +48,8 @@ Factory.define('TaskPlanPeriodScore')
   }))
   .num_questions_dropped(0)
   .points_dropped(0)
-  .question_headings(({ exercises }) => flatMap(exercises, (exercise) => (
-    exercise.content.questions.map((question, i) => ({
+  .question_headings(({ exercises }) => flatMap(exercises, (exercise, i) => (
+    exercise.content.questions.map(() => ({
       title: `Q${i+1}`,
       points: 1.0,
       type: 'MCQ',

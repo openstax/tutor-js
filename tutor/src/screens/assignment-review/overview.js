@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, useObserver } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import ExerciseType from './exercise-type';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import TutorLink from '../../components/link';
 import S from '../../helpers/string';
 import { Icon } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -109,7 +109,10 @@ const Right = styled.div`
 
 `;
 
-const GradeButton = styled(Button)`
+const GradeButton = styled(TutorLink).attrs({
+  to: 'gradeAssignment',
+  className: 'btn btn-form-action btn-primary btn-new-flag',
+})`
   && {
     padding: 1.2rem 2.1rem 1.6rem 1.1rem;
     line-height: 1.9rem;
@@ -161,7 +164,11 @@ const Overview = ({ ux, ux: { scores } }) => {
           This assignment is now open for grading.
         </Center>
         <Right>
-          <GradeButton variant="primary" className="btn-new-flag">
+          <GradeButton
+            variant="primary"
+            className="btn-new-flag"
+            params={{ courseId: ux.course.id, id: ux.planId }}
+          >
             <span className="flag">72 New</span>
             <span>Grade answers</span>
           </GradeButton>

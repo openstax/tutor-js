@@ -4,7 +4,6 @@ import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
-import ExerciseType from './exercise-type';
 import SearchInput from '../../components/search-input';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
