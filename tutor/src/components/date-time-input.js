@@ -1,4 +1,4 @@
-import { React, styled, PropTypes, observer } from 'vendor';
+import { React, styled, PropTypes, useObserver, cn } from 'vendor';
 import { useField } from 'formik';
 import Picker from 'rc-picker';
 import { uniqueId } from 'lodash';
@@ -59,13 +59,13 @@ const IconWrapper = styled.div`
 `;
 
 
-const DateTimeInput = observer((props) => {
+const DateTimeInput = (props) => useObserver(() => {
   const [field, meta] = useField({ type: 'text', ...props });
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className={cn('date-time-input', props.className)}>
       <LabelWrapper>
         {props.label && <Label htmlFor={id}>{props.label}</Label>}
       </LabelWrapper>
