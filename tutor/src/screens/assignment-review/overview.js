@@ -1,14 +1,17 @@
-import { React, PropTypes, styled, useObserver } from 'vendor';
+import { React, PropTypes, styled, useObserver, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TutorLink from '../../components/link';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import S from '../../helpers/string';
-import { Icon } from 'shared';
+import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
+import { isEmpty, compact } from 'lodash';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
+
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 const Wrapper = styled.div`
   margin-top: 4rem;
@@ -18,12 +21,16 @@ const ControlsWrapper = styled.div`
 
 `;
 
+const StyledIcon = styled(Icon)`
+  font-size: 2.7rem;
+`;
+
 const QuestionHeader = ({ ux, styleVariant, label, info }) => useObserver(() => {
   return (
     <>
       <ExerciseNumber variant={styleVariant}>
         {info.hasFreeResponse && (
-          <Icon
+          <StyledIcon
             type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
             onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
           />)}
@@ -41,25 +48,83 @@ QuestionHeader.propTypes = {
 };
 
 
-const StyledQuestionFreeResonse = styled.div`
-  border-bottom: 1px dashed ${colors.neutral.thin};
+const StyledQuestionFreeResponse = styled.div`
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: stretch;
+  > * {
+    padding-bottom: 1.6rem;
+  }
+  .name {
+    align-self: flex-start;
+    margin-right: 2.4rem;
+    min-width: 15rem;
+    width: 15rem;
+    overflow-wrap: break-word;
+    text-align: right;
+    font-weight: normal;
+    color: ${colors.neutral.thin};
+  }
+  .resp {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.6rem;
+  }
+  &:not(:only-child) .resp {
+    border-bottom: 1px solid ${colors.neutral.light};
+  }
+`;
+
+const ResponseWrapper = styled.div`
+  border: 1px solid ${colors.neutral.pale};
+  background: #fff;
+  margin-bottom: 2rem;
+  > * {
+    padding: 1.8rem 5rem 1.8rem 2rem;
+  }
+`;
+
+const ResponseHeader = styled.div`
+  border-bottom: 1px solid ${colors.neutral.pale};
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  b { margin-right: 1rem; }
+  > *:first-child {
+    margin-right: 1.6rem;
+  }
 `;
 
 const QuestionFreeResponse = ({ ux, info }) => useObserver(() => {
   if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
-
   return (
     <div data-test-id="student-free-responses">
-      {ux.scores.students.map((student, i) => {
-        const studentQuestion = student.questions.find(sq => sq.id == info.question.id);
-        return (studentQuestion && studentQuestion.free_response) && (
-          <StyledQuestionFreeResonse key={i} data-student-id={student.id}>
-            <b>{student.name}:</b>
-            {studentQuestion.free_response}
-          </StyledQuestionFreeResonse>
+      {info.question.answers.map((answer, i) => {
+        const responses = ux.scores.students.map((student, i) => {
+          const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
+          return (studentQuestion && studentQuestion.free_response) && (
+            <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
+              <span className="name">{student.name}</span>
+              <span className="resp">{studentQuestion.free_response}</span>
+            </StyledQuestionFreeResponse>
+          );
+        });
+
+        if (isEmpty(compact(responses))) { return null; }
+
+        return (
+          <ResponseWrapper key={`answer-${answer.id}`}>
+            <ResponseHeader>
+              <span className={cn('letter', { 'green': answer.isCorrect, 'red': !answer.isCorrect })}>
+                {ALPHABET[i]}
+              </span>
+              <ArbitraryHtmlAndMath
+                html={answer.content_html}
+              />
+            </ResponseHeader>
+            <div>
+              {responses}
+            </div>
+          </ResponseWrapper>
         );
       })}
     </div>
