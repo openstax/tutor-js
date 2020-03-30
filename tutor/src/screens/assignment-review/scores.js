@@ -1,10 +1,12 @@
 import { React, PropTypes, styled, useObserver, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { ToolbarButton } from 'primitives';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import SearchInput from '../../components/search-input';
+import GrantExtension from './grant-extension';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -160,11 +162,6 @@ const Definition = styled.dd`
   color: ${colors.neutral.thin};
 `;
 
-const ToolbarButton = styled(Button)`
-  && {
-    border: 1px solid ${colors.neutral.pale};
-  }
-`;
 
 const CornerTriangle = ({ color, tooltip }) => {
   return (
@@ -329,13 +326,13 @@ const ControlGroup = styled.div`
   }
 `;
 
-const TableHeader = ({ scores }) => {
+const TableHeader = ({ ux }) => {
   return (
     <ControlsWrapper>
       <ControlGroup>
-        <SearchInput onChange={scores.onSearchStudentChange} />
-        <ToolbarButton variant="plain">Grant extension</ToolbarButton>
-        <ToolbarButton variant="plain">Drop question</ToolbarButton>
+        <SearchInput onChange={ux.onSearchStudentChange} />
+        <GrantExtension ux={ux} />
+        <ToolbarButton>Drop question</ToolbarButton>
       </ControlGroup>
       <ControlGroup>
         <ToolbarButton variant="icon"><Icon type="download" /></ToolbarButton>
@@ -345,7 +342,7 @@ const TableHeader = ({ scores }) => {
   );
 };
 TableHeader.propTypes = {
-  scores: PropTypes.object.isRequired,
+  ux: PropTypes.object.isRequired,
 };
 
 const Scores = ({ ux }) => {
@@ -353,7 +350,7 @@ const Scores = ({ ux }) => {
 
   return useObserver(() => (
     <>
-      <TableHeader scores={scores} />
+      <TableHeader ux={ux} />
       <StyledStickyTable data-test-id="scores">
         <Row>
           <StudentColumnHeader scores={scores} />

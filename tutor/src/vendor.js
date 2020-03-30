@@ -6,6 +6,7 @@ import {
 } from 'mobx-react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
+import moment from 'moment';
 import {
   withRouter, useHistory, useLocation, useParams,
 } from 'react-router-dom';
@@ -15,7 +16,7 @@ import { idType, ArrayOrMobxType } from 'shared/helpers/react';
 import Theme from './theme';
 
 export {
-  withRouter, ArrayOrMobxType, readonly,
+  withRouter, ArrayOrMobxType, readonly, moment,
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
   useState, useHistory, useLocation, useParams, useEffect, useRef,

@@ -71,7 +71,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
 }
 
 <div
-  className="c0"
+  className="date-time-input c0"
 >
   <label
     className="c1"
