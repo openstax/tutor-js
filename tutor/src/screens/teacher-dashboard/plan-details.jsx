@@ -42,6 +42,10 @@ const StyledTemplateModal = styled(TemplateModal)`
   h6 {
     font-weight: bold;
   }
+
+  .modal-footer {
+    justify-content: flex-start;
+  }
 `;
 
 
@@ -123,19 +127,8 @@ class CoursePlanDetails extends React.Component {
           to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
           params={this.linkParams}
         >
-          {plan.isExternal ? 'View Scores' : 'Review Metrics'}
+          View assignment
         </TutorLink>
-
-        <TutorLink
-          className="btn btn-form-action"
-          to="editAssignment"
-          params={this.linkParams}
-        >
-          {plan.isEditable ? 'Edit' : 'View'}
-          {' '}
-          {plan.type === 'event' ? 'Event' : 'Assignment'}
-        </TutorLink>
-
         {this.assignmentLinksButton}
         {this.gradeAnswersButton}
       </div>
