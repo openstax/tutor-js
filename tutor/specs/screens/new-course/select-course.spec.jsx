@@ -3,9 +3,7 @@ import SelectCourse from '../../../src/screens/new-course/select-course';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 
-jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
-}));
+jest.mock('../../../src/models/user');
 
 describe('CreateCourse: Selecting course subject', function() {
 

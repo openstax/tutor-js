@@ -87,7 +87,7 @@ const ROUTES = {
     label: 'Create a Course',
     isAllowed(course) {
       return Boolean(
-        User.isCollegeTeacher && (!course || !course.currentRole.isTeacherStudent)
+        User.isConfirmedFaculty && (!course || !course.currentRole.isTeacherStudent)
       );
     },
     options({ course }) {
@@ -106,7 +106,7 @@ const ROUTES = {
       key: 'cloneCourse', separator: 'after',
     },
     isAllowed(course) {
-      return !!(course && !course.is_preview && !course.is_concept_coach && User.isCollegeTeacher); },
+      return !!(course && !course.is_preview && !course.is_concept_coach && User.isConfirmedFaculty); },
   },
   customer_service: {
     label: 'Customer Service',
