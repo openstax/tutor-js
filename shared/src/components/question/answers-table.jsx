@@ -42,7 +42,7 @@ class AnswersTable extends React.Component {
       PropTypes.instanceOf(ReviewQuestion),
     ]).isRequired,
     type: PropTypes.string.isRequired,
-    answer_id: idType.isRequired,
+    answer_id: idType,
     correct_answer_id: idType,
     feedback_html: PropTypes.string,
     answered_count: PropTypes.number,
