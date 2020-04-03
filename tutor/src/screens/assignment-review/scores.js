@@ -7,6 +7,7 @@ import { colors } from 'theme';
 import S from '../../helpers/string';
 import SearchInput from '../../components/search-input';
 import GrantExtension from './grant-extension';
+import DropQuestions from './drop-questions';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -332,7 +333,7 @@ const TableHeader = ({ ux }) => {
       <ControlGroup>
         <SearchInput onChange={ux.onSearchStudentChange} />
         <GrantExtension ux={ux} />
-        <ToolbarButton>Drop question</ToolbarButton>
+        <DropQuestions ux={ux} />
       </ControlGroup>
       <ControlGroup>
         <ToolbarButton variant="icon"><Icon type="download" /></ToolbarButton>

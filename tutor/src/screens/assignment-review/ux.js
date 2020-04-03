@@ -9,8 +9,11 @@ export default class AssignmentReviewUX {
   @observable selectedPeriod;
   @observable exercisesHaveBeenFetched = false;
   @observable isDisplayingGrantExtension = false;
+  @observable isDisplayingDropQuestions = false;
+
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
+  pendingDropping = observable.map();
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -71,5 +74,19 @@ export default class AssignmentReviewUX {
     // TODO: actually save
     this.cancelDisplayingGrantExtension();
   }
+
+
+  // methods relating to droppping questions
+
+  @action.bound cancelDisplayingDropQuestions() {
+    this.pendingDropping.clear();
+    this.isDisplayingDropQuestions = false;
+  }
+
+  @action.bound saveDropQuestions() {
+    // TODO: actually save
+    this.cancelDisplayingDropQuestions();
+  }
+
 
 }

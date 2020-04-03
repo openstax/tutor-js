@@ -49,8 +49,10 @@ Factory.define('TaskPlanPeriodScore')
   .num_questions_dropped(0)
   .points_dropped(0)
   .question_headings(({ exercises }) => flatMap(exercises, (exercise, i) => (
-    exercise.content.questions.map(() => ({
+    exercise.content.questions.map((question) => ({
       title: `Q${i+1}`,
+      exercise_id: exercise.id,
+      question_id: question.id,
       points: 1.0,
       type: 'MCQ',
     }))
@@ -63,7 +65,7 @@ Factory.define('TaskPlanPeriodScore')
 
 Factory.define('TaskPlanScores')
   .id(({ task_plan }) => get(task_plan, 'id', fake.random.number()))
-  .type(({ task_plan }) => get(task_plan, 'id', fake.random.arrayElement(['homework', 'reading'])))
+  .type(({ task_plan }) => get(task_plan, 'type', fake.random.arrayElement(['homework', 'reading'])))
   .title(({ object }) => `${capitalize(object.type)} Chapter ${object.id}`)
   .periods(({ task_plan, course, exercises }) => {
     const { periods } = (course || task_plan.course || Factory.create('Course'))
