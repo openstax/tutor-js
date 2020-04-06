@@ -54,7 +54,8 @@ class TaskPlanScoreStudent extends BaseModel {
 @identifiedBy('task-plan/scores/question')
 class TaskPlanScoreHeading extends BaseModel {
   @identifier title;
-  @field core_question_id;
+  @field exercise_id;
+  @field question_id;
   @field type;
   @field points;
 
@@ -78,6 +79,14 @@ class TaskPlanScoreHeading extends BaseModel {
       points: sumBy(responses, 'points'),
       totalPoints: this.points * responses.length,
     };
+  }
+
+  @computed get exercise() {
+    return Exercises.get(this.exercise_id);
+  }
+
+  @computed get question() {
+    return this.exercise && this.exercise.content.questions.find(q => q.id == this.question_id);
   }
 }
 
