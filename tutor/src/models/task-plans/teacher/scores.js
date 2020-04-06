@@ -3,6 +3,7 @@ import {
 } from 'shared/model';
 import Exercises from '../../exercises';
 import { filter, sumBy, find } from 'lodash';
+import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -166,6 +167,7 @@ class TaskPlanScores extends BaseModel {
   @field description;
   @field type;
 
+  @hasMany({ model: DroppedQuestion }) dropped_questions;
   @hasMany({ model: TaskPlanPeriodScore, inverseOf: 'plan' }) periods;
   @hasMany({ model: 'task-plans/teacher/tasking', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
@@ -187,4 +189,7 @@ class TaskPlanScores extends BaseModel {
 
   fetch() { return { id: this.id }; }
 
+  get taskPlan() {
+    return this.course.teacherTaskPlans.withPlanId(this.id);
+  }
 }

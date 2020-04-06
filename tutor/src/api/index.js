@@ -254,6 +254,7 @@ const startAPI = function() {
     query() { return { course_id: this.taskPlan.course.id }; },
   });
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+  connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
 
   connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
 
