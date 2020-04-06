@@ -112,12 +112,16 @@ const TutorQuestion = observer(({ heading }) => {
   );
 });
 
-const CoreQuestion = observer(({ heading }) => {
+const CoreQuestion = observer(({ ux, heading }) => {
 
   return (
     <QuestionRowWrapper>
       <Cell>
-        <input type="checkbox" name={heading.title} />
+        <input
+          type="checkbox"
+          name={heading.title}
+          onChange={({ target: { checked } }) => ux.toggleDropQuestion(checked, heading)}
+        />
       </Cell>
       <Cell>
         {heading.title}
@@ -200,14 +204,10 @@ const DropQuestion = observer(({ ux }) => {
           Drop question for {ux.selectedPeriod.name}
         </Modal.Header>
         <Modal.Body>
-
           <Table>
             <TableHeader />
-
             {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
           </Table>
-
-
         </Modal.Body>
         <Modal.Footer>
           <Button

@@ -81,6 +81,16 @@ export default class AssignmentReviewUX {
 
   // methods relating to droppping questions
 
+  @action toggleDropQuestion(isDropped, { question_id }) {
+    // TODO: this saves immediatly, need to save them and submit when "save" is clicked
+    const { taskPlan } = this.planScores;
+    taskPlan.dropped_questions.push({
+      question_id,
+      drop_method: 'zeroed',
+    });
+    taskPlan.saveDroppedQuestions();
+  }
+
   @action.bound cancelDisplayingDropQuestions() {
     this.pendingDropping.clear();
     this.isDisplayingDropQuestions = false;
