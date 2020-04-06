@@ -154,11 +154,15 @@ class TaskPlanScores extends BaseModel {
 
   @identifier id;
   @field title;
+  @field description;
   @field type;
 
   @hasMany({ model: TaskPlanPeriodScore, inverseOf: 'plan' }) periods;
-  @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
+  @hasMany({ model: 'task-plans/teacher/tasking', extend: {
+    forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
+  }  }) tasking_plans;
   @belongsTo({ model: 'course' }) course;
+  @field({ model: 'grading/template' }) grading_template;
 
   @computed get exerciseIds() {
     const ids = [];
