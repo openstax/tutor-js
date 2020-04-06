@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 // Shared with scss in styles/variables
 
 const neutral = {
-  lightest: '#f9f9f9', // nearly white
+  lightest: '#fafafa', // nearly white
   bright:   '#f5f5f5', // bright gray
   cool:     '#f6f7f8', // cool gray
   lighter:  '#f1f1f1', // light gray
@@ -113,7 +113,7 @@ export const colors = {
       extension: '#009670',
     },
     submissions: {
-      background: '#fafafa',
+      background: neutral.lightest,
       correct: {
         background: '#ECF7D1',
         foreground: '#3B7800',

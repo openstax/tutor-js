@@ -43,6 +43,9 @@ export default class AssignmentReviewUX {
     return this.planScores.periods.find(period => this.selectedPeriod.period_id == period.id);
   }
 
+  @computed get taskingPlan() {
+    return this.planScores.tasking_plans.forPeriod(this.selectedPeriod);
+  }
 
   @computed get sortedStudents() {
     return this.scores.students; // TODO: sort this ;)
