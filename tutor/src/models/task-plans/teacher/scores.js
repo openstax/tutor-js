@@ -89,6 +89,11 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get question() {
     return this.exercise && this.exercise.content.questions.find(q => q.id == this.question_id);
   }
+
+  @computed get dropped() {
+    return this.period.plan.dropped_questions.find(drop => drop.question_id == this.question_id);
+  }
+
 }
 
 
@@ -100,7 +105,7 @@ class TaskPlanPeriodScore extends BaseModel {
 
   @field({ type: 'object' }) average_score;
   @field({ type: 'object' }) available_points;
-
+  @belongsTo({ model: 'task-plan/scores' }) plan;
   @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'period' }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'period' }) students;
 

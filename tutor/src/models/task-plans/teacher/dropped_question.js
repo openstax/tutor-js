@@ -8,7 +8,7 @@ class DroppedQuestion extends BaseModel {
 
   @identifier id;
   @field question_id;
-  @field drop_method;
+  @field drop_method = 'zeroed';
 
 }
 
