@@ -224,7 +224,7 @@ class CoursePlanDetails extends React.Component {
           enableReinitialize
           initialValues={this.tasking}
         >
-          {(setFieldValue) => (
+          {({ setFieldValue }) => (
             <Row className="tasking-date-time">
               <Col xs={12} md={4} className="opens-at">
                 <DateTime
