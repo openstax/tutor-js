@@ -116,7 +116,12 @@ const CoreQuestion = observer(({ ux, heading }) => {
   const drop = ux.droppedQuestionRecord(heading);
 
   return (
-    <QuestionRowWrapper disabled={!!heading.dropped}>
+    <QuestionRowWrapper
+      disabled={!!heading.dropped}
+      data-test-id="drop-question-row"
+      data-exercise-id={heading.exercise_id}
+      data-question-id={heading.question_id}
+    >
       <Cell>
         <input
           type="checkbox"
@@ -139,7 +144,7 @@ const CoreQuestion = observer(({ ux, heading }) => {
           <label>
             <input
               type="radio"
-              name={`${heading.question.id}`}
+              name={`${heading.question_id}`}
               value="full_credit"
               disabled={!drop || heading.dropped}
               onChange={({ target: { checked } }) => { checked && (drop.drop_method = 'full_credit'); }}
@@ -207,15 +212,21 @@ const TableHeader = () => (
 
 
 const DropQuestion = observer(({ ux }) => {
-  if (ux.planScores.type != 'homework') {
+  if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
     return null;
   }
 
   return (
     <>
-      <ToolbarButton onClick={() => ux.isDisplayingDropQuestions=true}>Drop questions</ToolbarButton>
+      <ToolbarButton
+        data-test-id="drop-questions-btn"
+        onClick={() => ux.isDisplayingDropQuestions=true}
+      >
+        Drop questions
+      </ToolbarButton>
       <DropQuestionsModal
         show={ux.isDisplayingDropQuestions}
+        data-test-id="drop-questions-modal"
         backdrop="static"
         onHide={ux.cancelDisplayingDropQuestions}
       >
@@ -231,10 +242,12 @@ const DropQuestion = observer(({ ux }) => {
         <Modal.Footer>
           <Button
             variant="default"
+            data-test-id="cancel-btn"
             onClick={ux.cancelDisplayingDropQuestions}
           >Close</Button>
           <Button
             variant="primary"
+            data-test-id="save-btn"
             onClick={ux.saveDropQuestions}
           >Save</Button>
         </Modal.Footer>

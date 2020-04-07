@@ -192,6 +192,10 @@ class TaskPlanScores extends BaseModel {
     return ids;
   }
 
+  @computed get isHomework() {
+    return 'homework' == this.type;
+  }
+
   fetch() { return { id: this.id }; }
 
   get taskPlan() {
