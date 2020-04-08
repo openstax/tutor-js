@@ -52,7 +52,7 @@ class AssignmentReview extends React.Component {
     history: PropTypes.object.isRequired,
   }
 
-  @observable tabIndex = 1;
+  @observable tabIndex = 0;
 
   @action.bound onTabSelection(tabIndex) {
     this.tabIndex = tabIndex;
@@ -85,7 +85,7 @@ class AssignmentReview extends React.Component {
       return <LoadingScreen message="Loading Assignment…" />;
     }
 
-    const Tab = AvailableTabs[this.tabIndex] || Overview;
+    const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
       <BackgroundWrapper>

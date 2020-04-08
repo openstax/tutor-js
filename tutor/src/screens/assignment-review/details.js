@@ -222,7 +222,7 @@ const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
             <StyledTutorLink
               className="btn btn-form-action btn-primary btn-new-flag"
               to='gradeAssignment'
-              params={{ id: ux.planId, courseId: ux.course.id }}
+              params={{ id: ux.planId, periodId: taskingPlan.target_id, courseId: ux.course.id }}
             >
               <span className="flag">72 New</span>
               <span>Grade answers</span>

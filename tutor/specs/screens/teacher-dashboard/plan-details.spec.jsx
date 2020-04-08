@@ -46,7 +46,7 @@ describe('Plan Details Component', function() {
     plan.is_published = true;
     plan.type = 'event';
     return renderModal(props).then((m) => {
-      expect(m.textContent).toContain('Edit Event');
+      expect(m.textContent).toContain('View assignment');
       expect(m.textContent).not.toContain('assignment link');
     });
   });

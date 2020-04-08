@@ -24,8 +24,7 @@ let PLANS = {};
 const planForId = (id, attrs = {}) => (
   PLANS[id] || (PLANS[id] = Factory.create('TeacherTaskPlan', Object.assign(attrs, {
     id,
-
-    type: fake.random.arrayElement(['reading', 'homework']),
+    type: attrs['type'] || fake.random.arrayElement(['reading', 'homework']),
   })))
 );
 
@@ -58,7 +57,7 @@ module.exports = {
 
   getScores(req, res) {
     const course = getCourse(req.query.course_id);
-    const plan = planForId(req.params.id);
+    const plan = planForId(req.params.id, { course: course, type: 'homework' });
     const exercises = times(8).map((id) => getExercise(id));
     const scores = Factory.create('TaskPlanScores', { task_plan: plan, course, exercises });
     res.json(scores);

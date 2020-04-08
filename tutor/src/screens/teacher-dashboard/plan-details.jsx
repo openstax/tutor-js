@@ -3,7 +3,7 @@ import {
   computed, observable, action, styled,
 } from 'vendor';
 import Course from '../../models/course';
-import { Modal, Row, Col, Alert } from 'react-bootstrap';
+import { Modal, Row, Col, Alert, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
@@ -17,6 +17,7 @@ import moment from 'moment';
 import Time from '../../models/time';
 import { Formik } from 'formik';
 import TemplateModal from '../../components/template-modal';
+import cn from 'classnames';
 
 const StyledAlert = styled(Alert)`
   margin-top: 0.5rem;
@@ -41,6 +42,10 @@ const StyledTemplateModal = styled(TemplateModal)`
 
   h6 {
     font-weight: bold;
+  }
+
+  .modal-footer {
+    justify-content: flex-start;
   }
 `;
 
@@ -99,15 +104,30 @@ class CoursePlanDetails extends React.Component {
   }
 
   @computed get gradeAnswersButton() {
-    if (this.props.plan.type === 'event'){ return null; }
+    const { plan, course } = this.props;
+    // TODO: Check plan for gradeable anwers. For now just use Homework as the
+    // check until we have practical dev/test data
+    if (!plan.isHomework) { return null; }
     return (
-      <TutorLink
-        className="btn btn-form-action btn-primary"
-        to='gradeAssignment'
-        params={{ id: this.props.plan.id, courseId: this.props.course.id }}
+      <OverlayTrigger
+        placement="top"
+        overlay={
+          <Tooltip>
+            {!this.tasking.isPastDue && "Assignment will be available for grading after the due date."}
+          </Tooltip>
+        }
       >
-        Grade answers
-      </TutorLink>
+        <span>
+          <TutorLink
+            className={cn("btn btn-form-action btn-primary", { 'disabled': !this.tasking.isPastDue }) }
+            to="gradeAssignment"
+            data-test-id="gradeAnswers"
+            params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
+          >
+            Grade answers
+          </TutorLink>
+        </span>
+      </OverlayTrigger>
     );
   }
 
@@ -123,19 +143,8 @@ class CoursePlanDetails extends React.Component {
           to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
           params={this.linkParams}
         >
-          {plan.isExternal ? 'View Scores' : 'Review Metrics'}
+          View assignment
         </TutorLink>
-
-        <TutorLink
-          className="btn btn-form-action"
-          to="editAssignment"
-          params={this.linkParams}
-        >
-          {plan.isEditable ? 'Edit' : 'View'}
-          {' '}
-          {plan.type === 'event' ? 'Event' : 'Assignment'}
-        </TutorLink>
-
         {this.assignmentLinksButton}
         {this.gradeAnswersButton}
       </div>
@@ -231,7 +240,7 @@ class CoursePlanDetails extends React.Component {
           enableReinitialize
           initialValues={this.tasking}
         >
-          {(setFieldValue) => (
+          {({ setFieldValue }) => (
             <Row className="tasking-date-time">
               <Col xs={12} md={4} className="opens-at">
                 <DateTime

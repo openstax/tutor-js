@@ -6,6 +6,7 @@ context('Assignment Review', () => {
   });
 
   it('loads and views feedback', () => {
+    cy.contains('Submission Overview').click();
     cy.getTestElement('overview').should('exist');
     cy.getTestElement('student-free-responses').should('not.exist');
     cy.get('.homework-questions .ox-icon-caret-right').first().click()

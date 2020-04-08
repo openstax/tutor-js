@@ -133,8 +133,6 @@ class Stats extends React.Component {
         <section>
           {courseBar}
         </section>
-        {this.renderCurrentPages()}
-        {this.renderSpacedPages()}
       </StatsWrapper>;
     }
 
