@@ -58,7 +58,7 @@ module.exports = {
 
   getScores(req, res) {
     const course = getCourse(req.query.course_id);
-    const plan = planForId(req.params.id);
+    const plan = planForId(req.params.id, { course: course });
     const exercises = times(8).map((id) => getExercise(id));
     const scores = Factory.create('TaskPlanScores', { task_plan: plan, course, exercises });
     res.json(scores);
