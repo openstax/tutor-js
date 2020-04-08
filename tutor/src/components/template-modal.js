@@ -20,6 +20,10 @@ const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitPro
       padding: 4rem;
     }
 
+    .modal-footer {
+      padding: 0 4rem 4rem;
+    }
+
     .close {
       font-size: 3rem;
       margin-top: -1.5rem;
