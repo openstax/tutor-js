@@ -19,13 +19,14 @@ export default class AssignmentGradingUX {
   }
 
   @action async initialize({
-    id, courseId, scores, course,
+    id, periodId, courseId, scores, course,
     windowImpl = window,
   }) {
 
     this.scroller = new ScrollTo({ windowImpl });
     this.course = course || Courses.get(courseId);
-    this.selectedPeriod = first(this.course.periods.active);
+    this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
+      first(this.course.periods.active);
     this.planScores = scores || new TaskPlanScores({ id, course: this.course });
     this.setQuestionIndex(0);
 

@@ -32,11 +32,27 @@ module.exports = {
     } else {
       let days = -50;
 
-      data.plans = range(1, 25).map(id => omit(Factory.create('TeacherTaskPlan', {
+      const defaultPlans = range(1, 25).map(id => omit(Factory.create('TeacherTaskPlan', {
         id, course, now,
         title: TITLES[id],
         days_ago: (days+=id),
       }), 'course'));
+
+      // Match due_at day offset to render day before + day after current day
+      const planSettings = [
+        { id: 26, type: 'homework', days_ago: 4 },
+        { id: 27, type: 'homework', days_ago: 2 },
+        { id: 28, type: 'event',    days_ago: 2 },
+        { id: 29, type: 'external', days_ago: 2 },
+        { id: 30, type: 'reading',  days_ago: 2 },
+      ];
+
+      const setPlans = planSettings.map(s => Factory.create('TeacherTaskPlan', {
+        ...s, course, now,
+        title: TITLES[s.id],
+      }));
+
+      data.plans = [...defaultPlans, ...setPlans]
 
       data.tasks = [];
     }
