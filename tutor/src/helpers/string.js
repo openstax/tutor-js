@@ -39,7 +39,7 @@ export default {
   },
 
   dasherize(string) {
-    return string
+    return String(string)
       .replace(/[A-Z]/g, (char, index) => (index !== 0 ? '-' : '') + char.toLowerCase())
       .replace(/[-_\s]+/g, '-');
   },
