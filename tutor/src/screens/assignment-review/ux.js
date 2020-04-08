@@ -2,6 +2,7 @@ import { observable, action, computed } from 'vendor';
 import { first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
+import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import Exercises from '../../models/exercises';
 
 export default class AssignmentReviewUX {
@@ -13,7 +14,7 @@ export default class AssignmentReviewUX {
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
-  pendingDropping = observable.map();
+  pendingDroppedQuestions = observable.map();
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -81,15 +82,31 @@ export default class AssignmentReviewUX {
 
   // methods relating to droppping questions
 
+  @action toggleDropQuestion(isDropped, { question_id }) {
+    if (isDropped) {
+      this.pendingDroppedQuestions.set(question_id, new DropQuestion({ question_id }));
+    } else {
+      this.pendingDroppedQuestions.delete(question_id);
+    }
+  }
+
   @action.bound cancelDisplayingDropQuestions() {
-    this.pendingDropping.clear();
+    this.pendingDroppedQuestions.clear();
     this.isDisplayingDropQuestions = false;
   }
 
-  @action.bound saveDropQuestions() {
-    // TODO: actually save
+  @action.bound async saveDropQuestions() {
+    const { taskPlan } = this.planScores;
+    this.pendingDroppedQuestions.forEach(dq => {
+      taskPlan.dropped_questions.push(dq);
+      this.planScores.dropped_questions.push(dq);
+    });
+    await taskPlan.saveDroppedQuestions();
     this.cancelDisplayingDropQuestions();
   }
 
+  droppedQuestionRecord(heading) {
+    return heading.dropped || this.pendingDroppedQuestions.get(heading.question_id);
+  }
 
 }

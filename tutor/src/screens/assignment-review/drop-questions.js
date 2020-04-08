@@ -112,12 +112,23 @@ const TutorQuestion = observer(({ heading }) => {
   );
 });
 
-const CoreQuestion = observer(({ heading }) => {
+const CoreQuestion = observer(({ ux, heading }) => {
+  const drop = ux.droppedQuestionRecord(heading);
 
   return (
-    <QuestionRowWrapper>
+    <QuestionRowWrapper
+      disabled={!!heading.dropped}
+      data-test-id="drop-question-row"
+      data-exercise-id={heading.exercise_id}
+      data-question-id={heading.question_id}
+    >
       <Cell>
-        <input type="checkbox" name={heading.title} />
+        <input
+          type="checkbox"
+          name={heading.title}
+          checked={!!drop}
+          onChange={({ target: { checked } }) => ux.toggleDropQuestion(checked, heading)}
+        />
       </Cell>
       <Cell>
         {heading.title}
@@ -130,8 +141,25 @@ const CoreQuestion = observer(({ heading }) => {
       </Cell>
       <Cell>
         <Reallocate>
-          <label><input type="radio" name={`${heading.question.id}`} value="credit" /></label>
-          <label><input type="radio" name={`${heading.question.id}`} value="zero" /></label>
+          <label>
+            <input
+              type="radio"
+              name={`${heading.question_id}`}
+              value="full_credit"
+              disabled={!drop || heading.dropped}
+              onChange={({ target: { checked } }) => { checked && (drop.drop_method = 'full_credit'); }}
+              checked={Boolean(drop && drop.drop_method == 'full_credit')}
+            /></label>
+          <label>
+            <input
+              type="radio"
+              name={`${heading.question.id}`}
+              value="zeroed"
+              disabled={!drop || heading.dropped}
+              onChange={({ target: { checked } }) => { checked && (drop.drop_method = 'zeroed'); }}
+              checked={Boolean(drop && drop.drop_method == 'zeroed')}
+            />
+          </label>
         </Reallocate>
       </Cell>
       <Cell>
@@ -184,15 +212,21 @@ const TableHeader = () => (
 
 
 const DropQuestion = observer(({ ux }) => {
-  if (ux.planScores.type != 'homework') {
+  if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
     return null;
   }
 
   return (
     <>
-      <ToolbarButton onClick={() => ux.isDisplayingDropQuestions=true}>Drop questions</ToolbarButton>
+      <ToolbarButton
+        data-test-id="drop-questions-btn"
+        onClick={() => ux.isDisplayingDropQuestions=true}
+      >
+        Drop questions
+      </ToolbarButton>
       <DropQuestionsModal
         show={ux.isDisplayingDropQuestions}
+        data-test-id="drop-questions-modal"
         backdrop="static"
         onHide={ux.cancelDisplayingDropQuestions}
       >
@@ -200,22 +234,20 @@ const DropQuestion = observer(({ ux }) => {
           Drop question for {ux.selectedPeriod.name}
         </Modal.Header>
         <Modal.Body>
-
           <Table>
             <TableHeader />
-
             {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
           </Table>
-
-
         </Modal.Body>
         <Modal.Footer>
           <Button
             variant="default"
+            data-test-id="cancel-btn"
             onClick={ux.cancelDisplayingDropQuestions}
           >Close</Button>
           <Button
             variant="primary"
+            data-test-id="save-btn"
             onClick={ux.saveDropQuestions}
           >Save</Button>
         </Modal.Footer>

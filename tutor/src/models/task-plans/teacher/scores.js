@@ -3,6 +3,7 @@ import {
 } from 'shared/model';
 import Exercises from '../../exercises';
 import { filter, sumBy, find } from 'lodash';
+import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -88,6 +89,11 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get question() {
     return this.exercise && this.exercise.content.questions.find(q => q.id == this.question_id);
   }
+
+  @computed get dropped() {
+    return this.period.plan.dropped_questions.find(drop => drop.question_id == this.question_id);
+  }
+
 }
 
 
@@ -99,7 +105,7 @@ class TaskPlanPeriodScore extends BaseModel {
 
   @field({ type: 'object' }) average_score;
   @field({ type: 'object' }) available_points;
-
+  @belongsTo({ model: 'task-plan/scores' }) plan;
   @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'period' }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'period' }) students;
 
@@ -166,6 +172,7 @@ class TaskPlanScores extends BaseModel {
   @field description;
   @field type;
 
+  @hasMany({ model: DroppedQuestion }) dropped_questions;
   @hasMany({ model: TaskPlanPeriodScore, inverseOf: 'plan' }) periods;
   @hasMany({ model: 'task-plans/teacher/tasking', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
@@ -185,6 +192,13 @@ class TaskPlanScores extends BaseModel {
     return ids;
   }
 
+  @computed get isHomework() {
+    return 'homework' == this.type;
+  }
+
   fetch() { return { id: this.id }; }
 
+  get taskPlan() {
+    return this.course.teacherTaskPlans.withPlanId(this.id);
+  }
 }

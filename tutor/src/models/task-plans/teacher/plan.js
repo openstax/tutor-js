@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, createAtom, observe } from 'mobx';
+import { action, computed, observable, createAtom, observe, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
   first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex,
@@ -13,6 +13,7 @@ import TaskPlanPublish from '../../jobs/task-plan-publish';
 import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
+import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
 
 const HW_DEFAULT_POINTS = 1;
@@ -77,6 +78,8 @@ class TeacherTaskPlan extends BaseModel {
   @field publish_job_url;
   @field grading_template_id;
   @field({ type: 'object' }) settings = {};
+
+  @hasMany({ model: DroppedQuestion }) dropped_questions;
 
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
@@ -392,6 +395,14 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get isValid() {
     return 0 === this.invalidParts.length;
+  }
+
+  @action saveDroppedQuestions() {
+    return {
+      data: {
+        dropped_questions: toJS(this.dropped_questions),
+      },
+    };
   }
 
   // called from api

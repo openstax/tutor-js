@@ -39,9 +39,9 @@ export default {
   },
 
   dasherize(string) {
-    return string.replace(/[A-Z]/g, function(char, index) {
-      return (index !== 0 ? '-' : '') + char.toLowerCase();
-    });
+    return string
+      .replace(/[A-Z]/g, (char, index) => (index !== 0 ? '-' : '') + char.toLowerCase())
+      .replace(/[-_\s]+/g, '-');
   },
 
   // originated from http://individed.com/code/to-title-case/

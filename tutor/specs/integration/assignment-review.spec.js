@@ -1,7 +1,7 @@
 context('Assignment Review', () => {
 
   beforeEach(() => {
-    cy.visit('/course/1/assignment/review/1')
+    cy.visit('/course/1/assignment/review/2')
     cy.disableTours();
   });
 
@@ -13,8 +13,25 @@ context('Assignment Review', () => {
   });
 
   it('loads and views scores', () => {
-    cy.get('.tutor-tabs li a').last().click()
+    cy.getTestElement('assignment-scores-tab').click()
     cy.getTestElement('scores').should('exist');
   });
+
+  it('can drop questions', () => {
+    cy.getTestElement('assignment-scores-tab').click()
+    cy.getTestElement('drop-questions-btn').click()
+    cy.getTestElement('drop-questions-modal').should('exist')
+
+    cy.getTestElement('drop-question-row').then(([,row]) => {
+      row.querySelector('input[type="checkbox"]').click()
+      const { questionId } = row.dataset;
+      cy.wrap(row.querySelector('input[type="radio"][value="zeroed"]')).should('be.checked')
+      cy.getTestElement('save-btn').click()
+      cy.getTestElement('drop-questions-modal').should('not.exist')
+      cy.getTestElement('drop-questions-btn').click()
+      cy.get(`[data-question-id=${questionId}] input[type="checkbox"]`).should('be.checked')
+    })
+
+  })
 
 });
