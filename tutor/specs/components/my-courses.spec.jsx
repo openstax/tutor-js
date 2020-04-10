@@ -18,7 +18,7 @@ describe('My Courses Component', function() {
   afterEach(() => {
     Courses.clear();
     User.faculty_status = '';
-    User.school_type = 'college';
+    User.school_type = 'unknown_school_type';
     User.self_reported_role = '';
   });
 
@@ -118,23 +118,10 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  describe('non college instructors', () => {
-    it('locks them out and displays message when they hve no courses', () => {
-      loadTeacherUser();
-      Courses.clear();
-      User.school_type = 'unknown_school_type';
-      const wrapper = mount(<C><CourseListing /></C>);
-      expect(wrapper).toHaveRendered('NoHSTeachers');
-      wrapper.unmount();
-    });
-
-    it('hides previews if they have courses', () => {
-      loadTeacherUser();
-      const wrapper = mount(<C><CourseListing /></C>);
-      expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');
-      User.school_type = 'unknown_school_type';
-      expect(wrapper).not.toHaveRendered('MyCoursesPreview MyCoursesBasic');
-      wrapper.unmount();
-    });
+  it('displays previews', () => {
+    loadTeacherUser();
+    const wrapper = mount(<C><CourseListing /></C>);
+    expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');
+    wrapper.unmount();
   });
 });

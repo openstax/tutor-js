@@ -85,7 +85,7 @@ class User extends BaseModel {
   }
 
   @computed get canViewPreviewCourses() {
-    return this.isConfirmedFaculty && this.isCollegeTeacher;
+    return this.isConfirmedFaculty;
   }
 
   @computed get isProbablyTeacher() {

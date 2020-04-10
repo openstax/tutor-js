@@ -1,7 +1,6 @@
 import { loadAsync } from './helpers/async-component';
 import { memoize } from 'lodash';
 import { getConditionalHandlers } from './helpers/conditional-handlers';
-import OnlyCollege from './components/my-courses/no-hs-teachers';
 
 const r = (i, n) => memoize(loadAsync(i, n));
 
@@ -11,8 +10,6 @@ const getRoutes = (router) => {
   return [
     { path: '/dashboard', name: 'myCourses',
       renderer: r(() => import('./components/my-courses'), 'Courses Listing') },
-    { path: '/only-college-instructors', name: 'onlyCollegeInstructors',
-      renderer: () => OnlyCollege },
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',
       renderer: r(() => import('./components/enroll'), 'Course Enrollment') },
     { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering',

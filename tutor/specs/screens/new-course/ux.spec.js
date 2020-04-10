@@ -1,14 +1,11 @@
 import { Factory, TestRouter } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import User from '../../../src/models/user';
-import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
 jest.useFakeTimers();
 
-jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
-}));
+jest.mock('../../../src/models/user');
 
 const testRouter = new TestRouter();
 let courses;
@@ -22,7 +19,7 @@ describe('Course Builder UX Model', () => {
   let ux;
 
   beforeEach(() => {
-    User.isCollegeTeacher = true;
+    User.isConfirmedFaculty = true;
     courses = Factory.coursesMap({ is_teacher: true });
     ux = createTestUX();
     ux.courses.array[0].offering_id = ux.offerings.array[0].id;
@@ -146,14 +143,6 @@ describe('Course Builder UX Model', () => {
     ux.newCourse.offering_id = offering.id;
     ux.newCourse.offering = ux.offerings.array[1];
     expect(ux.offering).toEqual(ux.offerings.array[1]);
-  });
-
-  it('redirects to onlly college page if teacher isnt college', () => {
-    User.isCollegeTeacher = false;
-    ux = createTestUX();
-    Router.makePathname.mockReturnValue('/only-teacher');
-    jest.runOnlyPendingTimers();
-    expect(ux.router.history.replace).toHaveBeenCalledWith('/only-teacher');
   });
 
   describe('after course is created', function() {

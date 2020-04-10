@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  invoke, filter, result, isEmpty, pick, values, every, delay, find,
+  invoke, filter, result, isEmpty, pick, values, every, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -10,8 +10,6 @@ import Course from '../../models/course';
 import Courses from '../../models/courses-map';
 import Offerings from '../../models/course/offerings';
 import CreateCourse from '../../models/course/create';
-import Router from '../../helpers/router';
-import User from '../../models/user';
 
 export default
 @identifiedBy('course/builder-ux')
@@ -43,15 +41,6 @@ class CourseBuilderUX extends BaseModel {
     this.offerings = offerings;
     this.courses = courses;
     this.newCourse = new CreateCourse({ courses, offerings });
-    if (!User.isCollegeTeacher) {
-      delay(() => // use delay in case we're called from a React constructor
-        router.history.replace(
-          Router.makePathname('onlyCollegeInstructors')
-        )
-      );
-      this.currentStageIndex = 0;
-      return;
-    }
 
     invoke(this.offerings.fetch(), 'then', this.onOfferingsAvailable);
 
