@@ -1,7 +1,6 @@
 import { Factory, TestRouter } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import User from '../../../src/models/user';
-import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
 jest.useFakeTimers();

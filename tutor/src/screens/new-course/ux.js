@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  invoke, filter, result, isEmpty, pick, values, every, delay, find,
+  invoke, filter, result, isEmpty, pick, values, every, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -10,8 +10,6 @@ import Course from '../../models/course';
 import Courses from '../../models/courses-map';
 import Offerings from '../../models/course/offerings';
 import CreateCourse from '../../models/course/create';
-import Router from '../../helpers/router';
-import User from '../../models/user';
 
 export default
 @identifiedBy('course/builder-ux')
