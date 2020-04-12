@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from 'vendor';
+import { React, observable, observer, action, cn, styled } from 'vendor';
 import { partial } from 'lodash';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import Course from '../../models/course';
 import AddMenu from './add-menu';
 import GradingTemplateLink from '../grading-templates/link';
 import CalendarHelper from './helper';
+import { colors } from 'theme';
 
 const IS_INTRO_VIEWED = 'viewed-plan-dnd-intro';
 const USE_SETTINGS = false;
@@ -33,6 +34,11 @@ const IntroPopover = ({ show, onClose }) => (
     </Popover>
   </Overlay>
 );
+
+const StyledSeparator = styled.hr`
+  border-color: ${colors.neutral.pale};
+  margin: 0.6rem 0.8rem 1.7rem;
+`;
 
 export default
 @observer
@@ -101,7 +107,7 @@ class AddAssignmentSidebar extends React.Component {
         <TourAnchor id="sidebar-add-tasks" className="sidebar-section">
 
           <GradingTemplateLink course={this.props.course} />
-
+          <StyledSeparator />
           <div className="section-label">
             New
           </div>
