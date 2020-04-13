@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { omit } from 'lodash';
-import { withRouter } from 'react-router';
+import { __RouterContext as RouterContext } from 'react-router';
 import classnames from 'classnames';
 import { typesetMath } from '../helpers/mathjax';
 import { wrapFrames } from '../helpers/html-videos';
@@ -12,7 +12,7 @@ const isExternalLink = (a) => {
   return ('A' == a.tagName && a.origin !== window.location.origin);
 };
 
-@withRouter
+
 class ArbitraryHtmlAndMath extends React.Component {
 
   static defaultProps = {
@@ -29,6 +29,8 @@ class ArbitraryHtmlAndMath extends React.Component {
     windowImpl: PropTypes.object,
     history: PropTypes.object,
   };
+
+  static contextType = RouterContext;
 
   componentDidMount() { return this.updateDOMNode(); }
 
@@ -68,8 +70,8 @@ class ArbitraryHtmlAndMath extends React.Component {
   };
 
   onClick = (ev) => {
-    if (isExternalLink(ev.target)) {
-      this.props.history.push(ev.target.pathname + ev.target.hash);
+    if (!isExternalLink(ev.target) && this.context.history) {
+      this.context.history.push(ev.target.pathname + ev.target.hash);
       ev.preventDefault();
     }
   }
