@@ -46,11 +46,6 @@ const Title = styled.h1`
   font-size: 3.6rem;
   line-height: 4.5rem;
   margin: 0;
-
-  ${props => props.appearance === 'light' && css`
-    font-size: 2.4rem;
-    line-height: 3rem;`
-  }
 `;
 
 const Subtitle = styled.h3`

@@ -14,7 +14,11 @@ import * as EDIT_TYPES from './editors';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 const Instructions = styled.p`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  a {
+    text-decoration: underline;
+  }
 `;
 
 const Templates = styled(CoursePage)`
@@ -113,7 +117,11 @@ class GradingTemplatesScreen extends React.Component {
         {modal}
         <Row>
           <Col>
-            <Instructions>Manage pre-set submission and grading policy templates here. These templates can be applied to multiple assignments.</Instructions>
+            <Instructions>
+              Manage pre-set submission and grading policy templates here. These
+              templates can be applied to multiple assignments. Template applied
+              to open assignments cannot be edited or deleted. <a href="">Learn more</a>
+            </Instructions>
           </Col>
         </Row>
         <Row>
@@ -134,7 +142,7 @@ class GradingTemplatesScreen extends React.Component {
   }
 
   titleBreadcrumbs() {
-    return <CourseBreadcrumb course={this.course} currentTitle="Grading Templates" />;
+    return <CourseBreadcrumb course={this.course} currentTitle="Grading templates" />;
   }
 
   render() {
@@ -142,7 +150,7 @@ class GradingTemplatesScreen extends React.Component {
       <ScrollToTop>
         <Templates
           course={this.course}
-          title="Grading Templates"
+          title="Grading templates"
           titleControls={this.titleControls()}
           titleBreadcrumbs={this.titleBreadcrumbs()}
           titleAppearance="light"
