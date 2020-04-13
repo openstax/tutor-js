@@ -264,11 +264,6 @@ class TemplateForm extends React.Component {
         {map(form.errors.common, (value, key) =>
           <Error key={key}>{value}</Error>)}
         <Line />
-        <Row>
-          Reading assignments are auto-graded by OpenStax Tutor. Scores and feedback are visible to students
-          immediately after they answer a question.
-        </Row>
-        <Line />
         <Row>Set the late work policy</Row>
         <FieldsetRow legend="Accept late work?">
           <Setting>
@@ -406,6 +401,11 @@ const reading = observer((props) => {
               <SettingLabel>% of questions point value</SettingLabel>
             </Setting>
           </SplitRow>
+          <Line />
+          <Row>
+            Reading assignments are auto-graded by OpenStax Tutor. Scores and feedback are visible to students
+            immediately after they answer a question.
+          </Row>
         </>
       )}
     />
