@@ -20,6 +20,21 @@ const StyledTemplateModal = styled(TemplateModal)`
   }
 `;
 
+const StyledSelectAssignmentModal = styled(StyledTemplateModal)`
+  .modal-dialog {
+    margin-top: 135px;
+  }
+  .modal-body {
+    background-color: #F5F5F5 !important;
+  }
+  .btn-default {
+    background-color: #FFFFFF !important;
+  }
+  .btn + .btn {
+    margin-left: 4rem;
+  }
+`;
+
 const Row = styled.div`
   margin: 2.4rem 0;
 `;
@@ -500,7 +515,7 @@ const create = observer((props) => {
   const { onComplete, onCreateTypeSelection: onSelection } = props;
 
   return (
-    <StyledTemplateModal
+    <StyledSelectAssignmentModal
       show={true}
       backdrop="static"
       onHide={onComplete}
@@ -512,7 +527,7 @@ const create = observer((props) => {
       <Modal.Body>
         <CenteredRow>
           <LargeText>
-            To make an assignment settings template, select an assignment category
+            To make a grading template, select an assignment category
           </LargeText>
         </CenteredRow>
         <CenteredRow>
@@ -526,7 +541,7 @@ const create = observer((props) => {
           </Row>
         </CenteredRow>
       </Modal.Body>
-    </StyledTemplateModal>
+    </StyledSelectAssignmentModal>
   );
 
 });
