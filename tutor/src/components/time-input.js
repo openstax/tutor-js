@@ -67,6 +67,8 @@ const TimeInput = observer(( props ) => {
     props.onChange && props.onChange(ev);
   };
 
+  const minutes = (props.minutes || range(0, 60));
+
   return (
     <Wrapper>
       <Select
@@ -82,7 +84,7 @@ const TimeInput = observer(( props ) => {
         name={`${name}_minute`}
         onChange={ev => onChange(hour, ev.target.value)}
       >
-        {range(0, 60).map((m) =>
+        {minutes.map((m) =>
           <option value={m} key={m}>{`${m}`.padStart(2, '0')}</option>
         )}
       </Select>

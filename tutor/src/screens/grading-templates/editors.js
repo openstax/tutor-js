@@ -206,6 +206,7 @@ class TemplateForm extends React.Component {
             id="late_day_deduction"
             translate={wholePercent}
             min={0} max={100}
+            step={5}
             disabled={applied !== 'daily'}
           />
           <SettingLabel
@@ -228,7 +229,8 @@ class TemplateForm extends React.Component {
             name="late_work_penalty"
             id="late_assignment_deduction"
             translate={wholePercent}
-            min={0} max={99}
+            min={0} max={100}
+            step={5}
             disabled={applied !== 'immediately'}
           />
           <SettingLabel
@@ -244,6 +246,8 @@ class TemplateForm extends React.Component {
 
   renderForm = (form) => {
     const { body } = this.props;
+    const namePlaceholder = this.props.template.task_plan_type == 'reading' ?
+      'Pre-class reading, Reading-Thursday, etc.' : 'Homework, Short-essay, etc.';
 
     return (
       <Form>
@@ -253,7 +257,7 @@ class TemplateForm extends React.Component {
             name="name"
             id="template_name"
             validate={isRequired}
-            placeholder="Pre-class reading, Reading-Thursday, etc."
+            placeholder={namePlaceholder}
           />
         </SplitRow>
 
@@ -295,7 +299,7 @@ class TemplateForm extends React.Component {
         <FieldsetRow legend="Due date for assignments">
           <Setting>
             <Select name="default_due_date_offset_days">
-              {range(1, 8).map((v) =>
+              {range(1, 16).map((v) =>
                 <option value={v} key={v}>{v}</option>
               )}
             </Select>
@@ -303,13 +307,16 @@ class TemplateForm extends React.Component {
           </Setting>
         </FieldsetRow>
         <FieldsetRow legend="Due time for assignments">
-          <TimeInput name="default_due_time" />
+          <TimeInput
+            name="default_due_time"
+            minutes={[...range(0, 56, 5), 59]}
+          />
         </FieldsetRow>
         <FieldsetRow legend="Close date for assignments">
           <Setting>
             <Select name="default_close_date_offset_days">
-              {Array.from(Array(7), (v, i) =>
-                <option key={'closedate' + i}>{i + 1}</option>
+              {[...range(1, 16), 30, 60, 90, 120].map((v) =>
+                <option key={'closedate' + v}>{v}</option>
               )}
             </Select>
             <SettingLabel htmlFor="close_date_count">days after due date</SettingLabel>
@@ -324,7 +331,7 @@ class TemplateForm extends React.Component {
             <Button variant="default" onClick={this.props.onComplete} size="lg">
               Cancel
             </Button>
-            <Button type="submit" size="lg">
+            <Button type="submit" size="lg" disabled={!form.isValid}>
               Save
             </Button>
           </Controls>
@@ -349,6 +356,7 @@ class TemplateForm extends React.Component {
         <Modal.Body>
           <Formik
             initialValues={template}
+            validateOnMount={true}
             validate={GradingTemplate.validate}
             onSubmit={this.onSubmit}
           >
