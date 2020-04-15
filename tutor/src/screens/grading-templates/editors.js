@@ -26,12 +26,12 @@ const StyledSelectAssignmentModal = styled(StyledTemplateModal)`
   .modal-dialog {
     margin-top: 135px;
     & .modal-body {
-      background-color: #F5F5F5;
+      background: #F5F5F5;
       & .btn + .btn {
         margin-left: 4rem;
       }
-      & .btn-lg {
-        background-color: #FFFFFF !important;
+      & .btn-default {
+        background: #FFFFFF;
       }
     }
   }
