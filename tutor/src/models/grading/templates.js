@@ -34,6 +34,13 @@ class GradingTemplate extends BaseModel {
   constructor(attrs, map) {
     super(attrs);
     this.map = map;
+
+    if (this.isNew && this.isReading) {
+      this.late_work_penalty_applied = 'immediately';
+    }
+    if (this.isNew && this.isHomework) {
+      this.manual_grading_feedback_on = 'grade';
+    }
   }
 
   @computed get isReading() {
