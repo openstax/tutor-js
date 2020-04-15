@@ -20,6 +20,23 @@ const StyledTemplateModal = styled(TemplateModal)`
   }
 `;
 
+// Inheriting the modal-dialog max-width
+// We don't want to override the styles of the next modals
+const StyledSelectAssignmentModal = styled(StyledTemplateModal)`
+  .modal-dialog {
+    margin-top: 135px;
+    & .modal-body {
+      background: #F5F5F5;
+      & .btn + .btn {
+        margin-left: 4rem;
+      }
+      & .btn-default {
+        background: #FFFFFF;
+      }
+    }
+  }
+`;
+
 const Row = styled.div`
   margin: 2.4rem 0;
 `;
@@ -500,7 +517,7 @@ const create = observer((props) => {
   const { onComplete, onCreateTypeSelection: onSelection } = props;
 
   return (
-    <StyledTemplateModal
+    <StyledSelectAssignmentModal
       show={true}
       backdrop="static"
       onHide={onComplete}
@@ -512,7 +529,7 @@ const create = observer((props) => {
       <Modal.Body>
         <CenteredRow>
           <LargeText>
-            To make an assignment settings template, select an assignment category
+            To make a grading template, select an assignment category
           </LargeText>
         </CenteredRow>
         <CenteredRow>
@@ -526,7 +543,7 @@ const create = observer((props) => {
           </Row>
         </CenteredRow>
       </Modal.Body>
-    </StyledTemplateModal>
+    </StyledSelectAssignmentModal>
   );
 
 });
