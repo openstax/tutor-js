@@ -245,8 +245,8 @@ class TemplateForm extends React.Component {
   }
 
   renderForm = (form) => {
-    const { body } = this.props;
-    const namePlaceholder = this.props.template.task_plan_type == 'reading' ?
+    const { body, template } = this.props;
+    const namePlaceholder = template.task_plan_type == 'reading' ?
       'Pre-class reading, Reading-Thursday, etc.' : 'Homework, Short-essay, etc.';
 
     return (
