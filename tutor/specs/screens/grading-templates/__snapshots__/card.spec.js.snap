@@ -40,6 +40,10 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
   justify-content: space-between;
 }
 
+.c1 .card-header .btn:not(.btn-link):focus {
+  box-shadow: none;
+}
+
 .c1 .card-header .btn-link {
   color: #424242;
   padding: 0;
@@ -256,6 +260,10 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
+}
+
+.c1 .card-header .btn:not(.btn-link):focus {
+  box-shadow: none;
 }
 
 .c1 .card-header .btn-link {
