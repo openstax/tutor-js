@@ -20,18 +20,20 @@ const StyledTemplateModal = styled(TemplateModal)`
   }
 `;
 
+// Inheriting the modal-dialog max-width
+// We don't want to override the styles of the next modals
 const StyledSelectAssignmentModal = styled(StyledTemplateModal)`
   .modal-dialog {
     margin-top: 135px;
-  }
-  .modal-body {
-    background-color: #F5F5F5 !important;
-  }
-  .btn-default {
-    background-color: #FFFFFF !important;
-  }
-  .btn + .btn {
-    margin-left: 4rem;
+    & .modal-body {
+      background-color: #F5F5F5;
+      & .btn + .btn {
+        margin-left: 4rem;
+      }
+      & .btn-lg {
+        background-color: #FFFFFF !important;
+      }
+    }
   }
 `;
 
