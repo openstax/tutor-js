@@ -24,6 +24,11 @@ const CardWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    /** Fix issue when clicking on the edit or delete button will stay on focus after the modal is closed  */
+    & .btn:not(.btn-link):focus {
+      box-shadow: none;
+    }
+
     .btn-link {
       color: ${Theme.colors.neutral.darker};
       padding: 0;
@@ -59,8 +64,8 @@ const StyledCol = styled(Col)`
 
 const toPerc = (n) => `${Math.round(n * 100)}%`;
 
-const gradedExplanation = (tmpl) => {
-  switch (tmpl.auto_grading_feedback_on) {
+const gradedExplanation = (gradingType) => {
+  switch (gradingType) {
     case 'publish':
       return 'After I publish the scores';
     case 'grade':
@@ -68,7 +73,7 @@ const gradedExplanation = (tmpl) => {
     case 'answer':
       return 'Immediately after student answers';
     case 'due':
-      return 'After assignment is due';
+      return 'After the due date';
     default:
       return 'invalid value';
   }
@@ -174,10 +179,12 @@ const HomeworkCard = ({ template, ...cardProps }) => {
       <SectionTitle>SHOW SCORES & FEEDBACK TO STUDENTS</SectionTitle>
 
       <SettingName>For auto-graded questions:</SettingName>
-      <SettingValue>{gradedExplanation(template)}</SettingValue>
+      <SettingValue>{gradedExplanation(template.
+        auto_grading_feedback_on)}</SettingValue>
 
       <SettingName>For manually-graded questions:</SettingName>
-      <SettingValue>{gradedExplanation(template)}</SettingValue>
+      <SettingValue>{gradedExplanation(template.
+        manual_grading_feedback_on)}</SettingValue>
     </CardInfo>
   );
 };
