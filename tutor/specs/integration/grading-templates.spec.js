@@ -40,7 +40,7 @@ context('Grading Templates', () => {
 
     editor('[name="default_due_date_offset_days"]').select('3');
     editor('[name="default_due_time_hour"]').select('10');
-    editor('[name="default_due_time_minute"]').select('42');
+    editor('[name="default_due_time_minute"]').select('45');
     editor('[name="default_due_time_ampm"][value="pm"]').click({ force: true });
 
     cy.get('.modal-dialog .btn-primary').click();
@@ -54,7 +54,7 @@ context('Grading Templates', () => {
       expect(text).toContain('Weight for correctness:70%')
       expect(text).toContain('Weight for completion:30%')
       expect(text).toContain('Due date for assignments:3 days')
-      expect(text).toContain('Due time for assignments:10:42 PM')
+      expect(text).toContain('Due time for assignments:10:45 PM')
     })
 
   });

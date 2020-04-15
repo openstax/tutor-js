@@ -24,6 +24,10 @@ const StyledNumberInput = styled(RCNumberInput)`
     box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
   }
 
+  &.rc-input-number-disabled input {
+    color: #fff;
+  }
+
   input {
     border: 0;
     border-radius: 4px;

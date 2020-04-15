@@ -31,6 +31,10 @@ exports[`Number Input renders and matches snapshot 1`] = `
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
+.c0.rc-input-number-disabled input {
+  color: #fff;
+}
+
 .c0 input {
   border: 0;
   border-radius: 4px;
