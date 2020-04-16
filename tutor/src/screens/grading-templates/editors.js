@@ -149,6 +149,12 @@ const wholePercent = {
   },
 };
 
+const enforceNumberInput = (ev) => {
+  if (ev.key.length === 1 && /\D/.test(ev.key)) {
+    ev.preventDefault();
+  }
+};
+
 const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }) => {
   return (
     <fieldset {...fieldsetProps}>
@@ -208,6 +214,7 @@ class TemplateForm extends React.Component {
             min={0} max={100}
             step={5}
             disabled={applied !== 'daily'}
+            onKeyDown={enforceNumberInput}
           />
           <SettingLabel
             id="late_day_deduction_label"
@@ -232,6 +239,7 @@ class TemplateForm extends React.Component {
             min={0} max={100}
             step={5}
             disabled={applied !== 'immediately'}
+            onKeyDown={enforceNumberInput}
           />
           <SettingLabel
             id="late_assignment_deduction_label"
@@ -393,6 +401,7 @@ const reading = observer((props) => {
                 min={0} max={100}
                 translate={wholePercent}
                 onChange={(ev) => form.setFieldValue('completion_weight', (1 - ev.target.value).toFixed(2))}
+                onKeyDown={enforceNumberInput}
               />
               <SettingLabel>% of questions point value</SettingLabel>
             </Setting>
@@ -405,6 +414,7 @@ const reading = observer((props) => {
                 min={0} max={100}
                 translate={wholePercent}
                 onChange={(ev) => form.setFieldValue('correctness_weight', (1 - ev.target.value).toFixed(2))}
+                onKeyDown={enforceNumberInput}
               />
               <SettingLabel>% of questions point value</SettingLabel>
             </Setting>
