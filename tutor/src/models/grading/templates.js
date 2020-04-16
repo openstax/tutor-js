@@ -88,6 +88,10 @@ class GradingTemplate extends BaseModel {
   onRemoved() {
     this.map.delete(this.id);
   }
+
+  isDuplicateName(name) {
+    return Boolean(this.map && this.map.array.find(t => t.name === name));
+  }
 }
 
 
