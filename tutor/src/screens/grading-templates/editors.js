@@ -398,7 +398,7 @@ const reading = observer((props) => {
           <Row>
             Score calculations for questions
             <HintText>
-              (OpenStax Tutor encourages grading for completion, not correctness. <a href="" target="_blank">Learn why</a>)
+              (OpenStax Tutor encourages grading for completion, not correctness. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn why</a>)
             </HintText>
           </Row>
 

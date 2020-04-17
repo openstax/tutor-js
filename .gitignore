@@ -12,3 +12,4 @@ archive.tar.gz
 *.cjsx.js
 /phantomjsdriver.log
 */test/some-tests.*
+.vscode/
