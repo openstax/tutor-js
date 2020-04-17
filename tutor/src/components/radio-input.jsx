@@ -2,6 +2,7 @@ import { React, PropTypes, observer, styled } from 'vendor';
 import Theme from '../theme';
 import { uniqueId } from 'lodash';
 import { useField } from 'formik';
+import { colors } from 'theme';
 
 const StyledWrapper = styled.span`
   position: relative;
@@ -18,7 +19,8 @@ const StyledRadioInput = styled.input.attrs( () => ({
   }
 
   & + label::before {
-    border: 0.1rem solid #5E6062;
+    border: 0.1rem solid ${colors.neutral.grayblue};
+    background: #fff;
     content: "";
     left: 0;
     top: 0;
