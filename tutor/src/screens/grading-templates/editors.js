@@ -287,7 +287,7 @@ class TemplateForm extends React.Component {
             // Check if the name is empty or is duplicated
             validate={(name) => {
               if (isEmpty(name)) return 'The name cannot be empty.';
-              if (this.props.template.isDuplicateName(name)) return 'This name is already in use. Enter a different name.';
+              if (this.props.template.isDuplicateName(template.id, name)) return 'This name is already in use. Enter a different name.';
               return null;
             }}
             placeholder={namePlaceholder}
