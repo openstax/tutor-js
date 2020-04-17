@@ -107,26 +107,33 @@ class TeacherTaskPlan extends BaseModel {
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
-
     if (this.isNew) {
-      if (this.isHomework) {
-        this.settings = {
-          exercises: [],
-          exercises_count_dynamic: SELECTION_COUNTS.default,
-        };
-      }
-      if (this.isExternal) {
-        this.settings = {
-          external_url: '',
-        };
-      }
+      Object.assign(this.settings, this.defaultSettings);
     }
-
+    // apply updated grading template settings to the tasking plans whenever it changes
     observe(this, 'grading_template_id', ({ oldValue, newValue }) => {
       const previousTemplate = this.course.gradingTemplates.get(oldValue);
       const currentTemplate = this.course.gradingTemplates.get(newValue);
       this.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate({ previousTemplate, currentTemplate }));
     });
+  }
+
+  @computed get defaultSettings() {
+    if (this.isHomework) {
+      return {
+        exercises: [],
+        exercises_count_dynamic: SELECTION_COUNTS.default,
+      };
+    }
+    if (this.isReading) {
+      return {
+        page_ids: [],
+      };
+    }
+    if (this.isExternal) {
+      return { external_url: '' };
+    }
+    return {};
   }
 
   @computed get gradingTemplate() {
