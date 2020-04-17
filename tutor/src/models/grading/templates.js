@@ -88,6 +88,11 @@ class GradingTemplate extends BaseModel {
   onRemoved() {
     this.map.delete(this.id);
   }
+
+  // Validate happens if template name, case insensitive, equals to any of the other template names.
+  isDuplicateName(id, name) {
+    return Boolean(this.map && this.map.array.some(t => t.id !== id && t.name.toLowerCase() === name.toLowerCase()));
+  }
 }
 
 

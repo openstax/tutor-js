@@ -100,7 +100,13 @@ const StyledTextInput = styled(Field).attrs({
   padding: 0.8rem 1rem;
   border-radius: 4px;
   border: 1px solid ${colors.forms.borders.light};
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  /** styling errors when template name is invalid */
+  background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.hasError ? 'red' : 'black'};
+  border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.hasError ? '2px' : '1px'};
+  
 
   &:focus {
     border-color: ${colors.forms.borders.focus};
@@ -160,7 +166,6 @@ const Error = styled(Alert).attrs({
 
 `;
 
-const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 const wholePercent = {
   fromNumber(v) {
     return Math.round(v * 100);
@@ -213,6 +218,11 @@ class TemplateForm extends React.Component {
     await this.props.template.save();
 
     this.props.onComplete();
+  }
+
+  componentDidMount() {
+    //Focus on the template name when modal is opened
+    this.templateName.focus();
   }
 
   renderLateWorkFields(form) {
@@ -285,8 +295,18 @@ class TemplateForm extends React.Component {
           <TextInput
             name="name"
             id="template_name"
-            validate={isRequired}
+            // Check if the name is empty or is duplicated
+            validate={(name) => {
+              if (isEmpty(name)) return 'The name cannot be empty.';
+              if (this.props.template.isDuplicateName(template.id, name)) return 'This name is already in use. Enter a different name.';
+              return null;
+            }}
             placeholder={namePlaceholder}
+            innerRef={(ref) => this.templateName = ref}
+            // Check if field is on focused ('touched') first and then check for any errors.
+            // Validate then happens when the field is out of focus for the first time.
+            // After, it validates as the user types.
+            hasError={!!form.touched.name && !!form.errors.name}
           />
         </SplitRow>
 
