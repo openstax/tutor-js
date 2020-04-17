@@ -16,7 +16,17 @@ const propTypes = {
 
 const StyledTemplateModal = styled(TemplateModal)`
   .modal-dialog {
+    margin-top: 3rem;
     max-width: 680px;
+
+    .modal-body {
+      background: ${colors.neutral.bright};
+
+      .btn-default {
+        border-color: ${colors.neutral.pale};
+        background: #FFFFFF;
+      }
+    }
   }
 `;
 
@@ -25,20 +35,14 @@ const StyledTemplateModal = styled(TemplateModal)`
 const StyledSelectAssignmentModal = styled(StyledTemplateModal)`
   .modal-dialog {
     margin-top: 135px;
-    & .modal-body {
-      background: #F5F5F5;
-      & .btn + .btn {
-        margin-left: 4rem;
-      }
-      & .btn-default {
-        background: #FFFFFF;
-      }
+    .btn + .btn {
+      margin-left: 4rem;
     }
   }
 `;
 
 const Row = styled.div`
-  margin: 2.4rem 0;
+  margin-bottom: 2.4rem;
 `;
 
 const SplitRow = styled.div`
@@ -146,7 +150,7 @@ TextInput.propTypes = {
 };
 
 const Line = styled.div`
-  margin: 2.4rem 0;
+  margin-bottom: 2.4rem;
   border-top: 1px solid ${colors.forms.borders.light};
 `;
 
@@ -518,8 +522,8 @@ const homework = observer((props) => {
           <Row>
             <HintText>
               For assignments with both auto and manually graded questions, students
-              will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
-              the manually-graded questions are published.
+              will see a <strong>provisional score</strong> until scores for <strong>
+              ALL</strong> the manually-graded questions are published.
             </HintText>
           </Row>
         </>
@@ -546,9 +550,11 @@ const create = observer((props) => {
       </Modal.Header>
       <Modal.Body>
         <CenteredRow>
-          <LargeText>
-            To make a grading template, select an assignment category
-          </LargeText>
+          <Row>
+            <LargeText>
+              To make a grading template, select an assignment category
+            </LargeText>
+          </Row>
         </CenteredRow>
         <CenteredRow>
           <Row>

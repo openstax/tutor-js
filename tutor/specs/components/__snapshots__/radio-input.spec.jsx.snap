@@ -14,7 +14,8 @@ exports[`RadioInput matches snapshot 1`] = `
 }
 
 .c1 + label::before {
-  border: 0.1rem solid #5E6062;
+  border: 0.1rem solid #5e6062;
+  background: #fff;
   content: "";
   left: 0;
   top: 0;
