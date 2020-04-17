@@ -96,11 +96,10 @@ const StyledTextInput = styled(Field).attrs({
   padding: 0.8rem 1rem;
   border-radius: 4px;
   border: 1px solid ${colors.forms.borders.light};
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   /** styling errors when template name is invalid */
   background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
   color: ${props => props.hasError ? 'red' : 'black'};
-  font-weight: ${props => props.hasError ? 500 : 400};
   border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
   border-width: ${props => props.hasError ? '2px' : '1px'};
   
