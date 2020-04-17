@@ -58,4 +58,33 @@ context('Grading Templates', () => {
     })
 
   });
+
+  it('only accepts digits in number fields', () => {
+    let card = () => cy.getTestElement('grading-template-card', '[data-type="reading"]').first()
+    const editor = (selector) => cy.get(`.modal-dialog ${selector}`)
+
+    card().find('[data-icon=edit]').click();
+
+    editor('input[name="correctness_weight"]').clear().type('3a');
+    editor('input[name="correctness_weight"]')
+      .should(el => expect(el.val()).toEqual('3'));
+
+    editor('input[name="completion_weight"]').clear().type('3a');
+    editor('input[name="completion_weight"]')
+      .should(el => expect(el.val()).toEqual('3'));
+
+    editor('button.close').click();
+    card = () => cy.getTestElement('grading-template-card', '[data-type="homework"]').first()
+    card().find('[data-icon=edit]').click();
+
+    editor('#late_day_deduction').clear().type('3a');
+    editor('#late_day_deduction')
+      .should(el => expect(el.val()).toEqual('3'));
+
+    editor('#late_work_penalty_assignment').click({ force: true });
+
+    editor('#late_assignment_deduction').clear().type('3a');
+    editor('#late_assignment_deduction')
+      .should(el => expect(el.val()).toEqual('3'));
+  });
 });
