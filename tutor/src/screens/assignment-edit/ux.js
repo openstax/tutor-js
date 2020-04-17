@@ -349,4 +349,27 @@ export default class AssignmentUX {
     this.isShowingAddTemplate = false;
   }
 
+  @action.bound onUpdateGradingTemplate(templateId) {
+    // Getting the template and its default offset days
+    const template = this.gradingTemplates.find(tp => tp.id === templateId);
+    const dueDateOffsetDays = template.default_due_date_offset_days;
+    const closeDateOffsetDays = template.default_close_date_offset_days;
+    // loop through each task in each period and update the due date and closes date
+    // update also in the ux form
+    this.course.periods.forEach((p, index) => {
+      const taskings = compact([this.plan.tasking_plans.forPeriod(p)]);
+      taskings.forEach(t => {
+        const updatedDueDate = moment(t.opens_at).add(dueDateOffsetDays, 'days');
+        const updateClosesDate = updatedDueDate.add(closeDateOffsetDays, 'days');
+        t.setDueDate(updatedDueDate);
+        this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
+        t.setClosesDate(updateClosesDate);
+        this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+      });
+    });
+    // update the selected template id
+    this.form.setFieldValue('grading_template_id', templateId);
+    this.plan.grading_template_id = templateId;
+  }
+
 }
