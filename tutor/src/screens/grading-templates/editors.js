@@ -508,8 +508,8 @@ const homework = observer((props) => {
           <Row>
             <HintText>
               For assignments with both auto and manually graded questions, students
-              will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
-              the manually-graded questions are published.
+              will see a <strong>provisional score</strong> until scores for <strong>
+              ALL</strong> the manually-graded questions are published.
             </HintText>
           </Row>
         </>
