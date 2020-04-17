@@ -90,15 +90,20 @@ const HintText = styled.div`
   ${fonts.faces.light};
 `;
 
-const StyledTextInput = styled(Field).attrs((props) => {
-  console.log(props);
-  return { type: 'text' };
+const StyledTextInput = styled(Field).attrs({
+  type: 'text',
 })`
   padding: 0.8rem 1rem;
   border-radius: 4px;
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.4rem;
-  background: ${props => props.hasError ? '#FBE8EA' : '#FFFFFF'}
+  /** styling errors when template name is invalid */
+  background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.hasError ? 'red' : 'black'};
+  font-weight: ${props => props.hasError ? 500 : 400};
+  border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.hasError ? '2px' : '1px'};
+  
 
   &:focus {
     border-color: ${colors.forms.borders.focus};
@@ -282,12 +287,15 @@ class TemplateForm extends React.Component {
             // Check if the name is empty or is duplicated
             validate={(name) => {
               if (isEmpty(name)) return 'The name cannot be empty.';
-              if (this.props.template.isDuplicateName(name)) return 'The name is already in use. Enter a different name.';
+              if (this.props.template.isDuplicateName(name)) return 'This name is already in use. Enter a different name.';
               return null;
             }}
             placeholder={namePlaceholder}
             innerRef={(ref) => this.templateName = ref}
-            hasError={form.errors}
+            // Check if field is on focused ('touched') first and then check for any errors.
+            // Validate then happens when the field is out of focus for the first time.
+            // After, it validates as the user types.
+            hasError={!!form.touched.name && !!form.errors.name}
           />
         </SplitRow>
 
