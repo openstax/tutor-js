@@ -64,7 +64,7 @@ class TaskingPlan extends BaseModel {
 
   closesAtForTemplate(template) {
     const closeDateOffsetDays = template.default_close_date_offset_days;
-    return moment(this.dueAtForTemplate(template)).add(closeDateOffsetDays, 'day').toISOString();
+    return moment(this.dueAtForTemplate(template)).add(closeDateOffsetDays, 'days').toISOString();
   }
 
   @action onGradingTemplateUpdate({ previousTemplate, currentTemplate }) {
@@ -74,7 +74,7 @@ class TaskingPlan extends BaseModel {
     if(!this.due_at || !previousTemplate || this.due_at === this.dueAtForTemplate(previousTemplate)) {
       this.due_at = this.dueAtForTemplate(currentTemplate);
     }
-    if(!this.closes_at || !previousTemplate || this.closes_at == this.closesAtForTemplate(previousTemplate)) {
+    if(!this.closes_at || !previousTemplate || this.closes_at === this.closesAtForTemplate(previousTemplate)) {
       this.closes_at = this.closesAtForTemplate(currentTemplate);
     }
   }
