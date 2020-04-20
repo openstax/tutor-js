@@ -359,8 +359,8 @@ export default class AssignmentUX {
     this.course.periods.forEach((p, index) => {
       const taskings = compact([this.plan.tasking_plans.forPeriod(p)]);
       taskings.forEach(t => {
-        const updatedDueDate = moment(t.opens_at).add(dueDateOffsetDays, 'days');
-        const updateClosesDate = updatedDueDate.add(closeDateOffsetDays, 'days');
+        const updatedDueDate = moment(t.opens_at).add(dueDateOffsetDays, 'days').toDate();
+        const updateClosesDate = moment(updatedDueDate).add(closeDateOffsetDays, 'days').toDate();
         t.setDueDate(updatedDueDate);
         this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
         t.setClosesDate(updateClosesDate);
