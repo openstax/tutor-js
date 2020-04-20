@@ -8,7 +8,6 @@ import Tasking from './tasking';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ChangeTimezone from './change-timezone';
 import { Dropdown } from 'react-bootstrap';
-import moment from 'moment';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
@@ -125,9 +124,8 @@ const TemplateField = observer(({ ux }) => {
                 value={t.id}
                 eventKey={t.id}
                 onSelect={k => {
-                  ux.onUpdateGradingTemplate(k);
-                  // ux.form.setFieldValue('grading_template_id', k);
-                  // ux.plan.grading_template_id = k;
+                  ux.form.setFieldValue('grading_template_id', k);
+                  ux.plan.grading_template_id = k;
                 }}
               >
                 {t.name}
