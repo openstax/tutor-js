@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const TimeSeparator = styled.span `
+const TimeSeparator = styled.span`
   margin: 0 0.5rem;
   font-weight: bold;
 `;
@@ -69,14 +69,22 @@ const TimeInput = observer(( props ) => {
 
   const minutes = (props.minutes || range(0, 60));
 
+  const optionValue = (h) => {
+    if (h == 12) {
+      return isAM ? 0 : 12;
+    }
+
+    return isAM ? h : h + 12;
+  };
+
   return (
     <Wrapper>
       <Select
-        value={isAM ? hour : hour - 12}
+        value={hour}
         name={`${name}_hour`}
         onChange={ev => onChange(ev.target.value, minute)}
       >
-        {range(1, 13).map((h) => <option value={h} key={h}>{h}</option>)}
+        {range(1, 13).map((h) => <option value={optionValue(h)} key={h}>{h}</option>)}
       </Select>
       <TimeSeparator>:</TimeSeparator>
       <Select
