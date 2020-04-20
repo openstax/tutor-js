@@ -189,7 +189,7 @@ class TaskingPlan extends BaseModel {
   @action setDueDate(date) {
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
-      dateWithUnchangedTime(date, this.due_at || this.defaultDueTime),
+      date,
     ).toISOString();
   }
 

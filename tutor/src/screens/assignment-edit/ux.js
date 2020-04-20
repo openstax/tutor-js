@@ -350,19 +350,29 @@ export default class AssignmentUX {
   }
 
   @action.bound onUpdateGradingTemplate(templateId) {
-    // Getting the template and its default offset days
     const template = this.gradingTemplates.find(tp => tp.id === templateId);
+    // Getting the due_date_offset_days
     const dueDateOffsetDays = template.default_due_date_offset_days;
+    // Getting the due_time (format is "HH:MM")
+    const dueTime = template.default_due_time.split(':');
+    const dueHourTime = parseInt(dueTime[0], 10);
+    const dueMinuteTime = parseInt(dueTime[1], 10);
+    // Getting the close_date_offset_days
     const closeDateOffsetDays = template.default_close_date_offset_days;
     // loop through each task in each period and update the due date and closes date
     // update also in the ux form
     this.course.periods.forEach((p, index) => {
       const taskings = compact([this.plan.tasking_plans.forPeriod(p)]);
       taskings.forEach(t => {
-        const updatedDueDate = moment(t.opens_at).add(dueDateOffsetDays, 'days').toDate();
-        const updateClosesDate = moment(updatedDueDate).add(closeDateOffsetDays, 'days').toDate();
+        // Setting up new due date, and due time (base on open date)
+        const updatedDueDate = moment(t.opens_at).add(dueDateOffsetDays, 'days').set({
+          'hour': dueHourTime,
+          'minute': dueMinuteTime,
+        }).toDate();
         t.setDueDate(updatedDueDate);
         this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
+        // Setting up new close date (base on due date)
+        const updateClosesDate = moment(updatedDueDate).add(closeDateOffsetDays, 'days').toDate();
         t.setClosesDate(updateClosesDate);
         this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
       });
