@@ -155,7 +155,7 @@ exports[`TimeInput matches snapshot 1`] = `
         11
       </option>
       <option
-        value={12}
+        value={0}
       >
         12
       </option>

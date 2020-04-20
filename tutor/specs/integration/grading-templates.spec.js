@@ -57,6 +57,23 @@ context('Grading Templates', () => {
       expect(text).toContain('Due time for assignments:10:45 PM')
     })
 
+    // Ensure special handling for hour 12 is working
+    card().find('[data-icon=edit]').click();
+    editor('[name="default_due_time_hour"]').select('12');
+    editor('[name="default_due_time_ampm"][value="am"]').click({ force: true });
+    cy.get('.modal-dialog .btn-primary').click();
+    card().find('.card-body').should(c => {
+      expect(c.text()).toContain('Due time for assignments:12:45 AM')
+    });
+
+    card().find('[data-icon=edit]').click();
+    editor('[name="default_due_time_hour"]').select('12');
+    editor('[name="default_due_time_ampm"][value="pm"]').click({ force: true });
+    cy.get('.modal-dialog .btn-primary').click();
+    card().find('.card-body').should(c => {
+      expect(c.text()).toContain('Due time for assignments:12:45 PM')
+    });
+
   });
 
   it('only accepts digits in number fields', () => {
