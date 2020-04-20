@@ -7,11 +7,8 @@ import classnames from 'classnames';
 import { typesetMath } from '../helpers/mathjax';
 import { wrapFrames } from '../helpers/html-videos';
 
-
-const isExternalLink = (a) => {
-  return ('A' == a.tagName && a.origin !== window.location.origin);
-};
-
+const isLink = (a) => Boolean(a && 'A' == a.tagName);
+const isExternalLink = (a) => Boolean(isLink(a) && a.origin !== window.location.origin);
 
 class ArbitraryHtmlAndMath extends React.Component {
 
@@ -70,7 +67,7 @@ class ArbitraryHtmlAndMath extends React.Component {
   };
 
   onClick = (ev) => {
-    if (!isExternalLink(ev.target) && this.context.history) {
+    if (isLink(ev.target) && !isExternalLink(ev.target) && this.context.history) {
       this.context.history.push(ev.target.pathname + ev.target.hash);
       ev.preventDefault();
     }
