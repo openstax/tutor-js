@@ -365,7 +365,7 @@ class TemplateForm extends React.Component {
           <Setting>
             <Select name="default_close_date_offset_days">
               {[...range(1, 16), 30, 60, 90, 120].map((v) =>
-                <option key={'closedate' + v}>{v}</option>
+                <option key={'closedate' + v} value={v}>{v}</option>
               )}
             </Select>
             <SettingLabel htmlFor="close_date_count">days after due date</SettingLabel>

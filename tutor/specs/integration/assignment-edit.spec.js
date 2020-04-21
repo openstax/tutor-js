@@ -19,6 +19,7 @@ context('Assignment Edit', () => {
     cy.get('.modal select[name="default_due_date_offset_days"]').select(dueDateOffsetDays);
     cy.get('.modal select[name="default_due_time_hour"]').select(dueTimeHour);
     cy.get('.modal select[name="default_due_time_minute"]').select(dueTimeMinutes);
+    cy.get('.modal select[name="default_close_date_offset_days"]').select('30');
     cy.get('.modal input[name="default_due_time_ampm"]').check(isAM ? 'am' : 'pm', { force: true });
     cy.get('.modal [type="submit"]').click()
 
@@ -139,17 +140,29 @@ context('Assignment Edit', () => {
     const templateName = 'Template to update dates'
     const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', isAM = false
     addTemplate(templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, isAM, true)
-    cy.get('input[name="tasking_plans[0].opens_at"]').then(a => {
-      const openDate = a[0].defaultValue
-      cy.get('input[name="tasking_plans[0].due_at"]').then(b => {
-        const dueDate = moment(b[0].defaultValue).toISOString();
-        // Compute the due date
+    cy.get('input[name="tasking_plans[0].opens_at"]').then(o => {
+      const openDate = o[0].defaultValue
+      let updatedDueDate;
+      // Due date should change
+      cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
+        const dueDate = moment(d[0].defaultValue).toISOString();
+        updatedDueDate = dueDate;
+        // Compute the due date from the open date
         const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
-        const updatedDueDate = moment(openDate)
+        const computedDueDate = moment(openDate)
           .add(parseInt(dueDateOffsetDays, 10), 'days')
           .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
           .toISOString();
-        expect(dueDate).eq(updatedDueDate)
+        expect(dueDate).eq(computedDueDate)
+      })
+      // Closes date should change
+      cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
+        const closesDate = moment(c[0].defaultValue).toISOString();
+        // Compute the closes date from the due date
+        const computedClosesDate = moment(updatedDueDate)
+          .add(30, 'days')
+          .toISOString();
+        expect(closesDate).eq(computedClosesDate)
       })
     });
   })
