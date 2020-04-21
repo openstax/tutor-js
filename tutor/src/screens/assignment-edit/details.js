@@ -5,9 +5,8 @@ import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap';
 import ChangeTimezone from './change-timezone';
-import { Dropdown } from 'react-bootstrap';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
@@ -84,6 +83,12 @@ const StyledMenu = styled(Dropdown.Menu)`
 const StyledAddItem = styled(Dropdown.Item)`
   &&& {
     color: ${colors.link};
+    padding: 0.8rem 1rem;
+    font-size: 1.6rem;
+    /* display: block; */
+    font-weight: 400;
+    background-color: transparent;
+    border: 0;
   }
 `;
 
@@ -130,7 +135,7 @@ const TemplateField = observer(({ ux }) => {
               >
                 {t.name}
               </Dropdown.Item>)}
-            <StyledAddItem onSelect={ux.onShowAddTemplate} data-test-id="add-template">
+            <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
               + Add new template
             </StyledAddItem>
           </StyledMenu>
