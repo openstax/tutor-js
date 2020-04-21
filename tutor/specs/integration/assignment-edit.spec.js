@@ -8,10 +8,8 @@ context('Assignment Edit', () => {
     cy.get('input[name="title"]').type('test assignment #1')
     cy.get('.controls .btn-primary').should('not.be.disabled')
   }
-  const addTemplate = (name, dueDateOffsetDays = '1', dueTimeHour = '5', 
-    dueTimeMinutes = '30', isAM = false, doSelect = false) => {
-    cy.visit('/course/2/assignment/edit/homework/new')
-    cy.disableTours()
+  const addTemplate = ({ name, dueDateOffsetDays = '1', dueTimeHour = '5', 
+    dueTimeMinutes = '30', closesDateOffsetDays = '30', isAM = false, doSelect = false }) => {
     cy.get('[data-test-id="grading-templates"]').click()
     cy.get('[data-test-id="add-template"]').click()
     cy.get('.modal').should('be.visible')
@@ -19,7 +17,7 @@ context('Assignment Edit', () => {
     cy.get('.modal select[name="default_due_date_offset_days"]').select(dueDateOffsetDays);
     cy.get('.modal select[name="default_due_time_hour"]').select(dueTimeHour);
     cy.get('.modal select[name="default_due_time_minute"]').select(dueTimeMinutes);
-    cy.get('.modal select[name="default_close_date_offset_days"]').select('30');
+    cy.get('.modal select[name="default_close_date_offset_days"]').select(closesDateOffsetDays);
     cy.get('.modal input[name="default_due_time_ampm"]').check(isAM ? 'am' : 'pm', { force: true });
     cy.get('.modal [type="submit"]').click()
 
@@ -132,14 +130,18 @@ context('Assignment Edit', () => {
 
   it('can add a new template', () => {
     const templateName = 'This is a new template'
-    addTemplate(templateName)
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    addTemplate({ name: templateName })
     cy.get('[data-test-id="grading-templates"]').should('contain.text', templateName)
   });
 
-  it.only('can select another template and update dates', () => {
+  it('can select another template and update dates', () => {
     const templateName = 'Template to update dates'
-    const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', isAM = false
-    addTemplate(templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, isAM, true)
+    const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    addTemplate({ name: templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, closesDateOffsetDays, isAM, doSelect: true })
     cy.get('input[name="tasking_plans[0].opens_at"]').then(o => {
       const openDate = o[0].defaultValue
       let updatedDueDate;
@@ -149,21 +151,49 @@ context('Assignment Edit', () => {
         updatedDueDate = dueDate;
         // Compute the due date from the open date
         const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
-        const computedDueDate = moment(openDate)
+        const expectedDueDate = moment(openDate)
           .add(parseInt(dueDateOffsetDays, 10), 'days')
           .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
           .toISOString();
-        expect(dueDate).eq(computedDueDate)
+        expect(dueDate).eq(expectedDueDate)
       })
       // Closes date should change
       cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
         const closesDate = moment(c[0].defaultValue).toISOString();
         // Compute the closes date from the due date
-        const computedClosesDate = moment(updatedDueDate)
-          .add(30, 'days')
+        const expectedDueDate = moment(updatedDueDate)
+          .add(parseInt(closesDateOffsetDays, 10), 'days')
           .toISOString();
-        expect(closesDate).eq(computedClosesDate)
+        expect(closesDate).eq(expectedDueDate)
       })
     });
+  })
+
+  it('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
+    const templateName = 'Template to not update date'
+    const typedDueDate = 'Jun 10 05:00 PM'
+    const typedClosesDate = 'Jun 22 05:00 PM'
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    // force update the closes date
+    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true })
+    cy.get('.oxdt-ok button').click()
+    addTemplate({ name: templateName, doSelect: true })
+    // after adding and selecting the template, closes date should not be updated
+    cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
+      const closesDate = moment(c[0].defaultValue).toISOString();
+      expect(closesDate).eq(moment(typedClosesDate).toISOString())
+    })
+    // force update the due date
+    cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true })
+    // After opening the closes date time picker modal, it gets the two OK buttons
+    cy.get('.oxdt-ok button').last().click({ force: true })
+    cy.get('[data-test-id="grading-templates"]').click()
+    cy.get('[data-test-id="Default Homework"]').click()
+    // after selecting the first template, due date should not be updated
+    cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
+      const dueDate = moment(d[0].defaultValue).toISOString();
+      expect(dueDate).eq(moment(typedDueDate).toISOString())
+    })
   })
 });
