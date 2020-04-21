@@ -35,4 +35,10 @@ context('Assignment Review', () => {
 
   })
 
+  it('can render grading template preview', () => {
+    cy.getTestElement('grading-template-card').should('not.exist');
+    cy.getTestElement('preview-card-trigger').click();
+    cy.getTestElement('grading-template-card').should('exist');
+  });
+
 });

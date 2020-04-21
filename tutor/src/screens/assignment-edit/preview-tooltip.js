@@ -1,7 +1,7 @@
-import React from 'react';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
-import { observer, styled } from 'vendor';
 import { TemplateBody } from '../grading-templates/card';
+import { GradingTemplate } from '../../models/grading/templates';
 
 const StyledButton = styled(Button)`
   &.btn {
@@ -17,7 +17,7 @@ const StyledContent = styled(Popover.Content)`
   }
 `;
 
-const PreviewTooltip = observer(({ template }) => {
+const PreviewTooltip = observer(({ template, variant }) => {
   if (!template) { return null; }
 
   return (
@@ -33,11 +33,15 @@ const PreviewTooltip = observer(({ template }) => {
       }
       rootClose={true}
     >
-      <StyledButton variant="link" id="preview-card-trigger">
+      <StyledButton variant={variant || 'link'} data-test-id="preview-card-trigger">
         Preview
       </StyledButton>
     </OverlayTrigger>
   );
 });
+
+PreviewTooltip.propTypes = {
+  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+};
 
 export default PreviewTooltip;
