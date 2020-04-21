@@ -1,6 +1,6 @@
 import { React, observable, computed, action } from 'vendor';
 import Router from '../../helpers/router';
-import { runInAction } from 'mobx';
+import { runInAction, observe } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
 import {
   filter, isEmpty, compact, map, get, first, difference, flatMap, omit,
@@ -28,6 +28,7 @@ export default class AssignmentUX {
   @observable form;
   @observable activeFilter = 'all';
   @observable templates;
+  @observable plan;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -86,6 +87,18 @@ export default class AssignmentUX {
     } else {
       await this.plan.ensureLoaded();
     }
+
+    observe(this.plan, ({ name, object }) => {
+      // Change the ux dates when the template of the plan is changed
+      if(name === 'grading_template_id' && object && object.tasking_plans)
+        object.tasking_plans.forEach((t, index) => {
+          if(this.form){
+            this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
+            // Setting up new close date (base on due date)
+            this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+          }
+        });
+    });
 
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
@@ -348,5 +361,4 @@ export default class AssignmentUX {
   @action.bound onHideAddTemplate() {
     this.isShowingAddTemplate = false;
   }
-
 }

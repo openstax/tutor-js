@@ -49,13 +49,13 @@ class TaskingPlan extends BaseModel {
   }
 
   dueAtForTemplate(template) {
+    const dueDateOffsetDays = template.default_due_date_offset_days;
     const [ hour, minute ] = template.default_due_time.split(':');
-    const defaultDueAt = moment(Time.now).add(7, 'day').hour(hour).minute(minute).startOf('minute');
+    const defaultDueAt = moment(this.opens_at).add(dueDateOffsetDays, 'days');
     const { course } = this;
     if (!course) {
       return defaultDueAt.toISOString();
     }
-
     return findEarliest(
       defaultDueAt,
       course.bounds.end,
@@ -63,17 +63,18 @@ class TaskingPlan extends BaseModel {
   }
 
   closesAtForTemplate(template) {
-    return moment(this.dueAtForTemplate(template)).add(7, 'day').toISOString();
+    const closeDateOffsetDays = template.default_close_date_offset_days;
+    return moment(this.dueAtForTemplate(template)).add(closeDateOffsetDays, 'days').toISOString();
   }
 
   @action onGradingTemplateUpdate({ previousTemplate, currentTemplate }) {
-    if (!this.opens_at || !previousTemplate || this.opens_at == this.opensAtForTemplate(previousTemplate) ) {
+    if (!this.opens_at || !previousTemplate || this.opens_at === this.opensAtForTemplate(previousTemplate) ) {
       this.opens_at = this.opensAtForTemplate(currentTemplate);
     }
-    if(!this.due_at || !previousTemplate || this.due_at == this.dueAtForTemplate(previousTemplate)) {
+    if(!this.due_at || !previousTemplate || this.due_at === this.dueAtForTemplate(previousTemplate)) {
       this.due_at = this.dueAtForTemplate(currentTemplate);
     }
-    if(!this.closes_at || !previousTemplate || this.closes_at == this.closesAtForTemplate(previousTemplate)) {
+    if(!this.closes_at || !previousTemplate || this.closes_at === this.closesAtForTemplate(previousTemplate)) {
       this.closes_at = this.closesAtForTemplate(currentTemplate);
     }
   }
@@ -189,7 +190,7 @@ class TaskingPlan extends BaseModel {
   @action setDueDate(date) {
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
-      dateWithUnchangedTime(date, this.due_at || this.defaultDueTime),
+      date,
     ).toISOString();
   }
 

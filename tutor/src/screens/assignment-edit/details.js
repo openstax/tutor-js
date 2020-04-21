@@ -127,6 +127,7 @@ const TemplateField = observer(({ ux }) => {
                   ux.form.setFieldValue('grading_template_id', k);
                   ux.plan.grading_template_id = k;
                 }}
+                data-test-id={`${t.name}`}
               >
                 {t.name}
               </Dropdown.Item>)}

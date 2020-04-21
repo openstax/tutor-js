@@ -113,13 +113,13 @@ class CoursePlanDetails extends React.Component {
         placement="top"
         overlay={
           <Tooltip>
-            {!this.tasking.isPastDue && "Assignment will be available for grading after the due date."}
+            {!this.tasking.isPastDue && 'Assignment will be available for grading after the due date.'}
           </Tooltip>
         }
       >
         <span>
           <TutorLink
-            className={cn("btn btn-form-action btn-primary", { 'disabled': !this.tasking.isPastDue }) }
+            className={cn('btn btn-form-action btn-primary', { 'disabled': !this.tasking.isPastDue }) }
             to="gradeAssignment"
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
