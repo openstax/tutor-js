@@ -1,4 +1,5 @@
 import { range } from 'lodash';
+import moment from 'moment-timezone';
 
 context('Assignment Edit', () => {
   const fillDetails = () => {
@@ -6,6 +7,25 @@ context('Assignment Edit', () => {
     cy.get('.controls .btn-primary').should('be.disabled')
     cy.get('input[name="title"]').type('test assignment #1')
     cy.get('.controls .btn-primary').should('not.be.disabled')
+  }
+  const addTemplate = (name, dueDateOffsetDays = '1', dueTimeHour = '5', 
+    dueTimeMinutes = '30', isAM = false, doSelect = false) => {
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    cy.get('[data-test-id="grading-templates"]').click()
+    cy.get('[data-test-id="add-template"]').click()
+    cy.get('.modal').should('be.visible')
+    cy.get('.modal input[name="name"]').type(name)
+    cy.get('.modal select[name="default_due_date_offset_days"]').select(dueDateOffsetDays);
+    cy.get('.modal select[name="default_due_time_hour"]').select(dueTimeHour);
+    cy.get('.modal select[name="default_due_time_minute"]').select(dueTimeMinutes);
+    cy.get('.modal input[name="default_due_time_ampm"]').check(isAM ? 'am' : 'pm', { force: true });
+    cy.get('.modal [type="submit"]').click()
+
+    if(doSelect) {
+      cy.get('[data-test-id="grading-templates"]').click()
+      cy.get(`[data-test-id="${name}"]`).click()
+    }
   }
 
   it('loads and advances homework', () => {
@@ -110,13 +130,27 @@ context('Assignment Edit', () => {
   });
 
   it('can add a new template', () => {
-    cy.visit('/course/2/assignment/edit/homework/new')
-    cy.disableTours()
-    cy.get('[data-test-id="grading-templates"]').click()
-    cy.get('[data-test-id="add-template"]').click()
-    cy.get('.modal').should('be.visible')
-    cy.get('.modal input[name="name"]').type('NewTemplate')
-    cy.get('.modal [type="submit"]').click()
-    cy.get('[data-test-id="grading-templates"]').should('contain.text', 'NewTemplate')
+    const templateName = 'This is a new template'
+    addTemplate(templateName)
+    cy.get('[data-test-id="grading-templates"]').should('contain.text', templateName)
   });
+
+  it.only('can select another template and update dates', () => {
+    const templateName = 'Template to update dates'
+    const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', isAM = false
+    addTemplate(templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, isAM, true)
+    cy.get('input[name="tasking_plans[0].opens_at"]').then(a => {
+      const openDate = a[0].defaultValue
+      cy.get('input[name="tasking_plans[0].due_at"]').then(b => {
+        const dueDate = moment(b[0].defaultValue).toISOString();
+        // Compute the due date
+        const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
+        const updatedDueDate = moment(openDate)
+          .add(parseInt(dueDateOffsetDays, 10), 'days')
+          .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
+          .toISOString();
+        expect(dueDate).eq(updatedDueDate)
+      })
+    });
+  })
 });
