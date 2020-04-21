@@ -26,6 +26,7 @@ const colorDefinitions = {
   blue_control:  '#337eb5',
   blue_info:     '#007da4',
   link:          '#027EB5',
+  link_active:   '#128EC5',
   black:         'black',
   white:         'white',
   warning:       '#f4d019', // yellow

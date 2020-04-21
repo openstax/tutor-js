@@ -8,6 +8,7 @@ import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import S from '../../helpers/string';
 import { isEmpty } from 'lodash';
+import PreviewTooltip from '../assignment-edit/preview-tooltip';
 
 const DetailsWrapper = styled.div`
 
@@ -121,6 +122,24 @@ const QuestionHeader = ({ styleVariant, label, info }) => useObserver(() => {
   );
 });
 
+const TemplateInfoWrapper = styled.span`
+  & .btn.btn-primary {
+    border-color: ${colors.link};
+    background: ${colors.link};
+    &:hover, &:not(:disabled):active, &:focus {
+      background: ${colors.link_active};
+      border-color: ${colors.link};
+    }
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.2rem;
+    border-radius: 0.8rem;
+    padding: 0.1rem 0.8rem;
+  }
+`;
+
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -147,6 +166,16 @@ const Questions = ({ ux, questionsInfo }) => useObserver(() => {
           styleVariant="submission"
         />) : <Loading message="Loading Questions…"/>}
     </Section>
+  );
+});
+
+const TemplateInfo = ({ template }) => useObserver(() => {
+  if (!template) { return null; }
+  return (
+    <TemplateInfoWrapper>
+      {template.name}
+      <PreviewTooltip template={template} variant="primary" />
+    </TemplateInfoWrapper>
   );
 });
 
@@ -185,7 +214,7 @@ const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
             <Row>
               <Title>Assignment settings</Title>
               <Item>
-                {planScores.grading_template && planScores.grading_template.name}
+                <TemplateInfo template={planScores.grading_template} />
               </Item>
             </Row>
             <Row>
