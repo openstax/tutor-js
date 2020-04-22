@@ -2,12 +2,12 @@ import { React, styled, PropTypes, useObserver, cn } from 'vendor';
 import { useField } from 'formik';
 import Picker from 'rc-picker';
 import { uniqueId } from 'lodash';
-import moment from 'moment';
 import locale from 'rc-picker/lib/locale/en_US';
 import generateConfig from 'rc-picker/lib/generate/moment';
 import 'rc-picker/assets/index.css';
 import { Icon } from 'shared';
 import { colors } from '../theme';
+import { guessISODateWithTimezone } from '../helpers/dates';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -63,7 +63,6 @@ const DateTimeInput = (props) => useObserver(() => {
   const [field, meta] = useField({ type: 'text', ...props });
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
-
   return (
     <StyledWrapper className={cn('date-time-input', props.className)}>
       <LabelWrapper>
@@ -82,7 +81,7 @@ const DateTimeInput = (props) => useObserver(() => {
           }}
           {...field}
           {...props}
-          value={field.value ? moment(field.value) : null}
+          value={field.value ? guessISODateWithTimezone(field.value) : null}
           onChange={dt => {
             const ev = { target: { name: field.name, value: dt } };
             field.onChange(ev);

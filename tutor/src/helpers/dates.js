@@ -33,9 +33,13 @@ export function findLatest(...dateThings) {
   return max(compact(map(flatten(dateThings), toDate)));
 }
 
-
 export function dateWithUnchangedTime(date, t) {
   const time = moment(t);
   return moment(date)
     .hour(time.hour()).minute(time.minute()).seconds(time.seconds()).millisecond(0);
+}
+
+export function guessISODateWithTimezone(isoDate) {
+  const timezone = moment.tz.guess(true);
+  return moment(isoDate).tz(timezone);
 }
