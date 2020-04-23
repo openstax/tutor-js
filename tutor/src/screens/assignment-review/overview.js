@@ -172,7 +172,7 @@ const Right = styled.div`
 
 const GradeButton = styled(TutorLink).attrs({
   to: 'gradeAssignment',
-  className: 'btn btn-form-action btn-primary btn-new-flag',
+  className: 'btn btn-standard btn-primary btn-new-flag',
 })`
   && {
     padding: 1.2rem 2.1rem 1.6rem 1.1rem;

@@ -9,6 +9,7 @@ import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-que
 import S from '../../helpers/string';
 import { isEmpty } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
+import DeleteModal from './delete-modal';
 
 const DetailsWrapper = styled.div`
 
@@ -88,6 +89,15 @@ const Header = styled.div`
 
 const Controls = styled.div`
   align-self: flex-end;
+  display: flex;
+  .btn.btn-icon {
+    min-width: 0;
+    width: 5.5rem;
+    height: 4rem;
+  }
+  .btn + .btn {
+    margin-left: 1.6rem;
+  }
 `;
 
 const Title = styled.div`
@@ -105,10 +115,10 @@ const StyledHomeworkQuestions = styled(HomeworkQuestions)`
 `;
 
 const StyledTutorLink = styled(TutorLink)`
-  &.btn.btn-form-action {
-    display: inline-flex;
-  }
   margin-bottom: 2.5rem;
+  &.btn.btn-standard {
+    min-width: 16.7rem;
+  }
 `;
 
 const QuestionHeader = ({ styleVariant, label, info }) => useObserver(() => {
@@ -179,8 +189,9 @@ const TemplateInfo = ({ template }) => useObserver(() => {
   );
 });
 
-
-const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
+const Details = observer(({ ux, ux: {
+  scores, planScores, taskingPlan, isDisplayingConfirmDelete,
+} }) => {
   const format = 'MMM D, h:mm a';
 
   return (
@@ -190,12 +201,16 @@ const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
           <Header>
             <h6>Details</h6>
             <Controls>
-              <Button variant="icon">
+              <button className="btn btn-standard btn-icon">
                 <Icon type="edit" />
-              </Button>
-              <Button variant="icon">
+              </button>
+              <button
+                className="btn btn-standard btn-icon"
+                onClick={ux.onDelete}
+                data-test-id="delete-assignment"
+              >
                 <Icon type="trash" />
-              </Button>
+              </button>
             </Controls>
           </Header>
           <Table>
@@ -249,8 +264,8 @@ const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
           <div>
             <p>This assignment is now open for grading.</p>
             <StyledTutorLink
-              className="btn btn-form-action btn-primary btn-new-flag"
-              to='gradeAssignment'
+              className="btn btn-standard btn-primary btn-new-flag btn-inline"
+              to="gradeAssignment"
               params={{ id: ux.planId, periodId: taskingPlan.target_id, courseId: ux.course.id }}
             >
               <span className="flag">72 New</span>
@@ -259,11 +274,17 @@ const Details = observer(({ ux, ux: { scores, planScores, taskingPlan } }) => {
           </div>
           <div>
             <p>View scores for auto-graded questions</p>
-            <button className="btn btn-form-action btn-light">View scores</button>
+            <StyledTutorLink
+              className="btn btn-standard btn-inline"
+              to=""
+            >
+              View scores
+            </StyledTutorLink>
           </div>
         </Section>
       </Top>
       {scores && <Questions ux={ux} questionsInfo={scores.questionsInfo} />}
+      {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
     </DetailsWrapper>
   );
 
