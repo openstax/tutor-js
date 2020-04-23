@@ -8,7 +8,7 @@ import { typesetMath } from '../helpers/mathjax';
 import { wrapFrames } from '../helpers/html-videos';
 
 const isLink = (a) => Boolean(a && 'A' == a.tagName);
-const isExternalLink = (a) => Boolean(isLink(a) && a.origin !== window.location.origin);
+const isExternalLink = (a) => Boolean(isLink(a) && (a.origin !== window.location.origin || a.target == '_blank'));
 
 class ArbitraryHtmlAndMath extends React.Component {
 
