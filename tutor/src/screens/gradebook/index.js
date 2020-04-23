@@ -45,7 +45,8 @@ const GradeBook = ({ ux: propsUX, ...props }) => {
           className="course-scores-report"
           titleBreadcrumbs={titleBreadcrumbs(ux.course)}
           titleAppearance="light"
-          titleControls={titleControls(ux)}
+          controls={titleControls(ux)}
+          controlBackgroundColor='white'
         >
           <Controls ux={ux} />
           <TourRegion
