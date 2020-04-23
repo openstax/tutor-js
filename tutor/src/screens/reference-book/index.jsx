@@ -31,6 +31,7 @@ class ReferenceBookShell extends React.Component {
   }
 
   componentWillUnmount() {
+    this.ux.clearNavBar(this.props.topNavbar);
     this.ux.unmount();
   }
 
