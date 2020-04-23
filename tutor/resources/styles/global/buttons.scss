@@ -3,9 +3,6 @@ $default-background: rgba(245,245,245,.4);
 $default-background-hover: rgba(255,255,255,.8);
 $primary-background: #f47642;
 $primary-background-hover: #fa804d;
-$form-action-background: #fff;
-$form-action-color: #5e6062;
-$form-action-border: #d5d5d5;
 
 .btn + .btn { margin-left: 0.5rem; }
 
@@ -145,19 +142,27 @@ $form-action-border: #d5d5d5;
   }
 }
 
-.btn.btn-form-action {
-  &:not(.btn-primary) {
-    background: $form-action-background;
-    color: $form-action-color;
-    border: 1px solid $form-action-border;
-  }
-
+.btn.btn-standard {
   height: 4.8rem;
   min-width: 12rem;
   padding: 0 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:not(.btn-primary) {
+    background: #fff;
+    color: #5e6062;
+    border: 1px solid #d5d5d5;
+  }
+
+  &.btn-icon {
+    min-width: 5.5rem;
+  }
+
+  &.btn-inline {
+    display: inline-flex;
+  }
 }
 
 .btn-new-flag {
