@@ -3,7 +3,9 @@ import SelectCourse from '../../../src/screens/new-course/select-course';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 
-jest.mock('../../../src/models/user');
+jest.mock('../../../src/models/user', () => ({
+  isAllowedInstructor: true,
+}));
 
 describe('CreateCourse: Selecting course subject', function() {
 

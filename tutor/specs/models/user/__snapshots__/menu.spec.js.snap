@@ -49,6 +49,16 @@ Array [
       "courseId": 2,
     },
   },
+  Object {
+    "label": "Create a Course",
+    "name": "createNewCourse",
+    "options": Object {
+      "separator": "both",
+    },
+    "params": Object {
+      "courseId": 2,
+    },
+  },
 ]
 `;
 

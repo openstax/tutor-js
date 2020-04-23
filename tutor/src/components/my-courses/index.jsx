@@ -8,6 +8,7 @@ import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
 import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';
+import NonAllowedTeacher from './non-allowed-teacher';
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
 export default
@@ -33,7 +34,11 @@ class MyCourses extends React.Component {
 
   render() {
     if (Courses.isEmpty) {
-      if (!User.isConfirmedFaculty) {
+      if (User.isConfirmedFaculty) {
+        if (!User.isAllowedInstructor) {
+          return <NonAllowedTeacher />;
+        }
+      } else {
         return User.isUnverifiedInstructor? <PendingVerification /> : <EmptyCourses />;
       }
     }

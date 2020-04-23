@@ -2,7 +2,9 @@ import { React, Factory, TimeMock } from '../../helpers';
 import SelectDates from '../../../src/screens/new-course/select-dates';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
-jest.mock('../../../src/models/user');
+jest.mock('../../../src/models/user', () => ({
+  isAllowedInstructor: true,
+}));
 
 describe('CreateCourse: Selecting course dates', function() {
   let ux;
