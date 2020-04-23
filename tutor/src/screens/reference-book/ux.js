@@ -59,6 +59,10 @@ export default class ReferenceBookUX extends BookUX {
     this.navBar = nav;
   }
 
+  @action clearNavBar(nav) {
+    nav.resetToDefault();
+  }
+
   sectionHref(section) {
     if (!section || !this.courseId) { return null; }
     return Router.makePathname('viewReferenceBookPage', {
