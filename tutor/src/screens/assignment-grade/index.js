@@ -1,21 +1,16 @@
 import { React, PropTypes, withRouter, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import UX from './ux';
-import { navbars } from 'theme';
 import QuestionsBar from './questions-bar';
 import { QuestionPreview, QuestionHeader, ExerciseNumber, Question } from '../../components/homework-questions';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import LoadingScreen from 'shared/components/loading-animation';
 import Student from './student';
+import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
+
 import './styles.scss';
 
-const BackgroundWrapper = styled.div`
-  background: #fff;
-  min-height: calc(100vh - ${navbars.top.height} - ${navbars.bottom.height});
-  position: relative;
-  overflow: hidden;
-  padding: 0 2.4rem;
-`;
+const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
 const Heading = styled.div`
   display: flex;
@@ -61,7 +56,7 @@ class AssignmentGrading extends React.Component {
     }
 
     return (
-      <BackgroundWrapper>
+      <WhiteBackgroundWrapper>
         <ScrollToTop>
           <Heading>
             <CourseBreadcrumb
@@ -91,7 +86,7 @@ class AssignmentGrading extends React.Component {
             </div>
           </QuestionWithAnswer>
         </ScrollToTop>
-      </BackgroundWrapper>
+      </WhiteBackgroundWrapper>
     );
 
   }

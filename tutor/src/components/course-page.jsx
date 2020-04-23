@@ -1,9 +1,8 @@
 import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
-import { ScrollToTop, Icon } from 'shared';
+import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
-import TutorLink from './link';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -24,7 +23,7 @@ const TitleInner = styled.div`
   ${props => props.appearance === 'light' && css`
     padding: 0 0 1.5rem;
     border-bottom: 1px solid ${Theme.colors.neutral.pale};`
-  }
+}
 `;
 
 const BreadcrumbsWrapper = styled.div`
@@ -68,6 +67,7 @@ export default class CoursePage extends React.Component {
     subtitle: PropTypes.node,
     className: PropTypes.string,
     fullWidthChildren: PropTypes.node,
+    titleAppearance: PropTypes.string,
   }
 
   @computed get ux () {
@@ -75,7 +75,7 @@ export default class CoursePage extends React.Component {
   }
 
   renderTitle() {
-    const { title, subtitle, titleControls, titleBreadcrumbs, titleAppearance } = this.props;
+    const { title, subtitle, titleControls, titleAppearance } = this.props;
     if (isNil(title)) { return null; }
 
     return (
@@ -85,8 +85,9 @@ export default class CoursePage extends React.Component {
           <LeftSideWrapper>
             <Title appearance={titleAppearance}>{title}</Title>
             {subtitle && <Subtitle>{subtitle}</Subtitle>}
+          
+            {titleControls }
           </LeftSideWrapper>
-          {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
         </TitleInner>
       </TitleWrapper>
     );
