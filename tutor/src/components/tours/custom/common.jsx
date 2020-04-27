@@ -30,7 +30,7 @@ function Column({ className, children }) {
 
 function TutorValueColumns({ withoutCost }) {
   let cost = null;
-  if (!withoutCost) {
+  if (CourseUX.displayCosts && !withoutCost) {
     cost = (
       <Column className="low-cost">
         <h3>Low cost</h3>

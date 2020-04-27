@@ -44,8 +44,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   <h2
     className="sub-heading"
   >
-    Improve how your students learn with research-based technology — for only 
-    $10
+    Improve how your students learn with research-based technology
     .
   </h2>
   <div
@@ -79,17 +78,6 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
       </h3>
       <p>
         Help students study more effectively
-      </p>
-    </div>
-    <div
-      className="column low-cost"
-    >
-      <h3>
-        Low cost
-      </h3>
-      <p>
-        $10
-         per course saves students money
       </p>
     </div>
   </div>

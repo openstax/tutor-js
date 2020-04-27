@@ -52,6 +52,14 @@ export default class PreviewOnboarding extends BaseOnboarding {
     );
   }
 
+  @computed get shouldDisplaySecondSessionNag() {
+    return Boolean(
+      this.course.courseIsNaggable &&
+        this.course.offering &&
+        this.course.offering.is_available
+    );
+  }
+
   @computed get nagComponent() {
 
     if (this.otherModalsAreDisplaying) { return null; }
@@ -65,7 +73,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
     if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
 
-    if (this.courseIsNaggable) {
+    if (this.shouldDisplaySecondSessionNag) {
       return Nags.secondSessionWarning;
     }
     return null;

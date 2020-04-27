@@ -22,10 +22,15 @@ class SecondSessionWarning extends React.Component {
   }
 
   @action.bound renderPrompt(onAddCourse, onContinue) {
+    let cost = null;
+    if (CourseUX.displayCourseCost) {
+      cost = ` It’s free for you and students will pay ${CourseUX.formattedStudentCost} per course.`;
+    }
     return (
       <OnboardingNag className="second-session-prompt">
         <Body>
-          Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course.
+          Ready to create your real course?
+          {cost}
         </Body>
         <Footer>
           <Button
