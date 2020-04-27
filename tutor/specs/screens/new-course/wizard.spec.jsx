@@ -5,7 +5,9 @@ import Wizard from '../../../src/screens/new-course/wizard';
 import { OfferingsMap, Offering } from '../../../src/models/course/offerings';
 
 jest.mock('../../../src/helpers/router');
-jest.mock('../../../src/models/user');
+jest.mock('../../../src/models/user', () => ({
+  isAllowedInstructor: true,
+}));
 
 describe('Creating a course', function() {
 

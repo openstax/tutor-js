@@ -94,12 +94,12 @@ describe('User Model', () => {
     expect(User.initials).toEqual('B S');
   });
 
-  it('detects college teachers', () => {
+  it('detects allowed teachers', () => {
     User.school_type = 'unknown_school_type';
-    expect(User.isCollegeTeacher).toBe(false);
+    expect(User.isAllowedInstructor).toBe(false);
     User.faculty_status = 'confirmed_faculty';
     User.school_type = 'college';
-    expect(User.isCollegeTeacher).toBe(true);
+    expect(User.isAllowedInstructor).toBe(true);
   });
 
 });

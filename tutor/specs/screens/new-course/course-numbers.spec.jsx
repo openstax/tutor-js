@@ -2,7 +2,9 @@ import { C, React, Factory } from '../../helpers';
 import CourseNumbers from '../../../src/screens/new-course/course-numbers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
-jest.mock('../../../src/models/user');
+jest.mock('../../../src/models/user', () => ({
+  isAllowedInstructor: true,
+}));
 
 describe('CreateCourse: entering details', function() {
 
