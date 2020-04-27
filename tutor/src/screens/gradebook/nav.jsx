@@ -6,15 +6,15 @@ const GradebookPeriodsTabs = ({ ux: { course, onSelectPeriod }, ...props }) => {
   if (!course.currentRole.isTeacher) {
     return null;
   }
-    
   return (
-    <>
+    <div className="course-test">
       <CoursePeriodsNav
         course={course}
         handleSelect={onSelectPeriod}
+        className="gradebook-period-tabs"
         {...props}
       />
-    </>
+    </div>
   );
 };
 

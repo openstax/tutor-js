@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { computed, action } from 'mobx';
+import React, { createRef } from 'react';
+import { computed, action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import TourAnchor from '../../components/tours/anchor';
+import { Overlay, Button, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
@@ -10,9 +10,16 @@ import Push from '../../models/jobs/lms-score-push';
 export default
 @observer
 class LmsPush extends React.Component {
-
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
+  }
+
+  @observable
+  showPopover = false;
+
+  constructor(props) {
+    super(props);
+    this.overlay = createRef();
   }
 
   @computed get lmsPush() {
@@ -36,13 +43,29 @@ class LmsPush extends React.Component {
 
   render() {
     const { course } = this.props;
-    if (!course.is_lms_enabled) { return null; }
+    //if (!course.is_lms_enabled) { return null; }
 
     return (
-      <TourAnchor className="scores-push" id="scores-export-button">
-        <Icon onClick={this.startPush} type="paper-plane" />
-        {this.message}
-      </TourAnchor>
+      <>
+        <Button
+          ref={this.overlay}
+          onClick={this.startPush}
+          onMouseEnter={() => 
+            this.showPopover = true
+          }
+          onMouseLeave={() => 
+            this.showPopover = false
+          }
+          variant='plain'
+          className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+          <Icon type="paper-plane" />
+        </Button>
+        <Overlay target={this.overlay.current} placement="bottom" show={this.showPopover}>
+          <Popover className="gradebook-popover">
+            <p>Export Course average to {course.name}</p>
+          </Popover>
+        </Overlay>
+      </>
     );
   }
 

@@ -42,22 +42,7 @@ const RightSideWrapper = styled.div`
 `;
 
 const ControlWrapper = styled.div`
-    background-color: ${props => props.backgroundColor || Theme.colors.neutral.cool}
-    padding: 10px 40px;
-    > * {
-      @include course-page-wrapper-child();
-    }
-    .sub-title {
-      font-weight: bold;
-      font-size: 24px;
-      min-height: 55px;
-      display: flex;
-      align-items: center;
-    }
-    .ox-icon {
-      font-size: 20px;
-      transistion: color 0.3s;
-    }
+    background-color: ${props => props.backgroundColor || Theme.colors.neutral.cool};
 `;
 
 const Title = styled.h1`
@@ -116,7 +101,7 @@ export default class CoursePage extends React.Component {
 
   renderControls() {
     const { controls, controlBackgroundColor } = this.props;
-    return isNil(controls) ? null : <ControlWrapper backgroundColor={controlBackgroundColor}>{controls}</ControlWrapper>;
+    return isNil(controls) ? null : <ControlWrapper backgroundColor={controlBackgroundColor} className="controls-wrapper">{controls}</ControlWrapper>;
   }
 
   renderBreadcrumbs() {

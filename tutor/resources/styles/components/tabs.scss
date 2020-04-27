@@ -1,3 +1,9 @@
+.gradebook-period-tabs {
+  > .nav-tabs {
+    margin-bottom: 0 !important;
+  }
+}
+
 .tutor-tabs {
   display: flex;
   border-bottom: 1px solid $nav-tabs-border-color;

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { computed, action } from 'mobx';
+import React, { createRef } from 'react';
+import { computed, action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import TourAnchor from '../../components/tours/anchor';
+import { Overlay, Button, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
@@ -10,10 +10,18 @@ import Export from '../../models/jobs/scores-export';
 export default
 @observer
 class ScoresExport extends React.Component {
-
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   }
+
+  @observable
+  showPopover = false;
+
+  constructor(props) {
+    super(props);
+    this.overlay = createRef();
+  }
+
 
   @computed get scoresExport() {
     return Export.forCourse(this.props.course);
@@ -36,14 +44,27 @@ class ScoresExport extends React.Component {
 
   render() {
     return (
-      <TourAnchor className="job scores-export" id="scores-export-button">
-        <Icon
-          type="download"
+      <>
+        <Button
+          ref={this.overlay}
           disabled={this.scoresExport.isPending}
           onClick={this.startExport}
-        />
-        {this.message}
-      </TourAnchor>
+          onMouseEnter={() => 
+            this.showPopover = true
+          }
+          onMouseLeave={() => 
+            this.showPopover = false
+          }
+          variant='plain'
+          className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+          <Icon type="download" />
+        </Button>
+        <Overlay target={this.overlay.current} placement="bottom" show={this.showPopover}>
+          <Popover className="gradebook-popover">
+            <p>Download score sheet as CSV file</p>
+          </Popover>
+        </Overlay>
+      </>
     );
   }
 
