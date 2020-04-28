@@ -1,6 +1,10 @@
 import { React, PropTypes, useObserver, styled } from 'vendor';
 import { Modal, Table } from 'react-bootstrap';
+import { InlineMath } from 'react-katex';
 import { colors } from 'theme';
+import { ArbitraryHtmlAndMath } from 'shared';
+
+import 'katex/dist/katex.min.css';
 
 const StyledModal = styled(Modal)`
     .modal-dialog {
@@ -30,6 +34,9 @@ const List = styled.ol`
             line-height: 20px;
             color: ${colors.neutral.darker};
         }
+    }
+    & li:not(:first-child) {
+        margin-top: 40px;
     }
     & li::before {
         content: counter(list-counter);
@@ -75,6 +82,31 @@ const StyleTable = styled(Table)`
     }
 `;
 
+const dummyData =
+[
+  {
+    correctQuetions: 12,
+    numberOfQuestions: 15,
+  },
+  {
+    correctQuetions: 24,
+    numberOfQuestions: 30,
+  },
+  {
+    correctQuetions: 48,
+    numberOfQuestions: 60,
+  },
+];
+
+const getFormula = () => {
+  const weight = 100;
+  const numberOfAssigment = dummyData.length;
+  let total = 0;
+  dummyData.forEach(d => total += d.correctQuetions/d.numberOfQuestions);
+  total = total / numberOfAssigment;
+  total = total * weight;
+};
+
 const AverageInfoModal = ({ ux }) => {
   return useObserver(() =>
     <StyledModal
@@ -108,7 +140,11 @@ const AverageInfoModal = ({ ux }) => {
                   <td>12/15</td>
                   <td>24/30</td>
                   <td>48/60</td>
-                  <td>@mdo</td>
+                  <td>
+                    <div>
+                      <ArbitraryHtmlAndMath html={'\\dfrac{\\Bigg(\\dfrac{12}{15} + \\dfrac{24}{30} + \\dfrac{48}{60}\\Bigg)}{3} * 100 = 80\\%'}/>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </StyleTable>
@@ -135,7 +171,11 @@ const AverageInfoModal = ({ ux }) => {
                   <td>12/15</td>
                   <td>24/30</td>
                   <td>48/60</td>
-                  <td>@mdo</td>
+                  <td>
+                    <div>
+                      <InlineMath math={'\\dfrac{\\Bigg(\\dfrac{12}{15} + \\dfrac{24}{30} + \\dfrac{48}{60}\\Bigg)}{3} * 100 = 80\\%'}/>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </StyleTable>
