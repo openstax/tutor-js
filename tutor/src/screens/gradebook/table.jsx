@@ -8,6 +8,7 @@ import S from '../../helpers/string';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import { getCell } from './styles';
+import AverageInfoModal from './averageInfoModal';
 
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
@@ -56,9 +57,10 @@ const HeadingTop = styled.div`
   align-self: stretch;
   font-weight: bold;
   
-  .info-circle-icon {
+  .info-circle-icon-button {
     color: ${colors.bright_blue};
-    cursor: pointer;
+    display: block;
+    margin-bottom: -2px;
   }
 `;
 
@@ -159,7 +161,11 @@ const StudentColumnHeader = ({ ux }) => {
         </ColumnHeading>
         <ColumnHeading>
           <HeadingTop>
-            Averages <Icon type="info-circle" className="info-circle-icon" onClick={ux.showAverageInfo} />
+            Averages <Icon
+              type="info-circle"
+              className="info-circle-icon-button"
+              onClick={() => ux.showAverageInfo()}
+            />
           </HeadingTop>
           <HeadingMiddle>
             <SplitCell border>
@@ -231,94 +237,96 @@ const StudentCell = ({ student, striped, isLast }) => {
 };
 
 const GradebookTable = ({ ux }) => {
-
   return useObserver(() => (
-    <StyledStickyTable>
-      {/* Headings */}
-      <Row>
-        <StudentColumnHeader ux={ux} />
-        {ux.headings.map((h,i) => <AssignmentHeading key={i} sortKey={i} ux={ux} heading={h} />)}
-      </Row>
-      {/* Student info and data */}
-      {ux.students.map((student,sIndex) => (
-        <Row key={sIndex}>
-          <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
-          {ux.studentTasks(student).map((task, taskIndex) =>
-            <TaskResultCell
-              key={taskIndex}
-              ux={ux}
-              task={task} 
-              striped={sIndex % 2 === 0}
-              isLast={sIndex === ux.students.length - 1} 
-            />)}
-        </Row>))}
-      {/* Class Average */}
-      <Row>
-        <Cell striped drawBorderBottom>
-          <CellContents>
-            <Heading first={true}>
+    <>
+      <StyledStickyTable>
+        {/* Headings */}
+        <Row>
+          <StudentColumnHeader ux={ux} />
+          {ux.headings.map((h,i) => <AssignmentHeading key={i} sortKey={i} ux={ux} heading={h} />)}
+        </Row>
+        {/* Student info and data */}
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}
+        {/* Class Average */}
+        <Row>
+          <Cell striped drawBorderBottom>
+            <CellContents>
+              <Heading first={true}>
               Class Average
-            </Heading>
-            <Total>
-              {S.numberWithOneDecimalPlace(0)}
-            </Total>
-            <Average>
-              <SplitCell border>
+              </Heading>
+              <Total>
+                {S.numberWithOneDecimalPlace(0)}
+              </Total>
+              <Average>
+                <SplitCell border>
               100%
-              </SplitCell>
-              <SplitCell>
+                </SplitCell>
+                <SplitCell>
               100%
-              </SplitCell>
-            </Average></CellContents>
-          {/* TODO: Add class averages */}
-        </Cell>
-        {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
-      </Row>
-      {/* Maximum score */}
-      <Row>
-        <Cell striped drawBorderBottom>
-          <CellContents>
-            <Heading first={true}>
+                </SplitCell>
+              </Average></CellContents>
+            {/* TODO: Add class averages */}
+          </Cell>
+          {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
+        </Row>
+        {/* Maximum score */}
+        <Row>
+          <Cell striped drawBorderBottom>
+            <CellContents>
+              <Heading first={true}>
               Maximum Score
-            </Heading>
-            <Total>
-              {S.numberWithOneDecimalPlace(0)}
-            </Total>
-            <Average>
-              <SplitCell border>
+              </Heading>
+              <Total>
+                {S.numberWithOneDecimalPlace(0)}
+              </Total>
+              <Average>
+                <SplitCell border>
               100%
-              </SplitCell>
-              <SplitCell>
+                </SplitCell>
+                <SplitCell>
               100%
-              </SplitCell>
-            </Average></CellContents>
-          {/* TODO: Add maximum score */}
-        </Cell>
-        {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
-      </Row>
-      {/* Minimum score */}
-      <Row>
-        <Cell striped>
-          <CellContents>
-            <Heading first={true}>
+                </SplitCell>
+              </Average></CellContents>
+            {/* TODO: Add maximum score */}
+          </Cell>
+          {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
+        </Row>
+        {/* Minimum score */}
+        <Row>
+          <Cell striped>
+            <CellContents>
+              <Heading first={true}>
               Minimum Score
-            </Heading>
-            <Total>
-              {S.numberWithOneDecimalPlace(0)}
-            </Total>
-            <Average>
-              <SplitCell border>
+              </Heading>
+              <Total>
+                {S.numberWithOneDecimalPlace(0)}
+              </Total>
+              <Average>
+                <SplitCell border>
               100%
-              </SplitCell>
-              <SplitCell>
+                </SplitCell>
+                <SplitCell>
               100%
-              </SplitCell>
-            </Average></CellContents>
-          {/* TODO: Add minimum score */}
-        </Cell>
-        {ux.headings.map((s, i) => (<AggregateResult key={i}/>))}
-      </Row>
-    </StyledStickyTable>
+                </SplitCell>
+              </Average></CellContents>
+            {/* TODO: Add minimum score */}
+          </Cell>
+          {ux.headings.map((s, i) => (<AggregateResult key={i}/>))}
+        </Row>
+      </StyledStickyTable>
+      <AverageInfoModal ux={ux} />
+    </>
   ));
 };
 GradebookTable.propTypes = {

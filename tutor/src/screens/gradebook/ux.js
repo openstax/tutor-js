@@ -41,6 +41,7 @@ export default class GradeBookUX {
   @observable searchingMatcher = null;
 
   @observable isReady = false;
+  @observable showAverageInfoModal = false;
   @observable coursePeriod;
   @observable props = {}
 
@@ -150,6 +151,20 @@ export default class GradeBookUX {
 
   @action updateProps(props) {
     this.props = props;
+  }
+
+  /**
+   * Show Average Info modal
+   */
+  @action showAverageInfo() {
+    this.showAverageInfoModal = true;
+  }
+
+  /**
+   * Hide Average Info modal
+   */
+  @action hideAverageInfo() {
+    this.showAverageInfoModal = false;
   }
 
   // old & unused methods
