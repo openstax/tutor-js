@@ -1,8 +1,11 @@
 import { React, PropTypes, useObserver, styled } from 'vendor';
-import { Modal } from 'react-bootstrap';
+import { Modal, Table } from 'react-bootstrap';
 import { colors } from 'theme';
 
 const StyledModal = styled(Modal)`
+    .modal-dialog {
+        max-width: 700px
+    }
     .modal-dialog .modal-header, .modal .modal-header {
         background-color: ${colors.neutral.lighter};
         font-size: 1.6rem;
@@ -46,6 +49,32 @@ const List = styled.ol`
     }
 `;
 
+const StyleTable = styled(Table)`
+    margin-top: 15px;
+    thead {
+        border-top: .5rem solid ${props => props.variant === 'homework' ? colors.templates.homework.border : colors.templates.reading.border};
+        & tr {
+            background-color: ${props => props.variant === 'homework' ? colors.highlight : '#fdf7d9'};
+        }
+        & tr th {
+            border: none;
+            vertical-align: middle;
+        }
+    }
+    tbody {
+        & tr {
+        background-color: ${props => props.variant === 'homework' ? '#9ce8f4' : '#ffe4a1'};
+        }
+        & tr td {
+            vertical-align: middle;
+        }
+    }
+    & tr {
+        text-align: center;
+        height: 50px;
+    }
+`;
+
 const AverageInfoModal = ({ ux }) => {
   return useObserver(() =>
     <StyledModal
@@ -65,6 +94,24 @@ const AverageInfoModal = ({ ux }) => {
             <p>
                 Example:
             </p>
+            <StyleTable variant="homework">
+              <thead>
+                <tr>
+                  <th>HW1</th>
+                  <th>HW2</th>
+                  <th>HW3</th>
+                  <th>Homework assignment average</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12/15</td>
+                  <td>24/30</td>
+                  <td>48/60</td>
+                  <td>@mdo</td>
+                </tr>
+              </tbody>
+            </StyleTable>
           </li>
           <li>
             <p>Reading assignment average is based on equally weighted reading assignments that are past due.</p>
@@ -74,6 +121,24 @@ const AverageInfoModal = ({ ux }) => {
             <p>
                 Example:
             </p>
+            <StyleTable>
+              <thead>
+                <tr>
+                  <th>HW1</th>
+                  <th>HW2</th>
+                  <th>HW3</th>
+                  <th>Homework assignment average</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12/15</td>
+                  <td>24/30</td>
+                  <td>48/60</td>
+                  <td>@mdo</td>
+                </tr>
+              </tbody>
+            </StyleTable>
           </li>
         </List>
       </Modal.Body>
