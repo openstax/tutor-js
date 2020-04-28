@@ -1,16 +1,30 @@
 import { React, PropTypes, styled, useObserver, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
+import moment from 'moment';
+import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import TaskResultCell from './task-result-cell';
-import SortingIcon from './sorting-icon';
 
-// https://projects.invisionapp.com/d/main#/console/18937568/402445519/preview
+const StyledStickyTable = styled(StickyTable)`
+  margin: 2.2rem 0 1.4rem;
+
+  .sticky-table-row:last-child .sticky-table-cell {
+    border-bottom: 2px solid ${colors.neutral.pale};
+  }
+`;
 
 const Cell = styled(TableCell)`
   padding: 0;
-  height: 4.5rem;
+  border-bottom: 0;
+  border-left: 2px solid ${colors.neutral.pale};
+  &:last-child {
+    border-right: 2px solid ${colors.neutral.pale};
+  }
+  ${props => props.striped && css`
+    background: ${colors.neutral.lighter};
+  `}
 `;
 
 const centeredCSS = css`
@@ -19,38 +33,76 @@ const centeredCSS = css`
   align-items: center;
 `;
 
+const headingCSS = css`
+  height: 100%;
+`;
+
+const paddingCSS = css`
+  padding: 1.2rem 1.6rem;
+`;
+
 const CellContents = styled.div`
   ${centeredCSS}
-  height: 100%;
   > * { width: 80px; }
-  > *:first-child { width: 200px; }
+  > *:first-child, > *:last-child {
+    width: 16rem;
+  }
 `;
 
 const Heading = styled.div`
-  height: 100%;
-  padding: 0.5rem;
-  ${centeredCSS}
-  border-right: 1px solid ${colors.neutral.lite};
-`;
-
-const HeadingLabel = styled.div`
-  ${centeredCSS}
-  flex-direction: column;
+  ${props => !props.first && centeredCSS}
+  ${props => props.first && css`
+    border-right: 2px solid ${colors.neutral.pale};
+  `}
+  ${headingCSS}
+  ${paddingCSS}
 `;
 
 const HeadingTop = styled.div`
-  ${centeredCSS}
+  ${paddingCSS}
+  padding-top: 1.2rem;
+  align-self: stretch;
   font-weight: bold;
 `;
 
 const HeadingMiddle = styled.div`
-  ${centeredCSS}
+  ${paddingCSS}
+  align-self: stretch;
+  padding-top: 0;
+  font-size: 1rem;
+  color: ${colors.neutral.thin};
 `;
 
 const HeadingBottom = styled.div`
-  ${centeredCSS}
-  font-weight: 100;
-  font-size: 80%;
+  ${paddingCSS}
+  align-self: stretch;
+  font-size: 1rem;
+  background: #fff;
+  position: relative;
+`;
+
+const ColumnHeading = styled.div`
+  ${headingCSS}
+  background: ${props =>
+    !props.variant 
+      ? colors.neutral.lighter
+      : props.variant === 'homework'
+        ? colors.templates.homework.background
+        : colors.templates.reading.background};
+  border-top: 0.4rem solid ${props =>
+    !props.variant 
+      ? colors.neutral.std
+      : props.variant === 'homework'
+        ? colors.templates.homework.border
+        : colors.templates.reading.border};
+  &:not(:last-child) {
+    border-right: 2px solid ${colors.neutral.pale};
+  }
+  > * {
+    ${props => !props.first && css`
+      ${centeredCSS}
+    `}
+  }
 `;
 
 const SplitCell = styled.div`
@@ -60,23 +112,27 @@ const SplitCell = styled.div`
 
 const LateWork = styled.div`
   padding: 0;
-  height: 100%;
   ${centeredCSS}
-  border-right: 1px solid ${colors.neutral.lite};
+  align-self: stretch;
+  position: relative;
 `;
 
 const Total = styled.div`
   padding: 0;
-  height: 100%;
+  align-self: stretch;
+  border-right: 2px solid  ${colors.neutral.pale};
   ${centeredCSS}
-  border-right: 1px solid ${colors.neutral.lite};
+`;
+
+const StyledButton = styled(Button)`
+  && { padding: 0; }
 `;
 
 const StudentColumnHeader = () => {
   return useObserver(() => (
-    <Cell>
+    <Cell leftBorder={true}>
       <CellContents>
-        <HeadingLabel>
+        <ColumnHeading first={true}>
           <HeadingTop>
             Student Name
           </HeadingTop>
@@ -86,95 +142,93 @@ const StudentColumnHeader = () => {
           <HeadingBottom>
             Available Points
           </HeadingBottom>
-        </HeadingLabel>
-        <HeadingLabel>
+        </ColumnHeading>
+        <ColumnHeading>
           <HeadingTop>
             Total <Icon type="sort" />
           </HeadingTop>
           <HeadingMiddle>
-            <SplitCell>
-              #
-            </SplitCell>
-            <SplitCell>
-              %
-            </SplitCell>
+            Set Weight
           </HeadingMiddle>
           <HeadingBottom>
-            {20.0}
+            100%
           </HeadingBottom>
-        </HeadingLabel>
-        <HeadingLabel>
+        </ColumnHeading>
+        <ColumnHeading>
           <HeadingTop>
-            Late work
+            Averages
           </HeadingTop>
           <HeadingMiddle>
-            Per day
+            <SplitCell>
+              homework
+            </SplitCell>
+            <SplitCell>
+              reading
+            </SplitCell>
           </HeadingMiddle>
           <HeadingBottom>
-            {-10.0}
+            <SplitCell>
+              100%
+            </SplitCell>
+            <SplitCell>
+              100%
+            </SplitCell>
           </HeadingBottom>
-        </HeadingLabel>
+        </ColumnHeading>
       </CellContents>
     </Cell>
   ));
 };
 
-const StudentCell = ({ student }) => {
-
+const StudentCell = ({ student, striped }) => {
   return useObserver(() => (
-    <Cell>
+    <Cell striped={striped}>
       <CellContents>
 
-        <HeadingLabel>
-          <HeadingTop>
+        <Heading first={true}>
+          <StyledButton variant="link">
             {student.name}
-          </HeadingTop>
-          <HeadingBottom>
-            {student.student_identifier}
-          </HeadingBottom>
-        </HeadingLabel>
+          </StyledButton>
+        </Heading>
 
         <Total>
-          {S.numberWithOneDecimalPlace(student.course_average)}
+          {S.numberWithOneDecimalPlace(student.total_points)}
         </Total>
-
         <LateWork>
-          ??
+          {false && <CornerTriangle color="green" tooltip="Student was granted an extension" />}
+          {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
         </LateWork>
       </CellContents>
     </Cell>
   ));
 };
 
-const AssignmentHeading = ({ ux, heading, sortKey }) => useObserver(() => {
-
+const AssignmentHeading = ({ ux, heading, sortKey }) => {
   const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
-
-  return (
+  console.log(heading);
+  return useObserver(() => (
     <Cell onClick={onClick}>
-      <Heading>
-        <HeadingLabel>
-          <HeadingTop>
-            {heading.title}
-          </HeadingTop>
-          <HeadingMiddle>
-            MPQ/SPQ/WRM
-          </HeadingMiddle>
-          <HeadingBottom>
-            {S.numberWithOneDecimalPlace(heading.average_score)}
-          </HeadingBottom>
-        </HeadingLabel>
-        <SortingIcon ux={ux} heading={heading} dataType="score" sortKey={sortKey} />
-      </Heading>
+      <ColumnHeading variant={heading.type}>
+        <HeadingTop>
+          {heading.title}
+        </HeadingTop>
+        <HeadingMiddle>
+          {moment(heading.due_at).format('MMM D')}
+        </HeadingMiddle>
+        <HeadingBottom>
+          {false && <CornerTriangle color="blue" tooltip="Dropped" />}
+          {S.numberWithOneDecimalPlace(heading.points)}
+        </HeadingBottom>
+      </ColumnHeading>
     </Cell>
-  );
-});
+  ));
+};
 
 
 const GradebookTable = ({ ux }) => {
 
   return useObserver(() => (
-    <StickyTable>
+    <StyledStickyTable>
       <Row>
         <StudentColumnHeader />
         {ux.headings.map((h,i) => <AssignmentHeading key={i} sortKey={i} ux={ux} heading={h} />)}
@@ -182,9 +236,9 @@ const GradebookTable = ({ ux }) => {
       {ux.students.map((student,i) => (
         <Row key={i}>
           <StudentCell ux={ux} student={student} />
-          {ux.studentTasks(student).map((score, i) => <TaskResultCell key={i} ux={ux} task={score} />)}
+          {ux.studentTasks(student).map((task, i) => <TaskResultCell key={i} ux={ux} task={task} />)}
         </Row>))}
-    </StickyTable>
+    </StyledStickyTable>
   ));
 };
 

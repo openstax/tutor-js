@@ -1,16 +1,22 @@
-import { React, styled, useObserver } from 'vendor';
+import { React, styled, useObserver, css } from 'vendor';
 import { isNil } from 'lodash';
 import { Cell as TableCell } from 'react-sticky-table';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
 import S from '../../helpers/string';
 
-// TODO: use shared version
 const Cell = styled(TableCell)`
   padding: 0;
-  height: 4.5rem;
+  border-bottom: 0;
   text-align: center;
   vertical-align: middle;
+  border-left: 2px solid ${colors.neutral.pale};
+  &:last-child {
+    border-right: 2px solid ${colors.neutral.pale};
+  }
+  ${props => props.striped && css`
+    background: ${colors.neutral.lighter};
+  `}
 `;
 
 const ReviewLink = ({ task, children }) => useObserver(() => {
@@ -30,6 +36,7 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
 });
 
 const Progress = ({ task }) => useObserver(() => {
+  console.log(task);
   const progress = isNil(task.correct_exercise_count) ? '---' : task.humanScoreNumber;
   return <div className="correct-progress">{progress}</div>;
 });
@@ -46,7 +53,6 @@ const Unstarted = styled.div`
 const TaskResult = ({ ux, task }) => {
   return useObserver(() => {
     let contents = null;
-
     if (task.isStarted || task.isDue) {
       const Display = ux.displayScoresAsPercent ? Percent : Progress;
 
