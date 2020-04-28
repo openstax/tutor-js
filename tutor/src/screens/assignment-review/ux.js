@@ -11,6 +11,7 @@ export default class AssignmentReviewUX {
   @observable exercisesHaveBeenFetched = false;
   @observable isDisplayingGrantExtension = false;
   @observable isDisplayingDropQuestions = false;
+  @observable isDisplayingConfirmDelete = false;
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
@@ -21,13 +22,14 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course,
+    id, scores, course, onCompleteDelete,
     windowImpl = window,
   }) {
     this.scroller = new ScrollTo({ windowImpl });
     this.planScores = scores || new TaskPlanScores({ id, course });
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
+    this.onCompleteDelete = onCompleteDelete;
 
     await this.planScores.fetch();
 
@@ -107,6 +109,19 @@ export default class AssignmentReviewUX {
 
   droppedQuestionRecord(heading) {
     return heading.dropped || this.pendingDroppedQuestions.get(heading.question_id);
+  }
+
+  @action.bound onDelete() {
+    this.isDisplayingConfirmDelete = true;
+  }
+
+  @action.bound async onConfirmDelete() {
+    await this.planScores.taskPlan.destroy();
+    this.onCompleteDelete();
+  }
+
+  @action.bound onCancelDelete() {
+    this.isDisplayingConfirmDelete = false;
   }
 
 }
