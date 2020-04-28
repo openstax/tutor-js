@@ -1,5 +1,4 @@
 import { React, PropTypes, styled } from 'vendor';
-import { Popover } from 'react-bootstrap';
 import LMSPushBtn from './lms-push-btn';
 import ExportBtn from './export-btn';
 import SettingBtn from './settings-btn';
