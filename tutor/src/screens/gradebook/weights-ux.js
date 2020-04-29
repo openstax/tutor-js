@@ -86,7 +86,6 @@ export default class ScoresReportWeightsUX {
    * Show Weights modal
    */
   @action showWeights() {
-    console.log('here');
     this.showWeightsModal = true;
     Object.assign(this, this.currentPercents);
   }
