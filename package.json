@@ -123,7 +123,6 @@
     "react-dnd-test-utils": "^9.3.4",
     "react-dom": "^16.9.0",
     "react-floater": "^0.6.5",
-    "react-katex": "^2.0.2",
     "react-maskedinput": "4.0.1",
     "react-overlays": "^2.1.0",
     "react-router-dom": "5.1.2",

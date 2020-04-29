@@ -1,10 +1,7 @@
 import { React, PropTypes, useObserver, styled } from 'vendor';
 import { Modal, Table } from 'react-bootstrap';
-import { InlineMath } from 'react-katex';
 import { colors } from 'theme';
 import { ArbitraryHtmlAndMath } from 'shared';
-
-import 'katex/dist/katex.min.css';
 
 const StyledModal = styled(Modal)`
     .modal-dialog {
@@ -74,6 +71,9 @@ const StyleTable = styled(Table)`
         }
         & tr td {
             vertical-align: middle;
+            & .openstax-has-html {
+              font-size: 1.8rem;
+            }
         }
     }
     & tr {
@@ -81,31 +81,6 @@ const StyleTable = styled(Table)`
         height: 50px;
     }
 `;
-
-const dummyData =
-[
-  {
-    correctQuetions: 12,
-    numberOfQuestions: 15,
-  },
-  {
-    correctQuetions: 24,
-    numberOfQuestions: 30,
-  },
-  {
-    correctQuetions: 48,
-    numberOfQuestions: 60,
-  },
-];
-
-const getFormula = () => {
-  const weight = 100;
-  const numberOfAssigment = dummyData.length;
-  let total = 0;
-  dummyData.forEach(d => total += d.correctQuetions/d.numberOfQuestions);
-  total = total / numberOfAssigment;
-  total = total * weight;
-};
 
 const AverageInfoModal = ({ ux }) => {
   return useObserver(() =>
@@ -142,7 +117,7 @@ const AverageInfoModal = ({ ux }) => {
                   <td>48/60</td>
                   <td>
                     <div>
-                      <ArbitraryHtmlAndMath html={'\\dfrac{\\Bigg(\\dfrac{12}{15} + \\dfrac{24}{30} + \\dfrac{48}{60}\\Bigg)}{3} * 100 = 80\\%'}/>
+                      <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
                     </div>
                   </td>
                 </tr>
@@ -173,7 +148,7 @@ const AverageInfoModal = ({ ux }) => {
                   <td>48/60</td>
                   <td>
                     <div>
-                      <InlineMath math={'\\dfrac{\\Bigg(\\dfrac{12}{15} + \\dfrac{24}{30} + \\dfrac{48}{60}\\Bigg)}{3} * 100 = 80\\%'}/>
+                      <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
                     </div>
                   </td>
                 </tr>

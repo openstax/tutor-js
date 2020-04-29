@@ -62,6 +62,8 @@ class ArbitraryHtmlAndMath extends React.Component {
   render() {
     const { className, block } = this.props;
 
+    console.log(this.props);
+
     const classes = classnames('openstax-has-html', className);
 
     const otherProps = omit(this.props, 'className', 'block', 'html', 'shouldExcludeFrame', 'processHtmlAndMath');
