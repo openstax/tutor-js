@@ -3,7 +3,7 @@ import { filter, sortBy } from 'lodash';
 import studentDataSorter from './student-data-sorter';
 //import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
-//import WeightsUX from './weights-ux';
+import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
@@ -36,7 +36,7 @@ export default class GradeBookUX {
 
   @observable sortIndex;
   @observable rowSort = { key: 'name', asc: true, dataType: 'score' };
-
+  @observable weights = new WeightsUX(this);
 
   @observable searchingMatcher = null;
 

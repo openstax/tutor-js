@@ -50,8 +50,7 @@ const Controls = ({ ux }) => {
     </Wrapper>
   );
 };
-
-SearchInput.propTypes = Controls.propTypes = {
+Controls.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
 };
 

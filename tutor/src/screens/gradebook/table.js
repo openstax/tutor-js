@@ -8,7 +8,8 @@ import S from '../../helpers/string';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import { getCell } from './styles';
-import AverageInfoModal from './averageInfoModal';
+import AverageInfoModal from './average-info-modal';
+import SetWeightsModal from './set-weights-modal';
 
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
@@ -57,7 +58,7 @@ const HeadingTop = styled.div`
   align-self: stretch;
   font-weight: bold;
   
-  .info-circle-icon-button {
+  & .info-circle-icon-button {
     color: ${colors.bright_blue};
     display: block;
     margin-bottom: -2px;
@@ -71,6 +72,11 @@ const HeadingMiddle = styled.div`
   font-size: 1rem;
   color: ${colors.neutral.thin};
   border-bottom: 2px solid ${colors.neutral.pale};
+
+  & .set-weight-span {
+    cursor: pointer;
+    color: ${colors.bright_blue};
+  }
 `;
 
 const HeadingBottom = styled.div`
@@ -153,7 +159,7 @@ const StudentColumnHeader = ({ ux }) => {
             Total <Icon type="sort" />
           </HeadingTop>
           <HeadingMiddle>
-            Set Weight
+            <span className="set-weight-span" onClick={() => ux.weights.showWeights()}>Set Weight</span>
           </HeadingMiddle>
           <HeadingBottom>
             100%
@@ -326,6 +332,8 @@ const GradebookTable = ({ ux }) => {
         </Row>
       </StyledStickyTable>
       <AverageInfoModal ux={ux} />
+      <SetWeightsModal ux={ux} />
+
     </>
   ));
 };
