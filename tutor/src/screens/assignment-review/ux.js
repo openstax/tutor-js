@@ -1,9 +1,11 @@
-import { observable, action, computed } from 'vendor';
+import { React, observable, action, computed } from 'vendor';
 import { first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import Exercises from '../../models/exercises';
+import EditUX from '../assignment-edit/ux';
+import DetailsBody from '../assignment-edit/details-body';
 
 export default class AssignmentReviewUX {
 
@@ -12,6 +14,7 @@ export default class AssignmentReviewUX {
   @observable isDisplayingGrantExtension = false;
   @observable isDisplayingDropQuestions = false;
   @observable isDisplayingConfirmDelete = false;
+  @observable isDisplayingEditAssignment = false;
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
@@ -22,7 +25,7 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete,
+    id, scores, course, onCompleteDelete, history,
     windowImpl = window,
   }) {
     this.scroller = new ScrollTo({ windowImpl });
@@ -32,6 +35,14 @@ export default class AssignmentReviewUX {
     this.onCompleteDelete = onCompleteDelete;
 
     await this.planScores.fetch();
+
+    this.editUX = new EditUX();
+    this.editUX.initialize({
+      ...this.params,
+      plan: this.planScores.taskPlan,
+      history,
+      course,
+    });
 
     await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
     this.exercisesHaveBeenFetched = true;
@@ -122,6 +133,37 @@ export default class AssignmentReviewUX {
 
   @action.bound onCancelDelete() {
     this.isDisplayingConfirmDelete = false;
+  }
+
+  @action.bound onEdit() {
+    this.isDisplayingEditAssignment = true;
+  }
+
+  @action.bound onCancelEdit() {
+    this.isDisplayingEditAssignment = false;
+  }
+
+  @action.bound async onSavePlan() {
+    await this.editUX.savePlan();
+    await this.planScores.fetch();
+    this.isDisplayingEditAssignment = false;
+  }
+
+  @action.bound renderDetails(form) {
+    this.editUX.form = form;
+    return <DetailsBody ux={this.editUX} />;
+  }
+
+  @computed get submitPending() {
+    return Boolean(
+      this.editUX.plan.api.isPending
+    );
+  }
+
+  @computed get canSubmit() {
+    return Boolean(
+      this.editUX.validations.isValid
+    );
   }
 
 }

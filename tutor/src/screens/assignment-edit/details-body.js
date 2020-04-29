@@ -171,6 +171,7 @@ const DetailsBody = observer(({ ux }) => {
           name="title"
           id="title"
           validate={isRequired}
+          data-test-id="edit-assignment-name"
         />
       </SplitRow>
       <SplitRow>
@@ -181,6 +182,7 @@ const DetailsBody = observer(({ ux }) => {
         <TextArea
           name="description"
           id="description"
+          data-test-id="assignment-note"
         />
       </SplitRow>
       {ux.canSelectTemplates && <TemplateField ux={ux} />}
