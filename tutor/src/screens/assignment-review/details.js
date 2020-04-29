@@ -10,6 +10,7 @@ import S from '../../helpers/string';
 import { isEmpty } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
+import EditModal from './edit-modal';
 
 const DetailsWrapper = styled.div`
 
@@ -190,7 +191,7 @@ const TemplateInfo = ({ template }) => useObserver(() => {
 });
 
 const Details = observer(({ ux, ux: {
-  scores, planScores, taskingPlan, isDisplayingConfirmDelete,
+  scores, planScores, taskingPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment,
 } }) => {
   const format = 'MMM D, h:mm a';
 
@@ -201,7 +202,11 @@ const Details = observer(({ ux, ux: {
           <Header>
             <h6>Details</h6>
             <Controls>
-              <button className="btn btn-standard btn-icon">
+              <button
+                className="btn btn-standard btn-icon"
+                onClick={ux.onEdit}
+                data-test-id="edit-assignment"
+              >
                 <Icon type="edit" />
               </button>
               <button
@@ -217,7 +222,7 @@ const Details = observer(({ ux, ux: {
             <Row>
               <Title>Assignment name</Title>
               <Item>
-                <strong>{planScores.title}</strong>
+                <strong data-test-id="assignment-name">{planScores.title}</strong>
               </Item>
             </Row>
             <Row>
@@ -285,6 +290,7 @@ const Details = observer(({ ux, ux: {
       </Top>
       {scores && <Questions ux={ux} questionsInfo={scores.questionsInfo} />}
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
+      {isDisplayingEditAssignment && <EditModal ux={ux} />}
     </DetailsWrapper>
   );
 
