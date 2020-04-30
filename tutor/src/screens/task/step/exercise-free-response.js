@@ -74,6 +74,7 @@ class FreeResponseInput extends React.Component {
 
   ux = new ResponseValidationUX({
     step: this.props.step,
+    taskUX: this.props.taskUX,
     messages: NudgeMessages,
     validator: this.props.response_validation,
   });
@@ -82,7 +83,6 @@ class FreeResponseInput extends React.Component {
 
   @action.bound onSave() {
     const { taskUX, step } = this.props;
-
     taskUX.setCurrentMultiPartStep(step);
     this.ux.onSave();
   }

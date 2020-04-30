@@ -133,6 +133,13 @@ export default class TaskUX {
     this._stepIndex = this.steps.indexOf(step);
   }
 
+  @action async onFreeResponseComplete(step) {
+    if (!step.requiresAnswerId) {
+      await step.save();
+      this.goForward();
+    }
+  }
+
   @action onAnswerContinue(step) {
     this.moveToStep(step);
     this.goForward();

@@ -15,6 +15,7 @@ class TaskStepContent extends BaseModel {
   update(data) {
     Object.assign(this, data);
   }
+  requiresAnswerId = false;
 }
 
 class StudentTaskVideoStep extends TaskStepContent { }
@@ -45,6 +46,9 @@ class StudentTaskExerciseStep extends Exercise {
   get stem_html() { return this.content.stem_html; }
   get questions() { return this.content.questions; }
   get stimulus_html() { return this.content.stimulus_html; }
+  get requiresAnswerId() {
+    return this.questions[0].answers.length > 0;
+  }
 }
 
 const ContentClasses = {
@@ -198,7 +202,11 @@ class StudentTaskStep extends BaseModel {
 
   @action beginRecordingAnswer({ free_response }) {
     this.free_response = free_response;
-    this.answer_id = null;
+    if (this.content.requiresAnswerId) {
+      this.answer_id = null;
+    } else {
+      this.is_completed = true;
+    }
   }
 
   @action onAnswerSaved({ data }) {
