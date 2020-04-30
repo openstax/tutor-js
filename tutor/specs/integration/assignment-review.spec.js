@@ -46,4 +46,14 @@ context('Assignment Review', () => {
     cy.location('pathname').should('include', '/course/1/t/month');
   });
 
+  it.only('can update details', () => {
+    cy.server();
+    cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
+    cy.wait('@getGradingTemplates');
+    cy.getTestElement('edit-assignment').click();
+    cy.getTestElement('edit-assignment-name').clear().type('Update');
+    cy.getTestElement('confirm-save-assignment').click();
+    cy.getTestElement('assignment-name').should('have.text', 'Update');
+  });
+
 });

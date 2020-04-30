@@ -332,7 +332,7 @@ export default class AssignmentUX {
     await this.saveAndCopyPlan();
   }
 
-  @action.bound async savePlan(){
+  @action.bound async savePlan() {
     this.plan.update(omit(this.form.values, 'tasking_plans'));
     this.plan.is_draft = false;
     if (!this.plan.is_published) {
