@@ -26,7 +26,7 @@ const StyledInputGroup = styled(InputGroup)`
     .input-group-append {
       & button {
         & svg {
-          color: #5e6062;
+          color: ${colors.neutral.grayblue};
         }
       } 
     }

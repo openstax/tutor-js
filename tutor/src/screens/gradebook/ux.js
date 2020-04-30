@@ -40,8 +40,12 @@ export default class GradeBookUX {
 
   @observable searchingMatcher = null;
 
-  @observable isReady = false;
+  // popovers and modals
   @observable showAverageInfoModal = false;
+  @observable showSettingsInfoPopover = false;
+  @observable showSettingsPopover = false;
+
+  @observable isReady = false;
   @observable coursePeriod;
   @observable props = {}
 
@@ -165,6 +169,34 @@ export default class GradeBookUX {
    */
   @action hideAverageInfo() {
     this.showAverageInfoModal = false;
+  }
+
+  /**
+   * Show Settings popover
+   */
+  @action showSettings() {
+    this.showSettingsPopover = true;
+  }
+
+  /**
+   * Hide Settings popover
+   */
+  @action hideSettings() {
+    this.showSettingsPopover = false;
+  }
+
+  /**
+   * Show Settings info popover
+   */
+  @action showSettingsInfo() {
+    this.showSettingsInfoPopover = true;
+  }
+
+  /**
+   * Hide Settings info popover
+   */
+  @action hideSettingsInfo() {
+    this.showSettingsInfoPopover = false;
   }
 
   // old & unused methods

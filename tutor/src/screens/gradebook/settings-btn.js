@@ -31,8 +31,6 @@ SettingsCheckbox.propTypes ={
 };
   
 const Settings = ({ ux }) => {
-  const [showPopover, setShowPopover] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const target = useRef(null);
   
   return useObserver(() => {
@@ -40,17 +38,17 @@ const Settings = ({ ux }) => {
       <>
         <Button ref={target}
           onClick={() => {
-            setShowPopover(false);
-            setShowSettings(true);
+            ux.hideSettingsInfo();
+            ux.showSettings();
           }}
           onMouseEnter={() => 
-            setShowPopover(true)
+            ux.showSettingsInfo()
           }
           onMouseLeave={() => 
-            setShowPopover(false)
+            ux.hideSettingsInfo()
           }
           variant='plain'
-          className={`${showPopover ? 'gradebook-btn-selected' : ''}`}>
+          className={`${ux.showSettingsInfoPopover ? 'gradebook-btn-selected' : ''}`}>
           <Icon type="cog" />
         </Button>
         {/* Overlay for the settings controller */}
@@ -58,8 +56,8 @@ const Settings = ({ ux }) => {
           rootClose
           target={target.current}
           placement="bottom"
-          show={showSettings}
-          onHide={() => setShowSettings(false)}>
+          show={ux.showSettingsPopover}
+          onHide={() => ux.hideSettings()}>
           <Popover className="gradebook-popover" >
             <Toggles>
               <SettingsCheckbox ux={ux} property="displayScoresAsPercent" title="Display scores as percentage %" />
@@ -73,7 +71,7 @@ const Settings = ({ ux }) => {
         <Overlay
           target={target.current}
           placement="bottom"
-          show={showPopover}>
+          show={ux.showSettingsInfoPopover}>
           <Popover className="gradebook-popover" >  
             <p>Adjust table display settings</p>
           </Popover>

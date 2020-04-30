@@ -16,10 +16,10 @@ const Wrapper = styled.div`
       height: 100%;
     }
   }
-  .btn-plain {
+  & .btn.btn-plain {
     border: 1px solid ${colors.neutral.pale};
     /* Add important becaue 'btn' always takes precedence */
-    padding: 5px 10px !important;
+    padding: 5px 10px;
 
     &:hover, &.gradebook-btn-selected {
       background-color: ${colors.neutral.lighter}
