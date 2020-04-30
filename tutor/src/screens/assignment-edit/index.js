@@ -8,7 +8,6 @@ import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
 import { navbars } from '../../theme.js';
-import CoursePage from '../../components/course-page';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
