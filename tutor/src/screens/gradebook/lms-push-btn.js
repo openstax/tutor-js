@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { createRef } from 'react';
-import { computed, action, observable } from 'mobx';
+import React from 'react';
+import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { Overlay, Button, Popover } from 'react-bootstrap';
+import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
@@ -12,14 +12,6 @@ export default
 class LmsPush extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-  }
-
-  @observable
-  showPopover = false;
-
-  constructor(props) {
-    super(props);
-    this.overlay = createRef();
   }
 
   @computed get lmsPush() {
@@ -44,27 +36,22 @@ class LmsPush extends React.Component {
   render() {
     const { course } = this.props;
     //if (!course.is_lms_enabled) { return null; }
-
+    const popover = (
+      <Popover className="gradebook-popover">
+        <p>Export Course average to {course.name}</p>
+      </Popover>
+    );
     return (
       <>
-        <Button
-          ref={this.overlay}
-          onClick={this.startPush}
-          onMouseEnter={() => 
-            this.showPopover = true
-          }
-          onMouseLeave={() => 
-            this.showPopover = false
-          }
-          variant='plain'
-          className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
-          <Icon type="paper-plane" />
-        </Button>
-        <Overlay target={this.overlay.current} placement="bottom" show={this.showPopover}>
-          <Popover className="gradebook-popover">
-            <p>Export Course average to {course.name}</p>
-          </Popover>
-        </Overlay>
+        <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
+          <Button
+            onClick={this.startPush}
+            variant='plain'
+            className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+            <Icon type="paper-plane" />
+          </Button>
+        </OverlayTrigger>
+        
       </>
     );
   }

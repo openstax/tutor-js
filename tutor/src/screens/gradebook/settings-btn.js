@@ -1,4 +1,4 @@
-import { React, PropTypes, useState, useRef, useObserver, styled } from 'vendor';
+import { React, PropTypes, useRef, useObserver, styled } from 'vendor';
 import { Button, Popover, Overlay } from 'react-bootstrap';
 import { Icon } from 'shared';
 import UX from './ux';
