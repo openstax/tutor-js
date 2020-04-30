@@ -30,7 +30,7 @@ import './scores';
 import './offering';
 import './stats';
 import './course-roster';
-import { studentTasks, studentTask } from './student-tasks';
+import { studentTasks, studentTask } from './student-task-models';
 import './note';
 import './grading-template';
 

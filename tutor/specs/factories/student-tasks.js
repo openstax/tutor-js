@@ -1,9 +1,7 @@
 const {
-  Factory, sequence, fake, moment, uuid, SECTION_NAMES,
+  Factory, sequence, fake, moment, uuid, SECTION_NAMES, PLAN_TYPES,
 } = require('./helpers');
 const { range, isNil } = require('lodash');
-
-import StudentTask from '../../src/models/student-tasks/task';
 
 const TASK_TYPES={
   reading: [
@@ -19,6 +17,26 @@ const TASK_TYPES={
   ],
   event: [], // has no steps
 };
+
+Factory.define('StudentDashboardTask')
+  .id(sequence)
+  .title(fake.company.bs)
+  .type(({ object }) => PLAN_TYPES[object.id % PLAN_TYPES.length])
+  .opens_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days'))
+  .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
+  .complete(() => 0 == fake.random.number(3))
+  .is_deleted(false)
+  .last_worked_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days').format())
+  .exercise_count(() => fake.random.number({ min: 3, max: 12 }))
+  .steps_count(({ object }) => object.exercise_count)
+  .complete_exercise_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.exercise_count })
+  )
+  .completed_steps_count(({ object }) => object.complete_exercise_count)
+  .correct_exercise_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.complete_exercise_count })
+  )
+
 
 Factory.define('RelatedContent')
   .uuid(uuid)
@@ -130,34 +148,4 @@ Factory.define('StudentTaskExerciseStepContent')
     ],
   })
 
-
-const TaskStepTypes = {
-  reading: 'StudentTaskReadingStepContent',
-  exercise: 'StudentTaskExerciseStepContent',
-  interactive: 'StudentTaskInteractiveStepContent',
-};
-
-export
-function studentTask(attrs = {}, modelArgs) {
-  if (attrs.type && !TASK_TYPES[attrs.type]){ throw(`Unknown task type ${attrs.type}`); }
-
-  const st = new StudentTask(this.bot.create('StudentTask', attrs), modelArgs);
-  st.steps.forEach((s) => {
-    s.onLoaded({ data: this.bot.create(TaskStepTypes[s.type]) });
-  })
-  return st;
-}
-
-export
-function studentTasks({
-  course = this.course(),
-  count = 1,
-  attributes = {},
-} = {}) {
-  range(count).forEach(() => {
-    const task = this.studentTask(attributes);
-    task.tasksMap = course.studentTasks;
-    course.studentTasks.set(task.id, task)
-  })
-  return course.studentTasks;
-}
+module.exports = { TASK_TYPES }
