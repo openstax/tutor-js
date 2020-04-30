@@ -1,7 +1,11 @@
-import { React, PropTypes, useRef, useObserver, styled } from 'vendor';
+import { React, PropTypes, useObserver, styled } from 'vendor';
+import { createRef } from 'react';
 import { Button, Popover, Overlay } from 'react-bootstrap';
+import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import UX from './ux';
+import { observable } from 'mobx';
+
 
 const Toggles = styled(Popover.Content)`
   padding: 1rem;
@@ -23,41 +27,54 @@ const SettingsCheckbox = ({ ux, title, property }) => useObserver(() => (
     {title}
   </label>
 ));
-  
 SettingsCheckbox.propTypes ={
   ux: PropTypes.instanceOf(UX).isRequired,
   title: PropTypes.string.isRequired,
   property: PropTypes.string.isRequired,
 };
   
-const Settings = ({ ux }) => {
-  const target = useRef(null);
-  
-  return useObserver(() => {
+export default
+@observer
+class Settings extends React.Component {
+  static propTypes ={
+    ux: PropTypes.instanceOf(UX).isRequired,
+  };
+
+  target = null;
+  @observable showPopoverInfo = false;
+  @observable showPopoverSettings = false;
+
+  constructor(props) {
+    super(props);
+    this.target = createRef();
+  }
+
+  render () {
+    const { ux } = this.props;
     return (
       <>
-        <Button ref={target}
+        <Button ref={this.target}
           onClick={() => {
-            ux.hideSettingsInfo();
-            ux.showSettings();
+            this.showPopoverInfo = false;
+            this.showPopoverSettings = true;
           }}
           onMouseEnter={() => 
-            ux.showSettingsInfo()
+            this.showPopoverInfo = true
           }
           onMouseLeave={() => 
-            ux.hideSettingsInfo()
+            this.showPopoverInfo = false
           }
           variant='plain'
-          className={`${ux.showSettingsInfoPopover ? 'gradebook-btn-selected' : ''}`}>
+          className={`${this.showPopoverSettings ? 'gradebook-btn-selected' : ''}`}>
           <Icon type="cog" />
         </Button>
         {/* Overlay for the settings controller */}
         <Overlay
           rootClose
-          target={target.current}
+          target={this.target.current}
           placement="bottom"
-          show={ux.showSettingsPopover}
-          onHide={() => ux.hideSettings()}>
+          show={this.showPopoverSettings}
+          onHide={() => this.showPopoverSettings = false }>
           <Popover className="gradebook-popover" >
             <Toggles>
               <SettingsCheckbox ux={ux} property="displayScoresAsPercent" title="Display scores as percentage %" />
@@ -69,16 +86,14 @@ const Settings = ({ ux }) => {
         </Overlay>
         {/* Overlay for the button information */}
         <Overlay
-          target={target.current}
+          target={this.target.current}
           placement="bottom"
-          show={ux.showSettingsInfoPopover}>
+          show={this.showPopoverInfo && !this.showPopoverSettings}>
           <Popover className="gradebook-popover" >  
             <p>Adjust table display settings</p>
           </Popover>
         </Overlay>
       </>
     );
-  });
-};
-
-export default Settings;
+  }
+}

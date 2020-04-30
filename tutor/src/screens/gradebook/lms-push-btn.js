@@ -35,7 +35,9 @@ class LmsPush extends React.Component {
 
   render() {
     const { course } = this.props;
+    
     //if (!course.is_lms_enabled) { return null; }
+    
     const popover = (
       <Popover className="gradebook-popover">
         <p>Export Course average to {course.name}</p>
@@ -47,7 +49,7 @@ class LmsPush extends React.Component {
           <Button
             onClick={this.startPush}
             variant='plain'
-            className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+          >
             <Icon type="paper-plane" />
           </Button>
         </OverlayTrigger>

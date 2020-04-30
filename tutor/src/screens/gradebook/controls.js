@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   }
   & .btn.btn-plain {
     border: 1px solid ${colors.neutral.pale};
-    /* Add important becaue 'btn' always takes precedence */
     padding: 5px 10px;
 
     &:hover, &.gradebook-btn-selected {

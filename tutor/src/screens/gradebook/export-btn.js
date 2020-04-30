@@ -39,6 +39,7 @@ class ScoresExport extends React.Component {
         <p>Download score sheet as CSV file</p>
       </Popover>
     );
+
     return (
       <>
         <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
