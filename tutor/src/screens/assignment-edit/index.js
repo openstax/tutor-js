@@ -8,6 +8,8 @@ import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
 import { navbars } from '../../theme.js';
+import CoursePage from '../../components/course-page';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
 
@@ -63,7 +65,6 @@ class AssignmentBuilder extends React.Component {
 
   render() {
     const { ux } = this;
-
     if (ux.isInitializing) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
@@ -77,13 +78,13 @@ class AssignmentBuilder extends React.Component {
             otherTours={[`${ux.plan.type}-assignment-editor-super`]}
             courseId={ux.course.id}
           >
+            <CourseBreadcrumb course={this.ux.course} currentTitle={`Add ${ux.plan.type}`} />
             <Formik
               initialValues={ux.formValues}
               validateOnMount={true}
             >
               {ux.renderStep}
             </Formik>
-
           </TourRegion>
         </ScrollToTop>
       </BackgroundWrapper>
