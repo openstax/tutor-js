@@ -15,7 +15,7 @@ describe('Task Manipulations', () => {
   it('inserts two-step before MPQ', () => {
     const t = createTask({ type: 'homework' });
     t.steps.forEach(s => s.formats = []);
-    t.steps[7].formats = ['free-response'];
+    t.steps[7].formats = ['free-response', 'multiple-choice'];
     t.steps[7].uid = t.steps[6].uid;
     const { steps } = M.insertValueProp(t);
     expect(steps[6]).toMatchObject({ type: 'two-step-intro' });

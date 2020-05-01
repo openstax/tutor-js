@@ -19,7 +19,9 @@ describe('Task Response Validation', () => {
         return Promise.resolve(ld.extend(args, this.result));
       },
     };
-    ux = new UX({ step, validator, messages });
+    ux = new UX({ step, validator, messages, taskUX: {
+      onFreeResponseComplete: jest.fn(),
+    } });
   });
 
   it('picks a random message', () => {
@@ -42,6 +44,7 @@ describe('Task Response Validation', () => {
     expect(step.response_validation.attempts[0].nudge).toEqual('two');
     ux.setResponse({ target: { value: 'another attempt' } });
     await ux.onSave();
+    expect(ux.taskUX.onFreeResponseComplete).toHaveBeenCalledWith(step);
     expect(step.response_validation.attempts).toHaveLength(2);
     expect(step.response_validation.attempts[1].nudge).toBeNull();
   });
