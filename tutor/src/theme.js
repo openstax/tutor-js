@@ -1,4 +1,5 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Field } from 'formik';
 
 // Shared with scss in styles/variables
 
@@ -167,6 +168,34 @@ export const breakpoints = {
   lgUp: '(min-width: 992px)',
   xlUp: '(min-width: 1200px)',
 };
+
+/**
+ * Style for form input text field with errors
+ * Need to pass a `hasError` prop
+ */
+export const StyledTextInput = styled(Field).attrs({
+  type: 'text',
+})`
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: 1px solid ${colors.forms.borders.light};
+  font-size: 1.2rem;
+  /** styling errors when template name is invalid */
+  background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.hasError ? 'red' : 'black'};
+  border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.hasError ? '2px' : '1px'};
+  
+  &:focus {
+    outline: 0;
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
+  }
+
+  &::placeholder {
+    font-size: inherit;
+  }
+`;
 
 const TutorTheme = {
 
