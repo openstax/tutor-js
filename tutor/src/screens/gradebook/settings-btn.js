@@ -40,14 +40,9 @@ class Settings extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
   };
 
-  target = null;
+  target = createRef();
   @observable showPopoverInfo = false;
   @observable showPopoverSettings = false;
-
-  constructor(props) {
-    super(props);
-    this.target = createRef();
-  }
 
   render () {
     const { ux } = this.props;

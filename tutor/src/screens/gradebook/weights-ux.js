@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
-import { sum, toArray, flow, inRange, keys, isEqual, pick, invert, mapValues, isNaN, partial } from 'lodash';
+import { sum, toArray, flow, inRange, keys, isEqual, pick, invert, mapValues, partial } from 'lodash';
+import { stringToInt } from '../../helpers/string';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -38,16 +39,6 @@ const percentToWeight = (percent) => ((percent || MIN) / RANGE );
 
 const weightsToPercents = (weights) => mapValues(WC, (c) => weightToPercent(weights[c]));
 const percentsToWeights = (percents) => mapValues(CW, (w) => percentToWeight(percents[w]));
-
-const stringToInt = (string) => {
-  const int = parseInt(string);
-
-  if (isNaN(int)) {
-    return 0;
-  }
-
-  return int;
-};
 
 export default class ScoresReportWeightsUX {
 
@@ -97,19 +88,19 @@ export default class ScoresReportWeightsUX {
     this.showWeightsModal = false;
   }
 
-  @action.bound onSaveWeights() {
+  @action.bound async onSaveWeights() {
     const { course, currentPercents } = this;
     Object.assign(course, this.nextWeights);
-    course
-      .save()
-      .then(() => course.scores.fetch())
-      .catch(() => {
-        // reset course weights to previous weight values
-        Object.assign(course, percentsToWeights(currentPercents));
-      })
-      .then(() => {
-        this.isSetting = false;
-      });
+    try {
+      await course.save();
+      await course.scores.fetch();
+    } catch {
+      // reset course weights to previous weight values
+      Object.assign(course, percentsToWeights(currentPercents));
+    }
+    finally {
+      this.isSetting = false;
+    }
   }
 
   @action.bound setWeight(ev) {

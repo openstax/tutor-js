@@ -1,9 +1,3 @@
-.gradebook-period-tabs {
-  > .nav-tabs {
-    margin-bottom: 0 !important;
-  }
-}
-
 .tutor-tabs {
   display: flex;
   border-bottom: 1px solid $nav-tabs-border-color;
@@ -72,5 +66,12 @@
         border-bottom-color: $tutor-secondary;
       }
     }
+  }
+}
+
+.gradebook-period-tabs {
+  .nav-tabs {
+    // overriding the nav-tabs margin bottom set above
+    margin-bottom: 0;
   }
 }

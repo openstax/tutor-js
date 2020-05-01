@@ -36,7 +36,7 @@ class LmsPush extends React.Component {
   render() {
     const { course } = this.props;
     
-    //if (!course.is_lms_enabled) { return null; }
+    if (!course.is_lms_enabled) { return null; }
     
     const popover = (
       <Popover className="gradebook-popover">
