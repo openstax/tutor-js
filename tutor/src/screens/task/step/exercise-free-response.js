@@ -91,7 +91,9 @@ class FreeResponseInput extends React.Component {
     const { ux, props: { questionNumber, course, step, question } } = this;
 
     return (
-      <StyledFreeResponse>
+      <StyledFreeResponse
+        data-test-id="student-free-response"
+      >
         <QuestionStem
           questionNumber={questionNumber}
           question={question}

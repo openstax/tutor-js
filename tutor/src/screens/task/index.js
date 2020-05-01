@@ -131,7 +131,10 @@ class TaskGetter extends React.Component {
     }
 
     return (
-      <div className={`task-screen task-${task.type}`}>
+      <div
+        data-test-id="student-task"
+        className={`task-screen task-${task.type}`}
+      >
         <Task
           key={task}
           course={this.course}
