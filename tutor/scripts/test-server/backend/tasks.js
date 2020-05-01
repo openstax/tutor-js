@@ -28,6 +28,8 @@ const getStep = (taskId, stepId) => {
 
 module.exports = {
 
+  setRole() { }, // no effect
+
   getTask(req, res) {
     const course = getCourse(req.query.course_id);
     return res.json(taskForId(req.params.id, {
