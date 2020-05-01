@@ -10,19 +10,22 @@ require('../../../specs/factories/student-tasks');
 
 let TASKS = {};
 
+const WRM_ID = 3;
+
+// create a WRM task
+TASKS[WRM_ID] = Factory.create('StudentTask', { id: WRM_ID, type: 'homework', wrm: true, stepCount: 10 });
+
 const taskForId = (id, attrs = {}) => (
   TASKS[id] || (TASKS[id] = Factory.create('StudentTask', Object.assign(attrs, {
     id,
+    wrm: WRM_ID == id,
     type: attrs['type'] || fake.random.arrayElement(['reading', 'homework']),
   })))
 );
 
-const getStep = (taskId, stepId) => {
+const getTaskStep = (taskId, stepId) => {
   const task = taskForId(taskId);
-  const step=task.steps.find(ts => ts.id == stepId);
-  const factory = step.type == 'exercise' ? 'StudentTaskExerciseStepContent' : 'StudentTaskReadingStepContent';
-  Object.assign(step, Factory.create(factory, step));
-  return step;
+  return task.steps.find(ts => ts.id == stepId);
 };
 
 
@@ -39,13 +42,17 @@ module.exports = {
   },
 
   getStep(req, res) {
-    return res.json(
-      getStep(req.query.task_id, req.params.id)
-    );
+    const taskId = parseInt(req.query.task_id);
+    const step = getTaskStep(taskId, req.params.id);
+    if (!step.content) {
+      const factory = step.type == 'exercise' ? 'StudentTaskExerciseStepContent' : 'StudentTaskReadingStepContent';
+      Object.assign(step, Factory.create(factory, { ...step, wrm: taskId == WRM_ID }));
+    }
+    return res.json(step); // { ...step, content: {} });
   },
 
   saveStep(req, res) {
-    const step = getStep(req.query.task_id, req.params.id);
+    const step = getTaskStep(req.query.task_id, req.params.id);
     Object.assign(step, req.body);
     return res.json(step);
   },
