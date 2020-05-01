@@ -213,7 +213,6 @@ export default class TaskUX {
       this.history.push(pathname);
     } else {
       this._stepIndex = index;
-
       const sgi = this.stepGroupInfo;
       if (sgi.grouped) {
         when(

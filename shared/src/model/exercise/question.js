@@ -42,7 +42,7 @@ class ExerciseQuestion extends BaseModel {
   @belongsTo({ model: 'exercise' }) exercise;
 
   @computed get isMultipleChoice() {
-    return this.hasFormat('multiple-choice');
+    return this.answers.length > 0;
   }
 
   @computed get isOpenEnded() {

@@ -100,6 +100,7 @@ class FreeResponseInput extends React.Component {
           ref={this.textArea}
           value={ux.response}
           onChange={ux.setResponse}
+          data-test-id="free-response-box"
           placeholder="Enter your response"
           isErrored={ux.displayNudgeError}
           aria-label="question response text box"
@@ -107,7 +108,7 @@ class FreeResponseInput extends React.Component {
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
-          <AnswerButton size="lg" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
+          <AnswerButton size="lg" data-test-id="submit-answer-btn" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>

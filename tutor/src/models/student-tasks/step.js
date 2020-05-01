@@ -46,9 +46,7 @@ class StudentTaskExerciseStep extends Exercise {
   get stem_html() { return this.content.stem_html; }
   get questions() { return this.content.questions; }
   get stimulus_html() { return this.content.stimulus_html; }
-  get requiresAnswerId() {
-    return this.questions[0].answers.length > 0;
-  }
+  get requiresAnswerId() { return this.content.isMultiChoice; }
 }
 
 const ContentClasses = {
@@ -129,7 +127,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get isTwoStep() {
     return Boolean(
-      this.isExercise && this.formats.includes('free-response'),
+      this.isExercise && this.formats.includes('multiple-choice') && this.formats.includes('free-response'),
     );
   }
 
@@ -147,7 +145,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get needsFreeResponse() {
     return Boolean(
-      !this.answer_id && this.isTwoStep && S.isEmpty(this.free_response)
+      !this.answer_id && this.formats.includes('free-response') && S.isEmpty(this.free_response)
     );
   }
 

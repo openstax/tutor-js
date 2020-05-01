@@ -54,8 +54,7 @@ Factory.define('StudentTaskStep')
   )
   .is_completed(() => fake.random.arrayElement([false, false, false, true]))
   .formats(({ object: { type } }) =>
-    'exercise' == type ?
-      [fake.random.arrayElement(['multiple-choice', 'free-response'])] : []
+    'exercise' == type ? ['multiple-choice', 'free-response'] : []
   )
   .uid(({ object: { id, type } }) => type == 'exercise' ? `${id}@1` : null)
   .preview(({ object: { type } }) => type == 'exercise' ?
