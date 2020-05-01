@@ -11,7 +11,7 @@ context('Student Tasks', () => {
     cy.getTestElement('student-free-response').should('exist')
     cy.getTestElement('free-response-box').type('this is a answer answering and fully explaining my reasoning for the question');
     cy.getTestElement('submit-answer-btn').click();
-    cy.location('pathname').should('equal', '/course/1/task/1/step/2');
+    cy.location('pathname').should('equal', '/course/1/task/3/step/2');
   });
 
 })
