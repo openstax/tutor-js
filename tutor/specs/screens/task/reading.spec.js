@@ -29,8 +29,8 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('render as loading', () => {
-    props.ux.goToStep(1);
-    props.ux.currentStep.isFetched = false;
+    props.ux.goToStep(2);
+    props.ux.currentStep.api.reset();
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
     const r = mount(<C><Reading {...props} /></C>);
     expect(r).toHaveRendered('ContentLoader');

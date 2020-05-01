@@ -5,14 +5,14 @@ exports[`Task Step Footer matches snapshot 1`] = `
   <styled.div>
     <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
       <div className=\\"sc-ifAKCX KjPkQ\\">
-        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"d2fbadca-e4f3-4432-a074-2438c216b62a\\" related_content={{...}}>
-          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"d2fbadca-e4f3-4432-a074-2438c216b62a\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"d2fbadca-e4f3-4432-a074-2438c216b62a\\" related_content={{...}} className=\\"sc-EHOje frzuNi\\">
+        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
+          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"sc-EHOje frzuNi\\">
               <div className=\\"exercise-identifier-link sc-EHOje frzuNi\\">
                 ID# 
                 1@1
                  | 
-                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Environmental%20Limits%20to%20Population%20Growth&book=Principles%20of%20Economics\\">
+                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Angiosperms&book=College%20Physics\\">
                   Suggest a correction
                 </a>
               </div>
@@ -44,7 +44,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                     <styled.span>
                       <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
                         <span className=\\"sc-htpNat title bNgkkP\\">
-                          Environmental Limits to Population Growth
+                          Angiosperms
                         </span>
                       </StyledComponent>
                     </styled.span>
