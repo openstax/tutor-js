@@ -68,8 +68,8 @@ class TaskStep extends React.Component {
     if (!step || (step.api && step.api.hasErrors)) {
       return <Failure task={ux.task} step={step} />;
     }
-
     const { type, needsFetched } = step;
+
     const stepProps = {
       ...this.props,
       onContinue: ux.canGoForward ? ux.goForward : null,

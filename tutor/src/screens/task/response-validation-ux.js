@@ -13,12 +13,13 @@ class ResponseValidationUX {
   @observable messageIndex;
   @observable results = [];
 
-  constructor({ step, messages, validator = new ResponseValidation() }) {
+  constructor({ step, messages, taskUX, validator = new ResponseValidation() }) {
     this.step = step;
     this.step.spy.response_validation = {};
     this.step.response_validation = {};
     this.validator = validator;
     this.messages = messages;
+    this.taskUX = taskUX;
     this.messageIndex = random(0, messages.length - 1);
   }
 
@@ -41,6 +42,7 @@ class ResponseValidationUX {
   @action.bound async onSave() {
     if (!this.validator.isEnabled) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
+      this.taskUX.onFreeResponseComplete(this.step);
       return;
     }
     const result = await this.validate();
@@ -51,7 +53,6 @@ class ResponseValidationUX {
       this.step.beginRecordingAnswer({ free_response: result.response });
     }
     this.results.push(result);
-
     this.step.response_validation = { attempts: this.results };
   }
 
@@ -85,6 +86,7 @@ class ResponseValidationUX {
   @action advanceUI(result) {
     if (result.valid || this.isDisplayingNudge) {
       this.step.beginRecordingAnswer({ free_response: result.response });
+      this.taskUX.onFreeResponseComplete(this.step);
     } else {
       this.retriedResponse = this.initialResponse;
     }

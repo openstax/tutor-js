@@ -25,6 +25,8 @@ describe('Student Task Step', () => {
   it('calculates if free response is needed', () => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     step.formats = ['free-response'];
+    expect(step.isTwoStep).toBe(false);
+    step.formats = ['free-response', 'multiple-choice'];
     expect(step.isTwoStep).toBe(true);
     expect(step.needsFreeResponse).toBe(true);
     step.free_response = 'a question with answers';

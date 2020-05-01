@@ -4,7 +4,7 @@ const ExerciseType = ({ exercise: { content } }) => {
   let type = 'unknown';
   if (content.isMultiPart) {
     type = 'MPQ';
-  } else if (content.isWRM) {
+  } else if (!content.isMultiChoice) {
     type = 'WRM';
   } else if (content.isSinglePart) {
     type = 'SPQ';
