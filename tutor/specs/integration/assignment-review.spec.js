@@ -46,7 +46,7 @@ context('Assignment Review', () => {
     cy.location('pathname').should('include', '/course/1/t/month');
   });
 
-  it.only('can update details', () => {
+  it('can update details', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
     cy.wait('@getGradingTemplates');
@@ -54,6 +54,25 @@ context('Assignment Review', () => {
     cy.getTestElement('edit-assignment-name').clear().type('Update');
     cy.getTestElement('confirm-save-assignment').click();
     cy.getTestElement('assignment-name').should('have.text', 'Update');
+  });
+
+  it('requires confirmation when changing grading template', () => {
+    cy.server();
+    cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
+    cy.wait('@getGradingTemplates');
+
+    // Can change
+    cy.getTestElement('edit-assignment').click();
+    cy.getTestElement('grading-templates').click();
+    cy.getTestElement('Second Homework').click();
+    cy.getTestElement('confirm-change-template').click();
+    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
+
+    // Can cancel
+    cy.getTestElement('grading-templates').click();
+    cy.getTestElement('Default Homework').click();
+    cy.getTestElement('cancel-confirm-change-template').click();
+    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
   });
 
 });

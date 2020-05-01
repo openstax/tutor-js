@@ -4,6 +4,7 @@ import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
+import ConfirmTemplateModal from './confirm-template-modal';
 import { OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap';
 import ChangeTimezone from './change-timezone';
 import { colors } from '../../theme';
@@ -115,7 +116,7 @@ const TemplateField = observer(({ ux }) => {
       </RowLabel>
       <div>
         <StyledDropdown data-test-id="grading-templates">
-          <StyledToggle variant="outline">
+          <StyledToggle variant="outline" data-test-id="selected-grading-template">
             {ux.gradingTemplate.name}
           </StyledToggle>
           <StyledMenu>
@@ -124,17 +125,15 @@ const TemplateField = observer(({ ux }) => {
                 key={t.id}
                 value={t.id}
                 eventKey={t.id}
-                onSelect={k => {
-                  ux.form.setFieldValue('grading_template_id', k);
-                  ux.plan.grading_template_id = k;
-                }}
+                onSelect={k => ux.onSelectTemplate(k)}
                 data-test-id={`${t.name}`}
               >
                 {t.name}
               </Dropdown.Item>)}
-            <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
-              + Add new template
-            </StyledAddItem>
+            {ux.canAddTemplate &&
+              <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
+                + Add new template
+              </StyledAddItem>}
           </StyledMenu>
         </StyledDropdown>
         <PreviewTooltip template={ux.gradingTemplate} />
@@ -232,6 +231,11 @@ const DetailsBody = observer(({ ux }) => {
         </FullWidthCol>
       </SplitRow>
       {ux.isShowingAddTemplate && <EditModal ux={ux} />}
+      {ux.isShowingConfirmTemplate &&
+        <ConfirmTemplateModal
+          onConfirm={ux.onConfirmTemplate}
+          onCancel={ux.onCancelConfirmTemplate}
+        />}
     </Body>
   );
 });
