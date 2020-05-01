@@ -7,7 +7,6 @@ import Controls from './controls';
 const FormWrapper = styled.div`
   max-width: 1200px;
   min-width: 1100px;
-  margin: 6rem auto;
 `;
 
 const Header = styled.div`

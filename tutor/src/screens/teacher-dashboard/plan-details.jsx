@@ -97,7 +97,7 @@ class CoursePlanDetails extends React.Component {
   @computed get assignmentLinksButton() {
     if (this.props.plan.type === 'event'){ return null; }
     return (
-      <button className="btn btn-form-action" onClick={this.onShowAssignmentLinks}>
+      <button className="btn btn-standard" onClick={this.onShowAssignmentLinks}>
         Get assignment link
       </button>
     );
@@ -119,7 +119,7 @@ class CoursePlanDetails extends React.Component {
       >
         <span>
           <TutorLink
-            className={cn('btn btn-form-action btn-primary', { 'disabled': !this.tasking.isPastDue }) }
+            className={cn("btn btn-standard btn-primary", { 'disabled': !this.tasking.isPastDue }) }
             to="gradeAssignment"
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
@@ -139,7 +139,7 @@ class CoursePlanDetails extends React.Component {
       <div className="modal-footer">
         <TutorLink
           disabled={!plan.isPublished}
-          className="btn btn-form-action"
+          className="btn btn-standard"
           to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
           params={this.linkParams}
         >

@@ -32,13 +32,18 @@ context('Assignment Review', () => {
       cy.getTestElement('drop-questions-btn').click()
       cy.get(`[data-question-id=${questionId}] input[type="checkbox"]`).should('be.checked')
     })
-
-  })
+  });
 
   it('can render grading template preview', () => {
     cy.getTestElement('grading-template-card').should('not.exist');
     cy.getTestElement('preview-card-trigger').click();
     cy.getTestElement('grading-template-card').should('exist');
+  });
+
+  it('can delete assignment', () => {
+    cy.getTestElement('delete-assignment').click();
+    cy.getTestElement('confirm-delete-assignment').click();
+    cy.location('pathname').should('include', '/course/1/t/month');
   });
 
 });

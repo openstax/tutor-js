@@ -68,8 +68,18 @@ class AssignmentReview extends React.Component {
       ...props.params,
       history: props.history,
       course,
-      onComplete: this.onComplete,
+      onCompleteDelete: this.onCompleteDelete,
     });
+  }
+
+  @action.bound onCompleteDelete() {
+    const { ux } = this;
+    this.props.history.push(
+      Router.makePathname('calendarByDate', {
+        courseId: ux.course.id,
+        date: ux.planScores.taskPlan.dateRanges.opens.start.format('YYYY-MM-DD'),
+      }),
+    );
   }
 
   render() {

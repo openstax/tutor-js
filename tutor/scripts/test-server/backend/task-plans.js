@@ -70,10 +70,16 @@ module.exports = {
     return res.json(plan);
   },
 
+  delete(req, res) {
+    const plan = planForId(req.params.id);
+    return res.json(plan);
+  },
+
   route(server) {
     server.get('/api/plans/:id', this.get);
-    server.get('/api/courses/:courseId/plans/past*', this.getPast);
     server.patch('/api/plans/:id', this.update);
+    server.delete('/api/plans/:id', this.delete);
+    server.get('/api/courses/:courseId/plans/past*', this.getPast);
     server.get('/api/plans/:id/scores', this.getScores);
     server.get('/api/plans/:id/stats', this.getStats);
     server.get('/api/plans/:id/review', this.getStats);
