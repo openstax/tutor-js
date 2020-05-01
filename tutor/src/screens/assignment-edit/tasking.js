@@ -166,6 +166,7 @@ class Tasking extends React.Component {
   }
 
   renderDateTimeInputs(tasking) {
+    const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
     const format = 'MMM D hh:mm A';
 
@@ -192,7 +193,7 @@ class Tasking extends React.Component {
         <Col xs={12} md={4} className="closes-at">
           <DateTime
             label="Close date & time"
-            labelWrapper={NewTooltip}
+            labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
             name={`tasking_plans[${index}].closes_at`}
             onChange={this.onClosesChange}
             format={format}
