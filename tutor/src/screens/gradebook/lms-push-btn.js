@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import TourAnchor from '../../components/tours/anchor';
+import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
@@ -10,7 +10,6 @@ import Push from '../../models/jobs/lms-score-push';
 export default
 @observer
 class LmsPush extends React.Component {
-
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   }
@@ -36,13 +35,26 @@ class LmsPush extends React.Component {
 
   render() {
     const { course } = this.props;
+    
     if (!course.is_lms_enabled) { return null; }
-
+    
+    const popover = (
+      <Popover className="gradebook-popover">
+        <p>Export Course average to {course.name}</p>
+      </Popover>
+    );
     return (
-      <TourAnchor className="scores-push" id="scores-export-button">
-        <Icon onClick={this.startPush} type="paper-plane" />
-        {this.message}
-      </TourAnchor>
+      <>
+        <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
+          <Button
+            onClick={this.startPush}
+            variant='plain'
+          >
+            <Icon type="paper-plane" />
+          </Button>
+        </OverlayTrigger>
+        
+      </>
     );
   }
 

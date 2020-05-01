@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import TourAnchor from '../../components/tours/anchor';
+import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
@@ -10,7 +10,6 @@ import Export from '../../models/jobs/scores-export';
 export default
 @observer
 class ScoresExport extends React.Component {
-
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   }
@@ -35,15 +34,24 @@ class ScoresExport extends React.Component {
   }
 
   render() {
+    const popover = (
+      <Popover className="gradebook-popover">
+        <p>Download score sheet as CSV file</p>
+      </Popover>
+    );
+
     return (
-      <TourAnchor className="job scores-export" id="scores-export-button">
-        <Icon
-          type="download"
-          disabled={this.scoresExport.isPending}
-          onClick={this.startExport}
-        />
-        {this.message}
-      </TourAnchor>
+      <>
+        <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
+          <Button
+            disabled={this.scoresExport.isPending}
+            onClick={this.startExport}
+            variant='plain'
+            className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+            <Icon type="download" />
+          </Button>
+        </OverlayTrigger>
+      </>
     );
   }
 

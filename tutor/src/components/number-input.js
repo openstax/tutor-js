@@ -64,7 +64,7 @@ const StyledNumberInput = styled(RCNumberInput)`
   .ox-icon {
     color: ${colors.neutral.std};
     ${props => props.disabled && css`
-      color: ${colors.states.disabled_light}
+      color: ${colors.states.disabled_light};
     `}
   }
 `;
@@ -72,7 +72,6 @@ const StyledNumberInput = styled(RCNumberInput)`
 
 const NumberInput = observer((props) => {
   const [field] = useField({ type: 'text', ...props });
-
   let onChange = (nv) => {
     const ev = { target: { ...props, value: nv } };
     field.onChange(ev);

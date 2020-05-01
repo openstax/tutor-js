@@ -44,6 +44,7 @@
 @import './components/choices-listing';
 @import './components/notes/note';
 @import './components/date-time-input';
+@import './components/popover';
 
 body[data-js-error]::before {
   content: attr(data-js-error);

@@ -1,9 +1,8 @@
 import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
-import { ScrollToTop, Icon } from 'shared';
+import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
-import TutorLink from './link';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -21,10 +20,11 @@ const TitleInner = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
 
-  ${props => props.appearance === 'light' && css`
+  ${
+  props => props.appearance === 'light' && props.shouldShowDivider && css`
     padding: 0 0 1.5rem;
     border-bottom: 1px solid ${Theme.colors.neutral.pale};`
-  }
+}
 `;
 
 const BreadcrumbsWrapper = styled.div`
@@ -39,6 +39,10 @@ const LeftSideWrapper = styled.div`
 const RightSideWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ControlWrapper = styled.div`
+    background-color: ${props => props.backgroundColor || Theme.colors.neutral.cool};
 `;
 
 const Title = styled.h1`
@@ -63,11 +67,14 @@ export default class CoursePage extends React.Component {
     titleControls: PropTypes.node,
     titleBreadcrumbs: PropTypes.node,
     controls: PropTypes.node,
+    controlBackgroundColor: PropTypes.string,
     title: PropTypes.node,
     notices: PropTypes.node,
     subtitle: PropTypes.node,
     className: PropTypes.string,
     fullWidthChildren: PropTypes.node,
+    titleAppearance: PropTypes.string,
+    shouldShowDivider: PropTypes.bool,
   }
 
   @computed get ux () {
@@ -75,12 +82,12 @@ export default class CoursePage extends React.Component {
   }
 
   renderTitle() {
-    const { title, subtitle, titleControls, titleBreadcrumbs, titleAppearance } = this.props;
+    const { title, subtitle, titleControls, titleAppearance, shouldShowDivider } = this.props;
     if (isNil(title)) { return null; }
 
     return (
       <TitleWrapper className={cn({ 'title-wrapper': !titleAppearance })}>
-        <TitleInner appearance={titleAppearance}>
+        <TitleInner appearance={titleAppearance} shouldShowDivider={shouldShowDivider}>
           {this.renderBreadcrumbs()}
           <LeftSideWrapper>
             <Title appearance={titleAppearance}>{title}</Title>
@@ -93,7 +100,8 @@ export default class CoursePage extends React.Component {
   }
 
   renderControls() {
-    return isNil(this.props.controls) ? null: <div className="controls-wrapper">{this.props.controls}</div>;
+    const { controls, controlBackgroundColor } = this.props;
+    return isNil(controls) ? null : <ControlWrapper backgroundColor={controlBackgroundColor} className="controls-wrapper">{controls}</ControlWrapper>;
   }
 
   renderBreadcrumbs() {

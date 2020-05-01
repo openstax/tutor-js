@@ -61,4 +61,4 @@ export default class CourseBreadcrumb extends React.Component {
       </Wrapper>
     );
   }
-};
+}

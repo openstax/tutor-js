@@ -20,6 +20,7 @@ class CoursePeriodsNav extends React.Component {
     handleSelect: PropTypes.func,
     selectedIndex: PropTypes.number.isRequired,
     afterTabsItem: PropTypes.element,
+    className: PropTypes.string,
   }
 
   static defaultProps = {
@@ -69,10 +70,12 @@ class CoursePeriodsNav extends React.Component {
   }
 
   render() {
+    const { className } = this.props;
     return (
       <Tabs
         tabs={map(this.sortedPeriods, this.renderPeriod)}
         onSelect={this.onTabSelection}
+        className={className}
       >
         {this.props.afterTabsItem}
       </Tabs>

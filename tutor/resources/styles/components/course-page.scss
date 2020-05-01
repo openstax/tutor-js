@@ -4,7 +4,6 @@
   flex-direction: column;
 
   .controls-wrapper {
-    background-color: $tutor-neutral-cool;
     padding: 10px 40px;
     > * {
       @include course-page-wrapper-child();
@@ -24,7 +23,7 @@
 
   > .body-wrapper {
     flex: 1;
-    padding: 30px 40px;
+    padding: 22px 40px;
     display: flex;
     flex-direction: column;
     > .body {

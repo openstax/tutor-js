@@ -69,6 +69,10 @@ exports[`Course Page renders and matches snapshot 2`] = `
   flex-direction: column;
 }
 
+.c5 {
+  background-color: #f6f7f8;
+}
+
 .c3 {
   font-weight: bold;
   font-size: 3.6rem;
@@ -120,7 +124,7 @@ exports[`Course Page renders and matches snapshot 2`] = `
       This is a test notice
     </h1>
     <div
-      className="controls-wrapper"
+      className="controls-wrapper c5"
     >
       <button>
         Click Me
