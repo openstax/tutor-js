@@ -145,7 +145,7 @@ export default class AssignmentReviewUX {
 
   @action.bound async onSavePlan() {
     await this.editUX.savePlan();
-    await this.planScores.fetch();
+    Object.assign(this.planScores, this.editUX.plan);
     this.isDisplayingEditAssignment = false;
   }
 

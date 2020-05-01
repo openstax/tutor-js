@@ -2,9 +2,11 @@ const Factory = require('object-factory-bot');
 const { times, fromPairs } = require('lodash');
 require('../../../specs/factories/grading-template');
 
-const TEMPLATES = times(2, (i) => Factory.create('GradingTemplate', {
+let TEMPLATES = times(2, (i) => Factory.create('GradingTemplate', {
   task_plan_type: i ? 'reading' : 'homework',
 }));
+
+TEMPLATES.push(Factory.create('GradingTemplate', { task_plan_type: 'homework', name: 'Second Homework' }));
 
 const TEMPLATES_MAP = fromPairs(TEMPLATES.map(t => [t.id, t]));
 

@@ -22,6 +22,7 @@ export default class AssignmentUX {
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
   @observable isShowingAddTemplate = false;
+  @observable isShowingConfirmTemplate = false;
   @observable exercises;
   @observable isReady = false;
   @observable sourcePlanId;
@@ -90,7 +91,7 @@ export default class AssignmentUX {
 
     observe(this.plan, ({ name, object }) => {
       // Change the ux dates when the template of the plan is changed
-      if(name === 'grading_template_id' && object && object.tasking_plans)
+      if(name === 'grading_template_id' && this.plan.isNew && object && object.tasking_plans)
         object.tasking_plans.forEach((t, index) => {
           if(this.form){
             this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
@@ -147,6 +148,11 @@ export default class AssignmentUX {
     return TEMPLATEABLE_TYPES.includes(this.plan.type);
   }
 
+  @computed get canAddTemplate() {
+    // Prevent showing add template modal when editing in review
+    return this.plan.isNew;
+  }
+
   @computed get canInputExternalUrl() {
     return this.plan.type === 'external';
   }
@@ -193,6 +199,29 @@ export default class AssignmentUX {
 
   @action.bound onCancel() {
     this.onComplete();
+  }
+
+  @action.bound onSelectTemplate(templateId) {
+    if (this.plan.isNew) {
+      this.setTemplateId(templateId);
+    } else {
+      this.newTemplateId = templateId;
+      this.isShowingConfirmTemplate = true;
+    }
+  }
+
+  @action.bound onConfirmTemplate() {
+    this.setTemplateId(this.newTemplateId);
+    this.isShowingConfirmTemplate = false;
+  }
+
+  @action.bound onCancelConfirmTemplate() {
+    this.isShowingConfirmTemplate = false;
+  }
+
+  @action.bound setTemplateId(templateId) {
+    this.form.setFieldValue('grading_template_id', templateId);
+    this.plan.grading_template_id = templateId;
   }
 
   get formValues() {
@@ -332,7 +361,7 @@ export default class AssignmentUX {
     await this.saveAndCopyPlan();
   }
 
-  @action.bound async savePlan(){
+  @action.bound async savePlan() {
     this.plan.update(omit(this.form.values, 'tasking_plans'));
     this.plan.is_draft = false;
     if (!this.plan.is_published) {
