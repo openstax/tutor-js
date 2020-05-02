@@ -7,7 +7,7 @@ import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
-  @identifier id;
+  @identifier question_id;
   @field exercise_id;
   @field is_completed = false;
   @field points = 0;
@@ -98,10 +98,10 @@ class TaskPlanScoreHeading extends BaseModel {
 
 
 @identifiedBy('task-plan/scores/period')
-class TaskPlanPeriodScore extends BaseModel {
-
-  @identifier period_id;
-  @field name;
+class TaskPlanScoresTasking extends BaseModel {
+  @identifier id;
+  @field period_id;
+  @field period_name;
 
   @field({ type: 'object' }) average_score;
   @field({ type: 'object' }) available_points;
@@ -122,7 +122,7 @@ class TaskPlanPeriodScore extends BaseModel {
       for (const studentQuestion of student.questions) {
         const exercise = Exercises.get(studentQuestion.exercise_id);
         if (exercise) {
-          const question = exercise.content.questions.find(q => q.id == studentQuestion.id);
+          const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
           const questionInfo = info[question.id] || (info[question.id] = {
             id: question.id,
             key: question.id,
@@ -173,16 +173,15 @@ class TaskPlanScores extends BaseModel {
   @field type;
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
-  @hasMany({ model: TaskPlanPeriodScore, inverseOf: 'plan' }) periods;
-  @hasMany({ model: 'task-plans/teacher/tasking', extend: {
-    forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
+  @hasMany({ model: TaskPlanScoresTasking, extend: {
+    forPeriod(period) { return find(this, { period_id: period.id }); },
   }  }) tasking_plans;
   @belongsTo({ model: 'course' }) course;
   @field({ model: 'grading/template' }) grading_template;
 
   @computed get exerciseIds() {
     const ids = [];
-    for (const period of this.periods) {
+    for (const period of this.tasking_plans) {
       for (const student of period.students) {
         for (const question of student.questions) {
           ids.push(question.exercise_id);
