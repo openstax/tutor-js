@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useObserver, cn } from 'vendor';
+import { React, PropTypes, styled, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -22,21 +22,20 @@ const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
 `;
 
-const QuestionHeader = ({ ux, styleVariant, label, info }) => useObserver(() => {
-  return (
-    <>
-      <ExerciseNumber variant={styleVariant}>
-        {info.hasFreeResponse && (
-          <StyledIcon
-            type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
-            onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
-          />)}
-        {label}
-      </ExerciseNumber>
-      <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
-    </>
-  );
-});
+const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
+  <>
+    <ExerciseNumber variant={styleVariant}>
+      {info.hasFreeResponse && (
+        <StyledIcon
+          type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
+          onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
+        />)}
+      {label}
+    </ExerciseNumber>
+    <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
+  </>
+));
+
 
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
@@ -90,7 +89,7 @@ const ResponseHeader = styled.div`
   }
 `;
 
-const QuestionFreeResponse = ({ ux, info }) => useObserver(() => {
+const QuestionFreeResponse = observer(({ ux, info }) => {
   if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
   return (
     <div data-test-id="student-free-responses">
@@ -217,62 +216,62 @@ AvailablePoints.propTypes = {
   ]),
 };
 
-const Overview = ({ ux, ux: { scores } }) => {
-  return useObserver(() => (
-    <Wrapper data-test-id="overview">
-      <Toolbar>
-        <Center>
-          This assignment is now open for grading.
-        </Center>
-        <Right>
-          <GradeButton
-            variant="primary"
-            className="btn-new-flag"
-            params={{ courseId: ux.course.id, id: ux.planId }}
-          >
-            <span className="flag">72 New</span>
-            <span>Grade answers</span>
-          </GradeButton>
-        </Right>
-      </Toolbar>
-      <StyledStickyTable>
-        <Row>
-          <Header>Question Number</Header>
-          {scores.question_headings.map((h, i) => <Header key={i} center={true}>{h.title}</Header>)}
-        </Row>
-        <Row>
-          <Header>Question Type</Header>
-          {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
-        </Row>
-        <Row>
-          <Header>
-            Available Points <AvailablePoints value={scores.hasEqualTutorQuestions && scores.questionsInfo.totalPoints} />
-          </Header>
-          {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
-        </Row>
-        <Row>
-          <Header>Correct Responses</Header>
-          {scores.question_headings.map((h, i) => <Cell key={i}>{h.responseStats.points} / {h.responseStats.totalPoints}</Cell>)}
-        </Row>
-      </StyledStickyTable>
-      <Legend>
-        MCQ: Multiple Choice Question (auto-graded);
-        WRQ: Written Response Question (manually-graded);
-        Tutor: Personalized questions assigned by OpenStax Tutor (MCQs & auto-graded)
-      </Legend>
+const Overview = observer(({ ux, ux: { scores } }) => (
 
-      {ux.isExercisesReady ? (
-        <HomeworkQuestions
-          questionsInfo={scores.questionsInfo}
-          questionType="teacher-review"
-          headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-          questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-          styleVariant="submission"
-        />) : <Loading message="Loading Questions…"/>}
+  <Wrapper data-test-id="overview">
+    <Toolbar>
+      <Center>
+        This assignment is now open for grading.
+      </Center>
+      <Right>
+        <GradeButton
+          variant="primary"
+          className="btn-new-flag"
+          params={{ courseId: ux.course.id, id: ux.planId }}
+        >
+          <span className="flag">72 New</span>
+          <span>Grade answers</span>
+        </GradeButton>
+      </Right>
+    </Toolbar>
+    <StyledStickyTable>
+      <Row>
+        <Header>Question Number</Header>
+        {scores.question_headings.map((h, i) => <Header key={i} center={true}>{h.title}</Header>)}
+      </Row>
+      <Row>
+        <Header>Question Type</Header>
+        {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
+      </Row>
+      <Row>
+        <Header>
+          Available Points <AvailablePoints value={scores.hasEqualTutorQuestions && scores.questionsInfo.totalPoints} />
+        </Header>
+        {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
+      </Row>
+      <Row>
+        <Header>Correct Responses</Header>
+        {scores.question_headings.map((h, i) => <Cell key={i}>{h.responseStats.points} / {h.responseStats.totalPoints}</Cell>)}
+      </Row>
+    </StyledStickyTable>
+    <Legend>
+      MCQ: Multiple Choice Question (auto-graded);
+      WRQ: Written Response Question (manually-graded);
+      Tutor: Personalized questions assigned by OpenStax Tutor (MCQs & auto-graded)
+    </Legend>
 
-    </Wrapper>
-  ));
-};
+    {ux.isExercisesReady ? (
+      <HomeworkQuestions
+        questionsInfo={scores.questionsInfo}
+        questionType="teacher-review"
+        headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+        questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+        styleVariant="submission"
+      />) : <Loading message="Loading Questions…"/>}
+
+  </Wrapper>
+));
+
 Overview.title = 'Submission Overview';
 Overview.propTypes = {
   ux: PropTypes.object.isRequired,

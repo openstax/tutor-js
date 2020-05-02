@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useObserver, css } from 'vendor';
+import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { ToolbarButton } from 'primitives';
@@ -200,104 +200,101 @@ const StyledTriangle = styled.div`
   `}
 `;
 
-const StudentColumnHeader = () => {
-  return useObserver(() => (
-    <Cell leftBorder={true}>
-      <CellContents>
-        <ColumnHeading first={true}>
-          <HeadingTop>
-            Student Name
-          </HeadingTop>
-          <HeadingMiddle>
-            Lastname, Firstname <Icon type="exchange-alt" />
-          </HeadingMiddle>
-          <HeadingBottom>
-            Available Points
-          </HeadingBottom>
-        </ColumnHeading>
-        <ColumnHeading>
-          <HeadingTop>
-            Total <Icon type="sort" />
-          </HeadingTop>
-          <HeadingMiddle>
-            <SplitCell>
-              #
-            </SplitCell>
-            <SplitCell>
-              %
-            </SplitCell>
-          </HeadingMiddle>
-          <HeadingBottom>
-            {20.0}
-          </HeadingBottom>
-        </ColumnHeading>
-        <ColumnHeading>
-          <HeadingTop>
-            Late work
-          </HeadingTop>
-          <HeadingMiddle>
-            Per day
-          </HeadingMiddle>
-          <HeadingBottom>
-            {-10.0}
-          </HeadingBottom>
-        </ColumnHeading>
-      </CellContents>
-    </Cell>
-  ));
-};
+const StudentColumnHeader = observer(() => (
 
-const StudentCell = ({ student, striped }) => {
-  return useObserver(() => (
-    <Cell striped={striped}>
-      <CellContents>
-
-        <Heading first={true}>
-          <StyledButton variant="link">
-            {student.name}
-          </StyledButton>
-        </Heading>
-
-        <Total>
-          {S.numberWithOneDecimalPlace(student.total_points)}
-        </Total>
-        <LateWork>
-          {false && <CornerTriangle color="green" tooltip="Student was granted an extension" />}
-          {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
-        </LateWork>
-      </CellContents>
-    </Cell>
-  ));
-};
-
-const AssignmentHeading = ({ heading }) => {
-  return useObserver(() => (
-    <Cell>
-      <ColumnHeading variant="q">
+  <Cell leftBorder={true}>
+    <CellContents>
+      <ColumnHeading first={true}>
         <HeadingTop>
-          {heading.title}
+          Student Name
         </HeadingTop>
         <HeadingMiddle>
-          {heading.type}
+          Lastname, Firstname <Icon type="exchange-alt" />
         </HeadingMiddle>
         <HeadingBottom>
-          {false && <CornerTriangle color="blue" tooltip="Dropped" />}
-          {S.numberWithOneDecimalPlace(heading.points)}
+          Available Points
         </HeadingBottom>
       </ColumnHeading>
-    </Cell>
-  ));
-};
+      <ColumnHeading>
+        <HeadingTop>
+          Total <Icon type="sort" />
+        </HeadingTop>
+        <HeadingMiddle>
+          <SplitCell>
+            #
+          </SplitCell>
+          <SplitCell>
+            %
+          </SplitCell>
+        </HeadingMiddle>
+        <HeadingBottom>
+          {20.0}
+        </HeadingBottom>
+      </ColumnHeading>
+      <ColumnHeading>
+        <HeadingTop>
+          Late work
+        </HeadingTop>
+        <HeadingMiddle>
+          Per day
+        </HeadingMiddle>
+        <HeadingBottom>
+          {-10.0}
+        </HeadingBottom>
+      </ColumnHeading>
+    </CellContents>
+  </Cell>
+));
 
-const TaskResult = ({ result, striped }) => {
-  return useObserver(() => (
-    <Cell striped={striped}>
-      <Result isTrouble={false}>
-        {result.is_completed ? S.numberWithOneDecimalPlace(result.points) : '…'}
-      </Result>
-    </Cell>
-  ));
-};
+
+const StudentCell = observer(({ student, striped }) => (
+  <Cell striped={striped}>
+    <CellContents>
+
+      <Heading first={true}>
+        <StyledButton variant="link">
+          {student.name}
+        </StyledButton>
+      </Heading>
+
+      <Total>
+        {S.numberWithOneDecimalPlace(student.total_points)}
+      </Total>
+      <LateWork>
+        {false && <CornerTriangle color="green" tooltip="Student was granted an extension" />}
+        {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
+      </LateWork>
+    </CellContents>
+  </Cell>
+));
+
+
+const AssignmentHeading = observer(({ heading }) => (
+  <Cell>
+    <ColumnHeading variant="q">
+      <HeadingTop>
+        {heading.title}
+      </HeadingTop>
+      <HeadingMiddle>
+        {heading.type}
+      </HeadingMiddle>
+      <HeadingBottom>
+        {false && <CornerTriangle color="blue" tooltip="Dropped" />}
+        {S.numberWithOneDecimalPlace(heading.points)}
+      </HeadingBottom>
+    </ColumnHeading>
+  </Cell>
+));
+
+
+const TaskResult = observer(({ result, striped }) => (
+  <Cell striped={striped}>
+    <Result isTrouble={false}>
+      {result.is_completed ? S.numberWithOneDecimalPlace(result.points) : '…'}
+    </Result>
+  </Cell>
+));
+
 
 const ControlsWrapper = styled.div`
   display: flex;
@@ -346,10 +343,10 @@ TableHeader.propTypes = {
   ux: PropTypes.object.isRequired,
 };
 
-const Scores = ({ ux }) => {
+const Scores = observer(({ ux }) => {
   const { scores } = ux;
 
-  return useObserver(() => (
+  return (
     <>
       <TableHeader ux={ux} />
       <StyledStickyTable data-test-id="scores">
@@ -372,8 +369,8 @@ const Scores = ({ ux }) => {
         <Definition>Unattempted question of ungraded responses</Definition>
       </DefinitionsWrapper>
     </>
-  ));
-};
+  );
+});
 
 Scores.title = 'Assignment Scores';
 
