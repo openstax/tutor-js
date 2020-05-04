@@ -17,13 +17,13 @@ Factory.define('TaskPlanPeriodStudent')
   .late_work_fraction_penalty(0)
   .questions(({ parent: { exercises } }) => flatMap(exercises, (exercise) => (
     exercise.content.questions.map((question) => {
-      //console.log(question)
       const is_completed = fake.random.arrayElement([true, true, true, true, true, false])
       const is_correct = fake.random.arrayElement([true, true, true, true, true, false])
       const selected_answer = is_correct ? question.answers.find(a => a.correctness > 0) : fake.random.arrayElement(question.answers)
       const points = selected_answer && selected_answer.correctness > 0 ? 1.0 : 0
       return {
-        id: question.id,
+        task_step_id: 'non-calculated', // TODO figure out how to mock this if we need it
+        question_id: question.id,
         exercise_id: exercise.id,
         is_completed,
         points,
@@ -68,9 +68,8 @@ Factory.define('TaskPlanScores')
   .type(({ task_plan }) => get(task_plan, 'type', fake.random.arrayElement(['homework', 'reading'])))
   .title(({ object }) => `${capitalize(object.type)} Chapter ${object.id}`)
   .dropped_questions([])
-  .tasking_plans(({ task_plan }) => task_plan.tasking_plans)
   .grading_template(({ object }) => Factory.create('GradingTemplate', { task_plan_type: object.type }))
-  .periods(({ task_plan, course, exercises }) => {
+  .tasking_plans(({ task_plan, course, exercises }) => {
     const { periods } = (course || task_plan.course || Factory.create('Course'))
     return periods.map(period =>
       Factory.create('TaskPlanPeriodScore', { period, task_plan, exercises }));

@@ -12,7 +12,7 @@ context('Assignment Grade', () => {
   it('changes focused student once graded', () => {
     cy.getTestElement('student-answer').then((box) => {
       const { studentId } = box.data()
-      box.find('input[name="score"]').val(100)
+      box.find('input[name="score"]').val(0.9)
       box.find('textarea[name="comment"]').val('i like this answer a lot!')
       box.find('.btn-primary').click()
       // the currently focused student should have changed and fields reset
