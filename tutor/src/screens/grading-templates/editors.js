@@ -283,7 +283,8 @@ class TemplateForm extends React.Component {
             // Check if field is on focused ('touched') first and then check for any errors.
             // Validate then happens when the field is out of focus for the first time.
             // After, it validates as the user types.
-            hasError={!!form.touched.name && !!form.errors.name}
+            // Why use 1 and 0 :https://github.com/styled-components/styled-components/issues/1198
+            haserror={!!form.touched.name && !!form.errors.name ? 1 : 0}
           />
         </SplitRow>
 

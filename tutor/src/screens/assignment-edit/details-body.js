@@ -163,7 +163,7 @@ const DetailsBody = observer(({ ux }) => {
   const nameInputField = useRef();
   // assigment name is the first field, so it should first focused/
   // PS: useEffect is needed, with [], to run once the autofocus of the field
-  // otherwise it will keep focusing the field because of the `hasError` prop that updates to check if the field is invalid
+  // otherwise it will keep focusing the field because of the `haserror` prop that updates to check if the field is invalid
   useEffect(() => nameInputField.current && nameInputField.current.focus(), []);
   return (
     <Body>
@@ -179,7 +179,8 @@ const DetailsBody = observer(({ ux }) => {
           data-test-id="edit-assignment-name"
           
           innerRef={nameInputField}
-          hasError={!!ux.form.touched.title && !!ux.form.errors.title}
+          // Why use 1 and 0 :https://github.com/styled-components/styled-components/issues/1198
+          haserror={!!ux.form.touched.title && !!ux.form.errors.title ? 1 : 0}
         />
       </SplitRow>
       <SplitRow>

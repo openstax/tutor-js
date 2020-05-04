@@ -171,7 +171,7 @@ export const breakpoints = {
 
 /**
  * Style for form input text field with errors
- * Need to pass a `hasError` prop
+ * Need to pass a `haserror` prop
  */
 export const StyledTextInput = styled(Field).attrs({
   type: 'text',
@@ -181,10 +181,10 @@ export const StyledTextInput = styled(Field).attrs({
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.2rem;
   /** styling errors when template name is invalid */
-  background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
-  color: ${props => props.hasError ? 'red' : 'black'};
-  border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
-  border-width: ${props => props.hasError ? '2px' : '1px'};
+  background: ${props => props.haserror ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.haserror ? 'red' : 'black'};
+  border-color: ${props => props.haserror ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.haserror ? '2px' : '1px'};
   
   &:focus {
     outline: 0;
