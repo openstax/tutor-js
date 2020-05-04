@@ -195,7 +195,7 @@ const Details = observer(({ ux, ux: {
 } }) => {
   const format = 'MMM D, h:mm a';
 
-  if (!editUX) { return <Loading /> }
+  if (!editUX) { return <Loading />; }
 
   return (
     <DetailsWrapper>
