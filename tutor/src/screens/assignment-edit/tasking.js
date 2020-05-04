@@ -166,7 +166,7 @@ class Tasking extends React.Component {
   }
 
   renderDateTimeInputs(tasking) {
-    const { ux } = this.props;
+    const { ux, period, ux: { plan } } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
     const format = 'MMM D hh:mm A';
 
@@ -178,6 +178,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].opens_at`}
             onChange={this.onOpensChange}
             format={format}
+            autoFocus={period && plan.tasking_plans.forPeriod(period)}
           />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
