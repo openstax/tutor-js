@@ -242,6 +242,8 @@ export default class AssignmentUX {
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
     if (this.isShowingPeriodTaskings) {
+      // Show list of sections first, unselected
+      this.plan.tasking_plans = [];
       return;
     }
     this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period));

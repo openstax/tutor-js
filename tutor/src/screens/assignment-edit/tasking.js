@@ -14,6 +14,7 @@ const StyledTasking = styled.div`
   min-height: 7rem;
   margin-top: 0.5rem;
   padding: 0.5rem 0 0 2.7rem;
+  margin-bottom: ${props => props.renderingDates ? 0 : '-4rem' }
 
   .react-datepicker-wrapper {
     height: 100%;
@@ -133,7 +134,6 @@ class Tasking extends React.Component {
   renderSelectionCheckbox() {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
-
     return (
       <CheckboxInput
         id={`period-toggle-${period.id}`}
@@ -153,7 +153,7 @@ class Tasking extends React.Component {
     const type = period ? `period-${period.id}` : 'combined';
 
     return (
-      <StyledTasking className="tasking">
+      <StyledTasking className="tasking" renderingDates={tasking}>
         {this.renderSelectionCheckbox()}
         <StyledInner
           data-tasking-type={type}
