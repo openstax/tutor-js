@@ -21,7 +21,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get questionHeading() {
-    return this.student.period.question_headings[this.index];
+    return this.student.tasking.question_headings[this.index];
   }
 
   @computed get availablePoints() {
@@ -44,7 +44,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field late_work_fraction_penalty;
 
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
-  @belongsTo({ model: 'task-plan/scores/period' }) period;
+  @belongsTo({ model: 'task-plan/scores/tasking' }) tasking;
 
   @computed get name() {
     return `${this.last_name}, ${this.first_name}`;
@@ -65,11 +65,11 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get index() {
-    return this.period && this.period.question_headings.indexOf(this);
+    return this.tasking && this.tasking.question_headings.indexOf(this);
   }
 
   @computed get studentResponses() {
-    return this.period.students.map(s => s.questions[this.index]);
+    return this.tasking.students.map(s => s.questions[this.index]);
   }
 
   @computed get responseStats() {
@@ -91,13 +91,13 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get dropped() {
-    return this.period.plan.dropped_questions.find(drop => drop.question_id == this.question_id);
+    return this.tasking.scores.dropped_questions.find(drop => drop.question_id == this.question_id);
   }
 
 }
 
 
-@identifiedBy('task-plan/scores/period')
+@identifiedBy('task-plan/scores/tasking')
 class TaskPlanScoresTasking extends BaseModel {
   @identifier id;
   @field period_id;
@@ -106,8 +106,8 @@ class TaskPlanScoresTasking extends BaseModel {
   @field({ type: 'object' }) average_score;
   @field({ type: 'object' }) available_points;
   @belongsTo({ model: 'task-plan/scores' }) plan;
-  @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'period' }) question_headings;
-  @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'period' }) students;
+  @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'tasking' }) question_headings;
+  @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
 
   @computed get coreQuestionHeadings() {
     return filter(this.question_headings, h => h.type != 'Tutor');
@@ -173,7 +173,7 @@ class TaskPlanScores extends BaseModel {
   @field type;
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
-  @hasMany({ model: TaskPlanScoresTasking, extend: {
+  @hasMany({ model: TaskPlanScoresTasking, inverseOf: 'scores', extend: {
     forPeriod(period) { return find(this, { period_id: period.id }); },
   }  }) tasking_plans;
   @belongsTo({ model: 'course' }) course;
@@ -181,8 +181,8 @@ class TaskPlanScores extends BaseModel {
 
   @computed get exerciseIds() {
     const ids = [];
-    for (const period of this.tasking_plans) {
-      for (const student of period.students) {
+    for (const tasking of this.tasking_plans) {
+      for (const student of tasking.students) {
         for (const question of student.questions) {
           ids.push(question.exercise_id);
         }

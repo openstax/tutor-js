@@ -1,4 +1,4 @@
-import { React, PropTypes, useObserver, useRef, styled } from 'vendor';
+import { React, PropTypes, observer, useRef, styled } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 
@@ -34,7 +34,7 @@ const Panel=styled.div`
   }
 `;
 
-const GradingStudent = ({ student, ux, question }) => useObserver(() => {
+const GradingStudent = observer(({ student, ux, question }) => {
   const commentsRef = useRef();
   const scoreRef = useRef();
   return (
@@ -59,18 +59,19 @@ const GradingStudent = ({ student, ux, question }) => useObserver(() => {
 const ScoreWrapper = styled.div`
   display: flex;
 `;
-const Score = React.forwardRef(({ question }, ref) => useObserver(() => {
+const Score = React.forwardRef(({ question }, ref) => {
   return (
     <ScoreWrapper>
       <b>Score:</b> <input name="score" ref={ref} defaultValue={question.points} /> out of {question.availablePoints}
     </ScoreWrapper>
   );
-}));
+});
+
 Score.propTypes = {
   question: PropTypes.object.isRequired,
 };
 
-const CollapsedStudent = (props) => useObserver(() => {
+const CollapsedStudent = observer((props) => {
   const { student, question } = props;
   return (
     <Box>
@@ -80,10 +81,10 @@ const CollapsedStudent = (props) => useObserver(() => {
 });
 
 
-const Student = ({ index, question, student, ...props }) => useObserver(() => {
+const Student = observer(({ index, question, student, ...props }) => {
   const Component = index == 0 ? GradingStudent : CollapsedStudent;
   // not all students will be assigned the same questions
-  const questionInfo = student.questions.find(q => q.id == question.id);
+  const questionInfo = student.questions.find(q => q.id == question.question_id);
   if (!questionInfo) {
     return null;
   }
