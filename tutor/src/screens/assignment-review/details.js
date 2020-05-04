@@ -191,9 +191,11 @@ const TemplateInfo = ({ template }) => useObserver(() => {
 });
 
 const Details = observer(({ ux, ux: {
-  scores, planScores, taskingPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment,
+  scores, planScores, taskingPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, editUX,
 } }) => {
   const format = 'MMM D, h:mm a';
+
+  if (!editUX) { return <Loading /> }
 
   return (
     <DetailsWrapper>

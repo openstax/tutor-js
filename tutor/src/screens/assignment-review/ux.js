@@ -15,6 +15,7 @@ export default class AssignmentReviewUX {
   @observable isDisplayingDropQuestions = false;
   @observable isDisplayingConfirmDelete = false;
   @observable isDisplayingEditAssignment = false;
+  @observable editUX;
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
