@@ -128,10 +128,11 @@ context('Assignment Edit', () => {
     cy.get('[name="settings.external_url"').type('url')
   });
 
-  it('can add a new template', () => {
+  it.only('can add a new template', () => {
     const templateName = 'This is a new template'
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
+    cy.get('input[name="title"]').type('test assignment #1')
     addTemplate({ name: templateName })
     cy.get('[data-test-id="grading-templates"]').should('contain.text', templateName)
   });

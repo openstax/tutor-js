@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { ScrollToTop } from 'shared';
-import { colors, fonts, StyledTextInput } from 'theme';
-import { ErrorMessage } from 'formik';
+import { colors, fonts } from 'theme';
+import { ErrorMessage, Field } from 'formik';
 import Controls from './controls';
 
 const FormWrapper = styled.div`
@@ -71,6 +71,30 @@ const TextInputWrapper = styled.div`
 const TextInputError = styled.div`
   color: red;
   margin: 1rem 0;
+`;
+
+const StyledTextInput = styled(Field).attrs({
+  type: 'text',
+})`
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: 1px solid ${colors.forms.borders.light};
+  font-size: 1.2rem;
+  /** styling errors when template name is invalid */
+  background: ${props => props.haserror ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.haserror ? 'red' : 'black'};
+  border-color: ${props => props.haserror ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.haserror ? '2px' : '1px'};
+  
+  &:focus {
+    outline: 0;
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
+  }
+
+  &::placeholder {
+    font-size: inherit;
+  }
 `;
 
 const TextInput = (props) => (

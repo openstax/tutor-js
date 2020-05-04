@@ -3,13 +3,12 @@ import { Button, Modal, Alert } from 'react-bootstrap';
 import { isEmpty, range, map } from 'lodash';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors, fonts } from '../../theme';
-import { Formik, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
 import TemplateModal from '../../components/template-modal';
-import { StyledTextInput } from 'theme';
 
 const propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,
@@ -120,6 +119,30 @@ const Setting = styled.div`
 
 const SettingLabel = styled.label`
   margin-left: 0.75rem;
+`;
+
+const StyledTextInput = styled(Field).attrs({
+  type: 'text',
+})`
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: 1px solid ${colors.forms.borders.light};
+  font-size: 1.2rem;
+  /** styling errors when template name is invalid */
+  background: ${props => props.haserror ? '#fbe8eA' : '#FFFFFF'};
+  color: ${props => props.haserror ? 'red' : 'black'};
+  border-color: ${props => props.haserror ? '#f4c0c5' : 'd5d5d5'};
+  border-width: ${props => props.haserror ? '2px' : '1px'};
+  
+  &:focus {
+    outline: 0;
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
+  }
+
+  &::placeholder {
+    font-size: inherit;
+  }
 `;
 
 const TextInput = (props) => (
