@@ -171,7 +171,7 @@ class Tasking extends React.Component {
 
     return (
       <Row className="tasking-date-time">
-        <Col xs={12} md={4} className="opens-at">
+        <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="opens-at">
           <DateTime
             label="Open date & time"
             name={`tasking_plans[${index}].opens_at`}
@@ -180,7 +180,7 @@ class Tasking extends React.Component {
           />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
-        <Col xs={12} md={4} className="due-at">
+        <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="due-at">
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
@@ -189,15 +189,17 @@ class Tasking extends React.Component {
           />
           {this.renderDueAtError()}
         </Col>
-        <Col xs={12} md={4} className="closes-at">
-          <DateTime
-            label="Close date & time"
-            labelWrapper={NewTooltip}
-            name={`tasking_plans[${index}].closes_at`}
-            onChange={this.onClosesChange}
-            format={format}
-          />
-        </Col>
+        {!this.plan.isEvent &&
+          <Col xs={12} md={4} className="closes-at">
+            <DateTime
+              label="Close date & time"
+              labelWrapper={NewTooltip}
+              name={`tasking_plans[${index}].closes_at`}
+              onChange={this.onClosesChange}
+              format={format}
+            />
+          </Col>
+        }
       </Row>
     );
   }
