@@ -150,7 +150,8 @@ export default class AssignmentReviewUX {
 
   @action.bound async onSavePlan() {
     await this.editUX.savePlan();
-    Object.assign(this.planScores, this.editUX.plan);
+    Object.assign(this.planScores, pick(this.editUX.plan, ['title', 'description']));
+    this.planScores.grading_template = this.editUX.plan.gradingTemplate;
     this.isDisplayingEditAssignment = false;
   }
 
