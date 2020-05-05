@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first } from 'lodash';
+import { first, pick, sortBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
@@ -62,7 +62,11 @@ export default class AssignmentReviewUX {
   }
 
   @computed get taskingPlan() {
-    return this.planScores.tasking_plans.forPeriod(this.selectedPeriod);
+    return this.taskingPlans.forPeriod(this.selectedPeriod);
+  }
+
+  @computed get taskingPlans() {
+    return this.planScores.taskPlan.tasking_plans;
   }
 
   @computed get sortedStudents() {
@@ -165,6 +169,17 @@ export default class AssignmentReviewUX {
     return Boolean(
       this.editUX.validations.isValid
     );
+  }
+
+  @computed get areTaskingDatesSame() {
+    return Boolean(
+      this.planScores.taskPlan.areTaskingDatesSame
+    );
+  }
+
+  @computed get taskingPlanDetails() {
+    return this.areTaskingDatesSame ?
+      [first(this.taskingPlans)] : sortBy(this.taskingPlans, tp => tp.period.name);
   }
 
 }
