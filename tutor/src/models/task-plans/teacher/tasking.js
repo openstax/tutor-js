@@ -29,6 +29,11 @@ class TaskingPlan extends BaseModel {
     return get(this.plan, 'course');
   }
 
+  get period() {
+    if (this.target_type !== 'period') { return null; }
+    return this.course.periods.find(p => p.id == this.target_id);
+  }
+
   opensAtForTemplate(template) {
     const [ hour, minute ] = template.default_open_time.split(':');
     const defaultOpensAt = moment(Time.now).add(1, 'day').hour(hour).minute(minute).startOf('minute');

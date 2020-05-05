@@ -190,10 +190,35 @@ const TemplateInfo = ({ template }) => useObserver(() => {
   );
 });
 
-const Details = observer(({ ux, ux: {
-  scores, planScores, taskingPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment,
-} }) => {
+const PlanDates = observer(({ plan, title }) => {
   const format = 'MMM D, h:mm a';
+
+  return (
+    <>
+      <div>{title}</div>
+      <dl>
+        <div>
+          <dt>Open date</dt>
+          <dd>{moment(plan.opens_at).format(format)}</dd>
+        </div>
+        <div>
+          <dt>Due date</dt>
+          <dd>{moment(plan.due_at).format(format)}</dd>
+        </div>
+        <div>
+          <dt>Close date</dt>
+          <dd>{moment(plan.closes_at).format(format)}</dd>
+        </div>
+      </dl>
+    </>
+  );
+});
+
+const Details = observer(({ ux, ux: {
+  scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, editUX, taskingPlanDetails,
+} }) => {
+
+  if (!ux || !editUX) { return <Loading />; }
 
   return (
     <DetailsWrapper>
@@ -240,25 +265,14 @@ const Details = observer(({ ux, ux: {
             <Row>
               <Title>Assigned to</Title>
               <Item>
-                All sections
+                {taskingPlanDetails.map(plan =>
+                  <PlanDates
+                    plan={plan}
+                    title={ux.areTaskingDatesSame ? 'All sections' : plan.period.name}
+                    key={plan.period.id}
+                  />
+                )}
               </Item>
-            </Row>
-            <Row>
-              <Title></Title>
-              <dl>
-                <div>
-                  <dt>Open date</dt>
-                  <dd>{moment(taskingPlan.opens_at).format(format)}</dd>
-                </div>
-                <div>
-                  <dt>Due date</dt>
-                  <dd>{moment(taskingPlan.due_at).format(format)}</dd>
-                </div>
-                <div>
-                  <dt>Close date</dt>
-                  <dd>{moment(taskingPlan.closes_at).format(format)}</dd>
-                </div>
-              </dl>
             </Row>
           </Table>
         </Section>
@@ -271,7 +285,7 @@ const Details = observer(({ ux, ux: {
             <StyledTutorLink
               className="btn btn-standard btn-primary btn-new-flag btn-inline"
               to="gradeAssignment"
-              params={{ id: ux.planId, periodId: taskingPlan.target_id, courseId: ux.course.id }}
+              params={{ id: ux.planId, periodId: ux.selectedPeriodId, courseId: ux.course.id }}
             >
               <span className="flag">72 New</span>
               <span>Grade answers</span>

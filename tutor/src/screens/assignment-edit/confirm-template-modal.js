@@ -27,15 +27,9 @@ const Controls = styled.div`
   }
 `;
 
-const StyledModal = styled(Modal)`
-  .stacked-modal-backdrop {
-    z-index: 1050;
-  }
-`;
-
 const ConfirmTemplateModal = observer(({ onConfirm, onCancel }) => {
   return (
-    <StyledModal
+    <Modal
       show={true}
       onHide={onCancel}
       backdrop="static"
@@ -68,7 +62,7 @@ const ConfirmTemplateModal = observer(({ onConfirm, onCancel }) => {
           </Controls>
         </ControlsWrapper>
       </StyledBody>
-    </StyledModal>
+    </Modal>
   );
 });
 
