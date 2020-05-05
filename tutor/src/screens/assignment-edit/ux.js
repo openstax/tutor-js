@@ -6,7 +6,7 @@ import {
   filter, isEmpty, compact, map, get, first, difference, flatMap, omit,
 } from 'lodash';
 import Exercises from '../../models/exercises';
-import TaskPlan, { SELECTION_COUNTS, calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
+import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import { StepUX, Step } from './step';
 import { Actions } from './actions';
@@ -66,7 +66,7 @@ export default class AssignmentUX {
     // don't setup steps until course and plan is set
     this.steps = new StepUX(this);
     this.actions = new Actions(this);
-    console.log(this.course);
+
     if (this.plan.isNew) {
       if (this.plan.isExternal || this.plan.isEvent) {
         const now = moment(Time.now);
