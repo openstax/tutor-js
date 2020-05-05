@@ -218,7 +218,7 @@ const Details = observer(({ ux, ux: {
   scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, editUX, taskingPlanDetails,
 } }) => {
 
-  if (!editUX) { return <Loading />; }
+  if (!ux || !editUX) { return <Loading />; }
 
   return (
     <DetailsWrapper>
