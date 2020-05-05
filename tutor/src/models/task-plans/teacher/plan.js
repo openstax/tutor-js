@@ -294,6 +294,7 @@ class TeacherTaskPlan extends BaseModel {
   @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
+      cloned_from_id: this.id,
       tasking_plans: course.periods.active.map(period => ({
         target_id: period.id,
         target_type: 'period',
@@ -305,7 +306,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get dataForSave() {
     return extend(
       this.clonedAttributes,
-      pick(this, 'is_publish_requested'),
+      pick(this, 'is_publish_requested', 'cloned_from_id'),
       { tasking_plans: map(this.tasking_plans, 'dataForSave') },
     );
   }
