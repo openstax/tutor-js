@@ -6,7 +6,7 @@ import {
   filter, isEmpty, compact, map, get, first, difference, flatMap, omit,
 } from 'lodash';
 import Exercises from '../../models/exercises';
-import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
+import TaskPlan, { SELECTION_COUNTS, calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import { StepUX, Step } from './step';
 import { Actions } from './actions';
@@ -66,24 +66,47 @@ export default class AssignmentUX {
     // don't setup steps until course and plan is set
     this.steps = new StepUX(this);
     this.actions = new Actions(this);
-
+    console.log(this.course);
     if (this.plan.isNew) {
       if (this.plan.isExternal || this.plan.isEvent) {
-        const opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
+        const now = moment(Time.now);
+        let default_opens_at;
+        // If a semester hasn’t started at the time of assignment creation then the default open date should be first day of the semester at 12:01 AM
+        // else current time at 12:01am
+        if(now.isBefore(this.course.bounds.start)) {
+          const courseStartDate = this.course.bounds.start;
+          default_opens_at = courseStartDate.startOf('day').add(1, 'minute').toISOString();
+        }
+        else
+          default_opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
+
+        // default due date is 7 days after open date
+        const default_due_at = moment(default_opens_at).add(7, 'day').toISOString();
+
+        // if adding external assignment, close date is 1 minute after due date
+        if(this.plan.isExternal) {
+          const external_default_close_at = moment(default_due_at).add(1, 'minute').toISOString();
+          this.periods.map((period) =>
+            this.plan.findOrCreateTaskingForPeriod(period, { closes_at: external_default_close_at }),
+          );
+        }
+
         this.periods.map((period) =>
-          this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
+          this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at }),
         );
+
+        // due_at is defined if user creates an assignment through the calendar
         if (due_at) {
           this.plan.tasking_plans.forEach(tp => {
             tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
             tp.closes_at = moment(tp.due_at).add(1, 'minute').toISOString();
           });
-        }
+        }  
       } else {
         this.periods.map((period) =>
           this.plan.findOrCreateTaskingForPeriod(period),
         );
-      }
+      }      
     } else {
       await this.plan.ensureLoaded();
     }

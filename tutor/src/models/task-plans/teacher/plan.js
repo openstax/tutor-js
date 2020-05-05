@@ -31,6 +31,7 @@ const calculateDefaultOpensAt = ({ course }) => {
   if (!course) {
     return defaultOpensAt.toISOString();
   }
+  console.log(course);
   const [ hour, minute ] = course.default_open_time.split(':');
 
   return moment(
