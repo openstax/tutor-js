@@ -6,9 +6,11 @@ import { colors } from 'theme';
 const StyledInputGroup = styled(InputGroup)`
   && {
     border: 1px solid ${colors.neutral.pale};
+    border-radius: 2px;
     input {
       border: 0;
       font-size: 1.4rem;
+      padding: 10px;
 
       &::placeholder {
         color: ${colors.neutral.thin};
@@ -20,6 +22,13 @@ const StyledInputGroup = styled(InputGroup)`
         box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
         background: #fff;
       }
+    }
+    .input-group-append {
+      & button {
+        & svg {
+          color: ${colors.neutral.grayblue};
+        }
+      } 
     }
   }
 `;

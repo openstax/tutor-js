@@ -197,14 +197,17 @@ const startAPI = function() {
 
   connectModelRead(StudentTask, 'fetch', {
     onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
+    query() { return { course_id: this.course.id }; },
   });
 
   connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', onFail: 'setApiErrors', pattern: 'steps/{id}',
+    query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
   });
 
   connectModelRead(StudentTaskStep, 'fetch', {
     onSuccess: 'onLoaded', onFail: 'setApiErrors', pattern: 'steps/{id}',
+    query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
   });
 
   connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard' });

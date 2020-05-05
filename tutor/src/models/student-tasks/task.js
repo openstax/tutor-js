@@ -38,6 +38,10 @@ class StudentTask extends BaseModel {
     );
   }
 
+  @computed get course() {
+    return this.tasksMap.course;
+  }
+
   @computed get progress() {
     return defaults(
       countBy(this.steps, s => s.is_completed ? 'complete' : 'incomplete'), {

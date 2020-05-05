@@ -29,6 +29,7 @@ const colorDefinitions = {
   link_active:   '#128EC5',
   black:         'black',
   white:         'white',
+  red:           'red',
   warning:       '#f4d019', // yellow
   danger:        '#c2002f', // dark red
   teal:          '#0C9372',
@@ -58,6 +59,7 @@ export const colors = {
     disabled_light: '#c1c1c1',
     correct: '#009c10',
     trouble: '#fbe7ea',
+    border_trouble: '#f4c0c5',
   },
 
   controls: {

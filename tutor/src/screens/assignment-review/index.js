@@ -7,23 +7,17 @@ import { withRouter } from 'react-router';
 import UX from './ux';
 import Tabs from '../../components/tabs';
 import CoursePeriodSelect from '../../components/course-period-select';
-import { navbars } from '../../theme.js';
 import Details from './details';
 import Overview from './overview';
 import Scores from './scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
+import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
 
 import './styles.scss';
 
 const AvailableTabs = [Details, Overview, Scores];
 
-const BackgroundWrapper = styled.div`
-  background: #fff;
-  min-height: calc(100vh - ${navbars.top.height} - ${navbars.bottom.height});
-  position: relative;
-  overflow: hidden;
-  padding: 0 2.4rem;
-`;
+const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
 const Heading = styled.div`
   display: flex;
@@ -98,7 +92,7 @@ class AssignmentReview extends React.Component {
     const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
-      <BackgroundWrapper>
+      <WhiteBackgroundWrapper>
         <ScrollToTop>
           <Heading>
             <CourseBreadcrumb
@@ -116,7 +110,7 @@ class AssignmentReview extends React.Component {
           />
           <Tab ux={this.ux} />
         </ScrollToTop>
-      </BackgroundWrapper>
+      </WhiteBackgroundWrapper>
     );
   }
 }

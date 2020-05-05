@@ -13,3 +13,5 @@ archive.tar.gz
 /phantomjsdriver.log
 */test/some-tests.*
 .vscode/
+screenshots/
+cypress/fixtures/

@@ -1,18 +1,29 @@
 import { React, PropTypes, useState, useObserver } from 'vendor';
-import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import Controls from './controls';
 import ScoresReportNav from './nav';
 import TourRegion from '../../components/tours/region';
 import LoadingScreen from 'shared/components/loading-animation';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Table from './table';
+import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
 
 import './styles.scss';
 import UX from './ux';
 
+const WhiteBackgroundWrapper = whiteBackgroundWrapper();
+
+const titleBreadcrumbs = (course) => {
+  return <CourseBreadcrumb course={course} currentTitle="Gradebook" />;
+};
+
+const titleControls = (ux) => {
+  return <ScoresReportNav ux={ux} />;
+};
+
 const GradeBook = ({ ux: propsUX, ...props }) => {
 
-  const [ux ] = useState(propsUX || new UX(props.params));
+  const [ux] = useState(propsUX || new UX(props.params));
 
   return useObserver(() => {
     let body = null;
@@ -26,28 +37,29 @@ const GradeBook = ({ ux: propsUX, ...props }) => {
     if (!ux.course.periods.active.length) {
       body = <NoPeriods courseId={ux.course.id} />;
     }
-
     return (
-      <ScrollToTop>
+      <WhiteBackgroundWrapper>
         <CoursePage
           course={ux.course}
-          title={ux.title}
+          title="Gradebook"
           className="course-scores-report"
-          controls={<Controls ux={ux} />}
-          fullWidthChildren={
-            <TourRegion
-              id="gradebook"
-              className="gradebook-table"
-              courseId={ux.course.id}
-              otherTours={['preview-gradebook']}
-            >
-              {body || <Table ux={ux} />}
-            </TourRegion>
-          }
+          titleBreadcrumbs={titleBreadcrumbs(ux.course)}
+          titleAppearance="light"
+          controls={titleControls(ux)}
+          controlBackgroundColor='white'
         >
-          <ScoresReportNav ux={ux} />
+          <Controls ux={ux} />
+          <TourRegion
+            id="gradebook"
+            className="gradebook-table"
+            courseId={ux.course.id}
+            otherTours={['preview-gradebook']}
+          >
+            {body || <Table ux={ux} />}
+          </TourRegion>
         </CoursePage>
-      </ScrollToTop>
+      </WhiteBackgroundWrapper>
+      
     );
   });
 

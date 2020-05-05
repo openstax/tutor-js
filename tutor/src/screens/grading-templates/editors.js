@@ -3,7 +3,7 @@ import { Button, Modal, Alert } from 'react-bootstrap';
 import { isEmpty, range, map } from 'lodash';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors, fonts } from '../../theme';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
@@ -94,30 +94,6 @@ const HintText = styled.div`
   ${fonts.faces.light};
 `;
 
-const StyledTextInput = styled(Field).attrs({
-  type: 'text',
-})`
-  padding: 0.8rem 1rem;
-  border-radius: 4px;
-  border: 1px solid ${colors.forms.borders.light};
-  font-size: 1.2rem;
-  /** styling errors when template name is invalid */
-  background: ${props => props.hasError ? '#fbe8eA' : '#FFFFFF'};
-  color: ${props => props.hasError ? 'red' : 'black'};
-  border-color: ${props => props.hasError ? '#f4c0c5' : 'd5d5d5'};
-  border-width: ${props => props.hasError ? '2px' : '1px'};
-  
-
-  &:focus {
-    border-color: ${colors.forms.borders.focus};
-    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
-  }
-
-  &::placeholder {
-    font-size: inherit;
-  }
-`;
-
 const TextInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -143,6 +119,30 @@ const Setting = styled.div`
 
 const SettingLabel = styled.label`
   margin-left: 0.75rem;
+`;
+
+const StyledTextInput = styled(Field).attrs({
+  type: 'text',
+})`
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: 1px solid ${colors.forms.borders.light};
+  font-size: 1.2rem;
+  /** styling errors when template name is invalid */
+  background: ${props => props.haserror ? colors.states.trouble : colors.white};
+  color: ${props => props.haserror ? colors.red : colors.black};
+  border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
+  border-width: ${props => props.haserror ? '2px' : '1px'};
+  
+  &:focus {
+    outline: 0;
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
+  }
+
+  &::placeholder {
+    font-size: inherit;
+  }
 `;
 
 const TextInput = (props) => (
@@ -306,7 +306,7 @@ class TemplateForm extends React.Component {
             // Check if field is on focused ('touched') first and then check for any errors.
             // Validate then happens when the field is out of focus for the first time.
             // After, it validates as the user types.
-            hasError={!!form.touched.name && !!form.errors.name}
+            haserror={Boolean(form.touched.name && form.errors.name)}
           />
         </SplitRow>
 

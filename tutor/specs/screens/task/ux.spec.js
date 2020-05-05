@@ -131,6 +131,7 @@ describe('Task UX Model', () => {
 
   it('records in history when going to step', () => {
     ux.goToStep(1);
+
     expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/2`);
     ux.goToStep(2, false);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
@@ -140,20 +141,24 @@ describe('Task UX Model', () => {
 
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid = '123@4';
+
     const group = ux.groupedSteps[i];
     expect(group.type).toBe('mpq');
     expect(ux.stepGroupInfo.grouped).toBe(true);
     ux.stepGroupInfo.group.steps.forEach(
       s => s.api.requestCounts.read = 1
     );
-    ux.goToStep(i + 1, false);
+
+    ux.goToStep(1, false);
+    expect(ux.stepGroupInfo.grouped).toBe(true);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
+
     return deferred(() => {
       expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
         `[data-task-step-id="${ux.currentStep.id}"]`,
         { deferred: true, immediate: false },
       );
-    });
+    }, 100);
   });
 
   it('marks steps as viewed', () => {

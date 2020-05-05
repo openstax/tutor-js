@@ -1,17 +1,11 @@
 import { React, styled, useObserver } from 'vendor';
 import { isNil } from 'lodash';
-import { Cell as TableCell } from 'react-sticky-table';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
 import S from '../../helpers/string';
+import { getCell } from './styles';
 
-// TODO: use shared version
-const Cell = styled(TableCell)`
-  padding: 0;
-  height: 4.5rem;
-  text-align: center;
-  vertical-align: middle;
-`;
+const Cell = getCell('0, 10px');
 
 const ReviewLink = ({ task, children }) => useObserver(() => {
   const { course } = task.student.period;
@@ -43,10 +37,9 @@ const Unstarted = styled.div`
   color: ${colors.neutral.lite};
 `;
 
-const TaskResult = ({ ux, task }) => {
+const TaskResult = ({ ux, task, striped, isLast }) => {
   return useObserver(() => {
     let contents = null;
-
     if (task.isStarted || task.isDue) {
       const Display = ux.displayScoresAsPercent ? Percent : Progress;
 
@@ -58,15 +51,7 @@ const TaskResult = ({ ux, task }) => {
       contents = <Unstarted>---</Unstarted>;
     }
 
-    return <Cell>{contents}</Cell>;
-
-    // return (
-    //   <Cell>
-    //     <Result isTrouble={result.isTrouble}>
-    //       {result.isStarted ? S.numberWithOneDecimalPlace(result.score) : '…'}
-    //     </Result>
-    //   </Cell>
-    // );
+    return <Cell striped={striped} drawBorderBottom={isLast}>{contents}</Cell>;
   });
 };
 

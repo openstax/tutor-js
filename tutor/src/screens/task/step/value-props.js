@@ -40,10 +40,14 @@ class ValueProp extends React.Component {
     const { className, blue, step: { type }, title, children, ux } = this.props;
 
     return (
-      <CardBody blue={blue} className={cn(`openstax-${type}`, className)}>
+      <CardBody
+        blue={blue}
+        data-test-id={`${type}-value-prop`}
+        className={cn(`openstax-${type}`, className)}
+      >
         <h1>{title}</h1>
         {children}
-        <ContinueBtn variant="light" ux={ux} />
+        <ContinueBtn data-test-id="value-prop-continue-btn" variant="light" ux={ux} />
       </CardBody>
     );
   }

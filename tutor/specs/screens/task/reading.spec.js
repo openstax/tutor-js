@@ -29,8 +29,8 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('render as loading', () => {
-    props.ux.goToStep(1);
-    props.ux.currentStep.isFetched = false;
+    props.ux.goToStep(2);
+    props.ux.currentStep.api.reset();
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
     const r = mount(<C><Reading {...props} /></C>);
     expect(r).toHaveRendered('ContentLoader');
@@ -39,11 +39,12 @@ describe('Reading Tasks Screen', () => {
 
   it('renders content', () => {
     const r = mount(<C><Reading {...props} /></C>);
-    expect(r).not.toHaveRendered('ContentLoader');
+
     r.unmount();
   });
 
   it('renders value props', () => {
+    props.ux.task.steps[1].formats = ['free-response', 'multiple-choice'];
     props.ux._stepIndex = props.ux.steps.findIndex(s=>s.type === 'two-step-intro');
     const r = mount(<C><Reading {...props} /></C>);
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
@@ -61,6 +62,7 @@ describe('Reading Tasks Screen', () => {
 
     const r = mount(<C><Reading {...props} /></C>);
     expect(props.ux.canGoForward).toBe(true);
+    expect(props.ux._stepIndex).toEqual(0)
     props.ux.goForward();
     expect(r).toHaveRendered('IndividualReview');
 
@@ -68,7 +70,9 @@ describe('Reading Tasks Screen', () => {
     jest.runAllTimers();
     expect(r).toHaveRendered('ContinueBtn button[disabled=false]');
 
+    expect(props.ux._stepIndex).toEqual(1)
     props.ux.goForward();
+    expect(props.ux._stepIndex).toEqual(2)
 
     expect(r).toHaveRendered('LoadingCard');
 
@@ -80,7 +84,7 @@ describe('Reading Tasks Screen', () => {
       data: {
         steps: [
           Factory.bot.create('StudentTaskStep', { type: 'reading' }),
-          Factory.bot.create('StudentTaskStep', { type: 'exercise' }),
+          Factory.bot.create('StudentTaskStep', { type: 'exercise', formats: ['free-response', 'multiple-choice'] }),
         ],
       },
     });

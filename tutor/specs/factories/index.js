@@ -20,7 +20,7 @@ import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 
 import './research_survey';
 import './teacher-task-plan';
-import './student-task';
+import './student-tasks';
 import './course';
 import './book';
 import './task-plan-stats';
@@ -30,7 +30,7 @@ import './scores';
 import './offering';
 import './stats';
 import './course-roster';
-import { studentTasks, studentTask } from './student-tasks';
+import { studentTasks, studentTask } from './student-task-models';
 import './note';
 import './grading-template';
 

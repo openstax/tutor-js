@@ -82,4 +82,12 @@ export default {
   },
 
   isUUID(uuid = '') { return UUID_REGEX.test(uuid); },
+
+  stringToInt(string) {
+    const int = parseInt(string);
+    if (isNaN(int)) {
+      return 0;
+    }
+    return int;
+  },
 };

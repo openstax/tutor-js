@@ -74,6 +74,7 @@ class FreeResponseInput extends React.Component {
 
   ux = new ResponseValidationUX({
     step: this.props.step,
+    taskUX: this.props.taskUX,
     messages: NudgeMessages,
     validator: this.props.response_validation,
   });
@@ -82,7 +83,6 @@ class FreeResponseInput extends React.Component {
 
   @action.bound onSave() {
     const { taskUX, step } = this.props;
-
     taskUX.setCurrentMultiPartStep(step);
     this.ux.onSave();
   }
@@ -91,7 +91,9 @@ class FreeResponseInput extends React.Component {
     const { ux, props: { questionNumber, course, step, question } } = this;
 
     return (
-      <StyledFreeResponse>
+      <StyledFreeResponse
+        data-test-id="student-free-response"
+      >
         <QuestionStem
           questionNumber={questionNumber}
           question={question}
@@ -100,6 +102,7 @@ class FreeResponseInput extends React.Component {
           ref={this.textArea}
           value={ux.response}
           onChange={ux.setResponse}
+          data-test-id="free-response-box"
           placeholder="Enter your response"
           isErrored={ux.displayNudgeError}
           aria-label="question response text box"
@@ -107,7 +110,7 @@ class FreeResponseInput extends React.Component {
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
-          <AnswerButton size="lg" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
+          <AnswerButton size="lg" data-test-id="submit-answer-btn" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>

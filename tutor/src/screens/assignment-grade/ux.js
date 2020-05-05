@@ -40,15 +40,15 @@ export default class AssignmentGradingUX {
   @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
 
   @computed get scores() {
-    return this.planScores.periods.find(period => this.selectedPeriod.period_id == period.id);
+    return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
   @computed get selectedQuestion() {
-    const info = this.scores.students[0].questions[this.questionIndex];
+    const studentQuestion = this.scores.students[0].questions[this.questionIndex];
 
-    const exercise = Exercises.get(info.exercise_id);
+    const exercise = Exercises.get(studentQuestion.exercise_id);
     if (exercise) {
-      return exercise.content.questions.find(q => q.id == info.id);
+      return exercise.content.questions.find(q => q.id == studentQuestion.question_id);
     }
     return null;
   }
@@ -71,11 +71,11 @@ export default class AssignmentGradingUX {
   }
 
   hasViewedStudentQuestion(question, student) {
-    return this.gradedAnswers.get(`${question.id}-${student.role_id}`);
+    return Boolean(this.gradedAnswers.get(`${question.id}-${student.role_id}`));
   }
 
   @action saveScore({ student, question, points, comment }) {
-    this.gradedAnswers.set(`${question.id}-${student.role_id}`, {
+    this.gradedAnswers.set(`${question.question_id}-${student.role_id}`, {
       points, comment, question, student,
     });
     if (isEmpty(this.unGradedStudents) && this.questionIndex < this.scores.question_headings.length) {
@@ -86,7 +86,7 @@ export default class AssignmentGradingUX {
 
   @computed get currentStudentQuestionInfo() {
     const student = first(this.unGradedStudents);
-    return student.questions.find(q => q.id == this.selectedQuestion.id);
+    return student.questions.find(q => q.id == this.selectedQuestion.question_id);
   }
 
   @computed get selectedAnswerId() {

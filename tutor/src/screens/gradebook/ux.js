@@ -3,7 +3,7 @@ import { filter, sortBy } from 'lodash';
 import studentDataSorter from './student-data-sorter';
 //import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
-//import WeightsUX from './weights-ux';
+import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
@@ -36,10 +36,12 @@ export default class GradeBookUX {
 
   @observable sortIndex;
   @observable rowSort = { key: 'name', asc: true, dataType: 'score' };
-
+  @observable weights = new WeightsUX(this);
 
   @observable searchingMatcher = null;
 
+
+  @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable coursePeriod;
   @observable props = {}
@@ -150,6 +152,20 @@ export default class GradeBookUX {
 
   @action updateProps(props) {
     this.props = props;
+  }
+
+  /**
+   * Show Average Info modal
+   */
+  @action showAverageInfo() {
+    this.showAverageInfoModal = true;
+  }
+
+  /**
+   * Hide Average Info modal
+   */
+  @action hideAverageInfo() {
+    this.showAverageInfoModal = false;
   }
 
   // old & unused methods

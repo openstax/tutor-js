@@ -57,7 +57,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get scores() {
-    return this.planScores.periods.find(period => this.selectedPeriod.period_id == period.id);
+    return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
   @computed get taskingPlan() {
@@ -145,7 +145,7 @@ export default class AssignmentReviewUX {
 
   @action.bound async onSavePlan() {
     await this.editUX.savePlan();
-    await this.planScores.fetch();
+    Object.assign(this.planScores, this.editUX.plan);
     this.isDisplayingEditAssignment = false;
   }
 

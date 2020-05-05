@@ -126,7 +126,7 @@ class ExerciseQuestion extends React.Component {
     }
 
     return (
-      <StyledExerciseQuestion>
+      <StyledExerciseQuestion data-test-id="student-exercise-question">
         <Question
           task={ux.task}
           question={question}

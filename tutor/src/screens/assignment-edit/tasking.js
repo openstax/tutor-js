@@ -14,6 +14,7 @@ const StyledTasking = styled.div`
   min-height: 7rem;
   margin-top: 0.5rem;
   padding: 0.5rem 0 0 2.7rem;
+  margin-bottom: ${props => props.renderingDates ? 0 : '-4rem' }
 
   .react-datepicker-wrapper {
     height: 100%;
@@ -133,7 +134,6 @@ class Tasking extends React.Component {
   renderSelectionCheckbox() {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
-
     return (
       <CheckboxInput
         id={`period-toggle-${period.id}`}
@@ -153,7 +153,7 @@ class Tasking extends React.Component {
     const type = period ? `period-${period.id}` : 'combined';
 
     return (
-      <StyledTasking className="tasking">
+      <StyledTasking className="tasking" renderingDates={tasking}>
         {this.renderSelectionCheckbox()}
         <StyledInner
           data-tasking-type={type}
@@ -166,6 +166,7 @@ class Tasking extends React.Component {
   }
 
   renderDateTimeInputs(tasking) {
+    const { ux, period, ux: { plan } } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
     const format = 'MMM D hh:mm A';
 
@@ -177,6 +178,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].opens_at`}
             onChange={this.onOpensChange}
             format={format}
+            autoFocus={period && plan.tasking_plans.forPeriod(period)}
           />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
@@ -193,7 +195,7 @@ class Tasking extends React.Component {
           <Col xs={12} md={4} className="closes-at">
             <DateTime
               label="Close date & time"
-              labelWrapper={NewTooltip}
+              labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               format={format}

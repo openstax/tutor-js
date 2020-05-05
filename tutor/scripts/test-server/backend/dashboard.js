@@ -1,5 +1,5 @@
 const Factory = require('object-factory-bot');
-require('../../../specs/factories/student-task');
+require('../../../specs/factories/student-tasks');
 require ('../../../specs/factories/research_survey');
 const { times, range, pick, clone, omit, find } = require('lodash');
 const { data: bootstrapData } = require('./bootstrap');
