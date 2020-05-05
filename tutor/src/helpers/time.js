@@ -2,19 +2,18 @@ import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 import { isEmpty, pick, map, clone, values, first } from 'lodash';
 
-// Map Rails timezones to http://www.iana.org/time-zones
-// https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
-const TIME_LINKS = {
-  'Hawaii': 'US/Hawaii',
-  'Alaska': 'US/Alaska',
-  'Pacific Time (US & Canada)': 'US/Pacific',
-  'Arizona': 'US/Arizona',
-  'Mountain Time (US & Canada)': 'US/Mountain',
-  'Central Time (US & Canada)': 'US/Central',
-  'Eastern Time (US & Canada)': 'US/Eastern',
-  'Indiana (East)': 'US/East-Indiana',
-  'Atlantic Time (Canada)': 'Canada/Atlantic',
-};
+// List of allowed http://www.iana.org/time-zones
+const TIMEZONES = [
+  'US/Hawaii',
+  'US/Alaska',
+  'US/Pacific',
+  'US/Arizona',
+  'US/Mountain',
+  'US/Central',
+  'US/Eastern',
+  'US/East-Indiana',
+  'Canada/Atlantic',
+];
 
 // eslint-disable-next-line
 const ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/;
@@ -151,12 +150,12 @@ const TimeHelper = {
   },
 
   getTimezones() {
-    return clone(TIME_LINKS);
+    return clone(TIMEZONES);
   },
 
   isTimezoneValid(timezone) {
     let needle;
-    return (needle = timezone, values(TimeHelper.getTimezones()).includes(needle));
+    return (needle = timezone, TimeHelper.getTimezones().includes(needle));
   },
 
   isCourseTimezone(courseTimezone) {

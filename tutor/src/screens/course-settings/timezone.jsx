@@ -14,7 +14,7 @@ import S from '../../helpers/string';
 
 import Course from '../../models/course';
 
-const timezonePropType = PropTypes.oneOf(values(TimeHelper.getTimezones()));
+const timezonePropType = PropTypes.oneOf(TimeHelper.getTimezones());
 
 @observer
 class TimezonePreview extends React.Component {
@@ -93,16 +93,15 @@ class SetTimezoneField extends React.Component {
 
     const { courseTimezone, props: { name } } = this;
 
-    const timezonesToPick = map(timezones, (iana, rails) => {
-      const identifier = S.dasherize(iana);
+    const timezonesToPick = map(timezones, timezone => {
+      const identifier = S.dasherize(timezone);
       return (
         <TutorRadio
           id={identifier}
           key={`timezone-choice-${identifier}`}
-          label={rails}
-          value={iana}
+          value={timezone}
           name={name}
-          checked={iana === courseTimezone}
+          checked={timezone === courseTimezone}
           onChange={this.onChange} />
       );
     });

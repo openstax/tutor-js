@@ -41,47 +41,47 @@ exports[`CreateCourse: entering name matches snapshot 1`] = `
         <option
           value="US/Hawaii"
         >
-          Hawaii
+          US/Hawaii
         </option>
         <option
           value="US/Alaska"
         >
-          Alaska
+          US/Alaska
         </option>
         <option
           value="US/Pacific"
         >
-          Pacific Time (US & Canada)
+          US/Pacific
         </option>
         <option
           value="US/Arizona"
         >
-          Arizona
+          US/Arizona
         </option>
         <option
           value="US/Mountain"
         >
-          Mountain Time (US & Canada)
+          US/Mountain
         </option>
         <option
           value="US/Central"
         >
-          Central Time (US & Canada)
+          US/Central
         </option>
         <option
           value="US/Eastern"
         >
-          Eastern Time (US & Canada)
+          US/Eastern
         </option>
         <option
           value="US/East-Indiana"
         >
-          Indiana (East)
+          US/East-Indiana
         </option>
         <option
           value="Canada/Atlantic"
         >
-          Atlantic Time (Canada)
+          Canada/Atlantic
         </option>
       </select>
     </div>

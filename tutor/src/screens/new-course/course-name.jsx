@@ -27,7 +27,7 @@ class CourseName extends React.Component {
 
   render() {
     const { ux: { onKeyPress, newCourse } } = this.props;
-    const zones = TimeHelper.getTimezones();
+    const timezones = TimeHelper.getTimezones();
 
     return (
       <Form>
@@ -52,8 +52,8 @@ class CourseName extends React.Component {
               value={newCourse.timezone}
               onChange={this.updateTimeZone}
             >
-              {map(zones, (iana, rails) =>
-                <option key={iana} value={iana}>{rails}</option>)}
+              {map(timezones, timezone =>
+                <option key={timezone} value={timezone}>{timezone}</option>)}
             </Form.Control>
           </InputGroup>
         </Form.Group>
