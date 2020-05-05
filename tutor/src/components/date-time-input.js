@@ -90,6 +90,7 @@ const DateTimeInput = (props) => useObserver(() => {
           }}
           prefixCls="oxdt"
           id={id}
+          autoFocus={props.autoFocus}
         />
         <IconWrapper>
           <Icon type="calendar" />

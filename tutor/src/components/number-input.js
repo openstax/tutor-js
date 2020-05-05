@@ -2,7 +2,7 @@ import { React, PropTypes, observer, styled, css } from 'vendor';
 import { useField } from 'formik';
 import RCNumberInput from 'rc-input-number';
 import { Icon } from 'shared';
-import { colors } from '../theme';
+import { colors } from 'theme';
 
 const StyledNumberInput = styled(RCNumberInput)`
   margin: 0;

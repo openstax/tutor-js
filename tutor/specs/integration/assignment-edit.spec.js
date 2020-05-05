@@ -113,6 +113,7 @@ context('Assignment Edit', () => {
   it('can change course timezone', () => {
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
+    fillDetails()
     cy.get('[data-test-id="change-timezone"]').click()
     cy.get('.settings-edit-course-modal').should('be.visible')
     cy.get('.settings-edit-course-modal [value="Hawaii"]').click({ force: true })
@@ -132,6 +133,7 @@ context('Assignment Edit', () => {
     const templateName = 'This is a new template'
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
+    fillDetails()
     addTemplate({ name: templateName })
     cy.get('[data-test-id="grading-templates"]').should('contain.text', templateName)
   });
@@ -141,6 +143,7 @@ context('Assignment Edit', () => {
     const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
+    fillDetails()
     addTemplate({ name: templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, closesDateOffsetDays, isAM, doSelect: true })
     cy.get('input[name="tasking_plans[0].opens_at"]').then(o => {
       const openDate = o[0].defaultValue

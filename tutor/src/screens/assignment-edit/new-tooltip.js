@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from '../../theme';
 
 const StyledTooltip = styled(Tooltip)`
-  margin-left: 0.5rem;
+  margin-left: 1rem;
 
   && {
     z-index: 0;
@@ -12,8 +12,10 @@ const StyledTooltip = styled(Tooltip)`
       background: ${colors.bright_green};
       color: #fff;
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       box-shadow: none;
+      font-weight: 500;
+      letter-spacing: 1px;
     }
 
     .arrow:before {
