@@ -129,9 +129,9 @@ const StyledTextInput = styled(Field).attrs({
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.2rem;
   /** styling errors when template name is invalid */
-  background: ${props => props.haserror ? '#fbe8eA' : '#FFFFFF'};
-  color: ${props => props.haserror ? 'red' : 'black'};
-  border-color: ${props => props.haserror ? '#f4c0c5' : 'd5d5d5'};
+  background: ${props => props.haserror ? colors.states.trouble : colors.white};
+  color: ${props => props.haserror ? colors.red : colors.black};
+  border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
   border-width: ${props => props.haserror ? '2px' : '1px'};
   
   &:focus {
@@ -306,8 +306,7 @@ class TemplateForm extends React.Component {
             // Check if field is on focused ('touched') first and then check for any errors.
             // Validate then happens when the field is out of focus for the first time.
             // After, it validates as the user types.
-            // Why use 1 and 0 :https://github.com/styled-components/styled-components/issues/1198
-            haserror={!!form.touched.name && !!form.errors.name ? 1 : 0}
+            haserror={Boolean(form.touched.name && form.errors.name)}
           />
         </SplitRow>
 

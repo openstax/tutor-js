@@ -81,9 +81,9 @@ const StyledTextInput = styled(Field).attrs({
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.2rem;
   /** styling errors when template name is invalid */
-  background: ${props => props.haserror ? '#fbe8eA' : '#FFFFFF'};
-  color: ${props => props.haserror ? 'red' : 'black'};
-  border-color: ${props => props.haserror ? '#f4c0c5' : 'd5d5d5'};
+  background: ${props => props.haserror ? colors.states.trouble : colors.white};
+  color: ${props => props.haserror ? colors.red : colors.black};
+  border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
   border-width: ${props => props.haserror ? '2px' : '1px'};
   
   &:focus {

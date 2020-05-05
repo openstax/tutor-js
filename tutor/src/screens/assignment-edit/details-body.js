@@ -179,8 +179,7 @@ const DetailsBody = observer(({ ux }) => {
           data-test-id="edit-assignment-name"
           
           innerRef={nameInputField}
-          // Why use 1 and 0 :https://github.com/styled-components/styled-components/issues/1198
-          haserror={!!ux.form.touched.title && !!ux.form.errors.title ? 1 : 0}
+          haserror={Boolean(ux.form.touched.title && ux.form.errors.title)}
         />
       </SplitRow>
       <SplitRow>
