@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
-import { isEmpty, pick, map, clone, values, first } from 'lodash';
+import { isEmpty, clone, first } from 'lodash';
 
 // List of allowed http://www.iana.org/time-zones
 const TIMEZONES = [
