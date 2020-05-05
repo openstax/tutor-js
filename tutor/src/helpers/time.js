@@ -2,31 +2,19 @@ import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 import { isEmpty, pick, map, clone, values, first } from 'lodash';
 
-// Map http://www.iana.org/time-zones names to timezone names in Rails
+// Map Rails timezones to http://www.iana.org/time-zones
 // https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 const TIME_LINKS = {
-  'US/Hawaii': 'Hawaii',
-  'US/Alaska': 'Alaska',
-  'US/Pacific': 'Pacific Time (US & Canada)',
-  'US/Arizona': 'Arizona',
-  'US/Mountain': 'Mountain Time (US & Canada)',
-  'US/Central': 'Central Time (US & Canada)',
-  'US/Eastern': 'Eastern Time (US & Canada)',
-  'US/East-Indiana': 'Indiana (East)',
-  'Canada/Atlantic': 'Atlantic Time (Canada)',
+  'Hawaii': 'US/Hawaii',
+  'Alaska': 'US/Alaska',
+  'Pacific Time (US & Canada)': 'US/Pacific',
+  'Arizona': 'US/Arizona',
+  'Mountain Time (US & Canada)': 'US/Mountain',
+  'Central Time (US & Canada)': 'US/Central',
+  'Eastern Time (US & Canada)': 'US/Eastern',
+  'Indiana (East)': 'US/East-Indiana',
+  'Atlantic Time (Canada)': 'Canada/Atlantic',
 };
-
-// uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
-moment.tz.add(
-  map(TIME_LINKS, (alternativeZoneName, loadedZoneName) => {
-    const loadedUnpackedObject = pick(
-      moment.tz.zone(loadedZoneName),
-      ['abbrs', 'offsets', 'untils']
-    );
-    loadedUnpackedObject.name = alternativeZoneName;
-    return moment.tz.pack(loadedUnpackedObject);
-  })
-);
 
 // eslint-disable-next-line
 const ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/;

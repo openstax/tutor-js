@@ -93,15 +93,16 @@ class SetTimezoneField extends React.Component {
 
     const { courseTimezone, props: { name } } = this;
 
-    const timezonesToPick = map(timezones, timezone => {
-      const identifier = S.dasherize(timezone);
+    const timezonesToPick = map(timezones, (iana, rails) => {
+      const identifier = S.dasherize(iana);
       return (
         <TutorRadio
           id={identifier}
           key={`timezone-choice-${identifier}`}
-          value={timezone}
+          label={rails}
+          value={iana}
           name={name}
-          checked={timezone === courseTimezone}
+          checked={iana === courseTimezone}
           onChange={this.onChange} />
       );
     });
@@ -133,7 +134,7 @@ class SetTimezone extends React.Component {
 
   @observable showModal = false
   @observable invalid = false;
-  @observable course_timezone = this.props.course.time_zone;
+  @observable course_timezone = this.props.course.timezone;
 
   @action.bound open() {
     this.showModal = true;
@@ -148,7 +149,7 @@ class SetTimezone extends React.Component {
 
   @action.bound performUpdate() {
     if (this.invalid) { return; }
-    this.props.course.time_zone = this.course_timezone;
+    this.props.course.timezone = this.course_timezone;
     this.props.course.save().then(this.close);
   }
 
@@ -168,7 +169,7 @@ class SetTimezone extends React.Component {
           <Modal.Body className={classnames({ 'is-invalid-form': this.invalid })}>
             <SetTimezoneField
               name="course-timezone"
-              defaultValue={this.props.course.time_zone}
+              defaultValue={this.props.course.timezone}
               onChange={val => this.course_timezone = val}
               validate={this.validate}
             />
