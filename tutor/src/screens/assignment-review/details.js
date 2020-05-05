@@ -269,7 +269,7 @@ const Details = observer(({ ux, ux: {
                   <PlanDates
                     plan={plan}
                     title={ux.areTaskingDatesSame ? 'All sections' : plan.period.name}
-                    key={plan.id}
+                    key={plan.period.id}
                   />
                 )}
               </Item>
