@@ -169,6 +169,7 @@ class Tasking extends React.Component {
     const { ux, period, ux: { plan } } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
     const format = 'MMM D | hh:mm A';
+    const timeFormat = 'hh:mm A';
 
     return (
       <Row className="tasking-date-time">
@@ -178,6 +179,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].opens_at`}
             onChange={this.onOpensChange}
             format={format}
+            timeFormat={timeFormat}
             autoFocus={period && plan.tasking_plans.forPeriod(period)}
           />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
@@ -188,6 +190,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].due_at`}
             onChange={this.onDueChange}
             format={format}
+            timeFormat={timeFormat}
           />
           {this.renderDueAtError()}
         </Col>
@@ -198,6 +201,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].closes_at`}
             onChange={this.onClosesChange}
             format={format}
+            timeFormat={timeFormat}
           />
         </Col>
       </Row>
