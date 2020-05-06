@@ -84,7 +84,7 @@ const DateTimeInput = (props) => useObserver(() => {
           {...field}
           {...props}
           value={field.value ? moment(field.value) : null}
-          onChange={dt => {
+          onSelect={dt => {
             const ev = { target: { name: field.name, value: dt } };
             field.onChange(ev);
             props.onChange && props.onChange(ev);
