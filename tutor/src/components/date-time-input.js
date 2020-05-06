@@ -63,6 +63,13 @@ const DateTimeInput = (props) => useObserver(() => {
   const [field, meta] = useField({ type: 'text', ...props });
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
+
+  const onUpdateDate = dt => {
+    const ev = { target: { name: field.name, value: dt } };
+    field.onChange(ev);
+    props.onChange && props.onChange(ev);
+  };
+  
   return (
     <StyledWrapper className={cn('date-time-input', props.className)}>
       <LabelWrapper>
@@ -92,11 +99,8 @@ const DateTimeInput = (props) => useObserver(() => {
           {...field}
           {...props}
           value={field.value ? moment(field.value) : null}
-          onSelect={dt => {
-            const ev = { target: { name: field.name, value: dt } };
-            field.onChange(ev);
-            props.onChange && props.onChange(ev);
-          }}
+          onSelect={onUpdateDate}
+          onChange={onUpdateDate}
           prefixCls="oxdt"
           id={id}
           autoFocus={props.autoFocus}

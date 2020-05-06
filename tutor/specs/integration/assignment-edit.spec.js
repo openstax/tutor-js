@@ -2,6 +2,8 @@ import { range } from 'lodash';
 import moment from 'moment-timezone';
 
 context('Assignment Edit', () => {
+  const format = 'MMM D | hh:mm A';
+
   const fillDetails = () => {
     cy.get('.heading').should('contain.text', 'STEP 1')
     cy.get('.controls .btn-primary').should('be.disabled')
@@ -150,11 +152,11 @@ context('Assignment Edit', () => {
       let updatedDueDate;
       // Due date should change
       cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
-        const dueDate = moment(d[0].defaultValue).toISOString();
+        const dueDate = moment(d[0].defaultValue, format).toISOString();
         updatedDueDate = dueDate;
         // Compute the due date from the open date
         const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
-        const expectedDueDate = moment(openDate)
+        const expectedDueDate = moment(openDate, format)
           .add(parseInt(dueDateOffsetDays, 10), 'days')
           .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
           .toISOString();
@@ -162,7 +164,7 @@ context('Assignment Edit', () => {
       })
       // Closes date should change
       cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-        const closesDate = moment(c[0].defaultValue).toISOString();
+        const closesDate = moment(c[0].defaultValue, format).toISOString();
         // Compute the closes date from the due date
         const expectedDueDate = moment(updatedDueDate)
           .add(parseInt(closesDateOffsetDays, 10), 'days')
@@ -172,10 +174,10 @@ context('Assignment Edit', () => {
     });
   })
 
-  it('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
+  it.only('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
     const templateName = 'Template to not update date'
-    const typedDueDate = 'Jun 10 05:00 PM'
-    const typedClosesDate = 'Jun 22 05:00 PM'
+    const typedDueDate = 'Jun 10 | 05:00 PM'
+    const typedClosesDate = 'Jun 22 | 05:00 PM'
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     // force update the closes date
@@ -184,8 +186,8 @@ context('Assignment Edit', () => {
     addTemplate({ name: templateName, doSelect: true })
     // after adding and selecting the template, closes date should not be updated
     cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-      const closesDate = moment(c[0].defaultValue).toISOString();
-      expect(closesDate).eq(moment(typedClosesDate).toISOString())
+      const closesDate = moment(c[0].defaultValue, format).toISOString();
+      expect(closesDate).eq(moment(typedClosesDate, format).toISOString())
     })
     // force update the due date
     cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true })
@@ -195,8 +197,8 @@ context('Assignment Edit', () => {
     cy.get('[data-test-id="Default Homework"]').click()
     // after selecting the first template, due date should not be updated
     cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
-      const dueDate = moment(d[0].defaultValue).toISOString();
-      expect(dueDate).eq(moment(typedDueDate).toISOString())
+      const dueDate = moment(d[0].defaultValue, format).toISOString();
+      expect(dueDate).eq(moment(typedDueDate, format).toISOString())
     })
   })
 });
