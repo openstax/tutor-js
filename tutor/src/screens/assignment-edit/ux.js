@@ -88,13 +88,16 @@ export default class AssignmentUX {
         if(this.plan.isExternal) {
           const external_default_close_at = moment(default_due_at).add(1, 'minute').toISOString();
           this.periods.map((period) =>
-            this.plan.findOrCreateTaskingForPeriod(period, { closes_at: external_default_close_at }),
+            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: external_default_close_at }),
+          );
+        }
+        // event does not have a close date
+        else {
+          this.periods.map((period) =>
+            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at }),
           );
         }
 
-        this.periods.map((period) =>
-          this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at }),
-        );
 
         // due_at is defined if user creates an assignment through the calendar
         if (due_at) {
