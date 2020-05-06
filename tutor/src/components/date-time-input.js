@@ -79,6 +79,7 @@ const DateTimeInput = (props) => useObserver(() => {
             showSecond: false,
             use12Hours: true,
             minuteStep: 10,
+            format: 'hh:mm A',
           }}
           {...field}
           {...props}
