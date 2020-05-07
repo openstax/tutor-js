@@ -2,7 +2,6 @@ import { React, PropTypes, observer, styled, useObserver } from 'vendor';
 import { Icon } from 'shared';
 import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
-import TutorLink from '../../components/link';
 import moment from 'moment';
 import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -11,6 +10,7 @@ import { isEmpty } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
+import GradingBlock from './grading-block';
 
 const DetailsWrapper = styled.div`
 
@@ -41,29 +41,6 @@ const Top = styled.div`
     }
     &:last-child {
       flex-basis: 35%;
-    }
-  }
-
-  dl {
-    display: flex;
-    align-items: center;
-    max-width: 43.2rem;
-
-    > * {
-      width: 100%;
-      &:not(:first-child) {
-        dt, dd {
-          text-align: center;
-        }
-      }
-    }
-
-    dt, dd {
-      border-bottom: 1px solid ${colors.neutral.pale};
-      padding-right: 1.6rem;
-    }
-    dt {
-      font-size: 1.4rem;
     }
   }
 `;
@@ -115,10 +92,28 @@ const StyledHomeworkQuestions = styled(HomeworkQuestions)`
 
 `;
 
-const StyledTutorLink = styled(TutorLink)`
-  margin-bottom: 2.5rem;
-  &.btn.btn-standard {
-    min-width: 16.7rem;
+const PlanDefinitionList = styled.div`
+  dl {
+    display: flex;
+    align-items: center;
+    max-width: 43.2rem;
+
+    > * {
+      width: 100%;
+      &:not(:first-child) {
+        dt, dd {
+          text-align: center;
+        }
+      }
+    }
+
+    dt, dd {
+      border-bottom: 1px solid ${colors.neutral.pale};
+      padding-right: 1.6rem;
+    }
+    dt {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -194,7 +189,7 @@ const PlanDates = observer(({ plan, title }) => {
   const format = 'MMM D, h:mm a';
 
   return (
-    <>
+    <PlanDefinitionList>
       <div>{title}</div>
       <dl>
         <div>
@@ -210,7 +205,7 @@ const PlanDates = observer(({ plan, title }) => {
           <dd>{moment(plan.closes_at).format(format)}</dd>
         </div>
       </dl>
-    </>
+    </PlanDefinitionList>
   );
 });
 
@@ -276,31 +271,16 @@ const Details = observer(({ ux, ux: {
             </Row>
           </Table>
         </Section>
-        <Section>
-          <Header>
-            <h6>Grading</h6>
-          </Header>
-          <div>
-            <p>This assignment is now open for grading.</p>
-            <StyledTutorLink
-              className="btn btn-standard btn-primary btn-new-flag btn-inline"
-              to="gradeAssignment"
-              params={{ id: ux.planId, periodId: ux.selectedPeriodId, courseId: ux.course.id }}
-            >
-              <span className="flag">72 New</span>
-              <span>Grade answers</span>
-            </StyledTutorLink>
-          </div>
-          <div>
-            <p>View scores for auto-graded questions</p>
-            <StyledTutorLink
-              className="btn btn-standard btn-inline"
-              to=""
-            >
-              View scores
-            </StyledTutorLink>
-          </div>
-        </Section>
+        {ux.canDisplayGradingBlock &&
+          <Section>
+            <Header>
+              <h6>Grading</h6>
+            </Header>
+            <div>
+              <GradingBlock ux={ux} />
+            </div>
+          </Section>
+        }
       </Top>
       {scores && <Questions ux={ux} questionsInfo={scores.questionsInfo} />}
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
