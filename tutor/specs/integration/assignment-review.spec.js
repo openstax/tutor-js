@@ -35,6 +35,9 @@ context('Assignment Review', () => {
   });
 
   it('can render grading template preview', () => {
+    cy.server();
+    cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
+    cy.wait('@getGradingTemplates');
     cy.getTestElement('grading-template-card').should('not.exist');
     cy.getTestElement('preview-card-trigger').click();
     cy.getTestElement('grading-template-card').should('exist');

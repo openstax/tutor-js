@@ -1,5 +1,4 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
-import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
 
@@ -69,7 +68,7 @@ const LightBlue = css`
 const Gray = css`
   border-color: ${colors.neutral.pale};
   background: #eeeded;
-`
+`;
 
 const ChartWrapper = styled.div`
   margin: 0 1rem;
@@ -158,8 +157,8 @@ const BeforeDueWRQ = () => {
       <p>This assignment is not open for grading yet.</p>
       <SmallText>(You can start grading after the due date)</SmallText>
     </Centered>
-  )
-}
+  );
+};
 
 const AfterDueWRQ = observer(({ ux }) => {
   return (
@@ -168,7 +167,7 @@ const AfterDueWRQ = observer(({ ux }) => {
       <GradeAnswersButton ux={ux} />
       <ViewScores />
     </>
-  )
+  );
 });
 
 const BeforeDueMCQ = observer(({ ux: { progressStatsForPeriod } }) => {
@@ -177,7 +176,7 @@ const BeforeDueMCQ = observer(({ ux: { progressStatsForPeriod } }) => {
       <p>This assignment is still in progress</p>
       <StackedBarChart stats={progressStatsForPeriod} />
     </Centered>
-  )
+  );
 });
 
 const AfterDueMCQ = () => {
@@ -192,8 +191,8 @@ const AfterDueMCQ = () => {
       </StyledTutorLink>
       <ViewScores />
     </>
-  )
-}
+  );
+};
 
 const GradingBlock = observer(({ ux }) => {
   const { isEveryExerciseMultiChoice, isPastDue } = ux.planScores.taskPlan;

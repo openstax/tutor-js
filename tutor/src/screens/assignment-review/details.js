@@ -251,7 +251,7 @@ const Details = observer(({ ux, ux: {
                 {planScores.description}
               </Item>
             </Row>
-            {ux.canShowAssignmentSettings &&
+            {ux.canDisplayAssignmentSettings &&
               <Row>
                 <Title>Assignment settings</Title>
                 <Item>

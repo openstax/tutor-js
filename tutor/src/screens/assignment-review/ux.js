@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, includes } from 'lodash';
+import { first, pick, sortBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
@@ -196,15 +196,15 @@ export default class AssignmentReviewUX {
     const items = [
       { label: 'Completed',
         value: complete_count,
-        percent: (complete_count / total_count)
+        percent: (complete_count / total_count),
       },
       { label: 'In progress',
         value: partially_complete_count,
-        percent: (partially_complete_count / total_count)
+        percent: (partially_complete_count / total_count),
       },
       { label: 'Not started',
         value: notStartedCount,
-        percent: (notStartedCount / total_count)
+        percent: (notStartedCount / total_count),
       },
     ];
 

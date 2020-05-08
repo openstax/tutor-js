@@ -9,7 +9,6 @@ import ReferenceBookNode from '../reference-book/node';
 import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
-import { every } from 'lodash';
 
 export default
 @identifiedBy('exercises/exercise')
@@ -63,7 +62,7 @@ class TutorExercise extends BaseModel {
   @computed get isAssignable() { return !this.is_excluded; }
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
-  @computed get isMultiChoice() { return this.content.isMultiChoice }
+  @computed get isMultiChoice() { return this.content.isMultiChoice; }
 
   @computed get types() {
     return map(
