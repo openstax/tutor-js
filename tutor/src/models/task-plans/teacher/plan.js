@@ -109,14 +109,6 @@ class TeacherTaskPlan extends BaseModel {
     );
     if (this.isNew) {
       Object.assign(this.settings, this.defaultSettings);
-
-      // Apply updated grading template settings to tasking plans whenever it changes.
-      // Skip doing this on existing plans so set dates aren't affected.
-      observe(this, 'grading_template_id', ({ oldValue, newValue }) => {
-        const previousTemplate = this.course.gradingTemplates.get(oldValue);
-        const currentTemplate = this.course.gradingTemplates.get(newValue);
-        this.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate({ previousTemplate, currentTemplate }));
-      });
     }
   }
 

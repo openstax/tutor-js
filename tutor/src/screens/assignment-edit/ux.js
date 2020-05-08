@@ -31,6 +31,9 @@ export default class AssignmentUX {
   @observable templates;
   @observable plan;
 
+  didUserChangeDatesManually = false;
+  dueAt;
+
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
@@ -67,6 +70,7 @@ export default class AssignmentUX {
     // don't setup steps until course and plan is set
     this.steps = new StepUX(this);
     this.actions = new Actions(this);
+    this.dueAt = due_at;
 
     if (this.plan.isNew) {
       if (this.plan.isExternal || this.plan.isEvent) {
@@ -97,8 +101,6 @@ export default class AssignmentUX {
             this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at }),
           );
         }
-
-
         // due_at is defined if user creates an assignment through the calendar
         if (due_at) {
           this.plan.tasking_plans.forEach(tp => {
@@ -115,16 +117,24 @@ export default class AssignmentUX {
       await this.plan.ensureLoaded();
     }
 
-    observe(this.plan, ({ name, object }) => {
+    observe(this.plan, ({ name, object, newValue }) => {
       // Change the ux dates when the template of the plan is changed
-      if(name === 'grading_template_id' && this.plan.isNew && object && object.tasking_plans)
+      if(name === 'grading_template_id' && this.plan.isNew && object && object.tasking_plans) {
+        // Apply updated grading template settings to tasking plans whenever it changes.
+        //const previousTemplate = this.course.gradingTemplates.get(oldValue);
+        const template = this.course.gradingTemplates.get(newValue);
+        object.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate(template, this.dueAt));
+        // Apply the updated dates based on the grading template to the form
         object.tasking_plans.forEach((t, index) => {
-          if(this.form){
+          if(this.form) {
+            this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
             this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
             // Setting up new close date (base on due date)
             this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+            this.didUserChangeDatesManually = false;
           }
         });
+      }
     });
 
     if (this.canSelectTemplates) {
@@ -421,5 +431,13 @@ export default class AssignmentUX {
 
   @action.bound onHideAddTemplate() {
     this.isShowingAddTemplate = false;
+  }
+
+  @action setDidUserChangeDatesManually(didChange) {
+    this.didUserChangeDatesManually = didChange;
+  }
+
+  @action setDueAt(dueAt) {
+    this.dueAt = dueAt;
   }
 }

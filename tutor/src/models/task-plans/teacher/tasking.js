@@ -34,9 +34,15 @@ class TaskingPlan extends BaseModel {
     return this.course.periods.find(p => p.id == this.target_id);
   }
 
-  opensAtForTemplate(template) {
+  opensAtForTemplate(template, dueAt) {
     const [ hour, minute ] = template.default_open_time.split(':');
-    const defaultOpensAt = moment(Time.now).add(1, 'day').hour(hour).minute(minute).startOf('minute');
+    let defaultOpensAt;
+    if(dueAt) {
+      const dueDateOffsetDays = template.default_due_date_offset_days;
+      defaultOpensAt = moment(dueAt).substract(dueDateOffsetDays, 'days');
+    }
+    else
+      defaultOpensAt = moment(Time.now).add(1, 'day').hour(hour).minute(minute).startOf('minute');
     const { course } = this;
     if (!course) {
       return defaultOpensAt.toISOString();
@@ -44,16 +50,13 @@ class TaskingPlan extends BaseModel {
 
     return moment(
       findLatest(
-        findLatest(
-          course.bounds.start,
-          defaultOpensAt,
-        ),
         course.bounds.start.add(1, 'minute'),
-      ),
+        defaultOpensAt
+      )
     ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
 
-  dueAtForTemplate(template) {
+  dueAtForTemplate(template, dueAt) {
     const dueDateOffsetDays = template.default_due_date_offset_days;
     const [ hour, minute ] = template.default_due_time.split(':');
     const defaultDueAt = moment(this.opens_at).add(dueDateOffsetDays, 'days');
@@ -72,16 +75,39 @@ class TaskingPlan extends BaseModel {
     return moment(this.dueAtForTemplate(template)).add(closeDateOffsetDays, 'days').toISOString();
   }
 
-  @action onGradingTemplateUpdate({ previousTemplate, currentTemplate }) {
-    if (!this.opens_at || !previousTemplate || this.opens_at === this.opensAtForTemplate(previousTemplate) ) {
-      this.opens_at = this.opensAtForTemplate(currentTemplate);
-    }
-    if(!this.due_at || !previousTemplate || this.due_at === this.dueAtForTemplate(previousTemplate)) {
-      this.due_at = this.dueAtForTemplate(currentTemplate);
-    }
-    if(!this.closes_at || !previousTemplate || this.closes_at === this.closesAtForTemplate(previousTemplate)) {
-      this.closes_at = this.closesAtForTemplate(currentTemplate);
-    }
+  @action onGradingTemplateUpdate(template, dueAt) {
+    const { course } = this;
+
+    const dueDateOffsetDays = template.default_due_date_offset_days;
+    const closeDateOffsetDays = template.default_close_date_offset_days;
+    const [ defaultOpenHour, defaultOpenMinute ] = template.default_open_time.split(':');
+    const [ defaultDueHour, defaultDueMinute ] = template.default_due_time.split(':');
+
+    let defaultOpensAt = dueAt
+      ? moment(dueAt).subtract(dueDateOffsetDays, 'days')
+      : this.opens_at
+        ? moment(this.opens_at)
+        : moment(Time.now).add(1, 'days');
+    defaultOpensAt = !course
+      ? defaultOpensAt.toISOString()
+      : findLatest(
+        course.bounds.start.add(1, 'minute'),
+        defaultOpensAt
+      ).hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
+
+    let defaultDueAt = dueAt ? moment(dueAt) : moment(defaultOpensAt).add(dueDateOffsetDays, 'days');
+    defaultDueAt = !course
+      ? defaultDueAt.toISOString()
+      : findEarliest(
+        defaultDueAt,
+        course.bounds.end
+      ).hour(defaultDueHour).minute(defaultDueMinute).startOf('minute').toISOString();
+
+    const defaultClosesAt = moment(defaultDueAt).add(closeDateOffsetDays, 'days').toISOString();
+
+    this.opens_at = defaultOpensAt;
+    this.due_at = defaultDueAt;
+    this.closes_at = defaultClosesAt;
   }
 
   @computed get isPastDue() {
