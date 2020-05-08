@@ -17,7 +17,7 @@ class CourseCreate extends BaseModel {
   @field num_sections = 1;
   @field estimated_student_count;
   @field is_preview = false;
-  @field time_zone = 'Central Time (US & Canada)';
+  @field timezone = 'US/Central';
   @session new_or_copy = 'new';
   @session cloned_from_id = false;
   @field copy_question_library = true;

@@ -67,7 +67,7 @@
     "default_due_time": "12:00",
     "is_archived": false
   }],
-  "time_zone": "Central Time (US & Canada)",
+  "timezone": "US/Central",
   "default_due_time": "00:01",
   "default_open_time": "07:00",
   "starts_at": "2016-07-01T00:00:00.000Z",

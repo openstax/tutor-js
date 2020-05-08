@@ -36,52 +36,52 @@ exports[`CreateCourse: entering name matches snapshot 1`] = `
         className="form-control"
         onChange={[Function]}
         placeholder="select"
-        value="Central Time (US & Canada)"
+        value="US/Central"
       >
         <option
-          value="Hawaii"
+          value="US/Hawaii"
         >
-          Hawaii
+          US/Hawaii
         </option>
         <option
-          value="Alaska"
+          value="US/Alaska"
         >
-          Alaska
+          US/Alaska
         </option>
         <option
-          value="Pacific Time (US & Canada)"
+          value="US/Pacific"
         >
-          Pacific Time (US & Canada)
+          US/Pacific
         </option>
         <option
-          value="Arizona"
+          value="US/Arizona"
         >
-          Arizona
+          US/Arizona
         </option>
         <option
-          value="Mountain Time (US & Canada)"
+          value="US/Mountain"
         >
-          Mountain Time (US & Canada)
+          US/Mountain
         </option>
         <option
-          value="Central Time (US & Canada)"
+          value="US/Central"
         >
-          Central Time (US & Canada)
+          US/Central
         </option>
         <option
-          value="Eastern Time (US & Canada)"
+          value="US/Eastern"
         >
-          Eastern Time (US & Canada)
+          US/Eastern
         </option>
         <option
-          value="Indiana (East)"
+          value="US/East-Indiana"
         >
-          Indiana (East)
+          US/East-Indiana
         </option>
         <option
-          value="Atlantic Time (Canada)"
+          value="Canada/Atlantic"
         >
-          Atlantic Time (Canada)
+          Canada/Atlantic
         </option>
       </select>
     </div>

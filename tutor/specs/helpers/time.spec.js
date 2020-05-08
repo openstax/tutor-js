@@ -3,18 +3,18 @@ import TimeHelper from '../../src/helpers/time';
 import Courses from '../../src/models/courses-map';
 
 const COURSE_ID = 'TEST_COURSE_ID';
-const TEST_TIMEZONE = 'Pacific Time (US & Canada)';
+const TEST_TIMEZONE = 'US/Pacific';
 const TODAY_IN_CURRENT_ZONE = moment().startOf('day').format();
 
 describe('Time Helpers', function() {
 
-  beforeEach(() => Courses.bootstrap([{ id: COURSE_ID, time_zone: TEST_TIMEZONE }], { clear: true }));
+  beforeEach(() => Courses.bootstrap([{ id: COURSE_ID, timezone: TEST_TIMEZONE }], { clear: true }));
 
   afterEach(() => Courses.clear());
 
 
   it('will set the default timezone', function() {
-    const courseTimezone = Courses.get(COURSE_ID).time_zone;
+    const courseTimezone = Courses.get(COURSE_ID).timezone;
 
     TimeHelper.syncCourseTimezone(courseTimezone);
     expect(moment().startOf('day').format()).not.toEqual(TODAY_IN_CURRENT_ZONE);
@@ -27,7 +27,7 @@ describe('Time Helpers', function() {
   });
 
   it('checks if browser is in same timezone as course', function() {
-    const courseTimezone = Courses.get(COURSE_ID).time_zone;
+    const courseTimezone = Courses.get(COURSE_ID).timezone;
     expect(
       TimeHelper.isCourseTimezone(courseTimezone)
     ).toBe(false);

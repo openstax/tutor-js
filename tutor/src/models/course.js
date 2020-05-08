@@ -31,7 +31,7 @@ import Flags from './feature_flags';
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
-  'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
+  'name', 'is_lms_enabled', 'timezone', 'default_open_time', 'default_due_time',
   'homework_score_weight', 'homework_progress_weight',
   'reading_score_weight', 'reading_progress_weight',
 ];
@@ -68,7 +68,7 @@ class Course extends BaseModel {
   @field ends_at;
 
   @field term;
-  @field time_zone;
+  @field timezone;
   @field webview_url;
   @field year;
 
@@ -228,7 +228,7 @@ class Course extends BaseModel {
   }
 
   momentInZone(date) {
-    return moment.tz(date, this.time_zone);
+    return moment.tz(date, this.timezone);
   }
 
   @computed get tourAudienceTags() {
