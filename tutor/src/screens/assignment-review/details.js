@@ -209,11 +209,13 @@ const PlanDates = observer(({ plan, title }) => {
   );
 });
 
-const Details = observer(({ ux, ux: {
-  scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, editUX, taskingPlanDetails,
-} }) => {
-
+const Details = observer(({ ux, ux: { editUX } }) => {
   if (!ux || !editUX) { return <Loading />; }
+  if (ux.isDeleting) { return null; }
+
+  const {
+    scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
+  } = ux;
 
   return (
     <DetailsWrapper>

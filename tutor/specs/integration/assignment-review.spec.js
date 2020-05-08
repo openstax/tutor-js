@@ -44,8 +44,14 @@ context('Assignment Review', () => {
   });
 
   it('can delete assignment', () => {
+    cy.server();
+    cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
+    cy.route('DELETE', '/api/plans/2*').as('deletePlan');
+
+    cy.wait('@getGradingTemplates');
     cy.getTestElement('delete-assignment').click();
     cy.getTestElement('confirm-delete-assignment').click();
+    cy.wait('@deletePlan');
     cy.location('pathname').should('include', '/course/1/t/month');
   });
 

@@ -15,6 +15,7 @@ export default class AssignmentReviewUX {
   @observable isDisplayingDropQuestions = false;
   @observable isDisplayingConfirmDelete = false;
   @observable isDisplayingEditAssignment = false;
+  @observable isDeleting = false;
   @observable editUX;
 
   freeResponseQuestions = observable.map();
@@ -63,11 +64,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get taskingPlan() {
-    return this.taskingPlans.forPeriod(this.selectedPeriod);
-  }
-
-  @computed get taskingPlans() {
-    return this.planScores.taskPlan.tasking_plans;
+    return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
   }
 
   @computed get sortedStudents() {
@@ -133,8 +130,11 @@ export default class AssignmentReviewUX {
   }
 
   @action.bound async onConfirmDelete() {
-    await this.planScores.taskPlan.destroy();
-    this.onCompleteDelete();
+    const { taskPlan } = this.planScores;
+    const date = taskPlan.dateRanges.opens.start.format('YYYY-MM-DD');
+    this.isDeleting = true;
+    await taskPlan.destroy();
+    this.onCompleteDelete(date);
   }
 
   @action.bound onCancelDelete() {
@@ -181,7 +181,8 @@ export default class AssignmentReviewUX {
 
   @computed get taskingPlanDetails() {
     return this.areTaskingDatesSame ?
-      [first(this.taskingPlans)] : sortBy(this.taskingPlans, tp => tp.period.name);
+      [first(this.planScores.taskPlan.tasking_plans)] :
+      sortBy(this.planScores.taskPlan.tasking_plans, tp => tp.period.name);
   }
 
   @computed get stats() {
