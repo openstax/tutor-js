@@ -33,8 +33,10 @@ const moveGreen = keyframes`
 const Green = styled.path`
   ${Bar}
   fill: #77AF42;
-  animation: ${moveGreen} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
   transform-origin: center left;
+  .staxly-animation:not(.paused) & {
+    animation: ${moveGreen} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
+  }
 `;
 
 const moveOrange = keyframes`
@@ -48,8 +50,10 @@ const moveOrange = keyframes`
 const Orange = styled.path`
   ${Bar}
   fill: #F47641;
-  animation: ${moveOrange} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
   transform-origin: center right;
+  .staxly-animation:not(.paused) & {
+    animation: ${moveOrange} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
+  }
 `;
 
 const moveGray = keyframes`
@@ -62,8 +66,10 @@ const moveGray = keyframes`
 const Gray = styled.path`
   ${Bar}
   fill: #5E6062;
-  animation: ${moveGray} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
   transform-origin: center right;
+  .staxly-animation:not(.paused) & {
+    animation: ${moveGray} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
+  }
 `;
 
 const moveYellow = keyframes`
@@ -77,8 +83,10 @@ const moveYellow = keyframes`
 const Yellow = styled.path`
   ${Bar}
   fill: #F4D019;
-  animation: ${moveYellow} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.6s infinite alternate;
   transform-origin: center right;
+  .staxly-animation:not(.paused) & {
+    animation: ${moveYellow} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.6s infinite alternate;
+  }
 `;
 
 const moveBlue = keyframes`
@@ -92,8 +100,10 @@ const moveBlue = keyframes`
 const Blue = styled.path`
   ${Bar}
   fill: #00246A;
-  animation: ${moveBlue} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
   transform-origin: center;
+  .staxly-animation:not(.paused) & {
+    animation: ${moveBlue} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s infinite alternate;
+  }
 `;
 
 export default
