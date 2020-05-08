@@ -215,4 +215,8 @@ export default class AssignmentReviewUX {
     return Boolean(this.planScores.isHomework);
   }
 
+  @computed get canDisplayAssignmentSettings() {
+    return Boolean(['reading', 'homework'].includes(this.planScores.type));
+  }
+
 }

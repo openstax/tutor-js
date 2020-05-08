@@ -96,7 +96,7 @@ const PlanDefinitionList = styled.div`
   dl {
     display: flex;
     align-items: center;
-    max-width: 43.2rem;
+    max-width: 45rem;
 
     > * {
       width: 100%;
@@ -155,7 +155,7 @@ QuestionHeader.propTypes = {
 const Questions = ({ ux, questionsInfo }) => useObserver(() => {
   if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
   return (
-    <Section>
+    <Section data-test-id="questions-block">
       <Header>
         <h6>Questions Assigned</h6>
         <Controls>
@@ -251,12 +251,14 @@ const Details = observer(({ ux, ux: {
                 {planScores.description}
               </Item>
             </Row>
-            <Row>
-              <Title>Assignment settings</Title>
-              <Item>
-                <TemplateInfo template={planScores.grading_template} />
-              </Item>
-            </Row>
+            {ux.canShowAssignmentSettings &&
+              <Row>
+                <Title>Assignment settings</Title>
+                <Item>
+                  <TemplateInfo template={planScores.grading_template} />
+                </Item>
+              </Row>
+            }
             <Row>
               <Title>Assigned to</Title>
               <Item>
@@ -272,7 +274,7 @@ const Details = observer(({ ux, ux: {
           </Table>
         </Section>
         {ux.canDisplayGradingBlock &&
-          <Section>
+          <Section data-test-id="grading-block">
             <Header>
               <h6>Grading</h6>
             </Header>

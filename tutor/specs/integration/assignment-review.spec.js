@@ -75,4 +75,22 @@ context('Assignment Review', () => {
     cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
   });
 
+  it('only renders grading & questions blocks for homework', () => {
+    cy.visit('/course/1/assignment/review/1');
+    cy.getTestElement('grading-block').should('not.exist');
+    cy.getTestElement('questions-block').should('not.exist');
+
+    cy.visit('/course/1/assignment/review/2');
+    cy.getTestElement('grading-block').should('exist');
+    cy.getTestElement('questions-block').should('exist');
+
+    cy.visit('/course/1/assignment/review/3');
+    cy.getTestElement('grading-block').should('not.exist');
+    cy.getTestElement('questions-block').should('not.exist');
+
+    cy.visit('/course/1/assignment/review/4');
+    cy.getTestElement('grading-block').should('not.exist');
+    cy.getTestElement('questions-block').should('not.exist');
+  });
+
 });
