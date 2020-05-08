@@ -1,7 +1,8 @@
 import imagesComplete from '../../src/helpers/images-complete';
 import { JSDOM } from 'jsdom';
 import { deferred } from './index';
-
+import Raven from '../../src/models/app/raven';
+jest.mock('../../src/models/app/raven');
 jest.useFakeTimers();
 
 describe('Images Complete Helper', () => {
@@ -20,11 +21,15 @@ describe('Images Complete Helper', () => {
   });
 
   it('times out when images never resolve', () => {
-    body.innerHTML = '<img id="one" /><img id="two" />';
+    body.innerHTML = '<img src="one" /><img src="two" />';
     const complete = imagesComplete({ body });
     jest.runAllTimers();
-    return complete.catch((images) => {
-      expect(images).toHaveLength(2);
+    return complete.then((images) => {
+      expect(images).toHaveLength(0);
+      expect(Raven.log).toHaveBeenCalledWith('Timed out loading images', {
+        remaining: 2,
+        images: ['one', 'two'],
+      });
     });
   });
 
