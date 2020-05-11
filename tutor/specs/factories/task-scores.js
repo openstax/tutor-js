@@ -66,7 +66,7 @@ Factory.define('TaskPlanPeriodScore')
 Factory.define('TaskPlanScores')
   .id(({ task_plan }) => get(task_plan, 'id', fake.random.number()))
   .type(({ task_plan }) => get(task_plan, 'type', fake.random.arrayElement(['homework', 'reading'])))
-  .title(({ object }) => `${capitalize(object.type)} Chapter ${object.id}`)
+  .title(({ object }) => `${capitalize(object.type)} ${object.id}`)
   .dropped_questions([])
   .grading_template(({ object }) => Factory.create('GradingTemplate', { task_plan_type: object.type }))
   .tasking_plans(({ task_plan, course, exercises }) => {

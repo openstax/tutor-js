@@ -1,7 +1,7 @@
 context('Assignment Grade', () => {
 
   beforeEach(() => {
-    cy.visit('/course/1/assignment/grade/1')
+    cy.visit('/course/1/assignment/grade/2')
     cy.disableTours();
   });
 

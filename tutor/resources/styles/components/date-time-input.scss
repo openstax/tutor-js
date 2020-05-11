@@ -47,7 +47,7 @@
 
   > button {
     min-width: 1.6em;
-    font-size: 14px;
+    font-size: 18px;
 
     &:hover {
       color: rgba(0, 0, 0, 0.65);
@@ -879,6 +879,17 @@ tr > .oxdt-cell-in-view {
   transition: background 0.3s;
   &:not(:first-child) {
     border-left: 1px solid #f0f0f0;
+  }
+  // first-child is the hours column
+  // reverse the order from 12 to 1
+  &:first-child {
+    display: flex;
+    flex-direction: column-reverse;
+
+    // somehow the default order is 12, 1, 2, ... so keep the first item as order 1
+    li:first-child {
+      order: 1;
+    }
   }
 }
 

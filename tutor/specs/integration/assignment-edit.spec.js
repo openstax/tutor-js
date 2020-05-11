@@ -2,6 +2,8 @@ import { range } from 'lodash';
 import moment from 'moment-timezone';
 
 context('Assignment Edit', () => {
+  const format = 'MMM D | hh:mm A';
+
   const fillDetails = () => {
     cy.get('.heading').should('contain.text', 'STEP 1')
     cy.get('.controls .btn-primary').should('be.disabled')
@@ -150,11 +152,11 @@ context('Assignment Edit', () => {
       let updatedDueDate;
       // Due date should change
       cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
-        const dueDate = moment(d[0].defaultValue).toISOString();
+        const dueDate = moment(d[0].defaultValue, format).toISOString();
         updatedDueDate = dueDate;
         // Compute the due date from the open date
         const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
-        const expectedDueDate = moment(openDate)
+        const expectedDueDate = moment(openDate, format)
           .add(parseInt(dueDateOffsetDays, 10), 'days')
           .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
           .toISOString();
@@ -162,7 +164,7 @@ context('Assignment Edit', () => {
       })
       // Closes date should change
       cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-        const closesDate = moment(c[0].defaultValue).toISOString();
+        const closesDate = moment(c[0].defaultValue, format).toISOString();
         // Compute the closes date from the due date
         const expectedDueDate = moment(updatedDueDate)
           .add(parseInt(closesDateOffsetDays, 10), 'days')
