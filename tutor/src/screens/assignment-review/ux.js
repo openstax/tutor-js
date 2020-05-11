@@ -15,6 +15,7 @@ export default class AssignmentReviewUX {
   @observable isDisplayingDropQuestions = false;
   @observable isDisplayingConfirmDelete = false;
   @observable isDisplayingEditAssignment = false;
+  @observable isDeleting = false;
   @observable editUX;
 
   freeResponseQuestions = observable.map();
@@ -36,6 +37,7 @@ export default class AssignmentReviewUX {
     this.onCompleteDelete = onCompleteDelete;
 
     await this.planScores.fetch();
+    await this.planScores.taskPlan.analytics.fetch();
 
     this.editUX = new EditUX();
     this.editUX.initialize({
@@ -62,11 +64,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get taskingPlan() {
-    return this.taskingPlans.forPeriod(this.selectedPeriod);
-  }
-
-  @computed get taskingPlans() {
-    return this.planScores.taskPlan.tasking_plans;
+    return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
   }
 
   @computed get sortedStudents() {
@@ -132,8 +130,11 @@ export default class AssignmentReviewUX {
   }
 
   @action.bound async onConfirmDelete() {
-    await this.planScores.taskPlan.destroy();
-    this.onCompleteDelete();
+    const { taskPlan } = this.planScores;
+    const date = taskPlan.dateRanges.opens.start.format('YYYY-MM-DD');
+    this.isDeleting = true;
+    await taskPlan.destroy();
+    this.onCompleteDelete(date);
   }
 
   @action.bound onCancelDelete() {
@@ -180,7 +181,43 @@ export default class AssignmentReviewUX {
 
   @computed get taskingPlanDetails() {
     return this.areTaskingDatesSame ?
-      [first(this.taskingPlans)] : sortBy(this.taskingPlans, tp => tp.period.name);
+      [first(this.planScores.taskPlan.tasking_plans)] :
+      sortBy(this.planScores.taskPlan.tasking_plans, tp => tp.period.name);
+  }
+
+  @computed get stats() {
+    return this.planScores.taskPlan.analytics.stats;
+  }
+
+  @computed get progressStatsForPeriod() {
+    const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod.id);
+    const { total_count, complete_count, partially_complete_count } = periodStats;
+    const notStartedCount = total_count - (complete_count + partially_complete_count);
+
+    const items = [
+      { label: 'Completed',
+        value: complete_count,
+        percent: (complete_count / total_count),
+      },
+      { label: 'In progress',
+        value: partially_complete_count,
+        percent: (partially_complete_count / total_count),
+      },
+      { label: 'Not started',
+        value: notStartedCount,
+        percent: (notStartedCount / total_count),
+      },
+    ];
+
+    return items;
+  }
+
+  @computed get canDisplayGradingBlock() {
+    return Boolean(this.planScores.isHomework);
+  }
+
+  @computed get canDisplayAssignmentSettings() {
+    return Boolean(['reading', 'homework'].includes(this.planScores.type));
   }
 
 }

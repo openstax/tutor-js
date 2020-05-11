@@ -289,6 +289,10 @@ class TeacherTaskPlan extends BaseModel {
     return compact(this.exerciseIds.map(exId => this.exercisesMap.get(exId)));
   }
 
+  @computed get isEveryExerciseMultiChoice() {
+    return every(this.exercises, 'isMultiChoice');
+  }
+
   @computed get questionsInfo() {
     return flatMap(this.exercises, (exercise, exerciseIndex) => (
       exercise.content.questions.map((question, questionIndex) => new QuestionInfo({

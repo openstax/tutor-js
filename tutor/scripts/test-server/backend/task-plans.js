@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
 const moment = require('moment');
-const { times, merge } = require('lodash');
+const { times, merge, get } = require('lodash');
 const { now } = require('../time-now');
 const fake = require('faker');
 const { getExercise } = require('./exercises');
@@ -21,13 +21,30 @@ let PAST = {
 
 let PLANS = {};
 
+// TODO: Get OpenEndedTutorExercise to work and use them here.
+const SETTINGS = [
+  { id: 1, type: 'reading' },
+  { id: 2, type: 'homework' },
+  { id: 3, type: 'external' },
+  { id: 4, type: 'event' },
+  { id: 5, type: 'homework', exercises: [] },
+  { id: 6, type: 'homework', exercises: [] },
+];
+
 const planForId = (id, attrs = {}) => (
   PLANS[id] || (PLANS[id] = Factory.create('TeacherTaskPlan', Object.assign(attrs, {
     id,
-    type: attrs['type'] || fake.random.arrayElement(['reading', 'homework']),
+    type: findSetting(id, 'type', fake.random.arrayElement(['reading', 'homework'])) ,
   })))
 );
 
+function findSetting(id, setting, defaultValue) {
+  return get(SETTINGS.find(s => s.id == id), setting, defaultValue);
+}
+
+function findOrCreateExercises({ id, count }) {
+  return findSetting(id, 'exercises', times(count).map((id) => getExercise(id)));
+}
 
 module.exports = {
   setRole(role) {
@@ -57,8 +74,8 @@ module.exports = {
 
   getScores(req, res) {
     const course = getCourse(req.query.course_id);
-    const plan = planForId(req.params.id, { course: course, type: 'homework' });
-    const exercises = times(8).map((id) => getExercise(id));
+    const plan = planForId(req.params.id, { course: course });
+    const exercises = plan.type == 'homework' ? times(8).map((id) => getExercise(id)) : [];
     const scores = Factory.create('TaskPlanScores', { task_plan: plan, course, exercises });
     res.json(scores);
   },

@@ -87,7 +87,7 @@ class Exercise extends BaseModel {
 
   @computed get isMultiPart() { return this.questions.length > 1; }
   @computed get isSinglePart() { return this.questions.length == 1; }
-  @computed get isMultiChoice() { return every(this.questions, 'isMultiChoice'); }
+  @computed get isMultiChoice() { return every(this.questions, 'isMultipleChoice'); }
 
 
   @computed get isPublishable() {
