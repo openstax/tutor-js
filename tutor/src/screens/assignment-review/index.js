@@ -72,13 +72,13 @@ class AssignmentReview extends React.Component {
     });
   }
 
-  @action.bound onCompleteDelete() {
+  @action.bound onCompleteDelete(date) {
     const { ux } = this;
     this.props.history.push(
       Router.makePathname('calendarByDate', {
         courseId: ux.course.id,
-        date: ux.planScores.taskPlan.dateRanges.opens.start.format('YYYY-MM-DD'),
-      }),
+        date: date,
+      })
     );
   }
 

@@ -173,32 +173,4 @@ context('Assignment Edit', () => {
       })
     });
   })
-
-  it('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
-    const templateName = 'Template to not update date'
-    const typedDueDate = 'Jun 10 | 05:00 PM'
-    const typedClosesDate = 'Jun 22 | 05:00 PM'
-    cy.visit('/course/2/assignment/edit/homework/new')
-    cy.disableTours()
-    // force update the closes date
-    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true })
-    cy.get('.oxdt-ok button').click()
-    addTemplate({ name: templateName, doSelect: true })
-    // after adding and selecting the template, closes date should not be updated
-    cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-      const closesDate = moment(c[0].defaultValue, format).toISOString();
-      expect(closesDate).eq(moment(typedClosesDate, format).toISOString())
-    })
-    // force update the due date
-    cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true })
-    // After opening the closes date time picker modal, it gets the two OK buttons
-    cy.get('.oxdt-ok button').last().click({ force: true })
-    cy.get('[data-test-id="grading-templates"]').click()
-    cy.get('[data-test-id="Default Homework"]').click()
-    // after selecting the first template, due date should not be updated
-    cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
-      const dueDate = moment(d[0].defaultValue, format).toISOString();
-      expect(dueDate).eq(moment(typedDueDate, format).toISOString())
-    })
-  })
 });
