@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, createAtom, observe, toJS } from 'mobx';
+import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
   first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex,
