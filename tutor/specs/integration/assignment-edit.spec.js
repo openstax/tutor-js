@@ -209,26 +209,25 @@ context('Assignment Edit', () => {
     });
   })
 
-  it('updates date when pivot date is updated', () => {
+  it.only('updates date when pivot date is updated', () => {
     const typedOpenDate = 'Jun 10 05:00 PM'
-    const typedClosesDate = 'Jun 22 05:00 PM'
+    const typedClosesDate = 'Jun 22 05:00 PMM'
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     let currentClosesDate;
     // force update the closes date
-    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true })
-    cy.get('.oxdt-ok button').click()
+    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true }).blur();
+    cy.get('.oxdt-ok button').click({ force: true })
     cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-      currentClosesDate = moment(c[0].defaultValue).toISOString();
+      currentClosesDate = c[0].defaultValue;
     })
     // force update the open date
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true })
     // After opening the closes date time picker modal, it gets the two OK buttons
-    cy.get('.oxdt-ok button').last().click({ force: true })
+    cy.get('.oxdt-ok button').last().click({ force: true })  
     // after changing the open date, no dates should be changed because the interval between open/due/close date has changed
     cy.get('input[name="tasking_plans[0].closes_at"]').then(d => {
-      const dueDate = moment(d[0].defaultValue).toISOString();
-      expect(dueDate).eq(currentClosesDate)
+      expect(d[0].defaultValue).eq(currentClosesDate)
     })
   })
 });
