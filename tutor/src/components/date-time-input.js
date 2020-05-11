@@ -1,7 +1,7 @@
 import { React, styled, PropTypes, useObserver, cn } from 'vendor';
 import { useField } from 'formik';
 import Picker from 'rc-picker';
-import { uniqueId } from 'lodash';
+import { uniqueId, range } from 'lodash';
 import moment from 'moment';
 import locale from 'rc-picker/lib/locale/en_US';
 import generateConfig from 'rc-picker/lib/generate/moment';
@@ -64,6 +64,12 @@ const DateTimeInput = (props) => useObserver(() => {
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
 
+  const onUpdateDate = dt => {
+    const ev = { target: { name: field.name, value: dt } };
+    field.onChange(ev);
+    props.onChange && props.onChange(ev);
+  };
+  
   return (
     <StyledWrapper className={cn('date-time-input', props.className)}>
       <LabelWrapper>
@@ -78,16 +84,23 @@ const DateTimeInput = (props) => useObserver(() => {
           showTime={{
             showSecond: false,
             use12Hours: true,
-            minuteStep: 10,
+            hideDisabledOptions: true,
+            format: props.timeFormat || 'hh:mm A',
+          }}
+          //Reference: https://github.com/react-component/picker/blob/master/src/interface.ts#L84
+          //Showing minutes step of 10, and 1 and 59
+          disabledTime={() => {
+            return {
+              disabledMinutes() {
+                return range(1, 60, 1).filter(f => f % 10 !== 0 && f !== 1 && f !== 59);
+              },
+            };
           }}
           {...field}
           {...props}
           value={field.value ? moment(field.value) : null}
-          onChange={dt => {
-            const ev = { target: { name: field.name, value: dt } };
-            field.onChange(ev);
-            props.onChange && props.onChange(ev);
-          }}
+          onSelect={onUpdateDate}
+          onChange={onUpdateDate}
           prefixCls="oxdt"
           id={id}
           autoFocus={props.autoFocus}

@@ -1,6 +1,7 @@
 import { TimeMock } from '../helpers';
 import DateTimeInput from '../../src/components/date-time-input';
 import { Formik as F } from 'formik';
+import { last } from 'lodash';
 
 describe('DateTimeInput', () => {
   let props;
@@ -23,17 +24,21 @@ describe('DateTimeInput', () => {
     const dt = mount(<F initialValues={{
       dte: new Date(),
     }}><DateTimeInput {...props} /></F>);
-
     dt.find('input').simulate('mouseDown')
     dt.find('td[title="2020-02-15"]').simulate('click')
+    
+    //Note for hour selection:
+    //the order in the browser is different from what jest simulates. There is CSS that reorders the flow of the hour options
+    //Browser: 12, 11, 10, ...., 1
+    //Jest: 12, 1, 2, ...., 11
     dt.find('.oxdt-time-panel-column').at(0).find('.oxdt-time-panel-cell').last().simulate('click')
+    // last cell now is 59
     dt.find('.oxdt-time-panel-column').at(1).find('.oxdt-time-panel-cell').last().simulate('click')
     dt.find('.oxdt-time-panel-column').at(2).find('.oxdt-time-panel-cell').last().simulate('click')
-    expect(dt.find('input').instance().value).toEqual('2020-02-15 23:50:00')
-
+    expect(dt.find('input').instance().value).toEqual('2020-02-15 23:59:00')
     dt.find('.oxdt-ok button').simulate('click')
     expect(props.onChange).toHaveBeenCalled()
-    expect(props.onChange.mock.calls[0][0].target.value.toISOString()).toEqual('2020-02-16T05:50:00.000Z')
+    expect(last(props.onChange.mock.calls)[0].target.value.toISOString()).toEqual('2020-02-16T05:59:00.000Z')
 
     dt.unmount();
   });

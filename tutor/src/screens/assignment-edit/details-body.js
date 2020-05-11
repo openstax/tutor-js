@@ -206,8 +206,7 @@ const DetailsBody = observer(({ ux }) => {
               <ChangeTimezone course={ux.course} />
             </OverlayTrigger>
             <HintText>
-              (To immediately open an assignment, set
-              Open Date to today's date & current time.)
+              (To immediately open an assignment, select ‘Now’ in the calendar.)
             </HintText>
           </HintText>
         </RowLabel>
