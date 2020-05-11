@@ -6,11 +6,9 @@ import { QuestionPreview, QuestionHeader, ExerciseNumber, Question } from '../..
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import LoadingScreen from 'shared/components/loading-animation';
 import Student from './student';
-import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
+import { BackgroundWrapper } from '../../helpers/background-wrapper';
 
 import './styles.scss';
-
-const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
 const Heading = styled.div`
   display: flex;
@@ -56,7 +54,7 @@ class AssignmentGrading extends React.Component {
     }
 
     return (
-      <WhiteBackgroundWrapper>
+      <BackgroundWrapper>
         <ScrollToTop>
           <Heading>
             <CourseBreadcrumb
@@ -86,7 +84,7 @@ class AssignmentGrading extends React.Component {
             </div>
           </QuestionWithAnswer>
         </ScrollToTop>
-      </WhiteBackgroundWrapper>
+      </BackgroundWrapper>
     );
 
   }

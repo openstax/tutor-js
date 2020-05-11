@@ -11,13 +11,11 @@ import Details from './details';
 import Overview from './overview';
 import Scores from './scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
-import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
+import { BackgroundWrapper } from '../../helpers/background-wrapper';
 
 import './styles.scss';
 
 const AvailableTabs = [Details, Overview, Scores];
-
-const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
 const Heading = styled.div`
   display: flex;
@@ -92,7 +90,7 @@ class AssignmentReview extends React.Component {
     const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
-      <WhiteBackgroundWrapper>
+      <BackgroundWrapper>
         <ScrollToTop>
           <Heading>
             <CourseBreadcrumb
@@ -110,7 +108,7 @@ class AssignmentReview extends React.Component {
           />
           <Tab ux={this.ux} />
         </ScrollToTop>
-      </WhiteBackgroundWrapper>
+      </BackgroundWrapper>
     );
   }
 }
