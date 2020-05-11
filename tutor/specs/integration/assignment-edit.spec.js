@@ -174,7 +174,7 @@ context('Assignment Edit', () => {
     });
   })
 
-  it.only('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
+  it('updates due and closes date manually, select a grading a template, but due and closes date is not updated', () => {
     const templateName = 'Template to not update date'
     const typedDueDate = 'Jun 10 | 05:00 PM'
     const typedClosesDate = 'Jun 22 | 05:00 PM'
