@@ -84,11 +84,13 @@ exports[`DateTimeInput matches snapshot 1`] = `
   >
     <div
       className="oxdt c3"
+      onMouseUp={[Function]}
     >
       <div
         className="oxdt-input"
       >
         <input
+          id="dte1"
           name="dte"
           onBlur={[Function]}
           onChange={[Function]}
@@ -97,6 +99,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
           onMouseDown={[Function]}
           readOnly={true}
           size={21}
+          title=""
           value=""
         />
       </div>
