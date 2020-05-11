@@ -1,6 +1,5 @@
 import { React, PropTypes, observer, styled, useObserver } from 'vendor';
 import { Icon } from 'shared';
-import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 import moment from 'moment';
 import Loading from 'shared/components/loading-animation';
@@ -88,10 +87,6 @@ const Item = styled.div`
 
 `;
 
-const StyledHomeworkQuestions = styled(HomeworkQuestions)`
-
-`;
-
 const PlanDefinitionList = styled.div`
   dl {
     display: flex;
@@ -117,17 +112,6 @@ const PlanDefinitionList = styled.div`
   }
 `;
 
-const QuestionHeader = ({ styleVariant, label, info }) => useObserver(() => {
-  return (
-    <>
-      <ExerciseNumber variant={styleVariant}>
-        {label}
-      </ExerciseNumber>
-      <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
-    </>
-  );
-});
-
 const TemplateInfoWrapper = styled.span`
   & .btn.btn-primary {
     border-color: ${colors.link};
@@ -146,6 +130,37 @@ const TemplateInfoWrapper = styled.span`
   }
 `;
 
+const StyledHomeworkQuestions = styled(HomeworkQuestions)`
+  .question-header {
+    border-left: 1rem solid ${colors.templates.homework.border};
+    font-size: 1.6rem;
+  }
+  && .card-body {
+    background: #fff;
+
+    .question-stem {
+      font-size: 1.4rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+    }
+  }
+`;
+
+const StyledExerciseNumber = styled(ExerciseNumber)`
+  font-size: 1.6rem;
+`;
+
+const QuestionHeader = ({ styleVariant, label, info }) => useObserver(() => {
+  return (
+    <>
+      <StyledExerciseNumber variant={styleVariant}>
+        {label}
+      </StyledExerciseNumber>
+      <strong>{S.numberWithOneDecimalPlace(info.points)} Points</strong>
+    </>
+  );
+});
+
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -159,9 +174,13 @@ const Questions = ({ ux, questionsInfo }) => useObserver(() => {
       <Header>
         <h6>Questions Assigned</h6>
         <Controls>
-          <Button variant="icon">
+          <button
+            className="btn btn-standard btn-icon"
+            onClick={ux.onEditAssignedQuestions}
+            data-test-id="edit-assigned-questions"
+          >
             <Icon type="edit" />
-          </Button>
+          </button>
         </Controls>
       </Header>
 

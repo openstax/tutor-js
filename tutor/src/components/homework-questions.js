@@ -147,7 +147,7 @@ const ReviewExerciseCard = observer(({
   styleVariant = 'points',
 }) => (
   <QuestionPreview className="openstax-exercise-preview">
-    <QuestionHeader variant={styleVariant}>
+    <QuestionHeader variant={styleVariant} className="question-header">
       <HeaderContent styleVariant={styleVariant} info={info} label={`Question ${index + 1}`} />
     </QuestionHeader>
     <Body className="card-body" variant={styleVariant}>
