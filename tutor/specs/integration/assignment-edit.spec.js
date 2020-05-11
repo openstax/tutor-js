@@ -209,7 +209,7 @@ context('Assignment Edit', () => {
     });
   })
 
-  it.only('updates date when pivot date is updated', () => {
+  it('updates date when pivot date is updated', () => {
     const typedOpenDate = 'Jun 10 05:00 PM'
     const typedClosesDate = 'Jun 22 05:00 PM'
     cy.visit('/course/2/assignment/edit/homework/new')
