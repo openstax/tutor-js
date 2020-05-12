@@ -15,7 +15,6 @@ class TeacherTaskGrade extends BaseModel {
     this.question = question;
     this.grader_points = points;
     this.grader_comments = comment;
-  // }, task_step_id: question.task_step_id, grader_points: points, grader_comments: comment,
   }
 
   @field grader_points;
