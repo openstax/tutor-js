@@ -91,17 +91,42 @@ class Tasking extends React.Component {
     return this.plan.due_date || end;
   }
 
-  @action.bound onOpensChange({ target: { value: date, name: name } }) {
+  @action.bound onOpensChange({ target: { value: date, name: name } }, index) {
+    const { didUserChangeDatesManually, dueAt, gradingTemplate } = this.props.ux;
     this.taskings.forEach(t => {
       t.setOpensDate(date);
       this.form.setFieldValue(name, t.opens_at);
+
+      if(!didUserChangeDatesManually) {
+        if(!dueAt) {
+          t.onGradingTemplateUpdate(gradingTemplate);
+          this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
+          this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+        }
+        else
+          this.props.ux.setDidUserChangeDatesManually(true);
+      } 
     });
   }
 
-  @action.bound onDueChange({ target: { value: date, name: name } }) {
+  @action.bound onDueChange({ target: { value: date, name: name } }, index) {
+    const { didUserChangeDatesManually, dueAt, gradingTemplate } = this.props.ux;
     this.taskings.forEach(t => {
       t.setDueDate(date);
       this.form.setFieldValue(name, t.due_at);
+
+      if(dueAt)
+        this.props.ux.setDueAt(t.due_at);
+
+      if(!didUserChangeDatesManually) {
+        if(dueAt) {
+          t.onGradingTemplateUpdate(gradingTemplate, t.due_at);
+          this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
+          this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+        }
+        else
+          this.props.ux.setDidUserChangeDatesManually(true);
+      }
     });
   }
 
@@ -109,6 +134,8 @@ class Tasking extends React.Component {
     this.taskings.forEach(t => {
       t.setClosesDate(date);
       this.form.setFieldValue(name, t.closes_at);
+
+      this.props.ux.setDidUserChangeDatesManually(true);
     });
   }
 
@@ -177,7 +204,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Open date & time"
             name={`tasking_plans[${index}].opens_at`}
-            onChange={this.onOpensChange}
+            onChange={(target) => this.onOpensChange(target, index)}
             format={format}
             timeFormat={timeFormat}
             autoFocus={period && plan.tasking_plans.forPeriod(period)}
@@ -188,7 +215,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
-            onChange={this.onDueChange}
+            onChange={(target) => this.onDueChange(target, index)}
             format={format}
             timeFormat={timeFormat}
           />

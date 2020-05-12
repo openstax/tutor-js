@@ -140,7 +140,7 @@ context('Assignment Edit', () => {
     cy.get('[data-test-id="grading-templates"]').should('contain.text', templateName)
   });
 
-  it('can select another template and update dates', () => {
+  it('can select another template and update dates, and change pivot dates to update other dates', () => {
     const templateName = 'Template to update dates'
     const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
     cy.visit('/course/2/assignment/edit/homework/new')
@@ -172,5 +172,64 @@ context('Assignment Edit', () => {
         expect(closesDate).eq(expectedDueDate)
       })
     });
+  })
+
+  it('changes open dates to update other dates', () => {
+    const templateName = 'Template to update dates'
+    const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
+    const typedOpenDate = 'Jun 15 05:00 PM'
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    fillDetails()
+    addTemplate({ name: templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, closesDateOffsetDays, isAM, doSelect: true })
+    cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true })
+    cy.get('.oxdt-ok button').click()
+    cy.get('input[name="tasking_plans[0].opens_at"]').then(o => {
+      const openDate = o[0].defaultValue
+      let updatedDueDate;
+      // Due date should change
+      cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
+        const dueDate = moment(d[0].defaultValue).toISOString();
+        updatedDueDate = dueDate;
+        // Compute the due date from the open date
+        const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
+        const expectedDueDate = moment(openDate)
+          .add(parseInt(dueDateOffsetDays, 10), 'days')
+          .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
+          .toISOString();
+        expect(dueDate).eq(expectedDueDate)
+      })
+      // Closes date should change
+      cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
+        const closesDate = moment(c[0].defaultValue).toISOString();
+        // Compute the closes date from the due date
+        const expectedDueDate = moment(updatedDueDate)
+          .add(parseInt(closesDateOffsetDays, 10), 'days')
+          .toISOString();
+        expect(closesDate).eq(expectedDueDate)
+      })
+    });
+  })
+
+  it.only('updates date when pivot date is updated', () => {
+    const typedOpenDate = 'Jun 10 05:00 PM'
+    const typedClosesDate = 'Jun 22 05:00 PMM'
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    let currentClosesDate;
+    // force update the closes date
+    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true }).blur();
+    cy.get('.oxdt-ok button').click({ force: true })
+    cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
+      currentClosesDate = c[0].defaultValue;
+    })
+    // force update the open date
+    cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true })
+    // After opening the closes date time picker modal, it gets the two OK buttons
+    cy.get('.oxdt-ok button').last().click({ force: true })  
+    // after changing the open date, no dates should be changed because the interval between open/due/close date has changed
+    cy.get('input[name="tasking_plans[0].closes_at"]').then(d => {
+      expect(d[0].defaultValue).eq(currentClosesDate)
+    })
   })
 });
