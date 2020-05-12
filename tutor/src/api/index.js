@@ -39,6 +39,7 @@ import LmsPushScores from '../models/jobs/lms-score-push';
 import TaskResult from '../models/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
+import TeacherTaskGrade from '../models/task-plans/teacher/grade';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
 import TaskPlanScores from '../models/task-plans/teacher/scores';
 import ResponseValidation from '../models/response_validation';
@@ -143,29 +144,18 @@ const startAPI = function() {
 
   connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
 
+  connectModelUpdate(TeacherTaskGrade, 'save', {
+    method: 'PUT', pattern: 'steps/{task_step_id}/grade', onSuccess: 'onGraded',
+  });
   connectModelRead(TeacherTaskPlans, 'fetch', {
-    pattern: 'courses/{course.id}/dashboard',
-    onSuccess: 'onLoaded',
-    params({ startAt, endAt }) {
-      return {
-        start_at: startAt,
-        end_at: endAt,
-      };
-    },
+    pattern: 'courses/{course.id}/dashboard', onSuccess: 'onLoaded',
+    params({ startAt, endAt }) { return { start_at: startAt, end_at: endAt }; },
   });
 
-  connectModelRead(
-    PastTaskPlans,
-    'fetch',
-    {
-      pattern: 'courses/{course.id}/plans',
-      onSuccess: 'onLoaded',
-
-      params: {
-        clone_status: 'unused_source',
-      },
-    },
-  );
+  connectModelRead( PastTaskPlans, 'fetch', {
+    pattern: 'courses/{course.id}/plans', onSuccess: 'onLoaded',
+    params: { clone_status: 'unused_source' },
+  });
 
   connectModelRead(ResponseValidation, 'validate',
     { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',

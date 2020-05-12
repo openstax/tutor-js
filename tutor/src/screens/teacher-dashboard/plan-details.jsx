@@ -119,7 +119,7 @@ class CoursePlanDetails extends React.Component {
       >
         <span>
           <TutorLink
-            className={cn("btn btn-standard btn-primary", { 'disabled': !this.tasking.isPastDue }) }
+            className={cn('btn btn-standard btn-primary', { 'disabled': !this.tasking.isPastDue }) }
             to="gradeAssignment"
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}

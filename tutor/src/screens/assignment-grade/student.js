@@ -46,7 +46,7 @@ const GradingStudent = observer(({ student, ux, question }) => {
       <Panel>
         <Score question={question} ref={scoreRef} />
         <b>Comment:</b>
-        <textarea name="comment" ref={commentsRef} />
+        <textarea name="comment" defaultValue={question.gradedComments} ref={commentsRef} />
         <Button onClick={() => ux.saveScore({
           student, question, points: scoreRef.current.value, comment: commentsRef.current.value,
         })}>Save</Button>
@@ -62,7 +62,7 @@ const ScoreWrapper = styled.div`
 const Score = React.forwardRef(({ question }, ref) => {
   return (
     <ScoreWrapper>
-      <b>Score:</b> <input name="score" ref={ref} defaultValue={question.points} /> out of {question.availablePoints}
+      <b>Score:</b> <input name="score" ref={ref} defaultValue={question.gradedPoints} /> out of {question.availablePoints}
     </ScoreWrapper>
   );
 });
