@@ -8,7 +8,7 @@ import Courses from '../../models/courses-map';
 import {
   find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
   groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
-  filter, sortBy, maxBy, minBy,
+  filter, sortBy, maxBy, minBy, orderBy,
 } from 'lodash';
 import S from '../../helpers/string';
 import { max } from 'moment';
@@ -68,7 +68,6 @@ export default class GradeBookUX {
     this.coursePeriod = first(this.course.periods.active);
     await this.course.scores.fetch();
     this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
-    console.log(this.currentPeriodScores);
     this.isReady = true;
   }
 
@@ -148,11 +147,11 @@ export default class GradeBookUX {
   }
 
   @computed get headings() {
-    return sortBy(this.currentPeriodScores.data_headings, this.columnSorter.headings);
+    return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
   }
 
   studentTasks(student) {
-    return sortBy(student.data, this.columnSorter.tasks);
+    return orderBy(student.data, this.columnSorter.tasks, 'desc');
   }
 
   @action updateProps(props) {

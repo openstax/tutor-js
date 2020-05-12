@@ -256,6 +256,7 @@ const GradebookTable = ({ ux }) => {
         {ux.students.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
             {ux.studentTasks(student).map((task, taskIndex) =>
               <TaskResultCell
                 key={taskIndex}

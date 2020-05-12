@@ -38,7 +38,7 @@ class TaskResult extends BaseModel {
   @computed get period() { return this.student.period; }
 
   @computed get columnIndex() {
-    return findIndex(this.student.data, s => s === this);
+    return findIndex(this.student.data, s => s.id === this.id);
   }
 
   @computed get progress() {
