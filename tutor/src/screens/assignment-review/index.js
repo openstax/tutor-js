@@ -15,7 +15,6 @@ import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
 
 import './styles.scss';
 
-const AvailableTabs = [Details, Overview, Scores];
 
 const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
@@ -87,6 +86,12 @@ class AssignmentReview extends React.Component {
 
     if (!isScoresReady) {
       return <LoadingScreen message="Loading Assignment…" />;
+    }
+
+    const AvailableTabs = [Details];
+    // there are no scores if no students have enrolled
+    if (this.ux.scores) {
+      AvailableTabs.push(Overview, Scores);
     }
 
     const Tab = AvailableTabs[this.tabIndex] || Details;
