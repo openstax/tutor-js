@@ -243,6 +243,8 @@ const StudentCell = ({ student, striped, isLast }) => {
 };
 
 const GradebookTable = ({ ux }) => {
+  const periodAverages = ux.periodAverages;
+  console.log(periodAverages);
   return useObserver(() => (
     <>
       <StyledStickyTable>
@@ -272,14 +274,14 @@ const GradebookTable = ({ ux }) => {
               Class Average
               </Heading>
               <Total>
-                {S.numberWithOneDecimalPlace(0)}
+                {periodAverages.overall_course_average}
               </Total>
               <Average>
                 <SplitCell border>
-              100%
+                  {periodAverages.overall_homework_score}
                 </SplitCell>
                 <SplitCell>
-              100%
+                  {periodAverages.overall_reading_score}
                 </SplitCell>
               </Average></CellContents>
             {/* TODO: Add class averages */}

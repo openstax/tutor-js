@@ -1,5 +1,4 @@
 import { observable, computed, action } from 'mobx';
-import { filter, sortBy } from 'lodash';
 import studentDataSorter from './student-data-sorter';
 //import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
@@ -7,8 +6,9 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  first, clone, reverse,
+  first, clone, reverse, isNil, pick, mapValues, filter, sortBy, some, isEmpty,
 } from 'lodash';
+import S from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -24,7 +24,7 @@ const WINDOW_HEIGHT_PADDING = 260;
 const NOT_AVAILABLE_AVERAGE = 'n/a';
 const PENDING_AVERAGE = '---';
 
-// const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
+const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
 export default class GradeBookUX {
 
@@ -221,16 +221,16 @@ export default class GradeBookUX {
   //   return isEmpty(this.allTasksByType[type]);
   // }
 
-  // isAverageUnavailableByTypeForPeriod(type) {
-  //   return isEmpty(this.periodTasksByType[type]);
-  // }
+  isAverageUnavailableByTypeForPeriod(type) {
+    return isEmpty(this.periodTasksByType[type]);
+  }
 
-  // nullAverageByType(type) {
-  //   if (this.isAverageUnavailableByTypeForPeriod(type)) {
-  //     return NOT_AVAILABLE_AVERAGE;
-  //   }
-  //   return PENDING_AVERAGE;
-  // }
+  nullAverageByType(type) {
+    if (this.isAverageUnavailableByTypeForPeriod(type)) {
+      return NOT_AVAILABLE_AVERAGE;
+    }
+    return PENDING_AVERAGE;
+  }
 
   // // are the weight types that are set affecting assignments of those types
   // @computed get areWeightsInUse() {
@@ -249,29 +249,29 @@ export default class GradeBookUX {
   //   )(this.course);
   // }
 
-  // @computed get nullAverageForCourse() {
-  //   if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
-  //     return NOT_AVAILABLE_AVERAGE;
-  //   }
-  //   return PENDING_AVERAGE;
-  // }
+  @computed get nullAverageForCourse() {
+    if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
+      return NOT_AVAILABLE_AVERAGE;
+    }
+    return PENDING_AVERAGE;
+  }
 
-  // maskAverages(averages) {
-  //   return mapValues(averages, (average, key) => {
-  //     const type = scoreKeyToType(key);
-  //     let nullValue;
+  maskAverages(averages) {
+    return mapValues(averages, (average, key) => {
+      const type = scoreKeyToType(key);
+      let nullValue;
 
-  //     if (isNil(average)){
-  //       if (type === 'course_average') {
-  //         nullValue = this.nullAverageForCourse;
-  //       } else {
-  //         nullValue = this.nullAverageByType(type);
-  //       }
-  //     }
+      if (isNil(average)){
+        if (type === 'course_average') {
+          nullValue = this.nullAverageForCourse;
+        } else {
+          nullValue = this.nullAverageByType(type);
+        }
+      }
 
-  //     return nullValue || `${S.asPercent(average)}%`;
-  //   });
-  // }
+      return nullValue || `${S.asPercent(average)}%`;
+    });
+  }
 
   // @computed get droppedStudents() {
   //   return sortBy(
@@ -313,18 +313,18 @@ export default class GradeBookUX {
   //   return averages;
   // }
 
-  // @computed get periodAverages() {
-  //   const scoreKeys = [
-  //     'overall_course_average',
-  //     'overall_homework_score',
-  //     'overall_homework_progress',
-  //     'overall_reading_score',
-  //     'overall_reading_progress',
-  //   ];
+  @computed get periodAverages() {
+    const scoreKeys = [
+      'overall_course_average',
+      'overall_homework_score',
+      'overall_homework_progress',
+      'overall_reading_score',
+      'overall_reading_progress',
+    ];
 
-  //   const averages = pick(this.period, scoreKeys);
-  //   return this.maskAverages(averages);
-  // }
+    const averages = pick(this.period, scoreKeys);
+    return this.maskAverages(averages);
+  }
 
   // @computed get data() {
   //   return this.course.scores.periods.get(this.period.period_id);
