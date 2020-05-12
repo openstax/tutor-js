@@ -190,8 +190,9 @@ export default class AssignmentReviewUX {
   }
 
   @computed get progressStatsForPeriod() {
+    // period stats will be undefined if no-ones worked the assignment in the period yet
     const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod.id);
-    const { total_count, complete_count, partially_complete_count } = periodStats;
+    const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || { };
     const notStartedCount = total_count - (complete_count + partially_complete_count);
 
     const items = [
