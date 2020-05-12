@@ -227,14 +227,14 @@ const StudentCell = ({ student, striped, isLast }) => {
         </Heading>
 
         <Total>
-          {S.numberWithOneDecimalPlace(student.total_points)}
+          {`${S.asPercent(student.course_average)}%`}
         </Total>
         <Average>
           <SplitCell border>
-              100%
+            {`${S.asPercent(student.homework_score)}%`}
           </SplitCell>
           <SplitCell>
-              100%
+            {`${S.asPercent(student.reading_score)}%`}
           </SplitCell>
         </Average>
       </CellContents>
@@ -244,7 +244,6 @@ const StudentCell = ({ student, striped, isLast }) => {
 
 const GradebookTable = ({ ux }) => {
   const periodAverages = ux.periodAverages;
-  console.log(periodAverages);
   return useObserver(() => (
     <>
       <StyledStickyTable>
@@ -296,14 +295,14 @@ const GradebookTable = ({ ux }) => {
               Maximum Score
               </Heading>
               <Total>
-                {S.numberWithOneDecimalPlace(0)}
+                {ux.maxScore('course_average')}
               </Total>
               <Average>
                 <SplitCell border>
-              100%
+                  {ux.maxScore('homework_score')}
                 </SplitCell>
                 <SplitCell>
-              100%
+                  {ux.maxScore('reading_score')}
                 </SplitCell>
               </Average></CellContents>
             {/* TODO: Add maximum score */}
@@ -318,17 +317,16 @@ const GradebookTable = ({ ux }) => {
               Minimum Score
               </Heading>
               <Total>
-                {S.numberWithOneDecimalPlace(0)}
+                {ux.minScore('course_average')}
               </Total>
               <Average>
                 <SplitCell border>
-              100%
+                  {ux.minScore('homework_score')}
                 </SplitCell>
                 <SplitCell>
-              100%
+                  {ux.minScore('reading_score')}
                 </SplitCell>
               </Average></CellContents>
-            {/* TODO: Add minimum score */}
           </Cell>
           {ux.headings.map((s, i) => (<AggregateResult key={i}/>))}
         </Row>

@@ -6,9 +6,12 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  first, clone, reverse, isNil, pick, mapValues, filter, sortBy, some, isEmpty,
+  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
+  groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
+  filter, sortBy, maxBy, minBy,
 } from 'lodash';
 import S from '../../helpers/string';
+import { max } from 'moment';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -44,6 +47,7 @@ export default class GradeBookUX {
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable coursePeriod;
+  @observable currentPeriodScores;
   @observable props = {}
 
   @UiSettings.decorate('gb.sap') displayScoresAsPercent = false;
@@ -63,7 +67,8 @@ export default class GradeBookUX {
     this.course = course;
     this.coursePeriod = first(this.course.periods.active);
     await this.course.scores.fetch();
-
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
+    console.log(this.currentPeriodScores);
     this.isReady = true;
   }
 
@@ -120,7 +125,7 @@ export default class GradeBookUX {
 
   @computed get students() {
     const students = sortBy(
-      filter(this.period.students, s => !s.is_dropped),
+      filter(this.currentPeriodScores.students, s => !s.is_dropped),
       this.studentRowSorter,
     );
     if (!this.rowSort.asc) {
@@ -137,13 +142,13 @@ export default class GradeBookUX {
 
   @computed get droppedStudents() {
     return sortBy(
-      filter(this.period.students, 'is_dropped'),
+      filter(this.currentPeriodScores.students, 'is_dropped'),
       this.studentRowSorter,
     );
   }
 
   @computed get headings() {
-    return sortBy(this.period.data_headings, this.columnSorter.headings);
+    return sortBy(this.currentPeriodScores.data_headings, this.columnSorter.headings);
   }
 
   studentTasks(student) {
@@ -202,9 +207,9 @@ export default class GradeBookUX {
   //   return this.course.scores.periods.get(periodId);
   // }
 
-  // @computed get periodTasksByType() {
-  //   return groupBy(this.period.data_headings, 'type');
-  // }
+  @computed get periodTasksByType() {
+    return groupBy(this.currentPeriodScores.data_headings, 'type');
+  }
 
   // @computed get allTasksByType() {
   //   return groupBy(
@@ -237,17 +242,17 @@ export default class GradeBookUX {
   //   return !find(this.weightTypes, type => this.isAverageUnavailableByType(type));
   // }
 
-  // // what task types is course score being weighed on?
-  // // e.g. ['homework'] or ['homework', 'reading']
-  // @computed get weightTypes() {
-  //   return flow(
-  //     partial(pick, partial.placeholder, this.weights.WEIGHT_KEYS),
-  //     partial(pickBy, partial.placeholder, (weight) => weight > 0),
-  //     keys,
-  //     partial(map, partial.placeholder, scoreKeyToType),
-  //     uniq,
-  //   )(this.course);
-  // }
+  // what task types is course score being weighed on?
+  // e.g. ['homework'] or ['homework', 'reading']
+  @computed get weightTypes() {
+    return flow(
+      partial(pick, partial.placeholder, this.weights.WEIGHT_KEYS),
+      partial(pickBy, partial.placeholder, (weight) => weight > 0),
+      keys,
+      partial(map, partial.placeholder, scoreKeyToType),
+      uniq,
+    )(this.course);
+  }
 
   @computed get nullAverageForCourse() {
     if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
@@ -272,13 +277,6 @@ export default class GradeBookUX {
       return nullValue || `${S.asPercent(average)}%`;
     });
   }
-
-  // @computed get droppedStudents() {
-  //   return sortBy(
-  //     filter(this.period.students, 'is_dropped'),
-  //     this.studentSorter,
-  //   );
-  // }
 
   // @computed get hasDroppedStudents() {
   //   return Boolean(find(this.period.students, 'is_dropped'));
@@ -317,13 +315,21 @@ export default class GradeBookUX {
     const scoreKeys = [
       'overall_course_average',
       'overall_homework_score',
-      'overall_homework_progress',
       'overall_reading_score',
-      'overall_reading_progress',
     ];
 
-    const averages = pick(this.period, scoreKeys);
+    const averages = pick(this.currentPeriodScores, scoreKeys);
     return this.maskAverages(averages);
+  }
+
+  maxScore(type) {
+    const score = maxBy(this.students, type);
+    return `${S.asPercent(score[type])}%`;
+  }
+
+  minScore(type) {
+    const score = minBy(this.students, type);
+    return `${S.asPercent(score[type])}%`;
   }
 
   // @computed get data() {
