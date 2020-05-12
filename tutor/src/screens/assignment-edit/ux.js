@@ -30,9 +30,8 @@ export default class AssignmentUX {
   @observable activeFilter = 'all';
   @observable templates;
   @observable plan;
-
-  didUserChangeDatesManually = false;
-  dueAt;
+  @observable didUserChangeDatesManually = false;
+  @observable dueAt;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }

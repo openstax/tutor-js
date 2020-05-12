@@ -13,8 +13,8 @@ const StyledMenuContainer = styled.div`
     border-top: 2px solid ${colors.neutral.pale};
   }
   /* Overriding the color from 'tutor-plan-sidebar-type' */
-  & a[data-assignment-type='template'] {
-    color: ${colors.link} !important;
+  && a[data-assignment-type='template'] {
+    color: ${colors.link};
   }
 `;
 
