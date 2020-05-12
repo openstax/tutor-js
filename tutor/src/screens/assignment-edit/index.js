@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
@@ -7,12 +7,18 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
-import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
+import { BackgroundWrapper } from '../../helpers/background-wrapper';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
 
-const WhiteBackgroundWrapper = whiteBackgroundWrapper();
+const StyledBackgroundWrapper = styled(BackgroundWrapper)`
+  > * {
+    max-width: 1200px;
+    min-width: 1100px;
+    margin: 0 auto;
+  }
+`;
 
 @withRouter
 @observer
@@ -63,7 +69,7 @@ class AssignmentBuilder extends React.Component {
     }
 
     return (
-      <WhiteBackgroundWrapper>
+      <StyledBackgroundWrapper>
         <ScrollToTop>
           <TourRegion
             className="assignment-builder"
@@ -80,7 +86,7 @@ class AssignmentBuilder extends React.Component {
             </Formik>
           </TourRegion>
         </ScrollToTop>
-      </WhiteBackgroundWrapper>
+      </StyledBackgroundWrapper>
     );
   }
 }
