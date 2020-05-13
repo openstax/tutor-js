@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
-import { Icon } from 'shared';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
+import { Icon, AsyncButton } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 
@@ -43,13 +43,14 @@ class ScoresExport extends React.Component {
     return (
       <>
         <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
-          <Button
-            disabled={this.scoresExport.isPending}
-            onClick={this.startExport}
+          <AsyncButton
             variant='plain'
-            className={`${this.showPopover ? 'gradebook-btn-selected' : ''}`}>
+            isWaiting={this.scoresExport.isPending}
+            waitingText="Exporting..."
+            onClick={this.startExport}
+            data-test-id="export-gradebook">
             <Icon type="download" />
-          </Button>
+          </AsyncButton>
         </OverlayTrigger>
       </>
     );
