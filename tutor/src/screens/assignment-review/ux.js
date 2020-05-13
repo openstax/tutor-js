@@ -254,4 +254,8 @@ export default class AssignmentReviewUX {
     return Boolean(['reading', 'homework'].includes(this.planScores.type));
   }
 
+  @computed get canDisplaySubmissionAndScoresTabs() {
+    return Boolean(['reading', 'homework'].includes(this.planScores.type));
+  }
+
 }
