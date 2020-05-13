@@ -4,11 +4,6 @@ import { colors, fonts } from 'theme';
 import { ErrorMessage, Field } from 'formik';
 import Controls from './controls';
 
-const FormWrapper = styled.div`
-  max-width: 1200px;
-  min-width: 1100px;
-`;
-
 const Header = styled.div`
   background: ${props => props.templateColors.background};
   border-left: 8px solid ${props => props.templateColors.border};
@@ -85,7 +80,7 @@ const StyledTextInput = styled(Field).attrs({
   color: ${props => props.haserror ? colors.red : colors.black};
   border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
   border-width: ${props => props.haserror ? '2px' : '1px'};
-  
+
   &:focus {
     outline: 0;
     border-color: ${colors.forms.borders.focus};
@@ -119,17 +114,15 @@ TextArea.propTypes = {
 const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => {
   return (
     <ScrollToTop>
-      <FormWrapper>
-        <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
-          <HeaderStep>
-            {ux.steps.headerText}
-          </HeaderStep>
-          {title}
-        </Header>
-        <BodyWrapper>
-          {children}
-        </BodyWrapper>
-      </FormWrapper>
+      <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
+        <HeaderStep>
+          {ux.steps.headerText}
+        </HeaderStep>
+        {title}
+      </Header>
+      <BodyWrapper>
+        {children}
+      </BodyWrapper>
       <Controls ux={ux} middleControls={middleControls} />
     </ScrollToTop>
   );

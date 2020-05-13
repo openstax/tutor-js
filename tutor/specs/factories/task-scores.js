@@ -1,7 +1,7 @@
 const {
   Factory, fake, sequence,
 } = require('./helpers');
-const { capitalize, get, flatMap } = require('lodash');
+const { capitalize, get, flatMap, isNil } = require('lodash');
 require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanPeriodStudent')
@@ -15,16 +15,21 @@ Factory.define('TaskPlanPeriodStudent')
   .total_fraction(1)
   .late_work_point_penalty(0)
   .late_work_fraction_penalty(0)
-  .questions(({ parent: { exercises } }) => flatMap(exercises, (exercise) => (
+  .questions(({ object: { role_id }, parent: { exercises, grades } }) => flatMap(exercises, (exercise) => (
     exercise.content.questions.map((question) => {
       const is_completed = fake.random.arrayElement([true, true, true, true, true, false])
       const is_correct = fake.random.arrayElement([true, true, true, true, true, false])
       const selected_answer = is_correct ? question.answers.find(a => a.correctness > 0) : fake.random.arrayElement(question.answers)
       const points = selected_answer && selected_answer.correctness > 0 ? 1.0 : 0
+      const taskStepId = `${role_id}:${question.id}` // we don't really have steps with the mock data
+      const grade = (grades ? grades[taskStepId] : null) || {  }
       return {
-        task_step_id: 'non-calculated', // TODO figure out how to mock this if we need it
+        task_step_id: taskStepId,
         question_id: question.id,
         exercise_id: exercise.id,
+        grader_comments: grade.grader_comments,
+        grader_points: grade.grader_points,
+        needs_grading: isNil(grade.grader_points),
         is_completed,
         points,
         selected_answer_id: selected_answer && selected_answer.id,

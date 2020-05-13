@@ -97,6 +97,10 @@ export default class GradeBookUX {
     this.rowSort.dataType = dataType;
   }
 
+  sortForColumn(sortKey, dataType) {
+    return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType) ? this.rowSort : false;
+  }
+
   isRowSortedBy({ sortKey, dataType }) {
     return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
   }
@@ -180,9 +184,6 @@ export default class GradeBookUX {
   //   this.sort.dataType = dataType;
   // }
 
-  // isSortedBy({ sortKey, dataType }) {
-  //   return (this.sort.key === sortKey) && (this.sort.dataType === dataType);
-  // }
 
   // @computed get isAveragesExpanded() {
   //   const isAveragesExpanded = UiSettings.get(IS_AVERAGES_EXPANDED_KEY);

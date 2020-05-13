@@ -57,6 +57,7 @@ $task-plan-colors: (
   external: $tutor-tertiary,
   event: $tutor-secondary,
   failure: $tutor-danger,
+  template: $tutor-white,
 );
 
 @function task-plan-color($plan-type) {

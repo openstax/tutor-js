@@ -5,10 +5,10 @@ const { now } = require('../time-now');
 const fake = require('faker');
 const { getExercise } = require('./exercises');
 const { getCourse } = require('./bootstrap');
+const tasksPlansApi = require('./task-plans');
 require('../../../specs/factories/student-tasks');
 
-
-let TASKS = {};
+const TASKS = {};
 
 const WRM_ID = 3;
 
@@ -57,9 +57,15 @@ module.exports = {
     return res.json(step);
   },
 
+  gradeStep(req, res) {
+    tasksPlansApi.setGrade(req.params.id, req.body);
+    return res.json(req.body);
+  },
+
   route(server) {
     server.get('/api/tasks/:id', this.getTask);
     server.get('/api/steps/:id', this.getStep);
     server.patch('/api/steps/:id', this.saveStep);
+    server.put('/api/steps/:id/grade', this.gradeStep);
   },
 };

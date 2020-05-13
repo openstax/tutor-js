@@ -6,12 +6,10 @@ import TourRegion from '../../components/tours/region';
 import LoadingScreen from 'shared/components/loading-animation';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Table from './table';
-import { whiteBackgroundWrapper } from '../../helpers/backgroundWrapper';
+import { BackgroundWrapper } from '../../helpers/background-wrapper';
 
 import './styles.scss';
 import UX from './ux';
-
-const WhiteBackgroundWrapper = whiteBackgroundWrapper();
 
 const titleBreadcrumbs = (course) => {
   return <CourseBreadcrumb course={course} currentTitle="Gradebook" />;
@@ -38,7 +36,7 @@ const GradeBook = ({ ux: propsUX, ...props }) => {
       body = <NoPeriods courseId={ux.course.id} />;
     }
     return (
-      <WhiteBackgroundWrapper>
+      <BackgroundWrapper>
         <CoursePage
           course={ux.course}
           title="Gradebook"
@@ -58,8 +56,8 @@ const GradeBook = ({ ux: propsUX, ...props }) => {
             {body || <Table ux={ux} />}
           </TourRegion>
         </CoursePage>
-      </WhiteBackgroundWrapper>
-      
+      </BackgroundWrapper>
+
     );
   });
 

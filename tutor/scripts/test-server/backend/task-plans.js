@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
 const moment = require('moment');
-const { times, merge, get } = require('lodash');
+const { times, merge, get, isNil } = require('lodash');
 const { now } = require('../time-now');
 const fake = require('faker');
 const { getExercise } = require('./exercises');
@@ -20,6 +20,8 @@ let PAST = {
 };
 
 let PLANS = {};
+const SCORES = {};
+const GRADES = {};
 
 // TODO: Get OpenEndedTutorExercise to work and use them here.
 const SETTINGS = [
@@ -37,6 +39,28 @@ const planForId = (id, attrs = {}) => (
     type: findSetting(id, 'type', fake.random.arrayElement(['reading', 'homework'])) ,
   })))
 );
+const scoresForId = (courseId, planId) => {
+  let scores = SCORES[planId];
+  if (!scores) {
+    const course = getCourse(courseId);
+    const plan = planForId(planId, { course: course });
+    const exercises = plan.type == 'homework' ? times(8).map((id) => getExercise(id)) : [];
+    SCORES[planId] = scores = Factory.create('TaskPlanScores', { task_plan: plan, grades: {}, course, exercises });
+  } else {
+    scores.tasking_plans.forEach(tp => {
+      tp.students.forEach(s => {
+        s.questions.forEach(q => {
+          const grade = GRADES[q.task_step_id];
+          if (grade) {
+            Object.assign(q, grade);
+            q.needs_grading = isNil(grade.grader_points);
+          }
+        });
+      });
+    });
+  }
+  return scores;
+};
 
 function findSetting(id, setting, defaultValue) {
   return get(SETTINGS.find(s => s.id == id), setting, defaultValue);
@@ -49,6 +73,10 @@ function findOrCreateExercises({ id, count }) {
 module.exports = {
   setRole(role) {
     ROLE = role;
+  },
+
+  setGrade(taskId, grades) {
+    GRADES[taskId] = grades;
   },
 
   getPast(req, res) {
@@ -73,11 +101,13 @@ module.exports = {
   },
 
   getScores(req, res) {
-    const course = getCourse(req.query.course_id);
-    const plan = planForId(req.params.id, { course: course });
-    const exercises = plan.type == 'homework' ? times(8).map((id) => getExercise(id)) : [];
-    const scores = Factory.create('TaskPlanScores', { task_plan: plan, course, exercises });
+    const scores = scoresForId(req.query.course_id, req.params.id);
     res.json(scores);
+  },
+
+  publishScores(req, res) {
+    const tasking = Factory.create('TeacherTaskPlanTasking');
+    res.json(tasking);
   },
 
   update(req, res) {
@@ -101,5 +131,6 @@ module.exports = {
     server.get('/api/plans/:id/stats', this.getStats);
     server.get('/api/plans/:id/review', this.getStats);
     server.post('/api/courses/:courseId/plans', this.update);
+    server.put('/api/tasking_plans/:id/grade', this.publishScores);
   },
 };

@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sumBy, find } from 'lodash';
+import { filter, sumBy, find, isNil } from 'lodash';
 import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
@@ -13,8 +13,19 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field points = 0;
   @field selected_answer_id;
   @field free_response;
+  @field task_step_id;
+  @field grader_points;
+  @field grader_comments;
 
   @belongsTo({ model: 'task-plan/scores/student' }) student;
+
+  @computed get gradedPoints() {
+    return isNil(this.grader_points) ? this.points : this.grader_points;
+  }
+
+  @computed get gradedComments() {
+    return isNil(this.grader_comments) ? this.comments : this.grader_comments;
+  }
 
   @computed get index() {
     return this.student && this.student.questions.indexOf(this);

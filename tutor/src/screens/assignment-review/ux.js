@@ -1,11 +1,12 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy } from 'lodash';
+import { first, pick, sortBy, filter } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import Exercises from '../../models/exercises';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
+import rowDataSorter from './scores-data-sorter';
 
 export default class AssignmentReviewUX {
 
@@ -17,6 +18,8 @@ export default class AssignmentReviewUX {
   @observable isDisplayingEditAssignment = false;
   @observable isDeleting = false;
   @observable editUX;
+  @observable rowSort = { key: 0, asc: true, dataType: 'name' };
+  @observable searchingMatcher = null;
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
@@ -27,14 +30,16 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete, history,
+    id, scores, course, onCompleteDelete, onEditAssignedQuestions, history,
     windowImpl = window,
   }) {
+    this.id = id;
     this.scroller = new ScrollTo({ windowImpl });
     this.planScores = scores || new TaskPlanScores({ id, course });
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;
+    this.onEditAssignedQuestions = onEditAssignedQuestions;
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.analytics.fetch();
@@ -68,8 +73,28 @@ export default class AssignmentReviewUX {
   }
 
   @computed get sortedStudents() {
-    return this.scores.students; // TODO: sort this ;)
+    const students = rowDataSorter(this.scores.students, this.rowSort);
+    if (!this.searchingMatcher) {
+      return students;
+    }
+    return filter(students, s => s.name.match(this.searchingMatcher));
+
   }
+
+  @action.bound changeRowSortingOrder(key, dataType) {
+    this.rowSort.asc = this.rowSort.key === key ? (!this.rowSort.asc) : false;
+    this.rowSort.key = key;
+    this.rowSort.dataType = dataType;
+  }
+  
+  isRowSortedBy({ sortKey, dataType }) {
+    return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
+  }
+
+  sortForColumn(sortKey, dataType) {
+    return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType) ? this.rowSort : false;
+  }
+
 
   isShowingFreeResponseForQuestion(question) {
     return Boolean(this.freeResponseQuestions.get(question.id));
@@ -79,8 +104,8 @@ export default class AssignmentReviewUX {
     this.freeResponseQuestions.set(question.id, !this.isShowingFreeResponseForQuestion(question));
   }
 
-  @action.bound onSearchStudentChange() {
-
+  @action.bound onSearchStudentChange({ target: { value } }) {
+    this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
   // methods relating to granting extensions
@@ -161,6 +186,14 @@ export default class AssignmentReviewUX {
     return <DetailsBody ux={this.editUX} />;
   }
 
+  @action.bound async onPublishScores() {
+    await this.taskingPlan.publishScores();
+  }
+
+  @computed get isPublishingScores() {
+    return this.taskingPlan && this.taskingPlan.api.isPending;
+  }
+
   @computed get submitPending() {
     return Boolean(
       this.editUX.plan.api.isPending
@@ -190,8 +223,9 @@ export default class AssignmentReviewUX {
   }
 
   @computed get progressStatsForPeriod() {
+    // period stats will be undefined if no-ones worked the assignment in the period yet
     const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod.id);
-    const { total_count, complete_count, partially_complete_count } = periodStats;
+    const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || { };
     const notStartedCount = total_count - (complete_count + partially_complete_count);
 
     const items = [

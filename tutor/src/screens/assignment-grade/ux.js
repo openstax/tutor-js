@@ -4,6 +4,7 @@ import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import Exercises from '../../models/exercises';
+import Grade from '../../models/task-plans/teacher/grade';
 
 export default class AssignmentGradingUX {
 
@@ -74,7 +75,9 @@ export default class AssignmentGradingUX {
     return Boolean(this.gradedAnswers.get(`${question.id}-${student.role_id}`));
   }
 
-  @action saveScore({ student, question, points, comment }) {
+  @action async saveScore({ student, question, points, comment }) {
+    const grade = new Grade({ question, points, comment });
+    await grade.save();
     this.gradedAnswers.set(`${question.question_id}-${student.role_id}`, {
       points, comment, question, student,
     });
