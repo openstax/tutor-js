@@ -33,8 +33,7 @@ const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
   'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
-  'homework_score_weight', 'homework_progress_weight',
-  'reading_score_weight', 'reading_progress_weight',
+  'homework_weight', 'reading_weight',
 ];
 
 export default
@@ -77,6 +76,8 @@ class Course extends BaseModel {
   @field homework_progress_weight;
   @field reading_score_weight;
   @field reading_progress_weight;
+  @field reading_weight;
+  @field homework_weight;
   @field just_created = false;
 
   @lazyGetter lms = new LMS({ course: this });

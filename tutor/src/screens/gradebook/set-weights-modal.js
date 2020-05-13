@@ -58,14 +58,18 @@ const StyledModal = styled(Modal)`
 }
 `;
 
+const onChangeInput = (uxWeights, ev) => {
+  uxWeights.setWeight(ev.target.value, ev.target.name);
+};
+
 const SetWeightsModal = ({ ux }) => {
   
-  const { weights } = ux;
+  const { weights: uxWeights } = ux;
 
   return useObserver(() =>
     <StyledModal
-      show={weights.showWeightsModal}
-      onHide={() => weights.hideWeights()}
+      show={uxWeights.showWeightsModal}
+      onHide={() => uxWeights.hideWeights()}
     >
       <Modal.Header closeButton>
           Set weights
@@ -74,16 +78,10 @@ const SetWeightsModal = ({ ux }) => {
         <p>Default Course average =</p>
         <p>50% of Homework average + 50% of Reading average</p>
         <Formik
-          initialValues={{ homework: 50, reading: 50 }}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
-          }}
+          initialValues={{ ux_homework_weight: uxWeights.ux_homework_weight, ux_reading_weight: uxWeights.ux_reading_weight }}
         >
           {
-            form => {
+            () => {
               return (
                 <form>
                   <div className="form-input">
@@ -92,9 +90,9 @@ const SetWeightsModal = ({ ux }) => {
                       <label>Homework Average</label>
                       <div>
                         <NumberInput
-                          name="homework"
+                          name="ux_homework_weight"
                           min={0} max={100}
-                          onChange={(ev) => form.setFieldValue('homework', ev.target.value)}
+                          onChange={(ev) => onChangeInput(uxWeights, ev)}
                         />
                         <label>%</label>
                       </div>
@@ -103,38 +101,38 @@ const SetWeightsModal = ({ ux }) => {
                       <label>Reading Average</label>
                       <div>
                         <NumberInput
-                          name="reading"
+                          name="ux_reading_weight"
                           min={0} max={100}
-                          onChange={(ev) => form.setFieldValue('reading', ev.target.value)}
+                          onChange={(ev) => onChangeInput(uxWeights, ev)}
                         />
                         <label>%</label>
                       </div>
                     </div>
                     <hr />
                     <div className="flex-box total-weight">
-                      <label>Total course average:</label><label>100%</label> 
+                      <label>Total course average:</label><label>{uxWeights.total}%</label> 
                     </div>   
                   </div>
                   <div className="flex-box form-button">  
                     <Button
-                      onClick={weights.setDefaults}
+                      onClick={uxWeights.setDefaults}
                       variant='link'
                     >Set default
                     </Button>
                     <div>
                       <Button
                         variant="default"
-                        disabled={weights.isBusy}
-                        onClick={() => weights.hideWeights()}
+                        disabled={uxWeights.isBusy}
+                        onClick={() => uxWeights.hideWeights()}
                         size="lg"
                       >
                         Cancel
                       </Button>
                       <AsyncButton
-                        isWaiting={weights.isBusy}
-                        waitingText={weights.savingButtonText}
-                        onClick={weights.onSaveWeights}
-                        disabled={!weights.isSaveable}
+                        isWaiting={uxWeights.isBusy}
+                        waitingText="Recalculating scores…"
+                        onClick={uxWeights.onSaveWeights}
+                        disabled={!uxWeights.isSaveable}
                         variant="primary"
                         size="lg"
                       >

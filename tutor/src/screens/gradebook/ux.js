@@ -6,12 +6,11 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
-  groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
+  find, first, clone, reverse, pick, pickBy, mapValues,
+  groupBy, flow, map, partial, uniq, some, keys, isEmpty, isNil,
   filter, sortBy, maxBy, minBy, orderBy,
 } from 'lodash';
 import S from '../../helpers/string';
-import { max } from 'moment';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -47,7 +46,6 @@ export default class GradeBookUX {
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable coursePeriod;
-  @observable currentPeriodScores;
   @observable props = {}
 
   @UiSettings.decorate('gb.sap') displayScoresAsPercent = false;
@@ -67,7 +65,6 @@ export default class GradeBookUX {
     this.course = course;
     this.coursePeriod = first(this.course.periods.active);
     await this.course.scores.fetch();
-    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
     this.isReady = true;
   }
 
@@ -124,6 +121,10 @@ export default class GradeBookUX {
 
   @computed get period() {
     return this.scores.periods.get(this.coursePeriod.id);
+  }
+
+  @computed get currentPeriodScores() {
+    return find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
   }
 
   @computed get students() {

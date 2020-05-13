@@ -247,9 +247,9 @@ const StudentCell = ({ student, striped, isLast }) => {
   ));
 };
 
-const GradebookTable = ({ ux }) => {
+const GradebookTable = observer(({ ux }) => {
   const periodAverages = ux.periodAverages;
-  return useObserver(() => (
+  return (
     <>
       <StyledStickyTable>
         {/* Headings */}
@@ -337,10 +337,9 @@ const GradebookTable = ({ ux }) => {
       </StyledStickyTable>
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
-
     </>
-  ));
-};
+  );
+});
 GradebookTable.propTypes = {
   ux: PropTypes.object.isRequired,
 };
