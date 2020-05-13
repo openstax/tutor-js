@@ -66,6 +66,7 @@ class AssignmentReview extends React.Component {
       history: props.history,
       course,
       onCompleteDelete: this.onCompleteDelete,
+      onEditAssignedQuestions: this.onEditAssignedQuestions,
     });
   }
 
@@ -75,6 +76,18 @@ class AssignmentReview extends React.Component {
       Router.makePathname('calendarByDate', {
         courseId: ux.course.id,
         date: date,
+      })
+    );
+  }
+
+  @action.bound onEditAssignedQuestions() {
+    const { courseId, id } = this.props.params;
+    this.props.history.push(
+      Router.makePathname('editAssignment', {
+        courseId: courseId,
+        type: 'homework',
+        id: id,
+        step: 'points',
       })
     );
   }

@@ -7,11 +7,13 @@ import Time from '../../time';
 import {
   findEarliest, findLatest, dateWithUnchangedTime,
 } from '../../../helpers/dates';
+import Toasts from '../../toasts';
 
 export default
 @identifiedBy('tasking-plan')
 class TaskingPlan extends BaseModel {
 
+  @field id;
   @field target_id;
   @field target_type;
   @session({ type: 'object' }) plan;
@@ -67,6 +69,11 @@ class TaskingPlan extends BaseModel {
     this.opens_at = defaultOpensAt;
     this.due_at = defaultDueAt;
     this.closes_at = defaultClosesAt;
+  }
+
+  @action publishScores() {}
+  @action onPublishScoresComplete() {
+    Toasts.push({ handler: 'scoresPublished' });
   }
 
   @computed get isPastDue() {

@@ -30,14 +30,16 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete, history,
+    id, scores, course, onCompleteDelete, onEditAssignedQuestions, history,
     windowImpl = window,
   }) {
+    this.id = id;
     this.scroller = new ScrollTo({ windowImpl });
     this.planScores = scores || new TaskPlanScores({ id, course });
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;
+    this.onEditAssignedQuestions = onEditAssignedQuestions;
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.analytics.fetch();
@@ -182,6 +184,14 @@ export default class AssignmentReviewUX {
   @action.bound renderDetails(form) {
     this.editUX.form = form;
     return <DetailsBody ux={this.editUX} />;
+  }
+
+  @action.bound async onPublishScores() {
+    await this.taskingPlan.publishScores();
+  }
+
+  @computed get isPublishingScores() {
+    return this.taskingPlan && this.taskingPlan.api.isPending;
   }
 
   @computed get submitPending() {

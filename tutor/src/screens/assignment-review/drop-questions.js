@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
 import { ToolbarButton } from 'primitives';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import OXQuestionPreview from '../../components/question-preview';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
@@ -218,12 +218,17 @@ const DropQuestion = observer(({ ux }) => {
 
   return (
     <>
-      <ToolbarButton
-        data-test-id="drop-questions-btn"
-        onClick={() => ux.isDisplayingDropQuestions=true}
+      <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
       >
-        Drop questions
-      </ToolbarButton>
+        <ToolbarButton
+          data-test-id="drop-questions-btn"
+          onClick={() => ux.isDisplayingDropQuestions=true}
+        >
+          Drop questions
+        </ToolbarButton>
+      </OverlayTrigger>
       <DropQuestionsModal
         show={ux.isDisplayingDropQuestions}
         data-test-id="drop-questions-modal"
