@@ -1,4 +1,5 @@
 import { React, styled, useObserver } from 'vendor';
+import { observer } from 'mobx-react';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
@@ -23,13 +24,13 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
   );
 });
 
-const Progress = ({ task }) => useObserver(() => {
-  const progress = isNil(task.correct_exercise_count) ? '---' : task.humanScoreNumber;
-  return <div className="correct-progress">{progress}</div>;
+const Points = ({ task }) => useObserver(() => {
+  const points = isNil(task.correct_exercise_count) ? '0' : task.correct_exercise_count;
+  return <div className="correct-points">{S.numberWithOneDecimalPlace(points)}</div>;
 });
 
 const Percent = ({ task: { score } }) => useObserver(() => {
-  const display = isNil(score) ? '---' : `${S.asPercent(score)}%`;
+  const display = isNil(score) ? '0%' : `${S.asPercent(score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
@@ -37,11 +38,11 @@ const Unstarted = styled.div`
   color: ${colors.neutral.lite};
 `;
 
-const TaskResult = ({ ux, task, striped, isLast }) => {
+const TaskResult = observer(({ ux, task, striped, isLast }) => {
   return useObserver(() => {
     let contents = null;
     if (task.isStarted || task.isDue) {
-      const Display = ux.displayScoresAsPercent ? Percent : Progress;
+      const Display = ux.displayScoresAsPercent ? Percent : Points;
 
       const value = <Display task={task} />;
 
@@ -53,6 +54,6 @@ const TaskResult = ({ ux, task, striped, isLast }) => {
 
     return <Cell striped={striped} drawBorderBottom={isLast}>{contents}</Cell>;
   });
-};
+});
 
 export default TaskResult;

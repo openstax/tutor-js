@@ -7,6 +7,7 @@ import { colors } from 'theme';
 import S from '../../helpers/string';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
+import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
 import { getCell } from './styles';
 import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
@@ -284,9 +285,8 @@ const GradebookTable = ({ ux }) => {
                   {periodAverages.overall_reading_score}
                 </SplitCell>
               </Average></CellContents>
-            {/* TODO: Add class averages */}
           </Cell>
-          {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
+          {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
         </Row>
         {/* Maximum score */}
         <Row>
@@ -306,9 +306,8 @@ const GradebookTable = ({ ux }) => {
                   {ux.maxScore('reading_score')}
                 </SplitCell>
               </Average></CellContents>
-            {/* TODO: Add maximum score */}
           </Cell>
-          {ux.headings.map((s, i) => (<AggregateResult key={i} drawBorderBottom/>))}
+          {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
         </Row>
         {/* Minimum score */}
         <Row>
@@ -329,7 +328,7 @@ const GradebookTable = ({ ux }) => {
                 </SplitCell>
               </Average></CellContents>
           </Cell>
-          {ux.headings.map((s, i) => (<AggregateResult key={i}/>))}
+          {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
         </Row>
       </StyledStickyTable>
       <AverageInfoModal ux={ux} />
