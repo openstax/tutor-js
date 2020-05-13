@@ -21,45 +21,63 @@ const StyledModal = styled(Modal)`
         font-size: 1.5rem;
         line-height: 20px;
         color: ${colors.neutral.darker};
-        form {
-            margin-top: 20px;
-            & .form-input {
-                width: 50%;
-                & p {
-                    font-weight: bold;
-                }
-                & .rc-input-number-input-wrap {
-                    width: 40px;
-                }
-                & .reading-input {
-                    margin-top: 10px;
-                }
-                & .homework-input, .reading-input {
-                    & label:last-child {
-                        padding-left: 10px;
-                    }
-                }
-                & .total-weight label:last-child {
-                    margin-right: 30px;
-                }
-            }
-            & .form-button {
-                margin-top: 30px;
-                & .btn-link {
-                    padding: 0;
-                }
-            }
+        & form {
+          margin-top: 20px;
+          & .form-input {
+              width: 50%;
+              & p {
+                  font-weight: bold;
+              }
+              & .rc-input-number-input-wrap {
+                  width: 40px;
+              }
+              & .reading-input {
+                  margin-top: 10px;
+              }
+              & .homework-input, .reading-input {
+                  & label:last-child {
+                      padding-left: 10px;
+                  }
+              }
+              & .total-weight label:last-child {
+                  margin-right: 30px;
+              }
+          }
+          & .form-button {
+              margin-top: 30px;
+              & .btn-link {
+                  padding: 0;
+              }
+          }
         }
         & .flex-box {
-                display: flex;
-                justify-content: space-between;
-            }
+            display: flex;
+            justify-content: space-between;
+        }
+
+        & .percentage-error {
+          color: ${colors.danger};
+        }
     }
 }
 `;
 
+const enforceNumberInput = (ev) => {
+  if (ev.key.length === 1 && /\D/.test(ev.key)) {
+    ev.preventDefault();
+  }
+};
+
 const onChangeInput = (uxWeights, ev) => {
   uxWeights.setWeight(ev.target.value, ev.target.name);
+};
+
+const setDefaults = (uxWeights, form) => {
+  const defaults = uxWeights.getDefaults();
+  uxWeights.ux_reading_weight = defaults.ux_reading_weight;
+  uxWeights.ux_homework_weight = defaults.ux_homework_weight;
+  form.setFieldValue('ux_reading_weight', defaults.ux_reading_weight);
+  form.setFieldValue('ux_homework_weight', defaults.ux_homework_weight);
 };
 
 const SetWeightsModal = ({ ux }) => {
@@ -81,7 +99,7 @@ const SetWeightsModal = ({ ux }) => {
           initialValues={{ ux_homework_weight: uxWeights.ux_homework_weight, ux_reading_weight: uxWeights.ux_reading_weight }}
         >
           {
-            () => {
+            form => {
               return (
                 <form>
                   <div className="form-input">
@@ -93,6 +111,7 @@ const SetWeightsModal = ({ ux }) => {
                           name="ux_homework_weight"
                           min={0} max={100}
                           onChange={(ev) => onChangeInput(uxWeights, ev)}
+                          onKeyDown={enforceNumberInput}
                         />
                         <label>%</label>
                       </div>
@@ -104,18 +123,19 @@ const SetWeightsModal = ({ ux }) => {
                           name="ux_reading_weight"
                           min={0} max={100}
                           onChange={(ev) => onChangeInput(uxWeights, ev)}
+                          onKeyDown={enforceNumberInput}
                         />
                         <label>%</label>
                       </div>
                     </div>
                     <hr />
                     <div className="flex-box total-weight">
-                      <label>Total course average:</label><label>{uxWeights.total}%</label> 
+                      <label>Total course average:</label><label className={uxWeights.total !== 100 ? 'percentage-error' : ''}>{uxWeights.total}%</label> 
                     </div>   
                   </div>
                   <div className="flex-box form-button">  
                     <Button
-                      onClick={uxWeights.setDefaults}
+                      onClick={() => setDefaults(uxWeights, form)}
                       variant='link'
                     >Set default
                     </Button>

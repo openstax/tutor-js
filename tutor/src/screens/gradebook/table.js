@@ -142,8 +142,8 @@ const StyledButton = styled(Button)`
   && { padding: 0; }
 `;
 
-const StudentColumnHeader = ({ ux }) => {
-  return useObserver(() => (
+const StudentColumnHeader = observer(({ ux }) => {
+  return (
     <Cell>
       <CellContents>
         <ColumnHeading first={true}>
@@ -186,17 +186,17 @@ const StudentColumnHeader = ({ ux }) => {
           </HeadingMiddle>
           <HeadingBottom>
             <SplitCell border>
-              100%
+              {`${ux.weights.ux_homework_weight}%`}
             </SplitCell>
             <SplitCell>
-              100%
+              {`${ux.weights.ux_reading_weight}%`}
             </SplitCell>
           </HeadingBottom>
         </ColumnHeading>
       </CellContents>
     </Cell>
-  ));
-};
+  );
+});
 
 
 const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
@@ -220,8 +220,8 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   );
 });
 
-const StudentCell = ({ student, striped, isLast }) => {
-  return useObserver(() => (
+const StudentCell = observer(({ student, striped, isLast }) => {
+  return (
     <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
 
@@ -244,8 +244,8 @@ const StudentCell = ({ student, striped, isLast }) => {
         </Average>
       </CellContents>
     </Cell>
-  ));
-};
+  );
+});
 
 const GradebookTable = observer(({ ux }) => {
   const periodAverages = ux.periodAverages;

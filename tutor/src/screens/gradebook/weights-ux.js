@@ -1,8 +1,8 @@
 import { observable, computed, action } from 'mobx';
 
 const DEFAULTS = {
-  reading_weight: 50,
-  homework_weight: 50,
+  ux_reading_weight: 50,
+  ux_homework_weight: 50,
 };
 
 const MAX = 100;
@@ -74,8 +74,8 @@ export default class ScoresReportWeightsUX {
     return this.isValid && !this.isBusy && this.hasChanged;
   }
 
-  @action.bound setDefaults() {
-    Object.assign(this, DEFAULTS);
+  getDefaults() {
+    return DEFAULTS;
   }
 
   /**
