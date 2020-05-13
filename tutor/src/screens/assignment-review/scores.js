@@ -332,15 +332,20 @@ const TableHeader = observer(({ ux }) => {
         <DropQuestions ux={ux} />
       </ControlGroup>
       <ControlGroup>
-        <AsyncButton
-          variant="primary"
-          isWaiting={ux.isPublishingScores}
-          waitingText="Publishing…"
-          onClick={ux.onPublishScores}
-          data-test-id="publish-scores"
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>Publish to make scores available to students</Tooltip>}
         >
-          Publish scores
-        </AsyncButton>
+          <AsyncButton
+            variant="primary"
+            isWaiting={ux.isPublishingScores}
+            waitingText="Publishing…"
+            onClick={ux.onPublishScores}
+            data-test-id="publish-scores"
+          >
+            Publish scores
+          </AsyncButton>
+        </OverlayTrigger>
       </ControlGroup>
     </ControlsWrapper>
   );
