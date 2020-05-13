@@ -140,7 +140,7 @@ class CoursePlanDetails extends React.Component {
         <TutorLink
           disabled={!plan.isPublished}
           className="btn btn-standard"
-          to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
+          to={'reviewAssignment'}
           params={this.linkParams}
         >
           View assignment
