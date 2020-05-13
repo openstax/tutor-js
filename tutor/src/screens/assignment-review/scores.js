@@ -5,6 +5,7 @@ import { ToolbarButton } from 'primitives';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
@@ -23,6 +24,7 @@ const Cell = styled(TableCell)`
   padding: 0;
   border-bottom: 0;
   border-left: 1px solid ${colors.neutral.pale};
+  cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
   &:last-child {
     border-right: 1px solid ${colors.neutral.pale};
   }
@@ -89,6 +91,7 @@ const ColumnHeading = styled.div`
   ${headingCSS}
   background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
   border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.homework.border : colors.neutral.std};
+  cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
   &:not(:last-child) {
     border-right: 1px solid ${colors.neutral.pale};
   }
@@ -200,13 +203,13 @@ const StyledTriangle = styled.div`
   `}
 `;
 
-const StudentColumnHeader = observer(() => (
-
+const StudentColumnHeader = observer(({ ux }) => (
   <Cell leftBorder={true}>
     <CellContents>
-      <ColumnHeading first={true}>
+      <ColumnHeading first={true} onClick={() => ux.changeRowSortingOrder(0, 'name')}>
         <HeadingTop>
           Student Name
+          <SortIcon sort={ux.sortForColumn(0, 'name')} />
         </HeadingTop>
         <HeadingMiddle>
           Lastname, Firstname <Icon type="exchange-alt" />
@@ -215,9 +218,10 @@ const StudentColumnHeader = observer(() => (
           Available Points
         </HeadingBottom>
       </ColumnHeading>
-      <ColumnHeading>
+      <ColumnHeading onClick={() => ux.changeRowSortingOrder(0, 'total')}>
         <HeadingTop>
-          Total <Icon type="sort" />
+          Total
+          <SortIcon sort={ux.sortForColumn(0, 'total')} />
         </HeadingTop>
         <HeadingMiddle>
           <SplitCell>
@@ -269,11 +273,12 @@ const StudentCell = observer(({ student, striped }) => (
 ));
 
 
-const AssignmentHeading = observer(({ heading }) => (
-  <Cell>
+const AssignmentHeading = observer(({ ux, heading }) => (
+  <Cell onClick={() => ux.changeRowSortingOrder(heading.index, 'question')}>
     <ColumnHeading variant="q">
       <HeadingTop>
         {heading.title}
+        <SortIcon sort={ux.sortForColumn(heading.index, 'question')} />
       </HeadingTop>
       <HeadingMiddle>
         {heading.type}
@@ -351,8 +356,8 @@ const Scores = observer(({ ux }) => {
       <TableHeader ux={ux} />
       <StyledStickyTable data-test-id="scores">
         <Row>
-          <StudentColumnHeader scores={scores} />
-          {scores.question_headings.map((h, i) => <AssignmentHeading key={i} heading={h} />)}
+          <StudentColumnHeader scores={scores} ux={ux} />
+          {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>

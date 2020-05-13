@@ -1,10 +1,11 @@
-import { React, PropTypes, styled, useObserver, css } from 'vendor';
+import { React, PropTypes, styled, useObserver, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import SortIcon from '../../components/icons/sort';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import { getCell } from './styles';
@@ -20,6 +21,7 @@ const StyledStickyTable = styled(StickyTable)`
 `;
 
 const Cell = getCell('0');
+
 
 const centeredCSS = css`
   display: flex;
@@ -57,7 +59,7 @@ const HeadingTop = styled.div`
   padding-top: 1.2rem;
   align-self: stretch;
   font-weight: bold;
-  
+
   & .info-circle-icon-button {
     color: ${colors.bright_blue};
     display: block;
@@ -195,13 +197,15 @@ const StudentColumnHeader = ({ ux }) => {
   ));
 };
 
-const AssignmentHeading = ({ ux, heading, sortKey }) => {
+
+const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
-  return useObserver(() => (
+  return (
     <Cell onClick={onClick}>
       <ColumnHeading variant={heading.type}>
         <HeadingTop>
-          {heading.title} <Icon type="sort" />
+          {heading.title}
+          <SortIcon sort={ux.sortForColumn(sortKey, 'score')} />
         </HeadingTop>
         <HeadingMiddle>
           {moment(heading.due_at).format('MMM D')}
@@ -212,8 +216,8 @@ const AssignmentHeading = ({ ux, heading, sortKey }) => {
         </HeadingBottom>
       </ColumnHeading>
     </Cell>
-  ));
-};
+  );
+});
 
 const StudentCell = ({ student, striped, isLast }) => {
   return useObserver(() => (
