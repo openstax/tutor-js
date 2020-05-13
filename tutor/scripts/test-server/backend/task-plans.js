@@ -105,6 +105,11 @@ module.exports = {
     res.json(scores);
   },
 
+  publishScores(req, res) {
+    const tasking = Factory.create('TeacherTaskPlanTasking');
+    res.json(tasking);
+  },
+
   update(req, res) {
     const plan = req.params.id ? planForId(req.params.id) : Factory.create('TeacherTaskPlan', req.body);
     merge(plan, req.body);
@@ -126,5 +131,6 @@ module.exports = {
     server.get('/api/plans/:id/stats', this.getStats);
     server.get('/api/plans/:id/review', this.getStats);
     server.post('/api/courses/:courseId/plans', this.update);
+    server.put('/api/tasking_plans/:id/grade', this.publishScores);
   },
 };

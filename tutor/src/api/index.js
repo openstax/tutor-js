@@ -40,6 +40,7 @@ import TaskResult from '../models/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import TeacherTaskGrade from '../models/task-plans/teacher/grade';
+import TaskingPlan from '../models/task-plans/teacher/tasking';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
 import TaskPlanScores from '../models/task-plans/teacher/scores';
 import ResponseValidation from '../models/response_validation';
@@ -248,6 +249,8 @@ const startAPI = function() {
   });
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
   connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+
+  connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
 
   connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
 

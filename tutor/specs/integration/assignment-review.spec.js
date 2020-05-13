@@ -18,6 +18,18 @@ context('Assignment Review', () => {
     cy.getTestElement('scores').should('exist');
   });
 
+  it('can publish scores', () => {
+    cy.server();
+    cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
+    cy.route('PUT', '/api/tasking_plans/*/grade*').as('publishScores');
+    cy.wait('@getGradingTemplates');
+
+    cy.getTestElement('assignment-scores-tab').click();
+    cy.getTestElement('publish-scores').click();
+    // cy.wait('@publishScores');
+    cy.getTestElement('published-scores-toast').should('exist');
+  });
+
   it('can drop questions', () => {
     cy.getTestElement('assignment-scores-tab').click()
     cy.getTestElement('drop-questions-btn').click()

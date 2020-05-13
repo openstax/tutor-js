@@ -163,6 +163,14 @@ export default class AssignmentReviewUX {
     return <DetailsBody ux={this.editUX} />;
   }
 
+  @action.bound async onPublishScores() {
+    await this.taskingPlan.publishScores();
+  }
+
+  @computed get isPublishingScores() {
+    return this.taskingPlan && this.taskingPlan.api.isPending;
+  }
+
   @computed get submitPending() {
     return Boolean(
       this.editUX.plan.api.isPending

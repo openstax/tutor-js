@@ -4,6 +4,7 @@ import { Store, setHandlers } from 'shared/model/toasts';
 import * as lms from '../components/toasts/lms';
 import * as scores from '../components/toasts/scores';
 import Reload from '../components/toasts/reload';
+import ScoresPublished from '../components/toasts/scores-published';
 
 const JobToasts = { lms, scores };
 
@@ -14,6 +15,9 @@ setHandlers({
   },
   reload() {
     return Reload;
+  },
+  scoresPublished() {
+    return ScoresPublished;
   },
 });
 

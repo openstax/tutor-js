@@ -1,8 +1,7 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { ToolbarButton } from 'primitives';
-import { Icon } from 'shared';
+import { Icon, AsyncButton } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import SearchInput from '../../components/search-input';
@@ -324,7 +323,7 @@ const ControlGroup = styled.div`
   }
 `;
 
-const TableHeader = ({ ux }) => {
+const TableHeader = observer(({ ux }) => {
   return (
     <ControlsWrapper>
       <ControlGroup>
@@ -333,12 +332,19 @@ const TableHeader = ({ ux }) => {
         <DropQuestions ux={ux} />
       </ControlGroup>
       <ControlGroup>
-        <ToolbarButton variant="icon"><Icon type="download" /></ToolbarButton>
-        <ToolbarButton variant="primary">Publish scores</ToolbarButton>
+        <AsyncButton
+          variant="primary"
+          isWaiting={ux.isPublishingScores}
+          waitingText="Publishing…"
+          onClick={ux.onPublishScores}
+          data-test-id="publish-scores"
+        >
+          Publish scores
+        </AsyncButton>
       </ControlGroup>
     </ControlsWrapper>
   );
-};
+});
 TableHeader.propTypes = {
   ux: PropTypes.object.isRequired,
 };
