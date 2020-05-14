@@ -1,6 +1,6 @@
 import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
-import { minBy, maxBy } from 'lodash';
+import { minBy, maxBy, filter } from 'lodash';
 import { getCell } from './styles';
 import S from '../../helpers/string';
 
@@ -11,8 +11,7 @@ export const TYPE = {
   MAX: 'max',
 };
 
-const getMinOrMaxResultPoints = (data, type) => {
-  const { tasks } = data;
+const getMinOrMaxResultPoints = (tasks, type) => {
   switch(type) {
     case TYPE.MIN:
       return minBy(tasks, 'correct_exercise_count').correct_exercise_count;
@@ -23,8 +22,7 @@ const getMinOrMaxResultPoints = (data, type) => {
   }
 };
 
-const getMinOrMaxResultAverage = (data, type) => {
-  const { tasks } = data;
+const getMinOrMaxResultAverage = (tasks, type) => {
   switch(type) {
     case TYPE.MIN:
       return minBy(tasks, 'score').score;
@@ -36,9 +34,12 @@ const getMinOrMaxResultAverage = (data, type) => {
 };
 
 const MinMaxResult = observer(({ data, ux, type, drawBorderBottom }) => {
+  const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>
-      {ux.displayScoresAsPercent ? `${S.asPercent(getMinOrMaxResultAverage(data, type))}%` : `${S.numberWithOneDecimalPlace(getMinOrMaxResultPoints(data, type))}`}
+      {ux.displayScoresAsPercent
+        ? `${S.asPercent(getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type))}%`
+        : `${S.numberWithOneDecimalPlace(getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type))}`}
     </Cell>
   );
 });

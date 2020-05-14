@@ -261,7 +261,6 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
 });
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
-  console.log(student);
   return (
     <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
