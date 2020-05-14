@@ -104,7 +104,9 @@ export default class GradeBookUX {
   }
 
   @computed get headings() {
-    return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
+    return this.currentPeriodScores
+      ? orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc')
+      : [];
   }
 
   studentTasks(student) {
@@ -117,6 +119,8 @@ export default class GradeBookUX {
   }
 
   @computed get students() {
+    if(!this.currentPeriodScores) return [];
+    
     const students = sortBy(
       filter(this.currentPeriodScores.students, s => !s.is_dropped),
       this.studentRowSorter,
