@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
-import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
@@ -43,7 +43,7 @@ const CellContents = styled.div`
   ${centeredCSS}
   > * { width: 80px; }
   > *:first-child {
-    width: 22rem;
+    width: 23rem;
   }
   > *:last-child {
     width: 15rem;
@@ -161,6 +161,20 @@ const Total = styled.div`
   ${centeredCSS}
 `;
 
+const FirstRowCell = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  padding-left: 15px;
+`;
+
+const DroppedNote = styled.div`
+  font-size: 1.5rem;
+  font-style: italic;
+  font-family: serif;
+`;
+
 const StudentColumnHeader = observer(({ ux }) => {
   return (
     <Cell>
@@ -170,7 +184,7 @@ const StudentColumnHeader = observer(({ ux }) => {
           <HeadingTop
             onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}>
             Student Name
-            <SortIcon sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
+            <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
           <HeadingMiddle>
             {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname, Lastname'}
@@ -239,10 +253,10 @@ const StudentColumnHeader = observer(({ ux }) => {
   );
 });
 
-
 const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
   return (
+    // Overlay has a lot of problems when showing at the top. Putting at the bottom for now
     <OverlayTrigger
       placement="bottom"
       trigger="hover"
@@ -275,18 +289,20 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
     <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
-        <Heading first={true}>    
-          {
-            !student.is_dropped
-              ? <TutorLink
-                to="viewPerformanceGuide"
-                className="name-cell"
-                params={{ roleId: student.role, courseId: ux.course.id }}
-              >
-                {ux.displayStudentName(student)}
-              </TutorLink>   
-              : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></> 
-          }
+        <Heading first={true}>
+          <FirstRowCell>
+            {
+              !student.is_dropped
+                ? <TutorLink
+                  to="viewPerformanceGuide"
+                  className="name-cell"
+                  params={{ roleId: student.role, courseId: ux.course.id }}
+                >
+                  {ux.displayStudentName(student)}
+                </TutorLink>   
+                : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></> 
+            }
+          </FirstRowCell>    
         </Heading>
         <Total>
           {`${S.asPercent(student.course_average)}%`}
@@ -328,70 +344,74 @@ const GradebookTable = observer(({ ux }) => {
                 isLast={sIndex === ux.students.length - 1} 
               />)}
           </Row>))}
-        {/* Class Average */}
-        <Row>
-          <Cell striped drawBorderBottom>
-            <CellContents>
-              <Heading first={true}>
-              Class Average
-              </Heading>
-              <Total>
-                {periodAverages.overall_course_average}
-              </Total>
-              <Average>
-                <SplitCell border>
-                  {periodAverages.overall_homework_score}
-                </SplitCell>
-                <SplitCell>
-                  {periodAverages.overall_reading_score}
-                </SplitCell>
-              </Average></CellContents>
-          </Cell>
-          {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
-        </Row>
-        {/* Maximum score */}
-        <Row>
-          <Cell striped drawBorderBottom>
-            <CellContents>
-              <Heading first={true}>
-              Maximum Score
-              </Heading>
-              <Total>
-                {ux.maxScore('course_average')}
-              </Total>
-              <Average>
-                <SplitCell border>
-                  {ux.maxScore('homework_score')}
-                </SplitCell>
-                <SplitCell>
-                  {ux.maxScore('reading_score')}
-                </SplitCell>
-              </Average></CellContents>
-          </Cell>
-          {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
-        </Row>
-        {/* Minimum score */}
-        <Row>
-          <Cell striped>
-            <CellContents>
-              <Heading first={true}>
-              Minimum Score
-              </Heading>
-              <Total>
-                {ux.minScore('course_average')}
-              </Total>
-              <Average>
-                <SplitCell border>
-                  {ux.minScore('homework_score')}
-                </SplitCell>
-                <SplitCell>
-                  {ux.minScore('reading_score')}
-                </SplitCell>
-              </Average></CellContents>
-          </Cell>
-          {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
-        </Row>
+        {/* Do not show aggregates when instructor is searching for a student */}
+        {
+          !ux.searchingMatcher &&
+          <>
+            <Row>
+              <Cell striped drawBorderBottom>
+                <CellContents>
+                  <Heading first={true}>
+                    <FirstRowCell>Class Average</FirstRowCell>
+                  </Heading>
+                  <Total>
+                    {periodAverages.overall_course_average}
+                  </Total>
+                  <Average>
+                    <SplitCell border>
+                      {periodAverages.overall_homework_score}
+                    </SplitCell>
+                    <SplitCell>
+                      {periodAverages.overall_reading_score}
+                    </SplitCell>
+                  </Average></CellContents>
+              </Cell>
+              {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
+            </Row>
+            <Row>
+              <Cell striped drawBorderBottom>
+                <CellContents>
+                  <Heading first={true}>
+                    <FirstRowCell>Minimum Score</FirstRowCell>
+                  </Heading>
+                  <Total>
+                    {ux.maxScore('course_average')}
+                  </Total>
+                  <Average>
+                    <SplitCell border>
+                      {ux.maxScore('homework_score')}
+                    </SplitCell>
+                    <SplitCell>
+                      {ux.maxScore('reading_score')}
+                    </SplitCell>
+                  </Average></CellContents>
+              </Cell>
+              {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
+            </Row>
+            <Row>
+              <Cell striped>
+                <CellContents>
+                  <Heading first={true}>
+                    <FirstRowCell>Maximum Score</FirstRowCell>
+                  </Heading>
+                  <Total>
+                    {ux.minScore('course_average')}
+                  </Total>
+                  <Average>
+                    <SplitCell border>
+                      {ux.minScore('homework_score')}
+                    </SplitCell>
+                    <SplitCell>
+                      {ux.minScore('reading_score')}
+                    </SplitCell>
+                  </Average></CellContents>
+              </Cell>
+              {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
+            </Row>
+          </>
+        }
       </StyledStickyTable>
+      {ux.hasDroppedStudents && <DroppedNote>* Dropped students' scores are not included in the overall course averages</DroppedNote>}
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
     </>
