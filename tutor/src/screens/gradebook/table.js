@@ -64,6 +64,7 @@ const HeadingTop = styled.div`
   padding-top: 1.2rem;
   align-self: stretch;
   font-weight: bold;
+  letter-spacing: 0.1rem;
   ${props => props.onClick && css`
     cursor: pointer;
   `}
@@ -92,11 +93,11 @@ const HeadingMiddle = styled.div`
 
   & .set-weight-span {
     cursor: pointer;
-    color: ${colors.bright_blue};
+    color: ${colors.link};
   }
 
   & .invert-name-icon-button {
-    color: ${colors.bright_blue};
+    color: ${colors.link};
     font-size: 14px;
     display: inline-flex;
   }
@@ -232,7 +233,7 @@ const StudentColumnHeader = observer(({ ux }) => {
               border
               onClick={() => ux.changeRowSortingOrder('homework_score', 'score')}
             >
-              homework
+              Homework
               <SortIcon
                 sort={ux.sortForColumn('homework_score', 'score')}
               />
@@ -240,7 +241,7 @@ const StudentColumnHeader = observer(({ ux }) => {
             <SplitCell
               onClick={() => ux.changeRowSortingOrder('reading_score', 'score')}
             >
-              reading
+              Reading
               <SortIcon
                 sort={ux.sortForColumn('reading_score', 'score')}
               />
@@ -328,7 +329,6 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
 });
 
 const GradebookTable = observer(({ ux }) => {
-  const periodAverages = ux.periodAverages;
   return (
     <>
       <StyledStickyTable>
@@ -362,14 +362,14 @@ const GradebookTable = observer(({ ux }) => {
                     <FirstRowCell>Class Average</FirstRowCell>
                   </Heading>
                   <Total>
-                    {periodAverages.overall_course_average}
+                    {ux.periodAverages.overall_course_average}
                   </Total>
                   <Average>
                     <SplitCell border>
-                      {periodAverages.overall_homework_score}
+                      {ux.periodAverages.overall_homework_score}
                     </SplitCell>
                     <SplitCell>
-                      {periodAverages.overall_reading_score}
+                      {ux.periodAverages.overall_reading_score}
                     </SplitCell>
                   </Average></CellContents>
               </Cell>

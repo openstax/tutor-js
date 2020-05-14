@@ -23,7 +23,7 @@ export default class GradeBookUX {
   @observable isNameInverted = true;
   @observable showAverageInfoModal = false;
   @observable isReady = false;
-  @observable coursePeriod;
+  @observable currentPeriodScores;
   @observable props = {}
 
   @observable sortIndex;
@@ -47,13 +47,13 @@ export default class GradeBookUX {
     course = Courses.get(courseId),
   }) {
     this.course = course;
-    this.coursePeriod = first(this.course.periods.active);
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
     await this.course.scores.fetch();
     this.isReady = true;
   }
 
   @action.bound onSelectPeriod(period) {
-    this.coursePeriod = period;
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === period.id);
   }
 
   @computed get pageTitle() {
@@ -103,6 +103,10 @@ export default class GradeBookUX {
     return sorter.date;
   }
 
+  // @computed get currentPeriodScores() {
+  //   return find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
+  // }
+
   @computed get headings() {
     return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
   }
@@ -114,10 +118,6 @@ export default class GradeBookUX {
 
   @computed get period() {
     return this.scores.periods.get(this.coursePeriod.id);
-  }
-
-  @computed get currentPeriodScores() {
-    return find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
   }
 
   @computed get students() {
