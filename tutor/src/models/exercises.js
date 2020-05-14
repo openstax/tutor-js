@@ -51,13 +51,12 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, course, page_ids, exercise_ids, limit = 'homework_core' }) {
+  fetch({ book, course, page_ids, exercise_ids, limit = 'homework_core', query = {} }) {
     if (course && !book) {
       book = course.referenceBook;
     }
     let url = `ecosystems/${book.id}/exercises`;
     if (limit) { url += `/${limit}`; }
-    const query = {};
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
       query.page_ids = toJS(page_ids);
@@ -86,10 +85,12 @@ export class ExercisesMap extends Map {
     return false;
   }
 
-  ensureExercisesLoaded({ book, course, exercise_ids, limit }) {
+  ensureExercisesLoaded({ book, course, exercise_ids, limit, ...query }) {
     const unFetchedExerciseIds = filter(exercise_ids, exId => !this.get(exId));
     if (!isEmpty(unFetchedExerciseIds)) {
-      return this.fetch({ book, course, exercise_ids: unFetchedExerciseIds, limit });
+      return this.fetch({
+        book, course, exercise_ids: unFetchedExerciseIds, limit, query,
+      });
     }
     return Promise.resolve(this);
   }

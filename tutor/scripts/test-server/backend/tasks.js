@@ -30,6 +30,7 @@ const getTaskStep = (taskId, stepId) => {
 
 
 module.exports = {
+  WRM_ID,
 
   setRole() { }, // no effect
 

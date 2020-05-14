@@ -36,7 +36,9 @@ export default class AssignmentGradingUX {
     this.planScores = scores || new TaskPlanScores({ id, course: this.course });
     await this.planScores.fetch();
 
-    await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
+    await Exercises.ensureExercisesLoaded({
+      course: this.course, exercise_ids: this.planScores.exerciseIds, task_plan_id: this.planScores.id,
+    });
 
     this.setHeading(this.headings[0]);
 
@@ -78,7 +80,6 @@ export default class AssignmentGradingUX {
   }
 
   setHeading(heading) {
-    //this.markQuestionViewed(index);
     this.selectedHeading = heading;
   }
 
