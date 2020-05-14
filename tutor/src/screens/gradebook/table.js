@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
@@ -41,8 +41,11 @@ const paddingCSS = css`
 const CellContents = styled.div`
   ${centeredCSS}
   > * { width: 80px; }
-  > *:first-child, > *:last-child {
+  > *:first-child {
     width: 20rem;
+  }
+  > *:last-child {
+    width: 15rem;
   }
 `;
 
@@ -60,11 +63,21 @@ const HeadingTop = styled.div`
   padding-top: 1.2rem;
   align-self: stretch;
   font-weight: bold;
+  ${props => props.onClick && css`
+    cursor: pointer;
+  `}
 
   & .info-circle-icon-button {
     color: ${colors.bright_blue};
     display: block;
     margin-bottom: -2px;
+  }
+
+  & .heading-title {
+    white-space: nowrap;
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -83,7 +96,7 @@ const HeadingMiddle = styled.div`
 
   & .invert-name-icon-button {
     color: ${colors.bright_blue};
-    font-size: 9px;
+    font-size: 14px;
     display: inline-flex;
   }
 `;
@@ -118,9 +131,6 @@ const ColumnHeading = styled.div`
     ${props => !props.first && css`
       ${centeredCSS}
     `}
-    ${props => props.sortable && css`
-      cursor: pointer;
-    `}
   }
   border-bottom: 1rem solid ${colors.neutral.pale};
 `;
@@ -131,7 +141,7 @@ const SplitCell = styled.div`
   ${props => props.border && css`
     border-right: 2px solid ${colors.neutral.pale};
   `}
-  ${props => props.sortable && css`
+  ${props => props.onClick && css`
       cursor: pointer;
     `}
 `;
@@ -159,11 +169,9 @@ const StudentColumnHeader = observer(({ ux }) => {
     <Cell>
       <CellContents>
         <ColumnHeading
-          first={true}
-          sortable={true}
-          onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
-        >
-          <HeadingTop>
+          first={true}>
+          <HeadingTop
+            onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}>
             Student Name
             <SortIcon sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
@@ -178,11 +186,9 @@ const StudentColumnHeader = observer(({ ux }) => {
             Available Points
           </HeadingBottom>
         </ColumnHeading>
-        <ColumnHeading
-          sortable={true}
-          onClick={() => ux.changeRowSortingOrder('course_average', 'score')}
-        >
-          <HeadingTop>
+        <ColumnHeading>
+          <HeadingTop
+            onClick={() => ux.changeRowSortingOrder('course_average', 'score')}>
             Total
             <SortIcon
               sort={ux.sortForColumn('course_average', 'score')}
@@ -206,7 +212,6 @@ const StudentColumnHeader = observer(({ ux }) => {
           <HeadingMiddle>
             <SplitCell
               border
-              sortable={true}
               onClick={() => ux.changeRowSortingOrder('homework_score', 'score')}
             >
               homework
@@ -215,7 +220,6 @@ const StudentColumnHeader = observer(({ ux }) => {
               />
             </SplitCell>
             <SplitCell
-              sortable={true}
               onClick={() => ux.changeRowSortingOrder('reading_score', 'score')}
             >
               reading
@@ -242,21 +246,31 @@ const StudentColumnHeader = observer(({ ux }) => {
 const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
   return (
-    <Cell onClick={onClick}>
-      <ColumnHeading variant={heading.type}>
-        <HeadingTop>
-          {heading.title}
-          <SortIcon sort={ux.sortForColumn(sortKey, 'score')} />
-        </HeadingTop>
-        <HeadingMiddle>
-          {moment(heading.due_at).format('MMM D')}
-        </HeadingMiddle>
-        <HeadingBottom>
-          {false && <CornerTriangle color="blue" tooltip="Dropped" />}
-          {S.numberWithOneDecimalPlace(heading.points)}
-        </HeadingBottom>
-      </ColumnHeading>
-    </Cell>
+    <OverlayTrigger
+      placement="bottom"
+      trigger="hover"
+      overlay={
+        <Popover className="gradebook-popover">
+          <p>{heading.title}</p>
+        </Popover>}
+    >
+      <Cell>
+        <ColumnHeading variant={heading.type}>
+          <HeadingTop onClick={onClick}>     
+            <div className="heading-title">{heading.title}</div>
+            <SortIcon sort={ux.sortForColumn(sortKey, 'score')} />
+          </HeadingTop>
+          <HeadingMiddle>
+            {moment(heading.due_at).format('MMM D')}
+          </HeadingMiddle>
+          <HeadingBottom>
+            {false && <CornerTriangle color="blue" tooltip="Dropped" />}
+            {S.numberWithOneDecimalPlace(heading.points)}
+          </HeadingBottom>
+        </ColumnHeading>
+      </Cell>
+    </OverlayTrigger>
+   
   );
 });
 

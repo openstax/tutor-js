@@ -6,7 +6,7 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  find, first, clone, reverse, pick, pickBy, mapValues,
+  find, first, pick, pickBy, mapValues,
   groupBy, flow, map, partial, uniq, some, keys, isEmpty, isNil,
   filter, sortBy, maxBy, minBy, orderBy,
 } from 'lodash';
@@ -289,35 +289,6 @@ export default class GradeBookUX {
   //   return Boolean(find(this.period.students, 'is_dropped'));
   // }
 
-  // @computed get students() {
-  //   const students = sortBy(
-  //     filter(this.period.students, s => !s.is_dropped),
-  //     this.studentSorter,
-  //   );
-  //   if (!this.sort.asc) {
-  //     students.reverse();
-  //   }
-  //   students.push(...this.droppedStudents);
-  //   return students;
-  // }
-
-  // @computed get studentsAverages() {
-  //   const scoreKeys = [
-  //     'course_average',
-  //     'homework_score',
-  //     'homework_progress',
-  //     'reading_score',
-  //     'reading_progress',
-  //   ];
-  //   const averages = {};
-  //   this.students.forEach((student) => {
-  //     averages[student.role] = this.maskAverages(
-  //       pick(student, scoreKeys)
-  //     );
-  //   });
-  //   return averages;
-  // }
-
   @computed get periodAverages() {
     const scoreKeys = [
       'overall_course_average',
@@ -338,10 +309,6 @@ export default class GradeBookUX {
     const score = minBy(this.students, type);
     return `${S.asPercent(score[type])}%`;
   }
-
-  // @computed get data() {
-  //   return this.course.scores.periods.get(this.period.period_id);
-  // }
 
   // @action.bound toggleAverageExpansion() {
   //   let onComplete = () => {
