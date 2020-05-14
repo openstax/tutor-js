@@ -1,4 +1,4 @@
-import { React, styled, useObserver } from 'vendor';
+import { React, styled, useObserver, css } from 'vendor';
 import { observer } from 'mobx-react';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
@@ -7,6 +7,16 @@ import S from '../../helpers/string';
 import { getCell } from './styles';
 
 const Cell = getCell('0, 10px');
+
+const Unstarted = styled.div`
+  color: ${colors.neutral.lite};
+`;
+
+const StyledCell = styled(Cell)`
+    ${props => props.drawBorderBottom && css`
+      border-bottom: 2px solid ${colors.neutral.pale};
+    `}
+`;
 
 const ReviewLink = ({ task, children }) => useObserver(() => {
   const { course } = task.student.period;
@@ -34,10 +44,6 @@ const Percent = ({ task: { score } }) => useObserver(() => {
   return <div className="correct-score">{display}</div>;
 });
 
-const Unstarted = styled.div`
-  color: ${colors.neutral.lite};
-`;
-
 const TaskResult = observer(({ ux, task, striped, isLast }) => {
   return useObserver(() => {
     let contents = null;
@@ -52,7 +58,7 @@ const TaskResult = observer(({ ux, task, striped, isLast }) => {
       contents = <Unstarted>---</Unstarted>;
     }
 
-    return <Cell striped={striped} drawBorderBottom={isLast}>{contents}</Cell>;
+    return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
   });
 });
 

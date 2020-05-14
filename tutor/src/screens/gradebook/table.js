@@ -18,7 +18,7 @@ const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
 
   .sticky-table-row:last-child .sticky-table-cell {
-    border-bottom: 2px solid ${colors.neutral.pale};
+    border-bottom: 1px solid ${colors.neutral.pale};
   }
 `;
 
@@ -53,7 +53,7 @@ const CellContents = styled.div`
 const Heading = styled.div`
   ${props => !props.first && centeredCSS}
   ${props => props.first && css`
-    border-right: 2px solid ${colors.neutral.pale};
+    border-right: 1px solid ${colors.neutral.pale};
   `}
   ${headingCSS}
   ${paddingCSS}
@@ -88,7 +88,7 @@ const HeadingMiddle = styled.div`
   padding-top: 0;
   font-size: 1rem;
   color: ${colors.neutral.thin};
-  border-bottom: 2px solid ${colors.neutral.pale};
+  border-bottom: 1px solid ${colors.neutral.pale};
 
   & .set-weight-span {
     cursor: pointer;
@@ -126,7 +126,7 @@ const ColumnHeading = styled.div`
         ? colors.templates.homework.border
         : colors.templates.reading.border};
   &:not(:last-child) {
-    border-right: 2px solid ${colors.neutral.pale};
+    border-right: 1px solid ${colors.neutral.pale};
   }
   > * {
     ${props => !props.first && css`
@@ -140,7 +140,7 @@ const SplitCell = styled.div`
   ${centeredCSS}
   flex: 1.0;
   ${props => props.border && css`
-    border-right: 2px solid ${colors.neutral.pale};
+    border-right: 1px solid ${colors.neutral.pale};
   `}
   ${props => props.onClick && css`
       cursor: pointer;
@@ -157,7 +157,7 @@ const Average = styled.div`
 const Total = styled.div`
   padding: 0;
   align-self: stretch;
-  border-right: 2px solid  ${colors.neutral.pale};
+  border-right: 1px solid  ${colors.neutral.pale};
   ${centeredCSS}
 `;
 
@@ -173,6 +173,13 @@ const DroppedNote = styled.div`
   font-size: 1.5rem;
   font-style: italic;
   font-family: serif;
+`;
+
+// Overriding the default 1px
+const StyledStudentCell = styled(Cell)`
+    ${props => props.drawBorderBottom && css`
+    border-bottom: 2px solid ${colors.neutral.pale};
+  `}
 `;
 
 const StudentColumnHeader = observer(({ ux }) => {
@@ -287,7 +294,7 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
-    <Cell striped={striped} drawBorderBottom={isLast}>
+    <StyledStudentCell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
         <Heading first={true}>
           <FirstRowCell>
@@ -316,7 +323,7 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
           </SplitCell>
         </Average>
       </CellContents>
-    </Cell>
+    </StyledStudentCell>
   );
 });
 
