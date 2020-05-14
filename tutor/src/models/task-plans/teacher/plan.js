@@ -77,7 +77,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_deleting;
   @field publish_job_url;
   @field grading_template_id;
-  @field is_auto_gradable;
+  @field ungraded_step_count;;
   @field({ type: 'object' }) settings = {};
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
@@ -156,7 +156,7 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get canGrade() {
-    return Boolean(this.isHomework && !this.is_auto_gradable);
+    return Boolean(this.isHomework && this.ungraded_step_count > 0);
   }
 
   @computed get opensAtString() {
