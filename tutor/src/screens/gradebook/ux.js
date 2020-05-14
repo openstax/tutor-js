@@ -103,10 +103,6 @@ export default class GradeBookUX {
     return sorter.date;
   }
 
-  // @computed get currentPeriodScores() {
-  //   return find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
-  // }
-
   @computed get headings() {
     return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
   }
