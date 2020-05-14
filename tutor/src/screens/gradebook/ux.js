@@ -12,16 +12,16 @@ import {
 } from 'lodash';
 import S from '../../helpers/string';
 
-const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
-const CELL_AVERAGES_SINGLE_WIDTH = 90;
-const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
-const CLOSED_TO_OPENED = [CELL_AVERAGES_CLOSED_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
-const MIN_TABLE_HEIGHT = 300;
+// const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
+// const CELL_AVERAGES_SINGLE_WIDTH = 90;
+// const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
+// const CLOSED_TO_OPENED = [CELL_AVERAGES_CLOSED_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
+// const MIN_TABLE_HEIGHT = 300;
 
-const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
-const ROW_HEIGHT = 50;
-const TABLE_PADDING = 18;
-const WINDOW_HEIGHT_PADDING = 260;
+// const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
+// const ROW_HEIGHT = 50;
+// const TABLE_PADDING = 18;
+// const WINDOW_HEIGHT_PADDING = 260;
 
 const NOT_AVAILABLE_AVERAGE = 'n/a';
 const PENDING_AVERAGE = '---';
@@ -30,23 +30,23 @@ const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[
 
 export default class GradeBookUX {
 
-  COLUMN_WIDTH = 170;
+  // COLUMN_WIDTH = 170;
 
-  ROW_HEIGHT = ROW_HEIGHT;
+  // ROW_HEIGHT = ROW_HEIGHT;
 
   windowSize = new WindowSize();
 
-  @observable sortIndex;
-  @observable rowSort = { key: 'name', asc: true, dataType: 'score' };
-  @observable weights = new WeightsUX(this);
-
-  @observable searchingMatcher = null;
-
-
+  @observable isNameInverted = true;
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable coursePeriod;
   @observable props = {}
+
+  @observable sortIndex;
+  @observable rowSort = { key: this.isNameInverted ? 'last_name' : 'first_name', asc: true, dataType: 'score' };
+  @observable weights = new WeightsUX(this);
+
+  @observable searchingMatcher = null;
 
   @UiSettings.decorate('gb.sap') displayScoresAsPercent = false;
   @UiSettings.decorate('gp.cbt') arrangeColumnsByType = false;
@@ -119,6 +119,15 @@ export default class GradeBookUX {
     return sorter.date;
   }
 
+  @computed get headings() {
+    return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
+  }
+
+  studentTasks(student) {
+    return orderBy(student.data, this.columnSorter.tasks, 'desc');
+  }
+
+
   @computed get period() {
     return this.scores.periods.get(this.coursePeriod.id);
   }
@@ -151,14 +160,6 @@ export default class GradeBookUX {
     );
   }
 
-  @computed get headings() {
-    return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
-  }
-
-  studentTasks(student) {
-    return orderBy(student.data, this.columnSorter.tasks, 'desc');
-  }
-
   @action updateProps(props) {
     this.props = props;
   }
@@ -166,16 +167,21 @@ export default class GradeBookUX {
   /**
    * Show Average Info modal
    */
-  @action showAverageInfo() {
+  @action.bound showAverageInfo() {
     this.showAverageInfoModal = true;
   }
 
   /**
    * Hide Average Info modal
    */
-  @action hideAverageInfo() {
+  @action.bound hideAverageInfo() {
     this.showAverageInfoModal = false;
   }
+
+  displayStudentName(student) {
+    if(this.isNameInverted) return `${student.last_name}, ${student.first_name}`;
+    return `${student.first_name}, ${student.last_name}`;
+  } 
 
   // old & unused methods
 

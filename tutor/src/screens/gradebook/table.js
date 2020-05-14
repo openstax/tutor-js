@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useObserver, observer, css } from 'vendor';
+import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
@@ -80,6 +80,12 @@ const HeadingMiddle = styled.div`
     cursor: pointer;
     color: ${colors.bright_blue};
   }
+
+  & .invert-name-icon-button {
+    color: ${colors.bright_blue};
+    font-size: 9px;
+    display: inline-flex;
+  }
 `;
 
 const HeadingBottom = styled.div`
@@ -112,6 +118,9 @@ const ColumnHeading = styled.div`
     ${props => !props.first && css`
       ${centeredCSS}
     `}
+    ${props => props.sortable && css`
+      cursor: pointer;
+    `}
   }
   border-bottom: 1rem solid ${colors.neutral.pale};
 `;
@@ -122,6 +131,9 @@ const SplitCell = styled.div`
   ${props => props.border && css`
     border-right: 2px solid ${colors.neutral.pale};
   `}
+  ${props => props.sortable && css`
+      cursor: pointer;
+    `}
 `;
 
 const Average = styled.div`
@@ -146,26 +158,41 @@ const StudentColumnHeader = observer(({ ux }) => {
   return (
     <Cell>
       <CellContents>
-        <ColumnHeading first={true}>
+        <ColumnHeading
+          first={true}
+          sortable={true}
+          onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
+        >
           <HeadingTop>
             Student Name
+            <SortIcon sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
           <HeadingMiddle>
-            Lastname, Firstname <Icon type="exchange-alt" />
+            {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname, Lastname'}
+            <Icon type="exchange-alt"
+              className="invert-name-icon-button"
+              onClick={() => ux.isNameInverted = !ux.isNameInverted} 
+            />
           </HeadingMiddle>
           <HeadingBottom>
             Available Points
           </HeadingBottom>
         </ColumnHeading>
-        <ColumnHeading>
+        <ColumnHeading
+          sortable={true}
+          onClick={() => ux.changeRowSortingOrder('course_average', 'score')}
+        >
           <HeadingTop>
-            Total <Icon type="sort" />
+            Total
+            <SortIcon
+              sort={ux.sortForColumn('course_average', 'score')}
+            />
           </HeadingTop>
           <HeadingMiddle>
             <span className="set-weight-span" onClick={() => ux.weights.showWeights()}>Set Weight</span>
           </HeadingMiddle>
           <HeadingBottom>
-            100%
+            {ux.weights.total}%
           </HeadingBottom>
         </ColumnHeading>
         <ColumnHeading>
@@ -177,11 +204,24 @@ const StudentColumnHeader = observer(({ ux }) => {
             />
           </HeadingTop>
           <HeadingMiddle>
-            <SplitCell border>
-              homework <Icon type="sort" />
+            <SplitCell
+              border
+              sortable={true}
+              onClick={() => ux.changeRowSortingOrder('homework_score', 'score')}
+            >
+              homework
+              <SortIcon
+                sort={ux.sortForColumn('homework_score', 'score')}
+              />
             </SplitCell>
-            <SplitCell>
-              reading <Icon type="sort" />
+            <SplitCell
+              sortable={true}
+              onClick={() => ux.changeRowSortingOrder('reading_score', 'score')}
+            >
+              reading
+              <SortIcon
+                sort={ux.sortForColumn('reading_score', 'score')}
+              />
             </SplitCell>
           </HeadingMiddle>
           <HeadingBottom>
@@ -220,14 +260,15 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   );
 });
 
-const StudentCell = observer(({ student, striped, isLast }) => {
+const StudentCell = observer(({ ux, student, striped, isLast }) => {
+  console.log(student);
   return (
     <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
 
         <Heading first={true}>
           <StyledButton variant="link">
-            {student.name}
+            {ux.displayStudentName(student)}
           </StyledButton>
         </Heading>
 
