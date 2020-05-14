@@ -58,7 +58,7 @@ const Row = styled.div`
   }
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
@@ -296,12 +296,7 @@ const Details = observer(({ ux, ux: { editUX } }) => {
         </Section>
         {ux.canDisplayGradingBlock &&
           <Section data-test-id="grading-block">
-            <Header>
-              <h6>Grading</h6>
-            </Header>
-            <div>
-              <GradingBlock ux={ux} />
-            </div>
+            <GradingBlock ux={ux} />
           </Section>
         }
       </Top>

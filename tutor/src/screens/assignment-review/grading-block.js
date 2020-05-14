@@ -1,6 +1,8 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
+import { Header } from './details';
+import PublishScores from './publish-scores';
 
 const StyledTutorLink = styled(TutorLink)`
   margin-bottom: 2.5rem;
@@ -12,26 +14,25 @@ const StyledTutorLink = styled(TutorLink)`
 const GradeAnswersButton = observer(({ ux }) => {
   return (
     <StyledTutorLink
-      className="btn btn-standard btn-primary btn-new-flag btn-inline"
+      className="btn btn-standard btn-primary btn-inline"
       to="gradeAssignment"
       params={{ id: ux.planId, periodId: ux.selectedPeriodId, courseId: ux.course.id }}
     >
-      <span className="flag">72 New</span>
       <span>Grade answers</span>
     </StyledTutorLink>
   );
 });
 
-const ViewScores = observer(() => {
+const ViewScores = observer(({ ux }) => {
   return (
     <div>
       <p>View scores for auto-graded questions</p>
-      <StyledTutorLink
+      <button
         className="btn btn-standard btn-inline"
-        to=""
+        onClick={() => ux.onTabSelection(2)}
       >
         View scores
-      </StyledTutorLink>
+      </button>
     </div>
   );
 });
@@ -124,6 +125,10 @@ const Definition = styled.dd`
   font-size: 1rem;
 `;
 
+const Body = styled.div`
+  p { margin-top: 1rem; }
+`;
+
 const StackedBarChart = observer(({ stats }) => {
   return (
     <ChartWrapper>
@@ -151,48 +156,91 @@ const StackedBarChart = observer(({ stats }) => {
   );
 });
 
+const ViewSubmissions = observer(({ ux }) => {
+  return (
+    <>
+      <p>View student submissions for this assignment</p>
+      <button
+        className="btn btn-standard btn-inline"
+        onClick={() => ux.onTabSelection(1)}
+      >
+        View submissions
+      </button>
+    </>
+  );
+});
+
+const UnpublishedScores = observer(({ ux }) => {
+  return (
+    <>
+      <p>This assignment has unpublished scores</p>
+      <PublishScores ux={ux} />
+    </>
+  );
+});
+
+const GradeableAnswers = observer(({ ux }) => {
+  return (
+    <>
+      <p>This assignment is now open for grading</p>
+      <GradeAnswersButton ux={ux} />
+    </>
+  );
+});
+
+const BlockWrapper = observer(({ header, children }) => {
+  return (
+    <>
+      <Header>
+        <h6>{header}</h6>
+      </Header>
+      <Body>
+        {children}
+      </Body>
+    </>
+  );
+});
+
 const BeforeDueWRQ = () => {
   return (
-    <Centered>
-      <p>This assignment is not open for grading yet.</p>
-      <SmallText>(You can start grading after the due date)</SmallText>
-    </Centered>
+    <BlockWrapper header="Grading">
+      <Centered>
+        <p>This assignment is not open for grading yet.</p>
+        <SmallText>(You can start grading after the due date)</SmallText>
+      </Centered>
+    </BlockWrapper>
   );
 };
 
 const AfterDueWRQ = observer(({ ux }) => {
   return (
-    <>
-      <p>This assignment is now open for grading.</p>
-      <GradeAnswersButton ux={ux} />
-      <ViewScores />
-    </>
+    <BlockWrapper header={ux.hasGradeableAnswers ? 'Grading' : 'Scores'}>
+      {ux.hasGradeableAnswers ? <GradeableAnswers ux={ux} /> :
+        (ux.hasUnPublishedScores ? <UnpublishedScores ux={ux} /> : <ViewSubmissions ux={ux} />)}
+      <ViewScores ux={ux} />
+    </BlockWrapper>
   );
 });
 
 const BeforeDueMCQ = observer(({ ux: { progressStatsForPeriod } }) => {
   return (
-    <Centered>
-      <p>This assignment is still in progress</p>
-      <StackedBarChart stats={progressStatsForPeriod} />
-    </Centered>
+    <BlockWrapper header="Progress">
+      <Centered>
+        <p>This assignment is still in progress</p>
+        <StackedBarChart stats={progressStatsForPeriod} />
+      </Centered>
+    </BlockWrapper>
   );
 });
 
-const AfterDueMCQ = () => {
+const AfterDueMCQ = observer(({ ux }) => {
   return (
-    <>
-      <p>View student submissions for this assignment</p>
-      <StyledTutorLink
-        className="btn btn-standard btn-inline"
-        to=""
-      >
-        View submissions
-      </StyledTutorLink>
-      <ViewScores />
-    </>
+    <BlockWrapper header="Scores">
+      {ux.hasUnPublishedScores ? <PublishScores ux={ux} /> : <ViewSubmissions ux={ux} />}
+      <ViewScores ux={ux} />
+    </BlockWrapper>
   );
-};
+});
 
 const GradingBlock = observer(({ ux }) => {
   const { isEveryExerciseMultiChoice, isPastDue } = ux.planScores.taskPlan;

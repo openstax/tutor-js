@@ -30,8 +30,8 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete, onEditAssignedQuestions, history,
-    windowImpl = window,
+    id, scores, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection,
+    history, windowImpl = window,
   }) {
     this.id = id;
     this.scroller = new ScrollTo({ windowImpl });
@@ -40,6 +40,7 @@ export default class AssignmentReviewUX {
     this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;
     this.onEditAssignedQuestions = onEditAssignedQuestions;
+    this.onTabSelection = onTabSelection;
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.analytics.fetch();
@@ -86,7 +87,7 @@ export default class AssignmentReviewUX {
     this.rowSort.key = key;
     this.rowSort.dataType = dataType;
   }
-  
+
   isRowSortedBy({ sortKey, dataType }) {
     return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
   }
@@ -191,7 +192,9 @@ export default class AssignmentReviewUX {
   }
 
   @computed get isPublishingScores() {
-    return this.taskingPlan && this.taskingPlan.api.isPending;
+    return Boolean(
+      this.taskingPlan && this.taskingPlan.api.isPending
+    );
   }
 
   @computed get submitPending() {
@@ -252,6 +255,15 @@ export default class AssignmentReviewUX {
 
   @computed get isReadingOrHomework() {
     return Boolean(['reading', 'homework'].includes(this.planScores.type));
+  }
+
+  @computed get hasUnPublishedScores() {
+    return Boolean(this.scores.hasUnPublishedScores);
+  }
+
+  // TODO: Hook up
+  @computed get hasGradeableAnswers() {
+    return false;
   }
 
 }
