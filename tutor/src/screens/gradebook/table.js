@@ -6,6 +6,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
+import TutorLink from '../../components/link';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
@@ -42,7 +43,7 @@ const CellContents = styled.div`
   ${centeredCSS}
   > * { width: 80px; }
   > *:first-child {
-    width: 20rem;
+    width: 22rem;
   }
   > *:last-child {
     width: 15rem;
@@ -160,10 +161,6 @@ const Total = styled.div`
   ${centeredCSS}
 `;
 
-const StyledButton = styled(Button)`
-  && { padding: 0; }
-`;
-
 const StudentColumnHeader = observer(({ ux }) => {
   return (
     <Cell>
@@ -278,13 +275,19 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
     <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
-
-        <Heading first={true}>
-          <StyledButton variant="link">
-            {ux.displayStudentName(student)}
-          </StyledButton>
+        <Heading first={true}>    
+          {
+            !student.is_dropped
+              ? <TutorLink
+                to="viewPerformanceGuide"
+                className="name-cell"
+                params={{ roleId: student.role, courseId: ux.course.id }}
+              >
+                {ux.displayStudentName(student)}
+              </TutorLink>   
+              : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></> 
+          }
         </Heading>
-
         <Total>
           {`${S.asPercent(student.course_average)}%`}
         </Total>
