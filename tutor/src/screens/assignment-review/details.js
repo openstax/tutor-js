@@ -272,7 +272,7 @@ const Details = observer(({ ux, ux: { editUX } }) => {
                 {planScores.description}
               </Item>
             </Row>
-            {ux.canDisplayAssignmentSettings &&
+            {ux.isReadingOrHomework &&
               <Row>
                 <Title>Assignment settings</Title>
                 <Item>
