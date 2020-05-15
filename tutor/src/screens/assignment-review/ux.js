@@ -263,7 +263,7 @@ export default class AssignmentReviewUX {
 
   @computed get gradeableQuestionCount() {
     return sumBy(this.scores.question_headings.map(qh => qh.gradedStats), 'remaining');
-   }
+  }
 
   @computed get hasGradeableAnswers() {
     return Boolean(this.gradeableQuestionCount > 0);
