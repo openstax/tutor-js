@@ -5,6 +5,50 @@ import { Button, Popover, Overlay } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 
+/** https://www.w3schools.com/howto/howto_css_custom_checkbox.asp  */
+const StyledCheckbox = styled.label`
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+
+  /* Hide default checkbox */
+  input {
+    position: absolute;
+    cursor: pointer;
+    visibility: hidden;
+  }
+
+.check {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: ${colors.white};
+  border: 2px solid ${colors.neutral.pale};
+}
+
+& input:checked ~ .check:after {
+  display: block;
+}
+
+/* Style the check */
+& .check:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid ${colors.neutral.dark};
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+`;
 
 const Toggles = styled(Popover.Content)`
   padding: 1rem;
@@ -22,14 +66,15 @@ const MoreInfo = styled.p`
 `;
 
 const SettingsCheckbox = observer(({ ux, title, property }) => (
-  <label>
+  <StyledCheckbox>
+    {title}
     <input
       type="checkbox"
       checked={ux[property]}
       onChange={({ target }) => ux[property] = target.checked}
     />
-    {title}
-  </label>
+    <span className="check"></span>
+  </StyledCheckbox>
 ));
 SettingsCheckbox.propTypes ={
   ux: PropTypes.object.isRequired,

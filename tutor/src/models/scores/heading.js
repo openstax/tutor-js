@@ -16,6 +16,7 @@ class Heading extends BaseModel {
   @field plan_id;
   @field title;
   @field type;
+  @field available_points;
   @belongsTo({ model: 'scores/period' }) period;
 
   @computed get columnIndex() {
