@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
+import { isNil } from 'lodash';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
@@ -293,6 +294,10 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   );
 });
 
+const percentOrDash = (score) => {
+  return isNil(score) ? '--' : S.asPercent(score) + '%';
+}
+
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
     <StyledStudentCell striped={striped} drawBorderBottom={isLast}>
@@ -313,14 +318,14 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
           </FirstRowCell>    
         </Heading>
         <Total>
-          {`${S.asPercent(student.course_average)}%`}
+          {percentOrDash(student.course_average)}
         </Total>
         <Average>
           <SplitCell border>
-            {`${S.asPercent(student.homework_score)}%`}
+            {percentOrDash(student.homework_score)}
           </SplitCell>
           <SplitCell>
-            {`${S.asPercent(student.reading_score)}%`}
+            {percentOrDash(student.reading_score)}
           </SplitCell>
         </Average>
       </CellContents>
