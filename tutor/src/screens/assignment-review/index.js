@@ -93,7 +93,9 @@ class AssignmentReview extends React.Component {
   }
 
   render() {
-    const { isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod } = this.ux;
+    const {
+      isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod,
+    } = this.ux;
 
     if (!isScoresReady) {
       return <LoadingScreen message="Loading Assignment…" />;
@@ -101,7 +103,7 @@ class AssignmentReview extends React.Component {
 
     const AvailableTabs = [Details];
     // there are no scores if no students have enrolled
-    if (this.ux.scores) {
+    if (this.ux.isReadingOrHomework && this.ux.scores) {
       AvailableTabs.push(Overview, Scores);
     }
 

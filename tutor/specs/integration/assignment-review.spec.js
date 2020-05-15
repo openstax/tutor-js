@@ -118,4 +118,25 @@ context('Assignment Review', () => {
     cy.getTestElement('edit-assigned-questions').click();
     cy.location('pathname').should('include', '/course/1/assignment/edit/homework/2/points');
   });
+
+  it('hides overview and scores tabs if not reading or homework', () => {
+    // Homework
+    cy.getTestElement('submission-overview-tab').should('exist');
+    cy.getTestElement('assignment-scores-tab').should('exist');
+
+    // Reading
+    cy.visit('/course/1/assignment/review/1');
+    cy.getTestElement('submission-overview-tab').should('exist');
+    cy.getTestElement('assignment-scores-tab').should('exist');
+
+    // External
+    cy.visit('/course/1/assignment/review/3');
+    cy.getTestElement('submission-overview-tab').should('not.exist');
+    cy.getTestElement('assignment-scores-tab').should('not.exist');
+
+    // Event
+    cy.visit('/course/1/assignment/review/4');
+    cy.getTestElement('submission-overview-tab').should('not.exist');
+    cy.getTestElement('assignment-scores-tab').should('not.exist');
+  });
 });

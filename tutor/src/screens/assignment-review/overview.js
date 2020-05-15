@@ -213,6 +213,7 @@ AvailablePoints.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
+    PropTypes.bool,
   ]),
 };
 
@@ -245,7 +246,7 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       </Row>
       <Row>
         <Header>
-          Available Points <AvailablePoints value={scores.hasEqualTutorQuestions && scores.questionsInfo.totalPoints} />
+          Available Points <AvailablePoints value={(scores.hasEqualTutorQuestions && scores.questionsInfo.totalPoints) || false} />
         </Header>
         {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
       </Row>

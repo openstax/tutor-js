@@ -1,20 +1,25 @@
 import { observable, action, computed } from 'vendor';
-import { first, find, filter, isEmpty } from 'lodash';
+import { first, filter, isEmpty } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import Exercises from '../../models/exercises';
 import Grade from '../../models/task-plans/teacher/grade';
+import UiSettings from 'shared/model/ui-settings';
 
 export default class AssignmentGradingUX {
 
-  @observable exercisesHaveBeenFetched = false
-  @observable selectedPeriod
-  @observable questionIndex = 0;
+  @observable exercisesHaveBeenFetched = false;
+  @observable selectedPeriod;
+  @observable selectedHeading;
+  @observable expandGradedAnswers = false;
+
+  @UiSettings.decorate('grd.hsn') hideStudentNames = false;
+  @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
+  @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
+  @UiSettings.decorate('grd.sak') showAnswerKey = false;
 
   viewedQuestions = observable.map();
-  gradedAnswers = observable.map();
-
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
@@ -29,11 +34,14 @@ export default class AssignmentGradingUX {
     this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
       first(this.course.periods.active);
     this.planScores = scores || new TaskPlanScores({ id, course: this.course });
-    this.setQuestionIndex(0);
-
     await this.planScores.fetch();
 
-    await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
+    await Exercises.ensureExercisesLoaded({
+      course: this.course, exercise_ids: this.planScores.exerciseIds, task_plan_id: this.planScores.id,
+    });
+
+    this.setHeading(this.headings[0]);
+
     this.exercisesHaveBeenFetched = true;
   }
 
@@ -44,18 +52,23 @@ export default class AssignmentGradingUX {
     return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
-  @computed get selectedQuestion() {
-    const studentQuestion = this.scores.students[0].questions[this.questionIndex];
-
-    const exercise = Exercises.get(studentQuestion.exercise_id);
-    if (exercise) {
-      return exercise.content.questions.find(q => q.id == studentQuestion.question_id);
+  @computed get visibleResponses() {
+    let responses = this.selectedHeading.studentResponses;
+    if (this.showOnlyAttempted) {
+      responses = filter(responses, 'is_completed');
     }
-    return null;
+    if (!this.expandGradedAnswers) {
+      responses = filter(responses, 'needs_grading');
+    }
+    return responses;
   }
 
-  @computed get unGradedStudents() {
-    return filter(this.scores.students, s => !this.hasViewedStudentQuestion(this.selectedQuestion, s));
+  @computed get headings() {
+    return this.scores.question_headings.gradable();
+  }
+
+  @computed get unGraded() {
+    return filter(this.studentResponses, s => s.needs_grading);
   }
 
   wasQuestionViewed(index) {
@@ -66,39 +79,20 @@ export default class AssignmentGradingUX {
     this.viewedQuestions.set(index, true);
   }
 
-  setQuestionIndex(index) {
-    this.markQuestionViewed(index);
-    this.questionIndex = index;
+  setHeading(heading) {
+    this.selectedHeading = heading;
   }
 
-  hasViewedStudentQuestion(question, student) {
-    return Boolean(this.gradedAnswers.get(`${question.id}-${student.role_id}`));
-  }
-
-  @action async saveScore({ student, question, points, comment }) {
-    const grade = new Grade({ question, points, comment });
+  @action async saveScore({ response, points, comment }) {
+    const grade = new Grade({ points, comment, response });
     await grade.save();
-    this.gradedAnswers.set(`${question.question_id}-${student.role_id}`, {
-      points, comment, question, student,
-    });
-    if (isEmpty(this.unGradedStudents) && this.questionIndex < this.scores.question_headings.length) {
-      this.questionIndex += 1;
-      this.scroller.scrollToSelector('.questions-bar');
+
+    if (isEmpty(this.unGraded)) {
+      const nextHeadingIndex = this.headings.indexOf(this.selectedHeading) + 1;
+      if (nextHeadingIndex < this.headings.length + 1) {
+        this.setHeading(this.headings[nextHeadingIndex]);
+      }
     }
-  }
-
-  @computed get currentStudentQuestionInfo() {
-    const student = first(this.unGradedStudents);
-    return student.questions.find(q => q.id == this.selectedQuestion.question_id);
-  }
-
-  @computed get selectedAnswerId() {
-    return this.currentStudentQuestionInfo ? this.currentStudentQuestionInfo.selected_answer_id : null;
-  }
-
-  @computed get correctAnswerid() {
-    const correct = find(this.selectedQuestion.answers, 'isCorrect');
-    return correct ? correct.id : null;
   }
 
 }

@@ -23,8 +23,7 @@ describe('Event Row', function() {
     );
     const deletedNotStarted = (
       <R><EventRow
-        className=""
-        event={Factory.studentDashboardTask({ is_deleted: true })}
+        event={Factory.studentDashboardTask({ is_deleted: true, completed_steps_count: 0 })}
         isCollege={false}
         course={course} /></R>
     );

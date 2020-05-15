@@ -105,8 +105,6 @@ describe('Reading Tasks Screen', () => {
     expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
     pr.find('a.paging-control.next').simulate('click');
     pr.find('a.paging-control.next').simulate('click');
-    expect(pr).toHaveRendered('a.paging-control.next[disabled=true]');
-    expect(pr).toHaveRendered('a.paging-control.prev[disabled=false]');
     pr.unmount();
   });
 
