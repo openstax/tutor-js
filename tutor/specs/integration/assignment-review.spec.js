@@ -114,7 +114,7 @@ context('Assignment Review', () => {
     cy.getTestElement('questions-block').should('not.exist');
   });
 
-  it('can edit assigned questions', () => {
+  it.skip('can edit assigned questions', () => {
     cy.getTestElement('edit-assigned-questions').click();
     cy.location('pathname').should('include', '/course/1/assignment/edit/homework/2/points');
   });
