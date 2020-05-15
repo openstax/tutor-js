@@ -9,7 +9,6 @@ const Cell = getCell('0 10px');
 
 const getPoints = (tasks) => {
   const aggregatePoints = sumBy(tasks, (t) => t.points);
-  console.log(aggregatePoints);
   return S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
 };
 

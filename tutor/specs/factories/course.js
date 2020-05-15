@@ -68,6 +68,8 @@ Factory.define('Course')
   .homework_progress_weight(0.1)
   .reading_score_weight(0.2)
   .reading_progress_weight(0.2)
+  .homework_weight(0.5)
+  .reading_weight(0.5)
   .num_sections(3)
   .periods(reference('Period', { count: ({ num_periods = 3 }) => num_periods }))
   .roles(({ object, is_teacher }) => [

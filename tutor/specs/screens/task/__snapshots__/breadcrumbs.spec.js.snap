@@ -1737,6 +1737,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
             "ends_at": "2017-11-14T13:00:00.000Z",
             "homework_progress_weight": 0.1,
             "homework_score_weight": 0.4,
+            "homework_weight": 0.5,
             "id": 1,
             "is_access_switchable": true,
             "is_active": true,
@@ -1801,6 +1802,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
             ],
             "reading_progress_weight": 0.2,
             "reading_score_weight": 0.2,
+            "reading_weight": 0.5,
             "roles": Array [
               CourseRole {
                 "$nonSerializable": Object {
@@ -1866,6 +1868,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
         "ends_at": "2017-11-14T13:00:00.000Z",
         "homework_progress_weight": 0.1,
         "homework_score_weight": 0.4,
+        "homework_weight": 0.5,
         "id": 1,
         "is_access_switchable": true,
         "is_active": true,
@@ -1930,6 +1933,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
         ],
         "reading_progress_weight": 0.2,
         "reading_score_weight": 0.2,
+        "reading_weight": 0.5,
         "roles": Array [
           CourseRole {
             "$nonSerializable": Object {
