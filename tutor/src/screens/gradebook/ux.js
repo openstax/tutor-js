@@ -47,13 +47,13 @@ export default class GradeBookUX {
     course = Courses.get(courseId),
   }) {
     this.course = course;
-    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id);
     await this.course.scores.fetch();
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id) || [];
     this.isReady = true;
   }
 
   @action.bound onSelectPeriod(period) {
-    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === period.id);
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === period.id) || [];
   }
 
   @computed get pageTitle() {
@@ -104,9 +104,7 @@ export default class GradeBookUX {
   }
 
   @computed get headings() {
-    return this.currentPeriodScores
-      ? orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc')
-      : [];
+    return orderBy(this.currentPeriodScores.data_headings, this.columnSorter.headings, 'desc');
   }
 
   studentTasks(student) {

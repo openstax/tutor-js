@@ -14,6 +14,7 @@ class TaskResult extends BaseModel {
   @field type;
   @field status;
   @field({ type: 'bignum' }) score;
+  @field points;
   @field step_count;
   @field completed_step_count;
   @field completed_accepted_late_exercise_count;

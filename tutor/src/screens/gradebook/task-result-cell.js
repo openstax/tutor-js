@@ -35,7 +35,7 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
 });
 
 const Points = ({ task }) => useObserver(() => {
-  const points = isNil(task.correct_exercise_count) ? '0' : task.correct_exercise_count;
+  const points = isNil(task.points) ? '0' : task.points;
   return <div className="correct-points">{S.numberWithOneDecimalPlace(points)}</div>;
 });
 

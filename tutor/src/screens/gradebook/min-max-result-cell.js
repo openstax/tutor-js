@@ -14,9 +14,9 @@ export const TYPE = {
 const getMinOrMaxResultPoints = (tasks, type) => {
   switch(type) {
     case TYPE.MIN:
-      return minBy(tasks, 'correct_exercise_count').correct_exercise_count;
+      return minBy(tasks, 'points').points;
     case TYPE.MAX:
-      return maxBy(tasks, 'correct_exercise_count').correct_exercise_count;
+      return maxBy(tasks, 'points').points;
     default:
       return 0;
   }

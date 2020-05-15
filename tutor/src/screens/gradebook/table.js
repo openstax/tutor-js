@@ -284,7 +284,7 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
           </HeadingMiddle>
           <HeadingBottom>
             {false && <CornerTriangle color="blue" tooltip="Dropped" />}
-            {S.numberWithOneDecimalPlace(heading.points)}
+            {S.numberWithOneDecimalPlace(heading.available_points)}
           </HeadingBottom>
         </ColumnHeading>
       </Cell>

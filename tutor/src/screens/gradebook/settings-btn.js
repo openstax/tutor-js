@@ -70,7 +70,7 @@ const SettingsCheckbox = ({ ux, title, property }) => useObserver(() => (
       checked={ux[property]}
       onChange={({ target }) => ux[property] = target.checked}
     />
-    <span class="check"></span>
+    <span className="check"></span>
   </StyledCheckbox>
 ));
 SettingsCheckbox.propTypes ={
