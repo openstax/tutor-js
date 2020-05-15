@@ -17,7 +17,7 @@ exports[`Homework Row renders in progress 1`] = `
 }
 
 <a
-  aria-label="Work on homework: revolutionary synthesize models"
+  aria-label="Work on homework: turn-key unleash paradigms"
   className="task row homework"
   data-event-id={1}
   href="/course/1/task/1"
@@ -35,7 +35,7 @@ exports[`Homework Row renders in progress 1`] = `
   <div
     className="title col-sm-5 col-10"
   >
-    revolutionary synthesize models
+    turn-key unleash paradigms
   </div>
   <div
     className="due-at col-sm-3 col-5"
@@ -54,7 +54,7 @@ exports[`Homework Row renders in progress 1`] = `
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
       >
-        5/7 answered
+        2/3 answered
       </span>
     </div>
   </div>
@@ -89,7 +89,7 @@ exports[`Homework Row renders with completed count 1`] = `
 }
 
 <a
-  aria-label="Work on homework: web-enabled benchmark interfaces"
+  aria-label="Work on homework: interactive mesh convergence"
   className="task row homework"
   data-event-id={2}
   href="/course/2/task/2"
@@ -107,7 +107,7 @@ exports[`Homework Row renders with completed count 1`] = `
   <div
     className="title col-sm-5 col-10"
   >
-    web-enabled benchmark interfaces
+    interactive mesh convergence
   </div>
   <div
     className="due-at col-sm-3 col-5"
@@ -126,7 +126,7 @@ exports[`Homework Row renders with completed count 1`] = `
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
       >
-        null/6 correct
+        4/8 answered
       </span>
       <span
         className="tour-anchor"
@@ -157,7 +157,7 @@ exports[`Homework Row renders with completed count 1`] = `
     >
       0
       /
-      6
+      8
        answered on due date
     </div>
   </div>

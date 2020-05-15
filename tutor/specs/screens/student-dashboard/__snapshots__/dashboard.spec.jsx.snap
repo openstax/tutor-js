@@ -156,7 +156,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: value-added strategize initiatives"
+              aria-label="Work on reading: B2C mesh schemas"
               className="task row reading"
               data-event-id={5}
               href="/course/1/task/5"
@@ -174,7 +174,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                value-added strategize initiatives
+                B2C mesh schemas
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -199,7 +199,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on external: granular e-enable technologies"
+              aria-label="Work on external: granular engineer action-items"
               className="task row external"
               data-event-id={6}
               href="/course/1/task/6"
@@ -217,7 +217,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                granular e-enable technologies
+                granular engineer action-items
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -242,7 +242,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on event: sexy syndicate vortals"
+              aria-label="Work on event: proactive harness supply-chains"
               className="task row event"
               data-event-id={7}
               href="/course/1/task/7"
@@ -260,7 +260,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                sexy syndicate vortals
+                proactive harness supply-chains
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -280,7 +280,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on homework: granular target technologies"
+              aria-label="Work on homework: sexy envisioneer synergies"
               className="task row homework"
               data-event-id={8}
               href="/course/1/task/8"
@@ -298,7 +298,7 @@ exports[`Student Dashboard displays as loading 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                granular target technologies
+                sexy envisioneer synergies
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -317,7 +317,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="tour-anchor"
                     data-tour-anchor-id="assignment-progress-status"
                   >
-                    11/11 answered
+                    8/12 answered
                   </span>
                 </div>
                 <div
@@ -325,7 +325,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                 >
                   0
                   /
-                  11
+                  12
                    answered on due date
                 </div>
               </div>
@@ -641,7 +641,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: revolutionary synthesize models"
+              aria-label="Work on reading: turn-key unleash paradigms"
               className="task row reading"
               data-event-id={1}
               href="/course/1/task/1"
@@ -659,7 +659,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                revolutionary synthesize models
+                turn-key unleash paradigms
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -684,7 +684,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on external: cutting-edge target models"
+              aria-label="Work on external: intuitive empower niches"
               className="task row external"
               data-event-id={2}
               href="/course/1/task/2"
@@ -702,7 +702,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                cutting-edge target models
+                intuitive empower niches
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -727,7 +727,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on event: killer monetize systems"
+              aria-label="Work on event: user-centric syndicate web-readiness"
               className="task row event"
               data-event-id={3}
               href="/course/1/task/3"
@@ -745,7 +745,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                killer monetize systems
+                user-centric syndicate web-readiness
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -765,7 +765,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on homework: B2C recontextualize e-commerce"
+              aria-label="Work on homework: innovative e-enable e-services"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -783,7 +783,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                B2C recontextualize e-commerce
+                innovative e-enable e-services
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -802,7 +802,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="tour-anchor"
                     data-tour-anchor-id="assignment-progress-status"
                   >
-                    3/3 answered
+                    1/9 answered
                   </span>
                 </div>
                 <div
@@ -810,7 +810,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 >
                   0
                   /
-                  3
+                  9
                    answered on due date
                 </div>
               </div>

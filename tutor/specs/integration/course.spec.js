@@ -17,17 +17,16 @@ context('Course', () => {
     cy.getTestElement('gradeAnswers').should('not.exist');
     cy.get('.modal-header .close').click();
 
-    cy.get('.event.type-homework label').first().click();
-    cy.getTestElement('gradeAnswers').should('exist');
-    cy.get('.modal-header .close').click();
-
-    // Check upcoming assignment
-    cy.get('.upcoming .event.type-homework label').first().click();
-    cy.getTestElement('gradeAnswers').should('exist').should('have.class', 'disabled');
-    cy.get('.modal-header .close').click();
-
-    // Check past due assignment
-    cy.get('.past .event.type-homework label').first().click();
-    cy.getTestElement('gradeAnswers').should('exist').should('not.have.class', 'disabled');
+    cy.get('[data-assignment-type="homework"].is-published').first().then(el => {
+      cy.window().then(win => {
+        const planId = el[0].dataset.planId
+        const course = win._MODELS.courses.get(1)
+        // make plan need grading
+        course.teacherTaskPlans.get(planId).ungraded_step_count = 12
+        el.click()
+        cy.getTestElement('gradeAnswers').should('exist');
+        cy.get('.modal-header .close').click();
+      })
+    })
   });
 });

@@ -5,14 +5,14 @@ exports[`Task Step Footer matches snapshot 1`] = `
   <styled.div>
     <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
       <div className=\\"sc-ifAKCX KjPkQ\\">
-        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
-          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"sc-EHOje frzuNi\\">
+        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2\\" related_content={{...}}>
+          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2\\" related_content={{...}} className=\\"sc-EHOje frzuNi\\">
               <div className=\\"exercise-identifier-link sc-EHOje frzuNi\\">
                 ID# 
                 1@1
                  | 
-                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Angiosperms&book=College%20Physics\\">
+                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Introduction%3A%20Further%20Applications%20of%20Newton%E2%80%99s%20Laws&book=Biology%20for%20AP%C2%AE%20Courses\\">
                   Suggest a correction
                 </a>
               </div>
@@ -44,7 +44,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                     <styled.span>
                       <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
                         <span className=\\"sc-htpNat title bNgkkP\\">
-                          Angiosperms
+                          Introduction: Further Applications of Newton’s Laws
                         </span>
                       </StyledComponent>
                     </styled.span>
