@@ -29,7 +29,6 @@ describe('Tasks External URL Screen', () => {
   it('marks step as complete when clicked', () => {
     const ex = mount(<C><External {...props} /></C>);
     expect(props.ux.currentStep.isExternalUrl).toBe(true);
-    expect(props.ux.currentStep.is_completed).toBe(false);
     props.ux.currentStep.save = jest.fn();
     ex.find(`a[href="${props.ux.steps[0].external_url}"]`).simulate('click');
     expect(props.ux.currentStep.is_completed).toBe(true);
