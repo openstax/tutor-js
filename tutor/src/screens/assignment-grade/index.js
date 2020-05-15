@@ -1,14 +1,13 @@
 import { React, PropTypes, withRouter, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import UX from './ux';
-import QuestionsBar from './questions-bar';
-import { QuestionPreview, QuestionHeader, ExerciseNumber, Question } from '../../components/homework-questions';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import LoadingScreen from 'shared/components/loading-animation';
-import Student from './student';
 import { BackgroundWrapper } from '../../helpers/background-wrapper';
-
+import { colors } from 'theme';
 import './styles.scss';
+import QuestionsBar from './questions-bar';
+import Question from './question';
 
 const Heading = styled.div`
   display: flex;
@@ -16,8 +15,10 @@ const Heading = styled.div`
   align-items: center;
 `;
 
-const QuestionWithAnswer = styled(QuestionPreview)`
+
+const BodyBackground = styled.div`
   padding: 4rem;
+  background-color: ${colors.neutral.bright};
 `;
 
 @withRouter
@@ -64,25 +65,15 @@ class AssignmentGrading extends React.Component {
             />
           </Heading>
           <QuestionsBar ux={ux} />
-          <QuestionWithAnswer>
-            <QuestionHeader variant="points">
-              <ExerciseNumber>
-                Question {ux.questionIndex + 1}
-              </ExerciseNumber>
-            </QuestionHeader>
-            <div className="card-body">
-              <Question
-                question={ux.selectedQuestion}
-                hideAnswers={false}
-                answer_id={ux.selectedAnswerId}
-                correct_answer_id={ux.correctAnswerid}
-                choicesEnabled={false}
-                displayFormats={false}
-              />
-              {ux.unGradedStudents.map((student, index) =>
-                <Student key={index} index={index} question={ux.selectedQuestion} student={student} ux={ux} />)}
-            </div>
-          </QuestionWithAnswer>
+
+          <BodyBackground>
+
+            <Question
+              ux={ux}
+              question={ux.selectedHeading.question}
+            />
+
+          </BodyBackground>
         </ScrollToTop>
       </BackgroundWrapper>
     );

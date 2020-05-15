@@ -68,18 +68,18 @@ const TextInputError = styled.div`
   margin: 1rem 0;
 `;
 
-const StyledTextInput = styled(Field).attrs({
-  type: 'text',
-})`
+// don't pass hasError onto Field, it'll set it on the DOM
+// eslint-disable-next-line no-unused-vars
+const StyledTextInput = styled(({ hasError = false, ...fieldProps }) => <Field {...fieldProps} />)`
   padding: 0.8rem 1rem;
   border-radius: 4px;
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.2rem;
   /** styling errors when template name is invalid */
-  background: ${props => props.haserror ? colors.states.trouble : colors.white};
-  color: ${props => props.haserror ? colors.red : colors.black};
-  border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
-  border-width: ${props => props.haserror ? '2px' : '1px'};
+  background: ${props => props.hasError ? colors.states.trouble : colors.white};
+  color: ${props => props.hasError ? colors.red : colors.black};
+  border-color: ${props => props.hasError ? colors.states.border_trouble : colors.neutral.pale};
+  border-width: ${props => props.hasError ? '2px' : '1px'};
 
   &:focus {
     outline: 0;

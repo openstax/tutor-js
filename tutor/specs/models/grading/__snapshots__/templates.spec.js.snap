@@ -2,9 +2,9 @@
 
 exports[`Grading Templates creates a store with models 1`] = `
 Object {
-  "auto_grading_feedback_on": true,
-  "completion_weight": 0.75,
-  "correctness_weight": 0.9,
+  "auto_grading_feedback_on": false,
+  "completion_weight": 0.87,
+  "correctness_weight": 0.17,
   "default_close_date_offset_days": 1,
   "default_due_date_offset_days": 1,
   "default_due_time": "17:00",
