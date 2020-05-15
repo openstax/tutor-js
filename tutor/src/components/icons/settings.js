@@ -14,13 +14,12 @@ const StyledCheckbox = styled.label`
   cursor: pointer;
   font-size: 14px;
 
-/* Hide default checkbox */
-& input {
-  position: absolute;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
+  /* Hide default checkbox */
+  input {
+    position: absolute;
+    cursor: pointer;
+    visibility: hidden;
+  }
 
 .check {
   position: absolute;
