@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter } from 'lodash';
+import { first, pick, sortBy, filter, sumBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
@@ -261,9 +261,12 @@ export default class AssignmentReviewUX {
     return Boolean(this.scores.hasUnPublishedScores);
   }
 
-  // TODO: Hook up
+  @computed get gradeableQuestionCount() {
+    return sumBy(this.scores.question_headings.map(qh => qh.gradedStats), 'remaining');
+   }
+
   @computed get hasGradeableAnswers() {
-    return false;
+    return Boolean(this.gradeableQuestionCount > 0);
   }
 
 }
