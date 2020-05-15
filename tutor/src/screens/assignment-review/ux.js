@@ -250,7 +250,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get canDisplayGradingBlock() {
-    return Boolean(this.planScores.isHomework);
+    return Boolean(this.planScores.isHomework && this.scores);
   }
 
   @computed get isReadingOrHomework() {
