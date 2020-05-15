@@ -217,24 +217,23 @@ AvailablePoints.propTypes = {
   ]),
 };
 
-const Overview = observer(({ ux, ux: { scores } }) => (
-
+const Overview = observer(({ ux, ux: { scores, planScores } }) => (
   <Wrapper data-test-id="overview">
-    <Toolbar>
-      <Center>
-        This assignment is now open for grading.
-      </Center>
-      <Right>
-        <GradeButton
-          variant="primary"
-          className="btn-new-flag"
-          params={{ courseId: ux.course.id, id: ux.planId }}
-        >
-          <span className="flag">72 New</span>
-          <span>Grade answers</span>
-        </GradeButton>
-      </Right>
-    </Toolbar>
+    {planScores.taskPlan.isPastDue &&
+      <Toolbar>
+        <Center>
+          This assignment is now open for grading.
+        </Center>
+        <Right>
+          <GradeButton
+            variant="primary"
+            params={{ courseId: ux.course.id, id: ux.planId }}
+          >
+            <span>Grade answers</span>
+          </GradeButton>
+        </Right>
+      </Toolbar>
+    }
     <StyledStickyTable>
       <Row>
         <Header>Question Number</Header>

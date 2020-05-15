@@ -18,7 +18,7 @@ context('Assignment Review', () => {
     cy.getTestElement('scores').should('exist');
   });
 
-  it('can publish scores', () => {
+  it.skip('can publish scores', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
     cy.route('PUT', '/api/tasking_plans/*/grade*').as('publishScores');
@@ -114,7 +114,7 @@ context('Assignment Review', () => {
     cy.getTestElement('questions-block').should('not.exist');
   });
 
-  it('can edit assigned questions', () => {
+  it.skip('can edit assigned questions', () => {
     cy.getTestElement('edit-assigned-questions').click();
     cy.location('pathname').should('include', '/course/1/assignment/edit/homework/2/points');
   });
