@@ -80,6 +80,10 @@ class TaskingPlan extends BaseModel {
     return moment(this.due_at).isBefore(Time.now);
   }
 
+  @computed get isPastOpen() {
+    return moment(this.opens_at).isBefore(Time.now);
+  }
+
   @computed get isValid() {
     return Boolean(
       this.target_id &&

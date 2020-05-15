@@ -174,13 +174,15 @@ const Questions = ({ ux, questionsInfo }) => useObserver(() => {
       <Header>
         <h6>Questions Assigned</h6>
         <Controls>
-          <button
-            className="btn btn-standard btn-icon"
-            onClick={ux.onEditAssignedQuestions}
-            data-test-id="edit-assigned-questions"
-          >
-            <Icon type="edit" />
-          </button>
+          {ux.taskingPlan && !ux.taskingPlan.isPastOpen &&
+            <button
+              className="btn btn-standard btn-icon"
+              onClick={ux.onEditAssignedQuestions}
+              data-test-id="edit-assigned-questions"
+            >
+              <Icon type="edit" />
+            </button>
+          }
         </Controls>
       </Header>
 
