@@ -1,6 +1,7 @@
 import { React, PropTypes, withRouter, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import UX from './ux';
+import Courses from '../../models/courses-map';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import LoadingScreen from 'shared/components/loading-animation';
 import { BackgroundWrapper } from '../../helpers/background-wrapper';
@@ -32,6 +33,7 @@ class AssignmentGrading extends React.Component {
       id: PropTypes.string,
       courseId: PropTypes.string.isRequired,
     }),
+    course: PropTypes.object,
     history: PropTypes.object.isRequired,
   }
 
@@ -42,6 +44,7 @@ class AssignmentGrading extends React.Component {
 
     this.ux.initialize({
       ...props.params,
+      course: props.course || Courses.get(props.params.courseId),
       history: props.history,
       onComplete: this.onComplete,
     });

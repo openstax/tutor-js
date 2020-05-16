@@ -33,6 +33,7 @@ const GET_HANDLERS = {
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
+  'courses/:courseId/guide': require('./backend/performance-forecast'),
   'ecosystems/:ecosystemId/readings': require('./backend/readings'),
   'ecosystems/:ecosystemId/exercises/homework_core': require('./backend/exercises'),
 };

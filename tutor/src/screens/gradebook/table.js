@@ -294,9 +294,7 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   );
 });
 
-const percentOrDash = (score) => {
-  return isNil(score) ? '--' : S.asPercent(score) + '%';
-}
+const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (

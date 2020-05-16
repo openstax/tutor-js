@@ -1,7 +1,6 @@
 import { React, observable, action, computed } from 'vendor';
 import { first, pick, sortBy, filter, sumBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import Exercises from '../../models/exercises';
 import EditUX from '../assignment-edit/ux';
@@ -30,12 +29,14 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection,
-    history, windowImpl = window,
+    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection,
+    history,
+    scores = course.teacherTaskPlans.withPlanId(id).scores,
+    windowImpl = window,
   }) {
     this.id = id;
     this.scroller = new ScrollTo({ windowImpl });
-    this.planScores = scores || new TaskPlanScores({ id, course });
+    this.planScores = scores;
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;

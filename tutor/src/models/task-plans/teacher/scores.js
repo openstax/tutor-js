@@ -206,11 +206,12 @@ class TaskPlanScores extends BaseModel {
   @field description;
   @field type;
 
+  @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
+
   @hasMany({ model: DroppedQuestion }) dropped_questions;
   @hasMany({ model: TaskPlanScoresTasking, inverseOf: 'scores', extend: {
     forPeriod(period) { return find(this, { period_id: period.id }); },
   }  }) tasking_plans;
-  @belongsTo({ model: 'course' }) course;
   @field({ model: 'grading/template' }) grading_template;
 
   @computed get exerciseIds() {
@@ -231,7 +232,7 @@ class TaskPlanScores extends BaseModel {
 
   fetch() { return { id: this.id }; }
 
-  get taskPlan() {
-    return this.course.teacherTaskPlans.withPlanId(this.id);
+  get course() {
+    return this.taskPlan.course;
   }
 }

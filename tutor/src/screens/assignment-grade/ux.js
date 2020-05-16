@@ -2,7 +2,6 @@ import { observable, action, computed } from 'vendor';
 import { first, filter, isEmpty } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
-import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import Exercises from '../../models/exercises';
 import Grade from '../../models/task-plans/teacher/grade';
 import UiSettings from 'shared/model/ui-settings';
@@ -25,7 +24,8 @@ export default class AssignmentGradingUX {
   }
 
   @action async initialize({
-    id, periodId, courseId, scores, course,
+    id, periodId, courseId, course,
+    scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
   }) {
 
@@ -33,7 +33,8 @@ export default class AssignmentGradingUX {
     this.course = course || Courses.get(courseId);
     this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
       first(this.course.periods.active);
-    this.planScores = scores || new TaskPlanScores({ id, course: this.course });
+    this.planScores = scores ;
+
     await this.planScores.fetch();
 
     await Exercises.ensureExercisesLoaded({
