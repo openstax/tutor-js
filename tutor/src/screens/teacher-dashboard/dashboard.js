@@ -11,7 +11,7 @@ import Course from '../../models/course';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
-import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
+import TaskPlanMiniEditor from '../../screens/assignment-edit/mini-editor';
 import Sidebar from './sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
