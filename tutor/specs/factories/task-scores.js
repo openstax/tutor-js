@@ -53,15 +53,17 @@ Factory.define('TaskPlanPeriodScore')
   }))
   .num_questions_dropped(0)
   .points_dropped(0)
-  .question_headings(({ exercises }) => flatMap(exercises, (exercise, i) => (
-    exercise.content.questions.map((question) => ({
-      title: `Q${i+1}`,
-      exercise_id: exercise.id,
-      question_id: question.id,
-      points: 1.0,
-      type: 'MCQ',
-    }))
-  )))
+  .question_headings(({ task_plan, exercises }) => {
+    return flatMap(exercises, (exercise, i) => (
+      exercise.content.questions.map((question) => ({
+        title: `Q${i+1}`,
+        exercise_id: exercise.id,
+        question_id: question.id,
+        points: 1.0,
+        type: task_plan.type.match(/wrm/) ? 'FR' : 'MCQ',
+      }))
+    ))
+  })
   .students(Factory.reference('TaskPlanPeriodStudent', {
     count: () => fake.random.number({ min: 3, max: 10 }),
 

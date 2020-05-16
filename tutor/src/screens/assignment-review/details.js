@@ -58,7 +58,7 @@ const Row = styled.div`
   }
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
@@ -174,13 +174,15 @@ const Questions = ({ ux, questionsInfo }) => useObserver(() => {
       <Header>
         <h6>Questions Assigned</h6>
         <Controls>
-          <button
-            className="btn btn-standard btn-icon"
-            onClick={ux.onEditAssignedQuestions}
-            data-test-id="edit-assigned-questions"
-          >
-            <Icon type="edit" />
-          </button>
+          {ux.taskingPlan && !ux.taskingPlan.isPastOpen &&
+            <button
+              className="btn btn-standard btn-icon"
+              onClick={ux.onEditAssignedQuestions}
+              data-test-id="edit-assigned-questions"
+            >
+              <Icon type="edit" />
+            </button>
+          }
         </Controls>
       </Header>
 
@@ -296,12 +298,7 @@ const Details = observer(({ ux, ux: { editUX } }) => {
         </Section>
         {ux.canDisplayGradingBlock &&
           <Section data-test-id="grading-block">
-            <Header>
-              <h6>Grading</h6>
-            </Header>
-            <div>
-              <GradingBlock ux={ux} />
-            </div>
+            <GradingBlock ux={ux} />
           </Section>
         }
       </Top>

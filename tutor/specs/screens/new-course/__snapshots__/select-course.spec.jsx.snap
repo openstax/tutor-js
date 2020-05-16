@@ -20,7 +20,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      College Physics
+      Biology with Courseware
     </div>
     <svg
       aria-hidden="true"
@@ -82,7 +82,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      College Physics
+      AP US History
     </div>
     <svg
       aria-hidden="true"
@@ -113,7 +113,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      AP US History
+      Biology with Courseware
     </div>
     <svg
       aria-hidden="true"

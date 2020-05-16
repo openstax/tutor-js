@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, session, identifier, hasMany,
+  BaseModel, identifiedBy, field, session, identifier, belongsTo, hasMany,
 } from 'shared/model';
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
@@ -15,6 +15,7 @@ import Time from '../../time';
 import TaskPlanStats from './stats';
 import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
+import TaskPlanScores from './scores';
 
 const HW_DEFAULT_POINTS = 1;
 
@@ -77,6 +78,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_deleting;
   @field publish_job_url;
   @field grading_template_id;
+  @field ungraded_step_count;;
   @field({ type: 'object' }) settings = {};
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
@@ -95,7 +97,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @observable course;
+  @belongsTo({ model: 'course' }) course;
 
   constructor(attrs) {
     super(attrs);
@@ -134,6 +136,7 @@ class TeacherTaskPlan extends BaseModel {
     return this.course.gradingTemplates.get(this.grading_template_id);
   }
 
+  @lazyInitialize scores = new TaskPlanScores({ taskPlan: this, id: this.id });
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
   findOrCreateTaskingForPeriod(period, defaultAttrs = {}) {
@@ -152,6 +155,10 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get isNew() {
     return Boolean(!this.id || 'new' === this.id);
+  }
+
+  @computed get canGrade() {
+    return Boolean(this.isHomework && this.ungraded_step_count > 0);
   }
 
   @computed get opensAtString() {

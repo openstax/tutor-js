@@ -1,9 +1,7 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter } from 'lodash';
+import { first, pick, sortBy, filter, sumBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import TaskPlanScores from '../../models/task-plans/teacher/scores';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
-import Exercises from '../../models/exercises';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
@@ -30,16 +28,19 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, scores, course, onCompleteDelete, onEditAssignedQuestions, history,
+    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection,
+    history,
+    scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
   }) {
     this.id = id;
     this.scroller = new ScrollTo({ windowImpl });
-    this.planScores = scores || new TaskPlanScores({ id, course });
+    this.planScores = scores;
     this.course = course;
     this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;
     this.onEditAssignedQuestions = onEditAssignedQuestions;
+    this.onTabSelection = onTabSelection;
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.analytics.fetch();
@@ -52,7 +53,8 @@ export default class AssignmentReviewUX {
       course,
     });
 
-    await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
+    await this.planScores.ensureExercisesLoaded();
+
     this.exercisesHaveBeenFetched = true;
   }
 
@@ -86,7 +88,7 @@ export default class AssignmentReviewUX {
     this.rowSort.key = key;
     this.rowSort.dataType = dataType;
   }
-  
+
   isRowSortedBy({ sortKey, dataType }) {
     return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
   }
@@ -191,7 +193,9 @@ export default class AssignmentReviewUX {
   }
 
   @computed get isPublishingScores() {
-    return this.taskingPlan && this.taskingPlan.api.isPending;
+    return Boolean(
+      this.taskingPlan && this.taskingPlan.api.isPending
+    );
   }
 
   @computed get submitPending() {
@@ -247,11 +251,23 @@ export default class AssignmentReviewUX {
   }
 
   @computed get canDisplayGradingBlock() {
-    return Boolean(this.planScores.isHomework);
+    return Boolean(this.planScores.isHomework && this.scores);
   }
 
   @computed get isReadingOrHomework() {
     return Boolean(['reading', 'homework'].includes(this.planScores.type));
+  }
+
+  @computed get hasUnPublishedScores() {
+    return Boolean(this.scores.hasUnPublishedScores);
+  }
+
+  @computed get gradeableQuestionCount() {
+    return sumBy(this.scores.question_headings.map(qh => qh.gradedStats), 'remaining');
+  }
+
+  @computed get hasGradeableAnswers() {
+    return Boolean(this.gradeableQuestionCount > 0);
   }
 
 }

@@ -67,6 +67,7 @@ class AssignmentReview extends React.Component {
       course,
       onCompleteDelete: this.onCompleteDelete,
       onEditAssignedQuestions: this.onEditAssignedQuestions,
+      onTabSelection: this.onTabSelection,
     });
   }
 

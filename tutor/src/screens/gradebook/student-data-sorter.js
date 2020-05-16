@@ -2,10 +2,12 @@ import { isNumber } from 'lodash';
 
 const percent = (num, total) => Math.round((num / total) * 100) || 0;
 
-const getSortValue = function(student, index, dataType, displayAs) {
-
-  if (!isNumber(index)) { return (student.last_name || student.name).toLowerCase(); }
-  const task = student.data[index];
+const getSortValue = function(student, key, dataType, displayAs) {
+  //name, course_average, homework_score, reading_score
+  if (!isNumber(key)) {
+    return student[key];
+  }
+  const task = student.data[key];
   if (!task) { return -1; }
   let score;
   switch (task.type) {

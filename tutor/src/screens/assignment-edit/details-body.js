@@ -178,7 +178,7 @@ const DetailsBody = observer(({ ux }) => {
           data-test-id="edit-assignment-name"
           
           innerRef={nameInputField}
-          haserror={Boolean(ux.form.touched.title && ux.form.errors.title)}
+          hasError={Boolean(ux.form.touched.title && ux.form.errors.title)}
         />
       </SplitRow>
       <SplitRow>

@@ -10,7 +10,7 @@ import { getters } from '../../helpers/computed-property';
 const NON_ASSIGNABLE_TITLES = [
   'Glossary',
   'Key Terms',
-  'Problems & Exercises',
+  /Problems \S+ Exercises/,
   /\w+ Summary$/,
   /Test Prep/,
   /\w+ Questions$/,
