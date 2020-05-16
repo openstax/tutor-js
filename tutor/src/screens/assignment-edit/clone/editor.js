@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer, cn } from 'vendor';
 import UX from '../ux';
-import { Container, Col, Alert, Button } from 'react-bootstrap';
+import { Container, Col, Alert, Button, Modal } from 'react-bootstrap';
 import { camelCase } from 'lodash';
 import TutorLink from '../../../components/link';
 import Tasking from '../tasking';
@@ -8,15 +8,32 @@ import { TutorInput } from '../../../components/tutor-input';
 //import PublishButton from '../footer/save-button';
 //import DraftButton from '../footer/save-as-draft';
 //import NudgeIsAvailableMessage from '../nudge-is-available-message';
-import Theme from '../../../theme';
-import DetailsBody from '../details-body';
+//import Theme from '../../../theme';
 import { Formik } from 'formik';
+import CloneModal from 'components/course-modal';
+import { colors, fonts } from 'theme';
 
 // const StyledNudgeIsAvailableMessage = styled(NudgeIsAvailableMessage)`
 //   font-size: 14px;
 //   line-height: 20px;
 //   padding-left: 1.5rem;
 // `;
+
+const StyledTemplateModal = styled(CloneModal)`
+  .modal-dialog {
+    margin-top: 3rem;
+    max-width: 680px;
+
+    .modal-body {
+      background: ${colors.neutral.bright};
+
+      .btn-default {
+        border-color: ${colors.neutral.pale};
+        background: #FFFFFF;
+      }
+    }
+  }
+`;
 
 const StyledEditor = styled.div`
   h4 {
@@ -41,7 +58,7 @@ const StyledEditor = styled.div`
 const Footer = styled.div`
   display: flex;
   padding: 1.5rem;
-  background-color: ${Theme.colors.neutral.bright};
+  background-color: ${colors.neutral.bright};
   margin-top: 1rem;
   bottom: 0;
   width: 100%;
@@ -56,6 +73,7 @@ class TaskPlanMiniEditor extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    showModal: PropTypes.bool.isRequired,
     onHide: PropTypes.func.isRequired,
   }
 
@@ -75,7 +93,7 @@ class TaskPlanMiniEditor extends React.Component {
 
   render() {
     let errorAttrs;
-    const { ux } = this.props; // id, course, termStart, termEnd } = this.props;
+    const { ux, showModal, onHide } = this.props; // id, course, termStart, termEnd } = this.props;
 
     return (
     // <StyledEditor
@@ -136,12 +154,25 @@ class TaskPlanMiniEditor extends React.Component {
       //     </Button>
       //   </Footer>
       // </StyledEditor>
-      <Formik
-        initialValues={ux.formValues} 
-        validateOnMount={true}
+      <StyledTemplateModal
+        show={showModal}
+        backdrop="static"
+        onHide={onHide}
+        templateType={ux.plan.type}
       >
-        {ux.renderMiniCloneEditor}
-      </Formik>
+        <Modal.Header>
+          {'Add details to assignment name'}
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={ux.formValues} 
+            validateOnMount={true}
+          >
+            {ux.renderMiniCloneEditor}
+          </Formik>
+        </Modal.Body>
+      </StyledTemplateModal>
+     
      
     );
   }

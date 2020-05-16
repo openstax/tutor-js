@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
-import TemplateModal from '../../components/template-modal';
+import TemplateModal from '../../components/course-modal';
 import { Formik } from 'formik';
 import { colors } from 'theme';
 import { AsyncButton } from 'shared';

@@ -1,5 +1,5 @@
 import { React } from '../helpers';
-import TemplateModal from '../../src/components/template-modal';
+import TemplateModal from '../../src/components/course-modal';
 
 describe('Template Modal', () => {
 

@@ -37,7 +37,7 @@ StyledModal.OmitProps = [
   'template',
 ];
 
-const TemplateModal = observer((props) => {
+const CourseModal = observer((props) => {
   return (
     <StyledModal
       {...props}
@@ -48,8 +48,8 @@ const TemplateModal = observer((props) => {
   );
 });
 
-TemplateModal.propTypes = {
+CourseModal.propTypes = {
   templateType: PropTypes.string.isRequired,
 };
 
-export default TemplateModal;
+export default CourseModal;

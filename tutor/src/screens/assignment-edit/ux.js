@@ -139,7 +139,8 @@ export default class AssignmentUX {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
       this.templates = gradingTemplates;
-      this.plan.grading_template_id = this.plan.type === 'clone' || !this.plan.grading_template_id ? get(this.gradingTemplates, '[0].id') : this.plan.grading_template_id;
+      // when cloning, grading_template_id should be undefined
+      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
     }
 
     this.history = history;

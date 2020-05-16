@@ -57,25 +57,27 @@ class TaskPlanMiniEditorShell extends React.Component {
 
   render() {
     const { onHide } = this.props;
-
-    const body = this.ux.isInitializing ?
-      <Loading message="Loading assignment…" /> : <Editor onHide={onHide} ux={this.ux} />;
-
     return (
-      <StyledEditorPlacement>
-        <Overlay
-          show={this.isVisible}
-          onHide={this.props.onHide}
-          placement="auto"
-          target={this.props.findPopOverTarget}
-        >
-          <StyledPopover id="mini-task-editor-popover">
-            <Popover.Content>
-              {body}
-            </Popover.Content>
-          </StyledPopover>
-        </Overlay>
-      </StyledEditorPlacement>
+      <>
+        {this.ux.isInitializing && !this.ux.isReady &&
+        <StyledEditorPlacement>
+          <Overlay
+            show={this.isVisible}
+            onHide={this.props.onHide}
+            placement="auto"
+            target={this.props.findPopOverTarget}
+          >
+            <StyledPopover id="mini-task-editor-popover">
+              <Popover.Content>
+                <Loading message="Loading assignment…" />
+              </Popover.Content>
+            </StyledPopover>
+          </Overlay>
+        </StyledEditorPlacement>
+        }
+        <Editor onHide={onHide} ux={this.ux} showModal={!this.ux.isInitializing && this.ux.isReady} />
+      </>
+
     );
   }
 }
