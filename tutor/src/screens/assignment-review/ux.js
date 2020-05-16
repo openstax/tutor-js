@@ -2,7 +2,6 @@ import { React, observable, action, computed } from 'vendor';
 import { first, pick, sortBy, filter, sumBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
-import Exercises from '../../models/exercises';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
@@ -54,7 +53,8 @@ export default class AssignmentReviewUX {
       course,
     });
 
-    await Exercises.ensureExercisesLoaded({ course: this.course, exercise_ids: this.planScores.exerciseIds });
+    await this.planScores.ensureExercisesLoaded();
+
     this.exercisesHaveBeenFetched = true;
   }
 

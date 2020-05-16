@@ -2,7 +2,6 @@ import { observable, action, computed } from 'vendor';
 import { first, filter, isEmpty } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
-import Exercises from '../../models/exercises';
 import Grade from '../../models/task-plans/teacher/grade';
 import UiSettings from 'shared/model/ui-settings';
 
@@ -37,9 +36,7 @@ export default class AssignmentGradingUX {
 
     await this.planScores.fetch();
 
-    await Exercises.ensureExercisesLoaded({
-      course: this.course, exercise_ids: this.planScores.exerciseIds, task_plan_id: this.planScores.id,
-    });
+    await this.planScores.ensureExercisesLoaded();
 
     this.setHeading(this.headings[0]);
 

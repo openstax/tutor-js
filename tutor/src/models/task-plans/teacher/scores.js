@@ -75,6 +75,7 @@ class TaskPlanScoreHeading extends BaseModel {
   @field question_id;
   @field type;
   @field points;
+  @field ecosystem_id;
 
   @computed get isCore() {
     return 'Tutor' !== this.type;
@@ -205,7 +206,8 @@ class TaskPlanScores extends BaseModel {
   @field title;
   @field description;
   @field type;
-
+  @field ecosystem_id;
+  
   @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
@@ -224,6 +226,12 @@ class TaskPlanScores extends BaseModel {
       }
     }
     return ids;
+  }
+
+  async ensureExercisesLoaded() {
+    await Exercises.ensureExercisesLoaded({
+      course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds, task_plan_id: this.id,
+    });
   }
 
   @computed get isHomework() {
