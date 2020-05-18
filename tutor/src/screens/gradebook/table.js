@@ -185,13 +185,17 @@ const StyledStudentCell = styled(Cell)`
 `;
 
 const StudentColumnHeader = observer(({ ux }) => {
+
   return (
     <Cell>
       <CellContents>
         <ColumnHeading
-          first={true}>
+          first={true}
+          data-test-id="student-name-heading"
+        >
           <HeadingTop
-            onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}>
+            onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
+          >          
             Student Name
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
@@ -301,7 +305,7 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
     <StyledStudentCell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
         <Heading first={true}>
-          <FirstRowCell>
+          <FirstRowCell data-cell="student-name">
             {
               !student.is_dropped
                 ? <TutorLink

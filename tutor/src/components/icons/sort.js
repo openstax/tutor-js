@@ -10,7 +10,7 @@ const SortIcon = observer(({ sort }) => {
   } else {
     icon = 'sort-down';
   }
-  return <Icon type={icon} />;
+  return <Icon data-purpose="sort" type={icon} />;
 });
 SortIcon.propTypes={
   sort: PropTypes.oneOfType([ PropTypes.object, PropTypes.bool ]),

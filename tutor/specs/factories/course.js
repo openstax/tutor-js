@@ -8,9 +8,8 @@ const { BOOK_UID_XREF } = require('../../../shared/src/helpers/book-uuid-xrefs')
 
 Factory.define('Period')
   .id(sequence)
-  .name(({ parent }) => {
-    const length = parent.periods ? parent.periods.length : 0;
-    return `${ordinal(length + 1)}`;
+  .name(({ index }) => {
+    return `${ordinal(index + 1)}`;
   })
   .enrollment_code(`${fake.random.number({ min: 10000, max: 99999 })}`)
   .enrollment_url(({ object }) => `http://localhost:3001/enroll/${object.enrollment_code}`)

@@ -80,6 +80,7 @@ exports[`Student Dashboard displays as loading 1`] = `
       >
         <nav
           className="tutor-tabs"
+          data-test-id="tabs"
         >
           <ul
             className="nav nav-tabs"
@@ -565,6 +566,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
       >
         <nav
           className="tutor-tabs"
+          data-test-id="tabs"
         >
           <ul
             className="nav nav-tabs"

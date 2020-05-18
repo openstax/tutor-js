@@ -59,7 +59,7 @@ class CoursePeriodsNav extends React.Component {
       </Tooltip>;
 
     return (
-      <div className={className}>
+      <div className={className} data-test-id="period-tab">
         <OverlayTrigger placement="top" delayShow={1000} delayHide={0} overlay={tooltip}>
           <span className="tab-item-period-name">
             {period.name}

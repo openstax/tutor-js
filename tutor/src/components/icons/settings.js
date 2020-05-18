@@ -66,7 +66,7 @@ const MoreInfo = styled.p`
 `;
 
 const SettingsCheckbox = observer(({ ux, title, property }) => (
-  <StyledCheckbox>
+  <StyledCheckbox data-test-id={`${property}-checkbox`}>
     {title}
     <input
       type="checkbox"
@@ -113,12 +113,15 @@ class Settings extends React.Component {
     const { ux, label, controls, moreInfo } = this.props;
     return (
       <>
-        <Button ref={this.target}
+        <Button
+          ref={this.target}
+          data-test-id="settings-btn"
           onClick={this.onBtnClick}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
           variant='plain'
-          className={`${this.showPopoverSettings ? 'gradebook-btn-selected' : ''}`}>
+          className={`${this.showPopoverSettings ? 'gradebook-btn-selected' : ''}`}
+        >
           <Icon type="cog" />
         </Button>
         {/* Overlay for the settings controller */}
