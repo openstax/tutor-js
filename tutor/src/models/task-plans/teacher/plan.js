@@ -102,6 +102,7 @@ class TeacherTaskPlan extends BaseModel {
   constructor(attrs) {
     super(attrs);
     this.course = attrs.course;
+    this.cloned_from_id = attrs.cloned_from_id;
     this.unmodified_plans = attrs.tasking_plans;
     this.exercisesMap = attrs.exercisesMap || Exercises;
     this.publishing = createAtom(
@@ -109,7 +110,7 @@ class TeacherTaskPlan extends BaseModel {
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
-    if (this.isNew) {
+    if (this.isNew && !this.isClone) {
       Object.assign(this.settings, this.defaultSettings);
     }
   }
@@ -364,7 +365,7 @@ class TeacherTaskPlan extends BaseModel {
     });
   }
 
-  @action createClone({ course }) {
+  @action createClone({ course, cloned_from_id }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
       tasking_plans: course.periods.active.map(period => ({
@@ -373,6 +374,7 @@ class TeacherTaskPlan extends BaseModel {
       })),
       course,
       title: `Copied ${this.title}`,
+      cloned_from_id,
     });
   }
 
