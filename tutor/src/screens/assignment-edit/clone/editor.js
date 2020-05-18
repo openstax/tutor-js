@@ -1,4 +1,5 @@
 import { React, PropTypes, styled, observer } from 'vendor';
+import Router from '../../../helpers/router';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import UX from '../ux';
@@ -70,6 +71,18 @@ class Editor extends React.Component {
     onHide();
   }
 
+  async publish() {
+    const { ux: { savePlan }, onHide } = this.props;
+    await savePlan();
+    onHide();
+  }
+
+  async editDetails() {
+    const { ux: { saveAsDraft, navigateToStep } } = this.props;
+    await saveAsDraft();
+    navigateToStep('details');
+  }
+
   onCancel() {
     this.props.onHide();
   }
@@ -128,11 +141,13 @@ class Editor extends React.Component {
             <Button
               className="other-button"
               size="lg"
+              onClick={() => this.publish()}
             >
             Publish
             </Button>
             <Button
               size="lg"
+              onClick={() => this.editDetails()}
             >
             Edit other details
             </Button>

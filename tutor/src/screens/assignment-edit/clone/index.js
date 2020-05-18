@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, styled, action, observer, observable,
+  React, PropTypes, styled, observer,
 } from 'vendor';
 import { Overlay, Popover } from 'react-bootstrap';
 import Loading from 'shared/components/loading-animation';
@@ -33,10 +33,8 @@ class CloneAssignment extends React.Component {
       id:   PropTypes.string.isRequired,
       date: PropTypes.object.isRequired,
     }).isRequired,
-    findPopOverTarget: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
   };
-
-  @observable isVisible = true;
 
   constructor(props) {
     super(props);
@@ -45,27 +43,20 @@ class CloneAssignment extends React.Component {
       type: 'clone',
       id: props.sourcePlan.id,
       course: this.props.course,
-      onComplete: this.onComplete,
       due_at: props.sourcePlan.date,
+      history: props.history,
     });
-  }
-
-  @action.bound onComplete() {
-    this.isVisible = false;
-    this.props.onHide();
   }
 
   render() {
     const { onHide } = this.props;
     return (
       <>
-        {this.ux.isInitializing && !this.ux.isReady &&
         <StyledEditorPlacement>
           <Overlay
-            show={this.isVisible}
+            show={this.ux.isInitializing && !this.ux.isReady}
             onHide={this.props.onHide}
             placement="auto"
-            target={this.props.findPopOverTarget}
           >
             <StyledPopover id="mini-task-editor-popover">
               <Popover.Content>
@@ -73,8 +64,7 @@ class CloneAssignment extends React.Component {
               </Popover.Content>
             </StyledPopover>
           </Overlay>
-        </StyledEditorPlacement>
-        }
+        </StyledEditorPlacement>     
         <Editor onHide={onHide} ux={this.ux} showModal={!this.ux.isInitializing && this.ux.isReady} />
       </>
 

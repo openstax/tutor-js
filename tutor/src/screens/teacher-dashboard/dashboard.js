@@ -115,7 +115,7 @@ class TeacherDashboard extends React.Component {
   }
 
   render() {
-    const { course, className, date, hasPeriods } = this.props;
+    const { course, className, date, hasPeriods, history } = this.props;
 
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
@@ -167,8 +167,7 @@ class TeacherDashboard extends React.Component {
             course={course}
             onHide={this.onEditorHide}
             sourcePlan={this.editingPlan}
-            position={this.editingPosition}
-            findPopOverTarget={this.getEditingPlanEl}
+            history={history}
           />)}
       </TourRegion>
     );

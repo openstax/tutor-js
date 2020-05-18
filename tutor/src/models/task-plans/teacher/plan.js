@@ -358,9 +358,8 @@ class TeacherTaskPlan extends BaseModel {
   @computed get clonedAttributes() {
     return extend(pick(
       this,
-      'description', 'settings', 'type', 'ecosystem_id', 'is_feedback_immediate',
+      'description', 'settings', 'title', 'type', 'ecosystem_id', 'is_feedback_immediate', 'grading_template_id'
     ), {
-      title: `Copied ${this.title}`,
       tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
     });
   }
@@ -373,6 +372,7 @@ class TeacherTaskPlan extends BaseModel {
         target_type: 'period',
       })),
       course,
+      title: `Copied ${this.title}`,
     });
   }
 

@@ -26,7 +26,6 @@ export default class AssignmentUX {
   @observable isShowingConfirmTemplate = false;
   @observable exercises;
   @observable isReady = false;
-  @observable sourcePlanId;
   @observable form;
   @observable activeFilter = 'all';
   @observable templates;
@@ -51,7 +50,6 @@ export default class AssignmentUX {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
       }
-      this.sourcePlanId = id;
       this.plan = course.pastTaskPlans.get(id).createClone({ course });
       this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
@@ -143,7 +141,11 @@ export default class AssignmentUX {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
       this.templates = gradingTemplates;
-      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+      this.plan.grading_template_id =
+      // if cloning, set the grading_template_id to the current ones from copied course.
+        type === 'clone' || !this.plan.grading_template_id
+          ? get(this.gradingTemplates, '[0].id')
+          : this.plan.grading_template_id;
     }
 
     this.history = history;
