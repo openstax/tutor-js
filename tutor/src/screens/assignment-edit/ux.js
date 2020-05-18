@@ -34,6 +34,9 @@ export default class AssignmentUX {
   @observable didUserChangeDatesManually = false;
   @observable dueAt;
 
+  // Check if the assignment is old, before WRM release. (No grading template)
+  isCloneOldAssignment;
+
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
@@ -50,6 +53,7 @@ export default class AssignmentUX {
       }
       this.sourcePlanId = id;
       this.plan = course.pastTaskPlans.get(id).createClone({ course });
+      this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {
         this.plan = plan;
@@ -139,7 +143,6 @@ export default class AssignmentUX {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
       this.templates = gradingTemplates;
-      // when cloning, grading_template_id should be undefined
       this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
     }
 
