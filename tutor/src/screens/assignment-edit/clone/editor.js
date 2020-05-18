@@ -1,5 +1,4 @@
 import { React, PropTypes, styled, observer } from 'vendor';
-import Router from '../../../helpers/router';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import UX from '../ux';
