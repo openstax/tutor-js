@@ -1,5 +1,4 @@
 import { React, PropTypes, styled, observer, observable, action } from 'vendor';
-import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
 import TourAnchor from '../../components/tours/anchor';
 import { Modal, Button } from 'react-bootstrap';
@@ -16,7 +15,7 @@ const DeleteModal = observer(({ isVisible, show, onClose, isBusy, onDelete }) =>
       show={show}
       onHide={onClose}
       className="settings-delete-assessment-modal">
-      <Modal.Header closeButton={true}>
+      <Modal.Header closeButton>
         <Modal.Title>
           Delete assignment?
         </Modal.Title>
@@ -64,7 +63,7 @@ class DeleteButton extends React.Component {
   }
 
   render() {
-    const { plan, onDelete, isApiPending } = this.props.ux;
+    const { plan, isApiPending } = this.props.ux;
     if (plan.isNew && !isApiPending) { return null; }
 
     return (
