@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { colors } from 'theme';
 import { Button } from 'react-bootstrap';
+import DeleteBtn from './delete-btn';
 
 const Footer = styled.div`
   position: fixed;
@@ -44,7 +45,7 @@ const RightButton = styled(Button)`
 `;
 
 
-const Controls = observer(({ middleControls, ux: {
+const Controls = observer(({ middleControls, ux, ux: {
   onPublishClick, onSaveAsDraftClick, onCancel, steps: {
     isFirst, isLast, goForward, goBackward, canGoForward, canSubmit,
   } } }) => {
@@ -68,6 +69,7 @@ const Controls = observer(({ middleControls, ux: {
         <LeftButton onClick={isFirst ? onCancel : goBackward}>
           {isFirst ? 'Cancel' : 'Back'}
         </LeftButton>
+        <DeleteBtn ux={ux} />
         <Middle>
           {middleControls}
         </Middle>

@@ -439,4 +439,9 @@ export default class AssignmentUX {
   @action setDueAt(dueAt) {
     this.dueAt = dueAt;
   }
+
+  @action.bound async onDelete() {
+    await this.plan.destroy();
+    this.onComplete();
+  }
 }
