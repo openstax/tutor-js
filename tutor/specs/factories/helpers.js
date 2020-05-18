@@ -50,9 +50,12 @@ const SECTION_NAMES = [
   'X Rays: Atomic Origins and Applications',
 ]
 
+function rng(options) {
+  return () => fake.random.number(options)
+}
 
 module.exports = {
-  Factory, uuid, sequence, reference, fake,
+  Factory, uuid, sequence, reference, fake, rng,
   TITLES, APPEARANCE_CODES, PLAN_TYPES,
   moment,  SECTION_NAMES,
 };
