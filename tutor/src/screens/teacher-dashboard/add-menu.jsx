@@ -111,18 +111,17 @@ export default class CourseAddMenu {
 
   @autobind renderMenuLink(link, goToBuilder, shouldAddDivider) {
     return (
-      <>
+      <div key={link.type}>
         <Dropdown.Item
           className="dropdown-item"
-          key={link.type}
+
           data-assignment-type={link.type}
           onSelect={partial(goToBuilder, link.pathname)}
         >
           {link.text}
         </Dropdown.Item>
         {shouldAddDivider && <hr></hr>}
-      </>
-
+      </div>
     );
   }
 
