@@ -11,7 +11,7 @@ import Course from '../../models/course';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
-import TaskPlanMiniEditor from '../assignment-edit/clone';
+import AssignmentClone from '../assignment-edit/clone';
 import Sidebar from './sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
@@ -163,7 +163,7 @@ class TeacherDashboard extends React.Component {
         </div>
 
         {this.editingPlan && (
-          <TaskPlanMiniEditor
+          <AssignmentClone
             course={course}
             onHide={this.onEditorHide}
             sourcePlan={this.editingPlan}

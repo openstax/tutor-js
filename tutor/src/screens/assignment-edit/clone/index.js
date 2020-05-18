@@ -25,7 +25,7 @@ const StyledPopover = styled(Popover)`
 `;
 
 @observer
-class TaskPlanMiniEditorShell extends React.Component {
+class CloneAssignment extends React.Component {
   static propTypes = {
     course:   PropTypes.instanceOf(Course).isRequired,
     onHide:   PropTypes.func.isRequired,
@@ -82,4 +82,4 @@ class TaskPlanMiniEditorShell extends React.Component {
   }
 }
 
-export default TaskPlanMiniEditorShell;
+export default CloneAssignment;
