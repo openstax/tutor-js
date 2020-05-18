@@ -51,6 +51,10 @@ class ExerciseQuestion extends BaseModel {
     );
   }
 
+  @computed get isFreeResonseOnly() {
+    return Boolean(this.hasFormat('free-response') && this.answers.length == 0);
+  }
+  
   hasFormat(value) {
     if (value == 'open-ended') { return this.isOpenEnded; }
     return Boolean(find(this.formats, { value }));

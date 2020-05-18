@@ -23,14 +23,14 @@ let PLANS = {};
 const SCORES = {};
 const GRADES = {};
 
-// TODO: Get OpenEndedTutorExercise to work and use them here.
 const SETTINGS = [
   { id: 1, type: 'reading' },
   { id: 2, type: 'homework' },
-  { id: 3, type: 'external' },
-  { id: 4, type: 'event' },
-  { id: 5, type: 'homework', exercises: [] },
+  { id: 3, type: 'homework-wrm' },
+  { id: 4, type: 'external' },
+  { id: 5, type: 'event' },
   { id: 6, type: 'homework', exercises: [] },
+  { id: 7, type: 'homework', exercises: [] },
 ];
 
 const planForId = (id, attrs = {}) => (
@@ -44,7 +44,7 @@ const scoresForId = (courseId, planId) => {
   if (!scores) {
     const course = getCourse(courseId);
     const plan = planForId(planId, { course: course });
-    const exercises = plan.type == 'homework' ? times(8).map((id) => getExercise(id)) : [];
+    const exercises = plan.type.match(/homework/) ? times(8).map((id) => getExercise(id)) : [];
     SCORES[planId] = scores = Factory.create('TaskPlanScores', { task_plan: plan, grades: {}, course, exercises });
   } else {
     scores.tasking_plans.forEach(tp => {

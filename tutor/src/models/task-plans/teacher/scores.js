@@ -14,6 +14,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field selected_answer_id;
   @field free_response;
   @field task_step_id;
+  @field needs_grading;
   @field grader_points;
   @field grader_comments;
 
@@ -37,6 +38,10 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
   @computed get availablePoints() {
     return this.questionHeading.points;
+  }
+
+  @computed get isManuallyGraded() {
+    return !isNil(this.grader_points);
   }
 }
 
@@ -70,6 +75,7 @@ class TaskPlanScoreHeading extends BaseModel {
   @field question_id;
   @field type;
   @field points;
+  @field ecosystem_id;
 
   @computed get isCore() {
     return 'Tutor' !== this.type;
@@ -81,16 +87,6 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get studentResponses() {
     return this.tasking.students.map(s => s.questions[this.index]);
-  }
-
-  @computed get responseStats() {
-    const responses = this.studentResponses;
-    return {
-      completed: filter(responses, 'is_completed').length,
-      hasFreeResponse: Boolean(find(responses, 'free_response')),
-      points: sumBy(responses, 'points'),
-      totalPoints: this.points * responses.length,
-    };
   }
 
   @computed get exercise() {
@@ -105,8 +101,31 @@ class TaskPlanScoreHeading extends BaseModel {
     return this.tasking.scores.dropped_questions.find(drop => drop.question_id == this.question_id);
   }
 
-}
+  @computed get gradedProgress() {
+    return `(${this.gradedStats.completed}/${this.gradedStats.total})`;
+  }
 
+  @computed get responseStats() {
+    const responses = this.studentResponses;
+    return {
+      completed: filter(responses, 'is_completed').length,
+      hasFreeResponse: Boolean(find(responses, 'free_response')),
+      points: sumBy(responses, 'points'),
+      totalPoints: this.points * responses.length,
+    };
+  }
+
+  @computed get gradedStats() {
+    const remaining = filter(this.studentResponses, 'needs_grading').length;
+    return {
+      total: this.studentResponses.length,
+      completed: this.studentResponses.length - remaining,
+      remaining,
+      complete: remaining == 0,
+    };
+  }
+
+}
 
 @identifiedBy('task-plan/scores/tasking')
 class TaskPlanScoresTasking extends BaseModel {
@@ -117,12 +136,12 @@ class TaskPlanScoresTasking extends BaseModel {
   @field({ type: 'object' }) average_score;
   @field({ type: 'object' }) available_points;
   @belongsTo({ model: 'task-plan/scores' }) plan;
-  @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'tasking' }) question_headings;
+  @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'tasking', extend: {
+    gradable() { return filter(this, h => h.question && h.question.isFreeResonseOnly); },
+    core() { return filter(this, h => h.type != 'Tutor'); },
+  } }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
 
-  @computed get coreQuestionHeadings() {
-    return filter(this.question_headings, h => h.type != 'Tutor');
-  }
 
   // this returns all of the quesions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions
@@ -172,6 +191,11 @@ class TaskPlanScoresTasking extends BaseModel {
     return true;
   }
 
+  @computed get hasUnPublishedScores() {
+    return Boolean(
+      find(this.students, student => find(student.questions, question => !isNil(question.grader_points))),
+    );
+  }
 }
 
 export default
@@ -182,12 +206,14 @@ class TaskPlanScores extends BaseModel {
   @field title;
   @field description;
   @field type;
+  @field ecosystem_id;
+  
+  @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;
   @hasMany({ model: TaskPlanScoresTasking, inverseOf: 'scores', extend: {
     forPeriod(period) { return find(this, { period_id: period.id }); },
   }  }) tasking_plans;
-  @belongsTo({ model: 'course' }) course;
   @field({ model: 'grading/template' }) grading_template;
 
   @computed get exerciseIds() {
@@ -202,13 +228,19 @@ class TaskPlanScores extends BaseModel {
     return ids;
   }
 
+  async ensureExercisesLoaded() {
+    await Exercises.ensureExercisesLoaded({
+      course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds, task_plan_id: this.id,
+    });
+  }
+
   @computed get isHomework() {
     return 'homework' == this.type;
   }
 
   fetch() { return { id: this.id }; }
 
-  get taskPlan() {
-    return this.course.teacherTaskPlans.withPlanId(this.id);
+  get course() {
+    return this.taskPlan.course;
   }
 }

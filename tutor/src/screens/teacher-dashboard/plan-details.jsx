@@ -107,7 +107,7 @@ class CoursePlanDetails extends React.Component {
     const { plan, course } = this.props;
     // TODO: Check plan for gradeable anwers. For now just use Homework as the
     // check until we have practical dev/test data
-    if (!plan.isHomework) { return null; }
+    if (!plan.canGrade) { return null; }
     return (
       <OverlayTrigger
         placement="top"
@@ -140,7 +140,7 @@ class CoursePlanDetails extends React.Component {
         <TutorLink
           disabled={!plan.isPublished}
           className="btn btn-standard"
-          to={plan.isExternal ? 'viewGradebook' : 'reviewAssignment'}
+          to={'reviewAssignment'}
           params={this.linkParams}
         >
           View assignment

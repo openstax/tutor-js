@@ -19,7 +19,7 @@ describe('Sections Chooser', () => {
     chooser.find('TriStateCheckbox Icon').at(1).simulate('click');
     expect(props.onSelectionChange).toHaveBeenCalled();
     props.onSelectionChange.mockReset();
-    const pageId = book.pages.byId.keys()[8];
+    const pageId = book.pages.byId.keys()[2];
     chooser.find(`[data-section-id="${pageId}"] input`).simulate('click');
     expect(props.onSelectionChange).toHaveBeenCalledWith(
       expect.arrayContaining([pageId])

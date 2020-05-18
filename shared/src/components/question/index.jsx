@@ -64,7 +64,12 @@ class Question extends React.Component {
     processHtmlAndMath: PropTypes.bool,
     className: PropTypes.string,
     questionNumber: PropTypes.number,
+    displaySolution: PropTypes.bool,
     context: PropTypes.string,
+  };
+  
+  static defaultProps = {
+    displaySolution: true,
   };
 
   static childContextTypes = {
@@ -93,11 +98,11 @@ class Question extends React.Component {
   };
 
   hasSolution = () => {
-    const { question, correct_answer_id } = this.props;
+    const { question, correct_answer_id, displaySolution } = this.props;
     const { collaborator_solutions } = question;
 
     return (
-      this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
+      displaySolution && this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
     );
   };
 

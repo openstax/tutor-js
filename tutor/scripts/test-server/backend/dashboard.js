@@ -9,8 +9,6 @@ let survey = Factory.create('ResearchSurvey');
 
 let ROLE = 'teacher';
 
-const TITLES = times(50, () => fake.company.bs());
-
 module.exports = {
 
   setRole(role) {
@@ -27,14 +25,12 @@ module.exports = {
     if (ROLE === 'student') {
       data.tasks = range(1, 25).map(id => omit(Factory.create('StudentDashboardTask', {
         now, days_ago: id-10,
-        title: TITLES[id],
       }), 'course'));
     } else {
       let days = -50;
 
       const defaultPlans = range(1, 25).map(id => omit(Factory.create('TeacherTaskPlan', {
         id, course, now,
-        title: TITLES[id],
         days_ago: (days+=id),
       }), 'course'));
 
@@ -49,10 +45,9 @@ module.exports = {
 
       const setPlans = planSettings.map(s => Factory.create('TeacherTaskPlan', {
         ...s, course, now,
-        title: TITLES[s.id],
       }));
 
-      data.plans = [...defaultPlans, ...setPlans]
+      data.plans = [...defaultPlans, ...setPlans];
 
       data.tasks = [];
     }

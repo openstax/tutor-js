@@ -1,60 +1,25 @@
 import { observable, computed, action } from 'mobx';
-import { sum, toArray, flow, inRange, keys, isEqual, pick, invert, mapValues, partial } from 'lodash';
-import S from '../../helpers/string';
-
-const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
 const DEFAULTS = {
-  homework_scores: 100,
-  homework_progress: 0,
-  reading_scores: 0,
-  reading_progress: 0,
+  ux_reading_weight: 50,
+  ux_homework_weight: 50,
 };
 
-const RECOMMENDED = {
-  homework_scores: 50,
-  homework_progress: 0,
-  reading_scores: 0,
-  reading_progress: 50,
-};
-
-const CW = {
-  homework_score_weight: 'homework_scores',
-  homework_progress_weight: 'homework_progress',
-  reading_score_weight: 'reading_scores',
-  reading_progress_weight: 'reading_progress',
-};
-
-const WC = invert(CW);
-
-const PERCENT_KEYS = keys(DEFAULTS);
-const WEIGHT_KEYS = keys(CW);
-
-const MIN = 0;
 const MAX = 100;
-const RANGE = MAX - MIN;
-
-const weightToPercent = (weight) => ((weight || MIN) * RANGE );
-const percentToWeight = (percent) => ((percent || MIN) / RANGE );
-
-const weightsToPercents = (weights) => mapValues(WC, (c) => weightToPercent(weights[c]));
-const percentsToWeights = (percents) => mapValues(CW, (w) => percentToWeight(percents[w]));
 
 export default class ScoresReportWeightsUX {
 
-  PERCENT_KEYS = PERCENT_KEYS;
-  WEIGHT_KEYS = WEIGHT_KEYS;
+  @observable ux_homework_weight;
+  @observable ux_reading_weight;
 
-  @observable homework_scores;
-  @observable homework_progress;
-  @observable reading_scores;
-  @observable reading_progress;
-
-  @observable hasTouched = false;
+  @observable isSaving = false;
   @observable showWeightsModal = false;
 
   constructor(scoresUx) {
     this.scoresUx = scoresUx;
+    // weights in the BE (course) are between 0 and 1
+    this.ux_homework_weight = this.course.homework_weight * 100;
+    this.ux_reading_weight = this.course.reading_weight * 100;
   }
 
   @computed get course() {
@@ -62,15 +27,55 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get isBusy() {
-    return Boolean(this.course.api.isPending || this.course.scores.api.isPending);
+    return Boolean(this.course.api.isPending || this.course.scores.api.isPending || this.isSaving);
   }
 
-  @computed get savingButtonText() {
-    if (this.course.scores.api.isPending) {
-      return 'Recalculating scores…';
-    } else {
-      return 'Saving…';
+  @action.bound async onSaveWeights() {
+    this.isSaving = true;
+    const { course } = this;
+    Object.assign(course, {
+      homework_weight: this.ux_homework_weight / 100,
+      reading_weight: this.ux_reading_weight / 100,
+    });
+    try {
+      await course.save();
+      await course.scores.fetch();
+    } catch {
+      // reset course weights to previous weight values
+      Object.assign(course, {
+        homework_weight: this.ux_homework_weight * 100,
+        reading_weight: this.ux_reading_weight * 100,
+      });
     }
+    finally {
+      this.isSaving = false;
+      this.hideWeights();
+    }
+  }
+
+  @action.bound setWeight(weight, targetName) {
+    this[targetName] = weight;
+  }
+
+  @computed get total() {
+    return this.ux_reading_weight + this.ux_homework_weight;
+  }
+
+  @computed get isValid() {
+    return this.total === MAX;
+  }
+
+  @computed get hasChanged() {
+    return this.ux_homework_weight / 100 !== this.course.homework_weight
+          || this.ux_reading_weight / 100 !== this.course.reading_weight;
+  }
+
+  @computed get isSaveable() {
+    return this.isValid && !this.isBusy && this.hasChanged;
+  }
+
+  getDefaults() {
+    return DEFAULTS;
   }
 
   /**
@@ -78,7 +83,6 @@ export default class ScoresReportWeightsUX {
    */
   @action showWeights() {
     this.showWeightsModal = true;
-    Object.assign(this, this.currentPercents);
   }
 
   /**
@@ -87,108 +91,4 @@ export default class ScoresReportWeightsUX {
   @action hideWeights() {
     this.showWeightsModal = false;
   }
-
-  @action.bound async onSaveWeights() {
-    const { course, currentPercents } = this;
-    Object.assign(course, this.nextWeights);
-    try {
-      await course.save();
-      await course.scores.fetch();
-    } catch {
-      // reset course weights to previous weight values
-      Object.assign(course, percentsToWeights(currentPercents));
-    }
-    finally {
-      this.isSetting = false;
-    }
-  }
-
-  @action.bound setWeight(ev) {
-    this.hasTouched = true;
-    const weight = (ev.target.value !=='' && parseInt(ev.target.value)) || ev.target.value;
-    if (inRange(weight, MIN, MAX + 1) || weight === '') { // inRange is up to but not including end
-      this[ev.target.name] = weight;
-    }
-  }
-
-  @computed get savedCourseWeightsAsPercents() {
-    const { course } = this;
-    return weightsToPercents(course);
-  }
-
-  @computed get uxPercentsAsCourseWeights() {
-    return percentsToWeights(this);
-  }
-
-  @computed get currentPercents() {
-    return this.savedCourseWeightsAsPercents;
-  }
-
-  @computed get nextWeights() {
-    return this.uxPercentsAsCourseWeights;
-  }
-
-  @computed get weightValues() {
-    return flow(
-      partial(pick, partial.placeholder, this.PERCENT_KEYS),
-      partial(mapValues, partial.placeholder, S.stringToInt),
-    )(this);
-  }
-
-  @computed get total() {
-    return flow(
-      toArray,
-      sum,
-      Math.round,
-    )(this.weightValues);
-  }
-
-  @computed get isValid() {
-    return this.total === MAX;
-  }
-
-  matches(comparisonSettings) {
-    return isEqual(this.weightValues, comparisonSettings);
-  }
-
-  @computed get isRecommended() {
-    return this.matches(RECOMMENDED);
-  }
-
-  @computed get isDefault() {
-    return this.matches(DEFAULTS);
-  }
-
-  @computed get hasChanged() {
-    return !this.matches(this.currentPercents);
-  }
-
-  @computed get isSaveable() {
-    return this.isValid && !this.isBusy;
-  }
-
-  @computed get showIsInvalid() {
-    return !this.isValid;
-  }
-
-  @computed get showIsValid() {
-    return this.isValid;
-  }
-
-  @computed get msgIconType() {
-    return (this.showIsValid && 'check-circle') || 'info-circle';
-  }
-
-  @computed get msg() {
-    return (this.showIsValid && ' Weights total 100%') || ' Weights must total 100%';
-  }
-
-  @action.bound setDefaults() {
-    Object.assign(this, DEFAULTS);
-  }
-
-  @action.bound resetToCurrent() {
-    Object.assign(this, this.currentPercents);
-  }
-
 }

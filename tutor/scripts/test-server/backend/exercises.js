@@ -3,6 +3,7 @@ const { partial, find, range, flatMap, concat } = require('lodash');
 const Readings = require('./readings');
 require('../../../specs/factories/exercise');
 
+const WRM_PLAN_ID = 3;
 let ROLE = 'teacher';
 
 const findPage = (id, parent) => {
@@ -18,6 +19,7 @@ const findPage = (id, parent) => {
 
 const EXERCISES = {};
 
+
 function getExercise(id) {
   return EXERCISES[id] || (EXERCISES[id] = Factory.create('TutorExercise', { id }));
 }
@@ -32,10 +34,14 @@ module.exports = {
 
   handler(req, res) {
     if (req.query.exercise_ids) {
-      res.json({
-        total_count: req.query.exercise_ids.length,
-        items: req.query.exercise_ids.map((exId) => getExercise(exId)),
-      });
+      const items = req.query.exercise_ids.map((exId) => getExercise(exId));
+      if (req.query.task_plan_id == WRM_PLAN_ID) {
+        items.forEach(ex => ex.content.questions.forEach(q => {
+          q.formats = ['free-response'];
+          q.answers = [];
+        }));
+      }
+      res.json({ items, total_count: items.length });
       return;
     }
 
@@ -45,7 +51,7 @@ module.exports = {
       const pg = findPage(pgId, book);
       // eslint-disable-next-line
       if (!pg){ console.warn(`Unable to find page id ${pgId} in book id ${req.params.ecosystemId}`); }
-      return concat(
+      const exercises =  concat(
         range(8).map(() => Factory.create('TutorExercise', {
           page_uuid: pg ? pg.uuid : undefined,
         })),
@@ -53,6 +59,7 @@ module.exports = {
           page_uuid: pg ? pg.uuid : undefined,
         })),
       );
+      return exercises;
     });
     res.json({
       total_count: exercises.length,

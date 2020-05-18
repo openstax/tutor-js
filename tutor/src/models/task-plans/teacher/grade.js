@@ -10,9 +10,9 @@ class TeacherTaskGrade extends BaseModel {
 
   @belongsTo({ model: TeacherTaskPlan }) taskPlan;
 
-  constructor({ question, points, comment }) {
+  constructor({ response, points, comment }) {
     super();
-    this.question = question;
+    this.response = response;
     this.grader_points = points;
     this.grader_comments = comment;
   }
@@ -22,14 +22,14 @@ class TeacherTaskGrade extends BaseModel {
 
   save() {
     return {
-      task_step_id: this.question.task_step_id,
+      task_step_id: this.response.task_step_id,
       data: pick(this, 'grader_points', 'grader_comments'),
     };
   }
 
   onGraded({ data }) {
     this.update(data);
-    this.question.update(data);
+    this.response.update(data);
   }
   // not clear how these are populated
   @field answer_id;

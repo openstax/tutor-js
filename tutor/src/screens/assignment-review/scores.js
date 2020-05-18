@@ -1,13 +1,14 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { Icon, AsyncButton } from 'shared';
+import { Icon } from 'shared';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
+import PublishScores from './publish-scores';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -337,20 +338,7 @@ const TableHeader = observer(({ ux }) => {
         <DropQuestions ux={ux} />
       </ControlGroup>
       <ControlGroup>
-        <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>Publish to make scores available to students</Tooltip>}
-        >
-          <AsyncButton
-            variant="primary"
-            isWaiting={ux.isPublishingScores}
-            waitingText="Publishing…"
-            onClick={ux.onPublishScores}
-            data-test-id="publish-scores"
-          >
-            Publish scores
-          </AsyncButton>
-        </OverlayTrigger>
+        <PublishScores ux={ux} />
       </ControlGroup>
     </ControlsWrapper>
   );

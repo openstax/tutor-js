@@ -5,6 +5,9 @@ const {
 } = require('./helpers');
 const { times } = require('lodash');
 
+const WRM_ID = 3;
+const TITLES = times(50, () => fake.company.bs());
+
 Factory.define('TeacherTaskPlanTasking')
   .target_id(({ period }) => period ? period.id : 1 )
   .target_type('period')
@@ -15,10 +18,10 @@ Factory.define('TeacherTaskPlanTasking')
 
 Factory.define('TeacherTaskPlan')
   .id(sequence)
-  .title(fake.company.bs)
+  .title(({ object: { id } }) => id == WRM_ID ? 'WRM' : TITLES[id] || fake.company.bs)
   .description(fake.commerce.productName)
   .ecosystem_id(({ course }) => course ? course.ecosystem_id : fake.random.number({ min: 1, max: 10 }))
-  .type(({ object }) => PLAN_TYPES[object.id % PLAN_TYPES.length])
+  .type(({ object }) => object.id == WRM_ID ? 'homework' : PLAN_TYPES[object.id % PLAN_TYPES.length])
   .first_published_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 3, 'days').toISOString())
   .is_draft(false)
   .is_preview(false)
@@ -26,6 +29,7 @@ Factory.define('TeacherTaskPlan')
   .is_publishing(false)
   .is_trouble(false)
   .course({})
+  .ungraded_step_count(({ object: { id } }) => id == WRM_ID ? fake.random.number({ min: 0, max: 100 }) : 0)
   .publish_job_url(`/api/jobs/${uuid()}`)
   .last_published_at(({ object }) => object.first_published_at)
   .publish_last_requested_at(({ object }) => object.first_published_at)
