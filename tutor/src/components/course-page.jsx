@@ -86,7 +86,7 @@ export default class CoursePage extends React.Component {
     if (isNil(title)) { return null; }
 
     return (
-      <TitleWrapper className={cn({ 'title-wrapper': !titleAppearance })}>
+      <TitleWrapper data-test-id="page-title" className={cn({ 'title-wrapper': !titleAppearance })}>
         <TitleInner appearance={titleAppearance} shouldShowDivider={shouldShowDivider}>
           {this.renderBreadcrumbs()}
           <LeftSideWrapper>

@@ -74,7 +74,10 @@ const Tabs = ({
   };
 
   return (
-    <nav className={cn('tutor-tabs', className)}>
+    <nav
+      className={cn('tutor-tabs', className)}
+      data-test-id="tabs"
+    >
       <ul className="nav nav-tabs" role="tablist">
         {tabs.map((tab, index) => {
           const active = index === activeIndex;

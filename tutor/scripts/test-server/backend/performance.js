@@ -1,17 +1,17 @@
-require('../../../specs/factories/book');
-const GUIDE = require('../../../api/courses/1/guide.json');
-
-let ROLE = 'teacher';
-
+const Factory = require('object-factory-bot');
+const { getCourse } = require('./bootstrap');
+require('../../../specs/factories/scores');
 
 module.exports = {
 
-  setRole(role) {
-    ROLE = role;
-  },
+  setRole() {},
 
   handler(req, res) {
-    return res.json(GUIDE);
+    const course = getCourse(req.params.courseId);
+    const scores = course.periods.map(
+      period => Factory.create('ScoresForPeriod', { period }),
+    );
+    return res.json(scores);
   },
 
 };

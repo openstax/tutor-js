@@ -98,6 +98,7 @@ exports[`Course Page renders and matches snapshot 2`] = `
   <header>
     <div
       className="title-wrapper c0"
+      data-test-id="page-title"
     >
       <div
         className="c1"
