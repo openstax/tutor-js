@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, action } from 'vendor';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import UX from '../ux';
@@ -64,26 +64,25 @@ class Editor extends React.Component {
     onHide: PropTypes.func.isRequired,
   }
 
+  @action.bound
   async saveDraft() {
     const { ux: { saveAsDraft }, onHide } = this.props;
     await saveAsDraft();
     onHide();
   }
 
+  @action.bound
   async publish() {
     const { ux: { savePlan }, onHide } = this.props;
     await savePlan();
     onHide();
   }
 
+  @action.bound
   async editDetails() {
     const { ux: { saveAsDraft, navigateToStep } } = this.props;
     await saveAsDraft();
     navigateToStep('details');
-  }
-
-  onCancel() {
-    this.props.onHide();
   }
 
   render() {
@@ -133,20 +132,20 @@ class Editor extends React.Component {
             <Button
               className="other-button"
               size="lg"
-              onClick={() => this.saveDraft()}
+              onClick={this.saveDraft}
             >
             Save as Draft
             </Button>
             <Button
               className="other-button"
               size="lg"
-              onClick={() => this.publish()}
+              onClick={this.publish}
             >
             Publish
             </Button>
             <Button
               size="lg"
-              onClick={() => this.editDetails()}
+              onClick={this.editDetails}
             >
             Edit other details
             </Button>
