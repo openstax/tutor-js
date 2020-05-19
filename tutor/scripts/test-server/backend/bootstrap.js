@@ -18,7 +18,11 @@ function addCourses(courses, attrs) {
     Factory.create('Course', merge(attrs, { id: 2, type: 'physics', months_ago: 2, now }))
   );
   courses.push(
-    Factory.create('Course', merge(attrs, { id: 3, type: 'physics', months_ago: -6, now }))
+    Factory.create('Course', merge(attrs, {
+      name: 'Physics Copy',
+      cloned_from_id: 2,
+      id: 3, type: 'physics', months_ago: -6, now,
+    }))
   );
   courses.push(
     Factory.create('Course', merge(attrs, { id: 4, type: 'biology', months_ago: -7, now }))

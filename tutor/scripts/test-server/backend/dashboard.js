@@ -16,7 +16,8 @@ module.exports = {
   },
 
   handler(req, res) {
-    const course = find(bootstrapData[ROLE].courses, { id: parseInt(req.params.courseId) });
+    const id = parseInt(req.params.courseId);
+    const course = find(bootstrapData[ROLE].courses, { id });
     if (!course) {
       return res.status(404).send('Not found');
     }
@@ -55,6 +56,7 @@ module.exports = {
     data.role = clone(course.roles[0]);
     data.course = {
       name: course.name,
+      cloned_from_id: id == 3 ? 1 : null,
       teachers: pick(data.user, 'id', 'name', 'first_name', 'last_name'),
     };
     if (ROLE=='student') {
