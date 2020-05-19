@@ -37,7 +37,7 @@ class Validations {
   }
 
   @computed get reorder() {
-    return true; // nothing to validate
+    return !isEmpty(this.plan.pageIds);
   }
 }
 
