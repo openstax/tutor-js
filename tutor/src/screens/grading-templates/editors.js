@@ -8,7 +8,7 @@ import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
-import TemplateModal from '../../components/template-modal';
+import TemplateModal from '../../components/course-modal';
 
 const propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,

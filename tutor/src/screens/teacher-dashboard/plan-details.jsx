@@ -16,7 +16,7 @@ import DateTime from '../../components/date-time-input';
 import moment from 'moment';
 import Time from '../../models/time';
 import { Formik } from 'formik';
-import TemplateModal from '../../components/template-modal';
+import TemplateModal from '../../components/course-modal';
 import cn from 'classnames';
 
 const StyledAlert = styled(Alert)`

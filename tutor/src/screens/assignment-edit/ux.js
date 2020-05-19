@@ -13,6 +13,7 @@ import { Actions } from './actions';
 import Validations from './validations';
 import moment from '../../helpers/moment-range';
 import Time from '../../models/time';
+import DetailsBody from './details-body';
 
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
 
@@ -25,13 +26,15 @@ export default class AssignmentUX {
   @observable isShowingConfirmTemplate = false;
   @observable exercises;
   @observable isReady = false;
-  @observable sourcePlanId;
   @observable form;
   @observable activeFilter = 'all';
   @observable templates;
   @observable plan;
   @observable didUserChangeDatesManually = false;
   @observable dueAt;
+
+  // Check if the assignment is old, before WRM release. (No grading template)
+  isCloneOldAssignment;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -47,8 +50,8 @@ export default class AssignmentUX {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
       }
-      this.sourcePlanId = id;
-      this.plan = course.pastTaskPlans.get(id).createClone({ course });
+      this.plan = course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
+      this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {
         this.plan = plan;
@@ -83,10 +86,8 @@ export default class AssignmentUX {
         }
         else
           default_opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
-
         // default due date is 7 days after open date
         const default_due_at = moment(default_opens_at).add(7, 'day').toISOString();
-
         // if adding external assignment, close date is 1 minute after due date
         if(this.plan.isExternal) {
           const external_default_close_at = moment(default_due_at).add(1, 'minute').toISOString();
@@ -140,7 +141,11 @@ export default class AssignmentUX {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
       this.templates = gradingTemplates;
-      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+      this.plan.grading_template_id =
+      // if cloning, set the grading_template_id to the current ones from copied course.
+        type === 'clone' || !this.plan.grading_template_id
+          ? get(this.gradingTemplates, '[0].id')
+          : this.plan.grading_template_id;
     }
 
     this.history = history;
@@ -215,6 +220,11 @@ export default class AssignmentUX {
   @action.bound renderStep(form) {
     this.form = form;
     return <Step ux={this} />;
+  }
+
+  @action.bound renderMiniCloneEditor(form) {
+    this.form = form;
+    return <DetailsBody ux={this} />;
   }
 
   @action.bound navigateToStep(index) {

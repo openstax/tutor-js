@@ -11,7 +11,7 @@ import Course from '../../models/course';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
-import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
+import AssignmentClone from '../assignment-edit/clone';
 import Sidebar from './sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
@@ -115,7 +115,7 @@ class TeacherDashboard extends React.Component {
   }
 
   render() {
-    const { course, className, date, hasPeriods } = this.props;
+    const { course, className, date, hasPeriods, history } = this.props;
 
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
@@ -163,12 +163,11 @@ class TeacherDashboard extends React.Component {
         </div>
 
         {this.editingPlan && (
-          <TaskPlanMiniEditor
+          <AssignmentClone
             course={course}
             onHide={this.onEditorHide}
             sourcePlan={this.editingPlan}
-            position={this.editingPosition}
-            findPopOverTarget={this.getEditingPlanEl}
+            history={history}
           />)}
       </TourRegion>
     );
