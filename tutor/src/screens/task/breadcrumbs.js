@@ -1,12 +1,20 @@
-import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
+import { React, PropTypes, observer, styled, inject, autobind, css } from 'vendor';
 import Breadcrumb from '../../components/breadcrumb';
+import TaskProgress from '../../components/task-progress';
 import UX from './ux';
+import { colors } from 'theme';
 
 const BreadcrumbsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 55px;
   align-items: center;
+  ${props => props.unDocked && css`
+    background-color: ${colors.white};
+    border-bottom: 1px solid ${colors.neutral.pale};
+    padding: 10px;
+
+  `}
 `;
 
 @inject('setSecondaryTopControls')
@@ -32,7 +40,7 @@ class Breadcrumbs extends React.Component {
     }
   }
 
-  // nothing is rendered directly, instead it's set in the secondaryToolbar
+  // if it is undocked from the navbar, show under the navbar
   render() {
     if (this.props.unDocked) {
       return this.renderBreadcrumbs();
@@ -42,7 +50,7 @@ class Breadcrumbs extends React.Component {
 
   @autobind renderBreadcrumbs() {
 
-    const { ux } = this.props;
+    const { ux, unDocked } = this.props;
     let breadcrumbIndex = 0;
 
     return (
@@ -50,8 +58,9 @@ class Breadcrumbs extends React.Component {
         className="task-homework breadcrumbs-wrapper"
         role="dialog"
         tabIndex="-1"
+        unDocked={unDocked}
       >
-        {ux.steps.map( (step, stepIndex) =>
+        {/* {ux.steps.map( (step, stepIndex) =>
           <Breadcrumb
             key={`step-wrapper-${stepIndex}`}
             ux={ux}
@@ -61,7 +70,8 @@ class Breadcrumbs extends React.Component {
             stepIndex={stepIndex}
             isCurrent={step === ux.currentStep}
             goToStep={ux.goToStep}
-          />)}
+          />)} */}
+        <TaskProgress ux={ux} />
 
       </BreadcrumbsWrapper>
     );

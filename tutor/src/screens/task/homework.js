@@ -23,7 +23,7 @@ class HomeworkTask extends React.Component {
 
     return (
       <SyledHomework className="homework-task">
-        <Breadcrumbs ux={ux} />
+        <Breadcrumbs ux={ux} unDocked />
         <TaskStep
           ux={ux}
           step={ux.currentGroupedStep}
