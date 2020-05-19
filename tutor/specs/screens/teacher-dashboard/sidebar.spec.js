@@ -24,7 +24,6 @@ describe('CourseCalendar AddAssignmentMenu', function() {
       'Add Homework',
       'Add External Assignment',
       'Add Event',
-      'Grading Templates',
     ]);
   });
 
