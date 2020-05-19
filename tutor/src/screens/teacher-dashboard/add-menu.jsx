@@ -59,14 +59,19 @@ export default class CourseAddMenu {
           params: { type: 'event', courseId: course.id, id: 'new' },
           type: 'event',
           query: { due_at },
-        }, {
-          text: 'Grading Templates',
-          to: 'gradingTemplates',
-          params: { courseId: course.id },
-          type: 'template',
-          query: {},
-        },
+        }, 
       ];
+      if (!this.options.isSidebar) {
+        links.push(
+          {
+            text: 'Grading Templates',
+            to: 'gradingTemplates',
+            params: { courseId: course.id },
+            type: 'template',
+            query: {},
+          },
+        );
+      }
     } else {
       const linkText = [
         <span key="no-periods-link-1">Please add a </span>,

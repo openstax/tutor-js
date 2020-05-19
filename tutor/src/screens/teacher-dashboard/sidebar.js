@@ -61,6 +61,7 @@ class AddAssignmentSidebar extends React.Component {
 
   addMenu = new AddMenu({
     history: this.props.history, renderMenuLink: this.renderMenuLink,
+    isSidebar: true,
   });
 
   componentDidUpdate(oldProps) {
