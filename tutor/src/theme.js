@@ -159,6 +159,36 @@ export const navbars = {
   },
 };
 
+const breakpoint = {
+  mobile(...args) {
+    return css`@media(max-width: 749px) { ${css(...args)} }`;
+  },
+  tablet(...args) {
+    return css`@media(max-width: 1199px) { ${css(...args)} }`;
+  },
+  desktop(...args) {
+    return css`@media(max-width: 1599px) { ${css(...args)} }`;
+  },
+  large(...args) {
+    return css`@media(min-width: 1600px) { ${css(...args)} }`;
+  },
+  only: {
+    mobile(...args) {
+      return css`@media(max-width: 599px) { ${css(...args)} }`;
+    },
+    tablet(...args) {
+      return css`@media(min-width: 600px) and max-width: 1199px) { ${css(...args)} }`;
+    },
+    desktop(...args) {
+      return css`@media(min-width: 1200px) and (max-width: 1599px) { ${css(...args)} }`;
+    },
+    large(...args) {
+      return css`@media(min-width: 1600px) { ${css(...args)} }`;
+    },
+  },
+};
+
+
 export const breakpoints = {
   xsDown: '(max-width: 575.98px)',
   smDown: '(max-width: 767.98px)',
@@ -175,7 +205,7 @@ const TutorTheme = {
   colors,
   fonts,
   navbars,
-
+  breakpoint,
   sizes: {
     bookTocWidth: '300px',
   },

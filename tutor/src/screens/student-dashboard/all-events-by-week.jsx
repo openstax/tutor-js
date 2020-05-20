@@ -7,7 +7,7 @@ import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventsCard from './events-panel';
 import { map } from 'lodash';
-import LateIconLedgend from './late-icon-ledgend';
+import StatusLegend from './status-legend';
 
 export default
 @observer
@@ -39,7 +39,7 @@ class AllEventsByWeek extends React.Component {
       <div>
         <EmptyCard course={course} message="No past assignments" tasks={weeks} />
         {map(weeks, this.renderWeek)}
-        <LateIconLedgend tasks={weeks} />
+        <StatusLegend tasks={weeks} />
       </div>
     );
   }
