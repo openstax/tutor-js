@@ -1,12 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Student Dashboard displays as loading 1`] = `
-.c2 {
+.c8 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c0 {
+.c10 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  padding: 2px;
+  height: 1.125em;
+  width: 1.125em;
+  background: #5e5e5e;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,10 +31,51 @@ exports[`Student Dashboard displays as loading 1`] = `
   align-items: center;
 }
 
+.c6 {
+  height: 100%;
+  width: 4rem;
+  margin-right: 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .c1 {
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: #6f6f6f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 15rem;
 }
 
 .c3 {
@@ -32,467 +83,615 @@ exports[`Student Dashboard displays as loading 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 11rem;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-right: 1rem;
+  width: 10rem;
+}
+
+.c0 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+.c5 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   margin: 1rem 0;
 }
 
-.c3 span + span {
+.c9 font-size:1.2rem span + span {
   margin-left: 2rem;
 }
 
+@media (max-width:749px) {
+  .c1 {
+    min-width: 100%;
+  }
+}
+
+@media (max-width:749px) {
+  .c2 {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width:749px) {
+  .c3 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:749px) {
+  .c4 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
 <div
-  className="student-dashboard"
+  className="openstax-debug-content"
 >
   <div
-    className="openstax-notifications-bar"
-  />
-  <div
-    className="course-title-banner"
-    data-appearance="testing"
-    data-book-title="Testing"
-    data-is-preview={false}
-    data-term="Spring 2017"
-    data-title="Local Test Course One"
+    data-purpose="tour-conductor-wrapper"
   >
-    <div
-      className="book-title"
-    >
-      <h1
-        className="book-title-text"
-      >
-        Local Test Course One
-      </h1>
-    </div>
-    <div
-      className="course-term"
-    >
-      Spring 2017
-    </div>
-  </div>
-  <div
-    className="container"
-    data-tour-region-id="student-dashboard"
-  >
-    <div
-      className="row"
-    >
+    <div>
       <div
-        className="col-lg-9 col-md-8 col-12"
+        className="student-dashboard"
       >
-        <nav
-          className="tutor-tabs"
-          data-test-id="tabs"
-        >
-          <ul
-            className="nav nav-tabs"
-            role="tablist"
-          >
-            <li
-              aria-selected={true}
-              className="active"
-              role="tab"
-            >
-              <a
-                data-test-id="this-week-tab"
-                href="#"
-                onClick={[Function]}
-              >
-                <h2>
-                  This Week
-                </h2>
-              </a>
-            </li>
-            <li
-              aria-selected={false}
-              className=""
-              role="tab"
-            >
-              <a
-                data-test-id="all-past-work-tab"
-                href="#"
-                onClick={[Function]}
-              >
-                <h2>
-                  All Past Work
-                </h2>
-              </a>
-            </li>
-          </ul>
-        </nav>
         <div
-          className="tab-pane active"
-          role="tabpanel"
+          className="openstax-notifications-bar"
+        />
+        <div
+          className="course-title-banner"
+          data-appearance="testing"
+          data-book-title="Testing"
+          data-is-preview={false}
+          data-term="Spring 2017"
+          data-title="Local Test Course One"
         >
           <div
-            className="-this-week card"
+            className="book-title"
+          >
+            <h1
+              className="book-title-text"
+            >
+              Local Test Course One
+            </h1>
+          </div>
+          <div
+            className="course-term"
+          >
+            Spring 2017
+          </div>
+        </div>
+        <div
+          className="container"
+          data-tour-region-id="student-dashboard"
+        >
+          <div
+            className="row"
           >
             <div
-              className="row labels"
+              className="col-lg-9 col-md-8 col-12"
             >
-              <div
-                className="col-sm-6 col-12"
+              <nav
+                className="tutor-tabs"
+                data-test-id="tabs"
               >
-                <span
-                  className="date-range"
+                <ul
+                  className="nav nav-tabs"
+                  role="tablist"
                 >
-                  <time>
-                    Oct 12, 2015
-                  </time>
+                  <li
+                    aria-selected={true}
+                    className="active"
+                    role="tab"
+                  >
+                    <a
+                      data-test-id="this-week-tab"
+                      href="#"
+                      onClick={[Function]}
+                    >
+                      <h2>
+                        This Week
+                      </h2>
+                    </a>
+                  </li>
+                  <li
+                    aria-selected={false}
+                    className=""
+                    role="tab"
+                  >
+                    <a
+                      data-test-id="all-past-work-tab"
+                      href="#"
+                      onClick={[Function]}
+                    >
+                      <h2>
+                        All Past Work
+                      </h2>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <div
+                className="tab-pane active"
+                role="tabpanel"
+              >
+                <div
+                  className="-this-week card"
+                >
+                  <div
+                    className="c0"
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <span
+                        className="date-range"
+                      >
+                        <time>
+                          Oct 12, 2015
+                        </time>
+                        <span>
+                          –
+                        </span>
+                        <time>
+                          Oct 18, 2015
+                        </time>
+                      </span>
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      Due on
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      Status
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      Scores
+                    </div>
+                  </div>
+                  <a
+                    aria-label="Work on reading: B2C mesh schemas"
+                    className="c5 task reading"
+                    data-event-id={5}
+                    href="/course/1/task/5"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-reading"
+                        type="reading"
+                      />
+                      B2C mesh schemas
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          In progress
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        3/8 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on external: granular engineer action-items"
+                    className="c5 task external"
+                    data-event-id={6}
+                    href="/course/1/task/6"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-external"
+                        type="external"
+                      />
+                      granular engineer action-items
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          Not started
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        2/4 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on event: proactive harness supply-chains"
+                    className="c5 task event"
+                    data-event-id={7}
+                    href="/course/1/task/7"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-event"
+                        type="event"
+                      />
+                      proactive harness supply-chains
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        5/8 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on homework: sexy envisioneer synergies"
+                    className="c5 task homework"
+                    data-event-id={8}
+                    href="/course/1/task/8"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-homework"
+                        type="homework"
+                      />
+                      sexy envisioneer synergies
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          In progress
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        8/12 answered
+                      </div>
+                    </div>
+                  </a>
+                  <div
+                    className="empty pending card"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin c8 ox-icon ox-icon-spinner"
+                      data-icon="spinner"
+                      data-prefix="fas"
+                      data-variant="activity"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Preparing assignments for your course.  This can take up to 10 minutes.
+                  </div>
+                </div>
+                <div
+                  className="c9"
+                >
                   <span>
-                    –
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-exclamation-circle fa-w-16 c8 ox-icon ox-icon-exclamation-circle"
+                      color="#f4d019"
+                      data-icon="exclamation-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Due soon
                   </span>
-                  <time>
-                    Oct 18, 2015
-                  </time>
-                </span>
-              </div>
-              <div
-                className="due-at-label col-sm-3 col-5 offset-sm-0 offset-2"
-              >
-                Due
-              </div>
-              <div
-                className="progress-label col-sm-3 col-5"
-              >
-                Progress
-              </div>
-            </div>
-            <a
-              aria-label="Work on reading: B2C mesh schemas"
-              className="task row reading"
-              data-event-id={5}
-              href="/course/1/task/5"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="reading icon"
-                  className="icon icon-lg icon-reading"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                B2C mesh schemas
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-clock fa-w-16 c8 ox-icon ox-icon-clock"
+                      color="#c2002f"
+                      data-icon="clock"
+                      data-prefix="far"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Late
+                  </span>
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      background="#5e5e5e"
+                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
+                      color="white"
+                      data-icon="star"
+                      data-prefix="fas"
+                      data-variant="circledStar"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 576 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Provisional score. FInal scores will be available when published by your instructor.
+                  </span>
+                </div>
                 <div
-                  className="c0"
+                  className="upcoming card"
                 >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
+                  <div
+                    className="c0"
                   >
-                    In progress
-                  </span>
-                </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on external: granular engineer action-items"
-              className="task row external"
-              data-event-id={6}
-              href="/course/1/task/6"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="external icon"
-                  className="icon icon-lg icon-external"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                granular engineer action-items
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <span
+                        className="title"
+                      >
+                        Coming Up
+                      </span>
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      Due on
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      Status
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      Scores
+                    </div>
+                  </div>
+                  <div
+                    className="empty upcoming card"
                   >
-                    Not started
-                  </span>
+                    No upcoming assignments
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on event: proactive harness supply-chains"
-              className="task row event"
-              data-event-id={7}
-              href="/course/1/task/7"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="event icon"
-                  className="icon icon-lg icon-event"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                proactive harness supply-chains
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  
-                </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on homework: sexy envisioneer synergies"
-              className="task row homework"
-              data-event-id={8}
-              href="/course/1/task/8"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="homework icon"
-                  className="icon icon-lg icon-homework"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                sexy envisioneer synergies
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
-                  >
-                    8/12 answered
-                  </span>
-                </div>
-                <div
-                  className="c1"
-                >
-                  0
-                  /
-                  12
-                   answered on due date
-                </div>
-              </div>
-            </a>
-            <div
-              className="empty pending card"
-            >
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c2"
-                data-icon="spinner"
-                data-prefix="fas"
-                data-variant="activity"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Preparing assignments for your course.  This can take up to 10 minutes.
-            </div>
-          </div>
-          <div
-            className="c3"
-          >
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c2"
-                color="#f4d019"
-                data-icon="exclamation-circle"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Due soon
-            </span>
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c2"
-                color="#c2002f"
-                data-icon="clock"
-                data-prefix="far"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Late
-            </span>
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c2"
-                color="#6f6f6f"
-                data-icon="clock"
-                data-prefix="far"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Late but accepted
-            </span>
-          </div>
-          <div
-            className="upcoming card"
-          >
-            <div
-              className="row labels"
-            >
-              <div
-                className="col-sm-6 col-12"
-              >
-                <span
-                  className="title"
-                >
-                  Coming Up
-                </span>
-              </div>
-              <div
-                className="due-at-label col-sm-3 col-5 offset-sm-0 offset-2"
-              >
-                Due
-              </div>
-              <div
-                className="progress-label col-sm-3 col-5"
-              >
-                Progress
               </div>
             </div>
             <div
-              className="empty upcoming card"
+              className="sidebar col-lg-3 col-md-4 col-12"
             >
-              No upcoming assignments
+              <div
+                className="actions-box loadable is-loading"
+              >
+                Loading progress information...
+              </div>
+              <div
+                className="actions-box browse-the-book card"
+              >
+                <a
+                  aria-label="Browse course reference book"
+                  className="browse-the-book"
+                  data-appearance="testing"
+                  href="/book/1"
+                  onClick={[Function]}
+                  target="_blank"
+                >
+                  <div>
+                    Browse the Book
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        className="sidebar col-lg-3 col-md-4 col-12"
-      >
-        <div
-          className="actions-box loadable is-loading"
-        >
-          Loading progress information...
-        </div>
-        <div
-          className="actions-box browse-the-book card"
-        >
-          <a
-            aria-label="Browse course reference book"
-            className="browse-the-book"
-            data-appearance="testing"
-            href="/book/1"
-            onClick={[Function]}
-            target="_blank"
-          >
-            <div>
-              Browse the Book
-            </div>
-          </a>
         </div>
       </div>
     </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: [teacher,teacher-not-previewed]; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
   </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
 </div>
 `;
 
 exports[`Student Dashboard matches snapshot 1`] = `
-.c2 {
+.c8 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c0 {
+.c10 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  padding: 2px;
+  height: 1.125em;
+  width: 1.125em;
+  background: #5e5e5e;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -507,10 +706,51 @@ exports[`Student Dashboard matches snapshot 1`] = `
   align-items: center;
 }
 
+.c6 {
+  height: 100%;
+  width: 4rem;
+  margin-right: 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .c1 {
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: #6f6f6f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 15rem;
 }
 
 .c3 {
@@ -518,456 +758,594 @@ exports[`Student Dashboard matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 11rem;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-right: 1rem;
+  width: 10rem;
+}
+
+.c0 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+.c5 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   margin: 1rem 0;
 }
 
-.c3 span + span {
+.c9 font-size:1.2rem span + span {
   margin-left: 2rem;
 }
 
+@media (max-width:749px) {
+  .c1 {
+    min-width: 100%;
+  }
+}
+
+@media (max-width:749px) {
+  .c2 {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width:749px) {
+  .c3 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:749px) {
+  .c4 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
 <div
-  className="student-dashboard"
+  className="openstax-debug-content"
 >
   <div
-    className="openstax-notifications-bar"
-  />
-  <div
-    className="course-title-banner"
-    data-appearance="testing"
-    data-book-title="Testing"
-    data-is-preview={false}
-    data-term="Spring 2017"
-    data-title="Local Test Course One"
+    data-purpose="tour-conductor-wrapper"
   >
-    <div
-      className="book-title"
-    >
-      <h1
-        className="book-title-text"
-      >
-        Local Test Course One
-      </h1>
-    </div>
-    <div
-      className="course-term"
-    >
-      Spring 2017
-    </div>
-  </div>
-  <div
-    className="container"
-    data-tour-region-id="student-dashboard"
-  >
-    <div
-      className="row"
-    >
+    <div>
       <div
-        className="col-lg-9 col-md-8 col-12"
+        className="student-dashboard"
       >
-        <nav
-          className="tutor-tabs"
-          data-test-id="tabs"
-        >
-          <ul
-            className="nav nav-tabs"
-            role="tablist"
-          >
-            <li
-              aria-selected={true}
-              className="active"
-              role="tab"
-            >
-              <a
-                data-test-id="this-week-tab"
-                href="#"
-                onClick={[Function]}
-              >
-                <h2>
-                  This Week
-                </h2>
-              </a>
-            </li>
-            <li
-              aria-selected={false}
-              className=""
-              role="tab"
-            >
-              <a
-                data-test-id="all-past-work-tab"
-                href="#"
-                onClick={[Function]}
-              >
-                <h2>
-                  All Past Work
-                </h2>
-              </a>
-            </li>
-          </ul>
-        </nav>
         <div
-          className="tab-pane active"
-          role="tabpanel"
+          className="openstax-notifications-bar"
+        />
+        <div
+          className="course-title-banner"
+          data-appearance="testing"
+          data-book-title="Testing"
+          data-is-preview={false}
+          data-term="Spring 2017"
+          data-title="Local Test Course One"
         >
           <div
-            className="-this-week card"
+            className="book-title"
+          >
+            <h1
+              className="book-title-text"
+            >
+              Local Test Course One
+            </h1>
+          </div>
+          <div
+            className="course-term"
+          >
+            Spring 2017
+          </div>
+        </div>
+        <div
+          className="container"
+          data-tour-region-id="student-dashboard"
+        >
+          <div
+            className="row"
           >
             <div
-              className="row labels"
+              className="col-lg-9 col-md-8 col-12"
             >
-              <div
-                className="col-sm-6 col-12"
+              <nav
+                className="tutor-tabs"
+                data-test-id="tabs"
               >
-                <span
-                  className="date-range"
+                <ul
+                  className="nav nav-tabs"
+                  role="tablist"
                 >
-                  <time>
-                    Oct 12, 2015
-                  </time>
+                  <li
+                    aria-selected={true}
+                    className="active"
+                    role="tab"
+                  >
+                    <a
+                      data-test-id="this-week-tab"
+                      href="#"
+                      onClick={[Function]}
+                    >
+                      <h2>
+                        This Week
+                      </h2>
+                    </a>
+                  </li>
+                  <li
+                    aria-selected={false}
+                    className=""
+                    role="tab"
+                  >
+                    <a
+                      data-test-id="all-past-work-tab"
+                      href="#"
+                      onClick={[Function]}
+                    >
+                      <h2>
+                        All Past Work
+                      </h2>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <div
+                className="tab-pane active"
+                role="tabpanel"
+              >
+                <div
+                  className="-this-week card"
+                >
+                  <div
+                    className="c0"
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <span
+                        className="date-range"
+                      >
+                        <time>
+                          Oct 12, 2015
+                        </time>
+                        <span>
+                          –
+                        </span>
+                        <time>
+                          Oct 18, 2015
+                        </time>
+                      </span>
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      Due on
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      Status
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      Scores
+                    </div>
+                  </div>
+                  <a
+                    aria-label="Work on reading: turn-key unleash paradigms"
+                    className="c5 task reading"
+                    data-event-id={1}
+                    href="/course/1/task/1"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-reading"
+                        type="reading"
+                      />
+                      turn-key unleash paradigms
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          In progress
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        2/3 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on external: intuitive empower niches"
+                    className="c5 task external"
+                    data-event-id={2}
+                    href="/course/1/task/2"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-external"
+                        type="external"
+                      />
+                      intuitive empower niches
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          Not started
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        2/5 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on event: user-centric syndicate web-readiness"
+                    className="c5 task event"
+                    data-event-id={3}
+                    href="/course/1/task/3"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-event"
+                        type="event"
+                      />
+                      user-centric syndicate web-readiness
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        0/8 answered
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    aria-label="Work on homework: innovative e-enable e-services"
+                    className="c5 task homework"
+                    data-event-id={4}
+                    href="/course/1/task/4"
+                    onClick={[Function]}
+                    tabIndex={-1}
+                  >
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <i
+                        className="c6 icon-homework"
+                        type="homework"
+                      />
+                      innovative e-enable e-services
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      <time>
+                        Su Oct 18, 7:00am
+                      </time>
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span
+                          className="tour-anchor"
+                          data-tour-anchor-id="assignment-progress-status"
+                        >
+                          In progress
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      <div
+                        className="c7"
+                      >
+                        1/9 answered
+                      </div>
+                    </div>
+                  </a>
+                  <div
+                    className="empty pending card"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin c8 ox-icon ox-icon-spinner"
+                      data-icon="spinner"
+                      data-prefix="fas"
+                      data-variant="activity"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Preparing assignments for your course.  This can take up to 10 minutes.
+                  </div>
+                </div>
+                <div
+                  className="c9"
+                >
                   <span>
-                    –
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-exclamation-circle fa-w-16 c8 ox-icon ox-icon-exclamation-circle"
+                      color="#f4d019"
+                      data-icon="exclamation-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Due soon
                   </span>
-                  <time>
-                    Oct 18, 2015
-                  </time>
-                </span>
-              </div>
-              <div
-                className="due-at-label col-sm-3 col-5 offset-sm-0 offset-2"
-              >
-                Due
-              </div>
-              <div
-                className="progress-label col-sm-3 col-5"
-              >
-                Progress
-              </div>
-            </div>
-            <a
-              aria-label="Work on reading: turn-key unleash paradigms"
-              className="task row reading"
-              data-event-id={1}
-              href="/course/1/task/1"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="reading icon"
-                  className="icon icon-lg icon-reading"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                turn-key unleash paradigms
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-clock fa-w-16 c8 ox-icon ox-icon-clock"
+                      color="#c2002f"
+                      data-icon="clock"
+                      data-prefix="far"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Late
+                  </span>
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      background="#5e5e5e"
+                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
+                      color="white"
+                      data-icon="star"
+                      data-prefix="fas"
+                      data-variant="circledStar"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 576 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                     Provisional score. FInal scores will be available when published by your instructor.
+                  </span>
+                </div>
                 <div
-                  className="c0"
+                  className="upcoming card"
                 >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
+                  <div
+                    className="c0"
                   >
-                    In progress
-                  </span>
-                </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on external: intuitive empower niches"
-              className="task row external"
-              data-event-id={2}
-              href="/course/1/task/2"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="external icon"
-                  className="icon icon-lg icon-external"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                intuitive empower niches
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
+                    <div
+                      className="sc-fznKkj c1"
+                    >
+                      <span
+                        className="title"
+                      >
+                        Coming Up
+                      </span>
+                    </div>
+                    <div
+                      className="sc-fznKkj c2"
+                    >
+                      Due on
+                    </div>
+                    <div
+                      className="sc-fznKkj c3"
+                    >
+                      Status
+                    </div>
+                    <div
+                      className="sc-fznKkj c4"
+                    >
+                      Scores
+                    </div>
+                  </div>
+                  <div
+                    className="empty upcoming card"
                   >
-                    Not started
-                  </span>
+                    No upcoming assignments
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on event: user-centric syndicate web-readiness"
-              className="task row event"
-              data-event-id={3}
-              href="/course/1/task/3"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="event icon"
-                  className="icon icon-lg icon-event"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                user-centric syndicate web-readiness
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  
-                </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on homework: innovative e-enable e-services"
-              className="task row homework"
-              data-event-id={4}
-              href="/course/1/task/4"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="homework icon"
-                  className="icon icon-lg icon-homework"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                innovative e-enable e-services
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c0"
-                >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
-                  >
-                    1/9 answered
-                  </span>
-                </div>
-                <div
-                  className="c1"
-                >
-                  0
-                  /
-                  9
-                   answered on due date
-                </div>
-              </div>
-            </a>
-            <div
-              className="empty pending card"
-            >
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c2"
-                data-icon="spinner"
-                data-prefix="fas"
-                data-variant="activity"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Preparing assignments for your course.  This can take up to 10 minutes.
-            </div>
-          </div>
-          <div
-            className="c3"
-          >
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c2"
-                color="#f4d019"
-                data-icon="exclamation-circle"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Due soon
-            </span>
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c2"
-                color="#c2002f"
-                data-icon="clock"
-                data-prefix="far"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Late
-            </span>
-            <span>
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c2"
-                color="#6f6f6f"
-                data-icon="clock"
-                data-prefix="far"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
-               Late but accepted
-            </span>
-          </div>
-          <div
-            className="upcoming card"
-          >
-            <div
-              className="row labels"
-            >
-              <div
-                className="col-sm-6 col-12"
-              >
-                <span
-                  className="title"
-                >
-                  Coming Up
-                </span>
-              </div>
-              <div
-                className="due-at-label col-sm-3 col-5 offset-sm-0 offset-2"
-              >
-                Due
-              </div>
-              <div
-                className="progress-label col-sm-3 col-5"
-              >
-                Progress
               </div>
             </div>
             <div
-              className="empty upcoming card"
+              className="sidebar col-lg-3 col-md-4 col-12"
             >
-              No upcoming assignments
+              <div
+                className="actions-box loadable is-loading"
+              >
+                Loading progress information...
+              </div>
+              <div
+                className="actions-box browse-the-book card"
+              >
+                <a
+                  aria-label="Browse course reference book"
+                  className="browse-the-book"
+                  data-appearance="testing"
+                  href="/book/1"
+                  onClick={[Function]}
+                  target="_blank"
+                >
+                  <div>
+                    Browse the Book
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        className="sidebar col-lg-3 col-md-4 col-12"
-      >
-        <div
-          className="actions-box loadable is-loading"
-        >
-          Loading progress information...
-        </div>
-        <div
-          className="actions-box browse-the-book card"
-        >
-          <a
-            aria-label="Browse course reference book"
-            className="browse-the-book"
-            data-appearance="testing"
-            href="/book/1"
-            onClick={[Function]}
-            target="_blank"
-          >
-            <div>
-              Browse the Book
-            </div>
-          </a>
         </div>
       </div>
     </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: [teacher,teacher-not-previewed]; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
   </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
 </div>
 `;

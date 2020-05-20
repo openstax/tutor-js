@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import ThisWeek from '../../../src/screens/student-dashboard/this-week-panel';
-import { Factory, TimeMock, React, R } from '../../helpers';
+import { Factory, TimeMock, React, C } from '../../helpers';
 
 describe('This Week Events', () => {
 
@@ -15,7 +15,7 @@ describe('This Week Events', () => {
   });
 
   it('shows anything due this week', () => {
-    const panel = mount(<R><ThisWeek {...props} /></R>);
+    const panel = mount(<C><ThisWeek {...props} /></C>);
     expect(panel.text()).toContain('Preparing assignments for your course.');
 
     // no tasks
@@ -45,7 +45,7 @@ describe('This Week Events', () => {
     const { course } = props;
     course.primaryRole.type = 'teacher_student';
     course.teacherTaskPlans.set(1, { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' });
-    const panel = mount(<R><ThisWeek {...props} /></R>);
+    const panel = mount(<C><ThisWeek {...props} /></C>);
     expect(panel).toHaveRendered('TeacherPendingLoad');
     expect(panel.text()).toContain('Building assignment');
     panel.unmount();

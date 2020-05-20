@@ -100,7 +100,7 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-edit fa-w-18 ox-icon ox-icon-edit c2"
+              className="svg-inline--fa fa-edit fa-w-18 c2 ox-icon ox-icon-edit"
               data-icon="edit"
               data-prefix="fas"
               focusable="false"
@@ -322,7 +322,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-edit fa-w-18 ox-icon ox-icon-edit c2"
+              className="svg-inline--fa fa-edit fa-w-18 c2 ox-icon ox-icon-edit"
               data-icon="edit"
               data-prefix="fas"
               focusable="false"

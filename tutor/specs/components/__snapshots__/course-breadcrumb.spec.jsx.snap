@@ -48,11 +48,11 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     College Physics
   </a>
   <span
-    className="sc-gqjmRU c1"
+    className="sc-fzplWN c1"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-angle-right fa-w-8 ox-icon ox-icon-angle-right c2"
+      className="svg-inline--fa fa-angle-right fa-w-8 c2 ox-icon ox-icon-angle-right"
       data-icon="angle-right"
       data-prefix="fas"
       focusable="false"

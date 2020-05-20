@@ -94,7 +94,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="c0"
             >
               <nav
-                className="tutor-navbar c1"
+                className="c1 tutor-navbar"
               >
                 <div
                   className="left-side-controls"
@@ -186,7 +186,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       >
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon ox-icon-question-circle c3"
+                          className="svg-inline--fa fa-question-circle fa-w-16 c3 ox-icon ox-icon-question-circle"
                           data-icon="question-circle"
                           data-prefix="fas"
                           focusable="false"
@@ -209,7 +209,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         </span>
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-chevron-down fa-w-14 ox-icon ox-icon-chevron-down toggle c3"
+                          className="svg-inline--fa fa-chevron-down fa-w-14 c3 ox-icon ox-icon-chevron-down toggle"
                           data-icon="chevron-down"
                           data-prefix="fas"
                           focusable="false"
@@ -293,7 +293,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     >
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-bars fa-w-14 ox-icon ox-icon-bars c3"
+                        className="svg-inline--fa fa-bars fa-w-14 c3 ox-icon ox-icon-bars"
                         data-icon="bars"
                         data-prefix="fas"
                         focusable="false"
@@ -316,7 +316,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       </span>
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-chevron-down fa-w-14 ox-icon ox-icon-chevron-down toggle c3"
+                        className="svg-inline--fa fa-chevron-down fa-w-14 c3 ox-icon ox-icon-chevron-down toggle"
                         data-icon="chevron-down"
                         data-prefix="fas"
                         focusable="false"
@@ -393,7 +393,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     Return Home
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c3"
+                      className="svg-inline--fa fa-caret-right fa-w-6 c3 ox-icon ox-icon-caret-right"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"

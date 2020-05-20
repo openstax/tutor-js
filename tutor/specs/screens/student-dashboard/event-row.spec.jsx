@@ -1,5 +1,5 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { React, R, moment } from '../../helpers';
+import { React, C, moment, TimeMock } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Event Row', function() {
@@ -8,24 +8,26 @@ describe('Event Row', function() {
   let deletedRow = null;
   let deletedNotStartedRow = null;
 
+  TimeMock.setTo('2019-10-30T12:00:00.000Z');
+
   beforeEach(function() {
     const regular = (
-      <R><EventRow
+      <C><EventRow
         className="testing"
         event={Factory.studentDashboardTask()}
-        course={course} /></R>
+        course={course} /></C>
     );
     const deleted = (
-      <R><EventRow
+      <C><EventRow
         className=""
         event={Factory.studentDashboardTask({ completed_steps_count: 10, is_deleted: true })}
-        course={course} /></R>
+        course={course} /></C>
     );
     const deletedNotStarted = (
-      <R><EventRow
+      <C><EventRow
         event={Factory.studentDashboardTask({ is_deleted: true, completed_steps_count: 0 })}
         isCollege={false}
-        course={course} /></R>
+        course={course} /></C>
     );
     regularRow = mount(regular);
     deletedRow = mount(deleted);
@@ -38,8 +40,19 @@ describe('Event Row', function() {
     deletedNotStartedRow.unmount();
   });
 
+  it('renders and matches snapshot', () => {
+    expect.snapshot(
+      <C>
+        <EventRow
+          className="testing"
+          event={Factory.studentDashboardTask()}
+          course={course} />
+      </C>
+    ).toMatchSnapshot();
+  })
+
   it('adds a deleted class for deleted tasks', function() {
-    expect(deletedRow.find('.task').hasClass('deleted')).toBe(true);
+    expect(deletedRow.find('a.task').hasClass('deleted')).toBe(true);
   });
 
   it('shows the hide button when showing deleted tasks', function() {
@@ -48,12 +61,12 @@ describe('Event Row', function() {
   });
 
   it('shows withdrawn in due column when showing deleted tasks', function() {
-    expect(deletedRow.find('Col[className="due-at"]').text()).toEqual('Withdrawn');
+    expect(deletedRow.find('DueCell').text()).toEqual('Withdrawn');
   });
 
   it('allows onclick for event row if deleted', function() {
-    expect(deletedRow.find('a').prop('onClick')).toBeTruthy();
-    expect(regularRow.find('a').prop('onClick')).toBeTruthy();
+    expect(deletedRow.find('a.task').prop('onClick')).toBeTruthy();
+    expect(regularRow.find('a.task').prop('onClick')).toBeTruthy();
   });
 
   it('does not render deleted and unstarted task', () => {
@@ -66,7 +79,7 @@ describe('Event Row', function() {
     expect(task.isOpen).toBe(false);
     task.tasks = { course: { currentRole: { isTeacherStudent: true } } };
     expect(task.isTeacherStudent).toBe(true);
-    const row = mount(<R><EventRow event={task} course={course} /></R>);
+    const row = mount(<C><EventRow event={task} course={course} /></C>);
     expect(row.find('NotOpenNotice').text()).toContain('only visible to instructors');
     row.unmount();
   });

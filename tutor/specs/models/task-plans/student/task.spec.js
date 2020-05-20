@@ -32,40 +32,39 @@ describe('Student Task Model', () => {
     expect(task.lateWorkIsAccepted).toBe(false);
   });
 
-  it('hw#studentFeedback', () => {
+  it('hw#humanProgress', () => {
     task.complete = false;
     task.completed_steps_count = 0;
     task.correct_exercise_count = 0;
     task.type = 'homework';
-    expect(task.studentFeedback).toEqual('Not started');
+    expect(task.humanProgress).toEqual('Not started');
     task.completed_steps_count = 1;
     task.complete_exercise_count = 1;
 
     task.exercise_count = 3;
-    expect(task.studentFeedback).toEqual('1/3 answered');
+    expect(task.humanProgress).toEqual('In progress');
     task.due_at = moment(now).subtract(1, 'day');
     task.complete = true;
-    task.correct_exercise_count = 1;
-    expect(task.studentFeedback).toEqual('1/3 correct');
+    expect(task.humanProgress).toEqual('Complete');
   });
 
-  it('reading#studentFeedback', () => {
+  it('reading#humanProgress', () => {
     task.complete = false;
     task.completed_steps_count = 0;
     task.type = 'reading';
-    expect(task.studentFeedback).toEqual('Not started');
+    expect(task.humanProgress).toEqual('Not started');
     task.completed_steps_count = 1;
-    expect(task.studentFeedback).toEqual('In progress');
+    expect(task.humanProgress).toEqual('In progress');
     task.complete = true;
-    expect(task.studentFeedback).toEqual('Complete');
+    expect(task.humanProgress).toEqual('Complete');
   });
 
-  it('external#studentFeedback', () => {
+  it('external#humanProgress', () => {
     task.complete = false;
     task.type = 'external';
-    expect(task.studentFeedback).toEqual('Not started');
+    expect(task.humanProgress).toEqual('Not started');
     task.complete = true;
-    expect(task.studentFeedback).toEqual('Clicked');
+    expect(task.humanProgress).toEqual('Clicked');
   });
 
 });
