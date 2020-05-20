@@ -1,12 +1,12 @@
 import { React, PropTypes, observer, styled, inject, autobind, css } from 'vendor';
 import TutorLink from '../../components/link';
-import Breadcrumb from '../../components/breadcrumb';
 import TaskProgress from '../../components/task-progress';
 import UX from './ux';
 import { colors } from 'theme';
 import { Icon } from 'shared';
+import TimeHelper from 'helpers/time';
 
-const BreadcrumbsWrapper = styled.div`
+const ExercisesTaskHeaderWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 55px;
@@ -27,12 +27,12 @@ const StyledHeadingTitle = styled.div`
   font-size: 1.7rem;
   padding: 15px 0;
 
-  label:first-child {
+  span:first-child {
     font-weight: bold;
     letter-spacing: 0.05rem;
   };
-  label:nth-child(2) {
-    padding: 0 10px;
+  span:nth-child(2) {
+    padding: 0 0.8rem;
     color: ${colors.neutral.pale};
   }
 }
@@ -40,7 +40,7 @@ const StyledHeadingTitle = styled.div`
 
 @inject('setSecondaryTopControls')
 @observer
-class Breadcrumbs extends React.Component {
+class ExercisesTaskHeader extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
@@ -51,7 +51,7 @@ class Breadcrumbs extends React.Component {
   constructor(props) {
     super(props);
     if (!props.unDocked) {
-      props.setSecondaryTopControls(this.renderBreadcrumbs);
+      props.setSecondaryTopControls(this.renderExerciseHeader);
     }
   }
 
@@ -64,34 +64,21 @@ class Breadcrumbs extends React.Component {
   // if it is undocked from the navbar, show under the navbar
   render() {
     if (this.props.unDocked) {
-      return this.renderBreadcrumbs();
+      return this.renderExerciseHeader();
     }
     return null;
   }
 
-  @autobind renderBreadcrumbs() {
+  @autobind renderExerciseHeader() {
 
     const { ux, unDocked } = this.props;
-    let breadcrumbIndex = 0;
-
     return (
-      <BreadcrumbsWrapper
+      <ExercisesTaskHeaderWrapper
         className="task-homework breadcrumbs-wrapper"
         role="dialog"
         tabIndex="-1"
         unDocked={unDocked}
       >
-        {/* {ux.steps.map( (step, stepIndex) =>
-          <Breadcrumb
-            key={`step-wrapper-${stepIndex}`}
-            ux={ux}
-            step={step}
-            canReview={ux.task.isFeedbackAvailable}
-            dataStepIndex={step.isInfo ? null : (breadcrumbIndex += 1)}
-            stepIndex={stepIndex}
-            isCurrent={step === ux.currentStep}
-            goToStep={ux.goToStep}
-          />)} */}
         <StyledBackLink>
           <TutorLink to="dashboard" params={{ courseId: ux.course.id }}>
             <Icon
@@ -103,16 +90,16 @@ class Breadcrumbs extends React.Component {
           </TutorLink>
         </StyledBackLink>
         <StyledHeadingTitle>
-          <label>Homework One</label>
-          <label> | </label>
-          <label>Due Fr, May 01, 5:00 PM</label>
+          <span>{ux.task.title}</span>
+          <span> | </span>
+          <span>Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}</span>
         </StyledHeadingTitle> 
         <TaskProgress ux={ux} />
 
-      </BreadcrumbsWrapper>
+      </ExercisesTaskHeaderWrapper>
     );
   }
 
 }
 
-export { Breadcrumbs, Breadcrumb };
+export default ExercisesTaskHeader;

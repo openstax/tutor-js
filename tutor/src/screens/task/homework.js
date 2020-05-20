@@ -2,7 +2,7 @@ import {
   React, PropTypes, styled, observer,
 } from 'vendor';
 import UX from './ux';
-import { Breadcrumbs } from './breadcrumbs';
+import ExerciseTaskHeader from './exercise-task-header';
 import { TaskStep } from './step';
 import withFooter from './with-footer';
 
@@ -23,7 +23,7 @@ class HomeworkTask extends React.Component {
 
     return (
       <SyledHomework className="homework-task">
-        <Breadcrumbs ux={ux} unDocked />
+        <ExerciseTaskHeader ux={ux} unDocked />
         <TaskStep
           ux={ux}
           step={ux.currentGroupedStep}

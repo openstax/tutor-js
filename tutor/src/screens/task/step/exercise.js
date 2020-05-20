@@ -78,30 +78,32 @@ class ExerciseTaskStep extends React.Component {
   render() {
     const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
-
     return (
-      <StyledExercise
-        step={step}
-      >
-        <Badges
-          spacedPractice={step.isSpacedPractice}
-          personalized={!isFollowupMPQ && step.isPersonalized}
-          multiPart={isMultiPart && !isFollowupMPQ}
-        />
+      <>
+        <StyledExercise
+          step={step}
+          questionNumber={ux.questionNumberForStep(step)}
+        >
+          <Badges
+            spacedPractice={step.isSpacedPractice}
+            personalized={!isFollowupMPQ && step.isPersonalized}
+            multiPart={isMultiPart && !isFollowupMPQ}
+          />
 
-        <Preamble
-          content={content}
-          isHidden={isFollowupMPQ} />
+          <Preamble
+            content={content}
+            isHidden={isFollowupMPQ} />
 
-        {(content.questions || []).map((q, i) =>
-          <ExerciseQuestion
-            ux={ux}
-            index={i}
-            key={q.id}
-            step={step}
-            question={q}
-          />)}
-      </StyledExercise>
+          {(content.questions || []).map((q, i) =>
+            <ExerciseQuestion
+              ux={ux}
+              index={i}
+              key={q.id}
+              step={step}
+              question={q}
+            />)}
+        </StyledExercise>
+      </>
     );
   }
 
