@@ -2,7 +2,7 @@ import { React, PropTypes, observer, styled, moment } from 'vendor';
 import { ToolbarButton } from 'primitives';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import DateTime from '../../components/date-time-input';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/411294724/preview
 
@@ -40,11 +40,12 @@ const StudentsList = styled.div`
   column-gap: 2rem;
   margin-bottom: 2rem;
 `;
+
+
 const GrantExtension = observer(({ ux }) => {
-  if (ux.planScores.type != 'homework') {
+  if (!ux.taskPlan.canGrantExtension) {
     return null;
   }
-
 
   return (
     <>
@@ -54,46 +55,49 @@ const GrantExtension = observer(({ ux }) => {
       >
         <ToolbarButton onClick={() => ux.isDisplayingGrantExtension=true}>Grant Extension</ToolbarButton>
       </OverlayTrigger>
-      <Modal
-        show={ux.isDisplayingGrantExtension}
-        backdrop="static"
-        onHide={ux.cancelDisplayingGrantExtension}
+      <Formik
+        onSubmit={ux.saveDisplayingGrantExtension}
+        initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
       >
-        <Modal.Header>
-          Grant extension for {ux.selectedPeriod.name}
-        </Modal.Header>
-        <Formik
-          initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
+        <Modal
+          show={ux.isDisplayingGrantExtension}
+          backdrop="static"
+          onHide={ux.cancelDisplayingGrantExtension}
         >
-          <Modal.Body>
-            <StudentsList>
-              {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
-            </StudentsList>
-            <Box>
-              <DateTime
-                label="New due date"
-                name="extension_due_date"
-                format="MMM D hh:mm A"
-              />
-              <DateTime
-                label="New close date"
-                name="extension_close_date"
-                format="MMM D hh:mm A"
-              />
-            </Box>
-          </Modal.Body>
-        </Formik>
-        <Modal.Footer>
-          <Button
-            variant="default"
-            onClick={ux.cancelDisplayingGrantExtension}
-          >Close</Button>
-          <Button
-            variant="primary"
-            onClick={ux.saveDisplayingGrantExtension}
-          >Save</Button>
-        </Modal.Footer>
-      </Modal>
+          <Form>
+            <Modal.Header>
+              Grant extension for {ux.selectedPeriod.name}
+            </Modal.Header>
+            <Modal.Body>
+              <StudentsList>
+                {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
+              </StudentsList>
+              <Box>
+                <DateTime
+                  label="New due date"
+                  name="extension_due_date"
+                  format="MMM D hh:mm A"
+                />
+                <DateTime
+                  label="New close date"
+                  name="extension_close_date"
+                  format="MMM D hh:mm A"
+                />
+              </Box>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="default"
+                onClick={ux.cancelDisplayingGrantExtension}
+              >Close</Button>
+              <Button
+                variant="primary"
+                type="submit"
+              >Save</Button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+      </Formik>
     </>
   );
 });

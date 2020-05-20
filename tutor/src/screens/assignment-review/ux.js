@@ -110,6 +110,10 @@ export default class AssignmentReviewUX {
     this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
+  @computed get taskPlan() {
+    return this.planScores.taskPlan;
+  }
+
   // methods relating to granting extensions
 
   @action.bound cancelDisplayingGrantExtension() {
@@ -117,8 +121,18 @@ export default class AssignmentReviewUX {
     this.isDisplayingGrantExtension = false;
   }
 
-  @action.bound saveDisplayingGrantExtension() {
-    // TODO: actually save
+  @action.bound async saveDisplayingGrantExtension(values) {
+    const due_at = this.course.momentInZone(values.extension_due_date);
+    const closes_at = this.course.momentInZone(values.extension_close_date);
+    const extensions = [];
+    this.pendingExtensions.forEach((extend, role_id) => {
+      if (extend) {
+        extensions.push({ role_id, due_at, closes_at });
+      }
+    });
+    if (extensions.length > 0) {
+      await this.taskPlan.grantExtensions(extensions);
+    }
     this.cancelDisplayingGrantExtension();
   }
 
@@ -139,7 +153,7 @@ export default class AssignmentReviewUX {
   }
 
   @action.bound async saveDropQuestions() {
-    const { taskPlan } = this.planScores;
+    const { taskPlan } = this;
     this.pendingDroppedQuestions.forEach(dq => {
       taskPlan.dropped_questions.push(dq);
       this.planScores.dropped_questions.push(dq);
