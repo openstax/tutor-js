@@ -5,7 +5,8 @@ import { colors } from 'theme';
 
 const StyledTable = styled(Table)`
     .table-bordered th, .table-bordered td {
-        border: 2px solid ${colors.neutral.pale}
+        border: 2px solid ${colors.neutral.pale};
+        padding: 10px;
     }
     /* Not first column */
     > tr > :not(:first-child) {
@@ -33,6 +34,18 @@ const StyledTable = styled(Table)`
         }
         .current-step {
             font-weight: 800;
+        }
+        .icons {
+          width: 5%;
+          i {
+            display: inline-block;
+            width: 3rem;
+            height: 3rem;
+            background-size: 3rem 3rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform .1s ease-in-out, margin .3s ease-in-out;
+          }
         }   
     }
 `;
@@ -58,7 +71,6 @@ class TaskProgress extends React.Component {
     const {
       step, canReview, isCurrent, className, dataStepIndex, ux,
     } = this.props;
-    console.log(ux.steps);
     // const isCompleted = step.isInfo ? null : step.is_completed;
     // const { type: crumbType } = step;
     // const isEnd = 'end' === crumbType;
@@ -147,6 +159,7 @@ class TaskProgress extends React.Component {
                 return (
                   <th
                     rowspan="2"
+                    className="icons"
                     onClick={() => ux.goToStep(stepIndex, step)}>
                     <i className={`icon-lg ${iconClasses}`} />
                   </th>
@@ -166,7 +179,7 @@ class TaskProgress extends React.Component {
               }
             })
           }
-          <td>1000</td>
+          <td><strong>1000</strong></td>
         </tr>
       </StyledTable>
     );

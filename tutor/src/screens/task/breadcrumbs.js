@@ -1,8 +1,10 @@
 import { React, PropTypes, observer, styled, inject, autobind, css } from 'vendor';
+import TutorLink from '../../components/link';
 import Breadcrumb from '../../components/breadcrumb';
 import TaskProgress from '../../components/task-progress';
 import UX from './ux';
 import { colors } from 'theme';
+import { Icon } from 'shared';
 
 const BreadcrumbsWrapper = styled.div`
   display: flex;
@@ -12,9 +14,28 @@ const BreadcrumbsWrapper = styled.div`
   ${props => props.unDocked && css`
     background-color: ${colors.white};
     border-bottom: 1px solid ${colors.neutral.pale};
-    padding: 10px;
-
+    padding: 25px 10px 10px;
   `}
+`;
+
+const StyledBackLink = styled.div`
+  width: 100%;
+  color: ${colors.link};
+`;
+
+const StyledHeadingTitle = styled.div`
+  font-size: 1.7rem;
+  padding: 15px 0;
+
+  label:first-child {
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+  };
+  label:nth-child(2) {
+    padding: 0 10px;
+    color: ${colors.neutral.pale};
+  }
+}
 `;
 
 @inject('setSecondaryTopControls')
@@ -71,6 +92,21 @@ class Breadcrumbs extends React.Component {
             isCurrent={step === ux.currentStep}
             goToStep={ux.goToStep}
           />)} */}
+        <StyledBackLink>
+          <TutorLink to="dashboard" params={{ courseId: ux.course.id }}>
+            <Icon
+              size="lg"
+              type="angle-left"
+              className="-move-exercise-up circle"
+            />
+          Dashboard
+          </TutorLink>
+        </StyledBackLink>
+        <StyledHeadingTitle>
+          <label>Homework One</label>
+          <label> | </label>
+          <label>Due Fr, May 01, 5:00 PM</label>
+        </StyledHeadingTitle> 
         <TaskProgress ux={ux} />
 
       </BreadcrumbsWrapper>
