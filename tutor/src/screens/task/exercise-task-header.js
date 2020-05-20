@@ -16,6 +16,11 @@ const ExercisesTaskHeaderWrapper = styled.div`
     border-bottom: 1px solid ${colors.neutral.pale};
     padding: 25px 10px 10px;
   `}
+
+  ${props => !props.unDocked && css`
+    border-bottom: 1px solid ${colors.neutral.pale};
+    padding: 20px 10px 10px;
+  `}
 `;
 
 const StyledBackLink = styled.div`

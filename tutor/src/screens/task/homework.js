@@ -4,7 +4,6 @@ import {
 import UX from './ux';
 import ExerciseTaskHeader from './exercise-task-header';
 import { TaskStep } from './step';
-import withFooter from './with-footer';
 
 const SyledHomework = styled.div`
 
@@ -35,4 +34,4 @@ class HomeworkTask extends React.Component {
 
 }
 
-export default withFooter(HomeworkTask);
+export default HomeworkTask;
