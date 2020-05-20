@@ -105,7 +105,7 @@ class CoursePlanDetails extends React.Component {
 
   @computed get gradeAnswersButton() {
     const { plan, course } = this.props;
-    if (!plan.isGradable) { return null; }
+    if (!plan.canGrade) { return null; }
     return (
       <OverlayTrigger
         placement="top"

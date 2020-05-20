@@ -192,7 +192,7 @@ const StyledTooltip = styled(Tooltip)`
 const GradingBlock = observer(({ ux }) => {
   const { taskPlan } = ux.planScores;
 
-  if (!taskPlan.isGradable) { return null; }
+  if (!taskPlan.canGrade) { return null; }
 
   return (
     <Toolbar>
