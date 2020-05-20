@@ -378,7 +378,8 @@ const GradebookTable = observer(({ ux }) => {
                     <SplitCell>
                       {ux.periodAverages.overall_reading_score}
                     </SplitCell>
-                  </Average></CellContents>
+                  </Average>
+                </CellContents>
               </Cell>
               {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
             </Row>
@@ -387,26 +388,6 @@ const GradebookTable = observer(({ ux }) => {
                 <CellContents>
                   <Heading first={true}>
                     <FirstRowCell>Minimum Score</FirstRowCell>
-                  </Heading>
-                  <Total>
-                    {ux.maxScore('course_average')}
-                  </Total>
-                  <Average>
-                    <SplitCell border>
-                      {ux.maxScore('homework_score')}
-                    </SplitCell>
-                    <SplitCell>
-                      {ux.maxScore('reading_score')}
-                    </SplitCell>
-                  </Average></CellContents>
-              </Cell>
-              {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
-            </Row>
-            <Row>
-              <Cell striped>
-                <CellContents>
-                  <Heading first={true}>
-                    <FirstRowCell>Maximum Score</FirstRowCell>
                   </Heading>
                   <Total>
                     {ux.minScore('course_average')}
@@ -418,7 +399,29 @@ const GradebookTable = observer(({ ux }) => {
                     <SplitCell>
                       {ux.minScore('reading_score')}
                     </SplitCell>
-                  </Average></CellContents>
+                  </Average>
+                </CellContents>
+              </Cell>
+              {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
+            </Row>
+            <Row>
+              <Cell striped>
+                <CellContents>
+                  <Heading first={true}>
+                    <FirstRowCell>Maximum Score</FirstRowCell>
+                  </Heading>
+                  <Total>
+                    {ux.maxScore('course_average')}
+                  </Total>
+                  <Average>
+                    <SplitCell border>
+                      {ux.maxScore('homework_score')}
+                    </SplitCell>
+                    <SplitCell>
+                      {ux.maxScore('reading_score')}
+                    </SplitCell>
+                  </Average>
+                </CellContents>
               </Cell>
               {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
             </Row>
