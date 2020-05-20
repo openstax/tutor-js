@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, useObserver } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import moment from 'moment';
@@ -150,7 +150,7 @@ const StyledExerciseNumber = styled(ExerciseNumber)`
   font-size: 1.6rem;
 `;
 
-const QuestionHeader = ({ styleVariant, label, info }) => useObserver(() => {
+const QuestionHeader = observer(({ styleVariant, label, info }) => {
   return (
     <>
       <StyledExerciseNumber variant={styleVariant}>
@@ -167,7 +167,7 @@ QuestionHeader.propTypes = {
   info:  PropTypes.object.isRequired,
 };
 
-const Questions = ({ ux, questionsInfo }) => useObserver(() => {
+const Questions = observer(({ ux, questionsInfo }) => {
   if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
   return (
     <Section data-test-id="questions-block">
@@ -196,7 +196,7 @@ const Questions = ({ ux, questionsInfo }) => useObserver(() => {
   );
 });
 
-const TemplateInfo = ({ template }) => useObserver(() => {
+const TemplateInfo = observer(({ template }) => {
   if (!template) { return null; }
   return (
     <TemplateInfoWrapper>
@@ -237,7 +237,6 @@ const Details = observer(({ ux, ux: { editUX } }) => {
   const {
     scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
   } = ux;
-
   return (
     <DetailsWrapper>
       <Top>
