@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sumBy, find, isNil } from 'lodash';
+import { filter, sumBy, find, isNil, compact } from 'lodash';
 import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
@@ -86,7 +86,7 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get studentResponses() {
-    return this.tasking.students.map(s => s.questions[this.index]);
+    return compact(this.tasking.students.map(s => s.questions.find(q => q.question_id == this.question_id)));
   }
 
   @computed get exercise() {
