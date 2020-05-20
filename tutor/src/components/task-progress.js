@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn, styled } from 'vendor';
+import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { Table } from 'react-bootstrap';
 import { map } from 'lodash';
 import { colors } from 'theme';
@@ -17,136 +17,68 @@ const StyledTable = styled(Table)`
     > tr > :first-child {
         width: 15%;
         background-color: ${colors.neutral.lightest};
-        color: #6f6f6f;
+        color: ${colors.neutral.thin};
         font-weight: 500;
         font-size: 13px;
     }
 
     /* Questions row */
     tr:first-child {
-        background-color: ${colors.neutral.lightest};
-        > *:not(:first-child):not(:last-child) {
-            color: ${colors.link};
-            cursor: pointer;
-            :not(.current-step) {
-                text-decoration: underline;
-            }
-        }
-        .current-step {
-            font-weight: 800;
-        }
-        .icons {
-          width: 5%;
-          i {
-            display: inline-block;
-            width: 3rem;
-            height: 3rem;
-            background-size: 3rem 3rem;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: transform .1s ease-in-out, margin .3s ease-in-out;
+      background-color: ${colors.neutral.lightest};
+      > *:not(:first-child):not(:last-child) {
+          color: ${colors.link};
+          cursor: pointer;
+          :not(.current-step) {
+              text-decoration: underline;
           }
-        }   
+      }
+      .current-step {
+          font-weight: 800;
+      }
+      .icons {
+        width: 5%;
+        i {
+          display: inline-block;
+          width: 3rem;
+          height: 3rem;
+          background-size: 3rem 3rem;
+          background-repeat: no-repeat;
+          background-position: center;
+          transition: transform .1s ease-in-out, margin .3s ease-in-out;
+        }
+      }   
     }
 `;
 
 @observer
 class TaskProgress extends React.Component {
   static propTypes = {
-    step: PropTypes.object.isRequired,
+    steps: PropTypes.array.isRequired,
     stepIndex: PropTypes.oneOfType([
       PropTypes.number, PropTypes.string,
     ]).isRequired,
-    className: PropTypes.string,
     goToStep: PropTypes.func.isRequired,
-    isCurrent: PropTypes.bool,
-    canReview: PropTypes.bool,
-    dataStepIndex: PropTypes.number,
+    currentStep: PropTypes.object.isRequired,
   };
 
   render() {
-    let status, title;
-    let isCorrect = false;
-    let isIncorrect = false;
-    const {
-      step, canReview, isCurrent, className, dataStepIndex, ux,
-    } = this.props;
-    // const isCompleted = step.isInfo ? null : step.is_completed;
-    // const { type: crumbType } = step;
-    // const isEnd = 'end' === crumbType;
-    // if (isCompleted) {
-    //   if (canReview && (step.correct_answer_id != null)) {
-    //     if (step.isCorrect) {
-    //       isCorrect = true;
-    //     } else if (step.answer_id) {
-    //       isIncorrect = true;
-    //     }
-    //   }
-    // }
-
-    // if (isCurrent) {
-    //   title = `Current Step (${crumbType})`;
-    // }
-
-    // if (isCompleted) {
-    //   if (title == null) { title = `Step Completed (${crumbType}). Click to review`; }
-    // }
-
-    // if (isCorrect) {
-    //   status = <i className="icon-lg icon-correct" />;
-    // }
-
-    // if (isIncorrect) {
-    //   status = <i className="icon-lg icon-incorrect" />;
-    // }
-
-    // if (isEnd) {
-    //   title = `${(step.task != null ? step.task.title : undefined)} Completion`;
-    // }
-
-    // const classes = cn(
-    //   'openstax-breadcrumbs-step',
-    //   'icon-stack',
-    //   'icon-lg',
-    //   step.group,
-    //   `breadcrumb-${crumbType}`,
-    //   className,
-    //   {
-    //     current: isCurrent,
-    //     active: isCurrent,
-    //     completed: isCompleted,
-    //     'status-correct': isCorrect,
-    //     'status-incorrect': isIncorrect,
-    //   },
-    // );
+    const { steps, currentStep, goToStep } = this.props;
     
 
     let progressIndex = 0;
     return (
-    //   <span
-    //     title={title}
-    //     aria-label={title}
-    //     className={classes}
-    //     data-step-id={step.id}
-    //     key={`step-${step.id}`}
-    //     onClick={this.goToStep}
-    //     data-step-index={dataStepIndex}
-    //     data-chapter={step.sectionLabel}
-    //   >
-    //     <i className={`icon-lg ${iconClasses}`} />
-    //     {status}
-    //   </span>
       <StyledTable bordered responsive>
         <tr>
           <th>Question Number</th>
           {
-            ux.steps.map((step, stepIndex) => {
+            steps.map((step, stepIndex) => {
               if (!step.isInfo) {
                 progressIndex += 1;
                 return (
                   <td
-                    className={cn({ 'current-step': step === ux.currentStep })}
-                    onClick={() => ux.goToStep(stepIndex, step)}>
+                    key={stepIndex}
+                    className={cn({ 'current-step': step === currentStep })}
+                    onClick={() => goToStep(stepIndex, step)}>
                     {progressIndex}
                   </td>
                 );
@@ -158,13 +90,15 @@ class TaskProgress extends React.Component {
                 const iconClasses = cn(`icon-${step.type}`, crumbClasses);
                 return (
                   <th
-                    rowspan="2"
+                    key={stepIndex}
+                    rowSpan="3"
                     className="icons"
-                    onClick={() => ux.goToStep(stepIndex, step)}>
+                    onClick={() => goToStep(stepIndex, step)}>
                     <i className={`icon-lg ${iconClasses}`} />
                   </th>
                 );
               }
+              return null;
             })
           }
           <th>Total</th>
@@ -172,15 +106,33 @@ class TaskProgress extends React.Component {
         <tr>
           <th>Available Points</th>
           {
-            ux.steps.map((step, stepIndex) => {
+            steps.map((step, stepIndex) => {
               if(!step.isInfo) {
                 progressIndex += 1;
-                return <td>{progressIndex}</td>;
+                return <td key={stepIndex}>{progressIndex}</td>;
               }
+              return null;
             })
           }
           <td><strong>1000</strong></td>
         </tr>
+        {/** TODO: wait for points from BE to see if student got full, partial points */}
+        {/* <tr>
+          <th>Points scored</th>
+          {
+            ux.steps.map((step, stepIndex) => {
+              if(!step.isInfo) {
+                let isCorrect = false;
+                if (step.isCorrect) 
+                  isCorrect = true;
+                progressIndex += 1;
+                return <td key={stepIndex} className={cn({ isCorrect })}>{progressIndex}</td>;
+              }
+              return null;
+            })
+          }
+          <td><strong>1000</strong></td>
+        </tr> */}
       </StyledTable>
     );
     

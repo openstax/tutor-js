@@ -78,6 +78,7 @@ class ExerciseTaskStep extends React.Component {
   render() {
     const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
+    
     return (
       <>
         <StyledExercise

@@ -43,10 +43,10 @@ const StepCardQuestion = styled.div`
 
 LoadingCard.displayName = 'LoadingCard';
 
-const StepCard = ({ questionNumber, stepType, unpadded, className, children, ...otherProps }) => (
+const StepCard = ({ questionNumber, stepType, isHomework, unpadded, className, children, ...otherProps }) => (
   <OuterStepCard {...otherProps}>
     <InnerStepCard className={className}>
-      {stepType === 'exercise' &&
+      {questionNumber && isHomework && stepType === 'exercise' &&
       <StepCardHeader>
         <div>Question {questionNumber}</div>
         <div>2.0 Points</div>
@@ -62,6 +62,7 @@ StepCard.propTypes = {
   children: PropTypes.node.isRequired,
   questionNumber: PropTypes.number.isRequired,
   stepType: PropTypes.string,
+  isHomework: PropTypes.string,
 };
 
 
@@ -70,6 +71,7 @@ const TaskStepCard = observer(({ step, questionNumber, children, className, ...o
     {...otherProps}
     questionNumber={questionNumber}
     stepType={step.type}
+    isHomework={step.task.type}
     data-task-step-id={step.id}
     className={cn(`${step.type}-step`, className)}
   >
