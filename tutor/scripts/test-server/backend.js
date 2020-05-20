@@ -23,12 +23,16 @@ fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults({
-  logger: false,
+  //logger: false,
 });
 const log = require('./log');
 server.use(express.json());
 server.use(middlewares);
 const GET_HANDLERS = {
+  setrole: {
+    setRole() {  },
+    handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
+  },
   bootstrap: require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
@@ -63,6 +67,12 @@ server.use(jsonServer.rewriter({
 }));
 server.use(router);
 
+function setRole(role) {
+  for (let route in GET_HANDLERS) {
+    GET_HANDLERS[route].setRole(role);
+  }
+  MULTI_HANDLERS.forEach((handler) => { handler.setRole(role); });
+}
 
 server.listen(be_port, () => {
   log('READY', true);
@@ -70,9 +80,6 @@ server.listen(be_port, () => {
 
 process.on('message', (msg) => {
   if (msg.role) {
-    for (let route in GET_HANDLERS) {
-      GET_HANDLERS[route].setRole(msg.role);
-    }
-    MULTI_HANDLERS.forEach((handler) => { handler.setRole(msg.role); });
+    setRole(msg.role);
   }
 });
