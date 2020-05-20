@@ -143,14 +143,14 @@ exports[`Homework Row renders in progress 1`] = `
     <div>
       <a
         aria-label="Work on homework: turn-key unleash paradigms"
-        className="sc-fznZeY c0 task homework"
+        className="sc-fznKkj c0 task homework"
         data-event-id={1}
         href="/course/1/task/1"
         onClick={[Function]}
         tabIndex={-1}
       >
         <div
-          className="sc-fznKkj c1"
+          className="sc-fznyAO c1"
         >
           <i
             className="c2 icon-homework"
@@ -159,14 +159,14 @@ exports[`Homework Row renders in progress 1`] = `
           turn-key unleash paradigms
         </div>
         <div
-          className="sc-fznKkj c3"
+          className="sc-fznyAO c3"
         >
           <time>
             Su Oct 15, 7:00am
           </time>
         </div>
         <div
-          className="sc-fznKkj c4"
+          className="sc-fznyAO c4"
         >
           <div
             className="c5"
@@ -180,7 +180,7 @@ exports[`Homework Row renders in progress 1`] = `
           </div>
         </div>
         <div
-          className="sc-fznKkj c6"
+          className="sc-fznyAO c6"
         >
           <div
             className="c5"
@@ -360,14 +360,14 @@ exports[`Homework Row renders with completed count 1`] = `
     <div>
       <a
         aria-label="Work on homework: interactive mesh convergence"
-        className="sc-fznZeY c0 task homework"
+        className="sc-fznKkj c0 task homework"
         data-event-id={2}
         href="/course/2/task/2"
         onClick={[Function]}
         tabIndex={-1}
       >
         <div
-          className="sc-fznKkj c1"
+          className="sc-fznyAO c1"
         >
           <i
             className="c2 icon-homework"
@@ -376,14 +376,14 @@ exports[`Homework Row renders with completed count 1`] = `
           interactive mesh convergence
         </div>
         <div
-          className="sc-fznKkj c3"
+          className="sc-fznyAO c3"
         >
           <time>
             We Oct 11, 7:00am
           </time>
         </div>
         <div
-          className="sc-fznKkj c4"
+          className="sc-fznyAO c4"
         >
           <div
             className="c5"
@@ -420,7 +420,7 @@ exports[`Homework Row renders with completed count 1`] = `
           </div>
         </div>
         <div
-          className="sc-fznKkj c7"
+          className="sc-fznyAO c7"
         >
           <div
             className="c5"

@@ -17,7 +17,7 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-info-circle fa-w-16 ox-icon ox-icon-info-circle c0"
+        className="svg-inline--fa fa-info-circle fa-w-16 c0 ox-icon ox-icon-info-circle"
         data-icon="info-circle"
         data-prefix="fas"
         focusable="false"
@@ -42,7 +42,7 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close dismiss c0"
+        className="svg-inline--fa fa-times fa-w-11 c0 ox-icon ox-icon-close dismiss"
         data-icon="times"
         data-prefix="fas"
         focusable="false"

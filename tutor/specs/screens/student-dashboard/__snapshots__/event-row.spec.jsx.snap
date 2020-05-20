@@ -148,14 +148,14 @@ exports[`Event Row renders and matches snapshot 1`] = `
     <div>
       <a
         aria-label="Work on homework: real-time empower content"
-        className="sc-AxhUy c0 task homework"
+        className="sc-AxhCb c0 task homework"
         data-event-id={4}
         href="/course/1/task/4"
         onClick={[Function]}
         tabIndex={-1}
       >
         <div
-          className="sc-AxhCb c1"
+          className="sc-AxiKw c1"
         >
           <i
             className="c2 icon-homework"
@@ -164,14 +164,14 @@ exports[`Event Row renders and matches snapshot 1`] = `
           real-time empower content
         </div>
         <div
-          className="sc-AxhCb c3"
+          className="sc-AxiKw c3"
         >
           <time>
             Su Oct 27, 7:00am
           </time>
         </div>
         <div
-          className="sc-AxhCb c4"
+          className="sc-AxiKw c4"
         >
           <div
             className="c5"
@@ -208,7 +208,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="sc-AxhCb c7"
+          className="sc-AxiKw c7"
         >
           <div
             className="c5"

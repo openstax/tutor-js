@@ -268,7 +268,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c0"
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="date-range"
@@ -285,17 +285,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
@@ -309,7 +309,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-reading"
@@ -318,14 +318,14 @@ exports[`Student Dashboard displays as loading 1`] = `
                       B2C mesh schemas
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -339,7 +339,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -357,7 +357,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-external"
@@ -366,14 +366,14 @@ exports[`Student Dashboard displays as loading 1`] = `
                       granular engineer action-items
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -387,7 +387,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -405,7 +405,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-event"
@@ -414,14 +414,14 @@ exports[`Student Dashboard displays as loading 1`] = `
                       proactive harness supply-chains
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -435,7 +435,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -453,7 +453,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-homework"
@@ -462,14 +462,14 @@ exports[`Student Dashboard displays as loading 1`] = `
                       sexy envisioneer synergies
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -483,7 +483,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -592,7 +592,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c0"
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="title"
@@ -601,17 +601,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
@@ -943,7 +943,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c0"
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="date-range"
@@ -960,17 +960,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
@@ -984,7 +984,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-reading"
@@ -993,14 +993,14 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       turn-key unleash paradigms
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1014,7 +1014,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1032,7 +1032,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-external"
@@ -1041,14 +1041,14 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       intuitive empower niches
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1062,7 +1062,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1080,7 +1080,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-event"
@@ -1089,14 +1089,14 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       user-centric syndicate web-readiness
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1110,7 +1110,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1128,7 +1128,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
                         className="c6 icon-homework"
@@ -1137,14 +1137,14 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       innovative e-enable e-services
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1158,7 +1158,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1267,7 +1267,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c0"
                   >
                     <div
-                      className="sc-fznKkj c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="title"
@@ -1276,17 +1276,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
