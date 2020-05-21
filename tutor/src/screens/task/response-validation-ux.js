@@ -39,6 +39,10 @@ class ResponseValidationUX {
     return this.isDisplayingNudge ? this.retriedResponse : this.initialResponse;
   }
 
+  @computed get responseWords() {
+    return S.countWords(this.response);
+  }
+
   @action.bound async onSave() {
     if (!this.validator.isEnabled) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
@@ -98,7 +102,7 @@ class ResponseValidationUX {
   }
 
   @computed get submitBtnLabel() {
-    return this.isDisplayingNudge ? 'Re-answer' : 'Answer';
+    return this.isDisplayingNudge ? 'Re-submit' : 'Submit';
   }
 
   @computed get displayNudgeError() {
@@ -118,6 +122,10 @@ class ResponseValidationUX {
       this.validator.isUIEnabled &&
         this.results.length && !last(this.results).valid
     );
+  }
+
+  @computed get hasTimestamp() {
+    return Boolean(last(this.results) && last(this.results).timestamp);
   }
 
 }

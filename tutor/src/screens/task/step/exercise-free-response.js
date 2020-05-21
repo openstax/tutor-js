@@ -1,6 +1,7 @@
 import {
-  React, PropTypes, observer, styled, action, css,
+  React, PropTypes, observer, styled, action, css, moment,
 } from 'vendor';
+import { last } from 'lodash';
 import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';
 import ResponseValidation from '../../../models/response_validation';
@@ -22,18 +23,29 @@ const TextAreaErrorStyle = css`
   background-color: #f5e9ea;
 `;
 
+const InfoRow = styled.div`
+  margin: 8px 0;
+  display: flex;
+  justify-content: ${props => props.isDisplayingLastSaved ? 'space-between' : 'flex-end'};
+
+  span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+`;
+
 const ControlsRow = styled.div`
-  margin: 2.5rem 0;
+  margin: 24px 0;
   display: flex;
   justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  min-height: 8em;
+  min-height: 10.5em;
   line-height: 1.5em;
   margin: 2.5rem 0 0 0;
-  padding: 0.75em;
+  padding: 0.5em;
   border: 1px solid ${Theme.colors.neutral.std};
   ${props => props.isErrored && TextAreaErrorStyle}
 `;
@@ -87,9 +99,13 @@ class FreeResponseInput extends React.Component {
     this.ux.onSave();
   }
 
+  componentDidMount() {
+    // focus on the textarea when question is loaded
+    this.textArea.current.focus();
+  }
+
   render() {
     const { ux, props: { questionNumber, course, step, question } } = this;
-
     return (
       <StyledFreeResponse
         data-test-id="student-free-response"
@@ -103,10 +119,14 @@ class FreeResponseInput extends React.Component {
           value={ux.response}
           onChange={ux.setResponse}
           data-test-id="free-response-box"
-          placeholder="Enter your response"
+          placeholder="Enter your response..."
           isErrored={ux.displayNudgeError}
           aria-label="question response text box"
         />
+        <InfoRow isDisplayingLastSaved={ux.hasTimestamp}>
+          {ux.hasTimestamp && <span>Last submitted on {moment(last(ux.results).timestamp)}</span>}
+          <span>{ux.responseWords} words</span>
+        </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
