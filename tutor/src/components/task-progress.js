@@ -1,53 +1,72 @@
 import { React, PropTypes, observer, cn, styled } from 'vendor';
-import { Table } from 'react-bootstrap';
+import { StickyTable, Row, Cell } from 'react-sticky-table';
 import { map } from 'lodash';
 import { colors } from 'theme';
 
-const StyledTable = styled(Table)`
-    .table-bordered th, .table-bordered td {
-        border: 2px solid ${colors.neutral.pale};
-        padding: 10px;
-    }
-    /* Not first column */
-    > tr > :not(:first-child) {
-        text-align:center;
-        vertical-align: middle;
-    }
-    /* First column */
-    > tr > :first-child {
-        width: 15%;
-        background-color: ${colors.neutral.lightest};
-        color: ${colors.neutral.thin};
-        font-weight: 500;
-        font-size: 13px;
+const StyledStickyTable = styled(StickyTable)`
+  padding-bottom: 5px;
+
+  /** Add top border on first row */
+  .sticky-table-row:first-child > .sticky-table-cell {
+      border-top: 1px solid ${colors.neutral.pale};
+      background-color: ${colors.neutral.lightest};
+
+      :not(:first-child):not(:last-child) {
+        color: ${colors.link};
+        cursor: pointer;
+        :not(.current-step) {
+            text-decoration: underline;
+        }
+      }
+  }
+
+  /** Add top border on first row */
+  .sticky-table-row:not(:first-child) > .sticky-table-cell {
+      border-bottom: 1px solid ${colors.neutral.pale};
+  }
+
+  /* Add left border on first columns */
+  .sticky-table-row > :first-child {
+      border-left: 1px solid ${colors.neutral.pale};
+      background-color: ${colors.neutral.lightest};
+      padding: 10px;
     }
 
-    /* Questions row */
-    tr:first-child {
-      background-color: ${colors.neutral.lightest};
-      > *:not(:first-child):not(:last-child) {
-          color: ${colors.link};
-          cursor: pointer;
-          :not(.current-step) {
-              text-decoration: underline;
-          }
-      }
-      .current-step {
-          font-weight: 800;
-      }
-      .icons {
-        width: 5%;
-        i {
-          display: inline-block;
-          width: 3rem;
-          height: 3rem;
-          background-size: 3rem 3rem;
-          background-repeat: no-repeat;
-          background-position: center;
-          transition: transform .1s ease-in-out, margin .3s ease-in-out;
+  /* Add right border on last columns */
+  .sticky-table-row > :last-child {
+    border-right: 1px solid ${colors.neutral.pale};
+    font-weight: bolder;
+  }
+  
+  /* Not first column cells */
+  .sticky-table-row > :not(:first-child) {
+        min-width: 48px;
+        text-align:center;
+        vertical-align: middle; 
+        :not(:last-child) {
+          border-right: 1px solid ${colors.neutral.pale};
         }
-      }   
     }
+
+  /** Icons */
+  .sticky-table-row {
+    .icons {
+      width: 5%;
+      i {
+        position: absolute;
+        right: 0;
+        top: 22px;
+        left: 8px;
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+        background-size: 3rem 3rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: transform .1s ease-in-out, margin .3s ease-in-out;
+      }
+    }
+  }
 `;
 
 @observer
@@ -67,20 +86,20 @@ class TaskProgress extends React.Component {
 
     let progressIndex = 0;
     return (
-      <StyledTable bordered responsive>
-        <tr>
-          <th>Question Number</th>
+      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
+        <Row>
+          <Cell>Question number</Cell>
           {
             steps.map((step, stepIndex) => {
               if (!step.isInfo) {
                 progressIndex += 1;
                 return (
-                  <td
+                  <Cell
                     key={stepIndex}
                     className={cn({ 'current-step': step === currentStep })}
                     onClick={() => goToStep(stepIndex, step)}>
                     {progressIndex}
-                  </td>
+                  </Cell>
                 );
               }
               else if (step.isInfo) {
@@ -89,52 +108,49 @@ class TaskProgress extends React.Component {
                 if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
                 const iconClasses = cn(`icon-${step.type}`, crumbClasses);
                 return (
-                  <th
+                  <Cell
                     key={stepIndex}
                     rowSpan="3"
                     className="icons"
                     onClick={() => goToStep(stepIndex, step)}>
-                    <i className={`icon-lg ${iconClasses}`} />
-                  </th>
+                    <i className={`icon-sm ${iconClasses}`} />
+                  </Cell>
                 );
               }
               return null;
             })
           }
-          <th>Total</th>
-        </tr>
-        <tr>
-          <th>Available Points</th>
+          <Cell>Total</Cell>
+        </Row>
+        <Row>
+          <Cell>Available Points</Cell>
           {
             steps.map((step, stepIndex) => {
               if(!step.isInfo) {
                 progressIndex += 1;
-                return <td key={stepIndex}>{progressIndex}</td>;
+                return <Cell key={stepIndex}>{progressIndex}</Cell>;
               }
-              return null;
+              return <Cell key={stepIndex}></Cell>;
             })
           }
-          <td><strong>1000</strong></td>
-        </tr>
-        {/** TODO: wait for points from BE to see if student got full, partial points */}
-        {/* <tr>
-          <th>Points scored</th>
+          <Cell>1000</Cell>
+        </Row>
+        {/* <Row>
+          <Cell>Points Scored</Cell>
           {
-            ux.steps.map((step, stepIndex) => {
+            range(100).map((step, stepIndex) => {
               if(!step.isInfo) {
-                let isCorrect = false;
-                if (step.isCorrect) 
-                  isCorrect = true;
                 progressIndex += 1;
-                return <td key={stepIndex} className={cn({ isCorrect })}>{progressIndex}</td>;
+                return <Cell key={stepIndex}>{progressIndex}</Cell>;
               }
-              return null;
+              return <Cell key={stepIndex}></Cell>;
             })
           }
-          <td><strong>1000</strong></td>
-        </tr> */}
-      </StyledTable>
+          <Cell>1000</Cell>
+        </Row> */}
+      </StyledStickyTable>
     );
+    
     
   }
 

@@ -31,6 +31,7 @@ const StyledBackLink = styled.div`
 const StyledHeadingTitle = styled.div`
   font-size: 1.7rem;
   padding: 15px 0;
+  width: 100%;
 
   span:first-child {
     font-weight: bold;
