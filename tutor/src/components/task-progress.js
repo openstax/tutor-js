@@ -10,6 +10,10 @@ const StyledStickyTable = styled(StickyTable)`
     min-height: 40px;
   }
 
+  .current-step {
+    font-weight: 800;
+  }
+
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
       border-top: 1px solid ${colors.neutral.pale};
