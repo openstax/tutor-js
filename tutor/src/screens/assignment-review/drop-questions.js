@@ -4,6 +4,7 @@ import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import OXQuestionPreview from '../../components/question-preview';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
+import S from '../../helpers/string';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942279/preview
 
@@ -115,7 +116,7 @@ const TutorQuestion = observer(({ heading }) => {
         OpenStax Tutor Beta selection
       </DetailsCell>
       <Cell>
-        {heading.points}
+        {S.numberWithOneDecimalPlace(heading.points)}
       </Cell>
       <Cell>
         <Reallocate>
@@ -155,7 +156,7 @@ const CoreQuestion = observer(({ ux, heading }) => {
         <QuestionPreview question={heading.question} />
       </DetailsCell>
       <Cell>
-        {heading.points}
+        {S.numberWithOneDecimalPlace(heading.points)}
       </Cell>
       <Cell>
         <Reallocate>
@@ -181,7 +182,8 @@ const CoreQuestion = observer(({ ux, heading }) => {
         </Reallocate>
       </Cell>
       <Cell>
-        1.0
+        {Boolean(drop && drop.drop_method == 'zeroed') ?
+        '0.0' : S.numberWithOneDecimalPlace(heading.points)}
       </Cell>
     </QuestionRowWrapper>
   );
