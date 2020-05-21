@@ -70,7 +70,7 @@ const getRoutes = (router) => {
           renderer: r(() => import('./screens/assignment-grade'), 'Assignment Grader') },
         {
           path: 'gradebook', name: 'viewGradebook',
-          renderer: r(() => import('./screens/gradebook/index.js')) },
+          renderer:  ConditionalHandlers.gradebook },
         { path: 'settings', name: 'courseSettings',
           renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
         { path: 'roster', name: 'courseRoster',
