@@ -38,16 +38,25 @@ const ReallocateHeader = styled(Cell)`
     padding: 0 !important;
   }
   > div {
-    height: 50%;
-    &:last-child {
-      display: flex;
-      font-size: 1rem;
-      border-top: 1px solid lightGrey;
-      > div {
-        height: 100%;
-        width: 80px;
-        &:last-child {
-          border-left: 1px solid lightGrey;
+    display: flex;
+    flex-direction: column;
+    > div {
+      flex: 1;
+      align-self: stretch;
+      &:first-child {
+        border-bottom: 1px solid ${colors.neutral.pale};
+        padding: 0.75rem 0 0.5rem;
+      }
+      &:last-child {
+        display: flex;
+        align-items: stretch;
+        font-size: 1rem;
+        div {
+          flex: 1;
+          padding: 0.25rem 0;
+          &:last-child {
+            border-left: 1px solid ${colors.neutral.pale};
+          }
         }
       }
     }
@@ -62,21 +71,30 @@ const QuestionPreview = styled(OXQuestionPreview)`
 `;
 
 const Table = styled(StickyTable)`
+  .sticky-table-table {
+    width: 100%;
+  }
   .sticky-table-cell {
     border: 1px solid lightGrey;
+    background-color: ${colors.neutral.lightest};
     padding: 0;
-    height: 30px;
+    height: 38px;
     vertical-align: middle;
     text-align: center;
+    border-width: 0 1px 1px 0;
+
+    &:first-child {
+      border-width: 0 1px 1px 1px;
+    }
   }
 `;
 
 const DetailsCell = styled(Cell)`
   &.sticky-table-cell {
     padding: 0.5rem 0.75rem;
-    text-align: left;
+    text-align: center;
   }
-  text-align: left;
+  text-align: center;
 `;
 
 const Question = observer(({ heading, ...props }) => {
@@ -173,13 +191,24 @@ const CoreQuestion = observer(({ ux, heading }) => {
 const DropQuestionsModal = styled(Modal)`
   .modal-dialog {
     max-width: 800px;
+
+    .modal-content, .modal-body {
+      background-color: ${colors.neutral.lightest};
+    }
+  }
+
+  .modal-header {
+    font-weight: bold;
+    .close {
+      font-size: 3rem;
+    }
   }
 `;
 
 const TableHeaderWrapper = styled(Row)`
   .sticky-table-cell {
-    padding: 0.5rem;
-    background-color: ${colors.neutral.lite};
+    padding: 0 0.5rem;
+    background-color: ${colors.neutral.thin};
     color: white;
   }
 `;
@@ -197,10 +226,12 @@ const TableHeader = () => (
       <div>points</div>
     </Cell>
     <ReallocateHeader>
-      <div>reallocate points</div>
       <div>
-        <div>Give full credit</div>
-        <div>Assign '0' points</div>
+        <div>Reallocate points</div>
+        <div>
+          <div>Give full credit</div>
+          <div>Assign '0' points</div>
+        </div>
       </div>
     </ReallocateHeader>
     <Cell>
@@ -209,7 +240,6 @@ const TableHeader = () => (
     </Cell>
   </TableHeaderWrapper>
 );
-
 
 const DropQuestion = observer(({ ux }) => {
   if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
@@ -235,7 +265,7 @@ const DropQuestion = observer(({ ux }) => {
         backdrop="static"
         onHide={ux.cancelDisplayingDropQuestions}
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           Drop question for {ux.selectedPeriod.name}
         </Modal.Header>
         <Modal.Body>
