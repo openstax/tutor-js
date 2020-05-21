@@ -279,11 +279,13 @@ const DropQuestion = observer(({ ux }) => {
         <Modal.Footer>
           <Button
             variant="default"
+            className="btn-standard"
             data-test-id="cancel-btn"
             onClick={ux.cancelDisplayingDropQuestions}
-          >Close</Button>
+          >Cancel</Button>
           <Button
             variant="primary"
+            className="btn-standard"
             data-test-id="save-btn"
             onClick={ux.saveDropQuestions}
           >Save</Button>
