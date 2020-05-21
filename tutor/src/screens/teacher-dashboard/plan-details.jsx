@@ -105,8 +105,6 @@ class CoursePlanDetails extends React.Component {
 
   @computed get gradeAnswersButton() {
     const { plan, course } = this.props;
-    // TODO: Check plan for gradeable anwers. For now just use Homework as the
-    // check until we have practical dev/test data
     if (!plan.canGrade) { return null; }
     return (
       <OverlayTrigger

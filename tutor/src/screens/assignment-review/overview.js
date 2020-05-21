@@ -189,6 +189,28 @@ const StyledTooltip = styled(Tooltip)`
   }
 `;
 
+const GradingBlock = observer(({ ux }) => {
+  const { taskPlan } = ux.planScores;
+
+  if (!taskPlan.canGrade) { return null; }
+
+  return (
+    <Toolbar>
+      <Center>
+        This assignment is now open for grading.
+      </Center>
+      <Right>
+        <GradeButton
+          variant="primary"
+          params={{ courseId: ux.course.id, id: ux.planId }}
+        >
+          <span>Grade answers</span>
+        </GradeButton>
+      </Right>
+    </Toolbar>
+  );
+});
+
 const AvailablePoints = ({ value }) => {
   if (!value) {
     return (
@@ -217,23 +239,9 @@ AvailablePoints.propTypes = {
   ]),
 };
 
-const Overview = observer(({ ux, ux: { scores, planScores } }) => (
+const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
-    {planScores.taskPlan.isPastDue &&
-      <Toolbar>
-        <Center>
-          This assignment is now open for grading.
-        </Center>
-        <Right>
-          <GradeButton
-            variant="primary"
-            params={{ courseId: ux.course.id, id: ux.planId }}
-          >
-            <span>Grade answers</span>
-          </GradeButton>
-        </Right>
-      </Toolbar>
-    }
+    <GradingBlock ux={ux}/>
     <StyledStickyTable>
       <Row>
         <Header>Question Number</Header>

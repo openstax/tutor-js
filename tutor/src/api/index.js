@@ -248,6 +248,7 @@ const startAPI = function() {
     query() { return { course_id: this.taskPlan.course.id }; },
   });
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+  connectModelUpdate(TeacherTaskPlan, 'grantExtensions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
   connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
 
   connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
