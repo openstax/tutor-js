@@ -6,6 +6,10 @@ import { colors } from 'theme';
 const StyledStickyTable = styled(StickyTable)`
   padding-bottom: 5px;
 
+  .sticky-table-cell {
+    min-height: 40px;
+  }
+
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
       border-top: 1px solid ${colors.neutral.pale};

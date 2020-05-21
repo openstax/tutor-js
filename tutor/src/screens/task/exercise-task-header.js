@@ -14,7 +14,7 @@ const ExercisesTaskHeaderWrapper = styled.div`
   ${props => props.unDocked && css`
     background-color: ${colors.white};
     border-bottom: 1px solid ${colors.neutral.pale};
-    padding: 25px 10px 10px;
+    padding: 25px 32px 16px;
   `}
 
   ${props => !props.unDocked && css`
