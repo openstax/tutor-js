@@ -19,7 +19,7 @@ const titleControls = (ux) => {
   return <ScoresReportNav ux={ux} />;
 };
 
-const GradeBook = ({ ux: propsUX, ...props }) => {
+const TeacherGradeBook = ({ ux: propsUX, ...props }) => {
 
   const [ux] = useState(propsUX || new UX(props.params));
 
@@ -57,17 +57,16 @@ const GradeBook = ({ ux: propsUX, ...props }) => {
           </TourRegion>
         </CoursePage>
       </BackgroundWrapper>
-
     );
   });
 
 };
 
-GradeBook.propTypes = {
+TeacherGradeBook.propTypes = {
   params: PropTypes.shape({
     courseId: PropTypes.string.isRequired,
   }).isRequired,
   ux: PropTypes.instanceOf(UX),
 };
 
-export default GradeBook;
+export default TeacherGradeBook;
