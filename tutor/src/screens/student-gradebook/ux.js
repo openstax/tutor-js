@@ -5,9 +5,21 @@ import Router from '../../helpers/router';
 
 export default class StudentGradeBookUX {
 
+  sortFieldConstants = {
+    title: 'reportHeading.title',
+    dueAt: 'due_at',
+    points: 'points',
+    score: 'score',
+  }
+
+  sortOrderConstants = {
+    asc: 'asc',
+    desc: 'desc',
+  }
+
   @observable isReady = false;
-  @observable sortField = 'reportHeading.title';
-  @observable sortOrder = 'asc';
+  @observable sortField = this.sortFieldConstants.dueAt;
+  @observable sortOrder = this.sortOrderConstants.desc;
 
   constructor(props) {
     this.initialize(props);
@@ -47,13 +59,15 @@ export default class StudentGradeBookUX {
 
   @action.bound sort(sortField) {
     this.sortField = sortField;
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sortOrder = this.sortOrder === this.sortOrderConstants.asc
+      ? this.sortOrderConstants.desc
+      : this.sortOrderConstants.asc;
   }
 
   @action.bound displaySort(sortField) {
     if (this.sortField === sortField) {
       return {
-        asc: this.sortOrder === 'asc',
+        asc: this.sortOrder === this.sortOrderConstants.asc,
       };
     }
     return null;

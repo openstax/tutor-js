@@ -92,7 +92,7 @@ const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
 const GradebookTable = observer((
   {
     history,
-    ux: { student, studentData, course, goToAssignment, sort, displaySort }, 
+    ux: { student, studentData, course, goToAssignment, sort, displaySort, sortFieldConstants }, 
   }) => {
   return (
     <TableWrapper>
@@ -127,21 +127,21 @@ const GradebookTable = observer((
       <StyledTable striped borderless hover responsive>
         <thead>
           <tr>
-            <th onClick={() => sort('reportHeading.title')}>
+            <th onClick={() => sort(sortFieldConstants.title)}>
               Assignment Name
-              <SortIcon sort={displaySort('reportHeading.title')}/>
+              <SortIcon sort={displaySort(sortFieldConstants.title)}/>
             </th>
-            <th onClick={() => sort('due_at')}>
+            <th onClick={() => sort(sortFieldConstants.dueAt)}>
               Due date
-              <SortIcon sort={displaySort('due_at')}/>
+              <SortIcon sort={displaySort(sortFieldConstants.dueAt)}/>
             </th>
-            <th onClick={() => sort('points')}>
+            <th onClick={() => sort(sortFieldConstants.points)}>
               Points scored
-              <SortIcon sort={displaySort('points')}/>
+              <SortIcon sort={displaySort(sortFieldConstants.points)}/>
             </th>
-            <th onClick={() => sort('score')}>
+            <th onClick={() => sort(sortFieldConstants.score)}>
               Percentage
-              <SortIcon sort={displaySort('score')}/>
+              <SortIcon sort={displaySort(sortFieldConstants.score)}/>
             </th>
           </tr>
         </thead>
