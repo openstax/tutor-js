@@ -60,7 +60,7 @@ StepCard.propTypes = {
   unpadded: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  questionNumber: PropTypes.number.isRequired,
+  questionNumber: PropTypes.number,
   stepType: PropTypes.string,
   isHomework: PropTypes.string,
 };

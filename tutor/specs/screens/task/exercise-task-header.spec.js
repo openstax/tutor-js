@@ -1,8 +1,8 @@
 import UX from '../../../src/screens/task/ux';
-import { Breadcrumbs } from '../../../src/screens/task/breadcrumbs';
+import ExerciseTaskHeader from '../../../src/screens/task/exercise-task-header';
 import { Factory, C, TestRouter, TimeMock } from '../../helpers';
 
-describe('Homework Breadcrumbs Component', () => {
+describe('Homework ExerciseTaskHeader Component', () => {
   let props;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
@@ -18,15 +18,15 @@ describe('Homework Breadcrumbs Component', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<Breadcrumbs {...props} />).toMatchSnapshot();
+    expect(<ExerciseTaskHeader {...props} />).toMatchSnapshot();
   });
 
   it('goes to step', () => {
     const { ux } = props;
     jest.spyOn(props.ux, 'goToStep');
-    const ms = mount(<C><Breadcrumbs {...props} /></C>);
-    ms.find('Breadcrumb[stepIndex=1]').simulate('click');
-    expect(ux.goToStep).toHaveBeenCalledWith(1, expect.anything());
+    const ms = mount(<C><ExerciseTaskHeader {...props} /></C>);
+    ms.find('.sticky-table-row').at(0).find('.sticky-table-cell').at(1).simulate('click');
+    expect(ux.goToStep).toHaveBeenCalledWith(0, expect.anything());
     ms.unmount();
   });
 

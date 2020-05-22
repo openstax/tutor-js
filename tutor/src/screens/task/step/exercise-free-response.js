@@ -124,7 +124,7 @@ class FreeResponseInput extends React.Component {
           aria-label="question response text box"
         />
         <InfoRow isDisplayingLastSaved={ux.hasTimestamp}>
-          {ux.hasTimestamp && <span>Last submitted on {moment(last(ux.results).timestamp)}</span>}
+          {ux.hasTimestamp && <span>Last submitted on {moment(last(ux.results).timestamp).format('MMM DD [at] hh:mm A')}</span>}
           <span>{ux.responseWords} words</span>
         </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>

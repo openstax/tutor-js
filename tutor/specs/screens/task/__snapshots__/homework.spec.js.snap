@@ -2,7 +2,7 @@
 
 exports[`Reading Tasks Screen matches snapshot 1`] = `
 <C>
-  <WithFooterWrapper
+  <HomeworkTask
     ux={
       TaskUX {
         "_stepIndex": 0,

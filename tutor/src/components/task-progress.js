@@ -81,9 +81,6 @@ const StyledStickyTable = styled(StickyTable)`
 class TaskProgress extends React.Component {
   static propTypes = {
     steps: PropTypes.array.isRequired,
-    stepIndex: PropTypes.oneOfType([
-      PropTypes.number, PropTypes.string,
-    ]).isRequired,
     goToStep: PropTypes.func.isRequired,
     currentStep: PropTypes.object.isRequired,
   };
