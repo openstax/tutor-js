@@ -58,7 +58,6 @@ class TutorLayout extends React.Component {
 
   render() {
     const { course } = this.props;
-
     return (
       <Provider
         topNavbar={this.topNavbarContext}

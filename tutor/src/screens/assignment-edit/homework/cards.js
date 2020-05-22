@@ -67,7 +67,7 @@ const Title = styled.div`
 `;
 
 const HintText = styled.div`
-  color: ${colors.neutral.thin}
+  color: ${colors.neutral.thin};
 `;
 
 const Exercises = observer(({ id, exercises, title, hintText, ...previewProps }) => {

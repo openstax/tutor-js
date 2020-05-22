@@ -23,6 +23,7 @@ const Icons = {
   // solid
   'angle-down':           require('@fortawesome/free-solid-svg-icons/faAngleDown'),
   'angle-up':             require('@fortawesome/free-solid-svg-icons/faAngleUp'),
+  'angle-left':           require('@fortawesome/free-solid-svg-icons/faAngleLeft'),
   'angle-right':          require('@fortawesome/free-solid-svg-icons/faAngleRight'),
   'arrow-circle-down':    require('@fortawesome/free-solid-svg-icons/faArrowCircleDown'),
   'arrow-circle-left':    require('@fortawesome/free-solid-svg-icons/faArrowCircleLeft'),

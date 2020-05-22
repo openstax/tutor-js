@@ -8,13 +8,6 @@ const SyledQuestionStem = styled.div`
   font-size: 2rem;
   line-height: 1.68em;
   position: relative;
-  &[data-question-number]::before {
-    content: attr(data-question-number) ")";
-    position: absolute;
-    z-index: 1;
-    right: 100%;
-    margin-right: 0.5rem;
-  }
 `;
 
 const QuestionStem = observer(({ question, questionNumber }) => {

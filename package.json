@@ -127,7 +127,7 @@
     "react-overlays": "^2.1.0",
     "react-router-dom": "5.1.2",
     "react-select": "^3.0.4",
-    "react-sticky-table": "^4.2.0",
+    "react-sticky-table": "^5.1.4",
     "react-ultimate-pagination": "^1.2.0",
     "scroll-into-view": "^1.11.0",
     "serializr": "^1.5.1",

@@ -20,16 +20,6 @@ const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
   margin-left: 2rem;
-  .question-stem[data-question-number] {
-    position: relative;
-    &::before {
-      content: attr(data-question-number) ")";
-      position: absolute;
-      z-index: 1;
-      right: 100%;
-      margin-right: 0.5rem;
-    }
-  }
 `;
 
 export default
