@@ -6,6 +6,7 @@ import {
 import Big from 'big.js';
 import moment from 'moment';
 import Time from '../time';
+import S from '../../helpers/string';
 
 export default
 @identifiedBy('scores/task-result')
@@ -189,7 +190,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${this.points} of ${this.available_points}`;
+    return `${S.numberWithOneDecimalPlace(this.points)}  of  ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
