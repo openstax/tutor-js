@@ -154,16 +154,31 @@ export default class AssignmentReviewUX {
 
   @action.bound async saveDropQuestions() {
     const { taskPlan } = this;
+
     this.pendingDroppedQuestions.forEach(dq => {
       taskPlan.dropped_questions.push(dq);
       this.planScores.dropped_questions.push(dq);
     });
+
+    // Existing dropped Qs need to be updated to pick up allocation changes
+    this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged).forEach(h => {
+      const { question_id, drop_method } = h.dropped;
+      taskPlan.dropped_questions.find(dq => dq.question_id == question_id).drop_method = drop_method;
+    });
+
     await taskPlan.saveDroppedQuestions();
     this.cancelDisplayingDropQuestions();
   }
 
   droppedQuestionRecord(heading) {
     return heading.dropped || this.pendingDroppedQuestions.get(heading.question_id);
+  }
+
+  @computed get canSubmitDroppedQuestions() {
+    return Boolean(
+      (this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged).length > 0) ||
+      (this.pendingDroppedQuestions.size > 0)
+    );
   }
 
   @action.bound onDelete() {

@@ -75,6 +75,7 @@ class TaskPlanScoreHeading extends BaseModel {
   @field question_id;
   @field type;
   @field points;
+  @field points_without_dropping;
   @field ecosystem_id;
 
   @computed get isCore() {
@@ -142,7 +143,6 @@ class TaskPlanScoresTasking extends BaseModel {
   } }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
 
-
   // this returns all of the quesions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions
   // will be in different order and different students will get different ones
@@ -207,7 +207,7 @@ class TaskPlanScores extends BaseModel {
   @field description;
   @field type;
   @field ecosystem_id;
-  
+
   @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
 
   @hasMany({ model: DroppedQuestion }) dropped_questions;

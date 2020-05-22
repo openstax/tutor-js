@@ -5,14 +5,23 @@ import { colors } from 'theme';
 import OXQuestionPreview from '../../components/question-preview';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import S from '../../helpers/string';
+import CheckboxInput from '../../components/checkbox-input';
+import RadioInput from '../../components/radio-input';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942279/preview
+
+const Instructions = styled.h2`
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: bold;
+  margin: 0 0 1.6rem;
+`;
 
 const disabledCSS = css`
   color: ${colors.neutral.std};
 `;
 
-const QuestionRowWrapper =styled(Row)`
+const QuestionRowWrapper = styled(Row)`
   ${({ disabled }) => disabled && disabledCSS}
 `;
 
@@ -93,9 +102,12 @@ const Table = styled(StickyTable)`
 const DetailsCell = styled(Cell)`
   &.sticky-table-cell {
     padding: 0.5rem 0.75rem;
-    text-align: center;
+    text-align: left;
   }
-  text-align: center;
+`;
+
+const LeftCell = styled(Cell)`
+  text-align: left;
 `;
 
 const Question = observer(({ heading, ...props }) => {
@@ -107,7 +119,7 @@ const TutorQuestion = observer(({ heading }) => {
   return (
     <QuestionRowWrapper disabled>
       <Cell>
-        <input type="checkbox" disabled />
+        <CheckboxInput type="checkbox" standalone={true} disabled />
       </Cell>
       <Cell>
         {heading.title}
@@ -142,11 +154,12 @@ const CoreQuestion = observer(({ ux, heading }) => {
       data-question-id={heading.question_id}
     >
       <Cell>
-        <input
+        <CheckboxInput
           type="checkbox"
           name={heading.title}
           checked={!!drop}
           onChange={({ target: { checked } }) => ux.toggleDropQuestion(checked, heading)}
+          standalone={true}
         />
       </Cell>
       <Cell>
@@ -156,34 +169,36 @@ const CoreQuestion = observer(({ ux, heading }) => {
         <QuestionPreview question={heading.question} />
       </DetailsCell>
       <Cell>
-        {S.numberWithOneDecimalPlace(heading.points)}
+        {S.numberWithOneDecimalPlace(heading.points_without_dropping)}
       </Cell>
       <Cell>
         <Reallocate>
           <label>
-            <input
+            <RadioInput
               type="radio"
               name={`${heading.question_id}`}
               value="full_credit"
-              disabled={!drop || heading.dropped}
-              onChange={({ target: { checked } }) => { checked && (drop.drop_method = 'full_credit'); }}
+              disabled={!drop}
+              onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('full_credit')); }}
               checked={Boolean(drop && drop.drop_method == 'full_credit')}
+              standalone={true}
             /></label>
           <label>
-            <input
+            <RadioInput
               type="radio"
-              name={`${heading.question.id}`}
+              name={`${heading.question_id}`}
               value="zeroed"
-              disabled={!drop || heading.dropped}
-              onChange={({ target: { checked } }) => { checked && (drop.drop_method = 'zeroed'); }}
+              disabled={!drop}
+              onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('zeroed')); }}
               checked={Boolean(drop && drop.drop_method == 'zeroed')}
+              standalone={true}
             />
           </label>
         </Reallocate>
       </Cell>
       <Cell>
-        {Boolean(drop && drop.drop_method == 'zeroed') ?
-        '0.0' : S.numberWithOneDecimalPlace(heading.points)}
+        {drop && drop.drop_method == 'zeroed' ?
+          '0.0' : S.numberWithOneDecimalPlace(heading.points_without_dropping)}
       </Cell>
     </QuestionRowWrapper>
   );
@@ -192,10 +207,18 @@ const CoreQuestion = observer(({ ux, heading }) => {
 
 const DropQuestionsModal = styled(Modal)`
   .modal-dialog {
-    max-width: 800px;
+    max-width: 975px;
 
     .modal-content, .modal-body {
       background-color: ${colors.neutral.lightest};
+    }
+
+    .modal-body {
+      padding: 1.9rem 2.6rem 2.6rem;
+    }
+
+    .modal-footer {
+      padding: 0 2.6rem 2.6rem;
     }
   }
 
@@ -222,9 +245,9 @@ const TableHeader = () => (
       <div>Question</div>
       <div>number</div>
     </Cell>
-    <Cell>Question details</Cell>
+    <LeftCell>Question details</LeftCell>
     <Cell>
-      <div>Assigned</div>
+      <div>Available</div>
       <div>points</div>
     </Cell>
     <ReallocateHeader>
@@ -271,6 +294,7 @@ const DropQuestion = observer(({ ux }) => {
           Drop question for {ux.selectedPeriod.name}
         </Modal.Header>
         <Modal.Body>
+          <Instructions>Select question(s) to drop:</Instructions>
           <Table>
             <TableHeader />
             {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
@@ -287,6 +311,7 @@ const DropQuestion = observer(({ ux }) => {
             variant="primary"
             className="btn-standard"
             data-test-id="save-btn"
+            disabled={!ux.canSubmitDroppedQuestions}
             onClick={ux.saveDropQuestions}
           >Save</Button>
         </Modal.Footer>
