@@ -6,22 +6,28 @@ import { CourseNotFoundWarning } from '../components/course-not-found-warning';
 import Courses from '../models/courses-map';
 import { OXMatchByRouter } from 'shared';
 
+
 const StudentDashboard = asyncComponent(
-  () => import('../screens/student-dashboard'),
-  'Student Dashboard',
+  () => import('../screens/student-dashboard'), 'Course Dashboard',
 );
 
 const TeacherDashboard = asyncComponent(
-  () => import('../screens/teacher-dashboard'),
-  'Teacher Dashboard',
+  () => import('../screens/teacher-dashboard'), 'Course Dashboard',
+);
+
+const StudentGradebook = asyncComponent(
+  () => import('../screens/student-gradebook'), 'Gradebook',
+);
+
+const TeacherGradebook = asyncComponent(
+  () => import('../screens/teacher-gradebook'), 'Gradebook'
 );
 
 const getConditionalHandlers = (Router) => {
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
-  const renderDashboard = (props) => {
+  const renderTeacherStudent = (props, Teacher, Student) => {
     const { courseId } = props.params;
-
     extend(props, { courseId });
     const course = Courses.get(courseId);
     if (!course) {
@@ -35,12 +41,11 @@ const getConditionalHandlers = (Router) => {
     }
 
     if (course.currentRole.isTeacher) {
-      return <TeacherDashboard {...props} />;
+      return <Teacher {...props} />;
     } else {
-      return <StudentDashboard {...props} />;
+      return <Student {...props} />;
     }
   };
-
 
   // eslint-disable-next-line react/prop-types
   const renderBecomeRole = ({ params: { courseId, roleId } }) => {
@@ -60,7 +65,8 @@ const getConditionalHandlers = (Router) => {
   };
 
   return {
-    dashboard() { return renderDashboard; },
+    dashboard() { return (props) => renderTeacherStudent(props, TeacherDashboard, StudentDashboard); },
+    gradebook() { return (props) => renderTeacherStudent(props, TeacherGradebook, StudentGradebook); },
     becomeRole() { return renderBecomeRole; },
   };
 };

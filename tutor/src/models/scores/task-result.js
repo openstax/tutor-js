@@ -33,6 +33,8 @@ class TaskResult extends BaseModel {
   @field exercise_count;
   @field is_included_in_averages;
   @field is_late_work_accepted;
+  @field available_points;
+
   @field recovered_exercise_count;
 
   @belongsTo({ model: 'scores/student' }) student;
@@ -187,7 +189,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${this.correctExerciseCount} of ${this.exercise_count}`;
+    return `${this.points} of ${this.available_points}`;
   }
 
   @computed get isDue() {

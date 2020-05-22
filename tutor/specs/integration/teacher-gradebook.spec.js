@@ -1,4 +1,4 @@
-context('Assignment Grade', () => {
+context('Teacher Gradebook', () => {
 
   beforeEach(() => {
     cy.visit('/course/1/gradebook')
