@@ -20,7 +20,7 @@ exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
   </span>
   <svg
     aria-hidden="true"
-    className="svg-inline--fa fa-bars fa-w-14 ox-icon ox-icon-bars c0"
+    className="svg-inline--fa fa-bars fa-w-14 c0 ox-icon ox-icon-bars"
     data-icon="bars"
     data-prefix="fas"
     focusable="false"

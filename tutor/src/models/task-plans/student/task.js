@@ -1,28 +1,12 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
-import { invoke, get } from 'lodash';
+import { get } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
-
-const StudentTaskFeedback = {
-  homework(t) {
-    if (!t.isStarted) { return 'Not started'; }
-    return t.scoreShown ?
-      `${t.correct_exercise_count}/${t.exercise_count} correct` :
-      `${t.complete_exercise_count}/${t.exercise_count} answered`;
-  },
-  reading(t) {
-    if (!t.isStarted) { return 'Not started'; }
-    return t.complete ? 'Complete' : 'In progress';
-  },
-  external(t) {
-    return t.complete ? 'Clicked' : 'Not started';
-  },
-};
 
 export default
 @identifiedBy('task-plans/student/task')
@@ -94,6 +78,10 @@ class StudentTask extends BaseModel {
     return 'reading' === this.type;
   }
 
+  @computed get isExternal() {
+    return 'external' == this.type;
+  }
+
   @computed get isStarted() {
     return this.completed_steps_count > 0;
   }
@@ -122,8 +110,20 @@ class StudentTask extends BaseModel {
     );
   }
 
-  @computed get studentFeedback() {
-    return invoke(StudentTaskFeedback, this.type, this) || '';
+  @computed get humanProgress() {
+    if (this.isHomework || this.isReading) {
+      if (!this.isStarted) { return 'Not started'; }
+      return this.complete ? 'Complete' : 'In progress';
+    } else if (this.isExternal) {
+      return this.complete ? 'Clicked' : 'Not started';
+    }
+    return '';
+  }
+
+  @computed get humanScore() {
+    return this.scoreShown ?
+      `${this.correct_exercise_count}/${this.exercise_count} correct` :
+      `${this.complete_exercise_count}/${this.exercise_count} answered`;
   }
 
   // called from API

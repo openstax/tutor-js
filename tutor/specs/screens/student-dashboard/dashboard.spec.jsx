@@ -1,4 +1,4 @@
-import { React, Router, TimeMock } from '../../helpers';
+import { React, TimeMock, C } from '../../helpers';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';
@@ -27,15 +27,15 @@ describe('Student Dashboard', () => {
   it('matches snapshot', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-09-14T12:00:00.000Z');
-    expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
+    expect.snapshot(<C><Dashboard {...props} /></C>).toMatchSnapshot();
   });
 
   it('displays as loading', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-10-14T12:00:00.000Z');
-    const dash = mount(<Router><Dashboard {...props} /></Router>);
+    const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).toHaveRendered('ThisWeekCard Card[className="empty pending"]');
-    expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
+    expect.snapshot(<C><Dashboard {...props} /></C>).toMatchSnapshot();
   });
 
   it('logs when Biglearn times out', () => {

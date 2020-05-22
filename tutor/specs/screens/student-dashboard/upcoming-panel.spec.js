@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import Upcoming from '../../../src/screens/student-dashboard/upcoming-panel';
-import { TimeMock, R, React } from '../../helpers';
+import { TimeMock, C, React } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Upcoming Events', () => {
@@ -16,7 +16,7 @@ describe('Upcoming Events', () => {
   });
 
   it('shows anything past next week', () => {
-    const panel = mount(<R><Upcoming {...props} /></R>);
+    const panel = mount(<C><Upcoming {...props} /></C>);
     expect(panel.text()).toContain('No upcoming assignments');
 
     const event = Factory.studentDashboardTask();

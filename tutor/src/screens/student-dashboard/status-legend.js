@@ -7,12 +7,13 @@ import Theme from '../../theme';
 const Wrapper = styled.div`
   display: flex;
   margin: 1rem 0;
+  font-size: 1.2rem
   span + span {
     margin-left: 2rem;
   }
 `;
 
-const LateIconLedgend = props => {
+const StatusIconLedgend = props => {
   if (isEmpty(props.tasks)) {
     return null;
   }
@@ -26,16 +27,17 @@ const LateIconLedgend = props => {
         <Icon color={Theme.colors.danger} type="clock" /> Late
       </span>
       <span>
-        <Icon color={Theme.colors.neutral.thin} type="clock" /> Late but accepted
+        <Icon variant="circledStar" /> Provisional score. FInal scores will be available when published by your instructor.
       </span>
+
     </Wrapper>
   );
 };
 
-LateIconLedgend.propTypes = {
+StatusIconLedgend.propTypes = {
   tasks: PropTypes.oneOfType([
     PropTypes.object, PropTypes.array,
   ]).isRequired,
 };
 
-export default LateIconLedgend;
+export default StatusIconLedgend;

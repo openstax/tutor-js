@@ -25,6 +25,8 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 
+Cypress.Commands.add('setRole', (role) => cy.request({ url: `http://localhost:8111/api/setrole?role=${role}` }))
+
 Cypress.Commands.add('getTestElement', (id, selector = '') => cy.get(`[data-test-id="${id}"]${selector}`));
 
 Cypress.Commands.add('dismissTour', () => {

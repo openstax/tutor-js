@@ -1,218 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Homework Row renders in progress 1`] = `
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c2 {
-  height: 100%;
-  width: 4rem;
-  margin-right: 1rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  padding-left: 1rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  width: 15rem;
-}
-
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  width: 11rem;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  padding-right: 1rem;
-  width: 10rem;
-}
-
-.c0 {
-  height: 60px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  color: #fafafa;
-  background: #929292;
-}
-
-@media (max-width:749px) {
-  .c1 {
-    min-width: 100%;
-  }
-}
-
-@media (max-width:749px) {
-  .c3 {
-    padding-left: 1rem;
-  }
-}
-
-@media (max-width:749px) {
-  .c4 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-  }
-}
-
-@media (max-width:749px) {
-  .c6 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-  }
-}
-
-<div
-  className="openstax-debug-content"
->
-  <div
-    data-purpose="tour-conductor-wrapper"
-  >
-    <div>
-      <a
-        aria-label="Work on homework: turn-key unleash paradigms"
-        className="sc-fznKkj c0 task homework"
-        data-event-id={1}
-        href="/course/1/task/1"
-        onClick={[Function]}
-        tabIndex={-1}
-      >
-        <div
-          className="sc-fznyAO c1"
-        >
-          <i
-            className="c2 icon-homework"
-            type="homework"
-          />
-          turn-key unleash paradigms
-        </div>
-        <div
-          className="sc-fznyAO c3"
-        >
-          <time>
-            Su Oct 15, 7:00am
-          </time>
-        </div>
-        <div
-          className="sc-fznyAO c4"
-        >
-          <div
-            className="c5"
-          >
-            <span
-              className="tour-anchor"
-              data-tour-anchor-id="assignment-progress-status"
-            >
-              In progress
-            </span>
-          </div>
-        </div>
-        <div
-          className="sc-fznyAO c6"
-        >
-          <div
-            className="c5"
-          >
-            2/3 answered
-          </div>
-        </div>
-      </a>
-    </div>
-    <div
-      className="visible-when-debugging"
-    >
-      <div
-        className="tour-spy-info"
-      >
-        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
-      </div>
-    </div>
-  </div>
-  <a
-    aria-hidden="true"
-    className="debug-toggle-link"
-    href="#spy"
-    onClick={[Function]}
-    tabIndex={-1}
-  >
-    π
-  </a>
-</div>
-`;
-
-exports[`Homework Row renders with completed count 1`] = `
+exports[`Event Row renders and matches snapshot 1`] = `
 .c6 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
@@ -359,31 +147,31 @@ exports[`Homework Row renders with completed count 1`] = `
   >
     <div>
       <a
-        aria-label="Work on homework: interactive mesh convergence"
-        className="sc-fznKkj c0 task homework"
-        data-event-id={2}
-        href="/course/2/task/2"
+        aria-label="Work on homework: real-time empower content"
+        className="sc-AxhCb c0 task homework"
+        data-event-id={4}
+        href="/course/1/task/4"
         onClick={[Function]}
         tabIndex={-1}
       >
         <div
-          className="sc-fznyAO c1"
+          className="sc-AxiKw c1"
         >
           <i
             className="c2 icon-homework"
             type="homework"
           />
-          interactive mesh convergence
+          real-time empower content
         </div>
         <div
-          className="sc-fznyAO c3"
+          className="sc-AxiKw c3"
         >
           <time>
-            We Oct 11, 7:00am
+            Su Oct 27, 7:00am
           </time>
         </div>
         <div
-          className="sc-fznyAO c4"
+          className="sc-AxiKw c4"
         >
           <div
             className="c5"
@@ -420,12 +208,12 @@ exports[`Homework Row renders with completed count 1`] = `
           </div>
         </div>
         <div
-          className="sc-fznyAO c7"
+          className="sc-AxiKw c7"
         >
           <div
             className="c5"
           >
-            4/8 answered
+            5/5 answered
           </div>
         </div>
       </a>

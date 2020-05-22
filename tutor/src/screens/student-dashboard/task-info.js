@@ -2,7 +2,7 @@ import { React, PropTypes, styled, observer } from 'vendor';
 import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
 import TourAnchor from '../../components/tours/anchor';
-import Theme from '../../theme';
+
 
 const Feedback = styled.div`
   display: flex;
@@ -10,20 +10,20 @@ const Feedback = styled.div`
   align-items: center;
 `;
 
-const LateCaption = styled.div`
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: ${Theme.colors.neutral.thin};
-`;
+// const LateCaption = styled.div`
+//   font-size: 1.2rem;
+//   margin-top: 5px;
+//   color: ${({ theme }) => theme.colors.neutral.thin};
+// `;
 
-const LateInfo = observer(({ event }) => {
-  if (!event.isHomework || !event.workedLate) { return null; }
-  return (
-    <LateCaption>
-      {event.completed_on_time_exercise_count}/{event.exercise_count} answered on due date
-    </LateCaption>
-  );
-});
+// const LateInfo = observer(({ event }) => {
+//   if (!event.isHomework || !event.workedLate) { return null; }
+//   return (
+//     <LateCaption>
+//       {event.completed_on_time_exercise_count}/{event.exercise_count} answered on due date
+//     </LateCaption>
+//   );
+// });
 
 
 const DescriptionPopoverIcon = observer(({ event }) => {
@@ -33,31 +33,37 @@ const DescriptionPopoverIcon = observer(({ event }) => {
   );
 });
 
-const TaskProgressInfo = observer(({ event, course }) => {
+const TaskStatus = observer(({ event, course }) => {
   if (event.is_deleted) { return null; }
 
   return (
     <React.Fragment>
       <Feedback>
-        {event.studentFeedback &&
-          <TourAnchor id="assignment-progress-status" tag="span">
-            {event.studentFeedback}
-          </TourAnchor>}
+        <TourAnchor id="assignment-progress-status" tag="span">
+          {event.humanProgress}
+        </TourAnchor>
         <EventInfoIcon
           event={event}
           isCollege={course.is_college}
         />
         <DescriptionPopoverIcon event={event} />
       </Feedback>
-      <LateInfo event={event} />
     </React.Fragment>
   );
 });
 
-TaskProgressInfo.displayName = 'TaskProgressInfo';
-TaskProgressInfo.propTypes = {
+TaskStatus.displayName = 'TaskStatus';
+TaskStatus.propTypes = {
   event: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
 };
 
-export default TaskProgressInfo;
+const TaskScore = observer(({ event }) => {
+  return (
+    <Feedback>
+      {event.humanScore}
+    </Feedback>
+  );
+});
+
+export { TaskStatus, TaskScore };

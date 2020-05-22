@@ -3,7 +3,7 @@ import { uniqueId, defaults } from 'lodash';
 import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
 import { React, PropTypes, cn } from '../helpers/react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // Don't attempt to remove the duplication by using variable substition without testing ;)
 // After trying multiple methods, it seems like webpack 4 will either:
@@ -82,6 +82,7 @@ const Icons = {
   'sort-down':            require('@fortawesome/free-solid-svg-icons/faSortDown'),
   'sort-up':              require('@fortawesome/free-solid-svg-icons/faSortUp'),
   'spinner':              require('@fortawesome/free-solid-svg-icons/faSpinner'),
+  'star':                 require('@fortawesome/free-solid-svg-icons/faStar'),
   'th':                   require('@fortawesome/free-solid-svg-icons/faTh'),
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
   'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
@@ -114,9 +115,13 @@ const defaultTooltipProps = {
   trigger: ['hover', 'focus'],
 };
 
-const IconWrapper = styled(FontAwesomeIcon)`
+const IconWrapper = styled(FontAwesomeIcon).withConfig({
+  shouldForwardProp: (prop) => prop != 'withCircle',
+})`
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  ${({ withCircle }) => withCircle && css`border-radius: 50%; padding: 2px; height: 1.125em; width: 1.125em;`}
+  ${({ background }) => background && css`background: ${background};`}
 `;
 
 
@@ -145,7 +150,14 @@ const Variants = {
     type: 'square',
     color: '#5E6062',
   },
+  circledStar: {
+    type: 'star',
+    background: '#5e5e5e',
+    color: 'white',
+    withCircle: true,
+  },
 };
+
 
 export default
 class Icon extends React.Component {
@@ -159,6 +171,7 @@ class Icon extends React.Component {
     tooltipProps: PropTypes.object,
     buttonProps: PropTypes.object,
     btnVariant: PropTypes.string,
+    
     variant: PropTypes.oneOf(Object.keys(Variants)),
     tooltip: PropTypes.oneOfType([
       PropTypes.string,

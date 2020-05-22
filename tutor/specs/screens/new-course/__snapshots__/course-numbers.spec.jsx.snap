@@ -36,7 +36,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-thumbs-up fa-w-16 ox-icon ox-icon-thumbs-up c1"
+              className="svg-inline--fa fa-thumbs-up fa-w-16 c1 ox-icon ox-icon-thumbs-up"
               data-icon="thumbs-up"
               data-prefix="fas"
               focusable="false"

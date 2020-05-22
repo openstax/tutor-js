@@ -254,7 +254,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-plus-square fa-w-14 ox-icon ox-icon-plus-square c0"
+                className="svg-inline--fa fa-plus-square fa-w-14 c0 ox-icon ox-icon-plus-square"
                 data-icon="plus-square"
                 data-prefix="fas"
                 focusable="false"
@@ -290,7 +290,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
                       color="green"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -315,7 +315,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -339,7 +339,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -390,7 +390,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -415,7 +415,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -439,7 +439,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -463,7 +463,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -514,7 +514,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -539,7 +539,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -563,7 +563,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -645,7 +645,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -743,7 +743,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -784,7 +784,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -835,7 +835,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1113,7 +1113,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1153,7 +1153,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1194,7 +1194,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1234,7 +1234,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1882,13 +1882,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\" onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
                                         <button onClick={[Function: res]} disabled={false} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
                                           <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}}>
-                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 ox-icon ox-icon-plus-square IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                  <path fill=\\"currentColor\\" d=\\"M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
-                                                </svg>
-                                              </FontAwesomeIcon>
-                                            </StyledComponent>
+                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                <path fill=\\"currentColor\\" d=\\"M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
+                                              </svg>
+                                            </FontAwesomeIcon>
                                           </IconWrapper>
                                         </button>
                                       </Button>
@@ -1909,13 +1907,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"green\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"green\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"green\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"green\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"green\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"green\\">
+                                                    <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -1924,13 +1920,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -1939,13 +1933,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -1968,13 +1960,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -1983,13 +1973,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -1998,13 +1986,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -2013,13 +1999,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -2042,13 +2026,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
-                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -2057,13 +2039,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -2072,13 +2052,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
                                             <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
-                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
-                                                    </svg>
-                                                  </FontAwesomeIcon>
-                                                </StyledComponent>
+                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
+                                                  </svg>
+                                                </FontAwesomeIcon>
                                               </IconWrapper>
                                             </button>
                                           </Button>
@@ -2124,13 +2102,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                               <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
-                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                        <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
-                                                      </svg>
-                                                    </FontAwesomeIcon>
-                                                  </StyledComponent>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
                                                 </IconWrapper>
                                               </button>
                                             </Button>
@@ -2184,13 +2160,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                 <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
-                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                          <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
-                                                        </svg>
-                                                      </FontAwesomeIcon>
-                                                    </StyledComponent>
+                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
+                                                      </svg>
+                                                    </FontAwesomeIcon>
                                                   </IconWrapper>
                                                 </button>
                                               </Button>
@@ -2213,13 +2187,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                               <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
-                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                        <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
-                                                      </svg>
-                                                    </FontAwesomeIcon>
-                                                  </StyledComponent>
+                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
+                                                    </svg>
+                                                  </FontAwesomeIcon>
                                                 </IconWrapper>
                                               </button>
                                             </Button>
@@ -2242,13 +2214,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                 <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
-                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                          <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
-                                                        </svg>
-                                                      </FontAwesomeIcon>
-                                                    </StyledComponent>
+                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
+                                                      </svg>
+                                                    </FontAwesomeIcon>
                                                   </IconWrapper>
                                                 </button>
                                               </Button>
@@ -2304,109 +2274,107 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]}>
-                                            <StyledComponent isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} forwardedComponent={{...}} forwardedRef={{...}}>
-                                              <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
-                                                <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
-                                                  <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" innerProps={{...}} isDisabled={false} isFocused={false}>
-                                                    <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" id={[undefined]} onKeyDown={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
-                                                      <div className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh css-2b097c-container\\" id={[undefined]} onKeyDown={[Function]}>
-                                                        <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
-                                                          <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function]} onTouchEnd={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
-                                                            <div className=\\" css-yk16xz-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
-                                                              <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
-                                                                <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\">
-                                                                  <div className=\\" css-1hwfws3\\">
-                                                                    <MultiValue cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
-                                                                      <ForwardRef(render)>
-                                                                        <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
-                                                                          <div className=\\"css-1rhbuit-multiValue\\">
-                                                                            <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
-                                                                              <div className=\\"css-12jo7m5\\">
-                                                                                Test Prep
-                                                                              </div>
-                                                                            </MultiValueGeneric>
-                                                                            <MultiValueRemove data={{...}} innerProps={{...}} selectProps={{...}}>
-                                                                              <div className=\\"css-1alnv5e\\" onClick={[Function: onClick]} onTouchEnd={[Function: onTouchEnd]} onMouseDown={[Function: onMouseDown]}>
-                                                                                <CrossIcon size={14}>
-                                                                                  <Svg size={14}>
-                                                                                    <EmotionCssPropInternal height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
-                                                                                      <svg height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
-                                                                                        <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
-                                                                                      </svg>
-                                                                                    </EmotionCssPropInternal>
-                                                                                  </Svg>
-                                                                                </CrossIcon>
-                                                                              </div>
-                                                                            </MultiValueRemove>
-                                                                          </div>
-                                                                        </MultiValueGeneric>
-                                                                      </ForwardRef(render)>
-                                                                    </MultiValue>
-                                                                    <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-4-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
-                                                                      <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
-                                                                        <div className=\\"css-w8afj7-Input\\">
-                                                                          <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
-                                                                            <div className=\\"\\" style={{...}}>
-                                                                              <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
-                                                                              <div style={{...}} />
+                                            <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
+                                              <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" id={[undefined]} onKeyDown={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl css-2b097c-container\\" id={[undefined]} onKeyDown={[Function]}>
+                                                      <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function]} onTouchEnd={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\" css-yk16xz-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
+                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\">
+                                                                <div className=\\" css-1hwfws3\\">
+                                                                  <MultiValue cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
+                                                                    <ForwardRef(render)>
+                                                                      <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                        <div className=\\"css-1rhbuit-multiValue\\">
+                                                                          <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                            <div className=\\"css-12jo7m5\\">
+                                                                              Test Prep
                                                                             </div>
-                                                                          </AutosizeInput>
+                                                                          </MultiValueGeneric>
+                                                                          <MultiValueRemove data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                            <div className=\\"css-1alnv5e\\" onClick={[Function: onClick]} onTouchEnd={[Function: onTouchEnd]} onMouseDown={[Function: onMouseDown]}>
+                                                                              <CrossIcon size={14}>
+                                                                                <Svg size={14}>
+                                                                                  <EmotionCssPropInternal height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                                    <svg height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                      <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                                    </svg>
+                                                                                  </EmotionCssPropInternal>
+                                                                                </Svg>
+                                                                              </CrossIcon>
+                                                                            </div>
+                                                                          </MultiValueRemove>
                                                                         </div>
-                                                                      </EmotionCssPropInternal>
-                                                                    </Input>
-                                                                  </div>
-                                                                </EmotionCssPropInternal>
-                                                              </ValueContainer>
-                                                              <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
-                                                                <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
-                                                                  <div className=\\" css-1g48xl4-IndicatorsContainer\\">
-                                                                    <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
-                                                                      <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
-                                                                        <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
-                                                                          <CrossIcon>
-                                                                            <Svg size={20}>
-                                                                              <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
-                                                                                <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
-                                                                                  <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
-                                                                                </svg>
-                                                                              </EmotionCssPropInternal>
-                                                                            </Svg>
-                                                                          </CrossIcon>
-                                                                        </div>
-                                                                      </EmotionCssPropInternal>
-                                                                    </ClearIndicator>
-                                                                    <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
-                                                                      <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
-                                                                        <span className=\\" css-1okebmr-indicatorSeparator\\" />
-                                                                      </EmotionCssPropInternal>
-                                                                    </IndicatorSeparator>
-                                                                    <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
-                                                                      <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
-                                                                        <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
-                                                                          <DownChevron>
-                                                                            <Svg size={20}>
-                                                                              <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
-                                                                                <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
-                                                                                  <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
-                                                                                </svg>
-                                                                              </EmotionCssPropInternal>
-                                                                            </Svg>
-                                                                          </DownChevron>
-                                                                        </div>
-                                                                      </EmotionCssPropInternal>
-                                                                    </DropdownIndicator>
-                                                                  </div>
-                                                                </EmotionCssPropInternal>
-                                                              </IndicatorsContainer>
-                                                            </div>
-                                                          </EmotionCssPropInternal>
-                                                        </Control>
-                                                      </div>
-                                                    </EmotionCssPropInternal>
-                                                  </SelectContainer>
-                                                </Select>
-                                              </StateManager>
-                                            </StyledComponent>
+                                                                      </MultiValueGeneric>
+                                                                    </ForwardRef(render)>
+                                                                  </MultiValue>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-4-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                    <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
+                                                                      <div className=\\"css-w8afj7-Input\\">
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                          <div className=\\"\\" style={{...}}>
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <div style={{...}} />
+                                                                          </div>
+                                                                        </AutosizeInput>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Input>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </ValueContainer>
+                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
+                                                                <div className=\\" css-1g48xl4-IndicatorsContainer\\">
+                                                                  <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                        <CrossIcon>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </CrossIcon>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </ClearIndicator>
+                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
+                                                                      <span className=\\" css-1okebmr-indicatorSeparator\\" />
+                                                                    </EmotionCssPropInternal>
+                                                                  </IndicatorSeparator>
+                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                        <DownChevron>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </DownChevron>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </DropdownIndicator>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </IndicatorsContainer>
+                                                          </div>
+                                                        </EmotionCssPropInternal>
+                                                      </Control>
+                                                    </div>
+                                                  </EmotionCssPropInternal>
+                                                </SelectContainer>
+                                              </Select>
+                                            </StateManager>
                                           </StyledSelect>
                                         </div>
                                       </div>
@@ -2441,13 +2409,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                 <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
-                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                          <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
-                                                        </svg>
-                                                      </FontAwesomeIcon>
-                                                    </StyledComponent>
+                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
+                                                      </svg>
+                                                    </FontAwesomeIcon>
                                                   </IconWrapper>
                                                 </button>
                                               </Button>
@@ -2463,13 +2429,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                 <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                   <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
-                                                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                            <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
-                                                          </svg>
-                                                        </FontAwesomeIcon>
-                                                      </StyledComponent>
+                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                          <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
+                                                        </svg>
+                                                      </FontAwesomeIcon>
                                                     </IconWrapper>
                                                   </button>
                                                 </Button>
@@ -2494,13 +2458,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                 <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
-                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                          <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
-                                                        </svg>
-                                                      </FontAwesomeIcon>
-                                                    </StyledComponent>
+                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
+                                                      </svg>
+                                                    </FontAwesomeIcon>
                                                   </IconWrapper>
                                                 </button>
                                               </Button>
@@ -2516,13 +2478,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                 <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                   <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
-                                                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                            <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
-                                                          </svg>
-                                                        </FontAwesomeIcon>
-                                                      </StyledComponent>
+                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                          <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
+                                                        </svg>
+                                                      </FontAwesomeIcon>
                                                     </IconWrapper>
                                                   </button>
                                                 </Button>
@@ -2680,191 +2640,185 @@ exports[`Exercises component resets fields when model is new 1`] = `
         </div>
         <ExerciseEditingPreview exercise={{...}}>
           <Preview>
-            <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-              <div className=\\"Preview-sc-1vfgcxn-0 dopsau\\">
-                <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" hidden={false} label={{...}}>
-                  <Ribbon>
-                    <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                      <div className=\\"Ribbon-ky3mx8-0 fklTxh\\">
-                        <Content shadow={true} color=\\"navy\\" position=\\"topRight\\" hidden={false}>
-                          <StyledComponent shadow={true} color=\\"navy\\" position=\\"topRight\\" hidden={false} forwardedComponent={{...}} forwardedRef={{...}}>
-                            <div color=\\"navy\\" hidden={false} className=\\"Content-ky3mx8-1 jovJBo\\">
-                              <div>
-                                READ ONLY
-                              </div>
-                              <div>
-                                Author: Deshawn
-                              </div>
-                            </div>
-                          </StyledComponent>
-                        </Content>
-                        <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
-                          <Card className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1} body={false}>
-                            <div data-exercise-id=\\"14@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card\\">
-                              <CardBody>
-                                <div className=\\"card-body\\">
-                                  <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
-                                  <div className=\\"exercise-body\\">
-                                    <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} />
-                                    <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                                    <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
-                                      <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
-                                        <QuestionHtml type=\\"context\\" html=\\"\\" />
-                                        <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                                        <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
-                                          <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
-                                            <div dangerouslySetInnerHTML={{...}} />
-                                          </Component>
-                                        </QuestionHtml>
-                                        <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
-                                          <div className=\\"answers-table\\">
-                                            <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                              <div className=\\"openstax-answer\\">
-                                                <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                  <div className=\\"correct-incorrect\\" />
-                                                  <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
-                                                    <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
-                                                      a
-                                                    </button>
-                                                    <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                      <Memo(wrappedComponent)>
-                                                        <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
-                                                            <div dangerouslySetInnerHTML={{...}} />
-                                                          </Component>
-                                                        </aside>
-                                                      </Memo(wrappedComponent)>
-                                                    </div>
-                                                  </label>
-                                                </section>
-                                              </div>
-                                            </Answer>
-                                            <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                              <div className=\\"openstax-answer\\">
-                                                <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                  <div className=\\"correct-incorrect\\" />
-                                                  <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
-                                                    <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
-                                                      b
-                                                    </button>
-                                                    <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                      <Memo(wrappedComponent)>
-                                                        <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
-                                                            <div dangerouslySetInnerHTML={{...}} />
-                                                          </Component>
-                                                        </aside>
-                                                      </Memo(wrappedComponent)>
-                                                    </div>
-                                                  </label>
-                                                </section>
-                                              </div>
-                                            </Answer>
-                                            <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                              <div className=\\"openstax-answer\\">
-                                                <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                  <div className=\\"correct-incorrect\\" />
-                                                  <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
-                                                    <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
-                                                      c
-                                                    </button>
-                                                    <div className=\\"answer-answer\\">
-                                                      <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                      <Memo(wrappedComponent)>
-                                                        <aside>
-                                                          <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
-                                                            <div dangerouslySetInnerHTML={{...}} />
-                                                          </Component>
-                                                        </aside>
-                                                      </Memo(wrappedComponent)>
-                                                    </div>
-                                                  </label>
-                                                </section>
-                                              </div>
-                                            </Answer>
-                                          </div>
-                                        </AnswersTable>
-                                        <FormatsListing formats={{...}}>
-                                          <div className=\\"formats-listing\\">
-                                            <div className=\\"header\\">
-                                              Formats:
-                                            </div>
-                                            <span>
-                                              free-response
-                                            </span>
-                                            <span>
-                                              multiple-choice
-                                            </span>
-                                          </div>
-                                        </FormatsListing>
-                                        <div className=\\"detailed-solution\\">
-                                          <div className=\\"header\\">
-                                            Detailed solution
-                                          </div>
-                                          <Component className=\\"solution\\" block={true} html=\\"four\\">
-                                            <div dangerouslySetInnerHTML={{...}} />
-                                          </Component>
-                                        </div>
-                                      </div>
-                                    </Question>
-                                  </div>
-                                  <div className=\\"exercise-tags\\">
-                                    <span className=\\"exercise-tag\\">
-                                      lo:stax-phys:1-2-1
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      blooms:3
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      book:stax-phys
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      context-cnxfeature:one-1
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      context-cnxmod:
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      dok:3
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      filter-type:test-prep
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      requires-context:true
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      time:long
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      type:conceptual
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      Nickname:ilene
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      ID:14@1
-                                    </span>
-                                  </div>
-                                </div>
-                              </CardBody>
-                            </div>
-                          </Card>
-                        </ExercisePreview>
+            <div className=\\"Preview-sc-1vfgcxn-0 emVBze\\">
+              <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" hidden={false} label={{...}}>
+                <Ribbon>
+                  <div className=\\"Ribbon-ky3mx8-0 cFwKlm\\">
+                    <Content shadow={true} color=\\"navy\\" position=\\"topRight\\" hidden={false}>
+                      <div color=\\"navy\\" hidden={false} className=\\"Content-ky3mx8-1 fDYfnj\\">
+                        <div>
+                          READ ONLY
+                        </div>
+                        <div>
+                          Author: Deshawn
+                        </div>
                       </div>
-                    </StyledComponent>
-                  </Ribbon>
-                </CornerRibbon>
-              </div>
-            </StyledComponent>
+                    </Content>
+                    <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
+                      <Card className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1} body={false}>
+                        <div data-exercise-id=\\"14@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card\\">
+                          <CardBody>
+                            <div className=\\"card-body\\">
+                              <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
+                              <div className=\\"exercise-body\\">
+                                <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} />
+                                <Component className=\\"stimulus\\" block={true} html={[undefined]} />
+                                <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
+                                  <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
+                                    <QuestionHtml type=\\"context\\" html=\\"\\" />
+                                    <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
+                                    <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
+                                      <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
+                                        <div dangerouslySetInnerHTML={{...}} />
+                                      </Component>
+                                    </QuestionHtml>
+                                    <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                      <div className=\\"answers-table\\">
+                                        <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <div className=\\"openstax-answer\\">
+                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                              <div className=\\"correct-incorrect\\" />
+                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
+                                                <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
+                                                  a
+                                                </button>
+                                                <div className=\\"answer-answer\\">
+                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                    <div dangerouslySetInnerHTML={{...}} />
+                                                  </Component>
+                                                  <Memo(wrappedComponent)>
+                                                    <aside>
+                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
+                                                        <div dangerouslySetInnerHTML={{...}} />
+                                                      </Component>
+                                                    </aside>
+                                                  </Memo(wrappedComponent)>
+                                                </div>
+                                              </label>
+                                            </section>
+                                          </div>
+                                        </Answer>
+                                        <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <div className=\\"openstax-answer\\">
+                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                              <div className=\\"correct-incorrect\\" />
+                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
+                                                <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
+                                                  b
+                                                </button>
+                                                <div className=\\"answer-answer\\">
+                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                    <div dangerouslySetInnerHTML={{...}} />
+                                                  </Component>
+                                                  <Memo(wrappedComponent)>
+                                                    <aside>
+                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
+                                                        <div dangerouslySetInnerHTML={{...}} />
+                                                      </Component>
+                                                    </aside>
+                                                  </Memo(wrappedComponent)>
+                                                </div>
+                                              </label>
+                                            </section>
+                                          </div>
+                                        </Answer>
+                                        <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <div className=\\"openstax-answer\\">
+                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                              <div className=\\"correct-incorrect\\" />
+                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
+                                                <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
+                                                  c
+                                                </button>
+                                                <div className=\\"answer-answer\\">
+                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                    <div dangerouslySetInnerHTML={{...}} />
+                                                  </Component>
+                                                  <Memo(wrappedComponent)>
+                                                    <aside>
+                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
+                                                        <div dangerouslySetInnerHTML={{...}} />
+                                                      </Component>
+                                                    </aside>
+                                                  </Memo(wrappedComponent)>
+                                                </div>
+                                              </label>
+                                            </section>
+                                          </div>
+                                        </Answer>
+                                      </div>
+                                    </AnswersTable>
+                                    <FormatsListing formats={{...}}>
+                                      <div className=\\"formats-listing\\">
+                                        <div className=\\"header\\">
+                                          Formats:
+                                        </div>
+                                        <span>
+                                          free-response
+                                        </span>
+                                        <span>
+                                          multiple-choice
+                                        </span>
+                                      </div>
+                                    </FormatsListing>
+                                    <div className=\\"detailed-solution\\">
+                                      <div className=\\"header\\">
+                                        Detailed solution
+                                      </div>
+                                      <Component className=\\"solution\\" block={true} html=\\"four\\">
+                                        <div dangerouslySetInnerHTML={{...}} />
+                                      </Component>
+                                    </div>
+                                  </div>
+                                </Question>
+                              </div>
+                              <div className=\\"exercise-tags\\">
+                                <span className=\\"exercise-tag\\">
+                                  lo:stax-phys:1-2-1
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  blooms:3
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  book:stax-phys
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  context-cnxfeature:one-1
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  context-cnxmod:
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  dok:3
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  filter-type:test-prep
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  requires-context:true
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  time:long
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  type:conceptual
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  Nickname:ilene
+                                </span>
+                                <span className=\\"exercise-tag\\">
+                                  ID:14@1
+                                </span>
+                              </div>
+                            </div>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </ExercisePreview>
+                  </div>
+                </Ribbon>
+              </CornerRibbon>
+            </div>
           </Preview>
         </ExerciseEditingPreview>
       </div>
