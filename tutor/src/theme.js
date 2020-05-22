@@ -52,6 +52,7 @@ export const colors = {
   tasks,
   line: neutral.thin,
   paleLine: neutral.pale,
+  disabledInputBorder: '#c1c1c1',
 
   states: {
     active:   neutral.dark,

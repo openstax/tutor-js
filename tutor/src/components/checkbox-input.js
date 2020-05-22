@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import Theme from '../theme';
-import { uniqueId } from 'lodash';
+import { colors } from 'theme';
+import { uniqueId, isEmpty } from 'lodash';
 import { useField } from 'formik';
 import { Icon } from 'shared';
 
@@ -14,7 +14,7 @@ const StyledCheckboxInput = styled.input.attrs( () => ({
   opacity: 0;
 
   & + label {
-    margin-left: 1rem;
+    ${props => !isEmpty(props.label) && 'margin-left: 1rem;'}
     ${props => props.labelSize === 'lg' && 'font-size: 1.6rem;'}
   }
 
@@ -29,13 +29,17 @@ const StyledCheckboxInput = styled.input.attrs( () => ({
     width: 1.6rem;
   }
 
+  &:disabled + label svg {
+    color: ${colors.disabledInputBorder};
+  }
+
   &:focus + label svg {
-    box-shadow: 0 0 4px 0 ${Theme.colors.forms.borders.focusShadow};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
   }
 `;
 
 const CheckboxInput = observer((props) => {
-  const [field] = useField({ type: 'checkbox', ...props });
+  const [field] = props.standalone ? [] : useField({ type: 'checkbox', ...props });
   const id = props.id || uniqueId(props.name);
 
   return (
