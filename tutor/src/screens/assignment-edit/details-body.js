@@ -218,6 +218,7 @@ const DetailsBody = observer(({ ux }) => {
               value="all"
               label="All sections"
               labelSize="lg"
+              data-test-id="all-sections"
               checked={!ux.isShowingPeriodTaskings}
               onChange={ux.togglePeriodTaskingsEnabled}
             />
@@ -230,6 +231,7 @@ const DetailsBody = observer(({ ux }) => {
               value="periods"
               label="Select sections"
               labelSize="lg"
+              data-test-id="select-sections"
               checked={ux.isShowingPeriodTaskings}
               onChange={ux.togglePeriodTaskingsEnabled}
             />

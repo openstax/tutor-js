@@ -49,7 +49,6 @@ context('Assignment Review', () => {
   it('can render grading template preview', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-    cy.wait('@getGradingTemplates');
     cy.getTestElement('grading-template-card').should('not.exist');
     cy.getTestElement('preview-card-trigger').click();
     cy.getTestElement('grading-template-card').should('exist');
@@ -59,18 +58,16 @@ context('Assignment Review', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
     cy.route('DELETE', '/api/plans/2*').as('deletePlan');
-
-    cy.wait('@getGradingTemplates');
     cy.getTestElement('delete-assignment').click();
     cy.getTestElement('confirm-delete-assignment').click();
     cy.wait('@deletePlan');
     cy.location('pathname').should('include', '/course/1/t/month');
   });
 
+  
   it('can update details', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-    cy.wait('@getGradingTemplates');
     cy.getTestElement('edit-assignment').click();
     cy.getTestElement('edit-assignment-name').clear().type('Update');
     cy.getTestElement('confirm-save-assignment').click();
@@ -80,8 +77,6 @@ context('Assignment Review', () => {
   it('requires confirmation when changing grading template', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-    cy.wait('@getGradingTemplates');
-
     // Can change
     cy.getTestElement('edit-assignment').click();
     cy.getTestElement('grading-templates').click();
@@ -139,4 +134,12 @@ context('Assignment Review', () => {
     cy.getTestElement('submission-overview-tab').should('not.exist');
     cy.getTestElement('assignment-scores-tab').should('not.exist');
   });
+
+  it.only('cannot deselect sections', () => {
+    cy.getTestElement('edit-assignment').click();
+    cy.getTestElement('select-sections').click({ force: true });
+    cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')
+    cy.get('[role="tooltip"]').contains('cannot withdraw')
+  });
+
 });

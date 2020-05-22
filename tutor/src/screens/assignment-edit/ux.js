@@ -14,6 +14,9 @@ import Validations from './validations';
 import moment from '../../helpers/moment-range';
 import Time from '../../models/time';
 import DetailsBody from './details-body';
+import {
+  findEarliest, findLatest, dateWithUnchangedTime,
+} from '../../helpers/dates';
 
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
 
@@ -50,7 +53,7 @@ export default class AssignmentUX {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
       }
-      this.plan = course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
+      this.plan = plan || course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
       this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {
@@ -315,11 +318,6 @@ export default class AssignmentUX {
 
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
-    if (this.isShowingPeriodTaskings) {
-      // Show list of sections first, unselected
-      this.plan.tasking_plans = [];
-      return;
-    }
     this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period));
   }
 

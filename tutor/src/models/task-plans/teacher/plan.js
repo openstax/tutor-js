@@ -266,7 +266,11 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.duration.start.isBefore(Time.now); }
+  @computed get isOpen() {
+    return Boolean(
+      this.isPublished && this.duration.start.isBefore(Time.now),
+    );
+  }
   @computed get isEditable() {
     // at one time this had date logic, but now
     // teachers are allowed to edit at any time
@@ -463,4 +467,14 @@ class TeacherTaskPlan extends BaseModel {
     this.is_deleting = false;
     this.course.teacherTaskPlans.delete(this.id);
   }
+
+  isValidCloseDate(taskings, date) {
+    if (date.isAfter(this.course.ends_at)) {
+      return true;
+    }
+    return !!taskings.find(tasking => {
+      return date.isBefore(tasking.due_at);
+    });
+  }
+
 }

@@ -16,6 +16,7 @@ export default class AssignmentReviewUX {
   @observable isDisplayingEditAssignment = false;
   @observable isDeleting = false;
   @observable editUX;
+  @observable editablePlan;
   @observable rowSort = { key: 0, asc: true, dataType: 'name' };
   @observable searchingMatcher = null;
 
@@ -28,12 +29,12 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection,
-    history,
+    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
   }) {
     this.id = id;
+    this.history = history;
     this.scroller = new ScrollTo({ windowImpl });
     this.planScores = scores;
     this.course = course;
@@ -44,14 +45,6 @@ export default class AssignmentReviewUX {
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.analytics.fetch();
-
-    this.editUX = new EditUX();
-    this.editUX.initialize({
-      ...this.params,
-      plan: this.planScores.taskPlan,
-      history,
-      course,
-    });
 
     await this.planScores.ensureExercisesLoaded();
 
@@ -72,6 +65,10 @@ export default class AssignmentReviewUX {
 
   @computed get taskingPlan() {
     return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
+  }
+
+  @computed get taskPlan() {
+    return this.planScores.taskPlan;
   }
 
   @computed get sortedStudents() {
@@ -182,7 +179,18 @@ export default class AssignmentReviewUX {
     this.isDisplayingConfirmDelete = false;
   }
 
-  @action.bound onEdit() {
+  @action.bound async onEdit() {
+    await this.taskPlan.fetch();
+
+    this.editUX = new EditUX();
+
+    await this.editUX.initialize({
+      ...this.params,
+      plan: this.taskPlan,
+      history,
+      course: this.course,
+    });
+
     this.isDisplayingEditAssignment = true;
   }
 
