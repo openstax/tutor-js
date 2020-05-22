@@ -149,6 +149,7 @@ export default class AssignmentReviewUX {
 
   @action.bound cancelDisplayingDropQuestions() {
     this.pendingDroppedQuestions.clear();
+    this.changedDroppedQuestions.forEach(dq => dq.dropped.isChanged = false);
     this.isDisplayingDropQuestions = false;
   }
 
@@ -161,7 +162,7 @@ export default class AssignmentReviewUX {
     });
 
     // Existing dropped Qs need to be updated to pick up allocation changes
-    this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged).forEach(h => {
+    this.changedDroppedQuestions.forEach(h => {
       const { question_id, drop_method } = h.dropped;
       taskPlan.dropped_questions.find(dq => dq.question_id == question_id).drop_method = drop_method;
     });
@@ -174,10 +175,14 @@ export default class AssignmentReviewUX {
     return heading.dropped || this.pendingDroppedQuestions.get(heading.question_id);
   }
 
+  @computed get changedDroppedQuestions() {
+    return this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged);
+  }
+
   @computed get canSubmitDroppedQuestions() {
     return Boolean(
-      (this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged).length > 0) ||
-      (this.pendingDroppedQuestions.size > 0)
+      this.changedDroppedQuestions.length > 0 ||
+      this.pendingDroppedQuestions.size > 0
     );
   }
 
