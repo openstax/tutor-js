@@ -1,11 +1,11 @@
-import { React, PropTypes, styled, observer, moment, cn } from 'vendor';
+import { React, PropTypes, styled, observer, moment } from 'vendor';
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import S from '../../helpers/string';
-import Router from '../../helpers/router';
+import SortIcon from '../../components/icons/sort';
 
 const TableWrapper = styled.div`
   background-color: white;
@@ -44,9 +44,14 @@ const StyledTable = styled(Table)`
     background: ${colors.neutral.lighter};
     border-bottom: 1px solid ${colors.neutral.pale}; 
 
-    tr th:first-child {
-      width: 30%;
-      padding-left: 15px;
+    tr {
+      th {
+        cursor: pointer;
+      }
+      th:first-child {
+        width: 30%;
+        padding-left: 15px;
+      }
     }
   }
 
@@ -84,10 +89,11 @@ const StyledTable = styled(Table)`
 
 const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
 
-const goToAssignment = (history, courseId, taskId) =>
-  history.push(Router.makePathname('viewTask', { courseId: courseId, id: taskId }));
-
-const GradebookTable = observer(({ history, ux: { student, headings, course } }) => {
+const GradebookTable = observer((
+  {
+    history,
+    ux: { student, studentData, course, goToAssignment, sort, displaySort }, 
+  }) => {
   return (
     <TableWrapper>
       <h3>
@@ -121,20 +127,35 @@ const GradebookTable = observer(({ history, ux: { student, headings, course } })
       <StyledTable striped borderless hover responsive>
         <thead>
           <tr>
-            <th>Assignment Name</th>
-            <th>Due date</th>
-            <th>Points scored</th>
-            <th>Percentage</th>
+            <th onClick={() => sort('reportHeading.title')}>
+              Assignment Name
+              <SortIcon sort={displaySort('reportHeading.title')}/>
+            </th>
+            <th onClick={() => sort('due_at')}>
+              Due date
+              <SortIcon sort={displaySort('due_at')}/>
+            </th>
+            <th onClick={() => sort('points')}>
+              Points scored
+              <SortIcon sort={displaySort('points')}/>
+            </th>
+            <th onClick={() => sort('score')}>
+              Percentage
+              <SortIcon sort={displaySort('score')}/>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {headings.map((h,i) => {
+          {studentData.map((sd,i) => {
             return (<tr key={i}>
-              <td className={`border-${h.type}`} onClick={() =>
-                goToAssignment(history, course.id, student.data[i].id)}>{h.title}</td>
-              <td>{moment(h.due_at).format('MMM D')}</td>
-              <td>{student.data[i].humanScoreNumber}</td>
-              <td>{percentOrDash(student.data[i].score)}</td>
+              <td
+                className={`border-${sd.reportHeading.type}`}
+                onClick={() => goToAssignment(history, course.id, sd.id)}>
+                {sd.reportHeading.title}
+              </td>
+              <td>{moment(sd.due_at).format('MMM D')}</td>
+              <td>{sd.humanScoreNumber}</td>
+              <td>{percentOrDash(sd.score)}</td>
             </tr>);
           })}
         </tbody>
