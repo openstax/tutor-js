@@ -143,6 +143,10 @@ class TaskPlanScoresTasking extends BaseModel {
   } }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
 
+  @computed get availablePoints() {
+    return sumBy(this.question_headings, 'points');
+  }
+
   // this returns all of the quesions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions
   // will be in different order and different students will get different ones

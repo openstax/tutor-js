@@ -232,7 +232,7 @@ const StudentColumnHeader = observer(({ ux }) => (
           </SplitCell>
         </HeadingMiddle>
         <HeadingBottom>
-          {20.0}
+          {S.numberWithOneDecimalPlace(ux.scores.availablePoints)}
         </HeadingBottom>
       </ColumnHeading>
       <ColumnHeading>
@@ -240,10 +240,10 @@ const StudentColumnHeader = observer(({ ux }) => (
           Late work
         </HeadingTop>
         <HeadingMiddle>
-          Per day
+          {S.capitalize(ux.planScores.grading_template.late_work_penalty_applied)}
         </HeadingMiddle>
         <HeadingBottom>
-          {-10.0}
+          {S.asPercent(ux.planScores.grading_template.late_work_penalty)}%
         </HeadingBottom>
       </ColumnHeading>
     </CellContents>
