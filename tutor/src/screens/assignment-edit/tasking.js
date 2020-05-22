@@ -222,6 +222,7 @@ class Tasking extends React.Component {
             label="Open date & time"
             name={`tasking_plans[${index}].opens_at`}
             onChange={(target) => this.onOpensChange(target, index)}
+            disabledDate={this.course.isInvalidAssignmentDate}
             format={format}
             timeFormat={timeFormat}
             autoFocus={period && plan.tasking_plans.forPeriod(period)}
@@ -232,6 +233,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
+            disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
             format={format}
             timeFormat={timeFormat}
@@ -246,7 +248,7 @@ class Tasking extends React.Component {
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               format={format}
-              disabledDate={(date) => plan.isValidCloseDate(this.taskings, date)}
+              disabledDate={this.course.isInvalidAssignmentDate}
               timeFormat={timeFormat}
             />
           </Col>
