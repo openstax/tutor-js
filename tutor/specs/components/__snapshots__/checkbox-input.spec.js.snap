@@ -29,6 +29,10 @@ exports[`CheckboxInput matches snapshot 1`] = `
   width: 1.6rem;
 }
 
+.c1:disabled + label svg {
+  color: #c1c1c1;
+}
+
 .c1:focus + label svg {
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
@@ -51,7 +55,7 @@ exports[`CheckboxInput matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-square fa-w-14 fa-lg c2 ox-icon ox-icon-square"
+      className="svg-inline--fa fa-square fa-w-14 fa-lg ox-icon ox-icon-square c2"
       color="#5E6062"
       data-icon="square"
       data-prefix="far"

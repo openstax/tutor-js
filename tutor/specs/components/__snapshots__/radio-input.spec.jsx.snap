@@ -45,6 +45,10 @@ exports[`RadioInput matches snapshot 1`] = `
   opacity: 1;
 }
 
+.c1:disabled + label::before {
+  border-color: #c1c1c1;
+}
+
 .c1:focus + label::before {
   border-color: #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
