@@ -25,6 +25,7 @@ const BodyWrapper = styled.div`
   border-top-width: 0;
   border-radius: 0 0 2px 2px;
   background: #fff;
+  padding-bottom: 6rem;
 `;
 
 const Body = styled.div`
