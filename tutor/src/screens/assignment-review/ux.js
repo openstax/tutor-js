@@ -107,10 +107,6 @@ export default class AssignmentReviewUX {
     this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
-  @computed get taskPlan() {
-    return this.planScores.taskPlan;
-  }
-
   // methods relating to granting extensions
 
   @action.bound cancelDisplayingGrantExtension() {
