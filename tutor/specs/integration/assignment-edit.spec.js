@@ -211,7 +211,7 @@ context('Assignment Edit', () => {
     });
   })
 
-  it.only('updates date when pivot date is updated', () => {
+  it('updates date when pivot date is updated', () => {
     const typedOpenDate = 'Jun 10 05:00 PM'
     const typedClosesDate = 'Jun 22 05:00 PMM'
     cy.visit('/course/2/assignment/edit/homework/new')
@@ -231,5 +231,5 @@ context('Assignment Edit', () => {
     cy.get('input[name="tasking_plans[0].closes_at"]').then(d => {
       expect(d[0].defaultValue).eq(currentClosesDate)
     })
-  })
+  });
 });

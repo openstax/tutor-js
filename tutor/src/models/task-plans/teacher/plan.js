@@ -86,9 +86,8 @@ class TeacherTaskPlan extends BaseModel {
 
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
-    defaults(tasking, plan) {
-      return { opens_at: plan.defaultOpensAt };
-    },
+    defaults(tasking, plan) { return { opens_at: plan.defaultOpensAt }; },
+    areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },
   } }) tasking_plans;
 
   @observable unmodified_plans = [];

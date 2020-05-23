@@ -135,7 +135,7 @@ context('Assignment Review', () => {
     cy.getTestElement('assignment-scores-tab').should('not.exist');
   });
 
-  it.only('cannot deselect sections', () => {
+  it('cannot deselect sections', () => {
     cy.getTestElement('edit-assignment').click();
     cy.getTestElement('select-sections').click({ force: true });
     cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')

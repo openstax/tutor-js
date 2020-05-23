@@ -63,6 +63,13 @@ class ReferenceBook extends BaseModel {
     return { id: this.id };
   }
 
+  @action ensureFetched() {
+    if (this.pages.all.length == 0) {
+      return this.fetch();
+    }
+    return Promise.resolve(this);
+  }
+
   @action onApiRequestComplete({ data }) {
     this.update(omit(first(data), 'id')); // data is an array
   }

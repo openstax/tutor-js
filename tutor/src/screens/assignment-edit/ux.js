@@ -14,9 +14,6 @@ import Validations from './validations';
 import moment from '../../helpers/moment-range';
 import Time from '../../models/time';
 import DetailsBody from './details-body';
-import {
-  findEarliest, findLatest, dateWithUnchangedTime,
-} from '../../helpers/dates';
 
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
 
@@ -325,6 +322,16 @@ export default class AssignmentUX {
     const ex = exercise.wrapper;
     ex.isSelected = !ex.isSelected;
     ex.isSelected ? this.plan.addExercise(ex) : this.plan.removeExercise(ex);
+  }
+
+  @action async fetchExerciseForPages() {
+    await this.referenceBook.ensureFetched();
+    await this.exercises.fetch({
+      ecosystem_id: this.plan.ecosystem_id,
+      book: this.referenceBook,
+      page_ids: this.selectedPageIds,
+      course: this.course,
+    });
   }
 
   @computed get isFetchingExercises() {

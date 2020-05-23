@@ -36,39 +36,45 @@ class TaskingPlan extends BaseModel {
     return this.course.periods.find(p => p.id == this.target_id);
   }
 
-  @action onGradingTemplateUpdate(template, dueAt) {
-    const { course } = this;
+  limitDateToCourse(date) {
+    if (date.isAfter(this.course.allowedAssignmentDateRange.end)) {
+      return this.course.allowedAssignmentDateRange.end;
+    }
+    if (date.isBefore(this.course.allowedAssignmentDateRange.start)) {
+      return this.course.allowedAssignmentDateRange.start;
+    }
+    return date;
+  }
 
+  @action onGradingTemplateUpdate(template, dueAt) {
     const dueDateOffsetDays = template.default_due_date_offset_days;
     const closeDateOffsetDays = template.default_close_date_offset_days;
     const [ defaultOpenHour, defaultOpenMinute ] = template.default_open_time.split(':');
     const [ defaultDueHour, defaultDueMinute ] = template.default_due_time.split(':');
 
-    let defaultOpensAt = dueAt
-      ? moment(dueAt).subtract(dueDateOffsetDays, 'days')
-      : this.opens_at
-        ? moment(this.opens_at)
-        : moment(Time.now).add(1, 'days');
-    defaultOpensAt = !course
-      ? defaultOpensAt.toISOString()
-      : findLatest(
-        course.bounds.start.add(1, 'minute'),
-        defaultOpensAt
-      ).hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
+    let defaultOpensAt;
+    if (dueAt) {
+      defaultOpensAt = moment(dueAt).subtract(dueDateOffsetDays, 'days');
+    } else if (this.opens_at) {
+      defaultOpensAt = moment(this.opens_at);
+    } else {
+      defaultOpensAt = moment(Time.now).add(1, 'days');
+    }
+    this.opens_at = this.limitDateToCourse(defaultOpensAt)
+      .hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
 
-    let defaultDueAt = dueAt ? moment(dueAt) : moment(defaultOpensAt).add(dueDateOffsetDays, 'days');
-    defaultDueAt = !course
-      ? defaultDueAt.toISOString()
-      : findEarliest(
-        defaultDueAt,
-        course.bounds.end
-      ).hour(defaultDueHour).minute(defaultDueMinute).startOf('minute').toISOString();
+    let defaultDueAt;
+    if (dueAt) {
+      defaultDueAt = moment(dueAt);
+    } else {
+      defaultDueAt = moment(defaultOpensAt).add(dueDateOffsetDays, 'days');
+    }
+    this.due_at = this.limitDateToCourse(defaultDueAt)
+      .hour(defaultDueHour).minute(defaultDueMinute).startOf('minute').toISOString();
 
-    const defaultClosesAt = moment(defaultDueAt).add(closeDateOffsetDays, 'days').toISOString();
-
-    this.opens_at = defaultOpensAt;
-    this.due_at = defaultDueAt;
-    this.closes_at = defaultClosesAt;
+    this.closes_at = this.limitDateToCourse(
+      moment(defaultDueAt).add(closeDateOffsetDays, 'days')
+    ).toISOString();
   }
 
   @action publishScores() {}
@@ -92,19 +98,6 @@ class TaskingPlan extends BaseModel {
         this.due_at &&
         moment(this.due_at).isAfter(Time.now)
     );
-  }
-
-  @computed get isUsingDefaultOpensAt() {
-    const [ hour, minute ] = this.course.default_open_time.split(':');
-    const opensAt = this.opensAtMoment;
-    return Boolean(opensAt.hour() == hour && opensAt.minute() == minute);
-  }
-
-  @computed get isUsingDefaultDueAt() {
-    const [ hour, minute ] = this.course.default_due_time.split(':');
-    if (!this.due_at) { return true; }
-    const dueAt = this.dueAtMoment;
-    return Boolean(dueAt.hour() == hour && dueAt.minute() == minute);
   }
 
   @action async persistTime(type) {
@@ -195,39 +188,11 @@ class TaskingPlan extends BaseModel {
     ).toISOString();
   }
 
-  @action setDueTime(time) {
-    const [hour, minute] = time.split(':');
-    if (!this.due_at) {
-      // this will be overwritten, but needs to be set
-      // so the time doesn't default to today
-      this.due_at = moment(Time.now).add(1, 'day');
-    }
-    this.due_at = findLatest(
-      moment(this.opens_at).add(1, 'minute'),
-      this.dueAtMoment.hour(hour).minute(minute).startOf('minute'),
-    ).toISOString();
-  }
-
   @action setClosesDate(date) {
     this.closes_at = findLatest(
       moment(this.due_at).add(1, 'minute'),
       date,
     ).toISOString();
-  }
-
-  @computed get opensAtTime() {
-    const { course } = this;
-    const m = this.opens_at ? this.opensAtMoment : moment(course.default_open_time, 'HH:mm');
-    return m.format('HH:mm');
-  }
-
-  @computed get defaultDueTime() {
-    return moment(this.course.default_due_time, 'HH:mm');
-  }
-
-  @computed get dueAtTime() {
-    const m = this.due_at ? this.dueAtMoment : this.defaultDueTime;
-    return m.format('HH:mm');
   }
 
   // note: these are not @computed so that a new moment is

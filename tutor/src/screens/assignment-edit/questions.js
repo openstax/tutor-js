@@ -1,7 +1,6 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, useEffect, observer, styled } from 'vendor';
 import { AssignmentBuilder } from './builder';
 import ChooseExercises from './homework/choose-exercises';
-import sharedExercises from '../../models/exercises';
 import { colors } from '../../theme';
 
 const Wrapper = styled.div`
@@ -63,7 +62,11 @@ const Indicators = observer(({ ux }) => {
   );
 });
 
-const Questions = ({ ux }) => {
+const Questions = observer(({ ux }) => {
+
+  useEffect(() => {
+    ux.fetchExerciseForPages();
+  }, []);
 
   return (
     <AssignmentBuilder
@@ -71,15 +74,11 @@ const Questions = ({ ux }) => {
       ux={ux}
       middleControls={<Indicators ux={ux} />}
     >
-      <ChooseExercises
-        ux={ux}
-        exercises={sharedExercises}
-        book={ux.referenceBook}
-      />
+      <ChooseExercises ux={ux} />
     </AssignmentBuilder>
   );
 
-};
+});
 
 Questions.propTypes = {
   ux: PropTypes.object.isRequired,
