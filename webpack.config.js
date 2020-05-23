@@ -92,6 +92,7 @@ const config = {
     inline: true,
     quiet: false,
     noInfo: false,
+    clientLogLevel: 'warning',
     host: '0.0.0.0',
     filename: '[name].js',
     hot: true,

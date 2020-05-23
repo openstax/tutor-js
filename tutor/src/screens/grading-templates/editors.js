@@ -121,7 +121,9 @@ const SettingLabel = styled.label`
   margin-left: 0.75rem;
 `;
 
-const StyledTextInput = styled(Field).attrs({
+const StyledTextInput = styled(Field).withConfig({
+  shouldForwardProp: (prop) => prop != 'hasError',
+}).attrs({
   type: 'text',
 })`
   padding: 0.8rem 1rem;
@@ -129,10 +131,10 @@ const StyledTextInput = styled(Field).attrs({
   border: 1px solid ${colors.forms.borders.light};
   font-size: 1.2rem;
   /** styling errors when template name is invalid */
-  background: ${props => props.haserror ? colors.states.trouble : colors.white};
-  color: ${props => props.haserror ? colors.red : colors.black};
-  border-color: ${props => props.haserror ? colors.states.border_trouble : colors.neutral.pale};
-  border-width: ${props => props.haserror ? '2px' : '1px'};
+  background: ${props => props.hasError ? colors.states.trouble : colors.white};
+  color: ${props => props.hasError ? colors.red : colors.black};
+  border-color: ${props => props.hasError ? colors.states.border_trouble : colors.neutral.pale};
+  border-width: ${props => props.hasError ? '2px' : '1px'};
   
   &:focus {
     outline: 0;
@@ -297,7 +299,7 @@ class TemplateForm extends React.Component {
             id="template_name"
             // Check if the name is empty or is duplicated
             validate={(name) => {
-              if (isEmpty(name)) return 'The name cannot be empty.';
+              if (isEmpty(name) || !name.match(/\w+/)) return 'The name cannot be empty.';
               if (this.props.template.isDuplicateName(template.id, name)) return 'This name is already in use. Enter a different name.';
               return null;
             }}
@@ -306,7 +308,7 @@ class TemplateForm extends React.Component {
             // Check if field is on focused ('touched') first and then check for any errors.
             // Validate then happens when the field is out of focus for the first time.
             // After, it validates as the user types.
-            haserror={Boolean(form.touched.name && form.errors.name)}
+            hasError={Boolean(form.touched.name && form.errors.name)}
           />
         </SplitRow>
 

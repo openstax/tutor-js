@@ -86,9 +86,8 @@ class TeacherTaskPlan extends BaseModel {
 
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
-    defaults(tasking, plan) {
-      return { opens_at: plan.defaultOpensAt };
-    },
+    defaults(tasking, plan) { return { opens_at: plan.defaultOpensAt }; },
+    areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },
   } }) tasking_plans;
 
   @observable unmodified_plans = [];
@@ -266,7 +265,11 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.duration.start.isBefore(Time.now); }
+  @computed get isOpen() {
+    return Boolean(
+      this.isPublished && this.duration.start.isBefore(Time.now),
+    );
+  }
   @computed get isEditable() {
     // at one time this had date logic, but now
     // teachers are allowed to edit at any time
@@ -463,4 +466,14 @@ class TeacherTaskPlan extends BaseModel {
     this.is_deleting = false;
     this.course.teacherTaskPlans.delete(this.id);
   }
+
+  isValidCloseDate(taskings, date) {
+    if (date.isAfter(this.course.ends_at)) {
+      return true;
+    }
+    return !!taskings.find(tasking => {
+      return date.isBefore(tasking.due_at);
+    });
+  }
+
 }

@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, autobind, computed, styled, css
+  React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
@@ -7,7 +7,7 @@ import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
-import { colors, navbars } from '../../../theme';
+import { colors } from '../../../theme';
 
 const Wrapper = styled.div`
   background: #fff;
@@ -88,7 +88,7 @@ const Counter = styled.div`
   font-weight: bold;
   line-height: 3rem;
 
-  ${props => props.variant === "plus" && css`
+  ${props => props.variant === 'plus' && css`
     align-self: flex-end;
     font-size: 1.6rem;
   `}
@@ -155,7 +155,9 @@ class ExerciseControls extends React.Component {
               ref="sectionizer"
               {...this.props.sectionizerProps}
               nonAvailableWidth={1000}
-              onScreenElements={[]} />
+              disableScroll
+              onScreenElements={[]}
+            />
           </ScrollSpy>
         </SectionizerControls>
       );

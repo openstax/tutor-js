@@ -62,12 +62,6 @@ describe('Teacher tasking plan tasking', () => {
 
     // clips to one minute after opens at
     expect(tasking.due_at).toEqual('2016-10-11T12:00:00.000Z');
-
-    tasking.setDueTime('01:35'); // before the opens date, no change
-    expect(tasking.due_at).toEqual('2016-10-11T12:00:00.000Z');
-
-    tasking.setDueTime('22:15'); // converts to course time
-    expect(tasking.due_at).toEqual('2016-10-12T03:15:00.000Z');
   });
 
   it('#initializeWithDueAt', () => {

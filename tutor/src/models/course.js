@@ -190,6 +190,22 @@ class Course extends BaseModel {
     return moment(this.ends_at).isBefore(Time.now);
   }
 
+  @computed get allowedAssignmentDateRange() {
+    return {
+      start: moment(this.starts_at).add(1, 'day').endOf('day'),
+      end: moment(this.ends_at).subtract(1, 'day').startOf('day'),
+    };
+  }
+
+  // bind to this so it can be used in disabledDate check
+  isInvalidAssignmentDate = (date) => {
+    return !moment(date).isBetween(
+      this.allowedAssignmentDateRange.start,
+      this.allowedAssignmentDateRange.end,
+      'day', '[]'
+    );
+  }
+
   @computed get hasStarted() {
     return moment(this.starts_at).isBefore(Time.now);
   }
@@ -286,5 +302,4 @@ class Course extends BaseModel {
   onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
   }
-
 }

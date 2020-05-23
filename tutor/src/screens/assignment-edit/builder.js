@@ -25,6 +25,7 @@ const BodyWrapper = styled.div`
   border-top-width: 0;
   border-radius: 0 0 2px 2px;
   background: #fff;
+  padding-bottom: 6rem;
 `;
 
 const Body = styled.div`
@@ -63,14 +64,18 @@ const TextInputWrapper = styled.div`
   flex-direction: column;
 `;
 
-const TextInputError = styled.div`
+const TextInputError = styled.div.attrs({
+  'aria-invalid': true,
+})`
   color: red;
   margin: 1rem 0;
 `;
 
 // don't pass hasError onto Field, it'll set it on the DOM
 // eslint-disable-next-line no-unused-vars
-const StyledTextInput = styled(({ hasError = false, ...fieldProps }) => <Field {...fieldProps} />)`
+const StyledTextInput = styled(Field).withConfig({
+  shouldForwardProp: (prop) => prop != 'hasError',
+})`
   padding: 0.8rem 1rem;
   border-radius: 4px;
   border: 1px solid ${colors.forms.borders.light};
@@ -95,7 +100,7 @@ const StyledTextInput = styled(({ hasError = false, ...fieldProps }) => <Field {
 const TextInput = (props) => (
   <TextInputWrapper>
     <StyledTextInput {...props} />
-    <ErrorMessage name={props.name} render={msg => <TextInputError>{msg}</TextInputError>} />
+    <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
   </TextInputWrapper>
 );
 TextInput.propTypes = {
@@ -104,7 +109,8 @@ TextInput.propTypes = {
 
 const TextArea = (props) => (
   <TextInputWrapper>
-    <StyledTextInput as="textarea" rows="4" {...props} />
+    <StyledTextInput {...props}  component="textarea" rows="4" />
+    <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
   </TextInputWrapper>
 );
 TextArea.propTypes = {

@@ -29,6 +29,19 @@ context('Assignment Edit', () => {
     }
   }
 
+  it('validates', () => {
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours();
+    cy.get('input[name="title"]').type(' ').blur()
+    cy.get('[aria-invalid][data-target="title"]').should('exist')
+
+    cy.get('textarea[name="description"]').type(
+      'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet;',
+      { delay: 0, force: true },
+    ).blur()
+    cy.get('[aria-invalid][data-target="description"]').should('contain.text', 'Cannot be longer')
+  })
+  
   it('loads and advances homework', () => {
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours();
@@ -211,7 +224,7 @@ context('Assignment Edit', () => {
     });
   })
 
-  it.only('updates date when pivot date is updated', () => {
+  it('updates date when pivot date is updated', () => {
     const typedOpenDate = 'Jun 10 05:00 PM'
     const typedClosesDate = 'Jun 22 05:00 PMM'
     cy.visit('/course/2/assignment/edit/homework/new')
@@ -231,5 +244,5 @@ context('Assignment Edit', () => {
     cy.get('input[name="tasking_plans[0].closes_at"]').then(d => {
       expect(d[0].defaultValue).eq(currentClosesDate)
     })
-  })
+  });
 });

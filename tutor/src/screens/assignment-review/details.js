@@ -174,15 +174,14 @@ const Questions = observer(({ ux, questionsInfo }) => {
       <Header>
         <h6>Questions Assigned</h6>
         <Controls>
-          {ux.taskingPlan && !ux.taskingPlan.isPastOpen &&
-            <button
-              className="btn btn-standard btn-icon"
-              onClick={ux.onEditAssignedQuestions}
-              data-test-id="edit-assigned-questions"
-            >
-              <Icon type="edit" />
-            </button>
-          }
+
+          <Icon
+            className="btn btn-standard btn-icon"
+            onClick={ux.onEditAssignedQuestions}
+            data-test-id="edit-assigned-questions"
+            type="edit"
+          />
+
         </Controls>
       </Header>
 
@@ -230,8 +229,9 @@ const PlanDates = observer(({ plan, title }) => {
   );
 });
 
-const Details = observer(({ ux, ux: { editUX } }) => {
-  if (!ux || !editUX) { return <Loading />; }
+const Details = observer(({ ux }) => {
+
+  if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
   if (ux.isDeleting) { return null; }
 
   const {
@@ -244,20 +244,17 @@ const Details = observer(({ ux, ux: { editUX } }) => {
           <Header>
             <h6>Details</h6>
             <Controls>
-              <button
-                className="btn btn-standard btn-icon"
+              <Icon
+                asButton type="edit"
+                busy={ux.taskPlan.api.isPending}
                 onClick={ux.onEdit}
                 data-test-id="edit-assignment"
-              >
-                <Icon type="edit" />
-              </button>
-              <button
-                className="btn btn-standard btn-icon"
+              />
+              <Icon
+                asButton type="trash"
                 onClick={ux.onDelete}
                 data-test-id="delete-assignment"
-              >
-                <Icon type="trash" />
-              </button>
+              />
             </Controls>
           </Header>
           <Table>

@@ -9,11 +9,16 @@ import { OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap';
 import ChangeTimezone from './change-timezone';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
-import { isEmpty } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 
-const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
-const isValidUrl = (value) => !isUrl(value) && 'A valid URL is required';
+const lengthLimit = (n) =>
+  (v) => (v && v.length > n) && `Cannot be longer than ${n} characters`;
+const isRequired = (v) => (!v || !v.match(/\w+/)) && 'Cannot be blank';
+const requiredAndLengthLimit = (n) => {
+  const lim = lengthLimit(n);
+  return (v) => isRequired(v) || lim(v);
+};
+const isValidUrl = (v) => !isUrl(v) && 'A valid URL is required';
 
 const RowLabel = styled(Label)`
   max-width: 27rem;
@@ -174,9 +179,8 @@ const DetailsBody = observer(({ ux }) => {
         <StyledTextInput
           name="title"
           id="title"
-          validate={isRequired}
+          validate={requiredAndLengthLimit(100)}
           data-test-id="edit-assignment-name"
-          
           innerRef={nameInputField}
           hasError={Boolean(ux.form.touched.title && ux.form.errors.title)}
         />
@@ -190,6 +194,7 @@ const DetailsBody = observer(({ ux }) => {
           name="description"
           id="description"
           data-test-id="assignment-note"
+          validate={lengthLimit(500)}
         />
       </SplitRow>
       {ux.canSelectTemplates && <TemplateField ux={ux} />}
@@ -218,6 +223,7 @@ const DetailsBody = observer(({ ux }) => {
               value="all"
               label="All sections"
               labelSize="lg"
+              data-test-id="all-sections"
               checked={!ux.isShowingPeriodTaskings}
               onChange={ux.togglePeriodTaskingsEnabled}
             />
@@ -230,6 +236,7 @@ const DetailsBody = observer(({ ux }) => {
               value="periods"
               label="Select sections"
               labelSize="lg"
+              data-test-id="select-sections"
               checked={ux.isShowingPeriodTaskings}
               onChange={ux.togglePeriodTaskingsEnabled}
             />

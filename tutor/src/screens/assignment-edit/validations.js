@@ -21,7 +21,9 @@ class Validations {
 
   // tests
   @computed get details() {
-    return Boolean(this.form && this.form.isValid);
+    return Boolean(this.form &&
+                   this.form.isValid &&
+                   this.plan.tasking_plans.areValid());
   }
 
   @computed get chapters() {

@@ -5,7 +5,7 @@ import { useField } from 'formik';
 import { Icon } from 'shared';
 
 const StyledWrapper = styled.span`
-  position: relative;
+  position: relative;  
 `;
 
 const StyledCheckboxInput = styled.input.attrs( () => ({

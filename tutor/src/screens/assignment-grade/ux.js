@@ -93,4 +93,11 @@ export default class AssignmentGradingUX {
     }
   }
 
+  @computed get taskingPlan() {
+    return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
+  }
+
+  @action.bound async onPublishScores() {
+    this.taskingPlan.publishScores();
+  }
 }

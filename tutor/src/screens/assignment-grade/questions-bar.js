@@ -59,7 +59,10 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
         {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} />)}
       </QuestionsWrapper>
       <Controls>
-        <Button disabled={!ux.scores.hasUnPublishedScores}>Publish Scores</Button>
+        <Button
+          disabled={!ux.scores.hasUnPublishedScores}
+          onClick={ux.onPublishScores}
+        >Publish Scores</Button>
         <SettingsIcon
           ux={ux}
           label="Adjust display settings"

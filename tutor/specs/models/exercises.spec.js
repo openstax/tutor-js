@@ -14,9 +14,7 @@ describe('Exercises Map', () => {
 
   it('collects important tag info', () => {
     const exercise = Factory.tutorExercise();
-    expect(exercise.tags.importantInfo).toEqual({
-      section: '', lo: 'lo:stax-phys:1-2-1', tagString: [ 'blooms:3', 'dok:3' ],
-    });
+    expect(exercise.tags.important.lo.id).toEqual('lo:stax-phys:1-2-1')
   });
 
   it('detects if none exist for page ids', () => {

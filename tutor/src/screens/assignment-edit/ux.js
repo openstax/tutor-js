@@ -50,7 +50,7 @@ export default class AssignmentUX {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
       }
-      this.plan = course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
+      this.plan = plan || course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
       this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {
@@ -315,11 +315,6 @@ export default class AssignmentUX {
 
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
-    if (this.isShowingPeriodTaskings) {
-      // Show list of sections first, unselected
-      this.plan.tasking_plans = [];
-      return;
-    }
     this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period));
   }
 
@@ -327,6 +322,16 @@ export default class AssignmentUX {
     const ex = exercise.wrapper;
     ex.isSelected = !ex.isSelected;
     ex.isSelected ? this.plan.addExercise(ex) : this.plan.removeExercise(ex);
+  }
+
+  @action async fetchExerciseForPages() {
+    await this.referenceBook.ensureFetched();
+    await this.exercises.fetch({
+      ecosystem_id: this.plan.ecosystem_id,
+      book: this.referenceBook,
+      page_ids: this.selectedPageIds,
+      course: this.course,
+    });
   }
 
   @computed get isFetchingExercises() {

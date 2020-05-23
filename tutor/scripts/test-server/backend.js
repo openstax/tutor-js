@@ -23,7 +23,7 @@ fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults({
-  //logger: false,
+  logger: false,
 });
 const log = require('./log');
 server.use(express.json());

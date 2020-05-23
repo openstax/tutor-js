@@ -124,6 +124,7 @@ const IconWrapper = styled(FontAwesomeIcon).withConfig({
   ${({ background }) => background && css`background: ${background};`}
 `;
 
+const HOISTED_PROPS = ['data-test-id'];
 
 const Variants = {
   errorInfo: {
@@ -165,13 +166,14 @@ class Icon extends React.Component {
   static propTypes = {
     type: PropTypes.oneOf(Object.keys(Icons)),
     spin: PropTypes.bool,
+    busy: PropTypes.bool,
     className: PropTypes.string,
     onClick: PropTypes.func,
     onNavbar: PropTypes.bool,
     tooltipProps: PropTypes.object,
     buttonProps: PropTypes.object,
     btnVariant: PropTypes.string,
-    
+    asButton: PropTypes.bool,
     variant: PropTypes.oneOf(Object.keys(Variants)),
     tooltip: PropTypes.oneOfType([
       PropTypes.string,
@@ -191,27 +193,44 @@ class Icon extends React.Component {
     if (variant) {
       defaults(providedProps, Variants[variant]);
     }
-
     const {
       onClick, buttonProps, tooltipProps, btnVariant,
-      type, className, tooltip, onNavbar,
+      type, className, tooltip, onNavbar, busy, asButton,
       ...props
     } = providedProps;
+    props.icon = Icons[type];
+    if (busy) {
+      props.icon = 'spinner';
+      props.spin = true;
+    }
+    const wrapWithButton = onClick || btnVariant || asButton;
 
+
+    if (wrapWithButton) {
+      HOISTED_PROPS.forEach(prop => {
+        if (props[prop]) {
+          buttonProps[prop] = props[prop];
+          delete props[prop];
+        }
+      });
+    }
+    
     let icon = (
       <IconWrapper
         data-variant={variant}
         className={cn('ox-icon', `ox-icon-${type}`, className)}
-        icon={Icons[type]}
         {...props}
       />
     );
 
-    if (onClick || btnVariant) {
+    if (wrapWithButton) {
+
       icon = (
         <Button
           variant={btnVariant || 'plain'}
-          className={cn(`ox-icon-${type}`, className)}
+          className={cn(`ox-icon-${type}`, className, {
+            'btn btn-standard btn-icon': asButton,
+          })}
           onClick={onClick}
           {...buttonProps}
         >{icon}</Button>

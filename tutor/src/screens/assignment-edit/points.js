@@ -1,6 +1,7 @@
-import { React, PropTypes, styled, action, useObserver } from 'vendor';
+import { React, PropTypes, styled, action, observer } from 'vendor';
 import { AssignmentBuilder } from './builder';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
+import QuestionsOverview from './questions-overview';
 import { Icon, SuretyGuard } from 'shared';
 import S from '../../helpers/string';
 import { colors } from 'theme';
@@ -10,14 +11,25 @@ const Heading = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: ${colors.neutral.lighter};
+  padding: 1rem;
 `;
 
 const Controls = styled.div`
   flex-basis: 10rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   input {
     padding: 0.5rem;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+  }
+  .ox-icon {
+    height: 18px;
+    width: 18px;
   }
 `;
 
@@ -29,10 +41,11 @@ const Actions = styled.div`
 `;
 
 const Input = styled.input`
-  height: 100%;
-  width: 4rem;
+  height: 3rem;
+  width: 5rem;
   text-align: center;
   margin-right: 1rem;
+  border: 1px solid #34bdd7;
 `;
 
 const MoveIcon = styled(Icon)`
@@ -46,6 +59,22 @@ const StyledHomeworkQuestions = styled(HomeworkQuestions)`
   border-width: 0 1px;
 `;
 
+const TagsWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  > * { margin-left: 1rem; }
+`;
+const QuestionTags = observer(({ info: { exercise } }) => {
+  const { dok, blooms, lo } = exercise.tags.important;
+
+  return (
+    <TagsWrapper>
+      <span>{lo.asString}</span>
+      <span>{dok.asString}</span>
+      <span>{blooms.asString}</span>
+    </TagsWrapper>
+  );
+});
 
 class QuestionHeading extends React.Component {
 
@@ -101,7 +130,7 @@ class QuestionHeading extends React.Component {
               placement="left"
               message="Are you sure you want to remove this exercise?"
             >
-              <Icon size="xs" className="-remove-exercise circle" type="close" />
+              <Icon size="xs" type="close" />
             </SuretyGuard>
           </Controls>
         </Actions>
@@ -110,18 +139,20 @@ class QuestionHeading extends React.Component {
   }
 }
 
-const Review = ({ ux }) => useObserver(() => (
+const Points = observer(({ ux }) => (
   <AssignmentBuilder ux={ux} title="Set points and review">
     <StyledHomeworkQuestions
       questionsInfo={ux.plan.questionsInfo}
+      questionInfoRenderer={(props) => <QuestionTags {...props} />}
       headerContentRenderer={(props) => <QuestionHeading {...props} ux={ux} />}
     />
+    <QuestionsOverview ux={ux} />
   </AssignmentBuilder>
 ));
 
 
-Review.propTypes = {
+Points.propTypes = {
   ux: PropTypes.object.isRequired,
 };
 
-export default Review;
+export default Points;

@@ -2,6 +2,7 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from 'vendor';
 import moment from 'moment';
+import { Icon } from 'shared';
 import { Row, Col, Alert } from 'react-bootstrap';
 import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../helpers/dates';
@@ -161,17 +162,33 @@ class Tasking extends React.Component {
   renderSelectionCheckbox() {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
+    const checked = !!plan.tasking_plans.forPeriod(period);
+    if (plan.isOpen) {
+      return (
+        <span>
+          <Icon
+            size="lg"
+            variant={checked ? 'checkedSquare' : 'checkSquare'}
+            tooltip={`You cannot withdraw this assignment for ${period.name} only. To permanently delete this assignment for all sections, go to the assignment page.`}
+          />
+          {period.name}
+        </span>
+      );
+    }
+
     return (
       <CheckboxInput
         id={`period-toggle-${period.id}`}
-        disabled={!plan.isEditable}
+        disabled={plan.isOpen}
         label={period.name}
         labelSize="lg"
+        name={`cb-${period.id}`}
         data-period-id={period.id}
-        checked={!!plan.tasking_plans.forPeriod(period)}
+        checked={checked}
         onChange={ux.togglePeriodTasking}
       />
     );
+
   }
 
   render() {
@@ -180,7 +197,7 @@ class Tasking extends React.Component {
     const type = period ? `period-${period.id}` : 'combined';
 
     return (
-      <StyledTasking className="tasking" renderingDates={tasking}>
+      <StyledTasking className="tasking" data-test-id="tasking" renderingDates={tasking}>
         {this.renderSelectionCheckbox()}
         <StyledInner
           data-tasking-type={type}
@@ -205,6 +222,7 @@ class Tasking extends React.Component {
             label="Open date & time"
             name={`tasking_plans[${index}].opens_at`}
             onChange={(target) => this.onOpensChange(target, index)}
+            disabledDate={this.course.isInvalidAssignmentDate}
             format={format}
             timeFormat={timeFormat}
             autoFocus={period && plan.tasking_plans.forPeriod(period)}
@@ -215,6 +233,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
+            disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
             format={format}
             timeFormat={timeFormat}
@@ -229,6 +248,7 @@ class Tasking extends React.Component {
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               format={format}
+              disabledDate={this.course.isInvalidAssignmentDate}
               timeFormat={timeFormat}
             />
           </Col>

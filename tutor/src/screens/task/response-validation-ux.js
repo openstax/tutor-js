@@ -99,6 +99,7 @@ class ResponseValidationUX {
   @action.bound submitOriginalResponse(ev) {
     ev && ev.preventDefault();
     this.step.beginRecordingAnswer({ free_response: this.initialResponse });
+    this.taskUX.onFreeResponseComplete(this.step);
   }
 
   @computed get submitBtnLabel() {

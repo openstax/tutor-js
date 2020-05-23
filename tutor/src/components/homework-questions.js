@@ -129,7 +129,7 @@ const Body = styled.div`
 `;
 
 const ExerciseNumber = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 
   ${props => props.variant === 'submission' && css`
     font-size: 1.8rem;

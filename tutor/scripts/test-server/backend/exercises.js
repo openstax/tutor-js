@@ -38,6 +38,7 @@ module.exports = {
       if (req.query.task_plan_id == WRM_PLAN_ID) {
         items.forEach(ex => ex.content.questions.forEach(q => {
           q.formats = ['free-response'];
+          q.pool_types = ['homework_core'];
           q.answers = [];
         }));
       }

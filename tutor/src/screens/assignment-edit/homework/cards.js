@@ -175,6 +175,7 @@ class ExerciseCards extends React.Component {
     onShowDetailsViewClick: PropTypes.func.isRequired,
     focusedExercise:        PropTypes.instanceOf(Exercise),
     topScrollOffset:        PropTypes.number,
+    disableScroll:          PropTypes.bool,
     windowImpl:             PropTypes.object,
   };
 
@@ -188,10 +189,12 @@ class ExerciseCards extends React.Component {
   });
 
   componentDidMount() {
-    if (this.props.focusedExercise) {
-      this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
-    } else {
-      this.scroller.scrollToSelector('[data-section]');
+    if (!this.props.disableScroll){
+      if (this.props.focusedExercise) {
+        this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
+      } else {
+        this.scroller.scrollToSelector('[data-section]');
+      }
     }
   }
 

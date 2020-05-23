@@ -221,7 +221,9 @@ class TaskPlanScores extends BaseModel {
     for (const tasking of this.tasking_plans) {
       for (const student of tasking.students) {
         for (const question of student.questions) {
-          ids.push(question.exercise_id);
+          if (!isNil(question.exercise_id)) {
+            ids.push(question.exercise_id);
+          }
         }
       }
     }
@@ -229,9 +231,11 @@ class TaskPlanScores extends BaseModel {
   }
 
   async ensureExercisesLoaded() {
-    await Exercises.ensureExercisesLoaded({
-      course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds, task_plan_id: this.id,
-    });
+    if (this.exerciseIds.length) {
+      await Exercises.ensureExercisesLoaded({
+        course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds, task_plan_id: this.id,
+      });
+    }
   }
 
   @computed get isHomework() {
