@@ -29,6 +29,10 @@ exports[`CheckboxInput matches snapshot 1`] = `
   width: 1.6rem;
 }
 
+.c1:disabled + label svg {
+  color: #c1c1c1;
+}
+
 .c1:focus + label svg {
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }

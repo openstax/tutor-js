@@ -1,6 +1,5 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import Theme from '../theme';
-import { uniqueId } from 'lodash';
+import { uniqueId, isEmpty } from 'lodash';
 import { useField } from 'formik';
 import { colors } from 'theme';
 
@@ -14,7 +13,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
   opacity: 0;
 
   & + label {
-    margin-left: 1.4rem;
+    ${props => !isEmpty(props.label) && 'margin-left: 1.4rem;'}
     ${props => props.labelSize === 'lg' && 'font-size: 1.6rem;'}
   }
 
@@ -33,7 +32,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
   & + label::after {
     content: "";
     opacity: 0;
-    border: 0.5rem solid ${Theme.colors.primary};
+    border: 0.5rem solid ${colors.primary};
     border-radius: 50%;
     position: absolute;
     left: 0.3rem;
@@ -43,16 +42,22 @@ const StyledRadioInput = styled.input.attrs( () => ({
 
   &:checked  {
     & + label::before {
-      border-color: ${Theme.colors.primary};
+      border-color: ${colors.primary};
     }
     & + label::after {
       opacity: 1;
     }
   }
 
+  &:disabled  {
+    & + label::before {
+      border-color: ${colors.disabledInputBorder};
+    }
+  }
+
   &:focus + label::before {
-    border-color: ${Theme.colors.forms.borders.focus};
-    box-shadow: 0 0 4px 0 ${Theme.colors.forms.borders.focusShadow};
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
   }
 `;
 
