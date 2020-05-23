@@ -84,7 +84,7 @@ TaskStepCard.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
   step: PropTypes.instanceOf(Step).isRequired,
-  questionNumber: PropTypes.number.isRequired,
+  questionNumber: PropTypes.number,
 };
 
 
