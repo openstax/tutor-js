@@ -982,6 +982,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           "homework_score_weight": 0.4,
           "homework_weight": 0.5,
           "id": 1,
+          "isInvalidAssignmentDate": [Function],
           "is_access_switchable": true,
           "is_active": true,
           "is_college": true,
@@ -1054,14 +1055,14 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "course": [Circular],
               "course_association_name": "roles",
               "id": 1,
-              "joined_at": 2017-09-21T12:00:00.000Z,
+              "joined_at": 2017-07-21T12:00:00.000Z,
               "period_id": undefined,
               "research_identifier": undefined,
               "type": "student",
             },
           ],
           "salesforce_book_name": "College Physics",
-          "starts_at": "2017-09-14T12:00:00.000Z",
+          "starts_at": "2017-07-14T12:00:00.000Z",
           "students": Array [
             CourseStudent {
               "$nonSerializable": Object {

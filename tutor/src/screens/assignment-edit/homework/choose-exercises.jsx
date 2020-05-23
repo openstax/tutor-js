@@ -142,7 +142,7 @@ class ChooseExercises extends React.Component {
       body = (
         <ExerciseCards
           {...sharedProps}
-          topScrollOffset={110}
+          disableScroll
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick}
           filter={ux.activeFilter}

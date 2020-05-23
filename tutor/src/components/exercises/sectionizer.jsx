@@ -23,6 +23,7 @@ class Sectionizer extends React.Component {
     currentSection:    PropTypes.instanceOf(ChapterSection),
     windowImpl:        PropTypes.object,
     initialScrollTarget: PropTypes.string,
+    disableScroll:       PropTypes.bool,
   }
 
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
@@ -40,7 +41,7 @@ class Sectionizer extends React.Component {
   getScrollTopOffset = () => { return 160; }; // 70px high control bar and a bit of padding
 
   componentDidMount() {
-    if (this.props.initialScrollTarget) {
+    if (this.props.disableScroll != false && this.props.initialScrollTarget) {
       this.scroller.scrollToSelector(this.props.initialScrollTarget);
     }
   }
