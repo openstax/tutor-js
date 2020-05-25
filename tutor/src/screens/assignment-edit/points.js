@@ -69,9 +69,9 @@ const QuestionTags = observer(({ info: { exercise } }) => {
 
   return (
     <TagsWrapper>
-      <span>{lo.asString}</span>
-      <span>{dok.asString}</span>
-      <span>{blooms.asString}</span>
+      <span>{lo && lo.asString}</span>
+      <span>{dok && dok.asString}</span>
+      <span>{blooms && blooms.asString}</span>
     </TagsWrapper>
   );
 });

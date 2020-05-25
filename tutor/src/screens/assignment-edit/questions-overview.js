@@ -111,13 +111,13 @@ class QuestionsOverview extends React.Component {
           <ChapterSection chapterSection={chapterSection} />
         </td>
         <td>
-          {lo.value}
+          {lo && lo.value}
         </td>
         <td>
-          {dok.value}
+          {dok && dok.value}
         </td>
         <td>
-          {blooms.value}
+          {blooms && blooms.value}
         </td>
         <td>
           {S.numberWithOneDecimalPlace(points)}
