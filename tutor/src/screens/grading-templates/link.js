@@ -1,35 +1,25 @@
-import { React, PropTypes, styled, observer } from 'vendor';
-import { Button } from 'react-bootstrap';
-import { withRouter } from 'react-router';
+import { React, PropTypes } from 'vendor';
 import Course from '../../models/course';
+import TutorLink from '../../components/link';
 
-const Link = styled(Button)`
-
-
-`;
-
-const GradingTemplateLink = ({ course, history }) => {
-  const href = `/course/${course.id}/grading-templates`;
+const GradingTemplateLink = ({ course }) => {
 
   return (
-    <Link
-      href={href}
+    <TutorLink
+      to="gradingTemplates"
       data-test-id="grading-template-link"
       variant="link"
-      onClick={() => history.push(href)}
+      params={{ courseId: course.id }}
     >
       Grading Templates
-    </Link>
+    </TutorLink>
   );
 };
 
 GradingTemplateLink.displayName = 'GradingTemplateLink';
 
 GradingTemplateLink.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
   course: PropTypes.instanceOf(Course).isRequired,
 };
 
-export default withRouter(observer(GradingTemplateLink));
+export default GradingTemplateLink;
