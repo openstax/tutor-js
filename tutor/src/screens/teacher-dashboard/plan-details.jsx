@@ -3,7 +3,7 @@ import {
   computed, observable, action, styled,
 } from 'vendor';
 import Course from '../../models/course';
-import { Modal, Row, Col, Alert, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Modal, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
@@ -12,23 +12,9 @@ import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import SupportEmailLink from '../../components/support-email-link';
-import DateTime from '../../components/date-time-input';
 import moment from 'moment';
-import Time from '../../models/time';
-import { Formik } from 'formik';
 import TemplateModal from '../../components/course-modal';
 import cn from 'classnames';
-
-const StyledAlert = styled(Alert)`
-  margin-top: 0.5rem;
-  font-size: 1.6rem;
-`;
-
-const CantEditExplanation = () => (
-  <StyledAlert variant="secondary">
-    Cannot be edited after assignment is visible
-  </StyledAlert>
-);
 
 const DateFieldsWrapper = styled.div`
   padding-bottom: 1.25rem;
@@ -185,24 +171,6 @@ class CoursePlanDetails extends React.Component {
     this.selectedPeriodId = period.id;
   }
 
-  @action.bound onOpensChange({ target: { value: date } }, setFieldValue) {
-    this.tasking.setOpensDate(date);
-    setFieldValue('opens_at', this.tasking.opens_at);
-    this.tasking.plan.save();
-  }
-
-  @action.bound onDueChange({ target: { value: date } }, setFieldValue) {
-    this.tasking.setDueDate(date);
-    setFieldValue('due_at', this.tasking.due_at);
-    this.tasking.plan.save();
-  }
-
-  @action.bound onClosesChange({ target: { value: date } }, setFieldValue) {
-    this.tasking.setClosesDate(date);
-    setFieldValue('closes_at', this.tasking.closes_at);
-    this.tasking.plan.save();
-  }
-
   @computed get tasking() {
     const periodId = this.selectedPeriodId || this.props.course.periods[0].id;
 
@@ -211,63 +179,33 @@ class CoursePlanDetails extends React.Component {
     );
   }
 
-  renderDueAtError() {
-    if (this.tasking.isValid || !this.tasking.due_at) { return null; }
-
-    let msg = null;
-    const due = moment(this.tasking.due_at);
-    if (due.isBefore(Time.now)) {
-      msg = 'Due time has already passed';
-    } else if (due.isBefore(this.tasking.opens_at)) {
-      msg = 'Due time cannot come before task opens';
-    }
-    if (!msg) { return null; }
-    return (
-      <StyledAlert variant="danger">
-        {msg}
-      </StyledAlert>
-    );
-  }
-
   renderDateFields() {
     const format = 'MMM D hh:mm A';
 
     return (
       <DateFieldsWrapper>
-        <Formik
-          enableReinitialize
-          initialValues={this.tasking}
-        >
-          {({ setFieldValue }) => (
-            <Row className="tasking-date-time">
-              <Col xs={12} md={4} className="opens-at">
-                <DateTime
-                  label="Open date & time"
-                  name="opens_at"
-                  onChange={e => this.onOpensChange(e, setFieldValue)}
-                  format={format}
-                />
-                {!this.tasking.canEditOpensAt && <CantEditExplanation />}
-              </Col>
-              <Col xs={12} md={4} className="due-at">
-                <DateTime
-                  label="Due date & time"
-                  name="due_at"
-                  onChange={e => this.onDueChange(e, setFieldValue)}
-                  format={format}
-                />
-                {this.renderDueAtError()}
-              </Col>
-              <Col xs={12} md={4} className="closes-at">
-                <DateTime
-                  label="Close date & time"
-                  name="closes_at"
-                  onChange={e => this.onClosesChange(e, setFieldValue)}
-                  format={format}
-                />
-              </Col>
-            </Row>)}
-        </Formik>
+        <Row className="tasking-date-time">
+          <Col xs={12} md={4} className="opens-at">
+            <b>Open date & time</b>
+          </Col>
+          <Col xs={12} md={4} className="due-at">
+            <b>Due date & time</b>
+          </Col>
+          <Col xs={12} md={4} className="closes-at">
+            <b>Due date & time</b>
+          </Col>
+        </Row>
+        <Row className="tasking-date-time">
+          <Col xs={12} md={4} className="opens-at">
+            {moment(this.tasking.opens_at).format(format)}
+          </Col>
+          <Col xs={12} md={4} className="due-at">
+            {moment(this.tasking.due_at).format(format)}
+          </Col>
+          <Col xs={12} md={4} className="closes-at">
+            {moment(this.tasking.closes_at).format(format)}
+          </Col>
+        </Row>
       </DateFieldsWrapper>
     );
   }

@@ -174,7 +174,8 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         >
           Deduct 
           10%
-           for each late day
+           for each 
+          day
         </div>
         <div
           className="c6"
@@ -398,7 +399,8 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         >
           Deduct 
           10%
-           for each late day
+           for each 
+          day
         </div>
         <div
           className="c6"

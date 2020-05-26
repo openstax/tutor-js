@@ -5,7 +5,7 @@ import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import {
-  findEarliest, findLatest, dateWithUnchangedTime,
+  findEarliest, findLatest,
 } from '../../../helpers/dates';
 import Toasts from '../../toasts';
 
@@ -169,7 +169,7 @@ class TaskingPlan extends BaseModel {
   @action setOpensDate(date) {
     this.opens_at = findEarliest(
       moment(this.due_at).subtract(1, 'minute'),
-      dateWithUnchangedTime(date, this.opens_at),
+      date,
     ).toISOString();
   }
 
@@ -182,9 +182,12 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setDueDate(date) {
-    this.due_at = findLatest(
-      moment(this.opens_at).add(1, 'minute'),
-      date,
+    this.due_at = findEarliest(
+      findLatest(
+        moment(this.opens_at).add(1, 'minute'),
+        date,
+      ),
+      moment(this.closes_at),
     ).toISOString();
   }
 

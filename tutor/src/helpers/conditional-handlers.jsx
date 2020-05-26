@@ -26,27 +26,29 @@ const TeacherGradebook = asyncComponent(
 const getConditionalHandlers = (Router) => {
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
-  const renderTeacherStudent = (props, Teacher, Student) => {
-    const { courseId } = props.params;
-    extend(props, { courseId });
-    const course = Courses.get(courseId);
-    if (!course) {
-      return <CourseNotFoundWarning />;
-    }
+  const renderTeacherStudent = (Teacher, Student) => {
+    return (props) => {
+      const { courseId } = props.params;
+      extend(props, { courseId });
+      const course = Courses.get(courseId);
+      if (!course) {
+        return <CourseNotFoundWarning />;
+      }
 
-    if (!props.match.isExact) {
-      return (
-        <MatchForTutor {...props} />
-      );
-    }
+      if (!props.match.isExact) {
+        return (
+          <MatchForTutor {...props} />
+        );
+      }
 
-    if (course.currentRole.isTeacher) {
-      return <Teacher {...props} />;
-    } else {
-      return <Student {...props} />;
-    }
+      if (course.currentRole.isTeacher) {
+        return <Teacher {...props} />;
+      } else {
+        return <Student {...props} />;
+      }
+    };
   };
-
+  
   // eslint-disable-next-line react/prop-types
   const renderBecomeRole = ({ params: { courseId, roleId } }) => {
     const location = useLocation();
@@ -64,9 +66,14 @@ const getConditionalHandlers = (Router) => {
     return <Redirect push to={returnTo} />;
   };
 
+  // care must be taken to always return the same function on every call.
+  // If the function is dyamically created, react will mount/unmount itself
+  // AND ITS CHILDREN, which is almost always undesirable and will trigger api reloads
+  const dashboard = renderTeacherStudent(TeacherDashboard, StudentDashboard);
+  const gradebook = renderTeacherStudent(TeacherGradebook, StudentGradebook);
   return {
-    dashboard() { return (props) => renderTeacherStudent(props, TeacherDashboard, StudentDashboard); },
-    gradebook() { return (props) => renderTeacherStudent(props, TeacherGradebook, StudentGradebook); },
+    dashboard() { return dashboard; },
+    gradebook() { return gradebook; },
     becomeRole() { return renderBecomeRole; },
   };
 };

@@ -69,9 +69,9 @@ const QuestionTags = observer(({ info: { exercise } }) => {
 
   return (
     <TagsWrapper>
-      <span>{lo.asString}</span>
-      <span>{dok.asString}</span>
-      <span>{blooms.asString}</span>
+      <span>{lo && lo.asString}</span>
+      <span>{dok && dok.asString}</span>
+      <span>{blooms && blooms.asString}</span>
     </TagsWrapper>
   );
 });
@@ -104,10 +104,8 @@ class QuestionHeading extends React.Component {
   }
 
   render() {
-    const { styleVariant, label, ux, info: { questionIndex, points } } = this.props;
+    const { styleVariant, label, info: { questionIndex, points } } = this.props;
     const formattedPoints = S.numberWithOneDecimalPlace(points);
-
-    if (!ux.canEdit) { return <Actions>{formattedPoints} Points</Actions>; }
 
     return (
       <Heading>

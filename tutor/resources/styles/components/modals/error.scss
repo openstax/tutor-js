@@ -1,0 +1,20 @@
+.error.modal .modal-header,
+.modal-header.error {
+  background-color: #f5e9ea;
+  color: #b33238;
+  align-items: center;
+  justify-content: flex-start;
+  .ox-icon {
+    font-size: 24px;
+    fill: $tutor-danger;
+    margin-right: 0.5rem;
+  }
+}
+
+.error.modal {
+  &.show {
+    .modal-dialog {
+      transform: translateY(110px);
+    }
+  }
+}
