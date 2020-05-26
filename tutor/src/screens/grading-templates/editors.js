@@ -51,8 +51,11 @@ const Row = styled.div`
 const SplitRow = styled.div`
   display: flex;
   margin-bottom: 2.4rem;
-  > * {
-    flex-basis: 50%;
+  > *:first-child {
+    flex-basis: 40%;
+  }
+  > *:last-child {
+    flex-basis: 60%;
   }
 `;
 
@@ -282,7 +285,7 @@ class TemplateForm extends React.Component {
             id="late_assignment_deduction_label"
             htmlFor="late_assignment_deduction"
           >
-            % for late assignment
+            % for each late assignment
           </SettingLabel>
         </Setting>
       </FieldsetRow>

@@ -69,7 +69,7 @@ const gradedExplanation = (gradingType) => {
     case 'publish':
       return 'After I publish the scores';
     case 'grade':
-      return 'After I grade the assignment';
+      return 'Immediately after I grade';
     case 'answer':
       return 'Immediately after student answers';
     case 'due':
@@ -122,8 +122,8 @@ const CardInfo = observer(({ template, header, children }) => {
             <>
               <SettingName>Late work penalty:</SettingName>
               <SettingValue>
-                Deduct {toPerc(template.late_work_penalty)}{' '}
-                for {template.late_work_penalty_applied == 'daily' ? 'each day' : 'assignment'}
+                Deduct {toPerc(template.late_work_penalty)} for
+                each {template.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
               </SettingValue>
             </>)}
 
