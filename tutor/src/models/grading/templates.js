@@ -1,4 +1,5 @@
 import Map from 'shared/model/map';
+import { isNil } from 'lodash';
 import {
   BaseModel, identifiedBy, action, field,
   identifier, computed, observable,
@@ -19,6 +20,7 @@ class GradingTemplate extends BaseModel {
   @field task_plan_type;
   @field completion_weight = 0.9;
   @field correctness_weight = 0.1;
+  @field deleted_at;
   @field auto_grading_feedback_on = 'answer';
   @field manual_grading_feedback_on = 'publish';
   @field late_work_penalty = 0.1;
@@ -103,6 +105,10 @@ class GradingTemplates extends Map {
   constructor({ course }) {
     super();
     this.course = course;
+  }
+  
+  @computed get undeleted() {
+    return this.where(gt => isNil(gt.deleted_at));
   }
 
   newTemplate(attrs) {

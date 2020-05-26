@@ -125,7 +125,7 @@ class GradingTemplatesScreen extends React.Component {
           </Col>
         </Row>
         <Row>
-          {this.store.array.map(template => (
+          {this.store.undeleted.array.map(template => (
             <Card
               key={template.id}
               template={template}
