@@ -3,6 +3,9 @@ context('Assignment Review', () => {
   beforeEach(() => {
     cy.visit('/course/1/assignment/review/2')
     cy.disableTours();
+    cy.server();
+    cy.route('GET', '/api/plans/*').as('taskPlan');
+    cy.wait('@taskPlan');
   });
 
   it('loads and views feedback', () => {
