@@ -141,7 +141,9 @@ export default class AssignmentReviewUX {
   }
 
   wasGrantedExtension(role_id) {
-    return Boolean(this.taskPlan.extensions.find(e => e.role_id == role_id));
+    return Boolean(
+      this.taskPlan.extensions.length > 0 && this.taskPlan.extensions.find(e => e.role_id == role_id)
+    );
   }
 
   // methods relating to droppping questions
