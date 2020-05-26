@@ -46,6 +46,7 @@ export default class AssignmentReviewUX {
     this.onTabSelection = onTabSelection;
 
     await this.planScores.fetch();
+    await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
 
     await this.planScores.ensureExercisesLoaded();
