@@ -14,6 +14,9 @@ const propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
+
+const isValidPercentNumber = (v) => (v < 0 || v > 100) && 'must be between 0 & 100';
+
 const StyledTemplateModal = styled(TemplateModal)`
   .modal-dialog {
     margin-top: 3rem;
@@ -215,7 +218,6 @@ class TemplateForm extends React.Component {
   }
 
   @action.bound async onSubmit(values) {
-
     this.props.template.update(values);
     await this.props.template.save();
 
@@ -248,6 +250,7 @@ class TemplateForm extends React.Component {
             step={5}
             disabled={applied !== 'daily'}
             onKeyDown={enforceNumberInput}
+            validate={isValidPercentNumber}
           />
           <SettingLabel
             id="late_day_deduction_label"
@@ -273,6 +276,7 @@ class TemplateForm extends React.Component {
             step={5}
             disabled={applied !== 'immediately'}
             onKeyDown={enforceNumberInput}
+            validate={isValidPercentNumber}
           />
           <SettingLabel
             id="late_assignment_deduction_label"
@@ -443,6 +447,7 @@ const reading = observer((props) => {
                 name="correctness_weight"
                 min={0} max={100}
                 translate={wholePercent}
+                validate={isValidPercentNumber}
                 onChange={(ev) => form.setFieldValue('completion_weight', (1 - ev.target.value).toFixed(2))}
                 onKeyDown={enforceNumberInput}
               />
@@ -458,6 +463,7 @@ const reading = observer((props) => {
                 translate={wholePercent}
                 onChange={(ev) => form.setFieldValue('correctness_weight', (1 - ev.target.value).toFixed(2))}
                 onKeyDown={enforceNumberInput}
+                validate={isValidPercentNumber}
               />
               <SettingLabel>% of questions point value</SettingLabel>
             </Setting>
