@@ -97,10 +97,11 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @field({ type: 'object' }) course;
+  @observable course;
 
   constructor(attrs) {
     super(attrs);
+    this.course = attrs.course;
     this.cloned_from_id = attrs.cloned_from_id;
     this.unmodified_plans = attrs.tasking_plans;
     this.exercisesMap = attrs.exercisesMap || Exercises;
