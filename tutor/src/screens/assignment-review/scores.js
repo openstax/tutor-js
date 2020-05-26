@@ -464,7 +464,7 @@ const Scores = observer(({ ux }) => {
         <Term variant="trouble" aria-label="Less than 50%"></Term>
         <Definition>Scores less than 50% of question's point value</Definition>
         <Term aria-label="Unattempted">&hellip;</Term>
-        <Definition>Unattempted question of ungraded responses</Definition>
+        <Definition>Unattempted question or ungraded responses</Definition>
       </DefinitionsWrapper>
     </>
   );
