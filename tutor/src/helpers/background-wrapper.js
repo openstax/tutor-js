@@ -11,6 +11,7 @@ const BackgroundWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   max-width: 1200px;
+  min-width: 1100px;
   margin: 0 auto;
 `;
 

@@ -12,13 +12,6 @@ import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
 
-const StyledBackgroundWrapper = styled(BackgroundWrapper)`
-  > * {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-`;
-
 @withRouter
 @observer
 class AssignmentBuilder extends React.Component {
