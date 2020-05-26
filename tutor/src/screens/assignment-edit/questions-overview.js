@@ -90,25 +90,31 @@ class QuestionsOverview extends React.Component {
   renderExercise = (rows, exercise) => {
     return rows.concat(
       exercise.content.questions.map((question, qIndex) => {
-        return this.renderExerciseQuestion({ exercise, question, index: rows.length + qIndex });
+        return this.renderExerciseQuestion({
+          exercise, question,
+          questionIndex: qIndex,
+          number: rows.length + qIndex,
+        });
       })
     );
   }
 
-  renderExerciseQuestion = ({ exercise, index }) => {
+  renderExerciseQuestion = ({ exercise, number, questionIndex }) => {
     const { chapterSection, dok, blooms, lo } = exercise.tags.important;
-    const points = get(this.props.ux.plan.settings, `exercises[${index}].points`, 0);
+    const exSettings = this.props.ux.plan.settings.exercises.find(ex => ex.id == exercise.id);
+    
+    const points = get(exSettings, `points[${questionIndex}]`, 0);
 
     return (
-      <tr key={`exercise-row-${index}`} data-ex-id={exercise.id}>
+      <tr key={`exercise-row-${number}`} data-ex-id={exercise.id}>
         <td className="exercise-number">
-          {index + 1}
+          {number + 1}
         </td>
         <td>
           {exercise.typeAbbreviation}
         </td>
         <td>
-          <ChapterSection chapterSection={chapterSection} />
+          {chapterSection && <ChapterSection chapterSection={chapterSection} />}
         </td>
         <td>
           {lo && lo.value}

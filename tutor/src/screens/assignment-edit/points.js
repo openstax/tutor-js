@@ -104,10 +104,8 @@ class QuestionHeading extends React.Component {
   }
 
   render() {
-    const { styleVariant, label, ux, info: { questionIndex, points } } = this.props;
+    const { styleVariant, label, info: { questionIndex, points } } = this.props;
     const formattedPoints = S.numberWithOneDecimalPlace(points);
-
-    if (!ux.canEdit) { return <Actions>{formattedPoints} Points</Actions>; }
 
     return (
       <Heading>
