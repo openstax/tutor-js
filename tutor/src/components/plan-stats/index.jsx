@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, observer, observable, computed, action } from 'vendor';
 import { isEmpty, find } from 'lodash';
-import { Card } from 'react-bootstrap';
 import { SmartOverflow } from 'shared';
 import Course from '../../models/course';
 import CoursePeriodsNav from '../course-periods-nav';
