@@ -28,7 +28,7 @@ const QuestionHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: ${colors.neutral.lighter}
+  background: ${colors.neutral.lighter};
   padding: 1rem;
   font-weight: bold;
 
