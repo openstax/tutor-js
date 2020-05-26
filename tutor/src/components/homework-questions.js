@@ -15,6 +15,11 @@ const QuestionPreview = styled.div`
   &:last-of-type {
    .ox-icon-arrow-down { display: none; }
   }
+  .frame-wrapper {
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+  }
 `;
 
 
