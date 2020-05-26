@@ -83,12 +83,10 @@ class GradingTemplate extends BaseModel {
     }
   }
 
-  remove() {
-
-  }
+  remove() {}
 
   onRemoved() {
-    this.map.delete(this.id);
+    this.deleted_at = (new Date()).toISOString();
   }
 
   // Validate happens if template name, case insensitive, equals to any of the other template names.
