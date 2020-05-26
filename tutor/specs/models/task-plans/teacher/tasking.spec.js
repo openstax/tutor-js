@@ -57,11 +57,11 @@ describe('Teacher tasking plan tasking', () => {
     // only day changes, not time
     expect(tasking.opens_at).toEqual('2016-10-11T11:59:00.000Z');
 
-    // test setting due date to before opens at
-    tasking.setDueDate('2016-01-20T12:00:00.000Z');
+    expect(tasking.closes_at).toEqual('2015-10-15T12:00:00.000Z')
 
-    // clips to one minute after opens at
-    expect(tasking.due_at).toEqual('2016-10-11T12:00:00.000Z');
+    // test setting due date to after closes_at: it clips to same as closes_at
+    tasking.setDueDate('2016-01-20T12:00:00.000Z');
+    expect(tasking.due_at).toEqual('2015-10-15T12:00:00.000Z');
   });
 
   it('#initializeWithDueAt', () => {

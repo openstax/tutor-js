@@ -13,6 +13,7 @@ exports[`Delete Modal matches snapshot 1`] = `
       "default_due_date_offset_days": 1,
       "default_due_time": "17:00",
       "default_open_time": "07:00",
+      "deleted_at": undefined,
       "id": 1,
       "late_work_penalty": 0.1,
       "late_work_penalty_applied": "daily",
