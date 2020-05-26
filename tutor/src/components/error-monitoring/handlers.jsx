@@ -6,7 +6,7 @@ import TutorRouter from '../../helpers/router';
 import TimeHelper from '../../helpers/time';
 import ServerErrorMessage from './server-error-message';
 import { reloadOnce } from '../../helpers/reload';
-import { AppStore } from '../../flux/app';
+import { AppStore, AppActions } from '../../flux/app';
 import UserMenu from '../../models/user/menu';
 
 const goToDashboard = function(context) {
@@ -15,6 +15,11 @@ const goToDashboard = function(context) {
     TutorRouter.makePathname('dashboard', { courseId: course.id })
   );
   return Dialog.hide();
+};
+
+const hideModal = () => {
+  Dialog.hide();
+  AppActions.resetServerErrors();
 };
 
 const reloadOnceIfShouldReload = function() {
@@ -131,6 +136,29 @@ const ERROR_HANDLERS = {
       ],
       onOk: navigateAction,
       onCancel: navigateAction,
+    };
+  },
+
+  base_cannot_be_deleted_because_it_is_assigned_to_one_or_more_task_plans() {
+    return {
+      className: 'error',
+      title: 'Template cannot be deleted',
+      body: (
+        <div className="template-del-failure">
+          <p className="lead">
+            Template cannot be deleted since it is currently in use by assignments.
+          </p>
+        </div>
+      ),
+      buttons: [
+        <Button
+          key="ok"
+          onClick={hideModal}
+          variant="primary"
+        >
+          OK
+        </Button>,
+      ],
     };
   },
 
