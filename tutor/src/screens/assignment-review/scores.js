@@ -164,8 +164,8 @@ const Term = styled.dt`
   width: 5.6rem;
   height: 2.8rem;
   margin-right: 1.1rem;
-  font-size: 1.6rem;
-  line-height: 1.8rem;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
 `;
 
 const Definition = styled.dd`
@@ -342,27 +342,10 @@ const AssignmentHeading = observer(({ ux, heading }) => (
   </Cell>
 ));
 
-const ResultDisplay = observer(({ result }) => {
-  const { dropped } = result.questionHeading;
-  const pending = '---';
-
-  if (result.is_completed) {
-    if (dropped) {
-      return (
-        <Icon variant={result.points > 0 ? 'droppedFullCredit' : 'droppedZeroCredit'} />
-      );
-    }
-    return S.numberWithOneDecimalPlace(result.points);
-  } else {
-    return pending;
-  }
-});
-
-
 const TaskResult = observer(({ result, striped }) => (
   <Cell striped={striped}>
     <Result isTrouble={result.isTrouble}>
-      <ResultDisplay result={result} />
+      {result.displayValue}
     </Result>
   </Cell>
 ));
@@ -441,7 +424,7 @@ const Scores = observer(({ ux }) => {
       <DefinitionsWrapper>
         <Term variant="trouble" aria-label="Less than 50%"></Term>
         <Definition>Scores less than 50% of question's point value</Definition>
-        <Term aria-label="Unattempted">&hellip;</Term>
+        <Term aria-label="Unattempted">---</Term>
         <Definition>Unattempted question or ungraded responses</Definition>
       </DefinitionsWrapper>
     </>

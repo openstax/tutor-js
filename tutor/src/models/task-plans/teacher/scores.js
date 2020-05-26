@@ -4,13 +4,14 @@ import {
 import Exercises from '../../exercises';
 import { filter, sumBy, find, isNil, compact } from 'lodash';
 import DroppedQuestion from './dropped_question';
+import S from '../../../helpers/string';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
   @identifier question_id;
   @field exercise_id;
   @field is_completed = false;
-  @field points = 0;
+  @field points;
   @field selected_answer_id;
   @field free_response;
   @field task_step_id;
@@ -45,7 +46,24 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get isTrouble() {
-    return this.is_completed && (this.points / this.availablePoints) < 0.5;
+    return !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
+  }
+
+  @computed get displayValue() {
+    const { dropped } = this.questionHeading;
+    const pending = '---';
+
+    if (this.needs_grading) { return pending; }
+
+    if (dropped && this.is_completed) {
+      return S.numberWithOneDecimalPlace(
+        dropped.drop_method == 'full_credit' ? this.availablePoints : 0
+      );
+    }
+
+    if (!isNil(this.gradedPoints)) { return S.numberWithOneDecimalPlace(this.gradedPoints); }
+
+    return pending;
   }
 }
 
