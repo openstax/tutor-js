@@ -82,7 +82,6 @@ class StepUX {
   @action.bound goBackward() {
     if (this.canGoBackward) {
       this.ux.navigateToStep(this.stepIds[this._stepIndex - 1]);
-      this.ux.savePlan();
     }
   }
 
