@@ -43,6 +43,10 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @computed get isManuallyGraded() {
     return !isNil(this.grader_points);
   }
+
+  @computed get isTrouble() {
+    return this.is_completed && this.points <= 0.5;
+  }
 }
 
 @identifiedBy('task-plan/scores/student')
@@ -65,6 +69,10 @@ class TaskPlanScoreStudent extends BaseModel {
   @computed get name() {
     return `${this.last_name}, ${this.first_name}`;
   }
+
+  @computed get reversedName() {
+    return `${this.first_name} ${this.last_name}`;
+  }
 }
 
 
@@ -80,6 +88,10 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get isCore() {
     return 'Tutor' !== this.type;
+  }
+
+  @computed get displayType() {
+    return this.type === 'FR' ? 'WRQ' : this.type;
   }
 
   @computed get index() {
@@ -124,6 +136,12 @@ class TaskPlanScoreHeading extends BaseModel {
       remaining,
       complete: remaining == 0,
     };
+  }
+
+  @computed get displayPoints() {
+    const { dropped } = this;
+    return dropped ?
+      (dropped.drop_method == 'zeroed' ? 0 : this.points_without_dropping) : this.points;
   }
 
 }

@@ -7,7 +7,7 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
-import { BackgroundWrapper } from '../../helpers/background-wrapper';
+import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 import './styles.scss';
@@ -68,7 +68,7 @@ class AssignmentBuilder extends React.Component {
     }
 
     return (
-      <StyledBackgroundWrapper>
+      <BackgroundWrapper>
         <ScrollToTop>
           <TourRegion
             className="assignment-builder"
@@ -76,16 +76,18 @@ class AssignmentBuilder extends React.Component {
             otherTours={[`${ux.plan.type}-assignment-editor-super`]}
             courseId={ux.course.id}
           >
-            <CourseBreadcrumb course={this.ux.course} currentTitle={`Add ${ux.plan.type}`} />
-            <Formik
-              initialValues={ux.formValues}
-              validateOnMount={true}
-            >
-              {ux.renderStep}
-            </Formik>
+            <ContentWrapper>
+              <CourseBreadcrumb course={this.ux.course} currentTitle={`Add ${ux.plan.type}`} />
+              <Formik
+                initialValues={ux.formValues}
+                validateOnMount={true}
+              >
+                {ux.renderStep}
+              </Formik>
+            </ContentWrapper>
           </TourRegion>
         </ScrollToTop>
-      </StyledBackgroundWrapper>
+      </BackgroundWrapper>
     );
   }
 }

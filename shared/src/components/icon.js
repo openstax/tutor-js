@@ -157,6 +157,18 @@ const Variants = {
     color: 'white',
     withCircle: true,
   },
+  droppedFullCredit: {
+    color: '#83AD51',
+    type: 'check',
+  },
+  droppedZeroCredit: {
+    color: '#B23238',
+    type: 'close',
+  },
+  toggleOrder: {
+    color: '#027EB5',
+    type: 'exchange-alt',
+  },
 };
 
 
@@ -214,7 +226,7 @@ class Icon extends React.Component {
         }
       });
     }
-    
+
     let icon = (
       <IconWrapper
         data-variant={variant}

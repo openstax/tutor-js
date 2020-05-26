@@ -11,7 +11,7 @@ import Details from './details';
 import Overview from './overview';
 import Scores from './scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
-import { BackgroundWrapper } from '../../helpers/background-wrapper';
+import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
 
 import './styles.scss';
 
@@ -113,21 +113,23 @@ class AssignmentReview extends React.Component {
     return (
       <BackgroundWrapper>
         <ScrollToTop>
-          <Heading>
-            <CourseBreadcrumb
-              course={course}
-              currentTitle={planScores.title}
-              titleSize="lg"
+          <ContentWrapper>
+            <Heading>
+              <CourseBreadcrumb
+                course={course}
+                currentTitle={planScores.title}
+                titleSize="lg"
+              />
+              <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod} />
+            </Heading>
+            <StyledTabs
+              selectedIndex={this.tabIndex}
+              params={this.props.params}
+              onSelect={this.onTabSelection}
+              tabs={AvailableTabs.map(t => t.title)}
             />
-            <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod} />
-          </Heading>
-          <StyledTabs
-            selectedIndex={this.tabIndex}
-            params={this.props.params}
-            onSelect={this.onTabSelection}
-            tabs={AvailableTabs.map(t => t.title)}
-          />
-          <Tab ux={this.ux} />
+            <Tab ux={this.ux} />
+          </ContentWrapper>
         </ScrollToTop>
       </BackgroundWrapper>
     );
