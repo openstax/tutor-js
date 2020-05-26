@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, session, identifier, belongsTo, hasMany,
+  BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
@@ -97,11 +97,10 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @belongsTo({ model: 'course' }) course;
+  @field({ type: 'object' }) course;
 
   constructor(attrs) {
     super(attrs);
-    this.course = attrs.course;
     this.cloned_from_id = attrs.cloned_from_id;
     this.unmodified_plans = attrs.tasking_plans;
     this.exercisesMap = attrs.exercisesMap || Exercises;
