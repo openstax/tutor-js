@@ -361,7 +361,7 @@ const ResultDisplay = observer(({ result }) => {
 
 const TaskResult = observer(({ result, striped }) => (
   <Cell striped={striped}>
-    <Result isTrouble={result.is_completed && result.isTrouble}>
+    <Result isTrouble={result.isTrouble}>
       <ResultDisplay result={result} />
     </Result>
   </Cell>

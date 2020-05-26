@@ -45,7 +45,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get isTrouble() {
-    return this.is_completed && this.points <= 0.5;
+    return this.is_completed && (this.points / this.availablePoints) < 0.5;
   }
 }
 
