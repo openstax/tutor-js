@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, observer } from 'vendor';
 import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
