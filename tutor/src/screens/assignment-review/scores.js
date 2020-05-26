@@ -5,6 +5,7 @@ import { Icon } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
 import S from '../../helpers/string';
+import ExtensionIcon from '../../components/icons/extension';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import GrantExtension from './grant-extension';
@@ -209,29 +210,6 @@ const StyledTriangle = styled.div`
   `}
 `;
 
-const GreenCircle = styled.div`
-  display: inline-block;
-  width: 1.4rem;
-  height: 1.4rem;
-  position: absolute;
-  right: 1rem;
-  background: #009670;
-  color: #fff;
-  font-size: 0.9rem;
-  line-height: 1.4rem;
-  border-radius: 50%;
-  text-align: center;
-`;
-
-const ExtensionCircle = () => (
-  <OverlayTrigger
-    placement="right"
-    overlay={<Tooltip>Student was granted an extension</Tooltip>}
-  >
-    <GreenCircle>E</GreenCircle>
-  </OverlayTrigger>
-);
-
 const OrderIcon = styled(Icon)`
   &&.btn {
     transition: none;
@@ -335,7 +313,7 @@ const StudentCell = observer(({ ux, student, striped }) => (
       </Total>
       <LateWork>
         {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
-        {ux.wasGrantedExtension(student.role_id) && <ExtensionCircle />}
+        {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
       </LateWork>
     </CellContents>
   </Cell>
