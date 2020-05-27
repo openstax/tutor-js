@@ -15,6 +15,11 @@ const QuestionPreview = styled.div`
   &:last-of-type {
    .ox-icon-arrow-down { display: none; }
   }
+  .frame-wrapper {
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+  }
 `;
 
 
@@ -23,7 +28,7 @@ const QuestionHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: ${colors.neutral.lighter}
+  background: ${colors.neutral.lighter};
   padding: 1rem;
   font-weight: bold;
 

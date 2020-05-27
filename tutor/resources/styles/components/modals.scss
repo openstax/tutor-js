@@ -17,6 +17,11 @@
   .modal-body {
     padding: $modal-padding;
     background-color: white;
+    p.lead {
+      font-size: 1.75rem;
+      line-height: 2.8rem;
+      font-weight: 300;
+    }
   }
 
   .modal-footer {
@@ -28,5 +33,6 @@
 }
 
 @import './modals/warning';
+@import './modals/error';
 @import './modals/terms';
 @import './modals/onboarding';

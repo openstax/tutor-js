@@ -41,8 +41,7 @@ class GradingTemplatesScreen extends React.Component {
   @observable editing = null;
   @observable deleting = null;
 
-  constructor(props) {
-    super(props);
+  componentDidMount() {
     this.store.fetch();
   }
 
@@ -83,16 +82,11 @@ class GradingTemplatesScreen extends React.Component {
     this.editing = this.store.newTemplate({ task_plan_type });
   }
 
-  body() {
-    if (this.store.api.isPending) {
-      return <Loading message="Fetching templates…" />;
-    }
-    let modal;
-
+  @computed get modal() {
     if (this.editing) {
       const Edit = EDIT_TYPES[this.editing.task_plan_type];
       if (Edit) {
-        modal = (
+        return (
           <Edit
             template={this.editing}
             onComplete={this.onEditComplete}
@@ -103,7 +97,7 @@ class GradingTemplatesScreen extends React.Component {
     }
 
     if (this.deleting) {
-      modal = (
+      return (
         <DeleteModal
           onDelete={this.onDeleteTemplate}
           onCancel={this.onDeleteComplete}
@@ -112,29 +106,7 @@ class GradingTemplatesScreen extends React.Component {
       );
     }
 
-    return (
-      <Container fluid={true}>
-        {modal}
-        <Row>
-          <Col>
-            <Instructions>
-              Manage pre-set submission and grading policy templates here. These
-              templates can be applied to multiple assignments. Template applied
-              to open assignments cannot be edited or deleted. <a href="">Learn more</a>
-            </Instructions>
-          </Col>
-        </Row>
-        <Row>
-          {this.store.array.map(template => (
-            <Card
-              key={template.id}
-              template={template}
-              onEdit={this.onEditTemplate}
-              onDelete={this.onConfirmDelete}
-            />))}
-        </Row>
-      </Container>
-    );
+    return null;
   }
 
   titleControls() {
@@ -155,7 +127,28 @@ class GradingTemplatesScreen extends React.Component {
           titleBreadcrumbs={this.titleBreadcrumbs()}
           titleAppearance="light"
         >
-          {this.body()}
+          <Container fluid={true}>
+            {this.modal}         
+            <Row>
+              <Col>
+                <Instructions>
+                  Manage pre-set submission and grading policy templates here. These
+                  templates can be applied to multiple assignments. Template applied
+                  to open assignments cannot be edited or deleted. <a href="">Learn more</a>
+                </Instructions>
+              </Col>
+            </Row>
+            <Row>
+              {this.store.api.isPendingInitialFetch && <Loading message="Fetching templates…" />}
+              {this.store.undeleted.array.map(template => (
+                <Card
+                  key={template.id}
+                  template={template}
+                  onEdit={this.onEditTemplate}
+                  onDelete={this.onConfirmDelete}
+                />))}
+            </Row>
+          </Container>
         </Templates>
       </ScrollToTop>
     );

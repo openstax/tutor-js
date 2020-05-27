@@ -224,6 +224,19 @@ context('Assignment Edit', () => {
     });
   })
 
+  it('updates open date and time manually', () => {
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+
+    cy.get('input[name="tasking_plans[0].opens_at"]').click();
+    cy.get('.oxdt-cell-inner').contains('1').click();
+    cy.get('.oxdt-time-panel-column:nth-child(1) .oxdt-time-panel-cell-inner').contains('08').click();
+    cy.get('.oxdt-time-panel-column:nth-child(2) .oxdt-time-panel-cell-inner').contains('10').click();
+    cy.get('.oxdt-time-panel-column:nth-child(3) .oxdt-time-panel-cell-inner').contains('PM').click();
+    cy.get('.oxdt-ok button').click();
+    cy.get('input[name="tasking_plans[0].opens_at"]').invoke('val').should('contain', '1 | 08:10 PM')
+  })
+
   it('updates date when pivot date is updated', () => {
     const typedOpenDate = 'Jun 10 05:00 PM'
     const typedClosesDate = 'Jun 22 05:00 PMM'

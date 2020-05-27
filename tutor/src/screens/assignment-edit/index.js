@@ -15,7 +15,6 @@ import './styles.scss';
 const StyledBackgroundWrapper = styled(BackgroundWrapper)`
   > * {
     max-width: 1200px;
-    min-width: 1100px;
     margin: 0 auto;
   }
 `;

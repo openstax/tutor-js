@@ -103,7 +103,7 @@ class ChooseExercises extends React.Component {
   }
 
   getExerciseIsSelected = (exercise) => {
-    return exercise.isSelected;
+    return this.props.ux.isExerciseSelected(exercise);
   };
 
   @action.bound setCurrentSection(currentSection) {
