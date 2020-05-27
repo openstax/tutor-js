@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
+import { React, PropTypes, styled, css, Theme } from 'vendor';
 import { Icon } from 'shared';
 import TutorLink from './link';
 import { Course } from '../models/courses-map';
@@ -39,26 +39,39 @@ const TaskTitle = styled.div`
   `}
 `;
 
-export default class CourseBreadcrumb extends React.Component {
+const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan }) => {
+  return (
+    <Wrapper>
+      <TutorLink to="dashboard" params={{ courseId: course.id }}>
+        {course.name}
+      </TutorLink>
+      <AngleDivider>
+        <Icon type="angle-right" />
+      </AngleDivider>
+      {
+        plan &&
+          <>
+            <TutorLink
+              to="reviewAssignment"
+              params={{ courseId: course.id, id: plan.id }}
+            >
+              {plan.title}
+            </TutorLink>
+            <AngleDivider>
+              <Icon type="angle-right" />
+            </AngleDivider>
+          </>
+      }
+      <TaskTitle titleSize={titleSize}>{currentTitle}</TaskTitle>
+    </Wrapper>
+  );
+};
 
-  static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    currentTitle: PropTypes.string.isRequired,
-    titleSize: PropTypes.string,
-  }
+CourseBreadcrumb.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+  plan: PropTypes.object,
+  currentTitle: PropTypes.string.isRequired,
+  titleSize: PropTypes.string,
+};
 
-  render() {
-    const { course, currentTitle, titleSize } = this.props;
-    return (
-      <Wrapper>
-        <TutorLink to="dashboard" params={{ courseId: course.id }}>
-          {course.name}
-        </TutorLink>
-        <AngleDivider>
-          <Icon type="angle-right" />
-        </AngleDivider>
-        <TaskTitle titleSize={titleSize}>{currentTitle}</TaskTitle>
-      </Wrapper>
-    );
-  }
-}
+export default CourseBreadcrumb;

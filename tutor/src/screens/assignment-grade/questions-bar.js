@@ -8,14 +8,20 @@ const Bar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem 2.4rem;
-  border-top: 1px solid ${colors.neutral.lite};
-  border-bottom: 1px solid ${colors.neutral.lite};
+  border-top: 1px solid ${colors.neutral.pale};
+  border-bottom: 1px solid ${colors.neutral.pale};
+`;
+
+const StyledSettingsIcon = styled(SettingsIcon)`
+    border: 1px solid ${colors.neutral.pale};
+    padding: 10px;
+    margin-left: 20px;
 `;
 
 const QuestionWrapper = styled.button`
-  border: 1px solid ${colors.neutral.thin};
+  border: 1px solid ${colors.neutral.pale};
   width: 6rem;
-  height: 7rem;
+  height: 6rem;
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -24,7 +30,7 @@ const QuestionWrapper = styled.button`
   color: ${colors.neutral.thin};
   background-color: ${({ current }) => current ? colors.neutral.light : 'white'};
   h6 {
-    color: blue;
+    color: ${colors.link};
   }
   & + & {
     border-left: 0;
@@ -39,6 +45,12 @@ const QuestionsWrapper = styled.div`
 const Controls = styled.div`
   display: flex;
   align-items: center;
+  & .btn.btn-plain {
+    border: 1px solid ${colors.neutral.pale};
+    padding: 10px;
+    margin-left: 20px;
+    color: ${colors.neutral.grayblue}
+  }
 `;
 
 const Question = ({ heading, ux }) => useObserver(() => {
@@ -62,8 +74,11 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
         <Button
           disabled={!ux.scores.hasUnPublishedScores}
           onClick={ux.onPublishScores}
-        >Publish Scores</Button>
-        <SettingsIcon
+          variant="plain"
+          className="btn btn-plain">
+          Publish Scores
+        </Button>
+        <StyledSettingsIcon
           ux={ux}
           label="Adjust display settings"
           controls={{

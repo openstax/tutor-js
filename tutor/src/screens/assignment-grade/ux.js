@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter, isEmpty } from 'lodash';
+import { first, filter, isEmpty, meanBy } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
@@ -32,12 +32,11 @@ export default class AssignmentGradingUX {
     this.course = course || Courses.get(courseId);
     this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
       first(this.course.periods.active);
-    this.planScores = scores ;
+    this.planScores = scores;
 
     await this.planScores.fetch();
 
     await this.planScores.ensureExercisesLoaded();
-
     this.setHeading(this.headings[0]);
 
     this.exercisesHaveBeenFetched = true;
@@ -59,6 +58,11 @@ export default class AssignmentGradingUX {
       responses = filter(responses, 'needs_grading');
     }
     return responses;
+  }
+
+  @computed get averageScoreForGradedStudents() {
+    const gradedResponses = filter(this.selectedHeading.studentResponses, sr => !sr.needs_grading);
+    return meanBy(gradedResponses, gr => gr.gradedPoints);
   }
 
   @computed get headings() {
@@ -99,5 +103,10 @@ export default class AssignmentGradingUX {
 
   @action.bound async onPublishScores() {
     this.taskingPlan.publishScores();
+  }
+
+  @action.bound setSelectedPeriod(period) {
+    this.selectedPeriod = period;
+    this.setHeading(this.headings[0]);
   }
 }

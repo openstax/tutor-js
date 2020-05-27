@@ -22,7 +22,7 @@ const Box = styled.div`
  padding: 2rem;
  display: flex;
  justify-content: space-between;
- border: 1px solid ${colors.neutral.lite};
+ border: 2px solid ${colors.neutral.pale};
  & + & {
    margin-top: 1rem;
  }
