@@ -62,10 +62,10 @@ const StyledPublishButton = styled(Button).attrs(props => ({
   }
 `;
 
-const Question = ({ heading, ux }) => useObserver(() => {
+const Question = ({ heading, ux, index }) => useObserver(() => {
   const stats = heading.gradedStats;
   return (
-    <QuestionWrapper current={ux.selectedHeading == heading} onClick={() => ux.setHeading(heading)}>
+    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.selectedHeadingIndex = index}>
       <h6>{heading.title}</h6>
       {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
     </QuestionWrapper>
@@ -74,11 +74,10 @@ const Question = ({ heading, ux }) => useObserver(() => {
 
 
 const QuestionsBar = ({ ux }) => useObserver(() => {
-  console.log(ux);
   return (
     <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
-        {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} />)}
+        {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} index={index} />)}
       </QuestionsWrapper>
       <Controls>
         <StyledPublishButton
