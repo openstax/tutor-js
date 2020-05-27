@@ -11,7 +11,7 @@ import {
 } from 'lodash';
 import S from '../../helpers/string';
 
-const NOT_AVAILABLE_AVERAGE = 'n/a';
+const NOT_AVAILABLE_AVERAGE = '---';
 const PENDING_AVERAGE = '---';
 
 const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
