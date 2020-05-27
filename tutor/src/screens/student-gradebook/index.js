@@ -8,7 +8,8 @@ import { BackgroundWrapper } from '../../helpers/background-wrapper';
 import UX from './ux';
 
 const titleBreadcrumbs = (course) => {
-  return <CourseBreadcrumb course={course} currentTitle="Gradebook" />;
+  /** 5/27/20: Display title as Scores */
+  return <CourseBreadcrumb course={course} currentTitle="Scores" />;
 };
 
 @observer
@@ -38,7 +39,8 @@ class StudentGradebook extends React.Component {
       <BackgroundWrapper>
         <CoursePage
           course={ux.course}
-          title="Gradebook"
+          /** 5/27/20: Display title as Scores */
+          title="Scores"
           className="course-scores-report"
           titleBreadcrumbs={titleBreadcrumbs(ux.course)}
           titleAppearance="light"

@@ -24,7 +24,7 @@ const ROUTES = {
     isAllowed(course) { return !!course; },
   },
   studentScores: {
-    label: 'Gradebook',
+    label: 'Scores',
     roles: {
       student: 'viewGradebook',
     },
