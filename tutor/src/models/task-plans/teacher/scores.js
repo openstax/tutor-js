@@ -108,10 +108,6 @@ class TaskPlanScoreHeading extends BaseModel {
     return 'Tutor' !== this.type;
   }
 
-  @computed get displayType() {
-    return this.type === 'FR' ? 'WRQ' : this.type;
-  }
-
   @computed get index() {
     return this.tasking && this.tasking.question_headings.indexOf(this);
   }

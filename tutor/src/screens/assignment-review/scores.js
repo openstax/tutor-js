@@ -332,7 +332,7 @@ const AssignmentHeading = observer(({ ux, heading }) => (
         <SortIcon sort={ux.sortForColumn(heading.index, 'question')} />
       </HeadingTop>
       <HeadingMiddle>
-        {heading.displayType}
+        {heading.type}
       </HeadingMiddle>
       <HeadingBottom>
         {heading.dropped &&
