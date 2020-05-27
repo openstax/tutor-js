@@ -5,8 +5,6 @@ const GreenCircle = styled.div`
   display: inline-block;
   width: 1.4rem;
   height: 1.4rem;
-  position: absolute;
-  right: 1rem;
   background: #009670;
   color: #fff;
   font-size: 0.9rem;
@@ -20,8 +18,9 @@ const ExtensionIcon = () => (
     placement="right"
     overlay={<Tooltip>Student was granted an extension</Tooltip>}
   >
-    <GreenCircle>E</GreenCircle>
+    <GreenCircle className="extension-icon">E</GreenCircle>
   </OverlayTrigger>
 );
 
+export { GreenCircle };
 export default ExtensionIcon;

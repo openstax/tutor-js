@@ -119,6 +119,11 @@ const LateWork = styled.div`
   ${centeredCSS}
   align-self: stretch;
   position: relative;
+
+  .extension-icon {
+    position: absolute;
+    right: 1rem;
+  }
 `;
 
 const Total = styled.div`
@@ -172,7 +177,6 @@ const Definition = styled.dd`
   margin: 0;
   color: ${colors.neutral.thin};
 `;
-
 
 const CornerTriangle = ({ color, tooltip }) => {
   return (
