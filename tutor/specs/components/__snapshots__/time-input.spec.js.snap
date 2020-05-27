@@ -162,7 +162,7 @@ exports[`TimeInput matches snapshot 1`] = `
     </select>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-caret-down fa-w-10 ox-icon ox-icon-caret-down c3"
+      className="svg-inline--fa fa-caret-down fa-w-10 c3 ox-icon ox-icon-caret-down"
       data-icon="caret-down"
       data-prefix="fas"
       focusable="false"
@@ -496,7 +496,7 @@ exports[`TimeInput matches snapshot 1`] = `
     </select>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-caret-down fa-w-10 ox-icon ox-icon-caret-down c3"
+      className="svg-inline--fa fa-caret-down fa-w-10 c3 ox-icon ox-icon-caret-down"
       data-icon="caret-down"
       data-prefix="fas"
       focusable="false"

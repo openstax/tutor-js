@@ -45,7 +45,7 @@ Array [
       </div>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
         color="#5e5e5e"
         data-icon="circle"
         data-prefix="far"
@@ -89,7 +89,7 @@ Array [
       </div>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
         color="#5e5e5e"
         data-icon="circle"
         data-prefix="far"
@@ -138,7 +138,7 @@ Array [
       </div>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
         color="#5e5e5e"
         data-icon="circle"
         data-prefix="far"
@@ -187,7 +187,7 @@ Array [
       </div>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
         color="#5e5e5e"
         data-icon="circle"
         data-prefix="far"

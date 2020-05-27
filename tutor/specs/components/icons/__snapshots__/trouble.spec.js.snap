@@ -6,13 +6,11 @@ exports[`Student Preview Builder matches snapshot 1`] = `
     <OverlayTrigger placement=\\"auto\\" trigger={{...}} overlay={{...}} defaultOverlayShown={false}>
       <RefHolder>
         <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bookmark\\" color=\\"#c2002f\\" rotation={90} icon={{...}} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-          <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-bookmark\\" color=\\"#c2002f\\" rotation={90} icon={{...}} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} forwardedComponent={{...}} forwardedRef={{...}}>
-            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-bookmark IconWrapper-ra27cp-0 ifZSoM\\" color=\\"#c2002f\\" rotation={90} icon={{...}} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bookmark\\" className=\\"svg-inline--fa fa-bookmark fa-w-12 fa-rotate-90 ox-icon ox-icon-bookmark IconWrapper-ra27cp-0 ifZSoM\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 384 512\\" style={{...}} data-variant={[undefined]} color=\\"#c2002f\\" onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-                <path fill=\\"currentColor\\" d=\\"M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z\\" style={{...}} />
-              </svg>
-            </FontAwesomeIcon>
-          </StyledComponent>
+          <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bookmark\\" color=\\"#c2002f\\" rotation={90} icon={{...}} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+            <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bookmark\\" className=\\"svg-inline--fa fa-bookmark fa-w-12 fa-rotate-90 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bookmark\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 384 512\\" style={{...}} data-variant={[undefined]} color=\\"#c2002f\\" onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
+              <path fill=\\"currentColor\\" d=\\"M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z\\" style={{...}} />
+            </svg>
+          </FontAwesomeIcon>
         </IconWrapper>
       </RefHolder>
       <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>

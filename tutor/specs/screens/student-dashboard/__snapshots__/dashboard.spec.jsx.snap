@@ -137,10 +137,9 @@ exports[`Student Dashboard displays as loading 1`] = `
   display: -ms-flexbox;
   display: flex;
   margin: 1rem 0;
-  font-size: 1.2rem;
 }
 
-.c9 span + span {
+.c9 font-size:1.2rem span + span {
   margin-left: 2rem;
 }
 
@@ -269,7 +268,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c0"
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="date-range"
@@ -286,47 +285,47 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
                   </div>
                   <a
                     aria-label="Work on reading: B2C mesh schemas"
-                    className="task reading c5"
+                    className="c5 task reading"
                     data-event-id={5}
                     href="/course/1/task/5"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-reading c6"
+                        className="c6 icon-reading"
                         type="reading"
                       />
                       B2C mesh schemas
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -340,7 +339,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -351,30 +350,30 @@ exports[`Student Dashboard displays as loading 1`] = `
                   </a>
                   <a
                     aria-label="Work on external: granular engineer action-items"
-                    className="task external c5"
+                    className="c5 task external"
                     data-event-id={6}
                     href="/course/1/task/6"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-external c6"
+                        className="c6 icon-external"
                         type="external"
                       />
                       granular engineer action-items
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -388,7 +387,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -399,30 +398,30 @@ exports[`Student Dashboard displays as loading 1`] = `
                   </a>
                   <a
                     aria-label="Work on event: proactive harness supply-chains"
-                    className="task event c5"
+                    className="c5 task event"
                     data-event-id={7}
                     href="/course/1/task/7"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-event c6"
+                        className="c6 icon-event"
                         type="event"
                       />
                       proactive harness supply-chains
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -436,7 +435,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -447,30 +446,30 @@ exports[`Student Dashboard displays as loading 1`] = `
                   </a>
                   <a
                     aria-label="Work on homework: sexy envisioneer synergies"
-                    className="task homework c5"
+                    className="c5 task homework"
                     data-event-id={8}
                     href="/course/1/task/8"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-homework c6"
+                        className="c6 icon-homework"
                         type="homework"
                       />
                       sexy envisioneer synergies
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -484,7 +483,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -498,7 +497,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c8"
+                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin c8 ox-icon ox-icon-spinner"
                       data-icon="spinner"
                       data-prefix="fas"
                       data-variant="activity"
@@ -523,7 +522,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                   <span>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c8"
+                      className="svg-inline--fa fa-exclamation-circle fa-w-16 c8 ox-icon ox-icon-exclamation-circle"
                       color="#f4d019"
                       data-icon="exclamation-circle"
                       data-prefix="fas"
@@ -544,7 +543,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                   <span>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c8"
+                      className="svg-inline--fa fa-clock fa-w-16 c8 ox-icon ox-icon-clock"
                       color="#c2002f"
                       data-icon="clock"
                       data-prefix="far"
@@ -566,7 +565,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     <svg
                       aria-hidden="true"
                       background="#5e5e5e"
-                      className="svg-inline--fa fa-star fa-w-18 ox-icon ox-icon-star c10"
+                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
                       color="white"
                       data-icon="star"
                       data-prefix="fas"
@@ -575,7 +574,6 @@ exports[`Student Dashboard displays as loading 1`] = `
                       role="img"
                       style={Object {}}
                       viewBox="0 0 576 512"
-                      withCircle={true}
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -594,7 +592,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c0"
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="title"
@@ -603,17 +601,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
@@ -814,10 +812,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
   display: -ms-flexbox;
   display: flex;
   margin: 1rem 0;
-  font-size: 1.2rem;
 }
 
-.c9 span + span {
+.c9 font-size:1.2rem span + span {
   margin-left: 2rem;
 }
 
@@ -946,7 +943,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c0"
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="date-range"
@@ -963,47 +960,47 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
                   </div>
                   <a
                     aria-label="Work on reading: turn-key unleash paradigms"
-                    className="task reading c5"
+                    className="c5 task reading"
                     data-event-id={1}
                     href="/course/1/task/1"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-reading c6"
+                        className="c6 icon-reading"
                         type="reading"
                       />
                       turn-key unleash paradigms
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1017,7 +1014,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1028,30 +1025,30 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   </a>
                   <a
                     aria-label="Work on external: intuitive empower niches"
-                    className="task external c5"
+                    className="c5 task external"
                     data-event-id={2}
                     href="/course/1/task/2"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-external c6"
+                        className="c6 icon-external"
                         type="external"
                       />
                       intuitive empower niches
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1065,7 +1062,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1076,30 +1073,30 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   </a>
                   <a
                     aria-label="Work on event: user-centric syndicate web-readiness"
-                    className="task event c5"
+                    className="c5 task event"
                     data-event-id={3}
                     href="/course/1/task/3"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-event c6"
+                        className="c6 icon-event"
                         type="event"
                       />
                       user-centric syndicate web-readiness
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1113,7 +1110,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1124,30 +1121,30 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   </a>
                   <a
                     aria-label="Work on homework: innovative e-enable e-services"
-                    className="task homework c5"
+                    className="c5 task homework"
                     data-event-id={4}
                     href="/course/1/task/4"
                     onClick={[Function]}
                     tabIndex={-1}
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <i
-                        className="icon-homework c6"
+                        className="c6 icon-homework"
                         type="homework"
                       />
                       innovative e-enable e-services
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       <time>
                         Su Oct 18, 7:00am
                       </time>
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       <div
                         className="c7"
@@ -1161,7 +1158,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       <div
                         className="c7"
@@ -1175,7 +1172,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c8"
+                      className="svg-inline--fa fa-spinner fa-w-16 fa-spin c8 ox-icon ox-icon-spinner"
                       data-icon="spinner"
                       data-prefix="fas"
                       data-variant="activity"
@@ -1200,7 +1197,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   <span>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c8"
+                      className="svg-inline--fa fa-exclamation-circle fa-w-16 c8 ox-icon ox-icon-exclamation-circle"
                       color="#f4d019"
                       data-icon="exclamation-circle"
                       data-prefix="fas"
@@ -1221,7 +1218,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   <span>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c8"
+                      className="svg-inline--fa fa-clock fa-w-16 c8 ox-icon ox-icon-clock"
                       color="#c2002f"
                       data-icon="clock"
                       data-prefix="far"
@@ -1243,7 +1240,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     <svg
                       aria-hidden="true"
                       background="#5e5e5e"
-                      className="svg-inline--fa fa-star fa-w-18 ox-icon ox-icon-star c10"
+                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
                       color="white"
                       data-icon="star"
                       data-prefix="fas"
@@ -1252,7 +1249,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       role="img"
                       style={Object {}}
                       viewBox="0 0 576 512"
-                      withCircle={true}
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -1271,7 +1267,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c0"
                   >
                     <div
-                      className="c1"
+                      className="sc-fznyAO c1"
                     >
                       <span
                         className="title"
@@ -1280,17 +1276,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="c2"
+                      className="sc-fznyAO c2"
                     >
                       Due on
                     </div>
                     <div
-                      className="c3"
+                      className="sc-fznyAO c3"
                     >
                       Status
                     </div>
                     <div
-                      className="c4"
+                      className="sc-fznyAO c4"
                     >
                       Scores
                     </div>
