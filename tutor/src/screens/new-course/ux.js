@@ -212,7 +212,7 @@ class CourseBuilderUX extends BaseModel {
   }
 
   test_name() {
-    return every(values(pick(this.newCourse, 'name', 'timezone')), v => Boolean(v));
+    return every(values(pick(this.newCourse, 'name', 'time_zone')), v => Boolean(v));
   }
 
   test_numbers() {

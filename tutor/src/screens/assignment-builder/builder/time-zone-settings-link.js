@@ -16,7 +16,7 @@ const TimeZoneSettingsLink = ({ course }) => {
       params={{ courseId: course.id }}>
       <OverlayTrigger placement="top" overlay={tooltip}>
         <span>
-          {course.timezone}
+          {course.time_zone}
         </span>
       </OverlayTrigger>
     </TutorLink>

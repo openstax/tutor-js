@@ -1061,7 +1061,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             },
           ],
           "term": "spring",
-          "timezone": "US/Central",
+          "time_zone": "Central Time (US & Canada)",
           "uuid": "72614e6c-ebf8-4879-9145-76ade4177f38",
           "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
           "year": 2017,

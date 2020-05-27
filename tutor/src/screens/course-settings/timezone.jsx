@@ -14,7 +14,7 @@ import S from '../../helpers/string';
 
 import Course from '../../models/course';
 
-const timezonePropType = PropTypes.oneOf(TimeHelper.getTimezones());
+const timezonePropType = PropTypes.oneOf(values(TimeHelper.getTimezones()));
 
 @observer
 class TimezonePreview extends React.Component {
@@ -133,7 +133,7 @@ class SetTimezone extends React.Component {
 
   @observable showModal = false
   @observable invalid = false;
-  @observable course_timezone = this.props.course.timezone;
+  @observable course_timezone = this.props.course.time_zone;
 
   @action.bound open() {
     this.showModal = true;
@@ -148,7 +148,7 @@ class SetTimezone extends React.Component {
 
   @action.bound performUpdate() {
     if (this.invalid) { return; }
-    this.props.course.timezone = this.course_timezone;
+    this.props.course.time_zone = this.course_timezone;
     this.props.course.save().then(this.close);
   }
 
@@ -168,7 +168,7 @@ class SetTimezone extends React.Component {
           <Modal.Body className={classnames({ 'is-invalid-form': this.invalid })}>
             <SetTimezoneField
               name="course-timezone"
-              defaultValue={this.props.course.timezone}
+              defaultValue={this.props.course.time_zone}
               onChange={val => this.course_timezone = val}
               validate={this.validate}
             />

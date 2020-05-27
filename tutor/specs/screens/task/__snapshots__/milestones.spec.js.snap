@@ -733,7 +733,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
           ],
           "term": "spring",
-          "timezone": "US/Central",
+          "time_zone": "Central Time (US & Canada)",
           "uuid": "ebf88799-1457-46ad-a417-7f3869c17dc9",
           "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
           "year": 2017,

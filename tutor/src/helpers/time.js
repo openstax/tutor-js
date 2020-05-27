@@ -1,19 +1,32 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
-import { isEmpty, clone, first } from 'lodash';
+import { isEmpty, pick, map, clone, values, first } from 'lodash';
 
-// List of allowed http://www.iana.org/time-zones
-const TIMEZONES = [
-  'US/Hawaii',
-  'US/Alaska',
-  'US/Pacific',
-  'US/Arizona',
-  'US/Mountain',
-  'US/Central',
-  'US/Eastern',
-  'US/East-Indiana',
-  'Canada/Atlantic',
-];
+// Map http://www.iana.org/time-zones names to timezone names in Rails
+// https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
+const TIME_LINKS = {
+  'US/Hawaii': 'Hawaii',
+  'US/Alaska': 'Alaska',
+  'US/Pacific': 'Pacific Time (US & Canada)',
+  'US/Arizona': 'Arizona',
+  'US/Mountain': 'Mountain Time (US & Canada)',
+  'US/Central': 'Central Time (US & Canada)',
+  'US/Eastern': 'Eastern Time (US & Canada)',
+  'US/East-Indiana': 'Indiana (East)',
+  'Canada/Atlantic': 'Atlantic Time (Canada)',
+};
+
+// uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
+moment.tz.add(
+  map(TIME_LINKS, (alternativeZoneName, loadedZoneName) => {
+    const loadedUnpackedObject = pick(
+      moment.tz.zone(loadedZoneName),
+      ['abbrs', 'offsets', 'untils']
+    );
+    loadedUnpackedObject.name = alternativeZoneName;
+    return moment.tz.pack(loadedUnpackedObject);
+  })
+);
 
 // eslint-disable-next-line
 const ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/;
@@ -150,12 +163,12 @@ const TimeHelper = {
   },
 
   getTimezones() {
-    return clone(TIMEZONES);
+    return clone(TIME_LINKS);
   },
 
   isTimezoneValid(timezone) {
     let needle;
-    return (needle = timezone, TimeHelper.getTimezones().includes(needle));
+    return (needle = timezone, values(TimeHelper.getTimezones()).includes(needle));
   },
 
   isCourseTimezone(courseTimezone) {
