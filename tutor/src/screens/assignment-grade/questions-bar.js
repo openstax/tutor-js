@@ -1,4 +1,4 @@
-import { React, useObserver, styled, css } from 'vendor';
+import { React, useObserver, styled } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
