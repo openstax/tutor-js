@@ -104,7 +104,7 @@ const AssignmentGradingQuestion = observer(({ ux }) => (
     <QuestionHeader ux={ux} />
     <QuestionBody>
       <Question
-        question={ux.selectedHeading.question}
+        question={ux.selectedHeading ? ux.selectedHeading.question : null}
         hideAnswers={false}
         displaySolution={ux.showAnswerKey}
         choicesEnabled={false}

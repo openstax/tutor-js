@@ -35,6 +35,7 @@ const ScoreInput = styled.input`
   text-align: center;
   width: 5rem;
   margin: 0 0.8rem;
+  border: 2px solid ${colors.neutral.pale};
 `;
 const ScoreWrapper = styled.div`
   display: flex;

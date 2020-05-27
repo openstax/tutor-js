@@ -88,10 +88,14 @@ export default class AssignmentGradingUX {
   @action async saveScore({ response, points, comment }) {
     const grade = new Grade({ points, comment, response });
     await grade.save();
+    //refetch scores after grade was saved
+    await this.planScores.fetch();
+    await this.planScores.ensureExercisesLoaded();
 
+    // move to next question if any
     if (isEmpty(this.unGraded)) {
       const nextHeadingIndex = this.headings.indexOf(this.selectedHeading) + 1;
-      if (nextHeadingIndex < this.headings.length + 1) {
+      if (nextHeadingIndex < this.headings.length) {
         this.setHeading(this.headings[nextHeadingIndex]);
       }
     }
