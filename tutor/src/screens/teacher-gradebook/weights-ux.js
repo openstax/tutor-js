@@ -1,4 +1,5 @@
 import { observable, computed, action } from 'mobx';
+import { find } from 'lodash';
 
 const DEFAULTS = {
   ux_reading_weight: 50,
@@ -31,18 +32,19 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound async onSaveWeights() {
-    const { course } = this;
-    Object.assign(course, {
+    Object.assign(this.course, {
       homework_weight: this.ux_homework_weight / 100,
       reading_weight: this.ux_reading_weight / 100,
     });
     try {
       this.isSaving = true;
-      await course.save();
-      await course.scores.fetch();
+      await this.course.save();
+      await this.course.scores.fetch();
+      // getting the new course average for the students
+      this.updateCurrentPeriodScores(this.scoresUx.periodId);
     } catch {
       // reset course weights to previous weight values
-      Object.assign(course, {
+      Object.assign(this.course, {
         homework_weight: this.ux_homework_weight * 100,
         reading_weight: this.ux_reading_weight * 100,
       });
@@ -72,6 +74,10 @@ export default class ScoresReportWeightsUX {
 
   @computed get isSaveable() {
     return this.isValid && !this.isBusy && this.hasChanged;
+  }
+
+  @action updateCurrentPeriodScores(periodId) {
+    this.scoresUx.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === periodId) || [];
   }
 
   getDefaults() {
