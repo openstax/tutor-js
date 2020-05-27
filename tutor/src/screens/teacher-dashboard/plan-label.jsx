@@ -64,7 +64,7 @@ class CoursePlanLabel extends React.Component {
           data-title={plan.title}
         >
           <GradeBanner plan={plan} />
-          <Title className="text">{plan.title}</Title>
+          <Title className="text" title={plan.title}>{plan.title}</Title>
         </Label>
       </TourAnchor>
     );
