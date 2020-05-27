@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
-import { ToolbarButton } from 'primitives';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import OXQuestionPreview from '../../components/question-preview';
@@ -277,12 +276,14 @@ const DropQuestion = observer(({ ux }) => {
         placement="bottom"
         overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
       >
-        <ToolbarButton
+        <Button
+          variant="light"
+          className="btn-standard"
           data-test-id="drop-questions-btn"
           onClick={() => ux.isDisplayingDropQuestions=true}
         >
           Drop questions
-        </ToolbarButton>
+        </Button>
       </OverlayTrigger>
       <DropQuestionsModal
         show={ux.isDisplayingDropQuestions}

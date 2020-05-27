@@ -19,6 +19,8 @@ export default class AssignmentReviewUX {
   @observable editablePlan;
   @observable rowSort = { key: 0, asc: true, dataType: 'name' };
   @observable searchingMatcher = null;
+  @observable reverseNameOrder = false;
+  @observable displayTotalInPercent = false;
 
   freeResponseQuestions = observable.map();
   pendingExtensions = observable.map();
@@ -44,6 +46,7 @@ export default class AssignmentReviewUX {
     this.onTabSelection = onTabSelection;
 
     await this.planScores.fetch();
+    await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
 
     await this.planScores.ensureExercisesLoaded();
@@ -71,13 +74,14 @@ export default class AssignmentReviewUX {
     return this.planScores.taskPlan;
   }
 
+  // methods relating to sorting and filtering scores table
+
   @computed get sortedStudents() {
     const students = rowDataSorter(this.scores.students, this.rowSort);
     if (!this.searchingMatcher) {
       return students;
     }
     return filter(students, s => s.name.match(this.searchingMatcher));
-
   }
 
   @action.bound changeRowSortingOrder(key, dataType) {
@@ -94,6 +98,13 @@ export default class AssignmentReviewUX {
     return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType) ? this.rowSort : false;
   }
 
+  @action.bound toggleNameOrder() {
+    this.reverseNameOrder = !this.reverseNameOrder;
+  }
+
+  @computed get nameOrderHeader() {
+    return this.reverseNameOrder ? 'Firstname Lastname' : 'Lastname, Firstname';
+  }
 
   isShowingFreeResponseForQuestion(question) {
     return Boolean(this.freeResponseQuestions.get(question.id));
@@ -129,6 +140,11 @@ export default class AssignmentReviewUX {
     this.cancelDisplayingGrantExtension();
   }
 
+  wasGrantedExtension(role_id) {
+    return Boolean(
+      this.taskPlan.extensions.length > 0 && this.taskPlan.extensions.find(e => e.role_id == role_id)
+    );
+  }
 
   // methods relating to droppping questions
 

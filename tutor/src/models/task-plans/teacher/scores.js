@@ -4,13 +4,14 @@ import {
 import Exercises from '../../exercises';
 import { filter, sumBy, find, isNil, compact } from 'lodash';
 import DroppedQuestion from './dropped_question';
+import S from '../../../helpers/string';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
   @identifier question_id;
   @field exercise_id;
   @field is_completed = false;
-  @field points = 0;
+  @field points;
   @field selected_answer_id;
   @field free_response;
   @field task_step_id;
@@ -43,6 +44,27 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @computed get isManuallyGraded() {
     return !isNil(this.grader_points);
   }
+
+  @computed get isTrouble() {
+    return !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
+  }
+
+  @computed get displayValue() {
+    const { dropped } = this.questionHeading;
+    const pending = '---';
+
+    if (this.needs_grading) { return pending; }
+
+    if (dropped && this.is_completed) {
+      return S.numberWithOneDecimalPlace(
+        dropped.drop_method == 'full_credit' ? this.availablePoints : 0
+      );
+    }
+
+    if (!isNil(this.gradedPoints)) { return S.numberWithOneDecimalPlace(this.gradedPoints); }
+
+    return pending;
+  }
 }
 
 @identifiedBy('task-plan/scores/student')
@@ -64,6 +86,10 @@ class TaskPlanScoreStudent extends BaseModel {
 
   @computed get name() {
     return `${this.last_name}, ${this.first_name}`;
+  }
+
+  @computed get reversedName() {
+    return `${this.first_name} ${this.last_name}`;
   }
 }
 
@@ -126,6 +152,12 @@ class TaskPlanScoreHeading extends BaseModel {
     };
   }
 
+  @computed get displayPoints() {
+    const { dropped } = this;
+    return dropped ?
+      (dropped.drop_method == 'zeroed' ? 0 : this.points_without_dropping) : this.points;
+  }
+
 }
 
 @identifiedBy('task-plan/scores/tasking')
@@ -142,6 +174,10 @@ class TaskPlanScoresTasking extends BaseModel {
     core() { return filter(this, h => h.type != 'Tutor'); },
   } }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
+
+  @computed get availablePoints() {
+    return sumBy(this.question_headings, 'points');
+  }
 
   // this returns all of the quesions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions
