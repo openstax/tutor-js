@@ -1,4 +1,4 @@
-import { React, PropTypes, useObserver, styled } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { Formik } from 'formik';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
@@ -80,11 +80,11 @@ const setDefaults = (uxWeights, form) => {
   form.setFieldValue('ux_homework_weight', defaults.ux_homework_weight);
 };
 
-const SetWeightsModal = ({ ux }) => {
-  
-  const { weights: uxWeights } = ux;
 
-  return useObserver(() =>
+const SetWeightsModal = observer(({ ux }) => {
+  const { weights: uxWeights } = ux;
+  
+  return (
     <StyledModal
       show={uxWeights.showWeightsModal}
       onHide={() => uxWeights.hideWeights()}
@@ -169,7 +169,7 @@ const SetWeightsModal = ({ ux }) => {
     </StyledModal>
   );
   
-};
+});
 
 SetWeightsModal.propTypes = {
   ux: PropTypes.object,

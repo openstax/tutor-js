@@ -31,13 +31,13 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound async onSaveWeights() {
-    this.isSaving = true;
     const { course } = this;
     Object.assign(course, {
       homework_weight: this.ux_homework_weight / 100,
       reading_weight: this.ux_reading_weight / 100,
     });
     try {
+      this.isSaving = true;
       await course.save();
       await course.scores.fetch();
     } catch {
