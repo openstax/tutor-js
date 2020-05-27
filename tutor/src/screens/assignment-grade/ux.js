@@ -35,8 +35,10 @@ export default class AssignmentGradingUX {
     this.planScores = scores;
 
     await this.planScores.fetch();
-
+    await this.planScores.taskPlan.fetch();
+    await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
+
     this.setHeading(this.headings[0]);
 
     this.exercisesHaveBeenFetched = true;
@@ -70,7 +72,7 @@ export default class AssignmentGradingUX {
   }
 
   @computed get unGraded() {
-    return filter(this.studentResponses, s => s.needs_grading);
+    return filter(this.selectedHeading.studentResponses, s => s.needs_grading);
   }
 
   wasQuestionViewed(index) {
@@ -91,6 +93,7 @@ export default class AssignmentGradingUX {
     //refetch scores after grade was saved
     await this.planScores.fetch();
     await this.planScores.ensureExercisesLoaded();
+    
 
     // move to next question if any
     if (isEmpty(this.unGraded)) {
@@ -98,6 +101,11 @@ export default class AssignmentGradingUX {
       if (nextHeadingIndex < this.headings.length) {
         this.setHeading(this.headings[nextHeadingIndex]);
       }
+    }
+    else {
+      console.log(this.headings.indexOf(this.selectedHeading));
+      // refetching planScores - need to set the selectedHeading to new data
+      //this.setHeading(this.headings[]);
     }
   }
 

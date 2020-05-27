@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sumBy, find, isNil, compact } from 'lodash';
+import { filter, sumBy, find, isNil, compact, some, every } from 'lodash';
 import DroppedQuestion from './dropped_question';
 
 @identifiedBy('task-plan/scores/student-question')
@@ -193,7 +193,7 @@ class TaskPlanScoresTasking extends BaseModel {
 
   @computed get hasUnPublishedScores() {
     return Boolean(
-      find(this.students, student => find(student.questions, question => !isNil(question.grader_points))),
+      some(this.students, student => every(student.questions, question => Boolean(question.needs_grading))),
     );
   }
 }

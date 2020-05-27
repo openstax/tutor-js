@@ -74,6 +74,7 @@ const Question = ({ heading, ux }) => useObserver(() => {
 
 
 const QuestionsBar = ({ ux }) => useObserver(() => {
+  console.log(ux);
   return (
     <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
