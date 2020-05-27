@@ -107,12 +107,12 @@ export default class AssignmentUX {
             tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
             tp.closes_at = moment(tp.due_at).add(1, 'minute').toISOString();
           });
-        }  
+        }
       } else {
         this.periods.map((period) =>
           this.plan.findOrCreateTaskingForPeriod(period),
         );
-      }      
+      }
     } else {
       await this.plan.ensureLoaded();
     }
@@ -381,8 +381,16 @@ export default class AssignmentUX {
     return this.canEdit && this.numTutorSelections > SELECTION_COUNTS.min;
   }
 
+  @computed get numMCQs() {
+    return flatMap(filter(this.plan.exercises, 'isMultiChoice'), 'content.questions').length;
+  }
+
+  @computed get numWRQs() {
+    return flatMap(filter(this.plan.exercises, 'isOpenEnded'), 'content.questions').length;
+  }
+
   @computed get numExerciseSteps() {
-    return flatMap(this.plan.exercises, 'content.questions').length;
+    return this.numMCQs + this.numWRQs;
   }
 
   @computed get totalSelections() {

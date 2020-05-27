@@ -42,19 +42,13 @@ class ExerciseQuestion extends BaseModel {
   @belongsTo({ model: 'exercise' }) exercise;
 
   @computed get isMultipleChoice() {
-    return this.hasFormat('multiple-choice');
+    return this.hasFormat('multiple-choice') && this.answers.length > 0;
   }
 
   @computed get isOpenEnded() {
-    return Boolean(
-      this.formats.length == 1 && this.hasFormat('free-response')
-    );
+    return Boolean(!this.isMultipleChoice && this.hasFormat('free-response'));
   }
 
-  @computed get isFreeResonseOnly() {
-    return Boolean(this.hasFormat('free-response') && this.answers.length == 0);
-  }
-  
   hasFormat(value) {
     if (value == 'open-ended') { return this.isOpenEnded; }
     return Boolean(find(this.formats, { value }));

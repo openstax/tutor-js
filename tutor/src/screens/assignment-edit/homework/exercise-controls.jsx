@@ -216,7 +216,7 @@ class ExerciseControls extends React.Component {
   }
 
   render() {
-    const { ux, ux: { numExerciseSteps, numTutorSelections, totalSelections } } = this.props;
+    const { ux, ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
 
     return (
       <Wrapper>
@@ -233,14 +233,14 @@ class ExerciseControls extends React.Component {
                 <Columns>
                   <Counter>
                     <Title>MCQs</Title>
-                    <span data-test-id="selection-count">{numExerciseSteps}</span>
+                    <span data-test-id="selection-count">{numMCQs}</span>
                   </Counter>
                   <Counter variant="plus">
                     +
                   </Counter>
                   <Counter>
                     <Title>WRQs</Title>
-                    0
+                    <span data-test-id="selection-count">{numWRQs}</span>
                   </Counter>
                 </Columns>
               </Indicator>

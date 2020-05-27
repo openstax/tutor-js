@@ -62,6 +62,7 @@ class TutorExercise extends BaseModel {
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
   @computed get isMultiChoice() { return this.content.isMultiChoice; }
+  @computed get isOpenEnded() { return this.content.isOpenEnded; }
 
   @computed get types() {
     return map(
@@ -75,7 +76,7 @@ class TutorExercise extends BaseModel {
   @computed get typeAbbreviation() {
     if (this.isMultiChoice) {
       return 'MCQ';
-    } else if (this.content.isFreeResonseOnly) {
+    } else if (this.content.isOpenEnded) {
       return 'WRQ';
     }
     return 'UNK';
