@@ -97,7 +97,7 @@ exports[`Course Page renders and matches snapshot 2`] = `
 >
   <header>
     <div
-      className="c0 title-wrapper"
+      className="title-wrapper c0"
       data-test-id="page-title"
     >
       <div
@@ -125,7 +125,7 @@ exports[`Course Page renders and matches snapshot 2`] = `
       This is a test notice
     </h1>
     <div
-      className="c5 controls-wrapper"
+      className="controls-wrapper c5"
     >
       <button>
         Click Me

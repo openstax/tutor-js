@@ -71,7 +71,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
 }
 
 <div
-  className="c0 date-time-input"
+  className="date-time-input c0"
 >
   <label
     className="c1"
@@ -109,7 +109,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-calendar fa-w-14 c5 ox-icon ox-icon-calendar"
+        className="svg-inline--fa fa-calendar fa-w-14 ox-icon ox-icon-calendar c5"
         data-icon="calendar"
         data-prefix="far"
         focusable="false"

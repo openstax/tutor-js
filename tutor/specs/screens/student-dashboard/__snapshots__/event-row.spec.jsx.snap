@@ -148,30 +148,30 @@ exports[`Event Row renders and matches snapshot 1`] = `
     <div>
       <a
         aria-label="Work on homework: real-time empower content"
-        className="sc-AxhCb c0 task homework"
+        className="task homework c0"
         data-event-id={4}
         href="/course/1/task/4"
         onClick={[Function]}
         tabIndex={-1}
       >
         <div
-          className="sc-AxiKw c1"
+          className="c1"
         >
           <i
-            className="c2 icon-homework"
+            className="icon-homework c2"
             type="homework"
           />
           real-time empower content
         </div>
         <div
-          className="sc-AxiKw c3"
+          className="c3"
         >
           <time>
             Su Oct 27, 7:00am
           </time>
         </div>
         <div
-          className="sc-AxiKw c4"
+          className="c4"
         >
           <div
             className="c5"
@@ -188,7 +188,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 c6 ox-icon ox-icon-clock"
+                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c6"
                 color="#c2002f"
                 data-icon="clock"
                 data-prefix="far"
@@ -208,7 +208,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="sc-AxiKw c7"
+          className="c7"
         >
           <div
             className="c5"

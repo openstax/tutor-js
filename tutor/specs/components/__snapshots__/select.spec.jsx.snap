@@ -55,7 +55,7 @@ exports[`Select matches snapshot 1`] = `
   />
   <svg
     aria-hidden="true"
-    className="svg-inline--fa fa-caret-down fa-w-10 c2 ox-icon ox-icon-caret-down"
+    className="svg-inline--fa fa-caret-down fa-w-10 ox-icon ox-icon-caret-down c2"
     data-icon="caret-down"
     data-prefix="fas"
     focusable="false"

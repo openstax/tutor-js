@@ -47,7 +47,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
         className="c0"
       >
         <div
-          className="c1 task-steps-end"
+          className="task-steps-end c1"
         >
           <div
             className="c2"
@@ -140,7 +140,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
         className="c0"
       >
         <div
-          className="c1 task-steps-end"
+          className="task-steps-end c1"
         >
           <div
             className="c2"
@@ -233,7 +233,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
         className="c0"
       >
         <div
-          className="c1 task-steps-end"
+          className="task-steps-end c1"
         >
           <div
             className="c2"
@@ -329,7 +329,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
         className="c0"
       >
         <div
-          className="c1 task-steps-end"
+          className="task-steps-end c1"
         >
           <div
             className="c2"

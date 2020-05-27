@@ -20,7 +20,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-print fa-w-16 c0 ox-icon ox-icon-print"
+      className="svg-inline--fa fa-print fa-w-16 ox-icon ox-icon-print c0"
       data-icon="print"
       data-prefix="fas"
       focusable="false"
@@ -51,7 +51,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
         >
           <h2>
             <span
-              className="c1 chapter-section"
+              className="chapter-section c1"
               data-chapter-section="3.3"
             >
               3.3

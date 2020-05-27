@@ -87,7 +87,7 @@ exports[`Student Enrollment displays generic error message 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-exclamation-triangle fa-w-18 c0 ox-icon ox-icon-exclamation-triangle"
+          className="svg-inline--fa fa-exclamation-triangle fa-w-18 ox-icon ox-icon-exclamation-triangle c0"
           data-icon="exclamation-triangle"
           data-prefix="fas"
           focusable="false"
@@ -138,8 +138,8 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #77AF42;
-  -webkit-animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  -webkit-animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center left;
   -ms-transform-origin: center left;
   transform-origin: center left;
@@ -149,8 +149,8 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F47641;
-  -webkit-animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  -webkit-animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
@@ -160,8 +160,8 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #5E6062;
-  -webkit-animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  -webkit-animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
@@ -171,8 +171,8 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F4D019;
-  -webkit-animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
-  animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
+  -webkit-animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
+  animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
@@ -182,8 +182,8 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #00246A;
-  -webkit-animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  -webkit-animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center;
   -ms-transform-origin: center;
   transform-origin: center;
@@ -202,7 +202,7 @@ exports[`Student Enrollment loads when mounted 1`] = `
         className="overlay"
       />
       <div
-        className="c0 inner"
+        className="inner c0"
       >
         <svg
           className="c1"
@@ -215,23 +215,23 @@ exports[`Student Enrollment loads when mounted 1`] = `
           y="0px"
         >
           <path
-            className="c2 blue"
+            className="blue c2"
             d="M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2     c0.4,0,0.7,0.3,0.7,0.7V22z"
           />
           <path
-            className="c3 yellow"
+            className="yellow c3"
             d="M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1     c0-0.4,0.3-0.7,0.7-0.7L41,15c0.4,0,0.7,0.3,0.7,0.7L41.8,17.8z"
           />
           <path
-            className="c4 gray"
+            className="gray c4"
             d="M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5     c0.4,0,0.7,0.3,0.7,0.7V14z"
           />
           <path
-            className="c5 orange"
+            className="orange c5"
             d="M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38     c0.5,0,1,0.2,1,0.5V8.1z"
           />
           <path
-            className="c6 green"
+            className="green c6"
             d="M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1     l27.7,1.3c0.7,0,1.2,0.6,1.1,1.2L43.9,5z"
           />
           <path
@@ -297,7 +297,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             </div>
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+              className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
               color="#5e5e5e"
               data-icon="circle"
               data-prefix="far"
@@ -327,7 +327,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             </div>
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+              className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
               color="#5e5e5e"
               data-icon="circle"
               data-prefix="far"

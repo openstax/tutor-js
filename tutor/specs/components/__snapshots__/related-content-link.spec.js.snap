@@ -38,10 +38,10 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
 }
 
 <div
-  className="c0 related-content-link"
+  className="related-content-link c0"
 >
   <span
-    className="c1 preamble"
+    className="preamble c1"
   >
     Comes from
   </span>
@@ -54,13 +54,13 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
     target="_blank"
   >
     <span
-      className="c2 chapter-section"
+      className="chapter-section c2"
       data-chapter-section="1.0"
     >
       1
     </span>
     <span
-      className="c3 title"
+      className="title c3"
     >
       Intro
     </span>
