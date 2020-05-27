@@ -1,4 +1,4 @@
-import { React, useObserver, styled } from 'vendor';
+import { React, useObserver, styled, css } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
@@ -53,6 +53,15 @@ const Controls = styled.div`
   }
 `;
 
+const StyledPublishButton = styled(Button).attrs(props => ({
+  disabled: props.isDisabled,
+  variant: props.isDisabled ? 'plain' : 'primary',
+}))`
+  &&& {
+    padding: 10px;
+  }
+`;
+
 const Question = ({ heading, ux }) => useObserver(() => {
   const stats = heading.gradedStats;
   return (
@@ -71,13 +80,11 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
         {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} />)}
       </QuestionsWrapper>
       <Controls>
-        <Button
-          disabled={!ux.scores.hasUnPublishedScores}
-          onClick={ux.onPublishScores}
-          variant="plain"
-          className="btn btn-plain">
+        <StyledPublishButton
+          isDisabled={!ux.scores.hasUnPublishedScores}
+          onClick={ux.onPublishScores}>
           Publish Scores
-        </Button>
+        </StyledPublishButton>
         <StyledSettingsIcon
           ux={ux}
           label="Adjust display settings"

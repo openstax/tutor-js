@@ -23,9 +23,7 @@ const AnswerKey = observer(({ ux }) => (
 
 const StyledQuestionHeading = styled.div`
   background: ${colors.templates.homework.background};
-  border: 1px solid ${colors.templates.homework.border};
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom: 2px solid ${colors.neutral.pale};
   align-items: center;
   padding: 0 10px;
   color: ${colors.neutral.grayblue};
@@ -62,6 +60,9 @@ const QuestionBody = styled.div`
 `;
 
 const StyledQuestion = styled.div`
+    border: 2px solid ${colors.neutral.pale};
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 `;
                
 QuestionHeader.propTypes = {
