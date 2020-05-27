@@ -76,7 +76,7 @@ class TutorExercise extends BaseModel {
   @computed get typeAbbreviation() {
     if (this.isMultiChoice) {
       return 'MCQ';
-    } else if (this.content.isOpenEnded) {
+    } else if (this.isOpenEnded) {
       return 'WRQ';
     }
     return 'UNK';

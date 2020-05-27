@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExerciseControls renders the correct question counts 1`] = `
+.c10 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  background: #fff;
+}
+
+.c11 {
+  background-color: #fafafa;
+  border: 1px solid #d5d5d5;
+  border-width: 1px 0;
+  padding: 1.6rem 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+.c11 > :first-child {
+  margin-right: 2.4rem;
+}
+
+.c12.btn.btn-plain {
+  color: #5f6163;
+  border: 1px solid #d5d5d5;
+  padding: 1rem 2rem;
+  margin-right: 1.2rem;
+}
+
+.c12.btn.btn-plain.active {
+  background-color: #e4e4e4;
+}
+
+.c9 {
+  background: transparent;
+  border: 1px solid #929292;
+  color: #929292;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.c9:disabled {
+  visibility: hidden;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2 {
+  margin-left: 6.4rem;
+}
+
+.c4 {
+  margin: 0.4rem 0;
+}
+
+.c5 {
+  text-align: center;
+  min-width: 20rem;
+  padding: 1.5rem 4rem;
+}
+
+.c5:not(:last-child) {
+  border-right: 1px solid #d5d5d5;
+}
+
+.c6 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  line-height: 3rem;
+}
+
+.c8 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  line-height: 3rem;
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  font-size: 1.6rem;
+}
+
+.c7 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.c3 .sectionizer {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.c3 .sectionizer div {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2rem;
+  width: 4rem;
+}
+
+.c3 .sectionizer div.section {
+  border: 1px solid #d5d5d5;
+  position: relative;
+  margin-right: 0;
+  margin-left: -1px;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+.c3 .sectionizer div.section:first-child {
+  margin-left: 0;
+}
+
+.c3 .sectionizer div.active {
+  background-color: #e4e4e4;
+  z-index: 10;
+}
+
+.c3 .sectionizer div.disabled {
+  cursor: default;
+  color: #e4e4e4;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+      >
+        <div
+          className="sectionizer"
+        >
+          <div
+            className="prev"
+            onClick={[Function]}
+          >
+            ❮❮
+          </div>
+          <div
+            className="next disabled"
+            onClick={[Function]}
+          >
+            ❯❯
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c4"
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c5"
+        >
+          <div>
+            My Selections
+          </div>
+          <div
+            className="c1"
+          >
+            <div
+              className="c6"
+            >
+              <div
+                className="c7"
+              >
+                MCQs
+              </div>
+              <span
+                data-test-id="selection-count"
+              >
+                1
+              </span>
+            </div>
+            <div
+              className="c8"
+            >
+              +
+            </div>
+            <div
+              className="c6"
+            >
+              <div
+                className="c7"
+              >
+                WRQs
+              </div>
+              <span
+                data-test-id="selection-count"
+              >
+                2
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="c5"
+        >
+          <div
+            className="tour-anchor"
+            data-tour-anchor-id="tutor-selections"
+          >
+            <div
+              className="tutor-selections"
+            >
+              <div>
+                OpenStax Tutor Selections
+              </div>
+              <button
+                className="btn btn-link"
+                disabled={false}
+                id="homework-selections-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                What are these?
+              </button>
+              <div
+                className="c1"
+              >
+                <button
+                  className="c9"
+                  data-test-id="decrease-button"
+                  disabled={true}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-minus fa-w-14 fa-xs c10 ox-icon ox-icon-minus"
+                    data-icon="minus"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </button>
+                <div
+                  className="c6"
+                  data-test-id="tutor-count"
+                >
+                  3
+                </div>
+                <button
+                  className="c9"
+                  data-test-id="increase-button"
+                  disabled={true}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-plus fa-w-14 fa-xs c10 ox-icon ox-icon-plus"
+                    data-icon="plus"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="c5"
+        >
+          Total
+          <div
+            className="c6"
+            data-test-id="total-count"
+          >
+            6
+          </div>
+        </div>
+        <div
+          className="tutor-added-later"
+        >
+          <span>
+            Tutor selections are added later to support spaced practice and personalized learning.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="c11"
+  >
+    <strong>
+      Filter
+    </strong>
+    <div
+      className="btn-group btn-group-toggle"
+      role="group"
+    >
+      <label
+        className="c12 btn btn-plain"
+        disabled={false}
+      >
+        <input
+          autoComplete="off"
+          checked={false}
+          disabled={false}
+          name="filter"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          type="radio"
+          value="all"
+        />
+        All questions
+      </label>
+      <label
+        className="c12 btn btn-plain"
+        disabled={false}
+      >
+        <input
+          autoComplete="off"
+          checked={false}
+          disabled={false}
+          name="filter"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          type="radio"
+          value="mc"
+        />
+        Multiple-choice questions only
+      </label>
+      <label
+        className="c12 btn btn-plain"
+        disabled={false}
+      >
+        <input
+          autoComplete="off"
+          checked={false}
+          disabled={false}
+          name="filter"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          type="radio"
+          value="oe"
+        />
+        Written-response questions only
+      </label>
+    </div>
+  </div>
+</div>
+`;
