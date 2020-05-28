@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { ExerciseNumber, Question } from '../../components/homework-questions';
 import Answer from './answer';
 import { colors } from 'theme';
+import S from '../../helpers/string';
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
@@ -22,9 +23,7 @@ const AnswerKey = observer(({ ux }) => (
 
 const StyledQuestionHeading = styled.div`
   background: ${colors.templates.homework.background};
-  border: 1px solid ${colors.templates.homework.border};
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom: 2px solid ${colors.neutral.pale};
   align-items: center;
   padding: 0 10px;
   color: ${colors.neutral.grayblue};
@@ -36,6 +35,9 @@ const StyledQuestionHeading = styled.div`
     display: flex;
     align-items: center;
     > * { margin: 0 .5rem; }
+  }
+  label {
+    padding-right: 20px;
   }
 `;
       
@@ -55,10 +57,12 @@ const QuestionBody = styled.div`
   padding: 2rem;
   border-top: 0px;
   background-color: white;
-  border: 1px solid ${colors.neutral.pale};
 `;
 
 const StyledQuestion = styled.div`
+    border: 2px solid ${colors.neutral.pale};
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 `;
                
 QuestionHeader.propTypes = {
@@ -66,10 +70,14 @@ QuestionHeader.propTypes = {
 };
 
 
-const StyledExpandGraded = styled(Button).attrs({
-  variant: 'link',
-})`
+const ExpandGradedWrapper = styled.div`
+  display:flex;
+  justify-content: space-between;
 
+  & label {
+    padding: 7px 2rem 0;
+    font-weight: 700;
+  }
 `;
 
 const ExpandGraded = observer(({ ux }) => {
@@ -78,11 +86,15 @@ const ExpandGraded = observer(({ ux }) => {
     return null;
   }
   return (
-    <StyledExpandGraded
-      onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
-    >
-      {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {ux.selectedHeading.gradedProgress}
-    </StyledExpandGraded>
+    <ExpandGradedWrapper>
+      <Button
+        onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
+        variant="link"
+      >
+        {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {ux.selectedHeading.gradedProgress}
+      </Button>
+      <label>Average Score: {ux.averageScoreForGradedStudents} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.totalPoints)}</label>
+    </ExpandGradedWrapper>
   );
 });
 
@@ -92,7 +104,7 @@ const AssignmentGradingQuestion = observer(({ ux }) => (
     <QuestionHeader ux={ux} />
     <QuestionBody>
       <Question
-        question={ux.selectedHeading.question}
+        question={ux.selectedHeading ? ux.selectedHeading.question : null}
         hideAnswers={false}
         displaySolution={ux.showAnswerKey}
         choicesEnabled={false}

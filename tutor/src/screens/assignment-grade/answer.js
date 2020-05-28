@@ -22,7 +22,7 @@ const Box = styled.div`
  padding: 2rem;
  display: flex;
  justify-content: space-between;
- border: 1px solid ${colors.neutral.lite};
+ border: 2px solid ${colors.neutral.pale};
  & + & {
    margin-top: 1rem;
  }
@@ -35,6 +35,7 @@ const ScoreInput = styled.input`
   text-align: center;
   width: 5rem;
   margin: 0 0.8rem;
+  border: 2px solid ${colors.neutral.pale};
 `;
 const ScoreWrapper = styled.div`
   display: flex;
@@ -68,6 +69,7 @@ const Comment=styled.textarea`
 
 const GradingStudentWrapper=styled(Box)`
   box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 3px rgba(0,0,0,0.12), 0 4px 5px 0 rgba(0,0,0,0.2);
+  border: none;
   margin: 2rem 0;
 `;
 

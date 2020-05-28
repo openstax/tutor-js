@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter, isEmpty } from 'lodash';
+import { first, filter, isEmpty, meanBy } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
@@ -9,7 +9,7 @@ export default class AssignmentGradingUX {
 
   @observable exercisesHaveBeenFetched = false;
   @observable selectedPeriod;
-  @observable selectedHeading;
+  @observable selectedHeadingIndex = 0;
   @observable expandGradedAnswers = false;
 
   @UiSettings.decorate('grd.hsn') hideStudentNames = false;
@@ -32,13 +32,12 @@ export default class AssignmentGradingUX {
     this.course = course || Courses.get(courseId);
     this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
       first(this.course.periods.active);
-    this.planScores = scores ;
+    this.planScores = scores;
 
     await this.planScores.fetch();
-
+    await this.planScores.taskPlan.fetch();
+    await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
-
-    this.setHeading(this.headings[0]);
 
     this.exercisesHaveBeenFetched = true;
   }
@@ -61,12 +60,21 @@ export default class AssignmentGradingUX {
     return responses;
   }
 
+  @computed get averageScoreForGradedStudents() {
+    const gradedResponses = filter(this.selectedHeading.studentResponses, sr => !sr.needs_grading);
+    return meanBy(gradedResponses, gr => gr.gradedPoints);
+  }
+
+  @computed get selectedHeading() {
+    return this.headings[this.selectedHeadingIndex];
+  }
+
   @computed get headings() {
     return this.scores.question_headings.gradable();
   }
 
   @computed get unGraded() {
-    return filter(this.studentResponses, s => s.needs_grading);
+    return filter(this.selectedHeading.studentResponses, s => s.needs_grading);
   }
 
   wasQuestionViewed(index) {
@@ -77,19 +85,17 @@ export default class AssignmentGradingUX {
     this.viewedQuestions.set(index, true);
   }
 
-  setHeading(heading) {
-    this.selectedHeading = heading;
-  }
-
   @action async saveScore({ response, points, comment }) {
     const grade = new Grade({ points, comment, response });
     await grade.save();
-
+    //refetch scores after grade was saved
+    await this.planScores.fetch();
+    await this.planScores.ensureExercisesLoaded();
+    
+    // move to next question if any
     if (isEmpty(this.unGraded)) {
-      const nextHeadingIndex = this.headings.indexOf(this.selectedHeading) + 1;
-      if (nextHeadingIndex < this.headings.length + 1) {
-        this.setHeading(this.headings[nextHeadingIndex]);
-      }
+      if (this.selectedHeadingIndex < this.headings.length - 1)
+        this.selectedHeadingIndex += 1;
     }
   }
 
@@ -99,5 +105,9 @@ export default class AssignmentGradingUX {
 
   @action.bound async onPublishScores() {
     this.taskingPlan.publishScores();
+  }
+
+  @action.bound setSelectedPeriod(period) {
+    this.selectedPeriod = period;
   }
 }

@@ -229,7 +229,7 @@ class TaskPlanScoresTasking extends BaseModel {
 
   @computed get hasUnPublishedScores() {
     return Boolean(
-      find(this.students, student => find(student.questions, question => !isNil(question.grader_points))),
+      find(this.students, student => find(student.questions, question => !isNil(question.gradedPoints))),
     );
   }
 }
