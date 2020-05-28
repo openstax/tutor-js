@@ -324,10 +324,6 @@ export default class AssignmentReviewUX {
     return Boolean(this.gradeableQuestionCount > 0);
   }
 
-  @action.bound taskIdForStudent(student) {
-    return "TODO";
-  }
-
   @computed get overallAverageScore() {
     if (!this.taskingPlan.isPastDue) { return '---'; }
     return this.displayTotalInPercent ?

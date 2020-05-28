@@ -324,7 +324,7 @@ const StudentCell = observer(({ ux, student, striped }) => (
           to="viewTaskStep"
           params={{
             courseId: ux.course.id,
-            id: ux.taskIdForStudent(student),
+            id: student.task_id,
             stepIndex: 1
           }}
         >

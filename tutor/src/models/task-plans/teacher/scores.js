@@ -70,6 +70,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 @identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
   @identifier role_id;
+  @field task_id;
   @field first_name;
   @field last_name;
   @field student_identifier;
