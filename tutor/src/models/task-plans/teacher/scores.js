@@ -170,7 +170,7 @@ class TaskPlanScoresTasking extends BaseModel {
   @field({ type: 'object' }) available_points;
   @belongsTo({ model: 'task-plan/scores' }) plan;
   @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'tasking', extend: {
-    gradable() { return filter(this, h => h.question && h.question.isFreeResonseOnly); },
+    gradable() { return filter(this, h => h.question && h.question.isOpenEnded); },
     core() { return filter(this, h => h.type != 'Tutor'); },
   } }) question_headings;
   @hasMany({ model: TaskPlanScoreStudent, inverseOf: 'tasking' }) students;
