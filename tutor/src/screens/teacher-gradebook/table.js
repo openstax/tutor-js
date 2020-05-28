@@ -66,9 +66,6 @@ const HeadingTop = styled.div`
   align-self: stretch;
   font-weight: bold;
   letter-spacing: 0.1rem;
-  ${props => props.onClick && css`
-    cursor: pointer;
-  `}
 
   & .info-circle-icon-button {
     color: ${colors.bright_blue};
@@ -78,9 +75,13 @@ const HeadingTop = styled.div`
 
   & .heading-title {
     white-space: nowrap;
-    width: 60px;
+    width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  & .sort-wrapper {
+    cursor: pointer;
   }
 `;
 
@@ -280,9 +281,20 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
     >
       <Cell>
         <ColumnHeading variant={heading.type}>
-          <HeadingTop onClick={onClick}>     
-            <div className="heading-title">{heading.title}</div>
-            <SortIcon sort={ux.sortForColumn(sortKey, 'score')} />
+          <HeadingTop>     
+            <div className="heading-title">
+              <TutorLink
+                to={'reviewAssignment'}
+                params={{
+                  courseId: ux.course.id,
+                  id: heading.plan_id,
+                }}
+              >
+                {heading.title}
+              </TutorLink>
+
+            </div>
+            <div onClick={onClick} className="sort-wrapper"><SortIcon sort={ux.sortForColumn(sortKey, 'score')} /></div>
           </HeadingTop>
           <HeadingMiddle>
             {moment(heading.due_at).format('MMM D')}
