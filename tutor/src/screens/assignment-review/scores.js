@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Icon } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
