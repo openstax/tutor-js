@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled, moment } from 'vendor';
-import { ToolbarButton } from 'primitives';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import DateTime from '../../components/date-time-input';
 import { Formik, Form } from 'formik';
@@ -53,7 +52,13 @@ const GrantExtension = observer(({ ux }) => {
         placement="bottom"
         overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
       >
-        <ToolbarButton onClick={() => ux.isDisplayingGrantExtension=true}>Grant Extension</ToolbarButton>
+        <Button
+          variant="light"
+          className="btn-standard"
+          onClick={() => ux.isDisplayingGrantExtension=true}
+        >
+          Grant Extension
+        </Button>
       </OverlayTrigger>
       <Formik
         onSubmit={ux.saveDisplayingGrantExtension}

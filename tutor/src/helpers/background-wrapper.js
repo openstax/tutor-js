@@ -9,4 +9,10 @@ const BackgroundWrapper = styled.div`
   padding: 0 2.4rem;
 `;
 
-export { BackgroundWrapper };
+const ContentWrapper = styled.div`
+  max-width: 1200px;
+  min-width: 1100px;
+  margin: 0 auto;
+`;
+
+export { BackgroundWrapper, ContentWrapper };

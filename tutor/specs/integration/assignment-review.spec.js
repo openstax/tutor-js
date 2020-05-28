@@ -3,6 +3,9 @@ context('Assignment Review', () => {
   beforeEach(() => {
     cy.visit('/course/1/assignment/review/2')
     cy.disableTours();
+    cy.server();
+    cy.route('GET', '/api/plans/*').as('taskPlan');
+    cy.wait('@taskPlan');
   });
 
   it('loads and views feedback', () => {
@@ -64,7 +67,6 @@ context('Assignment Review', () => {
     cy.location('pathname').should('include', '/course/1/t/month');
   });
 
-  
   it('can update details', () => {
     cy.server();
     cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
@@ -96,15 +98,19 @@ context('Assignment Review', () => {
     cy.getTestElement('grading-block').should('not.exist');
     cy.getTestElement('questions-block').should('not.exist');
 
+
     cy.visit('/course/1/assignment/review/2');
+    cy.server();
+    cy.route('GET', '/api/plans/*').as('taskPlan');
+    cy.wait('@taskPlan');
     cy.getTestElement('grading-block').should('exist');
     cy.getTestElement('questions-block').should('exist');
 
-    cy.visit('/course/1/assignment/review/3');
+    cy.visit('/course/1/assignment/review/4');
     cy.getTestElement('grading-block').should('not.exist');
     cy.getTestElement('questions-block').should('not.exist');
 
-    cy.visit('/course/1/assignment/review/4');
+    cy.visit('/course/1/assignment/review/5');
     cy.getTestElement('grading-block').should('not.exist');
     cy.getTestElement('questions-block').should('not.exist');
   });

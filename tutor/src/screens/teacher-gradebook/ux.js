@@ -11,7 +11,7 @@ import {
 } from 'lodash';
 import S from '../../helpers/string';
 
-const NOT_AVAILABLE_AVERAGE = 'n/a';
+const NOT_AVAILABLE_AVERAGE = '---';
 const PENDING_AVERAGE = '---';
 
 const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
@@ -25,6 +25,7 @@ export default class GradeBookUX {
   @observable isReady = false;
   @observable currentPeriodScores;
   @observable props = {}
+  @observable periodId;
 
   @observable sortIndex;
   @observable rowSort = { key: this.isNameInverted ? 'last_name' : 'first_name', asc: true, dataType: 'score' };
@@ -48,12 +49,14 @@ export default class GradeBookUX {
   }) {
     this.course = course;
     await this.course.scores.fetch();
-    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === first(this.course.periods.active).id) || [];
+    this.periodId = first(this.course.periods.active).id;
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
     this.isReady = true;
   }
 
   @action.bound onSelectPeriod(period) {
-    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === period.id) || [];
+    this.periodId = period.id;
+    this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
   }
 
   @computed get pageTitle() {
