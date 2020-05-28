@@ -324,4 +324,10 @@ export default class AssignmentReviewUX {
     return Boolean(this.gradeableQuestionCount > 0);
   }
 
+  @computed get overallAverageScore() {
+    if (!this.taskingPlan.isPastDue) { return '---'; }
+    return this.displayTotalInPercent ?
+      this.scores.totalAverageScoreInPercent : this.scores.totalAverageScoreInPoints;
+  }
+
 }

@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sumBy, find, isNil, compact } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -46,7 +46,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get isTrouble() {
-    return !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
+    return !this.needs_grading && !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
   }
 
   @computed get displayValue() {
@@ -70,6 +70,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 @identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
   @identifier role_id;
+  @field task_id;
   @field first_name;
   @field last_name;
   @field student_identifier;
@@ -139,6 +140,7 @@ class TaskPlanScoreHeading extends BaseModel {
       hasFreeResponse: Boolean(find(responses, 'free_response')),
       points: sumBy(responses, 'points'),
       totalPoints: this.points * responses.length,
+      averageGradedPoints: sumBy(responses, 'gradedPoints') / responses.length,
     };
   }
 
@@ -158,6 +160,9 @@ class TaskPlanScoreHeading extends BaseModel {
       (dropped.drop_method == 'zeroed' ? 0 : this.points_without_dropping) : this.points;
   }
 
+  @computed get averageGradedPoints() {
+    return this.responseStats.averageGradedPoints;
+  }
 }
 
 @identifiedBy('task-plan/scores/tasking')
@@ -231,6 +236,28 @@ class TaskPlanScoresTasking extends BaseModel {
     return Boolean(
       find(this.students, student => find(student.questions, question => !isNil(question.gradedPoints))),
     );
+  }
+
+  @computed get totalAverageScoreInPoints() {
+    const totals = compact(this.students.map(s => s.total_points));
+    let value;
+    if (isEmpty(totals)) {
+      value = 0;
+    } else {
+      value = sum(totals) / totals.length;
+    }
+    return S.numberWithOneDecimalPlace(value);
+  }
+
+  @computed get totalAverageScoreInPercent() {
+    const totals = compact(this.students.map(s => s.total_fraction));
+    let value;
+    if (isEmpty(totals)) {
+      value = 0;
+    } else {
+      value = sum(totals) / totals.length;
+    }
+    return `${S.asPercent(value)}%`;
   }
 }
 

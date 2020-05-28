@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Icon } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
@@ -8,6 +8,7 @@ import S from '../../helpers/string';
 import ExtensionIcon from '../../components/icons/extension';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
+import TutorLink from '../../components/link';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
 import PublishScores from './publish-scores';
@@ -24,7 +25,8 @@ const StyledStickyTable = styled(StickyTable)`
 
 const Cell = styled(TableCell)`
   padding: 0;
-  border-bottom: 0;
+  border-width: 1px;
+  border-color: transparent;
   border-left: 1px solid ${colors.neutral.pale};
   cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
   &:last-child {
@@ -33,16 +35,15 @@ const Cell = styled(TableCell)`
   ${props => props.striped && css`
     background: ${colors.neutral.lighter};
   `}
+  && {
+    ${props => props.isTrouble && isTroubleCSS}
+  }
 `;
 
 const centeredCSS = css`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const headingCSS = css`
-  height: 100%;
 `;
 
 const paddingCSS = css`
@@ -59,10 +60,9 @@ const CellContents = styled.div`
 
 const Heading = styled.div`
   ${props => !props.first && centeredCSS}
-  ${props => props.first && css`
+  ${props => props.first && !props.noBorder && css`
     border-right: 1px solid ${colors.neutral.pale};
   `}
-  ${headingCSS}
   ${paddingCSS}
 `;
 
@@ -85,13 +85,14 @@ const HeadingMiddle = styled.div`
 const HeadingBottom = styled.div`
   ${paddingCSS}
   align-self: stretch;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  color: ${colors.neutral.thin};
   background: #fff;
   position: relative;
 `;
 
 const ColumnHeading = styled.div`
-  ${headingCSS}
   background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
   border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.homework.border : colors.neutral.std};
   cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
@@ -99,6 +100,20 @@ const ColumnHeading = styled.div`
     border-right: 1px solid ${colors.neutral.pale};
   }
   > * {
+    ${props => !props.first && css`
+      ${centeredCSS}
+    `}
+  }
+`;
+
+const ColumnFooter = styled.div`
+
+  &:not(:last-child) {
+    border-right: 1px solid ${colors.neutral.pale};
+  }
+  > * {
+    /* TODO change to 1.6rem across the board */
+    font-size: 1.4rem;
     ${props => !props.first && css`
       ${centeredCSS}
     `}
@@ -135,21 +150,14 @@ const Total = styled.div`
 
 const isTroubleCSS = css`
   background-color: ${colors.states.trouble};
-  border-color: ${colors.danger};
   border-top: 1px solid ${colors.danger};
-  border-bottom: 1px solid ${colors.danger};
+  border-bottom: 1px solid ${colors.danger} !important;
 `;
 
 const Result = styled.div`
   display: flex;
-  height: 5rem;
   justify-content: center;
   align-items: center;
-  ${props => props.isTrouble && isTroubleCSS}
-`;
-
-const StyledButton = styled(Button)`
-  && { padding: 0; }
 `;
 
 const DefinitionsWrapper = styled.dl`
@@ -162,8 +170,11 @@ const DefinitionsWrapper = styled.dl`
 `;
 
 const Term = styled.dt`
-  border: 1px solid ${colors.neutral.light};
+  border-color: ${colors.neutral.light};
+  border-style: solid;
   ${props => props.variant === 'trouble' && isTroubleCSS}
+  ${props => props.variant === 'trouble' && `border-color: ${colors.danger}`};
+  border-width: 1px;
   display: flex;
   justify-content: center;
   width: 5.6rem;
@@ -305,9 +316,16 @@ const StudentCell = observer(({ ux, student, striped }) => (
     <CellContents>
 
       <Heading first={true}>
-        <StyledButton variant="link">
+        <TutorLink
+          to="viewTaskStep"
+          params={{
+            courseId: ux.course.id,
+            id: student.task_id,
+            stepIndex: 1,
+          }}
+        >
           {ux.reverseNameOrder ? student.reversedName : student.name}
-        </StyledButton>
+        </TutorLink>
       </Heading>
 
       <Total>
@@ -347,10 +365,32 @@ const AssignmentHeading = observer(({ ux, heading }) => (
 ));
 
 const TaskResult = observer(({ result, striped }) => (
-  <Cell striped={striped}>
-    <Result isTrouble={result.isTrouble}>
+  <Cell striped={striped} isTrouble={result.isTrouble}>
+    <Result>
       {result.displayValue}
     </Result>
+  </Cell>
+));
+
+const AverageScoreHeader = observer(({ ux }) => (
+  <Cell leftBorder={true}>
+    <CellContents>
+      <ColumnFooter first={true}>
+        <Heading first={true} noBorder={true}>
+          Average score
+        </Heading>
+      </ColumnFooter>
+      <ColumnFooter>
+        <Heading>
+          {ux.overallAverageScore}
+        </Heading>
+      </ColumnFooter>
+      <ColumnFooter>
+        <Heading>
+          n/a
+        </Heading>
+      </ColumnFooter>
+    </CellContents>
   </Cell>
 ));
 
@@ -424,6 +464,17 @@ const Scores = observer(({ ux }) => {
               <TaskResult key={i} index={i} ux={ux} result={result} striped={0 === sIndex % 2} />
             ))}
           </Row>))}
+        <Row>
+          <AverageScoreHeader ux={ux} />
+          {scores.question_headings.map((h, i) => (
+            <Cell key={i}>
+              <Result>
+                {isNaN(h.responseStats.averageGradedPoints) && '---' ||
+                  S.numberWithOneDecimalPlace(h.responseStats.averageGradedPoints)}
+              </Result>
+            </Cell>
+          ))}
+        </Row>
       </StyledStickyTable>
       <DefinitionsWrapper>
         <Term variant="trouble" aria-label="Less than 50%"></Term>
