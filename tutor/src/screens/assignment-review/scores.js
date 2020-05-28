@@ -160,10 +160,6 @@ const Result = styled.div`
   align-items: center;
 `;
 
-const StyledButton = styled(Button)`
-  && { padding: 0; }
-`;
-
 const DefinitionsWrapper = styled.dl`
   margin: 1.4rem 0;
   display: flex;
@@ -325,7 +321,7 @@ const StudentCell = observer(({ ux, student, striped }) => (
           params={{
             courseId: ux.course.id,
             id: student.task_id,
-            stepIndex: 1
+            stepIndex: 1,
           }}
         >
           {ux.reverseNameOrder ? student.reversedName : student.name}
