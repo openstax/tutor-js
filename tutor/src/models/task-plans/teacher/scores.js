@@ -46,7 +46,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get isTrouble() {
-    return !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
+    return !this.needs_grading && !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
   }
 
   @computed get displayValue() {
