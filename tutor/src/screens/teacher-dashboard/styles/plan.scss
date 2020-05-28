@@ -62,7 +62,7 @@ $calendar-inactive-background: $tutor-neutral;
     font-weight: bold;
     @include tutor-plan-display($calendar-inactive-background);
     transition: background-color 0.1s linear;
-    height: 20px;
+
     &.is-new {
       @include is-progressing-background();
       border-left: none;
@@ -72,16 +72,20 @@ $calendar-inactive-background: $tutor-neutral;
     }
     .tour-anchor {
       width: 100%;
+      height: 100%;
     }
     &.is-published,
     &.is-publishing {
       @include tutor-plan-set(display);
     }
 
+    label:not(.continued)::before {
+      margin: 0 $calendar-plan-left-label-offset;
+    }
+
     &:not(.is-published) {
       label:not(.continued)::before {
         @include is-draft();
-        margin-right: $calendar-plan-left-label-offset;
       }
 
       &.is-failed, &.is-killed, &.is-404 {
@@ -94,14 +98,12 @@ $calendar-inactive-background: $tutor-neutral;
     &.is-publishing {
       label:not(.continued)::before {
         @include is-publishing();
-        margin-right: $calendar-plan-left-label-offset;
       }
     }
     &.is-published {
       &:not(.is-open):not(.is-publishing) {
         label:not(.continued)::before {
           @include is-not-open();
-          margin-right: $calendar-plan-left-label-offset;
         }
       }
 
@@ -110,15 +112,6 @@ $calendar-inactive-background: $tutor-neutral;
           margin-right: $calendar-plan-left-label-offset;
         }
       }
-    }
-
-    label {
-      padding-left: $calendar-plan-left-label-offset;
-      text-align: left;
-      display: block;
-      margin-bottom: 0;
-      cursor: pointer;
-      transition: background .1s ease-in, margin-top .1s ease-in;
     }
 
     &.plan-label-long {
@@ -134,20 +127,6 @@ $calendar-inactive-background: $tutor-neutral;
     &.active,
     &.open {
       z-index: 2;
-    }
-
-    &.plan-label-long {
-      &:hover,
-      &.active,
-      &.open {
-        max-height: none;
-
-        label {
-          overflow: visible;
-          white-space: normal;
-          margin-top: 0;
-        }
-      }
     }
   }
 
