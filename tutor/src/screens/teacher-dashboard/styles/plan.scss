@@ -128,20 +128,6 @@ $calendar-inactive-background: $tutor-neutral;
     &.open {
       z-index: 2;
     }
-
-    &.plan-label-long {
-      &:hover,
-      &.active,
-      &.open {
-        //max-height: none;
-
-        // label {
-        //   overflow: visible;
-        //   white-space: normal;
-        //   margin-top: 0;
-        // }
-      }
-    }
   }
 
   .plan-clone-placeholder {

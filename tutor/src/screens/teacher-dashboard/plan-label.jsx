@@ -8,7 +8,7 @@ const Ribbon = styled.div`
   height: 0;
   border-bottom: ${TRIANGLE}px solid #f36a31;
   border-top: ${TRIANGLE}px solid #f36a31;
-  border-right: ${TRIANGLE * 0.3}px solid transparent;
+  border-right: ${TRIANGLE * 0.5}px solid transparent;
   display: flex;
   align-items: center;
 `;
