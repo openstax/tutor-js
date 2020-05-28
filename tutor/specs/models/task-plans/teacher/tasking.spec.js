@@ -54,8 +54,8 @@ describe('Teacher tasking plan tasking', () => {
     expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
 
     tasking.setOpensDate('2016-10-11T21:18:00.000Z');
-    // only day changes, not time
-    expect(tasking.opens_at).toEqual('2016-10-11T11:59:00.000Z');
+    // should have been accepted without changes
+    expect(tasking.opens_at).toEqual('2016-10-11T21:18:00.000Z');
 
     expect(tasking.closes_at).toEqual('2015-10-15T12:00:00.000Z')
 
