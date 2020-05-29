@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import moment from 'moment';
 import { Icon } from 'shared';
-import { Row, Col, Alert } from 'react-bootstrap';
+import { Row, Col, Alert, Popover, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
@@ -30,15 +30,15 @@ const StyledInner = styled.div`
 `;
 
 const StyledAlert = styled(Alert)`
-  margin-top: 0.5rem;
-  font-size: 1.6rem;
 `;
 
-const CantEditExplanation = () => (
-  <StyledAlert variant="secondary">
-    Cannot be edited after assignment is visible
-  </StyledAlert>
-);
+const GreyPopover = styled(Popover)`
+&.popover {
+padding: 2rem;
+background-color: #f4f5f4;
+}
+`;
+
 
 @observer
 class Tasking extends React.Component {
@@ -210,20 +210,18 @@ class Tasking extends React.Component {
   }
 
   renderDateTimeInputs(tasking) {
-    const { ux, period, ux: { plan } } = this.props;
+    const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
 
     return (
       <Row className="tasking-date-time">
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="opens-at">
-          <DateTime
-            label="Open date & time"
-            name={`tasking_plans[${index}].opens_at`}
-            onChange={(target) => this.onOpensChange(target, index)}
-            disabledDate={this.course.isInvalidAssignmentDate}
-            autoFocus={period && plan.tasking_plans.forPeriod(period)}
+          <OpensDateTime
+            index={index}
+            tasking={tasking}
+            onChange={this.onOpensChange}
+            disabled={this.course.isInvalidAssignmentDate}
           />
-          {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="due-at">
           <DateTime
@@ -249,5 +247,30 @@ class Tasking extends React.Component {
     );
   }
 }
+
+const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {   
+  const input = (
+    <DateTime
+      label="Open date & Time"
+      disabled={!tasking.canEditOpensAt}
+      name={`tasking_plans[${index}].opens_at`}
+      onChange={(ev) => onChange(ev, index)}
+      disabledDate={disabled}
+    />
+  );
+  if (tasking.canEditOpensAt) {
+    return input;
+  }
+
+  return (
+    <OverlayTrigger
+      trigger="hover"
+      placement="bottom"
+      overlay={<GreyPopover>Cannot be edited after assignment is open</GreyPopover>}
+    >
+      <div>{input}</div>
+    </OverlayTrigger>
+  );
+});
 
 export default Tasking;
