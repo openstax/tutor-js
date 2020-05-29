@@ -26,6 +26,9 @@ const Footer = styled.div`
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
+  &&:hover {
+    box-shadow: none;
+  }
 `;
 
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
