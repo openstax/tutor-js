@@ -39,6 +39,9 @@ const StyledTextInput = styled(TextInput)`
 
 const StyledDropdown = styled(Dropdown)`
   display: inline-flex;
+  .dropdown-item {
+    white-space: break-spaces;
+  }
 `;
 
 const StyledToggle = styled(Dropdown.Toggle)`
