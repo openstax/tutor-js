@@ -98,10 +98,8 @@ class TaskPlanScoreStudent extends BaseModel {
     return `${this.first_name} ${this.last_name}`;
   }
 
-  @computed get hasBeenExtended() {
-    return Boolean(
-      this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id),
-    );
+  @computed get extension() {
+    return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
   }
 }
 

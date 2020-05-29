@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, cn } from 'vendor';
+import { React, PropTypes, styled, moment, cn } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const GreenCircle = styled.div`
@@ -14,6 +14,8 @@ const GreenCircle = styled.div`
   text-align: center;
 `;
 
+const format = (dte) => moment(dte).format('h:mm a on MMM D');
+
 const ExtensionIconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -24,20 +26,31 @@ EIcon.propTypes = {
   className: PropTypes.string,
 };
 
-const ExtensionIcon = ({ className }) => (
-  <OverlayTrigger
-    placement="auto"
+const ExtensionIcon = ({ className, extension }) => {
+  let msg = 'Student was granted an extension.';
+  if (extension) {
+    msg += ` Assignment is now due at ${format(extension.due_at)} and closes at ${format(extension.closes_at)}`;
+  }
+  return (
+    <OverlayTrigger
+      placement="auto"
 
-    overlay={<Tooltip id="extension-icon">Student was granted an extension</Tooltip>}
-  >
-    <ExtensionIconWrapper>
-      <EIcon className={className} />
-    </ExtensionIconWrapper>
+      overlay={<Tooltip id="extension-icon">{msg}</Tooltip>}
+    >
+      <ExtensionIconWrapper>
+        <EIcon className={className} />
+      </ExtensionIconWrapper>
 
-  </OverlayTrigger>
-);
+    </OverlayTrigger>
+  );
+};
+
 ExtensionIcon.propTypes = {
   className: PropTypes.string,
+  extension: PropTypes.shape({
+    due_at: PropTypes.string,
+    closes_at: PropTypes.string,
+  }),
 };
 export { GreenCircle, EIcon };
 export default ExtensionIcon;

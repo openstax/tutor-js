@@ -9,9 +9,9 @@ import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/exten
 
 
 const StudentExtensionInfo = observer(({ student }) => {
-  if (!student.hasBeenExtended) { return null; }
+  if (!student.extension) { return null; }
 
-  return <ExtensionIcon />;
+  return <ExtensionIcon extension={student.extension} />;
 });
 
 const CheckBox = styled.input.attrs({
