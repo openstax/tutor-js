@@ -6,6 +6,7 @@ import { colors } from 'theme';
 import { Icon } from 'shared';
 import S from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
+import { EIcon } from '../../components/icons/extension';
 
 const TableWrapper = styled.div`
   background-color: white;
@@ -32,7 +33,19 @@ const TableWrapper = styled.div`
 
 const Legend = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  margin-top: 10px;
+  span label {
+    font-size: 12px;
+  }
+  .extension {
+    display: flex;
+    label {
+      margin-left: 8px;
+    }
+  }
+  span:not(:first-child) {
+    margin-left: 20px;
+  }
 `;
 
 const AssignmentBlock = styled.div`
@@ -93,6 +106,10 @@ const StyledTable = styled(Table)`
 `;
 
 const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
+const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
+  const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
+  return studentTaskPlan ? studentTaskPlan.is_extended : false;
+};
 
 const GradebookTable = observer((
   {
@@ -158,7 +175,7 @@ const GradebookTable = observer((
                 onClick={() => goToAssignment(history, course.id, sd.id)}>
                 {sd.reportHeading.title}
               </td>
-              <td>{moment(sd.due_at).format('MMM D')}</td>
+              <td>{moment(sd.due_at).format('MMM D')} {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />} </td>
               <td>{sd.humanScoreNumber} {sd.isLate && <Icon color={colors.danger} type="clock" />}</td>
               <td>{percentOrDash(sd.score)}</td>
             </tr>);
@@ -166,7 +183,18 @@ const GradebookTable = observer((
         </tbody>
       </StyledTable>
       <Legend>
-        <span><Icon color={colors.danger} type="clock" /> Late penalty</span>
+        <span className="extension">
+          <EIcon/>
+          <label>Extension</label>
+        </span>
+        <span>
+          <Icon color={colors.danger} type="clock" />
+          <label>Late penalty</label>
+        </span>
+        <span>
+          <Icon variant="circledStar" />
+          <label>Provisional score. FInal scores will be available when published by your instructor.</label>
+        </span>
       </Legend>
     </TableWrapper>
   );
