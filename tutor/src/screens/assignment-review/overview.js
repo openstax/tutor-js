@@ -338,7 +338,7 @@ const Overview = observer(({ ux, ux: { scores } }) => (
     <Legend>
       MCQ: Multiple Choice Question (auto-graded);
       WRQ: Written Response Question (manually-graded);
-      Tutor: Personalized questions assigned by OpenStax Tutor (MCQs & auto-graded)
+      Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
     </Legend>
 
     {ux.isExercisesReady ? (
