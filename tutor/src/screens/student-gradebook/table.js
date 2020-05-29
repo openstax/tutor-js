@@ -30,6 +30,11 @@ const TableWrapper = styled.div`
 }
 `;
 
+const Legend = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
 const AssignmentBlock = styled.div`
     border: 4px solid ${props => props.assignmentColor};
     display: inline-block;
@@ -154,12 +159,15 @@ const GradebookTable = observer((
                 {sd.reportHeading.title}
               </td>
               <td>{moment(sd.due_at).format('MMM D')}</td>
-              <td>{sd.humanScoreNumber}</td>
+              <td>{sd.humanScoreNumber} {sd.isLate && <Icon color={colors.danger} type="clock" />}</td>
               <td>{percentOrDash(sd.score)}</td>
             </tr>);
           })}
         </tbody>
       </StyledTable>
+      <Legend>
+        <span><Icon color={colors.danger} type="clock" /> Late penalty</span>
+      </Legend>
     </TableWrapper>
   );
 });
