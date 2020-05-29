@@ -1,7 +1,11 @@
-import React from 'react';
+import { React, PropTypes } from 'vendor';
 import { Icon } from 'shared';
 
 export default
-function InfoIcon(props) {
-  return <Icon color="2d6f9d" type="info-circle" {...props} />;
+function InfoIcon({ color = '2d6f9d', ...props }) {
+  return <Icon color={color} type="info-circle" {...props} />;
 }
+
+InfoIcon.propTypes = {
+  color: PropTypes.string,
+};

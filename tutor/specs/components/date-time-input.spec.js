@@ -35,7 +35,8 @@ describe('DateTimeInput', () => {
     // last cell now is 59
     dt.find('.oxdt-time-panel-column').at(1).find('.oxdt-time-panel-cell').last().simulate('click')
     dt.find('.oxdt-time-panel-column').at(2).find('.oxdt-time-panel-cell').last().simulate('click')
-    expect(dt.find('input').instance().value).toEqual('2020-02-15 23:59:00')
+    expect(dt.find('input').instance().value).toEqual('Feb 15 | 11:59 PM')
+
     dt.find('.oxdt-ok button').simulate('click')
     expect(props.onChange).toHaveBeenCalled()
     expect(last(props.onChange.mock.calls)[0].target.value.toISOString()).toEqual('2020-02-16T05:59:00.000Z')

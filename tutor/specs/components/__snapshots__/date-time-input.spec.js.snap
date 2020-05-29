@@ -98,7 +98,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
           onKeyDown={[Function]}
           onMouseDown={[Function]}
           readOnly={true}
-          size={21}
+          size={17}
           title=""
           value=""
         />

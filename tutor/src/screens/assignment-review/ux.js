@@ -120,6 +120,16 @@ export default class AssignmentReviewUX {
 
   // methods relating to granting extensions
 
+  @computed get isPendingExtensions() {
+    return this.pendingExtensions.size > 0;
+  }
+
+  @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
+    this.scores.students.forEach(s => {
+      this.pendingExtensions.set(s.role_id, checked);
+    });
+  }
+  
   @action.bound cancelDisplayingGrantExtension() {
     this.pendingExtensions.clear();
     this.isDisplayingGrantExtension = false;
