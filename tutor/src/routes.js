@@ -69,6 +69,9 @@ const getRoutes = (router) => {
           path: 'assignment/grade/:id/:periodId?', name: 'gradeAssignment',
           renderer: r(() => import('./screens/assignment-grade'), 'Assignment Grader') },
         {
+          path: 'assignment/grade/:id/:periodId/:questionId', name: 'gradeAssignmentQuestion',
+          renderer: r(() => import('./screens/assignment-grade'), 'Assignment Grader') },
+        {
           path: 'gradebook', name: 'viewGradebook',
           renderer:  ConditionalHandlers.gradebook },
         { path: 'settings', name: 'courseSettings',
