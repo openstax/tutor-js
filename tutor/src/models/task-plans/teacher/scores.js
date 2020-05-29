@@ -90,6 +90,10 @@ class TaskPlanScoreStudent extends BaseModel {
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
   @belongsTo({ model: 'task-plan/scores/tasking' }) tasking;
 
+  resultForHeading(heading) {
+    return this.questions.length > heading.index ? this.questions[heading.index] : null;
+  }
+  
   @computed get name() {
     return `${this.last_name}, ${this.first_name}`;
   }
@@ -101,6 +105,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @computed get extension() {
     return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
   }
+
 }
 
 

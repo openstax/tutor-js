@@ -6,6 +6,7 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
 import S from '../../helpers/string';
 import ExtensionIcon from '../../components/icons/extension';
+import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
@@ -293,6 +294,12 @@ const StudentColumnHeader = observer(({ ux }) => (
         </HeadingMiddle>
         <HeadingBottom>
           {S.numberWithOneDecimalPlace(ux.scores.availablePoints)}
+          {!ux.scores.hasEqualTutorQuestions && (
+            <InfoIcon
+              color="#f36a31"
+              tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t available, a student works and assignment late, or a student hasn’t started the assignment."
+            />
+          )}
         </HeadingBottom>
       </ColumnHeading>
       <ColumnHeading>
@@ -364,13 +371,15 @@ const AssignmentHeading = observer(({ ux, heading }) => (
   </Cell>
 ));
 
-const TaskResult = observer(({ result, striped }) => (
-  <Cell striped={striped} isTrouble={result.isTrouble}>
-    <Result>
-      {result.displayValue}
-    </Result>
-  </Cell>
-));
+const TaskResult = observer(({ result, striped }) => {
+  return (
+    <Cell striped={striped} isTrouble={result && result.isTrouble}>
+      <Result>
+        {result ? result.displayValue : 'N/A'}
+      </Result>
+    </Cell>
+  );
+});
 
 const AverageScoreHeader = observer(({ ux }) => (
   <Cell leftBorder={true}>
@@ -460,8 +469,14 @@ const Scores = observer(({ ux }) => {
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
-            {student.questions.map((result, i) => (
-              <TaskResult key={i} index={i} ux={ux} result={result} striped={0 === sIndex % 2} />
+            {scores.question_headings.map((heading, i) => (
+              <TaskResult
+                key={i}
+                index={i}
+                ux={ux}
+                result={student.resultForHeading(heading)}
+                striped={0 === sIndex % 2}
+              />
             ))}
           </Row>))}
         <Row>
