@@ -32,7 +32,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
         />)}
       {label}
     </ExerciseNumber>
-    <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
+    <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
   </>
 ));
 
@@ -89,39 +89,66 @@ const ResponseHeader = styled.div`
   }
 `;
 
+const MCQFreeResponse = observer(({ ux, question }) => (
+  question.answers.map((answer, i) => {
+    const responses = ux.scores.students.map((student, i) => {
+      const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
+      return (studentQuestion && studentQuestion.free_response) && (
+        <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
+          <span className="name">{student.name}</span>
+          <span className="resp">{studentQuestion.free_response}</span>
+        </StyledQuestionFreeResponse>
+      );
+    });
+
+    if (isEmpty(compact(responses))) { return null; }
+
+    return (
+      <ResponseWrapper key={`answer-${answer.id}`}>
+        <ResponseHeader>
+          <span className={cn('letter', { 'green': answer.isCorrect, 'red': !answer.isCorrect })}>
+            {ALPHABET[i]}
+          </span>
+          <ArbitraryHtmlAndMath
+            html={answer.content_html}
+          />
+        </ResponseHeader>
+        <div>
+          {responses}
+        </div>
+      </ResponseWrapper>
+    );
+  })
+));
+
+const WRQFreeResponse = observer(({ info }) => {
+  const responses = info.responses.map((response, i) => {
+    const student = response.student;
+    return response.free_response && (
+      <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
+        <span className="name">{student.name}</span>
+        <span className="resp">{response.free_response}</span>
+      </StyledQuestionFreeResponse>
+    );
+  });
+
+  if (isEmpty(compact(responses))) { return null; }
+
+  return (
+    <ResponseWrapper key={`wrq-responses-${info.question.id}`}>
+      <div>
+        {responses}
+      </div>
+    </ResponseWrapper>
+  );
+});
+
 const QuestionFreeResponse = observer(({ ux, info }) => {
   if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
   return (
     <div data-test-id="student-free-responses">
-      {info.question.answers.map((answer, i) => {
-        const responses = ux.scores.students.map((student, i) => {
-          const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
-          return (studentQuestion && studentQuestion.free_response) && (
-            <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-              <span className="name">{student.name}</span>
-              <span className="resp">{studentQuestion.free_response}</span>
-            </StyledQuestionFreeResponse>
-          );
-        });
-
-        if (isEmpty(compact(responses))) { return null; }
-
-        return (
-          <ResponseWrapper key={`answer-${answer.id}`}>
-            <ResponseHeader>
-              <span className={cn('letter', { 'green': answer.isCorrect, 'red': !answer.isCorrect })}>
-                {ALPHABET[i]}
-              </span>
-              <ArbitraryHtmlAndMath
-                html={answer.content_html}
-              />
-            </ResponseHeader>
-            <div>
-              {responses}
-            </div>
-          </ResponseWrapper>
-        );
-      })}
+      {info.question.isMultipleChoice ? <MCQFreeResponse ux={ux} question={info.question} />
+        : <WRQFreeResponse ux={ux} info={info} />}
     </div>
   );
 });
@@ -259,7 +286,11 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       </Row>
       <Row>
         <Header>Correct Responses</Header>
-        {scores.question_headings.map((h, i) => <Cell key={i}>{h.responseStats.points} / {h.responseStats.totalPoints}</Cell>)}
+        {scores.question_headings.map((h, i) => (
+          <Cell key={i}>
+            {h.gradedStats.remaining > 0 ? '---' : h.responseStats.correct} / {h.responseStats.completed}
+          </Cell>
+        ))}
       </Row>
     </StyledStickyTable>
     <Legend>

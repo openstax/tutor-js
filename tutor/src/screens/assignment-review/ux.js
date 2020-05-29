@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter, sumBy } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
@@ -52,6 +52,7 @@ export default class AssignmentReviewUX {
     await this.planScores.ensureExercisesLoaded();
 
     this.exercisesHaveBeenFetched = true;
+    this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
   }
 
   @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }
