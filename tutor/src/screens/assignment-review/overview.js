@@ -32,7 +32,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
         />)}
       {label}
     </ExerciseNumber>
-    <div>{S.numberWithOneDecimalPlace(info.points)} Points</div>
+    <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
   </>
 ));
 

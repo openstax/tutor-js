@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, get, sum, sumBy, find, isNil, isEmpty, compact } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -94,7 +94,7 @@ class TaskPlanScoreStudent extends BaseModel {
   resultForHeading(heading) {
     return this.questions.length > heading.index ? this.questions[heading.index] : null;
   }
-  
+
   @computed get name() {
     return `${this.last_name}, ${this.first_name}`;
   }
@@ -210,10 +210,13 @@ class TaskPlanScoresTasking extends BaseModel {
         const exercise = Exercises.get(studentQuestion.exercise_id);
         if (exercise) {
           const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
+          const heading = this.question_headings.find(qh => qh.question_id == studentQuestion.question_id);
           const questionInfo = info[question.id] || (info[question.id] = {
             id: question.id,
             key: question.id,
             points: studentQuestion.points,
+            availablePoints: heading.points,
+            index: heading.index,
             exercise,
             question,
             responses: [],
@@ -224,7 +227,7 @@ class TaskPlanScoresTasking extends BaseModel {
     }
 
     // add their stats once all the questions are gathered
-    return Object.values(info).map((qi) => {
+    return sortBy(Object.values(info).map((qi) => {
       for (const answer of qi.question.answers) {
         answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length,
         answer.answered_count = qi.responses.length;
@@ -236,7 +239,7 @@ class TaskPlanScoresTasking extends BaseModel {
         points: sumBy(qi.responses, 'points'),
         totalPoints: qi.points * qi.responses.length,
       };
-    });
+    }), 'index');
   }
 
   @computed get hasEqualTutorQuestions() {
