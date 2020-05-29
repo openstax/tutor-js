@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
