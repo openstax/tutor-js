@@ -5,6 +5,7 @@ import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
+import scrollIntoView from 'scroll-into-view';
 
 export default class AssignmentReviewUX {
 
@@ -341,4 +342,11 @@ export default class AssignmentReviewUX {
       this.scores.totalAverageScoreInPercent : this.scores.totalAverageScoreInPoints;
   }
 
+  @action.bound scrollToQuestion(questionId, index) {
+    this.freeResponseQuestions.set(get(this.scores, `questionsInfo[${index}].id`), true);
+    scrollIntoView(document.querySelector(`[data-question-id="${questionId}"]`), {
+      time: 300,
+      align: { top: 0, topOffset: 80 },
+    });
+  }
 }
