@@ -9,7 +9,7 @@ import SortIcon from '../../components/icons/sort';
 
 const TableWrapper = styled.div`
   background-color: white;
-  padding: 1rem 80px;
+  padding: 40px 10rem;
 
   :first-child {
     .info-circle-icon-button {
