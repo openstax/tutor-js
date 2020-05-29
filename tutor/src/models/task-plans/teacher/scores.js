@@ -13,6 +13,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field is_completed = false;
   @field points;
   @field selected_answer_id;
+  @field is_correct;
   @field free_response;
   @field task_step_id;
   @field needs_grading;
@@ -155,6 +156,7 @@ class TaskPlanScoreHeading extends BaseModel {
       points: sumBy(responses, 'points'),
       totalPoints: this.points * responses.length,
       averageGradedPoints: sumBy(responses, 'gradedPoints') / responses.length,
+      correct: filter(responses, 'is_correct').length,
     };
   }
 

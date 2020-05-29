@@ -259,7 +259,11 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       </Row>
       <Row>
         <Header>Correct Responses</Header>
-        {scores.question_headings.map((h, i) => <Cell key={i}>{h.responseStats.points} / {h.responseStats.totalPoints}</Cell>)}
+        {scores.question_headings.map((h, i) => (
+          <Cell key={i}>
+            {h.gradedStats.remaining > 0 ? '---' : h.responseStats.correct} / {h.responseStats.completed}
+          </Cell>
+        ))}
       </Row>
     </StyledStickyTable>
     <Legend>
