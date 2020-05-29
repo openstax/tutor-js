@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact } from 'lodash';
+import { filter, get, sum, sumBy, find, isNil, isEmpty, compact } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -29,16 +29,21 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     return isNil(this.grader_comments) ? this.comments : this.grader_comments;
   }
 
+  @computed get isPlaceHolder() {
+    return !this.exercise_id;
+  }
+
   @computed get index() {
     return this.student && this.student.questions.indexOf(this);
   }
 
   @computed get questionHeading() {
-    return this.student.tasking.question_headings[this.index];
+    return this.isPlaceHolder ?
+      null : this.student.tasking.question_headings.find(qh => qh.question_id == this.question_id);
   }
 
   @computed get availablePoints() {
-    return this.questionHeading.points;
+    return get(this.questionHeading, 'points', 1.0);
   }
 
   @computed get isManuallyGraded() {
@@ -50,7 +55,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get displayValue() {
-    const { dropped } = this.questionHeading;
+    const { dropped } = this.questionHeading || {};
     const pending = '---';
 
     if (this.needs_grading) { return pending; }
@@ -91,6 +96,12 @@ class TaskPlanScoreStudent extends BaseModel {
 
   @computed get reversedName() {
     return `${this.first_name} ${this.last_name}`;
+  }
+
+  @computed get hasBeenExtended() {
+    return Boolean(
+      this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id),
+    );
   }
 }
 
