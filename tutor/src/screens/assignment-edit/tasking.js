@@ -212,8 +212,6 @@ class Tasking extends React.Component {
   renderDateTimeInputs(tasking) {
     const { ux, period, ux: { plan } } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
-    const format = 'MMM D | hh:mm A';
-    const timeFormat = 'hh:mm A';
 
     return (
       <Row className="tasking-date-time">
@@ -223,8 +221,6 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].opens_at`}
             onChange={(target) => this.onOpensChange(target, index)}
             disabledDate={this.course.isInvalidAssignmentDate}
-            format={format}
-            timeFormat={timeFormat}
             autoFocus={period && plan.tasking_plans.forPeriod(period)}
           />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
@@ -235,8 +231,6 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].due_at`}
             disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
-            format={format}
-            timeFormat={timeFormat}
           />
           {this.renderDueAtError()}
         </Col>
@@ -247,9 +241,7 @@ class Tasking extends React.Component {
               labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
-              format={format}
               disabledDate={this.course.isInvalidAssignmentDate}
-              timeFormat={timeFormat}
             />
           </Col>
         }

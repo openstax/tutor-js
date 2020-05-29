@@ -1,7 +1,7 @@
 import { React, styled, PropTypes, useObserver, cn } from 'vendor';
 import { useField } from 'formik';
 import Picker from 'rc-picker';
-import { uniqueId, range } from 'lodash';
+import { uniqueId, range, defaults } from 'lodash';
 import moment from 'moment';
 import locale from 'rc-picker/lib/locale/en_US';
 import generateConfig from 'rc-picker/lib/generate/moment';
@@ -59,8 +59,13 @@ const IconWrapper = styled.div`
 `;
 
 
-const DateTimeInput = (props) => useObserver(() => {
-  const [field, meta] = useField({ type: 'text', ...props });
+const DateTimeInput = (assignedProps) => useObserver(() => {
+  const props = defaults({}, assignedProps, {
+    type: 'text',
+    format: 'MMM D | hh:mm A',
+    timeFormat: 'hh:mm A',
+  });
+  const [field, meta] = useField(props);
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
 
