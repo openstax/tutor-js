@@ -1,7 +1,8 @@
 import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import { map } from 'lodash';
+import { map, sumBy } from 'lodash';
 import { colors } from 'theme';
+import S from '../../src/helpers/string';
 
 const StyledStickyTable = styled(StickyTable)`
   padding-bottom: 5px;
@@ -133,26 +134,13 @@ class TaskProgress extends React.Component {
             steps.map((step, stepIndex) => {
               if(!step.isInfo) {
                 progressIndex += 1;
-                return <Cell key={stepIndex}>{progressIndex}</Cell>;
+                return <Cell key={stepIndex}>{S.numberWithOneDecimalPlace(step.available_points)}</Cell>;
               }
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          <Cell>1000</Cell>
+          <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
-        {/* <Row>
-          <Cell>Points Scored</Cell>
-          {
-            range(100).map((step, stepIndex) => {
-              if(!step.isInfo) {
-                progressIndex += 1;
-                return <Cell key={stepIndex}>{progressIndex}</Cell>;
-              }
-              return <Cell key={stepIndex}></Cell>;
-            })
-          }
-          <Cell>1000</Cell>
-        </Row> */}
       </StyledStickyTable>
     );
     
