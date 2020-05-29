@@ -1,7 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import Table from './table';
 import TourRegion from '../../components/tours/region';
-import CourseBreadcrumb from '../../components/course-breadcrumb';
 import TutorLink from '../../components/link';
 import LoadingScreen from 'shared/components/loading-animation';
 import { Icon } from 'shared';
