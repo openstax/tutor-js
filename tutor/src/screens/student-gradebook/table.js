@@ -176,6 +176,7 @@ const GradebookTable = observer((
                 {sd.reportHeading.title}
               </td>
               <td>{moment(sd.due_at).format('MMM D')} {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />} </td>
+              {/** TODO: Add provisional score logic */}
               <td>{sd.humanScoreNumber} {sd.isLate && <Icon color={colors.danger} type="clock" />}</td>
               <td>{percentOrDash(sd.score)}</td>
             </tr>);
