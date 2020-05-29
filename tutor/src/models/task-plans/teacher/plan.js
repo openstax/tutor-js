@@ -141,13 +141,20 @@ class TeacherTaskPlan extends BaseModel {
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
   findOrCreateTaskingForPeriod(period, defaultAttrs = {}) {
-    const tp = this.tasking_plans.forPeriod(period);
+    let tp = this.tasking_plans.forPeriod(period);
     if (tp) { return tp; }
+
+
     this.tasking_plans.push({
       ...defaultAttrs,
       target_id: period.id, target_type: 'period',
     });
-    return this.tasking_plans[this.tasking_plans.length - 1];
+    tp = this.tasking_plans[this.tasking_plans.length - 1];
+    if (this.gradingTemplate) {
+      tp.onGradingTemplateUpdate(this.gradingTemplate, defaultAttrs.dueAt);
+    }
+  
+    return tp;
   }
 
   @computed get isClone() {
