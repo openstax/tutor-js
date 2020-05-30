@@ -28,7 +28,8 @@ const DueCell = styled(Cell).withConfig({
 const StatusCell = styled(Cell).withConfig({
   displayName: 'StatusCell',
 })`
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
   ${({ theme }) => theme.breakpoint.mobile`
      flex: 1;
   `}
