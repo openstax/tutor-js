@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
+import S from '../../../helpers/string';
 import moment from 'moment';
 import Time from '../../time';
 import {
@@ -18,9 +19,12 @@ class StudentTask extends BaseModel {
   @field title;
   @field type;
   @field complete;
+  @field score;
+  @field is_provisional_score;
   @field is_deleted;
   @field is_college;
   @field is_extended;
+  @field is_past_due;
   @field complete_exercise_count = 0;
   @field correct_exercise_count;
   @field exercise_count = 0;
@@ -122,9 +126,7 @@ class StudentTask extends BaseModel {
   }
 
   @computed get humanScore() {
-    return this.scoreShown ?
-      `${this.correct_exercise_count}/${this.exercise_count} correct` :
-      `${this.complete_exercise_count}/${this.exercise_count} answered`;
+    return isNil(this.score) ? '---' : S.numberWithOneDecimalPlace(this.score);
   }
 
   // called from API

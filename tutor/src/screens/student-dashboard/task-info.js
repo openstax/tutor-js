@@ -10,22 +10,6 @@ const Feedback = styled.div`
   align-items: center;
 `;
 
-// const LateCaption = styled.div`
-//   font-size: 1.2rem;
-//   margin-top: 5px;
-//   color: ${({ theme }) => theme.colors.neutral.thin};
-// `;
-
-// const LateInfo = observer(({ event }) => {
-//   if (!event.isHomework || !event.workedLate) { return null; }
-//   return (
-//     <LateCaption>
-//       {event.completed_on_time_exercise_count}/{event.exercise_count} answered on due date
-//     </LateCaption>
-//   );
-// });
-
-
 const DescriptionPopoverIcon = observer(({ event }) => {
   if (!event.description) { return null; }
   return (
@@ -62,6 +46,7 @@ const TaskScore = observer(({ event }) => {
   return (
     <Feedback>
       {event.humanScore}
+      {event.is_provisional_score && <Icon variant="circledStar" />}
     </Feedback>
   );
 });
