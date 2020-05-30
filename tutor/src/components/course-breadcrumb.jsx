@@ -2,6 +2,7 @@ import { React, PropTypes, styled, css, Theme } from 'vendor';
 import { Icon } from 'shared';
 import TutorLink from './link';
 import { Course } from '../models/courses-map';
+import { TruncatedText } from '../components/text';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,19 +23,15 @@ const AngleDivider = styled(Divider)`
   svg { margin: 0; }
 `;
 
-const TaskTitle = styled.div`
+const TaskTitle = styled(TruncatedText)`
   color: ${Theme.colors.neutral.grayblue};
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
   ${props => props.titleSize === 'lg' && css`
-    overflow: initial;
-    max-width: initial;
-    width: 100%;
+    max-width: 100%;
     margin-top: 1.8rem;
     font-size: 3.6rem;
     font-weight: bold;
+    line-height: initial;
     color: ${Theme.colors.neutral.darker};
   `}
 `;
@@ -55,7 +52,7 @@ const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan }) => {
               to="reviewAssignment"
               params={{ courseId: course.id, id: plan.id }}
             >
-              {plan.title}
+              <TruncatedText>{plan.title}</TruncatedText>
             </TutorLink>
             <AngleDivider>
               <Icon type="angle-right" />

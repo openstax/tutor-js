@@ -10,7 +10,7 @@ import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
-
+import { TruncatedText } from '../../components/text';
 const DetailsWrapper = styled.div`
 
 `;
@@ -77,15 +77,20 @@ const Controls = styled.div`
   }
 `;
 
-const Title = styled.div`
-  width: 18rem;
+const Title = styled(TruncatedText).attrs({
+  maxWidth: '80rem',
+})`
+
   margin-right: 3.3rem;
   color: ${colors.neutral.thin};
 `;
 
-const Item = styled.div`
-
-`;
+const Item = ({ children }) => (
+  <div><TruncatedText maxWidth="40rem">{children}</TruncatedText></div>
+);
+Item.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const PlanDefinitionList = styled.div`
   dl {
@@ -272,7 +277,7 @@ const Details = observer(({ ux }) => {
             </Row>
             {ux.isReadingOrHomework &&
               <Row>
-                <Title>Assignment settings</Title>
+                <Title>Grading template</Title>
                 <Item>
                   <TemplateInfo template={planScores.grading_template} />
                 </Item>
@@ -280,7 +285,7 @@ const Details = observer(({ ux }) => {
             }
             <Row>
               <Title>Assigned to</Title>
-              <Item>
+              <div>
                 {taskingPlanDetails.map(plan =>
                   <PlanDates
                     plan={plan}
@@ -288,7 +293,7 @@ const Details = observer(({ ux }) => {
                     key={plan.period.id}
                   />
                 )}
-              </Item>
+              </div>
             </Row>
           </Table>
         </Section>
