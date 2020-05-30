@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import S from '../../helpers/string';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -26,11 +26,14 @@ const Footer = styled.div`
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
+  &&:hover {
+    box-shadow: none;
+  }
 `;
 
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
   <>
-    <ExerciseNumber variant={styleVariant}>
+    <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
       {info.hasFreeResponse && (
         <StyledIcon
           type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
@@ -299,13 +302,22 @@ AvailablePoints.propTypes = {
   ]),
 };
 
+const StyledButton = styled(Button)`
+  && { text-decoration: underline; }
+`;
+
 const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
     <GradingBlock ux={ux}/>
     <StyledStickyTable>
       <Row>
         <Header>Question Number</Header>
-        {scores.question_headings.map((h, i) => <Header key={i} center={true}>{h.title}</Header>)}
+        {scores.question_headings.map((h, i) =>
+          <Header key={i} center={true}>
+            <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+              {h.title}
+            </StyledButton>
+          </Header>)}
       </Row>
       <Row>
         <Header>Question Type</Header>
@@ -329,7 +341,7 @@ const Overview = observer(({ ux, ux: { scores } }) => (
     <Legend>
       MCQ: Multiple Choice Question (auto-graded);
       WRQ: Written Response Question (manually-graded);
-      Tutor: Personalized questions assigned by OpenStax Tutor (MCQs & auto-graded)
+      Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
     </Legend>
 
     {ux.isExercisesReady ? (
