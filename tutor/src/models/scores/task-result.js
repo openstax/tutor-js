@@ -63,7 +63,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get isLate() {
-    return this.completed_on_time_step_count < this.completed_step_count;
+    return !this.last_worked_at || (this.last_worked_at && moment(this.last_worked_at).isAfter(this.due_at));
   }
 
   @computed get isStarted() {

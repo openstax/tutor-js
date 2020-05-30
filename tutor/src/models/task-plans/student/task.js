@@ -20,6 +20,7 @@ class StudentTask extends BaseModel {
   @field complete;
   @field is_deleted;
   @field is_college;
+  @field is_extended;
   @field complete_exercise_count = 0;
   @field correct_exercise_count;
   @field exercise_count = 0;

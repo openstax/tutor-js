@@ -1,16 +1,36 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import Table from './table';
 import TourRegion from '../../components/tours/region';
-import CoursePage from '../../components/course-page';
-import CourseBreadcrumb from '../../components/course-breadcrumb';
+import TutorLink from '../../components/link';
 import LoadingScreen from 'shared/components/loading-animation';
-import { BackgroundWrapper } from '../../helpers/background-wrapper';
+import { Icon } from 'shared';
+import { colors } from 'theme';
 import UX from './ux';
 
-const titleBreadcrumbs = (course) => {
-  /** 5/27/20: Display title as Scores */
-  return <CourseBreadcrumb course={course} currentTitle="Scores" />;
-};
+const StudentGradebookHeader = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 55px;
+  align-items: center;
+  background-color: ${colors.white};
+  border-bottom: 1px solid ${colors.neutral.pale};
+  padding: 25px 32px 16px;
+
+  a {
+    width: 100%;
+    color: ${colors.link};
+  }
+  .title {
+    font-weight: bold;
+    font-size: 3.6rem;
+    line-height: 4.5rem;
+    margin: 10px 0 0 0;
+  }
+`;
+
+const StyledTourRegion = styled(TourRegion)`
+  margin: 40px 10rem;
+`;
 
 @observer
 class StudentGradebook extends React.Component {
@@ -36,26 +56,32 @@ class StudentGradebook extends React.Component {
     }
 
     return (
-      <BackgroundWrapper>
-        <CoursePage
-          course={ux.course}
-          /** 5/27/20: Display title as Scores */
-          title="Scores"
-          className="course-scores-report"
-          titleBreadcrumbs={titleBreadcrumbs(ux.course)}
-          titleAppearance="light"
-          controlBackgroundColor='white'
+      <>
+        <StudentGradebookHeader
+          role="dialog"
+          tabIndex="-1"
         >
-          <TourRegion
-            id="gradebook"
-            className="gradebook-table"
-            courseId={this.ux.course.id}
-            otherTours={['preview-gradebook']}
-          >
-            <Table ux={ux} />
-          </TourRegion>
-        </CoursePage>
-      </BackgroundWrapper>
+          <TutorLink to="dashboard" params={{ courseId: ux.course.id }}>
+            <Icon
+              size="lg"
+              type="angle-left"
+              className="-move-exercise-up circle"
+            />
+              Dashboard
+          </TutorLink>
+          {/** 5/27/20: Display title as Scores */}
+          <h1 className="title">Scores</h1>
+        </StudentGradebookHeader>
+
+        <StyledTourRegion
+          id="gradebook"
+          className="gradebook-table"
+          courseId={this.ux.course.id}
+          otherTours={['preview-gradebook']}
+        >
+          <Table ux={ux} />
+        </StyledTourRegion>
+      </>
     );
   }
 }

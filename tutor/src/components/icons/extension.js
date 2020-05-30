@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, moment, cn } from 'vendor';
+import { React, PropTypes, styled, moment, cn, css } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const GreenCircle = styled.div`
@@ -12,6 +12,10 @@ const GreenCircle = styled.div`
   line-height: 1.4rem;
   border-radius: 50%;
   text-align: center;
+
+  ${props => props.inline && css`
+    display: inline-block;
+  `}
 `;
 
 const format = (dte) => moment(dte).format('h:mm a on MMM D');
@@ -21,9 +25,10 @@ const ExtensionIconWrapper = styled.div`
   align-items: center;
 `;
 
-const EIcon = ({ className }) => <GreenCircle className={cn('extension-icon', className)}>E</GreenCircle>;
+const EIcon = ({ className, inline }) => <GreenCircle className={cn('extension-icon', className)} inline={inline}>E</GreenCircle>;
 EIcon.propTypes = {
   className: PropTypes.string,
+  inline: PropTypes.bool,
 };
 
 const ExtensionIcon = ({ className, extension }) => {
