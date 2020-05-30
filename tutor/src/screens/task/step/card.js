@@ -2,6 +2,7 @@ import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors } from 'theme';
 import { SpyInfo } from './spy-info';
 import Step from '../../../models/student-tasks/step';
+import S from '../../../helpers/string';
 
 const InnerStepCard = styled.div`
   display: flex;
@@ -43,13 +44,13 @@ const StepCardQuestion = styled.div`
 
 LoadingCard.displayName = 'LoadingCard';
 
-const StepCard = ({ questionNumber, stepType, isHomework, unpadded, className, children, ...otherProps }) => (
+const StepCard = ({ questionNumber, stepType, isHomework, availablePoints, unpadded, className, children, ...otherProps }) => (
   <OuterStepCard {...otherProps}>
     <InnerStepCard className={className}>
       {questionNumber && isHomework && stepType === 'exercise' &&
       <StepCardHeader>
         <div>Question {questionNumber}</div>
-        <div>2.0 Points</div>
+        <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
       </StepCardHeader>
       }
       <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
@@ -63,6 +64,7 @@ StepCard.propTypes = {
   questionNumber: PropTypes.number,
   stepType: PropTypes.string,
   isHomework: PropTypes.string,
+  availablePoints: PropTypes.number,
 };
 
 
@@ -73,6 +75,7 @@ const TaskStepCard = observer(({ step, questionNumber, children, className, ...o
     stepType={step.type}
     isHomework={step.task.type}
     data-task-step-id={step.id}
+    availablePoints={step.available_points}
     className={cn(`${step.type}-step`, className)}
   >
     {children}

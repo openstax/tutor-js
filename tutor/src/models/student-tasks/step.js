@@ -73,6 +73,9 @@ class StudentTaskStep extends BaseModel {
   @identifier id;
   @field uid;
   @field preview;
+  @field available_points;
+  @field grader_points;
+  @field grader_comments;
   @field type;
   @field is_completed;
   @field answer_id;
