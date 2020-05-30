@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter, isEmpty, meanBy } from 'lodash';
+import { first, filter, isEmpty, meanBy, findIndex } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
@@ -23,7 +23,7 @@ export default class AssignmentGradingUX {
   }
 
   @action async initialize({
-    id, periodId, courseId, course,
+    id, periodId, courseId, course, questionId,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
   }) {
@@ -40,6 +40,11 @@ export default class AssignmentGradingUX {
     await this.planScores.ensureExercisesLoaded();
 
     this.exercisesHaveBeenFetched = true;
+
+    if (questionId) {
+      const index = findIndex(this.headings, (h => h.question_id == questionId ));
+      if (index > -1) { this.selectedHeadingIndex = index; }
+    }
   }
 
   @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }

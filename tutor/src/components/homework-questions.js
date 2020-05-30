@@ -148,6 +148,7 @@ const ReviewExerciseCard = observer(({
   index, info,
   questionInfoRenderer: QuestionInfo,
   headerContentRenderer: HeaderContent,
+  footerContentRenderer: FooterContent,
   questionType = 'teacher-preview',
   styleVariant = 'points',
 }) => (
@@ -165,6 +166,7 @@ const ReviewExerciseCard = observer(({
         type={questionType}
       />
       {QuestionInfo && <QuestionInfo info={info} />}
+      {FooterContent && <FooterContent info={info} />}
     </Body>
   </QuestionPreview>
 ));
@@ -172,6 +174,7 @@ ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
 ReviewExerciseCard.propTypes = {
   headerContentRenderer: PropTypes.func.isRequired,
   questionInfoRenderer: PropTypes.func,
+  footerContentRenderer: PropTypes.func.isRequired,
 };
 
 const HomeworkQuestions = observer(({
@@ -180,6 +183,7 @@ const HomeworkQuestions = observer(({
   className,
   headerContentRenderer,
   questionInfoRenderer,
+  footerContentRenderer,
   styleVariant,
 }) => (
   <HomeworkQuestionsWrapper className={cn('homework-questions', className)}>
@@ -191,6 +195,7 @@ const HomeworkQuestions = observer(({
         key={info.key}
         headerContentRenderer={headerContentRenderer}
         questionInfoRenderer={questionInfoRenderer}
+        footerContentRenderer={footerContentRenderer}
         styleVariant={styleVariant}
       />
     ))}
@@ -201,6 +206,7 @@ HomeworkQuestions.displayName = 'HomeworkQuestions';
 HomeworkQuestions.propTypes = {
   headerContentRenderer: PropTypes.func.isRequired,
   questionInfoRenderer: PropTypes.func,
+  footerContentRenderer: PropTypes.func.isRequired,
   questionType: PropTypes.string,
   questionsInfo: PropTypes.array.isRequired,
   styleVariant: PropTypes.string,

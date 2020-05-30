@@ -216,6 +216,8 @@ class TaskPlanScoresTasking extends BaseModel {
             key: question.id,
             points: studentQuestion.points,
             availablePoints: heading.points,
+            averagePoints: heading.averageGradedPoints,
+            remaining: heading.gradedStats.remaining,
             index: heading.index,
             exercise,
             question,

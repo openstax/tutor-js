@@ -17,6 +17,12 @@ const Wrapper = styled.div`
   margin-top: 4rem;
 `;
 
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.6rem;
+`;
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
@@ -35,8 +41,33 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
     <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
   </>
 ));
+QuestionHeader.propTypes = {
+  styleVariant: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  info:  PropTypes.object.isRequired,
+};
 
-
+const QuestionFooter = observer(({ ux, info }) => (
+  <Footer>
+    <strong>
+      Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
+    </strong>
+    {info.remaining > 0 &&
+      <GradeButton
+        to="gradeAssignmentQuestion"
+        params={{
+          courseId: ux.course.id,
+          id: ux.planId,
+          periodId: ux.selectedPeriod.id,
+          questionId: `${info.id}`,
+        }}
+      >
+        <span className="flag">{info.remaining} NEW</span>
+        <span>Grade Answers</span>
+      </GradeButton>
+    }
+  </Footer>
+));
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -156,7 +187,6 @@ const QuestionFreeResponse = observer(({ ux, info }) => {
 const StyledStickyTable = styled(StickyTable)`
   .sticky-table-table {
     border: 1px solid ${colors.neutral.pale};
-    border-bottom-width: 0;
   }
 
   .sticky-table-cell, .sticky-table-row {
@@ -197,7 +227,6 @@ const Right = styled.div`
 `;
 
 const GradeButton = styled(TutorLink).attrs({
-  to: 'gradeAssignment',
   className: 'btn btn-standard btn-primary btn-new-flag',
 })`
   && {
@@ -228,8 +257,12 @@ const GradingBlock = observer(({ ux }) => {
       </Center>
       <Right>
         <GradeButton
-          variant="primary"
-          params={{ courseId: ux.course.id, id: ux.planId }}
+          to="gradeAssignment"
+          params={{
+            courseId: ux.course.id,
+            id: ux.planId,
+            periodId: ux.selectedPeriod.id,
+          }}
         >
           <span>Grade answers</span>
         </GradeButton>
@@ -305,6 +338,7 @@ const Overview = observer(({ ux, ux: { scores } }) => (
         questionType="teacher-review"
         headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
         questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+        footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
         styleVariant="submission"
       />) : <Loading message="Loading Questions…"/>}
 
