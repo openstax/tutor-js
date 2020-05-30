@@ -10,6 +10,7 @@ import ChangeTimezone from './change-timezone';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
+import { TruncatedText } from '../../components/text';
 
 const lengthLimit = (n) =>
   (v) => (v && v.length > n) && `Cannot be longer than ${n} characters`;
@@ -39,9 +40,13 @@ const StyledTextInput = styled(TextInput)`
 
 const StyledDropdown = styled(Dropdown)`
   display: inline-flex;
+  .dropdown-item {
+    white-space: break-spaces;
+  }
 `;
 
 const StyledToggle = styled(Dropdown.Toggle)`
+
   &&& {
     border: 1px solid ${colors.forms.borders.light};
     color: ${colors.neutral.darker};
@@ -122,7 +127,7 @@ const TemplateField = observer(({ ux }) => {
       <div>
         <StyledDropdown data-test-id="grading-templates">
           <StyledToggle variant="outline" data-test-id="selected-grading-template">
-            {ux.gradingTemplate.name}
+            <TruncatedText maxWidth="25rem">{ux.gradingTemplate.name}</TruncatedText>
           </StyledToggle>
           <StyledMenu>
             {ux.gradingTemplates.map(t =>

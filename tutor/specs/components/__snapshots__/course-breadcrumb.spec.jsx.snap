@@ -31,11 +31,11 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
 }
 
 .c3 {
-  color: #5e6062;
-  max-width: 300px;
+  max-width: 1200px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #5e6062;
 }
 
 <div
@@ -48,7 +48,7 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     College Physics
   </a>
   <span
-    className="sc-fzplWN c1"
+    className="sc-fznyAO c1"
   >
     <svg
       aria-hidden="true"
@@ -69,7 +69,7 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     </svg>
   </span>
   <div
-    className="c3"
+    className="sc-fzpans c3"
   >
     Current Task
   </div>

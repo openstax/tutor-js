@@ -3,7 +3,7 @@ import Router from '../../helpers/router';
 import { runInAction, observe } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
 import {
-  filter, isEmpty, compact, map, get, first, difference, flatMap, omit,
+  filter, isEmpty, compact, map, get, first, difference, flatMap, omit, pick, extend,
 } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
@@ -304,10 +304,12 @@ export default class AssignmentUX {
     const tasking = this.plan.tasking_plans.forPeriod(period);
 
     if (input.checked && !tasking) {
+      const defaultAttrs = { dueAt: this.dueAt };
       const firstTp = first(this.plan.tasking_plans);
-      const opens_at = firstTp && firstTp.opens_at;
-      const due_at = firstTp && firstTp.due_at;
-      this.plan.findOrCreateTaskingForPeriod(period, { opens_at, due_at });
+      if (firstTp) {
+        extend(defaultAttrs, pick(firstTp, 'opens_at', 'due_at', 'closes_at'));
+      }
+      this.plan.findOrCreateTaskingForPeriod(period, defaultAttrs);
     } else if (!input.checked && tasking) {
       this.plan.tasking_plans.remove(tasking);
     }
@@ -315,7 +317,7 @@ export default class AssignmentUX {
 
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
-    this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period));
+    this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period, { dueAt: this.dueAt }));
   }
 
   @action.bound onExerciseToggle(event, exercise) {
