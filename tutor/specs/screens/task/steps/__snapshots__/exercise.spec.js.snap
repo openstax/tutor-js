@@ -8,6 +8,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "task": true,
       },
       "answer_id": undefined,
+      "available_points": undefined,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,
@@ -178,6 +179,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "free-response",
       ],
       "free_response": undefined,
+      "grader_comments": undefined,
+      "grader_points": undefined,
       "group": undefined,
       "id": 1,
       "isFetched": true,
@@ -344,6 +347,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "task": true,
         },
         "answer_id": undefined,
+        "available_points": undefined,
         "content": StudentTaskExerciseStep {
           "_page": undefined,
           "average_step_number": undefined,
@@ -514,6 +518,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "free-response",
         ],
         "free_response": undefined,
+        "grader_comments": undefined,
+        "grader_points": undefined,
         "group": undefined,
         "id": 1,
         "isFetched": true,

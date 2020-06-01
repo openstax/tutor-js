@@ -91,7 +91,8 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
 }
 
 .c4 {
@@ -344,7 +345,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       <div
                         className="c7"
                       >
-                        3/8 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -392,7 +393,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       <div
                         className="c7"
                       >
-                        2/4 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -440,7 +441,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       <div
                         className="c7"
                       >
-                        5/8 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -488,7 +489,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       <div
                         className="c7"
                       >
-                        8/12 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -766,7 +767,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
 }
 
 .c4 {
@@ -1019,7 +1021,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       <div
                         className="c7"
                       >
-                        2/3 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -1067,7 +1069,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       <div
                         className="c7"
                       >
-                        2/5 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -1115,7 +1117,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       <div
                         className="c7"
                       >
-                        0/8 answered
+                        ---
                       </div>
                     </div>
                   </a>
@@ -1163,7 +1165,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       <div
                         className="c7"
                       >
-                        1/9 answered
+                        ---
                       </div>
                     </div>
                   </a>

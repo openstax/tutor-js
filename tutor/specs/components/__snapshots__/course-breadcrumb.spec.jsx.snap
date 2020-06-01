@@ -11,9 +11,9 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 2rem 0;
@@ -46,32 +46,32 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     onClick={[Function]}
   >
     College Physics
-  </a>
-  <span
-    className="sc-fznyAO c1"
-  >
-    <svg
-      aria-hidden="true"
-      className="svg-inline--fa fa-angle-right fa-w-8 c2 ox-icon ox-icon-angle-right"
-      data-icon="angle-right"
-      data-prefix="fas"
-      focusable="false"
-      role="img"
-      style={Object {}}
-      viewBox="0 0 256 512"
-      xmlns="http://www.w3.org/2000/svg"
+    <span
+      className="sc-fznyAO c1"
     >
-      <path
-        d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
-        fill="currentColor"
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-right fa-w-8 c2 ox-icon ox-icon-angle-right"
+        data-icon="angle-right"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
         style={Object {}}
-      />
-    </svg>
-  </span>
-  <div
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </span>
+  </a>
+  <h2
     className="sc-fzpans c3"
   >
     Current Task
-  </div>
+  </h2>
 </div>
 `;

@@ -20,6 +20,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
+            "available_points": undefined,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -48,6 +49,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "feedback_html": undefined,
             "formats": Array [],
             "free_response": undefined,
+            "grader_comments": undefined,
+            "grader_points": undefined,
             "group": undefined,
             "id": 1,
             "isFetched": true,
@@ -67,6 +70,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
+            "available_points": undefined,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -95,6 +99,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "feedback_html": undefined,
             "formats": Array [],
             "free_response": undefined,
+            "grader_comments": undefined,
+            "grader_points": undefined,
             "group": undefined,
             "id": 2,
             "isFetched": true,
