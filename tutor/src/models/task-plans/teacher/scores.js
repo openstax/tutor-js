@@ -35,12 +35,14 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get index() {
-    return this.student && this.student.questions.indexOf(this);
+    return this.student.questions.indexOf(this);
   }
 
   @computed get questionHeading() {
-    return this.isPlaceHolder ?
-      null : this.student.tasking.question_headings.find(qh => qh.question_id == this.question_id);
+    if (this.student.tasking.question_headings.length > this.index) {
+      return this.student.tasking.question_headings[this.index];
+    }
+    return null;
   }
 
   @computed get availablePoints() {
@@ -210,15 +212,16 @@ class TaskPlanScoresTasking extends BaseModel {
         const exercise = Exercises.get(studentQuestion.exercise_id);
         if (exercise) {
           const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
-          const heading = this.question_headings.find(qh => qh.question_id == studentQuestion.question_id);
+          // while rare, heading will be null if this student received more exercises than others
+          const heading = studentQuestion.questionHeading;
           const questionInfo = info[question.id] || (info[question.id] = {
             id: question.id,
             key: question.id,
             points: studentQuestion.points,
-            availablePoints: heading.points,
-            averagePoints: heading.averageGradedPoints,
-            remaining: heading.gradedStats.remaining,
-            index: heading.index,
+            availablePoints: heading ? heading.points : 1.0,
+            averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
+            remaining: heading ? heading.gradedStats.remaining : 0,
+            index: studentQuestion.index,
             exercise,
             question,
             responses: [],

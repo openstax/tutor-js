@@ -21,6 +21,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskReadingStep {
                 "chapter_section": Array [
                   1,
@@ -49,6 +50,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 1,
               "isFetched": true,
@@ -68,6 +71,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskInteractiveStep {
                 "chapter_section": Array [
                   1,
@@ -94,6 +98,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 1,
               "isFetched": true,
@@ -113,6 +119,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskReadingStep {
                 "chapter_section": Array [
                   1,
@@ -141,6 +148,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 2,
               "isFetched": true,
@@ -160,6 +169,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskReadingStep {
                 "chapter_section": Array [
                   1,
@@ -188,6 +198,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 3,
               "isFetched": true,
@@ -207,6 +219,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskInteractiveStep {
                 "chapter_section": Array [
                   1,
@@ -233,6 +246,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 2,
               "isFetched": true,
@@ -252,6 +267,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskExerciseStep {
                 "_page": undefined,
                 "average_step_number": undefined,
@@ -422,6 +438,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "free-response",
               ],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 1,
               "isFetched": true,
@@ -441,6 +459,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskReadingStep {
                 "chapter_section": Array [
                   1,
@@ -469,6 +488,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 4,
               "isFetched": true,
@@ -488,6 +509,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskExerciseStep {
                 "_page": undefined,
                 "average_step_number": undefined,
@@ -658,6 +680,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "free-response",
               ],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 2,
               "isFetched": true,
@@ -677,6 +701,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                 "task": true,
               },
               "answer_id": undefined,
+              "available_points": undefined,
               "content": StudentTaskReadingStep {
                 "chapter_section": Array [
                   1,
@@ -705,6 +730,8 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "grader_comments": undefined,
+              "grader_points": undefined,
               "group": undefined,
               "id": 5,
               "isFetched": true,

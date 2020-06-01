@@ -81,7 +81,8 @@ exports[`Event Row renders and matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
 }
 
 .c7 {
@@ -213,7 +214,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
           <div
             className="c5"
           >
-            5/5 answered
+            ---
           </div>
         </div>
       </a>

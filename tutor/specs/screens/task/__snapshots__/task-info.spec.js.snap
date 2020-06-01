@@ -18,6 +18,7 @@ exports[`Tasks Info matches snapshot 1`] = `
             "task": true,
           },
           "answer_id": undefined,
+          "available_points": undefined,
           "content": StudentTaskInteractiveStep {
             "chapter_section": Array [
               1,
@@ -44,6 +45,8 @@ exports[`Tasks Info matches snapshot 1`] = `
           "feedback_html": undefined,
           "formats": Array [],
           "free_response": undefined,
+          "grader_comments": undefined,
+          "grader_points": undefined,
           "group": undefined,
           "id": 1,
           "isFetched": true,

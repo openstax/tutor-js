@@ -5,12 +5,15 @@ exports[`Task Failure matches snapshot 1`] = `
   step={
     StudentTaskStep {
       "answer_id": undefined,
+      "available_points": undefined,
       "content": undefined,
       "correct_answer_id": undefined,
       "external_url": undefined,
       "feedback_html": undefined,
       "formats": Array [],
       "free_response": undefined,
+      "grader_comments": undefined,
+      "grader_points": undefined,
       "group": undefined,
       "id": 1234,
       "is_completed": undefined,

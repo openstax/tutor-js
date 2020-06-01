@@ -181,30 +181,33 @@ class CoursePlanDetails extends React.Component {
 
   renderDateFields() {
     const format = 'MMM D hh:mm A';
-
+    const { isEvent } = this.props.plan;
+    const mdWidth = isEvent ? 6 : 4;
     return (
       <DateFieldsWrapper>
         <Row className="tasking-date-time">
-          <Col xs={12} md={4} className="opens-at">
+          <Col xs={12} md={mdWidth} className="opens-at">
             <b>Open date & time</b>
           </Col>
-          <Col xs={12} md={4} className="due-at">
+          <Col xs={12} md={mdWidth} className="due-at">
             <b>Due date & time</b>
           </Col>
-          <Col xs={12} md={4} className="closes-at">
-            <b>Due date & time</b>
-          </Col>
+          {!isEvent && (
+            <Col xs={12} md={mdWidth} className="closes-at">
+              <b>Close date & time</b>
+            </Col>)}
         </Row>
         <Row className="tasking-date-time">
-          <Col xs={12} md={4} className="opens-at">
+          <Col xs={12} md={mdWidth} className="opens-at">
             {moment(this.tasking.opens_at).format(format)}
           </Col>
-          <Col xs={12} md={4} className="due-at">
+          <Col xs={12} md={mdWidth} className="due-at">
             {moment(this.tasking.due_at).format(format)}
           </Col>
-          <Col xs={12} md={4} className="closes-at">
-            {moment(this.tasking.closes_at).format(format)}
-          </Col>
+          {!isEvent && (
+            <Col xs={12} md={mdWidth} className="closes-at">
+              {moment(this.tasking.closes_at).format(format)}
+            </Col>)}
         </Row>
       </DateFieldsWrapper>
     );
