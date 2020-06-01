@@ -97,7 +97,7 @@ class EventRow extends React.Component {
         >
           <TitleCell>
             <EventTypeIcon event={event} />
-            {event.title}
+            <span>{event.title}</span>
           </TitleCell>
           <DueCell>
             <EventTime event={event} />
