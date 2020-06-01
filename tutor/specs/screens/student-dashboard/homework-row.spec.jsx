@@ -39,7 +39,6 @@ describe('Homework Row', function() {
     props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
     props.event.complete = false;
     const row = mount(<C><Row {...props} /></C>);
-    const t = props.event;
     expect(row.find('ScoreCell').text()).toEqual('---');
     expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
 

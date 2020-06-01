@@ -161,12 +161,12 @@ class TaskProgress extends React.Component {
             steps.map((step, stepIndex) => {
               if(!step.isInfo) {
                 progressIndex += 1;
-                return <Cell key={stepIndex}>{S.numberWithOneDecimalPlace(step.availablePoints)}</Cell>;
+                return <Cell key={stepIndex}>{S.numberWithOneDecimalPlace(step.available_points)}</Cell>;
               }
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.availablePoints))}</Cell>
+          <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
           steps.some(s => s.correct_answer_id || s.grader_points) &&

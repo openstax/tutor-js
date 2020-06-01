@@ -138,11 +138,6 @@ class StudentTaskStep extends BaseModel {
     return null;
   }
 
-  @computed get availablePoints() {
-    if (!this.available_points && this.isSpacedPractice) return 1;
-    else return this.available_points;
-  }
-
   @computed get isTwoStep() {
     return Boolean(
       this.isExercise && this.formats.includes('multiple-choice') && this.formats.includes('free-response'),
