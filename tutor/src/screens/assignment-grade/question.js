@@ -40,7 +40,7 @@ const StyledQuestionHeading = styled.div`
     padding-right: 20px;
   }
 `;
-      
+
 const QuestionHeader = observer(({ ux }) => (
   <StyledQuestionHeading>
     <div>
@@ -64,7 +64,7 @@ const StyledQuestion = styled.div`
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 `;
-               
+
 QuestionHeader.propTypes = {
   ux: PropTypes.object.isRequired,
 };
@@ -93,7 +93,7 @@ const ExpandGraded = observer(({ ux }) => {
       >
         {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {ux.selectedHeading.gradedProgress}
       </Button>
-      <label>Average Score: {ux.averageScoreForGradedStudents} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.totalPoints)}</label>
+      <label>Average Score: {ux.averageScoreForGradedStudents} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.availablePoints)}</label>
     </ExpandGradedWrapper>
   );
 });
