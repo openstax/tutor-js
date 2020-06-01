@@ -192,7 +192,7 @@ class CoursePlanDetails extends React.Component {
             <b>Due date & time</b>
           </Col>
           <Col xs={12} md={4} className="closes-at">
-            <b>Due date & time</b>
+            <b>Close date & time</b>
           </Col>
         </Row>
         <Row className="tasking-date-time">

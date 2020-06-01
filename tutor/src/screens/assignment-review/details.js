@@ -77,10 +77,8 @@ const Controls = styled.div`
   }
 `;
 
-const Title = styled(TruncatedText).attrs({
-  maxWidth: '80rem',
-})`
-
+const Title = styled.div`
+  width: 18rem;
   margin-right: 3.3rem;
   color: ${colors.neutral.thin};
 `;
