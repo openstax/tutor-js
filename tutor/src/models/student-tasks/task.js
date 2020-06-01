@@ -19,8 +19,6 @@ class StudentTask extends BaseModel {
   @field type;
   @field complete;
   @field is_deleted;
-  @field auto_grading_feedback_on;
-  @field manual_grading_feedback_on;
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;

@@ -122,10 +122,6 @@ class StudentTaskStep extends BaseModel {
     return 'placeholder' === this.type;
   }
 
-  @computed get isOpenEnded() {
-    return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
-  }
-
   @computed get isCorrect() {
     return Boolean(
       this.correct_answer_id && this.answer_id == this.correct_answer_id
