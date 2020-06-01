@@ -10,6 +10,7 @@ import { TaskStatus, TaskScore } from './task-info';
 import Course from '../../models/course';
 import EventTypeIcon from './event-type-icon';
 import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
+import { EIcon } from '../../components/icons/extension';
 
 const NotOpenNoticeWrapper=styled.div`
   margin: 1rem 1rem 0 1rem;
@@ -50,6 +51,10 @@ const TaskRow=styled(Row).attrs({
   as: 'a',
 })`
 
+`;
+
+const StyledEIcon = styled(EIcon)`
+  margin-left: 0.5rem;
 `;
 
 export default
@@ -101,6 +106,7 @@ class EventRow extends React.Component {
           </TitleCell>
           <DueCell>
             <EventTime event={event} />
+            {event.is_extended && <StyledEIcon />}
             <HideButton event={event} />
           </DueCell>
           <StatusCell>
