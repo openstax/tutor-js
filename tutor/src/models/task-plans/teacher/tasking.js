@@ -173,13 +173,6 @@ class TaskingPlan extends BaseModel {
     ).toISOString();
   }
 
-  @action setOpensTime(time) {
-    const [hour, minute] = time.split(':');
-    this.opens_at = findEarliest(
-      moment(this.due_at).subtract(1, 'minute'),
-      this.opensAtMoment.hour(hour).minute(minute).startOf('minute')
-    ).toISOString();
-  }
 
   @action setDueDate(date) {
     this.due_at = findEarliest(
@@ -187,8 +180,11 @@ class TaskingPlan extends BaseModel {
         moment(this.opens_at).add(1, 'minute'),
         date,
       ),
-      moment(this.closes_at),
+      this.plan.isEvent ? date : this.closes_at,
     ).toISOString();
+    if (this.plan.isEvent) { // closes_at === due_at for events
+      this.closes_at = this.due_at;
+    }
   }
 
   @action setClosesDate(date) {

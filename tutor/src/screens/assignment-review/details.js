@@ -90,7 +90,7 @@ Item.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const PlanDefinitionList = styled.div`
+const TaskingDefinitionList = styled.div`
   dl {
     display: flex;
     align-items: center;
@@ -208,27 +208,29 @@ const TemplateInfo = observer(({ template }) => {
   );
 });
 
-const PlanDates = observer(({ plan, title }) => {
-  const format = 'MMM D, h:mm a';
+const format = (date)=> moment(date).format('MMM D, h:mm a');
 
+const TaskingDates = observer(({ tasking, title }) => {
+  
   return (
-    <PlanDefinitionList>
+    <TaskingDefinitionList>
       <div>{title}</div>
       <dl>
         <div>
           <dt>Open date</dt>
-          <dd>{moment(plan.opens_at).format(format)}</dd>
+          <dd>{format(tasking.opens_at)}</dd>
         </div>
         <div>
           <dt>Due date</dt>
-          <dd>{moment(plan.due_at).format(format)}</dd>
+          <dd>{format(tasking.due_at)}</dd>
         </div>
-        <div>
-          <dt>Close date</dt>
-          <dd>{moment(plan.closes_at).format(format)}</dd>
-        </div>
+        {!tasking.plan.isEvent && (
+          <div>
+            <dt>Close date</dt>
+            <dd>{format(tasking.closes_at)}</dd>
+          </div>)}
       </dl>
-    </PlanDefinitionList>
+    </TaskingDefinitionList>
   );
 });
 
@@ -284,13 +286,12 @@ const Details = observer(({ ux }) => {
             <Row>
               <Title>Assigned to</Title>
               <div>
-                {taskingPlanDetails.map(plan =>
-                  <PlanDates
-                    plan={plan}
-                    title={ux.areTaskingDatesSame ? 'All sections' : plan.period.name}
-                    key={plan.period.id}
-                  />
-                )}
+                {taskingPlanDetails.map(tasking => (
+                  <TaskingDates
+                    tasking={tasking}
+                    title={ux.areTaskingDatesSame ? 'All sections' : tasking.period.name}
+                    key={tasking.period.id}
+                  />))}
               </div>
             </Row>
           </Table>
