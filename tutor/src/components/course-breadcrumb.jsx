@@ -6,7 +6,7 @@ import { TruncatedText } from '../components/text';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 2rem 0;
@@ -28,7 +28,7 @@ const TaskTitle = styled(TruncatedText)`
 
   ${props => props.titleSize === 'lg' && css`
     max-width: 100%;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
     font-size: 3.6rem;
     font-weight: bold;
     line-height: initial;
@@ -41,10 +41,11 @@ const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan }) => {
     <Wrapper>
       <TutorLink to="dashboard" params={{ courseId: course.id }}>
         {course.name}
+        <AngleDivider>
+          <Icon type="angle-right" />
+        </AngleDivider>
       </TutorLink>
-      <AngleDivider>
-        <Icon type="angle-right" />
-      </AngleDivider>
+
       {
         plan &&
           <>
@@ -59,7 +60,7 @@ const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan }) => {
             </AngleDivider>
           </>
       }
-      <TaskTitle titleSize={titleSize}>{currentTitle}</TaskTitle>
+      <TaskTitle as="h2" titleSize={titleSize}>{currentTitle}</TaskTitle>
     </Wrapper>
   );
 };
