@@ -213,7 +213,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
           <div
             className="c5"
           >
-            5/5 answered
+            ---
           </div>
         </div>
       </a>

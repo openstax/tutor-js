@@ -40,7 +40,7 @@ describe('Homework Row', function() {
     props.event.complete = false;
     const row = mount(<C><Row {...props} /></C>);
     const t = props.event;
-    expect(row.find('ScoreCell').text()).toEqual(`${t.complete_exercise_count}/${t.exercise_count} answered`);
+    expect(row.find('ScoreCell').text()).toEqual('---');
     expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
 
     props.event.due_at = new Date(now.getTime() - ( 36*60*60*1000 ));
