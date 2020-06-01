@@ -116,12 +116,10 @@ class StudentTask extends BaseModel {
   }
 
   @computed get humanProgress() {
-    if (this.isHomework) {
+    if (this.isHomework || this.isReading) {
       if (!this.isStarted) { return 'Not started'; }
-      return this.homeworkProgressSteps;
-    } else if (this.isReading) {
-      if (!this.isStarted) { return 'Not started'; }
-      return this.complete ? 'Complete' : 'In progress';
+      if (this.complete) { return 'Complete' }
+      return this.isHomework ? this.homeworkProgressSteps : 'In progress';
     } else if (this.isExternal) {
       return this.complete ? 'Clicked' : 'Not started';
     }
