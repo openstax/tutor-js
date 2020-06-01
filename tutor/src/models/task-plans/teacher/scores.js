@@ -262,6 +262,10 @@ class TaskPlanScoresTasking extends BaseModel {
     );
   }
 
+  @computed get isManuallyGraded() {
+    return this.question_headings.gradable().length > 0;
+  }
+
   @computed get totalAverageScoreInPoints() {
     const totals = compact(this.students.map(s => s.total_points));
     let value;
