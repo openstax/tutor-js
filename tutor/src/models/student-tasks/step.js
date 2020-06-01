@@ -122,10 +122,29 @@ class StudentTaskStep extends BaseModel {
     return 'placeholder' === this.type;
   }
 
+  @computed get isOpenEnded() {
+    return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
+  }
+
   @computed get isCorrect() {
     return Boolean(
       this.correct_answer_id && this.answer_id == this.correct_answer_id
     );
+  }
+
+  @computed get pointsScored() {
+    if(this.grader_points) return this.grader_points;
+    if (this.correct_answer_id) {
+      return this.answer_id === this.correct_answer_id
+        ? this.available_points
+        : 0;
+    }
+    return null;
+  }
+
+  @computed get availablePoints() {
+    if (!this.available_points && this.isSpacedPractice) return 1;
+    else return this.available_points;
   }
 
   @computed get isTwoStep() {
