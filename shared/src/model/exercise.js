@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, session, field, hasMany, computed, action,
 } from '../model';
-import { reduce, map, filter, inRange, merge, every } from 'lodash';
+import { reduce, map, filter, inRange, merge, every, some } from 'lodash';
 import TagAssociation from './exercise/tag-association';
 import invariant from 'invariant';
 import Attachment from './exercise/attachment';
@@ -88,7 +88,7 @@ class Exercise extends BaseModel {
   @computed get isMultiPart() { return this.questions.length > 1; }
   @computed get isSinglePart() { return this.questions.length == 1; }
   @computed get isMultiChoice() { return every(this.questions, 'isMultipleChoice'); }
-
+  @computed get isOpenEnded() { return some(this.questions, 'isOpenEnded'); }
 
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
