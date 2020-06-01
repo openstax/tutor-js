@@ -14,10 +14,15 @@ const StyledTutorLink = styled(TutorLink)`
 const GradeAnswersButton = observer(({ ux }) => {
   return (
     <StyledTutorLink
-      className="btn btn-standard btn-primary btn-inline"
+      className="btn btn-standard btn-primary btn-new-flag btn-inline"
       to="gradeAssignment"
-      params={{ id: ux.planId, periodId: ux.selectedPeriodId, courseId: ux.course.id }}
+      params={{
+        id: ux.planId,
+        periodId: ux.selectedPeriod.id,
+        courseId: ux.course.id,
+      }}
     >
+      <span className="flag">{ux.gradeableQuestionCount} NEW</span>
       <span>Grade answers</span>
     </StyledTutorLink>
   );
