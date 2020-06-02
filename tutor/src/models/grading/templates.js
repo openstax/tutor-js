@@ -61,7 +61,7 @@ class GradingTemplate extends BaseModel {
     const penalties = {
       immediately: 'Per assignment',
       daily: 'Per day',
-    }
+    };
     return penalties[this.late_work_penalty_applied];
   }
 
