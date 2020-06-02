@@ -9,13 +9,34 @@ class Actions {
     }, true); // true == invoke immediatly
   }
 
-  @action async chapters() {
-    await this.ux.referenceBook.ensureLoaded();
+  async needsBook() {
+    return this.ux.referenceBook.ensureLoaded();
+  }
+
+  async needsExercises() {
+    return this.ux.exercises.ensureExercisesLoaded({
+      course: this.ux.course,
+      exercise_ids: this.ux.plan.exerciseIds,
+      page_ids: this.ux.selectedPageIds,
+    });
+  }
+
+  @action chapters() {
+    this.needsBook();
+  }
+  
+  @action reorder() {
+    this.needsBook();
+  }
+
+  @action async points() {
+    this.needsBook();
+    this.needsExercises();
   }
 
   @action async questions() {
-    await this.ux.referenceBook.ensureLoaded();
-    
+    this.needsBook();
+    // on questions we always load by not using "ensureLoaded"
     await this.ux.exercises.fetch({
       course: this.ux.course,
       book: this.ux.referenceBook,

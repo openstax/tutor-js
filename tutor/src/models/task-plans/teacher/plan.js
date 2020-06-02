@@ -111,6 +111,7 @@ class TeacherTaskPlan extends BaseModel {
     if (this.isNew && !this.isClone) {
       Object.assign(this.settings, this.defaultSettings);
     }
+
   }
 
   @computed get defaultSettings() {

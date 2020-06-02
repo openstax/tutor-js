@@ -130,11 +130,6 @@ export default class AssignmentUX {
     this.history = history;
     this.exercises = exercises;
 
-    await this.exercises.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
-
-    if (this.plan.isReading) {
-      await this.referenceBook.ensureLoaded();
-    }
     this.windowImpl = windowImpl;
 
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
@@ -149,15 +144,15 @@ export default class AssignmentUX {
     this.isReady = true;
   }
 
-  @action.bound onGradingTemplateUpdate({ object, newValue }) {
+  @action.bound onGradingTemplateUpdate({ newValue }) {
     // Change the ux dates when the template of the plan is changed
-    if(this.plan.isNew && object && object.tasking_plans) {
+    if(this.plan.isNew) {
       // Apply updated grading template settings to tasking plans whenever it changes.
       //const previousTemplate = this.course.gradingTemplates.get(oldValue);
       const template = this.course.gradingTemplates.get(newValue);
-      object.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate(template, this.dueAt));
+      this.plan.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate(template, this.dueAt));
       // Apply the updated dates based on the grading template to the form
-      object.tasking_plans.forEach((t, index) => {
+      this.plan.tasking_plans.forEach((t, index) => {
         if(this.form) {
           this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
           this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
