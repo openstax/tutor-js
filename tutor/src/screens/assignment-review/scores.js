@@ -80,6 +80,7 @@ const HeadingMiddle = styled.div`
   align-self: stretch;
   padding-top: 0;
   font-size: 1rem;
+  min-height: 28px;
   color: ${colors.neutral.thin};
 `;
 
@@ -91,6 +92,7 @@ const HeadingBottom = styled.div`
   color: ${colors.neutral.thin};
   background: #fff;
   position: relative;
+  min-height: 37px;
 `;
 
 const ColumnHeading = styled.div`
@@ -310,7 +312,8 @@ const StudentColumnHeader = observer(({ ux }) => (
           {ux.planScores.grading_template.humanLateWorkPenalty}
         </HeadingMiddle>
         <HeadingBottom>
-          -{S.asPercent(ux.planScores.grading_template.late_work_penalty)}%
+          {ux.planScores.grading_template.isLateWorkAccepted &&
+            `-${S.asPercent(ux.planScores.grading_template.late_work_penalty)}%`}
         </HeadingBottom>
       </ColumnHeading>
     </CellContents>
