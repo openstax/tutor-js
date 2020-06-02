@@ -57,6 +57,14 @@ class GradingTemplate extends BaseModel {
     return this.late_work_penalty_applied !== 'never';
   }
 
+  @computed get humanLateWorkPenalty() {
+    const penalties = {
+      immediately: 'Per assignment',
+      daily: 'Per day',
+    }
+    return penalties[this.late_work_penalty_applied];
+  }
+
   @computed get canRemove() {
     // a template can be removed as if there is at least one other with the same type
     return Boolean(this.map && this.map.array.find(t => t !== this && t.task_plan_type === this.task_plan_type));
@@ -104,7 +112,7 @@ class GradingTemplates extends Map {
     super();
     this.course = course;
   }
-  
+
   @computed get undeleted() {
     return this.where(gt => isNil(gt.deleted_at));
   }
