@@ -118,7 +118,6 @@ class AssignmentReview extends React.Component {
               <CourseBreadcrumb
                 course={course}
                 currentTitle={planScores.title}
-                titleSize="lg"
               />
               <CoursePeriodSelect
                 period={selectedPeriod}

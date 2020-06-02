@@ -13,6 +13,19 @@ import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
+const Heading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  border-bottom: 1px solid ${Theme.colors.neutral.pale};
+  padding-bottom: 1.6rem;
+  > :first-child {
+    margin: 0;
+    h2 { margin-bottom: 0; }
+  }
+`;
+
 const Instructions = styled.p`
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -109,26 +122,22 @@ class GradingTemplatesScreen extends React.Component {
     return null;
   }
 
-  titleControls() {
-    return <Button onClick={this.onAdd} size="lg">Add new template</Button>;
-  }
-
-  titleBreadcrumbs() {
-    return <CourseBreadcrumb course={this.course} currentTitle="Grading templates" />;
-  }
-
   render() {
     return (
       <ScrollToTop>
         <Templates
           course={this.course}
-          title="Grading templates"
-          titleControls={this.titleControls()}
-          titleBreadcrumbs={this.titleBreadcrumbs()}
           titleAppearance="light"
         >
           <Container fluid={true}>
-            {this.modal}         
+            {this.modal}
+            <Heading>
+              <CourseBreadcrumb
+                course={this.course}
+                currentTitle="Grading templates"
+              />
+              <Button onClick={this.onAdd} size="lg">Add new template</Button>
+            </Heading>
             <Row>
               <Col>
                 <Instructions>

@@ -12,7 +12,7 @@ import './styles.scss';
 import UX from './ux';
 
 const titleBreadcrumbs = (course) => {
-  return <CourseBreadcrumb course={course} currentTitle="Gradebook" />;
+  return <CourseBreadcrumb course={course} currentTitle="Gradebook" noBottomMargin />;
 };
 
 const titleControls = (ux) => {
@@ -39,7 +39,7 @@ const TeacherGradeBook = ({ ux: propsUX, ...props }) => {
       <BackgroundWrapper>
         <CoursePage
           course={ux.course}
-          title="Gradebook"
+          title=""
           className="course-scores-report"
           titleBreadcrumbs={titleBreadcrumbs(ux.course)}
           titleAppearance="light"

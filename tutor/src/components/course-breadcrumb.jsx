@@ -11,6 +11,11 @@ const Wrapper = styled.div`
   line-height: 2.5rem;
   margin: 2rem 0;
   max-width: 1200px;
+  ${props => props.noBottomMargin && 'margin-bottom: 0;'}
+`;
+
+const Links = styled.div`
+  display: flex;
 `;
 
 const Divider = styled.span`
@@ -24,43 +29,42 @@ const AngleDivider = styled(Divider)`
 `;
 
 const TaskTitle = styled(TruncatedText)`
-  color: ${Theme.colors.neutral.grayblue};
-
-  ${props => props.titleSize === 'lg' && css`
-    max-width: 100%;
-    margin-top: 1rem;
-    font-size: 3.6rem;
-    font-weight: bold;
-    line-height: initial;
-    color: ${Theme.colors.neutral.darker};
-  `}
+  flex: 1;
+  max-width: 100%;
+  margin-top: 1rem;
+  font-size: 3.6rem;
+  font-weight: bold;
+  line-height: initial;
+  color: ${Theme.colors.neutral.darker};
 `;
 
-const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan }) => {
+const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan, noBottomMargin }) => {
   return (
-    <Wrapper>
-      <TutorLink to="dashboard" params={{ courseId: course.id }}>
-        {course.name}
-        <AngleDivider>
-          <Icon type="angle-right" />
-        </AngleDivider>
-      </TutorLink>
+    <Wrapper noBottomMargin={noBottomMargin}>
+      <Links>
+        <TutorLink to="dashboard" params={{ courseId: course.id }}>
+          {course.name}
+          <AngleDivider>
+            <Icon type="angle-right" />
+          </AngleDivider>
+        </TutorLink>
 
-      {
-        plan &&
-          <>
-            <TutorLink
-              to="reviewAssignment"
-              params={{ courseId: course.id, id: plan.id }}
-            >
-              <TruncatedText>{plan.title}</TruncatedText>
-            </TutorLink>
-            <AngleDivider>
-              <Icon type="angle-right" />
-            </AngleDivider>
-          </>
-      }
-      <TaskTitle as="h2" titleSize={titleSize}>{currentTitle}</TaskTitle>
+        {
+          plan &&
+            <>
+              <TutorLink
+                to="reviewAssignment"
+                params={{ courseId: course.id, id: plan.id }}
+              >
+                <TruncatedText>{plan.title}</TruncatedText>
+              </TutorLink>
+              <AngleDivider>
+                <Icon type="angle-right" />
+              </AngleDivider>
+            </>
+        }
+      </Links>
+      <TaskTitle as="h2">{currentTitle}</TaskTitle>
     </Wrapper>
   );
 };
