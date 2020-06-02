@@ -17,15 +17,13 @@ import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
 import TaskPlanScores from './scores';
 
-const HW_DEFAULT_POINTS = 1;
-
 const SELECTION_COUNTS = {
   default: 3,
   max: 4,
   min: 0,
 };
 
-export { HW_DEFAULT_POINTS, SELECTION_COUNTS };
+export { SELECTION_COUNTS };
 
 const calculateDefaultOpensAt = ({ course }) => {
   const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
@@ -153,7 +151,7 @@ class TeacherTaskPlan extends BaseModel {
     if (this.gradingTemplate) {
       tp.onGradingTemplateUpdate(this.gradingTemplate, defaultAttrs.dueAt);
     }
-  
+
     return tp;
   }
 
@@ -360,7 +358,7 @@ class TeacherTaskPlan extends BaseModel {
     if (!this.exerciseIds.find(exId => exId == ex.id)) {
       this.settings.exercises.push({
         id: ex.id,
-        points: Array(ex.content.questions.length).fill(HW_DEFAULT_POINTS),
+        points: map(ex.content.questions, question => question.isOpenEnded ? 2.0 : 1.0),
       });
     }
   }
