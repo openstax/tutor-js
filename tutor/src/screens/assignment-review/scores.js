@@ -297,7 +297,7 @@ const StudentColumnHeader = observer(({ ux }) => (
           {!ux.scores.hasEqualTutorQuestions && (
             <InfoIcon
               color="#f36a31"
-              tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t available, a student works and assignment late, or a student hasn’t started the assignment."
+              tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t available, a student works an assignment late, or a student hasn’t started the assignment."
             />
           )}
         </HeadingBottom>

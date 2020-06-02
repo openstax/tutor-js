@@ -93,7 +93,7 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
             alphabetizeResponses: 'Show responses in alphabetical order',
             showOnlyAttempted: 'Show only attempted responses',
           }}
-          moreInfo="Unattempted responses are assigned a zero after the due date. Students can submit responses until the close date"
+          moreInfo="Unattempted responses are assigned a zero after the due date. Students can submit late responses until the close date"
         />
       </Controls>
     </Bar>
