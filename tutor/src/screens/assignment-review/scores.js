@@ -307,7 +307,7 @@ const StudentColumnHeader = observer(({ ux }) => (
           Late work
         </HeadingTop>
         <HeadingMiddle>
-          {S.capitalize(ux.planScores.grading_template.late_work_penalty_applied)}
+          {ux.planScores.grading_template.humanLateWorkPenalty}
         </HeadingMiddle>
         <HeadingBottom>
           -{S.asPercent(ux.planScores.grading_template.late_work_penalty)}%
