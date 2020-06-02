@@ -14,9 +14,9 @@ export const TYPE = {
 const getMinOrMaxResultPoints = (tasks, type) => {
   switch(type) {
     case TYPE.MIN:
-      return minBy(tasks, 'points').points;
+      return minBy(tasks, 'points');
     case TYPE.MAX:
-      return maxBy(tasks, 'points').points;
+      return maxBy(tasks, 'points');
     default:
       return 0;
   }
@@ -25,9 +25,9 @@ const getMinOrMaxResultPoints = (tasks, type) => {
 const getMinOrMaxResultAverage = (tasks, type) => {
   switch(type) {
     case TYPE.MIN:
-      return minBy(tasks, 'score').score;
+      return minBy(tasks, 'score');
     case TYPE.MAX:
-      return maxBy(tasks, 'score').score;
+      return maxBy(tasks, 'score');
     default:
       return 0;
   }
@@ -35,11 +35,19 @@ const getMinOrMaxResultAverage = (tasks, type) => {
 
 const MinMaxResult = observer(({ data, ux, type, drawBorderBottom }) => {
   const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
+  let taskResult;
+  let averageOrPoints;
+  if(ux.displayScoresAsPercent) {
+    taskResult =  getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
+    averageOrPoints = taskResult ? `${S.asPercent(taskResult.score)}%` : '---';
+  }
+  else {
+    taskResult =  getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type);
+    averageOrPoints = taskResult ? `${S.numberWithOneDecimalPlace(taskResult.points)}` : '---';
+  }
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>
-      {ux.displayScoresAsPercent
-        ? `${S.asPercent(getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type))}%`
-        : `${S.numberWithOneDecimalPlace(getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type))}`}
+      {averageOrPoints}
     </Cell>
   );
 });
