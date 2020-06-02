@@ -44,11 +44,12 @@ Step.propTypes = {
 
 class StepUX {
 
-  constructor(ux) {
+  constructor(ux, stepIndex = 'details') {
     this.ux = ux;
+    this.setIndex(stepIndex);
   }
 
-  @observable _stepIndex = 0;
+  @observable _stepIndex;
 
   @computed get number() {
     return this._stepIndex + 1;
