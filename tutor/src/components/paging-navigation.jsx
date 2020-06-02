@@ -142,6 +142,7 @@ class PagingNavigation extends React.Component {
         disabled={cb == null}
         title={this.props.titles.previous}
         aria-controls="paged-content"
+        data-test-id="go-backward"
         onClick={partial(this.clickHandler, cb, this.props.backwardHref)}
         className={classnames('paging-control', 'prev', { active: this.activeNav === 'prev' })}
       >
@@ -161,6 +162,7 @@ class PagingNavigation extends React.Component {
         disabled={cb == null}
         title={this.props.titles.next}
         aria-controls="paged-content"
+        data-test-id="go-forward"
         onClick={partial(this.clickHandler, cb, this.props.forwardHref)}
         className={classnames('paging-control', 'next', { active: this.activeNav === 'next' })}
       >

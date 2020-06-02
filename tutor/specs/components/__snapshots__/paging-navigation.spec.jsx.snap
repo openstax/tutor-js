@@ -7,6 +7,7 @@ exports[`Paging Navigation renders and matches snapshot 1`] = `
   <a
     aria-controls="paged-content"
     className="paging-control prev"
+    data-test-id="go-backward"
     disabled={false}
     href="#"
     onClick={[Function]}
@@ -45,6 +46,7 @@ exports[`Paging Navigation renders and matches snapshot 1`] = `
   <a
     aria-controls="paged-content"
     className="paging-control next"
+    data-test-id="go-forward"
     disabled={false}
     href="#"
     onClick={[Function]}
