@@ -169,7 +169,6 @@ const GradebookTable = observer((
         </thead>
         <tbody>
           {studentData.map((sd,i) => {
-            console.log(sd);
             return (<tr key={i}>
               <td
                 className={`border-${sd.reportHeading.type}`}
