@@ -6,13 +6,16 @@ class Actions {
     this.ux = ux;
     observe(ux.steps, 'currentStepId', ({ newValue: stepId, oldValue: prevStepId }) => {
       invoke(this, stepId, { prevStepId });
-    });
+    }, true); // true == invoke immediatly
   }
 
-  @action.bound async questions({ prevStepId }) {
-    // only load if they're going foward, don't load if they're going back to review
-    if (prevStepId !== 'chapters') { return; }
+  @action async chapters() {
+    await this.ux.referenceBook.ensureLoaded();
+  }
 
+  @action async questions() {
+    await this.ux.referenceBook.ensureLoaded();
+    
     await this.ux.exercises.fetch({
       course: this.ux.course,
       book: this.ux.referenceBook,
