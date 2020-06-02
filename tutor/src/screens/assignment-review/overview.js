@@ -231,7 +231,7 @@ const Right = styled.div`
   align-items: center;
   font-size: 1.6rem;
   .btn {
-    margin-left: 2rem;
+    margin-left: 1.6rem;
   }
 `;
 
