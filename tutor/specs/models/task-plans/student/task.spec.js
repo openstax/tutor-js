@@ -42,7 +42,7 @@ describe('Student Task Model', () => {
     task.complete_exercise_count = 1;
 
     task.exercise_count = 3;
-    expect(task.humanProgress).toEqual('In progress');
+    expect(task.humanProgress).toEqual('1/8 completed');
     task.due_at = moment(now).subtract(1, 'day');
     task.complete = true;
     expect(task.humanProgress).toEqual('Complete');
