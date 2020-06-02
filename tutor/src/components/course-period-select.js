@@ -22,11 +22,12 @@ const StyledDropdownToggle = styled(Dropdown.Toggle)`
   }
 `;
 
-const CoursePeriodSelect = observer(({ course, period, onChange }) => {
-  const choices = without(course.periods.active, period);
+const CoursePeriodSelect = observer(({ course, periods, period, onChange }) => {
+  const items = periods || course.periods.active;
+  const choices = without(items, period);
 
   const onSelect = (periodId) => {
-    const period = find(course.periods, { id: periodId });
+    const period = find(items, { id: periodId });
     onChange(period);
   };
 

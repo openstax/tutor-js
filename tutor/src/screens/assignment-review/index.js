@@ -120,7 +120,12 @@ class AssignmentReview extends React.Component {
                 currentTitle={planScores.title}
                 titleSize="lg"
               />
-              <CoursePeriodSelect period={selectedPeriod} course={course} onChange={setSelectedPeriod} />
+              <CoursePeriodSelect
+                period={selectedPeriod}
+                periods={planScores.periods}
+                course={course}
+                onChange={setSelectedPeriod}
+              />
             </Heading>
             <StyledTabs
               selectedIndex={this.tabIndex}

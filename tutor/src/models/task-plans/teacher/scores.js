@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, includes } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -333,5 +333,12 @@ class TaskPlanScores extends BaseModel {
 
   get course() {
     return this.taskPlan.course;
+  }
+
+  @computed get periods() {
+    const ids = this.tasking_plans.map(tp => tp.period_id);
+    return filter(
+      this.taskPlan.course.periods.active, p => includes(ids, p.id)
+    );
   }
 }
