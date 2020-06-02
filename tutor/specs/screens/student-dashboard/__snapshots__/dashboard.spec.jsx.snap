@@ -6,7 +6,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   margin-left: 0.5rem;
 }
 
-.c10 {
+.c12 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -56,10 +56,20 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding-left: 1rem;
+  padding: 0 6rem 0 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+
+.c1 i {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 span {
+  word-break: break-all;
 }
 
 .c2 {
@@ -75,7 +85,8 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 15rem;
+  width: 18rem;
+  padding-right: 1rem;
 }
 
 .c3 {
@@ -91,7 +102,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 12rem;
+  width: 15.5rem;
   padding-right: 1rem;
 }
 
@@ -109,7 +120,11 @@ exports[`Student Dashboard displays as loading 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   padding-right: 1rem;
-  width: 10rem;
+  width: 8rem;
+}
+
+.c4 svg.fa-star {
+  padding: 3px;
 }
 
 .c0 {
@@ -120,6 +135,19 @@ exports[`Student Dashboard displays as loading 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+}
+
+.c10 {
+  width: 1.4rem;
+  height: 1.4rem;
+  min-width: 1.4rem;
+  min-height: 1.4rem;
+  background: #009670;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .c5 {
@@ -137,11 +165,40 @@ exports[`Student Dashboard displays as loading 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin: 1rem 0;
+  font-size: 1.2rem;
 }
 
-.c9 font-size:1.2rem span + span {
+.c9 span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c9 span svg.fa-star {
+  padding: 3px;
+}
+
+.c9 span + span {
   margin-left: 2rem;
+}
+
+.c11 {
+  margin-right: 0.5rem;
+  min-width: 12px;
+  min-height: 12px;
+  width: 12px;
+  height: 12px;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
 }
 
 @media (max-width:749px) {
@@ -152,7 +209,7 @@ exports[`Student Dashboard displays as loading 1`] = `
 
 @media (max-width:749px) {
   .c2 {
-    padding-left: 1rem;
+    padding-left: 1.2rem;
   }
 }
 
@@ -316,7 +373,9 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-reading"
                         type="reading"
                       />
-                      killer revolutionize paradigms
+                      <span>
+                        killer revolutionize paradigms
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -364,7 +423,9 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-external"
                         type="external"
                       />
-                      granular implement functionalities
+                      <span>
+                        granular implement functionalities
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -412,7 +473,9 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-event"
                         type="event"
                       />
-                      bleeding-edge synthesize solutions
+                      <span>
+                        bleeding-edge synthesize solutions
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -460,7 +523,9 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-homework"
                         type="homework"
                       />
-                      sexy engineer action-items
+                      <span>
+                        sexy engineer action-items
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -479,7 +544,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-                          In progress
+                          7/9 completed
                         </span>
                       </div>
                     </div>
@@ -563,10 +628,18 @@ exports[`Student Dashboard displays as loading 1`] = `
                      Late
                   </span>
                   <span>
+                    <div
+                      className="c10 extension-icon c11"
+                    >
+                      E
+                    </div>
+                     Extension
+                  </span>
+                  <span>
                     <svg
                       aria-hidden="true"
                       background="#5e5e5e"
-                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
+                      className="svg-inline--fa fa-star fa-w-18 c12 ox-icon ox-icon-star"
                       color="white"
                       data-icon="star"
                       data-prefix="fas"
@@ -583,7 +656,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         style={Object {}}
                       />
                     </svg>
-                     Provisional score. FInal scores will be available when published by your instructor.
+                     Provisional score. Final scores will be available when published by your instructor.
                   </span>
                 </div>
                 <div
@@ -682,7 +755,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
-.c10 {
+.c12 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -732,10 +805,20 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding-left: 1rem;
+  padding: 0 6rem 0 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+
+.c1 i {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 span {
+  word-break: break-all;
 }
 
 .c2 {
@@ -751,7 +834,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 15rem;
+  width: 18rem;
+  padding-right: 1rem;
 }
 
 .c3 {
@@ -767,7 +851,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 12rem;
+  width: 15.5rem;
   padding-right: 1rem;
 }
 
@@ -785,7 +869,11 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   padding-right: 1rem;
-  width: 10rem;
+  width: 8rem;
+}
+
+.c4 svg.fa-star {
+  padding: 3px;
 }
 
 .c0 {
@@ -796,6 +884,19 @@ exports[`Student Dashboard matches snapshot 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+}
+
+.c10 {
+  width: 1.4rem;
+  height: 1.4rem;
+  min-width: 1.4rem;
+  min-height: 1.4rem;
+  background: #009670;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .c5 {
@@ -813,11 +914,40 @@ exports[`Student Dashboard matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin: 1rem 0;
+  font-size: 1.2rem;
 }
 
-.c9 font-size:1.2rem span + span {
+.c9 span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c9 span svg.fa-star {
+  padding: 3px;
+}
+
+.c9 span + span {
   margin-left: 2rem;
+}
+
+.c11 {
+  margin-right: 0.5rem;
+  min-width: 12px;
+  min-height: 12px;
+  width: 12px;
+  height: 12px;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
 }
 
 @media (max-width:749px) {
@@ -828,7 +958,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
 
 @media (max-width:749px) {
   .c2 {
-    padding-left: 1rem;
+    padding-left: 1.2rem;
   }
 }
 
@@ -992,7 +1122,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-reading"
                         type="reading"
                       />
-                      turn-key unleash paradigms
+                      <span>
+                        turn-key unleash paradigms
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1040,7 +1172,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-external"
                         type="external"
                       />
-                      enterprise enhance portals
+                      <span>
+                        enterprise enhance portals
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1088,7 +1222,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-event"
                         type="event"
                       />
-                      24/7 embrace metrics
+                      <span>
+                        24/7 embrace metrics
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1136,7 +1272,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-homework"
                         type="homework"
                       />
-                      transparent exploit architectures
+                      <span>
+                        transparent exploit architectures
+                      </span>
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1155,7 +1293,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-                          In progress
+                          3/9 completed
                         </span>
                       </div>
                     </div>
@@ -1239,10 +1377,18 @@ exports[`Student Dashboard matches snapshot 1`] = `
                      Late
                   </span>
                   <span>
+                    <div
+                      className="c10 extension-icon c11"
+                    >
+                      E
+                    </div>
+                     Extension
+                  </span>
+                  <span>
                     <svg
                       aria-hidden="true"
                       background="#5e5e5e"
-                      className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
+                      className="svg-inline--fa fa-star fa-w-18 c12 ox-icon ox-icon-star"
                       color="white"
                       data-icon="star"
                       data-prefix="fas"
@@ -1259,7 +1405,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         style={Object {}}
                       />
                     </svg>
-                     Provisional score. FInal scores will be available when published by your instructor.
+                     Provisional score. Final scores will be available when published by your instructor.
                   </span>
                 </div>
                 <div

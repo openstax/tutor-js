@@ -9,8 +9,14 @@ const Cell = styled.div`
 const TitleCell = styled(Cell).withConfig({
   displayName: 'TitleCell',
 })`
-  padding-left: 1rem;
+  padding: 0 6rem 0 1rem;
   flex: 1;
+  i {
+    flex-shrink: 0;
+  }
+  span {
+    word-break: break-all;
+  }
   ${({ theme }) => theme.breakpoint.mobile`
     min-width: 100%;
   `}
@@ -19,16 +25,17 @@ const TitleCell = styled(Cell).withConfig({
 const DueCell = styled(Cell).withConfig({
   displayName: 'DueCell',
 })`
-  width: 15rem;
+  width: 18rem;
+  padding-right: 1rem;
   ${({ theme }) => theme.breakpoint.mobile`
-    padding-left: 1rem;
+    padding-left: 1.2rem;
   `}
 `;
 
 const StatusCell = styled(Cell).withConfig({
   displayName: 'StatusCell',
 })`
-  width: 12rem;
+  width: 15.5rem;
   padding-right: 1rem;
   ${({ theme }) => theme.breakpoint.mobile`
      flex: 1;
@@ -39,10 +46,14 @@ const ScoreCell = styled(Cell).withConfig({
   displayName: 'ScoreCell',
 })`
   padding-right: 1rem;
-  width: 10rem;
+  width: 8rem;
   ${({ theme }) => theme.breakpoint.mobile`
      flex: 1;
   `}
+
+  svg.fa-star {
+    padding: 3px;
+  }
 `;
 
 const Row = styled.div`

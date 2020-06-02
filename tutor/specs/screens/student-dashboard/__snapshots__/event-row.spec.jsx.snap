@@ -46,10 +46,20 @@ exports[`Event Row renders and matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding-left: 1rem;
+  padding: 0 6rem 0 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+
+.c1 i {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 span {
+  word-break: break-all;
 }
 
 .c3 {
@@ -65,7 +75,8 @@ exports[`Event Row renders and matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 15rem;
+  width: 18rem;
+  padding-right: 1rem;
 }
 
 .c4 {
@@ -81,7 +92,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 12rem;
+  width: 15.5rem;
   padding-right: 1rem;
 }
 
@@ -99,7 +110,11 @@ exports[`Event Row renders and matches snapshot 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   padding-right: 1rem;
-  width: 10rem;
+  width: 8rem;
+}
+
+.c7 svg.fa-star {
+  padding: 3px;
 }
 
 .c0 {
@@ -120,7 +135,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
 
 @media (max-width:749px) {
   .c3 {
-    padding-left: 1rem;
+    padding-left: 1.2rem;
   }
 }
 
@@ -162,7 +177,9 @@ exports[`Event Row renders and matches snapshot 1`] = `
             className="c2 icon-homework"
             type="homework"
           />
-          end-to-end repurpose architectures
+          <span>
+            end-to-end repurpose architectures
+          </span>
         </div>
         <div
           className="sc-AxiKw c3"
@@ -181,7 +198,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
               className="tour-anchor"
               data-tour-anchor-id="assignment-progress-status"
             >
-              In progress
+              4/11 completed
             </span>
             <span
               className="tour-anchor"
