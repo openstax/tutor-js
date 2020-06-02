@@ -39,15 +39,10 @@ describe('Homework Row', function() {
     props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
     props.event.complete = false;
     const row = mount(<C><Row {...props} /></C>);
-
     expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
 
     props.event.due_at = new Date(now.getTime() - ( 36*60*60*1000 ));
     expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.danger}"]`);
-
-    props.event.accepted_late_at = new Date(now.getTime() - ( 48*60*60*1000 ));
-    props.event.last_worked_at = props.event.accepted_late_at - 1;
-    expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.neutral.thin}"]`);
 
     row.unmount();
   });

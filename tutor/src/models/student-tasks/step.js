@@ -128,6 +128,16 @@ class StudentTaskStep extends BaseModel {
     );
   }
 
+  @computed get pointsScored() {
+    if(this.grader_points) return this.grader_points;
+    if (this.correct_answer_id) {
+      return this.answer_id === this.correct_answer_id
+        ? this.available_points
+        : 0;
+    }
+    return null;
+  }
+
   @computed get isTwoStep() {
     return Boolean(
       this.isExercise && this.formats.includes('multiple-choice') && this.formats.includes('free-response'),

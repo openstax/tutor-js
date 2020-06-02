@@ -54,6 +54,12 @@ export const colors = {
   paleLine: neutral.pale,
   disabledInputBorder: '#c1c1c1',
 
+  pointsScoredStatus: {
+    partial: '#f4e9c7',
+    incorrect: '#f8e8ea',
+    correct: '#dbe8ce',
+  },
+
   states: {
     active:   neutral.dark,
     disabled: neutral.std,

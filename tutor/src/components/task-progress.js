@@ -4,6 +4,13 @@ import { map, sumBy } from 'lodash';
 import { colors } from 'theme';
 import S from '../../src/helpers/string';
 
+const PointsScoredStatus = {
+  NOT_ANSWERED_NOT_GRADED: 'not-answered-not-graded',
+  INCORRECT: 'incorrect',
+  CORRECT: 'correct',
+  PARTIAL: 'partial',
+};
+
 const StyledStickyTable = styled(StickyTable)`
   padding-bottom: 5px;
 
@@ -14,6 +21,19 @@ const StyledStickyTable = styled(StickyTable)`
   .current-step {
     font-weight: 800;
   }
+
+  .correct {
+    background: ${colors.pointsScoredStatus.correct};
+  }
+
+  .incorrect {
+    background: ${colors.pointsScoredStatus.incorrect};
+  }
+
+  .partial {
+    background: ${colors.pointsScoredStatus.partial};
+  }
+
 
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
@@ -78,6 +98,13 @@ const StyledStickyTable = styled(StickyTable)`
   }
 `;
 
+const pointsScoredStatus = (step) => {
+  if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
+  if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
+  if(step.pointsScored >= step.available_points) return PointsScoredStatus.CORRECT;
+  return PointsScoredStatus.PARTIAL;
+};
+
 @observer
 class TaskProgress extends React.Component {
   static propTypes = {
@@ -141,6 +168,29 @@ class TaskProgress extends React.Component {
           }
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
+        {
+          steps.some(s => s.correct_answer_id || s.grader_points) &&
+            <Row>
+              <Cell>Points Scored</Cell>
+              {
+                steps.map((step, stepIndex) => {
+                  if(!step.isInfo) {
+                    return (
+                      <Cell key={stepIndex} className={pointsScoredStatus(step)}>
+                        {step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : '---' }
+                      </Cell>
+                    );
+                  }
+                  return <Cell key={stepIndex}></Cell>;
+                })
+              }
+              <Cell>{
+                S.numberWithOneDecimalPlace(sumBy(steps, s => {
+                  return s.pointsScored !== null ? s.pointsScored : 0;
+                }))
+              }</Cell>
+            </Row>
+        }
       </StyledStickyTable>
     );
     
