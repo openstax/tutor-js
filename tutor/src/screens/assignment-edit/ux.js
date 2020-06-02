@@ -95,10 +95,10 @@ export default class AssignmentUX {
             this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: external_default_close_at }),
           );
         }
-        // event does not have a close date
+        // event does not have a close date. Need to set the closes_at the same as due_at
         else {
           this.periods.map((period) =>
-            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at }),
+            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: default_due_at }),
           );
         }
         // due_at is defined if user creates an assignment through the calendar
