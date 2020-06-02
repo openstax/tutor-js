@@ -114,6 +114,7 @@ class FreeResponseInput extends React.Component {
           placeholder="Enter your response..."
           isErrored={ux.displayNudgeError}
           aria-label="question response text box"
+          readOnly={ux.taskUX.isReadOnly}
         />
         <InfoRow isDisplayingLastSaved={ux.hasTimestamp}>
           {ux.hasTimestamp && <span>Last submitted on {moment(last(ux.results).timestamp).format('MMM DD [at] hh:mm A')}</span>}

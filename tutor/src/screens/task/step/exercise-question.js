@@ -120,7 +120,7 @@ class ExerciseQuestion extends React.Component {
         <Question
           task={ux.task}
           question={question}
-          choicesEnabled={step.canAnswer}
+          choicesEnabled={!ux.isReadOnly && step.canAnswer}
           answer_id={this.answerId}
           focus={!step.multiPartGroup}
           questionNumber={questionNumber}

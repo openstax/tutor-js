@@ -27,7 +27,12 @@ class ResponseValidationUX {
     return this.messages[this.messageIndex];
   }
 
-  @action.bound setResponse({ target: { value } }) {
+  @action.bound setResponse(ev) {
+    if (this.taskUX.isReadOnly) {
+      ev.preventDefault();
+      return;
+    }
+    const { target: { value } } = ev;
     if (this.isDisplayingNudge) {
       this.retriedResponse = value;
     } else {

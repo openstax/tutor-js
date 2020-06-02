@@ -58,6 +58,10 @@ export default class TaskUX {
     }
   }
 
+  @computed get isReadOnly() {
+    return Boolean(this.course.roles.teacher);
+  }
+
   @action isUnmounting() {
     // value props
 
