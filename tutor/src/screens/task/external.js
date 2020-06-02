@@ -1,15 +1,10 @@
 import {
-  React, PropTypes, observer, computed, action, styled,
+  React, PropTypes, observer, computed, action,
 } from 'vendor';
 import ContentLoader from 'react-content-loader';
 import UX from './ux';
-import { StepCard } from './step/card';
-import { CenteredBackButton } from './back-button';
+import Instructions from './step/instructions';
 import withFooter from './with-footer';
-
-const Link = styled.a`
-  margin-top: 2rem;
-`;
 
 const Loader = () => (
   <ContentLoader>
@@ -47,27 +42,10 @@ class ExternalTaskStep extends React.Component {
   }
 
   render() {
-    const { ux: { course, task } } = this.props;
+    const { ux } = this.props;
 
     return (
-      <StepCard className="external-url-task">
-        <h1>{task.title}</h1>
-        <h3>{task.description}</h3>
-
-        <Link
-          href={this.url}
-          target="_blank"
-          onContextMenu={this.onContextMenu}
-          onClick={this.onContinue}
-        >
-          {this.url}
-        </Link>
-        <CenteredBackButton
-          size="lg"
-          fallbackLink={{
-            text: 'Back to dashboard', to: 'dashboard', params: { courseId: course.id },
-          }} />
-      </StepCard>
+      <Instructions ux={ux} />
     );
   }
 }

@@ -29,7 +29,7 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('render as loading', () => {
-    props.ux.goToStep(2);
+    props.ux.goToStep(3);
     props.ux.currentStep.api.reset();
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
     const r = mount(<C><Reading {...props} /></C>);
@@ -49,53 +49,6 @@ describe('Reading Tasks Screen', () => {
     const r = mount(<C><Reading {...props} /></C>);
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(r).toHaveRendered('TwoStepValueProp');
-    r.unmount();
-  });
-
-
-  it('switches steps as needed when task reloads', () => {
-    jest.useFakeTimers();
-    props.ux.task.steps = [
-      Factory.bot.create('StudentTaskStep', { type: 'reading' }),
-      Factory.bot.create('StudentTaskStep', { type: 'placeholder' }),
-    ];
-
-    const r = mount(<C><Reading {...props} /></C>);
-    expect(props.ux.canGoForward).toBe(true);
-    expect(props.ux._stepIndex).toEqual(0)
-    props.ux.goForward();
-    expect(r).toHaveRendered('IndividualReview');
-
-    expect(r).toHaveRendered('ContinueBtn button[disabled=true]');
-    jest.runAllTimers();
-    expect(r).toHaveRendered('ContinueBtn button[disabled=false]');
-
-    expect(props.ux._stepIndex).toEqual(1)
-    props.ux.goForward();
-    expect(props.ux._stepIndex).toEqual(2)
-
-    expect(r).toHaveRendered('LoadingCard');
-
-    props.ux.currentStep.api.requestCounts.read = 1;
-
-    expect(r).toHaveRendered('PlaceHolderTaskStep');
-
-    props.ux.task.onFetchComplete({
-      data: {
-        steps: [
-          Factory.bot.create('StudentTaskStep', { type: 'reading' }),
-          Factory.bot.create('StudentTaskStep', { type: 'exercise', formats: ['free-response', 'multiple-choice'] }),
-        ],
-      },
-    });
-
-    // the new step won't have been loaded
-    expect(r).toHaveRendered('LoadingCard');
-    props.ux.currentStep.onLoaded({
-      data: Factory.bot.create('StudentTaskExerciseStepContent'),
-    });
-    props.ux.currentStep.api.requestCounts.read = 1;
-    expect(r).toHaveRendered('ExerciseTaskStep');
     r.unmount();
   });
 

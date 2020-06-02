@@ -361,7 +361,7 @@ exports[`Homework Row renders with completed count 1`] = `
   >
     <div>
       <a
-        aria-label="Work on homework: interactive mesh convergence"
+        aria-label="Work on homework: front-end incubate convergence"
         className="sc-fznKkj c0 task homework"
         data-event-id={2}
         href="/course/2/task/2"
@@ -375,7 +375,7 @@ exports[`Homework Row renders with completed count 1`] = `
             className="c2 icon-homework"
             type="homework"
           />
-          interactive mesh convergence
+          front-end incubate convergence
         </div>
         <div
           className="sc-fznyAO c3"

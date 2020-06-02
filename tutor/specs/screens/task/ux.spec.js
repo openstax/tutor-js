@@ -112,7 +112,8 @@ describe('Task UX Model', () => {
     expect(task.steps).toHaveLength(0);
     task.tasksMap = { course: Factory.course() };
     ux = new UX({ task: task, history: new TestRouter().history });
-    expect(ux.currentStep).toBeNull();
+    expect(ux.currentStep.type).toEqual('task-instructions')
+    expect(ux.steps).toHaveLength(1);
   });
 
   it('calls becomes on student role when it matches', () => {
@@ -149,7 +150,7 @@ describe('Task UX Model', () => {
       s => s.api.requestCounts.read = 1
     );
 
-    ux.goToStep(1, false);
+    ux.goToStep(3, false);
     expect(ux.stepGroupInfo.grouped).toBe(true);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
@@ -168,16 +169,4 @@ describe('Task UX Model', () => {
     expect(step.markViewed).toHaveBeenCalled();
   });
 
-  it('locks going forward repeatedly', () => {
-    jest.useFakeTimers();
-    ux.nextStep.isInfo = true;
-    expect(ux.isLocked).toBe(false);
-    expect(ux.canGoForward).toBeTruthy();
-    ux.goForward();
-    expect(ux.isLocked).toBeTruthy();
-    expect(ux.canGoForward).toBe(false);
-    jest.runAllTimers();
-    expect(ux.isLocked).toBe(false);
-    expect(ux.canGoForward).toBe(true);
-  });
 });

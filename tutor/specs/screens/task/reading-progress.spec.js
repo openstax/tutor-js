@@ -24,7 +24,7 @@ describe('Homework Breadcrumbs Component', () => {
 
   it('displays progress', () => {
     const rp = mount(<C><ReadingNavbar {...props} /></C>);
-    expect(props.ux.steps).toHaveLength(12);
+    expect(props.ux.steps).toHaveLength(13);
     rp.update();
     expect(rp).toHaveRendered('ProgressBar[now=0]');
     props.ux.goForward();

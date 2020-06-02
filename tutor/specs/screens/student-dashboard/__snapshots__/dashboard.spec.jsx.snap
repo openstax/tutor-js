@@ -302,7 +302,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </div>
                   <a
-                    aria-label="Work on reading: B2C mesh schemas"
+                    aria-label="Work on reading: killer revolutionize paradigms"
                     className="c5 task reading"
                     data-event-id={5}
                     href="/course/1/task/5"
@@ -316,7 +316,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-reading"
                         type="reading"
                       />
-                      B2C mesh schemas
+                      killer revolutionize paradigms
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -350,7 +350,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on external: granular engineer action-items"
+                    aria-label="Work on external: granular implement functionalities"
                     className="c5 task external"
                     data-event-id={6}
                     href="/course/1/task/6"
@@ -364,7 +364,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-external"
                         type="external"
                       />
-                      granular engineer action-items
+                      granular implement functionalities
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -398,7 +398,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on event: proactive harness supply-chains"
+                    aria-label="Work on event: bleeding-edge synthesize solutions"
                     className="c5 task event"
                     data-event-id={7}
                     href="/course/1/task/7"
@@ -412,7 +412,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-event"
                         type="event"
                       />
-                      proactive harness supply-chains
+                      bleeding-edge synthesize solutions
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -446,7 +446,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on homework: sexy envisioneer synergies"
+                    aria-label="Work on homework: sexy engineer action-items"
                     className="c5 task homework"
                     data-event-id={8}
                     href="/course/1/task/8"
@@ -460,7 +460,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         className="c6 icon-homework"
                         type="homework"
                       />
-                      sexy envisioneer synergies
+                      sexy engineer action-items
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1026,7 +1026,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on external: intuitive empower niches"
+                    aria-label="Work on external: enterprise enhance portals"
                     className="c5 task external"
                     data-event-id={2}
                     href="/course/1/task/2"
@@ -1040,7 +1040,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-external"
                         type="external"
                       />
-                      intuitive empower niches
+                      enterprise enhance portals
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1074,7 +1074,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on event: user-centric syndicate web-readiness"
+                    aria-label="Work on event: 24/7 embrace metrics"
                     className="c5 task event"
                     data-event-id={3}
                     href="/course/1/task/3"
@@ -1088,7 +1088,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-event"
                         type="event"
                       />
-                      user-centric syndicate web-readiness
+                      24/7 embrace metrics
                     </div>
                     <div
                       className="sc-fznyAO c2"
@@ -1122,7 +1122,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </a>
                   <a
-                    aria-label="Work on homework: innovative e-enable e-services"
+                    aria-label="Work on homework: transparent exploit architectures"
                     className="c5 task homework"
                     data-event-id={4}
                     href="/course/1/task/4"
@@ -1136,7 +1136,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         className="c6 icon-homework"
                         type="homework"
                       />
-                      innovative e-enable e-services
+                      transparent exploit architectures
                     </div>
                     <div
                       className="sc-fznyAO c2"

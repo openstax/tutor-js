@@ -12,6 +12,7 @@ import HtmlContent from './html-content';
 import Failure from './failure';
 import End from './end';
 import { LoadingCard } from './card';
+import Instructions from './instructions';
 import {
   PersonalizedGroup,
   TwoStepValueProp,
@@ -27,6 +28,7 @@ const STEP_TYPES = {
   exercise: Exercise,
   placeholder: Placeholder,
   interactive: HtmlContent,
+  'task-instructions': Instructions,
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,

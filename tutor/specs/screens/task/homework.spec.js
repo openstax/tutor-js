@@ -27,6 +27,8 @@ describe('Reading Tasks Screen', () => {
 
   it('renders value props', () => {
     const h = mount(<C><Homework {...props} /></C>);
+    expect(props.ux.currentStep.type).toEqual('task-instructions');
+    props.ux.goForward();
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(h).toHaveRendered('TwoStepValueProp');
     h.unmount();
@@ -35,9 +37,12 @@ describe('Reading Tasks Screen', () => {
   it('renders task with placeholders', () => {
     props.ux.task.steps.forEach(s => s.type = 'placeholder');
     const h = mount(<C><Homework {...props} /></C>);
+    expect(h).toHaveRendered('Instructions');
+    props.ux.goForward();
     expect(h).toHaveRendered('IndividualReview');
+    props.ux.isLocked = false;
     props.ux.goForward();
-    props.ux.goForward();
+    h.render();
     expect(h).toHaveRendered('LoadingCard');
     props.ux.currentStep.api.requestCounts.read = 1;
     expect(h).toHaveRendered('PlaceHolderTaskStep');
