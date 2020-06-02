@@ -1,4 +1,4 @@
-import { React, PropTypes, useEffect, observer, styled } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { AssignmentBuilder } from './builder';
 import ChooseExercises from './homework/choose-exercises';
 import { colors } from '../../theme';
@@ -63,10 +63,6 @@ const Indicators = observer(({ ux }) => {
 });
 
 const Questions = observer(({ ux }) => {
-
-  useEffect(() => {
-    ux.fetchExerciseForPages();
-  }, []);
 
   return (
     <AssignmentBuilder
