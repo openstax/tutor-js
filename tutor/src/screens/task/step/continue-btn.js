@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 const StyledBtn = styled(Button).attrs({ size: 'lg' })`
   align-self: flex-end;
   margin: 4rem;
+  float: right;
 `;
 
 export default function ContinueBtn({ ux: {
