@@ -12,8 +12,9 @@ const getPoints = (tasks) => {
   return S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
 };
 
-const getPercentage = (data) => {
-  return data ? `${S.asPercent(data.average_score)}%` : '100';
+const getPercentage = (tasks) => {
+  const aggregateScore = sumBy(tasks, (t) => parseFloat(t.score, 10));
+  return `${S.asPercent(aggregateScore/tasks.length)}%`;
 };
 
 
@@ -21,7 +22,7 @@ const AggregateResult = observer(({ data, ux, drawBorderBottom }) => {
   const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>
-      {ux.displayScoresAsPercent ? getPercentage(data) : getPoints(tasksWithoutDroppedStudents)}
+      {ux.displayScoresAsPercent ? getPercentage(tasksWithoutDroppedStudents) : getPoints(tasksWithoutDroppedStudents)}
     </Cell>
   );
 });
