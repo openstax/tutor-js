@@ -111,7 +111,7 @@ class TeacherTaskPlan extends BaseModel {
     if (this.isNew && !this.isClone) {
       Object.assign(this.settings, this.defaultSettings);
     }
-
+    
   }
 
   @computed get defaultSettings() {
@@ -273,7 +273,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isTrouble() { return this.is_trouble; }
   @computed get isOpen() {
     return Boolean(
-      this.isPublished && this.duration.start.isBefore(Time.now),
+      this.isPublished && this.tasking_plans.length && this.duration.start.isBefore(Time.now),
     );
   }
   @computed get isEditable() {

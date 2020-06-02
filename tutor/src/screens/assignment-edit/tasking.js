@@ -163,7 +163,7 @@ class Tasking extends React.Component {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
     const checked = !!plan.tasking_plans.forPeriod(period);
-    if (plan.isOpen && checked) {
+    if (checked && plan.isOpen) {
       return (
         <span>
           <Icon
