@@ -26,6 +26,7 @@ const Footer = styled.div`
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
+  flex-shrink: 0;
   &&:hover {
     box-shadow: none;
   }
