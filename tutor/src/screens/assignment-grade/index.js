@@ -40,6 +40,8 @@ class AssignmentGrading extends React.Component {
     params: PropTypes.shape({
       id: PropTypes.string,
       courseId: PropTypes.string.isRequired,
+      periodId: PropTypes.string,
+      questionId: PropTypes.string,
     }),
     course: PropTypes.object,
     history: PropTypes.object.isRequired,
@@ -77,8 +79,13 @@ class AssignmentGrading extends React.Component {
               currentTitle="Grade Answers"
             />
             <Heading>
-              <Title>Grade Answers</Title>    
-              <CoursePeriodSelect period={ux.selectedPeriod} course={ux.course} onChange={ux.setSelectedPeriod} />
+              <Title>Grade Answers</Title>
+              <CoursePeriodSelect
+                period={ux.selectedPeriod}
+                periods={ux.planScores.periods}
+                course={ux.course}
+                onChange={ux.setSelectedPeriod}
+              />
             </Heading>
           </div>
           <QuestionsBar ux={ux} />

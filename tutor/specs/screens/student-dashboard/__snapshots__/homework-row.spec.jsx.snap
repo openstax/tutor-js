@@ -76,7 +76,8 @@ exports[`Homework Row renders in progress 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
 }
 
 .c6 {
@@ -293,7 +294,8 @@ exports[`Homework Row renders with completed count 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 11rem;
+  width: 12rem;
+  padding-right: 1rem;
 }
 
 .c7 {

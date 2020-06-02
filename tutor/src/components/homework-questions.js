@@ -174,7 +174,7 @@ ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
 ReviewExerciseCard.propTypes = {
   headerContentRenderer: PropTypes.func.isRequired,
   questionInfoRenderer: PropTypes.func,
-  footerContentRenderer: PropTypes.func.isRequired,
+  footerContentRenderer: PropTypes.func,
 };
 
 const HomeworkQuestions = observer(({
@@ -206,7 +206,7 @@ HomeworkQuestions.displayName = 'HomeworkQuestions';
 HomeworkQuestions.propTypes = {
   headerContentRenderer: PropTypes.func.isRequired,
   questionInfoRenderer: PropTypes.func,
-  footerContentRenderer: PropTypes.func.isRequired,
+  footerContentRenderer: PropTypes.func,
   questionType: PropTypes.string,
   questionsInfo: PropTypes.array.isRequired,
   styleVariant: PropTypes.string,

@@ -91,17 +91,10 @@ class FreeResponseInput extends React.Component {
     validator: this.props.response_validation,
   });
 
-  textArea = React.createRef();
-
   @action.bound onSave() {
     const { taskUX, step } = this.props;
     taskUX.setCurrentMultiPartStep(step);
     this.ux.onSave();
-  }
-
-  componentDidMount() {
-    // focus on the textarea when question is loaded
-    this.textArea.current.focus();
   }
 
   render() {
@@ -115,7 +108,6 @@ class FreeResponseInput extends React.Component {
           question={question}
         />
         <TextArea
-          ref={this.textArea}
           value={ux.response}
           onChange={ux.setResponse}
           data-test-id="free-response-box"

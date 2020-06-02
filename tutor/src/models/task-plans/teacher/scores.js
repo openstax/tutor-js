@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, includes } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -35,12 +35,14 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get index() {
-    return this.student && this.student.questions.indexOf(this);
+    return this.student.questions.indexOf(this);
   }
 
   @computed get questionHeading() {
-    return this.isPlaceHolder ?
-      null : this.student.tasking.question_headings.find(qh => qh.question_id == this.question_id);
+    if (this.student.tasking.question_headings.length > this.index) {
+      return this.student.tasking.question_headings[this.index];
+    }
+    return null;
   }
 
   @computed get availablePoints() {
@@ -210,15 +212,16 @@ class TaskPlanScoresTasking extends BaseModel {
         const exercise = Exercises.get(studentQuestion.exercise_id);
         if (exercise) {
           const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
-          const heading = this.question_headings.find(qh => qh.question_id == studentQuestion.question_id);
+          // while rare, heading will be null if this student received more exercises than others
+          const heading = studentQuestion.questionHeading;
           const questionInfo = info[question.id] || (info[question.id] = {
             id: question.id,
             key: question.id,
             points: studentQuestion.points,
-            availablePoints: heading.points,
-            averagePoints: heading.averageGradedPoints,
-            remaining: heading.gradedStats.remaining,
-            index: heading.index,
+            availablePoints: heading ? heading.points : 1.0,
+            averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
+            remaining: heading ? heading.gradedStats.remaining : 0,
+            index: studentQuestion.index,
             exercise,
             question,
             responses: [],
@@ -257,6 +260,10 @@ class TaskPlanScoresTasking extends BaseModel {
     return Boolean(
       find(this.students, student => find(student.questions, question => !isNil(question.gradedPoints))),
     );
+  }
+
+  @computed get isManuallyGraded() {
+    return this.question_headings.gradable().length > 0;
   }
 
   @computed get totalAverageScoreInPoints() {
@@ -330,5 +337,12 @@ class TaskPlanScores extends BaseModel {
 
   get course() {
     return this.taskPlan.course;
+  }
+
+  @computed get periods() {
+    const ids = this.tasking_plans.map(tp => tp.period_id);
+    return filter(
+      this.taskPlan.course.periods.active, p => includes(ids, p.id)
+    );
   }
 }
