@@ -39,9 +39,20 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 
   @computed get questionHeading() {
+    // First try to find the heading by question_id
+    const heading = this.student.tasking.question_headings.find(
+      qh => qh.question_id == this.question_id
+    );
+    if (!isNil(heading)) {
+      return heading;
+    }
+
+    // For Tutor-assigned questions, each student may get a question with a different ID
+    // so we can't really do better than using the index in this case
     if (this.student.tasking.question_headings.length > this.index) {
       return this.student.tasking.question_headings[this.index];
     }
+
     return null;
   }
 
@@ -131,7 +142,16 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get studentResponses() {
-    return compact(this.tasking.students.map(s => s.questions.find(q => q.question_id == this.question_id)));
+    if (isNil(this.question_id)) {
+      // For Tutor-assigned questions, each student may get a question with a different ID
+      // so we can't really do better than using the index in this case
+      return compact(this.tasking.students.map(s => s.questions[this.index]));
+    }
+    else {
+      return compact(
+        this.tasking.students.map(s => s.questions.find(q => q.question_id == this.question_id))
+      );
+    }
   }
 
   @computed get exercise() {
@@ -152,12 +172,12 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get responseStats() {
     const responses = this.studentResponses;
+    const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints));
     return {
       completed: filter(responses, 'is_completed').length,
       hasFreeResponse: Boolean(find(responses, 'free_response')),
-      points: sumBy(responses, 'points'),
-      totalPoints: this.points * responses.length,
-      averageGradedPoints: sumBy(responses, 'gradedPoints') / responses.length,
+      availablePoints: this.points,
+      averageGradedPoints: sumBy(responsesInAvgs, 'gradedPoints') / responsesInAvgs.length,
       correct: filter(responses, 'is_correct').length,
     };
   }
@@ -202,16 +222,18 @@ class TaskPlanScoresTasking extends BaseModel {
     return sumBy(this.question_headings, 'points');
   }
 
-  // this returns all of the quesions that were assigned
+  // this returns all of the questions that were assigned
   // this is trickier than just using the index from headings because tutor assigned questions
   // will be in different order and different students will get different ones
   @computed get questionsInfo() {
     const info = {};
+
     for (const student of this.students) {
       for (const studentQuestion of student.questions) {
         const exercise = Exercises.get(studentQuestion.exercise_id);
         if (exercise) {
           const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
+
           // while rare, heading will be null if this student received more exercises than others
           const heading = studentQuestion.questionHeading;
           const questionInfo = info[question.id] || (info[question.id] = {
