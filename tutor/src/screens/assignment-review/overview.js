@@ -226,7 +226,12 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  .btn {
+    margin-left: 2rem;
+  }
 `;
 
 const GradeButton = styled(TutorLink).attrs({
@@ -256,9 +261,9 @@ const GradingBlock = observer(({ ux }) => {
   return (
     <Toolbar>
       <Center>
-        This assignment is now open for grading.
       </Center>
       <Right>
+        This assignment is now open for grading.
         <GradeButton
           to="gradeAssignment"
           params={{
