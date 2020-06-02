@@ -5,7 +5,6 @@ import { StepCard } from './card';
 import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';
 import Raven from '../../../models/app/raven';
-import Step from '../../../models/student-tasks/step';
 import Task from '../../../models/student-tasks/task';
 import SupportEmailLink from '../../../components/support-email-link';
 import ReloadPageButton from '../../../components/buttons/reload-page';
@@ -21,21 +20,21 @@ class Failure extends React.Component {
 
   static propTypes = {
     task: PropTypes.instanceOf(Task).isRequired,
-    step: PropTypes.instanceOf(Step),
+    step: PropTypes.object,
   }
 
   componentDidMount() {
     const { task, step } = this.props;
 
     let errMsg = [];
-    if (task.api.hasErrors) {
+    if (get(task, 'api.hasErrors')) {
       const { last: _, ...errors } = task.api.errors;
       errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
     }
     // step may not be present if the task had errors
     if (!step) { return; }
 
-    const { last: _, ...errors } = step.api.errors;
+    const { last: _, ...errors } = get(step, 'api.errors', {});
     errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
     if (errMsg.length) {
       Raven.log(errMsg.join('\n'), {

@@ -30,12 +30,16 @@ exports[`Task Failure matches snapshot 1`] = `
   task={
     StudentTask {
       "complete": undefined,
+      "completion_weight": undefined,
+      "correctness_weight": undefined,
       "description": undefined,
       "due_at": undefined,
       "feedback_at": undefined,
       "id": 4321,
       "isLoading": false,
       "is_deleted": undefined,
+      "late_work_penalty_applied": undefined,
+      "late_work_penalty_per_period": undefined,
       "spy": Object {},
       "steps": Array [],
       "students": Array [],

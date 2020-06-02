@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany, session, computed, observable,
 } from 'shared/model';
-import { defaults, countBy, isEmpty } from 'lodash';
+import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import moment from 'moment';
 import Time from '../time';
 import StudentTaskStep from './step';
@@ -19,6 +19,10 @@ class StudentTask extends BaseModel {
   @field type;
   @field complete;
   @field is_deleted;
+  @field completion_weight;
+  @field correctness_weight;
+  @field late_work_penalty_applied;
+  @field late_work_penalty_per_period;
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
@@ -29,6 +33,8 @@ class StudentTask extends BaseModel {
 
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
+  @computed get isEvent() { return 'event' === this.type; }
+  @computed get isExternal() { return 'external' === this.type; }
   @computed get isPractice() { return this.type && this.type.includes('practice'); }
   @observable isLoading = false
 
@@ -49,6 +55,14 @@ class StudentTask extends BaseModel {
         incomplete: 0,
       }
     );
+  }
+
+  @computed get hasLateWorkPolicy() {
+    return Boolean(this.isHomework || this.isReading);
+  }
+
+  @computed get availablePoints() {
+    return sumBy(this.steps, 'available_points');
   }
 
   // if the task's first step is a placeholder, we want to keep fetching it until it isn't

@@ -192,12 +192,16 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "spy": Object {},
       "task": StudentTask {
         "complete": undefined,
+        "completion_weight": undefined,
+        "correctness_weight": undefined,
         "description": undefined,
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
         "isLoading": false,
         "is_deleted": undefined,
+        "late_work_penalty_applied": undefined,
+        "late_work_penalty_per_period": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -531,12 +535,16 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "spy": Object {},
         "task": StudentTask {
           "complete": undefined,
+          "completion_weight": undefined,
+          "correctness_weight": undefined,
           "description": undefined,
           "due_at": 2017-10-17T12:00:00.000Z,
           "feedback_at": undefined,
           "id": 1,
           "isLoading": false,
           "is_deleted": undefined,
+          "late_work_penalty_applied": undefined,
+          "late_work_penalty_per_period": undefined,
           "spy": Object {},
           "steps": Array [
             [Circular],

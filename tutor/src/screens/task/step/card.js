@@ -4,6 +4,7 @@ import { SpyInfo } from './spy-info';
 import Step from '../../../models/student-tasks/step';
 import S from '../../../helpers/string';
 
+export
 const InnerStepCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,6 +18,7 @@ const InnerStepCard = styled.div`
   background-color: white;
 `;
 
+export
 const OuterStepCard = styled.div`
   padding: 2rem;
 `;

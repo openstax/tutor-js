@@ -1,5 +1,5 @@
 const {
-  Factory, sequence, fake, moment, uuid, SECTION_NAMES, PLAN_TYPES,
+  Factory, sequence, fake, moment, uuid, SECTION_NAMES, PLAN_TYPES, rng,
 } = require('./helpers');
 const { range, isNil, cloneDeep } = require('lodash');
 
@@ -36,7 +36,10 @@ Factory.define('StudentDashboardTask')
   .correct_exercise_count(({ object }) =>
     fake.random.number({ min: 0, max: object.complete_exercise_count })
   )
-
+  .completion_weight(rng({ min: 0.0, max: 1.0 }))
+  .correctness_weight(({ object }) => 1.0 - object.completion_weight)
+  .late_work_penalty_applied(() => fake.random.arrayElement(['daily', 'assignment']))
+  .late_work_penalty_per_period(rng({ min: 0.0, max: 1.0 }))
 
 Factory.define('RelatedContent')
   .uuid(uuid)
