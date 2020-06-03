@@ -1,14 +1,9 @@
-import { React, PropTypes, observer, styled } from 'vendor';
-import { Icon } from 'shared';
+import { React, PropTypes, observer, styled, css } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { ExerciseNumber, Question } from '../../components/homework-questions';
 import Answer from './answer';
 import { colors } from 'theme';
 import S from '../../helpers/string';
-
-const StyledIcon = styled(Icon)`
-  font-size: 2.7rem;
-`;
 
 const AnswerKey = observer(({ ux }) => (
   <label>
@@ -39,17 +34,17 @@ const StyledQuestionHeading = styled.div`
   label {
     padding-right: 20px;
   }
+  ${props => props.onClick && css`
+      cursor: pointer;
+    `}
 `;
 
-const QuestionHeader = observer(({ ux }) => (
-  <StyledQuestionHeading>
-    <div>
-      <StyledIcon type="caret-down" />
-      <ExerciseNumber>
-        Question {ux.selectedHeading.index + 1}
-      </ExerciseNumber>
-    </div>
-    <AnswerKey ux={ux} />
+const QuestionHeader = observer(({ questionIndex, ux, showAnswerKey = false }) => (
+  <StyledQuestionHeading onClick={() => ux.goToQuestionHeading(questionIndex)}>
+    <ExerciseNumber>
+        Question {questionIndex + 1}
+    </ExerciseNumber>
+    {showAnswerKey && <AnswerKey ux={ux} /> }
   </StyledQuestionHeading>
 ));
 
@@ -63,10 +58,13 @@ const StyledQuestion = styled.div`
     border: 2px solid ${colors.neutral.pale};
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    ${props => props.marginBottom && css`
+      margin-bottom: 10px;
+    `}
 `;
 
 QuestionHeader.propTypes = {
-  ux: PropTypes.object.isRequired,
+  ux: PropTypes.object,
 };
 
 
@@ -93,31 +91,78 @@ const ExpandGraded = observer(({ ux }) => {
       >
         {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {ux.selectedHeading.gradedProgress}
       </Button>
-      <label>Average Score: {ux.averageScoreForGradedStudents} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.availablePoints)}</label>
+      <label>Average Score: {S.numberWithOneDecimalPlace(ux.selectedHeading.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.availablePoints)}</label>
     </ExpandGradedWrapper>
   );
 });
 
 
 const AssignmentGradingQuestion = observer(({ ux }) => (
-  <StyledQuestion>
-    <QuestionHeader ux={ux} />
-    <QuestionBody>
-      <Question
-        question={ux.selectedHeading ? ux.selectedHeading.question : null}
-        hideAnswers={false}
-        displaySolution={ux.showAnswerKey}
-        choicesEnabled={false}
-        displayFormats={false}
-      />
-      <ExpandGraded ux={ux} />
-      {ux.visibleResponses.map((response, index) =>
-        <Answer
-          response={response}
-          key={index} index={index}
-          ux={ux} />)}
-    </QuestionBody>
-  </StyledQuestion>
+  <>
+    {
+      ux.showOverview
+        ? (
+          <>
+            {
+              ux.headings.map((h, i) => (
+                <StyledQuestion key={i} marginBottom>
+                  <QuestionHeader questionIndex={i} ux={ux} />
+                  <QuestionBody>
+                    <Question
+                      question={h.question}
+                      hideAnswers={false}
+                      displaySolution={false}
+                      choicesEnabled={false}
+                      displayFormats={false}
+                    />
+                    <ExpandGradedWrapper>
+                      <Button
+                        onClick={() => ux.goToQuestionHeading(i, true)}
+                        variant="link"
+                      >
+                        Expand graded answers {h.gradedProgress}
+                      </Button>
+                      <label>
+                        Average Score: {S.numberWithOneDecimalPlace(h.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(h.responseStats.availablePoints)}
+                      </label>
+                    </ExpandGradedWrapper>
+                  </QuestionBody>
+                </StyledQuestion>
+              ))
+            }
+          </>
+        )
+        : (
+          <StyledQuestion>
+            <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
+            <QuestionBody>
+              <Question
+                question={ux.selectedHeading ? ux.selectedHeading.question : null}
+                hideAnswers={false}
+                displaySolution={ux.showAnswerKey}
+                choicesEnabled={false}
+                displayFormats={false}
+              />
+              <ExpandGraded ux={ux} />
+              {
+                Boolean(ux.expandGradedAnswers) && ux.completedResponses.map((response, index) => 
+                  <Answer
+                    response={response}
+                    key={index}
+                    index={index}
+                    ux={ux} />)
+              }
+              {ux.needsGradingResponses.map((response, index) =>
+                <Answer
+                  response={response}
+                  key={index}
+                  index={index}
+                  ux={ux} />)}
+            </QuestionBody>
+          </StyledQuestion>
+        )
+    }
+  </>
 ));
 
 export default AssignmentGradingQuestion;

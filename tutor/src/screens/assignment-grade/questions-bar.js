@@ -54,8 +54,8 @@ const Controls = styled.div`
 `;
 
 const StyledPublishButton = styled(Button).attrs(props => ({
-  disabled: props.isdisabled,
-  variant: props.isdisabled ? 'plain' : 'primary',
+  disabled: props.canPublish,
+  variant: props.canPublish ? 'plain' : 'primary',
 }))`
   &&& {
     padding: 10px;
@@ -65,7 +65,7 @@ const StyledPublishButton = styled(Button).attrs(props => ({
 const Question = ({ heading, ux, index }) => useObserver(() => {
   const stats = heading.gradedStats;
   return (
-    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.selectedHeadingIndex = index}>
+    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)}>
       <h6>{heading.title}</h6>
       {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
     </QuestionWrapper>
@@ -81,7 +81,7 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       </QuestionsWrapper>
       <Controls>
         <StyledPublishButton
-          isdisabled={!ux.scores.hasUnPublishedScores}
+          canpublish={!ux.scores.hasUnPublishedScores}
           onClick={ux.onPublishScores}>
           Publish Scores
         </StyledPublishButton>
