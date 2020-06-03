@@ -26,6 +26,7 @@ const Footer = styled.div`
 
 const StyledIcon = styled(Icon)`
   font-size: 2.7rem;
+  flex-shrink: 0;
   &&:hover {
     box-shadow: none;
   }
@@ -226,7 +227,12 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  .btn {
+    margin-left: 1.6rem;
+  }
 `;
 
 const GradeButton = styled(TutorLink).attrs({
@@ -256,9 +262,9 @@ const GradingBlock = observer(({ ux }) => {
   return (
     <Toolbar>
       <Center>
-        This assignment is now open for grading.
       </Center>
       <Right>
+        This assignment is now open for grading.
         <GradeButton
           to="gradeAssignment"
           params={{

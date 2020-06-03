@@ -18,13 +18,6 @@ const Heading = styled.div`
   margin-bottom: 20px;
 `;
 
-const Title = styled.h1`
-  font-weight: bold;
-  font-size: 3.5rem;
-  line-height: 4.5rem;
-  margin: 0;
-`;
-
 const BodyBackground = styled.div`
   padding: 4rem;
   background-color: ${colors.neutral.bright};
@@ -62,14 +55,14 @@ class AssignmentGrading extends React.Component {
 
   render() {
     const { ux } = this;
-    
+
     if (!ux.isExercisesReady) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
     return (
       <BackgroundWrapper>
         <ScrollToTop>
-          <div>    
+          <Heading>
             <CourseBreadcrumb
               course={ux.course}
               plan={{
@@ -78,16 +71,13 @@ class AssignmentGrading extends React.Component {
               }}
               currentTitle="Grade Answers"
             />
-            <Heading>
-              <Title>Grade Answers</Title>
-              <CoursePeriodSelect
-                period={ux.selectedPeriod}
-                periods={ux.planScores.periods}
-                course={ux.course}
-                onChange={ux.setSelectedPeriod}
-              />
-            </Heading>
-          </div>
+            <CoursePeriodSelect
+              period={ux.selectedPeriod}
+              periods={ux.planScores.periods}
+              course={ux.course}
+              onChange={ux.setSelectedPeriod}
+            />
+          </Heading>
           <QuestionsBar ux={ux} />
           <BodyBackground>
             <Question
