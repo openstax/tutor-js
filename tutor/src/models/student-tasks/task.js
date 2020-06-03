@@ -24,6 +24,7 @@ class StudentTask extends BaseModel {
   @field correctness_weight;
   @field late_work_penalty_applied;
   @field late_work_penalty_per_period;
+  @field late_work_point_penalty;
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
