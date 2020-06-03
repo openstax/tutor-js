@@ -79,6 +79,10 @@ const HeadingTop = styled.div`
     width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    & a {
+      color: inherit;
+    }
   }
 
   & .sort-wrapper {
