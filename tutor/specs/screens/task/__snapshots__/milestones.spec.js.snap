@@ -27,6 +27,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,
@@ -75,6 +76,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -125,6 +127,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -175,6 +178,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,
@@ -223,6 +227,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -415,6 +420,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -607,6 +613,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -657,6 +664,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -849,6 +857,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -899,6 +908,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,

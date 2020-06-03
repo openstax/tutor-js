@@ -138,6 +138,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       },
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,
@@ -493,6 +494,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       },
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,
@@ -852,6 +854,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       },
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,
@@ -1211,6 +1214,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       },
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,
@@ -1570,6 +1574,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       },
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
         "average_step_number": undefined,

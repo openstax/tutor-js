@@ -59,7 +59,7 @@ export default class TaskUX {
   }
 
   @computed get isReadOnly() {
-    return Boolean(this.course.roles.teacher);
+    return Boolean(this.course.roles.teacher || this.currentStep.can_be_updated === false);
   }
 
   @action isUnmounting() {

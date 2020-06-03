@@ -25,6 +25,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": undefined,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -75,6 +76,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": undefined,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,

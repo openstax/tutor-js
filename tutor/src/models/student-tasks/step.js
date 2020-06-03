@@ -88,6 +88,7 @@ class StudentTaskStep extends BaseModel {
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
   @field group;
+  @field can_be_updated;
 
   @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 

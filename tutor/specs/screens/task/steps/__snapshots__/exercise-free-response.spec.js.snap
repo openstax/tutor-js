@@ -319,6 +319,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         },
         "answer_id": undefined,
         "available_points": undefined,
+        "can_be_updated": true,
         "content": StudentTaskExerciseStep {
           "_page": undefined,
           "average_step_number": undefined,
@@ -549,6 +550,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
               },
               "answer_id": undefined,
               "available_points": undefined,
+              "can_be_updated": true,
               "content": StudentTaskExerciseStep {
                 "_page": undefined,
                 "average_step_number": undefined,
