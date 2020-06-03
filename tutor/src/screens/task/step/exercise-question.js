@@ -87,7 +87,7 @@ class ExerciseQuestion extends React.Component {
       <AsyncButton
         size="lg"
         waitingText="Saving…"
-        disabled={!this.answerId}
+        disabled={!this.answerId} 
         onClick={this.onAnswerSave}
         isWaiting={step.api.isPending}
       >
@@ -104,7 +104,7 @@ class ExerciseQuestion extends React.Component {
     const { ux, question, step, ux: { course } } = this.props;
     const questionNumber = ux.questionNumberForStep(step);
 
-    if (step.needsFreeResponse) {
+    if (step.canEditFreeResponse) {
       return (
         <FreeResponseInput
           step={step} question={question}

@@ -20,6 +20,7 @@ class ResponseValidationUX {
     this.validator = validator;
     this.messages = messages;
     this.taskUX = taskUX;
+    this.initialResponse = step.free_response;
     this.messageIndex = random(0, messages.length - 1);
   }
 
@@ -119,7 +120,7 @@ class ResponseValidationUX {
 
   @computed get isSubmitDisabled() {
     return Boolean(
-      this.displayNudgeError || S.isEmpty(this.response),
+      this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response),
     );
   }
 

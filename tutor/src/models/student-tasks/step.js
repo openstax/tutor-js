@@ -157,9 +157,11 @@ class StudentTaskStep extends BaseModel {
     return 'spaced practice' == this.group ;
   }
 
-  @computed get needsFreeResponse() {
+  @computed get canEditFreeResponse() {
     return Boolean(
-      !this.answer_id && this.formats.includes('free-response') && S.isEmpty(this.free_response)
+      !this.answer_id &&
+        this.formats.includes('free-response') &&
+        (this.content.isOpenEnded || S.isEmpty(this.free_response))
     );
   }
 

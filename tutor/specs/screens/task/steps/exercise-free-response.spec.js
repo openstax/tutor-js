@@ -63,7 +63,7 @@ describe('Exercise Free Response', () => {
     setFreeResponse(fr, { value });
     expect(props.step.response_validation).toEqual({});
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     fr.unmount();
   });
 
@@ -81,7 +81,7 @@ describe('Exercise Free Response', () => {
       valid: false, response: value,
     });
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     expect(fr.instance().ux.isDisplayingNudge).toBe(false);
     expect(fr).toHaveRendered('StepFooter RelatedContentLink');
     expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
@@ -150,7 +150,7 @@ describe('Exercise Free Response', () => {
     await delay();
 
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     expect(props.step.response_validation.attempts).toHaveLength(1);
     expect(props.step.response_validation.attempts[0]).toMatchObject({
       valid: true, response: value,
