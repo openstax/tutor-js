@@ -15,7 +15,6 @@ Factory.define('TaskPlanPeriodStudent')
   .total_points(({ parent: { object } }) => object.question_headings.length)
   .total_fraction(1)
   .late_work_point_penalty(0)
-  .late_work_fraction_penalty(0)
   .questions(({ object: { role_id }, parent: { exercises, grades } }) => flatMap(exercises, (exercise) => (
     exercise.content.questions.map((question) => {
       const is_completed = fake.random.arrayElement([true, true, true, true, true, false])
