@@ -48,15 +48,21 @@ const TaskResult = observer(({ ux, task, striped, isLast }) => {
   return useObserver(() => {
     let contents = null;
     if (task.isStarted || task.isDue) {
-      const Display = ux.displayScoresAsPercent ? Percent : Points;
+      if(task.type === 'external') {
+        contents = task.completed_step_count === task.step_count ? 'clicked' : <Unstarted>---</Unstarted>;
+      }
+      else {
+        const Display = ux.displayScoresAsPercent ? Percent : Points;
 
-      const value = <Display task={task} />;
-
-      contents = task.isStarted ?
-        <ReviewLink task={task}>{value}</ReviewLink> : value;
+        const value = <Display task={task} />;
+  
+        contents = task.isStarted ?
+          <ReviewLink task={task}>{value}</ReviewLink> : value;
+      }    
     } else {
       contents = <Unstarted>---</Unstarted>;
     }
+    
 
     return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
   });
