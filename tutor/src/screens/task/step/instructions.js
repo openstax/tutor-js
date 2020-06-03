@@ -89,9 +89,8 @@ const LateWorkPolicy = observer(({ task }) => {
       <ul>
         <li>After the due date, the late work policy will be in effect.</li>
         <li>
-          {S.asPercent(task.late_work_penalty_per_period)}% of the total
-          point value will be deducted for
-          each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
+          {task.humanLateWorkPenalty} of point value earned after the due date will be deducted
+          for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
         </li>
       </ul>
     </>
@@ -158,7 +157,7 @@ const ContinueBtn = observer(({ ux }) => {
     <StepContinueBtn label="Start" data-test-id="value-prop-continue-btn" variant="primary" ux={ux} />
   );
 });
-      
+
 const Instructions = observer((props) => {
 
   const { ux, ux: { task } } = props;

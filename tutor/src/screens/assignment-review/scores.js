@@ -307,10 +307,10 @@ const StudentColumnHeader = observer(({ ux }) => (
           Late work
         </HeadingTop>
         <HeadingMiddle>
-          {ux.planScores.grading_template.humanLateWorkPenalty}
+          {ux.planScores.grading_template.humanLateWorkPenaltyApplied}
         </HeadingMiddle>
         <HeadingBottom>
-          -{S.asPercent(ux.planScores.grading_template.late_work_penalty)}%
+          {ux.planScores.grading_template.humanLateWorkPenalty}
         </HeadingBottom>
       </ColumnHeading>
     </CellContents>
@@ -341,7 +341,7 @@ const StudentCell = observer(({ ux, student, striped }) => (
           S.numberWithOneDecimalPlace(student.total_points)}
       </Total>
       <LateWork>
-        {student.late_work_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_penalty)}` : '0'}
+        {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
         {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
       </LateWork>
     </CellContents>

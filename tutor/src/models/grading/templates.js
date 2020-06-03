@@ -4,7 +4,7 @@ import {
   BaseModel, identifiedBy, action, field,
   identifier, computed, observable,
 } from 'shared/model';
-
+import S from '../../helpers/string';
 
 @identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
@@ -54,15 +54,21 @@ class GradingTemplate extends BaseModel {
   }
 
   @computed get isLateWorkAccepted() {
-    return this.late_work_penalty_applied !== 'never';
+    return this.late_work_penalty_applied !== 'not_accepted';
   }
 
-  @computed get humanLateWorkPenalty() {
+  @computed get humanLateWorkPenaltyApplied() {
     const penalties = {
       immediately: 'Per assignment',
       daily: 'Per day',
+      not_accepted: 'Not accepted',
     };
     return penalties[this.late_work_penalty_applied];
+  }
+
+  @computed get humanLateWorkPenalty() {
+    const amount = this.isLateWorkAccepted ? this.late_work_penalty : 1;
+    return `-${S.asPercent(amount)}%`;
   }
 
   @computed get canRemove() {
