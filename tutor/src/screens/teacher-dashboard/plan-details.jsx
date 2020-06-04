@@ -2,6 +2,7 @@ import {
   React, PropTypes, observer, inject,
   computed, observable, action, styled,
 } from 'vendor';
+import { find } from 'lodash';
 import Course from '../../models/course';
 import { Modal, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
@@ -56,12 +57,17 @@ class CoursePlanDetails extends React.Component {
     plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
   }
 
-  UNSAFE_componentWillMount() {
+  async UNSAFE_componentWillMount() {
     this.props.tourContext.otherModal = this;
+    // get scores to check if there are any students left to grade
+    await this.props.plan.scores.fetch();
+    await this.props.plan.scores.taskPlan.fetch();
+    await this.props.plan.scores.taskPlan.analytics.fetch();
+    await this.props.plan.scores.ensureExercisesLoaded();
   }
 
   componentWillUnmount() {
-    this.props.tourContext.otherModal = null;
+    this.props.tourContext.otherModal = null; 
   }
 
   @observable showAssignmentLinks = false;
@@ -91,7 +97,9 @@ class CoursePlanDetails extends React.Component {
 
   @computed get gradeAnswersButton() {
     const { plan, course } = this.props;
-    if (!plan.canGrade) { return null; }
+    const scoreTaskPlan = find(plan.scores.tasking_plans, tp => tp.period_id == this.tasking.target_id);
+    
+    if(!scoreTaskPlan.canGrade) { return null; }
     return (
       <OverlayTrigger
         placement="top"
@@ -103,12 +111,12 @@ class CoursePlanDetails extends React.Component {
       >
         <span>
           <TutorLink
-            className={cn('btn btn-standard btn-primary', { 'disabled': !this.tasking.isPastDue }) }
+            className={cn('btn btn-standard', { 'disabled': !this.tasking.isPastDue, 'btn-primary': !scoreTaskPlan.hasFinishedGrading }) }
             to="gradeAssignment"
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
           >
-            Grade answers
+            {scoreTaskPlan.hasFinishedGrading ? 'Regrade answers' : 'Grade answers'}
           </TutorLink>
         </span>
       </OverlayTrigger>
