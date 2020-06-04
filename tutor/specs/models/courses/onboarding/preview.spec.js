@@ -28,6 +28,7 @@ describe('Course Preview Onboarding', () => {
   beforeEach(() => {
     const course = new Course(TEACHER_COURSE_TWO_MODEL);
     course.teacherTaskPlans = { active: mockActiveCoursePlans, api: {} };
+    course.offering = { is_available: true };
     ux = new CoursePreviewUX(course, { tour: null });
     ux._setTaskPlanPublish(false);
   });

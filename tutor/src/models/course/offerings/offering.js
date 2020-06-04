@@ -19,7 +19,9 @@ class Offering extends BaseModel {
   @field description;
   @field is_concept_coach;
   @field is_tutor;
+  @field is_preview_available = true;
   @field is_available = true;
+  @field preview_message;
   @field appearance_code;
 
   @hasMany({ model: Term }) active_term_years;

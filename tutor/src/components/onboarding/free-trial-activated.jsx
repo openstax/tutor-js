@@ -18,7 +18,8 @@ class FreeTrialActivated extends React.Component {
 
   render() {
     const { ux } = this.props;
-
+    // we do not check CourseUX.displayCourseCost here because if they're on
+    // a free trial we already know the course is not comped
     return (
       <OnboardingNag className={this.constructor.className}>
         <Heading>
@@ -43,4 +44,4 @@ class FreeTrialActivated extends React.Component {
       </OnboardingNag>
     );
   }
-};
+}

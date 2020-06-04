@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from 'shared/model';
-import { find, isEmpty, startsWith } from 'lodash';
+import { find, isEmpty, startsWith, includes } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
@@ -80,12 +80,12 @@ class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
-  @computed get isCollegeTeacher() {
-    return this.isConfirmedFaculty && this.school_type === 'college';
+  @computed get isAllowedInstructor() {
+    return this.isConfirmedFaculty && includes(['college', 'high_school', 'k12_school'], this.school_type);
   }
 
   @computed get canViewPreviewCourses() {
-    return this.isConfirmedFaculty && this.isCollegeTeacher;
+    return this.isAllowedInstructor;
   }
 
   @computed get isProbablyTeacher() {

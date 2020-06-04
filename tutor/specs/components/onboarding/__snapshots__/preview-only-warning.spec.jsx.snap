@@ -19,9 +19,7 @@ exports[`Preview Only Warning renders and matches snapshot 1`] = `
         <div
           className="body"
         >
-          If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay 
-          $10
-           per course per semester.
+          If you’re ready to create real assignments your students can see, create your real course now.
         </div>
         <div
           className="footer"

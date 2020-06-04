@@ -3,6 +3,7 @@ import { observable } from 'mobx';
 export const defaultValues = {
   tours: true,
   is_payments_enabled: true,
+  force_browser_reload: false,
   pulse_insights: false,
   teacher_student_enabled: false,
 };

@@ -56,6 +56,8 @@ class FreeTrialEnded extends React.Component {
   render() {
     const { ux } = this.props;
     if (ux.course.hasEnded) { return this.renderCourseEnded(ux.course); }
+    // we do not check CourseUX.displayCourseCost here because if they're on
+    // a free trial we already know the course is not comped
     return (
       <OnboardingNag className="free-trial-ended">
         <Heading>

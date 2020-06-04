@@ -3,7 +3,7 @@ import UserMenu from '../../../src/models/user/menu';
 import User from '../../../src/models/user';
 
 jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
+  isAllowedInstructor: true,
   isConfirmedFaculty: true,
 }));
 
@@ -33,7 +33,7 @@ describe('Current User Store', function() {
   });
 
   it('hides course creation from non-college faculty', () => {
-    User.isCollegeTeacher = false;
+    User.isAllowedInstructor = false;
     const course = Factory.course({ is_teacher: true });
     const options = ld.map(UserMenu.getRoutes(course), 'name');
     expect(options).not.toContain('createNewCourse');

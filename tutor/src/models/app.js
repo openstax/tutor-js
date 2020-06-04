@@ -85,7 +85,9 @@ export default class TutorApp {
     return Promise.resolve(this);
   }
 
-  @action.bound onNotice({ tutor_js_url }) {
+  @action.bound onNotice({ tutor_js_url, feature_flags }) {
+    // set flags first because other behaviour might rely on them
+    FeatureFlagsApi.merge(feature_flags);
     // when it's null, the url should default to the first update
     if (isNil(this.tutor_js_url)) {
       this.tutor_js_url = tutor_js_url;

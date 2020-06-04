@@ -118,13 +118,13 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  describe('non college instructors', () => {
+  describe('non-allowed instructors', () => {
     it('locks them out and displays message when they hve no courses', () => {
       loadTeacherUser();
       Courses.clear();
       User.school_type = 'unknown_school_type';
       const wrapper = mount(<C><CourseListing /></C>);
-      expect(wrapper).toHaveRendered('NoHSTeachers');
+      expect(wrapper).toHaveRendered('NonAllowedTeachers');
       wrapper.unmount();
     });
 

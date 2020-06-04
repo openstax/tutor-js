@@ -3,7 +3,7 @@ import CourseName from '../../../src/screens/new-course/course-name';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
+  isAllowedInstructor: true,
 }));
 
 describe('CreateCourse: entering name', function() {

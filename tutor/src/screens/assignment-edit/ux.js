@@ -50,7 +50,7 @@ export default class AssignmentUX {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
       }
-      this.plan = plan || course.pastTaskPlans.get(id).createClone({ course, cloned_from_id: id });
+      this.plan = plan || course.pastTaskPlans.get(id).createClone({ course });
       this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {

@@ -55,24 +55,32 @@ describe('Task Plan Model', function() {
     expect(onDelete).toHaveBeenCalledWith(plan.id);
   });
 
-  it('clones with attributes', () => {
-    expect(plan.clonedAttributes).toMatchObject({
-      ...ld.pick(plan, 'title', 'description', 'settings', 'type', 'ecosystem_id'),
+  describe('cloning', () => {
+    it('sets cloned_from_id', () => {
+      const newPlan = plan.createClone({ course: plan.course });
+      expect(newPlan.dataForSave).toMatchObject({
+        cloned_from_id: plan.id,
+      });
+    });
+
+    it('includes attributes', () => {
+      expect(plan.clonedAttributes).toMatchObject({
+        ...ld.pick(plan, 'title', 'description', 'settings', 'type', 'ecosystem_id'),
+      });
+    });
+
+    it('copies tasking times', () => {
+      plan.tasking_plans[0].opens_at = '2015-01-12T03:30:00.000Z';
+      expect(plan.clonedAttributes.tasking_plans[0].opens_at).toEqual(
+        plan.tasking_plans[0].opens_at
+      );
+      const newPlan = new plan.constructor({});
+      newPlan.update(plan.serialize());
+      expect(newPlan.tasking_plans[0].opens_at).toEqual(
+        plan.tasking_plans[0].opens_at
+      );
     });
   });
-
-  it('copies tasking times', () => {
-    plan.tasking_plans[0].opens_at = '2015-01-12T03:30:00.000Z';
-    expect(plan.clonedAttributes.tasking_plans[0].opens_at).toEqual(
-      plan.tasking_plans[0].opens_at
-    );
-    const newPlan = new plan.constructor({});
-    newPlan.update(plan.serialize());
-    expect(newPlan.tasking_plans[0].opens_at).toEqual(
-      plan.tasking_plans[0].opens_at
-    );
-  });
-
   it('calculates duration', () => {
     plan.tasking_plans[0].opens_at = '2015-01-01T03:30:00.000Z';
     plan.tasking_plans[0].due_at = '2015-01-30T03:30:00.000Z';

@@ -7,7 +7,7 @@ jest.mock('../../src/models/user', () => ({
   verifiedRoleForCourse() {
     return 'teacher';
   },
-  isCollegeTeacher: true,
+  isAllowedSchoolType: true,
   isConfirmedFaculty: true,
   terms: {
     api: {

@@ -1,5 +1,5 @@
 import SummaryPage from '../../../src/components/notes/summary-page';
-import { Factory } from '../../helpers';
+import { Router, Factory } from '../../helpers';
 
 describe('Notes Summary Page', () => {
   let pages;
@@ -24,7 +24,7 @@ describe('Notes Summary Page', () => {
 
   it('renders summary', () => {
     const sp = mount(
-      <SummaryPage {...props} />
+      <Router><SummaryPage {...props} /></Router>
     );
     expect(sp).toHaveRendered('DropdownToggle');
     sp.find('DropdownToggle Button').simulate('click');

@@ -6,7 +6,7 @@ import { OfferingsMap, Offering } from '../../../src/models/course/offerings';
 
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
+  isAllowedInstructor: true,
 }));
 
 describe('Creating a course', function() {
