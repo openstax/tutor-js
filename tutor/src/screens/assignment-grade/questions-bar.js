@@ -65,7 +65,7 @@ const StyledPublishButton = styled(Button).attrs(props => ({
 const Question = ({ heading, ux, index }) => useObserver(() => {
   const stats = heading.gradedStats;
   return (
-    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)}>
+    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
       <h6>{heading.title}</h6>
       {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
     </QuestionWrapper>
