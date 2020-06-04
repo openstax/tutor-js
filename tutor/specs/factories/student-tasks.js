@@ -65,7 +65,7 @@ Factory.define('StudentTaskStep')
     fake.random.arrayElement(SECTION_NAMES)
   )
   .external_url(({ object: { type } }) => 'external_url' == type ? fake.internet.url() : null)
-
+  .can_be_updated(true)
 
 Factory.define('StudentTask')
   .id(sequence)

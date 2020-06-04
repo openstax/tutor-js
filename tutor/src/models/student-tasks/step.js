@@ -82,12 +82,14 @@ class StudentTaskStep extends BaseModel {
   @field free_response;
   @field feedback_html;
   @field correct_answer_id;
+  @field last_completed_at;
   @field({ type: 'object' }) response_validation;
   @field({ type: 'object' }) spy;
   @field external_url;
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
   @field group;
+  @field can_be_updated;
 
   @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 
@@ -120,6 +122,9 @@ class StudentTaskStep extends BaseModel {
   }
   @computed get isPlaceHolder() {
     return 'placeholder' === this.type;
+  }
+  @computed get isOpenEndedExercise() {
+    return this.isExercise && this.content.isOpenEnded;
   }
 
   @computed get isCorrect() {
@@ -156,9 +161,11 @@ class StudentTaskStep extends BaseModel {
     return 'spaced practice' == this.group ;
   }
 
-  @computed get needsFreeResponse() {
+  @computed get canEditFreeResponse() {
     return Boolean(
-      !this.answer_id && this.formats.includes('free-response') && S.isEmpty(this.free_response)
+      !this.answer_id &&
+        this.formats.includes('free-response') &&
+        (this.content.isOpenEnded || S.isEmpty(this.free_response))
     );
   }
 

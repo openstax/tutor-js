@@ -41,7 +41,7 @@ export default class AssignmentUX {
   }
 
   @action async initialize({
-    id, type, plan, course, history, due_at,
+    id, type, plan, course, history, due_at, step,
     gradingTemplates = course.gradingTemplates,
     exercises = Exercises,
     windowImpl = window,
@@ -69,9 +69,6 @@ export default class AssignmentUX {
       }
     }
     this.course = course;
-    // don't setup steps until course and plan is set
-    this.steps = new StepUX(this);
-    this.actions = new Actions(this);
     this.dueAt = due_at;
 
     if (this.plan.isNew) {
@@ -117,26 +114,8 @@ export default class AssignmentUX {
       await this.plan.ensureLoaded();
     }
 
-    observe(this.plan, ({ name, object, newValue }) => {
-      // Change the ux dates when the template of the plan is changed
-      if(name === 'grading_template_id' && this.plan.isNew && object && object.tasking_plans) {
-        // Apply updated grading template settings to tasking plans whenever it changes.
-        //const previousTemplate = this.course.gradingTemplates.get(oldValue);
-        const template = this.course.gradingTemplates.get(newValue);
-        object.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate(template, this.dueAt));
-        // Apply the updated dates based on the grading template to the form
-        object.tasking_plans.forEach((t, index) => {
-          if(this.form) {
-            this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
-            this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
-            // Setting up new close date (base on due date)
-            this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
-            this.didUserChangeDatesManually = false;
-          }
-        });
-      }
-    });
-
+    observe(this.plan, 'grading_template_id', this.onGradingTemplateUpdate);
+    
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
@@ -151,18 +130,38 @@ export default class AssignmentUX {
     this.history = history;
     this.exercises = exercises;
 
-    await this.exercises.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
-
-    if (this.plan.isReading) {
-      await this.referenceBook.ensureLoaded();
-    }
     this.windowImpl = windowImpl;
 
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
 
     this.scroller = new ScrollTo({ windowImpl });
+    
+    // don't setup additional helpers until fully initialized
     this.validations = new Validations(this);
+    this.steps = new StepUX(this, step);
+    this.actions = new Actions(this);
+
     this.isReady = true;
+  }
+
+  @action.bound onGradingTemplateUpdate({ newValue }) {
+    // Change the ux dates when the template of the plan is changed
+    if(this.plan.isNew) {
+      // Apply updated grading template settings to tasking plans whenever it changes.
+      //const previousTemplate = this.course.gradingTemplates.get(oldValue);
+      const template = this.course.gradingTemplates.get(newValue);
+      this.plan.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate(template, this.dueAt));
+      // Apply the updated dates based on the grading template to the form
+      this.plan.tasking_plans.forEach((t, index) => {
+        if(this.form) {
+          this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
+          this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
+          // Setting up new close date (base on due date)
+          this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
+          this.didUserChangeDatesManually = false;
+        }
+      });
+    }
   }
 
   @computed get gradingTemplates() {
@@ -340,18 +339,6 @@ export default class AssignmentUX {
     return this.exercises.isFetching({ pageIds: this.selectedPageIds });
   }
 
-  @computed get isShowingExercises() {
-    return this._stepIndex === 2;
-  }
-
-  @action async onExercisesReview() {
-    await this.exercises.ensureExercisesLoaded({
-      course: this.course,
-      book: this.referenceBook,
-      exercise_ids: this.plan.exerciseIds,
-    });
-  }
-
   @computed get selectedExercises() {
     if (isEmpty(this.exercises)) { return []; }
     return compact(map(this.plan.exerciseIds, exId => (
@@ -417,14 +404,18 @@ export default class AssignmentUX {
     this.onComplete();
   }
 
+  @action saveFormToPlan() {
+    this.plan.update(omit(this.form.values, 'tasking_plans', 'settings'));
+  }
+
   @action.bound async saveAsDraft() {
-    this.plan.update(omit(this.form.values, 'tasking_plans'));
+    this.saveFormToPlan();
     this.plan.is_draft = true;
     await this.saveAndCopyPlan();
   }
 
   @action.bound async savePlan() {
-    this.plan.update(omit(this.form.values, 'tasking_plans'));
+    this.saveFormToPlan();
     this.plan.is_draft = false;
     if (!this.plan.is_published) {
       this.plan.is_publish_requested = true;

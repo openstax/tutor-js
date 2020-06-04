@@ -159,7 +159,7 @@ const QuestionHeader = observer(({ styleVariant, label, info }) => {
       <StyledExerciseNumber variant={styleVariant}>
         {label}
       </StyledExerciseNumber>
-      <strong>{S.numberWithOneDecimalPlace(info.points)} Points</strong>
+      <strong>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</strong>
     </>
   );
 });

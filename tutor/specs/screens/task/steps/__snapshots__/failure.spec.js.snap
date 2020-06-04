@@ -6,6 +6,7 @@ exports[`Task Failure matches snapshot 1`] = `
     StudentTaskStep {
       "answer_id": undefined,
       "available_points": undefined,
+      "can_be_updated": undefined,
       "content": undefined,
       "correct_answer_id": undefined,
       "external_url": undefined,
@@ -18,6 +19,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "id": 1234,
       "is_completed": undefined,
       "labels": Array [],
+      "last_completed_at": undefined,
       "multiPartGroup": undefined,
       "preview": undefined,
       "response_validation": Object {},

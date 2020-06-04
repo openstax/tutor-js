@@ -28,9 +28,9 @@ describe('Student Task Step', () => {
     expect(step.isTwoStep).toBe(false);
     step.formats = ['free-response', 'multiple-choice'];
     expect(step.isTwoStep).toBe(true);
-    expect(step.needsFreeResponse).toBe(true);
+    expect(step.canEditFreeResponse).toBe(true);
     step.free_response = 'a question with answers';
-    expect(step.needsFreeResponse).toBe(false);
+    expect(step.canEditFreeResponse).toBe(false);
   });
 
   it('calculates if it can be answered', () => {

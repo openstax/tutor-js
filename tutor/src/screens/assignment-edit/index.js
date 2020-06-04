@@ -45,6 +45,7 @@ class AssignmentBuilder extends React.Component {
       history: props.history,
       course,
       onComplete: this.onComplete,
+      step: this.props.params.step,
     });
   }
 

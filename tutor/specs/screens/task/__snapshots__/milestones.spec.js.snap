@@ -27,6 +27,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,
@@ -60,6 +61,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Organizing Life on Earth",
             "response_validation": Object {},
@@ -75,6 +77,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -110,6 +113,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Introduction: Further Applications of Newton’s Laws",
             "response_validation": Object {},
@@ -125,6 +129,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -160,6 +165,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Normal, Tension, and Other Examples of Forces",
             "response_validation": Object {},
@@ -175,6 +181,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,
@@ -208,6 +215,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Food Irradiation",
             "response_validation": Object {},
@@ -223,6 +231,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -400,6 +409,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": true,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "sexy: Biotechnology",
             "response_validation": Object {},
@@ -415,6 +425,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -592,6 +603,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "scalable: RL Circuits",
             "response_validation": Object {},
@@ -607,6 +619,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -642,6 +655,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": true,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Angiosperms",
             "response_validation": Object {},
@@ -657,6 +671,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
               "average_step_number": undefined,
@@ -834,6 +849,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "mission-critical: Nerve Conduction–Electrocardiograms",
             "response_validation": Object {},
@@ -849,6 +865,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
                 1,
@@ -884,6 +901,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Centripetal Acceleration",
             "response_validation": Object {},
@@ -899,6 +917,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             },
             "answer_id": undefined,
             "available_points": undefined,
+            "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
                 1,
@@ -932,6 +951,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "isFetched": true,
             "is_completed": false,
             "labels": Array [],
+            "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": "Normal, Tension, and Other Examples of Forces",
             "response_validation": Object {},

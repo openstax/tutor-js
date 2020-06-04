@@ -58,6 +58,14 @@ export default class TaskUX {
     }
   }
 
+  @computed get isReadOnly() {
+    return Boolean(
+      this.isLocked ||
+        this.course.roles.teacher ||
+        this.currentStep.can_be_updated === false
+    );
+  }
+
   @action isUnmounting() {
     // value props
 
@@ -135,7 +143,9 @@ export default class TaskUX {
 
   @action async onFreeResponseComplete(step) {
     if (!step.content.requiresAnswerId) {
-      await step.save();
+      if (step.can_be_updated) {
+        await step.save();
+      }
       this.goForward();
     }
   }

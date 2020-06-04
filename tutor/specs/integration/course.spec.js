@@ -2,6 +2,7 @@ context('Course', () => {
   beforeEach(() => {
     cy.visit('/course/1');
     cy.disableTours();
+    cy.setRole('teacher')
   });
 
   it('only displays Grade Answers button on Homework type', () => {

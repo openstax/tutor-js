@@ -1,6 +1,7 @@
 context('Assignment Grade', () => {
 
   beforeEach(() => {
+    cy.setRole('teacher')
     cy.visit('/course/1/assignment/grade/3')
     cy.disableTours();
   });

@@ -20,6 +20,7 @@ class ResponseValidationUX {
     this.validator = validator;
     this.messages = messages;
     this.taskUX = taskUX;
+    this.initialResponse = step.free_response;
     this.messageIndex = random(0, messages.length - 1);
   }
 
@@ -27,7 +28,12 @@ class ResponseValidationUX {
     return this.messages[this.messageIndex];
   }
 
-  @action.bound setResponse({ target: { value } }) {
+  @action.bound setResponse(ev) {
+    if (this.taskUX.isReadOnly) {
+      ev.preventDefault();
+      return;
+    }
+    const { target: { value } } = ev;
     if (this.isDisplayingNudge) {
       this.retriedResponse = value;
     } else {
@@ -87,6 +93,11 @@ class ResponseValidationUX {
     }
   }
 
+  @action.bound cancelWRQResubmit() {
+    this.results = [];
+    this.initialResponse = this.step.free_response;
+  }
+
   @action advanceUI(result) {
     if (result.valid || this.isDisplayingNudge) {
       this.step.beginRecordingAnswer({ free_response: result.response });
@@ -102,7 +113,14 @@ class ResponseValidationUX {
     this.taskUX.onFreeResponseComplete(this.step);
   }
 
+  @computed get textHasChanged() {
+    return this.step.free_response !== this.initialResponse;
+  }
+
   @computed get submitBtnLabel() {
+    if (!this.step.can_be_updated) {
+      return 'Next';
+    }
     return this.isDisplayingNudge ? 'Re-submit' : 'Submit';
   }
 
@@ -114,7 +132,7 @@ class ResponseValidationUX {
 
   @computed get isSubmitDisabled() {
     return Boolean(
-      this.displayNudgeError || S.isEmpty(this.response),
+      this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response),
     );
   }
 
@@ -125,8 +143,8 @@ class ResponseValidationUX {
     );
   }
 
-  @computed get hasTimestamp() {
-    return Boolean(last(this.results) && last(this.results).timestamp);
+  @computed get lastSubmitted() {
+    return this.step.free_response && this.step.last_completed_at;
   }
 
 }

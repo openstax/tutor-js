@@ -1,6 +1,7 @@
 context('Teacher Gradebook', () => {
 
   beforeEach(() => {
+    cy.setRole('teacher')
     cy.visit('/course/1/gradebook')
     cy.disableTours();
   });

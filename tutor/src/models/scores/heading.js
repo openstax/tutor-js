@@ -23,6 +23,16 @@ class Heading extends BaseModel {
     return findIndex(this.period.data_headings, this);
   }
 
+  @computed get isExternal() {
+    return this.type === 'external';
+  }
+  
+  @computed get canReview() {
+    return Boolean(
+      this.type === 'reading' || this.type == 'homework'
+    );
+  }
+  
   @computed get isDue() {
     return moment(this.due_at).isBefore(Time.now);
   }

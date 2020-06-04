@@ -136,7 +136,7 @@ const Variants = {
     type: 'exclamation-circle',
   },
   infoCircle: {
-    color: '#f47641',
+    color: '#09c0db',
     type: 'info-circle',
   },
   activity: {

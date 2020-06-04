@@ -1,6 +1,6 @@
 import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
-import { sumBy, filter } from 'lodash';
+import { sumBy, countBy, filter } from 'lodash';
 import { getCell } from './styles';
 import S from '../../helpers/string';
 
@@ -27,9 +27,16 @@ const AggregateResult = observer(({ data, ux, drawBorderBottom }) => {
     );
   }
   const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
+  let value = '';
+  if (data.isExternal) {
+    const counts = countBy(tasksWithoutDroppedStudents, 'completed_step_count');
+    value = S.asPercent(counts['1'] / tasksWithoutDroppedStudents.length) + '%';
+  } else {
+    value = ux.displayScoresAsPercent ? getPercentage(tasksWithoutDroppedStudents) : getPoints(tasksWithoutDroppedStudents);
+  }
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>
-      {ux.displayScoresAsPercent ? getPercentage(tasksWithoutDroppedStudents) : getPoints(tasksWithoutDroppedStudents)}
+      {value}
     </Cell>
   );
 });

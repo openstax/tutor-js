@@ -1,7 +1,7 @@
 context('Student Tasks', () => {
 
   beforeEach(() => {
-
+    cy.setRole('student')
   });
 
   it('advances after answering a free-response only question', () => {
