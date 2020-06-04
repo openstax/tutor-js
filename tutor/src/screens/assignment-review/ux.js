@@ -324,6 +324,10 @@ export default class AssignmentReviewUX {
     return Boolean(['reading', 'homework'].includes(this.planScores.type));
   }
 
+  @computed get isExternal() {
+    return Boolean(this.planScores.type === 'external');
+  }
+
   @computed get hasUnPublishedScores() {
     return Boolean(this.scores.hasUnPublishedScores);
   }

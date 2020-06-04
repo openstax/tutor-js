@@ -10,6 +10,9 @@ const SORTERS = {
   question(student, { key }) {
     return student.questions[key].points;
   },
+  clicked(student, { key }) {
+    return student.questions[key].is_completed;
+  },
 };
 
 const rowDataSorter = (sort) => {
