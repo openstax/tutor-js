@@ -9,7 +9,7 @@ jest.mock('../../../src/models/user', () => ({
 describe('CreateCourse: Selecting course dates', function() {
   let ux;
 
-  TimeMock.setTo('2020-12-01T12:00:00.000Z');
+  TimeMock.setTo('2018-12-01T12:00:00.000Z');
 
   beforeEach(() => {
     ux = new BuilderUX({
@@ -18,12 +18,6 @@ describe('CreateCourse: Selecting course dates', function() {
       offerings: Factory.offeringsMap({ count: 4 }),
     });
     ux.newCourse.offering = ux.offerings.array[0];
-  });
-
-  it('it has valid/invalid terms', () => {
-    const wrapper = mount(<SelectDates ux={ux} />);
-    expect(wrapper).not.toHaveRendered('Choice .disabled [data-term="spring"]');
-    expect(wrapper).toHaveRendered('Choice .disabled [data-term="winter"]');
   });
 
   it('it sets state when date row is clicked', async function() {
