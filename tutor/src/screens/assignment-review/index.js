@@ -105,13 +105,14 @@ class AssignmentReview extends React.Component {
 
     const AvailableTabs = [Details];
     // there are no scores if no students have enrolled
-    if (isReadingOrHomework && taskPlanScores) {
-      AvailableTabs.push(Overview, Scores);
+    if (taskPlanScores) {
+      if (isReadingOrHomework) {
+        AvailableTabs.push(Overview, Scores);
+      }
+      else if (taskPlanScores.scores.isExternal) {
+        AvailableTabs.push(ExternalScores);
+      }
     }
-    else if (taskPlanScores.scores.isExternal && taskPlanScores) {
-      AvailableTabs.push(ExternalScores);
-    }
-
     const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
