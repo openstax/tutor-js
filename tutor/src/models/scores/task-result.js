@@ -53,6 +53,9 @@ class TaskResult extends BaseModel {
   @computed get isHomework() {
     return this.type === 'homework';
   }
+  @computed get isExternal() {
+    return this.type === 'external';
+  }
 
   @computed get unacceptedLateStepCount() {
     return this.completed_step_count - this.completedStepCount;
@@ -68,6 +71,10 @@ class TaskResult extends BaseModel {
 
   @computed get isStarted() {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
+  }
+  
+  @computed get canBeReviewed() {
+    return Boolean(this.isStarted && !this.isExternal);
   }
 
   @computed get isTrouble() {

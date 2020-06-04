@@ -34,38 +34,44 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
   );
 });
 
-const Points = ({ task }) => useObserver(() => {
+const Points = observer(({ task }) => {
   const points = isNil(task.points) ? '0' : task.points;
   return <div className="correct-points">{S.numberWithOneDecimalPlace(points)}</div>;
 });
 
-const Percent = ({ task: { score } }) => useObserver(() => {
+const Percent = observer(({ task: { score } }) => {
   const display = isNil(score) ? '0%' : `${S.asPercent(score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
+const External = observer(({ task: { completed_step_count } }) => {
+  return <div className="external">{completed_step_count > 0 && 'clicked'}</div>;
+});
+
 const TaskResult = observer(({ ux, task, striped, isLast }) => {
-  return useObserver(() => {
-    let contents = null;
-    if (task.isStarted || task.isDue) {
-      if(task.type === 'external') {
-        contents = task.completed_step_count === task.step_count ? 'clicked' : <Unstarted>---</Unstarted>;
-      }
-      else {
-        const Display = ux.displayScoresAsPercent ? Percent : Points;
-
-        const value = <Display task={task} />;
-  
-        contents = task.isStarted ?
-          <ReviewLink task={task}>{value}</ReviewLink> : value;
-      }    
-    } else {
-      contents = <Unstarted>---</Unstarted>;
-    }
+  let contents = null;
+  if (task.isStarted || task.isDue) {
     
+    let Component;
 
-    return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
-  });
+    if (task.isExternal){
+      Component = External;
+    } else if (ux.displayScoresAsPercent) {
+      Component = Percent;
+    } else {
+      Component = Points;
+    }
+
+    const value = <Component task={task} />;
+
+    contents = task.canBeReviewed ?
+      <ReviewLink task={task}>{value}</ReviewLink> : value;
+  } else {
+    contents = <Unstarted>---</Unstarted>;
+  }
+
+  return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
+
 });
 
 export default TaskResult;
