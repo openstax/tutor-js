@@ -2,6 +2,7 @@ import { React, PropTypes, observer, useRef, useEffect, styled, css } from 'vend
 import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 import { useState } from 'react';
+import { isNumber } from 'lodash';
 
 const Name=styled.div`
   font-weight: bold;
@@ -53,10 +54,17 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
       <b>Score:</b>
       <ScoreInput
         autoFocus
+        type="number"
+        min="0"
+        max={response.availablePoints}
+        step="0.1"
         name="score"
         placeholder="0"
         ref={ref}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          if(e.target.value === '') onChange(undefined);
+          else onChange(parseFloat(e.target.value, 10));
+        }}
         defaultValue={response.grader_points}
         disabled={Boolean(!onChange)}
       /> out of {response.availablePoints}
@@ -136,7 +144,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
           (!ux.isLastQuestion || !ux.isLastStudent || ux.isResponseGraded(response)) &&
           <SaveButton
             className="btn btn-standard btn-primary"
-            disabled={isNaN(points) || parseInt(points, 10) > response.availablePoints}
+            disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
             onClick={() => ux.saveScore({
               response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
             })}>
@@ -147,7 +155,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
           <SaveButton
             variant="plain"
             className="btn btn-standard"
-            disabled={isNaN(points) || parseInt(points, 10) > response.availablePoints}
+            disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
             onClick={() => ux.saveScore({
               response, points, comment: commentsRef.current.value, doGoToOverview: true,
             })}>
