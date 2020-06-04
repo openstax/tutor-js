@@ -7,9 +7,10 @@ describe('Reading Tasks Screen', () => {
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
-    const task = Factory.studentTask({
+    let task = Factory.studentTask({
       type: 'homework', stepCount: 5,
     });
+    task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
         props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);

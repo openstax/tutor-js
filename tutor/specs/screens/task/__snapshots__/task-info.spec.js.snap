@@ -4,6 +4,7 @@ exports[`Tasks Info matches snapshot 1`] = `
 <TaskInfo
   task={
     StudentTask {
+      "closes_at": undefined,
       "complete": undefined,
       "completion_weight": undefined,
       "correctness_weight": undefined,

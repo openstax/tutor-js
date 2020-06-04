@@ -8,6 +8,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
     TaskUX {
       "_stepIndex": 0,
       "_task": StudentTask {
+        "closes_at": undefined,
         "complete": undefined,
         "completion_weight": undefined,
         "correctness_weight": undefined,
