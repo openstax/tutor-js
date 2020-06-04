@@ -19,6 +19,13 @@ const getPercentage = (tasks) => {
 
 
 const AggregateResult = observer(({ data, ux, drawBorderBottom }) => {
+  if(data.type === 'external') {
+    return (
+      <Cell striped drawBorderBottom={drawBorderBottom}>
+      n/a
+      </Cell>
+    );
+  }
   const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>

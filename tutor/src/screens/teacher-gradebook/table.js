@@ -71,6 +71,7 @@ const HeadingTop = styled.div`
     color: ${colors.bright_blue};
     display: block;
     margin-bottom: -2px;
+    margin-top: 0.5px;
   }
 
   & .heading-title {
@@ -78,6 +79,10 @@ const HeadingTop = styled.div`
     width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    & a {
+      color: inherit;
+    }
   }
 
   & .sort-wrapper {
@@ -112,6 +117,10 @@ const HeadingBottom = styled.div`
   background: #fff;
   position: relative;
   color: ${colors.neutral.thin};
+
+  .available-points {
+    margin-top: 0.5px;
+  }
 `;
 
 const ColumnHeading = styled.div`
@@ -119,15 +128,21 @@ const ColumnHeading = styled.div`
   background: ${props =>
     !props.variant 
       ? colors.neutral.lighter
+      // gradebook can only have homework, reading, and external
       : props.variant === 'homework'
         ? colors.templates.homework.background
-        : colors.templates.reading.background};
+        : props.variant === 'reading'
+          ? colors.templates.reading.background
+          : colors.templates.external.background};
   border-top: 0.4rem solid ${props =>
     !props.variant 
       ? colors.neutral.std
+      // gradebook can only have homework, reading, and external
       : props.variant === 'homework'
         ? colors.templates.homework.border
-        : colors.templates.reading.border};
+        : props.variant === 'reading'
+          ? colors.templates.reading.border
+          : colors.templates.external.border};
   &:not(:last-child) {
     border-right: 1px solid ${colors.neutral.pale};
   }
@@ -208,7 +223,7 @@ const StudentColumnHeader = observer(({ ux }) => {
             />
           </HeadingMiddle>
           <HeadingBottom>
-            Available Points
+            <div className="available-points">Available Points</div>
           </HeadingBottom>
         </ColumnHeading>
         <ColumnHeading>

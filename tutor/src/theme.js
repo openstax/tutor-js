@@ -41,7 +41,7 @@ const colorDefinitions = {
 const tasks = {
   reading:  colorDefinitions.quaternary,
   homework: '#00c1de',
-  external: '#d3d6e0',
+  external: '#edf2ff',
   event:    colorDefinitions.secondary,
   failure:  colorDefinitions.danger,
 };
