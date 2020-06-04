@@ -113,12 +113,14 @@ export default class AssignmentGradingUX {
     await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
 
-    if(doGoToOverview) 
+    if(doGoToOverview) {
       this.goToOverview();
+    }
     // move to next question if any
     else if (isEmpty(this.unGraded) && doMoveNextQuestion) {
-      if (this.selectedHeadingIndex < this.headings.length - 1)
+      if (this.selectedHeadingIndex < this.headings.length - 1){
         this.selectedHeadingIndex += 1;
+      }
     }
     // go back to first student when grading the last student in the list and have some other students who were skipped
     else if (this.selectedStudentIndex >= this.unGraded.length) {

@@ -97,73 +97,75 @@ const ExpandGraded = observer(({ ux }) => {
   );
 });
 
-
-const AssignmentGradingQuestion = observer(({ ux }) => (
-  <>
-    {
-      ux.showOverview
-        ? (
-          <>
-            {
-              ux.headings.map((h, i) => (
-                <StyledQuestion key={i} marginBottom>
-                  <QuestionHeader questionIndex={i} ux={ux} />
-                  <QuestionBody>
-                    <Question
-                      question={h.question}
-                      hideAnswers={false}
-                      displaySolution={false}
-                      choicesEnabled={false}
-                      displayFormats={false}
-                    />
-                    <ExpandGradedWrapper>
-                      <Button
-                        onClick={() => ux.goToQuestionHeading(i, true)}
-                        variant="link"
-                      >
-                        Expand graded answers {h.gradedProgress}
-                      </Button>
-                      <label>
-                        Average Score: {S.numberWithOneDecimalPlace(h.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(h.responseStats.availablePoints)}
-                      </label>
-                    </ExpandGradedWrapper>
-                  </QuestionBody>
-                </StyledQuestion>
-              ))
-            }
-          </>
-        )
-        : (
-          <StyledQuestion>
-            <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
+const Overiew = observer(({ ux }) => {
+  return (
+    <>
+      {
+        ux.headings.map((h, i) => (
+          <StyledQuestion key={i} marginBottom>
+            <QuestionHeader questionIndex={i} ux={ux} />
             <QuestionBody>
               <Question
-                question={ux.selectedHeading ? ux.selectedHeading.question : null}
+                question={h.question}
                 hideAnswers={false}
-                displaySolution={ux.showAnswerKey}
+                displaySolution={false}
                 choicesEnabled={false}
                 displayFormats={false}
               />
-              <ExpandGraded ux={ux} />
-              {
-                Boolean(ux.expandGradedAnswers) && ux.completedResponses.map((response, index) => 
-                  <Answer
-                    response={response}
-                    key={index}
-                    index={index}
-                    ux={ux} />)
-              }
-              {ux.needsGradingResponses.map((response, index) =>
-                <Answer
-                  response={response}
-                  key={index}
-                  index={index}
-                  ux={ux} />)}
+              <ExpandGradedWrapper>
+                <Button
+                  onClick={() => ux.goToQuestionHeading(i, true)}
+                  variant="link"
+                >
+                        Expand graded answers {h.gradedProgress}
+                </Button>
+                <label>
+                        Average Score: {S.numberWithOneDecimalPlace(h.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(h.responseStats.availablePoints)}
+                </label>
+              </ExpandGradedWrapper>
             </QuestionBody>
           </StyledQuestion>
-        )
-    }
-  </>
-));
+        ))
+      }
+    </>
+  );
+});
+
+const IndividualQuestion = observer(({ ux }) => 
+  (
+    <StyledQuestion>
+      <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
+      <QuestionBody>
+        <Question
+          question={ux.selectedHeading ? ux.selectedHeading.question : null}
+          hideAnswers={false}
+          displaySolution={ux.showAnswerKey}
+          choicesEnabled={false}
+          displayFormats={false}
+        />
+        <ExpandGraded ux={ux} />
+        {
+          Boolean(ux.expandGradedAnswers) && ux.completedResponses.map((response, index) => 
+            <Answer
+              response={response}
+              key={index}
+              index={index}
+              ux={ux} />)
+        }
+        {ux.needsGradingResponses.map((response, index) =>
+          <Answer
+            response={response}
+            key={index}
+            index={index}
+            ux={ux} />)}
+      </QuestionBody>
+    </StyledQuestion>
+  )
+);
+const AssignmentGradingQuestion = observer(({ ux }) => {
+  const Component = ux.showOverview ? Overiew : IndividualQuestion;
+
+  return <Component ux={ux} />;
+});
 
 export default AssignmentGradingQuestion;
