@@ -98,7 +98,7 @@ export default class AssignmentGradingUX {
     return response.grader_points !== undefined;
   }
 
-  @action async saveScore({ points, comment, response, doMoveNextQuestion=false }) {
+  @action async saveScore({ points, comment, response, doGoToOverview = false, doMoveNextQuestion = false }) {
     const grade = new Grade({ points, comment, response });
     await grade.save();
     //refetch scores after grade was saved
@@ -107,17 +107,16 @@ export default class AssignmentGradingUX {
     await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
 
+    if(doGoToOverview) 
+      this.goToOverview();
     // move to next question if any
-    if (isEmpty(this.unGraded) && doMoveNextQuestion) {
+    else if (isEmpty(this.unGraded) && doMoveNextQuestion) {
       if (this.selectedHeadingIndex < this.headings.length - 1)
         this.selectedHeadingIndex += 1;
     }
     // go back to first student when grading the last student in the list and have some other students who were skipped
     else if (this.selectedStudentIndex >= this.unGraded.length) {
       this.selectedStudentIndex = 0;
-    }
-    else {
-      this.showOverview = true;
     }
   }
 
@@ -138,5 +137,12 @@ export default class AssignmentGradingUX {
     this.expandGradedAnswers = expandGradedAnswers;
     this.selectedStudentIndex = 0;
     this.showOverview = false;
+  }
+
+  @action.bound goToOverview() {
+    this.selectedHeadingIndex = undefined;
+    this.expandGradedAnswers = false;
+    this.selectedStudentIndex = 0;
+    this.showOverview = true;
   }
 }

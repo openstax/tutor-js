@@ -21,7 +21,8 @@ const StyledQuestionHeading = styled.div`
   border-bottom: 2px solid ${colors.neutral.pale};
   align-items: center;
   padding: 0 10px;
-  color: ${colors.neutral.grayblue};
+  color: ${colors.neutral.darker};
+  font-weight: 600;
   height: 50px;
   display: flex;
   align-items: center;

@@ -138,7 +138,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
             className="btn btn-standard btn-primary"
             disabled={isNaN(points) || parseInt(points, 10) > response.availablePoints}
             onClick={() => ux.saveScore({
-              response, points, comment: commentsRef.current.value, doMoveNextQuestion: ux.isLastStudent ? true : false,
+              response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
             })}>
             {saveLabel}
           </SaveButton>
@@ -149,7 +149,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
             className="btn btn-standard"
             disabled={isNaN(points) || parseInt(points, 10) > response.availablePoints}
             onClick={() => ux.saveScore({
-              response, points, comment: commentsRef.current.value,
+              response, points, comment: commentsRef.current.value, doGoToOverview: true,
             })}>
             {'Save & Exit'}
           </SaveButton>
