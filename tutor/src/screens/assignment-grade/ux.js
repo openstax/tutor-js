@@ -16,6 +16,7 @@ export default class AssignmentGradingUX {
   @observable showOverview = true;
 
   @observable isPublishingScores = false;
+  @observable selectedHeadingStudentsIsGrading = [];
 
   @UiSettings.decorate('grd.hsn') hideStudentNames = false;
   @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
@@ -132,7 +133,7 @@ export default class AssignmentGradingUX {
   @action.bound async onPublishScores() {
     this.isPublishingScores = true;
     await this.taskingPlan.publishScores();
-    //refetch scores after grade was saved
+    //refetch scores after publish scores was saved
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
