@@ -10,10 +10,10 @@ export default class AssignmentGradingUX {
   @observable exercisesHaveBeenFetched = false;
   @observable selectedPeriod;
 
-  @observable selectedHeadingIndex = undefined;
+  @observable selectedHeadingIndex = 0;
   @observable expandGradedAnswers = false;
   @observable selectedStudentIndex = 0;
-  @observable showOverview = true;
+  @observable showOverview = false;
 
   @observable isPublishingScores = false;
   @observable selectedHeadingStudentsIsGrading = [];
@@ -50,6 +50,11 @@ export default class AssignmentGradingUX {
     if (questionId) {
       const index = findIndex(this.headings, (h => h.question_id == questionId ));
       if (index > -1) { this.selectedHeadingIndex = index; }
+    }
+    else {
+      let index = findIndex(this.headings, (h => !h.gradedStats.complete));
+      if (index <= -1) { index = 0; }
+      this.selectedHeadingIndex = index;
     }
   }
 

@@ -44,7 +44,6 @@ class AssignmentGrading extends React.Component {
     super(props);
 
     this.ux = new UX();
-
     this.ux.initialize({
       ...props.params,
       course: props.course || Courses.get(props.params.courseId),
