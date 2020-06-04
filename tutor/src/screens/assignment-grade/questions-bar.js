@@ -1,5 +1,5 @@
 import { React, useObserver, styled } from 'vendor';
-import { Button } from 'react-bootstrap';
+import AsyncButton from 'shared/components/buttons/async-button';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
@@ -53,7 +53,7 @@ const Controls = styled.div`
   }
 `;
 
-const StyledPublishButton = styled(Button).attrs(props => ({
+const StyledPublishButton = styled(AsyncButton).attrs(props => ({
   disabled: props.isdisabled,
   variant: props.isdisabled ? 'plain' : 'primary',
 }))`
@@ -82,7 +82,9 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       <Controls>
         <StyledPublishButton
           isdisabled={!ux.hasUnpublishScores}
-          onClick={ux.onPublishScores}>
+          onClick={ux.onPublishScores}
+          isWaiting={ux.isPublishingScores}
+          waitingText="Publishing...">
           Publish Scores
         </StyledPublishButton>
         <StyledSettingsIcon

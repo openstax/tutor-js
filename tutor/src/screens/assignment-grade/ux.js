@@ -15,6 +15,8 @@ export default class AssignmentGradingUX {
   @observable selectedStudentIndex = 0;
   @observable showOverview = true;
 
+  @observable isPublishingScores = false;
+
   @UiSettings.decorate('grd.hsn') hideStudentNames = false;
   @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
   @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
@@ -128,12 +130,14 @@ export default class AssignmentGradingUX {
   }
 
   @action.bound async onPublishScores() {
+    this.isPublishingScores = true;
     await this.taskingPlan.publishScores();
     //refetch scores after grade was saved
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
+    this.isPublishingScores = false;
   }
 
   @action.bound setSelectedPeriod(period) {
