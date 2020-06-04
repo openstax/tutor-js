@@ -172,7 +172,7 @@ class CoursePlanDetails extends React.Component {
   }
 
   @computed get tasking() {
-    const periodId = this.selectedPeriodId || this.props.course.periods[0].id;
+    const periodId = this.selectedPeriodId || this.props.plan.activeAssignedPeriods[0].id;
 
     return this.props.plan.tasking_plans.find(t =>
       t.target_id == periodId && t.target_type === 'period'

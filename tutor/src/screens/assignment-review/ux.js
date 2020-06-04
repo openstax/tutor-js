@@ -41,7 +41,6 @@ export default class AssignmentReviewUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.planScores = scores;
     this.course = course;
-    this.selectedPeriod = first(course.periods.active);
     this.onCompleteDelete = onCompleteDelete;
     this.onEditAssignedQuestions = onEditAssignedQuestions;
     this.onTabSelection = onTabSelection;
@@ -49,9 +48,9 @@ export default class AssignmentReviewUX {
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
-
     await this.planScores.ensureExercisesLoaded();
 
+    this.selectedPeriod = first(this.assignedPeriods);
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
   }
@@ -65,6 +64,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get scores() {
+    if (!this.selectedPeriod) { return null; }
     return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
@@ -74,6 +74,10 @@ export default class AssignmentReviewUX {
 
   @computed get taskPlan() {
     return this.planScores.taskPlan;
+  }
+
+  @computed get assignedPeriods() {
+    return this.planScores.taskPlan.activeAssignedPeriods;
   }
 
   // methods relating to sorting and filtering scores table
@@ -131,7 +135,7 @@ export default class AssignmentReviewUX {
       this.pendingExtensions.set(s.role_id, checked);
     });
   }
-  
+
   @action.bound cancelDisplayingGrantExtension() {
     this.pendingExtensions.clear();
     this.isDisplayingGrantExtension = false;
