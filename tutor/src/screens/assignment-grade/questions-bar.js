@@ -54,8 +54,8 @@ const Controls = styled.div`
 `;
 
 const StyledPublishButton = styled(Button).attrs(props => ({
-  disabled: props.canPublish,
-  variant: props.canPublish ? 'plain' : 'primary',
+  disabled: props.isdisabled,
+  variant: props.isdisabled ? 'plain' : 'primary',
 }))`
   &&& {
     padding: 10px;
@@ -81,7 +81,7 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       </QuestionsWrapper>
       <Controls>
         <StyledPublishButton
-          canpublish={!ux.scores.hasUnPublishedScores}
+          isdisabled={!ux.hasUnpublishScores}
           onClick={ux.onPublishScores}>
           Publish Scores
         </StyledPublishButton>

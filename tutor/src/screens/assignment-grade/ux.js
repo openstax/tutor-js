@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter, isEmpty, findIndex } from 'lodash';
+import { first, filter, isEmpty, findIndex, some } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
@@ -54,7 +54,6 @@ export default class AssignmentGradingUX {
   @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
 
   @computed get scores() {
-
     return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
@@ -80,6 +79,10 @@ export default class AssignmentGradingUX {
 
   @computed get unGraded() {
     return filter(this.selectedHeading.studentResponses, s => s.needs_grading);
+  }
+
+  @computed get hasUnpublishScores() {
+    return some(this.scores.students, s => s.grades_need_publishing);
   }
 
   @computed get isLastStudent() {
@@ -125,7 +128,12 @@ export default class AssignmentGradingUX {
   }
 
   @action.bound async onPublishScores() {
-    this.taskingPlan.publishScores();
+    await this.taskingPlan.publishScores();
+    //refetch scores after grade was saved
+    await this.planScores.fetch();
+    await this.planScores.taskPlan.fetch();
+    await this.planScores.taskPlan.analytics.fetch();
+    await this.planScores.ensureExercisesLoaded();
   }
 
   @action.bound setSelectedPeriod(period) {
