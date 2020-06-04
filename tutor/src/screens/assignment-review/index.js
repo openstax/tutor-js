@@ -10,6 +10,7 @@ import CoursePeriodSelect from '../../components/course-period-select';
 import Details from './details';
 import Overview from './overview';
 import Scores from './scores';
+import ExternalScores from './external-scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
 
@@ -95,7 +96,7 @@ class AssignmentReview extends React.Component {
 
   render() {
     const {
-      isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod,
+      isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod, scores: taskPlanScores, isReadingOrHomework,
     } = this.ux;
 
     if (!isScoresReady) {
@@ -104,8 +105,11 @@ class AssignmentReview extends React.Component {
 
     const AvailableTabs = [Details];
     // there are no scores if no students have enrolled
-    if (this.ux.isReadingOrHomework && this.ux.scores) {
+    if (isReadingOrHomework && taskPlanScores) {
       AvailableTabs.push(Overview, Scores);
+    }
+    else if (taskPlanScores.scores.isExternal && taskPlanScores) {
+      AvailableTabs.push(ExternalScores);
     }
 
     const Tab = AvailableTabs[this.tabIndex] || Details;
