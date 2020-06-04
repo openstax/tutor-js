@@ -99,7 +99,6 @@ class TaskPlanScoreStudent extends BaseModel {
   @field total_points;
   @field total_fraction;
   @field late_work_point_penalty;
-  @field late_work_fraction_penalty;
   @field grades_need_publishing;
 
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
