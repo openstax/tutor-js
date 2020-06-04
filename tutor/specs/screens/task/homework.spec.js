@@ -7,7 +7,7 @@ describe('Reading Tasks Screen', () => {
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
-    let task = Factory.studentTask({
+    const task = Factory.studentTask({
       type: 'homework', stepCount: 5,
     });
     task.tasksMap = { course: Factory.course() }
