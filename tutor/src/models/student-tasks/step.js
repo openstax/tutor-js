@@ -82,6 +82,7 @@ class StudentTaskStep extends BaseModel {
   @field free_response;
   @field feedback_html;
   @field correct_answer_id;
+  @field last_completed_at;
   @field({ type: 'object' }) response_validation;
   @field({ type: 'object' }) spy;
   @field external_url;
@@ -121,6 +122,9 @@ class StudentTaskStep extends BaseModel {
   }
   @computed get isPlaceHolder() {
     return 'placeholder' === this.type;
+  }
+  @computed get isOpenEndedExercise() {
+    return this.isExercise && this.content.isOpenEnded;
   }
 
   @computed get isCorrect() {

@@ -93,6 +93,11 @@ class ResponseValidationUX {
     }
   }
 
+  @action.bound cancelWRQResubmit() {
+    this.results = [];
+    this.initialResponse = this.step.free_response;
+  }
+
   @action advanceUI(result) {
     if (result.valid || this.isDisplayingNudge) {
       this.step.beginRecordingAnswer({ free_response: result.response });
@@ -108,7 +113,14 @@ class ResponseValidationUX {
     this.taskUX.onFreeResponseComplete(this.step);
   }
 
+  @computed get textHasChanged() {
+    return this.step.free_response !== this.initialResponse;
+  }
+
   @computed get submitBtnLabel() {
+    if (!this.step.can_be_updated) {
+      return 'Next';
+    }
     return this.isDisplayingNudge ? 'Re-submit' : 'Submit';
   }
 
@@ -131,8 +143,8 @@ class ResponseValidationUX {
     );
   }
 
-  @computed get hasTimestamp() {
-    return Boolean(last(this.results) && last(this.results).timestamp);
+  @computed get lastSubmitted() {
+    return this.step.free_response && this.step.last_completed_at;
   }
 
 }

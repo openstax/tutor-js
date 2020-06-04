@@ -1,14 +1,14 @@
 import {
   React, PropTypes, observer, styled, action, css, moment,
 } from 'vendor';
-import { last } from 'lodash';
 import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';
 import ResponseValidation from '../../../models/response_validation';
 import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
+import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
-import Theme from '../../../theme';
+import { colors } from '../../../theme';
 import Course from '../../../models/course';
 import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
@@ -26,11 +26,13 @@ const TextAreaErrorStyle = css`
 const InfoRow = styled.div`
   margin: 8px 0;
   display: flex;
-  justify-content: ${props => props.isDisplayingLastSaved ? 'space-between' : 'flex-end'};
-
+  justify-content: ${props => props.hasSubmitted ? 'space-between' : 'flex-end'};
   span {
     font-size: 12px;
     line-height: 16px;
+    + span {
+      margin-left: 1rem;
+    }
   }
 `;
 
@@ -46,17 +48,42 @@ const TextArea = styled.textarea`
   line-height: 1.5em;
   margin: 2.5rem 0 0 0;
   padding: 0.5em;
-  border: 1px solid ${Theme.colors.neutral.std};
-  ${props => props.isErrored && TextAreaErrorStyle}
+  border: 1px solid ${colors.neutral.std};
+  color: ${colors.neutral.dark};
+  ${props => props.isErrored && TextAreaErrorStyle};
+  background-color: ${props => props.readOnly && colors.neutral.cool};
 `;
 TextArea.displayName = 'TextArea';
 
 const AnswerButton = styled(Button)`
   align-self: flex-start;
   margin: 0;
+  min-width: 12rem;
 `;
 AnswerButton.displayName = 'AnswerButton';
 
+const StyledRevertButton = styled(Button)`
+  min-width: 10rem;
+  margin-right: 2rem;
+`;
+const RevertButton = observer(({ ux, ux: { step } }) => {
+  if (!step.isOpenEndedExercise ||
+      !step.can_be_updated ||
+      !step.last_completed_at) {
+    return null;
+  }
+
+  return (
+    <StyledRevertButton
+      variant="secondary"
+      disabled={!ux.textHasChanged}
+      onClick={ux.cancelWRQResubmit}
+    >
+      Cancel
+    </StyledRevertButton>
+  );
+  
+});
 
 @observer
 class FreeResponseReview extends React.Component {
@@ -116,17 +143,20 @@ class FreeResponseInput extends React.Component {
           aria-label="question response text box"
           readOnly={ux.taskUX.isReadOnly}
         />
-        <InfoRow isDisplayingLastSaved={ux.hasTimestamp}>
-          {ux.hasTimestamp && <span>Last submitted on {moment(last(ux.results).timestamp).format('MMM DD [at] hh:mm A')}</span>}
+        <InfoRow hasSubmitted={!!ux.lastSubmitted}>
+          {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
           <span>{ux.responseWords} words</span>
         </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
+          <PointsAndFeedback step={step} />
+          <RevertButton ux={ux} />
           <AnswerButton size="lg" data-test-id="submit-answer-btn" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>
+        <WRQStatus step={step} />
         <StepFooter
           hideContentLink={ux.isDisplayingNudge}
           course={course} step={step} />

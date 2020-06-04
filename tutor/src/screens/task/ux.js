@@ -143,7 +143,9 @@ export default class TaskUX {
 
   @action async onFreeResponseComplete(step) {
     if (!step.content.requiresAnswerId) {
-      await step.save();
+      if (step.can_be_updated) {
+        await step.save();
+      }
       this.goForward();
     }
   }
