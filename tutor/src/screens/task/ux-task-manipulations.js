@@ -18,7 +18,7 @@ function insertBeforeMatch(type, task, steps, match) {
 }
 
 export function insertInstructions({ steps, task, ...rest }) {
-  const type = 'task-instructions';
+  const type = 'instructions';
   steps = [ new InfoStep({ task, type }), ...without(steps, { type })];
   return { steps, task, ...rest };
 }

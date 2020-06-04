@@ -40,6 +40,7 @@ const ControlsRow = styled.div`
   margin: 24px 0;
   display: flex;
   justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
+  align-items: center;
 `;
 
 const TextArea = styled.textarea`
@@ -56,7 +57,6 @@ const TextArea = styled.textarea`
 TextArea.displayName = 'TextArea';
 
 const AnswerButton = styled(Button)`
-  align-self: flex-start;
   margin: 0;
   min-width: 12rem;
 `;
@@ -151,7 +151,7 @@ class FreeResponseInput extends React.Component {
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
           <PointsAndFeedback step={step} />
-          <RevertButton ux={ux} />
+          <RevertButton size="lg" ux={ux} />
           <AnswerButton size="lg" data-test-id="submit-answer-btn" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>

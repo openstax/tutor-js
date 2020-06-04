@@ -90,7 +90,7 @@ describe('Task UX Model', () => {
     ux.moveToStep(step);
     expect(step.fetchIfNeeded).toHaveBeenCalledTimes(1);
     expect(ux.task.fetch).not.toHaveBeenCalled();
-    ux._stepIndex = 0;
+    ux._stepId = ux.steps[0].id;
 
     ux.task.fetch.mockImplementation(() => {
       ux.task.steps = [{ type: 'reading' }];
@@ -112,7 +112,7 @@ describe('Task UX Model', () => {
     expect(task.steps).toHaveLength(0);
     task.tasksMap = { course: Factory.course() };
     ux = new UX({ task: task, history: new TestRouter().history });
-    expect(ux.currentStep.type).toEqual('task-instructions')
+    expect(ux.currentStep.type).toEqual('instructions')
     expect(ux.steps).toHaveLength(1);
   });
 

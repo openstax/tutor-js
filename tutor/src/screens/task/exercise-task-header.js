@@ -100,7 +100,7 @@ class ExercisesTaskHeader extends React.Component {
           <span> | </span>
           <span>Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}</span>
         </StyledHeadingTitle> 
-        <TaskProgress steps={ux.steps} goToStep={ux.goToStep} currentStep={ux.currentStep} />
+        <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
 
       </ExercisesTaskHeaderWrapper>
     );

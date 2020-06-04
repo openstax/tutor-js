@@ -27,7 +27,7 @@ const TaskEndMessage = ({ ux, ux: { course, task } }) => {
         <h4>
           <Link
             to="viewTaskStep"
-            params={{ courseId: course.id, id: task.id, stepIndex: 1 }}
+            params={{ courseId: course.id, id: task.id }}
           >
             Begin work on assignment
           </Link>

@@ -42,7 +42,7 @@ describe('Tasks Screen', () => {
     task.api.isFetchedOrFetching = false;
     task.api.isPending = true;
     task.api.hasBeenFetched = false;
-    props.params.stepIndex = 1;
+    props.params.stepId = 1
     const t = mount(<C><Task {...props} /></C>);
     expect(task.load).toHaveBeenCalled();
     expect(t).toHaveRendered('ContentLoader');
