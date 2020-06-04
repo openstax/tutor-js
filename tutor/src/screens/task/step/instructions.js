@@ -65,8 +65,8 @@ const Heading = styled.div`
   font-weight: bold;
 `;
 
-const HomeworkWeights = observer(({ task }) => {
-  if (!task.isHomework) { return null; }
+const ReadingWeights = observer(({ task }) => {
+  if (!task.isReading) { return null; }
   return (
     <>
       <Heading>Score for auto-graded questions (MCQs, 2-step uestions)</Heading>
@@ -181,7 +181,7 @@ const Instructions = observer((props) => {
           <p>{format(task.close_date)}</p>
 
           <LateWorkPolicy task={task} />
-          <HomeworkWeights task={task} />
+          <ReadingWeights task={task} />
           <ExternalTaskInfo task={task} />
         </Body>
         <Footer>
