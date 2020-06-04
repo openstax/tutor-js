@@ -35,7 +35,7 @@ const Box = styled.div`
 const ScoreInput = styled.input`
   height: 4rem;
   display: flex;
-  justify-contenten: center;
+  justify-content: center;
   text-align: center;
   width: 5rem;
   margin: 0 0.8rem;
