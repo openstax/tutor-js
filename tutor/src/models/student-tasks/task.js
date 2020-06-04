@@ -28,6 +28,7 @@ class StudentTask extends BaseModel {
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
+  @field({ type: 'date' }) closes_at;
   @field({ type: 'date' }) feedback_at;
   @hasMany({ model: StudentTaskStep, inverseOf: 'task' }) steps;
 
@@ -75,6 +76,14 @@ class StudentTask extends BaseModel {
   // if the task's first step is a placeholder, we want to keep fetching it until it isn't
   @computed get isLoaded() {
     return Boolean(this.api.hasBeenFetched && (isEmpty(this.steps) || !this.steps[0].isPlaceHolder));
+  }
+
+  @computed get dueAtMoment() {
+    return this.course.momentInZone(this.due_at);
+  }
+
+  @computed get closesAtMoment() {
+    return this.course.momentInZone(this.closes_at);
   }
 
   // attempt to load the task until isLoaded returns true or we exceed 30 attempts

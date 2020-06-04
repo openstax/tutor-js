@@ -78,7 +78,7 @@ const HomeworkWeights = observer(({ task }) => {
   );
 });
 
-const format = (date) => moment(date).format('dd, MMM Do YYYY [at] H:mm a');
+const format = (date) => moment(date).format('dd, MMM Do YYYY [at] h:mm a');
 
 const LateWorkPolicy = observer(({ task }) => {
   if (!task.hasLateWorkPolicy) { return null; }
@@ -175,10 +175,10 @@ const Instructions = observer((props) => {
           <Description task={task} />
 
           <Heading>Due date</Heading>
-          <p>{format(task.due_date)}</p>
+          <p>{format(task.dueAtMoment)}</p>
 
           <Heading>Close date</Heading>
-          <p>{format(task.close_date)}</p>
+          <p>{format(task.closesAtMoment)}</p>
 
           <LateWorkPolicy task={task} />
           <HomeworkWeights task={task} />
