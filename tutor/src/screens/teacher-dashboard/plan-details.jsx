@@ -99,7 +99,7 @@ class CoursePlanDetails extends React.Component {
     const { plan, course } = this.props;
     const scoreTaskPlan = find(plan.scores.tasking_plans, tp => tp.period_id == this.tasking.target_id);
     
-    if(!scoreTaskPlan.canGrade) { return null; }
+    if(!scoreTaskPlan || !scoreTaskPlan.canGrade) { return null; }
     return (
       <OverlayTrigger
         placement="top"

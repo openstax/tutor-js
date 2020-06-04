@@ -1,8 +1,9 @@
-import { React, PropTypes, observer, useRef, useEffect, styled, css } from 'vendor';
+import { React, PropTypes, observer, useRef, useEffect, styled, css, cn } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 import { useState } from 'react';
 import { isNumber } from 'lodash';
+import S from '../../helpers/string';
 
 const Name=styled.div`
   font-weight: bold;
@@ -38,7 +39,7 @@ const ScoreInput = styled.input`
   display: flex;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 8rem;
   margin: 0 0.8rem;
   border: 2px solid ${colors.neutral.pale};
 `;
@@ -51,7 +52,7 @@ const ScoreWrapper = styled.div`
 const Points = React.forwardRef(({ response, onChange }, ref) => {
   return (
     <ScoreWrapper>
-      <b>Score:</b>
+      <b>Points:</b>
       <ScoreInput
         autoFocus
         type="number"
@@ -59,7 +60,7 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
         max={response.availablePoints}
         step="0.1"
         name="score"
-        placeholder="0"
+        placeholder="0.0"
         ref={ref}
         onChange={(e) => {
           if(e.target.value === '') onChange(undefined);
@@ -67,7 +68,7 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
         }}
         defaultValue={response.grader_points}
         disabled={Boolean(!onChange)}
-      /> out of {response.availablePoints}
+      /> out of {S.numberWithOneDecimalPlace(response.availablePoints)}
     </ScoreWrapper>
   );
 });
@@ -154,7 +155,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
         {ux.isLastStudent && !ux.isResponseGraded(response) && 
           <SaveButton
             variant="plain"
-            className="btn btn-standard"
+            className={cn('btn btn-standard', { 'btn-primary': ux.isLastQuestion })}
             disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
             onClick={() => ux.saveScore({
               response, points, comment: commentsRef.current.value, doGoToOverview: true,
