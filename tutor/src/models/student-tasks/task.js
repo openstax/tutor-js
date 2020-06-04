@@ -8,6 +8,7 @@ import StudentTaskStep from './step';
 import Student from './student';
 import { AppActions } from '../../flux/app';
 export { StudentTaskStep };
+import S from '../../helpers/string';
 
 export default
 @identifiedBy('student-tasks/task')
@@ -23,6 +24,7 @@ class StudentTask extends BaseModel {
   @field correctness_weight;
   @field late_work_penalty_applied;
   @field late_work_penalty_per_period;
+  @field late_work_point_penalty;
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
@@ -59,6 +61,11 @@ class StudentTask extends BaseModel {
 
   @computed get hasLateWorkPolicy() {
     return Boolean(this.isHomework || this.isReading);
+  }
+
+  @computed get humanLateWorkPenalty() {
+    const amount = this.late_work_penalty_applied !== 'not_accepted' ? this.late_work_penalty_per_period : 1;
+    return `${S.asPercent(amount)}%`;
   }
 
   @computed get availablePoints() {

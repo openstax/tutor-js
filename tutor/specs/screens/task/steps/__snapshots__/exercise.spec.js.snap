@@ -204,6 +204,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -549,6 +550,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "is_deleted": undefined,
           "late_work_penalty_applied": undefined,
           "late_work_penalty_per_period": undefined,
+          "late_work_point_penalty": undefined,
           "spy": Object {},
           "steps": Array [
             [Circular],

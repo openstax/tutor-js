@@ -333,6 +333,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -690,6 +691,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -1051,6 +1053,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -1412,6 +1415,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],
@@ -1773,6 +1777,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "is_deleted": undefined,
         "late_work_penalty_applied": undefined,
         "late_work_penalty_per_period": undefined,
+        "late_work_point_penalty": undefined,
         "spy": Object {},
         "steps": Array [
           [Circular],

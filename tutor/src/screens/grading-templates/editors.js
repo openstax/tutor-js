@@ -141,7 +141,7 @@ const StyledTextInput = styled(Field).withConfig({
   color: ${props => props.hasError ? colors.red : colors.black};
   border-color: ${props => props.hasError ? colors.states.border_trouble : colors.neutral.pale};
   border-width: ${props => props.hasError ? '2px' : '1px'};
-  
+
   &:focus {
     outline: 0;
     border-color: ${colors.forms.borders.focus};
@@ -236,7 +236,11 @@ class TemplateForm extends React.Component {
     const applied = form.values.late_work_penalty_applied;
 
     return (
-      <FieldsetRow legend="Late work penalty" data-test-id="late-work-penalty">
+      <FieldsetRow
+        legend="Late work penalty"
+        legendHint="Penalty is applied to questions answered after the due date."
+        data-test-id="late-work-penalty"
+      >
         <Setting>
           <RadioInput
             name="late_work_penalty_applied"
@@ -333,14 +337,14 @@ class TemplateForm extends React.Component {
               name="late_work_penalty_toggle"
               label="Yes"
               onChange={() => form.setFieldValue('late_work_penalty_applied', 'daily')}
-              checked={form.values.late_work_penalty_applied !== 'never'}
+              checked={form.values.late_work_penalty_applied !== 'not_accepted'}
             />
           </Setting>
           <Setting>
             <RadioInput
               name="late_work_penalty_applied"
               label="No"
-              value="never"
+              value="not_accepted"
               checked={!form.values.isLateWorkAccepted}
             />
           </Setting>

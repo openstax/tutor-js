@@ -37,16 +37,16 @@ const StyledStickyTable = styled(StickyTable)`
 
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
-      border-top: 1px solid ${colors.neutral.pale};
-      background-color: ${colors.neutral.lightest};
+    border-top: 1px solid ${colors.neutral.pale};
+    background-color: ${colors.neutral.lightest};
 
-      :not(:first-child):not(:last-child) {
-        color: ${colors.link};
-        cursor: pointer;
-        :not(.current-step) {
-            text-decoration: underline;
-        }
+    :not(:first-child):not(:last-child):not(.late-work) {
+      color: ${colors.link};
+      cursor: pointer;
+      :not(.current-step) {
+          text-decoration: underline;
       }
+    }
   }
 
   /** Add top border on first row */
@@ -66,16 +66,16 @@ const StyledStickyTable = styled(StickyTable)`
     border-right: 1px solid ${colors.neutral.pale};
     font-weight: bolder;
   }
-  
+
   /* Not first column cells */
   .sticky-table-row > :not(:first-child) {
-        min-width: 48px;
-        text-align:center;
-        vertical-align: middle; 
-        :not(:last-child) {
-          border-right: 1px solid ${colors.neutral.pale};
-        }
+    min-width: 48px;
+    text-align:center;
+    vertical-align: middle;
+    :not(:last-child) {
+      border-right: 1px solid ${colors.neutral.pale};
     }
+  }
 
   /** Icons */
   .sticky-table-row {
@@ -98,6 +98,13 @@ const StyledStickyTable = styled(StickyTable)`
   }
 `;
 
+const LateWorkCell = styled(Cell)`
+  font-size: 1.1rem;
+  white-space: normal;
+  max-width: 80px;
+  &.late-work { font-weight: bold; }
+`;
+
 const pointsScoredStatus = (step) => {
   if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
   if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
@@ -114,10 +121,9 @@ class TaskProgress extends React.Component {
   };
 
   render() {
-    const { steps, currentStep, goToStep } = this.props;
-    
-
+    const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
+
     return (
       <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
         <Row>
@@ -153,6 +159,8 @@ class TaskProgress extends React.Component {
               return null;
             })
           }
+          {task.hasLateWorkPolicy &&
+            <LateWorkCell className="late-work">Late work</LateWorkCell>}
           <Cell>Total</Cell>
         </Row>
         <Row>
@@ -166,6 +174,8 @@ class TaskProgress extends React.Component {
               return <Cell key={stepIndex}></Cell>;
             })
           }
+          {task.hasLateWorkPolicy &&
+            <LateWorkCell>-{task.humanLateWorkPenalty} per {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}</LateWorkCell>}
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
@@ -184,6 +194,8 @@ class TaskProgress extends React.Component {
                   return <Cell key={stepIndex}></Cell>;
                 })
               }
+              {task.hasLateWorkPolicy &&
+                <Cell>{task.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.late_work_point_penalty)}` : '0.0'}</Cell>}
               <Cell>{
                 S.numberWithOneDecimalPlace(sumBy(steps, s => {
                   return s.pointsScored !== null ? s.pointsScored : 0;
@@ -193,8 +205,8 @@ class TaskProgress extends React.Component {
         }
       </StyledStickyTable>
     );
-    
-    
+
+
   }
 
 }
