@@ -43,7 +43,10 @@ Points.propTypes = {
 const Body = styled.div`
   padding: 4rem 16rem;
   p {
-    margin: 0.5rem 0 2rem 0;
+    margin: 0.5rem 0 3.2rem 0;
+  }
+  ul {
+    margin-bottom: 3.2rem;
   }
   li {
     margin: 0.5rem 0;
