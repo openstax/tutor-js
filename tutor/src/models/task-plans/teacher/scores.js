@@ -100,6 +100,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field total_fraction;
   @field late_work_point_penalty;
   @field late_work_fraction_penalty;
+  @field grades_need_publishing;
 
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
   @belongsTo({ model: 'task-plan/scores/tasking' }) tasking;
@@ -183,10 +184,12 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get gradedStats() {
-    const remaining = filter(this.studentResponses, 'needs_grading').length;
+    // Filter students who has completed the question
+    const studentWithResponses = filter(this.studentResponses, 'is_completed');
+    const remaining = filter(studentWithResponses, 'needs_grading').length;
     return {
-      total: this.studentResponses.length,
-      completed: this.studentResponses.length - remaining,
+      total: studentWithResponses.length,
+      completed: studentWithResponses.length - remaining,
       remaining,
       complete: remaining == 0,
     };

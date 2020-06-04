@@ -11,6 +11,7 @@ context('Assignment Grade', () => {
   });
 
   it('changes focused student once graded', () => {
+    cy.getTestElement('question-1').click();
     cy.getTestElement('student-answer').then((box) => {
       const { studentId } = box.data()
       box.find('input[name="score"]').val(0.9)
@@ -18,7 +19,7 @@ context('Assignment Grade', () => {
       box.find('.btn-primary').click()
       // the currently focused student should have changed and fields reset
       cy.getTestElement('student-answer').should('not.have.attr', 'data-student-id', studentId)
-      cy.getTestElement('student-answer', ' input[name="score"]').should('have.value', '1')
+      cy.getTestElement('student-answer', ' input[name="score"]').should('have.value', '0.9')
       cy.getTestElement('student-answer', ' textarea[name="comment"]').should('be.empty')
     });
   });

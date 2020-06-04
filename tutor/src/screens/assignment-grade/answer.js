@@ -1,13 +1,15 @@
-import { React, PropTypes, observer, useRef, useEffect, styled } from 'vendor';
+import { React, PropTypes, observer, useRef, useEffect, styled, css } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
+import { useState } from 'react';
+import { isNumber } from 'lodash';
 
 const Name=styled.div`
   font-weight: bold;
 `;
-const StudentName = observer(({ ux, student }) => {
+const StudentName = observer(({ ux, student, index }) => {
   if (ux.hideStudentNames) {
-    return null;
+    return <Name>{`Student ${index + 1}`}</Name>;
   }
   return(
     <Name>{student.last_name}, {student.first_name}</Name>
@@ -26,12 +28,15 @@ const Box = styled.div`
  & + & {
    margin-top: 1rem;
  }
+ ${props => props.onClick && css`
+      cursor: pointer;
+    `}
 `;
 
 const ScoreInput = styled.input`
   height: 4rem;
   display: flex;
-  justify-contenten: center;
+  justify-content: center;
   text-align: center;
   width: 5rem;
   margin: 0 0.8rem;
@@ -42,24 +47,37 @@ const ScoreWrapper = styled.div`
   align-items: center;
   margin-bottom: .8rem;
 `;
-const Score = React.forwardRef(({ response }, ref) => {
+
+const Points = React.forwardRef(({ response, onChange }, ref) => {
   return (
     <ScoreWrapper>
       <b>Score:</b>
       <ScoreInput
         autoFocus
-        name="score" ref={ref}
-        defaultValue={response.gradedPoints}
+        type="number"
+        min="0"
+        max={response.availablePoints}
+        step="0.1"
+        name="score"
+        placeholder="0"
+        ref={ref}
+        onChange={(e) => {
+          if(e.target.value === '') onChange(undefined);
+          else onChange(parseFloat(e.target.value, 10));
+        }}
+        defaultValue={response.grader_points}
+        disabled={Boolean(!onChange)}
       /> out of {response.availablePoints}
     </ScoreWrapper>
   );
 });
 
-Score.propTypes = {
+Points.propTypes = {
   response: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
 };
 
-const Comment=styled.textarea`
+const Comment = styled.textarea`
   height: 8rem;
   width: 25rem;
   margin: 0.8rem 0;
@@ -67,14 +85,24 @@ const Comment=styled.textarea`
   border: 1px solid ${colors.neutral.pale};
 `;
 
-const GradingStudentWrapper=styled(Box)`
-  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 3px rgba(0,0,0,0.12), 0 4px 5px 0 rgba(0,0,0,0.2);
-  border: none;
+const GradingStudentWrapper= styled(Box)`
+  ${props => props.showShadow && css`
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 3px rgba(0,0,0,0.12), 0 4px 5px 0 rgba(0,0,0,0.2);
+    border: none;
+  `}
+  ${props => !props.showShadow && css`
+    border: 1px solid ${colors.neutral.pale};
+  `}
   margin: 2rem 0;
 `;
 
 const SaveButton = styled(Button)`
-  max-width: 120px;
+  &&& {
+    width: fit-content;
+    margin-top: 10px;
+    padding: none;
+    margin-left: 0;
+  }
 `;
 
 const Panel=styled.div`
@@ -85,45 +113,84 @@ const Panel=styled.div`
   }
 `;
 
-const GradingStudent = observer(({ response, ux }) => {
-  const scoreRef = useRef();
+const GradingStudent = observer(({ response, ux, index }) => {
+  const [points, setPoints] = useState(response.grader_points);
+  const pointRef = useRef();
   const commentsRef = useRef();
+
   useEffect(() => {
-    scoreRef.current.select();
-    scoreRef.current.focus();
+    pointRef.current.select();
+    pointRef.current.focus();
   }, []);
   
   const { student } = response;
+  const saveLabel = ux.isResponseGraded(response)
+    ? 'Regrade'
+    : ux.isLastStudent
+      ? 'Save & open next question'
+      : 'Save';
+  
   return (
-    <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer">
+    <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer" showShadow={!ux.isResponseGraded(response)}>
       <Panel>
-        <StudentName ux={ux} student={student} />
+        <StudentName ux={ux} student={student} index={index} />
         <p>{response.free_response}</p>
       </Panel>
       <Panel>
-        <Score response={response} ref={scoreRef} />
+        <Points response={response} onChange={setPoints} ref={pointRef} />
         <b>Comment:</b>
         <Comment name="comment" defaultValue={response.gradedComments} ref={commentsRef} />
-        <SaveButton onClick={() => ux.saveScore({
-          student, response, points: scoreRef.current.value, comment: commentsRef.current.value,
-        })}>Save</SaveButton>
+        {
+          (!ux.isLastQuestion || !ux.isLastStudent || ux.isResponseGraded(response)) &&
+          <SaveButton
+            className="btn btn-standard btn-primary"
+            disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
+            onClick={() => ux.saveScore({
+              response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
+            })}>
+            {saveLabel}
+          </SaveButton>
+        }
+        {ux.isLastStudent && !ux.isResponseGraded(response) && 
+          <SaveButton
+            variant="plain"
+            className="btn btn-standard"
+            disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
+            onClick={() => ux.saveScore({
+              response, points, comment: commentsRef.current.value, doGoToOverview: true,
+            })}>
+            {'Save & Exit'}
+          </SaveButton>
+        }
       </Panel>
     </GradingStudentWrapper>
   );
 });
 
-const CollapsedStudent = observer(({ ux, response }) => {
+const CollapsedStudent = observer(({ ux, response, index }) => {
   return (
-    <Box>
+    <Box onClick={() => {
+      if(ux)
+        ux.selectedStudentIndex = index;
+    }}
+    >
       <StudentName ux={ux} student={response.student} />
-      <Score response={response} />
+      <Points response={response} />
     </Box>);
 });
 
 
 const Student = observer(({ index, response, ux, ...props }) => {
-  const Component = index == 0 ? GradingStudent : CollapsedStudent;
+  let Component;
   const { student } = response;
+
+  if (!ux) {
+    Component = CollapsedStudent;
+  }
+  else if (ux.isResponseGraded(response))
+    Component = GradingStudent;
+  else 
+    Component = ux.selectedStudentIndex === index ? GradingStudent : CollapsedStudent;
   return (
     <Component
       key={response.task_step_id}

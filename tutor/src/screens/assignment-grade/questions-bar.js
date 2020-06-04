@@ -1,5 +1,5 @@
 import { React, useObserver, styled } from 'vendor';
-import { Button } from 'react-bootstrap';
+import AsyncButton from 'shared/components/buttons/async-button';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
@@ -53,7 +53,7 @@ const Controls = styled.div`
   }
 `;
 
-const StyledPublishButton = styled(Button).attrs(props => ({
+const StyledPublishButton = styled(AsyncButton).attrs(props => ({
   disabled: props.isdisabled,
   variant: props.isdisabled ? 'plain' : 'primary',
 }))`
@@ -65,7 +65,7 @@ const StyledPublishButton = styled(Button).attrs(props => ({
 const Question = ({ heading, ux, index }) => useObserver(() => {
   const stats = heading.gradedStats;
   return (
-    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.selectedHeadingIndex = index}>
+    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
       <h6>{heading.title}</h6>
       {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
     </QuestionWrapper>
@@ -81,8 +81,10 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       </QuestionsWrapper>
       <Controls>
         <StyledPublishButton
-          isdisabled={!ux.scores.hasUnPublishedScores}
-          onClick={ux.onPublishScores}>
+          isdisabled={!ux.hasUnpublishScores}
+          onClick={ux.onPublishScores}
+          isWaiting={ux.isPublishingScores}
+          waitingText="Publishing...">
           Publish Scores
         </StyledPublishButton>
         <StyledSettingsIcon
