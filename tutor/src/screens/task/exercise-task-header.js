@@ -41,7 +41,6 @@ const StyledHeadingTitle = styled.div`
     padding: 0 0.8rem;
     color: ${colors.neutral.pale};
   }
-}
 `;
 
 @inject('setSecondaryTopControls')
@@ -98,10 +97,9 @@ class ExercisesTaskHeader extends React.Component {
         <StyledHeadingTitle>
           <span>{ux.task.title}</span>
           <span> | </span>
-          <span>Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}</span>
-        </StyledHeadingTitle> 
+          <span>Due {TimeHelper.toShortHumanDateTime(ux.task.dueAtMoment)}</span>
+        </StyledHeadingTitle>
         <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
-
       </ExercisesTaskHeaderWrapper>
     );
   }

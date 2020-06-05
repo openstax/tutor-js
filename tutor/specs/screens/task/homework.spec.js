@@ -10,6 +10,7 @@ describe('Reading Tasks Screen', () => {
     const task = Factory.studentTask({
       type: 'homework', stepCount: 5,
     });
+    task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
         const id = ld.last(url.split('/'));

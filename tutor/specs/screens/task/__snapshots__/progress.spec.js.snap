@@ -6,6 +6,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
     TaskUX {
       "_stepId": "instructions",
       "_task": StudentTask {
+        "closes_at": undefined,
         "complete": undefined,
         "completion_weight": undefined,
         "correctness_weight": undefined,

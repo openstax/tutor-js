@@ -8,6 +8,7 @@ describe('Reading Tasks Screen', () => {
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
+    task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
         props.ux.goToStepId(ld.last(url.split('/')), false);

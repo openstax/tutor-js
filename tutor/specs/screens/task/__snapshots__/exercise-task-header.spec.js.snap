@@ -8,6 +8,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
     TaskUX {
       "_stepId": 1,
       "_task": StudentTask {
+        "closes_at": undefined,
         "complete": undefined,
         "completion_weight": undefined,
         "correctness_weight": undefined,

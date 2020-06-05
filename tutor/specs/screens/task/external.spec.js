@@ -9,6 +9,7 @@ describe('Tasks External URL Screen', () => {
 
   beforeEach(() => {
     const task = Factory.studentTask({ stepCount: 1, type: 'external' });
+    task.tasksMap = { course: Factory.course() };
     props = {
       ux: new UX({
         task, history: new TestRouter().history, course: Factory.course(),

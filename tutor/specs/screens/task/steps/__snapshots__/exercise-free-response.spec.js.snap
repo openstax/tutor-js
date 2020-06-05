@@ -503,6 +503,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "response_validation": Object {},
         "spy": Object {},
         "task": StudentTask {
+          "closes_at": undefined,
           "complete": undefined,
           "completion_weight": undefined,
           "correctness_weight": undefined,
@@ -533,6 +534,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       TaskUX {
         "_stepId": undefined,
         "_task": StudentTask {
+          "closes_at": undefined,
           "complete": undefined,
           "completion_weight": undefined,
           "correctness_weight": undefined,
