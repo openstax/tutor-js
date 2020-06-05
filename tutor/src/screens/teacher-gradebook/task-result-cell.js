@@ -25,7 +25,7 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
   }
   return (
     <TutorLink
-      to="viewTaskStep"
+      to="viewTask"
       data-assignment-type={`${task.type}`}
       params={{ courseId: course.id, id: task.id }}
     >
