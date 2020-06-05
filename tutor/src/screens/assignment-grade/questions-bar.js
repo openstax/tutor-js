@@ -1,4 +1,5 @@
 import { React, useObserver, styled } from 'vendor';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import AsyncButton from 'shared/components/buttons/async-button';
 import { Icon } from 'shared';
 import { colors } from 'theme';
@@ -59,6 +60,7 @@ const StyledPublishButton = styled(AsyncButton).attrs(props => ({
 }))`
   &&& {
     padding: 10px;
+    pointer-events: none;
   }
 `;
 
@@ -80,13 +82,25 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
         {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} index={index} />)}
       </QuestionsWrapper>
       <Controls>
-        <StyledPublishButton
-          isdisabled={!ux.hasUnpublishScores}
-          onClick={ux.onPublishScores}
-          isWaiting={ux.isPublishingScores}
-          waitingText="Publishing...">
+        <OverlayTrigger
+          placement="top"
+          delay={{ show: 250, hide: 400 }}
+          overlay={
+            <Tooltip>
+              {!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade && 'All scores have already been published.'}
+            </Tooltip>
+          }
+        >
+          <span>
+            <StyledPublishButton
+              isdisabled={!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade}
+              onClick={ux.onPublishScores}
+              isWaiting={ux.isPublishingScores}
+              waitingText="Publishing...">
           Publish Scores
-        </StyledPublishButton>
+            </StyledPublishButton>
+          </span>
+        </OverlayTrigger>
         <StyledSettingsIcon
           ux={ux}
           label="Adjust display settings"

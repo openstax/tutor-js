@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, css } from 'vendor';
+import { React, PropTypes, styled, observer, css, cn } from 'vendor';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
 import { Header } from './details';
@@ -11,10 +11,10 @@ const StyledTutorLink = styled(TutorLink)`
   }
 `;
 
-const GradeAnswersButton = observer(({ ux }) => {
+const GradeAnswersButton = observer(({ ux, regrade = false }) => {
   return (
     <StyledTutorLink
-      className="btn btn-standard btn-primary btn-new-flag btn-inline"
+      className={cn('btn btn-standard btn-new-flag btn-inline', { 'btn-primary': !regrade })}
       to="gradeAssignment"
       params={{
         id: ux.planId,
@@ -22,8 +22,8 @@ const GradeAnswersButton = observer(({ ux }) => {
         courseId: ux.course.id,
       }}
     >
-      <span className="flag">{ux.gradeableQuestionCount} NEW</span>
-      <span>Grade answers</span>
+      {!regrade && <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
+      <span>{`${regrade ? 'Regrade' : 'Grade'} answers`}</span>
     </StyledTutorLink>
   );
 });
@@ -193,6 +193,15 @@ const GradeableAnswers = observer(({ ux }) => {
   );
 });
 
+const RegradableAnswers = observer(({ ux }) => {
+  return (
+    <>
+      <p>This assignment can be regraded.</p>
+      <GradeAnswersButton ux={ux} regrade={true} />
+    </>
+  );
+});
+
 const BlockWrapper = observer(({ header, children }) => {
   return (
     <>
@@ -220,8 +229,13 @@ const BeforeDueWRQ = () => {
 const AfterDueWRQ = observer(({ ux }) => {
   return (
     <BlockWrapper header={ux.hasGradeableAnswers ? 'Grading' : 'Scores'}>
-      {ux.hasGradeableAnswers ? <GradeableAnswers ux={ux} /> :
-        (ux.hasUnPublishedScores ? <UnpublishedScores ux={ux} /> : <ViewSubmissions ux={ux} />)}
+      {ux.scores.hasUngradedQuestions
+        ? <GradeableAnswers ux={ux} />
+        : ux.scores.hasUnPublishedScores
+          ? <UnpublishedScores ux={ux} />
+          : ux.scores.hasFinishedGrading
+            ? <RegradableAnswers ux={ux} />
+            : <ViewSubmissions ux={ux} />}
       <ViewScores ux={ux} />
     </BlockWrapper>
   );

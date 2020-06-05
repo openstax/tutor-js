@@ -260,6 +260,11 @@ export default class AssignmentReviewUX {
 
   @action.bound async onPublishScores() {
     await this.taskingPlan.publishScores();
+
+    await this.planScores.fetch();
+    await this.planScores.taskPlan.fetch();
+    await this.planScores.taskPlan.analytics.fetch();
+    await this.planScores.ensureExercisesLoaded();
   }
 
   @computed get isPublishingScores() {

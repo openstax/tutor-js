@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, includes, some, reduce, every } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, some, reduce, every } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -282,9 +282,7 @@ class TaskPlanScoresTasking extends BaseModel {
   }
 
   @computed get hasUnPublishedScores() {
-    return Boolean(
-      find(this.students, student => find(student.questions, question => !isNil(question.gradedPoints))),
-    );
+    return some(this.students, student => student.grades_need_publishing);
   }
 
   @computed get isManuallyGraded() {
@@ -326,18 +324,27 @@ class TaskPlanScoresTasking extends BaseModel {
     }, []);
   }
 
+  @computed get wrmQuestions() {
+    return filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+  }
+
+  @computed get hasWRMQuestions() {
+    return this.wrmQuestions.length > 0;
+  }
+
   @computed get hasUngradedQuestions() {
-    const questions = filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+    const questions = this.wrmQuestions;
     return some(questions, q => q.is_completed && q.needs_grading);
   }
 
   @computed get hasFinishedGrading() {
-    const completedWrmQuestions = filter(this.allStudentQuestionStatus, s => s.is_completed && s.questionHeading.type === 'WRQ');
-    return every(completedWrmQuestions, q => q.is_completed && !q.needs_grading);
+    const completedWrmQuestions = filter(this.wrmQuestions, s => s.is_completed);
+    if(completedWrmQuestions.length <= 0) { return false; }
+    return every(completedWrmQuestions, q => !q.needs_grading);
   }
 
-  @computed get canGrade() {
-    const wrmQuestions = filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+  @computed get hasAnyResponses() {
+    const wrmQuestions = this.wrmQuestions;
     return some(wrmQuestions, q => q.is_completed);
   }
 }
@@ -388,6 +395,10 @@ class TaskPlanScores extends BaseModel {
 
   @computed get isExternal() {
     return 'external' == this.type;
+  }
+
+  @computed get isManualGradingGrade() {
+    return this.grading_template.manual_grading_feedback_on === 'grade';
   }
 
   fetch() { return { id: this.id }; }

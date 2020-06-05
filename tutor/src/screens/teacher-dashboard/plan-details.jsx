@@ -99,26 +99,42 @@ class CoursePlanDetails extends React.Component {
 
   @computed get gradeAnswersButton() {
     const { plan, course } = this.props;
-    const scoreTaskPlan = find(plan.scores.tasking_plans, tp => tp.period_id == this.tasking.target_id);
+    const scoreTaskPlan = find(plan.scores.tasking_plans, tp => tp.period_id == this.tasking.target_id); 
     
-    if(!scoreTaskPlan || !scoreTaskPlan.canGrade) { return null; }
+    if(!scoreTaskPlan || !scoreTaskPlan.hasWRMQuestions) { return null; }
+    
+    let disabledToolTipMessage;
+    if(!this.tasking.isPastDue) {
+      disabledToolTipMessage = 'Assignment will be available for grading after the due date.';
+    }
+    else if(!scoreTaskPlan.hasAnyResponses) {
+      disabledToolTipMessage = 'No responses to grade yet.';
+    }
+
     return (
       <OverlayTrigger
         placement="top"
         overlay={
           <Tooltip>
-            {!this.tasking.isPastDue && 'Assignment will be available for grading after the due date.'}
+            {disabledToolTipMessage}
           </Tooltip>
         }
       >
         <span>
           <TutorLink
-            className={cn('btn btn-standard', { 'disabled': !this.tasking.isPastDue, 'btn-primary': !scoreTaskPlan.hasFinishedGrading }) }
+            className={
+              cn(
+                'btn btn-standard',
+                { 'disabled': !scoreTaskPlan.hasAnyResponses || !this.tasking.isPastDue,
+                  'btn-primary': !scoreTaskPlan.hasFinishedGrading || !this.tasking.isPastDue,
+                }
+              )
+            }
             to="gradeAssignment"
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
           >
-            {scoreTaskPlan.hasFinishedGrading ? 'Regrade answers' : 'Grade answers'}
+            {scoreTaskPlan.hasFinishedGrading && this.tasking.isPastDue ? 'Regrade answers' : 'Grade answers'}
           </TutorLink>
         </span>
       </OverlayTrigger>

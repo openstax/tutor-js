@@ -3,7 +3,9 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 
 const PublishScores = observer(({ ux }) => {
-  if (!ux.scores.isManuallyGraded) { return null; }
+  if ((ux.scores.hasFinishedGrading && ux.scores.hasUnPublishedScore) || ux.planScores.isManualGradingGrade) { 
+    return null;
+  }
 
   return (
     <OverlayTrigger

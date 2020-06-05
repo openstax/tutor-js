@@ -93,8 +93,8 @@ export default class AssignmentGradingUX {
     return filter(this.selectedHeading.studentResponses, s => s.needs_grading);
   }
 
-  @computed get hasUnpublishScores() {
-    return some(this.scores.students, s => s.grades_need_publishing);
+  @computed get hasUnpublishedScores() {
+    return this.scores.hasUnPublishedScores;
   }
 
   @computed get isLastStudent() {

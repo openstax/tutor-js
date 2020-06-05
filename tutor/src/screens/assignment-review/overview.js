@@ -51,27 +51,34 @@ QuestionHeader.propTypes = {
   info:  PropTypes.object.isRequired,
 };
 
-const QuestionFooter = observer(({ ux, info }) => (
-  <Footer>
+const QuestionFooter = observer(({ ux, info }) => {
+  return (<Footer>
     <strong>
       Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
-    </strong>
-    {info.remaining > 0 &&
-      <GradeButton
-        to="gradeAssignmentQuestion"
-        params={{
-          courseId: ux.course.id,
-          id: ux.planId,
-          periodId: ux.selectedPeriod.id,
-          questionId: `${info.id}`,
-        }}
-      >
-        <span className="flag">{info.remaining} NEW</span>
-        <span>Grade Answers</span>
-      </GradeButton>
+    </strong> 
+    {ux.scores.hasAnyResponses &&
+    <GradeButton
+      className={cn('btn btn-new-flag',
+        {
+          'btn-primary': !ux.scores.hasFinishedGrading,
+          'btn-standard': !ux.scores.hasFinishedGrading,
+          'btn-new-flag': !ux.scores.hasFinishedGrading,
+          'btn-link': ux.scores.hasFinishedGrading,
+        })}
+      to="gradeAssignmentQuestion"
+      params={{
+        courseId: ux.course.id,
+        id: ux.planId,
+        periodId: ux.selectedPeriod.id,
+        questionId: `${info.id}`,
+      }}
+    >
+      {!ux.scores.hasFinishedGrading && <span className="flag">{info.remaining} NEW</span>}
+      <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
+    </GradeButton>
     }
-  </Footer>
-));
+  </Footer>);
+});
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -235,10 +242,8 @@ const Right = styled.div`
   }
 `;
 
-const GradeButton = styled(TutorLink).attrs({
-  className: 'btn btn-standard btn-primary btn-new-flag',
-})`
-  && {
+const GradeButton = styled(TutorLink)`
+  &&& {
     padding: 1.2rem 2.1rem 1.6rem 1.1rem;
     line-height: 1.9rem;
   }
