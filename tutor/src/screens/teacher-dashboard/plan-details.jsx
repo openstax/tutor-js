@@ -59,11 +59,13 @@ class CoursePlanDetails extends React.Component {
 
   async UNSAFE_componentWillMount() {
     this.props.tourContext.otherModal = this;
+  }
+
+  componentDidMount() {
     // get scores to check if there are any students left to grade
-    await this.props.plan.scores.fetch();
-    await this.props.plan.scores.taskPlan.fetch();
-    await this.props.plan.scores.taskPlan.analytics.fetch();
-    await this.props.plan.scores.ensureExercisesLoaded();
+    // TODO remove the scores api use once the BE sends
+    // the gradability status of a task plans
+    this.props.plan.scores.fetch();
   }
 
   componentWillUnmount() {
