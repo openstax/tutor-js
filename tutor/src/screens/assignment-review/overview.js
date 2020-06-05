@@ -200,6 +200,15 @@ const StyledStickyTable = styled(StickyTable)`
     border: 1px solid ${colors.neutral.pale};
   }
 
+  .sticky-table-cell {
+    &:not(:last-child) {
+      border-right: 1px solid ${colors.neutral.pale};
+    }
+    &:not(:first-child) {
+      text-align: center;
+    }
+  }
+
   .sticky-table-cell, .sticky-table-row {
     vertical-align: middle;
     padding: 0 1.6rem;
