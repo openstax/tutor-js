@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, cn } from 'vendor';
+import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -55,27 +55,28 @@ const QuestionFooter = observer(({ ux, info }) => {
   return (<Footer>
     <strong>
       Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
-    </strong> 
-    {ux.scores.hasAnyResponses &&
-    <GradeButton
-      className={cn('btn btn-new-flag',
-        {
-          'btn-primary': !ux.scores.hasFinishedGrading,
-          'btn-standard': !ux.scores.hasFinishedGrading,
-          'btn-new-flag': !ux.scores.hasFinishedGrading,
-          'btn-link': ux.scores.hasFinishedGrading,
-        })}
-      to="gradeAssignmentQuestion"
-      params={{
-        courseId: ux.course.id,
-        id: ux.planId,
-        periodId: ux.selectedPeriod.id,
-        questionId: `${info.id}`,
-      }}
-    >
-      {!ux.scores.hasFinishedGrading && <span className="flag">{info.remaining} NEW</span>}
-      <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
-    </GradeButton>
+    </strong>
+    {ux.canDisplayGradingButton &&
+      <GradeButton
+        className={cn('btn btn-new-flag',
+          {
+            'btn-primary': !ux.scores.hasFinishedGrading,
+            'btn-standard': !ux.scores.hasFinishedGrading,
+            'btn-new-flag': !ux.scores.hasFinishedGrading,
+            'btn-link': ux.scores.hasFinishedGrading,
+          })}
+        to="gradeAssignmentQuestion"
+        params={{
+          courseId: ux.course.id,
+          id: ux.planId,
+          periodId: ux.selectedPeriod.id,
+          questionId: `${info.id}`,
+        }}
+        displayingFlag={!ux.scores.hasFinishedGrading}
+      >
+        {!ux.scores.hasFinishedGrading && <span className="flag">{info.remaining} NEW</span>}
+        <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
+      </GradeButton>
     }
   </Footer>);
 });
@@ -106,19 +107,67 @@ const StyledQuestionFreeResponse = styled.div`
     flex-grow: 1;
     margin: 0;
     font-size: 1.6rem;
+    line-height: 2.5rem;
+    white-space: pre-wrap;
   }
   &:not(:only-child) .resp {
     border-bottom: 1px solid ${colors.neutral.light};
   }
+
+  ${props => props.wrq && css`
+    padding: 2.6rem;
+    margin-bottom: 0;
+    > :first-child {
+      padding: 1.4rem 3.6rem 1.4rem 1.4rem;
+      flex-grow: 1;
+    }
+    .name {
+      text-align: left;
+      width: auto;
+      font-weight: bold;
+    }
+    .resp {
+      padding: 2.2rem 0;
+      display: flex;
+      align-items: stretch;
+
+      p { margin: 0; }
+    }
+    .grade {
+      border-left: 1px solid ${colors.neutral.pale};
+      color: ${colors.neutral.thin};
+      line-height: 2rem;
+      width: 240px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 0 0 1.4rem;
+      ${props => props.longResponse && css`
+        align-items: flex-start;
+        padding-top: 1.4rem;
+      `}
+
+      h3 {
+        font-size: 3.2rem;
+        line-height: 4.8rem;
+        margin-bottom: 1rem;
+        color: ${colors.neutral.darker};
+      }
+    }
+  `}
 `;
 
 const ResponseWrapper = styled.div`
   border: 1px solid ${colors.neutral.pale};
   background: #fff;
   margin-bottom: 2rem;
-  > * {
-    padding: 1.8rem 5rem 1.8rem 2rem;
-  }
+  ${props => !props.wrq && css`
+    > * {
+      padding: 1.8rem 5rem 1.8rem 2rem;
+    }
+  `}
 `;
 
 const ResponseHeader = styled.div`
@@ -137,8 +186,8 @@ const MCQFreeResponse = observer(({ ux, question }) => (
       const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
       return (studentQuestion && studentQuestion.free_response) && (
         <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-          <span className="name">{student.name}</span>
-          <span className="resp">{studentQuestion.free_response}</span>
+          <div className="name">{student.name}</div>
+          <div className="resp">{studentQuestion.free_response}</div>
         </StyledQuestionFreeResponse>
       );
     });
@@ -167,21 +216,38 @@ const WRQFreeResponse = observer(({ info }) => {
   const responses = info.responses.map((response, i) => {
     const student = response.student;
     return response.free_response && (
-      <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-        <span className="name">{student.name}</span>
-        <span className="resp">{response.free_response}</span>
-      </StyledQuestionFreeResponse>
+      <ResponseWrapper key={`response-wrapper-${i}`} wrq={true}>
+        <StyledQuestionFreeResponse
+          key={i}
+          data-student-id={student.id}
+          wrq={true}
+          longResponse={response.free_response.length > 2000}
+        >
+          <div>
+            <div className="name">{student.name}</div>
+            <div className="resp">
+              <p>{response.free_response}</p>
+            </div>
+          </div>
+          <div className="grade">
+            {response.needs_grading && 'Not graded'}
+            {!isNaN(response.grader_points) &&
+              <div>
+                <h3>{response.grader_points}</h3>
+                {response.grader_comments}
+              </div>}
+          </div>
+        </StyledQuestionFreeResponse>
+      </ResponseWrapper>
     );
   });
 
   if (isEmpty(compact(responses))) { return null; }
 
   return (
-    <ResponseWrapper key={`wrq-responses-${info.question.id}`}>
-      <div>
-        {responses}
-      </div>
-    </ResponseWrapper>
+    <div key={`wrq-responses-${info.question.id}`}>
+      {responses}
+    </div>
   );
 });
 
@@ -231,30 +297,18 @@ const Legend = styled.div`
 const Toolbar = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-`;
-
-const Center = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  font-size: 1.6rem;
-`;
-
-const Right = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1.6rem;
-  .btn {
-    margin-left: 1.6rem;
+  margin: 0 auto 2rem;
+  max-width: 60rem;
+  p {
+    margin: 0 1.6rem 0 0;
   }
 `;
 
 const GradeButton = styled(TutorLink)`
   &&& {
-    padding: 1.2rem 2.1rem 1.6rem 1.1rem;
+    padding: 1.5rem 2.1rem 1.5rem;
     line-height: 1.9rem;
+    ${props => props.displayingFlag && 'padding-left: 1.1rem;'}
   }
 `;
 
@@ -275,21 +329,21 @@ const GradingBlock = observer(({ ux }) => {
 
   return (
     <Toolbar>
-      <Center>
-      </Center>
-      <Right>
-        This assignment is now open for grading.
-        <GradeButton
-          to="gradeAssignment"
-          params={{
-            courseId: ux.course.id,
-            id: ux.planId,
-            periodId: ux.selectedPeriod.id,
-          }}
-        >
-          <span>Grade answers</span>
-        </GradeButton>
-      </Right>
+      <p>This assignment is now open for grading.</p>
+      <GradeButton
+        to="gradeAssignment"
+        className="btn btn-primary btn-new-flag btn-standard"
+        displayingFlag={ux.gradeableQuestionCount > 0}
+        params={{
+          courseId: ux.course.id,
+          id: ux.planId,
+          periodId: ux.selectedPeriod.id,
+        }}
+      >
+        {ux.gradeableQuestionCount > 0 &&
+          <span class="flag">{ux.gradeableQuestionCount} NEW</span>}
+        <span>Grade answers</span>
+      </GradeButton>
     </Toolbar>
   );
 });
