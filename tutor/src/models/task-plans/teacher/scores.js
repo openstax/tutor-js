@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get } from 'lodash';
+import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, includes, some, reduce, every } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -100,6 +100,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field total_fraction;
   @field late_work_point_penalty;
   @field grades_need_publishing;
+  @field questions_need_grading;
 
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
   @belongsTo({ model: 'task-plan/scores/tasking' }) tasking;
@@ -310,6 +311,34 @@ class TaskPlanScoresTasking extends BaseModel {
       value = sum(totals) / totals.length;
     }
     return `${S.asPercent(value)}%`;
+  }
+
+  @computed get hasUngradedStudents() {
+    return some(this.students, 'questions_need_grading');
+  }
+
+  @computed get allStudentQuestionStatus() {
+    return reduce(this.students, (result, student) => {
+      student.questions.forEach(question => {
+        result.push(question);
+      });
+      return result;
+    }, []);
+  }
+
+  @computed get hasUngradedQuestions() {
+    const questions = filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+    return some(questions, q => q.is_completed && q.needs_grading);
+  }
+
+  @computed get hasFinishedGrading() {
+    const completedWrmQuestions = filter(this.allStudentQuestionStatus, s => s.is_completed && s.questionHeading.type === 'WRQ');
+    return every(completedWrmQuestions, q => q.is_completed && !q.needs_grading);
+  }
+
+  @computed get canGrade() {
+    const wrmQuestions = filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+    return some(wrmQuestions, q => q.is_completed);
   }
 }
 
