@@ -6,7 +6,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
   onHide={[MockFunction]}
   ux={
     TaskUX {
-      "_stepIndex": 0,
+      "_stepId": "instructions",
       "_task": StudentTask {
         "complete": undefined,
         "completion_weight": undefined,

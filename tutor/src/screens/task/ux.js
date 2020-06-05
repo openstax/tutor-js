@@ -25,7 +25,10 @@ export default class TaskUX {
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
-
+    if (!stepId) {
+      stepId = this.steps[0] && this.steps[0].id;
+    }
+    this._stepId = stepId;
     when(
       () => !this.task.api.isPending,
       () => {
@@ -127,18 +130,17 @@ export default class TaskUX {
   }
 
   @computed get currentStepIndex() {
-    return this.indexOfStep(this.currentStep);
+    return this.currentStep ? this.indexOfStep(this.currentStep) : -1;
   }
 
   @action async onAnswerSave(step, answer) {
     step.answer_id = answer.id;
     step.is_completed = true;
     await step.save();
-
     if (
       step.multiPartGroup &&
       this.task.isFeedbackAvailable &&
-        this.indexOfStep(step) > this.currentStepIndex
+        this.currentStepIndex > this.indexOfStep(step)
     ) {
       // fixes the scroll position in case loading the feedback pushes the steps around
       this.scrollToCurrentStep(true);
@@ -205,7 +207,7 @@ export default class TaskUX {
       if (this.nextStep.isInfo || !this.nextStep.is_completed) {
         this.isLocked = setTimeout(this.unLock, PAUSE_BEFORE_ADVANCEMENT_TIMEOUT);
       }
-      this.goToStep(this.steps[this.currentStepIndex + 1]);
+      this.goToStep(this.nextStep);
     }
   }
 
@@ -213,18 +215,21 @@ export default class TaskUX {
     this.isLocked = false;
   }
 
-  @action.bound goToStepId(id, recordInHistory = true) {
+  @action goToStepIndex(index, recordInHistory) {
+    const step = this.steps[index];
+    this.goToStep(step, recordInHistory);
+  }
+  
+  @action.bound goToStepId(id, recordInHistory) {
     const step = this.steps.find(step => step.id == id);
-    if (step) {
-      this.goToStep(step, recordInHistory);
-    }
+    this.goToStep(step, recordInHistory);
   }
 
   @action.bound goToStep(step, recordInHistory = true) {
     if (isString(step)) {// old api, it's really a stepIndex
       step = this.steps.find(s => s.id == step.id);
-      if (!step) { return; }
     }
+    if (!step) { return; }
     // do nothing if the stepIndex hasn't changed
     if (this.currentStep && this.currentStep.id == step.id) { return; }
 
@@ -294,8 +299,7 @@ export default class TaskUX {
 
   getCurrentStep({ grouped = true }) {
     if (!this.steps.length) { return null; }
-
-    const step = find(this.steps, { id: this._stepId });
+    const step = this.steps.find(s => s.id == this._stepId);
 
     if (!grouped) {
       return step;
@@ -330,11 +334,11 @@ export default class TaskUX {
   }
 
   @computed get previousStep() {
-    return this.canGoBackward ? this.steps[this.currentStepIndex - 1] : null;
+    return this.currentStepIndex > 0 ? this.steps[this.currentStepIndex - 1] : null;
   }
 
   @computed get nextStep() {
-    return this.canGoForward ? this.steps[this.currentStepIndex + 1] : null;
+    return this.currentStepIndex < this.steps.length - 1 ? this.steps[this.currentStepIndex + 1] : null;
   }
 
   @computed get relatedStepTitles() {

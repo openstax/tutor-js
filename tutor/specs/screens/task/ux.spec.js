@@ -17,7 +17,7 @@ describe('Task UX Model', () => {
   beforeEach(() => {
     task = Factory.studentTask({ type: 'homework', stepCount: 10 });
     task.tasksMap = { course: Factory.course() };
-    ux = new UX({ task: task, history: new TestRouter().history });
+    ux = new UX({ task, stepId: task.steps[0].id, history: new TestRouter().history });
   });
 
   it('calculates tasks/steps', () => {
@@ -131,13 +131,13 @@ describe('Task UX Model', () => {
   });
 
   it('records in history when going to step', () => {
-    ux.goToStep(1);
+    ux.goToStepIndex(1);
 
-    expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/2`);
-    ux.goToStep(2, false);
+    expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/two-step-intro`);
+    ux.goToStepIndex(2, false);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
-    ux.goToStep(2, true); //even though we said to record, it will not since it's unchanged
+    ux.goToStepIndex(2, true); //even though we said to record, it will not since it's unchanged
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
@@ -150,7 +150,7 @@ describe('Task UX Model', () => {
       s => s.api.requestCounts.read = 1
     );
 
-    ux.goToStep(3, false);
+    ux.goToStepIndex(3, false);
     expect(ux.stepGroupInfo.grouped).toBe(true);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
@@ -165,7 +165,7 @@ describe('Task UX Model', () => {
   it('marks steps as viewed', () => {
     const step = ux.currentStep;
     step.markViewed = jest.fn();
-    ux.goToStep(3);
+    ux.goToStepIndex(3);
     expect(step.markViewed).toHaveBeenCalled();
   });
 

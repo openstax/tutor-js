@@ -122,7 +122,7 @@ class TaskGetter extends React.Component {
     }
 
     if (!this.props.params.stepId) {
-      const step = find(task.steps, { is_completed: false });
+      const step = find(task.steps, { is_completed: false }) || task.steps[0];
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         id: task.id,
         courseId: this.course.id,

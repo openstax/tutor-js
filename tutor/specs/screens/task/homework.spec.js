@@ -12,7 +12,8 @@ describe('Reading Tasks Screen', () => {
     });
     history = new TestRouter({
       push: (url) => {
-        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+        const id = ld.last(url.split('/'));
+        props.ux.goToStepId(id, false);
       },
     }).history;
     props = {
