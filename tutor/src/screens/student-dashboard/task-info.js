@@ -3,19 +3,11 @@ import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
 import TourAnchor from '../../components/tours/anchor';
 
-
 const Feedback = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
 `;
-
-const DescriptionPopoverIcon = observer(({ event }) => {
-  if (!event.description) { return null; }
-  return (
-    <Icon variant="info" tooltip={event.description} />
-  );
-});
 
 const TaskStatus = observer(({ event, course }) => {
   if (event.is_deleted) { return null; }
@@ -30,7 +22,6 @@ const TaskStatus = observer(({ event, course }) => {
           event={event}
           isCollege={course.is_college}
         />
-        <DescriptionPopoverIcon event={event} />
       </Feedback>
     </React.Fragment>
   );
