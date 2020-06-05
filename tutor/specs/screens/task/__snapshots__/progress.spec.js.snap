@@ -4,8 +4,9 @@ exports[`Reading Progress Component matches snapshot 1`] = `
 <ProgressCard
   ux={
     TaskUX {
-      "_stepIndex": 0,
+      "_stepId": "instructions",
       "_task": StudentTask {
+        "closes_at": undefined,
         "complete": undefined,
         "completion_weight": undefined,
         "correctness_weight": undefined,

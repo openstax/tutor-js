@@ -6,8 +6,9 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
   unDocked={true}
   ux={
     TaskUX {
-      "_stepIndex": 0,
+      "_stepId": 1,
       "_task": StudentTask {
+        "closes_at": undefined,
         "complete": undefined,
         "completion_weight": undefined,
         "correctness_weight": undefined,

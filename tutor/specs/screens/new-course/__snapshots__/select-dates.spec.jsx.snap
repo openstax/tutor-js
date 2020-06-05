@@ -1,223 +1,170 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
-Array [
-  .c0 {
+.c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c1 {
-  font-size: 12px;
-  text-transform: lowercase;
-  margin-top: 0.5rem;
-  font-weight: 100;
-}
-
 <div
-    className="choices-listing list-group"
-    onKeyDown={[Function]}
+  className="choices-listing list-group"
+  onKeyDown={[Function]}
+>
+  <div
+    aria-pressed={false}
+    className="list-group-item choice"
+    onClick={[Function]}
+    role="button"
   >
     <div
-      aria-disabled={false}
-      aria-pressed={false}
-      className="list-group-item choice"
-      onClick={[Function]}
-      role="button"
+      className="content"
     >
-      <div
-        className="content"
+      <span
+        className="term"
       >
-        <div>
-          <span
-            className="term"
-            data-term="spring"
-          >
-            spring
-          </span>
-          <span
-            className="year"
-            data-year={2020}
-          >
-            2020
-          </span>
-        </div>
-      </div>
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
-        color="#5e5e5e"
-        data-icon="circle"
-        data-prefix="far"
-        focusable="false"
-        role="img"
-        style={Object {}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
+        spring
+      </span>
+      <span
+        className="year"
       >
-        <path
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
+        2018
+      </span>
     </div>
-    <div
-      aria-disabled={false}
-      aria-pressed={false}
-      className="list-group-item choice"
-      onClick={[Function]}
-      role="button"
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+      color="#5e5e5e"
+      data-icon="circle"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        className="content"
-      >
-        <div>
-          <span
-            className="term"
-            data-term="summer"
-          >
-            summer
-          </span>
-          <span
-            className="year"
-            data-year={2020}
-          >
-            2020
-          </span>
-        </div>
-      </div>
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
-        color="#5e5e5e"
-        data-icon="circle"
-        data-prefix="far"
-        focusable="false"
-        role="img"
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+        fill="currentColor"
         style={Object {}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
-    </div>
-    <div
-      aria-disabled={true}
-      aria-pressed={false}
-      className="list-group-item choice disabled"
-      onClick={[Function]}
-      role="button"
-    >
-      <div
-        className="content"
-      >
-        <div>
-          <span
-            className="term"
-            data-term="fall"
-          >
-            fall
-          </span>
-          <span
-            className="year"
-            data-year={2020}
-          >
-            2020
-          </span>
-          <div
-            className="c1"
-          >
-            available after Jun 15th, 2020
-          </div>
-        </div>
-      </div>
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
-        color="#5e5e5e"
-        data-icon="circle"
-        data-prefix="far"
-        focusable="false"
-        role="img"
-        style={Object {}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
-    </div>
-    <div
-      aria-disabled={true}
-      aria-pressed={false}
-      className="list-group-item choice disabled"
-      onClick={[Function]}
-      role="button"
-    >
-      <div
-        className="content"
-      >
-        <div>
-          <span
-            className="term"
-            data-term="winter"
-          >
-            winter
-          </span>
-          <span
-            className="year"
-            data-year={2020}
-          >
-            2020
-          </span>
-          <div
-            className="c1"
-          >
-            available after Jun 15th, 2020
-          </div>
-        </div>
-      </div>
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
-        color="#5e5e5e"
-        data-icon="circle"
-        data-prefix="far"
-        focusable="false"
-        role="img"
-        style={Object {}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
-    </div>
-  </div>,
-  .c0 {
-  font-size: 12px;
-  text-transform: lowercase;
-  margin-top: 0.5rem;
-  font-weight: 100;
-  margin-top: 1.5rem;
-  color: #818181;
-}
-
-<div
-    className="c0"
+      />
+    </svg>
+  </div>
+  <div
+    aria-pressed={false}
+    className="list-group-item choice"
+    onClick={[Function]}
+    role="button"
   >
-    Fall and Winter 2020 courses will be available with written-response questions and a new, improved Student Scores page.
-  </div>,
-]
+    <div
+      className="content"
+    >
+      <span
+        className="term"
+      >
+        summer
+      </span>
+      <span
+        className="year"
+      >
+        2018
+      </span>
+    </div>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+      color="#5e5e5e"
+      data-icon="circle"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+  <div
+    aria-pressed={false}
+    className="list-group-item choice"
+    onClick={[Function]}
+    role="button"
+  >
+    <div
+      className="content"
+    >
+      <span
+        className="term"
+      >
+        fall
+      </span>
+      <span
+        className="year"
+      >
+        2018
+      </span>
+    </div>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+      color="#5e5e5e"
+      data-icon="circle"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+  <div
+    aria-pressed={false}
+    className="list-group-item choice"
+    onClick={[Function]}
+    role="button"
+  >
+    <div
+      className="content"
+    >
+      <span
+        className="term"
+      >
+        winter
+      </span>
+      <span
+        className="year"
+      >
+        2018
+      </span>
+    </div>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+      color="#5e5e5e"
+      data-icon="circle"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
 `;

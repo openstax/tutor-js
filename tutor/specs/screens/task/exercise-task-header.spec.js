@@ -13,7 +13,11 @@ describe('Homework ExerciseTaskHeader Component', () => {
     props = {
       unDocked: true,
       goToStep: jest.fn(),
-      ux: new UX({ task, history: new TestRouter().history }),
+      ux: new UX({
+        task,
+        stepId: task.steps[0].id,
+        history: new TestRouter().history,
+      }),
     };
   });
 
@@ -23,10 +27,10 @@ describe('Homework ExerciseTaskHeader Component', () => {
 
   it('goes to step', () => {
     const { ux } = props;
-    jest.spyOn(props.ux, 'goToStep');
+    jest.spyOn(props.ux, 'goToStepId');
     const ms = mount(<C><ExerciseTaskHeader {...props} /></C>);
     ms.find('.sticky-table-row').at(0).find('.sticky-table-cell').at(1).simulate('click');
-    expect(ux.goToStep).toHaveBeenCalledWith(0, expect.anything());
+    expect(ux.goToStepId).toHaveBeenCalledWith(ux.steps[0].id);
     ms.unmount();
   });
 

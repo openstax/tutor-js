@@ -29,6 +29,7 @@ describe('Exercise Free Response', () => {
       question: step.content.questions[0],
       taskUX: new TaskUX({
         task,
+        stepId: step.id,
         history: new TestRouter().history,
         course: Factory.course(),
       }),
@@ -138,7 +139,7 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  it('hides nudge ui when free response is valid', async () => {
+  fit('hides nudge ui when free response is valid', async () => {
     props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn()

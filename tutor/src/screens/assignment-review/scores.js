@@ -324,11 +324,10 @@ const StudentCell = observer(({ ux, student, striped }) => (
 
       <Heading first={true}>
         <TutorLink
-          to="viewTaskStep"
+          to="viewTask"
           params={{
             courseId: ux.course.id,
             id: student.task_id,
-            stepIndex: 1,
           }}
         >
           {ux.reverseNameOrder ? student.reversedName : student.name}

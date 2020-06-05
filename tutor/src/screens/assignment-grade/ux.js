@@ -65,6 +65,10 @@ export default class AssignmentGradingUX {
     return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
   }
 
+  @computed get assignedPeriods() {
+    return this.planScores.taskPlan.activeAssignedPeriods;
+  }
+
   @computed get completedResponses() {
     return filter(this.selectedHeading.studentResponses, sr => sr.grader_points !== undefined);
   }

@@ -395,11 +395,4 @@ class TaskPlanScores extends BaseModel {
   get course() {
     return this.taskPlan.course;
   }
-
-  @computed get periods() {
-    const ids = this.tasking_plans.map(tp => tp.period_id);
-    return filter(
-      this.taskPlan.course.periods.active, p => includes(ids, p.id)
-    );
-  }
 }

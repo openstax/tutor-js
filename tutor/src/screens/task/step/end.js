@@ -26,8 +26,8 @@ const TaskEndMessage = ({ ux, ux: { course, task } }) => {
         <h1>No steps have been completed.</h1>
         <h4>
           <Link
-            to="viewTaskStep"
-            params={{ courseId: course.id, id: task.id, stepIndex: 1 }}
+            to="viewTask"
+            params={{ courseId: course.id, id: task.id }}
           >
             Begin work on assignment
           </Link>

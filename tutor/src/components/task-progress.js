@@ -136,7 +136,7 @@ class TaskProgress extends React.Component {
                   <Cell
                     key={stepIndex}
                     className={cn({ 'current-step': step === currentStep })}
-                    onClick={() => goToStep(stepIndex, step)}>
+                    onClick={() => goToStep(step.id)}>
                     {progressIndex}
                   </Cell>
                 );
@@ -151,7 +151,7 @@ class TaskProgress extends React.Component {
                     key={stepIndex}
                     rowSpan="3"
                     className="icons"
-                    onClick={() => goToStep(stepIndex, step)}>
+                    onClick={() => goToStep(step.id)}>
                     <i className={`icon-sm ${iconClasses}`} />
                   </Cell>
                 );

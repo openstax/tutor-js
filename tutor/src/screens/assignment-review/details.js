@@ -211,23 +211,23 @@ const TemplateInfo = observer(({ template }) => {
 const format = (date)=> moment(date).format('MMM D, h:mm a');
 
 const TaskingDates = observer(({ tasking, title }) => {
-  
+
   return (
     <TaskingDefinitionList>
       <div>{title}</div>
       <dl>
         <div>
           <dt>Open date</dt>
-          <dd>{format(tasking.opens_at)}</dd>
+          <dd>{format(tasking.opensAtMoment)}</dd>
         </div>
         <div>
           <dt>Due date</dt>
-          <dd>{format(tasking.due_at)}</dd>
+          <dd>{format(tasking.dueAtMoment)}</dd>
         </div>
         {!tasking.plan.isEvent && (
           <div>
             <dt>Close date</dt>
-            <dd>{format(tasking.closes_at)}</dd>
+            <dd>{format(tasking.closesAtMoment)}</dd>
           </div>)}
       </dl>
     </TaskingDefinitionList>

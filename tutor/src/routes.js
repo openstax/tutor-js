@@ -52,7 +52,7 @@ const getRoutes = (router) => {
           renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
             {
-              path: 'step/:stepIndex', name: 'viewTaskStep',
+              path: 'step/:stepId', name: 'viewTaskStep',
               renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],

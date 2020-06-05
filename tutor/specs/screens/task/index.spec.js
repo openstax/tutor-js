@@ -20,6 +20,7 @@ describe('Tasks Screen', () => {
         hasErrors: false,
         hasBeenFetched: true,
       }),
+      steps: [ { id: 1 } ],
     });
 
     props = {
@@ -33,7 +34,7 @@ describe('Tasks Screen', () => {
 
   it('redirects to first step', () => {
     const t = mount(<C><Task {...props} /></C>);
-    expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/1"]`);
+    expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/instructions"]`);
     t.unmount();
   });
 
@@ -42,7 +43,6 @@ describe('Tasks Screen', () => {
     task.api.isFetchedOrFetching = false;
     task.api.isPending = true;
     task.api.hasBeenFetched = false;
-    props.params.stepIndex = 1;
     const t = mount(<C><Task {...props} /></C>);
     expect(task.load).toHaveBeenCalled();
     expect(t).toHaveRendered('ContentLoader');

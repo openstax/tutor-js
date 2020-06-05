@@ -43,7 +43,10 @@ Points.propTypes = {
 const Body = styled.div`
   padding: 4rem 16rem;
   p {
-    margin: 0.5rem 0 2rem 0;
+    margin: 0.5rem 0 3.2rem 0;
+  }
+  ul {
+    margin-bottom: 3.2rem;
   }
   li {
     margin: 0.5rem 0;
@@ -65,8 +68,8 @@ const Heading = styled.div`
   font-weight: bold;
 `;
 
-const HomeworkWeights = observer(({ task }) => {
-  if (!task.isHomework) { return null; }
+const ReadingWeights = observer(({ task }) => {
+  if (!task.isReading) { return null; }
   return (
     <>
       <Heading>Score for auto-graded questions (MCQs, 2-step uestions)</Heading>
@@ -78,7 +81,7 @@ const HomeworkWeights = observer(({ task }) => {
   );
 });
 
-const format = (date) => moment(date).format('dd, MMM Do YYYY [at] H:mm a');
+const format = (date) => moment(date).format('dd, MMM Do YYYY [at] h:mm a');
 
 const LateWorkPolicy = observer(({ task }) => {
   if (!task.hasLateWorkPolicy) { return null; }
@@ -175,13 +178,13 @@ const Instructions = observer((props) => {
           <Description task={task} />
 
           <Heading>Due date</Heading>
-          <p>{format(task.due_date)}</p>
+          <p>{format(task.dueAtMoment)}</p>
 
           <Heading>Close date</Heading>
-          <p>{format(task.close_date)}</p>
+          <p>{format(task.closesAtMoment)}</p>
 
           <LateWorkPolicy task={task} />
-          <HomeworkWeights task={task} />
+          <ReadingWeights task={task} />
           <ExternalTaskInfo task={task} />
         </Body>
         <Footer>
