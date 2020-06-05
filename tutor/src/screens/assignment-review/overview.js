@@ -323,9 +323,7 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const GradingBlock = observer(({ ux }) => {
-  const { taskPlan } = ux.planScores;
-
-  if (!taskPlan.canGrade) { return null; }
+  if (!ux.canDisplayGradingButton) { return null; }
 
   return (
     <Toolbar>
