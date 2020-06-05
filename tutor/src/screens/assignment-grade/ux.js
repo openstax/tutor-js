@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'vendor';
-import { first, filter, isEmpty, findIndex, some } from 'lodash';
+import { first, filter, isEmpty, findIndex } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
