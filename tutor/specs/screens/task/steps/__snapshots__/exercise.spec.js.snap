@@ -567,6 +567,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "uid": "1@1",
       },
       "getCurrentStep": [MockFunction],
+      "goToStepIndex": [MockFunction],
+      "indexOfStep": [MockFunction],
       "isUnmounting": [MockFunction],
       "moveToStep": [MockFunction],
       "onAnswerContinue": [MockFunction],

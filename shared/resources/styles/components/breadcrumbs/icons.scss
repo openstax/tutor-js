@@ -22,7 +22,7 @@
 .icon-personalized-intro        { @include x-icon-bg(personalized-intro);   }
 .icon-spaced-practice-intro     { @include x-icon-bg(spaced-practice-intro);   }
 .icon-individual-review-intro   { @include x-icon-bg(individual-review);   }
-.icon-task-instructions         { @include x-icon-bg(individual-review);   }
+.icon-instructions              { @include x-icon-bg(individual-review);   }
 
 // The following are usually overlays on other icons
 .icon-correct   { @include x-icon-bg(correct);   }

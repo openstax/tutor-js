@@ -144,4 +144,7 @@ export default class QaScreenUX extends BookUX {
     });
   }
 
+  @action clearNavBar(nav) {
+    nav.resetToDefault();
+  }
 }

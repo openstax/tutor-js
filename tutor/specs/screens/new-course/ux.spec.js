@@ -7,7 +7,7 @@ jest.mock('../../../src/helpers/router');
 jest.useFakeTimers();
 
 jest.mock('../../../src/models/user', () => ({
-  isCollegeTeacher: true,
+  isAllowedInstructor: true,
 }));
 
 const testRouter = new TestRouter();
@@ -22,7 +22,7 @@ describe('Course Builder UX Model', () => {
   let ux;
 
   beforeEach(() => {
-    User.isCollegeTeacher = true;
+    User.isAllowedInstructor = true;
     courses = Factory.coursesMap({ is_teacher: true });
     ux = createTestUX();
     ux.courses.array[0].offering_id = ux.offerings.array[0].id;
@@ -148,8 +148,8 @@ describe('Course Builder UX Model', () => {
     expect(ux.offering).toEqual(ux.offerings.array[1]);
   });
 
-  it('redirects to onlly college page if teacher isnt college', () => {
-    User.isCollegeTeacher = false;
+  it('redirects to not allowed teacher page if teacher isnt allowed access', () => {
+    User.isAllowedInstructor = false;
     ux = createTestUX();
     Router.makePathname.mockReturnValue('/only-teacher');
     jest.runOnlyPendingTimers();

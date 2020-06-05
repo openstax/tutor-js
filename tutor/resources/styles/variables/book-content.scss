@@ -21,6 +21,7 @@ $openstax-book-default-bg: $openstax-book-gray;
 $openstax-book-default-accent: $openstax-book-gray-accent;
 $openstax-book-default-fg-inverse: $openstax-gold;
 $openstax-book-text-on-dark-labels: #fff;
+$openstax-book-text-on-light-labels: #000;
 
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
@@ -177,14 +178,14 @@ $openstax-books: (
     control    : $tutor-neutral-lightest,
   ),
   ap_us_history: (
-    primary    : $openstax-book-orange,
-    secondary  : $openstax-book-blue,
-    text       : $openstax-book-text-on-dark-labels,
+    primary    : #002E6D,
+    secondary  : #16C0DD,
+    text       : $openstax-book-text-on-light-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : $openstax-book-blue-accent,
-    control    : $tutor-neutral-lightest,
+    control    : darken(#002E6D, 5%),
   ),
   entrepreneurship: (
     primary    : rgb(243, 107, 50),

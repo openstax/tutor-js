@@ -29,13 +29,18 @@ class PreviewOnlyWarning extends React.Component {
   }
 
   renderPrompt = (onAddCourse, onContinue) => {
+    let cost = null;
+    if (CourseUX.displayCourseCost) {
+      cost = ` It’s free for you and students will pay ${CourseUX.formattedStudentCost} per course per semester.`;
+    }
     return (
       <OnboardingNag className="only-preview">
         <Heading>
           Remember -- this is just a preview course!
         </Heading>
         <Body>
-          If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay {CourseUX.formattedStudentCost} per course per semester.
+          If you’re ready to create real assignments your students can see, create your real course now.
+          {cost}
         </Body>
         <Footer>
           <Button

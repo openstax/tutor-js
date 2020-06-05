@@ -1,7 +1,7 @@
 import { loadAsync } from './helpers/async-component';
 import { memoize } from 'lodash';
 import { getConditionalHandlers } from './helpers/conditional-handlers';
-import OnlyCollege from './components/my-courses/no-hs-teachers';
+import NonAllowedTeacher from './components/my-courses/non-allowed-teacher';
 
 const r = (i, n) => memoize(loadAsync(i, n));
 
@@ -11,8 +11,8 @@ const getRoutes = (router) => {
   return [
     { path: '/dashboard', name: 'myCourses',
       renderer: r(() => import('./components/my-courses'), 'Courses Listing') },
-    { path: '/only-college-instructors', name: 'onlyCollegeInstructors',
-      renderer: () => OnlyCollege },
+    { path: '/non-allowed-instructors', name: 'nonAllowedTeacher',
+      renderer: () => NonAllowedTeacher },
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',
       renderer: r(() => import('./components/enroll'), 'Course Enrollment') },
     { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering',
@@ -52,7 +52,7 @@ const getRoutes = (router) => {
           renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
             {
-              path: 'step/:stepIndex', name: 'viewTaskStep',
+              path: 'step/:stepId', name: 'viewTaskStep',
               renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],

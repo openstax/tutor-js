@@ -5,6 +5,10 @@ import {
 
 export default class CourseUX {
 
+  static get displayCourseCost() {
+    return false;
+  }
+
   static get formattedStudentCost() {
     return '$10';
   }

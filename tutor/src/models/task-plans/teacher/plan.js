@@ -4,7 +4,7 @@ import {
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
-  first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex,
+  first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex, filter, includes,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -111,7 +111,7 @@ class TeacherTaskPlan extends BaseModel {
     if (this.isNew && !this.isClone) {
       Object.assign(this.settings, this.defaultSettings);
     }
-    
+
   }
 
   @computed get defaultSettings() {
@@ -379,23 +379,23 @@ class TeacherTaskPlan extends BaseModel {
     });
   }
 
-  @action createClone({ course, cloned_from_id }) {
+  @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
+      cloned_from_id: this.id,
       tasking_plans: course.periods.active.map(period => ({
         target_id: period.id,
         target_type: 'period',
       })),
       course,
       title: `Copied ${this.title}`,
-      cloned_from_id,
     });
   }
 
   @computed get dataForSave() {
     return extend(
       this.clonedAttributes,
-      pick(this, 'is_publish_requested'),
+      pick(this, 'is_publish_requested', 'cloned_from_id'),
       { tasking_plans: map(this.tasking_plans, 'dataForSave') },
     );
   }
@@ -431,6 +431,13 @@ class TeacherTaskPlan extends BaseModel {
         dropped_questions: toJS(this.dropped_questions),
       },
     };
+  }
+
+  @computed get activeAssignedPeriods() {
+    const ids = compact(this.tasking_plans.map(tp => tp.target_type == 'period' && tp.target_id));
+    return filter(
+      this.course.periods.sorted, p => includes(ids, p.id)
+    );
   }
 
   // called from api

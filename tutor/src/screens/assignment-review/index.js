@@ -96,7 +96,8 @@ class AssignmentReview extends React.Component {
 
   render() {
     const {
-      isScoresReady, course, planScores, selectedPeriod, setSelectedPeriod, scores: taskPlanScores, isReadingOrHomework,
+      isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+      scores: taskPlanScores, isReadingOrHomework,
     } = this.ux;
 
     if (!isScoresReady) {
@@ -126,7 +127,7 @@ class AssignmentReview extends React.Component {
               />
               <CoursePeriodSelect
                 period={selectedPeriod}
-                periods={planScores.periods}
+                periods={assignedPeriods}
                 course={course}
                 onChange={setSelectedPeriod}
               />

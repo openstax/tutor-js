@@ -14,9 +14,7 @@ exports[`Second Session Warning renders and matches snapshot 1`] = `
         <div
           className="body"
         >
-          Ready to create your real course? It’s free for you and students will pay 
-          $10
-           per course.
+          Ready to create your real course?
         </div>
         <div
           className="footer"

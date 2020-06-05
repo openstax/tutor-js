@@ -349,6 +349,7 @@ class BookPage extends React.Component {
       .then(() => {
         this.scoller.scrollToSelector(location.hash, {
           scrollTopOffset: 100,
+          updateHistory: false,
         });
       });
   }

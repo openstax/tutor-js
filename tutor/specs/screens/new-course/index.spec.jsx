@@ -4,7 +4,7 @@ import NewCourse from '../../../src/screens/new-course';
 jest.mock('../../../src/models/loader');
 jest.mock('../../../src/models/user', () => ({
   terms_signatures_needed: false,
-  isCollegeTeacher: true,
+  isAllowedInstructor: true,
 }));
 
 describe('NewCourse wrapper', function() {

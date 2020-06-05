@@ -11,18 +11,17 @@ describe('Reading Tasks Screen', () => {
     task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
-        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+        props.ux.goToStepId(ld.last(url.split('/')), false);
       },
     }).history;
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({ task, history, course: Factory.course() }),
+      ux: new UX({
+        stepId: task.steps[0].id,
+        task, history,
+        course: Factory.course(),
+      }),
     };
-    history = new TestRouter({
-      push: (url) => {
-        props.ux.goToStep(ld.last(url.split('/')), false);
-      },
-    }).history;
   });
 
   it('matches snapshot', () => {
@@ -30,7 +29,7 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('render as loading', () => {
-    props.ux.goToStep(3);
+    props.ux.goToStepId(3);
     props.ux.currentStep.api.reset();
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
     const r = mount(<C><Reading {...props} /></C>);
@@ -46,7 +45,7 @@ describe('Reading Tasks Screen', () => {
 
   it('renders value props', () => {
     props.ux.task.steps[1].formats = ['free-response', 'multiple-choice'];
-    props.ux._stepIndex = props.ux.steps.findIndex(s=>s.type === 'two-step-intro');
+    props.ux._stepId = props.ux.steps.find(s=>s.type === 'two-step-intro').id;
     const r = mount(<C><Reading {...props} /></C>);
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(r).toHaveRendered('TwoStepValueProp');
@@ -55,7 +54,7 @@ describe('Reading Tasks Screen', () => {
 
   it('pages through steps', () => {
     const pr = mount(<C><Reading {...props} /></C>);
-    expect(pr).toHaveRendered('a.paging-control.prev[disabled=true]');
+    expect(pr).toHaveRendered('a.paging-control.prev')
     expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
     pr.find('a.paging-control.next').simulate('click');
     pr.find('a.paging-control.next').simulate('click');

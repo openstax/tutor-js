@@ -15,9 +15,7 @@ class Milestone extends React.Component {
   };
 
   @action.bound goToStep() {
-    this.props.goToStep(
-      this.props.stepIndex, this.props.step
-    );
+    this.props.goToStep(this.props.step);
   }
 
   render() {

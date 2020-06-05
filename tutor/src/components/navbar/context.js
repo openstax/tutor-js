@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from 'shared/model/map';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 
 class Region extends Map {
 
@@ -28,6 +28,20 @@ class Region extends Map {
 
 export
 class NavbarContext {
+
+  constructor(defaultSetter = null) {
+    this.defaultSetter = defaultSetter;
+    this.resetToDefault();
+  }
+
+  @action resetToDefault() {
+    this.left.clear();
+    this.center.clear();
+    this.right.clear();
+    if (this.defaultSetter) {
+      this.defaultSetter.call(this);
+    }
+  }
 
   childProps = observable.map();
   @observable className;

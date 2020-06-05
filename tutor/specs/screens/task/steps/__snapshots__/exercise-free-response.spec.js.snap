@@ -532,7 +532,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
     }
     taskUX={
       TaskUX {
-        "_stepIndex": 0,
+        "_stepId": undefined,
         "_task": StudentTask {
           "closes_at": undefined,
           "complete": undefined,

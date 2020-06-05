@@ -5,7 +5,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
   <WithFooterWrapper
     ux={
       TaskUX {
-        "_stepIndex": 0,
+        "_stepId": "instructions",
         "_task": StudentTask {
           "closes_at": undefined,
           "complete": undefined,

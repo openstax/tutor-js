@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 
 const TITLES = {
@@ -22,6 +22,10 @@ class StudentTaskInfoStep {
   @readonly isInfo = true;
   fetchIfNeeded() { }
   markViewed() {}
+
+  @computed get id() {
+    return this.type;
+  }
 
   get preview() {
     return 'end' == this.type ? `${this.task.title} Completed` : TITLES[this.type];

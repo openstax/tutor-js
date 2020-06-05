@@ -13,7 +13,8 @@ describe('Reading Tasks Screen', () => {
     task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
-        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+        const id = ld.last(url.split('/'));
+        props.ux.goToStepId(id, false);
       },
     }).history;
     props = {
@@ -28,7 +29,7 @@ describe('Reading Tasks Screen', () => {
 
   it('renders value props', () => {
     const h = mount(<C><Homework {...props} /></C>);
-    expect(props.ux.currentStep.type).toEqual('task-instructions');
+    expect(props.ux.currentStep.type).toEqual('instructions');
     props.ux.goForward();
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(h).toHaveRendered('TwoStepValueProp');

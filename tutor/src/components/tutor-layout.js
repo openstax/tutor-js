@@ -39,14 +39,11 @@ class TutorLayout extends React.Component {
   @observable secondaryTopControls;
 
   courseContext = new CourseContext(this.props.course);
-  topNavbarContext = new NavbarContext();
+  topNavbarContext = new NavbarContext(function() {
+    this.left.set('logo', () => <Logo />);
+    this.right.set('menu', () => <Menus />);
+  });
   bottomNavbarContext = new NavbarContext();
-
-  constructor(props) {
-    super(props);
-    this.topNavbarContext.left.set('logo', () => <Logo />);
-    this.topNavbarContext.right.set('menu', () => <Menus />);
-  }
 
   @action.bound setSecondaryTopControls(controls) {
     this.secondaryTopControls = controls;

@@ -26,7 +26,7 @@ describe('Reading Milestones Component', () => {
   it('goes to step', () => {
     const ms = mount(<Milestones {...props} />);
     ms.find('Breadcrumb[stepIndex=0]').simulate('click');
-    expect(props.ux._stepIndex).toEqual(0);
+    expect(props.ux._stepId).toEqual(props.ux.steps[0].id);
     expect(props.onHide).toHaveBeenCalled();
     ms.unmount();
   });

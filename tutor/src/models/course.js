@@ -7,7 +7,7 @@ import {
 import { computed, action } from 'mobx';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import UiSettings from 'shared/model/ui-settings';
-import Offering from './course/offerings/offering';
+import Offerings, { Offering } from './course/offerings';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -111,6 +111,10 @@ class Course extends BaseModel {
 
   @computed get sortKey() {
     return this.primaryRole.joined_at;
+  }
+
+  @computed get offering() {
+    return Offerings.get(this.offering_id);
   }
 
   @computed get num_enrolled_students() {
