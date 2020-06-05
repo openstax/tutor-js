@@ -216,9 +216,8 @@ const WRQFreeResponse = observer(({ info }) => {
   const responses = info.responses.map((response, i) => {
     const student = response.student;
     return response.free_response && (
-      <ResponseWrapper key={`response-wrapper-${i}`} wrq={true}>
+      <ResponseWrapper key={i} wrq={true}>
         <StyledQuestionFreeResponse
-          key={i}
           data-student-id={student.id}
           wrq={true}
           longResponse={response.free_response.length > 2000}
@@ -339,7 +338,7 @@ const GradingBlock = observer(({ ux }) => {
         }}
       >
         {ux.gradeableQuestionCount > 0 &&
-          <span class="flag">{ux.gradeableQuestionCount} NEW</span>}
+          <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
         <span>Grade answers</span>
       </GradeButton>
     </Toolbar>
