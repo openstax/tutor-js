@@ -73,7 +73,7 @@ class AssignmentGrading extends React.Component {
             />
             <CoursePeriodSelect
               period={ux.selectedPeriod}
-              periods={ux.planScores.periods}
+              periods={ux.assignedPeriods}
               course={ux.course}
               onChange={ux.setSelectedPeriod}
             />

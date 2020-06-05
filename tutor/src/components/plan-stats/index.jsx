@@ -11,19 +11,18 @@ import NoStudents from './no-students';
 import RadioInput from  '../radio-input';
 
 const SectionWrapper = styled.div`
-  margin: 0.8rem 5rem 0 0;
+  margin: 0.8rem 5rem 2rem 0;
   display: inline-flex;
 `;
 
 const StatsWrapper = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
   font-size: 1.6rem;
 
   section {
     margin-top: 0.8rem;
   }
 `;
-
 
 export default
 @observer
@@ -54,7 +53,11 @@ class Stats extends React.Component {
   }
 
   @computed get period() {
-    return this.course.periods.sorted[this.currentPeriodIndex];
+    return this.periods[this.currentPeriodIndex];
+  }
+
+  @computed get periods() {
+    return this.props.plan.activeAssignedPeriods;
   }
 
   @computed get stats() {
@@ -108,12 +111,8 @@ class Stats extends React.Component {
     let courseBar, dataComponent;
     const { course, stats, props: { shouldOverflowData } } = this;
 
-    if (!this.period.hasEnrollments) {
-      return this.renderWithTabs(<NoStudents courseId={course.id} />);
-    }
-
     if (!this.analytics.api.hasBeenFetched) {
-      return this.renderWithTabs(<LoadingScreen />);
+      return <LoadingScreen />;
     }
 
     courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
@@ -138,7 +137,7 @@ class Stats extends React.Component {
     return (
       <>
         <h6>Select section</h6>
-        {this.course.periods.map((p, i) =>
+        {this.periods.map((p, i) =>
           <SectionWrapper key={`period-${p.id}`}>
             <RadioInput
               id={`period-${p.id}`}
@@ -151,7 +150,8 @@ class Stats extends React.Component {
             />
           </SectionWrapper>
         )}
-        {dataComponent}
+        {!this.period.hasEnrollments && <NoStudents courseId={course.id} />}
+        {this.period.hasEnrollments && dataComponent}
       </>
     );
   }
