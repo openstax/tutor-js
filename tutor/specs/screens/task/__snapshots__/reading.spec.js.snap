@@ -5,7 +5,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   <ReadingTask
     ux={
       TaskUX {
-        "_stepIndex": 0,
+        "_stepId": 1,
         "_task": StudentTask {
           "complete": undefined,
           "completion_weight": undefined,

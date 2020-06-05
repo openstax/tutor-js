@@ -28,7 +28,7 @@ const STEP_TYPES = {
   exercise: Exercise,
   placeholder: Placeholder,
   interactive: HtmlContent,
-  'task-instructions': Instructions,
+  'instructions': Instructions,
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,
