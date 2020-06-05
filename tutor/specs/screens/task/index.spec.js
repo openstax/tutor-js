@@ -34,7 +34,7 @@ describe('Tasks Screen', () => {
 
   it('redirects to first step', () => {
     const t = mount(<C><Task {...props} /></C>);
-    expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/1"]`);
+    expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/instructions"]`);
     t.unmount();
   });
 

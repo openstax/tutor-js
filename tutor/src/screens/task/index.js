@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
-import { isNil, find } from 'lodash';
+import { isNil } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
@@ -122,11 +122,10 @@ class TaskGetter extends React.Component {
     }
 
     if (!this.props.params.stepId) {
-      const step = find(task.steps, { is_completed: false }) || task.steps[0];
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         id: task.id,
         courseId: this.course.id,
-        stepId: step ? step.id : null,
+        stepId: 'instructions',
       })} />;
     }
 
