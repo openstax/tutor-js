@@ -234,6 +234,7 @@ const TaskingDates = observer(({ tasking, title }) => {
   );
 });
 
+
 const Details = observer(({ ux }) => {
 
   if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
@@ -252,9 +253,11 @@ const Details = observer(({ ux }) => {
               <Icon
                 asButton type="edit"
                 busy={ux.taskPlan.api.isPending}
-                onClick={ux.onEdit}
+                onClick={ux.taskPlan.isPastDue ? undefined : ux.onEdit}
                 data-test-id="edit-assignment"
+                tooltip={ux.taskPlan.isPastDue ? 'Questions cannot be edited after the Open date.' : ''}
               />
+
               <Icon
                 asButton type="trash"
                 onClick={ux.onDelete}
