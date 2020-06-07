@@ -2,7 +2,7 @@ import {
   React, PropTypes, observer, inject,
   computed, observable, action, styled,
 } from 'vendor';
-import { find } from 'lodash';
+import { find, first } from 'lodash';
 import Course from '../../models/course';
 import { Modal, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
@@ -73,11 +73,11 @@ class CoursePlanDetails extends React.Component {
   }
 
   @observable showAssignmentLinks = false;
-  @observable selectedPeriodId;
+  @observable selectedPeriodId = this.props.plan.activeAssignedPeriods.length > 0 ? first(this.props.plan.activeAssignedPeriods).id : undefined;
 
   @computed get linkParams() {
     const { course, plan } = this.props;
-    return { courseId: course.id, id: plan.id, type: plan.type };
+    return { courseId: course.id, id: plan.id, type: plan.type, periodId: this.selectedPeriodId };
   }
 
   @action.bound onShowAssignmentLinks() {
