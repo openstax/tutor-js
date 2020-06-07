@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
@@ -32,7 +32,7 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history,
+    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history, periodId,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
   }) {
@@ -50,7 +50,8 @@ export default class AssignmentReviewUX {
     await this.planScores.taskPlan.analytics.fetch();
     await this.planScores.ensureExercisesLoaded();
 
-    this.selectedPeriod = first(this.assignedPeriods);
+    const period = find(this.assignedPeriods, p => p.id == periodId);
+    this.selectedPeriod = period ? period : first(this.assignedPeriods);
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
   }

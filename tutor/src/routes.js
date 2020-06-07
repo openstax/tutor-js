@@ -63,7 +63,7 @@ const getRoutes = (router) => {
           path: 'assignment/edit/:type/:id/:step?', name: 'editAssignment',
           renderer: r(() => import('./screens/assignment-edit'), 'Assignment Builder') },
         {
-          path: 'assignment/review/:id', name: 'reviewAssignment',
+          path: 'assignment/review/:id/:periodId?', name: 'reviewAssignment',
           renderer: r(() => import('./screens/assignment-review'), 'Assignment Review') },
         {
           path: 'assignment/grade/:id/:periodId?', name: 'gradeAssignment',

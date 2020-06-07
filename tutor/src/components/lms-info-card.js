@@ -65,6 +65,7 @@ class LmsInfoCard extends React.Component {
         <CopyOnFocusInput
           label={period.name}
           value={moment(tp.due_at).format(DUE_FORMAT)}
+          key={period.id}
         />);
     }));
     return (
