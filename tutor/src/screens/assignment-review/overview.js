@@ -376,9 +376,10 @@ const Overview = observer(({ ux, ux: { scores } }) => (
         <Header>Question Number</Header>
         {scores.question_headings.map((h, i) =>
           <Header key={i} center={true}>
-            <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-              {h.title}
-            </StyledButton>
+            {h.isCore ?
+              <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                {h.title}
+              </StyledButton> : h.title}
           </Header>)}
       </Row>
       <Row>
