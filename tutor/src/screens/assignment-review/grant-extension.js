@@ -3,6 +3,7 @@ import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import DateTime from '../../components/date-time-input';
 import { Formik, Form } from 'formik';
 import { colors } from 'theme';
+import Time from '../../helpers/time';
 import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/extension';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/411294724/preview
@@ -84,88 +85,110 @@ const SelectTitle = styled.div`
   margin-bottom: 1rem;
 `;
 
-const GrantExtension = observer(({ ux }) => {
-  if (!ux.taskPlan.canGrantExtension) {
-    return null;
+@observer
+class GrantExtension extends React.Component {
+
+  static propTypes = {
+    ux: PropTypes.object.isRequired,
   }
 
-  return (
-    <>
-      <OverlayTrigger
-        placement="bottom"
-        overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
+  renderModal = (form) => {
+    const { isValid, values } = form;
+    const { ux } = this.props;
+    return (
+      <Modal
+        show={ux.isDisplayingGrantExtension}
+        backdrop="static"
+        onHide={ux.cancelDisplayingGrantExtension}
       >
-        <Button
-          variant="light"
-          className="btn-standard"
-          onClick={() => ux.isDisplayingGrantExtension=true}
+        <Form>
+          <StyledModalHeader>
+            Grant extension for {ux.selectedPeriod.name}
+          </StyledModalHeader>
+          <Modal.Body>
+            <SelectTitle>Select student(s):</SelectTitle>
+            <Label>
+              <CheckBox
+                onChange={ux.toggleGrantExtensionAllStudents}
+              />
+              Select all
+            </Label>
+            <StudentsList>
+              {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
+            </StudentsList>
+            <Box>
+              <DateTime
+                label="New due date"
+                name="extension_due_date"
+                disabledDate={ux.course.isInvalidAssignmentDate}
+                validate={(d) => { // eslint-disable-line consistent-return
+                  if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
+                  if (d.isAfter(values.extension_due_date)) return 'Due date cannot be after Close date';
+                }}
+              />
+              <DateTime
+                label="New close date"
+                name="extension_close_date"
+                disabledDate={ux.course.isInvalidAssignmentDate}
+                validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
+              />
+            </Box>
+            <LegendBar>
+              <EIcon />
+              <ExtensionText>
+                Students who’ve been granted an extension are denoted with a green circle with E.
+                Hover over the icon to see the new due date for that studen.
+              </ExtensionText>
+            </LegendBar>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              size="lg"
+              variant="default"
+              onClick={ux.cancelDisplayingGrantExtension}
+            >Cancel</Button>
+            <Button
+              size="lg"
+              variant="primary"
+              type="submit"
+              disabled={isValid == false || !ux.isPendingExtensions}
+            >Save</Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    );
+  }
+
+  render() {
+    const { ux } = this.props;
+
+    if (!ux.taskPlan.canGrantExtension) {
+      return null;
+    }
+
+    return (
+      <>
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
         >
-          Grant Extension
-        </Button>
-      </OverlayTrigger>
-      <Formik
-        onSubmit={ux.saveDisplayingGrantExtension}
-        initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
-      >
-        <Modal
-          show={ux.isDisplayingGrantExtension}
-          backdrop="static"
-          onHide={ux.cancelDisplayingGrantExtension}
+          <Button
+            variant="light"
+            className="btn-standard"
+            onClick={() => ux.isDisplayingGrantExtension=true}
+          >
+            Grant Extension
+          </Button>
+        </OverlayTrigger>
+        <Formik
+          onSubmit={ux.saveDisplayingGrantExtension}
+          initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
         >
-          <Form>
-            <StyledModalHeader>
-              Grant extension for {ux.selectedPeriod.name}
-            </StyledModalHeader>
-            <Modal.Body>
-              <SelectTitle>Select student(s):</SelectTitle>
-              <Label>
-                <CheckBox
-                  onChange={ux.toggleGrantExtensionAllStudents}
-                />
-                Select all
-              </Label>
-              <StudentsList>
-                {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
-              </StudentsList>
-              <Box>
-                <DateTime
-                  label="New due date"
-                  name="extension_due_date"
-                />
-                <DateTime
-                  label="New close date"
-                  name="extension_close_date"
-                />
-              </Box>
-              <LegendBar>
-                <EIcon />
-                <ExtensionText>
-                  Students who’ve been granted an extension are denoted with a green circle with E.
-                  Hover over the icon to see the new due date for that studen.
-                </ExtensionText>
-              </LegendBar>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                size="lg"
-                variant="default"
-                onClick={ux.cancelDisplayingGrantExtension}
-              >Cancel</Button>
-              <Button
-                size="lg"
-                variant="primary"
-                type="submit"
-                disabled={!ux.isPendingExtensions}
-              >Save</Button>
-            </Modal.Footer>
-          </Form>
-        </Modal>
-      </Formik>
-    </>
-  );
-});
-GrantExtension.propTypes = {
-  ux: PropTypes.object.isRequired,
-};
+          {this.renderModal}
+        </Formik>
+      </>
+    );
+  }
+}
 
 export default GrantExtension;

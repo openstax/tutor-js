@@ -46,7 +46,7 @@ describe('Course Model', () => {
     expect(c.currentRole.id).toEqual(newRoleAttrs.id);
   });
 
-  fit('calculates audience tags', () => {
+  it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
     teacher.just_created = true;

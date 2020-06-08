@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find, uniq } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -62,13 +62,13 @@ export class ExercisesMap extends Map {
     if (limit) { url += `/${limit}`; }
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
-      query.page_ids = toJS(page_ids);
+      query.page_ids = uniq(toJS(page_ids));
     }
     if(course) {
       query.course_id = course.id;
     }
     if (exercise_ids) {
-      query.exercise_ids = toJS(exercise_ids);
+      query.exercise_ids = uniq(toJS(exercise_ids));
     }
     return {
       url, query,

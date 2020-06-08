@@ -30,7 +30,8 @@ class TaskResult extends BaseModel {
   @field correct_on_time_step_count;
   @field correct_accepted_late_step_count;
   @field({ type: 'date' }) due_at;
-  @field({ type: 'date' }) last_worked_at;
+  @field is_past_due;
+  @field is_extended;
   @field exercise_count;
   @field is_included_in_averages;
   @field is_late_work_accepted;
@@ -66,7 +67,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get isLate() {
-    return !this.last_worked_at || (this.last_worked_at && moment(this.last_worked_at).isAfter(this.due_at));
+    return Boolean(this.is_past_due);
   }
 
   @computed get isStarted() {

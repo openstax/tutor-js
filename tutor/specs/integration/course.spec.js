@@ -5,7 +5,8 @@ context('Course', () => {
     cy.setRole('teacher')
   });
 
-  it('only displays Grade Answers button on Homework type', () => {
+  // disabled until BE has grade counts on taskings
+  it.skip('only displays Grade Answers button on Homework type', () => {
     cy.get('.event.type-external label').first().click();
     cy.getTestElement('gradeAnswers').should('not.exist');
     cy.get('.modal-header .close').click();
