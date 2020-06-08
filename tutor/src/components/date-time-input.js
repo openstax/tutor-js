@@ -58,6 +58,10 @@ const IconWrapper = styled.div`
   border-radius: 0 4px 4px 0;
 `;
 
+const Error = styled.div`
+  color: red;
+  margin: 0.5rem;
+`;
 
 const DateTimeInput = (assignedProps) => useObserver(() => {
   const props = defaults({}, assignedProps, {
@@ -66,11 +70,13 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
     timeFormat: 'hh:mm A',
   });
   const [field, meta] = useField(props);
+
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
 
   const onUpdateDate = dt => {
     const ev = { target: { name: field.name, value: dt } };
+    field.onBlur(ev);
     field.onChange(ev);
     props.onChange && props.onChange(ev);
   };
@@ -113,8 +119,8 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
         <IconWrapper>
           <Icon type="calendar" />
         </IconWrapper>
-        {meta.error && meta.touched && <div>{meta.error}</div>}
       </PickerWrapper>
+      {meta.error && meta.touched && <Error>{meta.error}</Error>}
     </StyledWrapper>
   );
 });
