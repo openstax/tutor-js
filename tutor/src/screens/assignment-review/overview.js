@@ -5,6 +5,7 @@ import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import S from '../../helpers/string';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
+import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import { isEmpty, compact } from 'lodash';
@@ -348,17 +349,11 @@ const GradingBlock = observer(({ ux }) => {
 const AvailablePoints = ({ value }) => {
   if (!value) {
     return (
-      <OverlayTrigger
-        placement="right"
-        overlay={
-          <StyledTooltip>
-            Students received different numbers of Tutor-selected questions. This can happen when questions aren’t
-            available, a student works an assignment late, or a student hasn’t started the assignment.
-          </StyledTooltip>
-        }
-      >
-        <Icon variant="infoCircle" />
-      </OverlayTrigger>
+      <InfoIcon
+        color="#f36a31"
+        tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t
+        available, a student works an assignment late, or a student hasn’t started the assignment."
+      />
     );
   }
   return (
