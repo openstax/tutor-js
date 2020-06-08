@@ -54,14 +54,11 @@ const Controls = styled.div`
   }
 `;
 
-const StyledPublishButton = styled(AsyncButton).attrs(props => ({
-  disabled: props.isdisabled,
-  variant: props.isdisabled ? 'plain' : 'primary',
-}))`
-  &&& {
-    padding: 10px;
-    pointer-events: none;
-  }
+const StyledPublishButton = styled(AsyncButton)`
+    && {
+      padding: 10px;
+      pointer-events: ${props => props.disabled ? 'none' : 'all'};
+    }
 `;
 
 const Question = ({ heading, ux, index }) => useObserver(() => {
@@ -76,6 +73,7 @@ const Question = ({ heading, ux, index }) => useObserver(() => {
 
 
 const QuestionsBar = ({ ux }) => useObserver(() => {
+  const isPublishScoresDisabled = !ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade;
   return (
     <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
@@ -83,23 +81,23 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       </QuestionsWrapper>
       <Controls>
         <OverlayTrigger
-          placement="top"
-          delay={{ show: 250, hide: 400 }}
+          placement="bottom"
           overlay={
             <Tooltip>
-              {!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade && 'All scores have already been published.'}
+              {isPublishScoresDisabled && 'All scores have already been published.'}
             </Tooltip>
           }
         >
-          <span>
+          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
             <StyledPublishButton
-              isdisabled={!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade}
+              disabled={isPublishScoresDisabled}
+              variant={isPublishScoresDisabled ? 'plain' : 'primary'}
               onClick={ux.onPublishScores}
               isWaiting={ux.isPublishingScores}
               waitingText="Publishing...">
           Publish Scores
             </StyledPublishButton>
-          </span>
+          </div>
         </OverlayTrigger>
         <StyledSettingsIcon
           ux={ux}

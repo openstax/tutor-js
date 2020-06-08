@@ -41,7 +41,7 @@ const StyledQuestionHeading = styled.div`
 `;
 
 const QuestionHeader = observer(({ questionIndex, ux, showAnswerKey = false }) => (
-  <StyledQuestionHeading onClick={() => ux.goToQuestionHeading(questionIndex)}>
+  <StyledQuestionHeading onClick={() => ux.showOverview ? ux.goToQuestionHeading(questionIndex, ux.expandGradedAnswers) : undefined}>
     <ExerciseNumber>
         Question {questionIndex + 1}
     </ExerciseNumber>
