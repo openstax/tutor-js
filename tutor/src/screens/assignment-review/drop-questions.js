@@ -265,6 +265,12 @@ const TableHeader = () => (
   </TableHeaderWrapper>
 );
 
+const LegendBar = styled.div`
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+`;
+
 const DropQuestion = observer(({ ux }) => {
   if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
     return null;
@@ -292,7 +298,7 @@ const DropQuestion = observer(({ ux }) => {
         onHide={ux.cancelDisplayingDropQuestions}
       >
         <Modal.Header closeButton>
-          Drop question for {ux.selectedPeriod.name}
+          Drop question for all sections
         </Modal.Header>
         <Modal.Body>
           <Instructions>Select question(s) to drop:</Instructions>
@@ -300,6 +306,9 @@ const DropQuestion = observer(({ ux }) => {
             <TableHeader />
             {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
           </Table>
+          <LegendBar>
+            Note: Selected questions will be dropped for all sections.
+          </LegendBar>
         </Modal.Body>
         <Modal.Footer>
           <Button
