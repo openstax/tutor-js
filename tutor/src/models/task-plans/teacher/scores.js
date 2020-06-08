@@ -103,7 +103,6 @@ class TaskPlanScoreStudent extends BaseModel {
   @field total_fraction;
   @field late_work_point_penalty;
   @field grades_need_publishing;
-  @field questions_need_grading;
 
   @hasMany({ model: TaskPlanScoreStudentQuestion, inverseOf: 'student' }) questions;
   @belongsTo({ model: 'task-plan/scores/tasking' }) tasking;
@@ -312,10 +311,6 @@ class TaskPlanScoresTasking extends BaseModel {
       value = sum(totals) / totals.length;
     }
     return `${S.asPercent(value)}%`;
-  }
-
-  @computed get hasUngradedStudents() {
-    return some(this.students, 'questions_need_grading');
   }
 
   @computed get allStudentQuestionStatus() {
