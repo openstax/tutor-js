@@ -135,7 +135,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
     <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer" showShadow={!ux.isResponseGraded(response)}>
       <Panel>
         <StudentName ux={ux} student={student} index={index} />
-        <p>{response.free_response}</p>
+        <p>{response.free_response ? response.free_response : '(No response provided)'}</p>
       </Panel>
       <Panel>
         <Points response={response} onChange={setPoints} ref={pointRef} />

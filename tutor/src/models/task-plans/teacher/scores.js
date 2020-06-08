@@ -173,6 +173,10 @@ class TaskPlanScoreHeading extends BaseModel {
     return `(${this.gradedStats.completed}/${this.gradedStats.total})`;
   }
 
+  @computed get gradedProgressWithUnAttemptedResponses() {
+    return `(${this.gradedStatsWithUnAttemptedResponses.completed}/${this.gradedStatsWithUnAttemptedResponses.total})`;
+  }
+
   @computed get responseStats() {
     const responses = this.studentResponses;
     const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints));
@@ -188,10 +192,20 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get gradedStats() {
     // Filter students who has completed the question
     const studentWithResponses = filter(this.studentResponses, 'is_completed');
-    const remaining = filter(studentWithResponses, 'needs_grading').length;
+    const remaining = filter(studentWithResponses, sr => isNil(sr.grader_points)).length;
     return {
       total: studentWithResponses.length,
       completed: studentWithResponses.length - remaining,
+      remaining,
+      complete: remaining == 0,
+    };
+  }
+
+  @computed get gradedStatsWithUnAttemptedResponses() {
+    const remaining = filter(this.studentResponses, sr => isNil(sr.grader_points)).length;
+    return {
+      total: this.studentResponses.length,
+      completed: this.studentResponses.length - remaining,
       remaining,
       complete: remaining == 0,
     };

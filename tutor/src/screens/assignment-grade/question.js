@@ -80,8 +80,9 @@ const ExpandGradedWrapper = styled.div`
 `;
 
 const ExpandGraded = observer(({ ux }) => {
-  const stats = ux.selectedHeading.gradedStats;
-  if (0 == stats.completed) {
+  let completed = ux.showOnlyAttempted ? ux.selectedHeading.gradedStats.completed : ux.selectedHeading.gradedStatsWithUnAttemptedResponses.completed;
+  let gradeProgress =  ux.showOnlyAttempted ? ux.selectedHeading.gradedProgress : ux.selectedHeading.gradedProgressWithUnAttemptedResponses;
+  if (0 == completed) {
     return null;
   }
   return (
@@ -90,7 +91,7 @@ const ExpandGraded = observer(({ ux }) => {
         onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
         variant="link"
       >
-        {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {ux.selectedHeading.gradedProgress}
+        {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {gradeProgress}
       </Button>
       <label>Average Score: {S.numberWithOneDecimalPlace(ux.selectedHeading.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.availablePoints)}</label>
     </ExpandGradedWrapper>
@@ -145,7 +146,7 @@ const IndividualQuestion = observer(({ ux }) =>
         />
         <ExpandGraded ux={ux} />
         {
-          Boolean(ux.expandGradedAnswers) && ux.completedResponses.map((response, index) => 
+          Boolean(ux.expandGradedAnswers) && ux.gradedResponses.map((response, index) => 
             <Answer
               response={response}
               key={index}
