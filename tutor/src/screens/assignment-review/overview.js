@@ -372,6 +372,12 @@ const StyledButton = styled(Button)`
   && { text-decoration: underline; }
 `;
 
+const StyledCell = styled(Cell)`
+  ${props => props.isTrouble && css`
+    background: ${colors.states.trouble};
+  `}
+`;
+
 const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
     <GradingBlock ux={ux}/>
@@ -398,9 +404,9 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       <Row>
         <Header>Correct Responses</Header>
         {scores.question_headings.map((h, i) => (
-          <Cell key={i}>
-            {h.gradedStats.remaining > 0 ? '---' : h.responseStats.correct} / {h.responseStats.completed}
-          </Cell>
+          <StyledCell key={i} isTrouble={h.isTrouble}>
+            {h.humanCorrectResponses}
+          </StyledCell>
         ))}
       </Row>
     </StyledStickyTable>
