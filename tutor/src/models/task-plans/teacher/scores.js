@@ -209,7 +209,7 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get isTrouble() {
     const { correct, completed } = this.responseStats;
-    return completed > 0 &&  correct / completed < 0.5;
+    return completed > 0 && correct / completed < 0.5;
   }
 
   @computed get humanCorrectResponses() {

@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Tooltip } from 'react-bootstrap';
 import S from '../../helpers/string';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -309,16 +309,6 @@ const GradeButton = styled(TutorLink)`
     padding: 1.5rem 2.1rem 1.5rem;
     line-height: 1.9rem;
     ${props => props.displayingFlag && 'padding-left: 1.1rem;'}
-  }
-`;
-
-const StyledTooltip = styled(Tooltip)`
-  max-width: 30rem;
-  &.tooltip.show { opacity: 1; }
-
-  .tooltip-inner {
-    padding: 2.2rem 1.6rem;
-    text-align: left;
   }
 `;
 
