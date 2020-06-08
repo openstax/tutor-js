@@ -2,7 +2,10 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
-import { filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy, get, some, reduce, every } from 'lodash';
+import {
+  filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy,
+  get, some, reduce, every, uniq,
+} from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S from '../../../helpers/string';
 
@@ -378,7 +381,7 @@ class TaskPlanScores extends BaseModel {
         }
       }
     }
-    return ids;
+    return uniq(ids);
   }
 
   async ensureExercisesLoaded() {

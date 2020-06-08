@@ -4,7 +4,8 @@ import {
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
-  first, last, map, flatMap, find, get, pick, extend, every, isEmpty, compact, findIndex, filter, includes,
+  first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
+  compact, findIndex, filter, includes, uniq,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -296,7 +297,7 @@ class TeacherTaskPlan extends BaseModel {
 
 
   @computed get exerciseIds() {
-    return map(this.settings.exercises, 'id');
+    return uniq(map(this.settings.exercises, 'id'));
   }
 
   @computed get exercises() {
