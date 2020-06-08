@@ -330,6 +330,10 @@ export default class AssignmentReviewUX {
     return Boolean(this.planScores.isHomework && this.scores);
   }
 
+  @computed get canDisplayGradingButton() {
+    return Boolean(this.taskingPlan.isPastDue && this.scores.hasAnyResponses);
+  }
+
   @computed get isReadingOrHomework() {
     return Boolean(['reading', 'homework'].includes(this.planScores.type));
   }
