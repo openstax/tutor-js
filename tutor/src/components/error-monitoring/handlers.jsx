@@ -180,6 +180,29 @@ const ERROR_HANDLERS = {
     );
   },
 
+  base_cannot_be_changed_because_this_template_is_assigned_to_one_or_more_task_plans() {
+    return {
+      className: 'error',
+      title: 'Template cannot be updated',
+      body: (
+        <div className="template-del-failure">
+          <p className="lead">
+            Templated cannot be updated because this template is assigned to one or more assignments.
+          </p>
+        </div>
+      ),
+      buttons: [
+        <Button
+          key="ok"
+          onClick={hideModal}
+          variant="primary"
+        >
+          OK
+        </Button>,
+      ],
+    };
+  },
+
   // Payment overdue: don't render the error dialog because we want to display the modal instead
   payment_overdue() {
     return null;
