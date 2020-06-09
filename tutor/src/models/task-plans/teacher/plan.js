@@ -78,6 +78,8 @@ class TeacherTaskPlan extends BaseModel {
   @field publish_job_url;
   @field grading_template_id;
   @field ungraded_step_count;
+  @field gradable_step_count;
+  @field wrq_count;
   @field({ type: 'object' }) extensions; // null by default
   @field({ type: 'object' }) settings = {};
 

@@ -61,13 +61,6 @@ class CoursePlanDetails extends React.Component {
     this.props.tourContext.otherModal = this;
   }
 
-  componentDidMount() {
-    // get scores to check if there are any students left to grade
-    // TODO remove the scores api use once the BE sends
-    // the gradability status of a task plans
-    this.props.plan.scores.fetch();
-  }
-
   componentWillUnmount() {
     this.props.tourContext.otherModal = null; 
   }
@@ -99,15 +92,13 @@ class CoursePlanDetails extends React.Component {
 
   @computed get gradeAnswersButton() {
     const { plan, course } = this.props;
-    const scoreTaskPlan = find(plan.scores.tasking_plans, tp => tp.period_id == this.tasking.target_id); 
-    
-    if(!scoreTaskPlan || !scoreTaskPlan.hasWRMQuestions) { return null; }
-    
+    if (!plan.wrq_count) { return null; }
+
+
     let disabledToolTipMessage;
     if(!this.tasking.isPastDue) {
       disabledToolTipMessage = 'Assignment will be available for grading after the due date.';
-    }
-    else if(!scoreTaskPlan.hasAnyResponses) {
+    } else if(!plan.gradable_step_count) {
       disabledToolTipMessage = 'No responses to grade yet.';
     }
 
@@ -125,8 +116,8 @@ class CoursePlanDetails extends React.Component {
             className={
               cn(
                 'btn btn-standard',
-                { 'disabled': !scoreTaskPlan.hasAnyResponses || !this.tasking.isPastDue,
-                  'btn-primary': !scoreTaskPlan.hasFinishedGrading || !this.tasking.isPastDue,
+                { 'disabled': !plan.gradable_step_count,
+                  'btn-primary': plan.ungraded_step_count,
                 }
               )
             }
@@ -134,7 +125,7 @@ class CoursePlanDetails extends React.Component {
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
           >
-            {scoreTaskPlan.hasFinishedGrading && this.tasking.isPastDue ? 'Regrade answers' : 'Grade answers'}
+            {plan.gradable_step_count && this.tasking.isPastDue ? 'Grade answers' : 'Regrade answers'}
           </TutorLink>
         </span>
       </OverlayTrigger>
