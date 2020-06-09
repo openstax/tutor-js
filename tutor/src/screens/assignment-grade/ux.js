@@ -72,18 +72,18 @@ export default class AssignmentGradingUX {
   @computed get gradedResponses() {
     return filter(this.selectedHeading.studentResponses, sr => {
       if(this.showOnlyAttempted) {
-        return sr.is_completed && sr.grader_points !== undefined;
+        return sr.is_completed && !sr.needs_grading;
       }
-      return sr.grader_points !== undefined;
+      return !sr.needs_grading;
     });
   }
 
   @computed get needsGradingResponses() {
     return filter(this.selectedHeading.studentResponses, sr => {
       if(this.showOnlyAttempted) {
-        return sr.is_completed && sr.grader_points === undefined;
+        return sr.is_completed && sr.needs_grading;
       }
-      return sr.grader_points === undefined;
+      return sr.needs_grading;
     });
   }
 

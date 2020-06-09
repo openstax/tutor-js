@@ -62,11 +62,12 @@ const StyledPublishButton = styled(AsyncButton)`
 `;
 
 const Question = ({ heading, ux, index }) => useObserver(() => {
-  const stats = heading.gradedStats;
+  const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
+  const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
   return (
     <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
       <h6>{heading.title}</h6>
-      {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
+      {stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
     </QuestionWrapper>
   );
 });

@@ -118,7 +118,7 @@ const Overiew = observer(({ ux }) => {
                   onClick={() => ux.goToQuestionHeading(i, true)}
                   variant="link"
                 >
-                        Expand graded answers {h.gradedProgress}
+                        Expand graded answers {ux.showOnlyAttempted ? h.gradedProgress : h.gradedProgressWithUnAttemptedResponses}
                 </Button>
                 <label>
                         Average Score: {S.numberWithOneDecimalPlace(h.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(h.responseStats.availablePoints)}
