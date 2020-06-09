@@ -55,8 +55,8 @@ const Controls = styled.div`
 `;
 
 const StyledPublishButton = styled(AsyncButton).attrs(props => ({
-  disabled: props.isdisabled,
-  variant: props.isdisabled ? 'plain' : 'primary',
+  disabled: props.isDisabled,
+  variant: props.isDisabled ? 'plain' : 'primary',
 }))`
   &&& {
     padding: 10px;
@@ -93,7 +93,7 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
         >
           <span>
             <StyledPublishButton
-              isdisabled={!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade}
+              isDisabled={!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade}
               onClick={ux.onPublishScores}
               isWaiting={ux.isPublishingScores}
               waitingText="Publishing...">
