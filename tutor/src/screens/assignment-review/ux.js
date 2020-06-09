@@ -212,6 +212,10 @@ export default class AssignmentReviewUX {
     );
   }
 
+  @computed get isDroppedQuestionsSaving() {
+    return this.taskPlan.api.isPending;
+  }
+
   @action.bound onDelete() {
     this.isDisplayingConfirmDelete = true;
   }

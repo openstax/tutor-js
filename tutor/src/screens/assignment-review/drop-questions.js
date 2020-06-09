@@ -1,6 +1,7 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
+import { AsyncButton } from 'shared';
 import OXQuestionPreview from '../../components/question-preview';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import S from '../../helpers/string';
@@ -317,13 +318,15 @@ const DropQuestion = observer(({ ux }) => {
             data-test-id="cancel-btn"
             onClick={ux.cancelDisplayingDropQuestions}
           >Cancel</Button>
-          <Button
+          <AsyncButton
             variant="primary"
             className="btn-standard"
             data-test-id="save-btn"
-            disabled={!ux.canSubmitDroppedQuestions}
+            disabled={!ux.canSubmitDroppedQuestions || ux.isDroppedQuestionsSaving}
+            isWaiting={ux.isDroppedQuestionsSaving}
+            waitingText="Dropping…"
             onClick={ux.saveDropQuestions}
-          >Save</Button>
+          >Save</AsyncButton>
         </Modal.Footer>
       </DropQuestionsModal>
     </>
