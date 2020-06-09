@@ -1,0 +1,177 @@
+@import '../screen-styles';
+@import '~fixed-data-table-2/dist/fixed-data-table.css';
+
+$scores-table-border-color: rgb(210, 210, 210);
+$scores-student-header-bg-color: $tutor-neutral-lighter;
+$scores-student-header-fg-color: #f2f2f2;
+$scores-thin-grey-border: 1px solid $scores-table-border-color;
+$scores-thick-grey-border: 2px solid $scores-table-border-color;
+$scores-table-outer-border-width: 2px;
+$scores-table-outer-border-color: $scores-table-border-color;
+$scores-left-column-padding: 8px;
+$scores-row-height: 35px;
+$scores-short-row-height: 26px;
+$scores-overall-values-width: 90px;
+$scores-overall-values-closed-width: 120px;
+$scores-overview-row-height: 50px;
+$scores-group-row-height: 60px;
+
+@mixin overall-border-style() {
+  border-style: solid;
+  border-width: 2px;
+  border-color: $tutor-tertiary-neutral-light;
+}
+
+
+.course-scores-report {
+
+  $nav-tab-height: 50px;
+  $display-as-btn-height: 40px;
+
+  // negates bottom padding on body to eliminate scrollbar
+  margin-bottom: -50px;
+
+  font-size: 1.6rem;
+
+  &.loading-animation {
+    margin-top: 120px;
+  }
+
+  .blank {
+    background: white;
+    height: 100%;
+    padding: 0;
+  }
+
+  .course-nav-container {
+    margin-top: 20px;
+    @include clearfix;
+
+    nav {
+      float: left;
+    }
+
+    .filter-row {
+      height: $display-as-btn-height;
+      float: right;
+
+      div {
+        float: left;
+      }
+      div + div {
+        margin-left: 10px;
+      }
+
+      .filter-label {
+        line-height: $display-as-btn-height;
+      }
+
+      .filter-group {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0 0 0 20px;
+
+        button {
+          height: $display-as-btn-height;
+          border-radius: 0px;
+          width: 90px;
+          margin-right: 0;
+          margin-left: -1px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          &.selected {
+            border: #ddd;
+            background: #f2f2f2;
+            color: #424242;
+            font-weight: normal;
+            z-index: 10;
+
+            &:hover {
+              background: #f2f2f2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.panel {
+    max-width: 100%;
+  }
+
+  .course-scores-wrap {
+    position: relative;
+  }
+
+  .course-scores-container {
+    padding: 15px;
+    border: $scores-thin-grey-border;
+  }
+
+  .course-scores-title {
+    font-size: 3rem;
+    padding-bottom: 20px;
+    display: inline-block;
+  }
+
+  .course-scores-notice {
+    font-size: 2.3rem;
+    margin-top: 40px;
+    display: inline-block;
+  }
+
+  .course-scores-note {
+    color: $tutor-neutral;
+    @include tutor-sans-neutral-light-font(14px);
+    flex: 1;
+    text-align: right;
+    &.tab {
+      align-self: flex-end;
+    }
+  }
+
+
+  .course-scores-container {
+    overflow: hidden;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  // removes the display as table, table-row & table-cell
+  // from the wrappers so the "width:100%" rule is effective on .header-cell
+  .public_fixedDataTable_header {
+    .public_fixedDataTableCell_wrap1,
+    .public_fixedDataTableCell_wrap2,
+    .public_fixedDataTableCell_wrap3 {
+      display: block;
+      width: 100%;
+      height: inherit;
+    }
+  }
+
+  .fixedDataTableLayout_main {
+    border: none;
+  }
+
+  // override course-page settings to allow table to expand full-screen
+  & > .body {
+    max-width: inherit;
+    padding: 0 20px;
+    .tutor-tabs {
+      @include course-page-wrapper-child();
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+}
+
+@import './styles/controls';
+@import './styles/table';
+@import './styles/header';
+@import './styles/overall-cell';
+@import './styles/set-weights-modal';
