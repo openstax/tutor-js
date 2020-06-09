@@ -2,7 +2,10 @@ import {
   React, PropTypes, observer, inject,
   computed, observable, action, styled,
 } from 'vendor';
+<<<<<<< HEAD
 import { find, first } from 'lodash';
+=======
+>>>>>>> only render modal when isDisplaying
 import Course from '../../models/course';
 import { Modal, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
