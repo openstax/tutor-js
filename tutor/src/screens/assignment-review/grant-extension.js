@@ -95,6 +95,7 @@ class GrantExtension extends React.Component {
   renderModal = (form) => {
     const { isValid, values } = form;
     const { ux } = this.props;
+
     return (
       <Modal
         show={ux.isDisplayingGrantExtension}
@@ -180,12 +181,13 @@ class GrantExtension extends React.Component {
             Grant Extension
           </Button>
         </OverlayTrigger>
-        <Formik
-          onSubmit={ux.saveDisplayingGrantExtension}
-          initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
-        >
-          {this.renderModal}
-        </Formik>
+        {ux.isDisplayingGrantExtension && (
+          <Formik
+            onSubmit={ux.saveDisplayingGrantExtension}
+            initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
+          >
+            {this.renderModal}
+          </Formik>)}
       </>
     );
   }
