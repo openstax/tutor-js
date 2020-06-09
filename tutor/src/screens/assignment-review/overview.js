@@ -377,8 +377,8 @@ const StyledButton = styled(Button)`
   && { text-decoration: underline; }
 `;
 
-const Overview = observer(({ ux, ux: { scores } }) => (
-  <Wrapper data-test-id="overview">
+const Overview = observer(({ ux, ux: { scores } }) => {
+  return (<Wrapper data-test-id="overview">
     <GradingBlock ux={ux}/>
     <StyledStickyTable>
       <Row>
@@ -425,8 +425,8 @@ const Overview = observer(({ ux, ux: { scores } }) => (
         styleVariant="submission"
       />) : <Loading message="Loading Questions…"/>}
 
-  </Wrapper>
-));
+  </Wrapper>);
+});
 
 Overview.title = 'Submission Overview';
 Overview.propTypes = {

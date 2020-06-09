@@ -239,7 +239,6 @@ const Details = observer(({ ux }) => {
 
   if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
   if (ux.isDeleting) { return null; }
-
   const {
     scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
   } = ux;
@@ -278,7 +277,7 @@ const Details = observer(({ ux }) => {
                 {planScores.description}
               </Item>
             </Row>
-            {ux.isReadingOrHomework &&
+            {(planScores.isHomework || planScores.isReading) &&
               <Row>
                 <Title>Grading template</Title>
                 <Item>

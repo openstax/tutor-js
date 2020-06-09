@@ -232,7 +232,6 @@ class TaskPlanScoresTasking extends BaseModel {
   // will be in different order and different students will get different ones
   @computed get questionsInfo() {
     const info = {};
-
     for (const student of this.students) {
       for (const studentQuestion of student.questions) {
         const exercise = Exercises.get(studentQuestion.exercise_id);
@@ -393,6 +392,10 @@ class TaskPlanScores extends BaseModel {
 
   @computed get isExternal() {
     return 'external' == this.type;
+  }
+
+  @computed get isReading() {
+    return 'reading' == this.type;
   }
 
   @computed get isManualGradingGrade() {

@@ -57,6 +57,9 @@ class TaskResult extends BaseModel {
   @computed get isExternal() {
     return this.type === 'external';
   }
+  @computed get isReading() {
+    return this.type === 'reading';
+  }
 
   @computed get unacceptedLateStepCount() {
     return this.completed_step_count - this.completedStepCount;

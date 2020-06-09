@@ -334,10 +334,6 @@ export default class AssignmentReviewUX {
     return Boolean(this.taskingPlan.isPastDue && this.scores.hasAnyResponses);
   }
 
-  @computed get isReadingOrHomework() {
-    return Boolean(['reading', 'homework'].includes(this.planScores.type));
-  }
-
   @computed get hasUnPublishedScores() {
     return Boolean(this.scores.hasUnPublishedScores);
   }

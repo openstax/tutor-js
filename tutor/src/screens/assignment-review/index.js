@@ -9,7 +9,8 @@ import Tabs from '../../components/tabs';
 import CoursePeriodSelect from '../../components/course-period-select';
 import Details from './details';
 import Overview from './overview';
-import Scores from './scores';
+import HomeworkScores from './homework-scores';
+import ReadingScores from './reading-scores';
 import ExternalScores from './external-scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
@@ -96,21 +97,22 @@ class AssignmentReview extends React.Component {
 
   render() {
     const {
-      isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
-      scores: taskPlanScores, isReadingOrHomework,
+      isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
     } = this.ux;
-
     if (!isScoresReady) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
 
     const AvailableTabs = [Details];
     // there are no scores if no students have enrolled
-    if (taskPlanScores) {
-      if (isReadingOrHomework) {
-        AvailableTabs.push(Overview, Scores);
+    if (scores) {
+      if (planScores.isHomework) {
+        AvailableTabs.push(Overview, HomeworkScores);
       }
-      else if (taskPlanScores.scores.isExternal) {
+      else if (planScores.isReading) {
+        AvailableTabs.push(Overview, ReadingScores);
+      }
+      else if (planScores.isExternal) {
         AvailableTabs.push(ExternalScores);
       }
     }
