@@ -406,6 +406,9 @@ export default class AssignmentUX {
 
   @action saveFormToPlan() {
     this.plan.update(omit(this.form.values, 'tasking_plans', 'settings'));
+    if (this.plan.isExternal) {
+      this.plan.settings.external_url = this.form.values.external_url;
+    }
   }
 
   @action.bound async saveAsDraft() {
