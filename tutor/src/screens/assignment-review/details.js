@@ -10,6 +10,7 @@ import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
+import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
 const DetailsWrapper = styled.div`
 
@@ -241,7 +242,7 @@ const Details = observer(({ ux }) => {
   if (ux.isDeleting) { return null; }
 
   const {
-    scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
+    scores, planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
   } = ux;
   return (
     <DetailsWrapper>
@@ -278,6 +279,15 @@ const Details = observer(({ ux }) => {
                 {planScores.description}
               </Item>
             </Row>
+            {planScores.isExternal && (
+              <Row>
+                <Title>Assignment URL</Title>
+                <Item>
+                  <ExternalLink href={taskPlan.settings.external_url}>
+                    {taskPlan.settings.external_url}
+                  </ExternalLink>
+                </Item>
+              </Row>)}
             {ux.isReadingOrHomework &&
               <Row>
                 <Title>Grading template</Title>

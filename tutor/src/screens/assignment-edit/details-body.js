@@ -19,7 +19,7 @@ const requiredAndLengthLimit = (n) => {
   const lim = lengthLimit(n);
   return (v) => isRequired(v) || lim(v);
 };
-const isValidUrl = (v) => !isUrl(v) && 'A valid URL is required';
+const isValidUrl = (v = '') => !isUrl(v) && 'A valid URL is required';
 
 const RowLabel = styled(Label)`
   max-width: 27rem;
@@ -155,18 +155,18 @@ TemplateField.propTypes = {
   ux: PropTypes.object.isRequired,
 };
 
-const ExternalUrlField = () => {
+const ExternalUrlField = observer(({ ux }) => {
   return (
     <SplitRow>
       <RowLabel htmlFor="externalUrl">Assignment URL</RowLabel>
       <StyledTextInput
-        name="settings.external_url"
-        id="externalUrl"
+        name="external_url"
+        defaultValue={ux.plan.settings.external_url}
         validate={isValidUrl}
       />
     </SplitRow>
   );
-};
+});
 
 const DetailsBody = observer(({ ux }) => {
   const nameInputField = useRef();
