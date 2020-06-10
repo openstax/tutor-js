@@ -20,7 +20,7 @@ describe('Tasks Screen', () => {
         hasErrors: false,
         hasBeenFetched: true,
       }),
-      steps: [ { id: 1 } ],
+      steps: [ { id: 1, is_completed: true } ],
     });
 
     props = {
@@ -33,6 +33,7 @@ describe('Tasks Screen', () => {
   });
 
   it('redirects to first step', () => {
+    
     const t = mount(<C><Task {...props} /></C>);
     expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/instructions"]`);
     t.unmount();

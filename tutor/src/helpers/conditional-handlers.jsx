@@ -23,6 +23,10 @@ const TeacherGradebook = asyncComponent(
   () => import('../screens/teacher-gradebook'), 'Gradebook'
 );
 
+const PreWRMGradebook =  asyncComponent(
+  () => import('../screens/pre-wrm-scores-report'), 'Gradebook'
+);
+
 const getConditionalHandlers = (Router) => {
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
@@ -48,7 +52,17 @@ const getConditionalHandlers = (Router) => {
       }
     };
   };
-  
+
+  const renderGradeBook = () => {
+    const gradeBookRenderer = renderTeacherStudent(TeacherGradebook, StudentGradebook);
+    return (props) => {
+      const course = Courses.get(props.params.courseId);
+      if (course && course.uses_pre_wrm_scores) {
+        return <PreWRMGradebook {...props} />;
+      }
+      return gradeBookRenderer(props);
+    };
+  };
   // eslint-disable-next-line react/prop-types
   const renderBecomeRole = ({ params: { courseId, roleId } }) => {
     const location = useLocation();
@@ -70,7 +84,7 @@ const getConditionalHandlers = (Router) => {
   // If the function is dyamically created, react will mount/unmount itself
   // AND ITS CHILDREN, which is almost always undesirable and will trigger api reloads
   const dashboard = renderTeacherStudent(TeacherDashboard, StudentDashboard);
-  const gradebook = renderTeacherStudent(TeacherGradebook, StudentGradebook);
+  const gradebook = renderGradeBook();
   return {
     dashboard() { return dashboard; },
     gradebook() { return gradebook; },
