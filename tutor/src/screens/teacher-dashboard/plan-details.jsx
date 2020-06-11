@@ -102,6 +102,19 @@ class CoursePlanDetails extends React.Component {
       disabledToolTipMessage = 'No responses to grade yet.';
     }
 
+    let buttonLabel;
+    if(!this.tasking.isPastDue) {
+      buttonLabel = 'Grade answers';
+    }
+    else {
+      if(plan.ungraded_step_count == 0) {
+        buttonLabel = 'Regrade answers';
+      }
+      else {
+        buttonLabel = 'Grade answers';
+      }
+    }
+
     return (
       <OverlayTrigger
         placement="top"
@@ -116,7 +129,7 @@ class CoursePlanDetails extends React.Component {
             className={
               cn(
                 'btn btn-standard',
-                { 'disabled': !plan.gradable_step_count,
+                { 'disabled': !plan.gradable_step_count || !this.tasking.isPastDue,
                   'btn-primary': plan.ungraded_step_count,
                 }
               )
@@ -125,7 +138,7 @@ class CoursePlanDetails extends React.Component {
             data-test-id="gradeAnswers"
             params={{ id: plan.id, periodId: this.tasking.target_id, courseId: course.id }}
           >
-            {plan.gradable_step_count && this.tasking.isPastDue ? 'Grade answers' : 'Regrade answers'}
+            {buttonLabel}
           </TutorLink>
         </span>
       </OverlayTrigger>

@@ -192,7 +192,7 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get gradedStats() {
     // Filter students who has completed the question
     const studentWithResponses = filter(this.studentResponses, 'is_completed');
-    const remaining = filter(studentWithResponses, sr => isNil(sr.grader_points)).length;
+    const remaining = filter(studentWithResponses, 'needs_grading').length;
     return {
       total: studentWithResponses.length,
       completed: studentWithResponses.length - remaining,
@@ -202,7 +202,7 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 
   @computed get gradedStatsWithUnAttemptedResponses() {
-    const remaining = filter(this.studentResponses, sr => isNil(sr.grader_points)).length;
+    const remaining = filter(this.studentResponses, 'needs_grading').length;
     return {
       total: this.studentResponses.length,
       completed: this.studentResponses.length - remaining,
