@@ -385,13 +385,12 @@ class TeacherTaskPlan extends BaseModel {
   @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
+      course,
       cloned_from_id: this.id,
       tasking_plans: course.periods.active.map(period => ({
         target_id: period.id,
         target_type: 'period',
       })),
-      course,
-      title: `Copied ${this.title}`,
     });
   }
 
