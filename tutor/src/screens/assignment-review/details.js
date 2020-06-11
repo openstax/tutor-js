@@ -153,6 +153,10 @@ const StyledExerciseNumber = styled(ExerciseNumber)`
   font-size: 1.6rem;
 `;
 
+const StyledReadingNotice = styled.p`
+  text-align: center;
+`;
+
 const QuestionHeader = observer(({ styleVariant, label, info }) => {
   return (
     <>
@@ -172,28 +176,44 @@ QuestionHeader.propTypes = {
 
 const Questions = observer(({ ux, questionsInfo }) => {
   if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
+  let Content;
+  if(ux.planScores.isReading) {
+    Content = (
+      <>
+        <Header><h6>Questions Assigned</h6></Header>
+        <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Beta Tutor</StyledReadingNotice>
+      </>
+    );
+  }
+  else {
+    Content = (
+      <>
+        <Header>
+          <h6>Questions Assigned</h6>
+          <Controls>
+
+            <Icon
+              className="btn btn-standard btn-icon"
+              onClick={ux.onEditAssignedQuestions}
+              data-test-id="edit-assigned-questions"
+              type="edit"
+            />
+
+          </Controls>
+        </Header>
+
+        {ux.isExercisesReady ? (
+          <StyledHomeworkQuestions
+            questionsInfo={questionsInfo}
+            headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+            styleVariant="submission"
+          />) : <Loading message="Loading Questions…"/>}
+      </>
+    );
+  }
   return (
     <Section data-test-id="questions-block">
-      <Header>
-        <h6>Questions Assigned</h6>
-        <Controls>
-
-          <Icon
-            className="btn btn-standard btn-icon"
-            onClick={ux.onEditAssignedQuestions}
-            data-test-id="edit-assigned-questions"
-            type="edit"
-          />
-
-        </Controls>
-      </Header>
-
-      {ux.isExercisesReady ? (
-        <StyledHomeworkQuestions
-          questionsInfo={questionsInfo}
-          headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-          styleVariant="submission"
-        />) : <Loading message="Loading Questions…"/>}
+      {Content}
     </Section>
   );
 });

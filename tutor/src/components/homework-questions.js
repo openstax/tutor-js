@@ -32,8 +32,8 @@ const QuestionHeader = styled.div`
   padding: 1rem;
   font-weight: bold;
 
-  ${props => props.variant === 'submission' && css`
-    background: ${colors.templates.homework.background};
+  ${props => (props.variant === 'submission' || props.variant === 'reading') && css`
+    background: ${props.variant === 'reading' ? colors.templates.reading.background : colors.templates.homework.background};
     font-size: 1.8rem;
     font-weight: normal;
     padding: 1.4rem 2.2rem;
@@ -41,7 +41,7 @@ const QuestionHeader = styled.div`
 `;
 
 const Body = styled.div`
-  ${props => props.variant === 'submission' && css`
+  ${props => (props.variant === 'submission' || props.variant === 'reading') && css`
     && {
       background: ${colors.assignments.submissions.background};
       padding: 3.2rem 2.8rem;

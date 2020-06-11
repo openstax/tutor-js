@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row, Cell as TableCell } from 'react-sticky-table';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
@@ -180,42 +180,6 @@ const DefinitionsWrapper = styled.div`
   }
 `;
 
-const CornerTriangle = ({ color, tooltip }) => {
-  return (
-    <OverlayTrigger
-      placement="right"
-      overlay={
-        <Tooltip>
-          {tooltip}
-        </Tooltip>
-      }
-    >
-      <StyledTriangle color={color} />
-    </OverlayTrigger>
-  );
-};
-CornerTriangle.propTypes = {
-  color: PropTypes.string.isRequired,
-  tooltip: PropTypes.string.isRequired,
-};
-
-const StyledTriangle = styled.div`
-  height: 0;
-  width: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-style: solid;
-  border-width: 0 1rem 1rem 0;
-  border-color: transparent #000 transparent transparent;
-  ${props => props.color === 'green' && css`
-    border-color: transparent ${colors.assignments.scores.extension} transparent transparent;
-  `}
-  ${props => props.color === 'blue' && css`
-    border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
-  `}
-`;
-
 const OrderIcon = styled(Icon)`
   &&.btn {
     transition: none;
@@ -227,6 +191,25 @@ const OrderIcon = styled(Icon)`
     }
   }
 `;
+
+const popover = (gradingTemplate) => (
+  <Popover className="scores-popover">
+    <StickyTable id="reading-scores-weight">
+      <Row>
+        <Cell>Weight for correctness</Cell>
+        <Cell>{gradingTemplate.humanCorrectnessWeight} of question's point value</Cell>
+      </Row>
+      <Row>
+        <Cell>Weight for completion</Cell>
+        <Cell>{gradingTemplate.humanCompletionWeight} of question's point value</Cell>
+      </Row>
+      <Row>
+        <Cell>Total</Cell> 
+        <Cell>{gradingTemplate.humanTotalWeight}</Cell>
+      </Row>
+    </StickyTable>
+  </Popover>
+);
 
 const StudentColumnHeader = observer(({ ux }) => (
   <Cell leftBorder={true}>
@@ -280,14 +263,13 @@ const StudentColumnHeader = observer(({ ux }) => (
             %
           </SplitCell>
         </HeadingMiddle>
-        <HeadingBottom>
-          {S.numberWithOneDecimalPlace(ux.scores.availablePoints)}
-          {!ux.scores.hasEqualTutorQuestions && (
+        <HeadingBottom> 
+          <OverlayTrigger placement="right" overlay={popover(ux.planScores.grading_template)} trigger="hover">
             <InfoIcon
-              color="#f36a31"
-              tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t available, a student works an assignment late, or a student hasn’t started the assignment."
+              color={colors.bright_blue}
+              style={{ marginTop: '2px' }}
             />
-          )}
+          </OverlayTrigger>
         </HeadingBottom>
       </ColumnHeading>
       <ColumnHeading>
@@ -381,7 +363,7 @@ const AverageScoreHeader = observer(({ ux }) => (
       </ColumnFooter>
       <ColumnFooter>
         <Heading>
-          {ux.overallAverageScore}
+          {ux.scores.totalAverageScoreInPercent}
         </Heading>
       </ColumnFooter>
       <ColumnFooter />
@@ -450,7 +432,7 @@ const ReadingScores = observer(({ ux }) => {
       <StyledStickyTable data-test-id="scores">
         <Row>
           <StudentColumnHeader scores={scores} ux={ux} />
-          {['Completed', 'Correct', 'Incorrect'].map(h => <AssignmentHeading headingName={h} />)}
+          {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
@@ -474,7 +456,7 @@ const ReadingScores = observer(({ ux }) => {
   );
 });
 
-ReadingScores.title = 'Reading Assignment Scores';
+ReadingScores.title = 'Assignment Scores';
 
 ReadingScores.propTypes = {
   ux: PropTypes.object.isRequired,
