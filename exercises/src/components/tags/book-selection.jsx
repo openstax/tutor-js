@@ -10,9 +10,10 @@ const BOOKS = {
   'stax-phys':    'College Physics',
   'stax-cbio':    'Concepts of Biology',
   'stax-econ':    'Economics',
+  'stax-eship':   'Entrepreneurship',
   'stax-macro':   'Macro Economics',
   'stax-micro':   'Micro Economics',
-  'stax-k12phys': 'K-12 Physics',
+  'stax-k12phys': 'HS Physics',
   'stax-soc':     'Sociology',
   'stax-apush':   'U.S. History for AP® Courses',
 };
