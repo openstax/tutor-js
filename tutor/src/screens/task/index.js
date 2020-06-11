@@ -126,7 +126,7 @@ class TaskGetter extends React.Component {
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         id: task.id,
         courseId: this.course.id,
-        stepId: unworkedIndex > 0 ? task.steps[unworkedIndex - 1].id : 'instructions',
+        stepId: unworkedIndex > 0 ? task.steps[unworkedIndex].id : 'instructions',
       })} />;
     }
 
