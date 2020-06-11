@@ -29,6 +29,7 @@ const GradeAnswersButton = observer(({ ux, regrade = false }) => {
 });
 
 const ViewScores = observer(({ ux }) => {
+  if (ux.course.uses_pre_wrm_scores) { return null; }
   return (
     <div>
       <p>View scores for auto-graded questions</p>

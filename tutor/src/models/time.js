@@ -5,6 +5,10 @@ let shiftMs = 0;
 const defaultResolution = 1000 * 60; // one minute resolution
 let timeResolution = defaultResolution;
 
+const WRM_START_DATE = new Date('2020-06-18');
+
+export { WRM_START_DATE };
+
 export function setNow(now) {
   if (!isDate(now)) {
     now = new Date(now);

@@ -173,6 +173,10 @@ class TaskPlanScoreHeading extends BaseModel {
     return `(${this.gradedStats.completed}/${this.gradedStats.total})`;
   }
 
+  @computed get gradedProgressWithUnAttemptedResponses() {
+    return `(${this.gradedStatsWithUnAttemptedResponses.completed}/${this.gradedStatsWithUnAttemptedResponses.total})`;
+  }
+
   @computed get responseStats() {
     const responses = this.studentResponses;
     const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints));
@@ -197,6 +201,16 @@ class TaskPlanScoreHeading extends BaseModel {
     };
   }
 
+  @computed get gradedStatsWithUnAttemptedResponses() {
+    const remaining = filter(this.studentResponses, 'needs_grading').length;
+    return {
+      total: this.studentResponses.length,
+      completed: this.studentResponses.length - remaining,
+      remaining,
+      complete: remaining == 0,
+    };
+  }
+
   @computed get displayPoints() {
     const { dropped } = this;
     return dropped ?
@@ -205,6 +219,17 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get averageGradedPoints() {
     return this.responseStats.averageGradedPoints;
+  }
+
+  @computed get isTrouble() {
+    const { correct, completed } = this.responseStats;
+    const remaining = this.gradedStats.remaining > 0;
+    return !remaining && completed > 0 && correct / completed < 0.5;
+  }
+
+  @computed get humanCorrectResponses() {
+    const { correct, completed } = this.responseStats;
+    return `${this.gradedStats.remaining > 0 ? '---' : correct} / ${completed}`;
   }
 }
 

@@ -78,6 +78,8 @@ class TeacherTaskPlan extends BaseModel {
   @field publish_job_url;
   @field grading_template_id;
   @field ungraded_step_count;
+  @field gradable_step_count;
+  @field wrq_count;
   @field({ type: 'object' }) extensions; // null by default
   @field({ type: 'object' }) settings = {};
 
@@ -383,13 +385,12 @@ class TeacherTaskPlan extends BaseModel {
   @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
+      course,
       cloned_from_id: this.id,
       tasking_plans: course.periods.active.map(period => ({
         target_id: period.id,
         target_type: 'period',
       })),
-      course,
-      title: `Copied ${this.title}`,
     });
   }
 

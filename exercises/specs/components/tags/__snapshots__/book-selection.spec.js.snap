@@ -45,6 +45,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Economics
   </option>
   <option
+    value="stax-eship"
+  >
+    Entrepreneurship
+  </option>
+  <option
     value="stax-macro"
   >
     Macro Economics
@@ -57,7 +62,7 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
   <option
     value="stax-k12phys"
   >
-    K-12 Physics
+    HS Physics
   </option>
   <option
     value="stax-soc"

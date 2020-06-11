@@ -42,6 +42,9 @@ const SplitRow = styled.div`
   > * {
     flex-basis: 50%;
   }
+  > *:last-child {
+    flex: 1;
+  }
 `;
 
 const Setting = styled.div`

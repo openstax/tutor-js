@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, observer, styled, css } from 'vendor';
 import { find, without } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import Course  from '../models/course';
@@ -7,19 +7,33 @@ import { colors } from 'theme';
 import CGL from './course-grouping-label';
 
 const Label = styled.label`
-  .cgl { margin-right: 1rem; }
+
+`;
+
+const selectionStyles = css`
+  border: 1px solid ${colors.forms.borders.light};
+  color: ${colors.neutral.dark};
+  border-radius: 4px;
+  min-width: 18rem;
+  .cgl { margin-right: 0.5rem; }
 `;
 
 const StyledDropdownToggle = styled(Dropdown.Toggle)`
   && {
-    border: 1px solid ${colors.forms.borders.light};
-    color: ${colors.neutral.dark};
-    border-radius: 4px;
-    min-width: 18rem;
+    ${selectionStyles}
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+`;
+
+const SinglePeriod = styled.div`
+  ${selectionStyles}
+  font-size: 1.6rem;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
 `;
 
 const CoursePeriodSelect = observer(({ course, periods, period, onChange }) => {
@@ -31,6 +45,12 @@ const CoursePeriodSelect = observer(({ course, periods, period, onChange }) => {
     const period = find(items, { id: periodId });
     onChange(period);
   };
+
+  if (0 == choices.length) {
+    return (
+      <SinglePeriod><CGL course={course} /> {period.name}</SinglePeriod>
+    );
+  }
 
   return (
     <Dropdown alignRight onSelect={onSelect}>

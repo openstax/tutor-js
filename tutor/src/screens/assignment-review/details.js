@@ -10,6 +10,7 @@ import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
+import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
 const DetailsWrapper = styled.div`
 
@@ -194,9 +195,10 @@ const Questions = observer(({ ux, questionsInfo }) => {
 
             <Icon
               className="btn btn-standard btn-icon"
-              onClick={ux.onEditAssignedQuestions}
+              onClick={ux.taskPlan.isPastDue ? undefined : ux.onEditAssignedQuestions}
               data-test-id="edit-assigned-questions"
               type="edit"
+              tooltip={ux.taskPlan.isPastDue ? 'Questions cannot be edited after the Open date.' : ''}
             />
 
           </Controls>
@@ -260,7 +262,7 @@ const Details = observer(({ ux }) => {
   if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
   if (ux.isDeleting) { return null; }
   const {
-    scores, planScores, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
+    scores, planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
   } = ux;
   return (
     <DetailsWrapper>
@@ -272,9 +274,9 @@ const Details = observer(({ ux }) => {
               <Icon
                 asButton type="edit"
                 busy={ux.taskPlan.api.isPending}
-                onClick={ux.taskPlan.isPastDue ? undefined : ux.onEdit}
+                onClick={ux.onEdit}
                 data-test-id="edit-assignment"
-                tooltip={ux.taskPlan.isPastDue ? 'Questions cannot be edited after the Open date.' : ''}
+
               />
 
               <Icon
@@ -297,6 +299,15 @@ const Details = observer(({ ux }) => {
                 {planScores.description}
               </Item>
             </Row>
+            {planScores.isExternal && (
+              <Row>
+                <Title>Assignment URL</Title>
+                <Item>
+                  <ExternalLink href={taskPlan.settings.external_url}>
+                    {taskPlan.settings.external_url}
+                  </ExternalLink>
+                </Item>
+              </Row>)}
             {(planScores.isHomework || planScores.isReading) &&
               <Row>
                 <Title>Grading template</Title>
