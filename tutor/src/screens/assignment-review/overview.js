@@ -311,6 +311,10 @@ const GradeButton = styled(TutorLink)`
     padding: 1.5rem 2.1rem 1.5rem;
     line-height: 1.9rem;
     ${props => props.displayingFlag && 'padding-left: 1.1rem;'}
+    &.btn-link {
+      font-size: 1.6rem;
+      padding: 0.5rem;
+    }
   }
 `;
 
