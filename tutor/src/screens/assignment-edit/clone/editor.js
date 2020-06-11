@@ -6,14 +6,15 @@ import CloneModal from 'components/course-modal';
 import { colors, breakpoints } from 'theme';
 
 const StyledTemplateModal = styled(CloneModal)`
-  .modal-dialog {
-    margin-top: 3rem;
-    max-width: 90%;
-  }
-
-  .modal-body {
-    background: ${colors.white};
-    padding: 0 1rem;
+  && {
+    .modal-dialog {
+      margin-top: 3rem;
+      max-width: 100rem;
+    }
+    .modal-body {
+      background: ${colors.white};
+      padding: 0 1rem;
+    }
   }
 
   &&& {

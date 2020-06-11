@@ -23,7 +23,7 @@ const isValidUrl = (v = '') => !isUrl(v) && 'A valid URL is required';
 
 const RowLabel = styled(Label)`
   max-width: 27rem;
-  margin-right: 8rem;
+  margin-right: 4rem;
 `;
 
 const FullWidthCol = styled.div`
@@ -35,7 +35,7 @@ const SectionRow = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
-  max-width: 48rem;
+
 `;
 
 const StyledDropdown = styled(Dropdown)`
