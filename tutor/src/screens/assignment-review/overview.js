@@ -53,6 +53,8 @@ QuestionHeader.propTypes = {
 };
 
 const QuestionFooter = observer(({ ux, info }) => {
+  if (info.question.isMultipleChoice) { return null; }
+
   return (<Footer>
     <strong>
       Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
