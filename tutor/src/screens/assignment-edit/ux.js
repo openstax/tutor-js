@@ -12,7 +12,7 @@ import { StepUX, Step } from './step';
 import { Actions } from './actions';
 import Validations from './validations';
 import moment from '../../helpers/moment-range';
-import Time from '../../models/time';
+import Time, { WRM_START_DATE } from '../../models/time';
 import DetailsBody from './details-body';
 
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
@@ -462,5 +462,11 @@ export default class AssignmentUX {
   @action.bound async onDelete() {
     await this.plan.destroy();
     this.onComplete();
+  }
+
+  @computed get showPreWRMCloneHelp() {
+    if (!(this.plan.isClone && this.plan.isHomework)) { return false; }
+    const clonedFrom = this.course.pastTaskPlans.get(this.plan.cloned_from_id);
+    return Boolean(clonedFrom && clonedFrom.duration.start.isBefore(WRM_START_DATE));
   }
 }

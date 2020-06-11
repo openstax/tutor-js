@@ -23,7 +23,7 @@ const isValidUrl = (v = '') => !isUrl(v) && 'A valid URL is required';
 
 const RowLabel = styled(Label)`
   max-width: 27rem;
-  margin-right: 8rem;
+  margin-right: 4rem;
 `;
 
 const FullWidthCol = styled.div`
@@ -35,7 +35,7 @@ const SectionRow = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
-  max-width: 48rem;
+
 `;
 
 const StyledDropdown = styled(Dropdown)`
@@ -168,6 +168,26 @@ const ExternalUrlField = observer(({ ux }) => {
   );
 });
 
+const ClonedAssignmentNotes = styled(({ ux, className }) => {
+  if (!ux.showPreWRMCloneHelp) { return null; }
+  return (
+    <div className={className}>
+      <div><b>Note</b></div>
+      <ul>
+        <li>OpenStax Tutor Beta allows you to assign points to questions.</li>
+        <li>You can assign Written Response Questions (manually-graded) to students.</li>
+        <li>By default, MCQs are worth 1 point, and WRQs are worth 2 points.</li>
+      </ul>
+    </div>
+  );
+})`
+  color: ${colors.neutral.dark};
+  ul {
+    margin: 0;
+    padding-left: 3rem;
+  }
+`;
+
 const DetailsBody = observer(({ ux }) => {
   const nameInputField = useRef();
   // assigment name is the first field, so it should first focused/
@@ -249,6 +269,7 @@ const DetailsBody = observer(({ ux }) => {
           </SectionRow>
         </FullWidthCol>
       </SplitRow>
+      <ClonedAssignmentNotes ux={ux} />
       {ux.isShowingAddTemplate && <EditModal ux={ux} />}
       {ux.isShowingConfirmTemplate &&
         <ConfirmTemplateModal
