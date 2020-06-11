@@ -318,6 +318,13 @@ const GradeButton = styled(TutorLink)`
   }
 `;
 
+const StyledNoActivity = styled.div`
+  padding: 20px;
+  p {
+    margin-top: 10px;
+  }
+`;
+
 const GradingBlock = observer(({ ux }) => {
   if (!ux.canDisplayGradingButton) { return null; }
 
@@ -374,6 +381,30 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
+const QuestionList = ({ ux, scores }) => {
+  if (scores.questionsInfo && scores.questionsInfo.length === 0) {
+    return (
+      <StyledNoActivity>
+        <h2>No activity yet</h2>
+        <p>No activity has been recorded for this section yet. Once students start to work the assignment their activity will appear.</p>
+      </StyledNoActivity>
+    );
+  }
+  return <HomeworkQuestions
+    questionsInfo={scores.questionsInfo}
+    questionType="teacher-review"
+    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
+};
+QuestionList.propTypes = {
+  ux: PropTypes.object.isRequired,
+  scores: {
+    questionsInfo: PropTypes.array.isRequired,
+  },
+};
+
 const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
     {
@@ -418,15 +449,9 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       </>
       )}
 
-    {ux.isExercisesReady ? (
-      <HomeworkQuestions
-        questionsInfo={scores.questionsInfo}
-        questionType="teacher-review"
-        headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-        questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-        footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-        styleVariant={ux.planScores.isReading ? 'reading' : 'submission'}
-      />) : <Loading message="Loading Questions…"/>}
+    {ux.isExercisesReady
+      ? <QuestionList ux={ux} scores={scores} />
+      : <Loading message="Loading Questions…"/>}
 
   </Wrapper>
 ));
