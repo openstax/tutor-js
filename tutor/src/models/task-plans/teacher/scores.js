@@ -220,6 +220,17 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get averageGradedPoints() {
     return this.responseStats.averageGradedPoints;
   }
+
+  @computed get isTrouble() {
+    const { correct, completed } = this.responseStats;
+    const remaining = this.gradedStats.remaining > 0;
+    return !remaining && completed > 0 && correct / completed < 0.5;
+  }
+
+  @computed get humanCorrectResponses() {
+    const { correct, completed } = this.responseStats;
+    return `${this.gradedStats.remaining > 0 ? '---' : correct} / ${completed}`;
+  }
 }
 
 @identifiedBy('task-plan/scores/tasking')

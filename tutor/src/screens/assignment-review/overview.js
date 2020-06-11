@@ -1,10 +1,11 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import S from '../../helpers/string';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
+import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import { isEmpty, compact } from 'lodash';
@@ -311,16 +312,6 @@ const GradeButton = styled(TutorLink)`
   }
 `;
 
-const StyledTooltip = styled(Tooltip)`
-  max-width: 30rem;
-  &.tooltip.show { opacity: 1; }
-
-  .tooltip-inner {
-    padding: 2.2rem 1.6rem;
-    text-align: left;
-  }
-`;
-
 const GradingBlock = observer(({ ux }) => {
   if (!ux.canDisplayGradingButton) { return null; }
 
@@ -348,17 +339,11 @@ const GradingBlock = observer(({ ux }) => {
 const AvailablePoints = ({ value }) => {
   if (!value) {
     return (
-      <OverlayTrigger
-        placement="right"
-        overlay={
-          <StyledTooltip>
-            Students received different numbers of Tutor-selected questions. This can happen when questions aren’t
-            available, a student works an assignment late, or a student hasn’t started the assignment.
-          </StyledTooltip>
-        }
-      >
-        <Icon variant="infoCircle" />
-      </OverlayTrigger>
+      <InfoIcon
+        color="#f36a31"
+        tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t
+        available, a student works an assignment late, or a student hasn’t started the assignment."
+      />
     );
   }
   return (
@@ -377,6 +362,12 @@ const StyledButton = styled(Button)`
   && { text-decoration: underline; }
 `;
 
+const StyledCell = styled(Cell)`
+  ${props => props.isTrouble && css`
+    background: ${colors.states.trouble};
+  `}
+`;
+
 const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
     <GradingBlock ux={ux}/>
@@ -385,9 +376,10 @@ const Overview = observer(({ ux, ux: { scores } }) => (
         <Header>Question Number</Header>
         {scores.question_headings.map((h, i) =>
           <Header key={i} center={true}>
-            <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-              {h.title}
-            </StyledButton>
+            {h.isCore ?
+              <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                {h.title}
+              </StyledButton> : h.title}
           </Header>)}
       </Row>
       <Row>
@@ -403,9 +395,9 @@ const Overview = observer(({ ux, ux: { scores } }) => (
       <Row>
         <Header>Correct Responses</Header>
         {scores.question_headings.map((h, i) => (
-          <Cell key={i}>
-            {h.gradedStats.remaining > 0 ? '---' : h.responseStats.correct} / {h.responseStats.completed}
-          </Cell>
+          <StyledCell key={i} isTrouble={h.isTrouble}>
+            {h.humanCorrectResponses}
+          </StyledCell>
         ))}
       </Row>
     </StyledStickyTable>
