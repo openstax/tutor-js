@@ -54,28 +54,27 @@ const Controls = styled.div`
   }
 `;
 
-const StyledPublishButton = styled(AsyncButton).attrs(props => ({
-  disabled: props.isDisabled,
-  variant: props.isDisabled ? 'plain' : 'primary',
-}))`
-  &&& {
-    padding: 10px;
-    pointer-events: none;
-  }
+const StyledPublishButton = styled(AsyncButton)`
+    && {
+      padding: 10px;
+      pointer-events: ${props => props.disabled ? 'none' : 'all'};
+    }
 `;
 
 const Question = ({ heading, ux, index }) => useObserver(() => {
-  const stats = heading.gradedStats;
+  const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
+  const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
   return (
     <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
       <h6>{heading.title}</h6>
-      {stats.complete ? <Icon type="check" color="green" /> : <span>{heading.gradedProgress}</span>}
+      {stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
     </QuestionWrapper>
   );
 });
 
 
 const QuestionsBar = ({ ux }) => useObserver(() => {
+  const isPublishScoresDisabled = !ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade;
   return (
     <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
@@ -83,23 +82,23 @@ const QuestionsBar = ({ ux }) => useObserver(() => {
       </QuestionsWrapper>
       <Controls>
         <OverlayTrigger
-          placement="top"
-          delay={{ show: 250, hide: 400 }}
+          placement="bottom"
           overlay={
             <Tooltip>
-              {!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade && 'All scores have already been published.'}
+              {isPublishScoresDisabled && 'All scores have already been published.'}
             </Tooltip>
           }
         >
-          <span>
+          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
             <StyledPublishButton
-              isDisabled={!ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade}
+              disabled={isPublishScoresDisabled}
+              variant={isPublishScoresDisabled ? 'plain' : 'primary'}
               onClick={ux.onPublishScores}
               isWaiting={ux.isPublishingScores}
               waitingText="Publishing...">
           Publish Scores
             </StyledPublishButton>
-          </span>
+          </div>
         </OverlayTrigger>
         <StyledSettingsIcon
           ux={ux}

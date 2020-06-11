@@ -69,12 +69,26 @@ export default class AssignmentGradingUX {
     return this.planScores.taskPlan.activeAssignedPeriods;
   }
 
-  @computed get completedResponses() {
-    return filter(this.selectedHeading.studentResponses, sr => sr.grader_points !== undefined);
+  @computed get gradedResponses() {
+    return filter(this.selectedHeading.studentResponses, sr => {
+      if(this.showOnlyAttempted) {
+        return sr.is_completed && !sr.needs_grading;
+      }
+      return !sr.needs_grading;
+    });
   }
 
   @computed get needsGradingResponses() {
-    return filter(this.selectedHeading.studentResponses, 'needs_grading');
+    return filter(this.selectedHeading.studentResponses, sr => {
+      if(this.showOnlyAttempted) {
+        return sr.is_completed && sr.needs_grading;
+      }
+      return sr.needs_grading;
+    });
+  }
+
+  @computed get unAttemptedResponses() {
+    return filter(this.selectedHeading.studentResponses, sr => !sr.needs_grading && !sr.is_completed);
   }
 
   @computed get selectedHeading() {
@@ -98,7 +112,7 @@ export default class AssignmentGradingUX {
   }
 
   @computed get isLastStudent() {
-    return this.unGraded.length === 1;
+    return this.needsGradingResponses.length === 1;
   }
 
   wasQuestionViewed(index) {
