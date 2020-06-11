@@ -59,7 +59,7 @@ export class ExercisesMap extends Map {
       ecosystem_id = book.id;
     }
     let url = `ecosystems/${ecosystem_id}/exercises`;
-    if (limit) { url += `/${limit}`; }
+
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
       query.page_ids = uniq(toJS(page_ids));
@@ -69,7 +69,10 @@ export class ExercisesMap extends Map {
     }
     if (exercise_ids) {
       query.exercise_ids = uniq(toJS(exercise_ids));
+    } else if (limit) {
+      url += `/${limit}`;
     }
+
     return {
       url, query,
     };
