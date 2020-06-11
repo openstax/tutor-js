@@ -53,6 +53,8 @@ QuestionHeader.propTypes = {
 };
 
 const QuestionFooter = observer(({ ux, info }) => {
+  if (info.question.isMultipleChoice) { return null; }
+
   return (<Footer>
     <strong>
       Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
@@ -296,11 +298,11 @@ const Legend = styled.div`
 
 const Toolbar = styled.div`
   display: flex;
-  align-items: center;
-  margin: 0 auto 2rem;
-  max-width: 60rem;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 0.8rem;
   p {
-    margin: 0 1.6rem 0 0;
+    margin: 0.8rem 0 0 0;
   }
 `;
 
@@ -309,6 +311,10 @@ const GradeButton = styled(TutorLink)`
     padding: 1.5rem 2.1rem 1.5rem;
     line-height: 1.9rem;
     ${props => props.displayingFlag && 'padding-left: 1.1rem;'}
+    &.btn-link {
+      font-size: 1.6rem;
+      padding: 0.5rem;
+    }
   }
 `;
 
@@ -317,7 +323,6 @@ const GradingBlock = observer(({ ux }) => {
 
   return (
     <Toolbar>
-      <p>This assignment is now open for grading.</p>
       <GradeButton
         to="gradeAssignment"
         className="btn btn-primary btn-new-flag btn-standard"
@@ -332,6 +337,7 @@ const GradingBlock = observer(({ ux }) => {
           <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
         <span>Grade answers</span>
       </GradeButton>
+      <p>This assignment is now open for grading.</p>
     </Toolbar>
   );
 });
