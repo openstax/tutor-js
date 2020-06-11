@@ -7,6 +7,7 @@ context('Student Tasks', () => {
   it('advances after answering a free-response only question', () => {
     cy.visit('/course/1/task/3') // task id 3 is a hardcoded WRM task
     cy.disableTours();
+    cy.get('.icon-instructions').click()
     cy.getTestElement('homework-instructions').should('exist')
     cy.getTestElement('value-prop-continue-btn').click();
     cy.getTestElement('student-free-response').should('exist')

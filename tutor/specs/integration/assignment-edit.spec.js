@@ -141,7 +141,7 @@ context('Assignment Edit', () => {
     cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
     cy.get('.heading').should('not.contain.text', 'STEP 1')
-    cy.get('[name="settings.external_url"').type('url')
+    cy.get('[name="external_url"').type('url')
   });
 
   it('can add a new template', () => {

@@ -22,7 +22,7 @@ class TaskResult extends BaseModel {
   @field completed_accepted_late_step_count;
   @field completed_exercise_count;
   @field completed_on_time_exercise_count;
-  @field completed_on_time_step_count;
+  @field completed_on_time_steps_count;
   @field completed_step_count;
   @field correct_accepted_late_exercise_count;
   @field correct_exercise_count;
@@ -114,8 +114,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get completedStepCount() {
-    return Math.max(this.completed_accepted_late_step_count,
-      this.completed_on_time_step_count);
+    return Math.max(this.completed_step_count, this.completed_on_time_steps_count);
   }
 
   @computed get completedExerciseCount() {

@@ -79,6 +79,7 @@ class Course extends BaseModel {
   @field reading_weight;
   @field homework_weight;
   @field just_created = false;
+  @field uses_pre_wrm_scores = false;
 
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
