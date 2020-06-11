@@ -331,7 +331,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get canDisplayGradingBlock() {
-    return Boolean(this.planScores.isHomework && this.scores);
+    return Boolean((this.planScores.isHomework || this.planScores.isReading) && this.scores);
   }
 
   @computed get canDisplayGradingButton() {
