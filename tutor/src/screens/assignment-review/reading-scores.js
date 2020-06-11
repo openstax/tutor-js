@@ -13,6 +13,7 @@ import TutorLink from '../../components/link';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
 import PublishScores from './publish-scores';
+import { EIcon } from '../../components/icons/extension';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
@@ -57,6 +58,9 @@ const CellContents = styled.div`
   > *:first-child {
     width: 16rem;
   }
+  .data-heading {
+    height: 110px;
+  }
 `;
 
 const Heading = styled.div`
@@ -94,8 +98,8 @@ const HeadingBottom = styled.div`
 `;
 
 const ColumnHeading = styled.div`
-  background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
-  border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.homework.border : colors.neutral.std};
+  background: ${props => props.variant === 'q' ? colors.templates.reading.background : colors.neutral.lighter};
+  border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.reading.border : colors.neutral.std};
   cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
   &:not(:last-child) {
     border-right: 1px solid ${colors.neutral.pale};
@@ -104,6 +108,12 @@ const ColumnHeading = styled.div`
     ${props => !props.first && css`
       ${centeredCSS}
     `}
+  }
+  .middle-data-heading {
+    padding-top: 15px;
+  }
+  .bottom-data-heading {
+    height: 40px;
   }
 `;
 
@@ -155,39 +165,19 @@ const isTroubleCSS = css`
   border-bottom: 1px solid ${colors.danger} !important;
 `;
 
-const Result = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DefinitionsWrapper = styled.dl`
+const DefinitionsWrapper = styled.div`
   margin: 1.4rem 0;
-  display: flex;
-  align-items: center;
-  dd + dt {
-    margin-left: 4.8rem;
+  ol {
+    margin-top: 8px;
+    padding-left: 15px;
+    
+    li:not(:first-child) {
+      margin-top: 8px;
+      .extension-icon {
+        display: inline-block;
+      }
+    }
   }
-`;
-
-const Term = styled.dt`
-  border-color: ${colors.neutral.light};
-  border-style: solid;
-  ${props => props.variant === 'trouble' && isTroubleCSS}
-  ${props => props.variant === 'trouble' && `border-color: ${colors.danger}`};
-  border-width: 1px;
-  display: flex;
-  justify-content: center;
-  width: 5.6rem;
-  height: 2.8rem;
-  margin-right: 1.1rem;
-  font-size: 1.4rem;
-  line-height: 2.4rem;
-`;
-
-const Definition = styled.dd`
-  margin: 0;
-  color: ${colors.neutral.thin};
 `;
 
 const CornerTriangle = ({ color, tooltip }) => {
@@ -258,9 +248,7 @@ const StudentColumnHeader = observer(({ ux }) => (
             aria-label="Toggle firstname lastname order"
           />
         </HeadingMiddle>
-        <HeadingBottom>
-          Available Points
-        </HeadingBottom>
+        <HeadingBottom style={{ padding: '19px' }} />
       </ColumnHeading>
       <ColumnHeading>
         <HeadingTop
@@ -318,67 +306,70 @@ const StudentColumnHeader = observer(({ ux }) => (
 ));
 
 
-const StudentCell = observer(({ ux, student, striped }) => (
-  <Cell striped={striped}>
-    <CellContents>
-
-      <Heading first={true}>
-        <TutorLink
-          to="viewTask"
-          params={{
-            courseId: ux.course.id,
-            id: student.task_id,
-          }}
-        >
-          {ux.reverseNameOrder ? student.reversedName : student.name}
-        </TutorLink>
-      </Heading>
-
-      <Total>
-        {ux.displayTotalInPercent ?
-          `${S.asPercent(student.total_fraction || 0)}%` :
-          S.numberWithOneDecimalPlace(student.total_points)}
-      </Total>
-      <LateWork>
-        {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
-        {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
-      </LateWork>
-    </CellContents>
-  </Cell>
-));
-
-
-const AssignmentHeading = observer(({ ux, heading }) => (
-  <Cell onClick={() => ux.changeRowSortingOrder(heading.index, 'question')}>
-    <ColumnHeading variant="q">
-      <HeadingTop>
-        {heading.title}
-        <SortIcon sort={ux.sortForColumn(heading.index, 'question')} />
-      </HeadingTop>
-      <HeadingMiddle>
-        {heading.type}
-      </HeadingMiddle>
-      <HeadingBottom>
-        {heading.dropped &&
-          <CornerTriangle color="blue"
-            tooltip={heading.dropped.drop_method == 'zeroed' ?
-              'Points changed to 0' : 'Full credit given to all students'}
-          />}
-        {S.numberWithOneDecimalPlace(heading.displayPoints)}
-      </HeadingBottom>
-    </ColumnHeading>
-  </Cell>
-));
-
-const TaskResult = observer(({ result, striped }) => {
+const StudentCell = observer(({ ux, student, striped }) => {
+  const countData = ux.getReadingCountData(student);
   return (
-    <Cell striped={striped} isTrouble={result && result.isTrouble}>
-      <Result>
-        {result ? result.displayValue : 'N/A'}
-      </Result>
-    </Cell>
+    <>
+      <Cell striped={striped}>
+        <CellContents>
+
+          <Heading first={true}>
+            <TutorLink
+              to="viewTask"
+              params={{
+                courseId: ux.course.id,
+                id: student.task_id,
+              }}
+            >
+              {ux.reverseNameOrder ? student.reversedName : student.name}
+            </TutorLink>
+          </Heading>
+
+          <Total>
+            {ux.displayTotalInPercent ?
+              `${S.asPercent(student.total_fraction || 0)}%` :
+              S.numberWithOneDecimalPlace(student.total_points)}
+          </Total>
+          <LateWork>
+            {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
+            {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
+          </LateWork>
+        </CellContents>
+      </Cell>
+      <Cell striped={striped}>
+        <CellContents>
+          {countData.complete} of {countData.total}
+        </CellContents>
+      </Cell>
+      <Cell striped={striped}>
+        <CellContents>
+          {countData.correct} of {countData.complete}
+        </CellContents>
+      </Cell>
+      <Cell striped={striped}>
+        <CellContents>
+          {countData.incorrect} of {countData.complete}
+        </CellContents>
+      </Cell>
+    </>
   );
 });
+
+
+const AssignmentHeading = ({ headingName }) => (
+  <Cell>
+    <ColumnHeading className="data-heading" variant="q">
+      <HeadingTop>
+        {headingName}
+      </HeadingTop>
+      <HeadingMiddle className="middle-data-heading" />
+      <HeadingBottom className="bottom-data-heading" />
+    </ColumnHeading>
+  </Cell>
+);
+AssignmentHeading.propTypes = {
+  headingName: PropTypes.string.isRequired,
+};
 
 const AverageScoreHeader = observer(({ ux }) => (
   <Cell leftBorder={true}>
@@ -393,11 +384,7 @@ const AverageScoreHeader = observer(({ ux }) => (
           {ux.overallAverageScore}
         </Heading>
       </ColumnFooter>
-      <ColumnFooter>
-        <Heading>
-          n/a
-        </Heading>
-      </ColumnFooter>
+      <ColumnFooter />
     </CellContents>
   </Cell>
 ));
@@ -463,38 +450,25 @@ const ReadingScores = observer(({ ux }) => {
       <StyledStickyTable data-test-id="scores">
         <Row>
           <StudentColumnHeader scores={scores} ux={ux} />
-          {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
+          {['Completed', 'Correct', 'Incorrect'].map(h => <AssignmentHeading headingName={h} />)}
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
-            {scores.question_headings.map((heading, i) => (
-              <TaskResult
-                key={i}
-                index={i}
-                ux={ux}
-                result={student.resultForHeading(heading)}
-                striped={0 === sIndex % 2}
-              />
-            ))}
           </Row>))}
         <Row>
           <AverageScoreHeader ux={ux} />
-          {scores.question_headings.map((h, i) => (
-            <Cell key={i}>
-              <Result>
-                {isNaN(h.responseStats.averageGradedPoints) && '---' ||
-                  S.numberWithOneDecimalPlace(h.responseStats.averageGradedPoints)}
-              </Result>
-            </Cell>
-          ))}
+          <Cell />
+          <Cell />
+          <Cell />
         </Row>
       </StyledStickyTable>
       <DefinitionsWrapper>
-        <Term variant="trouble" aria-label="Less than 50%"></Term>
-        <Definition>Scores less than 50% of question's point value</Definition>
-        <Term aria-label="Unattempted">---</Term>
-        <Definition>Unattempted question or ungraded responses</Definition>
+        <strong>NOTE</strong>
+        <ol>
+          <li>The late penalty is applied only to the points earned after the due date. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a></li>
+          <li>Students who’ve been granted an extension are denoted with <EIcon /></li>
+        </ol>
       </DefinitionsWrapper>
     </>
   );

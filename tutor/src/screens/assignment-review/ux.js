@@ -359,4 +359,16 @@ export default class AssignmentReviewUX {
       align: { top: 0, topOffset: 80 },
     });
   }
+
+  getReadingCountData(student) {
+    const completedQuestions = filter(student.questions, 'is_completed');
+    return {
+      total: student.questions.length,
+      complete: completedQuestions.length,
+      correct: filter(completedQuestions, cq => cq.is_correct).length,
+      incorrect: filter(completedQuestions, cq => !cq.is_correct).length,
+    };
+  }
+
+
 }
