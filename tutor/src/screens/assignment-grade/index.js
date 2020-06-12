@@ -1,6 +1,7 @@
 import { React, PropTypes, withRouter, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
+import TutorLink from '../../components/link';
 import UX from './ux';
 import QuestionsBar from './questions-bar';
 import Question from './question';
@@ -77,12 +78,25 @@ class AssignmentGrading extends React.Component {
               onChange={ux.setSelectedPeriod}
             />
           </Heading>
-          <QuestionsBar ux={ux} />
-          <BodyBackground>
-            <Question
-              ux={ux}
-            />
-          </BodyBackground>
+          {
+            ux.headings.length === 0 
+              ? <>
+                <h2>No activity yet</h2>
+                <p>
+                No students enrolled.
+                Manage student enrollment in <TutorLink to="courseRoster" params={{ courseId: ux.course.id }}>Course roster</TutorLink>.
+                </p>
+              </>
+              : <>
+                <QuestionsBar ux={ux} />
+                <BodyBackground>
+                  <Question
+                    ux={ux}
+                  />
+                </BodyBackground>
+              </>
+          }
+          
         </ScrollToTop>
       </BackgroundWrapper>
     );
