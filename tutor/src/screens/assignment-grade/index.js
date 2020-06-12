@@ -53,6 +53,29 @@ class AssignmentGrading extends React.Component {
     });
   }
 
+  renderEmpty(courseId) {
+    return (<>
+      <h2>No activity yet</h2>
+      <p>
+        No students enrolled.
+        Manage student enrollment in <TutorLink to="courseRoster" params={{ courseId }}>Course roster</TutorLink>.
+      </p>
+    </>);
+  }
+
+  renderContent(ux) {
+    return (
+      <>
+        <QuestionsBar ux={ux} />
+        <BodyBackground>
+          <Question
+            ux={ux}
+          />
+        </BodyBackground>
+      </>
+    );
+  }
+
   render() {
     const { ux } = this;
 
@@ -78,25 +101,7 @@ class AssignmentGrading extends React.Component {
               onChange={ux.setSelectedPeriod}
             />
           </Heading>
-          {
-            ux.headings.length === 0 
-              ? <>
-                <h2>No activity yet</h2>
-                <p>
-                No students enrolled.
-                Manage student enrollment in <TutorLink to="courseRoster" params={{ courseId: ux.course.id }}>Course roster</TutorLink>.
-                </p>
-              </>
-              : <>
-                <QuestionsBar ux={ux} />
-                <BodyBackground>
-                  <Question
-                    ux={ux}
-                  />
-                </BodyBackground>
-              </>
-          }
-          
+          { ux.headings.length === 0 ? this.renderEmpty(ux.course.id) : this.renderContent(ux) }  
         </ScrollToTop>
       </BackgroundWrapper>
     );
