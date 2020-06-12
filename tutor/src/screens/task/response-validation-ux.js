@@ -50,7 +50,7 @@ class ResponseValidationUX {
   }
 
   @action.bound async onSave() {
-    if (!this.validator.isEnabled) {
+    if (!this.validator.isEnabled || !this.step.can_be_updated) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
       this.taskUX.onFreeResponseComplete(this.step);
       return;
