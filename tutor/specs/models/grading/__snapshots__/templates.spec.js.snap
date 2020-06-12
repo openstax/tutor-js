@@ -3,8 +3,8 @@
 exports[`Grading Templates creates a store with models 1`] = `
 Object {
   "auto_grading_feedback_on": false,
-  "completion_weight": 0.87,
-  "correctness_weight": 0.17,
+  "completion_weight": 0.42,
+  "correctness_weight": 0.8300000000000001,
   "default_close_date_offset_days": 1,
   "default_due_date_offset_days": 1,
   "default_due_time": "17:00",
@@ -13,7 +13,7 @@ Object {
   "id": 1,
   "late_work_penalty": 0.1,
   "late_work_penalty_applied": "daily",
-  "manual_grading_feedback_on": true,
+  "manual_grading_feedback_on": false,
   "name": "Default Reading",
   "task_plan_type": "reading",
 }

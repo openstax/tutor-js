@@ -67,14 +67,6 @@ class StudentTask extends BaseModel {
     return Boolean(this.isPastDue && this.complete);
   }
 
-  @computed get lateWorkIsAccepted() {
-    return Boolean(
-      this.accepted_late_at &&
-        this.last_worked_at &&
-        moment(this.accepted_late_at).isAfter(this.last_worked_at)
-    );
-  }
-
   @computed get isHomework() {
     return 'homework' === this.type;
   }

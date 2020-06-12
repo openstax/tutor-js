@@ -7,8 +7,8 @@ exports[`Delete Modal matches snapshot 1`] = `
   template={
     GradingTemplate {
       "auto_grading_feedback_on": false,
-      "completion_weight": 0.64,
-      "correctness_weight": 0.77,
+      "completion_weight": 0.05,
+      "correctness_weight": 0.59,
       "default_close_date_offset_days": 1,
       "default_due_date_offset_days": 1,
       "default_due_time": "17:00",

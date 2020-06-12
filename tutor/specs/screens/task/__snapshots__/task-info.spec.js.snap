@@ -4,19 +4,18 @@ exports[`Tasks Info matches snapshot 1`] = `
 <TaskInfo
   task={
     StudentTask {
-      "closes_at": undefined,
+      "closes_at": 2017-10-21T12:00:00.000Z,
       "complete": undefined,
-      "completion_weight": undefined,
-      "correctness_weight": undefined,
-      "description": undefined,
-      "due_at": 2017-10-17T12:00:00.000Z,
+      "completion_weight": 0,
+      "correctness_weight": 1,
+      "description": "maximized",
+      "due_at": 2017-10-14T12:00:00.000Z,
       "feedback_at": undefined,
       "id": 1,
       "isLoading": false,
-      "is_deleted": undefined,
-      "late_work_penalty_applied": undefined,
-      "late_work_penalty_per_period": undefined,
-      "late_work_point_penalty": undefined,
+      "is_deleted": false,
+      "late_work_penalty_applied": "assignment",
+      "late_work_penalty_per_period": 1,
       "spy": Object {},
       "steps": Array [
         StudentTaskStep {
@@ -26,26 +25,28 @@ exports[`Tasks Info matches snapshot 1`] = `
           "answer_id": undefined,
           "available_points": undefined,
           "can_be_updated": true,
-          "content": StudentTaskInteractiveStep {
+          "content": StudentTaskReadingStep {
             "chapter_section": Array [
               1,
               2,
             ],
             "has_learning_objectives": false,
-            "html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" <div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.15</span><span class=\\"os-divider\\"> </span><span class=\\"os-caption\\"> <a class=\\"os-interactive-link\\" href=\\"https://www.openstaxcollege.org/l/02equation_grapher\\"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>",
+            "html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" data-media-type=\\"image/wmf\\" id=\\"90580\\" src=\\"https://cnx.org/resources/18f7913be5bf22af357a34143dd8638511b9ba9a\\" width=\\"325\\"></span> </figure><div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.2</span><span class=\\"os-divider\\"s as food calories, batteries, heat, light, and watch springs. Understanding this law makes it easier to learn about the various forms energy takes and how they relate to one another. Apparently unrelated topics are connected through broadly applicable physical laws, permitting an understanding beyond just the memorization of lists of facts.</p> <p id=\\"import-auto-id2555094\\">The unifying aspect of physical laws and the basic simplicity",
             "id": 1,
             "related_content": Array [
-              Object {
-                "book_location": Array [
-                  1,
-                  2,
-                ],
-                "title": "The Onset of Turbulence",
+              RelatedContent {
+                "chapter_section": ChapterSection {
+                  "chapter": 1,
+                  "section": 2,
+                },
+                "page_id": undefined,
+                "title": "RL Circuits",
+                "uuid": undefined,
               },
             ],
             "requiresAnswerId": false,
-            "title": "Biotechnology",
-            "type": "interactive",
+            "title": "Food Irradiation",
+            "type": "reading",
           },
           "correct_answer_id": undefined,
           "external_url": null,
@@ -61,18 +62,20 @@ exports[`Tasks Info matches snapshot 1`] = `
           "labels": Array [],
           "last_completed_at": undefined,
           "multiPartGroup": undefined,
-          "preview": "Organizing Life on Earth",
+          "preview": "Breathing",
           "response_validation": Object {},
           "spy": Object {},
           "task": [Circular],
           "task_association_name": "steps",
-          "type": "interactive",
+          "type": "reading",
           "uid": null,
         },
       ],
+      "student_late_work_point_penalty": 0,
+      "student_points": 1,
       "students": Array [],
       "tasksMap": Object {},
-      "title": "motivating",
+      "title": "6th generation",
       "type": "reading",
     }
   }

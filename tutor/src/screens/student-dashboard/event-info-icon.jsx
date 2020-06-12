@@ -24,11 +24,7 @@ class EventInfoIcon extends React.Component {
 
     let color;
     if (isLate) {
-      if (event.lateWorkIsAccepted) {
-        color = Theme.colors.neutral.thin;
-      } else {
-        color = Theme.colors.danger;
-      }
+      color = Theme.colors.danger;
     } else {
       color = Theme.colors.warning;
     }

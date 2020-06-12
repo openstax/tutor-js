@@ -2,7 +2,7 @@ import { TimeMock, Factory } from '../../../helpers';
 import COURSE_1_DATA from '../../../../api/courses/1/dashboard.json';
 import moment from 'moment';
 
-describe('Student Task Model', () => {
+describe('Student Dashboard Task Model', () => {
 
   let task;
   const now = TimeMock.setTo('2017-10-14T12:00:00.000Z');
@@ -21,15 +21,6 @@ describe('Student Task Model', () => {
     expect(task.isViewable).toBe(false);
     task.complete_exercise_count = 1;
     expect(task.isViewable).toBe(true);
-  });
-
-  it('#lateWorkIsAccepted', () => {
-    expect(task.lateWorkIsAccepted).toBe(false);
-    task.accepted_late_at = now;
-    task.last_worked_at = moment(now).subtract(1, 'day');
-    expect(task.lateWorkIsAccepted).toBe(true);
-    task.last_worked_at = moment(now).add(1, 'day');
-    expect(task.lateWorkIsAccepted).toBe(false);
   });
 
   it('hw#humanProgress', () => {
