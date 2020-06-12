@@ -19,7 +19,7 @@ class StudentTask extends BaseModel {
   @field title;
   @field type;
   @field complete;
-  @field score;
+  @field student_points; // points that are visible to the student
   @field is_provisional_score;
   @field is_deleted;
   @field is_college;
@@ -131,7 +131,7 @@ class StudentTask extends BaseModel {
   }
 
   @computed get humanScore() {
-    return isNil(this.score) ? '---' : S.numberWithOneDecimalPlace(this.score);
+    return isNil(this.student_points) ? '---' : S.numberWithOneDecimalPlace(this.student_points);
   }
 
   // called from API

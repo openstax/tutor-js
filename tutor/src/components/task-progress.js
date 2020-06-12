@@ -194,12 +194,13 @@ class TaskProgress extends React.Component {
                 })
               }
               {task.hasLateWorkPolicy &&
-                <Cell>{task.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.late_work_point_penalty)}` : '0.0'}</Cell>}
-              <Cell>{
-                S.numberWithOneDecimalPlace(sumBy(steps, s => {
-                  return s.pointsScored !== null ? s.pointsScored : 0;
-                }))
-              }</Cell>
+                <Cell>
+                  {task.student_late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.student_late_work_point_penalty)}` : '0.0'}
+                </Cell>}
+              <Cell>
+                {task.student_points !== null ?
+                S.numberWithOneDecimalPlace(task.student_points) : '---' }
+              </Cell>
             </Row>
         }
       </StyledStickyTable>
