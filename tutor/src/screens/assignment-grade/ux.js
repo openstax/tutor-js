@@ -100,6 +100,7 @@ export default class AssignmentGradingUX {
   }
 
   @computed get headings() {
+    if(!this.scores) return [];
     return this.scores.question_headings.gradable();
   }
 
