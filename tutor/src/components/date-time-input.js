@@ -80,7 +80,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
     field.onChange(ev);
     props.onChange && props.onChange(ev);
   };
-  
+
   return (
     <StyledWrapper className={cn('date-time-input', props.className)}>
       <LabelWrapper>
