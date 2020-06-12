@@ -27,6 +27,11 @@ class TaskingPlan extends BaseModel {
   @field due_at;
   @field closes_at;
 
+  constructor(attrs) {
+    super(attrs);
+    this.originalDueAt = this.due_at;
+  }
+
   get course() {
     return get(this.plan, 'course');
   }
@@ -90,14 +95,22 @@ class TaskingPlan extends BaseModel {
     return moment(this.opens_at).isBefore(Time.now);
   }
 
+  @computed get isBeforeDue() {
+    return moment(this.due_at).isAfter(Time.now);
+  }
+
   @computed get isValid() {
     return Boolean(
       this.target_id &&
         this.target_type &&
         this.opens_at &&
         this.due_at &&
-        moment(this.due_at).isAfter(Time.now)
+        ((this.isNew || this.dueAtChanged) ? this.isBeforeDue : true)
     );
+  }
+
+  @computed get dueAtChanged() {
+    return !moment(this.originalDueAt).isSame(this.due_at);
   }
 
   @action async persistTime(type) {
