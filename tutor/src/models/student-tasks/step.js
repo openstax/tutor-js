@@ -3,7 +3,7 @@ import {
   observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
 import S from '../../helpers/string';
-import { pick, get } from 'lodash';
+import { pick, get, isNil } from 'lodash';
 import Exercise from '../exercises/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -134,7 +134,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get pointsScored() {
-    if(this.grader_points) return this.grader_points;
+    if(!isNil(this.grader_points)) return this.grader_points;
     if (this.correct_answer_id) {
       return this.answer_id === this.correct_answer_id
         ? this.available_points
