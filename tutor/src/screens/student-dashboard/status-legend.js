@@ -1,9 +1,8 @@
 import { React, styled } from 'vendor';
-import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Icon } from 'shared';
+import { colors } from 'theme';
 import { EIcon } from '../../components/icons/extension';
-import Theme from '../../theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,29 +32,23 @@ const StyledEIcon = styled(EIcon)`
   line-height: 1.2rem;
 `;
 
-const StatusIconLegend = props => {
-  if (isEmpty(props.tasks)) {
-    return null;
-  }
+const StatusIconLegend = () => (
+  <Wrapper>
+    <span>
+      <Icon color={colors.warning} type="exclamation-circle" /> Due soon
+    </span>
+    <span>
+      <Icon color={colors.danger} type="clock" /> Late
+    </span>
+    <span>
+      <StyledEIcon /> Extension
+    </span>
+    <span>
+      <Icon variant="circledStar" /> Provisional score. Final scores will be available when published by your instructor.
+    </span>
 
-  return (
-    <Wrapper>
-      <span>
-        <Icon color={Theme.colors.warning} type="exclamation-circle" /> Due soon
-      </span>
-      <span>
-        <Icon color={Theme.colors.danger} type="clock" /> Late
-      </span>
-      <span>
-        <StyledEIcon /> Extension
-      </span>
-      <span>
-        <Icon variant="circledStar" /> Provisional score. Final scores will be available when published by your instructor.
-      </span>
-
-    </Wrapper>
-  );
-};
+  </Wrapper>
+);
 
 StatusIconLegend.propTypes = {
   tasks: PropTypes.oneOfType([
