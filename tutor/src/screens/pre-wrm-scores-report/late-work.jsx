@@ -206,11 +206,9 @@ class LateWork extends React.Component {
   }
 
   render() {
-    if (!this.props.task.isLate) { return null; }
+    const { task } = this.props;
 
-    const caretClass = classnames('late-caret', {
-      accepted: this.props.task.is_late_work_accepted && !this.props.task.hasAdditionalLateWork,
-    });
+    if (!task.is_past_due || task.step_count == task.completed_on_time_steps_count) { return null; }
 
     return (
       <div
@@ -230,7 +228,7 @@ class LateWork extends React.Component {
             columnIndex={this.props.columnIndex}
             hide={this.hide} />
         </Overlay>
-        <div ref="caret" className={caretClass} />
+        <div ref="caret" className="late-caret" />
       </div>
     );
   }

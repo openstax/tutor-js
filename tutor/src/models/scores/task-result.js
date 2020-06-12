@@ -66,10 +66,6 @@ class TaskResult extends BaseModel {
     return this.unacceptedLateStepCount > 0;
   }
 
-  @computed get isLate() {
-    return Boolean(this.is_past_due);
-  }
-
   @computed get isStarted() {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
