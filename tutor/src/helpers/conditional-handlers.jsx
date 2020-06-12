@@ -57,7 +57,7 @@ const getConditionalHandlers = (Router) => {
     const gradeBookRenderer = renderTeacherStudent(TeacherGradebook, StudentGradebook);
     return (props) => {
       const course = Courses.get(props.params.courseId);
-      if (course && course.uses_pre_wrm_scores) {
+      if (course && course.currentRole.isTeacher && course.uses_pre_wrm_scores) {
         return <PreWRMGradebook {...props} />;
       }
       return gradeBookRenderer(props);
