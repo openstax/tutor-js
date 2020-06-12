@@ -178,7 +178,7 @@ class TaskProgress extends React.Component {
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
-          steps.some(s => s.correct_answer_id || isNil(s.grader_points)) &&
+          steps.some(s => s.correct_answer_id || !isNil(s.grader_points)) &&
             <Row>
               <Cell>Points Scored</Cell>
               {
