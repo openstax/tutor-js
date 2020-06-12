@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import { map, sumBy } from 'lodash';
+import { map, sumBy, isNil } from 'lodash';
 import { colors } from 'theme';
 import S from '../../src/helpers/string';
 
@@ -119,7 +119,6 @@ class TaskProgress extends React.Component {
     goToStep: PropTypes.func.isRequired,
     currentStep: PropTypes.object.isRequired,
   };
-
   render() {
     const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
@@ -179,7 +178,7 @@ class TaskProgress extends React.Component {
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
-          steps.some(s => s.correct_answer_id || s.grader_points) &&
+          steps.some(s => s.correct_answer_id || !isNil(s.grader_points)) &&
             <Row>
               <Cell>Points Scored</Cell>
               {
