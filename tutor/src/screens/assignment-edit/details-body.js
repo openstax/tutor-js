@@ -245,7 +245,7 @@ const DetailsBody = observer(({ ux }) => {
               checked={ux.isShowingPeriodTaskings}
               onChange={ux.togglePeriodTaskingsEnabled}
             />
-            {ux.isShowingPeriodTaskings && ux.course.periods.map(p => <Tasking key={p.id} period={p} ux={ux} />)}
+            {ux.isShowingPeriodTaskings && ux.course.periods.active.map(p => <Tasking key={p.id} period={p} ux={ux} />)}
           </SectionRow>
         </FullWidthCol>
       </SplitRow>
