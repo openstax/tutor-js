@@ -131,7 +131,7 @@ class Settings extends React.Component {
           placement="bottom"
           show={this.showPopoverSettings}
           onHide={() => this.showPopoverSettings = false }>
-          <Popover className="gradebook-popover" >
+          <Popover className="scores-popover" >
             <Toggles>
               {map(controls, (title, property) => <SettingsCheckbox key={property} ux={ux} property={property} title={title} />)}
             </Toggles>
@@ -143,7 +143,7 @@ class Settings extends React.Component {
           target={this.target.current}
           placement="bottom"
           show={this.showPopoverInfo && !this.showPopoverSettings}>
-          <Popover className="gradebook-popover" >  
+          <Popover className="scores-popover" >  
             <p>{label}</p>
           </Popover>
         </Overlay>

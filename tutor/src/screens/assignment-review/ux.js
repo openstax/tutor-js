@@ -331,15 +331,11 @@ export default class AssignmentReviewUX {
   }
 
   @computed get canDisplayGradingBlock() {
-    return Boolean(this.planScores.isHomework && this.scores);
+    return Boolean((this.planScores.isHomework || this.planScores.isReading) && this.scores);
   }
 
   @computed get canDisplayGradingButton() {
     return Boolean(this.taskingPlan.isPastDue && this.scores.hasAnyResponses);
-  }
-
-  @computed get isReadingOrHomework() {
-    return Boolean(['reading', 'homework'].includes(this.planScores.type));
   }
 
   @computed get hasUnPublishedScores() {
@@ -367,4 +363,16 @@ export default class AssignmentReviewUX {
       align: { top: 0, topOffset: 80 },
     });
   }
+
+  getReadingCountData(student) {
+    const completedQuestions = filter(student.questions, 'is_completed');
+    return {
+      total: student.questions.length,
+      complete: completedQuestions.length,
+      correct: filter(completedQuestions, cq => cq.is_correct).length,
+      incorrect: filter(completedQuestions, cq => !cq.is_correct).length,
+    };
+  }
+
+
 }

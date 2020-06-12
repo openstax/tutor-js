@@ -35,7 +35,7 @@ class ScoresExport extends React.Component {
 
   render() {
     const popover = (
-      <Popover className="gradebook-popover">
+      <Popover className="scores-popover">
         <p>Download score sheet as an Excel file</p>
       </Popover>
     );

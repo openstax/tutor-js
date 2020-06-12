@@ -290,7 +290,7 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
       placement="bottom"
       trigger="hover"
       overlay={
-        <Popover className="gradebook-popover">
+        <Popover className="scores-popover">
           <p>{heading.title}</p>
         </Popover>}
     >

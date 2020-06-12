@@ -72,6 +72,16 @@ const LightBlue = css`
   background: #EFFDFF;
 `;
 
+const DarkYellow = css`
+  border-color: #F4D018;
+  background: #F4D018;
+`;
+
+const LightYellow = css`
+  border-color: #FDEA85;
+  background: #FAF8ED;
+`;
+
 const Gray = css`
   border-color: ${colors.neutral.pale};
   background: #eeeded;
@@ -96,8 +106,8 @@ const ChartItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${props => props.variant === 'Completed' && DarkBlue}
-  ${props => props.variant === 'In progress' && LightBlue}
+  ${props => props.variant === 'Completed' && (props.isReading ? DarkYellow : DarkBlue)}
+  ${props => props.variant === 'In progress' && (props.isReading ? LightYellow : LightBlue)}
   ${props => props.variant === 'Not started' && Gray}
 `;
 
@@ -120,8 +130,8 @@ const Term = styled.dt`
   margin-right: 0.7rem;
   font-size: 1.6rem;
   line-height: 1.8rem;
-  ${props => props.variant === 'Completed' && DarkBlue}
-  ${props => props.variant === 'In progress' && LightBlue}
+  ${props => props.variant === 'Completed' && (props.isReading ? DarkYellow : DarkBlue)}
+  ${props => props.variant === 'In progress' && (props.isReading ? LightYellow : LightBlue)}
   ${props => props.variant === 'Not started' && Gray}
 `;
 
@@ -135,7 +145,7 @@ const Body = styled.div`
   p { margin-top: 1rem; }
 `;
 
-const StackedBarChart = observer(({ stats }) => {
+const StackedBarChart = observer(({ stats, isReading = false }) => {
   return (
     <ChartWrapper>
       <Chart>
@@ -145,6 +155,7 @@ const StackedBarChart = observer(({ stats }) => {
             variant={stat.label}
             aria-label={`${stat.label}: ${stat.value}`}
             key={`chart-item-${i}`}
+            isReading={isReading}
           >
             {stat.value}
           </ChartItem>
@@ -153,7 +164,7 @@ const StackedBarChart = observer(({ stats }) => {
       <DefinitionsWrapper>
         {stats.map((stat, i) =>
           <React.Fragment key={`term-${i}`}>
-            <Term variant={stat.label} aria-label={stat.label} />
+            <Term variant={stat.label} aria-label={stat.label} isReading={isReading} />
             <Definition>{stat.label}</Definition>
           </React.Fragment>
         )}
@@ -242,12 +253,12 @@ const AfterDueWRQ = observer(({ ux }) => {
   );
 });
 
-const BeforeDueMCQ = observer(({ ux: { progressStatsForPeriod } }) => {
+const BeforeDueMCQ = observer(({ ux, ux: { progressStatsForPeriod } }) => {
   return (
     <BlockWrapper header="Progress">
       <Centered>
         <p>This assignment is still in progress</p>
-        <StackedBarChart stats={progressStatsForPeriod} />
+        <StackedBarChart stats={progressStatsForPeriod} isReading={ux.planScores.isReading} />
       </Centered>
     </BlockWrapper>
   );

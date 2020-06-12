@@ -67,8 +67,20 @@ class GradingTemplate extends BaseModel {
   }
 
   @computed get humanLateWorkPenalty() {
-    const amount = this.isLateWorkAccepted ? this.late_work_penalty : 1;
-    return `-${S.asPercent(amount)}%`;
+    return this.isLateWorkAccepted ? `-${S.asPercent(this.late_work_penalty)}%` : 'n/a';
+  }
+
+  @computed get humanCompletionWeight() {
+    return `${S.asPercent(this.completion_weight)}%`;
+  }
+
+  @computed get humanCorrectnessWeight() {
+    return `${S.asPercent(this.correctness_weight)}%`;
+  }
+
+
+  @computed get humanTotalWeight() {
+    return `${S.asPercent(this.correctness_weight + this.completion_weight)}%`;
   }
 
   @computed get canRemove() {

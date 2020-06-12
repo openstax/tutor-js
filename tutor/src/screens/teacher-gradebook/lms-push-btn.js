@@ -29,7 +29,7 @@ class LmsPush extends React.Component {
     if (!course.is_lms_enabled) { return null; }
     
     const popover = (
-      <Popover className="gradebook-popover">
+      <Popover className="scores-popover">
         <p>Export Course average to {course.name}</p>
         {lastPushedAt && <p>Last sent to LMS: <strong>{lastPushedAt}</strong></p>}
       </Popover>

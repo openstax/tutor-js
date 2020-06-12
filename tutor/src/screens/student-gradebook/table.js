@@ -124,7 +124,7 @@ const GradebookTable = observer((
           placement="right"
           delay={{ show: 150, hide: 300 }}
           overlay={
-            <Popover className="gradebook-popover">
+            <Popover className="scores-popover">
               <p><strong>Course Average = </strong><br/>
                 {S.asPercent(course.homework_weight)}% Homework average + {S.asPercent(course.reading_weight)}% Reading average</p>
             </Popover>

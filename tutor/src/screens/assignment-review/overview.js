@@ -41,7 +41,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
           type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
           onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
         />)}
-      {label}
+      {ux.planScores.isReading ? 'Question' : label}
     </ExerciseNumber>
     <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
   </>
@@ -318,6 +318,13 @@ const GradeButton = styled(TutorLink)`
   }
 `;
 
+const StyledNoActivity = styled.div`
+  padding: 20px;
+  p {
+    margin-top: 10px;
+  }
+`;
+
 const GradingBlock = observer(({ ux }) => {
   if (!ux.canDisplayGradingButton) { return null; }
 
@@ -374,54 +381,77 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
+const QuestionList = ({ ux, scores }) => {
+  if (scores.questionsInfo && scores.questionsInfo.length === 0) {
+    return (
+      <StyledNoActivity>
+        <h2>No activity yet</h2>
+        <p>No activity has been recorded for this section yet. Once students start to work the assignment their activity will appear.</p>
+      </StyledNoActivity>
+    );
+  }
+  return <HomeworkQuestions
+    questionsInfo={scores.questionsInfo}
+    questionType="teacher-review"
+    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
+};
+QuestionList.propTypes = {
+  ux: PropTypes.object.isRequired,
+  scores: {
+    questionsInfo: PropTypes.array.isRequired,
+  },
+};
+
 const Overview = observer(({ ux, ux: { scores } }) => (
   <Wrapper data-test-id="overview">
-    <GradingBlock ux={ux}/>
-    <StyledStickyTable>
-      <Row>
-        <Header>Question Number</Header>
-        {scores.question_headings.map((h, i) =>
-          <Header key={i} center={true}>
-            {h.isCore ?
-              <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                {h.title}
-              </StyledButton> : h.title}
-          </Header>)}
-      </Row>
-      <Row>
-        <Header>Question Type</Header>
-        {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
-      </Row>
-      <Row>
-        <Header>
+    {
+      ux.planScores.isHomework && (
+      <>
+        <GradingBlock ux={ux}/>
+        <StyledStickyTable>
+          <Row>
+            <Header>Question Number</Header>
+            {scores.question_headings.map((h, i) =>
+              <Header key={i} center={true}>
+                {h.isCore ?
+                  <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                    {h.title}
+                  </StyledButton> : h.title}
+              </Header>)}
+          </Row>
+          <Row>
+            <Header>Question Type</Header>
+            {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
+          </Row>
+          <Row>
+            <Header>
           Available Points <AvailablePoints value={(scores.hasEqualTutorQuestions && scores.availablePoints) || false} />
-        </Header>
-        {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
-      </Row>
-      <Row>
-        <Header>Correct Responses</Header>
-        {scores.question_headings.map((h, i) => (
-          <StyledCell key={i} isTrouble={h.isTrouble}>
-            {h.humanCorrectResponses}
-          </StyledCell>
-        ))}
-      </Row>
-    </StyledStickyTable>
-    <Legend>
-      MCQ: Multiple Choice Question (auto-graded);
-      WRQ: Written Response Question (manually-graded);
-      Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
-    </Legend>
+            </Header>
+            {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
+          </Row>
+          <Row>
+            <Header>Correct Responses</Header>
+            {scores.question_headings.map((h, i) => (
+              <StyledCell key={i} isTrouble={h.isTrouble}>
+                {h.humanCorrectResponses}
+              </StyledCell>
+            ))}
+          </Row>
+        </StyledStickyTable>
+        <Legend>
+          MCQ: Multiple Choice Question (auto-graded);
+          WRQ: Written Response Question (manually-graded);
+          Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
+        </Legend>
+      </>
+      )}
 
-    {ux.isExercisesReady ? (
-      <HomeworkQuestions
-        questionsInfo={scores.questionsInfo}
-        questionType="teacher-review"
-        headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-        questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-        footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-        styleVariant="submission"
-      />) : <Loading message="Loading Questions…"/>}
+    {ux.isExercisesReady
+      ? <QuestionList ux={ux} scores={scores} />
+      : <Loading message="Loading Questions…"/>}
 
   </Wrapper>
 ));
