@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find, cloneDeep } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
@@ -239,7 +239,7 @@ export default class AssignmentReviewUX {
 
     await this.editUX.initialize({
       ...this.params,
-      plan: this.taskPlan,
+      plan: cloneDeep(this.taskPlan),
       history,
       course: this.course,
     });
