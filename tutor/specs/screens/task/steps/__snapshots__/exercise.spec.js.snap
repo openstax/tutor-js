@@ -209,8 +209,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_late_work_point_penalty": 0,
-        "student_points": 1,
+        "published_late_work_point_penalty": 0,
+        "published_points": 1,
         "students": Array [],
         "tasksMap": Object {},
         "title": "6th generation",
@@ -558,8 +558,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "steps": Array [
             [Circular],
           ],
-          "student_late_work_point_penalty": 0,
-          "student_points": 1,
+          "published_late_work_point_penalty": 0,
+          "published_points": 1,
           "students": Array [],
           "tasksMap": Object {},
           "title": "6th generation",

@@ -74,8 +74,8 @@ class StudentTaskStep extends BaseModel {
   @field uid;
   @field preview;
   @field available_points;
-  @field grader_points;
-  @field grader_comments;
+  @field published_points;
+  @field published_comments;
   @field type;
   @field is_completed;
   @field answer_id;
@@ -134,7 +134,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get pointsScored() {
-    if(!isNil(this.grader_points)) return this.grader_points;
+    if(!isNil(this.published_points)) return this.published_points;
     if (this.correct_answer_id) {
       return this.answer_id === this.correct_answer_id
         ? this.available_points

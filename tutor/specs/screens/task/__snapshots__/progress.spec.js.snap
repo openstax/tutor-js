@@ -125,8 +125,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "uid": undefined,
           },
         ],
-        "student_late_work_point_penalty": 0,
-        "student_points": 5,
+        "published_late_work_point_penalty": 0,
+        "published_points": 5,
         "students": Array [],
         "tasksMap": StudentTasks {
           "_map": Object {
