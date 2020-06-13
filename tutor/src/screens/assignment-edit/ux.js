@@ -115,7 +115,7 @@ export default class AssignmentUX {
     }
 
     observe(this.plan, 'grading_template_id', this.onGradingTemplateUpdate);
-    
+
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
@@ -135,7 +135,7 @@ export default class AssignmentUX {
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
 
     this.scroller = new ScrollTo({ windowImpl });
-    
+
     // don't setup additional helpers until fully initialized
     this.validations = new Validations(this);
     this.steps = new StepUX(this, step);

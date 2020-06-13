@@ -239,7 +239,7 @@ export default class AssignmentReviewUX {
 
     await this.editUX.initialize({
       ...this.params,
-      plan: this.taskPlan,
+      id: this.taskPlan.id,
       history,
       course: this.course,
     });
