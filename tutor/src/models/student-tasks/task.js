@@ -25,7 +25,7 @@ class StudentTask extends BaseModel {
   @field late_work_penalty_applied;
   @field late_work_penalty_per_period;
   @field published_late_work_point_penalty; // point penalty that is visible to the student
-  @field published_points;                  // points that are visible to the student
+  @field published_points; // points that are visible to the student
   @field({ type: 'object' }) spy;
   @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;

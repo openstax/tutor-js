@@ -199,7 +199,7 @@ class TaskProgress extends React.Component {
                 </Cell>}
               <Cell>
                 {task.published_points !== null ?
-                S.numberWithOneDecimalPlace(task.published_points) : '---' }
+                  S.numberWithOneDecimalPlace(task.published_points) : '---' }
               </Cell>
             </Row>
         }
