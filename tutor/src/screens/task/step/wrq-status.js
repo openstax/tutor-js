@@ -48,12 +48,16 @@ const WRQStatus = observer(({ step }) => {
     );
   }
 
-  return (
-    <Message
-      text="This question is closed"
-      tooltip="This question is closed for grading. You can no longer add or edit a response"
-    />
-  );
+  if (isNil(step.published_points)) {
+    return (
+      <Message
+        text="This question is closed"
+        tooltip="This question is closed for grading. You can no longer add or edit a response"
+      />
+    );
+  }
+
+  return null;
 });
 WRQStatus.propTypes = {
   step: PropTypes.instanceOf(TaskStep).isRequired,
