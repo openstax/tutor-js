@@ -74,17 +74,17 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get homework_scores() {
-    return ((this.hGt && this.hGt.correctness_weight) || 1.0) * 100;
+    return (this.hGt ? this.hGt.correctness_weight : 1.0) * this.course.homework_weight * 100;
   }
   @computed get homework_progress() {
-    return ((this.hGt && this.hGt.completion_weight) || 1.0) * 100;
+    return (this.hGt ? this.hGt.completion_weight : 1.0) * this.course.homework_weight * 100;
   }
 
   @computed get reading_scores() {
-    return ((this.rGt && this.rGt.correctness_weight) || 1.0) * 100;
+    return (this.rGt ? this.rGt.correctness_weight : 1.0) * this.course.reading_weight * 100;
   }
   @computed get reading_progress() {
-    return ((this.rGt && this.rGt.completion_weight) || 1.0) * 100;
+    return (this.rGt ? this.rGt.completion_weight : 1.0) * this.course.reading_weight * 100;
   }
 
   @computed get isBusy() {
