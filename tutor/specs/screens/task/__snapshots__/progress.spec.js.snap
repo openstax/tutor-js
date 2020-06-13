@@ -18,6 +18,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
         "is_deleted": false,
         "late_work_penalty_applied": "daily",
         "late_work_penalty_per_period": 0,
+        "published_late_work_point_penalty": 0,
+        "published_points": 5,
         "spy": Object {},
         "steps": Array [
           StudentTaskStep {
@@ -55,8 +57,6 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "feedback_html": undefined,
             "formats": Array [],
             "free_response": undefined,
-            "grader_comments": undefined,
-            "grader_points": undefined,
             "group": undefined,
             "id": 1,
             "isFetched": true,
@@ -65,6 +65,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": undefined,
+            "published_comments": undefined,
+            "published_points": undefined,
             "response_validation": Object {},
             "spy": Object {},
             "task": [Circular],
@@ -107,8 +109,6 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "feedback_html": undefined,
             "formats": Array [],
             "free_response": undefined,
-            "grader_comments": undefined,
-            "grader_points": undefined,
             "group": undefined,
             "id": 2,
             "isFetched": true,
@@ -117,6 +117,8 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
             "preview": undefined,
+            "published_comments": undefined,
+            "published_points": undefined,
             "response_validation": Object {},
             "spy": Object {},
             "task": [Circular],
@@ -125,8 +127,6 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "uid": undefined,
           },
         ],
-        "published_late_work_point_penalty": 0,
-        "published_points": 5,
         "students": Array [],
         "tasksMap": StudentTasks {
           "_map": Object {
