@@ -17,6 +17,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
           "id": 1,
           "isLoading": false,
           "is_deleted": false,
+          "is_provisional_score": true,
           "late_work_penalty_applied": "assignment",
           "late_work_penalty_per_period": 1,
           "published_late_work_point_penalty": 0,

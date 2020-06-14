@@ -41,6 +41,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "id": 4321,
       "isLoading": false,
       "is_deleted": undefined,
+      "is_provisional_score": undefined,
       "late_work_penalty_applied": undefined,
       "late_work_penalty_per_period": undefined,
       "published_late_work_point_penalty": undefined,
