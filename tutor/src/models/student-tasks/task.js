@@ -27,10 +27,12 @@ class StudentTask extends BaseModel {
   @field published_late_work_point_penalty; // point penalty that is visible to the student
   @field published_points; // points that are visible to the student
   @field({ type: 'object' }) spy;
-  @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) closes_at;
   @field({ type: 'date' }) feedback_at;
+  @field is_provisional_score;
+
+  @hasMany({ model: Student }) students;
   @hasMany({ model: StudentTaskStep, inverseOf: 'task' }) steps;
 
   @session({ type: 'object' }) tasksMap;
