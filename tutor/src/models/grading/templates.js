@@ -45,6 +45,10 @@ class GradingTemplate extends BaseModel {
     }
   }
 
+  @computed get course() {
+    return this.map.course;
+  }
+
   @computed get isReading() {
     return 'reading' === this.task_plan_type;
   }
@@ -83,9 +87,13 @@ class GradingTemplate extends BaseModel {
     return `${S.asPercent(this.correctness_weight + this.completion_weight)}%`;
   }
 
+  @computed get canEdit() {
+    return Boolean(this.course && this.course.isWRM);
+  }
+
   @computed get canRemove() {
     // a template can be removed as if there is at least one other with the same type
-    return Boolean(this.map && this.map.array.find(t => t !== this && t.task_plan_type === this.task_plan_type));
+    return Boolean(this.canEdit && this.map && this.map.array.find(t => t !== this && t.task_plan_type === this.task_plan_type));
   }
 
   get dataForSave() {
