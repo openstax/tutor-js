@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Grading Templates Card matches snapshot for homework 1`] = `
-.c2 {
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-}
-
 .c1 {
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -49,24 +44,24 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
   padding: 0;
 }
 
-.c3 {
+.c2 {
   font-size: 1rem;
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 0.8rem;
 }
 
-.c4 {
+.c3 {
   color: #929292;
 }
 
-.c5 {
+.c4 {
   color: #5f6163;
   font-weight: bold;
   margin-bottom: 0.8rem;
 }
 
-.c6 {
+.c5 {
   border-bottom: 1px solid #d5d5d5;
   margin-bottom: 0.8rem;
 }
@@ -91,86 +86,61 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         className="card-header"
       >
         Default Homework
-        <div>
-          <button
-            className="ox-icon-edit btn btn-plain"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-edit fa-w-18 c2 ox-icon ox-icon-edit"
-              data-icon="edit"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 576 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </button>
-        </div>
+        <div />
       </div>
       <div
         className="card-body"
       >
         <h4
-          className="c3"
+          className="c2"
         >
           SHOW SCORES & FEEDBACK TO STUDENTS
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           For auto-graded questions:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           invalid value
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           For manually-graded questions:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           invalid value
         </div>
         <div
-          className="c6"
+          className="c5"
         />
         <h4
-          className="c3"
+          className="c2"
         >
           LATE WORK POLICY
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           Accept late work?
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           Yes
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Late work penalty:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           Deduct 
           10%
@@ -178,41 +148,41 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
           day
         </div>
         <div
-          className="c6"
+          className="c5"
         />
         <h4
-          className="c3"
+          className="c2"
         >
           DEFAULT DATE AND TIME
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           Due date for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           1
            days after open date
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Due time for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           5:00 PM
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Close date for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           1
            days after due date
@@ -224,11 +194,6 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
 `;
 
 exports[`Grading Templates Card matches snapshot for reading 1`] = `
-.c2 {
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-}
-
 .c1 {
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -272,24 +237,24 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
   padding: 0;
 }
 
-.c3 {
+.c2 {
   font-size: 1rem;
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 0.8rem;
 }
 
-.c4 {
+.c3 {
   color: #929292;
 }
 
-.c5 {
+.c4 {
   color: #5f6163;
   font-weight: bold;
   margin-bottom: 0.8rem;
 }
 
-.c6 {
+.c5 {
   border-bottom: 1px solid #d5d5d5;
   margin-bottom: 0.8rem;
 }
@@ -314,88 +279,63 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         className="card-header"
       >
         Default Reading
-        <div>
-          <button
-            className="ox-icon-edit btn btn-plain"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-edit fa-w-18 c2 ox-icon ox-icon-edit"
-              data-icon="edit"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 576 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </button>
-        </div>
+        <div />
       </div>
       <div
         className="card-body"
       >
         <h4
-          className="c3"
+          className="c2"
         >
           SCORE CALCULATION FOR QUESTIONS
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           Weight for correctness:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           59%
            of question’s point value
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Weight for completion:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           5%
            of question’s point value
         </div>
         <div
-          className="c6"
+          className="c5"
         />
         <h4
-          className="c3"
+          className="c2"
         >
           LATE WORK POLICY
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           Accept late work?
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           Yes
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Late work penalty:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           Deduct 
           10%
@@ -403,41 +343,41 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
           day
         </div>
         <div
-          className="c6"
+          className="c5"
         />
         <h4
-          className="c3"
+          className="c2"
         >
           DEFAULT DATE AND TIME
         </h4>
         <div
-          className="c4"
+          className="c3"
         >
           Due date for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           1
            days after open date
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Due time for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           5:00 PM
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           Close date for assignments:
         </div>
         <div
-          className="c5"
+          className="c4"
         >
           1
            days after due date

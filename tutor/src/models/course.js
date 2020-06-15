@@ -168,6 +168,10 @@ class Course extends BaseModel {
     return Boolean(this.cloned_from_id);
   }
 
+  @computed get isWRM() {
+    return !this.uses_pre_wrm_scores;
+  }
+
   @computed get termFull() {
     return `${capitalize(this.term)} ${this.year}`;
   }
