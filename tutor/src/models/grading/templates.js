@@ -46,7 +46,7 @@ class GradingTemplate extends BaseModel {
   }
 
   @computed get course() {
-    return this.map.course;
+    return this.map && this.map.course;
   }
 
   @computed get isReading() {

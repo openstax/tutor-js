@@ -5,8 +5,10 @@ describe('Grading Templates Card', function() {
   let props;
 
   beforeEach(() => {
+    const template = Factory.gradingTemplate({ task_plan_type: 'reading' });
+
     props={
-      template: Factory.gradingTemplate({ task_plan_type: 'reading' }),
+      template,
       onEdit: jest.fn(),
       onDelete: jest.fn(),
     };
@@ -27,6 +29,7 @@ describe('Grading Templates Card', function() {
     expect(card.find('button.ox-icon-trash')).toHaveLength(0);
     props.template.map = {
       array: { find() { return props.template; } },
+      course: Factory.course(),
     };
     expect(props.template.canRemove).toBe(true);
     card.update();
