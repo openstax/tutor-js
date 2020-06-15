@@ -195,10 +195,10 @@ const Questions = observer(({ ux, questionsInfo }) => {
 
             <Icon
               className="btn btn-standard btn-icon"
-              onClick={ux.taskPlan.isPastDue ? undefined : ux.onEditAssignedQuestions}
+              onClick={ux.taskPlan.isOpen ? undefined : ux.onEditAssignedQuestions}
               data-test-id="edit-assigned-questions"
               type="edit"
-              tooltip={ux.taskPlan.isPastDue ? 'Questions cannot be edited after the Open date.' : ''}
+              tooltip={ux.taskPlan.isOpen ? 'Questions cannot be edited after the Open date.' : ''}
             />
 
           </Controls>
@@ -276,9 +276,7 @@ const Details = observer(({ ux }) => {
                 busy={ux.taskPlan.api.isPending}
                 onClick={ux.onEdit}
                 data-test-id="edit-assignment"
-
               />
-
               <Icon
                 asButton type="trash"
                 onClick={ux.onDelete}
