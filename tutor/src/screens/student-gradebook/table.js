@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import { Icon } from 'shared';
-import S from '../../helpers/string';
+import S, { UNWORKED } from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import { EIcon } from '../../components/icons/extension';
 
@@ -105,7 +105,7 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
+const percentOrDash = (score) => isNil(score) ? UNWORKED : S.asPercent(score) + '%';
 const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
   const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
   return studentTaskPlan ? studentTaskPlan.is_extended : false;

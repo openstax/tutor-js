@@ -5,7 +5,7 @@ import { isNil } from 'lodash';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import S, { UNWORKED } from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import TutorLink from '../../components/link';
 import TaskResultCell from './task-result-cell';
@@ -326,7 +326,7 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
   );
 });
 
-const percentOrDash = (score) => isNil(score) ? '--' : S.asPercent(score) + '%';
+const percentOrDash = (score) => isNil(score) ? UNWORKED : S.asPercent(score) + '%';
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
@@ -463,7 +463,7 @@ const GradebookTable = observer(({ ux }) => {
         <Aggregates ux={ux} />
 
       </StyledStickyTable>
-      {ux.hasDroppedStudents && <DroppedNote>* Dropped students' scores are not included in the overall course averages</DroppedNote>}
+      {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
     </>

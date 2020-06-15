@@ -6,7 +6,7 @@ import {
 import Big from 'big.js';
 import moment from 'moment';
 import Time from '../time';
-import S from '../../helpers/string';
+import S, { UNWORKED } from '../../helpers/string';
 
 export default
 @identifiedBy('scores/task-result')
@@ -210,11 +210,11 @@ class TaskResult extends BaseModel {
 
   @computed get humanScore() {
     const score = this.course.currentRole.isTeacher ? this.score : this.published_score;
-    return isNil(score) ? '--' : S.asPercent(score) + '%';
+    return isNil(score) ? UNWORKED : S.asPercent(score) + '%';
   }
 
   @computed get humanPoints() {
     const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
-    return `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    return isNil(points) ? UNWORKED : `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 }

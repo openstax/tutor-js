@@ -2,7 +2,7 @@ import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
 import { minBy, maxBy, filter } from 'lodash';
 import { getCell } from './styles';
-import S from '../../helpers/string';
+import S, { UNWORKED } from '../../helpers/string';
 
 const Cell = getCell('0 10px');
 
@@ -46,11 +46,11 @@ const MinMaxResult = observer(({ data, ux, type, drawBorderBottom }) => {
   let averageOrPoints;
   if(ux.displayScoresAsPercent) {
     taskResult =  getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
-    averageOrPoints = taskResult ? `${S.asPercent(taskResult.score)}%` : '---';
+    averageOrPoints = taskResult ? `${S.asPercent(taskResult.score)}%` : UNWORKED;
   }
   else {
     taskResult =  getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type);
-    averageOrPoints = taskResult ? `${S.numberWithOneDecimalPlace(taskResult.points)}` : '---';
+    averageOrPoints = taskResult ? `${S.numberWithOneDecimalPlace(taskResult.points)}` : UNWORKED;
   }
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>

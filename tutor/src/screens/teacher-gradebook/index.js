@@ -1,4 +1,4 @@
-import { React, PropTypes, useState, useObserver } from 'vendor';
+import { React, PropTypes, observer } from 'vendor';
 import CoursePage from '../../components/course-page';
 import Controls from './controls';
 import ScoresReportNav from './nav';
@@ -19,14 +19,25 @@ const titleControls = (ux) => {
   return <ScoresReportNav ux={ux} />;
 };
 
-const TeacherGradeBook = ({ ux: propsUX, ...props }) => {
+@observer
+class TeacherGradeBook extends React.Component {
 
-  const [ux] = useState(propsUX || new UX(props.params));
+  static propTypes = {
+    params: PropTypes.shape({
+      courseId: PropTypes.string.isRequired,
+    }).isRequired,
+    ux: PropTypes.instanceOf(UX),
+  };
+  
+  ux = new UX(this.props.params)
 
-  return useObserver(() => {
+  componentDidUpdate() {
+    this.ux.updateProps(this.props);
+  }
+
+  render() {
+    const { ux } = this;
     let body = null;
-
-    ux.updateProps(props);
 
     if (!ux.isReady) {
       return <LoadingScreen message="Loading Gradebook…" />;
@@ -58,15 +69,9 @@ const TeacherGradeBook = ({ ux: propsUX, ...props }) => {
         </CoursePage>
       </BackgroundWrapper>
     );
-  });
+  }
 
-};
+}
 
-TeacherGradeBook.propTypes = {
-  params: PropTypes.shape({
-    courseId: PropTypes.string.isRequired,
-  }).isRequired,
-  ux: PropTypes.instanceOf(UX),
-};
 
 export default TeacherGradeBook;

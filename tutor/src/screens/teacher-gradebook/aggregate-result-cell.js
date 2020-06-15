@@ -1,20 +1,20 @@
 import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
-import { sumBy, countBy, filter } from 'lodash';
+import { sumBy, countBy, filter, isNil } from 'lodash';
 import { getCell } from './styles';
-import S from '../../helpers/string';
+import S, { UNWORKED } from '../../helpers/string';
 
 
 const Cell = getCell('0 10px');
 
 const getPoints = (tasks) => {
   const aggregatePoints = sumBy(tasks, (t) => t.points);
-  return S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
+  return isNil(aggregatePoints) ? UNWORKED : S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
 };
 
 const getPercentage = (tasks) => {
   const aggregateScore = sumBy(tasks, (t) => parseFloat(t.score, 10));
-  return `${S.asPercent(aggregateScore/tasks.length)}%`;
+  return isNil(aggregateScore) ? UNWORKED : `${S.asPercent(aggregateScore/tasks.length)}%`;
 };
 
 

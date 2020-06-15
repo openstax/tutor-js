@@ -2,7 +2,7 @@ import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import { map, sumBy, isNil } from 'lodash';
 import { colors } from 'theme';
-import S from '../../src/helpers/string';
+import S, { UNWORKED } from '../../src/helpers/string';
 
 const PointsScoredStatus = {
   NOT_ANSWERED_NOT_GRADED: 'not-answered-not-graded',
@@ -186,7 +186,7 @@ class TaskProgress extends React.Component {
                   if(!step.isInfo) {
                     return (
                       <Cell key={stepIndex} className={pointsScoredStatus(step)}>
-                        {step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : '---' }
+                        {step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }
                       </Cell>
                     );
                   }
@@ -199,7 +199,7 @@ class TaskProgress extends React.Component {
                 </Cell>}
               <Cell>
                 {task.published_points !== null ?
-                  S.numberWithOneDecimalPlace(task.published_points) : '---' }
+                  S.numberWithOneDecimalPlace(task.published_points) : UNWORKED }
               </Cell>
             </Row>
         }

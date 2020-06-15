@@ -6,13 +6,10 @@ import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
   find, first, pick, pickBy, mapValues,
-  groupBy, flow, map, partial, uniq, some, keys, isEmpty, isNil,
+  groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
   filter, sortBy, maxBy, minBy, orderBy,
 } from 'lodash';
-import S from '../../helpers/string';
-
-const NOT_AVAILABLE_AVERAGE = '---';
-const PENDING_AVERAGE = '---';
+import S, { UNWORKED } from '../../helpers/string';
 
 const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
@@ -180,11 +177,8 @@ export default class GradeBookUX {
     return isEmpty(this.periodTasksByType[type]);
   }
 
-  nullAverageByType(type) {
-    if (this.isAverageUnavailableByTypeForPeriod(type)) {
-      return NOT_AVAILABLE_AVERAGE;
-    }
-    return PENDING_AVERAGE;
+  nullAverageByType() {
+    return UNWORKED;
   }
 
   // what task types is course score being weighed on?
@@ -200,10 +194,7 @@ export default class GradeBookUX {
   }
 
   @computed get nullAverageForCourse() {
-    if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
-      return NOT_AVAILABLE_AVERAGE;
-    }
-    return PENDING_AVERAGE;
+    return UNWORKED;
   }
 
   maskAverages(averages) {
@@ -215,7 +206,7 @@ export default class GradeBookUX {
         if (type === 'course_average') {
           nullValue = this.nullAverageForCourse;
         } else {
-          nullValue = this.nullAverageByType(type);
+          nullValue = this.nullAverageByType();
         }
       }
 
@@ -236,13 +227,13 @@ export default class GradeBookUX {
 
   maxScore(type) {
     const score = maxBy(this.students, type);
-    if(!score) return '---';
+    if(!score) return UNWORKED;
     return `${S.asPercent(score[type])}%`;
   }
 
   minScore(type) {
     const score = minBy(this.students, type);
-    if(!score) return '---';
+    if(!score) return UNWORKED;
     return `${S.asPercent(score[type])}%`;
   }
 }
