@@ -136,7 +136,7 @@ class GradingTemplatesScreen extends React.Component {
                 course={this.course}
                 currentTitle="Grading templates"
               />
-              <Button onClick={this.onAdd} size="lg">Add new template</Button>
+              {this.course.isWRM && <Button onClick={this.onAdd} size="lg">Add new template</Button>}
             </Heading>
             <Row>
               <Col>

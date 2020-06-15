@@ -104,10 +104,10 @@ class AssignmentReview extends React.Component {
     }
 
     const AvailableTabs = [Details];
-
+    
     // there are no scores if no students have enrolled
     // and pre-wrm courses have confusion around weights so we hide them as well
-    if (scores && !course.uses_pre_wrm_scores) {
+    if (scores && course.isWRM) {
       if (planScores.isHomework) {
         AvailableTabs.push(Overview, HomeworkScores);
       }
