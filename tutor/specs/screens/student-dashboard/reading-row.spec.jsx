@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { React, TimeMock, C } from '../../helpers';
 import Factory from '../../factories';
 import Row from '../../../src/screens/student-dashboard/event-row';
@@ -10,7 +11,7 @@ describe('Reading Row', function() {
 
   beforeEach(function() {
     props = {
-      event: Factory.studentDashboardTask({ type: 'reading' }),
+      event: Factory.studentDashboardTask({ type: 'reading', days_ago: 3 }),
       course: Factory.course(),
     };
   });

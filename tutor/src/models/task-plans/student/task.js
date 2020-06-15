@@ -19,7 +19,7 @@ class StudentTask extends BaseModel {
   @field title;
   @field type;
   @field complete;
-  @field score;
+  @field published_points; // points that are visible to the student
   @field is_provisional_score;
   @field is_deleted;
   @field is_college;
@@ -65,14 +65,6 @@ class StudentTask extends BaseModel {
 
   @computed get scoreShown() {
     return Boolean(this.isPastDue && this.complete);
-  }
-
-  @computed get lateWorkIsAccepted() {
-    return Boolean(
-      this.accepted_late_at &&
-        this.last_worked_at &&
-        moment(this.accepted_late_at).isAfter(this.last_worked_at)
-    );
   }
 
   @computed get isHomework() {
@@ -131,7 +123,7 @@ class StudentTask extends BaseModel {
   }
 
   @computed get humanScore() {
-    return isNil(this.score) ? '---' : S.numberWithOneDecimalPlace(this.score);
+    return isNil(this.published_points) ? '---' : S.numberWithOneDecimalPlace(this.published_points);
   }
 
   // called from API

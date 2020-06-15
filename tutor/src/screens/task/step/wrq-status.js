@@ -33,7 +33,7 @@ const WRQStatus = observer(({ step }) => {
   if (!step.isOpenEndedExercise) {
     return null;
   }
-  
+
   if (step.can_be_updated) {
     return (
       <Message
@@ -47,7 +47,8 @@ const WRQStatus = observer(({ step }) => {
       />
     );
   }
-  if (isNil(step.grader_points)) {
+
+  if (isNil(step.published_points)) {
     return (
       <Message
         text="This question is closed"
@@ -76,7 +77,7 @@ const Value=styled.span`
   font-weight: bold;
 `;
 const PointsAndFeedback = observer(({ step }) => {
-  if (!step.isOpenEndedExercise || isNil(step.grader_points)) {
+  if (!step.isOpenEndedExercise || isNil(step.published_points)) {
     return null;
   }
 
@@ -85,13 +86,13 @@ const PointsAndFeedback = observer(({ step }) => {
       <div>
         <Label>Points:</Label>
         <Value>
-          {S.numberWithOneDecimalPlace(step.grader_points)} / {S.numberWithOneDecimalPlace(step.available_points)}
+          {S.numberWithOneDecimalPlace(step.published_points)} / {S.numberWithOneDecimalPlace(step.available_points)}
         </Value>
       </div>
-      {step.grader_comments && (
+      {step.published_comments && (
         <div>
           <Label>Feedback:</Label>
-          <span>{step.grader_comments}</span>
+          <span>{step.published_comments}</span>
         </div>)}
     </StyledPoints>
   );

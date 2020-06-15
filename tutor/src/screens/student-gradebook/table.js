@@ -125,8 +125,10 @@ const GradebookTable = observer((
           delay={{ show: 150, hide: 300 }}
           overlay={
             <Popover className="scores-popover">
-              <p><strong>Course Average = </strong><br/>
-                {S.asPercent(course.homework_weight)}% Homework average + {S.asPercent(course.reading_weight)}% Reading average</p>
+              <p>
+                <strong>Course Average = </strong><br/>
+                {S.asPercent(course.homework_weight)}% Homework average + {S.asPercent(course.reading_weight)}% Reading average
+              </p>
             </Popover>
           }
         >
@@ -168,19 +170,27 @@ const GradebookTable = observer((
           </tr>
         </thead>
         <tbody>
-          {studentData.map((sd,i) => {
-            return (<tr key={i}>
+          {studentData.map((sd,i) => (
+            <tr key={i}>
               <td
                 className={`border-${sd.reportHeading.type}`}
                 onClick={() => goToAssignment(history, course.id, sd.id)}>
                 {sd.reportHeading.title}
               </td>
-              <td>{moment(sd.due_at).format('MMM D')} {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />} </td>
-              {/** TODO: Add provisional score logic */}
-              <td>{sd.humanScoreNumber} {sd.isLate && <Icon color={colors.danger} type="clock" />}</td>
-              <td>{percentOrDash(sd.score)}</td>
-            </tr>);
-          })}
+              <td>
+                {moment(sd.due_at).format('MMM D')}
+                {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
+              </td>
+              <td>
+                {sd.humanPoints}
+                {sd.isLate && <Icon color={colors.danger} type="clock" />}
+              </td>
+              <td>
+                {sd.humanScore}
+                {sd.is_provisional_score && <Icon variant="circledStar" />}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </StyledTable>
       <Legend>

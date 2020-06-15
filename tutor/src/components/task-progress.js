@@ -178,7 +178,7 @@ class TaskProgress extends React.Component {
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
-          steps.some(s => s.correct_answer_id || !isNil(s.grader_points)) &&
+          steps.some(s => s.correct_answer_id || !isNil(s.published_points)) &&
             <Row>
               <Cell>Points Scored</Cell>
               {
@@ -194,12 +194,13 @@ class TaskProgress extends React.Component {
                 })
               }
               {task.hasLateWorkPolicy &&
-                <Cell>{task.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.late_work_point_penalty)}` : '0.0'}</Cell>}
-              <Cell>{
-                S.numberWithOneDecimalPlace(sumBy(steps, s => {
-                  return s.pointsScored !== null ? s.pointsScored : 0;
-                }))
-              }</Cell>
+                <Cell>
+                  {task.published_late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.published_late_work_point_penalty)}` : '0.0'}
+                </Cell>}
+              <Cell>
+                {task.published_points !== null ?
+                  S.numberWithOneDecimalPlace(task.published_points) : '---' }
+              </Cell>
             </Row>
         }
       </StyledStickyTable>

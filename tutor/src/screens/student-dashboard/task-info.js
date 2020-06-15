@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { Icon } from 'shared';
-import { isNumber } from 'lodash';
 import EventInfoIcon from './event-info-icon';
+
 import TourAnchor from '../../components/tours/anchor';
 
 const Feedback = styled.div`
@@ -38,7 +38,7 @@ const TaskScore = observer(({ event }) => {
   return (
     <Feedback>
       {event.humanScore}
-      {isNumber(event.score) && event.is_provisional_score && <Icon variant="circledStar" />}
+      {event.is_provisional_score && <Icon variant="circledStar" />}
     </Feedback>
   );
 });

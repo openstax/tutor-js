@@ -1,4 +1,4 @@
-import { findIndex, isNaN } from 'lodash';
+import { findIndex, isNaN, isNil } from 'lodash';
 import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field,
@@ -16,6 +16,9 @@ class TaskResult extends BaseModel {
   @field status;
   @field({ type: 'bignum' }) score;
   @field points;
+  @field published_points;
+  @field published_score;
+  @field is_provisional_score;
   @field step_count;
   @field completed_step_count;
   @field completed_accepted_late_exercise_count;
@@ -41,6 +44,7 @@ class TaskResult extends BaseModel {
 
   @belongsTo({ model: 'scores/student' }) student;
   @computed get period() { return this.student.period; }
+  @computed get course() { return this.student.period.course; }
 
   @computed get columnIndex() {
     return findIndex(this.student.data, s => s.id === this.id);
@@ -82,7 +86,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get reportHeading() {
-    return this.student.period.data_headings[this.columnIndex];
+    return this.period.data_headings[this.columnIndex];
   }
 
   // called by API
@@ -196,12 +200,21 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${S.numberWithOneDecimalPlace(this.points)}  of  ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
+    return `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
     return moment(this.due_at).isBefore(Time.now);
   }
 
+  @computed get humanScore() {
+    const score = this.course.currentRole.isTeacher ? this.score : this.published_score;
+    return isNil(score) ? '--' : S.asPercent(score) + '%';
+  }
 
+  @computed get humanPoints() {
+    const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
+    return `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+  }
 }

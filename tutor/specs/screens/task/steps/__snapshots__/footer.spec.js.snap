@@ -4,13 +4,13 @@ exports[`Task Step Footer matches snapshot 1`] = `
 "<StepFooter course={{...}} step={{...}}>
   <styled.div>
     <div className=\\"sc-AxhUy iDxQlj\\">
-      <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2\\" related_content={{...}}>
-        <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
+      <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}}>
+        <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
           <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
             ID# 
             1@1
              | 
-            <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Introduction%3A%20Further%20Applications%20of%20Newton%E2%80%99s%20Laws&book=Biology%20for%20AP%C2%AE%20Courses\\">
+            <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Food%20Irradiation&book=Concept%20of%20Biology\\">
               Suggest a correction
             </a>
           </div>
@@ -35,7 +35,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                 </ChapterSection>
                 <styled.span>
                   <span className=\\"sc-AxiKw kpbBIu title\\">
-                    Introduction: Further Applications of Newton’s Laws
+                    Food Irradiation
                   </span>
                 </styled.span>
               </a>
