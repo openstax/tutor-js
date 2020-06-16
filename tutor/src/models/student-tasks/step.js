@@ -74,8 +74,6 @@ class StudentTaskStep extends BaseModel {
   @field uid;
   @field preview;
   @field available_points;
-  @field published_points;
-  @field published_comments;
   @field type;
   @field is_completed;
   @field answer_id;
@@ -91,10 +89,15 @@ class StudentTaskStep extends BaseModel {
   @field group;
   @field can_be_updated;
 
-  @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
-
+  @field published_points;
+  @field published_comments;
+  @field published_points_without_lateness;
+  @field published_late_work_point_penalty;
+  
   @field({ type: 'object' }) task;
   @observable content;
+
+  @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 
   @computed get canAnnotate() {
     return this.isReading;
@@ -142,6 +145,17 @@ class StudentTaskStep extends BaseModel {
         : 0;
     }
     return null;
+  }
+
+  @computed get publishedLateWorkPenalty() {
+    if (!isNil(this.published_points_without_lateness)) {
+      return this.published_points_without_lateness - this.published_late_work_point_penalty;
+    }
+    return 0;
+  }
+
+  @computed get publishedPoints() {
+    return this.published_points_without_lateness;
   }
 
   @computed get isTwoStep() {
