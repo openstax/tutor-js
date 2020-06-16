@@ -24,7 +24,7 @@ export default class AssignmentReviewUX {
   @observable displayTotalInPercent = false;
 
   freeResponseQuestions = observable.map();
-  pendingExtensions = observable.map();
+  @observable pendingExtensions = observable.map();
   pendingDroppedQuestions = observable.map();
 
   constructor(attrs = null) {
@@ -128,7 +128,11 @@ export default class AssignmentReviewUX {
   // methods relating to granting extensions
 
   @computed get isPendingExtensions() {
-    return this.pendingExtensions.size > 0;
+    // find any values that are truthy
+    for (const value of this.pendingExtensions.values()) {
+      if (value) { return true; }
+    }
+    return false;
   }
 
   @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
