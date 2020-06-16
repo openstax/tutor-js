@@ -306,7 +306,7 @@ class TaskPlanScoresTasking extends BaseModel {
     return sorted;
   }
 
-  @computed get nonTutorQuestionsInfo() {
+  @computed get coreQuestionsInfo() {
     return this.questionsInfo.filter(q => q.type !== 'Tutor');
   }
 
