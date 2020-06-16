@@ -213,6 +213,13 @@ const OrderIcon = styled(Icon)`
   }
 `;
 
+const NameWrapper = styled(Heading)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+
 export {
   StyledStickyTable, Cell, centeredCSS, paddingCSS, CellContents,
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
@@ -220,5 +227,5 @@ export {
   SplitCell, LateWork, Total, isTroubleCSS,
   DefinitionsWrapper, Term, Definition,
   ControlsWrapper, ControlGroup,
-  OrderIcon,
+  OrderIcon, NameWrapper,
 };
