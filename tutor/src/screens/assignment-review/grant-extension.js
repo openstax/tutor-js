@@ -12,7 +12,7 @@ import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/exten
 const StudentExtensionInfo = observer(({ student }) => {
   if (!student.extension) { return null; }
 
-  return <ExtensionIcon extension={student.extension} />;
+  return <ExtensionIcon extension={student.extension} inline={true} />;
 });
 
 const CheckBox = styled.input.attrs({
@@ -25,17 +25,53 @@ const Label = styled.label`
   margin-bottom: 1rem;
 `;
 
-const StudentWrapper=styled(Label)`
-  display: flex;
-  justify-content: flex-start;
-  span {
-    flex: 0;
-  }
+const StudentWrapper = styled(Label)`
   ${GreenCircle} {
+    margin-left: 1rem;
+  }
+  flex: 1 0 25%;
+  margin: 5px;
+  height: 25px;
+`;
+
+const Box = styled.div`
+  display: flex;
+  > * { flex: 1; }
+  .date-time-input + .date-time-input {
     margin-left: 1rem;
   }
 `;
 
+const StudentsList = styled.div`
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const LegendBar = styled.div`
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+`;
+
+const ExtensionText = styled.div`
+  font-size: 10px;
+  margin-left: 1rem;
+  color: ${colors.neutral.gray};
+`;
+
+const StyledModalHeader = styled(Modal.Header)`
+  font-weight: bold;
+`;
+
+const SelectTitle = styled.div`
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+
+const SelectAllLabel = styled(Label)`
+  margin: 13px 5px;
+`;
 
 const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
   return (
@@ -50,13 +86,14 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
         </StyledModalHeader>
         <Modal.Body>
           <SelectTitle>Select student(s):</SelectTitle>
-          <Label>
+          <SelectAllLabel>
             <CheckBox
               onChange={ux.toggleGrantExtensionAllStudents}
             />
             Select all
-          </Label>
+          </SelectAllLabel>
           <StudentsList>
+            {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
             {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
           </StudentsList>
           <Box>
@@ -80,7 +117,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
             <EIcon />
             <ExtensionText>
               Students who’ve been granted an extension are denoted with a green circle with E.
-              Hover over the icon to see the new due date for that studen.
+              Hover over the icon to see the new due date for that student.
             </ExtensionText>
           </LegendBar>
         </Modal.Body>
@@ -111,46 +148,12 @@ const Student = observer(({ student, ux }) => {
         onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id, checked)}
         checked={checked}
       />
-      <span>{student.last_name}, {student.first_name}</span>
-      <StudentExtensionInfo ux={ux} student={student} />
+      <span>{student.last_name}, {student.first_name}
+        <StudentExtensionInfo ux={ux} student={student} />
+      </span>
     </StudentWrapper>
   );
 });
-                         
-const Box=styled.div`
-  display: flex;
-  > * { flex: 1; }
-  .date-time-input + .date-time-input {
-    margin-left: 1rem;
-  }
-`;
-
-const StudentsList = styled.div`
-  column-count: 3;
-  column-gap: 2rem;
-  margin-bottom: 2rem;
-`;
-
-const LegendBar = styled.div`
-  margin: 2rem;
-  display: flex;
-  align-items: center;
-`;
-const ExtensionText = styled.div`
-  font-size 10px;
-  margin-left: 1rem;
-  color: ${colors.neutral.gray};
-`;
-
-const StyledModalHeader = styled(Modal.Header)`
-  font-weight: bold;
-`;
-
-const SelectTitle = styled.div`
-  font-weight: bold;
-  margin-bottom: 1rem;
-`;
-
 
 const GrantExtension = observer(({ ux }) => {
   if (!ux.taskPlan.canGrantExtension) {

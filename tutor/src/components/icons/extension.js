@@ -23,6 +23,10 @@ const format = (dte) => moment(dte).format('h:mm a on MMM D');
 const ExtensionIconWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  ${props => props.inline && css`
+    display: inline-block;
+  `}
 `;
 
 const EIcon = ({ className, inline }) => <GreenCircle className={cn('extension-icon', className)} inline={inline}>E</GreenCircle>;
@@ -31,7 +35,7 @@ EIcon.propTypes = {
   inline: PropTypes.bool,
 };
 
-const ExtensionIcon = ({ className, extension }) => {
+const ExtensionIcon = ({ className, extension, inline = false }) => {
   let msg = 'Student was granted an extension.';
   if (extension) {
     msg += ` Assignment is now due at ${format(extension.due_at)} and closes at ${format(extension.closes_at)}`;
@@ -42,7 +46,7 @@ const ExtensionIcon = ({ className, extension }) => {
 
       overlay={<Tooltip id="extension-icon">{msg}</Tooltip>}
     >
-      <ExtensionIconWrapper>
+      <ExtensionIconWrapper inline={inline}>
         <EIcon className={className} />
       </ExtensionIconWrapper>
 
@@ -56,6 +60,7 @@ ExtensionIcon.propTypes = {
     due_at: PropTypes.string,
     closes_at: PropTypes.string,
   }),
+  inline: PropTypes.bool,
 };
 export { GreenCircle, EIcon };
 export default ExtensionIcon;
