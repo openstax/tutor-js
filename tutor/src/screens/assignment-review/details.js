@@ -182,7 +182,7 @@ const Questions = observer(({ ux, questionsInfo }) => {
     Content = (
       <>
         <Header><h6>Questions Assigned</h6></Header>
-        <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Beta Tutor</StyledReadingNotice>
+        <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Tutor Beta</StyledReadingNotice>
       </>
     );
   }
