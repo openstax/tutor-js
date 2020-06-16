@@ -50,7 +50,7 @@ class ResponseValidationUX {
   }
 
   @action.bound async onSave() {
-    if (!this.validator.isEnabled || !this.step.can_be_updated) {
+    if (!this.taskUX.canUpdateCurrentStep) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
       this.taskUX.onFreeResponseComplete(this.step);
       return;
@@ -118,7 +118,7 @@ class ResponseValidationUX {
   }
 
   @computed get submitBtnLabel() {
-    if (!this.step.can_be_updated) {
+    if (!this.taskUX.canUpdateCurrentStep){
       return 'Next';
     }
     return this.isDisplayingNudge ? 'Re-submit' : 'Submit';

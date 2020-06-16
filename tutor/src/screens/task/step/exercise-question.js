@@ -97,7 +97,12 @@ class ExerciseQuestion extends React.Component {
   }
 
   renderNextButton() {
-    return <Button size="lg" onClick={this.onNextStep}>Continue</Button>;
+    const { canUpdateCurrentStep } = this.props.ux;
+    return (
+      <Button size="lg" onClick={this.onNextStep}>
+        {canUpdateCurrentStep ? 'Continue' : 'Next'}
+      </Button>
+    );
   }
 
   render() {

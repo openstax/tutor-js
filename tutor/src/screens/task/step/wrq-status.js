@@ -30,7 +30,7 @@ Message.propTypes = {
 };
 
 const WRQStatus = observer(({ step }) => {
-  if (!step.isOpenEndedExercise) {
+  if (!(step.canUpdateFreeResponse && step.task.course.currentRole.isTeacher)) {
     return null;
   }
 

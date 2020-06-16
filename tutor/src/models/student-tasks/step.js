@@ -123,6 +123,7 @@ class StudentTaskStep extends BaseModel {
   @computed get isPlaceHolder() {
     return 'placeholder' === this.type;
   }
+
   @computed get isOpenEndedExercise() {
     return this.isExercise && this.content.isOpenEnded;
   }
