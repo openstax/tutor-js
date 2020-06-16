@@ -189,7 +189,9 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "multiPartGroup": undefined,
       "preview": "enterprise: RL Circuits",
       "published_comments": undefined,
+      "published_late_work_point_penalty": undefined,
       "published_points": undefined,
+      "published_points_without_lateness": undefined,
       "response_validation": Object {},
       "spy": Object {},
       "task": StudentTask {
@@ -539,7 +541,9 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "multiPartGroup": undefined,
         "preview": "enterprise: RL Circuits",
         "published_comments": undefined,
+        "published_late_work_point_penalty": undefined,
         "published_points": undefined,
+        "published_points_without_lateness": undefined,
         "response_validation": Object {},
         "spy": Object {},
         "task": StudentTask {
