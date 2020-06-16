@@ -40,7 +40,7 @@ const ControlsRow = styled.div`
   margin: 24px 0;
   display: flex;
   justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
-  align-items: center;
+  align-items: stretch;
 `;
 
 const TextArea = styled.textarea`
@@ -66,10 +66,11 @@ const StyledRevertButton = styled(Button)`
   min-width: 10rem;
   margin-right: 2rem;
 `;
-const RevertButton = observer(({ ux, ux: { step } }) => {
-  if (!step.isOpenEndedExercise ||
-      !step.can_be_updated ||
-      !step.last_completed_at) {
+const RevertButton = observer(({ ux, ux: { course, step } }) => {
+  if (!(step.isOpenEndedExercise &&
+        !step.can_be_updated &&
+        !step.last_completed_at &&
+        course.currentRole.isTeacher)) {
     return null;
   }
 

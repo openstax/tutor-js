@@ -61,10 +61,14 @@ export default class TaskUX {
     }
   }
 
+  @computed get isTeacher() {
+    return this.course.currentRole.isTeacher;
+  }
+
   @computed get isReadOnly() {
     return Boolean(
       this.isLocked ||
-        this.course.currentRole.isTeacher ||
+        this.isTeacher ||
         this.currentStep.can_be_updated === false
     );
   }
@@ -153,7 +157,7 @@ export default class TaskUX {
 
   @action async onFreeResponseComplete(step) {
     if (!step.content.requiresAnswerId) {
-      if (step.can_be_updated) {
+      if ((!this.isTeacher) && step.can_be_updated) {
         await step.save();
       }
       this.goForward();
@@ -209,6 +213,12 @@ export default class TaskUX {
       }
       this.goToStep(this.nextStep);
     }
+  }
+
+  @computed get canUpdateCurrentStep() {
+    return Boolean(
+      this.currentStep.can_be_updated && (!this.isTeacher)
+    );
   }
 
   @action.bound unLock() {

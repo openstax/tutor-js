@@ -21,6 +21,7 @@ describe('Task Response Validation', () => {
     };
     ux = new UX({ step, validator, messages, taskUX: {
       onFreeResponseComplete: jest.fn(),
+      canUpdateCurrentStep: true,
     } });
   });
 
@@ -39,7 +40,9 @@ describe('Task Response Validation', () => {
 
   it('only records nudge when its displayed', async () => {
     ux.setResponse({ target: { value: 'garbage all the way down' } });
+
     await ux.onSave();
+    
     expect(step.response_validation.attempts).toHaveLength(1);
     expect(step.response_validation.attempts[0].nudge).toEqual('two');
     ux.setResponse({ target: { value: 'another attempt' } });
