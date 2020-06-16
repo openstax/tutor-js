@@ -42,7 +42,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info, tqIndex }) => 
           onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
         />)}
       {ux.planScores.isReading ? 'Question' : label}
-      {info.type === 'Tutor' &&
+      {!info.isCore &&
         ` | OpenStax Tutor Selection ${tqIndex < 26 ? ALPHABET[tqIndex].toUpperCase() : ''}`}
     </ExerciseNumber>
     <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>

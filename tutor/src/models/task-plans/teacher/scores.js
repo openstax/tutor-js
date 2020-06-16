@@ -273,7 +273,7 @@ class TaskPlanScoresTasking extends BaseModel {
             averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
             remaining: heading ? heading.gradedStats.remaining : 0,
             index: studentQuestion.index,
-            type: heading.type,
+            isCore: heading.isCore,
             exercise,
             question,
             responses: [],
@@ -300,14 +300,14 @@ class TaskPlanScoresTasking extends BaseModel {
 
     let tqIndex = -1;
     for (const qi of sorted) {
-      if (qi.type === 'Tutor') { qi.tqIndex = ++tqIndex; }
+      if (!qi.isCore) { qi.tqIndex = ++tqIndex; }
     }
 
     return sorted;
   }
 
   @computed get coreQuestionsInfo() {
-    return this.questionsInfo.filter(q => q.type !== 'Tutor');
+    return this.questionsInfo.filter(q => q.isCore);
   }
 
   @computed get hasEqualTutorQuestions() {
