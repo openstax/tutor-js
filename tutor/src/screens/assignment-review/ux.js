@@ -194,6 +194,7 @@ export default class AssignmentReviewUX {
     });
 
     await taskPlan.saveDroppedQuestions();
+    await this.planScores.fetch();
     this.cancelDisplayingDropQuestions();
   }
 
@@ -213,7 +214,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get isDroppedQuestionsSaving() {
-    return this.taskPlan.api.isPending;
+    return this.taskPlan.api.isWriteInProgress;
   }
 
   @action.bound onDelete() {
