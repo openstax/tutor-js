@@ -154,7 +154,11 @@ const ReviewExerciseCard = observer(({
 }) => (
   <QuestionPreview className="openstax-exercise-preview">
     <QuestionHeader variant={styleVariant} className="question-header">
-      <HeaderContent styleVariant={styleVariant} info={info} label={`Question ${index + 1}`} />
+      <HeaderContent
+        styleVariant={styleVariant}
+        info={info}
+        label={`Question ${index + 1}${info.type === 'Tutor' ? ' | OpenStax Tutor selection' : ''}`}
+      />
     </QuestionHeader>
     <Body className="card-body" variant={styleVariant}>
       <Question

@@ -273,6 +273,7 @@ class TaskPlanScoresTasking extends BaseModel {
             averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
             remaining: heading ? heading.gradedStats.remaining : 0,
             index: studentQuestion.index,
+            type: heading.type,
             exercise,
             question,
             responses: [],
