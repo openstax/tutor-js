@@ -40,7 +40,7 @@ const ControlsRow = styled.div`
   margin: 24px 0;
   display: flex;
   justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
-  align-items: stretch;
+  align-items: center;
 `;
 
 const TextArea = styled.textarea`
@@ -59,12 +59,14 @@ TextArea.displayName = 'TextArea';
 const AnswerButton = styled(Button)`
   margin: 0;
   min-width: 12rem;
+  height: 5rem;
 `;
 AnswerButton.displayName = 'AnswerButton';
 
 const StyledRevertButton = styled(Button)`
   min-width: 10rem;
   margin-right: 2rem;
+  height: 5rem;
 `;
 const RevertButton = observer(({ ux, ux: { course, step } }) => {
   if (!(step.isOpenEndedExercise &&
