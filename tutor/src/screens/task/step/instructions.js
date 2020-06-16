@@ -74,8 +74,8 @@ const ReadingWeights = observer(({ task }) => {
     <>
       <Heading>Score for auto-graded questions (MCQs, 2-step questions)</Heading>
       <ul>
-        <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the questions point value</li>
-        <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the questions point value</li>
+        <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</li>
+        <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</li>
       </ul>
     </>
   );
