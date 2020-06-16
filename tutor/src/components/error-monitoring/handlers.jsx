@@ -180,7 +180,7 @@ const ERROR_HANDLERS = {
     );
   },
 
-  base_cannot_be_changed_because_this_template_is_assigned_to_one_or_more_task_plans() {
+  base_cannot_be_changed_because_this_template_is_assigned_to_one_or_more_open_task_plans() {
     return {
       className: 'error',
       title: 'Template cannot be updated',
