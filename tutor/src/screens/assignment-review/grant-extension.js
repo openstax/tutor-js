@@ -94,7 +94,6 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
           </SelectAllLabel>
           <StudentsList>
             {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
-            {ux.scores.students.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
           </StudentsList>
           <Box>
             <DateTime
