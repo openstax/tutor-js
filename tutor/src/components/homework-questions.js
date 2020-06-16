@@ -145,7 +145,7 @@ const ExerciseNumber = styled.div`
 export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
-  index, info,
+  index, tqIndex, info,
   questionInfoRenderer: QuestionInfo,
   headerContentRenderer: HeaderContent,
   footerContentRenderer: FooterContent,
@@ -157,7 +157,8 @@ const ReviewExerciseCard = observer(({
       <HeaderContent
         styleVariant={styleVariant}
         info={info}
-        label={`Question ${index + 1}${info.type === 'Tutor' ? ' | OpenStax Tutor selection' : ''}`}
+        tqIndex={tqIndex}
+        label={`Question ${index + 1}`}
       />
     </QuestionHeader>
     <Body className="card-body" variant={styleVariant}>
@@ -195,6 +196,7 @@ const HomeworkQuestions = observer(({
       <ReviewExerciseCard
         info={info}
         index={index}
+        tqIndex={info.tqIndex}
         questionType={questionType}
         key={info.key}
         headerContentRenderer={headerContentRenderer}
