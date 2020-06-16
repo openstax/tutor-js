@@ -60,6 +60,7 @@ Factory.define('TaskPlanPeriodScore')
         exercise_id: exercise.id,
         question_id: question.id,
         points: 1.0,
+        points_without_dropping: 1.0,
         type: task_plan.type.match(/wrm/) ? 'FR' : 'MCQ',
       }))
     ))

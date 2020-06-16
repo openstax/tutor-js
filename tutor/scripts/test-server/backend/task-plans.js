@@ -102,6 +102,10 @@ module.exports = {
 
   getScores(req, res) {
     const scores = scoresForId(req.query.course_id, req.params.id);
+    const plan = planForId(req.params.id);
+    if (plan.dropped_questions) {
+      scores.dropped_questions = plan.dropped_questions
+    }
     res.json(scores);
   },
 
