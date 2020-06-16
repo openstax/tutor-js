@@ -299,6 +299,10 @@ class TaskPlanScoresTasking extends BaseModel {
     }), 'index');
   }
 
+  @computed get nonTutorQuestionsInfo() {
+    return this.questionsInfo.filter(q => q.type !== 'Tutor');
+  }
+
   @computed get hasEqualTutorQuestions() {
     for (const student of this.students) {
       if (student.questions.length != this.question_headings.length) {
