@@ -98,7 +98,7 @@ export default class GradeBookUX {
       }
       return sorter.type;
     } else if (this.arrangeColumnsByPoints) {
-      return sorter.points;
+      return sorter.published_points;
     }
     return sorter.date;
   }

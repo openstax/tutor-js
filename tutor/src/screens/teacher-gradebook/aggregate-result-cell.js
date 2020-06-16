@@ -8,12 +8,12 @@ import S, { UNWORKED } from '../../helpers/string';
 const Cell = getCell('0 10px');
 
 const getPoints = (tasks) => {
-  const aggregatePoints = sumBy(tasks, (t) => t.points);
+  const aggregatePoints = sumBy(tasks, (t) => t.published_points);
   return isNil(aggregatePoints) ? UNWORKED : S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
 };
 
 const getPercentage = (tasks) => {
-  const aggregateScore = sumBy(tasks, (t) => parseFloat(t.score, 10));
+  const aggregateScore = sumBy(tasks, (t) => parseFloat(t.published_score , 10));
   return isNil(aggregateScore) ? UNWORKED : `${S.asPercent(aggregateScore/tasks.length)}%`;
 };
 

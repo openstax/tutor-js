@@ -17,7 +17,7 @@ const getSortValue = function(student, key, dataType, displayAs) {
     case 'homework':
       switch (dataType) {
         case 'score':
-          score = task.score;
+          score = task.published_score;
           if (displayAs === 'number') {
             return score || 0;
           } else {

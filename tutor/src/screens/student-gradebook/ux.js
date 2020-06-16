@@ -8,8 +8,8 @@ export default class StudentGradeBookUX {
   sortFieldConstants = {
     title: 'reportHeading.title',
     dueAt: 'due_at',
-    points: 'points',
-    score: 'score',
+    points: 'published_points',
+    score: 'published_score',
   }
 
   sortOrderConstants = {
