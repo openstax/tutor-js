@@ -50,6 +50,14 @@ class StudentTask extends BaseModel {
     );
   }
 
+  @computed get publishedLateWorkPenalty() {
+    return sumBy(this.steps, 'publishedLateWorkPenalty');
+  }
+
+  @computed get publishedPoints() {
+    return sumBy(this.steps, 'publishedPoints');
+  }
+
   @computed get course() {
     return this.tasksMap.course;
   }

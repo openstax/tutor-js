@@ -195,11 +195,11 @@ class TaskProgress extends React.Component {
               }
               {task.hasLateWorkPolicy &&
                 <Cell>
-                  {task.published_late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(task.published_late_work_point_penalty)}` : '0.0'}
+                  {task.publishedLateWorkPenalty ? `-${S.numberWithOneDecimalPlace(task.publishedLateWorkPenalty)}` : '0.0'}
                 </Cell>}
               <Cell>
-                {task.published_points !== null ?
-                  S.numberWithOneDecimalPlace(task.published_points) : UNWORKED }
+                {isNil(task.publishedPoints) ?
+                  UNWORKED : S.numberWithOneDecimalPlace(task.publishedPoints)}
               </Cell>
             </Row>
         }

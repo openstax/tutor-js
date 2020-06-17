@@ -1,5 +1,5 @@
 import Map from 'shared/model/map';
-import { isNil } from 'lodash';
+import { isNil, defaults } from 'lodash';
 import {
   BaseModel, identifiedBy, action, field,
   identifier, computed, observable,
@@ -18,13 +18,13 @@ class GradingTemplate extends BaseModel {
   @identifier id;
   @field name = '';
   @field task_plan_type;
-  @field completion_weight = 0.9;
-  @field correctness_weight = 0.1;
+  @field completion_weight;
+  @field correctness_weight;
   @field deleted_at;
   @field auto_grading_feedback_on = 'answer';
-  @field manual_grading_feedback_on = 'publish';
+  @field manual_grading_feedback_on;
   @field late_work_penalty = 0.1;
-  @field late_work_penalty_applied = 'daily';
+  @field late_work_penalty_applied;
   @field default_open_time = '00:01';
   @field default_due_time = '21:00';
   @field default_due_date_offset_days = 7;
@@ -37,11 +37,23 @@ class GradingTemplate extends BaseModel {
     super(attrs);
     this.map = map;
 
-    if (this.isNew && this.isReading) {
-      this.late_work_penalty_applied = 'immediately';
-    }
-    if (this.isNew && this.isHomework) {
-      this.manual_grading_feedback_on = 'grade';
+    if (this.isNew) {
+      if (this.isReading) {
+        defaults(this, {
+          completion_weight: 0.9,
+          correctness_weight: 0.1,
+          manual_grading_feedback_on: 'publish',
+          late_work_penalty_applied: 'immediately',
+        });
+      }
+      if (this.isHomework) {
+        defaults(this,{
+          completion_weight: 0.0,
+          correctness_weight: 1.0,
+          late_work_penalty_applied: 'daily',
+          manual_grading_feedback_on: 'grade',
+        });
+      }
     }
   }
 
