@@ -10,8 +10,6 @@ import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
 import GrantExtension from './grant-extension';
-import DropQuestions from './drop-questions';
-import PublishScores from './publish-scores';
 import { EIcon } from '../../components/icons/extension';
 
 import {
@@ -233,10 +231,6 @@ const TableHeader = observer(({ ux }) => {
       <ControlGroup>
         <SearchInput onChange={ux.onSearchStudentChange} />
         <GrantExtension ux={ux} />
-        <DropQuestions ux={ux} />
-      </ControlGroup>
-      <ControlGroup>
-        <PublishScores ux={ux} />
       </ControlGroup>
     </ControlsWrapper>
   );
