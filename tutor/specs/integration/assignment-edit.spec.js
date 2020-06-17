@@ -10,7 +10,7 @@ context('Assignment Edit', () => {
     cy.get('input[name="title"]').type('test assignment #1')
     cy.get('.controls .btn-primary').should('not.be.disabled')
   }
-  const addTemplate = ({ name, dueDateOffsetDays = '1', dueTimeHour = '5', 
+  const addTemplate = ({ name, dueDateOffsetDays = '1', dueTimeHour = '5',
     dueTimeMinutes = '30', closesDateOffsetDays = '30', isAM = false, doSelect = false }) => {
     cy.get('[data-test-id="grading-templates"]').click()
     cy.get('[data-test-id="add-template"]').click()
@@ -41,7 +41,7 @@ context('Assignment Edit', () => {
     ).blur()
     cy.get('[aria-invalid][data-target="description"]').should('contain.text', 'Cannot be longer')
   })
-  
+
   it('loads and advances homework', () => {
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours();
@@ -141,7 +141,7 @@ context('Assignment Edit', () => {
     cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
     cy.get('.heading').should('not.contain.text', 'STEP 1')
-    cy.get('[name="external_url"').type('url')
+    cy.get('[name="settings.external_url"').type('url')
   });
 
   it('can add a new template', () => {
@@ -253,7 +253,7 @@ context('Assignment Edit', () => {
     // force update the open date
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true })
     // After opening the closes date time picker modal, it gets the two OK buttons
-    cy.get('.oxdt-ok button').last().click({ force: true })  
+    cy.get('.oxdt-ok button').last().click({ force: true })
     // after changing the open date, no dates should be changed because the interval between open/due/close date has changed
     cy.get('input[name="tasking_plans[0].closes_at"]').then(d => {
       expect(d[0].defaultValue).eq(currentClosesDate)
