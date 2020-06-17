@@ -2,6 +2,16 @@
 html {
   font-size: 16px;
   box-sizing: border-box;
+
+  // Stacked modals
+  // Makes sure the main body and previous modals have less z-index than the first one.
+  body > div[role="dialog"],
+  body > div[role="dialog"]:not(.modal) {
+    position: relative;
+    z-index: 1;
+    height: 0;
+    overflow: visible;
+  }
 }
 *,
 *:before,
