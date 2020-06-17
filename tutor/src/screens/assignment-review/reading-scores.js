@@ -146,7 +146,6 @@ const StudentColumnHeader = observer(({ ux }) => (
 
 const StudentCell = observer(({ ux, student, striped }) => {
   const countData = ux.getReadingCountData(student);
-  console.log(student);
   return (
     <>
       <Cell striped={striped}>
