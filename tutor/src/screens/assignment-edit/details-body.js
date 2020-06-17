@@ -1,5 +1,7 @@
 import { React, PropTypes, styled, observer, useRef, useEffect } from 'vendor';
-import { SplitRow, Label, HintText, TextInput, TextArea, Body } from './builder';
+import {
+  SplitRow, Label, HintText, TextInput, TextArea, Body, GreyPopover,
+} from './builder';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
@@ -35,7 +37,9 @@ const SectionRow = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
-
+  &[disabled] {
+    background: ${colors.neutral.bright};
+  }
 `;
 
 const StyledDropdown = styled(Dropdown)`
@@ -156,14 +160,28 @@ TemplateField.propTypes = {
 };
 
 const ExternalUrlField = observer(({ ux }) => {
+  const input = (
+    <StyledTextInput
+      name="settings.external_url"
+      validate={isValidUrl}
+      disabled={!ux.canEditSettings}
+    />
+  );
+
+  const disabledInput = (
+    <OverlayTrigger
+      trigger="hover"
+      placement="bottom"
+      overlay={<GreyPopover>Cannot be edited after assignment is open</GreyPopover>}
+    >
+      {input}
+    </OverlayTrigger>
+  );
+
   return (
     <SplitRow>
       <RowLabel htmlFor="externalUrl">Assignment URL</RowLabel>
-      <StyledTextInput
-        name="external_url"
-        defaultValue={ux.plan.settings.external_url}
-        validate={isValidUrl}
-      />
+      {ux.canEditSettings ? input : disabledInput}
     </SplitRow>
   );
 });

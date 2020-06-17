@@ -3,13 +3,14 @@ import {
 } from 'vendor';
 import moment from 'moment';
 import { Icon } from 'shared';
-import { Row, Col, Alert, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
 import CheckboxInput from '../../components/checkbox-input';
+import { GreyPopover } from './builder';
 
 const StyledTasking = styled.div`
   min-height: 7rem;
@@ -31,14 +32,6 @@ const StyledInner = styled.div`
 
 const StyledAlert = styled(Alert)`
 `;
-
-const GreyPopover = styled(Popover)`
-&.popover {
-padding: 2rem;
-background-color: #f4f5f4;
-}
-`;
-
 
 @observer
 class Tasking extends React.Component {
@@ -106,7 +99,7 @@ class Tasking extends React.Component {
         }
         else
           this.props.ux.setDidUserChangeDatesManually(true);
-      } 
+      }
     });
   }
 
@@ -248,7 +241,7 @@ class Tasking extends React.Component {
   }
 }
 
-const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {   
+const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {
   const input = (
     <DateTime
       label="Open date & Time"
