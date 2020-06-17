@@ -2,6 +2,7 @@ import { React, PropTypes, styled, observer } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { colors, fonts } from 'theme';
 import { ErrorMessage, Field } from 'formik';
+import { Popover } from 'react-bootstrap';
 import Controls from './controls';
 
 const Header = styled.div`
@@ -74,6 +75,13 @@ const TextInputError = styled.div.attrs({
   margin: 1rem 0;
 `;
 
+const GreyPopover = styled(Popover)`
+  &.popover {
+    padding: 2rem;
+    background-color: #f4f5f4;
+  }
+`;
+
 // don't pass hasError onto Field, it'll set it on the DOM
 // eslint-disable-next-line no-unused-vars
 const StyledTextInput = styled(Field).withConfig({
@@ -144,4 +152,7 @@ AssignmentBuilder.propTypes = {
   middleControls: PropTypes.node,
 };
 
-export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, TextArea, Setting, Body };
+export {
+  AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, TextArea,
+  Setting, Body, GreyPopover,
+};

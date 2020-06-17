@@ -3,7 +3,7 @@ import Router from '../../helpers/router';
 import { runInAction, observe } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
 import {
-  filter, isEmpty, compact, map, get, first, difference, flatMap, omit, pick, extend,
+  filter, isEmpty, compact, map, get, first, difference, flatMap, omit, pick, extend, every,
 } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
@@ -407,7 +407,7 @@ export default class AssignmentUX {
   @action saveFormToPlan() {
     this.plan.update(omit(this.form.values, 'tasking_plans', 'settings'));
     if (this.plan.isExternal) {
-      this.plan.settings.external_url = this.form.values.external_url;
+      this.plan.settings.external_url = this.form.values.settings.external_url;
     }
   }
 
@@ -468,5 +468,9 @@ export default class AssignmentUX {
     if (!(this.plan.isClone && this.plan.isHomework)) { return false; }
     const clonedFrom = this.course.pastTaskPlans.get(this.plan.cloned_from_id);
     return Boolean(clonedFrom && clonedFrom.duration.start.isBefore(WRM_START_DATE));
+  }
+
+  @computed get canEditSettings() {
+    return every(this.plan.tasking_plans, ['isPastOpen', false]);
   }
 }
