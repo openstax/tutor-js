@@ -273,6 +273,7 @@ class TaskPlanScoresTasking extends BaseModel {
             averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
             remaining: heading ? heading.gradedStats.remaining : 0,
             index: studentQuestion.index,
+            isCore: heading.isCore,
             exercise,
             question,
             responses: [],
@@ -283,7 +284,7 @@ class TaskPlanScoresTasking extends BaseModel {
     }
 
     // add their stats once all the questions are gathered
-    return sortBy(Object.values(info).map((qi) => {
+    const sorted = sortBy(Object.values(info).map((qi) => {
       for (const answer of qi.question.answers) {
         answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length,
         answer.answered_count = qi.responses.length;
@@ -296,6 +297,17 @@ class TaskPlanScoresTasking extends BaseModel {
         totalPoints: qi.points * qi.responses.length,
       };
     }), 'index');
+
+    let tqIndex = -1;
+    for (const qi of sorted) {
+      if (!qi.isCore) { qi.tqIndex = ++tqIndex; }
+    }
+
+    return sorted;
+  }
+
+  @computed get coreQuestionsInfo() {
+    return this.questionsInfo.filter(q => q.isCore);
   }
 
   @computed get hasEqualTutorQuestions() {

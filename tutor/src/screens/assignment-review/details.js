@@ -333,7 +333,7 @@ const Details = observer(({ ux }) => {
           </Section>
         }
       </Top>
-      {scores && <Questions ux={ux} questionsInfo={scores.questionsInfo} />}
+      {scores && <Questions ux={ux} questionsInfo={scores.coreQuestionsInfo} />}
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
       {isDisplayingEditAssignment && <EditModal ux={ux} />}
     </DetailsWrapper>

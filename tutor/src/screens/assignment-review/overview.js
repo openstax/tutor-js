@@ -33,7 +33,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
+const QuestionHeader = observer(({ ux, styleVariant, label, info, tqIndex }) => (
   <>
     <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
       {info.hasFreeResponse && (
@@ -42,6 +42,8 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
           onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
         />)}
       {ux.planScores.isReading ? 'Question' : label}
+      {!info.isCore &&
+        ` | OpenStax Tutor Selection ${tqIndex < 26 ? ALPHABET[tqIndex].toUpperCase() : ''}`}
     </ExerciseNumber>
     <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
   </>
