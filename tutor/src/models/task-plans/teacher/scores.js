@@ -116,7 +116,7 @@ class TaskPlanScoreStudent extends BaseModel {
   }
 
   @computed get reversedName() {
-    return `${this.first_name} ${this.last_name}`;
+    return `${this.first_name}, ${this.last_name}`;
   }
 
   @computed get extension() {

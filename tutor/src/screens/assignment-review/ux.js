@@ -110,7 +110,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get nameOrderHeader() {
-    return this.reverseNameOrder ? 'Firstname Lastname' : 'Lastname, Firstname';
+    return this.reverseNameOrder ? 'Firstname, Lastname' : 'Lastname, Firstname';
   }
 
   isShowingFreeResponseForQuestion(question) {
