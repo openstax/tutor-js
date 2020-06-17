@@ -10,8 +10,6 @@ import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
 import GrantExtension from './grant-extension';
-import DropQuestions from './drop-questions';
-import PublishScores from './publish-scores';
 import { EIcon } from '../../components/icons/extension';
 
 import {
@@ -166,7 +164,7 @@ const StudentCell = observer(({ ux, student, striped }) => {
           <Total>
             {ux.displayTotalInPercent ?
               `${S.asPercent(student.total_fraction || 0)}%` :
-              S.numberWithOneDecimalPlace(student.total_points)}
+              S.numberWithOneDecimalPlace(student.total_points || 0)}
           </Total>
           <LateWork>
             {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
@@ -234,10 +232,6 @@ const TableHeader = observer(({ ux }) => {
       <ControlGroup>
         <SearchInput onChange={ux.onSearchStudentChange} />
         <GrantExtension ux={ux} />
-        <DropQuestions ux={ux} />
-      </ControlGroup>
-      <ControlGroup>
-        <PublishScores ux={ux} />
       </ControlGroup>
     </ControlsWrapper>
   );
