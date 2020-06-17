@@ -38,6 +38,7 @@ const ExtIcon = styled(EIcon)`
 `;
 
 const ColumnHeading = styled(BasicColumnHeading)`
+  border-top-color: ${props => props.variant === 'q' ? colors.templates.reading.border : colors.neutral.std};
   background: ${props => props.variant === 'q' ? colors.templates.reading.background : colors.neutral.lighter};
   .middle-data-heading {
     padding-top: 15px;
