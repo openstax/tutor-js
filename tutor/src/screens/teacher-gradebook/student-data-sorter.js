@@ -5,7 +5,10 @@ const percent = (num, total) => Math.round((num / total) * 100) || 0;
 const getSortValue = function(student, key, dataType, displayAs) {
   //name, course_average, homework_score, reading_score
   if (!isNumber(key)) {
-    return student[key];
+    //if string, normalize it
+    if(typeof student[key] === 'string' || student[key] instanceof String) {
+      return student[key].toLowerCase();
+    }
   }
   const task = student.data[key];
   if (!task) { return -1; }

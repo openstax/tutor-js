@@ -1,6 +1,9 @@
 import { orderBy } from 'lodash';
 
 const SORTERS = {
+  first_name(student) {
+    return [student.first_name.toLowerCase(), student.last_name.toLowerCase()];
+  },
   name(student) {
     return [student.last_name.toLowerCase(), student.first_name.toLowerCase()];
   },

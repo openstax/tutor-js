@@ -73,12 +73,12 @@ const StudentColumnHeader = observer(({ ux }) => (
     <CellContents>
       <ColumnHeading first={true}>
         <HeadingTop
-          onClick={() => ux.changeRowSortingOrder(0, 'name')}
+          onClick={() => ux.changeRowSortingOrder(0, ux.reverseNameOrder ? 'first_name' : 'name')}
           aria-label="Sort by student name"
           role="button"
         >
           Student Name
-          <SortIcon sort={ux.sortForColumn(0, 'name')} />
+          <SortIcon sort={ux.sortForColumn(0, ux.reverseNameOrder ? 'first_name' : 'name')} />
         </HeadingTop>
         <HeadingMiddle>
           {ux.nameOrderHeader}

@@ -210,7 +210,7 @@ const StudentColumnHeader = observer(({ ux }) => {
           data-test-id="student-name-heading"
         >
           <HeadingTop
-            onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
+            onClick={() =>ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
           >          
             Student Name
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
