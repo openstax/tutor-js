@@ -340,14 +340,12 @@ class TaskPlanScoresTasking extends BaseModel {
 
   @computed get totalAverageScoreInPercent() {
     const totals = compact(this.students.map(s => s.total_fraction));
-    console.log(isEmpty(totals));
     let value;
     if (isEmpty(totals)) {
       value = 0;
     } else {
       value = sum(totals) / totals.length;
     }
-    console.log(`${S.asPercent(value)}%`);
     return `${S.asPercent(value)}%`;
   }
 
