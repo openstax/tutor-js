@@ -145,7 +145,7 @@ const ExerciseNumber = styled.div`
 export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
-  index, tqIndex, info,
+  index, info,
   questionInfoRenderer: QuestionInfo,
   headerContentRenderer: HeaderContent,
   footerContentRenderer: FooterContent,
@@ -157,7 +157,6 @@ const ReviewExerciseCard = observer(({
       <HeaderContent
         styleVariant={styleVariant}
         info={info}
-        tqIndex={tqIndex}
         label={`Question ${index + 1}`}
       />
     </QuestionHeader>
@@ -196,7 +195,6 @@ const HomeworkQuestions = observer(({
       <ReviewExerciseCard
         info={info}
         index={index}
-        tqIndex={info.tqIndex}
         questionType={questionType}
         key={info.key}
         headerContentRenderer={headerContentRenderer}
