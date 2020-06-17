@@ -136,7 +136,7 @@ const Body = styled.div`
 const ExerciseNumber = styled.div`
   font-size: 1.6rem;
 
-  ${props => props.variant === 'submission' && css`
+  ${props => (props.variant === 'submission' || props.variant === 'reading') && css`
     font-size: 1.8rem;
     font-weight: bold;
   `}
