@@ -185,6 +185,29 @@ const ERROR_HANDLERS = {
     return null;
   },
 
+  settings_cannot_be_updated_after_open() {
+    return {
+      className: 'error',
+      title: 'Settings cannot be changed after assignment is open',
+      body: (
+        <div className="template-del-failure">
+          <p className="lead">
+            Assignment settings cannot be changed after the assignment is open.
+          </p>
+        </div>
+      ),
+      buttons: [
+        <Button
+          key="ok"
+          onClick={hideModal}
+          variant="primary"
+        >
+          OK
+        </Button>,
+      ],
+    };
+  },
+
   // The default error dialog that's displayed when we have no idea what's going on
   default(error, message, context) {
     if (context == null) { context = {}; }
