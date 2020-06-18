@@ -33,9 +33,6 @@ export default class AssignmentUX {
   @observable didUserChangeDatesManually = false;
   @observable dueAt;
 
-  // Check if the assignment is old, before WRM release. (No grading template)
-  isCloneOldAssignment;
-
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
@@ -51,7 +48,6 @@ export default class AssignmentUX {
         await course.pastTaskPlans.fetch();
       }
       this.plan = plan || course.pastTaskPlans.get(id).createClone({ course });
-      this.isCloneOldAssignment = Boolean(course.pastTaskPlans.get(id).grading_template_id);
     } else {
       if (plan) {
         this.plan = plan;
@@ -73,38 +69,7 @@ export default class AssignmentUX {
 
     if (this.plan.isNew) {
       if (this.plan.isExternal || this.plan.isEvent) {
-        const now = moment(Time.now);
-        let default_opens_at;
-        // If a semester hasn’t started at the time of assignment creation then the default open date should be first day of the semester at 12:01 AM
-        // else current time at 12:01am
-        if(now.isBefore(this.course.bounds.start)) {
-          const courseStartDate = this.course.bounds.start;
-          default_opens_at = courseStartDate.startOf('day').add(1, 'minute').toISOString();
-        }
-        else
-          default_opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
-        // default due date is 7 days after open date
-        const default_due_at = moment(default_opens_at).add(7, 'day').toISOString();
-        // if adding external assignment, close date is 1 minute after due date
-        if(this.plan.isExternal) {
-          const external_default_close_at = moment(default_due_at).add(1, 'minute').toISOString();
-          this.periods.map((period) =>
-            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: external_default_close_at }),
-          );
-        }
-        // event does not have a close date. Need to set the closes_at the same as due_at
-        else {
-          this.periods.map((period) =>
-            this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: default_due_at }),
-          );
-        }
-        // due_at is defined if user creates an assignment through the calendar
-        if (due_at) {
-          this.plan.tasking_plans.forEach(tp => {
-            tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
-            tp.closes_at = moment(tp.due_at).add(1, 'minute').toISOString();
-          });
-        }
+        this.setExternalAndEventDates(due_at);
       } else {
         this.periods.map((period) =>
           this.plan.findOrCreateTaskingForPeriod(period),
@@ -142,6 +107,44 @@ export default class AssignmentUX {
     this.actions = new Actions(this);
 
     this.isReady = true;
+  }
+
+  setExternalAndEventDates(due_at) {
+    // due_at is defined if user creates an assignment through the calendar
+    if (due_at) {
+      this.plan.tasking_plans.forEach(tp => {
+        tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
+        tp.opens_at = moment(tp.due_at).subtract('7', 'day').toISOString();
+        tp.closes_at = moment(tp.due_at).add(1, 'minute').toISOString();
+      });
+    }
+    else {
+      const now = moment(Time.now);
+      let default_opens_at;
+      // If a semester hasn’t started at the time of assignment creation then the default open date should be first day of the semester at 12:01 AM
+      // else current time at 12:01am
+      if(now.isBefore(this.course.bounds.start)) {
+        const courseStartDate = this.course.bounds.start;
+        default_opens_at = courseStartDate.startOf('day').add(1, 'minute').toISOString();
+      }
+      else
+        default_opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
+      // default due date is 7 days after open date
+      const default_due_at = moment(default_opens_at).add(7, 'day').toISOString();
+      // if adding external assignment, close date is 1 minute after due date
+      if(this.plan.isExternal) {
+        const external_default_close_at = moment(default_due_at).add(1, 'minute').toISOString();
+        this.periods.map((period) =>
+          this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: external_default_close_at }),
+        );
+      }
+      // event does not have a close date. Need to set the closes_at the same as due_at
+      else {
+        this.periods.map((period) =>
+          this.plan.findOrCreateTaskingForPeriod(period, { opens_at: default_opens_at, due_at: default_due_at, closes_at: default_due_at }),
+        );
+      }
+    }
   }
 
   @action.bound onGradingTemplateUpdate({ newValue }) {
