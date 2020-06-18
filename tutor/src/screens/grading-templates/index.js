@@ -7,7 +7,7 @@ import Theme from '../../theme';
 import Loading from 'shared/components/loading-animation';
 import { GradingTemplates } from '../../models/grading/templates';
 import Card from './card';
-import DeleteModal from './delete-modal';
+import { DeleteModal, NoEditModal } from './modals';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
@@ -53,6 +53,7 @@ class GradingTemplatesScreen extends React.Component {
 
   @observable editing = null;
   @observable deleting = null;
+  @observable editError = null;
 
   componentDidMount() {
     this.store.fetch();
@@ -70,8 +71,16 @@ class GradingTemplatesScreen extends React.Component {
     this.editing = null;
   }
 
+  @action.bound clearEditError() {
+    this.editError = null;
+  }
+  
   @action.bound onEditTemplate(template) {
-    this.editing = template;
+    if (template.has_task_plans) {
+      this.editError = template;
+    } else {
+      this.editing = template;
+    }
   }
 
   @action.bound onConfirmDelete(template) {
@@ -96,6 +105,11 @@ class GradingTemplatesScreen extends React.Component {
   }
 
   @computed get modal() {
+    if (this.editError) {
+      return (
+        <NoEditModal template={this.editError} onOk={this.clearEditError} />
+      );
+    }
     if (this.editing) {
       const Edit = EDIT_TYPES[this.editing.task_plan_type];
       if (Edit) {

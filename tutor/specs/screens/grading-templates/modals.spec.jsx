@@ -1,5 +1,5 @@
 import { React, Factory } from '../../helpers';
-import DeleteModal from '../../../src/screens/grading-templates/delete-modal';
+import { DeleteModal } from '../../../src/screens/grading-templates/modals';
 
 describe('Delete Modal', function() {
   let props;
