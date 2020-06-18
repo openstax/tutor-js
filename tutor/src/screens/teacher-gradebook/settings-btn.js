@@ -10,9 +10,8 @@ class Settings extends React.Component {
   };
 
   controls = {
-    displayScoresAsPercent: 'Display scores as percentage %',
+    displayScoresAsPoints: 'Display scores as points',
     arrangeColumnsByType: 'Arrange columns by assignment type',
-    arrangeColumnsByPoints: 'Arrange columns by points',
     showDroppedStudents: 'Show dropped students',
   }
 

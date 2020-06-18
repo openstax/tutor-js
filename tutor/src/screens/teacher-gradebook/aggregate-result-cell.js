@@ -32,7 +32,7 @@ const AggregateResult = observer(({ data, ux, drawBorderBottom }) => {
     const counts = countBy(tasksWithoutDroppedStudents, 'completed_step_count');
     value = S.asPercent(counts['1'] / tasksWithoutDroppedStudents.length) + '%';
   } else {
-    value = ux.displayScoresAsPercent ? getPercentage(tasksWithoutDroppedStudents) : getPoints(tasksWithoutDroppedStudents);
+    value = ux.displayScoresAsPoints ? getPoints(tasksWithoutDroppedStudents) : getPercentage(tasksWithoutDroppedStudents);
   }
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>

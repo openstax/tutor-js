@@ -56,10 +56,10 @@ const TaskResult = observer(({ ux, task, striped, isLast }) => {
 
     if (task.isExternal){
       Component = External;
-    } else if (ux.displayScoresAsPercent) {
-      Component = Percent;
-    } else {
+    } else if (ux.displayScoresAsPoints) {
       Component = Points;
+    } else {
+      Component = Percent;
     }
 
     const value = <Component task={task} />;

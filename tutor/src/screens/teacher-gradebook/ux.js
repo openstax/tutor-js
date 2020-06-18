@@ -30,9 +30,8 @@ export default class GradeBookUX {
 
   @observable searchingMatcher = null;
 
-  @UiSettings.decorate('gb.sap') displayScoresAsPercent = false;
+  @UiSettings.decorate('gb.sap') displayScoresAsPoints = false;
   @UiSettings.decorate('gp.cbt') arrangeColumnsByType = false;
-  @UiSettings.decorate('gp.cbp') arrangeColumnsByPoints = false;
   @UiSettings.decorate('gp.sds') showDroppedStudents = false;
 
   constructor(props) {
@@ -93,12 +92,7 @@ export default class GradeBookUX {
   @computed get columnSorter() {
     const sorter = studentDataSorter.columns;
     if (this.arrangeColumnsByType) {
-      if (this.arrangeColumnsByPoints) {
-        return sorter.type_and_points;
-      }
       return sorter.type;
-    } else if (this.arrangeColumnsByPoints) {
-      return sorter.published_points;
     }
     return sorter.date;
   }
