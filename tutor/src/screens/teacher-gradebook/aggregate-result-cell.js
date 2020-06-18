@@ -1,6 +1,6 @@
 import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
-import { sumBy, countBy, filter, isNil } from 'lodash';
+import { sumBy, countBy, filter, isNil, isNaN } from 'lodash';
 import { getCell } from './styles';
 import S, { UNWORKED } from '../../helpers/string';
 
@@ -14,7 +14,7 @@ const getPoints = (tasks) => {
 
 const getPercentage = (tasks) => {
   const aggregateScore = sumBy(tasks, (t) => parseFloat(t.published_score , 10));
-  return isNil(aggregateScore) ? UNWORKED : `${S.asPercent(aggregateScore/tasks.length)}%`;
+  return isNil(aggregateScore) || isNaN(aggregateScore) ? UNWORKED : `${S.asPercent(aggregateScore/tasks.length)}%`;
 };
 
 
