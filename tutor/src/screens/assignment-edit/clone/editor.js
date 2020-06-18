@@ -48,14 +48,6 @@ const StyledTemplateModal = styled(CloneModal)`
 }
 `;
 
-const WrqNote = styled.div`
-  padding: 0 1rem;
-  ul {
-    padding: 0 1.5rem;
-    color: ${colors.neutral.dark};
-  }
-`;
-
 @observer
 class Editor extends React.Component {
 
