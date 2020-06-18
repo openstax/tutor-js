@@ -91,7 +91,9 @@ QuestionHeader.propTypes = {
 };
 
 const StyledQuestionFreeResponse = styled.div`
-  margin-bottom: 1.6rem;
+  &:not(:last-child) {
+    margin-bottom: 1.6rem;
+  }
   display: flex;
   align-items: stretch;
   > * {
@@ -105,6 +107,7 @@ const StyledQuestionFreeResponse = styled.div`
     overflow-wrap: break-word;
     text-align: right;
     font-weight: normal;
+    line-height: 2.5rem;
     color: ${colors.neutral.thin};
   }
   .resp {
@@ -114,7 +117,7 @@ const StyledQuestionFreeResponse = styled.div`
     line-height: 2.5rem;
     white-space: pre-wrap;
   }
-  &:not(:only-child) .resp {
+  &:not(:only-child):not(:last-child) .resp {
     border-bottom: 1px solid ${colors.neutral.light};
   }
 

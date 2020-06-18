@@ -9,6 +9,10 @@ const StyledStickyTable = styled(StickyTable)`
   .sticky-table-row:last-child .sticky-table-cell {
     border-bottom: 1px solid ${colors.neutral.pale};
   }
+
+  .sticky-table-cell {
+    vertical-align: middle;
+  }
 `;
 
 const Cell = styled(TableCell)`

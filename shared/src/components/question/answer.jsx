@@ -185,7 +185,7 @@ class Answer extends React.Component {
     let body = '';
     if (type === 'teacher-review') {
       body = (
-        <>
+        <div className="review-wrapper">
           <div className={cn('review-count', { 'green': isCorrect, 'red': !isCorrect })}>
             {selectedCount}
             <span className={cn('letter', { 'green': isCorrect, 'red': !isCorrect })}>
@@ -199,7 +199,7 @@ class Answer extends React.Component {
               html={answer.content_html} />
             {feedback}
           </div>
-        </>
+        </div>
       );
     } else {
       body = (
