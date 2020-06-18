@@ -29,8 +29,9 @@ context('Teacher Gradebook', () => {
 
   it('sets preferences', () =>{
     cy.getTestElement('settings-btn').click();
-    [ 'displayScoresAsPercent', 'arrangeColumnsByType',
-      'arrangeColumnsByPoints','showDroppedStudents'].forEach((pref) => {
+    [
+      'displayScoresAsPoints', 'arrangeColumnsByType','showDroppedStudents',
+    ].forEach((pref) => {
       cy.getTestElement(`${pref}-checkbox`).click()
     })
   })

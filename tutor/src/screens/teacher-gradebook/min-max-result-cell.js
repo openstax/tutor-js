@@ -44,13 +44,12 @@ const MinMaxResult = observer(({ data, ux, type, drawBorderBottom }) => {
   const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
   let taskResult;
   let averageOrPoints;
-  if(ux.displayScoresAsPercent) {
-    taskResult =  getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
-    averageOrPoints = taskResult ? `${S.asPercent(taskResult.published_score)}%` : UNWORKED;
-  }
-  else {
+  if(ux.displayScoresAsPoints) {
     taskResult =  getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type);
     averageOrPoints = taskResult ? `${S.numberWithOneDecimalPlace(taskResult.published_points)}` : UNWORKED;
+  } else {
+    taskResult =  getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
+    averageOrPoints = taskResult ? `${S.asPercent(taskResult.published_score)}%` : UNWORKED;
   }
   return (
     <Cell striped drawBorderBottom={drawBorderBottom}>
