@@ -54,9 +54,17 @@ const Body = styled.div`
       }
 
       .answer-answer {
-        margin: 0 0 1.2rem 1.5rem;
+        margin: 0.25rem 0 0;
         font-size: 1.6rem;
       }
+    }
+
+    .review-wrapper {
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+
+      .answer-answer { margin: 0; }
     }
 
     .review-count {
@@ -67,6 +75,7 @@ const Body = styled.div`
       border-radius: 25%/50%;
       min-width: 5.6rem;
       padding: 0.1rem;
+      margin-right: 1.6rem;
       font-weight: bold;
 
       .selected-count {
