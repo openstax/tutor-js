@@ -148,14 +148,10 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get publishedLateWorkPenalty() {
-    if (!isNil(this.published_points_without_lateness)) {
-      return this.published_points_without_lateness - this.published_late_work_point_penalty;
-    }
-    return 0;
+    return this.published_late_work_point_penalty;
   }
-
   @computed get publishedPoints() {
-    return this.published_points_without_lateness;
+    return this.published_points;
   }
 
   @computed get isTwoStep() {
