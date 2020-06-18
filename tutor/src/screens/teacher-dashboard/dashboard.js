@@ -120,7 +120,7 @@ class TeacherDashboard extends React.Component {
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
     );
-
+  
     return (
       <TourRegion
         className={calendarClassName}

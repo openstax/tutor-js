@@ -48,14 +48,6 @@ const StyledTemplateModal = styled(CloneModal)`
 }
 `;
 
-const WrqNote = styled.div`
-  padding: 0 1rem;
-  ul {
-    padding: 0 1.5rem;
-    color: ${colors.neutral.dark};
-  }
-`;
-
 @observer
 class Editor extends React.Component {
 
@@ -105,19 +97,6 @@ class Editor extends React.Component {
           >
             {ux.renderMiniCloneEditor}
           </Formik>
-          {/* How information about WRM and grading template. */}
-          {
-            !ux.isCloneOldAssignment && 
-            <WrqNote>
-              <strong><label>Note</label></strong>
-              <ul>
-                <li>OpenStax Tutor Beta allows you to assign points to questions.</li>
-                <li>You can assign Written Response Questions (manually-graded) to students.</li>
-                <li>By default, MCQs are worth 1 point, and WRQs are worth 2 points.</li>
-                <li>To assign WRQs or to set points, click on Edit other details.</li>
-              </ul>
-            </WrqNote>
-          }
         </Modal.Body>
         <Modal.Footer>
           <div>
