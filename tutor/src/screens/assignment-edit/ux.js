@@ -471,6 +471,6 @@ export default class AssignmentUX {
   }
 
   @computed get canEditSettings() {
-    return every(this.plan.tasking_plans, ['isPastOpen', false]);
+    return this.plan.isNew || every(this.plan.tasking_plans, ['isPastOpen', false]);
   }
 }
