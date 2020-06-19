@@ -7,7 +7,7 @@ import {
   get, some, reduce, every, uniq,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
-import S from '../../../helpers/string';
+import S, { UNWORKED } from '../../../helpers/string';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -73,9 +73,8 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
   @computed get displayValue() {
     const { dropped } = this.questionHeading || {};
-    const pending = '---';
 
-    if (this.needs_grading) { return pending; }
+    if (this.needs_grading) { return UNWORKED; }
 
     if (dropped && this.is_completed) {
       return S.numberWithOneDecimalPlace(
@@ -85,7 +84,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
     if (!isNil(this.gradedPoints)) { return S.numberWithOneDecimalPlace(this.gradedPoints); }
 
-    return pending;
+    return UNWORKED;
   }
 }
 
@@ -229,7 +228,7 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get humanCorrectResponses() {
     const { correct, completed } = this.responseStats;
-    return `${this.gradedStats.remaining > 0 ? '---' : correct} / ${completed}`;
+    return `${this.gradedStats.remaining > 0 ? UNWORKED : correct} / ${completed}`;
   }
 }
 
