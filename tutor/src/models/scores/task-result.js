@@ -200,8 +200,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
-    return `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    return `${S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
