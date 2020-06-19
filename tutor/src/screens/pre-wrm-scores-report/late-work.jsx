@@ -208,7 +208,9 @@ class LateWork extends React.Component {
   render() {
     const { task } = this.props;
 
-    if (!task.is_past_due || task.step_count == task.completed_on_time_steps_count) { return null; }
+    if (task.completed_step_count == task.completed_on_time_steps_count) {
+      return null;
+    }
 
     return (
       <div
