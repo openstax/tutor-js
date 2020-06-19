@@ -55,6 +55,7 @@ QuestionHeader.propTypes = {
 
 const QuestionFooter = observer(({ ux, info }) => {
   if (info.question.isMultipleChoice) { return null; }
+  const displayingFlag = !ux.scores.hasFinishedGrading && info.remaining > 0;
 
   return (<Footer>
     <strong>
@@ -76,9 +77,9 @@ const QuestionFooter = observer(({ ux, info }) => {
           periodId: ux.selectedPeriod.id,
           questionId: `${info.id}`,
         }}
-        displayingFlag={!ux.scores.hasFinishedGrading}
+        displayingFlag={displayingFlag}
       >
-        {!ux.scores.hasFinishedGrading && <span className="flag">{info.remaining} NEW</span>}
+        {displayingFlag && <span className="flag">{info.remaining} NEW</span>}
         <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
       </GradeButton>
     }
