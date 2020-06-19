@@ -33,8 +33,8 @@ const Progress = observer(({ task }) => {
   return <div className="correct-progress">{progress}</div>;
 });
 
-const Percent = observer(({ task: { score } }) => {
-  const display = isNil(score) ? '---' : `${S.asPercent(score)}%`;
+const Percent = observer(({ task: { published_score } }) => {
+  const display = isNil(published_score) ? '---' : `${S.asPercent(published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
