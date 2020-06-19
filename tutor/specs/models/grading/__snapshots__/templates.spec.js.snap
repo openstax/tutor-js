@@ -10,7 +10,7 @@ Object {
   "default_due_time": "17:00",
   "default_open_time": "07:00",
   "deleted_at": undefined,
-  "has_task_plans": undefined,
+  "has_open_task_plans": undefined,
   "id": 1,
   "late_work_penalty": 0.1,
   "late_work_penalty_applied": "immediately",
