@@ -158,6 +158,7 @@ export default class AssignmentReviewUX {
     if (extensions.length > 0) {
       await this.taskPlan.grantExtensions(extensions);
     }
+    await this.planScores.fetch();
     this.cancelDisplayingGrantExtension();
   }
 
