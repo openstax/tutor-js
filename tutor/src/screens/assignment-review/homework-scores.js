@@ -221,7 +221,7 @@ const AverageScoreHeader = observer(({ ux }) => (
       </ColumnFooter>
       <ColumnFooter>
         <Heading>
-          {ux.overallAverageScore}
+          {ux.scores.totalAverageScoreInPercent}
         </Heading>
       </ColumnFooter>
       <ColumnFooter>

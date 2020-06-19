@@ -40,7 +40,7 @@ Factory.define('ScoresStudent')
   .homework_progress(() => fake.random.number({ min: 0, max: 1 }))
   .reading_score(() => fake.random.number({ min: 0, max: 1 }))
   .reading_progress(() => fake.random.number({ min: 0, max: 1 }))
-  .course_average(() => fake.random.number({ min: 0, max: 1 }))
+  .total_fraction(() => fake.random.number({ min: 0, max: 1 }))
   .is_dropped(false)
   .data(reference('ScoresStudentData', {
     defaults({ parent: { object: { data_headings } } }) {

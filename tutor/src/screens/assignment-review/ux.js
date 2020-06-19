@@ -356,12 +356,6 @@ export default class AssignmentReviewUX {
     return Boolean(this.gradeableQuestionCount > 0);
   }
 
-  @computed get overallAverageScore() {
-    if (!this.taskingPlan.isPastDue) { return '---'; }
-    return this.displayTotalInPercent ?
-      this.scores.totalAverageScoreInPercent : this.scores.totalAverageScoreInPoints;
-  }
-
   @action.bound scrollToQuestion(questionId, index) {
     this.freeResponseQuestions.set(get(this.scores, `questionsInfo[${index}].id`), true);
     scrollIntoView(document.querySelector(`[data-question-id="${questionId}"]`), {

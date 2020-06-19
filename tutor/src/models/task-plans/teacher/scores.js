@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import Exercises from '../../exercises';
 import {
-  filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy,
+  filter, sumBy, find, isNil, compact, sortBy,
   get, some, reduce, every, uniq, isNumber,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
@@ -244,9 +244,8 @@ class TaskPlanScoresTasking extends BaseModel {
   @identifier id;
   @field period_id;
   @field period_name;
+  @field total_fraction;
 
-  @field({ type: 'object' }) average_score;
-  @field({ type: 'object' }) available_points;
   @belongsTo({ model: 'task-plan/scores' }) plan;
   @hasMany({ model: TaskPlanScoreHeading, inverseOf: 'tasking', extend: {
     gradable() { return filter(this, h => h.question && h.question.isOpenEnded); },
@@ -326,26 +325,8 @@ class TaskPlanScoresTasking extends BaseModel {
     return this.question_headings.gradable().length > 0;
   }
 
-  @computed get totalAverageScoreInPoints() {
-    const totals = compact(this.students.map(s => s.total_points));
-    let value;
-    if (isEmpty(totals)) {
-      value = 0;
-    } else {
-      value = sum(totals) / totals.length;
-    }
-    return S.numberWithOneDecimalPlace(value);
-  }
-
   @computed get totalAverageScoreInPercent() {
-    const totals = compact(this.students.map(s => s.total_fraction));
-    let value;
-    if (isEmpty(totals)) {
-      value = 0;
-    } else {
-      value = sum(totals) / totals.length;
-    }
-    return `${S.asPercent(value)}%`;
+    return isNil(this.total_fraction) ? UNWORKED : `${S.asPercent(this.total_fraction)}%`;
   }
 
   @computed get allStudentQuestionStatus() {
