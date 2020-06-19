@@ -37,9 +37,16 @@ const SectionRow = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
+  font-size: 1.4rem;
+  color: ${colors.neutral.darker};
   &[disabled] {
     background: ${colors.neutral.bright};
   }
+`;
+
+const StyledTextArea = styled(TextArea)`
+  font-size: 1.4rem;
+  color: ${colors.neutral.darker};
 `;
 
 const StyledDropdown = styled(Dropdown)`
@@ -59,7 +66,7 @@ const StyledToggle = styled(Dropdown.Toggle)`
     width: 25rem;
     text-align: left;
     padding: 0 1rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
@@ -85,7 +92,7 @@ const StyledMenu = styled(Dropdown.Menu)`
 
     .dropdown-item {
       padding: 0.8rem 1rem;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: ${colors.neutral.darker};
     }
   }
@@ -95,8 +102,7 @@ const StyledAddItem = styled(Dropdown.Item)`
   &&& {
     color: ${colors.link};
     padding: 0.8rem 1rem;
-    font-size: 1.6rem;
-    /* display: block; */
+    font-size: 1.4rem;
     font-weight: 400;
     background-color: transparent;
     border: 0;
@@ -234,7 +240,7 @@ const DetailsBody = observer(({ ux }) => {
           Additional note or instructions
           <HintText>(Optional)</HintText>
         </RowLabel>
-        <TextArea
+        <StyledTextArea
           name="description"
           id="description"
           data-test-id="assignment-note"

@@ -5,7 +5,7 @@ import { GradingTemplate } from '../../models/grading/templates';
 
 const StyledButton = styled(Button)`
   &.btn {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   margin-left: 0.8rem;
