@@ -112,6 +112,9 @@ export default class AssignmentUX {
   setExternalAndEventDates(due_at) {
     // due_at is defined if user creates an assignment through the calendar
     if (due_at) {
+      this.periods.map((period) =>
+        this.plan.findOrCreateTaskingForPeriod(period)
+      );
       this.plan.tasking_plans.forEach(tp => {
         tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
         tp.opens_at = moment(tp.due_at).subtract('7', 'day').toISOString();
