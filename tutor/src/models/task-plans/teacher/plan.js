@@ -458,7 +458,7 @@ class TeacherTaskPlan extends BaseModel {
     return {
       id: this.id,
       data: {
-        extensions,
+        extensions: (this.extensions || []).concat(extensions),
       },
     };
   }
