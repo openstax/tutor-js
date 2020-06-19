@@ -200,7 +200,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    return `${isNil(this.published_points) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
