@@ -21,12 +21,13 @@ class TaskResult extends BaseModel {
   @field is_provisional_score;
   @field step_count;
   @field completed_step_count;
+  @field completed_on_time_steps_count;
+
   @field completed_accepted_late_exercise_count;
   @field completed_accepted_late_step_count;
   @field completed_exercise_count;
   @field completed_on_time_exercise_count;
-  @field completed_on_time_steps_count;
-  @field completed_step_count;
+
   @field correct_accepted_late_exercise_count;
   @field correct_exercise_count;
   @field correct_on_time_exercise_count;
