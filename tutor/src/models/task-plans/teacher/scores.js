@@ -4,10 +4,10 @@ import {
 import Exercises from '../../exercises';
 import {
   filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy,
-  get, some, reduce, every, uniq,
+  get, some, reduce, every, uniq, isNumber,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
-import S from '../../../helpers/string';
+import S, { UNWORKED } from '../../../helpers/string';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -73,9 +73,8 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
   @computed get displayValue() {
     const { dropped } = this.questionHeading || {};
-    const pending = '---';
 
-    if (this.needs_grading) { return pending; }
+    if (this.needs_grading) { return UNWORKED; }
 
     if (dropped && this.is_completed) {
       return S.numberWithOneDecimalPlace(
@@ -85,7 +84,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
     if (!isNil(this.gradedPoints)) { return S.numberWithOneDecimalPlace(this.gradedPoints); }
 
-    return pending;
+    return UNWORKED;
   }
 }
 
@@ -123,6 +122,13 @@ class TaskPlanScoreStudent extends BaseModel {
     return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
   }
 
+  @computed get humanTotalFraction() {
+    return isNumber(this.total_fraction) ? `${S.asPercent(this.total_fraction)}%` : UNWORKED;
+  }
+
+  @computed get humanTotalPoints() {
+    return isNumber(this.total_points) ? S.numberWithOneDecimalPlace(this.total_points) : UNWORKED;
+  }
 }
 
 
@@ -229,7 +235,7 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get humanCorrectResponses() {
     const { correct, completed } = this.responseStats;
-    return `${this.gradedStats.remaining > 0 ? '---' : correct} / ${completed}`;
+    return `${this.gradedStats.remaining > 0 ? UNWORKED : correct} / ${completed}`;
   }
 }
 
