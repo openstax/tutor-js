@@ -76,7 +76,7 @@ class GradingTemplatesScreen extends React.Component {
   }
   
   @action.bound onEditTemplate(template) {
-    if (template.has_task_plans) {
+    if (template.has_open_task_plans) {
       this.editError = template;
     } else {
       this.editing = template;

@@ -76,7 +76,7 @@ const NoEditModal = ({ onOk, template }) => {
       </StyledHeader>
       <StyledBody>
         {template.name} template cannot be edited since
-        it is currentlly in use by assignments
+        it is currently in use by assignments
         <ControlsWrapper>
           <Controls>
             <Button variant="default" size="lg" onClick={onOk}>

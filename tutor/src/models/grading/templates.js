@@ -29,7 +29,7 @@ class GradingTemplate extends BaseModel {
   @field default_due_time = '21:00';
   @field default_due_date_offset_days = 7;
   @field default_close_date_offset_days = 7;
-  @field has_task_plans;
+  @field has_open_task_plans;
   @observable map;
 
   @observable map = {};
