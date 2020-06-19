@@ -102,7 +102,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
               disabledDate={ux.course.isInvalidAssignmentDate}
               validate={(d) => { // eslint-disable-line consistent-return
                 if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
-                if (d.isAfter(values.extension_due_date)) return 'Due date cannot be after Close date';
+                if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
               }}
             />
             <DateTime
