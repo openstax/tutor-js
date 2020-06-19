@@ -4,7 +4,7 @@ import {
 import Exercises from '../../exercises';
 import {
   filter, sum, sumBy, find, isNil, isEmpty, compact, sortBy,
-  get, some, reduce, every, uniq,
+  get, some, reduce, every, uniq, isNumber,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import S, { UNWORKED } from '../../../helpers/string';
@@ -122,6 +122,13 @@ class TaskPlanScoreStudent extends BaseModel {
     return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
   }
 
+  @computed get humanTotalFraction() {
+    return isNumber(this.total_fraction) ? `${S.asPercent(this.total_fraction)}%` : UNWORKED;
+  }
+
+  @computed get humanTotalPoints() {
+    return isNumber(this.total_points) ? S.numberWithOneDecimalPlace(this.total_points) : UNWORKED;
+  }
 }
 
 

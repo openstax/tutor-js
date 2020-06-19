@@ -168,9 +168,7 @@ const StudentCell = observer(({ ux, student, striped }) => (
       </NameWrapper>
 
       <Total>
-        {ux.displayTotalInPercent ?
-          `${S.asPercent(student.total_fraction || 0)}%` :
-          S.numberWithOneDecimalPlace(student.total_points)}
+        {ux.displayTotalInPercent ? student.humanTotalFraction : student.humanTotalPoints}
       </Total>
       <LateWork>
         {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
