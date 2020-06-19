@@ -11,6 +11,7 @@ import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
 import CheckboxInput from '../../components/checkbox-input';
 import { GreyPopover } from './builder';
+import { colors } from 'theme';
 
 const StyledTasking = styled.div`
   min-height: 7rem;
@@ -20,6 +21,10 @@ const StyledTasking = styled.div`
 
   .react-datepicker-wrapper {
     height: 100%;
+  }
+
+  .oxdt-input > input {
+    color: ${colors.neutral.darker};
   }
 `;
 
