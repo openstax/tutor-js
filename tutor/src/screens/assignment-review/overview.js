@@ -238,10 +238,10 @@ const WRQFreeResponse = observer(({ info }) => {
           </div>
           <div className="grade">
             {response.needs_grading && 'Not graded'}
-            {!isNaN(response.published_points) &&
+            {!isNaN(response.grader_points) &&
               <div>
-                <h3>{response.published_points}</h3>
-                {response.published_comments}
+                <h3>{response.grader_points}</h3>
+                {response.grader_comments}
               </div>}
           </div>
         </StyledQuestionFreeResponse>
