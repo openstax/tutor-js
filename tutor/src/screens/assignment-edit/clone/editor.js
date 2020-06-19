@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, action } from 'vendor';
+import { React, PropTypes, styled, observer, action, cn } from 'vendor';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import UX from '../ux';
@@ -117,18 +117,21 @@ class Editor extends React.Component {
             Save as Draft
             </Button>
             <Button
-              className="other-button"
+              className={cn({ 'other-button': ux.plan.isHomework || ux.plan.isReading })}
               size="lg"
               onClick={this.publish}
             >
             Publish
             </Button>
+            {/* Only show the "Edit other details" button when cloning homework or reading assignments */}
+            {(ux.plan.isHomework || ux.plan.isReading) &&
             <Button
               size="lg"
               onClick={this.editDetails}
             >
             Edit other details
             </Button>
+            }
           </div>
           
         </Modal.Footer>
