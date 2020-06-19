@@ -35,9 +35,17 @@ const IntroPopover = ({ show, onClose }) => (
   </Overlay>
 );
 
-const StyledSeparator = styled.hr`
-  border-color: ${colors.neutral.pale};
-  margin: 0.6rem 0.8rem 1.7rem;
+const GradingTemplateLinkWrapper = styled.div `
+  margin-top: -0.75rem;
+
+  a {
+    padding: 1rem;
+    display: block;
+  }
+`;
+const Separator = styled.div`
+  border-top: 1px solid ${colors.neutral.pale};
+  margin: 0.6rem 1rem 1.7rem;
 `;
 
 export default
@@ -106,9 +114,10 @@ class AddAssignmentSidebar extends React.Component {
         className={cn('add-assignment-sidebar', { 'is-open': this.props.isOpen })}
       >
         <TourAnchor id="sidebar-add-tasks" className="sidebar-section">
-
-          <GradingTemplateLink course={this.props.course} />
-          <StyledSeparator />
+          <GradingTemplateLinkWrapper>
+            <GradingTemplateLink course={this.props.course} />
+            <Separator />
+          </GradingTemplateLinkWrapper>
           <div className="section-label">
             New
           </div>
