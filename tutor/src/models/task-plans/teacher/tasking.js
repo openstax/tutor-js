@@ -51,7 +51,7 @@ class TaskingPlan extends BaseModel {
     return date;
   }
 
-  @action onGradingTemplateUpdate(template, dueAt) {
+  @action onGradingTemplateUpdate(template, dueAt, options = {}) {
     const dueDateOffsetDays = template.default_due_date_offset_days;
     const closeDateOffsetDays = template.default_close_date_offset_days;
     const [ defaultOpenHour, defaultOpenMinute ] = template.default_open_time.split(':');
@@ -68,14 +68,19 @@ class TaskingPlan extends BaseModel {
     this.opens_at = this.limitDateToCourse(defaultOpensAt)
       .hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
 
+
     let defaultDueAt;
     if (dueAt) {
       defaultDueAt = moment(dueAt);
     } else {
       defaultDueAt = moment(defaultOpensAt).add(dueDateOffsetDays, 'days');
     }
-    this.due_at = this.limitDateToCourse(defaultDueAt)
-      .hour(defaultDueHour).minute(defaultDueMinute).startOf('minute').toISOString();
+
+    dueAt = this.limitDateToCourse(defaultDueAt);
+    if (!options.dateWasManuallySet) {
+      dueAt = dueAt.hour(defaultDueHour).minute(defaultDueMinute).startOf('minute');
+    }
+    this.due_at = dueAt.toISOString();
 
     this.closes_at = this.limitDateToCourse(
       moment(defaultDueAt).add(closeDateOffsetDays, 'days')

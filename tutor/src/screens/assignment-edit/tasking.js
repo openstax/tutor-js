@@ -116,12 +116,15 @@ class Tasking extends React.Component {
       t.setDueDate(date);
       this.form.setFieldValue(name, t.due_at);
 
-      if(dueAt)
+      if(dueAt) {
         this.props.ux.setDueAt(t.due_at);
-
+      }
+      
       if(!didUserChangeDatesManually) {
         if(dueAt) {
-          t.onGradingTemplateUpdate(gradingTemplate, t.due_at);
+          // this will also reset the due_at to template time
+          t.onGradingTemplateUpdate(gradingTemplate, t.due_at, { dateWasManuallySet: true });
+          
           this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
@@ -146,6 +149,7 @@ class Tasking extends React.Component {
 
     let msg = null;
     const due = moment(tasking.due_at);
+
     if (due.isBefore(Time.now)) {
       msg = 'Due time has already passed';
     } else if (due.isBefore(tasking.opens_at)) {
