@@ -139,12 +139,11 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
 });
 
 const Student = observer(({ student, ux }) => {
-  const checked = !!ux.pendingExtensions.get(student.role_id);
-
+  const checked = !!ux.pendingExtensions.get(student.role_id.toString(10));
   return (
     <StudentWrapper>
       <CheckBox
-        onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id, checked)}
+        onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked)}
         checked={checked}
       />
       <span>{student.last_name}, {student.first_name}

@@ -5,7 +5,7 @@ import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
   first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
-  compact, findIndex, filter, includes, uniq,
+  compact, findIndex, filter, includes, uniq, unionBy,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -455,10 +455,12 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   grantExtensions(extensions) {
+    //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
+    const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
     return {
       id: this.id,
       data: {
-        extensions: (this.extensions || []).concat(extensions),
+        extensions: grantedExtensions,
       },
     };
   }
