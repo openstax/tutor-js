@@ -133,8 +133,6 @@
   position: relative;
   max-height: $max-height;
   overflow: hidden;
-  /*Safari fix: the overflow of the card (at the top) hides the question text. Add a z-index to put the question text in the front */
-  z-index: 1050;
   &:after {
     content: '';
     width: 100%;
