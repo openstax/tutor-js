@@ -81,10 +81,14 @@ export default class AssignmentReviewUX {
     return this.planScores.taskPlan.activeAssignedPeriods;
   }
 
+  @computed get activeScoresStudents() {
+    return filter(this.scores.students, { 'is_dropped': false });
+  }
+
   // methods relating to sorting and filtering scores table
 
   @computed get sortedStudents() {
-    const students = rowDataSorter(this.scores.students, this.rowSort);
+    const students = rowDataSorter(this.activeScoresStudents, this.rowSort);
     if (!this.searchingMatcher) {
       return students;
     }
