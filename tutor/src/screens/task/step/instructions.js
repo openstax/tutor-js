@@ -9,9 +9,8 @@ const CardBody = styled(InnerStepCard)`
 `;
 
 const Header = styled.h2`
-  background: ${props => props.templateColors.background};
   border-left: 8px solid ${props => props.templateColors.border};
-  background-color: ${props => props.templateColors.background};
+  background-color: ${({ templateColors }) => templateColors && templateColors.background};
   font-size: 1.8rem;
   font-weight: bold;
   padding: 1.5rem 3.2rem;
