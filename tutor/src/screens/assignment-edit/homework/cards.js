@@ -39,10 +39,12 @@ const Wrapper = styled.div`
 `;
 
 const Columns = styled.div`
-  column-width: 45rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-  @media ${breakpoints.mdUp} {
-    margin-left: -0.5rem;
+  > div {
+    flex: 0 1 49%;
   }
 
   padding-bottom: 1.6rem;

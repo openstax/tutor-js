@@ -15,3 +15,4 @@ archive.tar.gz
 .vscode/
 screenshots/
 cypress/fixtures/
+dump.rdb

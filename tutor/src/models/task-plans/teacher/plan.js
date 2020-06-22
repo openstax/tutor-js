@@ -5,7 +5,7 @@ import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
   first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
-  compact, findIndex, filter, includes, uniq, unionBy,
+  compact, findIndex, filter, includes, uniq, omit, unionBy,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -395,11 +395,15 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get dataForSave() {
-    return extend(
+    let data = extend(
       this.clonedAttributes,
       pick(this, 'is_publish_requested', 'cloned_from_id'),
       { tasking_plans: map(this.tasking_plans, 'dataForSave') },
     );
+    if (!this.canEdit) {
+      data = omit(data, 'settings');
+    }
+    return data;
   }
 
   @computed get isExternalUrlValid() {

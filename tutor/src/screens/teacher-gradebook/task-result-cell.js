@@ -35,12 +35,12 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
 });
 
 const Points = observer(({ task }) => {
-  const points = isNil(task.published_points) ? '0' : task.published_points;
+  const points = isNil(task.published_points) ? UNWORKED : task.published_points;
   return <div className="correct-points">{S.numberWithOneDecimalPlace(points)}</div>;
 });
 
 const Percent = observer(({ task }) => {
-  const display = isNil(task.published_score) ? '0%' : `${S.asPercent(task.published_score)}%`;
+  const display = isNil(task.published_score) ? UNWORKED : `${S.asPercent(task.published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
