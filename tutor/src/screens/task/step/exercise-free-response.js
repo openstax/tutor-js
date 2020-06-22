@@ -68,11 +68,8 @@ const StyledRevertButton = styled(Button)`
   margin-right: 2rem;
   height: 5rem;
 `;
-const RevertButton = observer(({ ux, ux: { course, step } }) => {
-  if (!(step.isOpenEndedExercise &&
-        !step.can_be_updated &&
-        !step.last_completed_at &&
-        course.currentRole.isTeacher)) {
+const RevertButton = observer(({ ux }) => {
+  if (!ux.canRevert) {
     return null;
   }
 
