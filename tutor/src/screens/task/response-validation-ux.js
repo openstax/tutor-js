@@ -28,6 +28,15 @@ class ResponseValidationUX {
     return this.messages[this.messageIndex];
   }
 
+  @computed get canRevert() {
+    return Boolean(
+      this.step.isOpenEndedExercise &&
+        this.step.can_be_updated &&
+        this.step.last_completed_at &&
+        (!this.course.currentRole.isTeacher)
+    );
+  }
+
   @action.bound setResponse(ev) {
     if (this.taskUX.isReadOnly) {
       ev.preventDefault();
@@ -47,6 +56,10 @@ class ResponseValidationUX {
 
   @computed get responseWords() {
     return S.countWords(this.response);
+  }
+
+  @computed get course() {
+    return this.taskUX.course;
   }
 
   @action.bound async onSave() {
