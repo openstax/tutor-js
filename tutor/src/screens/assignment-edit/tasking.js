@@ -227,6 +227,7 @@ class Tasking extends React.Component {
             tasking={tasking}
             onChange={this.onOpensChange}
             disabled={this.course.isInvalidAssignmentDate}
+            course={this.course}
           />
         </Col>
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="due-at">
@@ -235,6 +236,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].due_at`}
             disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
+            course={this.course}
           />
           {this.renderDueAtError()}
         </Col>
@@ -246,6 +248,7 @@ class Tasking extends React.Component {
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               disabledDate={this.course.isInvalidAssignmentDate}
+              course={this.course}
             />
           </Col>
         }
@@ -254,7 +257,7 @@ class Tasking extends React.Component {
   }
 }
 
-const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {
+const OpensDateTime = observer(({ index, disabled, tasking, onChange, course }) => {
   const input = (
     <DateTime
       label="Open date & Time"
@@ -262,6 +265,7 @@ const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {
       name={`tasking_plans[${index}].opens_at`}
       onChange={(ev) => onChange(ev, index)}
       disabledDate={disabled}
+      course={course}
     />
   );
   if (tasking.canEditOpensAt) {

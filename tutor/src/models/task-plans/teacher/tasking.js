@@ -59,21 +59,20 @@ class TaskingPlan extends BaseModel {
 
     let defaultOpensAt;
     if (dueAt) {
-      defaultOpensAt = moment(dueAt).subtract(dueDateOffsetDays, 'days');
+      defaultOpensAt = this.course.momentInZone(dueAt).subtract(dueDateOffsetDays, 'days');
     } else if (this.opens_at) {
-      defaultOpensAt = moment(this.opens_at);
+      defaultOpensAt = this.course.momentInZone(this.opens_at);
     } else {
-      defaultOpensAt = moment(Time.now).add(1, 'days');
+      defaultOpensAt = this.course.momentInZone(Time.now).add(1, 'days');
     }
     this.opens_at = this.limitDateToCourse(defaultOpensAt)
       .hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
 
-
     let defaultDueAt;
     if (dueAt) {
-      defaultDueAt = moment(dueAt);
+      defaultDueAt = this.course.momentInZone(dueAt);
     } else {
-      defaultDueAt = moment(defaultOpensAt).add(dueDateOffsetDays, 'days');
+      defaultDueAt = this.course.momentInZone(defaultOpensAt).add(dueDateOffsetDays, 'days');
     }
 
     dueAt = this.limitDateToCourse(defaultDueAt);
@@ -164,7 +163,7 @@ class TaskingPlan extends BaseModel {
     let [ hour, minute ] = defaultDueTime.split(':');
     dueAt = dueAt.hour(hour).minute(minute).startOf('minute');
 
-    const nearFuture = moment(Time.now).add(30, 'minute');
+    const nearFuture = this.course.momentInZone(Time.now).add(30, 'minute');
     if (dueAt.isBefore(nearFuture)) {
       dueAt = nearFuture;
     }
