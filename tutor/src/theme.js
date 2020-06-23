@@ -42,10 +42,10 @@ const tasks = {
   reading:  colorDefinitions.quaternary,
   external: '#edf2ff',
   homework: '#00c1de',
-  page_practice: '#00c1de', // same as homework
   event:    colorDefinitions.secondary,
   failure:  colorDefinitions.danger,
 };
+tasks.page_practice = tasks.homework;
 
 export const colors = {
   ...colorDefinitions,
@@ -137,6 +137,7 @@ export const colors = {
     },
   },
 };
+colors.templates.page_practice = colors.templates.homework;
 
 export const fonts = {
   faces: {
