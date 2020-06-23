@@ -345,7 +345,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get hasUnPublishedScores() {
-    return Boolean(this.scores.hasUnPublishedScores);
+    return Boolean(this.taskingPlan.isPastDue && this.scores.hasUnPublishedScores);
   }
 
   @computed get gradeableQuestionCount() {
