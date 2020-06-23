@@ -43,6 +43,7 @@ const Body = styled.div`
   padding: 4rem 16rem;
   p {
     margin: 0.5rem 0 3.2rem 0;
+    line-height: 2rem;
   }
   ul {
     margin-bottom: 3.2rem;
@@ -160,6 +161,41 @@ const ContinueBtn = observer(({ ux }) => {
   );
 });
 
+const Dates = observer(({ task }) => {
+  if (task.isPractice) return null;
+
+  return (
+    <>
+      <Heading>Due date</Heading>
+      <p>{format(task.dueAtMoment)}</p>
+
+      <Heading>Close date</Heading>
+      <p>{format(task.closesAtMoment)}</p>
+    </>
+  );
+});
+
+const PracticeInstructions = observer(({ task }) => {
+  if (!task.isPractice) return null;
+
+  return (
+    <>
+      <p>
+        This is a practice assignment. It will not be graded, and it won’t
+        count toward your course average in OpenStax Tutor.
+      </p>
+      <p>
+        Practicing these topics will give you a better idea of which areas of the
+        text you might want to go back and study.
+      </p>
+      <p>You will see immediate feedback
+        on your answers, and each question card has a link to the section of the book
+        where you’ll find more information on the topic. Good luck!
+      </p>
+    </>
+  );
+});
+
 const Instructions = observer((props) => {
 
   const { ux, ux: { task } } = props;
@@ -176,12 +212,8 @@ const Instructions = observer((props) => {
         <Body>
           <Description task={task} />
 
-          <Heading>Due date</Heading>
-          <p>{format(task.dueAtMoment)}</p>
-
-          <Heading>Close date</Heading>
-          <p>{format(task.closesAtMoment)}</p>
-
+          <Dates task={task} />
+          <PracticeInstructions task={task} />
           <LateWorkPolicy task={task} />
           <ReadingWeights task={task} />
           <ExternalTaskInfo task={task} />
