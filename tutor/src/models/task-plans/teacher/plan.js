@@ -269,6 +269,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
   @computed get isExternal() { return 'external' === this.type; }
+  @computed get isPractice() { return Boolean('practice_worst_topics' === this.type || 'page_practice' === this.type); }
 
   // camelcase versions to match existing API
   @computed get isPublished() { return this.is_published; }
