@@ -35,8 +35,8 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
 });
 
 const Points = observer(({ task }) => {
-  const points = isNil(task.published_points) ? UNWORKED : task.published_points;
-  return <div className="correct-points">{S.numberWithOneDecimalPlace(points)}</div>;
+  const points = isNil(task.published_points) ? UNWORKED : S.numberWithOneDecimalPlace(task.published_points);
+  return <div className="correct-points">{points}</div>;
 });
 
 const Percent = observer(({ task }) => {
@@ -45,7 +45,7 @@ const Percent = observer(({ task }) => {
 });
 
 const External = observer(({ task: { completed_step_count } }) => {
-  return <div className="external">{completed_step_count > 0 && 'clicked'}</div>;
+  return <div className="external">{completed_step_count > 0 ? 'clicked' : UNWORKED}</div>;
 });
 
 const TaskResult = observer(({ ux, task, striped, isLast }) => {
