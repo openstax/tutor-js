@@ -13,4 +13,5 @@ Factory.define('User')
   .self_reported_role(({ is_teacher }) => is_teacher ? 'faculty' : 'student')
   .account_uuid(uuid)
   .terms_signatures_needed(false)
+  .school_location('domestic_school')
   .profile_url('http://localhost:2999/profile');

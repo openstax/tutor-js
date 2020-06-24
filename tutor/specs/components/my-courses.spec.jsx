@@ -9,7 +9,10 @@ import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODE
 jest.mock('../../src/models/chat');
 jest.mock('react-floater', () => () => null);
 
-const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty';
+const loadTeacherUser = () => {
+  User.faculty_status = 'confirmed_faculty';
+  User.school_location = 'domestic_school';
+}
 
 describe('My Courses Component', function() {
 
