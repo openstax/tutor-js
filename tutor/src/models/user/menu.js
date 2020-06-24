@@ -37,14 +37,6 @@ const ROUTES = {
       teacher: 'viewPerformanceGuide',
     },
   },
-  analytics: {
-    label: 'Research Analytics',
-    isAllowed(course) { return Boolean(
-      course && course.currentRole.isTeacher && ['ap_biology', 'ap_physics'].includes(course.subject.code)
-    ); },
-    href: 'https://analytics.openstax.org/',
-    options: { newWindow: true },
-  },
   questions: {
     label: 'Question Library',
     roles: {

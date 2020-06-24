@@ -13,15 +13,8 @@ const html = renderToString(
 setTimeout(function() {
   var loading = document.querySelector('.boot-splash-screen');
   if (!loading) { return; }
-
-  var container = loading.parentNode;
-  var error = document.createElement('h1');
-  error.style.textAlign = 'center'
-  error.innerHTML = 'Unable to load OpenStax Tutor';
-
-  container.appendChild(error);
-  container.removeChild(loading);
-
+  loading.querySelector('h3').innerText = "OpenStax Tutor failed to load.  Please check your internet connection and retry";
+  loading.querySelector('.staxly-animation').className = 'staxly-animation paused';
 }, 30000);
 </script>
 `;

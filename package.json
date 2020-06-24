@@ -36,7 +36,7 @@
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd",
-    "generate-tutor-loading-screen": "./script/tutor-boot-screen",
+    "generate-tutor-loading-screen": "./script/generate-tutor-boot-screen",
     "cached-start": "CACHE=true ./bin/tdd"
   },
   "repository": {

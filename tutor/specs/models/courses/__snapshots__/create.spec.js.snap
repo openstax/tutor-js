@@ -10,7 +10,7 @@ Object {
   "num_sections": 1,
   "offering_id": 1,
   "term": "spring",
-  "time_zone": "Central Time (US & Canada)",
+  "timezone": "US/Central",
   "year": 2018,
 }
 `;
@@ -24,7 +24,7 @@ Object {
   "num_sections": 1,
   "offering_id": 1,
   "term": "spring",
-  "time_zone": "Central Time (US & Canada)",
+  "timezone": "US/Central",
   "year": 2018,
 }
 `;
