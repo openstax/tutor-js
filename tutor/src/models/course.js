@@ -59,6 +59,7 @@ class Course extends BaseModel {
   @field is_college;
   @field is_concept_coach;
   @field is_preview;
+  @field time_zone = 'US/Central';
   @field offering_id;
   @field is_lms_enabling_allowed = false;
   @field is_access_switchable = true;

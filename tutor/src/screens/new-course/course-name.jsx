@@ -22,7 +22,7 @@ class CourseName extends React.Component {
 
   @action.bound
   updateTimeZone(ev) {
-    this.props.ux.newCourse.timezone = ev.target.value;
+    this.props.ux.newCourse.time_zone = ev.target.value;
   }
 
   render() {
@@ -49,7 +49,7 @@ class CourseName extends React.Component {
             <Form.Control
               as="select"
               placeholder="select"
-              value={newCourse.timezone}
+              value={newCourse.time_zone}
               onChange={this.updateTimeZone}
             >
               {map(timezones, timezone =>

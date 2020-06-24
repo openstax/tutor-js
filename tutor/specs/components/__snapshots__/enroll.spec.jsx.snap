@@ -138,55 +138,70 @@ exports[`Student Enrollment loads when mounted 1`] = `
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #77AF42;
-  -webkit-animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center left;
   -ms-transform-origin: center left;
   transform-origin: center left;
+}
+
+.staxly-animation:not(.paused) .c6 {
+  -webkit-animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
 .c5 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F47641;
-  -webkit-animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
+}
+
+.staxly-animation:not(.paused) .c5 {
+  -webkit-animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
 .c4 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #5E6062;
-  -webkit-animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
+}
+
+.staxly-animation:not(.paused) .c4 {
+  -webkit-animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
 .c3 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F4D019;
-  -webkit-animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
-  animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   -webkit-transform-origin: center right;
   -ms-transform-origin: center right;
   transform-origin: center right;
+}
+
+.staxly-animation:not(.paused) .c3 {
+  -webkit-animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
+  animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
 }
 
 .c2 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #00246A;
-  -webkit-animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center;
   -ms-transform-origin: center;
   transform-origin: center;
+}
+
+.staxly-animation:not(.paused) .c2 {
+  -webkit-animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
+  animation: eahijy 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
 <div

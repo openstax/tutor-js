@@ -15,7 +15,7 @@ describe('Teacher tasking plan tasking', () => {
   });
 
   it('converts to course time for save', () => {
-    expect(course.timezone).toEqual('US/Central');
+    expect(course.time_zone).toEqual('US/Central');
     expect(tasking.dataForSave).toEqual({
       target_type: 'period',
       target_id: course.periods[0].id,
@@ -65,7 +65,7 @@ describe('Teacher tasking plan tasking', () => {
   });
 
   it('#initializeWithDueAt', () => {
-    expect(course.timezone).toEqual('US/Central');
+    expect(course.time_zone).toEqual('US/Central');
 
     const defaults = {
       defaultOpenTime: '10:20',
