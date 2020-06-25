@@ -81,6 +81,12 @@ export default class AssignmentUX {
 
     observe(this.plan, 'grading_template_id', this.onGradingTemplateUpdate);
 
+    observe(this.course, 'time_zone', () => {
+      if (this.plan.grading_template_id) {
+        this.onGradingTemplateUpdate({ newValue: this.plan.grading_template_id });
+      }
+    });
+
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
