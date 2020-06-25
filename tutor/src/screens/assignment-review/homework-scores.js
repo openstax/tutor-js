@@ -1,6 +1,5 @@
-import { React, PropTypes, styled, observer, css } from 'vendor';
+import { React, PropTypes, styled, observer } from 'vendor';
 import { Row } from 'react-sticky-table';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
@@ -10,6 +9,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
+import { CornerTriangle } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
 import PublishScores from './publish-scores';
@@ -34,42 +34,6 @@ const Result = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const CornerTriangle = ({ color, tooltip }) => {
-  return (
-    <OverlayTrigger
-      placement="right"
-      overlay={
-        <Tooltip>
-          {tooltip}
-        </Tooltip>
-      }
-    >
-      <StyledTriangle color={color} />
-    </OverlayTrigger>
-  );
-};
-CornerTriangle.propTypes = {
-  color: PropTypes.string.isRequired,
-  tooltip: PropTypes.string.isRequired,
-};
-
-const StyledTriangle = styled.div`
-  height: 0;
-  width: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-style: solid;
-  border-width: 0 1rem 1rem 0;
-  border-color: transparent #000 transparent transparent;
-  ${props => props.color === 'green' && css`
-    border-color: transparent ${colors.assignments.scores.extension} transparent transparent;
-  `}
-  ${props => props.color === 'blue' && css`
-    border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
-  `}
 `;
 
 const StudentColumnHeader = observer(({ ux }) => (

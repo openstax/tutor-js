@@ -88,6 +88,7 @@ class StudentTaskStep extends BaseModel {
   @field({ type: 'array' }) formats;
   @field group;
   @field can_be_updated;
+  @field({ type: 'object' }) drop_question;
 
   @field published_points;
   @field published_comments;
@@ -125,6 +126,9 @@ class StudentTaskStep extends BaseModel {
   }
   @computed get isPlaceHolder() {
     return 'placeholder' === this.type;
+  }
+  @computed get isDroppedQuestion() {
+    return Boolean(this.drop_question && this.drop_question.id);
   }
 
   @computed get isOpenEndedExercise() {

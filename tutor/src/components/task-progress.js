@@ -2,6 +2,7 @@ import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import { map, sumBy, isNil } from 'lodash';
 import { colors } from 'theme';
+import { CornerTriangle } from './dropped-question';
 import S, { UNWORKED } from '../../src/helpers/string';
 
 const PointsScoredStatus = {
@@ -122,7 +123,7 @@ class TaskProgress extends React.Component {
   render() {
     const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
-
+  
     return (
       <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
         <Row>
@@ -132,12 +133,19 @@ class TaskProgress extends React.Component {
               if (!step.isInfo) {
                 progressIndex += 1;
                 return (
-                  <Cell
-                    key={stepIndex}
-                    className={cn({ 'current-step': step === currentStep })}
-                    onClick={() => goToStep(step.id)}>
-                    {progressIndex}
-                  </Cell>
+                  <>
+                    <Cell
+                      key={stepIndex}
+                      className={cn({ 'current-step': step === currentStep })}
+                      onClick={() => goToStep(step.id)}>
+                      {progressIndex}
+                      {step.isDroppedQuestion &&
+                      <CornerTriangle color="blue"
+                        tooltip={step.drop_question.drop_method == 'zeroed' ?
+                          'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
+                      />}
+                    </Cell>
+                  </>
                 );
               }
               else if (step.isInfo) {
