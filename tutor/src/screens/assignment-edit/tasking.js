@@ -72,15 +72,16 @@ class Tasking extends React.Component {
       this.form.setFieldValue(name, t.opens_at);
 
       if(!didUserChangeDatesManually) {
-        if(!dueAt) {
+        if(dueAt) {
           if (gradingTemplate) {
             t.onGradingTemplateUpdate(gradingTemplate);
           }
           this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
-        else
+        else {
           this.props.ux.setDidUserChangeDatesManually(true);
+        }
       }
     });
   }

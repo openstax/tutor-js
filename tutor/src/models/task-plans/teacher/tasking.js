@@ -190,7 +190,6 @@ class TaskingPlan extends BaseModel {
     ).toISOString();
   }
 
-
   @action setDueDate(date) {
     this.due_at = findEarliest(
       findLatest(
