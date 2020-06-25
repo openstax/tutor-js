@@ -1,28 +1,13 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
-import { invoke, get } from 'lodash';
+import { get, isNil } from 'lodash';
+import S from '../../../helpers/string';
 import moment from 'moment';
 import Time from '../../time';
 import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
-
-const StudentTaskFeedback = {
-  homework(t) {
-    if (!t.isStarted) { return 'Not started'; }
-    return t.scoreShown ?
-      `${t.correct_exercise_count}/${t.exercise_count} correct` :
-      `${t.complete_exercise_count}/${t.exercise_count} answered`;
-  },
-  reading(t) {
-    if (!t.isStarted) { return 'Not started'; }
-    return t.complete ? 'Complete' : 'In progress';
-  },
-  external(t) {
-    return t.complete ? 'Clicked' : 'Not started';
-  },
-};
 
 export default
 @identifiedBy('task-plans/student/task')
@@ -34,8 +19,12 @@ class StudentTask extends BaseModel {
   @field title;
   @field type;
   @field complete;
+  @field published_points; // points that are visible to the student
+  @field is_provisional_score;
   @field is_deleted;
   @field is_college;
+  @field is_extended;
+  @field is_past_due;
   @field complete_exercise_count = 0;
   @field correct_exercise_count;
   @field exercise_count = 0;
@@ -78,20 +67,16 @@ class StudentTask extends BaseModel {
     return Boolean(this.isPastDue && this.complete);
   }
 
-  @computed get lateWorkIsAccepted() {
-    return Boolean(
-      this.accepted_late_at &&
-        this.last_worked_at &&
-        moment(this.accepted_late_at).isAfter(this.last_worked_at)
-    );
-  }
-
   @computed get isHomework() {
     return 'homework' === this.type;
   }
 
   @computed get isReading() {
     return 'reading' === this.type;
+  }
+
+  @computed get isExternal() {
+    return 'external' == this.type;
   }
 
   @computed get isStarted() {
@@ -122,8 +107,23 @@ class StudentTask extends BaseModel {
     );
   }
 
-  @computed get studentFeedback() {
-    return invoke(StudentTaskFeedback, this.type, this) || '';
+  @computed get humanProgress() {
+    if (this.isHomework || this.isReading) {
+      if (!this.isStarted) { return 'Not started'; }
+      if (this.complete) { return 'Complete'; }
+      return this.isHomework ? this.homeworkProgressSteps : 'In progress';
+    } else if (this.isExternal) {
+      return this.complete ? 'Clicked' : 'Not started';
+    }
+    return '';
+  }
+
+  @computed get homeworkProgressSteps() {
+    return `${this.completed_steps_count}/${this.steps_count} completed`;
+  }
+
+  @computed get humanScore() {
+    return isNil(this.published_points) ? '---' : S.numberWithOneDecimalPlace(this.published_points);
   }
 
   // called from API

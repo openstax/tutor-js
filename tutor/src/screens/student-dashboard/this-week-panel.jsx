@@ -3,7 +3,7 @@ import React from 'react';
 import Course from '../../models/course';
 import { observer } from 'mobx-react';
 import EventsCard from './events-panel';
-import LateIconLedgend from './late-icon-ledgend';
+import StatusLegend from './status-legend';
 import TeacherPendingLoad from './teacher-pending-load';
 
 export default
@@ -30,7 +30,7 @@ class ThisWeekCard extends React.Component {
           spinner
         />
         <TeacherPendingLoad course={this.props.course} />
-        <LateIconLedgend tasks={tasks} />
+        <StatusLegend tasks={tasks} />
       </React.Fragment>
     );
   }

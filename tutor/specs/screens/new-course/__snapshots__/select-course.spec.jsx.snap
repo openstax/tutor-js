@@ -20,42 +20,11 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      College Physics
+      AP US History
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
-      color="#5e5e5e"
-      data-icon="circle"
-      data-prefix="far"
-      focusable="false"
-      role="img"
-      style={Object {}}
-      viewBox="0 0 512 512"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
-        fill="currentColor"
-        style={Object {}}
-      />
-    </svg>
-  </div>
-  <div
-    aria-pressed={false}
-    className="list-group-item choice"
-    data-appearance="college_physics"
-    onClick={[Function]}
-    role="button"
-  >
-    <div
-      className="content"
-    >
-      Sociology w Courseware
-    </div>
-    <svg
-      aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"
@@ -86,7 +55,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"
@@ -113,11 +82,42 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     <div
       className="content"
     >
-      College Physics
+      AP US History
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+      color="#5e5e5e"
+      data-icon="circle"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+  <div
+    aria-pressed={false}
+    className="list-group-item choice"
+    data-appearance="college_physics"
+    onClick={[Function]}
+    role="button"
+  >
+    <div
+      className="content"
+    >
+      Biology with Courseware
+    </div>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"

@@ -39,10 +39,14 @@ import LmsPushScores from '../models/jobs/lms-score-push';
 import TaskResult from '../models/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
+import TeacherTaskGrade from '../models/task-plans/teacher/grade';
+import TaskingPlan from '../models/task-plans/teacher/tasking';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
+import TaskPlanScores from '../models/task-plans/teacher/scores';
 import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 import Stats from '../models/stats';
+import { GradingTemplate, GradingTemplates } from '../models/grading/templates';
 
 const {
   connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
@@ -141,29 +145,18 @@ const startAPI = function() {
 
   connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
 
+  connectModelUpdate(TeacherTaskGrade, 'save', {
+    method: 'PUT', pattern: 'steps/{task_step_id}/grade', onSuccess: 'onGraded',
+  });
   connectModelRead(TeacherTaskPlans, 'fetch', {
-    pattern: 'courses/{course.id}/dashboard',
-    onSuccess: 'onLoaded',
-    params({ startAt, endAt }) {
-      return {
-        start_at: startAt,
-        end_at: endAt,
-      };
-    },
+    pattern: 'courses/{course.id}/dashboard', onSuccess: 'onLoaded',
+    params({ startAt, endAt }) { return { start_at: startAt, end_at: endAt }; },
   });
 
-  connectModelRead(
-    PastTaskPlans,
-    'fetch',
-    {
-      pattern: 'courses/{course.id}/plans',
-      onSuccess: 'onLoaded',
-
-      params: {
-        clone_status: 'unused_source',
-      },
-    },
-  );
+  connectModelRead( PastTaskPlans, 'fetch', {
+    pattern: 'courses/{course.id}/plans', onSuccess: 'onLoaded',
+    params: { clone_status: 'unused_source' },
+  });
 
   connectModelRead(ResponseValidation, 'validate',
     { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',
@@ -195,14 +188,17 @@ const startAPI = function() {
 
   connectModelRead(StudentTask, 'fetch', {
     onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
+    query() { return { course_id: this.course.id }; },
   });
 
   connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', onFail: 'setApiErrors', pattern: 'steps/{id}',
+    query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
   });
 
   connectModelRead(StudentTaskStep, 'fetch', {
     onSuccess: 'onLoaded', onFail: 'setApiErrors', pattern: 'steps/{id}',
+    query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
   });
 
   connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard' });
@@ -243,13 +239,50 @@ const startAPI = function() {
   connectModelCreate(ScoresExport, 'create', { onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export' });
 
   connectModelDelete(TeacherTaskPlan, 'destroy', { onSuccess: 'onDeleteComplete', pattern: 'plans/{id}' });
-  connectModelRead(TeacherTaskPlan, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
-  connectModelRead(TaskPlanStats, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats' });
+  connectModelRead(TeacherTaskPlan, 'fetch', {
+    onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}',
+    query() { return { course_id: this.course.id }; },
+  });
+  connectModelRead(TaskPlanStats, 'fetch', {
+    onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats',
+    query() { return { course_id: this.taskPlan.course.id }; },
+  });
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+  connectModelUpdate(TeacherTaskPlan, 'grantExtensions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+  connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+
+  connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
 
   connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
 
-  return connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
+  connectModelRead(TaskPlanScores, 'fetch', {
+    onSuccess: 'onApiRequestComplete',
+    pattern: 'plans/{id}/scores',
+    query() { return { course_id: this.course.id }; },
+  });
+
+  connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
+
+  connectModelRead(GradingTemplates, 'fetch', {
+    onSuccess: 'onLoaded',
+    pattern: 'courses/{courseId}/grading_templates',
+  });
+
+
+  connectModelRead(GradingTemplate, 'save', {
+    onSuccess: 'onSaved',
+    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    pattern() {
+      return this.isNew ?
+        'courses/{courseId}/grading_templates' : 'grading_templates/{id}';
+    },
+  });
+
+  connectModelDelete(GradingTemplate, 'remove', {
+    pattern: 'grading_templates/{id}',
+    onSuccess: 'onRemoved',
+  });
+
 };
 
 

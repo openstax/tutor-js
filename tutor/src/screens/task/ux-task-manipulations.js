@@ -17,6 +17,12 @@ function insertBeforeMatch(type, task, steps, match) {
   return steps;
 }
 
+export function insertInstructions({ steps, task, ...rest }) {
+  const type = 'instructions';
+  steps = [ new InfoStep({ task, type }), ...without(steps, { type })];
+  return { steps, task, ...rest };
+}
+
 // spaced practice questions are preceded by a "Spaced Practice" card.
 export function insertIndividiualReview({ steps, task, ...rest }) {
   steps = insertBeforeMatch(

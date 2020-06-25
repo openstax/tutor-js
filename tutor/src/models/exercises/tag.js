@@ -31,6 +31,14 @@ class ExerciseTag extends BaseModel {
     return includes(TAGS.LO, this.type);
   }
 
+  @computed get isBlooms() {
+    return this.type == 'blooms';
+  }
+  
+  @computed get isDOK() {
+    return this.type == 'dok';
+  }
+
   @computed get isGeneric() {
     return includes(TAGS.GENERIC, this.type);
   }
@@ -40,11 +48,16 @@ class ExerciseTag extends BaseModel {
     return str || String(this.id);
   }
 
+  @computed get value() {
+    return this.id.replace(/(\w+:\s*)/, '');
+  }
+
   recordInfo(tag) {
-    if (this.isGeneric) { tag.tagString.push(this.asString); }
-    if (this.isLO) { tag.lo = this.asString; }
+    if (this.isDOK) { tag.dok = this; }
+    if (this.isLO) { tag.lo = this; }
+    if (this.isBlooms) { tag.blooms = this; }
     if (this.chapter_section) {
-      tag.section = this.chapter_section.asString;
+      tag.chapterSection = this.chapter_section;
     }
     return tag;
   }

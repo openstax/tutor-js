@@ -1,4 +1,4 @@
-import { findIndex, isNaN } from 'lodash';
+import { findIndex, isNaN, isNil } from 'lodash';
 import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field,
@@ -6,6 +6,7 @@ import {
 import Big from 'big.js';
 import moment from 'moment';
 import Time from '../time';
+import S, { UNWORKED } from '../../helpers/string';
 
 export default
 @identifiedBy('scores/task-result')
@@ -14,31 +15,40 @@ class TaskResult extends BaseModel {
   @field type;
   @field status;
   @field({ type: 'bignum' }) score;
+  @field points;
+  @field published_points;
+  @field published_score;
+  @field is_provisional_score;
   @field step_count;
   @field completed_step_count;
+  @field completed_on_time_steps_count;
+
   @field completed_accepted_late_exercise_count;
   @field completed_accepted_late_step_count;
   @field completed_exercise_count;
   @field completed_on_time_exercise_count;
-  @field completed_on_time_step_count;
-  @field completed_step_count;
+
   @field correct_accepted_late_exercise_count;
   @field correct_exercise_count;
   @field correct_on_time_exercise_count;
   @field correct_on_time_step_count;
   @field correct_accepted_late_step_count;
   @field({ type: 'date' }) due_at;
-  @field({ type: 'date' }) last_worked_at;
+  @field is_past_due;
+  @field is_extended;
   @field exercise_count;
   @field is_included_in_averages;
   @field is_late_work_accepted;
+  @field available_points;
+
   @field recovered_exercise_count;
 
   @belongsTo({ model: 'scores/student' }) student;
   @computed get period() { return this.student.period; }
+  @computed get course() { return this.student.period.course; }
 
   @computed get columnIndex() {
-    return findIndex(this.student.data, s => s === this);
+    return findIndex(this.student.data, s => s.id === this.id);
   }
 
   @computed get progress() {
@@ -49,6 +59,12 @@ class TaskResult extends BaseModel {
   @computed get isHomework() {
     return this.type === 'homework';
   }
+  @computed get isExternal() {
+    return this.type === 'external';
+  }
+  @computed get isReading() {
+    return this.type === 'reading';
+  }
 
   @computed get unacceptedLateStepCount() {
     return this.completed_step_count - this.completedStepCount;
@@ -58,16 +74,20 @@ class TaskResult extends BaseModel {
     return this.unacceptedLateStepCount > 0;
   }
 
-  @computed get isLate() {
-    return this.completed_on_time_step_count < this.completed_step_count;
-  }
-
   @computed get isStarted() {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
+  
+  @computed get canBeReviewed() {
+    return Boolean(this.isStarted && !this.isExternal);
+  }
+
+  @computed get isTrouble() {
+    return this.isStarted && this.score < 0.5;
+  }
 
   @computed get reportHeading() {
-    return this.student.period.data_headings[this.columnIndex];
+    return this.period.data_headings[this.columnIndex];
   }
 
   // called by API
@@ -98,8 +118,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get completedStepCount() {
-    return Math.max(this.completed_accepted_late_step_count,
-      this.completed_on_time_step_count);
+    return Math.max(this.completed_step_count, this.completed_on_time_steps_count);
   }
 
   @computed get completedExerciseCount() {
@@ -182,12 +201,20 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${this.correctExerciseCount} of ${this.exercise_count}`;
+    return `${isNil(this.published_points) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
     return moment(this.due_at).isBefore(Time.now);
   }
 
+  @computed get humanScore() {
+    const score = this.course.currentRole.isTeacher ? this.score : this.published_score;
+    return isNil(score) ? UNWORKED : S.asPercent(score) + '%';
+  }
 
+  @computed get humanPoints() {
+    const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
+    return isNil(points) ? UNWORKED : `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+  }
 }

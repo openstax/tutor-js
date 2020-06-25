@@ -6,7 +6,7 @@ require('../../../specs/factories/course');
 const { now } = require('../time-now');
 const { fe_port, be_port } = require('../ports');
 
-const { clone, merge } = require('lodash');
+const { clone, merge, find } = require('lodash');
 
 let ROLE = 'teacher';
 
@@ -18,7 +18,11 @@ function addCourses(courses, attrs) {
     Factory.create('Course', merge(attrs, { id: 2, type: 'physics', months_ago: 2, now }))
   );
   courses.push(
-    Factory.create('Course', merge(attrs, { id: 3, type: 'physics', months_ago: -6, now }))
+    Factory.create('Course', merge(attrs, {
+      name: 'Physics Copy',
+      cloned_from_id: 2,
+      id: 3, type: 'physics', months_ago: 1, now,
+    }))
   );
   courses.push(
     Factory.create('Course', merge(attrs, { id: 4, type: 'biology', months_ago: -7, now }))
@@ -43,6 +47,10 @@ const PAYLOADS = {
 };
 
 module.exports = {
+  getCourse(id) {
+    return find(PAYLOADS[ROLE].courses, c => c.id == id);
+  },
+
   data: {
     student, teacher,
   },

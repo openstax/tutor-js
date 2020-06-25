@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Row renders and matches snapshot 1`] = `
+.c7 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  padding: 2px;
+  height: 1.125em;
+  width: 1.125em;
+  background: #5e5e5e;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2 {
+  height: 100%;
+  width: 4rem;
+  margin-right: 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding: 0 6rem 0 1rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c1 i {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 span {
+  word-break: break-all;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 18rem;
+  padding-right: 1rem;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 15.5rem;
+  padding-right: 1rem;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-right: 1rem;
+  width: 8rem;
+}
+
+.c6 svg.fa-star {
+  padding: 3px;
+}
+
+.c0 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+@media (max-width:749px) {
+  .c1 {
+    min-width: 100%;
+  }
+}
+
+@media (max-width:749px) {
+  .c3 {
+    padding-left: 1.2rem;
+  }
+}
+
+@media (max-width:749px) {
+  .c4 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:749px) {
+  .c6 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <a
+        aria-label="Work on homework: user-centric harness methodologies"
+        className="sc-AxhCb c0 task homework viewable"
+        data-event-id={4}
+        href="/course/1/task/4"
+        onClick={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="sc-AxiKw c1"
+        >
+          <i
+            className="c2 icon-homework"
+            type="homework"
+          />
+          <span>
+            user-centric harness methodologies
+          </span>
+        </div>
+        <div
+          className="sc-AxiKw c3"
+        >
+          <time>
+            We Oct 30, 7:00am
+          </time>
+        </div>
+        <div
+          className="sc-AxiKw c4"
+        >
+          <div
+            className="c5"
+          >
+            <span
+              className="tour-anchor"
+              data-tour-anchor-id="assignment-progress-status"
+            >
+              5/5 completed
+            </span>
+          </div>
+        </div>
+        <div
+          className="sc-AxiKw c6"
+        >
+          <div
+            className="c5"
+          >
+            2.0
+            <svg
+              aria-hidden="true"
+              background="#5e5e5e"
+              className="svg-inline--fa fa-star fa-w-18 c7 ox-icon ox-icon-star"
+              color="white"
+              data-icon="star"
+              data-prefix="fas"
+              data-variant="circledStar"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 576 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;

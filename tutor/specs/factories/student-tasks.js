@@ -1,9 +1,7 @@
 const {
-  Factory, sequence, fake, moment, uuid, SECTION_NAMES,
+  Factory, sequence, fake, moment, uuid, SECTION_NAMES, PLAN_TYPES, rng,
 } = require('./helpers');
-const { range, isNil } = require('lodash');
-
-import StudentTask from '../../src/models/student-tasks/task';
+const { range, isNil, cloneDeep } = require('lodash');
 
 const TASK_TYPES={
   reading: [
@@ -20,6 +18,38 @@ const TASK_TYPES={
   event: [], // has no steps
 };
 
+Factory.define('StudentDashboardTask')
+  .id(sequence)
+  .title(fake.company.bs)
+  .description(fake.company.bs)
+  .type(({ object }) => PLAN_TYPES[object.id % PLAN_TYPES.length])
+  .opens_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
+  .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days'))
+  .closes_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 7, 'days'))
+  .last_worked_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days').format())
+  .complete(() => 0 == fake.random.number(3))
+  .is_deleted(false)
+  .is_past_due(({ object, now }) => object.due_at <= moment(now))
+  .is_extended(false)
+  .task_plan_id(() => fake.random.number(100))
+  .exercise_count(() => fake.random.number({ min: 3, max: 12 }))
+  .steps_count(({ object }) => object.exercise_count)
+  .complete_exercise_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.exercise_count })
+  )
+  .completed_steps_count(({ object }) => object.complete_exercise_count)
+  .correct_exercise_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.complete_exercise_count })
+  )
+  .gradable_step_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.complete_exercise_count })
+  )
+  .ungraded_step_count(({ object }) =>
+    fake.random.number({ min: 0, max: object.gradable_step_count })
+  )
+  .published_points(rng({ min: 0.0, max: 10.0 }))
+  .is_provisional_score(true)
+
 Factory.define('RelatedContent')
   .uuid(uuid)
   .id(sequence)
@@ -35,9 +65,8 @@ Factory.define('StudentTaskStep')
     'exercise' : fake.random.arrayElement(['reading', 'reading', 'reading', 'exercise'])
   )
   .is_completed(() => fake.random.arrayElement([false, false, false, true]))
-  .formats(({ object: { type } }) =>
-    'exercise' == type ?
-      [fake.random.arrayElement(['multiple-choice', 'free-response'])] : []
+  .formats(({ wrm, object: { type } }) =>
+    'exercise' == type ? wrm ? ['free-response'] : ['multiple-choice', 'free-response'] : []
   )
   .uid(({ object: { id, type } }) => type == 'exercise' ? `${id}@1` : null)
   .preview(({ object: { type } }) => type == 'exercise' ?
@@ -45,23 +74,40 @@ Factory.define('StudentTaskStep')
     fake.random.arrayElement(SECTION_NAMES)
   )
   .external_url(({ object: { type } }) => 'external_url' == type ? fake.internet.url() : null)
-
+  .can_be_updated(true)
 
 Factory.define('StudentTask')
   .id(sequence)
-  .students(() => [])
   .title(fake.company.catchPhraseDescriptor)
+  .description(fake.company.catchPhraseDescriptor)
   .type(fake.random.arrayElement(Object.keys(TASK_TYPES)))
-  .due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
-  .steps(({ stepCount, object: { type } }) => {
+  .opens_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
+  .due_at_without_extension(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days'))
+  .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days'))
+  .closes_at_without_extension(
+    ({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 7, 'days')
+  )
+  .closes_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 7, 'days'))
+  .auto_grading_feedback_on(fake.random.arrayElement([]))
+  .manual_grading_feedback_on(fake.random.arrayElement(['grade', 'publish']))
+  .completion_weight(rng({ min: 0.0, max: 1.0 }))
+  .correctness_weight(({ object }) => 1.0 - object.completion_weight)
+  .late_work_penalty_applied(() => fake.random.arrayElement(['daily', 'assignment']))
+  .late_work_penalty_per_period(rng({ min: 0.0, max: 1.0 }))
+  .published_late_work_point_penalty(0.0)
+  .published_points(rng({ min: 0.0, max: 10.0 }))
+  .is_provisional_score(true)
+  .is_deleted(false)
+  .students(() => [])
+  .steps(({ stepCount, wrm, object: { type } }) => {
     if (type == 'event') { return []; }
-
     return range(0, (isNil(stepCount) ? fake.random.number({ min: 3, max: 10 }) : stepCount)).map(() => {
       return Factory.create('StudentTaskStep', {
-        type: fake.random.arrayElement(TASK_TYPES[type]),
+        wrm, type: fake.random.arrayElement(TASK_TYPES[type]),
       })
     })
   })
+  .spy({})
 
 Factory.define('StudentTaskReadingStepContent')
   .id(sequence)
@@ -91,73 +137,33 @@ Factory.define('StudentTaskInteractiveStepContent')
     '<span class="os-text">Physics: An Introduction</span> </h2> <div class="os-figure"> <figure id="import-auto-id1580373"><span data-alt="Two Canada geese flying close to each other in the sky." data-type="media" id="import-auto-id1936836"><img alt="Two Canada geese flying close to each other in the sky." <div class="os-caption-container"> <span class="os-title-label">Figure </span><span class="os-number">1.15</span><span class="os-divider"> </span><span class="os-caption"> <a class="os-interactive-link" href="https://www.openstaxcollege.org/l/02equation_grapher"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>'
   )
 
+
+const EXERCISES = range(1, 3).reduce((exercises, i) => (
+  exercises.concat(require(`../../api/ecosystems/${i}/exercises.json`).items)
+), []);
+
 Factory.define('StudentTaskExerciseStepContent')
   .id(sequence)
   .type('exercise')
   .chapter_section([1,2])
+  .exIndex(() => fake.random.number({ min: 0, max: EXERCISES.length - 1 }))
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
       book_location: object.chapter_section },
   ])
-  .context(
-    '<div data-type="note" data-has-label="true" id="fs-id2332825" class="sociological-research" a-type="term" id="import-auto-id1169033058271">geriatrics</span>, a medical specialty that focuses on the elderly. He created the word by combining were before Nascher’s ideas gained acceptance?</p> </div></div> </div>',
-  )
-  .content({
-    tags: [
-      'time:short', 'dok:2', 'blooms:2', 'type:practice',
-      'requires-context:true', 'book:stax-soc', 'lo:stax-soc:13-2-2',
-      'context-cnxmod:d9df5e48-4b72-482e-b616-886926188054',
-      'context-cnxfeature:fs-id2332825',
-    ],
-    uuid: '7ddae47d-c4ec-437e-80bd-3f54d8a639a7',
-    uid: '11945@4', number: 11945, version: 4,
-    questions: [
-      {
-        id: '62902',
-        is_answer_order_important: false,
-        stimulus_html: '',
-        stem_html: 'In the early 1900s, a New York physician named Dr. Ignatz Nascher developed a medical specialty that focused on the elderly. This field is known broadly as ___.',
-        answers: [
-          { id: '259301', content_html: 'geriatrics' },
-          { id: '259302', content_html: 'gerontology' },
-          { id: '259303', content_html: 'secondary aging' },
-          { id: '259304', content_html: 'primary aging' },
-        ],
-        hints: [ ],
-        formats: [ 'free-response', 'multiple-choice' ],
-        combo_choices: [ ],
-      },
-    ],
+  .context(({ object: { exIndex } }) => EXERCISES[exIndex].context)
+  .content(({ object: { exIndex }, wrm }) => {
+    const ex = EXERCISES[exIndex];
+
+    if (!wrm) { return ex.content }
+    const wrmEx = cloneDeep(ex);
+    wrmEx.content.questions.forEach(q => {
+      Object.assign(q, {
+        formats: ['free-response'],
+        answers: [],
+      });
+    })
+    return wrmEx.content;
   })
 
-
-const TaskStepTypes = {
-  reading: 'StudentTaskReadingStepContent',
-  exercise: 'StudentTaskExerciseStepContent',
-  interactive: 'StudentTaskInteractiveStepContent',
-};
-
-export
-function studentTask(attrs = {}, modelArgs) {
-  if (attrs.type && !TASK_TYPES[attrs.type]){ throw(`Unknown task type ${attrs.type}`); }
-
-  const st = new StudentTask(this.bot.create('StudentTask', attrs), modelArgs);
-  st.steps.forEach((s) => {
-    s.onLoaded({ data: this.bot.create(TaskStepTypes[s.type]) });
-  })
-  return st;
-}
-
-export
-function studentTasks({
-  course = this.course(),
-  count = 1,
-  attributes = {},
-} = {}) {
-  range(count).forEach(() => {
-    const task = this.studentTask(attributes);
-    task.tasksMap = course.studentTasks;
-    course.studentTasks.set(task.id, task)
-  })
-  return course.studentTasks;
-}
+module.exports = { TASK_TYPES }

@@ -12,7 +12,7 @@ Factory.define('ExerciseUser')
 
 Factory.define('ExerciseAnswer')
   .id(sequence)
-  .correctness('0.0')
+  .correctness(({ siblings }) => siblings.find(a => a.correctness > 0) ? 0 : fake.random.arrayElement([1.0, 1.0, 1.0, 0]))
   .content_html(({ parent, object }) => [
     [
       'Natural philosophy and physics are essentially the same thing.',
@@ -98,11 +98,33 @@ Factory.define('ExerciseQuestion')
     'In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?',
     'Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.',
   ][ object.id % 5 ])
-  .answers(reference('ExerciseAnswer', { count: 5 }))
+  .answers(reference('ExerciseAnswer', { count: () => fake.random.number({ min: 2, max: 5 }) }))
   .hints(() => [])
   .formats(() => [
     'free-response',
     'multiple-choice',
+  ])
+  .combo_choices(() => [])
+  .collaborator_solutions(() => [
+    {
+      'attachments': [],
+      'solution_type': 'detailed',
+      'content_html': 'four',
+    },
+  ])
+  .community_solutions(() => []);
+
+Factory.define('OpenEndedExerciseQuestion')
+  .id(sequence)
+  .is_answer_order_important(false)
+  .stimulus_html(({ object }) => [][object.id % 1])
+  .stem_html(({ object }) => [
+    'In the context of cell biology, what do we mean by "form follows function?" What are at least two examples of this concept?',
+  ][ object.id % 1 ])
+  .answers(() => [])
+  .hints(() => [])
+  .formats(() => [
+    'free-response',
   ])
   .combo_choices(() => [])
   .collaborator_solutions(() => [
@@ -140,3 +162,29 @@ Factory.define('Exercise')
   .questions(reference('ExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
   .versions(({ object }) => [object.version])
   .attachments(reference('ExerciseAttachment', { count: 2 }));
+
+Factory.define('OpenEndedExercise')
+  .tags([
+    'type:conceptual',
+    'requires-context:true',
+    'filter-type:test-prep',
+    'blooms:4',
+    'time:medium',
+    'dok:3',
+    'lo:stax-phys:1-2-1',
+    'book:stax-phys',
+    'context-cnxmod:',
+    'context-cnxfeature:one-1',
+  ])
+  .nickname(fake.internet.domainWord)
+  .uuid(uuid)
+  .group_uuid(uuid)
+  .number(sequence)
+  .version(1)
+  .uid(({ object }) => `${object.number}@${object.version}`)
+  .authors(reference('ExerciseUser', { count: 1 }))
+  .copyright_holders(reference('ExerciseUser', { count: 1 }))
+  .derived_from(() => [])
+  .is_vocab(false)
+  .questions(reference('OpenEndedExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
+  .versions(({ object }) => [object.version]);

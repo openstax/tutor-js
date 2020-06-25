@@ -1,14 +1,16 @@
 import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from 'vendor';
-import { Col } from 'react-bootstrap';
+// import { Col } from 'react-bootstrap';
 import moment from 'moment';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
 import { Icon } from 'shared';
 import HideButton from './hide-button';
-import TaskProgressInfo from './task-progress-info';
+import { TaskStatus, TaskScore } from './task-info';
 import Course from '../../models/course';
-import Theme from '../../theme';
+import EventTypeIcon from './event-type-icon';
+import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
+import { EIcon } from '../../components/icons/extension';
 
 const NotOpenNoticeWrapper=styled.div`
   margin: 1rem 1rem 0 1rem;
@@ -17,7 +19,7 @@ const NotOpenNoticeWrapper=styled.div`
   min-height: 3rem;
   align-items: center;
   padding-left: 1rem;
-  background: ${Theme.colors.neutral.lighter}
+  background: ${({ theme }) => theme.colors.neutral.lighter};
 `;
 
 const NotOpenNotice = ({ task }) => {
@@ -43,6 +45,17 @@ const EventTime = ({ event }) => {
 EventTime.propTypes = {
   event:     PropTypes.object.isRequired,
 };
+
+
+const TaskRow=styled(Row).attrs({
+  as: 'a',
+})`
+
+`;
+
+const StyledEIcon = styled(EIcon)`
+  margin-left: 0.5rem;
+`;
 
 export default
 @withRouter
@@ -75,8 +88,8 @@ class EventRow extends React.Component {
     return (
       <React.Fragment>
         <NotOpenNotice task={event} />
-        <a
-          className={cn(`task row ${event.type}`, {
+        <TaskRow
+          className={cn(`task ${event.type}`, {
             viewable: this.isViewable,
             deleted: event.is_deleted,
           })}
@@ -87,22 +100,22 @@ class EventRow extends React.Component {
           onKeyDown={this.isViewable ? this.onKey : undefined}
           data-event-id={this.props.event.id}
         >
-          <Col xs={2} sm={1} className="column-icon">
-            <i
-              aria-label={`${event.type} icon`}
-              className={`icon icon-lg icon-${event.type}`} />
-          </Col>
-          <Col xs={10} sm={5} className="title">
-            {event.title}
-          </Col>
-          <Col xs={5} sm={3} className="due-at">
+          <TitleCell>
+            <EventTypeIcon event={event} />
+            <span>{event.title}</span>
+          </TitleCell>
+          <DueCell>
             <EventTime event={event} />
+            {event.is_extended && <StyledEIcon />}
             <HideButton event={event} />
-          </Col>
-          <Col xs={5} sm={3} className="feedback">
-            <TaskProgressInfo event={event} course={course} />
-          </Col>
-        </a>
+          </DueCell>
+          <StatusCell>
+            <TaskStatus event={event} course={course} />
+          </StatusCell>
+          <ScoreCell>
+            <TaskScore event={event} course={course} />
+          </ScoreCell>
+        </TaskRow>
       </React.Fragment>
     );
   }

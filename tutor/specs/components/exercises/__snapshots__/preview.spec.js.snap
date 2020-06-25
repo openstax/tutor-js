@@ -6,7 +6,7 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
   data-tour-anchor-id="exercise-preview"
 >
   <div
-    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
+    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
     data-exercise-id="1@1"
     tabIndex={-1}
   >
@@ -16,66 +16,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
       <div
         className="exercise-body"
       >
-        <div
-          className="openstax-exercise-badges"
-        >
-          <span
-            className="interactive"
-          >
-            <svg
-              className="icon interactive"
-              version="1.1"
-              viewBox="0 0 53.23 53.21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                data-name="Layer 2"
-                id="Layer_2"
-              >
-                <g
-                  data-name="Layer 1"
-                  id="Layer_1-2"
-                >
-                  <path
-                    d="M48.86,0H11.37A4.34,4.34,0,0,0,7,4.35V41.6A4.34,4.34,0,0,0,11.37,46H48.86a4.34,4.34,0,0,0,4.35-4.35V4.35A4.19,4.19,0,0,0,48.86,0Zm1,40.88a1.65,1.65,0,0,1-1.69,1.69H11.85a1.65,1.65,0,0,1-1.69-1.69V5.32a1.65,1.65,0,0,1,1.69-1.69H48.14a1.65,1.65,0,0,1,1.69,1.69Z"
-                    style={
-                      Object {
-                        "fill": "#222e65",
-                      }
-                    }
-                  />
-                  <path
-                    d="M48.14,3.63H11.85a1.65,1.65,0,0,0-1.69,1.69V40.88a1.65,1.65,0,0,0,1.69,1.69H48.14a1.65,1.65,0,0,0,1.69-1.69V5.32A1.65,1.65,0,0,0,48.14,3.63ZM23.46,35.32V10.88L41.12,23.22Z"
-                    style={
-                      Object {
-                        "fill": "none",
-                      }
-                    }
-                  />
-                  <path
-                    d="M3.39,47.65V18.78a1.61,1.61,0,0,0-1.61-1.61H1.61A1.61,1.61,0,0,0,0,18.78V48.86a4.35,4.35,0,0,0,4.35,4.35H33.47a1.61,1.61,0,0,0,1.61-1.61v-.41a1.61,1.61,0,0,0-1.61-1.61H5.32A1.94,1.94,0,0,1,3.39,47.65Z"
-                    style={
-                      Object {
-                        "fill": "#222e65",
-                      }
-                    }
-                  />
-                  <path
-                    d="M26,33.59,39.2,24.53a1.61,1.61,0,0,0,0-2.64L26,12.65A1.61,1.61,0,0,0,23.46,14v18.3A1.61,1.61,0,0,0,26,33.59Z"
-                    style={
-                      Object {
-                        "fill": "#15c0dc",
-                      }
-                    }
-                  />
-                </g>
-              </g>
-            </svg>
-            <span>
-              Interactive
-            </span>
-          </span>
-        </div>
         <div
           className="openstax-question openstax-question-preview"
         >
@@ -249,48 +189,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a weak gravitational field</li>
-</ol>
-",
-                        }
-                      }
-                    />
-                  </div>
-                </label>
-              </section>
-            </div>
-            <div
-              className="openstax-answer"
-            >
-              <section
-                className="answers-answer disabled"
-                role="region"
-              >
-                <div
-                  className="correct-incorrect"
-                />
-                <label
-                  className="answer-label"
-                  htmlFor="1-option-4"
-                  onKeyPress={[Function]}
-                >
-                  <button
-                    aria-label="Choice e:"
-                    className="answer-letter"
-                    disabled={true}
-                  >
-                    e
-                  </button>
-                  <div
-                    className="answer-answer"
-                  >
-                    <div
-                      className="answer-content"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are too small to be seen with the naked eye, and</li>
-  <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
                         }

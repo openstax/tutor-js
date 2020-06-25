@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
-import { isNil, findIndex } from 'lodash';
+import { isNil } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
@@ -41,7 +41,7 @@ class Task extends React.Component {
   static displayName = 'Task'
 
   static propTypes = {
-    stepIndex: idType,
+    stepId: idType,
     course: PropTypes.instanceOf(Course).isRequired,
     task: PropTypes.instanceOf(StudentTask).isRequired,
     history: PropTypes.object.isRequired,
@@ -50,13 +50,13 @@ class Task extends React.Component {
   ux = new UX({
     task: this.props.task,
     history: this.props.history,
-    stepIndex: this.props.stepIndex,
+    stepId: this.props.stepId,
   });
 
   componentDidUpdate() {
-    const { stepIndex } = this.props;
-    if (!isNil(stepIndex)) {
-      this.ux.goToStep(stepIndex, false);
+    const { stepId } = this.props;
+    if (!isNil(stepId)) {
+      this.ux.goToStepId(stepId, false);
     }
   }
 
@@ -83,7 +83,7 @@ class TaskGetter extends React.Component {
     params: PropTypes.shape({
       courseId: idType.isRequired,
       id: idType.isRequired,
-      stepIndex: idType,
+      stepId: idType,
     }).isRequired,
     course: PropTypes.instanceOf(Course),
   }
@@ -121,22 +121,25 @@ class TaskGetter extends React.Component {
       return <DeletedTask />;
     }
 
-    if (!this.props.params.stepIndex) {
-      const stepIndex = findIndex(task.steps, { is_completed: false });
+    if (!this.props.params.stepId) {
+      const unworkedIndex = task.steps.findIndex(s => !s.is_completed);
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         id: task.id,
         courseId: this.course.id,
-        stepIndex: stepIndex == -1 ? 1 : stepIndex + 1,
+        stepId: unworkedIndex > 0 ? task.steps[unworkedIndex].id : 'instructions',
       })} />;
     }
 
     return (
-      <div className={`task-screen task-${task.type}`}>
+      <div
+        data-test-id="student-task"
+        className={`task-screen task-${task.type}`}
+      >
         <Task
           key={task}
           course={this.course}
           task={task}
-          stepIndex={this.props.params.stepIndex - 1}
+          stepId={this.props.params.stepId}
         />
         <SpyInfo model={task} />
       </div>

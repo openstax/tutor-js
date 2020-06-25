@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxInput matches snapshot 1`] = `
+.c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  position: relative;
+}
+
+.c1 {
+  opacity: 0;
+}
+
+.c1 + label {
+  margin-left: 1rem;
+}
+
+.c1.c1 + label svg {
+  border: 0;
+  content: "";
+  left: 0;
+  top: 0;
+  margin: 0;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.c1:disabled + label svg {
+  color: #c1c1c1;
+}
+
+.c1:focus + label svg {
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+<span
+  className="c0"
+>
+  <input
+    checked={false}
+    className="c1"
+    id="input_1"
+    label="Input 1"
+    name="input_1"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    htmlFor="input_1"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-square fa-w-14 fa-lg c2 ox-icon ox-icon-square"
+      color="#5E6062"
+      data-icon="square"
+      data-prefix="far"
+      data-variant="checkSquare"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 448 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    Input 1
+  </label>
+</span>
+`;

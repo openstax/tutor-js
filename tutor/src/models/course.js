@@ -25,15 +25,15 @@ import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
 import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
+import { GradingTemplates } from './grading/templates';
 import ReferenceBook from './reference-book';
 import Flags from './feature_flags';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
-  'name', 'is_lms_enabled', 'timezone', 'default_open_time', 'default_due_time',
-  'homework_score_weight', 'homework_progress_weight',
-  'reading_score_weight', 'reading_progress_weight',
+  'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
+  'homework_weight', 'reading_weight',
 ];
 
 export default
@@ -59,6 +59,7 @@ class Course extends BaseModel {
   @field is_college;
   @field is_concept_coach;
   @field is_preview;
+  @field time_zone = 'US/Central';
   @field offering_id;
   @field is_lms_enabling_allowed = false;
   @field is_access_switchable = true;
@@ -68,7 +69,7 @@ class Course extends BaseModel {
   @field ends_at;
 
   @field term;
-  @field timezone;
+  @field time_zone;
   @field webview_url;
   @field year;
 
@@ -76,7 +77,10 @@ class Course extends BaseModel {
   @field homework_progress_weight;
   @field reading_score_weight;
   @field reading_progress_weight;
+  @field reading_weight;
+  @field homework_weight;
   @field just_created = false;
+  @field uses_pre_wrm_scores = false;
 
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
@@ -87,6 +91,7 @@ class Course extends BaseModel {
   @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
   @lazyGetter studentTasks = new StudentTasks({ course: this });
+  @lazyGetter gradingTemplates = new GradingTemplates({ course: this });
 
   @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
@@ -164,6 +169,10 @@ class Course extends BaseModel {
     return Boolean(this.cloned_from_id);
   }
 
+  @computed get isWRM() {
+    return !this.uses_pre_wrm_scores;
+  }
+
   @computed get termFull() {
     return `${capitalize(this.term)} ${this.year}`;
   }
@@ -189,6 +198,22 @@ class Course extends BaseModel {
 
   @computed get hasEnded() {
     return moment(this.ends_at).isBefore(Time.now);
+  }
+
+  @computed get allowedAssignmentDateRange() {
+    return {
+      start: moment(this.starts_at).add(1, 'day').endOf('day'),
+      end: moment(this.ends_at).subtract(1, 'day').startOf('day'),
+    };
+  }
+
+  // bind to this so it can be used in disabledDate check
+  isInvalidAssignmentDate = (date) => {
+    return !moment(date).isBetween(
+      this.allowedAssignmentDateRange.start,
+      this.allowedAssignmentDateRange.end,
+      'day', '[]'
+    );
   }
 
   @computed get hasStarted() {
@@ -228,7 +253,7 @@ class Course extends BaseModel {
   }
 
   momentInZone(date) {
-    return moment.tz(date, this.timezone);
+    return moment.tz(date, this.time_zone);
   }
 
   @computed get tourAudienceTags() {
@@ -287,5 +312,4 @@ class Course extends BaseModel {
   onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
   }
-
 }

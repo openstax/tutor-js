@@ -1,0 +1,41 @@
+.scores-popover {
+    padding: 10px 20px 0 20px;
+    text-align: center;
+    p {
+        color: $tutor-neutral-thin-dark;
+        font-size: 1.5rem;
+    }
+
+    /**
+    * styling for popover of reading scores weight
+    */
+    #reading-scores-weight {
+        padding: 10px;
+        .sticky-table-row {
+            div:first-child {
+                text-align: right;
+                font-weight: 700;
+            }
+            div:last-child {
+                padding-left: 10px;
+            }
+            div {
+                padding-bottom: 10px;
+            }
+        }
+        .sticky-table-row:not(:last-child) {
+            div {
+                border: 0;
+            }
+        }
+        .sticky-table-row:last-child {
+            div {
+                border-top: 1px gray solid;
+                border-left: none;
+                border-right: none;
+                width: 100%;
+                padding-top: 10px;
+            }
+        }
+    }
+}

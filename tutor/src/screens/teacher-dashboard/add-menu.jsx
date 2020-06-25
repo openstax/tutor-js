@@ -1,9 +1,22 @@
 import { React } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { map, partial } from 'lodash';
+import styled from 'styled-components';
 import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
 import CourseGroupingLabel from '../../components/course-grouping-label';
+import { colors } from 'theme';
+
+const StyledMenuContainer = styled.div`
+  & hr {
+    margin: 0.5rem 1rem;
+    border-top: 2px solid ${colors.neutral.pale};
+  }
+  /* Overriding the color from 'tutor-plan-sidebar-type' */
+  && a[data-assignment-type='template'] {
+    color: ${colors.link};
+  }
+`;
 
 export default class CourseAddMenu {
 
@@ -46,8 +59,19 @@ export default class CourseAddMenu {
           params: { type: 'event', courseId: course.id, id: 'new' },
           type: 'event',
           query: { due_at },
-        },
+        }, 
       ];
+      if (!this.options.isSidebar) {
+        links.push(
+          {
+            text: 'Grading Templates',
+            to: 'gradingTemplates',
+            params: { courseId: course.id },
+            type: 'template',
+            query: {},
+          },
+        );
+      }
     } else {
       const linkText = [
         <span key="no-periods-link-1">Please add a </span>,
@@ -72,28 +96,37 @@ export default class CourseAddMenu {
 
     const renderLink = this.options.renderMenuLink || this.renderMenuLink;
 
-    return map(links, (link) => {
-      let linkQuery;
-      const { query } = link;
-      if (query.due_at != null) { linkQuery = { query }; }
+    return (
+      <StyledMenuContainer>
+        {
+          map(links, (link, index) => {
+            let linkQuery;
+            const { query } = link;
+            if (query.due_at != null) { linkQuery = { query }; }
 
-      link.pathname = Router.makePathname(link.to, link.params, linkQuery);
-      return renderLink(link, this.goToBuilder);
-    });
+            link.pathname = Router.makePathname(link.to, link.params, linkQuery);
+            // Add divider on the second to last item
+            return renderLink(link, this.goToBuilder, index === links.length - 2);
+          })
+        }
+      </StyledMenuContainer>
+    );
 
   }
 
-  @autobind renderMenuLink(link, goToBuilder) {
+  @autobind renderMenuLink(link, goToBuilder, shouldAddDivider) {
     return (
-      <Dropdown.Item
-        className="dropdown-item"
-        key={link.type}
-        data-assignment-type={link.type}
-        onSelect={partial(goToBuilder, link.pathname)}
-      >
-        {link.text}
-      </Dropdown.Item>
+      <div key={link.type}>
+        <Dropdown.Item
+          className="dropdown-item"
 
+          data-assignment-type={link.type}
+          onSelect={partial(goToBuilder, link.pathname)}
+        >
+          {link.text}
+        </Dropdown.Item>
+        {shouldAddDivider && <hr></hr>}
+      </div>
     );
   }
 

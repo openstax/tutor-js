@@ -12,7 +12,7 @@ describe('Homework Breadcrumbs Component', () => {
     task = Factory.studentTask({ stepCount: 10, type: 'reading' });
     history = new TestRouter({
       push: (url) => {
-        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+        props.ux.goToStepId(ld.last(url.split('/')), false);
       },
       location: { pathname: '' },
     }).history;
@@ -24,15 +24,11 @@ describe('Homework Breadcrumbs Component', () => {
 
   it('displays progress', () => {
     const rp = mount(<C><ReadingNavbar {...props} /></C>);
-    expect(props.ux.steps).toHaveLength(12);
-    rp.update();
+    expect(props.ux.steps).toHaveLength(13);
     expect(rp).toHaveRendered('ProgressBar[now=0]');
     props.ux.goForward();
-    rp.update();
     expect(rp).toHaveRendered('ProgressBar[now=8]');
-    rp.update();
     props.ux.goBackward();
-    rp.update();
     expect(rp).toHaveRendered('ProgressBar[now=0]');
     rp.unmount();
   });

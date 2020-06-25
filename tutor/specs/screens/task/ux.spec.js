@@ -17,7 +17,7 @@ describe('Task UX Model', () => {
   beforeEach(() => {
     task = Factory.studentTask({ type: 'homework', stepCount: 10 });
     task.tasksMap = { course: Factory.course() };
-    ux = new UX({ task: task, history: new TestRouter().history });
+    ux = new UX({ task, stepId: task.steps[0].id, history: new TestRouter().history });
   });
 
   it('calculates tasks/steps', () => {
@@ -90,7 +90,7 @@ describe('Task UX Model', () => {
     ux.moveToStep(step);
     expect(step.fetchIfNeeded).toHaveBeenCalledTimes(1);
     expect(ux.task.fetch).not.toHaveBeenCalled();
-    ux._stepIndex = 0;
+    ux._stepId = ux.steps[0].id;
 
     ux.task.fetch.mockImplementation(() => {
       ux.task.steps = [{ type: 'reading' }];
@@ -112,7 +112,8 @@ describe('Task UX Model', () => {
     expect(task.steps).toHaveLength(0);
     task.tasksMap = { course: Factory.course() };
     ux = new UX({ task: task, history: new TestRouter().history });
-    expect(ux.currentStep).toBeNull();
+    expect(ux.currentStep.type).toEqual('instructions')
+    expect(ux.steps).toHaveLength(1);
   });
 
   it('calls becomes on student role when it matches', () => {
@@ -130,49 +131,42 @@ describe('Task UX Model', () => {
   });
 
   it('records in history when going to step', () => {
-    ux.goToStep(1);
-    expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/2`);
-    ux.goToStep(2, false);
+    ux.goToStepIndex(1);
+
+    expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/two-step-intro`);
+    ux.goToStepIndex(2, false);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
-    ux.goToStep(2, true); //even though we said to record, it will not since it's unchanged
+    ux.goToStepIndex(2, true); //even though we said to record, it will not since it's unchanged
     expect(ux.history.push).toHaveBeenCalledTimes(1);
 
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid = '123@4';
+
     const group = ux.groupedSteps[i];
     expect(group.type).toBe('mpq');
     expect(ux.stepGroupInfo.grouped).toBe(true);
     ux.stepGroupInfo.group.steps.forEach(
       s => s.api.requestCounts.read = 1
     );
-    ux.goToStep(i + 1, false);
+
+    ux.goToStepIndex(3, false);
+    expect(ux.stepGroupInfo.grouped).toBe(true);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
+
     return deferred(() => {
       expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
         `[data-task-step-id="${ux.currentStep.id}"]`,
         { deferred: true, immediate: false },
       );
-    });
+    }, 100);
   });
 
   it('marks steps as viewed', () => {
     const step = ux.currentStep;
     step.markViewed = jest.fn();
-    ux.goToStep(3);
+    ux.goToStepIndex(3);
     expect(step.markViewed).toHaveBeenCalled();
   });
 
-  it('locks going forward repeatedly', () => {
-    jest.useFakeTimers();
-    ux.nextStep.isInfo = true;
-    expect(ux.isLocked).toBe(false);
-    expect(ux.canGoForward).toBeTruthy();
-    ux.goForward();
-    expect(ux.isLocked).toBeTruthy();
-    expect(ux.canGoForward).toBe(false);
-    jest.runAllTimers();
-    expect(ux.isLocked).toBe(false);
-    expect(ux.canGoForward).toBe(true);
-  });
 });

@@ -1,6 +1,7 @@
 context('Dashboard', () => {
   beforeEach(() => {
     cy.visit('/dashboard');
+    cy.setRole('teacher')
   });
 
   it('hides value prop and displays cards', () => {

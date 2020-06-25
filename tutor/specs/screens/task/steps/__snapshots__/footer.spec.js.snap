@@ -3,59 +3,47 @@
 exports[`Task Step Footer matches snapshot 1`] = `
 "<StepFooter course={{...}} step={{...}}>
   <styled.div>
-    <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-      <div className=\\"sc-ifAKCX KjPkQ\\">
-        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
-          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"sc-EHOje frzuNi\\">
-              <div className=\\"exercise-identifier-link sc-EHOje frzuNi\\">
-                ID# 
-                1@1
-                 | 
-                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Angiosperms&book=College%20Physics\\">
-                  Suggest a correction
-                </a>
-              </div>
-            </ExerciseIdentifierLink>
-          </StyledComponent>
-        </Styled(ExerciseIdentifierLink)>
-        <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
-          <styled.div className=\\"related-content-link\\">
-            <StyledComponent className=\\"related-content-link\\" forwardedComponent={{...}} forwardedRef={{...}}>
-              <div className=\\"related-content-link sc-bwzfXH fVSdij\\">
-                <styled.span>
-                  <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                    <span className=\\"sc-bxivhb preamble eSqMCu\\">
-                      Comes from
+    <div className=\\"sc-AxhUy iDxQlj\\">
+      <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}}>
+        <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
+          <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
+            ID# 
+            1@1
+             | 
+            <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Food%20Irradiation&book=Concept%20of%20Biology\\">
+              Suggest a correction
+            </a>
+          </div>
+        </ExerciseIdentifierLink>
+      </Styled(ExerciseIdentifierLink)>
+      <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
+        <styled.div className=\\"related-content-link\\">
+          <div className=\\"sc-AxirZ UCQNQ related-content-link\\">
+            <styled.span>
+              <span className=\\"sc-AxhCb dFswVp preamble\\">
+                Comes from
+              </span>
+            </styled.span>
+            <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
+              <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                <ChapterSection chapterSection={{...}}>
+                  <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
+                    <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
+                      1.2
                     </span>
-                  </StyledComponent>
+                  </styled.span>
+                </ChapterSection>
+                <styled.span>
+                  <span className=\\"sc-AxiKw kpbBIu title\\">
+                    Food Irradiation
+                  </span>
                 </styled.span>
-                <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
-                  <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
-                    <ChapterSection chapterSection={{...}}>
-                      <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
-                        <StyledComponent className=\\"chapter-section\\" data-chapter-section=\\"1.2\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                          <span className=\\"chapter-section sc-bdVaJa hKLgvF\\" data-chapter-section=\\"1.2\\">
-                            1.2
-                          </span>
-                        </StyledComponent>
-                      </styled.span>
-                    </ChapterSection>
-                    <styled.span>
-                      <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                        <span className=\\"sc-htpNat title bNgkkP\\">
-                          Angiosperms
-                        </span>
-                      </StyledComponent>
-                    </styled.span>
-                  </a>
-                </BrowseTheBook>
-              </div>
-            </StyledComponent>
-          </styled.div>
-        </RelatedContentLink>
-      </div>
-    </StyledComponent>
+              </a>
+            </BrowseTheBook>
+          </div>
+        </styled.div>
+      </RelatedContentLink>
+    </div>
   </styled.div>
 </StepFooter>"
 `;

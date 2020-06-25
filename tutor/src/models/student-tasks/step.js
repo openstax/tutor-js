@@ -3,7 +3,7 @@ import {
   observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
 import S from '../../helpers/string';
-import { pick, get } from 'lodash';
+import { pick, get, isNil } from 'lodash';
 import Exercise from '../exercises/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -15,6 +15,7 @@ class TaskStepContent extends BaseModel {
   update(data) {
     Object.assign(this, data);
   }
+  requiresAnswerId = false;
 }
 
 class StudentTaskVideoStep extends TaskStepContent { }
@@ -45,6 +46,7 @@ class StudentTaskExerciseStep extends Exercise {
   get stem_html() { return this.content.stem_html; }
   get questions() { return this.content.questions; }
   get stimulus_html() { return this.content.stimulus_html; }
+  get requiresAnswerId() { return this.content.isMultiChoice; }
 }
 
 const ContentClasses = {
@@ -71,23 +73,31 @@ class StudentTaskStep extends BaseModel {
   @identifier id;
   @field uid;
   @field preview;
+  @field available_points;
   @field type;
   @field is_completed;
   @field answer_id;
   @field free_response;
   @field feedback_html;
   @field correct_answer_id;
+  @field last_completed_at;
   @field({ type: 'object' }) response_validation;
   @field({ type: 'object' }) spy;
   @field external_url;
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
   @field group;
+  @field can_be_updated;
 
-  @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
-
+  @field published_points;
+  @field published_comments;
+  @field published_points_without_lateness;
+  @field published_late_work_point_penalty;
+  
   @field({ type: 'object' }) task;
   @observable content;
+
+  @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 
   @computed get canAnnotate() {
     return this.isReading;
@@ -117,15 +127,29 @@ class StudentTaskStep extends BaseModel {
     return 'placeholder' === this.type;
   }
 
+  @computed get isOpenEndedExercise() {
+    return this.isExercise && this.content.isOpenEnded;
+  }
+
   @computed get isCorrect() {
     return Boolean(
       this.correct_answer_id && this.answer_id == this.correct_answer_id
     );
   }
 
+  @computed get pointsScored() {
+    if(!isNil(this.published_points_without_lateness)) return this.published_points_without_lateness;
+    if (this.correct_answer_id) {
+      return this.answer_id === this.correct_answer_id
+        ? this.available_points
+        : 0;
+    }
+    return null;
+  }
+
   @computed get isTwoStep() {
     return Boolean(
-      this.isExercise && this.formats.includes('free-response'),
+      this.isExercise && this.formats.includes('multiple-choice') && this.formats.includes('free-response'),
     );
   }
 
@@ -141,9 +165,11 @@ class StudentTaskStep extends BaseModel {
     return 'spaced practice' == this.group ;
   }
 
-  @computed get needsFreeResponse() {
+  @computed get canEditFreeResponse() {
     return Boolean(
-      !this.answer_id && this.isTwoStep && S.isEmpty(this.free_response)
+      !this.answer_id &&
+        this.formats.includes('free-response') &&
+        (this.content.isOpenEnded || S.isEmpty(this.free_response))
     );
   }
 
@@ -198,7 +224,11 @@ class StudentTaskStep extends BaseModel {
 
   @action beginRecordingAnswer({ free_response }) {
     this.free_response = free_response;
-    this.answer_id = null;
+    if (this.content.requiresAnswerId) {
+      this.answer_id = null;
+    } else {
+      this.is_completed = true;
+    }
   }
 
   @action onAnswerSaved({ data }) {

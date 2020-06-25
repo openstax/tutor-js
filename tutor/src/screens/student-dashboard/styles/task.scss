@@ -14,20 +14,7 @@
     max-height: $student-dashboard-row-height;
     border-top: thin dotted $tutor-neutral-light;
 
-    > * {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 0
-    }
-    // if the screen is wide enough, set a hight and use line-height to vertically center content.
-    // This breaks when the responsive small view kicks in and it becomes multi-line
-    .column-icon {
-      height: 100%;
-      padding: 0;
-      display: flex;
-      align-items: center;
-    }
+
     &.deleted:not(.viewable) {
       cursor: default;
       background-color: $tutor-neutral-lightest;
@@ -46,19 +33,6 @@
 
     .btn.hide-task {
       padding: 5px 7px;
-    }
-
-    // Adjust height for when the columns collapse and progress appears below task title
-    @include media-breakpoint-down('sm') {
-      .due-at {
-        padding-left: 1.5rem;
-      }
-      .column-icon {
-        height: inherit;
-      }
-      .icon {
-        margin: 0 0.5rem;
-      }
     }
 
     // A task that is viewable can be clicked

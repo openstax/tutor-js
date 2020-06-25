@@ -30,6 +30,14 @@ export default class ModelApi {
   @computed get isFetchInProgress() {
     return Boolean(this.requestsInProgress.get('read'));
   }
+  
+  @computed get isWriteInProgress() {
+    return Boolean(
+      this.requestsInProgress.get('put') ||
+        this.requestsInProgress.get('post') ||
+        this.requestsInProgress.get('patch')
+    );
+  }
 
   @computed get hasBeenFetched() {
     return Boolean(

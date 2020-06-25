@@ -2,9 +2,8 @@ import {
   React, PropTypes, styled, observer,
 } from 'vendor';
 import UX from './ux';
-import { Breadcrumbs } from './breadcrumbs';
+import ExerciseTaskHeader from './exercise-task-header';
 import { TaskStep } from './step';
-import withFooter from './with-footer';
 
 const SyledHomework = styled.div`
 
@@ -23,7 +22,7 @@ class HomeworkTask extends React.Component {
 
     return (
       <SyledHomework className="homework-task">
-        <Breadcrumbs ux={ux} />
+        <ExerciseTaskHeader ux={ux} unDocked />
         <TaskStep
           ux={ux}
           step={ux.currentGroupedStep}
@@ -35,4 +34,4 @@ class HomeworkTask extends React.Component {
 
 }
 
-export default withFooter(HomeworkTask);
+export default HomeworkTask;

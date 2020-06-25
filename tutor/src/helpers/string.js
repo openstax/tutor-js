@@ -2,10 +2,17 @@ import { isNaN, isString, isEmpty } from 'lodash';
 
 const SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
 const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+const UNWORKED = '---';
+
+export { UNWORKED };
 
 export default {
   asPercent(num) {
     return Math.round(num * 100);
+  },
+
+  numberWithOneDecimalPlace(num) {
+    return parseFloat(Math.round(parseFloat(num) * 10) / 10).toFixed(1);
   },
 
   numberWithTwoDecimalPlaces(num) {
@@ -35,9 +42,9 @@ export default {
   },
 
   dasherize(string) {
-    return string.replace(/[A-Z]/g, function(char, index) {
-      return (index !== 0 ? '-' : '') + char.toLowerCase();
-    });
+    return String(string)
+      .replace(/[A-Z]/g, (char, index) => (index !== 0 ? '-' : '') + char.toLowerCase())
+      .replace(/[-_\s]+/g, '-');
   },
 
   // originated from http://individed.com/code/to-title-case/
@@ -78,4 +85,20 @@ export default {
   },
 
   isUUID(uuid = '') { return UUID_REGEX.test(uuid); },
+
+  stringToInt(string) {
+    const int = parseInt(string);
+    if (isNaN(int)) {
+      return 0;
+    }
+    return int;
+  },
+
+  countWords(text) {
+    if(!text) return 0;
+    text = text.replace(/(^\s*)|(\s*$)/gi,'');
+    text = text.replace(/[ ]{2,}/gi,' ');
+    text = text.replace(/\n/gi,' ');
+    return text.split(' ').length;
+  },
 };

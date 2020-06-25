@@ -1,10 +1,45 @@
 import { React, observer, styled } from 'vendor';
 import PropTypes from 'prop-types';
 import TourAnchor from '../../components/tours/anchor';
-import TroubleIcon from '../../components/icons/trouble';
+
+const TRIANGLE = 5;
+
+const Ribbon = styled.div`
+  height: 0;
+  border-bottom: ${TRIANGLE}px solid #f36a31;
+  border-top: ${TRIANGLE}px solid #f36a31;
+  border-right: ${TRIANGLE * 0.5}px solid transparent;
+  display: flex;
+  align-items: center;
+`;
+
+const Text = styled.span`
+  color: white;
+  margin: 0 5px;
+  font-size: 8px;
+`;
+
+const GradeBanner = observer(({ plan }) => {
+  if (!plan.ungraded_step_count) { return null; }
+  return (
+    <Ribbon>
+      <Text>{plan.ungraded_step_count} NEW</Text>
+    </Ribbon>
+  );
+});
 
 const Label = styled.label`
-  > .ox-icon { margin-left: 0; }
+  display: flex;
+  margin: 0;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const Title = styled.span`
+  margin-left: 0.3rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 @observer
@@ -28,8 +63,8 @@ class CoursePlanLabel extends React.Component {
           data-opens-at={plan.opensAtString}
           data-title={plan.title}
         >
-          <TroubleIcon plan={plan} />
-          {plan.title}
+          <GradeBanner plan={plan} />
+          <Title className="text" title={plan.title}>{plan.title}</Title>
         </Label>
       </TourAnchor>
     );

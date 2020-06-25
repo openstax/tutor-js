@@ -50,7 +50,8 @@ class CourseSettings extends React.Component {
           Starts: {df(course.bounds.start)} Ends: {df(course.bounds.end)}
         </div>
         <div>
-          {course.timezone} <Timezone course={course} />
+          {course.time_zone}
+          <Timezone course={course} />
         </div>
       </div>
     );

@@ -1,0 +1,389 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grading Templates Card matches snapshot for homework 1`] = `
+.c1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #424242;
+  line-height: 2rem;
+  height: 100%;
+}
+
+.c1 .card {
+  border: 1px solid #d5d5d5;
+  height: 100%;
+}
+
+.c1 .card-header {
+  border: 0;
+  border-left: 8px solid #34bdd7;
+  background: #daf3f8;
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 .card-header .btn:not(.btn-link):focus {
+  box-shadow: none;
+}
+
+.c1 .card-header .btn-link {
+  color: #424242;
+  padding: 0;
+}
+
+.c2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.c3 {
+  color: #929292;
+}
+
+.c4 {
+  color: #5f6163;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.c5 {
+  border-bottom: 1px solid #d5d5d5;
+  margin-bottom: 0.8rem;
+}
+
+.c0 {
+  margin-top: 3rem;
+}
+
+<div
+  className="c0 col-lg-4 col-md-6 col-sm-12 col-12"
+>
+  <div
+    className="c1"
+    data-id={3}
+    data-test-id="grading-template-card"
+    data-type="homework"
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-header"
+      >
+        Default Homework
+        <div />
+      </div>
+      <div
+        className="card-body"
+      >
+        <h4
+          className="c2"
+        >
+          SHOW SCORES & FEEDBACK TO STUDENTS
+        </h4>
+        <div
+          className="c3"
+        >
+          For auto-graded questions:
+        </div>
+        <div
+          className="c4"
+        >
+          invalid value
+        </div>
+        <div
+          className="c3"
+        >
+          For manually-graded questions:
+        </div>
+        <div
+          className="c4"
+        >
+          Immediately after I grade
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
+          LATE WORK POLICY
+        </h4>
+        <div
+          className="c3"
+        >
+          Accept late work?
+        </div>
+        <div
+          className="c4"
+        >
+          Yes
+        </div>
+        <div
+          className="c3"
+        >
+          Late work penalty:
+        </div>
+        <div
+          className="c4"
+        >
+          Deduct 
+          10%
+           for each 
+          day
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
+          DEFAULT DATE AND TIME
+        </h4>
+        <div
+          className="c3"
+        >
+          Due date for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          1
+           days after open date
+        </div>
+        <div
+          className="c3"
+        >
+          Due time for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          5:00 PM
+        </div>
+        <div
+          className="c3"
+        >
+          Close date for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          1
+           days after due date
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Grading Templates Card matches snapshot for reading 1`] = `
+.c1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #424242;
+  line-height: 2rem;
+  height: 100%;
+}
+
+.c1 .card {
+  border: 1px solid #d5d5d5;
+  height: 100%;
+}
+
+.c1 .card-header {
+  border: 0;
+  border-left: 8px solid #f4d018;
+  background: #fcf6d8;
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 .card-header .btn:not(.btn-link):focus {
+  box-shadow: none;
+}
+
+.c1 .card-header .btn-link {
+  color: #424242;
+  padding: 0;
+}
+
+.c2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.c3 {
+  color: #929292;
+}
+
+.c4 {
+  color: #5f6163;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.c5 {
+  border-bottom: 1px solid #d5d5d5;
+  margin-bottom: 0.8rem;
+}
+
+.c0 {
+  margin-top: 3rem;
+}
+
+<div
+  className="c0 col-lg-4 col-md-6 col-sm-12 col-12"
+>
+  <div
+    className="c1"
+    data-id={1}
+    data-test-id="grading-template-card"
+    data-type="reading"
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-header"
+      >
+        Default Reading
+        <div />
+      </div>
+      <div
+        className="card-body"
+      >
+        <h4
+          className="c2"
+        >
+          SCORE CALCULATION FOR QUESTIONS
+        </h4>
+        <div
+          className="c3"
+        >
+          Weight for correctness:
+        </div>
+        <div
+          className="c4"
+        >
+          59%
+           of question’s point value
+        </div>
+        <div
+          className="c3"
+        >
+          Weight for completion:
+        </div>
+        <div
+          className="c4"
+        >
+          5%
+           of question’s point value
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
+          LATE WORK POLICY
+        </h4>
+        <div
+          className="c3"
+        >
+          Accept late work?
+        </div>
+        <div
+          className="c4"
+        >
+          Yes
+        </div>
+        <div
+          className="c3"
+        >
+          Late work penalty:
+        </div>
+        <div
+          className="c4"
+        >
+          Deduct 
+          10%
+           for each 
+          assignment
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
+          DEFAULT DATE AND TIME
+        </h4>
+        <div
+          className="c3"
+        >
+          Due date for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          1
+           days after open date
+        </div>
+        <div
+          className="c3"
+        >
+          Due time for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          5:00 PM
+        </div>
+        <div
+          className="c3"
+        >
+          Close date for assignments:
+        </div>
+        <div
+          className="c4"
+        >
+          1
+           days after due date
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

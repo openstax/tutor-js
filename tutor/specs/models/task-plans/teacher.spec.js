@@ -59,8 +59,11 @@ describe('Teacher Task Plans', function() {
         'page_ids': [
           '1081','1090','1108','1131','1092','1071','1089','1143','1098','1148',
         ],
-        'exercise_ids': [
-          '23771','23446','23740','23450','23750','23769','23757','24508','23763','24499',
+        'exercises': [
+          { id: '23771', points: [1] }, { id: '23446', points: [1] }, { id: '23740', points: [1] },
+          { id: '23450', points: [1] }, { id: '23750', points: [1] }, { id: '23769', points: [1] },
+          { id: '23757', points: [1] }, { id: '24508', points: [1] }, { id: '23763', points: [1] },
+          { id: '24499', points: [1] },
         ],
         'exercises_count_dynamic': 4,
       },

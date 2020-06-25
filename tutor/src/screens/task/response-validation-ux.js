@@ -13,12 +13,14 @@ class ResponseValidationUX {
   @observable messageIndex;
   @observable results = [];
 
-  constructor({ step, messages, validator = new ResponseValidation() }) {
+  constructor({ step, messages, taskUX, validator = new ResponseValidation() }) {
     this.step = step;
     this.step.spy.response_validation = {};
     this.step.response_validation = {};
     this.validator = validator;
     this.messages = messages;
+    this.taskUX = taskUX;
+    this.initialResponse = step.free_response;
     this.messageIndex = random(0, messages.length - 1);
   }
 
@@ -26,7 +28,21 @@ class ResponseValidationUX {
     return this.messages[this.messageIndex];
   }
 
-  @action.bound setResponse({ target: { value } }) {
+  @computed get canRevert() {
+    return Boolean(
+      this.step.isOpenEndedExercise &&
+        this.step.can_be_updated &&
+        this.step.last_completed_at &&
+        (!this.course.currentRole.isTeacher)
+    );
+  }
+
+  @action.bound setResponse(ev) {
+    if (this.taskUX.isReadOnly) {
+      ev.preventDefault();
+      return;
+    }
+    const { target: { value } } = ev;
     if (this.isDisplayingNudge) {
       this.retriedResponse = value;
     } else {
@@ -38,9 +54,18 @@ class ResponseValidationUX {
     return this.isDisplayingNudge ? this.retriedResponse : this.initialResponse;
   }
 
+  @computed get responseWords() {
+    return S.countWords(this.response);
+  }
+
+  @computed get course() {
+    return this.taskUX.course;
+  }
+
   @action.bound async onSave() {
-    if (!this.validator.isEnabled) {
+    if (!this.taskUX.canUpdateCurrentStep) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
+      this.taskUX.onFreeResponseComplete(this.step);
       return;
     }
     const result = await this.validate();
@@ -51,7 +76,6 @@ class ResponseValidationUX {
       this.step.beginRecordingAnswer({ free_response: result.response });
     }
     this.results.push(result);
-
     this.step.response_validation = { attempts: this.results };
   }
 
@@ -82,9 +106,15 @@ class ResponseValidationUX {
     }
   }
 
+  @action.bound cancelWRQResubmit() {
+    this.results = [];
+    this.initialResponse = this.step.free_response;
+  }
+
   @action advanceUI(result) {
     if (result.valid || this.isDisplayingNudge) {
       this.step.beginRecordingAnswer({ free_response: result.response });
+      this.taskUX.onFreeResponseComplete(this.step);
     } else {
       this.retriedResponse = this.initialResponse;
     }
@@ -93,10 +123,18 @@ class ResponseValidationUX {
   @action.bound submitOriginalResponse(ev) {
     ev && ev.preventDefault();
     this.step.beginRecordingAnswer({ free_response: this.initialResponse });
+    this.taskUX.onFreeResponseComplete(this.step);
+  }
+
+  @computed get textHasChanged() {
+    return this.step.free_response !== this.initialResponse;
   }
 
   @computed get submitBtnLabel() {
-    return this.isDisplayingNudge ? 'Re-answer' : 'Answer';
+    if (!this.taskUX.canUpdateCurrentStep){
+      return 'Next';
+    }
+    return this.isDisplayingNudge ? 'Re-submit' : 'Submit';
   }
 
   @computed get displayNudgeError() {
@@ -107,7 +145,7 @@ class ResponseValidationUX {
 
   @computed get isSubmitDisabled() {
     return Boolean(
-      this.displayNudgeError || S.isEmpty(this.response),
+      this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response),
     );
   }
 
@@ -116,6 +154,10 @@ class ResponseValidationUX {
       this.validator.isUIEnabled &&
         this.results.length && !last(this.results).valid
     );
+  }
+
+  @computed get lastSubmitted() {
+    return this.step.free_response && this.step.last_completed_at;
   }
 
 }

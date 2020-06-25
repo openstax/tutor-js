@@ -1,56 +1,56 @@
+const {
+  Factory, sequence, reference, fake, rng,
+} = require('./helpers');
+const { capitalize } = require('lodash');
 const moment = require('moment');
-import JSON from '../../api/courses/22/performance.json';
+const JSON = require('../../api/courses/22/performance.json');
 const PERIOD = JSON[0];
 
-const {
-  Factory, sequence, reference, fake,
-} = require('./helpers');
-
 Factory.define('ScoresDataHeading')
-  .title('Reading 1')
-  .type('reading')
+  .type(() => fake.random.arrayElement(['reading', 'homework']))
+  .title(({ index, object: { type } }) => `${capitalize(type)} ${index+1}`)
   .plan_id(sequence)
   .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
-  .average_progress(0)
-  .average_score(0)
-
+  .average_progress(rng({ min: 0, max: 1 }))
+  .average_score(rng({ min: 0, max: 1 }))
+  .available_points(rng({ min: 1, max: 50 }))
 
 Factory.define('ScoresStudentData')
   .id(sequence)
-  .type(({ index }) => index%2 ? 'reading' : 'homework')
-  .completed_accepted_late_exercise_count(0)
-  .completed_accepted_late_step_count(0)
-  .completed_exercise_count(0)
-  .completed_on_time_exercise_count(0)
-  .completed_on_time_step_count(0)
-  .completed_step_count(0)
-  .correct_accepted_late_exercise_count(0)
-  .correct_exercise_count(0)
-  .correct_on_time_exercise_count(0)
-  .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
-  .exercise_count(0)
-  .is_included_in_averages(true)
-  .is_late_work_accepted(true)
-  .progress(0)
-  .recovered_exercise_count(0)
-  .score(0)
-  .status('not_started')
-  .step_count(0)
-
+  .type(({ index, data_headings }) => data_headings[index].type )
+  .status(() => fake.random.arrayElement(['not_started', 'in_progress', 'completed']))
+  .step_count(rng({ min: 3, max: 20 }))
+  .completed_step_count(({ object: { step_count } }) => fake.random.number({ min: 0, max: step_count }))
+  .exercise_count(({ object: { step_count } }) => fake.random.number({ min: 0, max: step_count }))
+  .completed_exercise_count(({ object: { exercise_count } }) => fake.random.number({ min: 0, max: exercise_count }))
+  .correct_exercise_count(({ object: { completed_exercise_count } }) => fake.random.number({ min: 0, max: completed_exercise_count }))
+  .due_at(({ index, data_headings }) => data_headings[index].due_at )
+  .score(() => fake.random.number({ min: 0, max: 1 }))
+  .progress(() => fake.random.number({ min: 0, max: 1 }))
+  .available_points(({ index, data_headings }) => data_headings[index].available_points )
+  .points(({ object: { status, available_points } }) => status == 'not_started' ? 0 : fake.random.number({ min: 0, max: available_points }))
 
 Factory.define('ScoresStudent')
-  .role(sequence)
   .first_name(fake.name.firstName)
   .last_name(fake.name.lastName)
-  .name(fake.name.findName)
-  .student_identifier(fake.random.alphaNumeric)
-  .data(reference('ScoresStudentData', { count: 4 }))
+  .name(({ object: { first_name, last_name } }) => `${first_name} ${last_name}`)
+  .role(sequence)
+  .student_identifier(() => fake.random.alphaNumeric(10))
+  .homework_score(() => fake.random.number({ min: 0, max: 1 }))
+  .homework_progress(() => fake.random.number({ min: 0, max: 1 }))
+  .reading_score(() => fake.random.number({ min: 0, max: 1 }))
+  .reading_progress(() => fake.random.number({ min: 0, max: 1 }))
+  .total_fraction(() => fake.random.number({ min: 0, max: 1 }))
   .is_dropped(false)
-  .homework_score(0.107142857142857)
-  .homework_progress(0.142857142857143)
-  .reading_score(0.166666666666667)
-  .reading_progress(0.25)
-  .course_average(0.107142857142857)
+  .data(reference('ScoresStudentData', {
+    defaults({ parent: { object: { data_headings } } }) {
+      return { data_headings }
+    },
+    count({ parent: { object: { data_headings } } }) {
+      return data_headings.length;
+    },
+  }))
+
 
 Factory.define('ScoresForPeriod')
   .period_id(({ period }) => period.id)
@@ -59,5 +59,5 @@ Factory.define('ScoresForPeriod')
   .overall_homework_progress(({ key }) => PERIOD[key])
   .overall_reading_score(({ key }) => PERIOD[key])
   .overall_reading_progress(({ key }) => PERIOD[key])
-  .students(({ key }) => PERIOD[key])
-  .data_headings(({ key }) => PERIOD[key])
+  .data_headings(reference('ScoresDataHeading', { count: rng({ min: 5, max: 20 }) }))
+  .students(reference('ScoresStudent', { count: rng({ min: 5, max: 40 }) }))

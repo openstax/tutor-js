@@ -3,7 +3,7 @@ import { uniqueId, defaults } from 'lodash';
 import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
 import { React, PropTypes, cn } from '../helpers/react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // Don't attempt to remove the duplication by using variable substition without testing ;)
 // After trying multiple methods, it seems like webpack 4 will either:
@@ -23,6 +23,7 @@ const Icons = {
   // solid
   'angle-down':           require('@fortawesome/free-solid-svg-icons/faAngleDown'),
   'angle-up':             require('@fortawesome/free-solid-svg-icons/faAngleUp'),
+  'angle-left':           require('@fortawesome/free-solid-svg-icons/faAngleLeft'),
   'angle-right':          require('@fortawesome/free-solid-svg-icons/faAngleRight'),
   'arrow-circle-down':    require('@fortawesome/free-solid-svg-icons/faArrowCircleDown'),
   'arrow-circle-left':    require('@fortawesome/free-solid-svg-icons/faArrowCircleLeft'),
@@ -36,6 +37,7 @@ const Icons = {
   'bars':                 require('@fortawesome/free-solid-svg-icons/faBars'),
   'bookmark':             require('@fortawesome/free-solid-svg-icons/faBookmark'),
   'bullhorn':             require('@fortawesome/free-solid-svg-icons/faBullhorn'),
+  'caret-up':             require('@fortawesome/free-solid-svg-icons/faCaretUp'),
   'caret-down':           require('@fortawesome/free-solid-svg-icons/faCaretDown'),
   'caret-left':           require('@fortawesome/free-solid-svg-icons/faCaretLeft'),
   'caret-right':          require('@fortawesome/free-solid-svg-icons/faCaretRight'),
@@ -50,10 +52,12 @@ const Icons = {
   'clock-solid':          require('@fortawesome/free-solid-svg-icons/faClock'),
   'close':                require('@fortawesome/free-solid-svg-icons/faTimes'),
   'close-circle':         require('@fortawesome/free-solid-svg-icons/faTimesCircle'),
+  'cog':                  require('@fortawesome/free-solid-svg-icons/faCog'),
   'comment-solid':        require('@fortawesome/free-solid-svg-icons/faComment'),
   'comments-solid':       require('@fortawesome/free-solid-svg-icons/faComments'),
   'download':             require('@fortawesome/free-solid-svg-icons/faDownload'),
   'edit':                 require('@fortawesome/free-solid-svg-icons/faEdit'),
+  'exchange-alt':         require('@fortawesome/free-solid-svg-icons/faExchangeAlt'),
   'exclamation-circle':   require('@fortawesome/free-solid-svg-icons/faExclamationCircle'),
   'exclamation-triangle': require('@fortawesome/free-solid-svg-icons/faExclamationTriangle'),
   'external-link-alt':    require('@fortawesome/free-solid-svg-icons/faExternalLinkAlt'),
@@ -63,17 +67,22 @@ const Icons = {
   'hand-paper':           require('@fortawesome/free-solid-svg-icons/faHandPaper'),
   'info-circle':          require('@fortawesome/free-solid-svg-icons/faInfoCircle'),
   'lock':                 require('@fortawesome/free-solid-svg-icons/faLock'),
+  'minus':                require('@fortawesome/free-solid-svg-icons/faMinus'),
   'paper-plane':          require('@fortawesome/free-solid-svg-icons/faPaperPlane'),
   'pencil-alt':           require('@fortawesome/free-solid-svg-icons/faPencilAlt'),
+  'plus':                 require('@fortawesome/free-solid-svg-icons/faPlus'),
   'plus-circle':          require('@fortawesome/free-solid-svg-icons/faPlusCircle'),
   'plus-square':          require('@fortawesome/free-solid-svg-icons/faPlusSquare'),
   'print':                require('@fortawesome/free-solid-svg-icons/faPrint'),
   'question-circle':      require('@fortawesome/free-solid-svg-icons/faQuestionCircle'),
   'recycle':              require('@fortawesome/free-solid-svg-icons/faRecycle'),
+  'search':               require('@fortawesome/free-solid-svg-icons/faSearch'),
+  'share-square':         require('@fortawesome/free-solid-svg-icons/faShareSquare'),
   'sort':                 require('@fortawesome/free-solid-svg-icons/faSort'),
   'sort-down':            require('@fortawesome/free-solid-svg-icons/faSortDown'),
   'sort-up':              require('@fortawesome/free-solid-svg-icons/faSortUp'),
   'spinner':              require('@fortawesome/free-solid-svg-icons/faSpinner'),
+  'star':                 require('@fortawesome/free-solid-svg-icons/faStar'),
   'th':                   require('@fortawesome/free-solid-svg-icons/faTh'),
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
   'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
@@ -106,11 +115,16 @@ const defaultTooltipProps = {
   trigger: ['hover', 'focus'],
 };
 
-const IconWrapper = styled(FontAwesomeIcon)`
+const IconWrapper = styled(FontAwesomeIcon).withConfig({
+  shouldForwardProp: (prop) => prop != 'withCircle',
+})`
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  ${({ withCircle }) => withCircle && css`border-radius: 50%; padding: 2px; height: 1.125em; width: 1.125em;`}
+  ${({ background }) => background && css`background: ${background};`}
 `;
 
+const HOISTED_PROPS = ['data-test-id'];
 
 const Variants = {
   errorInfo: {
@@ -120,6 +134,10 @@ const Variants = {
   info: {
     color: '#007da4',
     type: 'exclamation-circle',
+  },
+  infoCircle: {
+    color: '#09c0db',
+    type: 'info-circle',
   },
   activity: {
     type: 'spinner',
@@ -133,7 +151,26 @@ const Variants = {
     type: 'square',
     color: '#5E6062',
   },
+  circledStar: {
+    type: 'star',
+    background: '#5e5e5e',
+    color: 'white',
+    withCircle: true,
+  },
+  droppedFullCredit: {
+    color: '#83AD51',
+    type: 'check',
+  },
+  droppedZeroCredit: {
+    color: '#B23238',
+    type: 'close',
+  },
+  toggleOrder: {
+    color: '#027EB5',
+    type: 'exchange-alt',
+  },
 };
+
 
 export default
 class Icon extends React.Component {
@@ -141,12 +178,14 @@ class Icon extends React.Component {
   static propTypes = {
     type: PropTypes.oneOf(Object.keys(Icons)),
     spin: PropTypes.bool,
+    busy: PropTypes.bool,
     className: PropTypes.string,
     onClick: PropTypes.func,
     onNavbar: PropTypes.bool,
     tooltipProps: PropTypes.object,
     buttonProps: PropTypes.object,
     btnVariant: PropTypes.string,
+    asButton: PropTypes.bool,
     variant: PropTypes.oneOf(Object.keys(Variants)),
     tooltip: PropTypes.oneOfType([
       PropTypes.string,
@@ -166,27 +205,44 @@ class Icon extends React.Component {
     if (variant) {
       defaults(providedProps, Variants[variant]);
     }
-
     const {
       onClick, buttonProps, tooltipProps, btnVariant,
-      type, className, tooltip, onNavbar,
+      type, className, tooltip, onNavbar, busy, asButton,
       ...props
     } = providedProps;
+    props.icon = Icons[type];
+    if (busy) {
+      props.icon = 'spinner';
+      props.spin = true;
+    }
+    const wrapWithButton = onClick || btnVariant || asButton;
+
+
+    if (wrapWithButton) {
+      HOISTED_PROPS.forEach(prop => {
+        if (props[prop]) {
+          buttonProps[prop] = props[prop];
+          delete props[prop];
+        }
+      });
+    }
 
     let icon = (
       <IconWrapper
         data-variant={variant}
         className={cn('ox-icon', `ox-icon-${type}`, className)}
-        icon={Icons[type]}
         {...props}
       />
     );
 
-    if (onClick || btnVariant) {
+    if (wrapWithButton) {
+
       icon = (
         <Button
           variant={btnVariant || 'plain'}
-          className={cn(`ox-icon-${type}`, className)}
+          className={cn(`ox-icon-${type}`, className, {
+            'btn btn-standard btn-icon': asButton,
+          })}
           onClick={onClick}
           {...buttonProps}
         >{icon}</Button>

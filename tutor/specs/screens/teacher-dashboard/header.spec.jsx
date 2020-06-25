@@ -22,6 +22,6 @@ describe('CourseCalendar Header', function() {
   it('renders with links', function() {
     const wrapper = shallow(<Header {...props} />);
     expect(wrapper).toHaveRendered('TutorLink[to="viewPerformanceGuide"]');
-    expect(wrapper).toHaveRendered('TutorLink[to="viewScores"]');
+    expect(wrapper).toHaveRendered('TutorLink[to="viewGradebook"]');
   });
 });

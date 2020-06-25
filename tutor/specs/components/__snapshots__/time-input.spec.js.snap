@@ -1,0 +1,555 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeInput matches snapshot 1`] = `
+.c3 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c1 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c1 .ox-icon {
+  position: absolute;
+  right: 0.45rem;
+  top: 0.9rem;
+  color: #818181;
+  pointer-events: none;
+}
+
+.c2 {
+  border: 1px solid #d5d5d5;
+  color: #5f6163;
+  background: #fff;
+  height: 3.3rem;
+  padding: 0 2.5rem 0 1rem;
+  font-size: 1.4rem;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c2:focus {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  margin: 0 0.5rem;
+  font-weight: bold;
+}
+
+.c5 {
+  margin-left: 1.4rem;
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+}
+
+.c5.btn-group {
+  vertical-align: initial;
+}
+
+.c5 .btn:not(.btn-link) {
+  font-size: 1.4rem;
+  height: 3.1rem;
+  background-color: #fff;
+}
+
+.c5 .btn:not(.btn-link):not(.disabled).active {
+  background: #e4e4e4;
+  border-color: #e4e4e4;
+}
+
+.c5 .btn:not(.btn-link):not(.disabled).focus {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+<div
+  className="c0"
+>
+  <span
+    className="c1"
+  >
+    <select
+      className="c2"
+      name="ti_hour"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value={0}
+    >
+      <option
+        value={1}
+      >
+        1
+      </option>
+      <option
+        value={2}
+      >
+        2
+      </option>
+      <option
+        value={3}
+      >
+        3
+      </option>
+      <option
+        value={4}
+      >
+        4
+      </option>
+      <option
+        value={5}
+      >
+        5
+      </option>
+      <option
+        value={6}
+      >
+        6
+      </option>
+      <option
+        value={7}
+      >
+        7
+      </option>
+      <option
+        value={8}
+      >
+        8
+      </option>
+      <option
+        value={9}
+      >
+        9
+      </option>
+      <option
+        value={10}
+      >
+        10
+      </option>
+      <option
+        value={11}
+      >
+        11
+      </option>
+      <option
+        value={0}
+      >
+        12
+      </option>
+    </select>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-caret-down fa-w-10 c3 ox-icon ox-icon-caret-down"
+      data-icon="caret-down"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </span>
+  <span
+    className="c4"
+  >
+    :
+  </span>
+  <span
+    className="c1"
+  >
+    <select
+      className="c2"
+      name="ti_minute"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value={0}
+    >
+      <option
+        value={0}
+      >
+        00
+      </option>
+      <option
+        value={1}
+      >
+        01
+      </option>
+      <option
+        value={2}
+      >
+        02
+      </option>
+      <option
+        value={3}
+      >
+        03
+      </option>
+      <option
+        value={4}
+      >
+        04
+      </option>
+      <option
+        value={5}
+      >
+        05
+      </option>
+      <option
+        value={6}
+      >
+        06
+      </option>
+      <option
+        value={7}
+      >
+        07
+      </option>
+      <option
+        value={8}
+      >
+        08
+      </option>
+      <option
+        value={9}
+      >
+        09
+      </option>
+      <option
+        value={10}
+      >
+        10
+      </option>
+      <option
+        value={11}
+      >
+        11
+      </option>
+      <option
+        value={12}
+      >
+        12
+      </option>
+      <option
+        value={13}
+      >
+        13
+      </option>
+      <option
+        value={14}
+      >
+        14
+      </option>
+      <option
+        value={15}
+      >
+        15
+      </option>
+      <option
+        value={16}
+      >
+        16
+      </option>
+      <option
+        value={17}
+      >
+        17
+      </option>
+      <option
+        value={18}
+      >
+        18
+      </option>
+      <option
+        value={19}
+      >
+        19
+      </option>
+      <option
+        value={20}
+      >
+        20
+      </option>
+      <option
+        value={21}
+      >
+        21
+      </option>
+      <option
+        value={22}
+      >
+        22
+      </option>
+      <option
+        value={23}
+      >
+        23
+      </option>
+      <option
+        value={24}
+      >
+        24
+      </option>
+      <option
+        value={25}
+      >
+        25
+      </option>
+      <option
+        value={26}
+      >
+        26
+      </option>
+      <option
+        value={27}
+      >
+        27
+      </option>
+      <option
+        value={28}
+      >
+        28
+      </option>
+      <option
+        value={29}
+      >
+        29
+      </option>
+      <option
+        value={30}
+      >
+        30
+      </option>
+      <option
+        value={31}
+      >
+        31
+      </option>
+      <option
+        value={32}
+      >
+        32
+      </option>
+      <option
+        value={33}
+      >
+        33
+      </option>
+      <option
+        value={34}
+      >
+        34
+      </option>
+      <option
+        value={35}
+      >
+        35
+      </option>
+      <option
+        value={36}
+      >
+        36
+      </option>
+      <option
+        value={37}
+      >
+        37
+      </option>
+      <option
+        value={38}
+      >
+        38
+      </option>
+      <option
+        value={39}
+      >
+        39
+      </option>
+      <option
+        value={40}
+      >
+        40
+      </option>
+      <option
+        value={41}
+      >
+        41
+      </option>
+      <option
+        value={42}
+      >
+        42
+      </option>
+      <option
+        value={43}
+      >
+        43
+      </option>
+      <option
+        value={44}
+      >
+        44
+      </option>
+      <option
+        value={45}
+      >
+        45
+      </option>
+      <option
+        value={46}
+      >
+        46
+      </option>
+      <option
+        value={47}
+      >
+        47
+      </option>
+      <option
+        value={48}
+      >
+        48
+      </option>
+      <option
+        value={49}
+      >
+        49
+      </option>
+      <option
+        value={50}
+      >
+        50
+      </option>
+      <option
+        value={51}
+      >
+        51
+      </option>
+      <option
+        value={52}
+      >
+        52
+      </option>
+      <option
+        value={53}
+      >
+        53
+      </option>
+      <option
+        value={54}
+      >
+        54
+      </option>
+      <option
+        value={55}
+      >
+        55
+      </option>
+      <option
+        value={56}
+      >
+        56
+      </option>
+      <option
+        value={57}
+      >
+        57
+      </option>
+      <option
+        value={58}
+      >
+        58
+      </option>
+      <option
+        value={59}
+      >
+        59
+      </option>
+    </select>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-caret-down fa-w-10 c3 ox-icon ox-icon-caret-down"
+      data-icon="caret-down"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </span>
+  <div
+    className="c5 btn-group btn-group-toggle"
+    role="group"
+  >
+    <label
+      className="btn active btn-light"
+      disabled={false}
+    >
+      <input
+        autoComplete="off"
+        checked={true}
+        disabled={false}
+        name="ti_ampm"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        type="radio"
+        value="am"
+      />
+      AM
+    </label>
+    <label
+      className="btn btn-light"
+      disabled={false}
+    >
+      <input
+        autoComplete="off"
+        checked={false}
+        disabled={false}
+        name="ti_ampm"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        type="radio"
+        value="pm"
+      />
+      PM
+    </label>
+  </div>
+</div>
+`;

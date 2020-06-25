@@ -5,6 +5,7 @@ import {
   get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
 import { computed } from 'mobx';
+import { getters } from '../../../helpers/computed-property';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../../chapter-section';
 import Exercise from '../../exercises/exercise';
@@ -17,6 +18,10 @@ class AnswerStat extends BaseModel {
   @session selected_count;
 
   @belongsTo({ model: 'task-plan/stats/question' }) question;
+
+  @computed get isCorrect() {
+    return this.correctness > 0;
+  }
 
   @computed get content() {
     return find(get(this.question.content, 'answers'), a => a.id == this.answer_id) || {};
@@ -32,18 +37,34 @@ class AnswerStat extends BaseModel {
   }
 }
 
+
+@identifiedBy('task-plan/stats/student')
+class Student extends BaseModel {
+
+  @identifier id;
+  @field name;
+
+}
+
 @identifiedBy('task-plan/stats/answer')
 class Answer extends BaseModel {
 
-  @session({ type: 'array' }) student_names;
   @session free_response;
   @session answer_id;
-
+  @hasMany({ model: Student }) students;
   @belongsTo({ model: 'task-plan/stats/question' }) question;
+
   @computed get selected_count() {
     return find(this.question.answer_stats, anst => anst.answer_id == this.answer_id).selected_count || 0;
   }
 
+  @computed get exerciseAnswer() {
+    return this.question.content.answers.find(ea => ea.id == this.answer_id);
+  }
+
+  @computed get isCorrect() {
+    return Boolean(this.exerciseAnswer && this.exerciseAnswer.isCorrect);
+  }
 }
 
 
@@ -58,13 +79,15 @@ class QuestionStats extends BaseModel {
 
   @session question_id;
   @session answered_count;
-
   @session exercise;
 
   @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
-  @hasMany({ model: AnswerStat, inverseOf: 'question' }) answer_stats;
+  @hasMany({ model: AnswerStat, inverseOf: 'question', extend: getters({
+    correct() { return find(this, { isCorrect: true }); },
+  }) } ) answer_stats;
 
   @lazyInitialize forReview = new ReviewQuestion(this);
+
 
   @computed get hasFreeResponse() {
     return find(this.answers, a => !isEmpty(a.free_response));
@@ -74,6 +97,17 @@ class QuestionStats extends BaseModel {
     return find(this.exercise.content.questions, q =>
       q.id == this.question_id
     ) || {};
+  }
+
+  answerForStudent(student) {
+    for (let i in this.answers) {
+      const answer = this.answers[i];
+      const st = answer.students.find(s => s.id == student.id);
+      if (st) {
+        return answer;
+      }
+    }
+    return null;
   }
 }
 
@@ -89,8 +123,8 @@ class Page extends BaseModel {
   @session student_count;
 
   @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
-}
 
+}
 
 @identifiedBy('task-plan/stats/stat')
 class Stats extends BaseModel {
@@ -109,6 +143,18 @@ class Stats extends BaseModel {
     return flatMap(['current_pages', 'spaced_pages'], pageType => {
       return flatMap(this[pageType], pg => pg.exercises);
     });
+  }
+
+  @computed get questions() {
+    return flatMap(this.exercises, 'content.questions');
+  }
+
+  statsForQuestion(question) {
+    for (const ex of this.exercises) {
+      const q = ex.question_stats.find(qs => qs.question_id == question.id);
+      if (q) { return q; }
+    }
+    return null;
   }
 
   @computed get exercisesBySection() {

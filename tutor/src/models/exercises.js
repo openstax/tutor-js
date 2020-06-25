@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find, uniq } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -51,23 +51,28 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, course, page_ids, exercise_ids, limit = 'homework_core' }) {
-    if (course && !book) {
-      book = course.referenceBook;
+  fetch({ book, course, ecosystem_id, page_ids, exercise_ids, limit = 'homework_core', query = {} }) {
+    if (!ecosystem_id) {
+      if (course && !book) {
+        book = course.referenceBook;
+      }
+      ecosystem_id = book.id;
     }
-    let url = `ecosystems/${book.id}/exercises`;
-    if (limit) { url += `/${limit}`; }
-    const query = {};
+    let url = `ecosystems/${ecosystem_id}/exercises`;
+
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
-      query.page_ids = toJS(page_ids);
+      query.page_ids = uniq(toJS(page_ids));
     }
     if(course) {
       query.course_id = course.id;
     }
     if (exercise_ids) {
-      query.exercise_ids = toJS(exercise_ids);
+      query.exercise_ids = uniq(toJS(exercise_ids));
+    } else if (limit) {
+      url += `/${limit}`;
     }
+
     return {
       url, query,
     };
@@ -86,11 +91,14 @@ export class ExercisesMap extends Map {
     return false;
   }
 
-  ensureExercisesLoaded({ book, course, exercise_ids, limit }) {
+  ensureExercisesLoaded({ book, course, ecosystem_id, exercise_ids, limit, ...query }) {
     const unFetchedExerciseIds = filter(exercise_ids, exId => !this.get(exId));
     if (!isEmpty(unFetchedExerciseIds)) {
-      this.fetch({ book, course, exercise_ids: unFetchedExerciseIds, limit });
+      return this.fetch({
+        book, course, ecosystem_id, exercise_ids: unFetchedExerciseIds, limit, query,
+      });
     }
+    return Promise.resolve(this);
   }
 
   ensurePagesLoaded({ book, course, page_ids, limit }) {

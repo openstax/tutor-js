@@ -48,8 +48,7 @@ describe('Questions Dashboard Component', function() {
   it('fetches and displays', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).not.toHaveRendered('NoExercisesFound');
-
-    dash.find(`StyledComponent[data-section-id="${page_ids[0]}"]`).simulate('click');
+    dash.find(`div[data-section-id="${page_ids[0]}"]`).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(exercises.fetch).toHaveBeenCalledWith({
       course: course, limit: false, page_ids: [page_ids[0]],

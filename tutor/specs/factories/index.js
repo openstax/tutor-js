@@ -14,12 +14,13 @@ import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
 import Stat from '../../src/models/stats';
+import { GradingTemplate } from '../../src/models/grading/templates';
 import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 
 import './research_survey';
 import './teacher-task-plan';
-import './student-task';
+import './student-tasks';
 import './course';
 import './book';
 import './task-plan-stats';
@@ -29,8 +30,9 @@ import './scores';
 import './offering';
 import './stats';
 import './course-roster';
-import { studentTasks, studentTask } from './student-tasks';
+import { studentTasks, studentTask } from './student-task-models';
 import './note';
+import './grading-template';
 
 const Factories = {
   studentTask,
@@ -53,6 +55,7 @@ each({
   TutorExercise,
   ResearchSurvey,
   TeacherTaskPlan,
+  GradingTemplate,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
@@ -153,6 +156,18 @@ Factories.offeringsMap = ({ count = 4 } = {}) => {
   map.onLoaded({
     data: {
       items: range(count).map(() => FactoryBot.create('Offering', {})),
+    },
+  });
+  return map;
+};
+
+Factories.gradingTemplates = ({ course, count = 2 } = {}) => {
+  const map = course.gradingTemplates;
+  map.onLoaded({
+    data: {
+      items: range(count).map(() =>
+        FactoryBot.create('GradingTemplate', { course })
+      ),
     },
   });
   return map;

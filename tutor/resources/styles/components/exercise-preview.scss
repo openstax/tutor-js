@@ -1,6 +1,7 @@
 .openstax-exercise-preview.has-actions {
   .card-body,
   .card-body:hover {
+    min-height: 20rem;
     .controls-overlay {
       .message {
         .action {
@@ -52,9 +53,6 @@
 
 
 .openstax-exercise-preview {
-  width: 100%;
-  margin: 20px auto;
-  border: none;
   @include book-content-interactives();
 }
 

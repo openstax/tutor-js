@@ -6,7 +6,7 @@ import TutorRouter from '../../helpers/router';
 import TimeHelper from '../../helpers/time';
 import ServerErrorMessage from './server-error-message';
 import { reloadOnce } from '../../helpers/reload';
-import { AppStore } from '../../flux/app';
+import { AppStore, AppActions } from '../../flux/app';
 import UserMenu from '../../models/user/menu';
 
 const goToDashboard = function(context) {
@@ -15,6 +15,11 @@ const goToDashboard = function(context) {
     TutorRouter.makePathname('dashboard', { courseId: course.id })
   );
   return Dialog.hide();
+};
+
+const hideModal = () => {
+  Dialog.hide();
+  AppActions.resetServerErrors();
 };
 
 const reloadOnceIfShouldReload = function() {
@@ -26,6 +31,29 @@ const reloadOnceIfShouldReload = function() {
     window.location.href = navigation.href;
   }
 };
+
+const cannotDeleteTemplate = (reason) => {
+  return {
+    className: 'error',
+    title: 'Template cannot be deleted',
+    body: (
+      <div className="template-del-failure">
+        <p className="lead">
+          {reason}
+        </p>
+      </div>
+    ),
+    buttons: [
+      <Button
+        key="ok"
+        onClick={hideModal}
+        variant="primary"
+      >
+        OK
+      </Button>,
+    ],
+  };
+}
 
 
 const ERROR_HANDLERS = {
@@ -134,9 +162,73 @@ const ERROR_HANDLERS = {
     };
   },
 
+  base_cannot_be_deleted_because_it_is_the_last_reading_grading_template() {
+    return cannotDeleteTemplate(
+      'Template cannot be deleted since it is currently the last Reading template.'
+    );
+  },
+
+  base_cannot_be_deleted_because_it_is_the_last_homework_grading_template() {
+    return cannotDeleteTemplate(
+      'Template cannot be deleted since it is currently the last Homework template.'
+    );
+  },
+
+  base_cannot_be_deleted_because_it_is_assigned_to_one_or_more_task_plans() {
+    return cannotDeleteTemplate(
+      'Template cannot be deleted since it is currently in use by assignments.'
+    );
+  },
+
+  base_cannot_be_changed_because_this_template_is_assigned_to_one_or_more_open_task_plans() {
+    return {
+      className: 'error',
+      title: 'Template cannot be updated',
+      body: (
+        <div className="template-del-failure">
+          <p className="lead">
+            Templated cannot be updated because this template is assigned to one or more assignments.
+          </p>
+        </div>
+      ),
+      buttons: [
+        <Button
+          key="ok"
+          onClick={hideModal}
+          variant="primary"
+        >
+          OK
+        </Button>,
+      ],
+    };
+  },
+
   // Payment overdue: don't render the error dialog because we want to display the modal instead
   payment_overdue() {
     return null;
+  },
+
+  settings_cannot_be_updated_after_open() {
+    return {
+      className: 'error',
+      title: 'Settings cannot be changed after assignment is open',
+      body: (
+        <div className="template-del-failure">
+          <p className="lead">
+            Assignment settings cannot be changed after the assignment is open.
+          </p>
+        </div>
+      ),
+      buttons: [
+        <Button
+          key="ok"
+          onClick={hideModal}
+          variant="primary"
+        >
+          OK
+        </Button>,
+      ],
+    };
   },
 
   // The default error dialog that's displayed when we have no idea what's going on

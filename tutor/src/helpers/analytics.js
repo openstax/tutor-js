@@ -47,7 +47,7 @@ const Translators = {
     return `/${getRole(courseId)}/performance-forecast/${courseId}`;
   },
   calendarByDate({ courseId }) { return `/teacher/calendar/${courseId}`; },
-  viewScores({ courseId }) { return `/teacher/student-scores/${courseId}`; },
+  viewGradebook({ courseId }) { return `/teacher/student-scores/${courseId}`; },
   courseSettings({ courseId }) { return `/teacher/roster/${courseId}`; },
   editAssignment: partial(assignmentTypeTranslator, 'assignment'),
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },

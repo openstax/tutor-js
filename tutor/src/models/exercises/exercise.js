@@ -32,13 +32,12 @@ class TutorExercise extends BaseModel {
   @hasMany({ model: RelatedContent }) related_content;
 
   @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
-    importantInfo() {
-      return reduce(filter(this, 'isImportant'),
-        (o, t) => t.recordInfo(o),
-        { lo: '', section: '', tagString: [] });
+    foo() { return 1234; },
+    important() {
+      return reduce(this, (o, t) => t.recordInfo(o), {});
     },
     chapterSection() {
-      return new ChapterSection(this.importantInfo.section);
+      return new ChapterSection(this.important.chapterSection);
     },
   }) }) tags;
 
@@ -62,6 +61,8 @@ class TutorExercise extends BaseModel {
   @computed get isAssignable() { return !this.is_excluded; }
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
+  @computed get isMultiChoice() { return this.content.isMultiChoice; }
+  @computed get isOpenEnded() { return this.content.isOpenEnded; }
 
   @computed get types() {
     return map(
@@ -70,6 +71,15 @@ class TutorExercise extends BaseModel {
       ),
       tag => last(tag.id.split(':'))
     );
+  }
+
+  @computed get typeAbbreviation() {
+    if (this.isMultiChoice) {
+      return 'MCQ';
+    } else if (this.isOpenEnded) {
+      return 'WRQ';
+    }
+    return 'UNK';
   }
 
   // called from api

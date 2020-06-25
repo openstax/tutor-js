@@ -1,17 +1,28 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { observable, computed, action } from 'mobx';
+import { React, PropTypes, styled, observer, observable, computed, action } from 'vendor';
 import { isEmpty, find } from 'lodash';
-import { Card } from 'react-bootstrap';
-import Course from '../../models/course';
 import { SmartOverflow } from 'shared';
+import Course from '../../models/course';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
 import { ChaptersPerformance, PracticesPerformance } from './performances';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import LoadingScreen from 'shared/components/loading-animation';
 import NoStudents from './no-students';
+import RadioInput from  '../radio-input';
+
+const SectionWrapper = styled.div`
+  margin: 0.8rem 5rem 2rem 0;
+  display: inline-flex;
+`;
+
+const StatsWrapper = styled.div`
+  margin-top: 2rem;
+  font-size: 1.6rem;
+
+  section {
+    margin-top: 0.8rem;
+  }
+`;
 
 export default
 @observer
@@ -42,7 +53,11 @@ class Stats extends React.Component {
   }
 
   @computed get period() {
-    return this.course.periods.sorted[this.currentPeriodIndex];
+    return this.periods[this.currentPeriodIndex];
+  }
+
+  @computed get periods() {
+    return this.props.plan.activeAssignedPeriods;
   }
 
   @computed get stats() {
@@ -61,18 +76,16 @@ class Stats extends React.Component {
     if (handlePeriodSelect) { handlePeriodSelect(period); }
   }
 
-  renderWrapped(body) {
+  renderWithTabs(body) {
     return (
-      <Card className="task-stats">
-        <Card.Body>
-          <CoursePeriodsNav
-            handleSelect={this.handlePeriodSelect}
-            periods={this.course.periods}
-            course={this.course}
-          />
-          {body}
-        </Card.Body>
-      </Card>
+      <>
+        <CoursePeriodsNav
+          handleSelect={this.handlePeriodSelect}
+          periods={this.course.periods}
+          course={this.course}
+        />
+        {body}
+      </>
     );
   }
 
@@ -98,12 +111,8 @@ class Stats extends React.Component {
     let courseBar, dataComponent;
     const { course, stats, props: { shouldOverflowData } } = this;
 
-    if (!this.period.hasEnrollments) {
-      return this.renderWrapped(<NoStudents courseId={course.id} />);
-    }
-
     if (!this.analytics.api.hasBeenFetched) {
-      return this.renderWrapped(<LoadingScreen />);
+      return <LoadingScreen />;
     }
 
     courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
@@ -117,26 +126,33 @@ class Stats extends React.Component {
         {this.renderSpacedPages()}
       </SmartOverflow>;
     } else {
-      dataComponent = <div className="task-stats-data">
+      dataComponent = <StatsWrapper>
+        <h6>Class progress</h6>
         <section>
           {courseBar}
         </section>
-        {this.renderCurrentPages()}
-        {this.renderSpacedPages()}
-      </div>;
+      </StatsWrapper>;
     }
 
     return (
-      <Card className="task-stats">
-        <Card.Body>
-          <CoursePeriodsNav
-            handleSelect={this.handlePeriodSelect}
-            periods={this.course.periods}
-            course={this.course}
-          />
-          {dataComponent}
-        </Card.Body>
-      </Card>
+      <>
+        <h6>Select section</h6>
+        {this.periods.map((p, i) =>
+          <SectionWrapper key={`period-${p.id}`}>
+            <RadioInput
+              id={`period-${p.id}`}
+              name={`period-${p.id}`}
+              standalone={true}
+              onChange={() => this.handlePeriodSelect(p, i)}
+              checked={this.period.id === p.id}
+              label={p.name}
+              labelSize="lg"
+            />
+          </SectionWrapper>
+        )}
+        {!this.period.hasEnrollments && <NoStudents courseId={course.id} />}
+        {this.period.hasEnrollments && dataComponent}
+      </>
     );
   }
 }

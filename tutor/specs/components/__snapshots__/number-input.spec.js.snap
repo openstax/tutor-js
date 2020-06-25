@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Number Input renders and matches snapshot 1`] = `
+.c1 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  margin: 0;
+  padding: 0;
+  height: 3.3rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  vertical-align: middle;
+}
+
+.c0.rc-input-number-focused {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c0.rc-input-number-disabled input {
+  color: #fff;
+}
+
+.c0 input {
+  border: 0;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  padding-right: 0.8rem;
+}
+
+.c0 .rc-input-number-input-wrap {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 .rc-input-number-handler-down-disabled,
+.c0 .rc-input-number-handler-up-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.c0 .rc-input-number-handler-wrap {
+  border-left: 1px solid #d5d5d5;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.c0 .ox-icon {
+  color: #818181;
+}
+
+<div
+  className="rc-input-number c0"
+  style={Object {}}
+>
+  <div
+    className="rc-input-number-handler-wrap"
+  >
+    <span
+      aria-disabled={false}
+      aria-label="Increase Value"
+      className="rc-input-number-handler rc-input-number-handler-up "
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      unselectable="unselectable"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-caret-up fa-w-10 c1 ox-icon ox-icon-caret-up"
+        data-icon="caret-up"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </span>
+    <span
+      aria-disabled={false}
+      aria-label="Decrease Value"
+      className="rc-input-number-handler rc-input-number-handler-down "
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      unselectable="unselectable"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-caret-down fa-w-10 c1 ox-icon ox-icon-caret-down"
+        data-icon="caret-down"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </span>
+  </div>
+  <div
+    className="rc-input-number-input-wrap"
+  >
+    <input
+      aria-valuemin={-9007199254740991}
+      autoComplete="off"
+      className="rc-input-number-input"
+      min={-9007199254740991}
+      name="numberz"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseUp={[Function]}
+      required={false}
+      role="spinbutton"
+      step={1}
+      value=""
+    />
+  </div>
+</div>
+`;

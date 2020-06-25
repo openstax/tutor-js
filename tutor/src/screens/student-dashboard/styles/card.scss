@@ -4,22 +4,6 @@
     .card:first-child { margin-top: 0px; }
   }
 
-  .labels {
-    background-color: $tutor-neutral-lite;
-    color: $tutor-neutral-lightest;
-    margin: 0;
-    @include tutor-sans-font(1.5rem, $student-dashboard-row-height);
-    font-weight: 500;
-    > *:not(:first-child) {
-      padding-left: 0;
-    }
-    // Adjust height for when the columns collapse and progress appears below task title
-    @include media-breakpoint-down('sm') {
-      // don't take up as much vertical space when collapsed
-      .panel-title { height: $student-dashboard-row-height / 2; }
-    }
-  }
-
   .card {
     padding: 0;
     margin: 20px 0 0 0;

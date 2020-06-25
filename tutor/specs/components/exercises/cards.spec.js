@@ -13,8 +13,8 @@ xdescribe('Exercise Cards Component', function() {
 
   beforeEach(() => {
     book = Factory.book();
-    const pageIds = book.pages.byId.keys();
-    exercises = Factory.exercisesMap({ book, pageIds, count: 4 });
+    const pageIds = book.pages.byId.keys().slice(1, 2);
+    exercises = Factory.exercisesMap({ book, pageIds, count: 2 });
     props = {
       book,
       exercises,

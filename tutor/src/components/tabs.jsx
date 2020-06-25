@@ -2,6 +2,7 @@ import { React, cn, useState, useHistory, useEffect, useRef } from 'vendor';
 import { isNil, extend, partial } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
+import S from '../helpers/string';
 import qs from 'qs';
 
 // Used to cancel router transitions the same way an onClick event is
@@ -73,7 +74,10 @@ const Tabs = ({
   };
 
   return (
-    <nav className={cn('tutor-tabs', className)}>
+    <nav
+      className={cn('tutor-tabs', className)}
+      data-test-id="tabs"
+    >
       <ul className="nav nav-tabs" role="tablist">
         {tabs.map((tab, index) => {
           const active = index === activeIndex;
@@ -86,6 +90,7 @@ const Tabs = ({
             >
               <a
                 href="#"
+                data-test-id={`${S.dasherize(tab)}-tab`}
                 onClick={partial(onTabClick, index)}
               >
                 <h2>

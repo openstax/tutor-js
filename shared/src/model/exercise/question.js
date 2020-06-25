@@ -46,9 +46,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isOpenEnded() {
-    return Boolean(
-      this.formats.length == 1 && this.hasFormat('free-response')
-    );
+    return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
   }
 
   hasFormat(value) {
@@ -84,6 +82,13 @@ class ExerciseQuestion extends BaseModel {
       }
       this.collaborator_solutions[0].content_html = val;
     }
+  }
+
+  @computed get formatId() {
+    if (this.isMultipleChoice) {
+      return 'MC';
+    }
+    return 'UNK';
   }
 
   @computed get requiresChoicesFormat() {

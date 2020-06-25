@@ -42,4 +42,3 @@ export Question from './components/question';
 export ResizeListenerMixin from './components/resize-listener-mixin';
 export SmartOverflow from './components/smart-overflow';
 export { default as SpyMode } from './components/spy-mode';
-export HandleBodyClassesMixin from './components/handle-body-classes-mixin';

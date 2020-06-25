@@ -19,7 +19,10 @@ describe('Task Response Validation', () => {
         return Promise.resolve(ld.extend(args, this.result));
       },
     };
-    ux = new UX({ step, validator, messages });
+    ux = new UX({ step, validator, messages, taskUX: {
+      onFreeResponseComplete: jest.fn(),
+      canUpdateCurrentStep: true,
+    } });
   });
 
   it('picks a random message', () => {
@@ -37,11 +40,14 @@ describe('Task Response Validation', () => {
 
   it('only records nudge when its displayed', async () => {
     ux.setResponse({ target: { value: 'garbage all the way down' } });
+
     await ux.onSave();
+    
     expect(step.response_validation.attempts).toHaveLength(1);
     expect(step.response_validation.attempts[0].nudge).toEqual('two');
     ux.setResponse({ target: { value: 'another attempt' } });
     await ux.onSave();
+    expect(ux.taskUX.onFreeResponseComplete).toHaveBeenCalledWith(step);
     expect(step.response_validation.attempts).toHaveLength(2);
     expect(step.response_validation.attempts[1].nudge).toBeNull();
   });

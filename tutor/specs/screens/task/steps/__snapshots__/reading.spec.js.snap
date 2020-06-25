@@ -30,6 +30,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   -ms-flex-item-align: end;
   align-self: flex-end;
   margin: 4rem;
+  float: right;
 }
 
 <div
@@ -37,21 +38,25 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   data-task-step-id={1}
 >
   <div
-    className="reading-step sc-ifAKCX c1"
+    className="c1 reading-step "
   >
-    <div />
-    <button
-      className="continue c2 btn btn-primary btn-lg"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Continue
-    </button>
     <div
-      className="visible-when-debugging"
+      className=""
     >
-      <ul />
+      <div />
+      <button
+        className="c2 continue btn btn-primary btn-lg"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Continue
+      </button>
+      <div
+        className="visible-when-debugging"
+      >
+        <ul />
+      </div>
     </div>
   </div>
 </div>

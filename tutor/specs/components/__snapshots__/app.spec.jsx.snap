@@ -71,7 +71,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
 
 .c4 {
   padding-top: 60px;
-  padding-bottom: 50px;
+  padding-bottom: 0;
 }
 
 <div
@@ -94,7 +94,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="c0"
             >
               <nav
-                className="tutor-navbar c1"
+                className="c1 tutor-navbar"
               >
                 <div
                   className="left-side-controls"
@@ -186,7 +186,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       >
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon ox-icon-question-circle c3"
+                          className="svg-inline--fa fa-question-circle fa-w-16 c3 ox-icon ox-icon-question-circle"
                           data-icon="question-circle"
                           data-prefix="fas"
                           focusable="false"
@@ -209,17 +209,17 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         </span>
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-angle-down fa-w-10 ox-icon ox-icon-angle-down toggle c3"
-                          data-icon="angle-down"
+                          className="svg-inline--fa fa-chevron-down fa-w-14 c3 ox-icon ox-icon-chevron-down toggle"
+                          data-icon="chevron-down"
                           data-prefix="fas"
                           focusable="false"
                           role="img"
                           style={Object {}}
-                          viewBox="0 0 320 512"
+                          viewBox="0 0 448 512"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                            d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
                             fill="currentColor"
                             style={Object {}}
                           />
@@ -337,7 +337,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     Return Home
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c3"
+                      className="svg-inline--fa fa-caret-right fa-w-6 c3 ox-icon ox-icon-caret-right"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"

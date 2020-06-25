@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { partial, pick, debounce } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
-import classnames from 'classnames';
 import keymaster from 'keymaster';
 import Icon from '../icon';
+import { idType } from '../../helpers/react';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
+import cn from 'classnames';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -25,12 +26,7 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
   );
 };
 
-const isAnswerChecked = function(answer, chosenAnswer) {
-  return (
-    (chosenAnswer || []).includes(answer.id)
-  );
-};
-
+const isAnswerChecked = (answer, chosenAnswer) => Boolean((chosenAnswer || []).find( a => a == answer.id));
 
 export default
 @observer
@@ -48,7 +44,7 @@ class Answer extends React.Component {
     onChangeAnswer: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     chosenAnswer: PropTypes.array,
-    correctAnswerId: PropTypes.string,
+    correctAnswerId: idType,
     answered_count: PropTypes.number,
     show_all_feedback: PropTypes.bool,
     keyControl: PropTypes.oneOfType([
@@ -131,7 +127,7 @@ class Answer extends React.Component {
     const isChecked = isAnswerChecked(answer, chosenAnswer);
     const isCorrect = isAnswerCorrect(answer, correctAnswerId);
 
-    const classes = classnames('answers-answer', {
+    const classes = cn('answers-answer', {
       'disabled': disabled,
       'answer-checked': isChecked,
       'answer-correct': isCorrect,
@@ -152,23 +148,15 @@ class Answer extends React.Component {
         onChange={onChange}
         disabled={disabled} />;
     }
-
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
       selectedCount = (
-        <div
+        <span
           className="selected-count"
           data-percent={`${percent}`}
         >
           {answer.selected_count}
-        </div>
-      );
-      correctIncorrectIcon = (
-        <Icon
-          className="correct-incorrect"
-          type={isCorrect ? 'check' : 'wrong'}
-          color={isCorrect ? 'green' : 'red'}
-        />
+        </span>
       );
     }
     if (type === 'teacher-preview') {
@@ -194,9 +182,28 @@ class Answer extends React.Component {
     ariaLabel += ':';
     const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
 
-    return (
-      <div className="openstax-answer">
-        <section role="region" className={classes}>
+    let body = '';
+    if (type === 'teacher-review') {
+      body = (
+        <div className="review-wrapper">
+          <div className={cn('review-count', { 'green': isCorrect, 'red': !isCorrect })}>
+            {selectedCount}
+            <span className={cn('letter', { 'green': isCorrect, 'red': !isCorrect })}>
+              {ALPHABET[iter]}
+            </span>
+          </div>
+          <div className="answer-answer">
+            <ArbitraryHtmlAndMath
+              {...htmlAndMathProps}
+              className="answer-content"
+              html={answer.content_html} />
+            {feedback}
+          </div>
+        </div>
+      );
+    } else {
+      body = (
+        <>
           {correctIncorrectIcon}
           {selectedCount}
           {radioBox}
@@ -219,6 +226,14 @@ class Answer extends React.Component {
               {feedback}
             </div>
           </label>
+        </>
+      );
+    }
+
+    return (
+      <div className="openstax-answer">
+        <section role="region" className={classes}>
+          {body}
         </section>
       </div>
     );

@@ -29,6 +29,7 @@ describe('Exercise Free Response', () => {
       question: step.content.questions[0],
       taskUX: new TaskUX({
         task,
+        stepId: step.id,
         history: new TestRouter().history,
         course: Factory.course(),
       }),
@@ -63,7 +64,7 @@ describe('Exercise Free Response', () => {
     setFreeResponse(fr, { value });
     expect(props.step.response_validation).toEqual({});
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     fr.unmount();
   });
 
@@ -81,7 +82,7 @@ describe('Exercise Free Response', () => {
       valid: false, response: value,
     });
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     expect(fr.instance().ux.isDisplayingNudge).toBe(false);
     expect(fr).toHaveRendered('StepFooter RelatedContentLink');
     expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
@@ -113,11 +114,10 @@ describe('Exercise Free Response', () => {
     expect(fr).toHaveRendered('TextArea[isErrored=true]');
     expect(fr).not.toHaveRendered('StepFooter RelatedContentLink');
 
-    expect(fr.text()).toContain('Re-answer');
     expect(fr).toHaveRendered('NudgeMessage');
     expect(fr.find('NudgeMessage').text()).toContain('Not sure? Here’s a hint');
     expect(fr).toHaveRendered('AnswerButton[disabled=true]');
-    expect(fr.find('AnswerButton').text()).toEqual('Re-answer');
+    expect(fr.find('AnswerButton').text()).toEqual('Re-submit');
     expect(props.step.free_response).toBeUndefined();
 
     const updatedValue = 'a new value';
@@ -139,7 +139,7 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  it('hides nudge ui when free response is valid', async () => {
+  fit('hides nudge ui when free response is valid', async () => {
     props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn()
@@ -151,7 +151,7 @@ describe('Exercise Free Response', () => {
     await delay();
 
     expect(props.step.free_response).toEqual(value);
-    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.canEditFreeResponse).toBe(false);
     expect(props.step.response_validation.attempts).toHaveLength(1);
     expect(props.step.response_validation.attempts[0]).toMatchObject({
       valid: true, response: value,

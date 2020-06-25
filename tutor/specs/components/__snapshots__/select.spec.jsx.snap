@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select matches snapshot 1`] = `
+.c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c0 .ox-icon {
+  position: absolute;
+  right: 0.45rem;
+  top: 0.9rem;
+  color: #818181;
+  pointer-events: none;
+}
+
+.c1 {
+  border: 1px solid #d5d5d5;
+  color: #5f6163;
+  background: #fff;
+  height: 3.3rem;
+  padding: 0 2.5rem 0 1rem;
+  font-size: 1.4rem;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c1:focus {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+<span
+  className="c0"
+>
+  <select
+    className="c1"
+    name="select1"
+    onBlur={[Function]}
+    onChange={[Function]}
+  />
+  <svg
+    aria-hidden="true"
+    className="svg-inline--fa fa-caret-down fa-w-10 c2 ox-icon ox-icon-caret-down"
+    data-icon="caret-down"
+    data-prefix="fas"
+    focusable="false"
+    role="img"
+    style={Object {}}
+    viewBox="0 0 320 512"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+      fill="currentColor"
+      style={Object {}}
+    />
+  </svg>
+</span>
+`;

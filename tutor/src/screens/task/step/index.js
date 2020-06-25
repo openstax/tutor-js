@@ -12,6 +12,7 @@ import HtmlContent from './html-content';
 import Failure from './failure';
 import End from './end';
 import { LoadingCard } from './card';
+import Instructions from './instructions';
 import {
   PersonalizedGroup,
   TwoStepValueProp,
@@ -27,6 +28,7 @@ const STEP_TYPES = {
   exercise: Exercise,
   placeholder: Placeholder,
   interactive: HtmlContent,
+  'instructions': Instructions,
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,
@@ -68,8 +70,8 @@ class TaskStep extends React.Component {
     if (!step || (step.api && step.api.hasErrors)) {
       return <Failure task={ux.task} step={step} />;
     }
-
     const { type, needsFetched } = step;
+
     const stepProps = {
       ...this.props,
       onContinue: ux.canGoForward ? ux.goForward : null,

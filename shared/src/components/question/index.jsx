@@ -3,7 +3,7 @@ import React from 'react';
 import { isEmpty, compact, map, pick } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-
+import { idType } from '../../helpers/react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
@@ -57,14 +57,19 @@ class Question extends React.Component {
     ]).isRequired,
     children: PropTypes.node,
     task: PropTypes.object,
-    correct_answer_id: PropTypes.string,
+    correct_answer_id: idType,
     hideAnswers: PropTypes.bool,
     exercise_uid: PropTypes.string,
     displayFormats:  PropTypes.bool,
     processHtmlAndMath: PropTypes.bool,
     className: PropTypes.string,
     questionNumber: PropTypes.number,
+    displaySolution: PropTypes.bool,
     context: PropTypes.string,
+  };
+  
+  static defaultProps = {
+    displaySolution: true,
   };
 
   static childContextTypes = {
@@ -93,11 +98,11 @@ class Question extends React.Component {
   };
 
   hasSolution = () => {
-    const { question, correct_answer_id } = this.props;
+    const { question, correct_answer_id, displaySolution } = this.props;
     const { collaborator_solutions } = question;
 
     return (
-      this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
+      displaySolution && this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
     );
   };
 

@@ -28,7 +28,7 @@ exports[`Book tags component renders tags 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
+          className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
           data-icon="plus-circle"
           data-prefix="fas"
           focusable="false"
@@ -90,6 +90,11 @@ exports[`Book tags component renders tags 1`] = `
         Economics
       </option>
       <option
+        value="stax-eship"
+      >
+        Entrepreneurship
+      </option>
+      <option
         value="stax-macro"
       >
         Macro Economics
@@ -102,7 +107,7 @@ exports[`Book tags component renders tags 1`] = `
       <option
         value="stax-k12phys"
       >
-        K-12 Physics
+        HS Physics
       </option>
       <option
         value="stax-soc"
@@ -126,7 +131,7 @@ exports[`Book tags component renders tags 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+          className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
           data-icon="trash-alt"
           data-prefix="fas"
           focusable="false"

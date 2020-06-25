@@ -35,7 +35,7 @@ const REMEMBERED_ROUTES = {
     label: DASHBOARD,
   },
 
-  viewScores: {
+  viewGradebook: {
     label: SCORES,
   },
 

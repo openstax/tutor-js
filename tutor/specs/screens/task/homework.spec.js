@@ -10,9 +10,11 @@ describe('Reading Tasks Screen', () => {
     const task = Factory.studentTask({
       type: 'homework', stepCount: 5,
     });
+    task.tasksMap = { course: Factory.course() }
     history = new TestRouter({
       push: (url) => {
-        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+        const id = ld.last(url.split('/'));
+        props.ux.goToStepId(id, false);
       },
     }).history;
     props = {
@@ -27,6 +29,8 @@ describe('Reading Tasks Screen', () => {
 
   it('renders value props', () => {
     const h = mount(<C><Homework {...props} /></C>);
+    expect(props.ux.currentStep.type).toEqual('instructions');
+    props.ux.goForward();
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(h).toHaveRendered('TwoStepValueProp');
     h.unmount();
@@ -35,9 +39,12 @@ describe('Reading Tasks Screen', () => {
   it('renders task with placeholders', () => {
     props.ux.task.steps.forEach(s => s.type = 'placeholder');
     const h = mount(<C><Homework {...props} /></C>);
+    expect(h).toHaveRendered('Instructions');
+    props.ux.goForward();
     expect(h).toHaveRendered('IndividualReview');
+    props.ux.isLocked = false;
     props.ux.goForward();
-    props.ux.goForward();
+    h.render();
     expect(h).toHaveRendered('LoadingCard');
     props.ux.currentStep.api.requestCounts.read = 1;
     expect(h).toHaveRendered('PlaceHolderTaskStep');

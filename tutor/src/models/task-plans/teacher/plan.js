@@ -1,9 +1,11 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, createAtom } from 'mobx';
+import { action, computed, observable, createAtom, toJS } from 'mobx';
+import Exercises from '../../exercises';
 import {
-  first, last, map, union, find, get, pick, extend, every, isEmpty,
+  first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
+  compact, findIndex, filter, includes, uniq, omit, unionBy,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -12,7 +14,10 @@ import TaskPlanPublish from '../../jobs/task-plan-publish';
 import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
+import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
+import TaskPlanScores from './scores';
+
 const SELECTION_COUNTS = {
   default: 3,
   max: 4,
@@ -40,6 +45,14 @@ const calculateDefaultOpensAt = ({ course }) => {
 };
 export { calculateDefaultOpensAt };
 
+
+class QuestionInfo {
+  constructor(attrs) {
+    Object.assign(this, attrs);
+  }
+}
+
+
 export default
 @identifiedBy('task-plans/teacher/plan')
 class TeacherTaskPlan extends BaseModel {
@@ -63,12 +76,19 @@ class TeacherTaskPlan extends BaseModel {
   @field cloned_from_id;
   @field is_deleting;
   @field publish_job_url;
+  @field grading_template_id;
+  @field ungraded_step_count;
+  @field gradable_step_count;
+  @field wrq_count;
+  @field({ type: 'object' }) extensions; // null by default
   @field({ type: 'object' }) settings = {};
+
+  @hasMany({ model: DroppedQuestion }) dropped_questions;
+
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
-    defaults(tasking, plan) {
-      return { opens_at: plan.defaultOpensAt };
-    },
+    defaults(tasking, plan) { return { opens_at: plan.defaultOpensAt }; },
+    areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },
   } }) tasking_plans;
 
   @observable unmodified_plans = [];
@@ -78,33 +98,65 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @session({ type: 'object' }) course;
+  @observable course;
 
   constructor(attrs) {
     super(attrs);
+    this.course = attrs.course;
+    this.cloned_from_id = attrs.cloned_from_id;
     this.unmodified_plans = attrs.tasking_plans;
+    this.exercisesMap = attrs.exercisesMap || Exercises;
     this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
-    if (this.isNew) {
-      if (this.isHomework) {
-        this.settings.exercises_count_dynamic = SELECTION_COUNTS.default;
-      }
+    if (this.isNew && !this.isClone) {
+      Object.assign(this.settings, this.defaultSettings);
     }
+
   }
 
+  @computed get defaultSettings() {
+    if (this.isHomework) {
+      return {
+        exercises: [],
+        exercises_count_dynamic: SELECTION_COUNTS.default,
+      };
+    }
+    if (this.isReading) {
+      return {
+        page_ids: [],
+      };
+    }
+    if (this.isExternal) {
+      return { external_url: '' };
+    }
+    return {};
+  }
+
+  @computed get gradingTemplate() {
+    return this.course.gradingTemplates.get(this.grading_template_id);
+  }
+
+  @lazyInitialize scores = new TaskPlanScores({ taskPlan: this, id: this.id });
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
   findOrCreateTaskingForPeriod(period, defaultAttrs = {}) {
-    const tp = this.tasking_plans.forPeriod(period);
+    let tp = this.tasking_plans.forPeriod(period);
     if (tp) { return tp; }
+
+
     this.tasking_plans.push({
       ...defaultAttrs,
       target_id: period.id, target_type: 'period',
     });
-    return this.tasking_plans[this.tasking_plans.length - 1];
+    tp = this.tasking_plans[this.tasking_plans.length - 1];
+    if (this.gradingTemplate) {
+      tp.onGradingTemplateUpdate(this.gradingTemplate, defaultAttrs.dueAt);
+    }
+
+    return tp;
   }
 
   @computed get isClone() {
@@ -113,6 +165,14 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get isNew() {
     return Boolean(!this.id || 'new' === this.id);
+  }
+
+  @computed get canGrade() {
+    return Boolean(this.isHomework && this.ungraded_step_count > 0);
+  }
+
+  @computed get canGrantExtension() {
+    return Boolean(this.isHomework || this.isReading);
   }
 
   @computed get opensAtString() {
@@ -147,13 +207,15 @@ class TeacherTaskPlan extends BaseModel {
     return {
       opens: this.rangeFor('opens_at'),
       due: this.rangeFor('due_at'),
+      closes: this.rangeFor('closes_at'),
     };
   }
 
   @computed get areTaskingDatesSame() {
     return Boolean(
       0 === this.dateRanges.opens.start.diff(this.dateRanges.opens.end, 'minute') &&
-        0 === this.dateRanges.due.start.diff(this.dateRanges.due.end, 'minute')
+        0 === this.dateRanges.due.start.diff(this.dateRanges.due.end, 'minute') &&
+        0 === this.dateRanges.closes.start.diff(this.dateRanges.closes.end, 'minute')
     );
   }
 
@@ -163,11 +225,10 @@ class TeacherTaskPlan extends BaseModel {
     this.publish_job_url = null;
   }
 
-  @action _moveSettings(type, id, step) {
-    id = String(id);
-    const curIndex = this.settings[type].indexOf(id);
-
+  @action _moveSettings(type, match, step) {
+    const curIndex = findIndex(this.settings[type], match);
     if (-1 === curIndex){ return; }
+
     let newIndex = curIndex + step;
     if (newIndex < 0) {
       newIndex = 0;
@@ -175,31 +236,32 @@ class TeacherTaskPlan extends BaseModel {
     if (!(newIndex < this.settings[type].length)) {
       newIndex = this.settings[type].length - 1;
     }
+    const value = this.settings[type][curIndex];
     this.settings[type][curIndex] = this.settings[type][newIndex];
-    this.settings[type][newIndex] = id;
+    this.settings[type][newIndex] = value;
   }
 
-  @action _removeSettings(type, id) {
-    const indx = this.settings[type].indexOf(String(id));
+  @action _removeSettings(type, match) {
+    const indx = findIndex(this.settings[type], match);
     if (-1 !== indx) {
       this.settings[type].splice(indx, 1);
     }
   }
 
   @action.bound removePage(page) {
-    this._removeSettings('page_ids', page.id);
+    this._removeSettings('page_ids', n => n == page.id);
   }
 
   @action.bound movePage(page, step) {
-    this._moveSettings('page_ids', page.id, step);
+    this._moveSettings('page_ids', n => n == page.id, step);
   }
 
   @action.bound removeExercise(ex) {
-    this._removeSettings('exercise_ids', ex.id);
+    this._removeSettings('exercises', { id: ex.id });
   }
 
   @action moveExercise(ex, step) {
-    this._moveSettings('exercise_ids', ex.id, step);
+    this._moveSettings('exercises', { id: ex.id }, step);
   }
 
 
@@ -207,12 +269,17 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
   @computed get isExternal() { return 'external' === this.type; }
+  @computed get isPractice() { return Boolean('practice_worst_topics' === this.type || 'page_practice' === this.type); }
 
   // camelcase versions to match existing API
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.duration.start.isBefore(Time.now); }
+  @computed get isOpen() {
+    return Boolean(
+      this.isPublished && this.tasking_plans.length && this.duration.start.isBefore(Time.now),
+    );
+  }
   @computed get isEditable() {
     // at one time this had date logic, but now
     // teachers are allowed to edit at any time
@@ -230,6 +297,30 @@ class TeacherTaskPlan extends BaseModel {
         this.publish_job_url
     );
   }
+
+
+  @computed get exerciseIds() {
+    return uniq(map(this.settings.exercises, 'id'));
+  }
+
+  @computed get exercises() {
+    return compact(this.exerciseIds.map(exId => this.exercisesMap.get(exId)));
+  }
+
+  @computed get isEveryExerciseMultiChoice() {
+    return every(this.exercises, 'isMultiChoice');
+  }
+
+  @computed get questionsInfo() {
+    return flatMap(this.exercises, (exercise, exerciseIndex) => (
+      exercise.content.questions.map((question, questionIndex) => new QuestionInfo({
+        key: `${exerciseIndex}-${questionIndex}`,
+        question, exercise, exerciseIndex, questionIndex, plan: this,
+        points: this.settings.exercises[exerciseIndex].points[questionIndex],
+      }))
+    ));
+  }
+
 
   isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
@@ -268,12 +359,13 @@ class TeacherTaskPlan extends BaseModel {
     return get(this, 'settings.page_ids', []);
   }
 
-  @computed get exerciseIds() {
-    return get(this, 'settings.exercise_ids', []);
-  }
-
   @action addExercise(ex) {
-    this.settings.exercise_ids = union(this.exerciseIds, [ex.id]);
+    if (!this.exerciseIds.find(exId => exId == ex.id)) {
+      this.settings.exercises.push({
+        id: ex.id,
+        points: map(ex.content.questions, question => question.isOpenEnded ? 2.0 : 1.0),
+      });
+    }
   }
 
   includesExercise(exercise) {
@@ -285,7 +377,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get clonedAttributes() {
     return extend(pick(
       this,
-      'title', 'description', 'settings', 'type', 'ecosystem_id', 'is_feedback_immediate',
+      'description', 'settings', 'title', 'type', 'ecosystem_id', 'is_feedback_immediate', 'grading_template_id'
     ), {
       tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
     });
@@ -294,21 +386,25 @@ class TeacherTaskPlan extends BaseModel {
   @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
+      course,
       cloned_from_id: this.id,
       tasking_plans: course.periods.active.map(period => ({
         target_id: period.id,
         target_type: 'period',
       })),
-      course,
     });
   }
 
   @computed get dataForSave() {
-    return extend(
+    let data = extend(
       this.clonedAttributes,
       pick(this, 'is_publish_requested', 'cloned_from_id'),
       { tasking_plans: map(this.tasking_plans, 'dataForSave') },
     );
+    if (!this.canEdit) {
+      data = omit(data, 'settings');
+    }
+    return data;
   }
 
   @computed get isExternalUrlValid() {
@@ -336,6 +432,21 @@ class TeacherTaskPlan extends BaseModel {
     return 0 === this.invalidParts.length;
   }
 
+  @action saveDroppedQuestions() {
+    return {
+      data: {
+        dropped_questions: toJS(this.dropped_questions),
+      },
+    };
+  }
+
+  @computed get activeAssignedPeriods() {
+    const ids = compact(this.tasking_plans.map(tp => tp.target_type == 'period' && tp.target_id));
+    return filter(
+      this.course.periods.sorted, p => includes(ids, p.id)
+    );
+  }
+
   // called from api
   save() {
     const options = this.isNew ? {
@@ -346,6 +457,17 @@ class TeacherTaskPlan extends BaseModel {
     };
     options.data = this.dataForSave;
     return options;
+  }
+
+  grantExtensions(extensions) {
+    //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
+    const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
+    return {
+      id: this.id,
+      data: {
+        extensions: grantedExtensions,
+      },
+    };
   }
 
   // called from api
@@ -366,4 +488,14 @@ class TeacherTaskPlan extends BaseModel {
     this.is_deleting = false;
     this.course.teacherTaskPlans.delete(this.id);
   }
+
+  isValidCloseDate(taskings, date) {
+    if (date.isAfter(this.course.ends_at)) {
+      return true;
+    }
+    return !!taskings.find(tasking => {
+      return date.isBefore(tasking.due_at);
+    });
+  }
+
 }

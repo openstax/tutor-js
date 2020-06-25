@@ -1,5 +1,5 @@
 import { observable, computed, action, when, observe } from 'mobx';
-import { reduce, filter, get, groupBy, map, find, invoke } from 'lodash';
+import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -15,22 +15,25 @@ const PAUSE_BEFORE_ADVANCEMENT_TIMEOUT = 1000;
 export default class TaskUX {
 
   // privateish
-  @observable _stepIndex = 0;
+  @observable _stepId ;
   @observable viewedInfoSteps = [];
   @observable isLocked = false;
 
-  constructor({ task, stepIndex = 0, history, windowImpl, course }) {
+  constructor({ task, stepId, history, windowImpl, course }) {
     this.history = history;
     this._task = task;
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
-
+    if (!stepId) {
+      stepId = this.steps[0] && this.steps[0].id;
+    }
+    this._stepId = stepId;
     when(
       () => !this.task.api.isPending,
       () => {
         observe(this, 'currentStep', this.onStepChange, true);
-        this.goToStep(stepIndex);
+        this.goToStepId(stepId);
       }
     );
   }
@@ -56,6 +59,18 @@ export default class TaskUX {
         state: { returnTo: this.window.location.pathname },
       });
     }
+  }
+
+  @computed get isTeacher() {
+    return this.course.currentRole.isTeacher;
+  }
+
+  @computed get isReadOnly() {
+    return Boolean(
+      this.isLocked ||
+        this.isTeacher ||
+        this.currentStep.can_be_updated === false
+    );
   }
 
   @action isUnmounting() {
@@ -114,15 +129,22 @@ export default class TaskUX {
     return [];
   }
 
+  indexOfStep(step) {
+    return this.steps.findIndex(s => s.id == step.id);
+  }
+
+  @computed get currentStepIndex() {
+    return this.currentStep ? this.indexOfStep(this.currentStep) : -1;
+  }
+
   @action async onAnswerSave(step, answer) {
     step.answer_id = answer.id;
     step.is_completed = true;
     await step.save();
-
     if (
       step.multiPartGroup &&
       this.task.isFeedbackAvailable &&
-      this._stepIndex > this.steps.indexOf(step)
+        this.currentStepIndex > this.indexOfStep(step)
     ) {
       // fixes the scroll position in case loading the feedback pushes the steps around
       this.scrollToCurrentStep(true);
@@ -130,7 +152,16 @@ export default class TaskUX {
   }
 
   @action moveToStep(step) {
-    this._stepIndex = this.steps.indexOf(step);
+    this._stepId = step.id;
+  }
+
+  @action async onFreeResponseComplete(step) {
+    if (!step.content.requiresAnswerId) {
+      if ((!this.isTeacher) && step.can_be_updated) {
+        await step.save();
+      }
+      this.goForward();
+    }
   }
 
   @action onAnswerContinue(step) {
@@ -163,15 +194,15 @@ export default class TaskUX {
     const stepsLength = this.task.steps.length;
     await this.task.fetch();
     if (this.task.steps.length != stepsLength) {
-      const unworkedIndex = this.steps.findIndex(s => !s.is_completed);
-      this._stepIndex = unworkedIndex == -1 ? this.steps.length - 1: unworkedIndex;
+      const unworked = this.steps.find(s => !s.is_completed) || last(this.steps);
+      this._stepId = unworked.id;
     }
     this.currentStep.fetchIfNeeded();
   }
 
   @action.bound goBackward() {
     if (this.canGoBackward) {
-      this.goToStep(this._stepIndex - 1);
+      this.goToStep(this.steps[this.currentStepIndex - 1]);
     }
   }
 
@@ -180,17 +211,37 @@ export default class TaskUX {
       if (this.nextStep.isInfo || !this.nextStep.is_completed) {
         this.isLocked = setTimeout(this.unLock, PAUSE_BEFORE_ADVANCEMENT_TIMEOUT);
       }
-      this.goToStep(this._stepIndex + 1);
+      this.goToStep(this.nextStep);
     }
+  }
+
+  @computed get canUpdateCurrentStep() {
+    return Boolean(
+      this.currentStep.can_be_updated && (!this.isTeacher)
+    );
   }
 
   @action.bound unLock() {
     this.isLocked = false;
   }
 
-  @action.bound goToStep(index, recordInHistory = true) {
+  @action goToStepIndex(index, recordInHistory) {
+    const step = this.steps[index];
+    this.goToStep(step, recordInHistory);
+  }
+  
+  @action.bound goToStepId(id, recordInHistory) {
+    const step = this.steps.find(step => step.id == id);
+    this.goToStep(step, recordInHistory);
+  }
+
+  @action.bound goToStep(step, recordInHistory = true) {
+    if (isString(step)) {// old api, it's really a stepIndex
+      step = this.steps.find(s => s.id == step.id);
+    }
+    if (!step) { return; }
     // do nothing if the stepIndex hasn't changed
-    if (this._stepIndex == index) { return; }
+    if (this.currentStep && this.currentStep.id == step.id) { return; }
 
     if (this.currentStep) {
       this.currentStep.markViewed();
@@ -199,14 +250,13 @@ export default class TaskUX {
     const pathname = Router.makePathname('viewTaskStep', {
       id: this.task.id,
       courseId: this.course.id,
-      stepIndex: index + 1, // router uses 1 based index
+      stepId: step.id,
     });
 
     if (recordInHistory && this.history.location.pathname != pathname) {
       this.history.push(pathname);
     } else {
-      this._stepIndex = index;
-
+      this._stepId = step.id;
       const sgi = this.stepGroupInfo;
       if (sgi.grouped) {
         when(
@@ -230,7 +280,7 @@ export default class TaskUX {
   @computed get canGoForward() {
     if (this.isApiPending || this.isLocked) { return false; }
 
-    if (this._stepIndex < this.steps.length - 1) {
+    if (this.currentStepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
         return this.currentStep.is_completed;
       }
@@ -242,7 +292,7 @@ export default class TaskUX {
   @computed get canGoBackward() {
     if (this.isApiPending) { return false; }
 
-    return this._stepIndex > 0;
+    return this.currentStepIndex > 0;
   }
 
   @computed get exerciseSteps() {
@@ -259,8 +309,7 @@ export default class TaskUX {
 
   getCurrentStep({ grouped = true }) {
     if (!this.steps.length) { return null; }
-
-    const step = this.steps[this._stepIndex];
+    const step = this.steps.find(s => s.id == this._stepId);
 
     if (!grouped) {
       return step;
@@ -282,7 +331,7 @@ export default class TaskUX {
   }
 
   @computed get stepGroupInfo() {
-    const step = this.steps[this._stepIndex];
+    const step = find(this.steps, { id: this._stepId  });
     const group = this.groupedSteps.find((s) => {
       return s.isGrouped && s.includesStep(step);
     });
@@ -295,15 +344,11 @@ export default class TaskUX {
   }
 
   @computed get previousStep() {
-    return this.steps[this._stepIndex - 1];
-  }
-
-  @computed get currentStepIndex() {
-    return this._stepIndex;
+    return this.currentStepIndex > 0 ? this.steps[this.currentStepIndex - 1] : null;
   }
 
   @computed get nextStep() {
-    return this.steps[this._stepIndex + 1];
+    return this.currentStepIndex < this.steps.length - 1 ? this.steps[this.currentStepIndex + 1] : null;
   }
 
   @computed get relatedStepTitles() {
@@ -316,7 +361,7 @@ export default class TaskUX {
   }
 
   @computed get progressPercent() {
-    return Math.round((this._stepIndex / this.steps.length) * 100);
+    return Math.round((this.currentStepIndex / this.steps.length) * 100);
   }
 
 }

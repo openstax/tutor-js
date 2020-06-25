@@ -1,17 +1,18 @@
 const {
   Factory, sequence, reference, fake, TITLES,
 } = require('./helpers');
-const { times, capitalize } = require('lodash');
+const { capitalize } = require('lodash');
+require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanExerciseAnswer')
-  .student_names(() => [ fake.name.findName() ])
+  .students(() => [ { id: 1, name: fake.name.findName() } ])
   .free_response(() => fake.lorem.sentences())
   .answer_id(sequence)
 
 Factory.define('TaskPlanExerciseStat')
-  .question_id(sequence)
+  .question_id(({ question }) => question.id)
   .answered_count(({ period }) => period.total_count)
-  .answers(reference('TaskPlanStatPage', { count: 10 }));
+  .answers(({ question }) => question.answers.map(answer => Factory.create('TaskPlanExerciseAnswer', { answer })))
 
 
 Factory.define('TaskPlanStatPage')
@@ -22,35 +23,32 @@ Factory.define('TaskPlanStatPage')
   .incorrect_count(({ object }) => object.student_count - object.correct_count)
   .chapter_section(({ index }) => [ 1, index + 1 ])
   .exercises(({ parent }) =>
-    times(parent.object.total_count, () =>
-      Factory.create('TutorExercise', {
-        question_stats: [
-          Factory.create('TaskPlanExerciseStat', {
-            period: parent,
-          }),
-        ],
-      })
-    )
+    (parent.exercises || []).map( exercise => Factory.create('TutorExercise', {
+      ...exercise,
+      question_stats: exercise.content.questions.map(question => Factory.create('TaskPlanExerciseStat', {
+        question,
+        period: parent.period,
+      })),
+    }))
   )
   .is_trouble(() => fake.random.number(4) === 0);
-
 
 Factory.define('TaskPlanPeriodStat')
   .period_id(({ period }) => period.id)
   .name(({ period }) => period.name)
   .mean_grade_percent(() => fake.random.number({ min: 30, max: 100 }))
-  .total_count(() => fake.random.number({ min: 3, max: 20 }))
+  .total_count(({ exercises }) => exercises ? exercises.length : 2)
   .complete_count(({ object }) => fake.random.number({ min: 0, max: object.total_count }))
   .partially_complete_count(({ object }) => object.total_count - object.comlete_count)
-  .current_pages(reference('TaskPlanStatPage', { count: 10 }));
+  .current_pages(reference('TaskPlanStatPage', { count: 3 }));
 
 
 Factory.define('TaskPlanStat')
   .id(sequence)
   .type('homework')
   .title(({ object }) => `${capitalize(object.type)} Chapter ${object.id}`)
-  .stats(({ course }) => {
-    const { periods } = (course || Factory.create('Course'))
+  .stats(({ course, exercises, task_plan = Factory.create('TeacherTaskPlan', { type: 'homework', course, exercises }) }) => {
+    const { periods } = (course || task_plan.course || Factory.create('Course'))
     return periods.map(period =>
-      Factory.create('TaskPlanPeriodStat', { period }));
+      Factory.create('TaskPlanPeriodStat', { period, task_plan, exercises }));
   });

@@ -5,8 +5,13 @@
   @mixin top-nav-action() {
     font-size: 1.6rem;
 
-    @include media-breakpoint-down('md') {
+    @include media-breakpoint-down('sm') {
       .control-label { display: none; }
+      .ox-icon:not(.toggle) { display: inline-block; }
+    }
+    @include media-breakpoint-up('md') {
+      .control-label { display: inline-block; }
+      .ox-icon:not(.toggle) { display: none; }
     }
   }
 
@@ -59,14 +64,16 @@
     height: 100%;
 
     > * {
-      margin-left: 20px;
-      @include media-breakpoint-up('md') {
-        margin-left: 40px;
-      }
+      margin-left: 1.25rem;
 
       &:first-child {
         margin-left: 0;
       }
+    }
+
+    .dropdown .dropdown-toggle .ox-icon.toggle {
+      width: 1.2rem;
+      margin-left: 0.8rem;
     }
   }
 

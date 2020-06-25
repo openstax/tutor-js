@@ -28,9 +28,6 @@ const getRoutes = (router) => {
       path: '/course/:courseId', name: 'dashboard',
       renderer:  ConditionalHandlers.dashboard,
       routes: [
-        {
-          path: 'scores', name: 'viewScores',
-          renderer: r(() => import('./screens/scores-report/index.jsx')) },
         { path: 'guide/:roleId?', name: 'viewPerformanceGuide',
           renderer: r(() => import('./screens/performance-forecast')) },
         {
@@ -50,20 +47,33 @@ const getRoutes = (router) => {
         }, {
           path: 'metrics/:id', name: 'reviewTask',
           renderer: r(() => import('./screens/teacher-review-metrics')) },
+
         { path: 'task/:id', name: 'viewTask',
           renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
             {
-              path: 'step/:stepIndex', name: 'viewTaskStep',
+              path: 'step/:stepId', name: 'viewTaskStep',
               renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],
         }, {
           path: 'practice/:taskId?', name: 'practiceTopics',
-          renderer: r(() => import('./screens/task/practice'), 'Practice'),
-        }, {
-          path: 'assign/:type/:id', name: 'editAssignment',
-          renderer: r(() => import('./screens/assignment-builder'), 'Assignment Builder') },
+          renderer: r(() => import('./screens/task/practice'), 'Practice') },
+        {
+          path: 'assignment/edit/:type/:id/:step?', name: 'editAssignment',
+          renderer: r(() => import('./screens/assignment-edit'), 'Assignment Builder') },
+        {
+          path: 'assignment/review/:id/:periodId?', name: 'reviewAssignment',
+          renderer: r(() => import('./screens/assignment-review'), 'Assignment Review') },
+        {
+          path: 'assignment/grade/:id/:periodId?', name: 'gradeAssignment',
+          renderer: r(() => import('./screens/assignment-grade'), 'Assignment Grader') },
+        {
+          path: 'assignment/grade/:id/:periodId/:questionId', name: 'gradeAssignmentQuestion',
+          renderer: r(() => import('./screens/assignment-grade'), 'Assignment Grader') },
+        {
+          path: 'gradebook', name: 'viewGradebook',
+          renderer:  ConditionalHandlers.gradebook },
         { path: 'settings', name: 'courseSettings',
           renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
         { path: 'roster', name: 'courseRoster',
@@ -73,6 +83,9 @@ const getRoutes = (router) => {
         },
         { path: 'change-student-id', name: 'changeStudentId',
           renderer: r(() => import('./components/change-student-id')),
+        },
+        { path: 'grading-templates', name: 'gradingTemplates',
+          renderer: r(() => import('./screens/grading-templates')),
         },
       ],
     }, {

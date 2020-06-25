@@ -20,16 +20,6 @@ const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
   margin-left: 2rem;
-  .question-stem[data-question-number] {
-    position: relative;
-    &::before {
-      content: attr(data-question-number) ")";
-      position: absolute;
-      z-index: 1;
-      right: 100%;
-      margin-right: 0.5rem;
-    }
-  }
 `;
 
 export default
@@ -97,7 +87,7 @@ class ExerciseQuestion extends React.Component {
       <AsyncButton
         size="lg"
         waitingText="Saving…"
-        disabled={!this.answerId}
+        disabled={!this.answerId} 
         onClick={this.onAnswerSave}
         isWaiting={step.api.isPending}
       >
@@ -107,14 +97,19 @@ class ExerciseQuestion extends React.Component {
   }
 
   renderNextButton() {
-    return <Button size="lg" onClick={this.onNextStep}>Continue</Button>;
+    const { canUpdateCurrentStep } = this.props.ux;
+    return (
+      <Button size="lg" onClick={this.onNextStep}>
+        {canUpdateCurrentStep ? 'Continue' : 'Next'}
+      </Button>
+    );
   }
 
   render() {
     const { ux, question, step, ux: { course } } = this.props;
     const questionNumber = ux.questionNumberForStep(step);
 
-    if (step.needsFreeResponse) {
+    if (step.canEditFreeResponse) {
       return (
         <FreeResponseInput
           step={step} question={question}
@@ -126,11 +121,11 @@ class ExerciseQuestion extends React.Component {
     }
 
     return (
-      <StyledExerciseQuestion>
+      <StyledExerciseQuestion data-test-id="student-exercise-question">
         <Question
           task={ux.task}
           question={question}
-          choicesEnabled={step.canAnswer}
+          choicesEnabled={!ux.isReadOnly && step.canAnswer}
           answer_id={this.answerId}
           focus={!step.multiPartGroup}
           questionNumber={questionNumber}

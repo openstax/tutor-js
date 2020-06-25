@@ -10,10 +10,14 @@ import { getters } from '../../helpers/computed-property';
 const NON_ASSIGNABLE_TITLES = [
   'Glossary',
   'Key Terms',
-  'Problems & Exercises',
+  /Problems \S+ Exercises/,
   /\w+ Summary$/,
   /Test Prep/,
   /\w+ Questions$/,
+  'Section Quiz',
+  'Short Answer',
+  'Further Research',
+  'References',
 ];
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
@@ -60,7 +64,7 @@ class ReferenceBookNode extends BaseModel {
     return 'unit' === this.type;
   }
   @computed get isChapter() {
-    return 'chapter' === this.type;
+    return 'chapter' === this.type || 'part' == this.type;
   }
   @computed get isPage() {
     return 'page' === this.type;

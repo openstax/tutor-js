@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes } from 'vendor';
 import { Card, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
@@ -9,6 +8,8 @@ import moment from 'moment';
 import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventRow from './event-row';
+import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
+
 
 export default
 @observer
@@ -53,21 +54,20 @@ class EventsCard extends React.Component {
   render() {
     return (
       <Card className={this.props.className}>
-        <div className="row labels">
-          <Col xs={12} sm={6}>
+        <Row>
+          <TitleCell>
             {this.renderTitle()}
-          </Col>
-          <Col
-            xs={{ span: 5, offset: 2 }}
-            sm={{ span: 3, offset: 0 }}
-            className="due-at-label"
-          >
-            Due
-          </Col>
-          <Col xs={5} sm={3} className="progress-label">
-            Progress
-          </Col>
-        </div>
+          </TitleCell>
+          <DueCell>
+            Due on
+          </DueCell>
+          <StatusCell>
+            Status
+          </StatusCell>
+          <ScoreCell>
+            Scores
+          </ScoreCell>
+        </Row>
         {map(this.props.events, this.renderEvent)}
         <EmptyCard
           className={this.props.emptyClassName}

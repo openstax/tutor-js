@@ -68,3 +68,10 @@
     }
   }
 }
+
+.gradebook-period-tabs {
+  .nav-tabs {
+    // overriding the nav-tabs margin bottom set above
+    margin-bottom: 0;
+  }
+}

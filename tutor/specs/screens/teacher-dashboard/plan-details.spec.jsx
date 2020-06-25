@@ -36,6 +36,7 @@ describe('Plan Details Component', function() {
 
   it('renders no students enrolled', () => {
     plan.is_published = true;
+    plan.analytics = { api: { hasBeenFetched: true } };
     course.periods[0].num_enrolled_students = 0;
     return renderModal(props).then((m) => {
       expect(m.textContent).toContain('No students enrolled');
@@ -46,7 +47,7 @@ describe('Plan Details Component', function() {
     plan.is_published = true;
     plan.type = 'event';
     return renderModal(props).then((m) => {
-      expect(m.textContent).toContain('Edit Event');
+      expect(m.textContent).toContain('View assignment');
       expect(m.textContent).not.toContain('assignment link');
     });
   });

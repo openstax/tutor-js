@@ -20,6 +20,7 @@ class CoursePeriodsNav extends React.Component {
     handleSelect: PropTypes.func,
     selectedIndex: PropTypes.number.isRequired,
     afterTabsItem: PropTypes.element,
+    className: PropTypes.string,
   }
 
   static defaultProps = {
@@ -58,7 +59,7 @@ class CoursePeriodsNav extends React.Component {
       </Tooltip>;
 
     return (
-      <div className={className}>
+      <div className={className} data-test-id="period-tab">
         <OverlayTrigger placement="top" delayShow={1000} delayHide={0} overlay={tooltip}>
           <span className="tab-item-period-name">
             {period.name}
@@ -69,10 +70,12 @@ class CoursePeriodsNav extends React.Component {
   }
 
   render() {
+    const { className } = this.props;
     return (
       <Tabs
         tabs={map(this.sortedPeriods, this.renderPeriod)}
         onSelect={this.onTabSelection}
+        className={className}
       >
         {this.props.afterTabsItem}
       </Tabs>

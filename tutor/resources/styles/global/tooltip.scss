@@ -1,5 +1,6 @@
 .tooltip {
   .tooltip-inner {
+    text-align: left;
     color: $tutor-neutral-darker;
     @include tutor-shadow(2);
   }

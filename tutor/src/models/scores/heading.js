@@ -16,12 +16,23 @@ class Heading extends BaseModel {
   @field plan_id;
   @field title;
   @field type;
+  @field available_points;
   @belongsTo({ model: 'scores/period' }) period;
 
   @computed get columnIndex() {
     return findIndex(this.period.data_headings, this);
   }
 
+  @computed get isExternal() {
+    return this.type === 'external';
+  }
+  
+  @computed get canReview() {
+    return Boolean(
+      this.type === 'reading' || this.type == 'homework'
+    );
+  }
+  
   @computed get isDue() {
     return moment(this.due_at).isBefore(Time.now);
   }
