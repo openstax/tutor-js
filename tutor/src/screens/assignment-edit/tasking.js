@@ -65,31 +65,6 @@ class Tasking extends React.Component {
     );
   }
 
-  @computed get minOpensAt() {
-    const { start } = this.course.bounds;
-    return start.isBefore(Time.now) ? start : moment(Time.now);
-  }
-
-  @computed get maxOpensAt() {
-    return findEarliest(
-      this.taskings[0].due_at,
-      this.course.bounds.end,
-    );
-  }
-
-  @computed get minDueAt() {
-    return findLatest(
-      Time.now,
-      this.taskings[0].opens_at,
-      this.course.bounds.start,
-    );
-  }
-
-  @computed get maxDueAt() {
-    const { end } = this.course.bounds;
-    return this.plan.due_date || end;
-  }
-
   @action.bound onOpensChange({ target: { value: date, name: name } }, index) {
     const { didUserChangeDatesManually, dueAt, gradingTemplate } = this.props.ux;
     this.taskings.forEach(t => {
