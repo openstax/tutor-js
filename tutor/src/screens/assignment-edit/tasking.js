@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Icon } from 'shared';
 import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
-import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
