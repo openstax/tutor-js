@@ -141,7 +141,7 @@ class TaskProgress extends React.Component {
                       {progressIndex}
                       {step.isDroppedQuestion &&
                       <CornerTriangle color="blue"
-                        tooltip={step.drop_question.drop_method == 'zeroed' ?
+                        tooltip={step.dropped == 'zeroed' ?
                           'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
                       />}
                     </Cell>
