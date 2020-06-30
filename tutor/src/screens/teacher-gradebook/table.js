@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, css } from 'vendor';
+import { React, PropTypes, styled, observer, css, useEffect, useState, useRef } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import moment from 'moment';
 import { isNil } from 'lodash';
@@ -76,7 +76,7 @@ const HeadingTop = styled.div`
 
   & .heading-title {
     white-space: nowrap;
-    width: 70px;
+    width: 110px;
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -282,22 +282,29 @@ const StudentColumnHeader = observer(({ ux }) => {
   );
 });
 
-const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
-  const onClick = () => ux.changeRowSortingOrder(sortKey, 'score');
-  return (
-    // Overlay has a lot of problems when showing at the top. Putting at the bottom for now
+const AssignmentHeading = observer(({ ux, heading }) => {
+  // get the ref of the heading-title to see if it is wrapped with ellipsis
+  // if so, show the tooltip, otherwise don't show it.
+  const titleTextRef = useRef();
+  const [showToolTip, setShowToolTip] = useState(true);
+  useEffect(() => {
+    setShowToolTip(titleTextRef.current.offsetWidth < titleTextRef.current.scrollWidth);
+  });
+
+  return (   
     <OverlayTrigger
+      // Overlay has a lot of problems when showing at the top. Putting at the bottom for now
       placement="bottom"
-      trigger="hover"
+      trigger={showToolTip ? 'hover' : null}
       overlay={
         <Popover className="scores-popover">
           <p>{heading.title}</p>
-        </Popover>}
-    >
+        </Popover>
+      }>
       <Cell>
         <ColumnHeading variant={heading.type}>
           <HeadingTop>     
-            <div className="heading-title">
+            <div className="heading-title" ref={titleTextRef}>
               {heading.canReview ? (
                 <TutorLink
                   to={'reviewAssignment'}
@@ -310,7 +317,6 @@ const AssignmentHeading = observer(({ ux, heading, sortKey }) => {
                 </TutorLink>
               ) : heading.title}
             </div>
-            <div onClick={onClick} className="sort-wrapper"><SortIcon sort={ux.sortForColumn(sortKey, 'score')} /></div>
           </HeadingTop>
           <HeadingMiddle>
             {moment(heading.due_at).format('MMM D')}
@@ -443,7 +449,7 @@ const GradebookTable = observer(({ ux }) => {
         {/* Headings */}
         <Row>
           <StudentColumnHeader ux={ux} />
-          {ux.headings.map((h,i) => <AssignmentHeading key={i} sortKey={i} ux={ux} heading={h} />)}
+          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
         </Row>
         {/* Student info and data */}
         {ux.students.map((student,sIndex) => (
