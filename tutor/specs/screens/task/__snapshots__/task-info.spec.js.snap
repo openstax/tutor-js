@@ -52,6 +52,7 @@ exports[`Tasks Info matches snapshot 1`] = `
             "type": "reading",
           },
           "correct_answer_id": undefined,
+          "dropped": undefined,
           "external_url": null,
           "feedback_html": undefined,
           "formats": Array [],

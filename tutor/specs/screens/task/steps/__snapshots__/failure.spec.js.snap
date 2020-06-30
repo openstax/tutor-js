@@ -9,6 +9,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "can_be_updated": undefined,
       "content": undefined,
       "correct_answer_id": undefined,
+      "dropped": undefined,
       "external_url": undefined,
       "feedback_html": undefined,
       "formats": Array [],
