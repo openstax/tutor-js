@@ -32,7 +32,14 @@
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
   table + .os-caption-container{
     margin-bottom: 3rem;
-    margin-top: -3rem; // move closer to bottom of table
+    margin-top: -1rem; // move closer to bottom of table
+  }
+
+  .os-caption-container {
+    .os-title {
+      font-weight: bolder;
+      font-size: 1.8rem;
+    }
   }
 
   div[data-type="document-title"],
