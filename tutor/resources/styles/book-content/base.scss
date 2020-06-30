@@ -143,6 +143,7 @@
 
   table {
     font-family: $tutor-sans-font-face;
+    width: 100%;
     caption {
       caption-side: bottom;
       font-style: italic;
@@ -205,6 +206,12 @@
         li::before{
           background: $tutor-neutral-darker;
         }
+      }
+    }
+
+    &.tutor-textheavy {
+      td:first-child {
+        max-width: 300px;
       }
     }
   }
