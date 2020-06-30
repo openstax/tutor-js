@@ -9,18 +9,18 @@ const StyledBtn = styled(Button).attrs({ size: 'lg' })`
 `;
 
 export default function ContinueBtn({
-  ux: { canGoForward, goForward, canUpdateCurrentStep },
+  ux: { canGoForward, goForward, canUpdateCurrentStep, goToStepId },
   label = canUpdateCurrentStep ? 'Next' : 'Continue',
+  nextIncompleteStepId,
   ...props
 }) {
-
   return (
     <StyledBtn
       variant="primary"
       {...props}
       className="continue"
       disabled={!canGoForward}
-      onClick={goForward}
+      onClick={() => nextIncompleteStepId ? goToStepId(nextIncompleteStepId) : goForward()}
     >
       {label}
     </StyledBtn>
@@ -30,6 +30,7 @@ export default function ContinueBtn({
 
 ContinueBtn.propTypes = {
   label: PropTypes.string,
+  nextIncompleteStepId: PropTypes.string,
   ux: PropTypes.shape({
     canGoForward: PropTypes.bool.isRequired,
     goForward: PropTypes.func.isRequired,
