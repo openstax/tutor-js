@@ -18,6 +18,10 @@ class PastTaskPlans extends Map {
     return { id: this.course.cloned_from_id };
   }
   onLoaded({ data: { items } }) {
+    // remove any plans cached in the FE if they are not coming back from the BE
+    const plansToRemove = this.array.filter(x => !items.some(s => s.id === x.id));
+    plansToRemove.forEach(plan => this.delete(plan.id));
+
     items.forEach(plan => {
       const tp = this.get(plan.id);
       tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));

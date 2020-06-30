@@ -61,20 +61,21 @@ class Editor extends React.Component {
   async saveDraft() {
     const { ux: { saveAsDraft }, onHide } = this.props;
     await saveAsDraft();
-    onHide();
+    onHide({ shouldRefreshPastPlans: true });
   }
 
   @action.bound
   async publish() {
     const { ux: { savePlan }, onHide } = this.props;
     await savePlan();
-    onHide();
+    onHide({ shouldRefreshPastPlans: true });
   }
 
   @action.bound
   async editDetails() {
-    const { ux: { saveAsDraft, navigateToStep } } = this.props;
+    const { ux: { saveAsDraft, navigateToStep }, onHide } = this.props;
     await saveAsDraft();
+    onHide({ shouldRefreshPastPlans: true });
     navigateToStep('details');
   }
 
@@ -84,7 +85,7 @@ class Editor extends React.Component {
       <StyledTemplateModal
         show={showModal}
         backdrop="static"
-        onHide={onHide}
+        onHide={() => onHide({ shouldRefreshPastPlans: false })}
         templateType={ux.plan.type}
       >
         <Modal.Header closeButton>
@@ -102,7 +103,7 @@ class Editor extends React.Component {
           <div>
             <Button
               variant="default"
-              onClick={onHide}
+              onClick={() => onHide({ shouldRefreshPastPlans: false })}
               size="lg"
             >
             Cancel
