@@ -195,7 +195,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -392,7 +392,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -589,7 +589,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -786,7 +786,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -983,7 +983,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -1180,7 +1180,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [
@@ -1377,7 +1377,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "url": "",
             },
             "correct_answer_id": undefined,
-            "dropped": undefined,
+            "dropped_method": undefined,
             "external_url": null,
             "feedback_html": undefined,
             "formats": Array [

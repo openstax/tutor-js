@@ -303,7 +303,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
-      "dropped": undefined,
+      "dropped_method": undefined,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -668,7 +668,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
-      "dropped": undefined,
+      "dropped_method": undefined,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1037,7 +1037,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
-      "dropped": undefined,
+      "dropped_method": undefined,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1406,7 +1406,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
-      "dropped": undefined,
+      "dropped_method": undefined,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1775,7 +1775,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
-      "dropped": undefined,
+      "dropped_method": undefined,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
