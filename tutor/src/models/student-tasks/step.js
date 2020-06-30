@@ -88,7 +88,7 @@ class StudentTaskStep extends BaseModel {
   @field({ type: 'array' }) formats;
   @field group;
   @field can_be_updated;
-  @field dropped;
+  @field dropped_method;
 
   @field published_points;
   @field published_comments;
@@ -128,7 +128,7 @@ class StudentTaskStep extends BaseModel {
     return 'placeholder' === this.type;
   }
   @computed get isDroppedQuestion() {
-    return Boolean(this.dropped);
+    return Boolean(this.dropped_method);
   }
 
   @computed get isOpenEndedExercise() {
