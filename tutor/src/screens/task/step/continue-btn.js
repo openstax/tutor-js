@@ -35,5 +35,6 @@ ContinueBtn.propTypes = {
     canGoForward: PropTypes.bool.isRequired,
     goForward: PropTypes.func.isRequired,
     canUpdateCurrentStep: PropTypes.bool,
+    goToStepId: PropTypes.func.isRequired,
   }).isRequired,
 };
