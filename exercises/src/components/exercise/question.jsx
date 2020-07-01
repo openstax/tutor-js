@@ -80,12 +80,9 @@ class Question extends React.Component {
 
   render() {
     const {
-      question, removeQuestion, moveQuestion, canMoveLeft, canMoveRight,
+      question,
     } = this.props;
-
-
     const { validity } = question;
-    const answers = [];
 
     return (
       <div className="question">
@@ -93,11 +90,20 @@ class Question extends React.Component {
         {question.exercise.isMultiPart && this.renderControls()}
 
         {!validity.valid && (
-           <Alert variant="warning">
-             To save your work, you must fill out the {validity.part}
-           </Alert>)}
+          <Alert variant="warning">
+            To save your work, you must fill out the {validity.part}
+          </Alert>)}
 
         <QuestionFormatType question={question} />
+        <div className="questio-stimulus">
+          <label>
+            Question Stimulus
+          </label>
+          <textarea
+            onChange={this.updateStimulus}
+            defaultValue={question.stimulus_html} />
+        </div>
+
         <div>
           <label>
             Question Stem
@@ -131,4 +137,4 @@ class Question extends React.Component {
       </div>
     );
   }
-};
+}
