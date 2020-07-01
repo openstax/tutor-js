@@ -104,11 +104,8 @@ class TeacherDashboard extends React.Component {
     this.hoveredDay = day;
   };
 
-  onEditorHide = ({ shouldRefreshPastPlans }) => {
+  onEditorHide = () => {
     this.editingPlan = null;
-    if (shouldRefreshPastPlans) {
-      this.props.course.pastTaskPlans.fetch();
-    }
   };
 
   @action.bound onDayClick(ev, date) {

@@ -442,6 +442,11 @@ export default class AssignmentUX {
     await runInAction(() => {
       const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
       destPlan.update(this.plan.serialize());
+
+      // if cloning an assignment from previous course, delete the assignment after it was saved as draft, or published
+      if(this.plan.isClone) {
+        this.course.pastTaskPlans.delete(destPlan.cloned_from_id);
+      }
     });
   }
 
