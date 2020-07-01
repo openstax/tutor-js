@@ -90,6 +90,7 @@ class ExerciseQuestion extends React.Component {
         disabled={!this.answerId} 
         onClick={this.onAnswerSave}
         isWaiting={step.api.isPending}
+        data-test-id="submit-answer-btn"
       >
         Answer
       </AsyncButton>
@@ -99,7 +100,7 @@ class ExerciseQuestion extends React.Component {
   renderNextButton() {
     const { canUpdateCurrentStep } = this.props.ux;
     return (
-      <Button size="lg" onClick={this.onNextStep}>
+      <Button size="lg" onClick={this.onNextStep} data-test-id="continue-btn">
         {canUpdateCurrentStep ? 'Continue' : 'Next'}
       </Button>
     );
