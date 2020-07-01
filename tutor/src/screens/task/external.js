@@ -10,6 +10,10 @@ class ExternalTaskStep extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
   }
 
+  onContextMenu(ev) {
+    return ev.preventDefault();
+  }
+
   render() {
     const { ux } = this.props;
 
