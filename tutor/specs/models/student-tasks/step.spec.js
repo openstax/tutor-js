@@ -33,15 +33,4 @@ describe('Student Task Step', () => {
     expect(step.canEditFreeResponse).toBe(false);
   });
 
-  it('calculates if it can be answered', () => {
-    const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
-    expect(step.canAnswer).toBe(true);
-    step.task.feedback_at = now - 1;
-    expect(step.task.isFeedbackAvailable).toBe(true);
-    expect(step.canAnswer).toBe(true);
-    step.answer_id = 1234;
-    expect(step.hasBeenAnswered).toBe(true);
-    expect(step.canAnswer).toBe(false);
-  });
-
 });

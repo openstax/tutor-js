@@ -143,7 +143,7 @@ export default class TaskUX {
     await step.save();
     if (
       step.multiPartGroup &&
-      this.task.isFeedbackAvailable &&
+      step.is_feedback_available &&
         this.currentStepIndex > this.indexOfStep(step)
     ) {
       // fixes the scroll position in case loading the feedback pushes the steps around
