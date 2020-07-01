@@ -94,7 +94,10 @@ export default class AssignmentUX {
 
     this.history = history;
     this.exercises = exercises;
-
+    // task plans can't contain "foreign" exercises
+    // We must clear out the exercises cache so that exercises
+    // that belong to other ecosystems aren't present.
+    this.exercises.clear();
     this.windowImpl = windowImpl;
 
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
@@ -329,16 +332,6 @@ export default class AssignmentUX {
     const ex = exercise.wrapper;
     ex.isSelected = !ex.isSelected;
     ex.isSelected ? this.plan.addExercise(ex) : this.plan.removeExercise(ex);
-  }
-
-  @action async fetchExerciseForPages() {
-    await this.referenceBook.ensureFetched();
-    await this.exercises.fetch({
-      ecosystem_id: this.plan.ecosystem_id,
-      book: this.referenceBook,
-      page_ids: this.selectedPageIds,
-      course: this.course,
-    });
   }
 
   @computed get isFetchingExercises() {
