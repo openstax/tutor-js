@@ -133,19 +133,17 @@ class TaskProgress extends React.Component {
               if (!step.isInfo) {
                 progressIndex += 1;
                 return (
-                  <>
-                    <Cell
-                      key={stepIndex}
-                      className={cn({ 'current-step': step === currentStep })}
-                      onClick={() => goToStep(step.id)}>
-                      {progressIndex}
-                      {step.isDroppedQuestion &&
+                  <Cell
+                    key={stepIndex}
+                    className={cn({ 'current-step': step === currentStep })}
+                    onClick={() => goToStep(step.id)}>
+                    {progressIndex}
+                    {step.isDroppedQuestion &&
                       <CornerTriangle color="blue"
                         tooltip={step.dropped_method == 'zeroed' ?
                           'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
                       />}
-                    </Cell>
-                  </>
+                  </Cell>
                 );
               }
               else if (step.isInfo) {
