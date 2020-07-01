@@ -164,14 +164,12 @@ const ContinueBtn = observer(({ ux }) => {
     );
   }
 
-  let nextIncompleteStepId;
   let buttonLabel = 'Start';
   if (ux.task.completed) {
     buttonLabel = 'Review';
   }
   else if (ux.task.started) {
     buttonLabel = 'Continue';
-    nextIncompleteStepId = ux.task.steps.find(s => !s.is_completed).id;
   }
 
   return (
@@ -179,7 +177,6 @@ const ContinueBtn = observer(({ ux }) => {
       label={buttonLabel}
       data-test-id="value-prop-continue-btn"
       variant="primary" ux={ux}
-      nextIncompleteStepId={nextIncompleteStepId}
     />
   );
 });
