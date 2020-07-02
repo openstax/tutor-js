@@ -1,13 +1,13 @@
-name: TutorJS
+name: TutorJS Tests
 
 on:
-  pull_request:
+  push:
   schedule:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         project: ['lint', 'tutor', 'shared', 'exercises', 'integration']
