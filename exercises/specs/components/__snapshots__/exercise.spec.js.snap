@@ -229,6 +229,17 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            className="questio-stimulus"
+          >
+            <label>
+              Question Stimulus
+            </label>
+            <textarea
+              defaultValue=""
+              onChange={[Function]}
+            />
+          </div>
           <div>
             <label>
               Question Stem
@@ -1871,6 +1882,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </div>
                                 </div>
                               </QuestionFormatType>
+                              <div className=\\"questio-stimulus\\">
+                                <label>
+                                  Question Stimulus
+                                </label>
+                                <textarea onChange={[Function: res]} defaultValue=\\"\\" />
+                              </div>
                               <div>
                                 <label>
                                   Question Stem
