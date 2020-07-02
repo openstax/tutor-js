@@ -188,8 +188,8 @@ $openstax-books: (
     control    : darken(#002E6D, 5%),
   ),
   entrepreneurship: (
-    primary    : rgb(243, 107, 50),
-    secondary  : $openstax-book-white,
+    primary    : #fff,
+    secondary  : rgb(255, 127, 64),
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
@@ -225,6 +225,7 @@ $openstax-book-thumbnails: (
   college_biology : 'biology-book-thumbnail.svg',
   ap_us_history   : 'ap_us_history-book-thumbnail.svg',
   biology_2e      : 'biology_2e-book-thumbnail.svg',
+  entrepreneurship: 'entrepreneurship-book-thumbnail.svg',
 );
 
 @mixin book-content-thumbnail($book) {
