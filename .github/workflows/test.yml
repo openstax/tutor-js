@@ -1,0 +1,20 @@
+name: TutorJS
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ['tutor', 'shared', 'exercises']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn install
+      - name: Run tests
+        run: yarn run test ${{ matrix.project }} --all
