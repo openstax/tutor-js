@@ -1,8 +1,4 @@
 # tutor-js
-[![build status][travis-image]][travis-url]
-[![Coverage][codecov-image]][codecov-url]
-[![dependency status][dependency-image]][dependency-url]
-[![dev dependency status][dev-dependency-image]][dev-dependency-url]
 
 The Front-end code for Openstax Tutor related projects
 
