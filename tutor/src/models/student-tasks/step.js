@@ -10,6 +10,7 @@ import RelatedContent from '../related-content';
 import ReferenceBookNode from '../reference-book/node';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import { extractCnxId } from '../../helpers/content';
+import { MediaActions } from '../../flux/media';
 
 class TaskStepContent extends BaseModel {
   update(data) {
@@ -246,6 +247,9 @@ class StudentTaskStep extends BaseModel {
       throw new Error(`Attempted to set content on unknown step type ${this.type}`);
     }
     this.content = new Klass(data);
+    if (this.isReading) {
+      MediaActions.parse(this.content.html);
+    }
     this.isFetched = true;
   }
 
