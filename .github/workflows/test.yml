@@ -1,4 +1,4 @@
-name: TutorJS Tests
+name: TutorJS
 
 on:
   push:
