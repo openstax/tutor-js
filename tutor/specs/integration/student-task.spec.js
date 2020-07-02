@@ -19,9 +19,10 @@ context('Student Tasks', () => {
   it('can change and re-submit answers to questions', () => {
     cy.visit('/course/1/task/4')
     cy.get('.sticky-table [data-step-index=3]').click({ force: true })
-    cy.getTestElement('student-task').then(st => {
-      if (st.find('[data-test-id="free-response-box"]').length > 0){
-        cy.getTestElement('free-response-box').type('why do i need to fill this out?')
+    cy.get('.exercise-step').then(st => {
+      const fr = st.find('[data-test-id="free-response-box"]')
+      if (fr.length > 0){
+        cy.wrap(fr).type('why do i need to fill this out?')
         cy.getTestElement('submit-answer-btn').click()
       }
     })

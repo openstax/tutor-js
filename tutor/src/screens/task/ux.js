@@ -67,9 +67,7 @@ export default class TaskUX {
 
   @computed get isReadOnly() {
     return Boolean(
-      this.isLocked ||
-        this.isTeacher ||
-        this.currentStep.can_be_updated === false
+      this.isTeacher || this.currentStep.can_be_updated === false
     );
   }
 
