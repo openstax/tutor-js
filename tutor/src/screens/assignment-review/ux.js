@@ -140,8 +140,8 @@ export default class AssignmentReviewUX {
   }
 
   @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
-    this.scores.students.forEach(s => {
-      this.pendingExtensions.set(s.role_id, checked);
+    this.activeScoresStudents.forEach(s => {
+      this.pendingExtensions.set(s.role_id.toString(10), checked);
     });
   }
 
