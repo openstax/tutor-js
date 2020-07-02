@@ -96,7 +96,7 @@ class Question extends React.Component {
 
         <QuestionFormatType question={question} />
         {!question.exercise.isMultiPart && (
-          <div className="questio-stimulus">
+          <div className="question-stimulus">
             <label>
               Question Stimulus
             </label>

@@ -230,7 +230,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             </div>
           </div>
           <div
-            className="questio-stimulus"
+            className="question-stimulus"
           >
             <label>
               Question Stimulus
@@ -1882,7 +1882,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </div>
                                 </div>
                               </QuestionFormatType>
-                              <div className=\\"questio-stimulus\\">
+                              <div className=\\"question-stimulus\\">
                                 <label>
                                   Question Stimulus
                                 </label>
