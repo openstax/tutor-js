@@ -10,6 +10,7 @@ export OX_PROJECT=$1
 echo Test: $OX_PROJECT
 
 if [[ $2 = "integration" ]]; then
+
   $DIR/test-integration $OX_PROJECT ${@:3}
 else
   $DIR/test-unit $OX_PROJECT ${@:2}

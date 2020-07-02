@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: ['tutor', 'shared', 'exercises', 'integration']
+        project: ['lint', 'tutor', 'shared', 'exercises', 'integration']
     steps:
       - uses: actions/checkout@v2
       - name: Get yarn cache directory path
@@ -26,4 +26,4 @@ jobs:
       - name: Install modules
         run: yarn install
       - name: Run tests
-        run: yarn run test ${{ matrix.project }} --all
+        run: yarn run ci ${{ matrix.project }}
