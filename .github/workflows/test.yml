@@ -1,7 +1,6 @@
 name: TutorJS
 
 on:
-  push:
   pull_request:
   schedule:
     - cron: '0 0 * * 0' # weekly
@@ -11,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: ['tutor', 'shared', 'exercises']
+        project: ['tutor', 'shared', 'exercises', 'integration']
     steps:
       - uses: actions/checkout@v2
       - name: Get yarn cache directory path
