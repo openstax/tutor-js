@@ -89,7 +89,7 @@ class StudentTaskStep extends BaseModel {
   @field group;
   @field can_be_updated;
   @field dropped_method;
-
+  @field is_feedback_available;
   @field published_points;
   @field published_comments;
   @field published_points_without_lateness;
@@ -183,7 +183,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get canAnswer() {
     return Boolean(
-      this.isExercise && (!this.hasBeenAnswered || !this.task.isFeedbackAvailable)
+      this.isExercise && this.can_be_updated
     );
   }
 

@@ -215,7 +215,9 @@ class Answer extends React.Component {
               onClick={onChange}
               aria-label={ariaLabel}
               className="answer-letter"
-              disabled={disabled}>
+              disabled={disabled}
+              data-test-id={`answer-choice-${ALPHABET[iter]}`}
+            >
               {ALPHABET[iter]}
             </button>
             <div className="answer-answer">

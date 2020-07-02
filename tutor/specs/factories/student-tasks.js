@@ -75,6 +75,8 @@ Factory.define('StudentTaskStep')
   )
   .external_url(({ object: { type } }) => 'external_url' == type ? fake.internet.url() : null)
   .can_be_updated(true)
+  .is_feedback_available(false)
+  .available_points(1)
 
 Factory.define('StudentTask')
   .id(sequence)

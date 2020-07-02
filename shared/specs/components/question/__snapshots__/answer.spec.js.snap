@@ -25,6 +25,7 @@ exports[`Answer Component renders answer 1`] = `
       <button
         aria-label="Choice b:"
         className="answer-letter"
+        data-test-id="answer-choice-b"
         disabled={false}
         onClick={[Function]}
       >
@@ -77,6 +78,7 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       <button
         aria-label="Choice b:"
         className="answer-letter"
+        data-test-id="answer-choice-b"
         disabled={false}
         onClick={[Function]}
       >

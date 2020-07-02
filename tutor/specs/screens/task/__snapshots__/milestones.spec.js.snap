@@ -14,7 +14,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
         "correctness_weight": 1,
         "description": "maximized",
         "due_at": 2017-10-14T12:00:00.000Z,
-        "feedback_at": undefined,
         "id": 1,
         "isLoading": false,
         "is_deleted": false,
@@ -30,7 +29,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
@@ -65,6 +64,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 1,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -85,7 +85,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
@@ -120,6 +120,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 2,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -140,7 +141,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
@@ -173,6 +174,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 1,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -193,7 +195,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
@@ -370,6 +372,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 1,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -390,7 +393,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
@@ -425,6 +428,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 3,
             "isFetched": true,
             "is_completed": true,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -445,7 +449,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
@@ -622,6 +626,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 2,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -642,7 +647,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskReadingStep {
               "chapter_section": Array [
@@ -677,6 +682,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 4,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -697,7 +703,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
@@ -730,6 +736,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 2,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -750,7 +757,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskInteractiveStep {
               "chapter_section": Array [
@@ -783,6 +790,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 3,
             "isFetched": true,
             "is_completed": false,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,
@@ -803,7 +811,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "task": true,
             },
             "answer_id": undefined,
-            "available_points": undefined,
+            "available_points": 1,
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
@@ -980,6 +988,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "id": 3,
             "isFetched": true,
             "is_completed": true,
+            "is_feedback_available": false,
             "labels": Array [],
             "last_completed_at": undefined,
             "multiPartGroup": undefined,

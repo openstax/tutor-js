@@ -19,7 +19,7 @@ const taskForId = (id, attrs = {}) => (
   TASKS[id] || (TASKS[id] = Factory.create('StudentTask', Object.assign(attrs, {
     id,
     wrm: WRM_ID == id,
-    type: attrs['type'] || fake.random.arrayElement(['reading', 'homework']),
+    type: attrs['type'] || id % 2 == 0 ? 'homework' : 'reading',
   })))
 );
 

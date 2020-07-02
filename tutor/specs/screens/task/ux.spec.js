@@ -42,7 +42,7 @@ describe('Task UX Model', () => {
     ]);
   });
 
-  it('loads feedback and fixes scrolling if past that mpq', async () => {
+  fit('loads feedback and fixes scrolling if past that mpq', async () => {
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid;
     const group = ux.groupedSteps[i];
@@ -53,7 +53,7 @@ describe('Task UX Model', () => {
     expect(s.multiPartGroup).toBe(group);
 
     // set feedback in past
-    ux.task.feedback_at = new Date('2017-10-13T12:00:00.000Z');
+    ux.currentStep.is_feedback_available = true
 
     s.save = jest.fn().mockResolvedValue({});
     ux.moveToStep(nextS);

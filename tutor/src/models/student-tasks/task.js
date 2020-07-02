@@ -2,8 +2,6 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, session, computed, observable,
 } from 'shared/model';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
-import moment from 'moment';
-import Time from '../time';
 import StudentTaskStep from './step';
 import Student from './student';
 import { AppActions } from '../../flux/app';
@@ -29,7 +27,7 @@ class StudentTask extends BaseModel {
   @field({ type: 'object' }) spy;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) closes_at;
-  @field({ type: 'date' }) feedback_at;
+
   @field is_provisional_score;
 
   @hasMany({ model: Student }) students;
@@ -43,12 +41,6 @@ class StudentTask extends BaseModel {
   @computed get isExternal() { return 'external' === this.type; }
   @computed get isPractice() { return this.type && this.type.includes('practice'); }
   @observable isLoading = false
-
-  @computed get isFeedbackAvailable() {
-    return Boolean(
-      !this.isHomework || !this.feedback_at || moment(this.feedback_at).isBefore(Time.now)
-    );
-  }
 
   @computed get publishedLateWorkPenalty() {
     return sumBy(this.steps, 'published_late_work_point_penalty');

@@ -1528,6 +1528,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <button
                         aria-label="Choice a:"
                         className="answer-letter"
+                        data-test-id="answer-choice-a"
                         disabled={true}
                       >
                         a
@@ -1578,6 +1579,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <button
                         aria-label="Choice b:"
                         className="answer-letter"
+                        data-test-id="answer-choice-b"
                         disabled={true}
                       >
                         b
@@ -1628,6 +1630,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <button
                         aria-label="Choice c:"
                         className="answer-letter"
+                        data-test-id="answer-choice-c"
                         disabled={true}
                       >
                         c
@@ -2687,7 +2690,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                               <div className=\\"correct-incorrect\\" />
                                               <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
+                                                <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
                                                   a
                                                 </button>
                                                 <div className=\\"answer-answer\\">
@@ -2711,7 +2714,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                               <div className=\\"correct-incorrect\\" />
                                               <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
+                                                <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
                                                   b
                                                 </button>
                                                 <div className=\\"answer-answer\\">
@@ -2735,7 +2738,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                               <div className=\\"correct-incorrect\\" />
                                               <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
+                                                <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
                                                   c
                                                 </button>
                                                 <div className=\\"answer-answer\\">

@@ -67,9 +67,7 @@ export default class TaskUX {
 
   @computed get isReadOnly() {
     return Boolean(
-      this.isLocked ||
-        this.isTeacher ||
-        this.currentStep.can_be_updated === false
+      this.isTeacher || this.currentStep.can_be_updated === false
     );
   }
 
@@ -143,7 +141,7 @@ export default class TaskUX {
     await step.save();
     if (
       step.multiPartGroup &&
-      this.task.isFeedbackAvailable &&
+      step.is_feedback_available &&
         this.currentStepIndex > this.indexOfStep(step)
     ) {
       // fixes the scroll position in case loading the feedback pushes the steps around
