@@ -95,14 +95,16 @@ class Question extends React.Component {
           </Alert>)}
 
         <QuestionFormatType question={question} />
-        <div className="questio-stimulus">
-          <label>
+        {!question.exercise.isMultiPart &&
+          (<div className="questio-stimulus">
+            <label>
             Question Stimulus
-          </label>
-          <textarea
-            onChange={this.updateStimulus}
-            defaultValue={question.stimulus_html} />
-        </div>
+            </label>
+            <textarea
+              onChange={this.updateStimulus}
+              defaultValue={question.stimulus_html} />
+          </div>) 
+        }
 
         <div>
           <label>
