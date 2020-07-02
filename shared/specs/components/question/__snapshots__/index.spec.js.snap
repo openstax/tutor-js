@@ -33,6 +33,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
           <button
             aria-label="Choice a:"
             className="answer-letter"
+            data-test-id="answer-choice-a"
             disabled={true}
           >
             a
@@ -75,6 +76,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
           <button
             aria-label="Choice b:"
             className="answer-letter"
+            data-test-id="answer-choice-b"
             disabled={true}
           >
             b
@@ -117,6 +119,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
           <button
             aria-label="Choice c:"
             className="answer-letter"
+            data-test-id="answer-choice-c"
             disabled={true}
           >
             c
