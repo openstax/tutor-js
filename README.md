@@ -1,4 +1,4 @@
-# tutor-js
+# TutorJS
 
 The Front-end code for Openstax Tutor related projects
 
