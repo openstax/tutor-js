@@ -226,7 +226,7 @@ const TemplateInfo = observer(({ template }) => {
 });
 
 const dateFormat = 'ddd, MMM D';
-const timeFormat = 'hh:mma z';
+const timeFormat = 'h:mma z';
 
 const TaskingDates = observer(({ tasking, title }) => {
 
