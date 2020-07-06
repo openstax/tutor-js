@@ -7,6 +7,7 @@ import Student from './student';
 import { AppActions } from '../../flux/app';
 export { StudentTaskStep };
 import S from '../../helpers/string';
+import moment from 'moment';
 
 export default
 @identifiedBy('student-tasks/task')
@@ -90,8 +91,8 @@ class StudentTask extends BaseModel {
 
   @computed get completed() {
     return this.steps.every(s => s.is_completed);
-  } 
-  
+  }
+
   @computed get started() {
     return this.steps.some(s => s.is_completed);
   }
