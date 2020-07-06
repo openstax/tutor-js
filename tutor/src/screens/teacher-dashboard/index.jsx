@@ -81,7 +81,7 @@ class TeacherDashboardWrapper extends React.Component {
 
   componentDidMount() {
     const { course } = this.props;
-    const courseTimezone = course.time_zone;
+    const courseTimezone = course.timezone;
     TimeHelper.syncCourseTimezone(courseTimezone);
     course.trackDashboardView();
     // if the teacher is impersonating a student and hit the back button
