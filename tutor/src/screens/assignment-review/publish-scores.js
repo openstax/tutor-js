@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 
 const PublishScores = observer(({ ux }) => {
-  if ((ux.scores.hasFinishedGrading && ux.scores.hasUnPublishedScore) || ux.planScores.isManualGradingGrade) { 
+  if (!ux.hasUnPublishedScores) {
     return null;
   }
 
@@ -12,10 +12,7 @@ const PublishScores = observer(({ ux }) => {
       placement="bottom"
       overlay={
         <Tooltip>
-          {ux.hasUnPublishedScores ?
-            'Publish to make scores available to students' :
-            'All scores have already been published'
-          }
+            Publish to make scores available to students
         </Tooltip>
       }
     >
@@ -23,7 +20,6 @@ const PublishScores = observer(({ ux }) => {
         variant="primary"
         className="btn-standard"
         isWaiting={ux.isPublishingScores}
-        isDisabled={!ux.hasUnPublishedScores}
         waitingText="Publishing…"
         onClick={ux.onPublishScores}
         data-test-id="publish-scores"
