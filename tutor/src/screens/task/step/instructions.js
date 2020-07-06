@@ -1,4 +1,5 @@
 import { React, PropTypes, observer, styled, moment } from 'vendor';
+import TutorLink from '../../../components/link';
 import { colors } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
@@ -26,7 +27,7 @@ const StyledPoints = styled.span`
 `;
 
 const Points = ({ task }) => {
-  if (task.isExternal) {
+  if (task.isExternal || task.isEvent) {
     return null;
   }
   return (
@@ -156,21 +157,43 @@ const ContinueBtn = observer(({ ux }) => {
       </ExternalLink>
     );
   }
+
+  if (ux.task.isEvent) {
+    return (
+      <TutorLink className="btn btn-primary" to="dashboard" params={{ courseId: ux.course.id }}>Close</TutorLink>
+    );
+  }
+
+  let buttonLabel = 'Start';
+  if (ux.task.completed) {
+    buttonLabel = 'Review';
+  }
+  else if (ux.task.started) {
+    buttonLabel = 'Continue';
+  }
+
   return (
-    <StepContinueBtn label="Start" data-test-id="value-prop-continue-btn" variant="primary" ux={ux} />
+    <StepContinueBtn
+      label={buttonLabel}
+      data-test-id="value-prop-continue-btn"
+      variant="primary" ux={ux}
+    />
   );
 });
 
 const Dates = observer(({ task }) => {
   if (task.isPractice) return null;
-
   return (
     <>
       <Heading>Due date</Heading>
       <p>{format(task.dueAtMoment)}</p>
 
-      <Heading>Close date</Heading>
-      <p>{format(task.closesAtMoment)}</p>
+      {!task.isEvent && (
+        <>
+          <Heading>Close date</Heading>
+          <p>{format(task.closesAtMoment)}</p>
+        </>
+      )}
     </>
   );
 });
@@ -206,7 +229,7 @@ const Instructions = observer((props) => {
         data-test-id={`${task.type}-instructions`}
       >
         <Header className="heading" templateColors={colors.templates[task.type]}>
-          <span>Assignment details or instructions</span>
+          <span>Assignment details and instructions</span>
           <Points task={task} />
         </Header>
         <Body>

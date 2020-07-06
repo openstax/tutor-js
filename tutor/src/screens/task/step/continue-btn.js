@@ -11,9 +11,7 @@ const StyledBtn = styled(Button).attrs({ size: 'lg' })`
 export default function ContinueBtn({
   ux: { canGoForward, goForward, canUpdateCurrentStep },
   label = canUpdateCurrentStep ? 'Next' : 'Continue',
-  ...props
-}) {
-
+  ...props }) {
   return (
     <StyledBtn
       variant="primary"
@@ -34,5 +32,6 @@ ContinueBtn.propTypes = {
     canGoForward: PropTypes.bool.isRequired,
     goForward: PropTypes.func.isRequired,
     canUpdateCurrentStep: PropTypes.bool,
+    goToStepId: PropTypes.func.isRequired,
   }).isRequired,
 };

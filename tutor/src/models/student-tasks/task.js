@@ -16,7 +16,6 @@ class StudentTask extends BaseModel {
   @field title;
   @field description;
   @field type;
-  @field complete;
   @field is_deleted;
   @field completion_weight;
   @field correctness_weight;
@@ -87,6 +86,14 @@ class StudentTask extends BaseModel {
 
   @computed get closesAtMoment() {
     return this.course.momentInZone(this.closes_at);
+  }
+
+  @computed get completed() {
+    return this.steps.every(s => s.is_completed);
+  } 
+  
+  @computed get started() {
+    return this.steps.some(s => s.is_completed);
   }
 
   // attempt to load the task until isLoaded returns true or we exceed 30 attempts
