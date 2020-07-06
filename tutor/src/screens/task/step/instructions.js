@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, moment } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import TutorLink from '../../../components/link';
 import { colors } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
@@ -182,7 +182,7 @@ const ContinueBtn = observer(({ ux }) => {
   );
 });
 
-const Dates = observer(({ ux, task }) => {
+const Dates = observer(({ task }) => {
   if (task.isPractice) return null;
   return (
     <>

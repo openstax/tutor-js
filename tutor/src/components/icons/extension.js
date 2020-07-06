@@ -33,7 +33,7 @@ EIcon.propTypes = {
   inline: PropTypes.bool,
 };
 
-const ExtensionIcon = ({ className, extension, timezone,  inline = false }) => {
+const ExtensionIcon = ({ className, extension, timezone, inline = false }) => {
   let msg = 'Student was granted an extension.';
   const format = (dte) => moment.tz(dte, timezone).format('h:mm a z on MMM D');
 

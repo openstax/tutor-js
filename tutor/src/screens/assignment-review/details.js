@@ -1,7 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import { Icon } from 'shared';
 import { colors } from 'theme';
-import moment from 'moment';
 import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import S from '../../helpers/string';
@@ -12,7 +11,6 @@ import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
 import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
-import TimeHelper from '../../helpers/time';
 
 const DetailsWrapper = styled.div`
 
@@ -230,7 +228,7 @@ const TemplateInfo = observer(({ template }) => {
 const dateFormat = 'ddd, MMM D';
 const timeFormat = 'hh:mma z';
 
-const TaskingDates = observer(({ ux, tasking, title }) => {
+const TaskingDates = observer(({ tasking, title }) => {
 
   return (
     <TaskingDefinitionList>

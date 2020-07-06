@@ -18,7 +18,7 @@ const StudentExtensionInfo = observer(({ ux, student }) => {
       timezone={ux.course.timezone}
       inline={true}
     />
-    );
+  );
 });
 
 const CheckBox = styled.input.attrs({
@@ -185,7 +185,7 @@ const GrantExtension = observer(({ ux }) => {
           onSubmit={ux.saveDisplayingGrantExtension}
           initialValues={{
             extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
-            extension_close_date: moment.tz(ux.course.timezone).add(1, 'week')
+            extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
           }}
         >
           {(form) => <ExtendModal ux={ux} form={form} />}

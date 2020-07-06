@@ -2,7 +2,6 @@ import { observable, computed, action, when, observe } from 'mobx';
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
-import TimeHelper from '../../helpers/time';
 import * as manipulations from './ux-task-manipulations';
 import UiSettings from 'shared/model/ui-settings';
 import StepGroup from '../../models/student-tasks/step-group';

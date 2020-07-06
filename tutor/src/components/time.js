@@ -1,4 +1,3 @@
-import moment from 'moment-timezone';
 import TimeModel from '../models/time';
 import PropTypes from 'prop-types';
 import React from 'react';
