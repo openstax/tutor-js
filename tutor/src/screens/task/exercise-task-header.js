@@ -97,7 +97,7 @@ class ExercisesTaskHeader extends React.Component {
         <StyledHeadingTitle>
           <span>{ux.task.title}</span>
           <span> | </span>
-          <span>Due {TimeHelper.toShortHumanDateTime(ux.task.dueAtMoment)}</span>
+          <span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span>
         </StyledHeadingTitle>
         <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
       </ExercisesTaskHeaderWrapper>

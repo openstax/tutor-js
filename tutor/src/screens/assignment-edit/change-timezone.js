@@ -35,7 +35,7 @@ class ChangeTimezone extends React.Component {
           onClick={this.onOpen}
           data-test-id="change-timezone"
         >
-          {course.time_zone}
+          {course.timezone}
         </StyledButton>
         <TimezoneModal
           onClose={this.onClose}

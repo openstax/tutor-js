@@ -16,6 +16,7 @@ import SupportEmailLink from '../../components/support-email-link';
 import moment from 'moment';
 import TemplateModal from '../../components/course-modal';
 import cn from 'classnames';
+import TimeHelper from '../../helpers/time';
 
 const DateFieldsWrapper = styled.div`
   padding-bottom: 1.25rem;
@@ -62,7 +63,7 @@ class CoursePlanDetails extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.tourContext.otherModal = null; 
+    this.props.tourContext.otherModal = null;
   }
 
   @observable showAssignmentLinks = false;
@@ -210,8 +211,9 @@ class CoursePlanDetails extends React.Component {
   }
 
   renderDateFields() {
-    const format = 'MMM D hh:mm A';
     const { isEvent } = this.props.plan;
+    const { course } = this.props;
+    const format = TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT;
     const mdWidth = isEvent ? 6 : 4;
     return (
       <DateFieldsWrapper>
@@ -229,14 +231,14 @@ class CoursePlanDetails extends React.Component {
         </Row>
         <Row className="tasking-date-time">
           <Col xs={12} md={mdWidth} className="opens-at">
-            {moment(this.tasking.opens_at).format(format)}
+            {course.momentInZone(this.tasking.opens_at).format(format)}
           </Col>
           <Col xs={12} md={mdWidth} className="due-at">
-            {moment(this.tasking.due_at).format(format)}
+            {course.momentInZone(this.tasking.due_at).format(format)}
           </Col>
           {!isEvent && (
             <Col xs={12} md={mdWidth} className="closes-at">
-              {moment(this.tasking.closes_at).format(format)}
+              {course.momentInZone(this.tasking.closes_at).format(format)}
             </Col>)}
         </Row>
       </DateFieldsWrapper>

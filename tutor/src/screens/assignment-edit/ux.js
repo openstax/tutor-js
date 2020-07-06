@@ -81,7 +81,8 @@ export default class AssignmentUX {
 
     observe(this.plan, 'grading_template_id', this.onGradingTemplateUpdate);
 
-    observe(this.course, 'time_zone', () => {
+    // Make sure the course bounds get recalculated if timezone changes
+    observe(this.course, 'timezone', () => {
       if (this.plan.grading_template_id) {
         this.onGradingTemplateUpdate({ newValue: this.plan.grading_template_id });
       }

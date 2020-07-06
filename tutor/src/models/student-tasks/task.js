@@ -81,11 +81,11 @@ class StudentTask extends BaseModel {
   }
 
   @computed get dueAtMoment() {
-    return this.course.momentInZone(this.due_at);
+    return moment(this.due_at);
   }
 
   @computed get closesAtMoment() {
-    return this.course.momentInZone(this.closes_at);
+    return moment(this.closes_at);
   }
 
   @computed get completed() {

@@ -74,7 +74,8 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
   const id = props.id || uniqueId(props.name);
   const LabelWrapper = props.labelWrapper || React.Fragment;
 
-  const course = props.course;
+  const momentFunc = props.timezone ? moment.tz : moment;
+  const momentValue = field.value ? momentFunc(field.value, props.timezone) : null;
 
   const onUpdateDate = dt => {
     const ev = { target: { name: field.name, value: dt } };
@@ -111,7 +112,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
           }}
           {...field}
           {...props}
-          value={field.value ? (course ? course.momentInZone(field.value) : moment(field.value)) : null}
+          value={momentValue}
           onSelect={onUpdateDate}
           onChange={onUpdateDate}
           prefixCls="oxdt"
@@ -130,7 +131,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
 DateTimeInput.displayName = 'DateTimeInput';
 DateTimeInput.propTypes = {
   name: PropTypes.string.isRequired,
-  course: PropTypes.object,
+  timezone: PropTypes.string,
 };
 
 export default DateTimeInput;

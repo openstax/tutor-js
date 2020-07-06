@@ -12,6 +12,8 @@ import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
 import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
+import TimeHelper from '../../helpers/time';
+
 const DetailsWrapper = styled.div`
 
 `;
@@ -95,15 +97,10 @@ const TaskingDefinitionList = styled.div`
   dl {
     display: flex;
     align-items: center;
-    max-width: 45rem;
+    max-width: 64rem;
 
     > * {
       width: 100%;
-      &:not(:first-child) {
-        dt, dd {
-          text-align: center;
-        }
-      }
     }
 
     dt, dd {
@@ -230,9 +227,10 @@ const TemplateInfo = observer(({ template }) => {
   );
 });
 
-const format = (date)=> moment(date).format('MMM D, h:mm a');
+const dateFormat = 'ddd, MMM D';
+const timeFormat = 'hh:mma z';
 
-const TaskingDates = observer(({ tasking, title }) => {
+const TaskingDates = observer(({ ux, tasking, title }) => {
 
   return (
     <TaskingDefinitionList>
@@ -240,16 +238,25 @@ const TaskingDates = observer(({ tasking, title }) => {
       <dl>
         <div>
           <dt>Open date</dt>
-          <dd>{format(tasking.opensAtMoment)}</dd>
+          <dd>
+            <div>{tasking.opensAtMoment.format(dateFormat)}</div>
+            <div>{tasking.opensAtMoment.format(timeFormat)}</div>
+          </dd>
         </div>
         <div>
           <dt>Due date</dt>
-          <dd>{format(tasking.dueAtMoment)}</dd>
+          <dd>
+            <div>{tasking.dueAtMoment.format(dateFormat)}</div>
+            <div>{tasking.dueAtMoment.format(timeFormat)}</div>
+          </dd>
         </div>
         {!tasking.plan.isEvent && (
           <div>
             <dt>Close date</dt>
-            <dd>{format(tasking.closesAtMoment)}</dd>
+            <dd>
+              <div>{tasking.closesAtMoment.format(dateFormat)}</div>
+              <div>{tasking.closesAtMoment.format(timeFormat)}</div>
+            </dd>
           </div>)}
       </dl>
     </TaskingDefinitionList>
@@ -322,6 +329,7 @@ const Details = observer(({ ux }) => {
                     tasking={tasking}
                     title={ux.areTaskingDatesSame ? 'All sections' : tasking.period.name}
                     key={tasking.period.id}
+                    ux={ux}
                   />))}
               </div>
             </Row>

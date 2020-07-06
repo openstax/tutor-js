@@ -3,6 +3,7 @@ import { React, PropTypes, withRouter, observer, computed, action, cn, styled } 
 import moment from 'moment';
 import { get } from 'lodash';
 import Time from '../../components/time';
+import TimeHelper from '../../helpers/time';
 import Router from '../../helpers/router';
 import { Icon } from 'shared';
 import HideButton from './hide-button';
@@ -22,14 +23,17 @@ const NotOpenNoticeWrapper=styled.div`
   background: ${({ theme }) => theme.colors.neutral.lighter};
 `;
 
-const NotOpenNotice = ({ task }) => {
+const timeFormat = TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT;
+
+const NotOpenNotice = ({ task, course }) => {
   if (!task.isTeacherStudent || task.isOpen) {
     return null;
   }
+
   return (
     <NotOpenNoticeWrapper className="not-open-notice">
       <Icon type="eye" /> This assignment is only visible to instructors.
-      Open date for students is {moment(task.opens_at).format('MMM Do, h:mm a')}
+      Open date for students is {course.momentInZone(task.opens_at).format(timeFormat)}
     </NotOpenNoticeWrapper>
   );
 };
@@ -37,7 +41,7 @@ NotOpenNotice.propTypes = {
   task: PropTypes.object.isRequired,
 };
 
-const EventTime = ({ event }) => {
+const EventTime = ({ event, course }) => {
   if (event.is_deleted) { return null; }
   return <Time date={event.due_at} format="concise" />;
 };
@@ -87,7 +91,7 @@ class EventRow extends React.Component {
 
     return (
       <React.Fragment>
-        <NotOpenNotice task={event} />
+        <NotOpenNotice task={event} course={course} />
         <TaskRow
           className={cn(`task ${event.type}`, {
             viewable: this.isViewable,
@@ -105,7 +109,7 @@ class EventRow extends React.Component {
             <span>{event.title}</span>
           </TitleCell>
           <DueCell>
-            <EventTime event={event} />
+            <EventTime event={event} course={course} />
             {event.is_extended && <StyledEIcon />}
             <HideButton event={event} />
           </DueCell>

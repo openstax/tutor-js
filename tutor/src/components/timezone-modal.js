@@ -103,6 +103,7 @@ class SetTimezoneField extends React.Component {
 
     const timezonesToPick = map(timezones, timezone => {
       const identifier = S.dasherize(timezone);
+
       return (
         <div key={`timezone-choice-${identifier}`}>
           <RadioInput
@@ -142,7 +143,7 @@ class TimezoneModal extends React.Component {
   }
 
   @observable invalid = false;
-  @observable course_timezone = this.props.course.time_zone;
+  @observable course_timezone = this.props.course.timezone;
 
   @action.bound close() {
     this.props.onClose();
@@ -154,7 +155,7 @@ class TimezoneModal extends React.Component {
 
   @action.bound performUpdate() {
     if (this.invalid) { return; }
-    this.props.course.time_zone = this.course_timezone;
+    this.props.course.timezone = this.course_timezone;
     this.props.course.save().then(this.close);
   }
 
@@ -173,7 +174,7 @@ class TimezoneModal extends React.Component {
 
           <SetTimezoneField
             name="course-timezone"
-            defaultValue={this.props.course.time_zone}
+            defaultValue={this.props.course.timezone}
             onChange={val => this.course_timezone = val}
             validate={this.validate}
           />
