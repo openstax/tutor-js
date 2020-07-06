@@ -81,13 +81,6 @@ export default class AssignmentUX {
 
     observe(this.plan, 'grading_template_id', this.onGradingTemplateUpdate);
 
-    // Make sure the course bounds get recalculated if timezone changes
-    observe(this.course, 'timezone', () => {
-      if (this.plan.grading_template_id) {
-        this.onGradingTemplateUpdate({ newValue: this.plan.grading_template_id });
-      }
-    });
-
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
