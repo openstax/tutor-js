@@ -24,6 +24,10 @@ const PreviewWrapper = styled.div`
   }
 `;
 
+const StyledText = styled.div`
+  line-height: 2.4rem;
+`;
+
 @observer
 class TimezonePreview extends React.Component {
 
@@ -131,7 +135,6 @@ class SetTimezoneField extends React.Component {
   }
 }
 
-
 export default
 @observer
 class TimezoneModal extends React.Component {
@@ -144,13 +147,19 @@ class TimezoneModal extends React.Component {
 
   @observable invalid = false;
   @observable course_timezone = this.props.course.timezone;
+  @observable showingConfirm = false;
 
   @action.bound close() {
+    this.showingConfirm = false;
     this.props.onClose();
   }
 
   @action.bound validate(timezone) {
     this.invalid = !TimeHelper.isTimezoneValid(timezone);
+  }
+
+  @action.bound showConfirm() {
+    this.showingConfirm = true;
   }
 
   @action.bound performUpdate() {
@@ -159,7 +168,7 @@ class TimezoneModal extends React.Component {
     this.props.course.save().then(this.close);
   }
 
-  render() {
+  @action.bound renderModal() {
     return (
       <Modal
         show={this.props.show}
@@ -186,16 +195,56 @@ class TimezoneModal extends React.Component {
           >
             Cancel
           </Button>
+          <Button
+            variant="primary"
+            onClick={this.showConfirm}
+            disabled={this.invalid}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  @action.bound renderConfirmModal() {
+    return (
+      <Modal
+        show
+        onHide={this.close}
+      >
+        <Modal.Header closeButton={true}>
+          <Modal.Title>
+            Warning
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <StyledText>
+            Your assignment open/due/close times will change.
+            This will also affect the times displayed to students and late work.
+          </StyledText>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={this.close}
+            variant="outline-secondary"
+          >
+            Cancel
+          </Button>
           <StyledAsyncButton
             onClick={this.performUpdate}
             isWaiting={this.props.course.api.isPending}
             waitingText="Saving..."
             disabled={this.invalid}
           >
-            Save
+            Change Course Timezone
           </StyledAsyncButton>
         </Modal.Footer>
       </Modal>
     );
+  }
+
+  render() {
+    return this.showingConfirm ? this.renderConfirmModal() : this.renderModal();
   }
 }

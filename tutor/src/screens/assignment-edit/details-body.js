@@ -7,8 +7,7 @@ import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
 import ConfirmTemplateModal from './confirm-template-modal';
-import { OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap';
-import ChangeTimezone from './change-timezone';
+import { OverlayTrigger, Dropdown } from 'react-bootstrap';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
@@ -254,12 +253,7 @@ const DetailsBody = observer(({ ux }) => {
           Assign
           <HintText>
             Course Time Zone:<br/>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Click to change course time zone</Tooltip>}
-            >
-              <ChangeTimezone course={ux.course} />
-            </OverlayTrigger>
+            {ux.course.timezone}
             <HintText>
               (To immediately open an assignment, select ‘Now’ in the calendar.)
             </HintText>
