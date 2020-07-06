@@ -3,12 +3,14 @@
 export NODE_OPTIONS=–max_old_space_size=4096
 
 cd "$(dirname "$0")/.." || exit 111
-source ./script/bootstrap || exit 111
 
-if [[ "$TEST" = "integration" ]]; then
+TEST=$1
+
+if [[ "$TEST" = "lint" ]]; then
+  ./bin/lint || exit 112
+elif [[ "$TEST" = "integration" ]]; then
   yarn run tutor:test:server &
   yarn run tutor:test:cypress
 else
-  ./bin/lint || exit 112
-  ./bin/test $OX_PROJECT --all
+  ./bin/test $TEST --all
 fi
