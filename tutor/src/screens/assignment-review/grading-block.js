@@ -2,7 +2,7 @@ import { React, PropTypes, styled, observer, css, cn } from 'vendor';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
 import { Header } from './details';
-import PublishScores from './publish-scores';
+import PublishScores from '../../components/buttons/publish-scores';
 
 const StyledTutorLink = styled(TutorLink)`
   margin-bottom: 2.5rem;

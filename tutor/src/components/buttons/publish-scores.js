@@ -2,7 +2,7 @@ import { React, PropTypes, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 
-const PublishScores = observer(({ ux }) => {
+const PublishScores = observer(({ ux, variant = 'primary' }) => {
   if (!ux.hasUnPublishedScores) {
     return null;
   }
@@ -17,7 +17,7 @@ const PublishScores = observer(({ ux }) => {
       }
     >
       <AsyncButton
-        variant="primary"
+        variant={variant}
         className="btn-standard"
         isWaiting={ux.isPublishingScores}
         waitingText="Publishing…"
@@ -30,7 +30,12 @@ const PublishScores = observer(({ ux }) => {
   );
 });
 PublishScores.propTypes = {
-  ux: PropTypes.object.isRequired,
+  variant: PropTypes.string,
+  ux: PropTypes.shape({
+    hasUnPublishedScores: PropTypes.bool.isRequired,
+    isPublishingScores: PropTypes.bool.isRequired,
+    onPublishScores: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default PublishScores;
