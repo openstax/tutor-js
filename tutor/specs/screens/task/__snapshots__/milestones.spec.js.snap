@@ -1131,7 +1131,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
           },
         ],
         "term": "spring",
-        "time_zone": "US/Central",
+        "timezone": "US/Central",
         "uses_pre_wrm_scores": false,
         "uuid": "84e4f94b-98c5-46ab-9229-fd5fd11603e7",
         "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
