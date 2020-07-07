@@ -1,5 +1,6 @@
 {
   "name": "Johhny Tran",
   "is_admin": false,
+  "school_location": "domestic_school",
   "profile_url": "http://accounts.foo.bar/profile"
 }

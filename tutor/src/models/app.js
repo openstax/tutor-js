@@ -26,7 +26,6 @@ const BOOTSTRAPED_MODELS = {
   payments: Payments,
   feature_flags: FeatureFlagsApi,
   response_validation: ResponseValidation,
-
 };
 
 // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
@@ -65,7 +64,6 @@ export default class TutorApp {
   }
 
   @action.bound initializeApp() {
-
     window._MODELS.bootstrapData = this.data;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];

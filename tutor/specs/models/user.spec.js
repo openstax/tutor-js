@@ -100,6 +100,10 @@ describe('User Model', () => {
     User.faculty_status = 'confirmed_faculty';
     User.school_type = 'college';
     expect(User.isAllowedInstructor).toBe(true);
+    User.school_location = 'foreign_school'
+    expect(User.isAllowedInstructor).toBe(false);
+    User.school_location = 'domestic_school'
+    expect(User.isAllowedInstructor).toBe(true);
   });
 
 });

@@ -38,6 +38,7 @@ class User extends BaseModel {
   @field is_content_analyst;
   @field is_customer_service;
   @field terms_signatures_needed;
+  @field school_location;
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
@@ -80,8 +81,14 @@ class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
+  @computed get isDomesticInstructor() {
+    return this.school_location == 'domestic_school';
+  }
+  
   @computed get isAllowedInstructor() {
-    return this.isConfirmedFaculty && includes(['college', 'high_school', 'k12_school'], this.school_type);
+    return this.isConfirmedFaculty &&
+      this.isDomesticInstructor &&
+      includes(['college', 'high_school', 'k12_school'], this.school_type);
   }
 
   @computed get canViewPreviewCourses() {

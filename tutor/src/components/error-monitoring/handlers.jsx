@@ -53,7 +53,7 @@ const cannotDeleteTemplate = (reason) => {
       </Button>,
     ],
   };
-}
+};
 
 
 const ERROR_HANDLERS = {
