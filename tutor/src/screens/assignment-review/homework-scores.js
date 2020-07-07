@@ -12,7 +12,7 @@ import TutorLink from '../../components/link';
 import { CornerTriangle } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
-import PublishScores from './publish-scores';
+import PublishScores from '../../components/buttons/publish-scores';
 
 import {
   StyledStickyTable, Cell, CellContents,

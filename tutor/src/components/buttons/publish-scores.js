@@ -2,8 +2,8 @@ import { React, PropTypes, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 
-const PublishScores = observer(({ ux }) => {
-  if ((ux.scores.hasFinishedGrading && ux.scores.hasUnPublishedScore) || ux.planScores.isManualGradingGrade) { 
+const PublishScores = observer(({ ux, variant = 'primary' }) => {
+  if (!ux.hasUnPublishedScores) {
     return null;
   }
 
@@ -12,18 +12,14 @@ const PublishScores = observer(({ ux }) => {
       placement="bottom"
       overlay={
         <Tooltip>
-          {ux.hasUnPublishedScores ?
-            'Publish to make scores available to students' :
-            'All scores have already been published'
-          }
+            Publish to make scores available to students
         </Tooltip>
       }
     >
       <AsyncButton
-        variant="primary"
+        variant={variant}
         className="btn-standard"
         isWaiting={ux.isPublishingScores}
-        isDisabled={!ux.hasUnPublishedScores}
         waitingText="Publishing…"
         onClick={ux.onPublishScores}
         data-test-id="publish-scores"
@@ -34,7 +30,12 @@ const PublishScores = observer(({ ux }) => {
   );
 });
 PublishScores.propTypes = {
-  ux: PropTypes.object.isRequired,
+  variant: PropTypes.string,
+  ux: PropTypes.shape({
+    hasUnPublishedScores: PropTypes.bool.isRequired,
+    isPublishingScores: PropTypes.bool.isRequired,
+    onPublishScores: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default PublishScores;

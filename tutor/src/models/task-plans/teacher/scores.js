@@ -415,10 +415,6 @@ class TaskPlanScores extends BaseModel {
     return 'reading' == this.type;
   }
 
-  @computed get isManualGradingGrade() {
-    return this.grading_template.manual_grading_feedback_on === 'grade';
-  }
-
   fetch() { return { id: this.id }; }
 
   get course() {

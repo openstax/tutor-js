@@ -328,7 +328,6 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",
@@ -693,7 +692,6 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",
@@ -1062,7 +1060,6 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",
@@ -1431,7 +1428,6 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",
@@ -1800,7 +1796,6 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",

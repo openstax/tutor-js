@@ -1,9 +1,8 @@
-import { React, useObserver, styled } from 'vendor';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import AsyncButton from 'shared/components/buttons/async-button';
+import { React, observer, styled } from 'vendor';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
+import PublishScores from '../../components/buttons/publish-scores';
 
 const Bar = styled.div`
   display: flex;
@@ -54,14 +53,13 @@ const Controls = styled.div`
   }
 `;
 
-const StyledPublishButton = styled(AsyncButton)`
+const StyledPublishScores = styled(PublishScores)`
     && {
       padding: 10px;
-      pointer-events: ${props => props.disabled ? 'none' : 'all'};
     }
 `;
 
-const Question = ({ heading, ux, index }) => useObserver(() => {
+const Question = observer(({ heading, ux, index }) => {
   const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
   const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
   return (
@@ -73,33 +71,14 @@ const Question = ({ heading, ux, index }) => useObserver(() => {
 });
 
 
-const QuestionsBar = ({ ux }) => useObserver(() => {
-  const isPublishScoresDisabled = !ux.hasUnpublishedScores || ux.planScores.isManualGradingGrade;
+const QuestionsBar = observer(({ ux }) => {
   return (
     <Bar data-test-id="questions-bar" className="questions-bar">
       <QuestionsWrapper>
         {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} index={index} />)}
       </QuestionsWrapper>
       <Controls>
-        <OverlayTrigger
-          placement="bottom"
-          overlay={
-            <Tooltip>
-              {isPublishScoresDisabled && 'All scores have already been published.'}
-            </Tooltip>
-          }
-        >
-          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
-            <StyledPublishButton
-              disabled={isPublishScoresDisabled}
-              variant={isPublishScoresDisabled ? 'plain' : 'primary'}
-              onClick={ux.onPublishScores}
-              isWaiting={ux.isPublishingScores}
-              waitingText="Publishing...">
-          Publish Scores
-            </StyledPublishButton>
-          </div>
-        </OverlayTrigger>
+        <StyledPublishScores ux={ux} variant="default" />
         <StyledSettingsIcon
           ux={ux}
           label="Adjust display settings"
