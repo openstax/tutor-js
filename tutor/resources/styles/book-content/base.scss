@@ -25,9 +25,10 @@
     }
   }
 
-  [data-type=term]{
+  [data-type=term]:not(.no-emphasis){
     font-weight: bold;
   }
+
 
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
   table + .os-caption-container{
