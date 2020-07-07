@@ -125,18 +125,6 @@ context('Assignment Edit', () => {
     cy.get('[data-section]').should('not.contain.text', 'Written Response Questions')
   });
 
-  it('can change course timezone', () => {
-    cy.visit('/course/2/assignment/edit/homework/new')
-    cy.disableTours()
-    fillDetails()
-    cy.get('[data-test-id="change-timezone"]').click()
-    cy.get('.settings-edit-course-modal').should('be.visible')
-    cy.get('.settings-edit-course-modal [value="US/Hawaii"]').click({ force: true })
-    cy.get('.settings-edit-course-modal .async-button').click()
-    cy.get('.settings-edit-course-modal').should('not.exist')
-    cy.get('[data-test-id="change-timezone"').should( 'contain.text', 'US/Hawaii')
-  });
-
   it('renders external assignment', () => {
     cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
