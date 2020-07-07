@@ -149,7 +149,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
             },
           ],
           "term": "spring",
-          "time_zone": "US/Central",
+          "timezone": "US/Central",
           "uses_pre_wrm_scores": false,
           "uuid": "46c355d8-0a81-432e-97a3-d48dd86a5c5d",
           "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",

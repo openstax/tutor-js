@@ -32,6 +32,7 @@ const TimeHelper = {
   ISO_TIME_FORMAT: 'HH:mm',
   HUMAN_TIME_FORMAT: 'h:mm a',
   HUMAN_DATE_FORMAT: 'MM/DD/YYYY',
+  HUMAN_DATE_TIME_TZ_FORMAT: 'ddd, MMM D, h:mma z',
 
   toHumanDate(datething) {
     return moment(datething).format(this.HUMAN_DATE_FORMAT);
@@ -39,6 +40,10 @@ const TimeHelper = {
 
   toShortHumanDateTime(datething) {
     return moment(datething).format('llll');
+  },
+
+  toShortHumanDateTimeTz(datething) {
+    return this.momentInLocal(datething).format('llll z');
   },
 
   toISO(datething) {
@@ -112,6 +117,10 @@ const TimeHelper = {
     const unzonedMoment = moment.tz.setDefault(this._local);
     this.unsetLocal();
     return unzonedMoment;
+  },
+
+  momentInLocal(date) {
+    return moment.tz(date, this.getLocalTimezone());
   },
 
   makeMoment(value, ...args) {

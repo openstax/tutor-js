@@ -9,10 +9,16 @@ import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/exten
 // https://projects.invisionapp.com/d/main#/console/18937568/411294724/preview
 
 
-const StudentExtensionInfo = observer(({ student }) => {
+const StudentExtensionInfo = observer(({ ux, student }) => {
   if (!student.extension) { return null; }
 
-  return <ExtensionIcon extension={student.extension} inline={true} />;
+  return (
+    <ExtensionIcon
+      extension={student.extension}
+      timezone={ux.course.timezone}
+      inline={true}
+    />
+  );
 });
 
 const CheckBox = styled.input.attrs({
@@ -100,6 +106,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
               label="New due date"
               name="extension_due_date"
               disabledDate={ux.course.isInvalidAssignmentDate}
+              timezone={ux.course.timezone}
               validate={(d) => { // eslint-disable-line consistent-return
                 if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
                 if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
@@ -108,6 +115,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
             <DateTime
               label="New close date"
               name="extension_close_date"
+              timezone={ux.course.timezone}
               disabledDate={ux.course.isInvalidAssignmentDate}
               validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
             />
@@ -175,7 +183,10 @@ const GrantExtension = observer(({ ux }) => {
       {ux.isDisplayingGrantExtension && (
         <Formik
           onSubmit={ux.saveDisplayingGrantExtension}
-          initialValues={{ extension_due_date: moment(), extension_close_date: moment().add(1, 'week') }}
+          initialValues={{
+            extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
+            extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
+          }}
         >
           {(form) => <ExtendModal ux={ux} form={form} />}
         </Formik>)}

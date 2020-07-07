@@ -7,6 +7,7 @@ import Student from './student';
 import { AppActions } from '../../flux/app';
 export { StudentTaskStep };
 import S from '../../helpers/string';
+import moment from 'moment';
 
 export default
 @identifiedBy('student-tasks/task')
@@ -81,17 +82,17 @@ class StudentTask extends BaseModel {
   }
 
   @computed get dueAtMoment() {
-    return this.course.momentInZone(this.due_at);
+    return moment(this.due_at);
   }
 
   @computed get closesAtMoment() {
-    return this.course.momentInZone(this.closes_at);
+    return moment(this.closes_at);
   }
 
   @computed get completed() {
     return this.steps.every(s => s.is_completed);
-  } 
-  
+  }
+
   @computed get started() {
     return this.steps.some(s => s.is_completed);
   }

@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Icon } from 'shared';
 import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
-import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
@@ -65,31 +64,6 @@ class Tasking extends React.Component {
     );
   }
 
-  @computed get minOpensAt() {
-    const { start } = this.course.bounds;
-    return start.isBefore(Time.now) ? start : moment(Time.now);
-  }
-
-  @computed get maxOpensAt() {
-    return findEarliest(
-      this.taskings[0].due_at,
-      this.course.bounds.end,
-    );
-  }
-
-  @computed get minDueAt() {
-    return findLatest(
-      Time.now,
-      this.taskings[0].opens_at,
-      this.course.bounds.start,
-    );
-  }
-
-  @computed get maxDueAt() {
-    const { end } = this.course.bounds;
-    return this.plan.due_date || end;
-  }
-
   @action.bound onOpensChange({ target: { value: date, name: name } }, index) {
     const { didUserChangeDatesManually, dueAt, gradingTemplate } = this.props.ux;
     this.taskings.forEach(t => {
@@ -97,15 +71,16 @@ class Tasking extends React.Component {
       this.form.setFieldValue(name, t.opens_at);
 
       if(!didUserChangeDatesManually) {
-        if(!dueAt) {
+        if(dueAt) {
           if (gradingTemplate) {
             t.onGradingTemplateUpdate(gradingTemplate);
           }
           this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
-        else
+        else {
           this.props.ux.setDidUserChangeDatesManually(true);
+        }
       }
     });
   }
@@ -227,6 +202,7 @@ class Tasking extends React.Component {
             tasking={tasking}
             onChange={this.onOpensChange}
             disabled={this.course.isInvalidAssignmentDate}
+            timezone={this.course.timezone}
           />
         </Col>
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="due-at">
@@ -235,6 +211,7 @@ class Tasking extends React.Component {
             name={`tasking_plans[${index}].due_at`}
             disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
+            timezone={this.course.timezone}
           />
           {this.renderDueAtError()}
         </Col>
@@ -246,6 +223,7 @@ class Tasking extends React.Component {
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               disabledDate={this.course.isInvalidAssignmentDate}
+              timezone={this.course.timezone}
             />
           </Col>
         }
@@ -254,7 +232,7 @@ class Tasking extends React.Component {
   }
 }
 
-const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {
+const OpensDateTime = observer(({ index, disabled, tasking, onChange, timezone }) => {
   const input = (
     <DateTime
       label="Open date & Time"
@@ -262,6 +240,7 @@ const OpensDateTime = observer(({ index, disabled, tasking, onChange }) => {
       name={`tasking_plans[${index}].opens_at`}
       onChange={(ev) => onChange(ev, index)}
       disabledDate={disabled}
+      timezone={timezone}
     />
   );
   if (tasking.canEditOpensAt) {

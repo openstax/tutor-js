@@ -80,7 +80,7 @@ exports[`Homework Row renders in progress 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 18rem;
+  width: 20rem;
   padding-right: 1rem;
 }
 
@@ -190,7 +190,7 @@ exports[`Homework Row renders in progress 1`] = `
           className="sc-fznyAO c3"
         >
           <time>
-            Su Oct 15, 7:00am
+            Sun, Oct 15, 7:00am CDT
           </time>
         </div>
         <div
@@ -340,7 +340,7 @@ exports[`Homework Row renders with completed count 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 18rem;
+  width: 20rem;
   padding-right: 1rem;
 }
 
@@ -450,7 +450,7 @@ exports[`Homework Row renders with completed count 1`] = `
           className="sc-fznyAO c3"
         >
           <time>
-            Sa Oct 14, 7:00am
+            Sat, Oct 14, 7:00am CDT
           </time>
         </div>
         <div

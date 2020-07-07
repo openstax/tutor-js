@@ -85,7 +85,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 18rem;
+  width: 20rem;
   padding-right: 1rem;
 }
 
@@ -513,7 +513,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -526,7 +526,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-                          
+
                         </span>
                       </div>
                     </div>
@@ -583,7 +583,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -653,7 +653,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -723,7 +723,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -909,7 +909,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  width: 18rem;
+  width: 20rem;
   padding-right: 1rem;
 }
 
@@ -1337,7 +1337,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -1350,7 +1350,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-                          
+
                         </span>
                       </div>
                     </div>
@@ -1407,7 +1407,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -1477,7 +1477,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div
@@ -1547,7 +1547,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       className="sc-fznyAO c2"
                     >
                       <time>
-                        We Oct 21, 7:00am
+                        Wed, Oct 21, 7:00am CDT
                       </time>
                     </div>
                     <div

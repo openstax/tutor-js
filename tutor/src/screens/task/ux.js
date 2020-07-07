@@ -227,7 +227,7 @@ export default class TaskUX {
     const step = this.steps[index];
     this.goToStep(step, recordInHistory);
   }
-  
+
   @action.bound goToStepId(id, recordInHistory) {
     const step = this.steps.find(step => step.id == id);
     this.goToStep(step, recordInHistory);

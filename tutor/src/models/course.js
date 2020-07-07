@@ -32,7 +32,7 @@ import Flags from './feature_flags';
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
-  'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
+  'name', 'is_lms_enabled', 'timezone', 'default_open_time', 'default_due_time',
   'homework_weight', 'reading_weight',
 ];
 
@@ -59,7 +59,7 @@ class Course extends BaseModel {
   @field is_college;
   @field is_concept_coach;
   @field is_preview;
-  @field time_zone = 'US/Central';
+  @field timezone = 'US/Central';
   @field offering_id;
   @field is_lms_enabling_allowed = false;
   @field is_access_switchable = true;
@@ -69,7 +69,6 @@ class Course extends BaseModel {
   @field ends_at;
 
   @field term;
-  @field time_zone;
   @field webview_url;
   @field year;
 
@@ -202,14 +201,14 @@ class Course extends BaseModel {
 
   @computed get allowedAssignmentDateRange() {
     return {
-      start: moment(this.starts_at).add(1, 'day').endOf('day'),
-      end: moment(this.ends_at).subtract(1, 'day').startOf('day'),
+      start: this.momentInZone(this.starts_at).add(1, 'day').endOf('day'),
+      end: this.momentInZone(this.ends_at).subtract(1, 'day').startOf('day'),
     };
   }
 
   // bind to this so it can be used in disabledDate check
   isInvalidAssignmentDate = (date) => {
-    return !moment(date).isBetween(
+    return !this.momentInZone(date).isBetween(
       this.allowedAssignmentDateRange.start,
       this.allowedAssignmentDateRange.end,
       'day', '[]'
@@ -253,7 +252,7 @@ class Course extends BaseModel {
   }
 
   momentInZone(date) {
-    return moment.tz(date, this.time_zone);
+    return moment.tz(date, this.timezone);
   }
 
   @computed get tourAudienceTags() {

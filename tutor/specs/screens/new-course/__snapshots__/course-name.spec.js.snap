@@ -36,6 +36,7 @@ exports[`CreateCourse: entering name matches snapshot 1`] = `
         className="form-control"
         onChange={[Function]}
         placeholder="select"
+        value="US/Central"
       >
         <option
           value="US/Hawaii"

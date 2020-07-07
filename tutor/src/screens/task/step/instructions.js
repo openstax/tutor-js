@@ -1,9 +1,10 @@
-import { React, PropTypes, observer, styled, moment } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import TutorLink from '../../../components/link';
 import { colors } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
 import S from '../../../helpers/string';
+import TimeHelper from '../../../helpers/time';
 
 const CardBody = styled(InnerStepCard)`
   padding-bottom: 5rem;
@@ -82,7 +83,7 @@ const ReadingWeights = observer(({ task }) => {
   );
 });
 
-const format = (date) => moment(date).format('dd, MMM Do YYYY [at] h:mm a');
+const format = (date) => TimeHelper.momentInLocal(date).format(TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT);
 
 const LateWorkPolicy = observer(({ task }) => {
   if (!task.hasLateWorkPolicy) { return null; }
@@ -186,12 +187,12 @@ const Dates = observer(({ task }) => {
   return (
     <>
       <Heading>Due date</Heading>
-      <p>{format(task.dueAtMoment)}</p>
+      <p>{format(task.due_at)}</p>
 
       {!task.isEvent && (
         <>
           <Heading>Close date</Heading>
-          <p>{format(task.closesAtMoment)}</p>
+          <p>{format(task.closes_at)}</p>
         </>
       )}
     </>
@@ -235,7 +236,7 @@ const Instructions = observer((props) => {
         <Body>
           <Description task={task} />
 
-          <Dates task={task} />
+          <Dates ux={ux} task={task} />
           <PracticeInstructions task={task} />
           <LateWorkPolicy task={task} />
           <ReadingWeights task={task} />

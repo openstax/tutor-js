@@ -176,14 +176,14 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get opensAtString() {
-    const opens = this.duration.start;
+    const opens = this.course.momentInZone(this.duration.start);
 
     // it's open
     if (opens.isBefore(Time.now)) {
       return null;
     }
     if (opens.isSame(Time.now, 'day')) {
-      return opens.format('h:mm a');
+      return opens.format('h:mm a z');
     }
     return opens.format('M/D');
   }

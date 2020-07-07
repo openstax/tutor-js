@@ -18,8 +18,6 @@ const GreenCircle = styled.div`
   `}
 `;
 
-const format = (dte) => moment(dte).format('h:mm a on MMM D');
-
 const ExtensionIconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -35,8 +33,10 @@ EIcon.propTypes = {
   inline: PropTypes.bool,
 };
 
-const ExtensionIcon = ({ className, extension, inline = false }) => {
+const ExtensionIcon = ({ className, extension, timezone, inline = false }) => {
   let msg = 'Student was granted an extension.';
+  const format = (dte) => moment.tz(dte, timezone).format('h:mm a z on MMM D');
+
   if (extension) {
     msg += ` Assignment is now due at ${format(extension.due_at)} and closes at ${format(extension.closes_at)}`;
   }
@@ -61,6 +61,7 @@ ExtensionIcon.propTypes = {
     closes_at: PropTypes.string,
   }),
   inline: PropTypes.bool,
+  timezone: PropTypes.string,
 };
 export { GreenCircle, EIcon };
 export default ExtensionIcon;
