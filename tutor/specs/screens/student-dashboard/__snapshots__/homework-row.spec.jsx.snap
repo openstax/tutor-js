@@ -190,7 +190,7 @@ exports[`Homework Row renders in progress 1`] = `
           className="sc-fznyAO c3"
         >
           <time>
-            Sun, Oct 15, 6:00am CST
+            Sun, Oct 15, 7:00am CDT
           </time>
         </div>
         <div
@@ -450,7 +450,7 @@ exports[`Homework Row renders with completed count 1`] = `
           className="sc-fznyAO c3"
         >
           <time>
-            Sat, Oct 14, 6:00am CST
+            Sat, Oct 14, 7:00am CDT
           </time>
         </div>
         <div
