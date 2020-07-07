@@ -41,7 +41,7 @@ NotOpenNotice.propTypes = {
   task: PropTypes.object.isRequired,
 };
 
-const EventTime = ({ event, course }) => {
+const EventTime = ({ event }) => {
   if (event.is_deleted) { return null; }
   return <Time date={event.due_at} format="concise" />;
 };
@@ -109,7 +109,7 @@ class EventRow extends React.Component {
             <span>{event.title}</span>
           </TitleCell>
           <DueCell>
-            <EventTime event={event} course={course} />
+            <EventTime event={event} />
             {event.is_extended && <StyledEIcon />}
             <HideButton event={event} />
           </DueCell>
