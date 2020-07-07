@@ -198,7 +198,6 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "spy": Object {},
       "task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 0,
         "correctness_weight": 1,
         "description": "maximized",
@@ -551,7 +550,6 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "spy": Object {},
         "task": StudentTask {
           "closes_at": 2017-10-21T12:00:00.000Z,
-          "complete": undefined,
           "completion_weight": 0,
           "correctness_weight": 1,
           "description": "maximized",

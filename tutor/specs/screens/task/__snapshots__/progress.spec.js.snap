@@ -7,7 +7,6 @@ exports[`Reading Progress Component matches snapshot 1`] = `
       "_stepId": "instructions",
       "_task": StudentTask {
         "closes_at": 2017-10-21T12:00:00.000Z,
-        "complete": undefined,
         "completion_weight": 1,
         "correctness_weight": 0,
         "description": "full-range",
