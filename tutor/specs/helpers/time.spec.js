@@ -3,7 +3,7 @@ import TimeHelper from '../../src/helpers/time';
 import Courses from '../../src/models/courses-map';
 
 const COURSE_ID = 'TEST_COURSE_ID';
-const TEST_TIMEZONE = 'US/Pacific';
+const TEST_TIMEZONE = 'US/Alaska';
 const TODAY_IN_CURRENT_ZONE = moment().startOf('day').format();
 
 describe('Time Helpers', function() {

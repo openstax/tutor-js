@@ -15,15 +15,13 @@ describe('Homework Row', function() {
     };
   });
 
-  // TODO: Fix issues with CI timezone mock not working
-  xit('renders in progress', () => {
+  it('renders in progress', () => {
     props.event.completed_steps_count = 1;
     props.event.due_at = new Date('2017-10-15T12:00:00.000Z');
     expect.snapshot(<C><Row {...props} /></C>).toMatchSnapshot();
   });
 
-  // TODO: Fix issues with CI timezone mock not working
-  xit('renders with completed count', function() {
+  it('renders with completed count', function() {
     props.event.correct_exercise_count = null;
     expect.snapshot(<C><Row {...props} /></C>).toMatchSnapshot();
   });
