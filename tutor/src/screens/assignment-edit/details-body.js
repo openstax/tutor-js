@@ -4,7 +4,6 @@ import {
 } from './builder';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
-import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
 import ConfirmTemplateModal from './confirm-template-modal';
 import { OverlayTrigger, Dropdown } from 'react-bootstrap';
@@ -12,6 +11,7 @@ import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
 import { TruncatedText } from '../../components/text';
+import NewIcon from '../../components/new-icon';
 
 const lengthLimit = (n) =>
   (v) => (v && v.length > n) && `Cannot be longer than ${n} characters`;
@@ -128,9 +128,9 @@ const TemplateField = observer(({ ux }) => {
   return (
     <SplitRow>
       <RowLabel htmlFor="">
-        <NewTooltip>
+        <NewIcon>
           <span>Grading template</span>
-        </NewTooltip>
+        </NewIcon>
         <HintText>(Apply a pre-set submission and grading policy template)</HintText>
       </RowLabel>
       <div>
