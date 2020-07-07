@@ -40,8 +40,7 @@ describe('Event Row', function() {
     deletedNotStartedRow.unmount();
   });
 
-  // TODO: Fix issues with CI timezone mock not working
-  xit('renders and matches snapshot', () => {
+  it('renders and matches snapshot', () => {
     expect.snapshot(
       <C>
         <EventRow

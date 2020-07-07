@@ -526,7 +526,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-
+                          
                         </span>
                       </div>
                     </div>
@@ -1350,7 +1350,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-
+                          
                         </span>
                       </div>
                     </div>
