@@ -190,7 +190,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
           className="sc-AxiKw c3"
         >
           <time>
-            Wed, Oct 30, 5:00am PDT
+            Wed, Oct 30, 6:00am CST
           </time>
         </div>
         <div
