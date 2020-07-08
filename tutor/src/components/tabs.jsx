@@ -56,7 +56,9 @@ const Tabs = ({
     ) {
       const ev = new FakeEvent;
       onSelect(activeIndex, ev);
-      selectTabIndex(activeIndex);
+      if (ev.isDefaultPrevented()) {
+        selectTabIndex(activeIndex);
+      }
     }
     prevSelectedIndexRef.current = selectedIndex;
   }, [selectedIndex]);
