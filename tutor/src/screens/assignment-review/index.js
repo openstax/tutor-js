@@ -99,7 +99,8 @@ class AssignmentReview extends React.Component {
     const {
       isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
     } = this.ux;
-    if (!isScoresReady) {
+    
+    if (!isScoresReady || !scores) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
 
