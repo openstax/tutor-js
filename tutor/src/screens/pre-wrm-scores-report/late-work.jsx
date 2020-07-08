@@ -30,13 +30,11 @@ class LateWorkMessages {
   }
 
   score() {
-    return this.isAccepted ?
-      this.task.humanUnacceptedScore : this.task.humanScoreWithLateWork;
+    return this.task.humanScore;
   }
 
   progress() {
-    return this.isAccepted ?
-      this.task.humanUnacceptedProgress : this.task.humanProgressWithLateWork;
+    return this.task.humanProgress;
   }
 
   lateExerciseCount() {
