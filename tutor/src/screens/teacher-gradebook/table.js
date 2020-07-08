@@ -71,7 +71,10 @@ const HeadingTop = styled.div`
     color: ${colors.bright_blue};
     display: block;
     margin-bottom: -2px;
-    margin-top: 0.5px;
+
+    .svg {
+      margin-top: -2px;
+    }
   }
 
   & .heading-title {
@@ -117,10 +120,7 @@ const HeadingBottom = styled.div`
   background: #fff;
   position: relative;
   color: ${colors.neutral.thin};
-
-  .available-points {
-    margin-top: 0.5px;
-  }
+  height: 25px;
 `;
 
 const ColumnHeading = styled.div`
@@ -222,9 +222,7 @@ const StudentColumnHeader = observer(({ ux }) => {
               onClick={() => ux.isNameInverted = !ux.isNameInverted} 
             />
           </HeadingMiddle>
-          <HeadingBottom>
-            <div className="available-points">Available Points</div>
-          </HeadingBottom>
+          <HeadingBottom />
         </ColumnHeading>
         <ColumnHeading>
           <HeadingTop
@@ -321,10 +319,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
           <HeadingMiddle>
             {moment(heading.due_at).format('MMM D')}
           </HeadingMiddle>
-          <HeadingBottom>
-            {false && <CornerTriangle color="blue" tooltip="Dropped" />}
-            {heading.isExternal ? 'n/a' : S.numberWithOneDecimalPlace(heading.available_points)}
-          </HeadingBottom>
+          <HeadingBottom />
         </ColumnHeading>
       </Cell>
     </OverlayTrigger>
