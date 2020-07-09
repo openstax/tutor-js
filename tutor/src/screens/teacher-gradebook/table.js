@@ -15,6 +15,27 @@ import { getCell } from './styles';
 import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
 
+const StyledGradebook = styled.div`
+  display: flex;
+
+  .student-course-data {
+    overflow: inherit;
+
+    & .bottom-border {
+      background-color: ${colors.neutral.pale};
+      height: 15px;
+    }
+  }
+
+  .student-assignment-data {
+    border-right: 1px solid ${colors.neutral.pale};
+  }
+
+  .sticky-table-cell {
+    height: 40px;
+  }
+`;
+
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
 
@@ -365,7 +386,7 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
 });
 
 
-const Aggregates = observer(({ ux }) => {
+const AggregateCourseData = observer(({ ux }) => {
   if (ux.searchingMatcher) { return null; }
 
   return (
@@ -389,7 +410,6 @@ const Aggregates = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped drawBorderBottom>
@@ -410,7 +430,6 @@ const Aggregates = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped>
@@ -431,25 +450,57 @@ const Aggregates = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
+      </Row>
+    </>
+  );
+});
+
+const AggregateAssignmentData = observer(({ ux }) => {
+  if (ux.searchingMatcher) { return null; }
+
+  return (
+    <>
+      <Row>
+        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
+      </Row>
+      <Row>
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
+      </Row>
+      <Row>
         {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
       </Row>
     </>
   );
 });
 
+/**
+ * Two sticky tables (Main reason is to have horizontal scroll just below the student assignment data table, not the entire table).
+ * First one is the student course data.
+ * Second one is the the student assignment data.
+ */
 const GradebookTable = observer(({ ux }) => {
   return (
-    <>
-      <StyledStickyTable>
-        {/* Headings */}
+    <StyledGradebook>
+      <StyledStickyTable className="student-course-data">
         <Row>
           <StudentColumnHeader ux={ux} />
-          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
         </Row>
-        {/* Student info and data */}
+        {/* Student course data */}
         {ux.students.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+          </Row>))}
+        <AggregateCourseData ux={ux} />
+        <div className="bottom-border"></div>
+      </StyledStickyTable>
+
+      <StyledStickyTable leftStickyColumnCount={0} className="student-assignment-data">
+        <Row>
+          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
+        </Row>
+        {/* Student assignment data */}
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
             {/* Correlation on student data and assignment header happens in the BE */}
             {ux.studentTasks(student).map((task, taskIndex) =>
               <TaskResultCell
@@ -459,15 +510,14 @@ const GradebookTable = observer(({ ux }) => {
                 striped={sIndex % 2 === 0}
                 isLast={sIndex === ux.students.length - 1} 
               />)}
-          </Row>))}
-        
-        <Aggregates ux={ux} />
-
+          </Row>))}     
+        <AggregateAssignmentData ux={ux} />
       </StyledStickyTable>
+
       {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
-    </>
+    </StyledGradebook>
   );
 });
 GradebookTable.propTypes = {
