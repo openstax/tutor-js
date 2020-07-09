@@ -1,13 +1,12 @@
 import { React, PropTypes, observer, styled, moment } from 'vendor';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import DateTime from '../../components/date-time-input';
+import DateTimeInput from '../../components/date-time-input';
 import { Formik, Form } from 'formik';
-import { colors } from 'theme';
+import { colors, fonts } from 'theme';
 import Time from '../../helpers/time';
 import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/extension';
-
-// https://projects.invisionapp.com/d/main#/console/18937568/411294724/preview
-
+import CheckBoxInput from '../../components/checkbox-input';
+import SearchInput from '../../components/search-input';
 
 const StudentExtensionInfo = observer(({ ux, student }) => {
   if (!student.extension) { return null; }
@@ -21,53 +20,64 @@ const StudentExtensionInfo = observer(({ ux, student }) => {
   );
 });
 
-const CheckBox = styled.input.attrs({
-  type: 'checkbox',
-})`
-    margin-right: 1rem;
-`;
-
-const Label = styled.label`
-  margin-bottom: 1rem;
-`;
-
-const StudentWrapper = styled(Label)`
+const StudentWrapper = styled.div`
   ${GreenCircle} {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-top: -1px;
   }
   flex: 1 0 25%;
-  margin: 5px;
-  height: 25px;
+  margin: 10px 5px 9px 0;
+  display: flex;
+  align-items: center;
+
+  label {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
-const Box = styled.div`
+const DateTimes = styled.div`
   display: flex;
   > * { flex: 1; }
   .date-time-input + .date-time-input {
     margin-left: 1rem;
   }
+  .date-time-input {
+    display: flex;
+    align-items: center;
+    label {
+      margin-right: 24px;
+      margin-bottom: 0;
+    }
+  }
 `;
 
 const StudentsList = styled.div`
-  margin-bottom: 2rem;
+  margin: 10px 0 36px;
   display: flex;
   flex-wrap: wrap;
+
+  label {
+    margin-left: 17px;
+    margin-bottom: 0;
+  }
 `;
 
 const LegendBar = styled.div`
-  margin: 2rem;
+  margin: 2.5rem 2rem 2rem 0;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `;
 
 const ExtensionText = styled.div`
-  font-size: 10px;
+  ${fonts.faces.light};
+  font-size: 1.4rem;
+  line-height: 2.2rem;
   margin-left: 1rem;
-  color: ${colors.neutral.gray};
-`;
-
-const StyledModalHeader = styled(Modal.Header)`
-  font-weight: bold;
+  color: ${colors.neutral.lite};
+  max-width: 525px;
 `;
 
 const SelectTitle = styled.div`
@@ -75,35 +85,84 @@ const SelectTitle = styled.div`
   margin-bottom: 1rem;
 `;
 
-const SelectAllLabel = styled(Label)`
-  margin: 13px 5px;
+const Toolbar = styled.div`
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  input { height: 100%; }
+  .input-group { width: 255px; }
+`;
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    min-width: 800px;
+  }
+
+  .modal-footer {
+    padding: 0 40px 40px;
+  }
+
+  .modal-body {
+    padding: 22px 40px;
+  }
+
+  .modal-header {
+    padding: 25px 40px;
+    font-weight: bold;
+    font-size: 1.8rem;
+
+    .close {
+      font-size: 3rem;
+      margin-top: -1.8rem;
+    }
+  }
+
+  .extension-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+`;
+
+const SelectAll = styled.div`
+  label {
+    margin-left: 17px;
+    margin-bottom: 0;
+  }
 `;
 
 const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
   return (
-    <Modal
+    <StyledModal
       show={ux.isDisplayingGrantExtension}
       backdrop="static"
       onHide={ux.cancelDisplayingGrantExtension}
     >
       <Form>
-        <StyledModalHeader>
+        <Modal.Header closeButton={true}>
           Grant extension for {ux.selectedPeriod.name}
-        </StyledModalHeader>
+        </Modal.Header>
         <Modal.Body>
-          <SelectTitle>Select student(s):</SelectTitle>
-          <SelectAllLabel>
-            <CheckBox
+          <Toolbar>
+            <SelectTitle>Select student(s):</SelectTitle>
+            <SearchInput onChange={ux.onSearchExtensionStudentChange} />
+          </Toolbar>
+          <SelectAll>
+            <CheckBoxInput
               onChange={ux.toggleGrantExtensionAllStudents}
+              label="Select all"
+              labelSize="lg"
+              standalone={true}
+              checked={ux.allExtensionStudentsSelected}
             />
-            Select all
-          </SelectAllLabel>
+          </SelectAll>
           <StudentsList>
-            {ux.activeScoresStudents.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
+            {ux.extensionStudents.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
           </StudentsList>
-          <Box>
-            <DateTime
-              label="New due date"
+          <DateTimes>
+            <DateTimeInput
+              label="New due date:"
               name="extension_due_date"
               disabledDate={ux.course.isInvalidAssignmentDate}
               timezone={ux.course.timezone}
@@ -112,14 +171,14 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                 if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
               }}
             />
-            <DateTime
-              label="New close date"
+            <DateTimeInput
+              label="New close date:"
               name="extension_close_date"
               timezone={ux.course.timezone}
               disabledDate={ux.course.isInvalidAssignmentDate}
               validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
             />
-          </Box>
+          </DateTimes>
           <LegendBar>
             <EIcon />
             <ExtensionText>
@@ -132,17 +191,19 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
           <Button
             size="lg"
             variant="default"
+            className="btn-standard"
             onClick={ux.cancelDisplayingGrantExtension}
           >Cancel</Button>
           <Button
             size="lg"
             variant="primary"
+            className="btn-standard"
             type="submit"
             disabled={isValid == false || (!ux.isPendingExtensions)}
           >Save</Button>
         </Modal.Footer>
       </Form>
-    </Modal>
+    </StyledModal>
   );
 });
 
@@ -150,13 +211,14 @@ const Student = observer(({ student, ux }) => {
   const checked = !!ux.pendingExtensions.get(student.role_id.toString(10));
   return (
     <StudentWrapper>
-      <CheckBox
+      <CheckBoxInput
         onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked)}
         checked={checked}
+        standalone={true}
+        label={`${student.first_name} ${student.last_name}`}
+        labelSize="lg"
       />
-      <span>{student.last_name}, {student.first_name}
-        <StudentExtensionInfo ux={ux} student={student} />
-      </span>
+      <StudentExtensionInfo ux={ux} student={student} />
     </StudentWrapper>
   );
 });
