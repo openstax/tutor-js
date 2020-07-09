@@ -25,13 +25,13 @@ const StudentWrapper = styled.div`
     margin-left: 0.5rem;
     margin-top: -1px;
   }
-  flex: 1 0 25%;
-  margin: 10px 5px 9px 0;
+  width: 210px;
+  margin: 10px 25px 9px 0;
   display: flex;
   align-items: center;
 
   label {
-    max-width: 160px;
+    max-width: 170px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
