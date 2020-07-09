@@ -18,7 +18,7 @@ import SetWeightsModal from './set-weights-modal';
 
 const StyledStickyTable = styled(StickyTable)`
   max-height: ${props => `${props.height}px`};
-  min-height: 300px;
+  min-height: auto;
   margin: 2.2rem 0 1.4rem;
 
   .sticky-table-row:last-child .sticky-table-cell {

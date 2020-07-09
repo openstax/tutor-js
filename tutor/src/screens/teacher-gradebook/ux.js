@@ -7,7 +7,7 @@ import Courses from '../../models/courses-map';
 import {
   find, pick, pickBy, mapValues,
   groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
-  filter, sortBy, maxBy, minBy, orderBy,
+  filter, sortBy, maxBy, minBy, orderBy, some,
 } from 'lodash';
 import S, { UNWORKED } from '../../helpers/string';
 
@@ -147,6 +147,10 @@ export default class GradeBookUX {
 
   @computed get hasDroppedStudents() {
     return Boolean(find(this.currentPeriodScores.students, 'is_dropped'));
+  }
+
+  @computed get hasAnyStudents() {
+    return some(this.currentPeriodScores.students, s => !s.is_dropped);
   }
 
   @action updateProps(props) {
