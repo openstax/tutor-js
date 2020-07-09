@@ -12,7 +12,6 @@ export const TYPE = {
 };
 
 const getMinOrMaxResultPoints = (tasks, type) => {
-  console.log(tasks);
   switch(type) {
     case TYPE.MIN:
       return minBy(tasks, 'published_points');

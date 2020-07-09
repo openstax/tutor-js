@@ -5,7 +5,7 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  find, first, pick, pickBy, mapValues,
+  find, pick, pickBy, mapValues,
   groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
   filter, sortBy, maxBy, minBy, orderBy,
 } from 'lodash';
