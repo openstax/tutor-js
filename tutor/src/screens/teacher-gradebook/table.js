@@ -237,7 +237,7 @@ const StudentColumnHeader = observer(({ ux }) => {
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
           <HeadingMiddle>
-            {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname, Lastname'}
+            {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname Lastname'}
             <Icon type="exchange-alt"
               className="invert-name-icon-button"
               onClick={() => ux.isNameInverted = !ux.isNameInverted} 

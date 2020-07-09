@@ -17,7 +17,7 @@ export default class GradeBookUX {
 
   windowSize = new WindowSize();
 
-  @observable isNameInverted = true;
+  @observable isNameInverted = false;
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable currentPeriodScores;
@@ -160,7 +160,7 @@ export default class GradeBookUX {
 
   displayStudentName(student) {
     if(this.isNameInverted) return `${student.last_name}, ${student.first_name}`;
-    return `${student.first_name}, ${student.last_name}`;
+    return `${student.first_name} ${student.last_name}`;
   } 
 
   @computed get periodTasksByType() {
