@@ -1,7 +1,7 @@
 import { findIndex, isNil } from 'lodash';
-import { computed } from 'mobx';
+import { moment, computed } from 'vendor';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, moment,
+  BaseModel, identifiedBy, belongsTo, identifier, field,
 } from 'shared/model';
 import Time from '../time';
 import S, { UNWORKED } from '../../helpers/string';
