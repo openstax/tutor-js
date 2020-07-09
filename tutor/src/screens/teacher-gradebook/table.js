@@ -24,6 +24,10 @@ const StyledStickyTable = styled(StickyTable)`
   .sticky-table-row:last-child .sticky-table-cell {
     border-bottom: 1px solid ${colors.neutral.pale};
   }
+
+  .sticky-table-row .sticky-table-cell:first-child {
+    border-right: 1px solid ${colors.neutral.pale};
+  }
 `;
 
 const Cell = getCell('0');
