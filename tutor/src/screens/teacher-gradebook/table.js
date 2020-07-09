@@ -8,6 +8,7 @@ import { colors } from 'theme';
 import S, { UNWORKED } from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import TutorLink from '../../components/link';
+import { useWindowSize } from '../../components/useWindowSize';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
@@ -16,24 +17,9 @@ import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
 
 const StyledGradebook = styled.div`
-  display: flex;
-
-  .student-course-data {
-    overflow: inherit;
-
-    & .bottom-border {
-      background-color: ${colors.neutral.pale};
-      height: 15px;
-    }
-  }
-
-  .student-assignment-data {
-    border-right: 1px solid ${colors.neutral.pale};
-  }
-
-  .sticky-table-cell {
-    height: 40px;
-  }
+  height: ${props => `${props.height}px`};
+  /* About 5 rows */
+  min-height: 180px;
 `;
 
 const StyledStickyTable = styled(StickyTable)`
@@ -386,7 +372,7 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
 });
 
 
-const AggregateCourseData = observer(({ ux }) => {
+const AggregateData = observer(({ ux }) => {
   if (ux.searchingMatcher) { return null; }
 
   return (
@@ -410,6 +396,7 @@ const AggregateCourseData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
+        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped drawBorderBottom>
@@ -430,6 +417,7 @@ const AggregateCourseData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped>
@@ -450,57 +438,29 @@ const AggregateCourseData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-      </Row>
-    </>
-  );
-});
-
-const AggregateAssignmentData = observer(({ ux }) => {
-  if (ux.searchingMatcher) { return null; }
-
-  return (
-    <>
-      <Row>
-        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
-      </Row>
-      <Row>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
-      </Row>
-      <Row>
         {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
       </Row>
     </>
   );
 });
 
-/**
- * Two sticky tables (Main reason is to have horizontal scroll just below the student assignment data table, not the entire table).
- * First one is the student course data.
- * Second one is the the student assignment data.
- */
 const GradebookTable = observer(({ ux }) => {
+  // calculating the size of the table
+  const size = useWindowSize();
+  // table covers about 60% of the screen height
+  const tableHeight = Math.ceil((size.height * 60) / 100);
   return (
-    <StyledGradebook>
-      <StyledStickyTable className="student-course-data">
+    <StyledGradebook height={tableHeight}>
+      
+
+      <StyledStickyTable leftStickyColumnCount={1} className="student-assignment-data">
         <Row>
           <StudentColumnHeader ux={ux} />
+          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
         </Row>
-        {/* Student course data */}
         {ux.students.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
-          </Row>))}
-        <AggregateCourseData ux={ux} />
-        <div className="bottom-border"></div>
-      </StyledStickyTable>
-
-      <StyledStickyTable leftStickyColumnCount={0} className="student-assignment-data">
-        <Row>
-          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
-        </Row>
-        {/* Student assignment data */}
-        {ux.students.map((student,sIndex) => (
-          <Row key={sIndex}>
             {/* Correlation on student data and assignment header happens in the BE */}
             {ux.studentTasks(student).map((task, taskIndex) =>
               <TaskResultCell
@@ -510,8 +470,125 @@ const GradebookTable = observer(({ ux }) => {
                 striped={sIndex % 2 === 0}
                 isLast={sIndex === ux.students.length - 1} 
               />)}
-          </Row>))}     
-        <AggregateAssignmentData ux={ux} />
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}    
+        {ux.students.map((student,sIndex) => (
+          <Row key={sIndex}>
+            <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+            {/* Correlation on student data and assignment header happens in the BE */}
+            {ux.studentTasks(student).map((task, taskIndex) =>
+              <TaskResultCell
+                key={taskIndex}
+                ux={ux}
+                task={task} 
+                striped={sIndex % 2 === 0}
+                isLast={sIndex === ux.students.length - 1} 
+              />)}
+          </Row>))}
+        <AggregateData ux={ux} />
       </StyledStickyTable>
 
       {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
