@@ -1,5 +1,5 @@
 import { React, PropTypes, styled } from 'vendor';
-import TutorLink from '../../components/link';
+import TutorLink from './link';
 
 const StyledNoStudentsMessage = styled.div`
     display: flex;
