@@ -5,6 +5,7 @@ import CourseBreadcrumb from '../../components/course-breadcrumb';
 import TourRegion from '../../components/tours/region';
 import NoStudentsMessage from '../../components/no-students-message';
 import { BackgroundWrapper } from '../../helpers/background-wrapper';
+import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
 import Controls from './controls';
 import ScoresReportNav from './nav';
@@ -30,7 +31,7 @@ class TeacherGradeBook extends React.Component {
     ux: PropTypes.instanceOf(UX),
   };
   
-  ux = new UX(this.props.params)
+  ux = new UX({ ...this.props.params, ...Router.currentQuery() })
 
   componentDidUpdate() {
     this.ux.updateProps(this.props);
@@ -68,7 +69,6 @@ class TeacherGradeBook extends React.Component {
 
   render() {
     const { ux } = this;
-
     return (
       <BackgroundWrapper>
         <CoursePage

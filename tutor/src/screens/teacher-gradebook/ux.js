@@ -42,10 +42,19 @@ export default class GradeBookUX {
   async initialize({
     courseId,
     course = Courses.get(courseId),
+    tab = 0,
   }) {
     this.course = course;
     await this.course.scores.fetch();
-    this.periodId = first(this.course.periods.active).id;
+
+    // set the periodId base on the tab in the current url query
+    let activeTab = parseInt(tab, 10);
+    const numberOfActivePeriods = this.course.periods.active.length;
+    if(activeTab > numberOfActivePeriods - 1) {
+      activeTab = numberOfActivePeriods - 1;
+    }
+    this.periodId = this.course.periods.active[activeTab].id;
+
     this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
     this.isReady = true;
   }
