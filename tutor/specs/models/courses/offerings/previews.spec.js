@@ -11,7 +11,7 @@ describe('Offering Previews Model', () => {
       is_active: true,
       is_preview: true,
       should_reuse_preview: true,
-      roles: [ { type: 'teacher' } ]
+      roles: [ { type: 'teacher' } ],
     }
     beforeAll(
       () => {
@@ -44,7 +44,7 @@ describe('Offering Previews Model', () => {
         is_active: true,
         is_preview: true,
         should_reuse_preview: true,
-        roles: [ { type: 'teacher' } ]
+        roles: [ { type: 'teacher' } ],
       }
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
@@ -60,7 +60,7 @@ describe('Offering Previews Model', () => {
         is_active: true,
         is_preview: false,
         should_reuse_preview: true,
-        roles: [ { type: 'teacher' } ]
+        roles: [ { type: 'teacher' } ],
       }
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
@@ -76,7 +76,7 @@ describe('Offering Previews Model', () => {
         is_active: true,
         is_preview: true,
         should_reuse_preview: false,
-        roles: [ { type: 'teacher' } ]
+        roles: [ { type: 'teacher' } ],
       }
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
@@ -92,7 +92,7 @@ describe('Offering Previews Model', () => {
         is_active: false,
         is_preview: true,
         should_reuse_preview: true,
-        roles: [ { type: 'teacher' } ]
+        roles: [ { type: 'teacher' } ],
       }
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
@@ -108,7 +108,7 @@ describe('Offering Previews Model', () => {
         is_active: true,
         is_preview: true,
         should_reuse_preview: true,
-        roles: [ { type: 'teacher_student' } ]
+        roles: [ { type: 'teacher_student' } ],
       }
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
@@ -126,7 +126,7 @@ describe('Offering Previews Model', () => {
           is_active: true,
           is_preview: true,
           should_reuse_preview: true,
-          roles: [ { type: 'teacher' } ]
+          roles: [ { type: 'teacher' } ],
         }
         beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
