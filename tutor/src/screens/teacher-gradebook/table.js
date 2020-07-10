@@ -123,6 +123,7 @@ const HeadingMiddle = styled.div`
 
 const HeadingBottom = styled.div`
   padding: 0.5rem 1rem;
+  height: 2.6rem;
   align-self: stretch;
   font-size: 1.2rem;
   background: #fff;
@@ -303,17 +304,17 @@ const AssignmentHeading = observer(({ ux, heading }) => {
   });
 
   return (
-    <OverlayTrigger
-      // Overlay has a lot of problems when showing at the top. Putting at the bottom for now
-      placement="bottom"
-      trigger={showToolTip ? 'hover' : null}
-      overlay={
-        <Popover className="scores-popover">
-          <p>{heading.title}</p>
-        </Popover>
-      }>
-      <Cell>
-        <ColumnHeading variant={heading.type}>
+    <Cell>
+      <ColumnHeading variant={heading.type}>
+        <OverlayTrigger
+          placement="bottom"
+          trigger={showToolTip ? 'hover' : null}
+          overlay={
+            <Popover className="scores-popover">
+              <p>{heading.title}</p>
+            </Popover>
+          }
+        >
           <HeadingTop>
             <div className="heading-title" ref={titleTextRef}>
               {heading.canReview ? (
@@ -329,14 +330,29 @@ const AssignmentHeading = observer(({ ux, heading }) => {
               ) : heading.title}
             </div>
           </HeadingTop>
-          <HeadingMiddle>
-            {ux.course.momentInZone(heading.due_at).format('MMM D')}
-          </HeadingMiddle>
-          <HeadingBottom />
-        </ColumnHeading>
-      </Cell>
-    </OverlayTrigger>
-
+        </OverlayTrigger>
+        <HeadingMiddle>
+          {ux.course.momentInZone(heading.due_at).format('MMM D')}
+        </HeadingMiddle>
+        <HeadingBottom>
+          {ux.hasProvisionalScores(heading.columnIndex) &&
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Popover className="scores-popover">
+                  <p>
+                    Some or all students have a provisional score.
+                    Final scores will be available when all questions
+                    have been graded and/or scores published.
+                  </p>
+                </Popover>
+              }>
+              <Icon variant="circledStar" />
+            </OverlayTrigger>
+          }
+        </HeadingBottom>
+      </ColumnHeading>
+    </Cell>
   );
 });
 
