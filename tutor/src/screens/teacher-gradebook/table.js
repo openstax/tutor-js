@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, observer, css, useEffect, useState, useRef } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
-import moment from 'moment';
 import { isNil } from 'lodash';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
