@@ -134,7 +134,7 @@ const HeadingBottom = styled.div`
 const ColumnHeading = styled.div`
   ${headingCSS}
   background: ${props =>
-    !props.variant 
+    !props.variant
       ? colors.neutral.lighter
       // gradebook can only have homework, reading, and external
       : props.variant === 'homework'
@@ -143,7 +143,7 @@ const ColumnHeading = styled.div`
           ? colors.templates.reading.background
           : colors.templates.external.background};
   border-top: 0.4rem solid ${props =>
-    !props.variant 
+    !props.variant
       ? colors.neutral.std
       // gradebook can only have homework, reading, and external
       : props.variant === 'homework'
@@ -224,7 +224,7 @@ const StudentColumnHeader = observer(({ ux }) => {
         >
           <HeadingTop
             onClick={() =>ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
-          >          
+          >
             Student Name
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
@@ -232,7 +232,7 @@ const StudentColumnHeader = observer(({ ux }) => {
             {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname Lastname'}
             <Icon type="exchange-alt"
               className="invert-name-icon-button"
-              onClick={() => ux.isNameInverted = !ux.isNameInverted} 
+              onClick={() => ux.isNameInverted = !ux.isNameInverted}
             />
           </HeadingMiddle>
           <HeadingBottom />
@@ -302,7 +302,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
     setShowToolTip(titleTextRef.current.offsetWidth < titleTextRef.current.scrollWidth);
   });
 
-  return (   
+  return (
     <OverlayTrigger
       // Overlay has a lot of problems when showing at the top. Putting at the bottom for now
       placement="bottom"
@@ -314,7 +314,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
       }>
       <Cell>
         <ColumnHeading variant={heading.type}>
-          <HeadingTop>     
+          <HeadingTop>
             <div className="heading-title" ref={titleTextRef}>
               {heading.canReview ? (
                 <TutorLink
@@ -330,13 +330,13 @@ const AssignmentHeading = observer(({ ux, heading }) => {
             </div>
           </HeadingTop>
           <HeadingMiddle>
-            {moment(heading.due_at).format('MMM D')}
+            {ux.course.momentInZone(heading.due_at).format('MMM D')}
           </HeadingMiddle>
           <HeadingBottom />
         </ColumnHeading>
       </Cell>
     </OverlayTrigger>
-   
+
   );
 });
 
@@ -356,10 +356,10 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
                   params={{ roleId: student.role, courseId: ux.course.id }}
                 >
                   {ux.displayStudentName(student)}
-                </TutorLink>   
-                : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></> 
+                </TutorLink>
+                : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></>
             }
-          </FirstRowCell>    
+          </FirstRowCell>
         </Heading>
         <Total>
           {percentOrDash(student.course_average)}
@@ -470,9 +470,9 @@ const GradebookTable = observer(({ ux }) => {
               <TaskResultCell
                 key={taskIndex}
                 ux={ux}
-                task={task} 
+                task={task}
                 striped={sIndex % 2 === 0}
-                isLast={sIndex === ux.students.length - 1} 
+                isLast={sIndex === ux.students.length - 1}
               />)}
           </Row>))}
         <AggregateData ux={ux} />
