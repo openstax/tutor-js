@@ -31,7 +31,7 @@ class PreviewCourseOffering extends Course {
   }
 
   @computed get previewCourse() {
-    return find(Courses.active.array, { offering_id: this.offering_id, is_preview: true });
+    return find(Courses.preview.active.teaching.array, { offering_id: this.offering_id });
   }
 
   @computed get isBuilding() {
