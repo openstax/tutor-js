@@ -7,7 +7,7 @@ import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
-import NewTooltip from './new-tooltip';
+import NewIcon from '../../components/new-icon';
 import CheckboxInput from '../../components/checkbox-input';
 import { GreyPopover } from './builder';
 import { colors } from 'theme';
@@ -219,7 +219,7 @@ class Tasking extends React.Component {
           <Col xs={12} md={4} className="closes-at">
             <DateTime
               label="Close date & time"
-              labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
+              labelWrapper={ux.isShowingPeriodTaskings ? null : NewIcon}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               disabledDate={this.course.isInvalidAssignmentDate}
