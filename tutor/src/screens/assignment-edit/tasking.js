@@ -169,7 +169,26 @@ class Tasking extends React.Component {
         onChange={ux.togglePeriodTasking}
       />
     );
+  }
 
+  displayDueDateError(tasking) {
+    if(!tasking.isDueAfterOpen) {
+      return 'Due time cannot be before the open time';
+    }
+
+    if(tasking.isPastDue) {
+      return 'Due time has already passed';
+    }
+
+    return null;
+  }
+
+  displayCloseDateError(tasking) {    
+    if(!tasking.isCloseAfterDue) {
+      return 'Due time cannot be before the open time';
+    }
+
+    return null;
   }
 
   render() {
@@ -193,6 +212,7 @@ class Tasking extends React.Component {
   renderDateTimeInputs(tasking) {
     const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
+    // disable dates before the course start date, and after the course end date
     const disabledDate = (current) => current < moment(this.course.starts_at).endOf('day') || current > moment(this.course.ends_at).endOf('day');
     return (
       <Row className="tasking-date-time">
@@ -212,8 +232,8 @@ class Tasking extends React.Component {
             disabledDate={disabledDate}
             onChange={(target) => this.onDueChange(target, index)}
             timezone={this.course.timezone}
+            errorMessage={this.displayDueDateError(tasking)}
           />
-          {this.renderDueAtError()}
         </Col>
         {!this.plan.isEvent &&
           <Col xs={12} md={4} className="closes-at">
@@ -224,6 +244,7 @@ class Tasking extends React.Component {
               onChange={this.onClosesChange}
               disabledDate={disabledDate}
               timezone={this.course.timezone}
+              errorMessage={this.displayCloseDateError(tasking)}
             />
           </Col>
         }
