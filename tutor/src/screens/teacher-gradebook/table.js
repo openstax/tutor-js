@@ -7,7 +7,6 @@ import { colors } from 'theme';
 import S, { UNWORKED } from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import TutorLink from '../../components/link';
-import { useWindowSize } from '../../components/useWindowSize';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
@@ -16,7 +15,7 @@ import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
 
 const StyledStickyTable = styled(StickyTable)`
-  max-height: ${props => `${props.height}px`};
+  max-height: 60vh;
   min-height: auto;
   margin: 2.2rem 0 1.4rem;
 
@@ -466,13 +465,9 @@ const AggregateData = observer(({ ux }) => {
 });
 
 const GradebookTable = observer(({ ux }) => {
-  // calculating the size of the table
-  const size = useWindowSize();
-  // table covers about 60% of the screen height
-  const tableHeight = Math.ceil((size.height * 60) / 100);
   return (
     <>
-      <StyledStickyTable leftStickyColumnCount={1} height={tableHeight} borderWidth={'0px'}>
+      <StyledStickyTable leftStickyColumnCount={1} borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader ux={ux} />
           {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
