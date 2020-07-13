@@ -126,6 +126,8 @@ const StyledModal = styled(Modal)`
 `;
 
 const SelectAll = styled.div`
+  ${props => props.hide && 'visibility: hidden;'}
+
   label {
     margin-left: 17px;
     margin-bottom: 0;
@@ -148,7 +150,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
             <SelectTitle>Select student(s):</SelectTitle>
             <SearchInput onChange={ux.onSearchExtensionStudentChange} />
           </Toolbar>
-          <SelectAll>
+          <SelectAll hide={ux.hideToggleGrantExtensionAllStudents}>
             <CheckBoxInput
               onChange={ux.toggleGrantExtensionAllStudents}
               label="Select all"

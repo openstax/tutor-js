@@ -155,6 +155,10 @@ export default class AssignmentReviewUX {
     return false;
   }
 
+  @computed get hideToggleGrantExtensionAllStudents() {
+    return this.activeScoresStudents.length != this.extensionStudents.length;
+  }
+
   @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
     this.extensionStudents.forEach(s => {
       this.pendingExtensions.set(s.role_id.toString(10), checked);
