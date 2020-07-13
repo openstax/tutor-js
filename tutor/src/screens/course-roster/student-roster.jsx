@@ -8,6 +8,7 @@ import { autobind } from 'core-decorators';
 import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../../components/course-grouping-label';
+import NoStudentsMessage from '../../components/no-students-message';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 import LoadingScreen from 'shared/components/loading-animation';
@@ -43,20 +44,6 @@ class StudentsRoster extends React.Component {
     );
   }
 
-  renderEmpty(course) {
-    const courseId = course.id;
-    return (
-      <div className="roster-empty-info">
-        <p>
-          No students have enrolled in
-          this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
-          in <TutorLink to="settings" params={{ courseId: courseId }}>Course settings</TutorLink>.
-        </p>
-        <TutorLink primaryBtn to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
-      </div>
-    );
-  }
-
   render() {
     const course = this.props.period.course;
     const students = course.roster.students.activeByPeriod[this.props.period.id];
@@ -64,7 +51,13 @@ class StudentsRoster extends React.Component {
     if (!course.roster.api.hasBeenFetched){
       return <LoadingScreen message="Loading Roster…" />;
     }
-    if (isEmpty(students)) { return this.renderEmpty(course); }
+    if (isEmpty(students)) {
+      return (
+        <div className="roster-empty-info">
+          <NoStudentsMessage courseId={course.id}/>
+        </div>
+      ); 
+    }
 
     return (
       <Table

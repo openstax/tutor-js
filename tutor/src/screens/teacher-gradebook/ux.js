@@ -5,9 +5,9 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from '../../models/courses-map';
 import {
-  find, first, pick, pickBy, mapValues,
+  find, pick, pickBy, mapValues,
   groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
-  filter, sortBy, maxBy, minBy, orderBy,
+  filter, sortBy, maxBy, minBy, orderBy, some,
 } from 'lodash';
 import S, { UNWORKED } from '../../helpers/string';
 
@@ -17,7 +17,7 @@ export default class GradeBookUX {
 
   windowSize = new WindowSize();
 
-  @observable isNameInverted = true;
+  @observable isNameInverted = false;
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable currentPeriodScores;
@@ -42,10 +42,19 @@ export default class GradeBookUX {
   async initialize({
     courseId,
     course = Courses.get(courseId),
+    tab = 0,
   }) {
     this.course = course;
     await this.course.scores.fetch();
-    this.periodId = first(this.course.periods.active).id;
+
+    // set the periodId base on the tab in the current url query
+    let activeTab = parseInt(tab, 10);
+    const numberOfActivePeriods = this.course.periods.active.length;
+    if(activeTab > numberOfActivePeriods - 1) {
+      activeTab = numberOfActivePeriods - 1;
+    }
+    this.periodId = this.course.periods.active[activeTab].id;
+
     this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
     this.isReady = true;
   }
@@ -140,6 +149,10 @@ export default class GradeBookUX {
     return Boolean(find(this.currentPeriodScores.students, 'is_dropped'));
   }
 
+  @computed get hasAnyStudents() {
+    return some(this.currentPeriodScores.students, s => !s.is_dropped);
+  }
+
   @action updateProps(props) {
     this.props = props;
   }
@@ -160,7 +173,7 @@ export default class GradeBookUX {
 
   displayStudentName(student) {
     if(this.isNameInverted) return `${student.last_name}, ${student.first_name}`;
-    return `${student.first_name}, ${student.last_name}`;
+    return `${student.first_name} ${student.last_name}`;
   } 
 
   @computed get periodTasksByType() {

@@ -1,15 +1,17 @@
 import { React, PropTypes, observer } from 'vendor';
 import CoursePage from '../../components/course-page';
+import NoPeriods from '../../components/no-periods';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
+import TourRegion from '../../components/tours/region';
+import NoStudentsMessage from '../../components/no-students-message';
+import { BackgroundWrapper } from '../../helpers/background-wrapper';
+import Router from '../../helpers/router';
+import LoadingScreen from 'shared/components/loading-animation';
 import Controls from './controls';
 import ScoresReportNav from './nav';
-import TourRegion from '../../components/tours/region';
-import LoadingScreen from 'shared/components/loading-animation';
-import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Table from './table';
-import { BackgroundWrapper } from '../../helpers/background-wrapper';
-
-import './styles.scss';
 import UX from './ux';
+import './styles.scss';
 
 const titleBreadcrumbs = (course) => {
   return <CourseBreadcrumb course={course} currentTitle="Gradebook" noBottomMargin />;
@@ -29,23 +31,44 @@ class TeacherGradeBook extends React.Component {
     ux: PropTypes.instanceOf(UX),
   };
   
-  ux = new UX(this.props.params)
+  ux = new UX({ ...this.props.params, ...Router.currentQuery() })
 
   componentDidUpdate() {
     this.ux.updateProps(this.props);
   }
 
-  render() {
-    const { ux } = this;
-    let body = null;
-
+  renderTableData(ux) {
     if (!ux.isReady) {
       return <LoadingScreen message="Loading Gradebook…" />;
     }
+    
+    if (ux.hasAnyStudents <= 0) {
+      return <NoStudentsMessage courseId={ux.course.id} />;
+    }
+
+    let body = null;
 
     if (!ux.course.periods.active.length) {
       body = <NoPeriods courseId={ux.course.id} />;
     }
+
+    return (
+      <>
+        <Controls ux={ux} />
+        <TourRegion
+          id="gradebook"
+          className="gradebook-table"
+          courseId={ux.course.id}
+          otherTours={['preview-gradebook']}
+        >
+          {body || <Table ux={ux} />}
+        </TourRegion>
+      </>
+    );
+  }
+
+  render() {
+    const { ux } = this;
     return (
       <BackgroundWrapper>
         <CoursePage
@@ -57,21 +80,11 @@ class TeacherGradeBook extends React.Component {
           controls={titleControls(ux)}
           controlBackgroundColor='white'
         >
-          <Controls ux={ux} />
-          <TourRegion
-            id="gradebook"
-            className="gradebook-table"
-            courseId={ux.course.id}
-            otherTours={['preview-gradebook']}
-          >
-            {body || <Table ux={ux} />}
-          </TourRegion>
+          {this.renderTableData(ux)}
         </CoursePage>
       </BackgroundWrapper>
     );
   }
-
 }
-
 
 export default TeacherGradeBook;

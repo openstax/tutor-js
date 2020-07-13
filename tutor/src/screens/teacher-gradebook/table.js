@@ -8,6 +8,7 @@ import { colors } from 'theme';
 import S, { UNWORKED } from '../../helpers/string';
 import SortIcon from '../../components/icons/sort';
 import TutorLink from '../../components/link';
+import { useWindowSize } from '../../components/useWindowSize';
 import TaskResultCell from './task-result-cell';
 import AggregateResult from './aggregate-result-cell';
 import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
@@ -16,10 +17,16 @@ import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
 
 const StyledStickyTable = styled(StickyTable)`
+  max-height: ${props => `${props.height}px`};
+  min-height: auto;
   margin: 2.2rem 0 1.4rem;
 
   .sticky-table-row:last-child .sticky-table-cell {
     border-bottom: 1px solid ${colors.neutral.pale};
+  }
+
+  .sticky-table-row .sticky-table-cell:first-child {
+    border-right: 1px solid ${colors.neutral.pale};
   }
 `;
 
@@ -71,7 +78,10 @@ const HeadingTop = styled.div`
     color: ${colors.bright_blue};
     display: block;
     margin-bottom: -2px;
-    margin-top: 0.5px;
+
+    .svg {
+      margin-top: -2px;
+    }
   }
 
   & .heading-title {
@@ -107,6 +117,7 @@ const HeadingMiddle = styled.div`
     color: ${colors.link};
     font-size: 14px;
     display: inline-flex;
+    margin-top: -2px;
   }
 `;
 
@@ -117,10 +128,7 @@ const HeadingBottom = styled.div`
   background: #fff;
   position: relative;
   color: ${colors.neutral.thin};
-
-  .available-points {
-    margin-top: 0.5px;
-  }
+  height: 25px;
 `;
 
 const ColumnHeading = styled.div`
@@ -151,7 +159,7 @@ const ColumnHeading = styled.div`
       ${centeredCSS}
     `}
   }
-  border-bottom: 1rem solid ${colors.neutral.pale};
+  border-bottom: 2px solid ${colors.neutral.pale};
 `;
 
 const SplitCell = styled.div`
@@ -193,11 +201,16 @@ const DroppedNote = styled.div`
   font-family: serif;
 `;
 
-// Overriding the default 1px
-const StyledStudentCell = styled(Cell)`
-    ${props => props.drawBorderBottom && css`
-    border-bottom: 2px solid ${colors.neutral.pale};
-  `}
+const StyledAggregateData = styled.div`
+  display: table-footer-group;
+
+  .sticky-table-row:first-child .sticky-table-cell {
+    border-top: 2px solid ${colors.neutral.pale};
+  }
+
+  .sticky-table-row:not(:last-child) .sticky-table-cell {
+    border-bottom: 1px solid ${colors.neutral.pale};
+  }
 `;
 
 const StudentColumnHeader = observer(({ ux }) => {
@@ -216,15 +229,13 @@ const StudentColumnHeader = observer(({ ux }) => {
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
           </HeadingTop>
           <HeadingMiddle>
-            {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname, Lastname'}
+            {ux.isNameInverted ? 'Lastname, Firstname' : 'Firstname Lastname'}
             <Icon type="exchange-alt"
               className="invert-name-icon-button"
               onClick={() => ux.isNameInverted = !ux.isNameInverted} 
             />
           </HeadingMiddle>
-          <HeadingBottom>
-            <div className="available-points">Available Points</div>
-          </HeadingBottom>
+          <HeadingBottom />
         </ColumnHeading>
         <ColumnHeading>
           <HeadingTop
@@ -321,10 +332,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
           <HeadingMiddle>
             {moment(heading.due_at).format('MMM D')}
           </HeadingMiddle>
-          <HeadingBottom>
-            {false && <CornerTriangle color="blue" tooltip="Dropped" />}
-            {heading.isExternal ? 'n/a' : S.numberWithOneDecimalPlace(heading.available_points)}
-          </HeadingBottom>
+          <HeadingBottom />
         </ColumnHeading>
       </Cell>
     </OverlayTrigger>
@@ -336,7 +344,7 @@ const percentOrDash = (score) => isNil(score) ? UNWORKED : S.asPercent(score) + 
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
-    <StyledStudentCell striped={striped} drawBorderBottom={isLast}>
+    <Cell striped={striped} drawBorderBottom={isLast}>
       <CellContents>
         <Heading first={true}>
           <FirstRowCell data-cell="student-name">
@@ -365,16 +373,16 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
           </SplitCell>
         </Average>
       </CellContents>
-    </StyledStudentCell>
+    </Cell>
   );
 });
 
 
-const Aggregates = observer(({ ux }) => {
+const AggregateData = observer(({ ux }) => {
   if (ux.searchingMatcher) { return null; }
 
   return (
-    <>
+    <StyledAggregateData>
       <Row>
         <Cell striped drawBorderBottom>
           <CellContents>
@@ -438,20 +446,22 @@ const Aggregates = observer(({ ux }) => {
         </Cell>
         {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
       </Row>
-    </>
+    </StyledAggregateData>
   );
 });
 
 const GradebookTable = observer(({ ux }) => {
+  // calculating the size of the table
+  const size = useWindowSize();
+  // table covers about 60% of the screen height
+  const tableHeight = Math.ceil((size.height * 60) / 100);
   return (
     <>
-      <StyledStickyTable>
-        {/* Headings */}
+      <StyledStickyTable leftStickyColumnCount={1} height={tableHeight} borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader ux={ux} />
           {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
         </Row>
-        {/* Student info and data */}
         {ux.students.map((student,sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
@@ -465,10 +475,9 @@ const GradebookTable = observer(({ ux }) => {
                 isLast={sIndex === ux.students.length - 1} 
               />)}
           </Row>))}
-        
-        <Aggregates ux={ux} />
-
+        <AggregateData ux={ux} />
       </StyledStickyTable>
+
       {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
