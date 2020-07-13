@@ -193,7 +193,7 @@ class Tasking extends React.Component {
   renderDateTimeInputs(tasking) {
     const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
-
+    const disabledDate = (current) => current < moment(this.course.starts_at).endOf('day') || current > moment(this.course.ends_at).endOf('day');
     return (
       <Row className="tasking-date-time">
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="opens-at">
@@ -201,7 +201,7 @@ class Tasking extends React.Component {
             index={index}
             tasking={tasking}
             onChange={this.onOpensChange}
-            disabled={this.course.isInvalidAssignmentDate}
+            disabledDate={disabledDate}
             timezone={this.course.timezone}
           />
         </Col>
@@ -209,7 +209,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
-            disabledDate={this.course.isInvalidAssignmentDate}
+            disabledDate={disabledDate}
             onChange={(target) => this.onDueChange(target, index)}
             timezone={this.course.timezone}
           />
@@ -222,7 +222,7 @@ class Tasking extends React.Component {
               labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
-              disabledDate={this.course.isInvalidAssignmentDate}
+              disabledDate={disabledDate}
               timezone={this.course.timezone}
             />
           </Col>
@@ -232,14 +232,14 @@ class Tasking extends React.Component {
   }
 }
 
-const OpensDateTime = observer(({ index, disabled, tasking, onChange, timezone }) => {
+const OpensDateTime = observer(({ index, disabledDate, tasking, onChange, timezone }) => {
   const input = (
     <DateTime
       label="Open date & Time"
       disabled={!tasking.canEditOpensAt}
       name={`tasking_plans[${index}].opens_at`}
       onChange={(ev) => onChange(ev, index)}
-      disabledDate={disabled}
+      disabledDate={disabledDate}
       timezone={timezone}
     />
   );
