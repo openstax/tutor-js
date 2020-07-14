@@ -21,7 +21,7 @@ describe('Teacher tasking plan tasking', () => {
       target_id: course.periods[0].id,
       due_at: '2015-10-14 07:00',  // 12am - 5 hours
       opens_at: '2015-10-14 07:00',
-      closes_at: '2015-10-15 07:00',
+      closes_at: '2015-10-19 07:00',
     });
   });
 
