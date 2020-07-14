@@ -129,7 +129,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
         </IconWrapper>
       </PickerWrapper>
       {meta.error && meta.touched && <Error>{meta.error}</Error>}
-      {props.errorMessage && <Error>{props.errorMessage}</Error>}
+      {props.errorMessage && <Error data-test-id="date-error-message">{props.errorMessage}</Error>}
     </StyledWrapper>
   );
 });

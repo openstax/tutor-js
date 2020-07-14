@@ -4,9 +4,6 @@ import {
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
-import {
-  findEarliest, findLatest,
-} from '../../../helpers/dates';
 import Toasts from '../../toasts';
 
 export default

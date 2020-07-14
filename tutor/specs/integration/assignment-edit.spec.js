@@ -247,4 +247,28 @@ context('Assignment Edit', () => {
       expect(d[0].defaultValue).eq(currentClosesDate)
     })
   });
+
+  it('shows error if due date is before open date', () => {
+    const typedOpenDate = 'Jul 23 | 05:00 PM'
+    const typedDueDate = 'Jul 10 | 05:00 PM'
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
+    cy.get('.oxdt-ok').click();
+    cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true });
+    cy.get('.oxdt-ok').last().click();
+    cy.getTestElement('date-error-message').should('contain.text', 'Due time cannot be before the open time');
+  });
+
+  it('shows error if closes date is before due date', () => {
+    const typedClosesDate = 'Jul 10 | 05:00 PM'
+    const typedDueDate = 'Jul 23 | 05:00 PM'
+    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.disableTours()
+    cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true });
+    cy.get('.oxdt-ok').click();
+    cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true });
+    cy.get('.oxdt-ok').last().click();
+    cy.getTestElement('date-error-message').should('contain.text', 'Close time cannot be before the due time');
+  });
 });

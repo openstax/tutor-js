@@ -120,26 +120,6 @@ class Tasking extends React.Component {
     });
   }
 
-  renderDueAtError() {
-    const tasking = this.taskings[0];
-    if (tasking.isValid || !tasking.due_at) { return null; }
-
-    let msg = null;
-    const due = moment(tasking.due_at);
-
-    if (due.isBefore(Time.now)) {
-      msg = 'Due time has already passed';
-    } else if (due.isBefore(tasking.opens_at)) {
-      msg = 'Due time cannot come before task opens';
-    }
-    if (!msg) { return null; }
-    return (
-      <StyledAlert variant="danger">
-        {msg}
-      </StyledAlert>
-    );
-  }
-
   renderSelectionCheckbox() {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
@@ -185,7 +165,7 @@ class Tasking extends React.Component {
 
   displayCloseDateError(tasking) {    
     if(!tasking.isCloseAfterDue) {
-      return 'Due time cannot be before the open time';
+      return 'Close time cannot be before the due time';
     }
 
     return null;
