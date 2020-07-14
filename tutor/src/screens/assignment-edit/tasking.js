@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Icon } from 'shared';
 import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
-import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
 import CheckboxInput from '../../components/checkbox-input';
@@ -32,9 +31,6 @@ const StyledInner = styled.div`
     margin-top: 0.5rem;
     padding-left: 2.2rem;
   }
-`;
-
-const StyledAlert = styled(Alert)`
 `;
 
 @observer
