@@ -203,7 +203,7 @@ class TeacherTaskPlan extends BaseModel {
     return moment.range(first(dates), last(dates));
   }
 
-  @computed get dateRanges() {
+  get dateRanges() {
     return {
       opens: this.rangeFor('opens_at'),
       due: this.rangeFor('due_at'),
