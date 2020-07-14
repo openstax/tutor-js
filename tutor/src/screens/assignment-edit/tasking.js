@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import moment from 'moment';
 import { Icon } from 'shared';
-import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
+import { Row, Col, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
