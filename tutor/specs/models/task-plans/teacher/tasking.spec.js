@@ -40,28 +40,12 @@ describe('Teacher tasking plan tasking', () => {
     expect(tasking.canEditOpensAt).toBe(false);
   });
 
-  it('sets open/due but not past the opposing open/due', () => {
-    tasking.setOpensDate(moment(now).year(2016));
+  it('sets the closes_at the same as due_at if the plan type is an event', () => {
+    const due_at = '2015-10-15 07:00';
+    plan.type = 'event';
+    tasking.setDueDate(moment(due_at));
 
-    tasking.due_at = '2016-10-14T12:00:00.000Z';
-    tasking.setOpensDate('2016-10-20T12:00:00.000Z');
-    expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
-
-    // tasking.setOpensTime('1:42');
-    // expect(tasking.opens_at).toEqual('2016-10-14T06:42:00.000Z');
-
-    // tasking.setOpensTime('15:00'); // past due date, clips to that
-    // expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
-
-    tasking.setOpensDate('2016-10-11T21:18:00.000Z');
-    // should have been accepted without changes
-    expect(tasking.opens_at).toEqual('2016-10-11T21:18:00.000Z');
-
-    expect(tasking.closes_at).toEqual('2015-10-15T12:00:00.000Z')
-
-    // test setting due date to after closes_at: it clips to same as closes_at
-    tasking.setDueDate('2016-01-20T12:00:00.000Z');
-    expect(tasking.due_at).toEqual('2015-10-15T12:00:00.000Z');
+    expect(tasking.due_at).toEqual(tasking.closes_at);
   });
 
   it('#initializeWithDueAt', () => {
@@ -88,5 +72,49 @@ describe('Teacher tasking plan tasking', () => {
     tasking.initializeWithDueAt({ dueAt: '2015-10-01T12:00:00.000Z', ...defaults });
     expect(tasking.due_at).toEqual(moment(now).add(30, 'minutes').toISOString());
     expect(tasking.opens_at).toEqual(moment(now).add(29, 'minutes').toISOString());
+  });
+
+  it('should return invalid if dates are not in order', () => {
+    // opens_at is after due_at
+    let opens_at = '2015-10-17T12:00:00.000Z';
+    let due_at = '2015-10-15T12:00:00.000Z';
+    let closes_at = '2015-10-16T12:00:00.000Z';
+    
+    tasking.setOpensDate(moment(opens_at));
+    tasking.setDueDate(moment(due_at));
+    tasking.setClosesDate(moment(closes_at));
+    expect(tasking.isValid).toEqual(false);
+
+    // closes_at is after due_at
+    opens_at = '2015-10-15T12:00:00.000Z';
+    due_at = '2015-10-18T12:00:00.000Z';
+    closes_at = '2015-10-16T12:00:00.000Z';
+    
+    tasking.setOpensDate(moment(opens_at));
+    tasking.setDueDate(moment(due_at));
+    tasking.setClosesDate(moment(closes_at));
+    expect(tasking.isValid).toEqual(false);
+
+    // due_at is before current time
+    opens_at = '2015-10-11T12:00:00.000Z';
+    due_at = '2015-10-13T12:00:00.000Z';
+    closes_at = '2015-10-14T12:00:00.000Z';
+    
+    tasking.setOpensDate(moment(opens_at));
+    tasking.setDueDate(moment(due_at));
+    tasking.setClosesDate(moment(closes_at));
+    expect(tasking.isValid).toEqual(false);
+
+  });
+
+  it('should return valid if dates are in order', () => {
+    let opens_at = '2015-10-18T12:00:00.000Z';
+    let due_at = '2015-10-20T12:00:00.000Z';
+    let closes_at = '2015-10-31T12:00:00.000Z';
+    
+    tasking.setOpensDate(moment(opens_at));
+    tasking.setDueDate(moment(due_at));
+    tasking.setClosesDate(moment(closes_at));
+    expect(tasking.isValid).toEqual(true);
   });
 });
