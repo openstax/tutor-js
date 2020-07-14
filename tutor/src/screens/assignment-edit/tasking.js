@@ -152,7 +152,9 @@ class Tasking extends React.Component {
       return 'Due time cannot be before the open time';
     }
 
-    if(tasking.isPastDue) {
+    // In Edit mode: Do not show this error when the instructor goes to edit mode and due date has past already.
+    // show this error after the instructor made a change.
+    if((tasking.isNew || tasking.dueAtChanged) && tasking.isPastDue) {
       return 'Due time has already passed';
     }
 
