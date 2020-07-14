@@ -20,7 +20,7 @@ const Text = styled.span`
 `;
 
 const GradeBanner = observer(({ plan }) => {
-  if (!plan.ungraded_step_count) { return null; }
+  if (!plan.isPastDue || !plan.ungraded_step_count) { return null; }
   return (
     <Ribbon>
       <Text>{plan.ungraded_step_count} NEW</Text>
