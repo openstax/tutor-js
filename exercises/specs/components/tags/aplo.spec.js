@@ -24,7 +24,7 @@ describe('ApLo tags component', () => {
     });
     const input = lo.find('Input input[type="text"]');
     expect(input.props()).toMatchObject({
-      placeholder: '#.##',
+      placeholder: '[A-Z]{3}-#.[A-Z]',
     });
 
     input.simulate('change', { target: { value: '1.11111' } });
@@ -35,7 +35,7 @@ describe('ApLo tags component', () => {
       error: expect.stringContaining('Must have book and match APLO pattern'),
     });
 
-    input.simulate('change', { target: { value: '1.42' } });
+    input.simulate('change', { target: { value: 'EVO-1.C' } });
     input.simulate('blur');
     expect(lo.find('TagError').props().error).toBeNull();
 

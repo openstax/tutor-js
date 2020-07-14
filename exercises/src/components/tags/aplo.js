@@ -15,9 +15,9 @@ import BookSelection from './book-selection';
 
 const BOOKS = {
   'stax-apbio': {
-    r: /^\d{1}\.\d{1,2}$/,
-    pattern: '#.##',
-    disallowed: /[^0-9.]/g,
+    r: /^[A-Z]{3}-\d.[A-Z]$/,
+    pattern: '[A-Z]{3}-#.[A-Z]',
+    disallowed: /[^0-9A-Z.-]/g,
   },
   'stax-apphys': {
     r: /^\d\.[A-Z]\.\d\.\d$/,
