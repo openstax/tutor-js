@@ -8,7 +8,7 @@ const BookTitle = observer(({ ux: { book } }) => {
   return (
     <div className="book-title">
       {book.title}
-      <Icon icon="angle-right" />
+      <Icon type="angle-right" />
     </div>
   );
 });
