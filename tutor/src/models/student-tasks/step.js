@@ -135,6 +135,10 @@ class StudentTaskStep extends BaseModel {
   @computed get isOpenEndedExercise() {
     return this.isExercise && this.content.isOpenEnded;
   }
+  
+  @computed get isWrittenResponseExercise() {
+    return this.isExercise && this.content.isWrittenResponse;
+  }
 
   @computed get isCorrect() {
     return Boolean(

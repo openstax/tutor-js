@@ -89,6 +89,8 @@ class Exercise extends BaseModel {
   @computed get isSinglePart() { return this.questions.length == 1; }
   @computed get isMultiChoice() { return every(this.questions, 'isMultipleChoice'); }
   @computed get isOpenEnded() { return some(this.questions, 'isOpenEnded'); }
+  //WRM is OpenEnded and have no answers
+  @computed get isWrittenResponse() { return every(this.questions, (q) => q.isOpenEnded && q.answers.length === 0);}
 
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
