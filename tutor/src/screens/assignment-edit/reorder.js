@@ -2,7 +2,6 @@ import { React, PropTypes, styled, observer, action } from 'vendor';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import TourRegion from '../../components/tours/region';
-import ChapterSection from '../../components/chapter-section';
 import BookPartTitle from '../../components/book-part-title';
 import { AssignmentBuilder } from './builder';
 
@@ -79,8 +78,7 @@ class ReadingSection extends React.Component {
     const actionButtons = this.getActionButtons();
     return (
       <li className="selected-section">
-        <ChapterSection chapterSection={page.chapter_section} />
-        <BookPartTitle className="section-title" title={page.title} />
+        <BookPartTitle className="section-title" part={page} displayChapterSection />
         {actionButtons}
       </li>
     );

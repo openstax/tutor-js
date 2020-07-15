@@ -53,8 +53,7 @@ class Section extends React.Component {
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        {section.isChapterSectionDisplayed && <ChapterSection chapterSection={section.chapter_section} />}
-        <BookPartTitle className="section-title" title={section.title} />
+        <BookPartTitle className="section-title" part={section} displayChapterSection={section.isChapterSectionDisplayed} />
       </SectionWrapper>
     );
   }
