@@ -1,7 +1,6 @@
 import {
   React, PropTypes, styled, computed, action, observer,
 } from 'vendor';
-import moment from 'moment';
 import { Icon } from 'shared';
 import { Row, Col, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
@@ -190,8 +189,6 @@ class Tasking extends React.Component {
   renderDateTimeInputs(tasking) {
     const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
-    // disable dates before the course start date, and after the course end date
-    const disabledDate = (current) => current < moment(this.course.starts_at).endOf('day') || current > moment(this.course.ends_at).endOf('day');
     return (
       <Row className="tasking-date-time">
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="opens-at">
@@ -199,7 +196,7 @@ class Tasking extends React.Component {
             index={index}
             tasking={tasking}
             onChange={this.onOpensChange}
-            disabledDate={disabledDate}
+            disabledDate={this.course.isInvalidAssignmentDate}
             timezone={this.course.timezone}
           />
         </Col>
@@ -207,7 +204,7 @@ class Tasking extends React.Component {
           <DateTime
             label="Due date & time"
             name={`tasking_plans[${index}].due_at`}
-            disabledDate={disabledDate}
+            disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
             timezone={this.course.timezone}
             errorMessage={this.displayDueDateError(tasking)}
@@ -220,7 +217,7 @@ class Tasking extends React.Component {
               labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
-              disabledDate={disabledDate}
+              disabledDate={this.course.isInvalidAssignmentDate}
               timezone={this.course.timezone}
               errorMessage={this.displayCloseDateError(tasking)}
             />

@@ -101,11 +101,11 @@ class TaskingPlan extends BaseModel {
   }
 
   @computed get isDueAfterOpen() {
-    return moment(this.due_at).isAfter(moment(this.opens_at));
+    return moment(this.due_at).isAfter(this.opens_at);
   }
 
   @computed get isCloseAfterDue() {
-    return moment(this.closes_at).isAfter(moment(this.due_at));
+    return moment(this.closes_at).isAfter(this.due_at);
   }
 
   @computed get isValid() {
