@@ -208,11 +208,8 @@ class Course extends BaseModel {
 
   // bind to this so it can be used in disabledDate check
   isInvalidAssignmentDate = (date) => {
-    return !this.momentInZone(date).isBetween(
-      this.allowedAssignmentDateRange.start,
-      this.allowedAssignmentDateRange.end,
-      'day', '[]'
-    );
+    return date < moment(this.starts_at).endOf('day') ||
+    date > moment(this.ends_at).endOf('day');
   }
 
   @computed get hasStarted() {

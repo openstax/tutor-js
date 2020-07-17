@@ -4,9 +4,6 @@ import {
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
-import {
-  findEarliest, findLatest,
-} from '../../../helpers/dates';
 import Toasts from '../../toasts';
 
 export default
@@ -103,14 +100,26 @@ class TaskingPlan extends BaseModel {
     return moment(this.due_at).isAfter(Time.now);
   }
 
+  @computed get isDueAfterOpen() {
+    return moment(this.due_at).isAfter(this.opens_at);
+  }
+
+  @computed get isCloseAfterDue() {
+    return moment(this.closes_at).isAfter(this.due_at);
+  }
+
   @computed get isValid() {
-    return Boolean(
-      this.target_id &&
-        this.target_type &&
-        this.opens_at &&
-        this.due_at &&
-        ((this.isNew || this.dueAtChanged) ? this.isBeforeDue : true)
-    );
+    let isValid = this.target_id && this.target_type && this.opens_at && this.due_at && this.isDueAfterOpen;
+
+    if(this.isNew || this.dueAtChanged) {
+      isValid = isValid && this.isBeforeDue;
+    }
+    //event does not have a close date (visually)
+    if(!this.plan.isEvent) {
+      isValid = isValid && this.isCloseAfterDue;
+    }
+
+    return isValid;
   }
 
   @computed get dueAtChanged() {
@@ -184,30 +193,18 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setOpensDate(date) {
-    this.opens_at = findEarliest(
-      moment(this.due_at).subtract(1, 'minute'),
-      date,
-    ).toISOString();
+    this.opens_at = date.toISOString();
   }
 
   @action setDueDate(date) {
-    this.due_at = findEarliest(
-      findLatest(
-        moment(this.opens_at).add(1, 'minute'),
-        date,
-      ),
-      this.plan.isEvent ? date : this.closes_at,
-    ).toISOString();
+    this.due_at = date.toISOString();
     if (this.plan.isEvent) { // closes_at === due_at for events
       this.closes_at = this.due_at;
     }
   }
 
   @action setClosesDate(date) {
-    this.closes_at = findLatest(
-      moment(this.due_at).add(1, 'minute'),
-      date,
-    ).toISOString();
+    this.closes_at = date.toISOString();
   }
 
   // note: these are not @computed so that a new moment is

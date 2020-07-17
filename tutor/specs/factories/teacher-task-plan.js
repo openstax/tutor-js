@@ -13,7 +13,7 @@ Factory.define('TeacherTaskPlanTasking')
   .target_type('period')
   .opens_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').toISOString())
   .due_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(3, 'days').toISOString())
-  .closes_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(1, 'days').toISOString());
+  .closes_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(5, 'days').toISOString());
 
 
 Factory.define('TeacherTaskPlan')
