@@ -20,9 +20,9 @@ const NoStudentsMessage = ({ courseId }) => {
     <StyledNoStudentsMessage>
       <p>
         There are no students enrolled in this section yet.  Manage student access for this section
-        in <TutorLink to="settings" params={{ courseId }}>Course settings</TutorLink>.
+        in <TutorLink to="courseSettings" params={{ courseId }}>Course settings</TutorLink>.
       </p>
-      <TutorLink primaryBtn to="settings" params={{ courseId }}>Manage student access</TutorLink>
+      <TutorLink primaryBtn to="courseSettings" params={{ courseId }}>Manage student access</TutorLink>
     </StyledNoStudentsMessage>
   );
 };

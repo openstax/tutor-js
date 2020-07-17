@@ -1,5 +1,6 @@
 import { React, PropTypes, observer, styled, action, observable } from 'vendor';
 import { ScrollToTop } from 'shared';
+import { colors } from 'theme';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
@@ -14,6 +15,7 @@ import ReadingScores from './reading-scores';
 import ExternalScores from './external-scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
+import NoStudentsMessage from '../../components/no-students-message';
 
 import './styles.scss';
 
@@ -28,6 +30,11 @@ const StyledTabs = styled(Tabs)`
   && > .nav-tabs li a {
     text-transform: capitalize;
   }
+`;
+
+const MessageWrapper = styled.div`
+  padding: 10rem;
+  background: ${colors.neutral.lightest};
 `;
 
 
@@ -95,17 +102,9 @@ class AssignmentReview extends React.Component {
     );
   }
 
-  render() {
-    const {
-      isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
-    } = this.ux;
-    
-    if (!isScoresReady || !scores) {
-      return <LoadingScreen message="Loading Assignment…" />;
-    }
-
+  @action.bound renderTabs({ ux: { scores, course, planScores } }) {
     const AvailableTabs = [Details];
-    
+
     // there are no scores if no students have enrolled
     // and pre-wrm courses have confusion around weights so we hide them as well
     if (scores && course.isWRM) {
@@ -123,6 +122,34 @@ class AssignmentReview extends React.Component {
     const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
+      <>
+        <StyledTabs
+          selectedIndex={this.tabIndex}
+          params={this.props.params}
+          onSelect={this.onTabSelection}
+          tabs={AvailableTabs.map(t => t.title)}
+        />
+        <Tab ux={this.ux} />
+      </>
+    );
+  }
+
+  render() {
+    const {
+      isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+    } = this.ux;
+
+    let body;
+
+    if (selectedPeriod && !selectedPeriod.hasEnrollments) {
+      body = <MessageWrapper><NoStudentsMessage courseId={course.id} /></MessageWrapper>;
+    } else if (!isScoresReady || !scores) {
+      return <LoadingScreen message="Loading Assignment…" />;
+    } else {
+      body = this.renderTabs({ ux: this.ux });
+    }
+
+    return (
       <BackgroundWrapper>
         <ScrollToTop>
           <ContentWrapper>
@@ -138,13 +165,7 @@ class AssignmentReview extends React.Component {
                 onChange={setSelectedPeriod}
               />
             </Heading>
-            <StyledTabs
-              selectedIndex={this.tabIndex}
-              params={this.props.params}
-              onSelect={this.onTabSelection}
-              tabs={AvailableTabs.map(t => t.title)}
-            />
-            <Tab ux={this.ux} />
+            {body}
           </ContentWrapper>
         </ScrollToTop>
       </BackgroundWrapper>
