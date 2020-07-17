@@ -89,7 +89,7 @@
     "jest-cli": "24.9.0",
     "keymaster": "1.6.2",
     "loadjs": "3.6.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "loglevel": "1.6.3",
     "markdown-it": "9.1.0",
     "markdown-it-regexp": "0.4.0",
