@@ -114,6 +114,9 @@ export default class GradeBookUX {
     return orderBy(student.data, this.columnSorter.tasks, 'desc');
   }
 
+  hasProvisionalScores(index) {
+    return !!this.students.find(s => s.data[index].is_provisional_score);
+  }
 
   @computed get period() {
     return this.scores.periods.get(this.coursePeriod.id);
@@ -121,7 +124,7 @@ export default class GradeBookUX {
 
   @computed get students() {
     if(!this.currentPeriodScores) return [];
-    
+
     const students = sortBy(
       filter(this.currentPeriodScores.students, s => !s.is_dropped),
       this.studentRowSorter,
@@ -174,7 +177,7 @@ export default class GradeBookUX {
   displayStudentName(student) {
     if(this.isNameInverted) return `${student.last_name}, ${student.first_name}`;
     return `${student.first_name} ${student.last_name}`;
-  } 
+  }
 
   @computed get periodTasksByType() {
     return groupBy(this.currentPeriodScores.data_headings, 'type');
