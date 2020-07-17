@@ -2,7 +2,6 @@ import {
   React, PropTypes, observer, ArrayOrMobxType, styled,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
-import ChapterSection from '../chapter-section';
 import ExercisePreview from './preview';
 import BookPartTitle from '../book-part-title';
 import ScrollTo from '../../helpers/scroll-to';
@@ -41,9 +40,7 @@ class SectionsExercises extends React.Component {
     return (
       <div className="exercise-sections" data-section={page.chapter_section.asString}>
         <SectionLabel>
-          <ChapterSection chapterSection={page.chapter_section} />
-          {' '}
-          <BookPartTitle title={page.title} />
+          <BookPartTitle part={page} displayChapterSection />
         </SectionLabel>
         <div className="exercises">
           {map(sectionExercises, (exercise) =>

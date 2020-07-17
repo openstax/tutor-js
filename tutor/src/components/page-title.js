@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, Theme } from 'vendor';
 import { isEmpty } from 'lodash';
-import ChapterSection from './chapter-section';
 import ChapterSectionModel from '../models/chapter-section';
 import BookPartTitle from './book-part-title';
 
@@ -31,10 +30,12 @@ const Preamble = styled.div`
 
 class PageTitle extends React.Component {
   static propTypes = {
-    title: PropTypes.string,
+    page: PropTypes.shape({
+      title: PropTypes.string,
+      chapter_section: PropTypes.instanceOf(ChapterSectionModel).isRequired,
+    }).isRequired,
     showObjectivesPreamble: PropTypes.bool,
     isChapterSectionDisplayed: PropTypes.bool,
-    chapter_section: PropTypes.instanceOf(ChapterSectionModel).isRequired,
   };
 
   static defaultProps = {
@@ -42,7 +43,7 @@ class PageTitle extends React.Component {
   }
 
   get isIntro() {
-    return 0 === this.props.chapter_section.section;
+    return 0 === this.props.page.chapter_section.section;
   }
 
   get preambleMessage() {
@@ -54,16 +55,15 @@ class PageTitle extends React.Component {
   render() {
 
     const {
-      title, chapter_section, isChapterSectionDisplayed, showObjectivesPreamble,
+      isChapterSectionDisplayed, showObjectivesPreamble, page,
     } = this.props;
 
-    if (isEmpty(title) || this.isIntro) { return null; }
+    if (isEmpty(page.title) || this.isIntro) { return null; }
 
     return (
       <PageTitleWrapper>
         <Heading>
-          {isChapterSectionDisplayed && <ChapterSection chapterSection={chapter_section} />}
-          <Title title={title} />
+          <Title part={page} displayChapterSection={isChapterSectionDisplayed} />
         </Heading>
         {showObjectivesPreamble && (
           <Preamble>

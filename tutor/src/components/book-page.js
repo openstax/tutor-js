@@ -395,6 +395,7 @@ class BookPage extends React.Component {
         {this.props.children}
         <div className="page center-panel">
           <PageTitle
+            page={page}
             title={title}
             contentId={page.cnx_id}
             chapter_section={page.chapter_section}
