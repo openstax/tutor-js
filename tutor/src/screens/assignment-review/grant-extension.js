@@ -22,16 +22,26 @@ const StudentExtensionInfo = observer(({ ux, student }) => {
 
 const StudentWrapper = styled.div`
   ${GreenCircle} {
-    margin-left: 0.5rem;
+    margin-left: 0.8rem;
     margin-top: -1px;
   }
-  width: 210px;
+  width: 100%;
   margin: 10px 25px 9px 0;
   display: flex;
   align-items: center;
 
+  &:first-child:nth-last-child(n + 11),
+  &:first-child:nth-last-child(n + 11) ~ & {
+    width: 335px;
+  }
+
+  &:first-child:nth-last-child(n + 21),
+  &:first-child:nth-last-child(n + 21) ~ & {
+    width: 215px;
+  }
+
   label {
-    max-width: 170px;
+    max-width: 160px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
