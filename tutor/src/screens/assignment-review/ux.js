@@ -20,6 +20,7 @@ export default class AssignmentReviewUX {
   @observable editablePlan;
   @observable rowSort = { key: 0, asc: true, dataType: 'name' };
   @observable searchingMatcher = null;
+  @observable searchingExtensionsMatcher = null;
   @observable reverseNameOrder = false;
   @observable displayTotalInPercent = false;
 
@@ -95,6 +96,17 @@ export default class AssignmentReviewUX {
     return filter(students, s => s.name.match(this.searchingMatcher));
   }
 
+  @computed get extensionStudents() {
+    const students = rowDataSorter(
+      this.activeScoresStudents,
+      { key: 0, asc: true, dataType: 'first_name' }
+    );
+    if (!this.searchingExtensionsMatcher) {
+      return students;
+    }
+    return filter(students, s => s.name.match(this.searchingExtensionsMatcher));
+  }
+
   @action.bound changeRowSortingOrder(key, dataType) {
     this.rowSort.asc = this.rowSort.key === key ? (!this.rowSort.asc) : false;
     this.rowSort.key = key;
@@ -129,6 +141,10 @@ export default class AssignmentReviewUX {
     this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
+  @action.bound onSearchExtensionStudentChange({ target: { value } }) {
+    this.searchingExtensionsMatcher = value ? RegExp(value, 'i') : null;
+  }
+
   // methods relating to granting extensions
 
   @computed get isPendingExtensions() {
@@ -139,10 +155,19 @@ export default class AssignmentReviewUX {
     return false;
   }
 
+  @computed get hideToggleGrantExtensionAllStudents() {
+    return this.activeScoresStudents.length != this.extensionStudents.length;
+  }
+
   @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
-    this.activeScoresStudents.forEach(s => {
+    this.extensionStudents.forEach(s => {
       this.pendingExtensions.set(s.role_id.toString(10), checked);
     });
+  }
+
+  @computed get allExtensionStudentsSelected() {
+    const values = Array.from(this.pendingExtensions.values());
+    return filter(values, v => v).length == this.activeScoresStudents.length;
   }
 
   @action.bound cancelDisplayingGrantExtension() {
