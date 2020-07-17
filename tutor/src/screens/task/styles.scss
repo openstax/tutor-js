@@ -19,4 +19,7 @@
   .interactive-step {
     @include tutor-book-notes();
   }
+  [data-type="footnote-refs"] {
+    display: none;
+  }
 }
