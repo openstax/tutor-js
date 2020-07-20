@@ -1510,6 +1510,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               },
             ],
             "salesforce_book_name": "College Physics",
+            "should_reuse_preview": false,
             "starts_at": "2017-07-14T12:00:00.000Z",
             "students": Array [
               CourseStudent {
@@ -1643,6 +1644,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
           },
         ],
         "salesforce_book_name": "College Physics",
+        "should_reuse_preview": false,
         "starts_at": "2017-07-14T12:00:00.000Z",
         "students": Array [
           CourseStudent {

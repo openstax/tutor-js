@@ -98,6 +98,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         },
       ],
       "salesforce_book_name": "College Physics",
+      "should_reuse_preview": false,
       "starts_at": "2017-07-14T12:00:00.000Z",
       "students": Array [
         CourseStudent {
@@ -462,6 +463,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         },
       ],
       "salesforce_book_name": "College Physics",
+      "should_reuse_preview": false,
       "starts_at": "2017-07-14T12:00:00.000Z",
       "students": Array [
         CourseStudent {
@@ -830,6 +832,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         },
       ],
       "salesforce_book_name": "College Physics",
+      "should_reuse_preview": false,
       "starts_at": "2017-07-14T12:00:00.000Z",
       "students": Array [
         CourseStudent {
@@ -1198,6 +1201,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         },
       ],
       "salesforce_book_name": "College Physics",
+      "should_reuse_preview": false,
       "starts_at": "2017-07-14T12:00:00.000Z",
       "students": Array [
         CourseStudent {
@@ -1566,6 +1570,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         },
       ],
       "salesforce_book_name": "College Physics",
+      "should_reuse_preview": false,
       "starts_at": "2017-07-14T12:00:00.000Z",
       "students": Array [
         CourseStudent {

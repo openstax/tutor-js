@@ -21,7 +21,7 @@ class PreviewCourseOffering extends Course {
       name: offering.title,
       appearance_code: offering.appearance_code,
       is_preview: true,
-      roles: [ { type: 'teacher' }],
+      roles: [ { type: 'teacher' } ],
     });
     this.offering = offering;
   }
@@ -31,7 +31,9 @@ class PreviewCourseOffering extends Course {
   }
 
   @computed get previewCourse() {
-    return find(Courses.active.array, { offering_id: this.offering_id, is_preview: true });
+    return find(
+      Courses.preview.active.teaching.shouldReusePreview.array, { offering_id: this.offering_id }
+    );
   }
 
   @computed get isBuilding() {
