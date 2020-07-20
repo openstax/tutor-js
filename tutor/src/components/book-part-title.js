@@ -47,7 +47,7 @@ const BookPartTitle = ({ part, label, className, boldChapterSection, displayChap
 BookPartTitle.propTypes = {
   part: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    chapter_section: PropTypes.object,
+    chapter_section: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
   }).isRequired,
   label: PropTypes.node,
   className: PropTypes.string,
