@@ -1,13 +1,6 @@
 import { React, PropTypes, cn, styled, css } from 'vendor';
 import ChapterSection from './chapter-section';
 
-const dividerCSS = css`
-    &:after {
-      content: ':';
-      margin-right: 0.5rem;
-      margin-left: 0.2rem;
-    }
-`;
 
 const hideChapterSectionCSS = css`
   .os-number {
@@ -24,14 +17,9 @@ const StyledBookPartTitle = styled.div`
     }
     font-weight: ${({ boldChapterSection }) => boldChapterSection ? 'bold' : 'normal'};
   }
-
   .chapter-section {
     font-weight: ${({ boldChapterSection }) => boldChapterSection ? 'bold' : 'normal'};
     margin-left: 0.5rem;
-    ${dividerCSS};
-  }
-  .os-divider {
-    ${dividerCSS};
   }
 `;
 
