@@ -138,13 +138,6 @@ const StyledPopover = styled(Popover)`
     }
 `;
 
-const LateWorkCell = styled(Cell)`
-  font-size: 1.1rem;
-  white-space: normal;
-  max-width: 80px;
-  &.late-work { font-weight: bold; }
-`;
-
 const pointsScoredStatus = (step) => {
   if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
   if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
@@ -158,6 +151,10 @@ const renderLateInfoPopover = (step) => {
       <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
     );
   }
+
+  const originalPoints = step.published_points_without_lateness;
+  const lateWorkPenalty = step.published_late_work_point_penalty;
+  const isLateWorkNotAccepted = step.task.late_work_penalty_applied === 'not_accepted';
   return (
     <StyledPopover graded>
       <table>
@@ -165,17 +162,17 @@ const renderLateInfoPopover = (step) => {
           <tr>
             <td>Points earned:</td>
             <td>
-              {step.published_points_without_lateness == 0
-                ? step.published_points_without_lateness
-                : S.numberWithOneDecimalPlace(step.published_points_without_lateness)}
+              {originalPoints == 0
+                ? originalPoints
+                : S.numberWithOneDecimalPlace(originalPoints)}
             </td>
           </tr>
           <tr>
-            <td>{step.task.hasLateWorkPolicy ? 'Late penalty' : 'Not accepted'}</td>
+            <td>{isLateWorkNotAccepted ? 'Not accepted' : 'Late penalty'}</td>
             <td>
-              {step.published_late_work_point_penalty == 0
-                ? step.published_late_work_point_penalty
-                : S.numberWithOneDecimalPlace(step.published_late_work_point_penalty)}
+              {lateWorkPenalty == 0
+                ? lateWorkPenalty
+                : S.numberWithOneDecimalPlace(lateWorkPenalty)}
             </td>
           </tr>
           <tr>
@@ -234,7 +231,6 @@ class TaskProgress extends React.Component {
   render() {
     const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
-
     return (
       <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
         <Row>

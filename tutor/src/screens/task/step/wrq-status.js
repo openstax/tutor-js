@@ -78,7 +78,7 @@ const Value=styled.span`
   font-weight: bold;
 `;
 const PointsAndFeedback = observer(({ step }) => {
-  if (!step.isOpenEndedExercise || isNil(step.published_points)) {
+  if (!step.isOpenEndedExercise || isNil(step.published_points_without_lateness)) {
     return null;
   }
 
@@ -86,8 +86,9 @@ const PointsAndFeedback = observer(({ step }) => {
     <StyledPoints>
       <div>
         <Label>Points:</Label>
+        {/* Show original points graded by instructor */}
         <Value>
-          {S.numberWithOneDecimalPlace(step.published_points)} / {S.numberWithOneDecimalPlace(step.available_points)}
+          {S.numberWithOneDecimalPlace(step.published_points_without_lateness)} / {S.numberWithOneDecimalPlace(step.available_points)}
         </Value>
       </div>
       {step.published_comments && (
