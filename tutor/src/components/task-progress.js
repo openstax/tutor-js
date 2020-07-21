@@ -1,6 +1,8 @@
 import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { map, sumBy, isNil } from 'lodash';
+import { Icon } from 'shared';
 import { colors } from 'theme';
 import { CornerTriangle } from './dropped-question';
 import S, { UNWORKED } from '../../src/helpers/string';
@@ -17,6 +19,7 @@ const StyledStickyTable = styled(StickyTable)`
 
   .sticky-table-cell {
     min-height: 40px;
+    position: relative;
   }
 
   .current-step {
@@ -33,6 +36,16 @@ const StyledStickyTable = styled(StickyTable)`
 
   .partial {
     background: ${colors.pointsScoredStatus.partial};
+  }
+
+  .icon {
+    position: absolute;
+    left: 28px;
+    bottom: 24px;
+
+    & svg {
+      height: 8px;
+    }
   }
 
 
@@ -99,6 +112,32 @@ const StyledStickyTable = styled(StickyTable)`
   }
 `;
 
+const StyledPopover = styled(Popover)`
+  /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
+    &[style] {
+      border: 1px #d5d5d5 solid !important;
+      top: ${props => props.graded ? '72px' : '42px'} !important;  
+    }
+    padding: 10px 7px;
+    text-align: center;
+
+    p {
+      margin-bottom: 0.2rem;
+    }
+
+    table {
+        font-size: 1.3rem;
+
+        td {
+            line-height: 1.2;
+        }
+
+        tr td:last-child {
+            padding-left: 2px;
+        }
+    }
+`;
+
 const LateWorkCell = styled(Cell)`
   font-size: 1.1rem;
   white-space: normal;
@@ -113,6 +152,78 @@ const pointsScoredStatus = (step) => {
   return PointsScoredStatus.PARTIAL;
 };
 
+const renderLateInfoPopover = (step) => {
+  if(isNil(step.pointsScored)) {
+    return (
+      <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
+    );
+  }
+  return (
+    <StyledPopover graded>
+      <table>
+        <tbody>
+          <tr>
+            <td>Points earned:</td>
+            <td>
+              {step.published_points_without_lateness == 0
+                ? step.published_points_without_lateness
+                : S.numberWithOneDecimalPlace(step.published_points_without_lateness)}
+            </td>
+          </tr>
+          <tr>
+            <td>{step.task.hasLateWorkPolicy ? 'Late penalty' : 'Not accepted'}</td>
+            <td>
+              {step.published_late_work_point_penalty == 0
+                ? step.published_late_work_point_penalty
+                : S.numberWithOneDecimalPlace(step.published_late_work_point_penalty)}
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Final points:</strong></td>
+            <td>
+              <strong>
+                {step.pointsScored == 0
+                  ? step.pointsScored
+                  : S.numberWithOneDecimalPlace(step.pointsScored)}
+              </strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledPopover>
+  );
+};
+
+const renderPointsScoredCell = (step, stepIndex) => {
+  if(step.isLate) {
+    return (
+      <OverlayTrigger
+        key={stepIndex}
+        show={true}
+        placement="bottom"
+        overlay={renderLateInfoPopover(step)}>
+        <Cell  className={pointsScoredStatus(step)}>
+          <div className="icon">
+            {step.isLate && 
+            <Icon
+              color={colors.danger}
+              type='clock'
+            />}
+          </div>
+          <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
+        </Cell>
+      </OverlayTrigger>
+    );
+  }
+
+  return (
+    <Cell key={stepIndex} className={pointsScoredStatus(step)}>
+      <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
+    </Cell>
+  );
+  
+};
+
 @observer
 class TaskProgress extends React.Component {
   static propTypes = {
@@ -123,7 +234,7 @@ class TaskProgress extends React.Component {
   render() {
     const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
-  
+
     return (
       <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
         <Row>
@@ -166,8 +277,6 @@ class TaskProgress extends React.Component {
               return null;
             })
           }
-          {task.hasLateWorkPolicy &&
-            <LateWorkCell className="late-work">Late work</LateWorkCell>}
           <Cell>Total</Cell>
         </Row>
         <Row>
@@ -181,30 +290,20 @@ class TaskProgress extends React.Component {
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          {task.hasLateWorkPolicy &&
-            <LateWorkCell>-{task.humanLateWorkPenalty} per {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}</LateWorkCell>}
           <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
-          steps.some(s => s.correct_answer_id || !isNil(s.published_points)) &&
+          steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
             <Row>
               <Cell>Points Scored</Cell>
               {
                 steps.map((step, stepIndex) => {
                   if(!step.isInfo) {
-                    return (
-                      <Cell key={stepIndex} className={pointsScoredStatus(step)}>
-                        {step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }
-                      </Cell>
-                    );
+                    return renderPointsScoredCell(step, stepIndex);
                   }
                   return <Cell key={stepIndex}></Cell>;
                 })
               }
-              {task.hasLateWorkPolicy &&
-                <Cell>
-                  {task.publishedLateWorkPenalty ? `-${S.numberWithOneDecimalPlace(task.publishedLateWorkPenalty)}` : '0.0'}
-                </Cell>}
               <Cell>
                 {isNil(task.publishedPoints) ?
                   UNWORKED : S.numberWithOneDecimalPlace(task.publishedPoints)}
@@ -213,10 +312,7 @@ class TaskProgress extends React.Component {
         }
       </StyledStickyTable>
     );
-
-
   }
-
 }
 
 export default TaskProgress;

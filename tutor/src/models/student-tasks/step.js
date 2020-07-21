@@ -1,3 +1,4 @@
+import { moment } from 'vendor';
 import {
   BaseModel, identifiedBy, field, identifier,
   observable, computed, action, belongsTo, hasMany,
@@ -147,7 +148,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get pointsScored() {
-    if(!isNil(this.published_points_without_lateness)) return this.published_points_without_lateness;
+    if(!isNil(this.published_points)) return this.published_points;
     if (this.correct_answer_id) {
       return this.answer_id === this.correct_answer_id
         ? this.available_points
@@ -196,6 +197,10 @@ class StudentTaskStep extends BaseModel {
     return Boolean(
       !NO_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
     );
+  }
+
+  @computed get isLate() {
+    return moment(this.last_completed_at).isAfter(this.task.due_at);
   }
 
   @action fetchIfNeeded() {
