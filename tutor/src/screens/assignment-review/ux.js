@@ -36,6 +36,7 @@ export default class AssignmentReviewUX {
     id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history, periodId,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
+    tab = 0,
   }) {
     this.id = id;
     this.history = history;
@@ -45,6 +46,12 @@ export default class AssignmentReviewUX {
     this.onCompleteDelete = onCompleteDelete;
     this.onEditAssignedQuestions = onEditAssignedQuestions;
     this.onTabSelection = onTabSelection;
+
+    const currentTab = parseInt(tab, 10);
+    // default tab index is 0
+    if(currentTab > 0) {
+      onTabSelection(currentTab);
+    }
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
