@@ -1,8 +1,38 @@
-import { React, PropTypes, observer, action, cn } from 'vendor';
+import { React, PropTypes, observer, action, cn, styled } from 'vendor';
 import { Col } from 'react-bootstrap';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Breadcrumb from '../../components/breadcrumb';
+import LatePointsInfo from '../../components/late-points-info';
+import { colors } from 'theme';
 import UX from './ux';
+
+const StyledCol = styled(Col)`
+  .points-info-container {
+    width: 100%;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    opacity: 0;
+    border-top: 1px ${colors.neutral.pale} solid;
+    transition: 0s ease;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+
+  .points-info {
+    background-color: ${colors.neutral.lighter};
+    padding: 5px;
+    
+    table {
+      margin: 0 auto;
+    }
+  }
+
+  &:hover .points-info-container {
+    opacity: 1;
+  }
+`;
+
 
 @observer
 class Milestone extends React.Component {
@@ -24,7 +54,7 @@ class Milestone extends React.Component {
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
     return (
-      <Col xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
+      <StyledCol xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
@@ -45,8 +75,15 @@ class Milestone extends React.Component {
             className="milestone-preview"
             html={step.preview}
           />
+          {
+            step.isExercise && step.is_completed && (
+              <div className="points-info-container">
+                <div className="points-info"><LatePointsInfo step={step} /></div>
+              </div>
+            )
+          }
         </div>
-      </Col>
+      </StyledCol>
     );
   }
 }

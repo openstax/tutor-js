@@ -5,6 +5,7 @@ import { map, sumBy, isNil } from 'lodash';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import { CornerTriangle } from './dropped-question';
+import LatePointsInfo from './late-points-info';
 import S, { UNWORKED } from '../../src/helpers/string';
 
 const PointsScoredStatus = {
@@ -152,50 +153,18 @@ const renderLateInfoPopover = (step) => {
     );
   }
 
-  const originalPoints = step.published_points_without_lateness;
-  const lateWorkPenalty = step.published_late_work_point_penalty;
-  const isLateWorkNotAccepted = step.task.late_work_penalty_applied === 'not_accepted';
   return (
     <StyledPopover graded>
-      <table>
-        <tbody>
-          <tr>
-            <td>Points earned:</td>
-            <td>
-              {originalPoints == 0
-                ? originalPoints
-                : S.numberWithOneDecimalPlace(originalPoints)}
-            </td>
-          </tr>
-          <tr>
-            <td>{isLateWorkNotAccepted ? 'Not accepted' : 'Late penalty'}</td>
-            <td>
-              {lateWorkPenalty == 0
-                ? lateWorkPenalty
-                : S.numberWithOneDecimalPlace(lateWorkPenalty)}
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Final points:</strong></td>
-            <td>
-              <strong>
-                {step.pointsScored == 0
-                  ? step.pointsScored
-                  : S.numberWithOneDecimalPlace(step.pointsScored)}
-              </strong>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <LatePointsInfo step={step} />
     </StyledPopover>
   );
 };
 
-const renderPointsScoredCell = (step, stepIndex) => {
+const renderPointsScoredCell = (step) => {
   if(step.isLate) {
     return (
       <OverlayTrigger
-        key={stepIndex}
+        key={step.id}
         show={true}
         placement="bottom"
         overlay={renderLateInfoPopover(step)}>
@@ -214,11 +183,10 @@ const renderPointsScoredCell = (step, stepIndex) => {
   }
 
   return (
-    <Cell key={stepIndex} className={pointsScoredStatus(step)}>
+    <Cell key={step.id} className={pointsScoredStatus(step)}>
       <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
     </Cell>
   );
-  
 };
 
 @observer
