@@ -14,6 +14,7 @@ const BOOKS = {
   'stax-macro':   'Macro Economics',
   'stax-micro':   'Micro Economics',
   'stax-k12phys': 'HS Physics',
+  'stax-psy':     'Psychology',
   'stax-soc':     'Sociology',
   'stax-apush':   'U.S. History for AP® Courses',
 };
