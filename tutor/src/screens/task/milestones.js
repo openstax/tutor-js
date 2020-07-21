@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, action, cn, styled } from 'vendor';
 import { Col } from 'react-bootstrap';
-import { ArbitraryHtmlAndMath } from 'shared';
+import { ArbitraryHtmlAndMath, Icon } from 'shared';
 import Breadcrumb from '../../components/breadcrumb';
 import LatePointsInfo from '../../components/late-points-info';
 import { colors } from 'theme';
@@ -31,6 +31,16 @@ const StyledCol = styled(Col)`
   &:hover .points-info-container {
     opacity: 1;
   }
+
+  .icon {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+
+    & svg {
+      height: 12px;
+    }
+  }
 `;
 
 
@@ -50,6 +60,7 @@ class Milestone extends React.Component {
 
   render() {
     const { step, currentStep, stepIndex } = this.props;
+    console.log(step);
     const active = stepIndex === currentStep;
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
@@ -75,6 +86,13 @@ class Milestone extends React.Component {
             className="milestone-preview"
             html={step.preview}
           />
+          <div className="icon">
+            {step.isLate && 
+            <Icon
+              color={colors.danger}
+              type='clock'
+            />}
+          </div>
           {
             step.isExercise && step.is_completed && (
               <div className="points-info-container">
