@@ -19,7 +19,10 @@ const StyledBookPartTitle = styled.div`
   }
   .chapter-section {
     font-weight: ${({ boldChapterSection }) => boldChapterSection ? 'bold' : 'normal'};
-    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .label {
+    margin-right: 0.5rem;
   }
 `;
 
