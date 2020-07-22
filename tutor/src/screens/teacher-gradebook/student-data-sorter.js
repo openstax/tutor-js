@@ -59,7 +59,7 @@ const StudentDataSorter = {
       ]; },
     },
     date: {
-      tasks(task) { return task.due_at; },
+      tasks(task) { return task.due_at_without_extension; },
       headings(heading) { return heading.due_at; },
     },
   },

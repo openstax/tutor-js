@@ -34,6 +34,7 @@ class TaskResult extends BaseModel {
   @field correct_on_time_step_count;
   @field correct_accepted_late_step_count;
   @field({ type: 'date' }) due_at;
+  @field({ type: 'date' }) due_at_without_extension;
   @field is_past_due;
   @field is_extended;
   @field exercise_count;
@@ -77,7 +78,7 @@ class TaskResult extends BaseModel {
   @computed get isStarted() {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
-  
+
   @computed get canBeReviewed() {
     return Boolean(this.isStarted && !this.isExternal);
   }
