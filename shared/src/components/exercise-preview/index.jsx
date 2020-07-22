@@ -3,7 +3,6 @@ import React from 'react';
 import {
   trimEnd, sortBy, map, isEmpty, last, filter,
 } from 'lodash';
-import styled from 'styled-components';
 import classnames from 'classnames';
 import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
@@ -14,18 +13,6 @@ import Question from '../question';
 import ExerciseBadges from '../exercise-badges';
 import ControlsOverlay from './controls-overlay';
 import Exercise from '../../model/exercise';
-import { colors } from 'theme';
-
-const StyledDisableTextBox = styled.div`
-  margin-bottom: 24px;
-  padding: 4px 6px 12px 6px;
-  background-color: ${colors.neutral.lighter};
-  border-radius: 2px;
-  border: 1px ${colors.neutral.pale};
-  color: ${colors.neutral.thin};
-  font-size: 14px;
-  line-height: 24px;
-`;
 
 @observer
 class ExercisePreview extends React.Component {
@@ -147,9 +134,9 @@ class ExercisePreview extends React.Component {
                 </Question>
                 {
                   question.isWrittenResponse && (
-                    <StyledDisableTextBox>
+                    <div className="student-free-response-box-preview">
                       Student Response...
-                    </StyledDisableTextBox>
+                    </div>
                   )
                 }
               </div>
