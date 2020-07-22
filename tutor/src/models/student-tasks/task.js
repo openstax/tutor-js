@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany, session, computed, observable,
+  BaseModel, identifiedBy, field, identifier, hasMany, action, session, computed, observable,
 } from 'shared/model';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
@@ -125,7 +125,7 @@ class StudentTask extends BaseModel {
 
   // called by API
   fetch() { }
-  onFetchComplete({ data }) {
+  @action onFetchComplete({ data }) {
     const { steps, ...task } = data;
     this.api.errors = {};
     this.update(task);

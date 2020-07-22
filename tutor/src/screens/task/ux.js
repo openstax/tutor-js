@@ -1,4 +1,4 @@
-import { observable, computed, action, when, observe } from 'mobx';
+import { observable, runInAction, computed, action, when, observe } from 'mobx';
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
@@ -194,12 +194,13 @@ export default class TaskUX {
 
   @action.bound async refetchTask() {
     await this.task.fetch();
-
-    // current step might no longer exist
-    if (!this.steps.find(s => s.id == this._stepId)) {
-      this._stepId = this.bestGuessStep.id;
-    }
-    this.currentStep.fetchIfNeeded();
+    runInAction(() => {
+      // current step might no longer exist
+      if (!this.steps.find(s => s.id == this._stepId)) {
+        this._stepId = this.bestGuessStep.id;
+      }
+      this.currentStep.fetchIfNeeded();
+    });
   }
 
   @action.bound goBackward() {
@@ -280,7 +281,7 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
-    if (this.isApiPending || this.isLocked) { return false; }
+    if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
 
     if (this.currentStepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
