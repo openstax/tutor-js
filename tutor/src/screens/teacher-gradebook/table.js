@@ -437,7 +437,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MIN} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped>
@@ -458,7 +458,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MAX} />))}
       </Row>
     </StyledAggregateData>
   );
