@@ -1,5 +1,5 @@
 const Factory = require('object-factory-bot');
-const { partial, find, range, flatMap, concat } = require('lodash');
+const { range, flatMap, concat } = require('lodash');
 const Readings = require('./readings');
 require('../../../specs/factories/exercise');
 

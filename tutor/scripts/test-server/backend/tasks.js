@@ -1,9 +1,6 @@
 const Factory = require('object-factory-bot');
 const moment = require('moment');
-const { times, merge } = require('lodash');
-const { now } = require('../time-now');
 const fake = require('faker');
-const { getExercise } = require('./exercises');
 const { getCourse } = require('./bootstrap');
 const tasksPlansApi = require('./task-plans');
 require('../../../specs/factories/student-tasks');
@@ -11,9 +8,12 @@ require('../../../specs/factories/student-tasks');
 const TASKS = {};
 
 const WRM_ID = 3;
+const WRM_ID_LATE_NOT_ACCEPTED = 4;
 
 // create a WRM task
 TASKS[WRM_ID] = Factory.create('StudentTask', { id: WRM_ID, type: 'homework', wrm: true, stepCount: 10 });
+TASKS[WRM_ID_LATE_NOT_ACCEPTED] = Factory.create('StudentTask', 
+  { id: WRM_ID_LATE_NOT_ACCEPTED, type: 'homework', wrm: true, stepCount: 10, isLateNotAccepted: true });
 
 const taskForId = (id, attrs = {}) => (
   TASKS[id] || (TASKS[id] = Factory.create('StudentTask', Object.assign(attrs, {

@@ -77,6 +77,9 @@ Factory.define('StudentTaskStep')
   .can_be_updated(true)
   .is_feedback_available(false)
   .available_points(1)
+  .published_points(({ isLateNotAccepted }) => isLateNotAccepted ? 0 : null)
+  .published_points_without_lateness(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
+  .published_late_work_point_penalty(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
 
 Factory.define('StudentTask')
   .id(sequence)
@@ -94,18 +97,18 @@ Factory.define('StudentTask')
   .manual_grading_feedback_on(fake.random.arrayElement(['grade', 'publish']))
   .completion_weight(rng({ min: 0.0, max: 1.0 }))
   .correctness_weight(({ object }) => 1.0 - object.completion_weight)
-  .late_work_penalty_applied(() => fake.random.arrayElement(['daily', 'assignment']))
+  .late_work_penalty_applied(({ isLateNotAccepted }) => isLateNotAccepted ? 'not_accepted' : fake.random.arrayElement(['daily', 'assignment', 'not_accepted']))
   .late_work_penalty_per_period(rng({ min: 0.0, max: 1.0 }))
   .published_late_work_point_penalty(0.0)
   .published_points(rng({ min: 0.0, max: 10.0 }))
   .is_provisional_score(true)
   .is_deleted(false)
   .students(() => [])
-  .steps(({ stepCount, wrm, object: { type } }) => {
+  .steps(({ stepCount, wrm, isLateNotAccepted, object: { type } }) => {
     if (type == 'event') { return []; }
     return range(0, (isNil(stepCount) ? fake.random.number({ min: 3, max: 10 }) : stepCount)).map(() => {
       return Factory.create('StudentTaskStep', {
-        wrm, type: fake.random.arrayElement(TASK_TYPES[type]),
+        wrm, type: fake.random.arrayElement(TASK_TYPES[type]), isLateNotAccepted,
       })
     })
   })

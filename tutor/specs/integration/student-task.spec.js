@@ -17,7 +17,7 @@ context('Student Tasks', () => {
   })
 
   it('can change and re-submit answers to questions', () => {
-    cy.visit('/course/1/task/4')
+    cy.visit('/course/1/task/2')
     cy.get('.sticky-table [data-step-index=3]').click({ force: true })
     cy.get('.exercise-step').then(st => {
       const fr = st.find('[data-test-id="free-response-box"]')
@@ -44,4 +44,11 @@ context('Student Tasks', () => {
     cy.getTestElement('continue-btn').click()
   })
   
+  it('should show late clock icon and the late points info, if task step is late', () => {
+    cy.visit('/course/1/task/4')
+    cy.get('[data-test-id="late-icon"]').should('exist')
+    cy.get('.isLateCell').first().trigger('mouseover').then(() => {
+      cy.get('[data-test-id="late-info-points-table"]').should('exist')
+    })
+  })
 })

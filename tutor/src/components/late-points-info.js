@@ -6,7 +6,7 @@ const LatePointsInfo = ({ step }) => {
   const lateWorkPenalty = step.published_late_work_point_penalty;
   const isLateWorkNotAccepted = step.task.late_work_penalty_applied === 'not_accepted';
   return (
-    <table>
+    <table data-test-id="late-info-points-table">
       <tbody>
         <tr>
           <td>Points earned:</td>

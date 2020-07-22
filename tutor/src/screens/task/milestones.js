@@ -60,7 +60,6 @@ class Milestone extends React.Component {
 
   render() {
     const { step, currentStep, stepIndex } = this.props;
-    console.log(step);
     const active = stepIndex === currentStep;
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 

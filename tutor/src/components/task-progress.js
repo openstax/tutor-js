@@ -168,14 +168,17 @@ const renderPointsScoredCell = (step) => {
         show={true}
         placement="bottom"
         overlay={renderLateInfoPopover(step)}>
-        <Cell  className={pointsScoredStatus(step)}>
-          <div className="icon">
-            {step.isLate && 
-            <Icon
-              color={colors.danger}
-              type='clock'
-            />}
-          </div>
+        <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
+          {
+            step.isLate && 
+            <div className="icon">
+              <Icon
+                color={colors.danger}
+                type='clock'
+                data-test-id="late-icon"
+              />
+            </div>
+          }
           <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
         </Cell>
       </OverlayTrigger>
