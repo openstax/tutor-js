@@ -3,6 +3,7 @@ import React from 'react';
 import {
   trimEnd, sortBy, map, isEmpty, last, filter,
 } from 'lodash';
+import styled from 'styled-components';
 import classnames from 'classnames';
 import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
@@ -13,6 +14,18 @@ import Question from '../question';
 import ExerciseBadges from '../exercise-badges';
 import ControlsOverlay from './controls-overlay';
 import Exercise from '../../model/exercise';
+import { colors } from 'theme';
+
+const StyledDisableTextBox = styled.div`
+  margin-bottom: 24px;
+  padding: 4px 6px 12px 6px;
+  background-color: ${colors.neutral.lighter};
+  border-radius: 2px;
+  border: 1px ${colors.neutral.pale};
+  color: ${colors.neutral.thin};
+  font-size: 14px;
+  line-height: 24px;
+`;
 
 @observer
 class ExercisePreview extends React.Component {
@@ -120,18 +133,26 @@ class ExercisePreview extends React.Component {
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
             {this.renderStimulus()}
             {map(this.exercise.questions, (question, index) => (
-              <Question
-                key={index}
-                hideAnswers={this.props.hideAnswers}
-                className="openstax-question-preview"
-                question={question}
-                choicesEnabled={false}
-                displayFormats={this.props.displayFormats}
-                show_all_feedback={this.props.displayFeedback}
-                type="teacher-preview"
-              >
-                {this.props.questionFooters && this.props.questionFooters[index]}
-              </Question>
+              <div key={index}>
+                <Question
+                  hideAnswers={this.props.hideAnswers}
+                  className="openstax-question-preview"
+                  question={question}
+                  choicesEnabled={false}
+                  displayFormats={this.props.displayFormats}
+                  show_all_feedback={this.props.displayFeedback}
+                  type="teacher-preview"
+                >
+                  {this.props.questionFooters && this.props.questionFooters[index]}
+                </Question>
+                {
+                  question.isWrittenResponse && (
+                    <StyledDisableTextBox>
+                      Student Response...
+                    </StyledDisableTextBox>
+                  )
+                }
+              </div>
             ))}
           </div>
           <div className="exercise-tags">

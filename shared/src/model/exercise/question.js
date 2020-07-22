@@ -1,4 +1,4 @@
-import { uniq, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
+import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
@@ -47,6 +47,11 @@ class ExerciseQuestion extends BaseModel {
 
   @computed get isOpenEnded() {
     return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
+  }
+
+  //WRM is OpenEnded and have no answers
+  @computed get isWrittenResponse() {
+    return this.isOpenEnded && this.answers.length === 0;
   }
 
   hasFormat(value) {
