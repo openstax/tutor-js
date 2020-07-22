@@ -103,7 +103,7 @@ export default class GradeBookUX {
     if (this.arrangeColumnsByType) {
       return sorter.type;
     }
-    return sorter.date;
+    return sorter.default;
   }
 
   @computed get headings() {
