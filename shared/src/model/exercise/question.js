@@ -1,4 +1,4 @@
-import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every } from 'lodash';
+import { uniq, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
