@@ -16,209 +16,211 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
       <div
         className="exercise-body"
       >
-        <div
-          className="openstax-question openstax-question-preview"
-        >
+        <div>
           <div
-            className="question-stem"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
-              }
-            }
-          />
-          <div
-            className="answers-table"
+            className="openstax-question openstax-question-preview"
           >
             <div
-              className="openstax-answer"
+              className="question-stem"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                }
+              }
+            />
+            <div
+              className="answers-table"
             >
-              <section
-                className="answers-answer disabled"
-                role="region"
+              <div
+                className="openstax-answer"
               >
-                <div
-                  className="correct-incorrect"
-                />
-                <label
-                  className="answer-label"
-                  htmlFor="1-option-0"
-                  onKeyPress={[Function]}
+                <section
+                  className="answers-answer disabled"
+                  role="region"
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
-                  >
-                    a
-                  </button>
                   <div
-                    className="answer-answer"
+                    className="correct-incorrect"
+                  />
+                  <label
+                    className="answer-label"
+                    htmlFor="1-option-0"
+                    onKeyPress={[Function]}
                   >
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
                     <div
-                      className="answer-content"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<ol>
+                      className="answer-answer"
+                    >
+                      <div
+                        className="answer-content"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
+                          }
                         }
-                      }
-                    />
-                  </div>
-                </label>
-              </section>
-            </div>
-            <div
-              className="openstax-answer"
-            >
-              <section
-                className="answers-answer disabled"
-                role="region"
+                      />
+                    </div>
+                  </label>
+                </section>
+              </div>
+              <div
+                className="openstax-answer"
               >
-                <div
-                  className="correct-incorrect"
-                />
-                <label
-                  className="answer-label"
-                  htmlFor="1-option-1"
-                  onKeyPress={[Function]}
+                <section
+                  className="answers-answer disabled"
+                  role="region"
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
-                  >
-                    b
-                  </button>
                   <div
-                    className="answer-answer"
+                    className="correct-incorrect"
+                  />
+                  <label
+                    className="answer-label"
+                    htmlFor="1-option-1"
+                    onKeyPress={[Function]}
                   >
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
                     <div
-                      className="answer-content"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<ol>
+                      className="answer-answer"
+                    >
+                      <div
+                        className="answer-content"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<ol>
   <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
+                          }
                         }
-                      }
-                    />
-                  </div>
-                </label>
-              </section>
-            </div>
-            <div
-              className="openstax-answer"
-            >
-              <section
-                className="answers-answer disabled"
-                role="region"
+                      />
+                    </div>
+                  </label>
+                </section>
+              </div>
+              <div
+                className="openstax-answer"
               >
-                <div
-                  className="correct-incorrect"
-                />
-                <label
-                  className="answer-label"
-                  htmlFor="1-option-2"
-                  onKeyPress={[Function]}
+                <section
+                  className="answers-answer disabled"
+                  role="region"
                 >
-                  <button
-                    aria-label="Choice c:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-c"
-                    disabled={true}
-                  >
-                    c
-                  </button>
                   <div
-                    className="answer-answer"
+                    className="correct-incorrect"
+                  />
+                  <label
+                    className="answer-label"
+                    htmlFor="1-option-2"
+                    onKeyPress={[Function]}
                   >
+                    <button
+                      aria-label="Choice c:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-c"
+                      disabled={true}
+                    >
+                      c
+                    </button>
                     <div
-                      className="answer-content"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<ol>
+                      className="answer-answer"
+                    >
+                      <div
+                        className="answer-content"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
+                          }
                         }
-                      }
-                    />
-                  </div>
-                </label>
-              </section>
-            </div>
-            <div
-              className="openstax-answer"
-            >
-              <section
-                className="answers-answer disabled"
-                role="region"
+                      />
+                    </div>
+                  </label>
+                </section>
+              </div>
+              <div
+                className="openstax-answer"
               >
-                <div
-                  className="correct-incorrect"
-                />
-                <label
-                  className="answer-label"
-                  htmlFor="1-option-3"
-                  onKeyPress={[Function]}
+                <section
+                  className="answers-answer disabled"
+                  role="region"
                 >
-                  <button
-                    aria-label="Choice d:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-d"
-                    disabled={true}
-                  >
-                    d
-                  </button>
                   <div
-                    className="answer-answer"
+                    className="correct-incorrect"
+                  />
+                  <label
+                    className="answer-label"
+                    htmlFor="1-option-3"
+                    onKeyPress={[Function]}
                   >
+                    <button
+                      aria-label="Choice d:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-d"
+                      disabled={true}
+                    >
+                      d
+                    </button>
                     <div
-                      className="answer-content"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<ol>
+                      className="answer-answer"
+                    >
+                      <div
+                        className="answer-content"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a weak gravitational field</li>
 </ol>
 ",
+                          }
                         }
-                      }
-                    />
-                  </div>
-                </label>
-              </section>
+                      />
+                    </div>
+                  </label>
+                </section>
+              </div>
             </div>
-          </div>
-          <div
-            className="detailed-solution"
-          >
             <div
-              className="header"
+              className="detailed-solution"
             >
-              Detailed solution
-            </div>
-            <div
-              className="solution"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "four",
+              <div
+                className="header"
+              >
+                Detailed solution
+              </div>
+              <div
+                className="solution"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "four",
+                  }
                 }
-              }
-            />
+              />
+            </div>
           </div>
         </div>
       </div>
