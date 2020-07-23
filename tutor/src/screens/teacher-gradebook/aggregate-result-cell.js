@@ -2,21 +2,22 @@ import { React, PropTypes } from 'vendor';
 import { observer } from 'mobx-react';
 import { sumBy, countBy, filter, isNil, isNaN } from 'lodash';
 import { getCell } from './styles';
-import S, { UNWORKED } from '../../helpers/string';
-
+import S from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 
 const Cell = getCell('0 10px');
+window.ScoresHelper = ScoresHelper;
 
 const getPoints = (tasks) => {
   const aggregatePoints = sumBy(tasks, (t) => t.published_points);
-  return isNil(aggregatePoints) ? UNWORKED : S.numberWithOneDecimalPlace(aggregatePoints/tasks.length);
+  return isNil(aggregatePoints) ? UNWORKED : ScoresHelper.formatPoints(aggregatePoints/tasks.length);
 };
 
 const getPercentage = (tasks) => {
-  const aggregateScore = sumBy(tasks, (t) => parseFloat(t.published_score , 10));
-  return isNil(aggregateScore) || isNaN(aggregateScore) ? UNWORKED : `${S.asPercent(aggregateScore/tasks.length)}%`;
+  const aggregateScore = sumBy(tasks, (t) => parseFloat(t.published_score));
+  if (isNil(aggregateScore) || isNaN(aggregateScore)) { return UNWORKED; }
+  return `${ScoresHelper.asPercent(aggregateScore/tasks.length)}%`;
 };
-
 
 const AggregateResult = observer(({ data, ux, drawBorderBottom }) => {
   if(data.type === 'external') {
