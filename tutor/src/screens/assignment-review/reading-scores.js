@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import LoadingScreen from 'shared/components/loading-animation';
@@ -44,6 +44,20 @@ const ColumnHeading = styled(BasicColumnHeading)`
   .bottom-data-heading {
     height: 40px;
   }
+`;
+
+const CompletedCell = styled(Cell)`
+  ${props => !props.isComplete && css`
+  &&&& {
+      background-color: ${colors.neutral.pale};
+      border-top: 1px solid ${colors.neutral.std};
+
+      /* check if next student did complete assignment. Otherwise we would ended up with a 2px border */
+      ${props => (props.didNextStudentComplete || props.isLastRow) && css`
+          border-bottom: 1px solid ${colors.neutral.std};
+      `}
+  }`
+}
 `;
 
 
@@ -142,7 +156,7 @@ const StudentColumnHeader = observer(({ ux }) => (
   </Cell>
 ));
 
-const StudentCell = observer(({ ux, student, striped }) => {
+const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, isNextStudentAboveFiftyPercentage, isLastRow }) => {
   const countData = ux.getReadingCountData(student);
   return (
     <>
@@ -161,7 +175,11 @@ const StudentCell = observer(({ ux, student, striped }) => {
             </TutorLink>
           </NameWrapper>
 
-          <Total>
+          <Total
+            isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
+            isNextStudentAboveFiftyPercentage={isNextStudentAboveFiftyPercentage}
+            isLastRow={isLastRow}
+          >
             {ux.displayTotalInPercent ?
               `${S.asPercent(student.total_fraction || 0)}%` :
               S.numberWithOneDecimalPlace(student.total_points || 0)}
@@ -172,11 +190,16 @@ const StudentCell = observer(({ ux, student, striped }) => {
           </LateWork>
         </CellContents>
       </Cell>
-      <Cell striped={striped}>
+      <CompletedCell
+        striped={striped}
+        isComplete={ux.didStudentComplete(student)}
+        didNextStudentComplete={didNextStudentComplete}
+        isLastRow={isLastRow}
+      >
         <CellContents>
           {countData.complete} of {countData.total}
         </CellContents>
-      </Cell>
+      </CompletedCell>
       <Cell striped={striped}>
         <CellContents>
           {countData.correct} of {countData.complete}
@@ -250,14 +273,21 @@ const ReadingScores = observer(({ ux }) => {
   return (
     <>
       <TableHeader ux={ux} />
-      <StyledStickyTable data-test-id="scores">
+      <StyledStickyTable data-test-id="scores" borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader scores={scores} ux={ux} />
           {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
-            <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
+            <StudentCell
+              ux={ux}
+              student={student}
+              striped={0 === sIndex % 2}
+              didNextStudentComplete={ux.didStudentComplete(ux.sortedStudents[sIndex + 1])} 
+              isNextStudentAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(ux.sortedStudents[sIndex + 1])}
+              isLastRow={sIndex === ux.sortedStudents.length - 1}
+            />
           </Row>))}
         <Row>
           <AverageScoreHeader ux={ux} />
