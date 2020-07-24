@@ -14,6 +14,7 @@ describe('Scores helper', function() {
     expect(ScoresHelper.formatLatePenalty(0.255)).toEqual('-0.25');
     expect(ScoresHelper.formatLatePenalty(0.126)).toEqual('-0.13');
     expect(ScoresHelper.formatLatePenalty(0.40)).toEqual('-0.4');
+    expect(ScoresHelper.formatLatePenalty(1.0)).toEqual('-1.0');
   });
 
   it('rounds high precision numbers to percents', function() {
