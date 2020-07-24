@@ -92,7 +92,7 @@ class User extends BaseModel {
   @computed get isAllowedInstructor() {
     return this.isConfirmedFaculty &&
       !this.isForeignInstructor &&
-      includes(['college', 'high_school', 'k12_school'], this.school_type);
+      includes(['college', 'high_school', 'k12_school', 'home_school'], this.school_type);
   }
 
   @computed get canViewPreviewCourses() {
