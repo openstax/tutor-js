@@ -6,6 +6,7 @@ const PORTS = {
   tutor:      '8000',
   shared:     '8000',
   exercises:  '8001',
+  quiz:       '8002',
 };
 
 const production   = process.env.NODE_ENV === 'production';
@@ -20,9 +21,11 @@ const ENTRIES = {
   tutor: {
     tutor: defaultEntry,
     lmspair: './tutor/lms-pair.js',
+
   },
   exercises: { exercises: defaultEntry },
   shared: { demo: './shared/demo.js' },
+  quiz: { quiz: defaultEntry },
 };
 
 const config = {
@@ -52,6 +55,7 @@ const config = {
     ],
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
+      vendor: path.resolve(__dirname, 'tutor/src/vendor.js'),
     },
     extensions: ['.js', '.jsx', '.json'],
   },

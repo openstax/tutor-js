@@ -6,9 +6,6 @@ class Breadcrumb extends React.Component {
 
   static propTypes = {
     step: PropTypes.object.isRequired,
-    stepIndex: PropTypes.oneOfType([
-      PropTypes.number, PropTypes.string,
-    ]).isRequired,
     className: PropTypes.string,
     goToStep: PropTypes.func.isRequired,
     isCurrent: PropTypes.bool,
