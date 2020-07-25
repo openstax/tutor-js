@@ -8,6 +8,10 @@ export OX_PROJECT=$1
 echo Building: $OX_PROJECT
 export NODE_ENV=production
 
+if [ x$OX_PROJECT == x"quiz" ]; then
+  export PUBLIC_PATH='./'
+fi
+
 # http://stackoverflow.com/questions/16989598/bash-comparing-version-numbers
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
 

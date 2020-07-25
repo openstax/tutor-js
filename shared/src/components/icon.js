@@ -83,6 +83,7 @@ const Icons = {
   'sort-up':              require('@fortawesome/free-solid-svg-icons/faSortUp'),
   'spinner':              require('@fortawesome/free-solid-svg-icons/faSpinner'),
   'star':                 require('@fortawesome/free-solid-svg-icons/faStar'),
+  'times-circle':         require('@fortawesome/free-solid-svg-icons/faTimesCircle'),
   'th':                   require('@fortawesome/free-solid-svg-icons/faTh'),
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
   'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),

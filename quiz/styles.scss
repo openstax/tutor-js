@@ -1,0 +1,42 @@
+// Include variables and mixins, but NOT STYLES
+// care must be taken with imports listed here so that they don't import actual styles
+// doing so will cause them to be imported multiple times
+// (once in main Tutor build, and then in each screen's build)
+@import '../tutor/resources/styles/definitions';
+$icon-path: '../shared/resources/images/icons';
+
+@import '../shared/resources/styles/mixins/index';
+@import '../shared/resources/styles/globals/icons';
+@import '../shared/resources/styles/variables/index';
+@import "~bootstrap/scss/reboot";
+
+@import '~pattern-library/core/pattern-library/headers';
+@import '../tutor/resources/styles/mixins';
+@import '../tutor/resources/styles/global/typography';
+
+.openstax {
+  @import '../shared/resources/styles/components/question.scss';
+}
+
+#wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+#quiz {
+  min-height: 450px;
+  margin-bottom: 100px;
+  width: 500px;
+  border: 1px solid lightGrey;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.openstax-link {
+  margin-bottom: 40px;
+}
+
+[itemtype] { display: none; }

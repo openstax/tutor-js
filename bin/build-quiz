@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
 export PUBLIC_PATH='./'
-
-./bin/build quiz
