@@ -18,8 +18,7 @@ import {
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   ColumnHeading as BasicColumnHeading,
   SplitCell, ColumnFooter, Total,
-  LateWork, DefinitionsWrapper,
-  ControlsWrapper, ControlGroup,
+  LateWork, ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 } from './table-elements';
 
@@ -46,7 +45,7 @@ const ColumnHeading = styled(BasicColumnHeading)`
   }
 `;
 
-const CompletedCell = styled(Cell)`
+const StyledCompleteInfoCell = styled(Cell)`
   ${props => !props.isComplete && css`
   &&&& {
       background-color: ${colors.neutral.pale};
@@ -58,6 +57,41 @@ const CompletedCell = styled(Cell)`
       `}
   }`
 }
+`;
+
+const Legend = styled.div`
+  > div {
+    display: flex;
+    margin-bottom: 7px;
+
+    & div {
+      margin-right: 9px;
+    }
+
+    & span {
+      font-size: 1.2rem;
+      color: ${colors.neutral.thin};
+    }
+  }
+
+  .extension-legend {
+    .extension-icon {
+      margin-left: 8px;
+      margin-right: 18px;
+    }
+  }
+
+  .incomplete-questions-legend-box {
+    border: 1px solid ${colors.neutral.std};
+    background-color: ${colors.neutral.pale};
+    padding: 8px 15px;
+  }
+
+  .needs-attention-legend-box {
+    border: 1px solid #C22032;
+    background-color: #FFE6EA;
+    padding: 8px 15px;
+  }
 `;
 
 
@@ -190,7 +224,7 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
           </LateWork>
         </CellContents>
       </Cell>
-      <CompletedCell
+      <StyledCompleteInfoCell
         striped={striped}
         isComplete={ux.didStudentComplete(student)}
         didNextStudentComplete={didNextStudentComplete}
@@ -199,7 +233,7 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
         <CellContents>
           {countData.complete} of {countData.total}
         </CellContents>
-      </CompletedCell>
+      </StyledCompleteInfoCell>
       <Cell striped={striped}>
         <CellContents>
           {countData.correct} of {countData.complete}
@@ -296,13 +330,23 @@ const ReadingScores = observer(({ ux }) => {
           <Cell />
         </Row>
       </StyledStickyTable>
-      <DefinitionsWrapper>
-        <strong>NOTE</strong>
+      <Legend>
+        {/* <strong>NOTE</strong>
         <ol>
           <li>The late penalty is applied only to the points earned after the due date. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a></li>
           <li>Students who’ve been granted an extension are denoted with <ExtIcon /></li>
-        </ol>
-      </DefinitionsWrapper>
+        </ol> */}
+        <div>
+          <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
+        </div>
+        <div>
+          <div className="needs-attention-legend-box"></div><span>Score less than 50% of total available points</span>
+        </div>
+        <div className="extension-legend">
+          <ExtIcon></ExtIcon><span>Extension granted</span>
+        </div>
+        
+      </Legend>
     </>
   );
 });
