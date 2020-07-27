@@ -343,11 +343,6 @@ const ReadingScores = observer(({ ux }) => {
         </Row>
       </StyledStickyTable>
       <Legend>
-        {/* <strong>NOTE</strong>
-        <ol>
-          <li>The late penalty is applied only to the points earned after the due date. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a></li>
-          <li>Students who’ve been granted an extension are denoted with <ExtIcon /></li>
-        </ol> */}
         <div>
           <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
         </div>
