@@ -59,6 +59,18 @@ const StyledCompleteInfoCell = styled(Cell)`
 }
 `;
 
+const StyledTotal = styled(Total)`
+   ${props => !props.isAboveFiftyPercentage && css`
+    background-color: ${colors.states.trouble};
+    border-top: 1px solid ${colors.danger};
+
+      /* check if next student has above 50%. Otherwise we would ended up with a 2px border */
+      ${props => (props.isNextStudentAboveFiftyPercentage || props.isLastRow) && css`
+          border-bottom: 1px solid ${colors.danger};
+      `}
+  `}
+`;
+
 const Legend = styled.div`
   > div {
     display: flex;
@@ -88,8 +100,8 @@ const Legend = styled.div`
   }
 
   .needs-attention-legend-box {
-    border: 1px solid #C22032;
-    background-color: #FFE6EA;
+    border: 1px solid ${colors.danger};
+    background-color: ${colors.states.trouble};
     padding: 8px 15px;
   }
 `;
@@ -209,7 +221,7 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
             </TutorLink>
           </NameWrapper>
 
-          <Total
+          <StyledTotal
             isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
             isNextStudentAboveFiftyPercentage={isNextStudentAboveFiftyPercentage}
             isLastRow={isLastRow}
@@ -217,7 +229,7 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
             {ux.displayTotalInPercent ?
               `${S.asPercent(student.total_fraction || 0)}%` :
               S.numberWithOneDecimalPlace(student.total_points || 0)}
-          </Total>
+          </StyledTotal>
           <LateWork>
             {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
             {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
@@ -265,10 +277,10 @@ AssignmentHeading.propTypes = {
 };
 
 const AverageScoreHeader = observer(({ ux }) => (
-  <Cell leftBorder={true}>
+  <Cell borderTop>
     <CellContents>
-      <ColumnFooter first={true}>
-        <Heading first={true} noBorder={true}>
+      <ColumnFooter first>
+        <Heading first noBorder>
           Average score
         </Heading>
       </ColumnFooter>
@@ -325,9 +337,9 @@ const ReadingScores = observer(({ ux }) => {
           </Row>))}
         <Row>
           <AverageScoreHeader ux={ux} />
-          <Cell />
-          <Cell />
-          <Cell />
+          <Cell borderTop />
+          <Cell borderTop />
+          <Cell borderTop />
         </Row>
       </StyledStickyTable>
       <Legend>

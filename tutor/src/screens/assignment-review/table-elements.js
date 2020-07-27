@@ -30,6 +30,12 @@ const Cell = styled(TableCell)`
   && {
     ${props => props.isTrouble && isTroubleCSS}
   }
+  && {
+    ${props => props.borderTop && css`
+      border-top: 1px solid ${colors.neutral.pale};
+    `}
+    }
+  }
 `;
 
 
@@ -139,16 +145,6 @@ const Total = styled.div`
   align-self: stretch;
   border-right: 1px solid  ${colors.neutral.pale};
   ${centeredCSS}
-
-  ${props => !props.isAboveFiftyPercentage && css`
-    background-color: #FFE6EA;
-    border-top: 1px solid #C22032;
-
-      /* check if next student has above 50%. Otherwise we would ended up with a 2px border */
-      ${props => (props.isNextStudentAboveFiftyPercentage || props.isLastRow) && css`
-          border-bottom: 1px solid #C22032;
-      `}
-  `}
 `;
 
 const isTroubleCSS = css`
