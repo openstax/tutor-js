@@ -15,15 +15,9 @@ export function UI({ error, exercises }) {
 
   return (
     <div id="wrap">
-
-      <a className="openstax-link" href="https://openstax.org">
-        <img src="https://openstax.org/images/logo.svg" width="200" />
-      </a>
-
       <div id="quiz">
         {body}
       </div>
-      
     </div>
   )
 }
