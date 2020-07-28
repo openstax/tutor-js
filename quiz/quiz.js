@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { observer, observable, action, computed } from 'vendor';
 import styled from 'styled-components';
-import { sampleSize, sumBy, find, without } from 'lodash';
+import { sampleSize, without, sumBy, find } from 'lodash';
 import Breadcrumbs from './breadcrumbs';
 import Question from './question';
-import SourceLink from './source-link'
+import SourceLink from './source-link';
 
 const NUM_EXERCISES = 10;
 
@@ -35,14 +35,8 @@ const Body = styled.div`
 
 const Footer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-`;
-
-
-const StatsWrapper = styled.div`
-  font-size: 1.8rem;
-  padding-left: 40px;
 `;
 
 const Next = observer(({ onClick, exercise, isLast }) => {
@@ -57,26 +51,16 @@ const Next = observer(({ onClick, exercise, isLast }) => {
   );
 });
 
-const Stats = observer(({ exercises }) => {
-  const isStarted = find(exercises, 'selectedAnswerId');
-  if (!isStarted) return <StatsWrapper />
-
-  return (
-    <StatsWrapper>
-      {sumBy(exercises, 'isCorrect')} / {exercises.length} correct
-    </StatsWrapper>
-  );
-});
-
 @observer
 class Quiz extends React.Component {
 
-  @observable exercises = [];
+  @observable choosenExercises = [];
+  @observable availableExercises = this.props.exercises;
   @observable index = 0;
   
   chooseNewExercises() {
-    const exercises = without(this.props.exercises, this.exercises);
-    this.exercises = sampleSize(exercises, NUM_EXERCISES);
+    this.availableExercises = without(this.availableExercises, this.choosenExercises);
+    this.choosenExercises = sampleSize(this.availableExercises, NUM_EXERCISES);
   }
 
   constructor(props) {
@@ -89,11 +73,11 @@ class Quiz extends React.Component {
   }
 
   @computed get exercise() {
-    return this.exercises[this.index];
+    return this.choosenExercises[this.index];
   }
 
   @computed get isLast() {
-    return this.index == this.exercises.length - 1;
+    return this.index == this.choosenExercises.length - 1;
   }
 
   @action.bound onNextClick() {
@@ -106,12 +90,12 @@ class Quiz extends React.Component {
   }
 
   render() {
-    const { exercises, exercise, isLast, index } = this;
+    const { choosenExercises, exercise, isLast, index } = this;
     
     return (
       <Wrapper className="task-quiz">
         <Breadcrumbs
-          exercises={exercises}
+          exercises={choosenExercises}
           activeIndex={index}
           setActiveIndex={this.setIndex}
         />
@@ -122,7 +106,6 @@ class Quiz extends React.Component {
           />
         </Body>
         <Footer>
-          <Stats exercises={exercises} />
           <Next
             exercise={exercise}
             isLast={isLast}
