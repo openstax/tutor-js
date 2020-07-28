@@ -8,13 +8,14 @@ const isActiveCss = css`
   z-index: 2;
   transform: scale(1.4);
   border-radius: 50%;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
 `;
 
 const Circle = styled.a`
-  font-size: 2rem;
-  border-radius: 4rem;
-  line-height: 4rem;
-  min-width: 4rem;
+  font-size: 20px;
+  border-radius: 40px;
+  height: 40px;
+  min-width: 40px;
   position: relative;
   font-weight: 500;
   cursor: pointer;
@@ -22,7 +23,11 @@ const Circle = styled.a`
   display: inline-block;
   text-align: center;
   background: white;
+  border: 1px solid lightGrey;
   color: #818181;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .ox-icon {
     position: absolute;
     top: 1px;
@@ -57,7 +62,7 @@ const Breadcrumb = observer(({ exercise, index, isActive, onSelect }) => {
 const BCWrapper = styled.div`
   height: 40px;
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   justify-content: space-around;
 `;
 

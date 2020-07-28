@@ -23,6 +23,7 @@ whenDomReady().then(() => {
   }
 
   const root = document.createElement('div');
+  root.setAttribute('id', 'ox-quiz-app');
   parent.prepend(root);
 
   ReactDOM.render(React.createElement(UI, { exercises }), root);

@@ -7,8 +7,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   .question-stem {
-     font-size: 1.8rem;
-     line-height 2.8rem;
+     font-size: 18px;
+     line-height 28px;
   }
   button {
     padding: 0;

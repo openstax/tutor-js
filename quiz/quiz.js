@@ -10,7 +10,7 @@ const NUM_EXERCISES = 10;
 
 const Wrapper = styled.div`
   height: 100%;
-  padding: 2rem;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -23,7 +23,7 @@ const NextButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 10px 20px;
   background-color: #f47641;
   color: white;
 `;
