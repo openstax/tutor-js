@@ -14,7 +14,7 @@ const SourceLink = ({ exercise }) => {
 
   return (
     <Wrapper>
-      <Prefix>Comes from Microbiology chapter</Prefix>
+      <Prefix>From Microbiology chapter</Prefix>
       <span dangerouslySetInnerHTML={{__html: exercise.quiz.referenceHTML}} />
     </Wrapper>
   );
