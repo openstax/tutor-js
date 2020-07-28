@@ -23,36 +23,33 @@ describe('Responsive Rendering', () => {
 
   it('switches view depending on window width', () => {
     const { windowImpl } = props;
-    windowImpl.innerWidth = 1024
+    windowImpl.resizeTo({ width: 1024 })
     const c = mount(<Responsive {...props} />)
     expect(c).toHaveRendered(Desktop)
-    windowImpl.innerWidth = 780
-    windowImpl.addEventListener.mock.calls[0][1]()
+    windowImpl.resizeTo({ width: 780 })
     jest.runAllTimers();
 
     expect(c).toHaveRendered(Tablet)
 
-    windowImpl.innerWidth = 650
-    windowImpl.addEventListener.mock.calls[0][1]()
+    windowImpl.resizeTo({ width: 650 })
     expect(c).toHaveRendered(Mobile)
   })
 
   it ('renders desktop if tablet is ommited', () => {
-    props.windowImpl.innerWidth = 780 // tablet size, but no tablet view given
+    props.windowImpl.resizeTo({ width: 780 }) // tablet size, but no tablet view given
     props.tablet = undefined
     const c = mount(<Responsive {...props} />)
     expect(c).toHaveRendered(Desktop)
   })
 
   it('can use custom breakpoints', () => {
-    props.windowImpl.innerWidth = 980
+    props.windowImpl.resizeTo({ width: 980 })
     props.breakpoints={
       tablet: 900,
     }
     const c = mount(<Responsive {...props} />)
     expect(c).toHaveRendered(Tablet)
-    props.windowImpl.innerWidth = 1000
-    props.windowImpl.addEventListener.mock.calls[0][1]()
+    props.windowImpl.resizeTo({ width: 1000 })
     expect(c).toHaveRendered(Desktop)
   })
 
