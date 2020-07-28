@@ -1,4 +1,4 @@
-import { sortBy, find } from 'lodash';
+import { orderBy, sortBy, find } from 'lodash';
 import { action, observable, computed, decorate } from 'mobx';
 import { identifiedBy } from 'shared/model';
 import Course from '../../course';
@@ -26,13 +26,17 @@ class PreviewCourseOffering extends Course {
     this.offering = offering;
   }
 
+  // This property is called to determine if the preview course already exists
+  // We return false if shouldReusePreview is false so we get an updated course
   @computed get isCreated() {
-    return !!this.previewCourse;
+    return !!(this.previewCourse && this.previewCourse.should_reuse_preview);
   }
 
+  // To avoid errors, this method needs to accept any course returned by build()
   @computed get previewCourse() {
     return find(
-      Courses.preview.active.teaching.shouldReusePreview.array, { offering_id: this.offering_id }
+      orderBy(Courses.preview.active.teaching.array, 'should_reuse_preview', 'desc'),
+      { offering_id: this.offering_id }
     );
   }
 
