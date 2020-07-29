@@ -18,7 +18,8 @@ import {
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   ColumnHeading as BasicColumnHeading,
   SplitCell, ColumnFooter, Total,
-  LateWork, ControlsWrapper, ControlGroup,
+  LateWork, TableBottom,
+  ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 } from './table-elements';
 
@@ -105,7 +106,6 @@ const Legend = styled.div`
     padding: 8px 15px;
   }
 `;
-
 
 const popover = (gradingTemplate) => (
   <Popover className="scores-popover">
@@ -330,7 +330,7 @@ const ReadingScores = observer(({ ux }) => {
               ux={ux}
               student={student}
               striped={0 === sIndex % 2}
-              didNextStudentComplete={ux.didStudentComplete(ux.sortedStudents[sIndex + 1])} 
+              didNextStudentComplete={ux.didStudentComplete(ux.sortedStudents[sIndex + 1])}
               isNextStudentAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(ux.sortedStudents[sIndex + 1])}
               isLastRow={sIndex === ux.sortedStudents.length - 1}
             />
@@ -352,7 +352,7 @@ const ReadingScores = observer(({ ux }) => {
         <div className="extension-legend">
           <ExtIcon></ExtIcon><span>Extension granted</span>
         </div>
-        
+
       </Legend>
     </>
   );

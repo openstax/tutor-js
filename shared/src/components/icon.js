@@ -169,6 +169,10 @@ const Variants = {
     color: '#027EB5',
     type: 'exchange-alt',
   },
+  lateWork: {
+    color: '#D0021B',
+    type: 'clock',
+  },
 };
 
 

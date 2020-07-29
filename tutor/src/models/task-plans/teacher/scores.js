@@ -7,7 +7,7 @@ import {
   get, some, reduce, every, uniq, isNumber,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
-import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
+import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -15,6 +15,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field exercise_id;
   @field is_completed = false;
   @field points;
+  @field late_work_point_penalty;
   @field selected_answer_id;
   @field is_correct;
   @field free_response;
@@ -22,6 +23,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   @field needs_grading;
   @field grader_points;
   @field grader_comments;
+  @field submitted_late;
 
   @belongsTo({ model: 'task-plan/scores/student' }) student;
 
@@ -63,6 +65,16 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     return get(this.questionHeading, 'points', 1.0);
   }
 
+  @computed get finalPoints() {
+    return ScoresHelper.formatPoints(
+      get(this, 'gradedPoints', 0.0) - get(this, 'late_work_point_penalty', 0.0)
+    );
+  }
+
+  @computed get latePenalty() {
+    return ScoresHelper.formatLatePenalty(this.late_work_point_penalty);
+  }
+
   @computed get isManuallyGraded() {
     return !isNil(this.grader_points);
   }
@@ -71,10 +83,14 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     return !this.needs_grading && !isNil(this.gradedPoints) && (this.gradedPoints / this.availablePoints) < 0.5;
   }
 
+  @computed get isUnattemptedAutoZero() {
+    return this.points === 0 && !this.needs_grading && !this.is_completed;
+  }
+
   @computed get displayValue() {
     const { dropped } = this.questionHeading || {};
 
-    if (this.needs_grading) { return UNWORKED; }
+    if (this.needs_grading) { return UNGRADED; }
 
     if (dropped && this.is_completed) {
       return ScoresHelper.formatPoints(
@@ -130,6 +146,11 @@ class TaskPlanScoreStudent extends BaseModel {
 
   @computed get humanTotalPoints() {
     return isNumber(this.total_points) ? ScoresHelper.formatPoints(this.total_points) : UNWORKED;
+  }
+
+  @computed get humanTotalWithAvailablePoints() {
+    if (!isNumber(this.total_points)) { return `${UNWORKED} / ${UNWORKED}`; }
+    return `${ScoresHelper.formatPoints(this.total_points)} / ${ScoresHelper.formatPoints(this.available_points)}`;
   }
 }
 
