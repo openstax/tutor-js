@@ -58,6 +58,7 @@ class MyCourses extends React.Component {
           'my-courses-coach-no-migrate',
           'explore-a-preview', // this must come last, there's no dismiss btn
         ]}
+        data-test-id="my-courses"
         className="my-courses"
       >
         <MyCoursesCurrent />
