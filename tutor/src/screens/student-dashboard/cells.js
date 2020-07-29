@@ -56,6 +56,22 @@ const ScoreCell = styled(Cell).withConfig({
   }
 `;
 
+const MobileCell = styled.div`
+  padding: 1.5rem 1rem;
+  
+  i {
+    padding: 1.3rem;
+  }
+
+  span {
+    font-weight: 600;
+  }
+
+  .mobile-event-info {
+    padding-top: 10px;
+  }
+`;
+
 const Row = styled.div`
   height: 60px;
   display: flex;
@@ -63,4 +79,4 @@ const Row = styled.div`
   background: ${({ theme }) => theme.colors.neutral.lite};
 `;
 
-export { Row, TitleCell, DueCell, StatusCell, ScoreCell };
+export { Row, MobileCell, TitleCell, DueCell, StatusCell, ScoreCell };

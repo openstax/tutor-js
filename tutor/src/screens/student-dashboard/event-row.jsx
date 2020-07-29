@@ -1,6 +1,4 @@
 import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from 'vendor';
-// import { Col } from 'react-bootstrap';
-import moment from 'moment';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import TimeHelper from '../../helpers/time';
@@ -10,10 +8,11 @@ import HideButton from './hide-button';
 import { TaskStatus, TaskScore } from './task-info';
 import Course from '../../models/course';
 import EventTypeIcon from './event-type-icon';
-import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
+import { Row, MobileCell, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
 import { EIcon } from '../../components/icons/extension';
+import Responsive from '../../components/responsive';
 
-const NotOpenNoticeWrapper=styled.div`
+const NotOpenNoticeWrapper = styled.div`
   margin: 1rem 1rem 0 1rem;
   font-size: 12px;
   display: flex;
@@ -21,6 +20,29 @@ const NotOpenNoticeWrapper=styled.div`
   align-items: center;
   padding-left: 1rem;
   background: ${({ theme }) => theme.colors.neutral.lighter};
+`;
+
+const TaskRow = styled(Row).attrs({
+  as: 'a',
+})`
+  ${({ theme }) => theme.breakpoint.mobile`
+     ${fitContentHeight}
+  `}
+
+${({ theme }) => theme.breakpoint.tablet`
+     ${fitContentHeight}
+  `}
+`;
+
+const fitContentHeight = `
+  &&& {
+    height: fit-content;
+    max-height: none;
+  }
+`;
+
+const StyledEIcon = styled(EIcon)`
+  margin-left: 0.5rem;
 `;
 
 const timeFormat = TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT;
@@ -39,27 +61,16 @@ const NotOpenNotice = ({ task, course }) => {
 };
 NotOpenNotice.propTypes = {
   task: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
 };
 
 const EventTime = ({ event }) => {
   if (event.is_deleted) { return null; }
   return <Time date={event.due_at} format="concise" />;
 };
-
 EventTime.propTypes = {
-  event:     PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
 };
-
-
-const TaskRow=styled(Row).attrs({
-  as: 'a',
-})`
-
-`;
-
-const StyledEIcon = styled(EIcon)`
-  margin-left: 0.5rem;
-`;
 
 export default
 @withRouter
@@ -85,12 +96,59 @@ class EventRow extends React.Component {
     return get(this.props, 'viewable', this.props.event.isViewable);
   }
 
+  renderDesktop() {
+    const { event, course } = this.props;
+    return (
+      <>
+        <TitleCell>
+          <EventTypeIcon event={event} />
+          <span>{event.title}</span>
+        </TitleCell>
+        <DueCell>
+          <EventTime event={event} />
+          {event.is_extended && <StyledEIcon />}
+          <HideButton event={event} />
+        </DueCell>
+        <StatusCell>
+          <TaskStatus event={event} course={course} />
+        </StatusCell>
+        <ScoreCell>
+          <TaskScore event={event} course={course} />
+        </ScoreCell>
+      </>
+    );
+  }
+
+  renderMobile() {
+    const { event, course } = this.props;
+    return (
+      <>
+        <MobileCell>
+          <EventTypeIcon event={event} />
+          <span>{event.title}</span>
+          <div className="mobile-event-info">
+            <div>
+          fhfhf
+            </div>
+            <div>
+          fhfhf
+            </div>
+            <div>
+          fhfhf
+            </div>
+          </div>
+          
+        </MobileCell>
+      </>
+    );
+  }
+
   render() {
     const { event, course } = this.props;
     if (event.isHidden) { return null; }
 
     return (
-      <React.Fragment>
+      <>
         <NotOpenNotice task={event} course={course} />
         <TaskRow
           className={cn(`task ${event.type}`, {
@@ -104,23 +162,12 @@ class EventRow extends React.Component {
           onKeyDown={this.isViewable ? this.onKey : undefined}
           data-event-id={this.props.event.id}
         >
-          <TitleCell>
-            <EventTypeIcon event={event} />
-            <span>{event.title}</span>
-          </TitleCell>
-          <DueCell>
-            <EventTime event={event} />
-            {event.is_extended && <StyledEIcon />}
-            <HideButton event={event} />
-          </DueCell>
-          <StatusCell>
-            <TaskStatus event={event} course={course} />
-          </StatusCell>
-          <ScoreCell>
-            <TaskScore event={event} course={course} />
-          </ScoreCell>
+          <Responsive
+            desktop={this.renderDesktop()}
+            mobile={this.renderMobile()}
+          />
         </TaskRow>
-      </React.Fragment>
+      </>
     );
   }
 }
