@@ -2,7 +2,7 @@ import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import TutorLink from '../../components/link';
 import { Button } from 'react-bootstrap';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import InfoIcon from '../../components/icons/info';
@@ -44,7 +44,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
       {ux.planScores.isReading ? 'Question' :
         (info.isCore ? label : 'OpenStax Tutor Selection')}
     </ExerciseNumber>
-    <div>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</div>
+    <div>{ScoresHelper.formatPoints(info.availablePoints)} Points</div>
   </>
 ));
 QuestionHeader.propTypes = {
@@ -59,7 +59,7 @@ const QuestionFooter = observer(({ ux, info }) => {
 
   return (<Footer>
     <strong>
-      Average score: {info.averagePoints ? S.numberWithOneDecimalPlace(info.averagePoints) : 'n/a'}
+      Average score: {info.averagePoints ? ScoresHelper.formatPoints(info.averagePoints) : 'n/a'}
     </strong>
     {ux.canDisplayGradingButton &&
       <GradeButton
@@ -240,7 +240,7 @@ const WRQFreeResponse = observer(({ info }) => {
             {response.needs_grading && 'Not graded'}
             {!isNaN(response.grader_points) &&
               <div>
-                <h3>{response.grader_points}</h3>
+                <h3>{ScoresHelper.formatPoints(response.grader_points)}</h3>
                 {response.grader_comments}
               </div>}
           </div>
@@ -365,7 +365,7 @@ const AvailablePoints = ({ value }) => {
     );
   }
   return (
-    <strong>({S.numberWithOneDecimalPlace(value)})</strong>
+    <strong>({ScoresHelper.formatPoints(value)})</strong>
   );
 };
 AvailablePoints.propTypes = {
@@ -435,7 +435,7 @@ const Overview = observer(({ ux, ux: { scores } }) => (
             <Header>
           Available Points <AvailablePoints value={(scores.hasEqualTutorQuestions && scores.availablePoints) || false} />
             </Header>
-            {scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
+            {scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
           </Row>
           <Row>
             <Header>Correct Responses</Header>
@@ -453,7 +453,6 @@ const Overview = observer(({ ux, ux: { scores } }) => (
         </Legend>
       </>
       )}
-
     {ux.isExercisesReady
       ? <QuestionList ux={ux} scores={scores} />
       : <Loading message="Loading Questions…"/>}

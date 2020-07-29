@@ -7,7 +7,7 @@ import {
   get, some, reduce, every, uniq, isNumber,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
-import S, { UNWORKED } from '../../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 
 @identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
@@ -77,12 +77,14 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     if (this.needs_grading) { return UNWORKED; }
 
     if (dropped && this.is_completed) {
-      return S.numberWithOneDecimalPlace(
+      return ScoresHelper.formatPoints(
         dropped.drop_method == 'full_credit' ? this.availablePoints : 0
       );
     }
 
-    if (!isNil(this.gradedPoints)) { return S.numberWithOneDecimalPlace(this.gradedPoints); }
+    if (!isNil(this.gradedPoints)) {
+      return ScoresHelper.formatPoints(this.gradedPoints);
+    }
 
     return UNWORKED;
   }
@@ -123,11 +125,11 @@ class TaskPlanScoreStudent extends BaseModel {
   }
 
   @computed get humanTotalFraction() {
-    return isNumber(this.total_fraction) ? `${S.asPercent(this.total_fraction)}%` : UNWORKED;
+    return isNumber(this.total_fraction) ? `${ScoresHelper.asPercent(this.total_fraction)}%` : UNWORKED;
   }
 
   @computed get humanTotalPoints() {
-    return isNumber(this.total_points) ? S.numberWithOneDecimalPlace(this.total_points) : UNWORKED;
+    return isNumber(this.total_points) ? ScoresHelper.formatPoints(this.total_points) : UNWORKED;
   }
 }
 
@@ -326,7 +328,7 @@ class TaskPlanScoresTasking extends BaseModel {
   }
 
   @computed get totalAverageScoreInPercent() {
-    return isNil(this.total_fraction) ? UNWORKED : `${S.asPercent(this.total_fraction)}%`;
+    return isNil(this.total_fraction) ? UNWORKED : `${ScoresHelper.asPercent(this.total_fraction)}%`;
   }
 
   @computed get allStudentQuestionStatus() {

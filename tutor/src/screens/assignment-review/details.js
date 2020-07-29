@@ -3,7 +3,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 import { isEmpty } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
@@ -159,7 +159,7 @@ const QuestionHeader = observer(({ styleVariant, label, info }) => {
       <StyledExerciseNumber variant={styleVariant}>
         {label}
       </StyledExerciseNumber>
-      <strong>{S.numberWithOneDecimalPlace(info.availablePoints)} Points</strong>
+      <strong>{ScoresHelper.formatPoints(info.availablePoints)} Points</strong>
     </>
   );
 });

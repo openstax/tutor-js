@@ -132,4 +132,5 @@ describe('String helpers', function() {
     expect(S.isEmpty(' ')).toBe(true);
     expect(S.isEmpty('not empty')).toBe(false);
   });
+
 });

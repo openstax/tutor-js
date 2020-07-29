@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
-import S, { UNWORKED } from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import { getCell } from './styles';
 
 const Cell = getCell('0, 10px');
@@ -35,12 +35,12 @@ const ReviewLink = ({ task, children }) => useObserver(() => {
 });
 
 const Points = observer(({ task }) => {
-  const points = isNil(task.published_points) ? UNWORKED : S.numberWithOneDecimalPlace(task.published_points);
+  const points = isNil(task.published_points) ? UNWORKED : ScoresHelper.formatPoints(task.published_points);
   return <div className="correct-points">{points}</div>;
 });
 
 const Percent = observer(({ task }) => {
-  const display = isNil(task.published_score) ? UNWORKED : `${S.asPercent(task.published_score)}%`;
+  const display = isNil(task.published_score) ? UNWORKED : `${ScoresHelper.asPercent(task.published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
@@ -51,7 +51,7 @@ const External = observer(({ task: { completed_step_count } }) => {
 const TaskResult = observer(({ ux, task, striped, isLast }) => {
   let contents = null;
   if (task.isStarted || task.isDue) {
-    
+
     let Component;
 
     if (task.isExternal){

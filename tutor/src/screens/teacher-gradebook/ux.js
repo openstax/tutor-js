@@ -9,7 +9,8 @@ import {
   groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
   filter, sortBy, maxBy, minBy, orderBy, some,
 } from 'lodash';
-import S, { UNWORKED } from '../../helpers/string';
+import S from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 
 const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
@@ -238,12 +239,12 @@ export default class GradeBookUX {
   maxScore(type) {
     const score = maxBy(this.students, type);
     if(!score) return UNWORKED;
-    return `${S.asPercent(score[type])}%`;
+    return `${ScoresHelper.asPercent(score[type])}%`;
   }
 
   minScore(type) {
     const score = minBy(this.students, type);
     if(!score) return UNWORKED;
-    return `${S.asPercent(score[type])}%`;
+    return `${ScoresHelper.asPercent(score[type])}%`;
   }
 }

@@ -6,6 +6,7 @@ import { colors } from 'theme';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
+import { UNWORKED } from '../../helpers/scores';
 
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
@@ -182,7 +183,7 @@ const TaskResult = observer(({ result, striped }) => {
   return (
     <Cell striped={striped}>
       <Result>
-        {result && result.is_completed ? 'clicked' : '---'}
+        {result && result.is_completed ? 'clicked' : UNWORKED}
       </Result>
     </Cell>
   );
