@@ -71,14 +71,14 @@ class StudentDashboard extends React.Component {
           className="container"
         >
           <Row>
-            <Col xs={12} md={8} lg={9}>
+            <Col xs={12} lg={9}>
               <Tabs
                 params={this.props.params}
                 onSelect={this.onTabSelection}
                 tabs={['This Week', 'All Past Work']} />
               {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
             </Col>
-            <Col xs={12} md={4} lg={3} className="sidebar">
+            <Col xs={12} lg={3} className="sidebar">
               <Surveys course={course} />
               <ProgressGuideShell courseId={course.id} />
               <Card className="actions-box browse-the-book">
