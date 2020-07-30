@@ -434,7 +434,7 @@ const HomeWorkInfo = observer(({ ux }) => (
         <Header>
           Available Points <AvailablePoints value={(ux.scores.hasEqualTutorQuestions && ux.scores.availablePoints) || false} />
         </Header>
-        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
+        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{S.numberWithOneDecimalPlace(h.points)}</Cell>)}
       </Row>
       <Row>
         <Header>Correct Responses</Header>
