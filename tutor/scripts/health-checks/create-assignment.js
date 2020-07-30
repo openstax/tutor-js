@@ -5,7 +5,7 @@ context('Assignments', () => {
   it('can be created and then deleted', () => {
     cy.loginAccount();
     cy.disableTours();
-    cy.selectOrCreateCourse('college_physics');
+    cy.selectOrCreateCourse('biology_2e');
     cy.get('.day.today .label').click()
     cy.get('#course-add-dropdown [data-assignment-type="homework"]').click()
     cy.getTestElement('edit-assignment-name').type(`${moment().format('YYYYMMDD-HH')} test homwork`)

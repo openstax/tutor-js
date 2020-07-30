@@ -1,7 +1,6 @@
 name: HealthCheck
 
 on:
-  push:
   schedule:
     - cron: '*/30 * * * *' # every 30 minutes
 
@@ -17,7 +16,7 @@ jobs:
           CYPRESS_USER_LOGIN: ${{ secrets.HEALTHCHECK_USER_LOGIN }}
           CYPRESS_USER_PASSWORD: ${{ secrets.HEALTHCHECK_USER_PASSWORD }}
           CYPRESS_BASE_URL: ${{ secrets.HEALTHCHECK_SERVER_URL }}
-          http://tutor-dev.openstax.org
+          CYPRESS_PAGERDUTY_TOKEN: ${{ secrets.HEALTHCHECK_PAGERDUTY_TOKEN }}
       - name: Save screenshots of failures
         uses: actions/upload-artifact@v2
         if: failure()

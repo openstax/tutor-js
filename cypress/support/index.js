@@ -24,3 +24,5 @@ Cypress.on('uncaught:exception', (err) => {
     return false;
   return true;
 });
+
+console.log("Using server url:", Cypress.config('browserUrl'))
