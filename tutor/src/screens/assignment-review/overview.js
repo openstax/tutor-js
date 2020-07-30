@@ -386,7 +386,7 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
-const QuestionList = ({ ux, scores }) => {
+const QuestionList = observer(({ ux, scores }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
   
   if (scores.questionsInfo && scores.questionsInfo.length === 0) {
@@ -404,12 +404,10 @@ const QuestionList = ({ ux, scores }) => {
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
     styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
-};
+});
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,
-  scores: {
-    questionsInfo: PropTypes.array.isRequired,
-  },
+  scores: PropTypes.any.isRequired,
 };
 
 const HomeWorkInfo = observer(({ ux }) => (

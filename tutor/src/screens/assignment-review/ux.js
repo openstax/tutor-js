@@ -56,17 +56,22 @@ export default class AssignmentReviewUX {
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
-    await this.planScores.ensureExercisesLoaded();
-
     const period = find(this.assignedPeriods, p => p.id == periodId);
     this.selectedPeriod = period ? period : first(this.assignedPeriods);
+
+    await this.planScores.ensureExercisesLoaded();
+
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
   }
 
-  @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }
-  @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
+  @computed get isExercisesReady() { return this.exercisesHaveBeenFetched; }
   @computed get planId() { return this.planScores.id; }
+  
+  @computed get isScoresReady() {
+    return Boolean(this.selectedPeriod);
+  }
+
 
   @action.bound setSelectedPeriod(period) {
     this.selectedPeriod = period;
@@ -90,7 +95,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get assignedPeriods() {
-    return this.planScores.taskPlan.activeAssignedPeriods;
+    return this.taskPlan.activeAssignedPeriods;
   }
 
   @computed get activeScoresStudents() {
