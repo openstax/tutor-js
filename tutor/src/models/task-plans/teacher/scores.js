@@ -382,7 +382,7 @@ class TaskPlanScores extends BaseModel {
   @field({ model: 'grading/template' }) grading_template;
 
   @computed get exerciseIds() {
-    const ids = [];
+    const ids = this.taskPlan.exerciseIds;
     for (const tasking of this.tasking_plans) {
       for (const student of tasking.students) {
         for (const question of student.questions) {
