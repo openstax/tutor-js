@@ -33,7 +33,7 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history, periodId,
+    id, course, onCompleteDelete, onEditAssignment, onTabSelection, history, periodId,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
     tab = 0,
@@ -44,7 +44,7 @@ export default class AssignmentReviewUX {
     this.planScores = scores;
     this.course = course;
     this.onCompleteDelete = onCompleteDelete;
-    this.onEditAssignedQuestions = onEditAssignedQuestions;
+    this.onEditAssignment = onEditAssignment;
     this.onTabSelection = onTabSelection;
 
     const currentTab = parseInt(tab, 10);
@@ -70,6 +70,10 @@ export default class AssignmentReviewUX {
 
   @action.bound setSelectedPeriod(period) {
     this.selectedPeriod = period;
+  }
+
+  @computed get hasEnrollments() {
+    return Boolean(this.selectedPeriod && this.selectedPeriod.hasEnrollments);
   }
 
   @computed get scores() {
@@ -274,20 +278,27 @@ export default class AssignmentReviewUX {
     this.isDisplayingConfirmDelete = false;
   }
 
-  @action.bound async onEdit() {
-    await this.taskPlan.fetch();
+  @action.bound async onEditPlan() {
+    if (this.taskPlan.isOpen) {
+      await this.taskPlan.fetch();
 
-    this.editUX = new EditUX();
+      this.editUX = new EditUX();
 
-    await this.editUX.initialize({
-      ...this.params,
-      id: this.taskPlan.id,
-      history,
-      course: this.course,
-    });
+      await this.editUX.initialize({
+        ...this.params,
+        id: this.taskPlan.id,
+        history,
+        course: this.course,
+      });
 
-    this.isDisplayingEditAssignment = true;
+      this.isDisplayingEditAssignment = true;
+
+    } else {
+      this.onEditAssignment();
+    }
   }
+
+  // taskPlan.isOpen ? undefined : ux.onEditAssignedQuestions}
 
   @action.bound onCancelEdit() {
     this.isDisplayingEditAssignment = false;

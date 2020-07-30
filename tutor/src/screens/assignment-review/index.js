@@ -1,6 +1,5 @@
 import { React, PropTypes, observer, styled, action, observable } from 'vendor';
 import { ScrollToTop } from 'shared';
-import { colors } from 'theme';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
@@ -15,7 +14,6 @@ import ReadingScores from './reading-scores';
 import ExternalScores from './external-scores';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
-import NoStudentsMessage from '../../components/no-students-message';
 
 import './styles.scss';
 
@@ -30,11 +28,6 @@ const StyledTabs = styled(Tabs)`
   && > .nav-tabs li a {
     text-transform: capitalize;
   }
-`;
-
-const MessageWrapper = styled.div`
-  padding: 10rem;
-  background: ${colors.neutral.lightest};
 `;
 
 
@@ -75,7 +68,7 @@ class AssignmentReview extends React.Component {
       history: props.history,
       course,
       onCompleteDelete: this.onCompleteDelete,
-      onEditAssignedQuestions: this.onEditAssignedQuestions,
+      onEditAssignment: this.onEditAssignment,
       onTabSelection: this.onTabSelection,
     });
   }
@@ -90,24 +83,22 @@ class AssignmentReview extends React.Component {
     );
   }
 
-  @action.bound onEditAssignedQuestions() {
+  @action.bound onEditAssignment() {
     const { courseId, id } = this.props.params;
     this.props.history.push(
       Router.makePathname('editAssignment', {
         courseId: courseId,
-        type: 'homework',
+        type: this.ux.taskPlan.type,
         id: id,
-        step: 'points',
       })
     );
   }
 
-  @action.bound renderTabs({ ux: { scores, course, planScores } }) {
+  @action.bound renderTabs({ ux: { hasEnrollments, course, planScores } }) {
     const AvailableTabs = [Details];
 
-    // there are no scores if no students have enrolled
-    // and pre-wrm courses have confusion around weights so we hide them as well
-    if (scores && course.isWRM) {
+    // pre-wrm courses have confusion around weights so we hide them
+    if (hasEnrollments && course.isWRM) {
       if (planScores.isHomework) {
         AvailableTabs.push(Overview, HomeworkScores);
       }
@@ -117,8 +108,8 @@ class AssignmentReview extends React.Component {
       if (planScores.isExternal) {
         AvailableTabs.push(ExternalScores);
       }
-    }
 
+    }
     const Tab = AvailableTabs[this.tabIndex] || Details;
 
     return (
@@ -134,19 +125,26 @@ class AssignmentReview extends React.Component {
     );
   }
 
+  renderNoStudents() {
+    return (
+      <>
+        <StyledTabs
+          selectedIndex={0}
+          onSelect={this.onTabSelection}
+          tabs={['Details']}
+        />
+        <Details ux={this.ux} />
+      </>
+    );
+  }
+  
   render() {
     const {
-      isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+      isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
     } = this.ux;
 
-    let body;
-
-    if (selectedPeriod && !selectedPeriod.hasEnrollments) {
-      body = <MessageWrapper><NoStudentsMessage courseId={course.id} /></MessageWrapper>;
-    } else if (!isScoresReady || !scores) {
+    if (!isScoresReady) {
       return <LoadingScreen message="Loading Assignment…" />;
-    } else {
-      body = this.renderTabs({ ux: this.ux });
     }
 
     return (
@@ -165,7 +163,7 @@ class AssignmentReview extends React.Component {
                 onChange={setSelectedPeriod}
               />
             </Heading>
-            {body}
+            {this.renderTabs({ ux: this.ux })}
           </ContentWrapper>
         </ScrollToTop>
       </BackgroundWrapper>
