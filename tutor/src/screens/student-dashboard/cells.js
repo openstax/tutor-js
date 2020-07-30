@@ -58,17 +58,47 @@ const ScoreCell = styled(Cell).withConfig({
 
 const MobileCell = styled.div`
   padding: 1.5rem 1rem;
+  width: inherit;
   
   i {
     padding: 1.3rem;
   }
 
-  span {
+  .assignment-title {
     font-weight: 600;
+    font-size: 1.6rem;
   }
 
-  .mobile-event-info {
-    padding-top: 10px;
+  .mobile-event-info-container {
+    padding: 10px 5px 0 35px;
+    width: 100%;
+
+    .mobile-event-info {
+      display: flex;
+      margin-top: 5px;
+
+      > span:first-child {
+        flex: 0 1 20%;
+        font-size: 1.2rem;
+        color: ${props => props.theme.colors.neutral.std};
+      }
+
+      > span:last-child {
+        flex: 0 1 80%;
+        align-self: flex-end;
+        font-size: 1.3rem;
+        color: ${props => props.theme.colors.neutral.darker};
+
+        .extension-icon {
+          display: inline-block;
+          margin-top: 0;
+        }
+        
+        div {
+          margin-top: 0;
+        }
+      }
+    }
   }
 `;
 
