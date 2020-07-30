@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 1rem 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   flex-wrap: wrap;
   justify-content: left;
   span {
