@@ -12,8 +12,13 @@ import GradingBlock from './grading-block';
 import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
 
-const DetailsWrapper = styled.div`
 
+const DetailsWrapper = styled.div`
+  .no-students-message {
+    border-top: 1px solid ${colors.neutral.lite};
+    margin-top: 4rem;
+    padding-top: 4rem;
+  }
 `;
 
 const Section = styled.section`
@@ -186,17 +191,6 @@ const Questions = observer(({ ux, questionsInfo }) => {
       <>
         <Header>
           <h6>Questions Assigned</h6>
-          <Controls>
-
-            <Icon
-              className="btn btn-standard btn-icon"
-              onClick={ux.taskPlan.isOpen ? undefined : ux.onEditAssignedQuestions}
-              data-test-id="edit-assigned-questions"
-              type="edit"
-              tooltip={ux.taskPlan.isOpen ? 'Questions cannot be edited after the Open date.' : ''}
-            />
-
-          </Controls>
         </Header>
 
         {ux.isExercisesReady ? (
@@ -263,12 +257,12 @@ const TaskingDates = observer(({ tasking, title }) => {
 
 
 const Details = observer(({ ux }) => {
-
   if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
   if (ux.isDeleting) { return null; }
   const {
-    scores, planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
+    planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
   } = ux;
+
   return (
     <DetailsWrapper>
       <Top>
@@ -279,7 +273,7 @@ const Details = observer(({ ux }) => {
               <Icon
                 asButton type="edit"
                 busy={ux.taskPlan.api.isPending}
-                onClick={ux.onEdit}
+                onClick={ux.onEditPlan}
                 data-test-id="edit-assignment"
               />
               <Icon
@@ -339,7 +333,7 @@ const Details = observer(({ ux }) => {
           </Section>
         }
       </Top>
-      {scores && <Questions ux={ux} questionsInfo={scores.coreQuestionsInfo} />}
+      <Questions ux={ux} questionsInfo={taskPlan.questionsInfo} />
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
       {isDisplayingEditAssignment && <EditModal ux={ux} />}
     </DetailsWrapper>
