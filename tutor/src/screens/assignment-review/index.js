@@ -125,19 +125,6 @@ class AssignmentReview extends React.Component {
     );
   }
 
-  renderNoStudents() {
-    return (
-      <>
-        <StyledTabs
-          selectedIndex={0}
-          onSelect={this.onTabSelection}
-          tabs={['Details']}
-        />
-        <Details ux={this.ux} />
-      </>
-    );
-  }
-  
   render() {
     const {
       isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,

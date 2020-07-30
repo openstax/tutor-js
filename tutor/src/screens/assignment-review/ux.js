@@ -303,8 +303,6 @@ export default class AssignmentReviewUX {
     }
   }
 
-  // taskPlan.isOpen ? undefined : ux.onEditAssignedQuestions}
-
   @action.bound onCancelEdit() {
     this.isDisplayingEditAssignment = false;
   }
