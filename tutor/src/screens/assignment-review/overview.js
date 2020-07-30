@@ -386,7 +386,9 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
-const QuestionList = ({ ux, scores }) => {
+const QuestionList = observer(({ ux, scores }) => {
+  if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
+  
   if (scores.questionsInfo && scores.questionsInfo.length === 0) {
     return (
       <StyledNoActivity>
@@ -402,63 +404,64 @@ const QuestionList = ({ ux, scores }) => {
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
     styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
-};
+});
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,
-  scores: {
-    questionsInfo: PropTypes.array.isRequired,
-  },
+  scores: PropTypes.any.isRequired,
 };
 
-const Overview = observer(({ ux, ux: { scores } }) => (
-  <Wrapper data-test-id="overview">
-    {
-      ux.planScores.isHomework && (
-      <>
-        <GradingBlock ux={ux}/>
-        <StyledStickyTable>
-          <Row>
-            <Header>Question Number</Header>
-            {scores.question_headings.map((h, i) =>
-              <Header key={i} center={true}>
-                {h.isCore ?
-                  <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                    {h.title}
-                  </StyledButton> : h.title}
-              </Header>)}
-          </Row>
-          <Row>
-            <Header>Question Type</Header>
-            {scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
-          </Row>
-          <Row>
-            <Header>
-          Available Points <AvailablePoints value={(scores.hasEqualTutorQuestions && scores.availablePoints) || false} />
-            </Header>
-            {scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
-          </Row>
-          <Row>
-            <Header>Correct Responses</Header>
-            {scores.question_headings.map((h, i) => (
-              <StyledCell key={i} isTrouble={h.isTrouble}>
-                {h.humanCorrectResponses}
-              </StyledCell>
-            ))}
-          </Row>
-        </StyledStickyTable>
-        <Legend>
-          MCQ: Multiple Choice Question (auto-graded);
-          WRQ: Written Response Question (manually-graded);
-          Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
-        </Legend>
-      </>
-      )}
-    {ux.isExercisesReady
-      ? <QuestionList ux={ux} scores={scores} />
-      : <Loading message="Loading Questions…"/>}
 
-  </Wrapper>
+const HomeWorkInfo = observer(({ ux }) => (
+  <>
+    <GradingBlock ux={ux}/>
+    <StyledStickyTable>
+      <Row>
+        <Header>Question Number</Header>
+        {ux.scores.question_headings.map((h, i) =>
+          <Header key={i} center={true}>
+            {h.isCore ?
+              <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                {h.title}
+              </StyledButton> : h.title}
+          </Header>)}
+      </Row>
+      <Row>
+        <Header>Question Type</Header>
+        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
+      </Row>
+      <Row>
+        <Header>
+          Available Points <AvailablePoints value={(ux.scores.hasEqualTutorQuestions && ux.scores.availablePoints) || false} />
+        </Header>
+        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
+      </Row>
+      <Row>
+        <Header>Correct Responses</Header>
+        {ux.scores.question_headings.map((h, i) => (
+          <StyledCell key={i} isTrouble={h.isTrouble}>
+            {h.humanCorrectResponses}
+          </StyledCell>
+        ))}
+      </Row>
+    </StyledStickyTable>
+    <Legend>
+      MCQ: Multiple Choice Question (auto-graded);
+      WRQ: Written Response Question (manually-graded);
+      Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
+    </Legend>
+  </>
 ));
+
+const Overview = observer(({ ux }) => {
+
+  return (
+    <Wrapper data-test-id="overview">
+      {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
+      <QuestionList ux={ux} scores={ux.scores} />
+    </Wrapper>
+  );
+
+});
 
 Overview.title = 'Submission Overview';
 Overview.propTypes = {
