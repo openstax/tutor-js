@@ -11,6 +11,8 @@ describe('Scores helper', function() {
   });
 
   it('makes late penalty negative and rounds towards zero', function() {
+    expect(ScoresHelper.formatLatePenalty(null)).toEqual('0');
+    expect(ScoresHelper.formatLatePenalty(0.0)).toEqual('0');
     expect(ScoresHelper.formatLatePenalty(0.255)).toEqual('-0.25');
     expect(ScoresHelper.formatLatePenalty(0.126)).toEqual('-0.13');
     expect(ScoresHelper.formatLatePenalty(0.40)).toEqual('-0.4');

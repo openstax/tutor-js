@@ -6,16 +6,33 @@ import { colors } from 'theme';
 const StyledStickyTable = styled(StickyTable)`
   margin: 2.2rem 0 1.4rem;
 
-  .sticky-table-row:last-child .sticky-table-cell {
-    border-bottom: 1px solid ${colors.neutral.pale};
-  }
+  && {
+    border-collapse: collapse;
 
-  .sticky-table-cell {
-    vertical-align: middle;
+    .sticky-table-row {
+      .sticky-table-cell {
+        vertical-align: middle;
+        font-size: 1.6rem;
+        border-bottom: 0;
+        /* Fix a Firefox bug that prevents borders from rendering when
+           using sticky position with border-collapse. */
+        background-clip: padding-box;
+      }
+
+      &:first-child .sticky-table-cell {
+        border-bottom: 2px solid ${colors.neutral.pale};
+      }
+
+      &:last-child .sticky-table-cell {
+        border-bottom: 1px solid ${colors.neutral.pale};
+        border-top: 2px solid ${colors.neutral.pale};
+      }
+    }
   }
 `;
 
 const Cell = styled(TableCell)`
+  position: relative;
   padding: 0;
   border-width: 1px;
   border-color: transparent;
@@ -27,8 +44,20 @@ const Cell = styled(TableCell)`
   ${props => props.striped && css`
     background: ${colors.neutral.lighter};
   `}
-  && {
+  /* Order and specificity here is important */
+  &&&.sticky-table-cell {
+    ${props => props.isUnattemptedAutoZero && isUnattemptedAutoZeroCSS}
     ${props => props.isTrouble && isTroubleCSS}
+    ${props => props.border === false && 'border-bottom: 0;'}
+  }
+
+  .ox-icon-clock {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    margin: 0;
+    width: 0.8rem;
+    height: 0.8rem;
   }
   && {
     ${props => props.borderTop && css`
@@ -90,11 +119,13 @@ const HeadingBottom = styled.div`
   color: ${colors.neutral.thin};
   background: #fff;
   position: relative;
+  min-height: 3.8rem;
 `;
 
 const ColumnHeading = styled.div`
   border-top: 0.4rem solid ${props => props.variant === 'q' ? colors.templates.homework.border : colors.neutral.std};
   cursor: ${props => props.onClick || props.clickable ? 'pointer' : 'inherit'};
+  font-size: 1.4rem;
   &:not(:last-child) {
     border-right: 1px solid ${colors.neutral.pale};
   }
@@ -111,8 +142,6 @@ const ColumnFooter = styled.div`
     border-right: 1px solid ${colors.neutral.pale};
   }
   > * {
-    /* TODO change to 1.6rem across the board */
-    font-size: 1.4rem;
     ${props => !props.first && css`
       ${centeredCSS}
     `}
@@ -149,37 +178,81 @@ const Total = styled.div`
 
 const isTroubleCSS = css`
   background-color: ${colors.states.trouble};
-  border-top: 1px solid ${colors.danger};
+  border-top: 1px solid ${colors.danger} !important;
   border-bottom: 1px solid ${colors.danger} !important;
 `;
 
-const DefinitionsWrapper = styled.dl`
-  margin: 1.4rem 0;
+const isUnattemptedAutoZeroCSS = css`
+  background-color: ${colors.neutral.light};
+  border-top: 1px solid ${colors.neutral.std};
+  border-bottom: 1px solid ${colors.neutral.std};
+`;
+
+const TableBottom = styled.div`
+  margin: 2.4rem 0;
+  max-width: 788px;
+  color: ${colors.neutral.thin};
+  line-height: 2rem;
+`;
+
+const Definitions = styled.dl`
   display: flex;
   align-items: center;
-  dd + dt {
-    margin-left: 4.8rem;
+  flex-wrap: wrap;
+
+  > * {
+    display: flex;
+    align-items: center;
+    margin-right: 2.4rem;
+    margin-bottom: 0.8rem;
+
+    > :first-child {
+      width: 3rem;
+    }
   }
 `;
 
+const Entry = styled.div`
+  ${props => props.wide && 'width: 344px'}
+`;
+
 const Term = styled.dt`
-  border-color: ${colors.neutral.light};
-  border-style: solid;
-  ${props => props.variant === 'trouble' && isTroubleCSS}
-  ${props => props.variant === 'trouble' && `border-color: ${colors.danger}`};
-  border-width: 1px;
-  display: flex;
-  justify-content: center;
-  width: 5.6rem;
-  height: 2.8rem;
-  margin-right: 1.1rem;
+  ${props => props.variant !== 'icon' && css`
+    border-color: ${colors.neutral.light};
+    border-style: solid;
+  `}
+  ${props => props.variant === 'trouble' && css`
+    ${isTroubleCSS}
+    border-color: ${colors.danger};
+  `}
+  ${props => props.variant === 'unattempted' && css`
+    ${isUnattemptedAutoZeroCSS}
+    border-color: ${colors.neutral.std};
+  `}
+  ${props => props.variant !== 'icon' && css`
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+  `}
+  width: 3rem;
+  height: 1.8rem;
   font-size: 1.4rem;
-  line-height: 2.4rem;
+  line-height: 1.4rem;
+  ${props => props.variant === 'icon' && css`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    > * {
+      max-width: 1.8rem;
+    }
+    .ox-icon {
+      margin: 0;
+    }
+  `}
 `;
 
 const Definition = styled.dd`
-  margin: 0;
-  color: ${colors.neutral.thin};
+  margin: 0 0 0 0.8rem;
 `;
 
 const ControlsWrapper = styled.div`
@@ -235,7 +308,7 @@ export {
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   ColumnHeading, ColumnFooter,
   SplitCell, LateWork, Total, isTroubleCSS,
-  DefinitionsWrapper, Term, Definition,
+  TableBottom, Definitions, Entry, Term, Definition,
   ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 };

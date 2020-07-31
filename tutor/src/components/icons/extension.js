@@ -1,5 +1,6 @@
 import { React, PropTypes, styled, moment, cn, css } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { colors } from 'theme';
 
 const GreenCircle = styled.div`
   width: 1.4rem;
@@ -33,6 +34,16 @@ EIcon.propTypes = {
   inline: PropTypes.bool,
 };
 
+const StyledTooltip = styled(Tooltip)`
+  pointer-events: none;
+  max-width: 214px;
+  color: ${colors.neutral.thin};
+  // Fix absolute positioning confusing where to place tooltip
+  &.bs-tooltip-right {
+    margin-left: 2.5rem;
+  }
+`;
+
 const ExtensionIcon = ({ className, extension, timezone, inline = false }) => {
   let msg = 'Student was granted an extension.';
   const format = (dte) => moment.tz(dte, timezone).format('h:mm a z on MMM D');
@@ -43,13 +54,16 @@ const ExtensionIcon = ({ className, extension, timezone, inline = false }) => {
   return (
     <OverlayTrigger
       placement="auto"
-
-      overlay={<Tooltip id="extension-icon">{msg}</Tooltip>}
+      overlay={<StyledTooltip id="extension-icon">{msg}</StyledTooltip>}
+      popperConfig={{
+        modifiers: {
+          preventOverflow: { enabled: false },
+        },
+      }}
     >
       <ExtensionIconWrapper inline={inline}>
         <EIcon className={className} />
       </ExtensionIconWrapper>
-
     </OverlayTrigger>
   );
 };

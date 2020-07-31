@@ -1,39 +1,51 @@
 import { React, PropTypes, styled, observer } from 'vendor';
+import { Icon } from 'shared';
 import { Row } from 'react-sticky-table';
 
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
-import ExtensionIcon from '../../components/icons/extension';
+import ExtensionIcon, { EIcon } from '../../components/icons/extension';
 import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { CornerTriangle } from '../../components/dropped-question';
+import { CornerTriangle, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import DropQuestions from './drop-questions';
 import PublishScores from '../../components/buttons/publish-scores';
+import ResultTooltip from './result-tooltip';
 
 import {
   StyledStickyTable, Cell, CellContents,
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   SplitCell, ColumnHeading as BasicColumnHeading,
   LateWork, Total, ColumnFooter,
-  DefinitionsWrapper, Term, Definition,
+  TableBottom, Definitions, Entry, Term, Definition,
   ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 } from './table-elements';
-
-// https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
 const ColumnHeading = styled(BasicColumnHeading)`
   background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
 `;
 
-const Result = styled.div`
+const ResultWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const DroppedIcon = styled.div`
+  ${TriangleCSS}
+  border-width: 0 1.2rem 1.2rem 0;
+`;
+
+const UngradedIcon = styled.span`
+  color: ${colors.neutral.std};
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  letter-spacing: 0.38px;
 `;
 
 const StudentColumnHeader = observer(({ ux }) => (
@@ -91,13 +103,15 @@ const StudentColumnHeader = observer(({ ux }) => (
           </SplitCell>
         </HeadingMiddle>
         <HeadingBottom>
-          {ScoresHelper.formatPoints(ux.scores.availablePoints)}
-          {!ux.scores.hasEqualTutorQuestions && (
+          {ux.scores.hasEqualTutorQuestions ?
+            ScoresHelper.formatPoints(ux.scores.availablePoints) :
             <InfoIcon
               color="#f36a31"
-              tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t available, a student works an assignment late, or a student hasn’t started the assignment."
+              tooltip="Students received different numbers of Tutor-selected questions.
+              This can happen when questions aren’t available, a student works an assignment
+              late, or a student hasn’t started the assignment."
             />
-          )}
+          }
         </HeadingBottom>
       </ColumnHeading>
       <ColumnHeading>
@@ -115,10 +129,9 @@ const StudentColumnHeader = observer(({ ux }) => (
   </Cell>
 ));
 
-const StudentCell = observer(({ ux, student, striped }) => (
-  <Cell striped={striped}>
+const StudentCell = observer(({ ux, student, striped, border }) => (
+  <Cell striped={striped} border={border}>
     <CellContents>
-
       <NameWrapper first>
         <TutorLink
           to="viewTask"
@@ -130,14 +143,16 @@ const StudentCell = observer(({ ux, student, striped }) => (
           {ux.reverseNameOrder ? student.reversedName : student.name}
         </TutorLink>
       </NameWrapper>
-
       <Total>
-        {ux.displayTotalInPercent ? student.humanTotalFraction : student.humanTotalPoints}
+        {ux.displayTotalInPercent ?
+          student.humanTotalFraction : ( ux.scores.hasEqualTutorQuestions ?
+            student.humanTotalPoints : student.humanTotalWithAvailablePoints)}
       </Total>
       <LateWork>
         {student.late_work_point_penalty ?
           `${ScoresHelper.formatLatePenalty(student.late_work_point_penalty)}` : '0'}
-        {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
+        {ux.wasGrantedExtension(student.role_id) &&
+          <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
       </LateWork>
     </CellContents>
   </Cell>
@@ -167,11 +182,37 @@ const AssignmentHeading = observer(({ ux, heading }) => (
 ));
 
 const TaskResult = observer(({ result, striped }) => {
+  let body;
+
+  if (!result) {
+    body = 'n/a';
+  } else if (result.needs_grading) {
+    body = (
+      <>
+        {result.submitted_late && <Icon variant="lateWork" />}
+        <UngradedIcon>{result.displayValue}</UngradedIcon>
+      </>
+    );
+  } else if (result.submitted_late) {
+    body = (
+      <ResultTooltip result={result}>
+        {result.submitted_late && <Icon variant="lateWork" />}
+        {result.displayValue}
+      </ResultTooltip>
+    );
+  } else {
+    body = result.displayValue;
+  }
+
   return (
-    <Cell striped={striped} isTrouble={result && result.isTrouble}>
-      <Result>
-        {result ? result.displayValue : 'N/A'}
-      </Result>
+    <Cell
+      striped={striped}
+      isTrouble={result && !result.isUnattemptedAutoZero && result.isTrouble}
+      isUnattemptedAutoZero={result && result.isUnattemptedAutoZero}
+    >
+      <ResultWrapper>
+        {body}
+      </ResultWrapper>
     </Cell>
   );
 });
@@ -233,7 +274,7 @@ const Scores = observer(({ ux }) => {
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
-            <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
+            <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} border={false} />
             {scores.question_headings.map((heading, i) => (
               <TaskResult
                 key={i}
@@ -248,20 +289,51 @@ const Scores = observer(({ ux }) => {
           <AverageScoreHeader ux={ux} />
           {scores.question_headings.map((h, i) => (
             <Cell key={i}>
-              <Result>
+              <ResultWrapper>
                 {isNaN(h.responseStats.averageGradedPoints) && UNWORKED ||
                   ScoresHelper.formatPoints(h.responseStats.averageGradedPoints)}
-              </Result>
+              </ResultWrapper>
             </Cell>
           ))}
         </Row>
       </StyledStickyTable>
-      <DefinitionsWrapper>
-        <Term variant="trouble" aria-label="Less than 50%"></Term>
-        <Definition>Scores less than 50% of question's point value</Definition>
-        <Term aria-label="Unattempted">{UNWORKED}</Term>
-        <Definition>Unattempted question or ungraded responses</Definition>
-      </DefinitionsWrapper>
+      <TableBottom>
+        <Definitions>
+          <Entry wide={true}>
+            <Term aria-label="Not yet attempted">{UNWORKED}</Term>
+            <Definition>Question not yet attempted</Definition>
+          </Entry>
+          <Entry>
+            <Term variant="icon" aria-label="Extension"><EIcon /></Term>
+            <Definition>Extension granted</Definition>
+          </Entry>
+          <Entry>
+            <Term variant="icon" aria-label="Late"><Icon variant="lateWork" /></Term>
+            <Definition>Late work</Definition>
+          </Entry>
+          <Entry wide={true}>
+            <Term variant="unattempted" aria-label="Unattempted"></Term>
+            <Definition>Question not attempted, 0 points auto-assigned</Definition>
+          </Entry>
+          <Entry>
+            <Term variant="icon" aria-label="Dropped"><DroppedIcon color="blue" /></Term>
+            <Definition>Dropped question</Definition>
+          </Entry>
+          <Entry>
+            <Term variant="icon" aria-label="Ungraded"><UngradedIcon>UG</UngradedIcon></Term>
+            <Definition>Ungraded</Definition>
+          </Entry>
+          <Entry wide={true}>
+            <Term variant="trouble" aria-label="Less than 50%"></Term>
+            <Definition>Scores less than 50% of question's point value</Definition>
+          </Entry>
+        </Definitions>
+        <p>
+          <strong>Note:</strong> This page reflects both published and unpublished scores
+          for an assignment. Scores may differ from the Gradebook, where only published
+          scores are displayed. Students see their scores as they appear in your Gradebook.
+        </p>
+      </TableBottom>
     </>
   );
 });
