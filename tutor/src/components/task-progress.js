@@ -6,7 +6,6 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import { CornerTriangle } from './dropped-question';
 import LatePointsInfo from './late-points-info';
-import S, { UNWORKED } from '../../src/helpers/string';
 import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
 const PointsScoredStatus = {
@@ -180,7 +179,7 @@ const renderPointsScoredCell = (step) => {
               />
             </div>
           }
-          <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
+          <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
         </Cell>
       </OverlayTrigger>
     );
@@ -188,7 +187,7 @@ const renderPointsScoredCell = (step) => {
 
   return (
     <Cell key={step.id} className={pointsScoredStatus(step)}>
-      <span>{step.pointsScored !== null ? S.numberWithOneDecimalPlace(step.pointsScored) : UNWORKED }</span>
+      <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
     </Cell>
   );
 };
@@ -259,8 +258,6 @@ class TaskProgress extends React.Component {
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          {task.hasLateWorkPolicy &&
-            <LateWorkCell>-{task.humanLateWorkPenalty} per {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}</LateWorkCell>}
           <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
@@ -270,11 +267,7 @@ class TaskProgress extends React.Component {
               {
                 steps.map((step, stepIndex) => {
                   if(!step.isInfo) {
-                    return (
-                      <Cell key={stepIndex} className={pointsScoredStatus(step)}>
-                        {step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }
-                      </Cell>
-                    );
+                    return renderPointsScoredCell(step, stepIndex);
                   }
                   return <Cell key={stepIndex}></Cell>;
                 })
