@@ -272,10 +272,6 @@ class TaskProgress extends React.Component {
                   return <Cell key={stepIndex}></Cell>;
                 })
               }
-              {task.hasLateWorkPolicy &&
-                <Cell>
-                  {task.publishedLateWorkPenalty ? `${ScoresHelper.formatLatePenalty(task.publishedLateWorkPenalty)}` : '0.0'}
-                </Cell>}
               <Cell>
                 {isNil(task.publishedPoints) ?
                   UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
