@@ -7,6 +7,7 @@ import Big from 'big.js';
 import moment from 'moment';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
+import S from '../../helpers/string';
 
 export default
 @identifiedBy('scores/task-result')
@@ -200,8 +201,9 @@ class TaskResult extends BaseModel {
     return `${this.completedPercent}%`;
   }
 
-  @computed get humanScoreNumber() {
-    return `${isNil(this.published_points) ? '0' : ScoresHelper.formatPoints(this.published_points)} of ${ScoresHelper.formatPoints(this.available_points)}`;
+  @computed get preWrmHumanScoreNumber() {
+    // Pre-WRM scores don't get higher precision
+    return `${isNil(this.published_points) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get isDue() {
