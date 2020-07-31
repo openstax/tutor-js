@@ -22,15 +22,6 @@ CornerTriangle.propTypes = {
   tooltip: PropTypes.string.isRequired,
 };
 
-const StyledTriangle = styled.div`
-  height: 0;
-  width: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  ${TriangleCSS}
-`;
-
 const TriangleCSS = css`
   border-style: solid;
   border-width: 0 1rem 1rem 0;
@@ -41,6 +32,15 @@ const TriangleCSS = css`
   ${props => props.color === 'blue' && css`
     border-color: transparent ${colors.assignments.scores.dropped} transparent transparent;
   `}
+`;
+
+const StyledTriangle = styled.div`
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  ${TriangleCSS}
 `;
 
 export { CornerTriangle, TriangleCSS };
