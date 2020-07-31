@@ -7,6 +7,7 @@ import { colors } from 'theme';
 import { CornerTriangle } from './dropped-question';
 import LatePointsInfo from './late-points-info';
 import S, { UNWORKED } from '../../src/helpers/string';
+import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
 const PointsScoredStatus = {
   NOT_ANSWERED_NOT_GRADED: 'not-answered-not-graded',
@@ -202,6 +203,7 @@ class TaskProgress extends React.Component {
   render() {
     const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
+
     return (
       <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
         <Row>
@@ -252,12 +254,14 @@ class TaskProgress extends React.Component {
             steps.map((step, stepIndex) => {
               if(!step.isInfo) {
                 progressIndex += 1;
-                return <Cell key={stepIndex}>{S.numberWithOneDecimalPlace(step.available_points)}</Cell>;
+                return <Cell key={stepIndex}>{ScoresHelper.formatPoints(step.available_points)}</Cell>;
               }
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          <Cell>{S.numberWithOneDecimalPlace(sumBy(steps, s => s.available_points))}</Cell>
+          {task.hasLateWorkPolicy &&
+            <LateWorkCell>-{task.humanLateWorkPenalty} per {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}</LateWorkCell>}
+          <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
           steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
@@ -266,14 +270,22 @@ class TaskProgress extends React.Component {
               {
                 steps.map((step, stepIndex) => {
                   if(!step.isInfo) {
-                    return renderPointsScoredCell(step, stepIndex);
+                    return (
+                      <Cell key={stepIndex} className={pointsScoredStatus(step)}>
+                        {step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }
+                      </Cell>
+                    );
                   }
                   return <Cell key={stepIndex}></Cell>;
                 })
               }
+              {task.hasLateWorkPolicy &&
+                <Cell>
+                  {task.publishedLateWorkPenalty ? `${ScoresHelper.formatLatePenalty(task.publishedLateWorkPenalty)}` : '0.0'}
+                </Cell>}
               <Cell>
                 {isNil(task.publishedPoints) ?
-                  UNWORKED : S.numberWithOneDecimalPlace(task.publishedPoints)}
+                  UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
               </Cell>
             </Row>
         }

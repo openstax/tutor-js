@@ -4,6 +4,7 @@ import { colors } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
 import S from '../../../helpers/string';
+import ScoresHelper from '../../../helpers/scores';
 import TimeHelper from '../../../helpers/time';
 
 const CardBody = styled(InnerStepCard)`
@@ -33,7 +34,7 @@ const Points = ({ task }) => {
   }
   return (
     <StyledPoints>
-      {S.numberWithOneDecimalPlace(task.availablePoints)} points
+      {ScoresHelper.formatPoints(task.availablePoints)} points
     </StyledPoints>
   );
 };

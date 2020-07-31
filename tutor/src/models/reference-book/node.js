@@ -150,8 +150,13 @@ class ReferenceBookNode extends BaseModel {
     return Boolean(!this.isIntro && this.isAssignable);
   }
 
+  @computed get titleText() {
+    const match = this.title.match(/<span class="os-text">([^<]+)<\/span>/);
+    return match ? match[1] : this.title;
+  }
+
   @computed get isAssignable() {
-    return !NON_ASSIGNABLE_TITLES.find(m => this.title.match(m));
+    return !NON_ASSIGNABLE_TITLES.find(m => this.titleText.match(m));
   }
 
 }

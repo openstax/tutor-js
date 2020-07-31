@@ -120,18 +120,26 @@ class ExercisePreview extends React.Component {
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
             {this.renderStimulus()}
             {map(this.exercise.questions, (question, index) => (
-              <Question
-                key={index}
-                hideAnswers={this.props.hideAnswers}
-                className="openstax-question-preview"
-                question={question}
-                choicesEnabled={false}
-                displayFormats={this.props.displayFormats}
-                show_all_feedback={this.props.displayFeedback}
-                type="teacher-preview"
-              >
-                {this.props.questionFooters && this.props.questionFooters[index]}
-              </Question>
+              <div key={index}>
+                <Question
+                  hideAnswers={this.props.hideAnswers}
+                  className="openstax-question-preview"
+                  question={question}
+                  choicesEnabled={false}
+                  displayFormats={this.props.displayFormats}
+                  show_all_feedback={this.props.displayFeedback}
+                  type="teacher-preview"
+                >
+                  {this.props.questionFooters && this.props.questionFooters[index]}
+                </Question>
+                {
+                  question.isWrittenResponse && (
+                    <div className="student-free-response-box-preview">
+                      Student Response...
+                    </div>
+                  )
+                }
+              </div>
             ))}
           </div>
           <div className="exercise-tags">

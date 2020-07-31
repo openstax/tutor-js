@@ -58,9 +58,9 @@ const StudentDataSorter = {
         StudentDataSorter.columns.type.headings(heading), StudentDataSorter.columns.points.headings(heading),
       ]; },
     },
-    date: {
-      tasks(task) { return task.due_at; },
-      headings(heading) { return heading.due_at; },
+    default: {
+      tasks() { return null; },
+      headings() { return null; },
     },
   },
 };

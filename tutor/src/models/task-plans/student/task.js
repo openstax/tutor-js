@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
 import { get, isNil } from 'lodash';
-import S from '../../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import moment from 'moment';
 import Time from '../../time';
 import {
@@ -123,7 +123,7 @@ class StudentTask extends BaseModel {
   }
 
   @computed get humanScore() {
-    return isNil(this.published_points) ? '---' : S.numberWithOneDecimalPlace(this.published_points);
+    return isNil(this.published_points) ? UNWORKED : ScoresHelper.formatPoints(this.published_points);
   }
 
   // called from API

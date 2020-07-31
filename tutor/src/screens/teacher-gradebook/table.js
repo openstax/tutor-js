@@ -4,7 +4,7 @@ import { isNil } from 'lodash';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
-import S, { UNWORKED } from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import SortIcon from '../../components/icons/sort';
 import TutorLink from '../../components/link';
 import TaskResultCell from './task-result-cell';
@@ -354,7 +354,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
   );
 });
 
-const percentOrDash = (score) => isNil(score) ? UNWORKED : S.asPercent(score) + '%';
+const percentOrDash = (score) => isNil(score) ? UNWORKED : ScoresHelper.asPercent(score) + '%';
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
   return (
@@ -437,7 +437,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MAX} drawBorderBottom/>))}
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MIN} drawBorderBottom/>))}
       </Row>
       <Row>
         <Cell striped>
@@ -458,7 +458,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MIN} />))}
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} data={h} ux={ux} type={MinMaxType.MAX} />))}
       </Row>
     </StyledAggregateData>
   );

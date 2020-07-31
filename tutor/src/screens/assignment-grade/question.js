@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { ExerciseNumber, Question } from '../../components/homework-questions';
 import Answer from './answer';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 
 const AnswerKey = observer(({ ux }) => (
   <label>
@@ -93,7 +93,9 @@ const ExpandGraded = observer(({ ux }) => {
       >
         {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {gradeProgress}
       </Button>
-      <label>Average Score: {S.numberWithOneDecimalPlace(ux.selectedHeading.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(ux.selectedHeading.responseStats.availablePoints)}</label>
+      <label>
+        Average Score: {ScoresHelper.formatPoints(ux.selectedHeading.averageGradedPoints)} out of {ScoresHelper.formatPoints(ux.selectedHeading.responseStats.availablePoints)}
+      </label>
     </ExpandGradedWrapper>
   );
 });
@@ -118,10 +120,10 @@ const Overiew = observer(({ ux }) => {
                   onClick={() => ux.goToQuestionHeading(i, true)}
                   variant="link"
                 >
-                        Expand graded answers {ux.showOnlyAttempted ? h.gradedProgress : h.gradedProgressWithUnAttemptedResponses}
+                  Expand graded answers {ux.showOnlyAttempted ? h.gradedProgress : h.gradedProgressWithUnAttemptedResponses}
                 </Button>
                 <label>
-                        Average Score: {S.numberWithOneDecimalPlace(h.averageGradedPoints)} out of {S.numberWithOneDecimalPlace(h.responseStats.availablePoints)}
+                  Average Score: {ScoresHelper.formatPoints(h.averageGradedPoints)} out of {ScoresHelper.formatPoints(h.responseStats.availablePoints)}
                 </label>
               </ExpandGradedWrapper>
             </QuestionBody>
@@ -132,7 +134,7 @@ const Overiew = observer(({ ux }) => {
   );
 });
 
-const IndividualQuestion = observer(({ ux }) => 
+const IndividualQuestion = observer(({ ux }) =>
   (
     <StyledQuestion>
       <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
@@ -146,7 +148,7 @@ const IndividualQuestion = observer(({ ux }) =>
         />
         <ExpandGraded ux={ux} />
         {
-          Boolean(ux.expandGradedAnswers) && ux.gradedResponses.map((response, index) => 
+          Boolean(ux.expandGradedAnswers) && ux.gradedResponses.map((response, index) =>
             <Answer
               response={response}
               key={index}

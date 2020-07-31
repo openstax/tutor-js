@@ -66,13 +66,17 @@ class Tasking extends React.Component {
       this.form.setFieldValue(name, t.opens_at);
 
       if(!didUserChangeDatesManually) {
-        if(dueAt) {
+        // *!dueAt* means that assignment creation was started from the sidebar
+        // if open date is changed and assignment creation started from the sidebar,
+        // then change dates according to grading template intervals
+        if(!dueAt) {
           if (gradingTemplate) {
             t.onGradingTemplateUpdate(gradingTemplate);
           }
           this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
+        // otherwise do not enforce grading template dates interval anymore
         else {
           this.props.ux.setDidUserChangeDatesManually(true);
         }
@@ -91,15 +95,18 @@ class Tasking extends React.Component {
       }
 
       if(!didUserChangeDatesManually) {
+        // *dueAt* means that assignment creation was started from the calendar
+        // if due date is changed and assignment creation started from the calendar,
+        // then change dates according to grading template intervals
         if(dueAt) {
           if (gradingTemplate) {
             // this will also reset the due_at to template time
             t.onGradingTemplateUpdate(gradingTemplate, t.due_at, { dateWasManuallySet: true });
           }
-
           this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
+        // otherwise do not enforce grading template dates interval anymore
         else
           this.props.ux.setDidUserChangeDatesManually(true);
       }

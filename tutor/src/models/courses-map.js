@@ -70,10 +70,6 @@ export class CoursesMap extends Map {
     return this.where(c => c.dashboardViewCount > 0);
   }
 
-  @computed get shouldReusePreview() {
-    return this.where(c => c.should_reuse_preview);
-  }
-
   @action addNew(courseData) {
     const course = new Course(courseData, this);
     course.just_created = true;

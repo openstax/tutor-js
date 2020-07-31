@@ -3,7 +3,7 @@ import { Row } from 'react-sticky-table';
 
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import ExtensionIcon from '../../components/icons/extension';
 import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
@@ -91,7 +91,7 @@ const StudentColumnHeader = observer(({ ux }) => (
           </SplitCell>
         </HeadingMiddle>
         <HeadingBottom>
-          {S.numberWithOneDecimalPlace(ux.scores.availablePoints)}
+          {ScoresHelper.formatPoints(ux.scores.availablePoints)}
           {!ux.scores.hasEqualTutorQuestions && (
             <InfoIcon
               color="#f36a31"
@@ -135,7 +135,8 @@ const StudentCell = observer(({ ux, student, striped }) => (
         {ux.displayTotalInPercent ? student.humanTotalFraction : student.humanTotalPoints}
       </Total>
       <LateWork>
-        {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
+        {student.late_work_point_penalty ?
+          `${ScoresHelper.formatLatePenalty(student.late_work_point_penalty)}` : '0'}
         {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
       </LateWork>
     </CellContents>
@@ -159,7 +160,7 @@ const AssignmentHeading = observer(({ ux, heading }) => (
             tooltip={heading.dropped.drop_method == 'zeroed' ?
               'Points changed to 0' : 'Full credit given to all students'}
           />}
-        {S.numberWithOneDecimalPlace(heading.displayPoints)}
+        {ScoresHelper.formatPoints(heading.displayPoints)}
       </HeadingBottom>
     </ColumnHeading>
   </Cell>
@@ -248,8 +249,8 @@ const Scores = observer(({ ux }) => {
           {scores.question_headings.map((h, i) => (
             <Cell key={i}>
               <Result>
-                {isNaN(h.responseStats.averageGradedPoints) && '---' ||
-                  S.numberWithOneDecimalPlace(h.responseStats.averageGradedPoints)}
+                {isNaN(h.responseStats.averageGradedPoints) && UNWORKED ||
+                  ScoresHelper.formatPoints(h.responseStats.averageGradedPoints)}
               </Result>
             </Cell>
           ))}
@@ -258,7 +259,7 @@ const Scores = observer(({ ux }) => {
       <DefinitionsWrapper>
         <Term variant="trouble" aria-label="Less than 50%"></Term>
         <Definition>Scores less than 50% of question's point value</Definition>
-        <Term aria-label="Unattempted">---</Term>
+        <Term aria-label="Unattempted">{UNWORKED}</Term>
         <Definition>Unattempted question or ungraded responses</Definition>
       </DefinitionsWrapper>
     </>

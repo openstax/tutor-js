@@ -30,6 +30,12 @@ const Cell = styled(TableCell)`
   && {
     ${props => props.isTrouble && isTroubleCSS}
   }
+  && {
+    ${props => props.borderTop && css`
+      border-top: 1px solid ${colors.neutral.pale};
+    `}
+    }
+  }
 `;
 
 

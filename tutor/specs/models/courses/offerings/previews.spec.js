@@ -33,6 +33,7 @@ describe('Offering Previews Model', () => {
       beforeAll(() => CoursesMap.reset());
 
       it('returns a preview offering with no existing courses', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
         expect(Previews.all[0].previewCourse).toBeUndefined();
       });
     });
@@ -49,6 +50,7 @@ describe('Offering Previews Model', () => {
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
       it('returns a preview offering with no existing courses', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
         expect(Previews.all[0].previewCourse).toBeUndefined();
       });
     });
@@ -65,22 +67,7 @@ describe('Offering Previews Model', () => {
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
       it('returns a preview offering with no existing courses', () => {
-        expect(Previews.all[0].previewCourse).toBeUndefined();
-      });
-    });
-
-    describe('when the course is not reusable', () => {
-      const COURSEDATA = {
-        id: 21,
-        offering_id: OFFERINGDATA.id,
-        is_active: true,
-        is_preview: true,
-        should_reuse_preview: false,
-        roles: [ { type: 'teacher' } ],
-      }
-      beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
-
-      it('returns a preview offering with no existing courses', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
         expect(Previews.all[0].previewCourse).toBeUndefined();
       });
     });
@@ -97,6 +84,7 @@ describe('Offering Previews Model', () => {
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
       it('returns a preview offering with no existing courses', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
         expect(Previews.all[0].previewCourse).toBeUndefined();
       });
     });
@@ -113,7 +101,25 @@ describe('Offering Previews Model', () => {
       beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
       it('returns a preview offering with no existing courses', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
         expect(Previews.all[0].previewCourse).toBeUndefined();
+      });
+    });
+
+    describe('when the course is not reusable', () => {
+      const COURSEDATA = {
+        id: 21,
+        offering_id: OFFERINGDATA.id,
+        is_active: true,
+        is_preview: true,
+        should_reuse_preview: false,
+        roles: [ { type: 'teacher' } ],
+      }
+      beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
+
+      it('isCreated is false but returns the existing preview course', () => {
+        expect(Previews.all[0].isCreated).toBe(false);
+        expect(Previews.all[0].previewCourse.id).toBe(COURSEDATA.id);
       });
     });
 
@@ -130,7 +136,8 @@ describe('Offering Previews Model', () => {
         }
         beforeAll(() => CoursesMap.onLoaded({ data: [ COURSEDATA ] }));
 
-        it('returns the existing preview course', () => {
+        it('isCreated is true and returns the existing preview course', () => {
+          expect(Previews.all[0].isCreated).toBe(true);
           expect(Previews.all[0].previewCourse.id).toBe(COURSEDATA.id);
         });
       }

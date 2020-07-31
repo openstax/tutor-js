@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { colors } from 'theme';
 import { useState } from 'react';
 import { isNumber } from 'lodash';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 
 const Name=styled.div`
   font-weight: bold;
@@ -68,7 +68,7 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
         }}
         defaultValue={response.grader_points}
         disabled={Boolean(!onChange)}
-      /> out of {S.numberWithOneDecimalPlace(response.availablePoints)}
+      /> out of {ScoresHelper.formatPoints(response.availablePoints)}
     </ScoreWrapper>
   );
 });
@@ -123,14 +123,14 @@ const GradingStudent = observer(({ response, ux, index }) => {
     pointRef.current.select();
     pointRef.current.focus();
   }, []);
-  
+
   const { student } = response;
   const saveLabel = ux.isResponseGraded(response)
     ? 'Regrade'
     : ux.isLastStudent
       ? 'Save & open next question'
       : 'Save';
-  
+
   return (
     <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer" showShadow={!ux.isResponseGraded(response)}>
       <Panel>
@@ -152,7 +152,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
             {saveLabel}
           </SaveButton>
         }
-        {ux.isLastStudent && !ux.isResponseGraded(response) && 
+        {ux.isLastStudent && !ux.isResponseGraded(response) &&
           <SaveButton
             variant="plain"
             className={cn('btn btn-standard', { 'btn-primary': ux.isLastQuestion })}
@@ -190,7 +190,7 @@ const Student = observer(({ index, response, ux, ...props }) => {
   }
   else if (ux.isResponseGraded(response))
     Component = GradingStudent;
-  else 
+  else
     Component = ux.selectedStudentIndex === index ? GradingStudent : CollapsedStudent;
   return (
     <Component

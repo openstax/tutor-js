@@ -28,6 +28,8 @@ const TASK_TYPES = {
   practice_worst_topics: homework,
 };
 
+const isStepId = (id) => id && id.match(/^\d+$/);
+
 const DeletedTask = () => (
   <Warning title="Assignment cannot be viewed">
     This assignment has been removed by your instructor.
@@ -120,8 +122,8 @@ class TaskGetter extends React.Component {
     if (task.is_deleted) {
       return <DeletedTask />;
     }
-
-    if (!this.props.params.stepId) {
+    const { stepId } = this.props.params;
+    if (!stepId || (isStepId(stepId) && !task.steps.find(s => s.id == stepId))) {
       const unworkedIndex = task.steps.findIndex(s => !s.is_completed);
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         id: task.id,

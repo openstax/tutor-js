@@ -9,6 +9,7 @@ import { Logo }             from './navbar/logo';
 import { Menus }            from './navbar/menus';
 import TermsModal           from './terms-modal';
 import { Navbar }           from './navbar.js';
+import ImpersonationWarning from './impersonation-warning';
 import CourseNagModal       from './course-nag';
 import ErrorMonitoring      from './error-monitoring';
 import { NavbarContext }    from './navbar/context';
@@ -32,6 +33,7 @@ class CourseContext {
 class TutorLayout extends React.Component {
 
   static propTypes = {
+    app: PropTypes.object,
     course: PropTypes.instanceOf(Course),
     children: PropTypes.node.isRequired,
   }
@@ -54,7 +56,7 @@ class TutorLayout extends React.Component {
   }
 
   render() {
-    const { course } = this.props;
+    const { app, course } = this.props;
     return (
       <Provider
         topNavbar={this.topNavbarContext}
@@ -80,6 +82,7 @@ class TutorLayout extends React.Component {
             course={course}
           />
           <Content hasFooter={!this.bottomNavbarContext.isEmpty}>
+            <ImpersonationWarning app={app} />
             {this.props.children}
           </Content>
           <Navbar

@@ -164,7 +164,13 @@
     }
   }
 
-  .os-table { margin-top: 2rem; }
+  .os-table { 
+    margin-top: 2rem;
+
+    .os-table-title {
+      font-weight: 600;
+    }
+  }
 
   table {
     font-family: $tutor-sans-font-face;

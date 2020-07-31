@@ -19,7 +19,10 @@ const StyledBookPartTitle = styled.div`
   }
   .chapter-section {
     font-weight: ${({ boldChapterSection }) => boldChapterSection ? 'bold' : 'normal'};
-    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .label {
+    margin-right: 0.5rem;
   }
 `;
 
@@ -47,7 +50,7 @@ const BookPartTitle = ({ part, label, className, boldChapterSection, displayChap
 BookPartTitle.propTypes = {
   part: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    chapter_section: PropTypes.object,
+    chapter_section: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
   }).isRequired,
   label: PropTypes.node,
   className: PropTypes.string,

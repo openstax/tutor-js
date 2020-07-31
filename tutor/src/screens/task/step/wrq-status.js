@@ -4,7 +4,7 @@ import {
 import { Icon } from 'shared';
 import { colors } from 'theme';
 import { isNil } from 'lodash';
-import S from '../../../helpers/string';
+import ScoresHelper from '../../../helpers/scores';
 import TaskStep from '../../../models/student-tasks/step';
 
 const StyledMessage = styled.div`
@@ -88,7 +88,7 @@ const PointsAndFeedback = observer(({ step }) => {
         <Label>Points:</Label>
         {/* Show original points graded by instructor */}
         <Value>
-          {S.numberWithOneDecimalPlace(step.published_points_without_lateness)} / {S.numberWithOneDecimalPlace(step.available_points)}
+          {ScoresHelper.formatPoints(step.published_points)} / {ScoresHelper.formatPoints(step.available_points)}
         </Value>
       </div>
       {step.published_comments && (
