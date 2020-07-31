@@ -1,8 +1,8 @@
 import { React, PropTypes } from 'vendor';
-import { Card, Col } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
-import { autobind } from 'core-decorators';
+import Responsive from '../../components/responsive';
 import Time from '../../components/time';
 import moment from 'moment';
 import Course from '../../models/course';
@@ -39,21 +39,23 @@ class EventsCard extends React.Component {
       </span>
     );
   }
-
-  @autobind
-  renderEvent(event) {
+  
+  renderEmptyCard() {
+    const { emptyClassName, course, emptyMessage, spinner, events } = this.props;
     return (
-      <EventRow
-        key={event.id}
-        course={this.props.course}
-        event={event}
-      />
+      <EmptyCard
+        className={emptyClassName}
+        course={course}
+        message={emptyMessage}
+        spinner={spinner}
+        tasks={events} />
     );
   }
 
-  render() {
+  renderDesktop() {
+    const { className, course, events } = this.props;
     return (
-      <Card className={this.props.className}>
+      <Card className={className}>
         <Row>
           <TitleCell>
             {this.renderTitle()}
@@ -68,14 +70,45 @@ class EventsCard extends React.Component {
             Scores
           </ScoreCell>
         </Row>
-        {map(this.props.events, this.renderEvent)}
-        <EmptyCard
-          className={this.props.emptyClassName}
-          course={this.props.course}
-          message={this.props.emptyMessage}
-          spinner={this.props.spinner}
-          tasks={this.props.events} />
+        {map(events, e => 
+          <EventRow
+            key={e.id}
+            course={course}
+            event={e}
+          />
+        )}
+        {this.renderEmptyCard()}
       </Card>
+    );
+  }
+
+  renderMobile() {
+    const { className, course, events } = this.props;
+    return (
+      <Card className={className}>
+        <Row>
+          <TitleCell>
+            {this.renderTitle()}
+          </TitleCell>
+        </Row>
+        {map(events, e => 
+          <EventRow
+            key={e.id}
+            course={course}
+            event={e}
+          />
+        )}
+        {this.renderEmptyCard()}
+      </Card>
+    );
+  }
+
+  render() {
+    return (
+      <Responsive
+        desktop={this.renderDesktop()}
+        mobile={this.renderMobile()}
+      />
     );
   }
 }

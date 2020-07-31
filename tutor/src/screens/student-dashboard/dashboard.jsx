@@ -1,4 +1,4 @@
-import { React, PropTypes, action, observable, observer, withRouter } from 'vendor';
+import { React, PropTypes, action, observable, observer, withRouter, styled } from 'vendor';
 import { Row, Col, Card } from 'react-bootstrap';
 import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
@@ -13,6 +13,12 @@ import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';
 import TourRegion from '../../components/tours/region';
 import Surveys from './surveys';
+
+const DashboardSectionRow = styled(Row)`
+  > div {
+    margin-top: 25px;
+  }
+`;
 
 export default
 @withRouter
@@ -71,14 +77,17 @@ class StudentDashboard extends React.Component {
           className="container"
         >
           <Row>
-            <Col xs={12} md={8} lg={9}>
-              <Tabs
-                params={this.props.params}
-                onSelect={this.onTabSelection}
-                tabs={['This Week', 'All Past Work']} />
+            <Tabs
+              className="student-dashboard-tabs"
+              params={this.props.params}
+              onSelect={this.onTabSelection}
+              tabs={['This Week', 'All Past Work']} />
+          </Row>
+          <DashboardSectionRow>
+            <Col xs={12} lg={9}>
               {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
             </Col>
-            <Col xs={12} md={4} lg={3} className="sidebar">
+            <Col xs={12} lg={3} className="sidebar">
               <Surveys course={course} />
               <ProgressGuideShell courseId={course.id} />
               <Card className="actions-box browse-the-book">
@@ -91,7 +100,7 @@ class StudentDashboard extends React.Component {
                 </BrowseTheBook>
               </Card>
             </Col>
-          </Row>
+          </DashboardSectionRow>
         </TourRegion>
       </div>
     );

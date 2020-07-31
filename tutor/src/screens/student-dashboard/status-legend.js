@@ -8,7 +8,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 1rem 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  flex-wrap: wrap;
+  justify-content: left;
   span {
     display: flex;
     align-items: center;
@@ -20,6 +22,13 @@ const Wrapper = styled.div`
   span + span {
     margin-left: 2rem;
   }
+
+  ${props => props.theme.breakpoint.mobile`
+    span:last-child {
+      margin-left: 0;
+      margin-top: 5px;
+    }
+  `}
 `;
 
 const StyledEIcon = styled(EIcon)`
@@ -46,7 +55,6 @@ const StatusIconLegend = () => (
     <span>
       <Icon variant="circledStar" /> Provisional score. Final scores will be available when published by your instructor.
     </span>
-
   </Wrapper>
 );
 

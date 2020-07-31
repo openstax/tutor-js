@@ -12,7 +12,7 @@
     height: $student-dashboard-row-height;
     min-height: $student-dashboard-row-height;
     max-height: $student-dashboard-row-height;
-    border-top: thin dotted $tutor-neutral-light;
+    border-top: 2px solid $tutor-neutral-lighter;
 
 
     &.deleted:not(.viewable) {
@@ -52,7 +52,7 @@
 
   }
   .not-open-notice {
-    border-top: thin dotted $tutor-neutral-light;
+    border-top: 2px solid$tutor-neutral-lighter;
   }
   .not-open-notice + .task {
     border-top: 0;

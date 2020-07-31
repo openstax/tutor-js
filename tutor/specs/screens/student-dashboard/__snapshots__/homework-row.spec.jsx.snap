@@ -160,6 +160,24 @@ exports[`Homework Row renders in progress 1`] = `
   }
 }
 
+@media (max-width:749px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
+@media (max-width:1199px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -169,7 +187,7 @@ exports[`Homework Row renders in progress 1`] = `
     <div>
       <a
         aria-label="Work on homework: proactive engage web-readiness"
-        className="sc-fznKkj c0 task homework viewable"
+        className="sc-fznZeY c0 task homework viewable"
         data-event-id={1}
         href="/course/1/task/1"
         onClick={[Function]}
@@ -420,6 +438,24 @@ exports[`Homework Row renders with completed count 1`] = `
   }
 }
 
+@media (max-width:749px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
+@media (max-width:1199px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -429,7 +465,7 @@ exports[`Homework Row renders with completed count 1`] = `
     <div>
       <a
         aria-label="Work on homework: rich reintermediate e-business"
-        className="sc-fznKkj c0 task homework viewable"
+        className="sc-fznZeY c0 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
         onClick={[Function]}

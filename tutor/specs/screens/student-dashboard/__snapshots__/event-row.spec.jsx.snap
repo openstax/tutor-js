@@ -160,6 +160,24 @@ exports[`Event Row renders and matches snapshot 1`] = `
   }
 }
 
+@media (max-width:749px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
+@media (max-width:1199px) {
+  .c0.c0.c0 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -169,7 +187,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
     <div>
       <a
         aria-label="Work on homework: user-centric harness methodologies"
-        className="sc-AxhCb c0 task homework viewable"
+        className="sc-AxhUy c0 task homework viewable"
         data-event-id={4}
         href="/course/1/task/4"
         onClick={[Function]}

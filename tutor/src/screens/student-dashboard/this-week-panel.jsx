@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Course from '../../models/course';
 import { observer } from 'mobx-react';
+import Course from '../../models/course';
 import EventsCard from './events-panel';
 import StatusLegend from './status-legend';
 import TeacherPendingLoad from './teacher-pending-load';
+
 
 export default
 @observer
