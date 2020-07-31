@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
-import ScoresHelper from '../../helpers/scores';
+import S from '../../helpers/string';
 import TaskResult from '../../models/scores/task-result';
 import TutorLink from '../../components/link';
 import UX from './ux';
@@ -29,12 +29,13 @@ ReviewLink.propTypes = {
 };
 
 const Progress = observer(({ task }) => {
-  const progress = isNil(task.correct_exercise_count) ? '---' : task.humanScoreNumber;
+  const progress = isNil(task.correct_exercise_count) ? '---' : task.preWrmHumanScoreNumber;
   return <div className="correct-progress">{progress}</div>;
 });
 
 const Percent = observer(({ task: { published_score } }) => {
-  const display = isNil(published_score) ? '---' : `${ScoresHelper.asPercent(published_score)}%`;
+  // Pre-WRM scores don't get higher precision
+  const display = isNil(published_score) ? '---' : `${S.asPercent(published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
