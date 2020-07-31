@@ -1,10 +1,8 @@
-import { findIndex, isNaN, isNil } from 'lodash';
-import { computed, action } from 'mobx';
+import { findIndex, isNil } from 'lodash';
+import { moment, computed } from 'vendor';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field,
 } from 'shared/model';
-import Big from 'big.js';
-import moment from 'moment';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
@@ -13,8 +11,6 @@ export default
 @identifiedBy('scores/task-result')
 class TaskResult extends BaseModel {
   @identifier id;
-  @field type;
-  @field status;
   @field({ type: 'bignum' }) score;
   @field points;
   @field published_points;
@@ -22,27 +18,14 @@ class TaskResult extends BaseModel {
   @field is_provisional_score;
   @field step_count;
   @field completed_step_count;
-  @field completed_on_time_steps_count;
-
-  @field completed_accepted_late_exercise_count;
-  @field completed_accepted_late_step_count;
-  @field completed_exercise_count;
-  @field completed_on_time_exercise_count;
-
-  @field correct_accepted_late_exercise_count;
-  @field correct_exercise_count;
-  @field correct_on_time_exercise_count;
-  @field correct_on_time_step_count;
-  @field correct_accepted_late_step_count;
   @field({ type: 'date' }) due_at;
-  @field is_past_due;
-  @field is_extended;
-  @field exercise_count;
-  @field is_included_in_averages;
+  @field progress;
   @field is_late_work_accepted;
   @field available_points;
-
   @field recovered_exercise_count;
+
+  // can be removed once old scores is removed
+  @field completed_on_time_steps_count;
 
   @belongsTo({ model: 'scores/student' }) student;
   @computed get period() { return this.student.period; }
@@ -50,11 +33,6 @@ class TaskResult extends BaseModel {
 
   @computed get columnIndex() {
     return findIndex(this.student.data, s => s.id === this.id);
-  }
-
-  @computed get progress() {
-    if (!this.step_count){ return null; }
-    return this.completedStepCount / this.step_count;
   }
 
   @computed get isHomework() {
@@ -67,16 +45,8 @@ class TaskResult extends BaseModel {
     return this.type === 'reading';
   }
 
-  @computed get unacceptedLateStepCount() {
-    return this.completed_step_count - this.completedStepCount;
-  }
-
-  @computed get hasUnacceptedLateWork() {
-    return this.unacceptedLateStepCount > 0;
-  }
-
   @computed get isStarted() {
-    return Boolean(this.completed_step_count || this.completed_exercise_count);
+    return Boolean(this.completed_step_count);
   }
 
   @computed get canBeReviewed() {
@@ -91,114 +61,28 @@ class TaskResult extends BaseModel {
     return this.period.data_headings[this.columnIndex];
   }
 
-  // called by API
-  acceptLate() {}
-  rejectLate() {}
-
-  // https://github.com/openstax/tutor-server/blob/master/app/subsystems/tasks/models/task.rb#L293-L298
-  @action onLateWorkRejected() {
-    this.is_late_work_accepted = false;
-    this.completed_accepted_late_exercise_count = 0;
-    this.correct_accepted_late_exercise_count = 0;
-    this.completed_accepted_late_step_count = 0;
-    this.accepted_late_at = null;
-
-    this.adjustScore();
+  @computed get type() {
+    return this.reportHeading.type;
   }
 
-  // https://github.com/openstax/tutor-server/blob/master/app/subsystems/tasks/models/task.rb#L286-L291
-  @action onLateWorkAccepted() {
-    // nothing to do if it's not actually late
-    if (!this.hasUnacceptedLateWork) { return; }
-    this.completed_accepted_late_step_count = this.completed_step_count;
-    this.completed_accepted_late_exercise_count = this.completed_exercise_count;
-    this.correct_accepted_late_exercise_count = this.correct_exercise_count;
-    this.is_late_work_accepted = true;
-    this.accepted_late_at = Time.now.toISOString();
-    this.adjustScore();
-  }
-
-  @computed get completedStepCount() {
-    return Math.max(this.completed_step_count, this.completed_on_time_steps_count);
-  }
-
-  @computed get completedExerciseCount() {
-    return Math.max(this.completed_on_time_exercise_count,
-      this.completed_accepted_late_exercise_count);
-  }
-
-  @computed get correctExerciseCount() {
-    return Math.max(this.correct_on_time_exercise_count,
-      this.correct_accepted_late_exercise_count);
-  }
-
-  @action adjustScore() {
-    if (this.exercise_count) {
-      this.score = new Big(this.correctExerciseCount).div(this.exercise_count);
-    } else {
-      this.score = new Big(0);
-    }
-    this.student.adjustScores(this);
-    this.period.adjustScores(this);
-    this.reportHeading.adjustScores();
+  @computed get isExtended() {
+    return moment(this.due_at).isAfter(this.reportHeading.due_at);
   }
 
   @computed get completedPercent() {
-    const percent = this.completedStepCount / this.step_count;
-    return Math.round(percent * 100);
-  }
-
-  @computed get humanProgressWithLateWork() {
-    const percent = this.isHomework ?
-      this.completed_exercise_count / this.exercise_count :
-      this.completed_step_count / this.step_count;
-    if (isNaN(percent)) {
-      return '0%';
-    }
-    return `${Math.round(percent * 100)}%`;
-  }
-
-  @computed get humanUnacceptedProgress() {
-    if (!this.completed_on_time_exercise_count || !this.exercise_count) {
-      return '0%';
-    }
-    const progress = Math.round((
-      this.completed_on_time_exercise_count / this.exercise_count
-    ) * 100 );
-    return `${progress}%`;
-  }
-
-  @computed get humanScoreWithLateWork() {
-    if (!this.correct_exercise_count || !this.exercise_count) {
-      return '0%';
-    }
-    const score = Math.round((
-      this.correct_exercise_count / this.exercise_count
-    ) * 100 );
-    return `${score}%`;
-  }
-
-  @computed get humanUnacceptedScore() {
-    if (!this.correct_on_time_exercise_count || !this.exercise_count) {
-      return '0%';
-    }
-    const score = Math.round((
-      this.correct_on_time_exercise_count / this.exercise_count
-    ) * 100 );
-    return `${score}%`;
-  }
-
-  @computed get hasAdditionalLateWork() {
-    return this.completed_accepted_late_step_count &&
-      this.completed_step_count > this.completedStepCount;
+    return Math.round(this.progress * 100);
   }
 
   @computed get humanProgress() {
-    return `${this.completedStepCount} of ${this.step_count}`;
+    return `${this.completed_step_count} of ${this.step_count}`;
   }
 
   @computed get humanCompletedPercent() {
     return `${this.completedPercent}%`;
+  }
+
+  @computed get humanScoreNumber() {
+    return `${isNil(this.published_score) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
   }
 
   @computed get preWrmHumanScoreNumber() {
