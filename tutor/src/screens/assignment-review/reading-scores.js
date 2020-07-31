@@ -18,8 +18,7 @@ import {
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   ColumnHeading as BasicColumnHeading,
   SplitCell, ColumnFooter, Total,
-  LateWork, TableBottom,
-  ControlsWrapper, ControlGroup,
+  LateWork, ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 } from './table-elements';
 
