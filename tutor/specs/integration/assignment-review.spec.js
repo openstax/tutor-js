@@ -8,7 +8,7 @@ context('Assignment Review', () => {
   });
 
   it('loads and views feedback', () => {
-    cy.contains('Submission Overview').click();
+    cy.getTestElement('submission-overview-tab').click();
     cy.getTestElement('overview').should('exist');
     cy.getTestElement('student-free-responses').should('exist');
   });
@@ -143,6 +143,17 @@ context('Assignment Review', () => {
     cy.getTestElement('select-sections').click({ force: true });
     cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')
     cy.get('[role="tooltip"]').contains('cannot withdraw')
+  });
+
+  it.only('should go directly to the submission overview tab', () => {
+    cy.visit('/course/1/assignment/review/2/1?tab=1')
+    cy.getTestElement('overview').should('exist');
+    cy.getTestElement('student-free-responses').should('exist');
+  });
+
+  it('should go directly to the assignment scores tab', () => {
+    cy.visit('/course/1/assignment/review/2/1?tab=2')
+    cy.getTestElement('scores').should('exist');
   });
 
 });

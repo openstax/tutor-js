@@ -2,7 +2,6 @@ import {
   React, PropTypes, observer, ArrayOrMobxType, styled, computed,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
-import ChapterSection from '../../../components/chapter-section';
 import ExercisePreview from '../../../components/exercises/preview';
 import BookPartTitle from '../../../components/book-part-title';
 import ScrollTo from '../../../helpers/scroll-to';
@@ -139,9 +138,7 @@ class SectionsExercises extends React.Component {
     return (
       <Wrapper data-section={page.chapter_section.asString}>
         <SectionLabel>
-          <ChapterSection chapterSection={page.chapter_section} />
-          {' '}
-          <BookPartTitle title={page.title} />
+          <BookPartTitle part={page} displayChapterSection />
         </SectionLabel>
         <Exercises
           title="Multiple Choice Questions"

@@ -2,6 +2,8 @@
 // Hide titles, abstracts and CNX Processing instructions
 
 // References should not get drop-cap styling
+//
+
 @mixin tutor-book-content-base-styles() {
 
   @include tutor-serif-font(1.6rem, 180%);
@@ -86,19 +88,34 @@
   }
 
   [data-type="footnote-refs"] {
-    ol {
+    h3, [data-type="section-title"] {
+      @include tutor-book-content-title();
+    }
+    ol, ul {
       padding-left: 0;
       list-style: none;
-      li {
+    }
+  }
+  // at-root is used to also style popovers that are
+  // rendered directly under document.body
+  @at-root [role="doc-footnote"] {
+      [data-type="footnote-number"] {
+        display: inline;
+        margin-right: 0.5rem;
+        font-weight: bold;
+      }
+      &li {
         list-style: none;
-        a {
-          padding-right: 10px;
-        }
-        p {
-          display:inline;
+        & + li {
+          margin-top: 1rem;
         }
       }
-    }
+      a {
+        padding-right: 10px;
+      }
+      p {
+        display:inline;
+      }
   }
 
   [data-type="example"],
@@ -108,8 +125,7 @@
 
     .os-title,
     [data-type=title] {
-      @include tutor-sans-font(1.8rem, 1.75em);
-      font-weight: bold;
+      @include tutor-book-content-title();
     }
   }
 
@@ -148,7 +164,13 @@
     }
   }
 
-  .os-table { margin-top: 2rem; }
+  .os-table { 
+    margin-top: 2rem;
+
+    .os-table-title {
+      font-weight: 600;
+    }
+  }
 
   table {
     font-family: $tutor-sans-font-face;

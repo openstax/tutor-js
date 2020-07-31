@@ -69,7 +69,24 @@ const BADGES = {
       />
     </span>
   ),
-
+  writtenResponse: (
+    <span key="wrm" className="wrm">
+      <i className="icon icon-md icon-wrm" />
+      <span>
+        Written-response
+      </span>
+      <Icon
+        type="info-circle"
+        tooltip={
+          <div>
+            <p>
+            This is an open-ended question. Feedback will be available once the response is graded.
+            </p>
+          </div>
+        }
+      />
+    </span>
+  ),
 };
 
 export default

@@ -68,7 +68,7 @@ class AssignmentReview extends React.Component {
       history: props.history,
       course,
       onCompleteDelete: this.onCompleteDelete,
-      onEditAssignedQuestions: this.onEditAssignedQuestions,
+      onEditAssignment: this.onEditAssignment,
       onTabSelection: this.onTabSelection,
     });
   }
@@ -83,31 +83,22 @@ class AssignmentReview extends React.Component {
     );
   }
 
-  @action.bound onEditAssignedQuestions() {
+  @action.bound onEditAssignment() {
     const { courseId, id } = this.props.params;
     this.props.history.push(
       Router.makePathname('editAssignment', {
         courseId: courseId,
-        type: 'homework',
+        type: this.ux.taskPlan.type,
         id: id,
-        step: 'points',
       })
     );
   }
 
-  render() {
-    const {
-      isScoresReady, course, scores, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
-    } = this.ux;
-    if (!isScoresReady) {
-      return <LoadingScreen message="Loading Assignment…" />;
-    }
-
+  @action.bound renderTabs({ ux: { hasEnrollments, course, planScores } }) {
     const AvailableTabs = [Details];
-    
-    // there are no scores if no students have enrolled
-    // and pre-wrm courses have confusion around weights so we hide them as well
-    if (scores && course.isWRM) {
+
+    // pre-wrm courses have confusion around weights so we hide them
+    if (hasEnrollments && course.isWRM) {
       if (planScores.isHomework) {
         AvailableTabs.push(Overview, HomeworkScores);
       }
@@ -117,9 +108,31 @@ class AssignmentReview extends React.Component {
       if (planScores.isExternal) {
         AvailableTabs.push(ExternalScores);
       }
-    }
 
+    }
     const Tab = AvailableTabs[this.tabIndex] || Details;
+
+    return (
+      <>
+        <StyledTabs
+          selectedIndex={this.tabIndex}
+          params={this.props.params}
+          onSelect={this.onTabSelection}
+          tabs={AvailableTabs.map(t => t.title)}
+        />
+        <Tab ux={this.ux} />
+      </>
+    );
+  }
+
+  render() {
+    const {
+      isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+    } = this.ux;
+
+    if (!isScoresReady) {
+      return <LoadingScreen message="Loading Assignment…" />;
+    }
 
     return (
       <BackgroundWrapper>
@@ -137,13 +150,7 @@ class AssignmentReview extends React.Component {
                 onChange={setSelectedPeriod}
               />
             </Heading>
-            <StyledTabs
-              selectedIndex={this.tabIndex}
-              params={this.props.params}
-              onSelect={this.onTabSelection}
-              tabs={AvailableTabs.map(t => t.title)}
-            />
-            <Tab ux={this.ux} />
+            {this.renderTabs({ ux: this.ux })}
           </ContentWrapper>
         </ScrollToTop>
       </BackgroundWrapper>

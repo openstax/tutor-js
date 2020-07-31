@@ -16,7 +16,7 @@ const PerformanceForecastSection = (props) => {
           {cs.asString}
         </span>
         <span className="title" title={section.title}>
-          <BookPartTitle title={section.title} />
+          <BookPartTitle part={section} />
         </span>
       </h4>
       <ProgressBar

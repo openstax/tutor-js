@@ -97,7 +97,7 @@ export default class AssignmentUX {
     // task plans can't contain "foreign" exercises
     // We must clear out the exercises cache so that exercises
     // that belong to other ecosystems aren't present.
-    this.exercises.clear();
+    this.exercises.clear({ exceptIds: this.plan.exerciseIds });
     this.windowImpl = windowImpl;
 
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);

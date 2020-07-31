@@ -2,10 +2,10 @@ import { React, cn, PropTypes, styled, observer, useObserver } from 'vendor';
 import { Icon } from 'shared';
 import { map, isEmpty } from 'lodash';
 import TutorLink from '../link';
-import ChapterSection from '../chapter-section';
 import ReferenceBook from '../../models/reference-book';
 import ReferenceBookNode from '../../models/reference-book/node';
 import MenuUX from './ux';
+
 import Theme from '../../theme';
 import BookPartTitle from '../book-part-title';
 
@@ -19,8 +19,11 @@ const Title = ({ node, pageLinkProps }) => {
   return useObserver(() => {
     const title =  (
       <StyledTitle>
-        <ChapterSection chapterSection={node.chapter_section} />
-        <BookPartTitle title={node.title} />
+        <BookPartTitle
+          part={node}
+          boldChapterSection={node.isPage}
+          displayChapterSection
+        />
       </StyledTitle>
     );
 

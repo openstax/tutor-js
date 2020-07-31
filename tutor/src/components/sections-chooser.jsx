@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { Collapse } from 'react-bootstrap';
 import { filter, extend, forEach, find } from 'lodash';
 import styled from 'styled-components';
-import ChapterSection from './chapter-section';
 import BrowseTheBook from './buttons/browse-the-book';
 import TriStateCheckbox from './tri-state-checkbox';
 import cn from 'classnames';
@@ -53,8 +52,12 @@ class Section extends React.Component {
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        {section.isChapterSectionDisplayed && <ChapterSection chapterSection={section.chapter_section} />}
-        <BookPartTitle className="section-title" title={section.title} />
+        <BookPartTitle
+          className="section-title"
+          boldChapterSection
+          displayChapterSection={section.isChapterSectionDisplayed}
+          part={section}
+        />
       </SectionWrapper>
     );
   }
@@ -135,8 +138,12 @@ class ChapterAccordion extends React.Component {
           <span className="chapter-checkbox">
             <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
           </span>
-          <span className="chapter-number">Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
-          <BookPartTitle className="chapter-title" title={chapter.title} />
+          <BookPartTitle
+            className="chapter-title"
+            label="Chapter"
+            displayChapterSection
+            part={chapter}
+          />
           {course &&
             <BrowseTheBook
               unstyled

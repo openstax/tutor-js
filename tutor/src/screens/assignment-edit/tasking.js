@@ -1,13 +1,11 @@
 import {
   React, PropTypes, styled, computed, action, observer,
 } from 'vendor';
-import moment from 'moment';
 import { Icon } from 'shared';
-import { Row, Col, Alert, OverlayTrigger } from 'react-bootstrap';
+import { Row, Col, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
-import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
-import NewTooltip from './new-tooltip';
+import NewIcon from '../../components/new-icon';
 import CheckboxInput from '../../components/checkbox-input';
 import { GreyPopover } from './builder';
 import { colors } from 'theme';
@@ -32,9 +30,6 @@ const StyledInner = styled.div`
     margin-top: 0.5rem;
     padding-left: 2.2rem;
   }
-`;
-
-const StyledAlert = styled(Alert)`
 `;
 
 @observer
@@ -71,13 +66,17 @@ class Tasking extends React.Component {
       this.form.setFieldValue(name, t.opens_at);
 
       if(!didUserChangeDatesManually) {
-        if(dueAt) {
+        // *!dueAt* means that assignment creation was started from the sidebar
+        // if open date is changed and assignment creation started from the sidebar,
+        // then change dates according to grading template intervals
+        if(!dueAt) {
           if (gradingTemplate) {
             t.onGradingTemplateUpdate(gradingTemplate);
           }
           this.form.setFieldValue(`tasking_plans[${index}].due_at`, t.due_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
+        // otherwise do not enforce grading template dates interval anymore
         else {
           this.props.ux.setDidUserChangeDatesManually(true);
         }
@@ -96,15 +95,18 @@ class Tasking extends React.Component {
       }
 
       if(!didUserChangeDatesManually) {
+        // *dueAt* means that assignment creation was started from the calendar
+        // if due date is changed and assignment creation started from the calendar,
+        // then change dates according to grading template intervals
         if(dueAt) {
           if (gradingTemplate) {
             // this will also reset the due_at to template time
             t.onGradingTemplateUpdate(gradingTemplate, t.due_at, { dateWasManuallySet: true });
           }
-
           this.form.setFieldValue(`tasking_plans[${index}].opens_at`, t.opens_at);
           this.form.setFieldValue(`tasking_plans[${index}].closes_at`, t.closes_at);
         }
+        // otherwise do not enforce grading template dates interval anymore
         else
           this.props.ux.setDidUserChangeDatesManually(true);
       }
@@ -118,26 +120,6 @@ class Tasking extends React.Component {
 
       this.props.ux.setDidUserChangeDatesManually(true);
     });
-  }
-
-  renderDueAtError() {
-    const tasking = this.taskings[0];
-    if (tasking.isValid || !tasking.due_at) { return null; }
-
-    let msg = null;
-    const due = moment(tasking.due_at);
-
-    if (due.isBefore(Time.now)) {
-      msg = 'Due time has already passed';
-    } else if (due.isBefore(tasking.opens_at)) {
-      msg = 'Due time cannot come before task opens';
-    }
-    if (!msg) { return null; }
-    return (
-      <StyledAlert variant="danger">
-        {msg}
-      </StyledAlert>
-    );
   }
 
   renderSelectionCheckbox() {
@@ -169,7 +151,28 @@ class Tasking extends React.Component {
         onChange={ux.togglePeriodTasking}
       />
     );
+  }
 
+  displayDueDateError(tasking) {
+    if(!tasking.isDueAfterOpen) {
+      return 'Due time cannot be before the open time';
+    }
+
+    // In Edit mode: Do not show this error when the instructor goes to edit mode and due date has past already.
+    // show this error after the instructor made a change.
+    if((tasking.isNew || tasking.dueAtChanged) && tasking.isPastDue) {
+      return 'Due time has already passed';
+    }
+
+    return null;
+  }
+
+  displayCloseDateError(tasking) {    
+    if(!tasking.isCloseAfterDue) {
+      return 'Close time cannot be before the due time';
+    }
+
+    return null;
   }
 
   render() {
@@ -193,7 +196,6 @@ class Tasking extends React.Component {
   renderDateTimeInputs(tasking) {
     const { ux } = this.props;
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
-
     return (
       <Row className="tasking-date-time">
         <Col xs={12} md={!this.plan.isEvent ? 4 : 6} className="opens-at">
@@ -201,7 +203,7 @@ class Tasking extends React.Component {
             index={index}
             tasking={tasking}
             onChange={this.onOpensChange}
-            disabled={this.course.isInvalidAssignmentDate}
+            disabledDate={this.course.isInvalidAssignmentDate}
             timezone={this.course.timezone}
           />
         </Col>
@@ -212,18 +214,19 @@ class Tasking extends React.Component {
             disabledDate={this.course.isInvalidAssignmentDate}
             onChange={(target) => this.onDueChange(target, index)}
             timezone={this.course.timezone}
+            errorMessage={this.displayDueDateError(tasking)}
           />
-          {this.renderDueAtError()}
         </Col>
         {!this.plan.isEvent &&
           <Col xs={12} md={4} className="closes-at">
             <DateTime
               label="Close date & time"
-              labelWrapper={ux.isShowingPeriodTaskings ? null : NewTooltip}
+              labelWrapper={ux.isShowingPeriodTaskings ? null : NewIcon}
               name={`tasking_plans[${index}].closes_at`}
               onChange={this.onClosesChange}
               disabledDate={this.course.isInvalidAssignmentDate}
               timezone={this.course.timezone}
+              errorMessage={this.displayCloseDateError(tasking)}
             />
           </Col>
         }
@@ -232,14 +235,14 @@ class Tasking extends React.Component {
   }
 }
 
-const OpensDateTime = observer(({ index, disabled, tasking, onChange, timezone }) => {
+const OpensDateTime = observer(({ index, disabledDate, tasking, onChange, timezone }) => {
   const input = (
     <DateTime
       label="Open date & Time"
       disabled={!tasking.canEditOpensAt}
       name={`tasking_plans[${index}].opens_at`}
       onChange={(ev) => onChange(ev, index)}
-      disabledDate={disabled}
+      disabledDate={disabledDate}
       timezone={timezone}
     />
   );

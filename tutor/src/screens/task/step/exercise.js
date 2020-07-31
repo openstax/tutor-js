@@ -78,7 +78,6 @@ class ExerciseTaskStep extends React.Component {
   render() {
     const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
-    
     return (
       <>
         <StyledExercise
@@ -89,6 +88,7 @@ class ExerciseTaskStep extends React.Component {
             spacedPractice={step.isSpacedPractice}
             personalized={!isFollowupMPQ && step.isPersonalized}
             multiPart={isMultiPart && !isFollowupMPQ}
+            writtenResponse={step.isWrittenResponseExercise}
           />
 
           <Preamble

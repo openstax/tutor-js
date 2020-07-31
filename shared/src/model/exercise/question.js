@@ -49,6 +49,11 @@ class ExerciseQuestion extends BaseModel {
     return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
   }
 
+  //WRM is OpenEnded and have no answers
+  @computed get isWrittenResponse() {
+    return this.isOpenEnded && this.answers.length === 0;
+  }
+
   hasFormat(value) {
     if (value == 'open-ended') { return this.isOpenEnded; }
     return Boolean(find(this.formats, { value }));

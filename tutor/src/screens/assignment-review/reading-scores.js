@@ -1,9 +1,9 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 import ExtensionIcon from '../../components/icons/extension';
 import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
@@ -18,8 +18,7 @@ import {
   Heading, HeadingTop, HeadingMiddle, HeadingBottom,
   ColumnHeading as BasicColumnHeading,
   SplitCell, ColumnFooter, Total,
-  LateWork, DefinitionsWrapper,
-  ControlsWrapper, ControlGroup,
+  LateWork, ControlsWrapper, ControlGroup,
   OrderIcon, NameWrapper,
 } from './table-elements';
 
@@ -46,6 +45,67 @@ const ColumnHeading = styled(BasicColumnHeading)`
   }
 `;
 
+const StyledCompleteInfoCell = styled(Cell)`
+  ${props => !props.isComplete && css`
+  &&&& {
+      background-color: ${colors.neutral.pale};
+      border-top: 1px solid ${colors.neutral.std};
+
+      /* check if next student did complete assignment. Otherwise we would ended up with a 2px border */
+      ${props => (props.didNextStudentComplete || props.isLastRow) && css`
+          border-bottom: 1px solid ${colors.neutral.std};
+      `}
+  }`
+}
+`;
+
+const StyledTotal = styled(Total)`
+   ${props => !props.isAboveFiftyPercentage && css`
+    background-color: ${colors.states.trouble};
+    border-top: 1px solid ${colors.danger};
+
+      /* check if next student has above 50%. Otherwise we would ended up with a 2px border */
+      ${props => (props.isNextStudentAboveFiftyPercentage || props.isLastRow) && css`
+          border-bottom: 1px solid ${colors.danger};
+      `}
+  `}
+`;
+
+const Legend = styled.div`
+  > div {
+    display: flex;
+    margin-bottom: 7px;
+
+    & div {
+      margin-right: 9px;
+    }
+
+    & span {
+      font-size: 1.2rem;
+      color: ${colors.neutral.thin};
+    }
+  }
+
+  .extension-legend {
+    .extension-icon {
+      margin-left: 8px;
+      margin-right: 18px;
+    }
+  }
+
+  .incomplete-questions-legend-box {
+    border: 1px solid ${colors.neutral.std};
+    background-color: ${colors.neutral.pale};
+    padding: 8px 15px;
+  }
+
+  .needs-attention-legend-box {
+    border: 1px solid ${colors.danger};
+    background-color: ${colors.states.trouble};
+    padding: 8px 15px;
+  }
+`;
+
 
 const popover = (gradingTemplate) => (
   <Popover className="scores-popover">
@@ -59,7 +119,7 @@ const popover = (gradingTemplate) => (
         <Cell>{gradingTemplate.humanCompletionWeight} of question's point value</Cell>
       </Row>
       <Row>
-        <Cell>Total</Cell> 
+        <Cell>Total</Cell>
         <Cell>{gradingTemplate.humanTotalWeight}</Cell>
       </Row>
     </StickyTable>
@@ -118,7 +178,7 @@ const StudentColumnHeader = observer(({ ux }) => (
             %
           </SplitCell>
         </HeadingMiddle>
-        <HeadingBottom> 
+        <HeadingBottom>
           <OverlayTrigger placement="right" overlay={popover(ux.planScores.grading_template)} trigger="hover">
             <InfoIcon
               color={colors.bright_blue}
@@ -142,7 +202,7 @@ const StudentColumnHeader = observer(({ ux }) => (
   </Cell>
 ));
 
-const StudentCell = observer(({ ux, student, striped }) => {
+const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, isNextStudentAboveFiftyPercentage, isLastRow }) => {
   const countData = ux.getReadingCountData(student);
   return (
     <>
@@ -161,22 +221,31 @@ const StudentCell = observer(({ ux, student, striped }) => {
             </TutorLink>
           </NameWrapper>
 
-          <Total>
+          <StyledTotal
+            isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
+            isNextStudentAboveFiftyPercentage={isNextStudentAboveFiftyPercentage}
+            isLastRow={isLastRow}
+          >
             {ux.displayTotalInPercent ?
-              `${S.asPercent(student.total_fraction || 0)}%` :
-              S.numberWithOneDecimalPlace(student.total_points || 0)}
-          </Total>
+              `${ScoresHelper.asPercent(student.total_fraction || 0)}%` :
+              ScoresHelper.formatPoints(student.total_points)}
+          </StyledTotal>
           <LateWork>
-            {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
+            {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
             {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
           </LateWork>
         </CellContents>
       </Cell>
-      <Cell striped={striped}>
+      <StyledCompleteInfoCell
+        striped={striped}
+        isComplete={ux.didStudentComplete(student)}
+        didNextStudentComplete={didNextStudentComplete}
+        isLastRow={isLastRow}
+      >
         <CellContents>
           {countData.complete} of {countData.total}
         </CellContents>
-      </Cell>
+      </StyledCompleteInfoCell>
       <Cell striped={striped}>
         <CellContents>
           {countData.correct} of {countData.complete}
@@ -208,10 +277,10 @@ AssignmentHeading.propTypes = {
 };
 
 const AverageScoreHeader = observer(({ ux }) => (
-  <Cell leftBorder={true}>
+  <Cell borderTop>
     <CellContents>
-      <ColumnFooter first={true}>
-        <Heading first={true} noBorder={true}>
+      <ColumnFooter first>
+        <Heading first noBorder>
           Average score
         </Heading>
       </ColumnFooter>
@@ -250,29 +319,41 @@ const ReadingScores = observer(({ ux }) => {
   return (
     <>
       <TableHeader ux={ux} />
-      <StyledStickyTable data-test-id="scores">
+      <StyledStickyTable data-test-id="scores" borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader scores={scores} ux={ux} />
           {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
         </Row>
         {ux.sortedStudents.map((student,sIndex) => (
           <Row key={sIndex}>
-            <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
+            <StudentCell
+              ux={ux}
+              student={student}
+              striped={0 === sIndex % 2}
+              didNextStudentComplete={ux.didStudentComplete(ux.sortedStudents[sIndex + 1])} 
+              isNextStudentAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(ux.sortedStudents[sIndex + 1])}
+              isLastRow={sIndex === ux.sortedStudents.length - 1}
+            />
           </Row>))}
         <Row>
           <AverageScoreHeader ux={ux} />
-          <Cell />
-          <Cell />
-          <Cell />
+          <Cell borderTop />
+          <Cell borderTop />
+          <Cell borderTop />
         </Row>
       </StyledStickyTable>
-      <DefinitionsWrapper>
-        <strong>NOTE</strong>
-        <ol>
-          <li>The late penalty is applied only to the points earned after the due date. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a></li>
-          <li>Students who’ve been granted an extension are denoted with <ExtIcon /></li>
-        </ol>
-      </DefinitionsWrapper>
+      <Legend>
+        <div>
+          <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
+        </div>
+        <div>
+          <div className="needs-attention-legend-box"></div><span>Score less than 50% of total available points</span>
+        </div>
+        <div className="extension-legend">
+          <ExtIcon></ExtIcon><span>Extension granted</span>
+        </div>
+        
+      </Legend>
     </>
   );
 });

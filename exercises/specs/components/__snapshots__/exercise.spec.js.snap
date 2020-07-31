@@ -738,6 +738,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     HS Physics
                   </option>
                   <option
+                    value="stax-psy"
+                  >
+                    Psychology
+                  </option>
+                  <option
                     value="stax-soc"
                   >
                     Sociology
@@ -1508,203 +1513,205 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           <div
             className="exercise-body"
           >
-            <div
-              className="openstax-question openstax-question-preview"
-            >
+            <div>
               <div
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
-                  }
-                }
-              />
-              <div
-                className="answers-table"
+                className="openstax-question openstax-question-preview"
               >
                 <div
-                  className="openstax-answer"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
+                  className="answers-table"
                 >
-                  <section
-                    className="answers-answer disabled"
-                    role="region"
+                  <div
+                    className="openstax-answer"
                   >
-                    <div
-                      className="correct-incorrect"
-                    />
-                    <label
-                      className="answer-label"
-                      htmlFor="1-option-0"
-                      onKeyPress={[Function]}
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
                     >
-                      <button
-                        aria-label="Choice a:"
-                        className="answer-letter"
-                        data-test-id="answer-choice-a"
-                        disabled={true}
-                      >
-                        a
-                      </button>
                       <div
-                        className="answer-answer"
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="1-option-0"
+                        onKeyPress={[Function]}
                       >
+                        <button
+                          aria-label="Choice a:"
+                          className="answer-letter"
+                          data-test-id="answer-choice-a"
+                          disabled={true}
+                        >
+                          a
+                        </button>
                         <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<ol>
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
-                            }
-                          }
-                        />
-                        <aside>
-                          <div
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "Objects far smaller than what is visible may require quantum mechanics.",
                               }
                             }
                           />
-                        </aside>
-                      </div>
-                    </label>
-                  </section>
-                </div>
-                <div
-                  className="openstax-answer"
-                >
-                  <section
-                    className="answers-answer disabled"
-                    role="region"
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Objects far smaller than what is visible may require quantum mechanics.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
                   >
-                    <div
-                      className="correct-incorrect"
-                    />
-                    <label
-                      className="answer-label"
-                      htmlFor="1-option-1"
-                      onKeyPress={[Function]}
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
                     >
-                      <button
-                        aria-label="Choice b:"
-                        className="answer-letter"
-                        data-test-id="answer-choice-b"
-                        disabled={true}
-                      >
-                        b
-                      </button>
                       <div
-                        className="answer-answer"
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="1-option-1"
+                        onKeyPress={[Function]}
                       >
+                        <button
+                          aria-label="Choice b:"
+                          className="answer-letter"
+                          data-test-id="answer-choice-b"
+                          disabled={true}
+                        >
+                          b
+                        </button>
                         <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<ol>
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
   <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
-                            }
-                          }
-                        />
-                        <aside>
-                          <div
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.",
                               }
                             }
                           />
-                        </aside>
-                      </div>
-                    </label>
-                  </section>
-                </div>
-                <div
-                  className="openstax-answer"
-                >
-                  <section
-                    className="answers-answer disabled"
-                    role="region"
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
                   >
-                    <div
-                      className="correct-incorrect"
-                    />
-                    <label
-                      className="answer-label"
-                      htmlFor="1-option-2"
-                      onKeyPress={[Function]}
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
                     >
-                      <button
-                        aria-label="Choice c:"
-                        className="answer-letter"
-                        data-test-id="answer-choice-c"
-                        disabled={true}
-                      >
-                        c
-                      </button>
                       <div
-                        className="answer-answer"
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="1-option-2"
+                        onKeyPress={[Function]}
                       >
+                        <button
+                          aria-label="Choice c:"
+                          className="answer-letter"
+                          data-test-id="answer-choice-c"
+                          disabled={true}
+                        >
+                          c
+                        </button>
                         <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<ol>
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
-                            }
-                          }
-                        />
-                        <aside>
-                          <div
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
                               }
                             }
                           />
-                        </aside>
-                      </div>
-                    </label>
-                  </section>
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
                 </div>
-              </div>
-              <div
-                className="formats-listing"
-              >
                 <div
-                  className="header"
+                  className="formats-listing"
                 >
-                  Formats:
+                  <div
+                    className="header"
+                  >
+                    Formats:
+                  </div>
+                  <span>
+                    free-response
+                  </span>
+                  <span>
+                    multiple-choice
+                  </span>
                 </div>
-                <span>
-                  free-response
-                </span>
-                <span>
-                  multiple-choice
-                </span>
-              </div>
-              <div
-                className="detailed-solution"
-              >
                 <div
-                  className="header"
+                  className="detailed-solution"
                 >
-                  Detailed solution
-                </div>
-                <div
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "four",
+                  <div
+                    className="header"
+                  >
+                    Detailed solution
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
                     }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -2174,6 +2181,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </option>
                                               <option value=\\"stax-k12phys\\">
                                                 HS Physics
+                                              </option>
+                                              <option value=\\"stax-psy\\">
+                                                Psychology
                                               </option>
                                               <option value=\\"stax-soc\\">
                                                 Sociology
@@ -2689,116 +2699,118 @@ exports[`Exercises component resets fields when model is new 1`] = `
                             <div className=\\"card-body\\">
                               <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
                               <div className=\\"exercise-body\\">
-                                <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} />
+                                <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} writtenResponse={[undefined]} />
                                 <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                                <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
-                                  <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
-                                    <QuestionHtml type=\\"context\\" html=\\"\\" />
-                                    <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                                    <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
-                                      <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
-                                        <div dangerouslySetInnerHTML={{...}} />
-                                      </Component>
-                                    </QuestionHtml>
-                                    <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
-                                      <div className=\\"answers-table\\">
-                                        <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                          <div className=\\"openstax-answer\\">
-                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                              <div className=\\"correct-incorrect\\" />
-                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
-                                                  a
-                                                </button>
-                                                <div className=\\"answer-answer\\">
-                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                  </Component>
-                                                  <Memo(wrappedComponent)>
-                                                    <aside>
-                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                    </aside>
-                                                  </Memo(wrappedComponent)>
-                                                </div>
-                                              </label>
-                                            </section>
-                                          </div>
-                                        </Answer>
-                                        <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                          <div className=\\"openstax-answer\\">
-                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                              <div className=\\"correct-incorrect\\" />
-                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
-                                                  b
-                                                </button>
-                                                <div className=\\"answer-answer\\">
-                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                  </Component>
-                                                  <Memo(wrappedComponent)>
-                                                    <aside>
-                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                    </aside>
-                                                  </Memo(wrappedComponent)>
-                                                </div>
-                                              </label>
-                                            </section>
-                                          </div>
-                                        </Answer>
-                                        <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                          <div className=\\"openstax-answer\\">
-                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                              <div className=\\"correct-incorrect\\" />
-                                              <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
-                                                <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
-                                                  c
-                                                </button>
-                                                <div className=\\"answer-answer\\">
-                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                  </Component>
-                                                  <Memo(wrappedComponent)>
-                                                    <aside>
-                                                      <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
-                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                      </Component>
-                                                    </aside>
-                                                  </Memo(wrappedComponent)>
-                                                </div>
-                                              </label>
-                                            </section>
-                                          </div>
-                                        </Answer>
-                                      </div>
-                                    </AnswersTable>
-                                    <FormatsListing formats={{...}}>
-                                      <div className=\\"formats-listing\\">
-                                        <div className=\\"header\\">
-                                          Formats:
+                                <div>
+                                  <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
+                                    <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
+                                      <QuestionHtml type=\\"context\\" html=\\"\\" />
+                                      <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
+                                      <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
+                                        <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
+                                          <div dangerouslySetInnerHTML={{...}} />
+                                        </Component>
+                                      </QuestionHtml>
+                                      <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                        <div className=\\"answers-table\\">
+                                          <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                            <div className=\\"openstax-answer\\">
+                                              <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                <div className=\\"correct-incorrect\\" />
+                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
+                                                  <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
+                                                    a
+                                                  </button>
+                                                  <div className=\\"answer-answer\\">
+                                                    <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <div dangerouslySetInnerHTML={{...}} />
+                                                    </Component>
+                                                    <Memo(wrappedComponent)>
+                                                      <aside>
+                                                        <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
+                                                          <div dangerouslySetInnerHTML={{...}} />
+                                                        </Component>
+                                                      </aside>
+                                                    </Memo(wrappedComponent)>
+                                                  </div>
+                                                </label>
+                                              </section>
+                                            </div>
+                                          </Answer>
+                                          <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                            <div className=\\"openstax-answer\\">
+                                              <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                <div className=\\"correct-incorrect\\" />
+                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
+                                                  <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
+                                                    b
+                                                  </button>
+                                                  <div className=\\"answer-answer\\">
+                                                    <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <div dangerouslySetInnerHTML={{...}} />
+                                                    </Component>
+                                                    <Memo(wrappedComponent)>
+                                                      <aside>
+                                                        <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
+                                                          <div dangerouslySetInnerHTML={{...}} />
+                                                        </Component>
+                                                      </aside>
+                                                    </Memo(wrappedComponent)>
+                                                  </div>
+                                                </label>
+                                              </section>
+                                            </div>
+                                          </Answer>
+                                          <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                            <div className=\\"openstax-answer\\">
+                                              <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                <div className=\\"correct-incorrect\\" />
+                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
+                                                  <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
+                                                    c
+                                                  </button>
+                                                  <div className=\\"answer-answer\\">
+                                                    <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                      <div dangerouslySetInnerHTML={{...}} />
+                                                    </Component>
+                                                    <Memo(wrappedComponent)>
+                                                      <aside>
+                                                        <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
+                                                          <div dangerouslySetInnerHTML={{...}} />
+                                                        </Component>
+                                                      </aside>
+                                                    </Memo(wrappedComponent)>
+                                                  </div>
+                                                </label>
+                                              </section>
+                                            </div>
+                                          </Answer>
                                         </div>
-                                        <span>
-                                          free-response
-                                        </span>
-                                        <span>
-                                          multiple-choice
-                                        </span>
+                                      </AnswersTable>
+                                      <FormatsListing formats={{...}}>
+                                        <div className=\\"formats-listing\\">
+                                          <div className=\\"header\\">
+                                            Formats:
+                                          </div>
+                                          <span>
+                                            free-response
+                                          </span>
+                                          <span>
+                                            multiple-choice
+                                          </span>
+                                        </div>
+                                      </FormatsListing>
+                                      <div className=\\"detailed-solution\\">
+                                        <div className=\\"header\\">
+                                          Detailed solution
+                                        </div>
+                                        <Component className=\\"solution\\" block={true} html=\\"four\\">
+                                          <div dangerouslySetInnerHTML={{...}} />
+                                        </Component>
                                       </div>
-                                    </FormatsListing>
-                                    <div className=\\"detailed-solution\\">
-                                      <div className=\\"header\\">
-                                        Detailed solution
-                                      </div>
-                                      <Component className=\\"solution\\" block={true} html=\\"four\\">
-                                        <div dangerouslySetInnerHTML={{...}} />
-                                      </Component>
                                     </div>
-                                  </div>
-                                </Question>
+                                  </Question>
+                                </div>
                               </div>
                               <div className=\\"exercise-tags\\">
                                 <span className=\\"exercise-tag\\">

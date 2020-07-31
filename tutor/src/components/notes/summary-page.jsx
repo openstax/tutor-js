@@ -1,6 +1,5 @@
 import { React, PropTypes, readonly, observer, observable, action } from 'vendor';
 import { isEmpty } from 'lodash';
-import ChapterSection from '../chapter-section';
 import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
@@ -22,8 +21,7 @@ const NotesForPage = observer(({
   return (
     <div className="section">
       <h2 className="section-title">
-        <ChapterSection chapterSection={page.chapter_section} />
-        <BookPartTitle title={page.title} />
+        <BookPartTitle part={page} displayChapterSection />
       </h2>
       {pageNotes.byPagePosition.map((note) => (
         <NoteCard

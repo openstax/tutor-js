@@ -1,8 +1,24 @@
+import { range } from 'lodash'
+
 context('Student Tasks', () => {
 
   beforeEach(() => {
     cy.setRole('student')
   });
+
+  const submitAnswer = () => {
+    cy.get('.exercise-step').then(st => {
+      const fr = st.find('[data-test-id="free-response-box"]')
+      if (fr.length > 0) {
+        cy.wrap(fr).type('this is a answer answering and fully explaining my reasoning for the question')
+        cy.getTestElement('submit-answer-btn').click()
+      }
+    })
+    cy.getTestElement('answer-choice-a').click()
+    cy.getTestElement('submit-answer-btn').click()
+    cy.getTestElement('continue-btn').click()
+
+  }
 
   it('advances after answering a free-response only question', () => {
     cy.visit('/course/1/task/3') // task id 3 is a hardcoded WRM task
@@ -43,5 +59,23 @@ context('Student Tasks', () => {
     cy.getTestElement('submit-answer-btn').click()
     cy.getTestElement('continue-btn').click()
   })
-  
+
+  it('deals with steps being removed', () => {
+    const taskId = 8
+    cy.visit(`/course/1/task/${taskId}`)
+    cy.get('.task-homework').then(card => {
+      let btn = card.find('[data-test-id="value-prop-continue-btn"]')
+      while(btn.length > 0) {
+        cy.wrap(btn).click()
+        btn = card.find('[data-test-id="value-prop-continue-btn"]')
+      }
+    })
+    cy.window().then(win => {
+      win._MODELS.courses.get(1).studentTasks.get(taskId).steps[3].type = 'placeholder'
+    })
+    range(2).forEach(submitAnswer)
+    cy.getTestElement('individual-review-intro-value-prop').should('exist')
+    cy.getTestElement('value-prop-continue-btn').click()
+    cy.get('.exercise-step').should('exist')
+  })
 })

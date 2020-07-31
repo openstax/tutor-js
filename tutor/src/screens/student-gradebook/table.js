@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import { Icon } from 'shared';
-import S, { UNWORKED } from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import SortIcon from '../../components/icons/sort';
 import { EIcon } from '../../components/icons/extension';
 
@@ -23,7 +23,7 @@ const TableWrapper = styled.div`
   .average-score {
     margin-top: 10px;
     width: 50%;
-    
+
     span:first-child {
       margin-right: 20px;
     }
@@ -60,7 +60,7 @@ const StyledTable = styled(Table)`
 
   thead {
     background: ${colors.neutral.lighter};
-    border-bottom: 1px solid ${colors.neutral.pale}; 
+    border-bottom: 1px solid ${colors.neutral.pale};
 
     tr {
       th {
@@ -96,7 +96,7 @@ const StyledTable = styled(Table)`
     .border-event {
       border-left: 10px solid ${colors.templates.event.border};
     }
-    
+
   }
 
   /** Striped colors */
@@ -105,7 +105,7 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const percentOrDash = (score) => isNil(score) ? UNWORKED : S.asPercent(score) + '%';
+const percentOrDash = (score) => isNil(score) ? UNWORKED : `${ScoresHelper.asPercent(score)}%`;
 const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
   const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
   return studentTaskPlan ? studentTaskPlan.is_extended : false;
@@ -114,7 +114,7 @@ const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
 const GradebookTable = observer((
   {
     history,
-    ux: { student, studentData, course, goToAssignment, sort, displaySort, sortFieldConstants }, 
+    ux: { student, studentData, course, goToAssignment, sort, displaySort, sortFieldConstants },
   }) => {
   return (
     <TableWrapper>
@@ -127,7 +127,7 @@ const GradebookTable = observer((
             <Popover className="scores-popover">
               <p>
                 <strong>Course Average = </strong><br/>
-                {S.asPercent(course.homework_weight)}% Homework average + {S.asPercent(course.reading_weight)}% Reading average
+                {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
               </p>
             </Popover>
           }

@@ -526,7 +526,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-
+                          
                         </span>
                       </div>
                     </div>
@@ -606,7 +606,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       <div
                         className="c12"
                       >
-                        0.0
+                        0
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -1350,7 +1350,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           className="tour-anchor"
                           data-tour-anchor-id="assignment-progress-status"
                         >
-
+                          
                         </span>
                       </div>
                     </div>

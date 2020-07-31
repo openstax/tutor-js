@@ -80,6 +80,7 @@ class Course extends BaseModel {
   @field homework_weight;
   @field just_created = false;
   @field uses_pre_wrm_scores = false;
+  @field should_reuse_preview = false;
 
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
@@ -208,11 +209,8 @@ class Course extends BaseModel {
 
   // bind to this so it can be used in disabledDate check
   isInvalidAssignmentDate = (date) => {
-    return !this.momentInZone(date).isBetween(
-      this.allowedAssignmentDateRange.start,
-      this.allowedAssignmentDateRange.end,
-      'day', '[]'
-    );
+    return date < moment(this.starts_at).endOf('day') ||
+    date > moment(this.ends_at).endOf('day');
   }
 
   @computed get hasStarted() {

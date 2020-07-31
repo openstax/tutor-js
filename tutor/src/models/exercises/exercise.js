@@ -63,6 +63,7 @@ class TutorExercise extends BaseModel {
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
   @computed get isMultiChoice() { return this.content.isMultiChoice; }
   @computed get isOpenEnded() { return this.content.isOpenEnded; }
+  @computed get isWrittenResponse() { return this.content.isWrittenResponse; }
 
   @computed get types() {
     return map(

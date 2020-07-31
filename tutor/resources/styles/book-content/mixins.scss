@@ -21,7 +21,7 @@
   text-transform: capitalize;
 }
 
-@mixin book-content-subtitle($subtitle-color: $tutor-book-secondary) {
+@mixin tutor-book-content-subtitle($subtitle-color: $tutor-book-secondary) {
   color: $subtitle-color;
   font-weight: 400;
   text-transform: uppercase;
@@ -29,6 +29,10 @@
   font-size: 2rem;
 }
 
+@mixin tutor-book-content-title() {
+  @include tutor-sans-font(1.8rem, 1.75em);
+  font-weight: bold;
+}
 
 // sets an element to be the width of the content pane
 // used for cases where the parent element is not set to 100% width and cannot be targeted

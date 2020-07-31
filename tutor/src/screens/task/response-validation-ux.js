@@ -134,7 +134,7 @@ class ResponseValidationUX {
     if (!this.taskUX.canUpdateCurrentStep){
       return 'Next';
     }
-    return this.isDisplayingNudge ? 'Re-submit' : 'Submit';
+    return this.step.free_response ? 'Re-submit' : 'Submit';
   }
 
   @computed get displayNudgeError() {

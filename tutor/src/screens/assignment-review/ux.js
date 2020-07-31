@@ -20,6 +20,7 @@ export default class AssignmentReviewUX {
   @observable editablePlan;
   @observable rowSort = { key: 0, asc: true, dataType: 'name' };
   @observable searchingMatcher = null;
+  @observable searchingExtensionsMatcher = null;
   @observable reverseNameOrder = false;
   @observable displayTotalInPercent = false;
 
@@ -32,9 +33,10 @@ export default class AssignmentReviewUX {
   }
 
   @action async initialize({
-    id, course, onCompleteDelete, onEditAssignedQuestions, onTabSelection, history, periodId,
+    id, course, onCompleteDelete, onEditAssignment, onTabSelection, history, periodId,
     scores = course.teacherTaskPlans.withPlanId(id).scores,
     windowImpl = window,
+    tab = 0,
   }) {
     this.id = id;
     this.history = history;
@@ -42,26 +44,41 @@ export default class AssignmentReviewUX {
     this.planScores = scores;
     this.course = course;
     this.onCompleteDelete = onCompleteDelete;
-    this.onEditAssignedQuestions = onEditAssignedQuestions;
+    this.onEditAssignment = onEditAssignment;
     this.onTabSelection = onTabSelection;
+
+    const currentTab = parseInt(tab, 10);
+    // default tab index is 0
+    if(currentTab > 0) {
+      onTabSelection(currentTab);
+    }
 
     await this.planScores.fetch();
     await this.planScores.taskPlan.fetch();
     await this.planScores.taskPlan.analytics.fetch();
-    await this.planScores.ensureExercisesLoaded();
-
     const period = find(this.assignedPeriods, p => p.id == periodId);
     this.selectedPeriod = period ? period : first(this.assignedPeriods);
+
+    await this.planScores.ensureExercisesLoaded();
+
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
   }
 
-  @computed get isScoresReady() { return this.planScores.api.hasBeenFetched; }
-  @computed get isExercisesReady() { return this.isScoresReady && this.exercisesHaveBeenFetched; }
+  @computed get isExercisesReady() { return this.exercisesHaveBeenFetched; }
   @computed get planId() { return this.planScores.id; }
+  
+  @computed get isScoresReady() {
+    return Boolean(this.selectedPeriod);
+  }
+
 
   @action.bound setSelectedPeriod(period) {
     this.selectedPeriod = period;
+  }
+
+  @computed get hasEnrollments() {
+    return Boolean(this.selectedPeriod && this.selectedPeriod.hasEnrollments);
   }
 
   @computed get scores() {
@@ -78,7 +95,7 @@ export default class AssignmentReviewUX {
   }
 
   @computed get assignedPeriods() {
-    return this.planScores.taskPlan.activeAssignedPeriods;
+    return this.taskPlan.activeAssignedPeriods;
   }
 
   @computed get activeScoresStudents() {
@@ -93,6 +110,17 @@ export default class AssignmentReviewUX {
       return students;
     }
     return filter(students, s => s.name.match(this.searchingMatcher));
+  }
+
+  @computed get extensionStudents() {
+    const students = rowDataSorter(
+      this.activeScoresStudents,
+      { key: 0, asc: true, dataType: 'first_name' }
+    );
+    if (!this.searchingExtensionsMatcher) {
+      return students;
+    }
+    return filter(students, s => s.name.match(this.searchingExtensionsMatcher));
   }
 
   @action.bound changeRowSortingOrder(key, dataType) {
@@ -129,6 +157,10 @@ export default class AssignmentReviewUX {
     this.searchingMatcher = value ? RegExp(value, 'i') : null;
   }
 
+  @action.bound onSearchExtensionStudentChange({ target: { value } }) {
+    this.searchingExtensionsMatcher = value ? RegExp(value, 'i') : null;
+  }
+
   // methods relating to granting extensions
 
   @computed get isPendingExtensions() {
@@ -139,10 +171,19 @@ export default class AssignmentReviewUX {
     return false;
   }
 
+  @computed get hideToggleGrantExtensionAllStudents() {
+    return this.activeScoresStudents.length != this.extensionStudents.length;
+  }
+
   @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
-    this.activeScoresStudents.forEach(s => {
+    this.extensionStudents.forEach(s => {
       this.pendingExtensions.set(s.role_id.toString(10), checked);
     });
+  }
+
+  @computed get allExtensionStudentsSelected() {
+    const values = Array.from(this.pendingExtensions.values());
+    return filter(values, v => v).length == this.activeScoresStudents.length;
   }
 
   @action.bound cancelDisplayingGrantExtension() {
@@ -242,19 +283,24 @@ export default class AssignmentReviewUX {
     this.isDisplayingConfirmDelete = false;
   }
 
-  @action.bound async onEdit() {
-    await this.taskPlan.fetch();
+  @action.bound async onEditPlan() {
+    if (this.taskPlan.isOpen) {
+      await this.taskPlan.fetch();
 
-    this.editUX = new EditUX();
+      this.editUX = new EditUX();
 
-    await this.editUX.initialize({
-      ...this.params,
-      id: this.taskPlan.id,
-      history,
-      course: this.course,
-    });
+      await this.editUX.initialize({
+        ...this.params,
+        id: this.taskPlan.id,
+        history,
+        course: this.course,
+      });
 
-    this.isDisplayingEditAssignment = true;
+      this.isDisplayingEditAssignment = true;
+
+    } else {
+      this.onEditAssignment();
+    }
   }
 
   @action.bound onCancelEdit() {
@@ -378,5 +424,18 @@ export default class AssignmentReviewUX {
     };
   }
 
+  didStudentComplete(student) {
+    if(!student) {
+      return false;
+    }
+    const data = this.getReadingCountData(student);
+    return data.complete === data.total; 
+  }
 
+  isStudentAboveFiftyPercentage(student) {
+    if(!student) {
+      return false;
+    }
+    return student.total_fraction >= 0.5;
+  }
 }

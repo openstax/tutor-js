@@ -84,11 +84,15 @@ class User extends BaseModel {
   @computed get isDomesticInstructor() {
     return this.school_location == 'domestic_school';
   }
-  
+
+  @computed get isForeignInstructor() {
+    return this.school_location == 'foreign_school';
+  }
+
   @computed get isAllowedInstructor() {
     return this.isConfirmedFaculty &&
-      this.isDomesticInstructor &&
-      includes(['college', 'high_school', 'k12_school'], this.school_type);
+      !this.isForeignInstructor &&
+      includes(['college', 'high_school', 'k12_school', 'home_school'], this.school_type);
   }
 
   @computed get canViewPreviewCourses() {

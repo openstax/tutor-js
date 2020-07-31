@@ -17,11 +17,15 @@ const TimeMock = {
 
   mock(dateTime) {
     const now = new Date(dateTime);
+    const tz  = 'America/Chicago';
+
     MockDate.set(now, -360);
     FactoryBot.defaults.now = dateTime;
     const spy = jest.spyOn(Time, 'now', 'get');
     spy.mockImplementation(() => now);
-    moment.tz.setDefault('America/Chicago');
+
+    jest.spyOn(moment.tz, 'guess').mockImplementation(() => tz);
+    moment.tz.setDefault(tz);
     moment.locale('en');
   },
 

@@ -50,6 +50,20 @@ export class ExercisesMap extends Map {
     }
   }
 
+  clear({ exceptIds } = {}) {
+    if (exceptIds) {
+      exceptIds = exceptIds.map(this.keyType);
+      this.keys().forEach((k) => {
+        if (!exceptIds.includes(k)) {
+          this._map.delete(k);
+        }
+      });
+    } else {
+      this._map.clear();
+    }
+  }
+
+
   // called by API
   fetch({ book, course, ecosystem_id, page_ids, exercise_ids, limit = 'homework_core', query = {} }) {
     if (!ecosystem_id) {

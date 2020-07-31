@@ -110,6 +110,11 @@ exports[`Book tags component renders tags 1`] = `
         HS Physics
       </option>
       <option
+        value="stax-psy"
+      >
+        Psychology
+      </option>
+      <option
         value="stax-soc"
       >
         Sociology

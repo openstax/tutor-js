@@ -6,6 +6,7 @@ import { Table, Column, ColumnGroup } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import TutorLink from '../../components/link';
+import NoStudentsMessage from '../../components/no-students-message';
 
 import SortingHeader from './sorting-header';
 import AssignmentCell from './assignment-cell';
@@ -52,13 +53,7 @@ class ScoresTable extends React.Component {
   renderNoStudents() {
     return (
       <div className="course-scores-container" ref="tableContainer">
-        <div className="no-students">
-          <p>
-            There are no students enrolled in this section yet.  Manage student access for this section
-            in <TutorLink to="settings" params={{ courseId: this.courseId }}>Course settings</TutorLink>.
-          </p>
-          <TutorLink primaryBtn to="settings" params={{ courseId: this.courseId }}>Manage student access</TutorLink>
-        </div>
+        <NoStudentsMessage courseId={this.courseId} />
       </div>
     );
   }

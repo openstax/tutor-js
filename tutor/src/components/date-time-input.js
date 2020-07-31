@@ -39,6 +39,10 @@ const StyledPicker = styled(Picker)`
       border-color: ${colors.forms.borders.focus};
       box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
     }
+
+    &.error {
+      border-color: red
+    }
   }
 `;
 
@@ -118,12 +122,14 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
           prefixCls="oxdt"
           id={id}
           autoFocus={props.autoFocus}
+          className={cn({ error: props.errorMessage })}
         />
         <IconWrapper>
           <Icon type="calendar" />
         </IconWrapper>
       </PickerWrapper>
       {meta.error && meta.touched && <Error>{meta.error}</Error>}
+      {props.errorMessage && <Error data-test-id="date-error-message">{props.errorMessage}</Error>}
     </StyledWrapper>
   );
 });

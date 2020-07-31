@@ -29,11 +29,12 @@ ReviewLink.propTypes = {
 };
 
 const Progress = observer(({ task }) => {
-  const progress = isNil(task.correct_exercise_count) ? '---' : task.humanScoreNumber;
+  const progress = isNil(task.correct_exercise_count) ? '---' : task.preWrmHumanScoreNumber;
   return <div className="correct-progress">{progress}</div>;
 });
 
 const Percent = observer(({ task: { published_score } }) => {
+  // Pre-WRM scores don't get higher precision
   const display = isNil(published_score) ? '---' : `${S.asPercent(published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });

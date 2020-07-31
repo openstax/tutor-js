@@ -1,4 +1,4 @@
-import { observable, computed, action, when, observe } from 'mobx';
+import { observable, runInAction, computed, action, when, observe } from 'mobx';
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
@@ -188,14 +188,19 @@ export default class TaskUX {
     }
   }
 
+  @computed get bestGuessStep() {
+    return this.steps.find(s => !s.is_completed) || last(this.steps);
+  }
+
   @action.bound async refetchTask() {
-    const stepsLength = this.task.steps.length;
     await this.task.fetch();
-    if (this.task.steps.length != stepsLength) {
-      const unworked = this.steps.find(s => !s.is_completed) || last(this.steps);
-      this._stepId = unworked.id;
-    }
-    this.currentStep.fetchIfNeeded();
+    runInAction(() => {
+      // current step might no longer exist
+      if (!this.steps.find(s => s.id == this._stepId)) {
+        this._stepId = this.bestGuessStep.id;
+      }
+      this.currentStep.fetchIfNeeded();
+    });
   }
 
   @action.bound goBackward() {
@@ -276,7 +281,7 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
-    if (this.isApiPending || this.isLocked) { return false; }
+    if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
 
     if (this.currentStepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {

@@ -9,7 +9,6 @@ import { colors } from 'theme';
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 24px;
   .input-group {
     width: 250px;
     input {

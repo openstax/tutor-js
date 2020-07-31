@@ -45,6 +45,10 @@ exports[`DateTimeInput matches snapshot 1`] = `
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
+.c3.c3.error {
+  border-color: red;
+}
+
 .c4 {
   width: 3.3rem;
   z-index: 1;
