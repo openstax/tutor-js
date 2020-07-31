@@ -83,6 +83,7 @@ class TaskResult extends BaseModel {
 
   @computed get humanScoreNumber() {
     return `${isNil(this.published_score) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+  }
 
   @computed get preWrmHumanScoreNumber() {
     // Pre-WRM scores don't get higher precision
