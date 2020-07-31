@@ -424,5 +424,18 @@ export default class AssignmentReviewUX {
     };
   }
 
+  didStudentComplete(student) {
+    if(!student) {
+      return false;
+    }
+    const data = this.getReadingCountData(student);
+    return data.complete === data.total; 
+  }
 
+  isStudentAboveFiftyPercentage(student) {
+    if(!student) {
+      return false;
+    }
+    return student.total_fraction >= 0.5;
+  }
 }
