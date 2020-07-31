@@ -48,27 +48,17 @@ const ColumnHeading = styled(BasicColumnHeading)`
 
 const StyledCompleteInfoCell = styled(Cell)`
   ${props => !props.isComplete && css`
-  &&&& {
+    &&&& {
       background-color: ${colors.neutral.pale};
       border-top: 1px solid ${colors.neutral.std};
-
-      /* check if next student did complete assignment. Otherwise we would ended up with a 2px border */
-      ${props => (props.didNextStudentComplete || props.isLastRow) && css`
-          border-bottom: 1px solid ${colors.neutral.std};
-      `}
-  }`
-}
+    }
+  `}
 `;
 
 const StyledTotal = styled(Total)`
    ${props => !props.isAboveFiftyPercentage && css`
     background-color: ${colors.states.trouble};
     border-top: 1px solid ${colors.danger};
-
-      /* check if next student has above 50%. Otherwise we would ended up with a 2px border */
-      ${props => (props.isNextStudentAboveFiftyPercentage || props.isLastRow) && css`
-          border-bottom: 1px solid ${colors.danger};
-      `}
   `}
 `;
 
@@ -202,7 +192,7 @@ const StudentColumnHeader = observer(({ ux }) => (
   </Cell>
 ));
 
-const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, isNextStudentAboveFiftyPercentage, isLastRow }) => {
+const StudentCell = observer(({ ux, student, striped }) => {
   const countData = ux.getReadingCountData(student);
   return (
     <>
@@ -223,8 +213,6 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
 
           <StyledTotal
             isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
-            isNextStudentAboveFiftyPercentage={isNextStudentAboveFiftyPercentage}
-            isLastRow={isLastRow}
           >
             {ux.displayTotalInPercent ?
               `${ScoresHelper.asPercent(student.total_fraction || 0)}%` :
@@ -239,8 +227,6 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
       <StyledCompleteInfoCell
         striped={striped}
         isComplete={ux.didStudentComplete(student)}
-        didNextStudentComplete={didNextStudentComplete}
-        isLastRow={isLastRow}
       >
         <CellContents>
           {countData.complete} of {countData.total}
@@ -330,9 +316,6 @@ const ReadingScores = observer(({ ux }) => {
               ux={ux}
               student={student}
               striped={0 === sIndex % 2}
-              didNextStudentComplete={ux.didStudentComplete(ux.sortedStudents[sIndex + 1])}
-              isNextStudentAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(ux.sortedStudents[sIndex + 1])}
-              isLastRow={sIndex === ux.sortedStudents.length - 1}
             />
           </Row>))}
         <Row>

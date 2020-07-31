@@ -67,7 +67,7 @@ export default class AssignmentReviewUX {
 
   @computed get isExercisesReady() { return this.exercisesHaveBeenFetched; }
   @computed get planId() { return this.planScores.id; }
-  
+
   @computed get isScoresReady() {
     return Boolean(this.selectedPeriod);
   }
@@ -429,7 +429,7 @@ export default class AssignmentReviewUX {
       return false;
     }
     const data = this.getReadingCountData(student);
-    return data.complete === data.total; 
+    return data.complete === data.total;
   }
 
   isStudentAboveFiftyPercentage(student) {
