@@ -15,12 +15,12 @@ import BookSelection from './book-selection';
 
 const BOOKS = {
   'stax-apbio': {
-    r: /^[A-Z]{3}(-|.)\d(-|\.)[A-Z]$/,
+    r: /^[A-Z]{3}[-.]\d[-.][A-Z]$/,
     pattern: '[A-Z]{3}-#.[A-Z]',
     disallowed: /[^0-9A-Z.-]/g,
   },
   'stax-apphys': {
-    r: /^\d(-|\.)[A-Z](-|\.)\d(-|\.)\d$/,
+    r: /^\d[-.][A-Z][-.]\d[-.]\d$/,
     pattern: '#.[A-Z].#.#',
     disallowed: /[^0-9A-Z.-]/g,
   },
