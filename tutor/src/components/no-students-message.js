@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from 'vendor';
+import { React, PropTypes, styled, cn } from 'vendor';
 import TutorLink from './link';
 
 const StyledNoStudentsMessage = styled.div`
@@ -15,9 +15,9 @@ const StyledNoStudentsMessage = styled.div`
     }
 `;
 
-const NoStudentsMessage = ({ courseId }) => {
+const NoStudentsMessage = ({ className, courseId }) => {
   return (
-    <StyledNoStudentsMessage>
+    <StyledNoStudentsMessage className={cn('no-students-message', className)}>
       <p>
         There are no students enrolled in this section yet.  Manage student access for this section
         in <TutorLink to="courseSettings" params={{ courseId }}>Course settings</TutorLink>.
@@ -27,6 +27,7 @@ const NoStudentsMessage = ({ courseId }) => {
   );
 };
 NoStudentsMessage.propTypes = {
+  className: PropTypes.string,
   courseId: PropTypes.string.isRequired,
 };
 

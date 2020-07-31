@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 import TaskResult from '../../models/scores/task-result';
 import TutorLink from '../../components/link';
 import UX from './ux';
@@ -34,7 +34,7 @@ const Progress = observer(({ task }) => {
 });
 
 const Percent = observer(({ task: { published_score } }) => {
-  const display = isNil(published_score) ? '---' : `${S.asPercent(published_score)}%`;
+  const display = isNil(published_score) ? '---' : `${ScoresHelper.asPercent(published_score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 

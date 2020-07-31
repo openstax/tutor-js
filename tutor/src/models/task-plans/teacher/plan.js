@@ -313,11 +313,15 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get questionsInfo() {
     return flatMap(this.exercises, (exercise, exerciseIndex) => (
-      exercise.content.questions.map((question, questionIndex) => new QuestionInfo({
-        key: `${exerciseIndex}-${questionIndex}`,
-        question, exercise, exerciseIndex, questionIndex, plan: this,
-        points: this.settings.exercises[exerciseIndex].points[questionIndex],
-      }))
+      exercise.content.questions.map((question, questionIndex) => {
+        const points = this.settings.exercises[exerciseIndex].points[questionIndex];
+        return new QuestionInfo({
+          key: `${exerciseIndex}-${questionIndex}`,
+          question, exercise, exerciseIndex, questionIndex, plan: this,
+          availablePoints: points,
+          points,
+        });
+      })
     ));
   }
 

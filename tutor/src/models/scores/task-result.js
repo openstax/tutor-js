@@ -6,7 +6,7 @@ import {
 import Big from 'big.js';
 import moment from 'moment';
 import Time from '../time';
-import S, { UNWORKED } from '../../helpers/string';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 
 export default
 @identifiedBy('scores/task-result')
@@ -77,7 +77,7 @@ class TaskResult extends BaseModel {
   @computed get isStarted() {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
-  
+
   @computed get canBeReviewed() {
     return Boolean(this.isStarted && !this.isExternal);
   }
@@ -201,7 +201,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get humanScoreNumber() {
-    return `${isNil(this.published_points) ? '0' : S.numberWithOneDecimalPlace(this.published_points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    return `${isNil(this.published_points) ? '0' : ScoresHelper.formatPoints(this.published_points)} of ${ScoresHelper.formatPoints(this.available_points)}`;
   }
 
   @computed get isDue() {
@@ -210,11 +210,11 @@ class TaskResult extends BaseModel {
 
   @computed get humanScore() {
     const score = this.course.currentRole.isTeacher ? this.score : this.published_score;
-    return isNil(score) ? UNWORKED : S.asPercent(score) + '%';
+    return isNil(score) ? UNWORKED : `${ScoresHelper.asPercent(score)}%`;
   }
 
   @computed get humanPoints() {
     const points = this.course.currentRole.isTeacher ? this.points : this.published_points;
-    return isNil(points) ? UNWORKED : `${S.numberWithOneDecimalPlace(points)} of ${S.numberWithOneDecimalPlace(this.available_points)}`;
+    return isNil(points) ? UNWORKED : `${ScoresHelper.formatPoints(points)} of ${ScoresHelper.formatPoints(this.available_points)}`;
   }
 }

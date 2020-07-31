@@ -76,6 +76,18 @@ class FakeWindow {
     return FakeMutationObserver;
   }
 
+  resizeTo({ width = this.screen.width, height = this.screen.height }) {
+    this.screen.width = this.innerWidth = width;
+    this.screen.height = this.innerHeight = height;
+    this.triggerEvent('resize'); // TODO: might need to simulate a event
+  }
+
+  triggerEvent(name, args) {
+    this.addEventListener.mock.calls.forEach(([ event, handler ]) => {
+      if (event == name) { handler(args); }
+    });
+  }
+
   getSelection = jest.fn(() => ({
     removeAllRanges: jest.fn(),
     addRange: jest.fn(),

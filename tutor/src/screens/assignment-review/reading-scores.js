@@ -3,7 +3,7 @@ import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import ScoresHelper from '../../helpers/scores';
 import ExtensionIcon from '../../components/icons/extension';
 import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
@@ -119,7 +119,7 @@ const popover = (gradingTemplate) => (
         <Cell>{gradingTemplate.humanCompletionWeight} of question's point value</Cell>
       </Row>
       <Row>
-        <Cell>Total</Cell> 
+        <Cell>Total</Cell>
         <Cell>{gradingTemplate.humanTotalWeight}</Cell>
       </Row>
     </StickyTable>
@@ -178,7 +178,7 @@ const StudentColumnHeader = observer(({ ux }) => (
             %
           </SplitCell>
         </HeadingMiddle>
-        <HeadingBottom> 
+        <HeadingBottom>
           <OverlayTrigger placement="right" overlay={popover(ux.planScores.grading_template)} trigger="hover">
             <InfoIcon
               color={colors.bright_blue}
@@ -227,11 +227,11 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
             isLastRow={isLastRow}
           >
             {ux.displayTotalInPercent ?
-              `${S.asPercent(student.total_fraction || 0)}%` :
-              S.numberWithOneDecimalPlace(student.total_points || 0)}
-          </StyledTotal>
+              `${ScoresHelper.asPercent(student.total_fraction || 0)}%` :
+              ScoresHelper.formatPoints(student.total_points)}
+          </Total>
           <LateWork>
-            {student.late_work_point_penalty ? `-${S.numberWithOneDecimalPlace(student.late_work_point_penalty)}` : '0'}
+            {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
             {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
           </LateWork>
         </CellContents>

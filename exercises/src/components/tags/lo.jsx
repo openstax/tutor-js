@@ -31,7 +31,7 @@ class Input extends React.Component {
   }
 
   @action.bound onTextChange(ev) {
-    this.value = ev.target.value.replace(/[^0-9\-]/g, '');
+    this.value = ev.target.value.replace(/[^0-9.-]/g, '');
     this.errorMsg = null;
   }
 
@@ -40,7 +40,7 @@ class Input extends React.Component {
     const { tag } = this.props;
     const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
 
-    if (!book || (lo != null && !lo.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ ))) {
+    if (!book || (lo != null && !lo.match( /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/ ))) {
       this.errorMsg = 'Must have book and match LO pattern of dd-dd-dd';
     } else {
       tag.value = lo;
