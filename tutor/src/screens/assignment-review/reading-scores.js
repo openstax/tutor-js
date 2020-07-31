@@ -229,7 +229,7 @@ const StudentCell = observer(({ ux, student, striped, didNextStudentComplete, is
             {ux.displayTotalInPercent ?
               `${ScoresHelper.asPercent(student.total_fraction || 0)}%` :
               ScoresHelper.formatPoints(student.total_points)}
-          </Total>
+          </StyledTotal>
           <LateWork>
             {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
             {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
