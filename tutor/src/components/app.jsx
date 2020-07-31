@@ -76,7 +76,7 @@ class App extends React.Component {
               <SpyMode.Wrapper>
                 <ModalManager>
                   <TourConductor>
-                    <TutorLayout course={course}>
+                    <TutorLayout app={this.props.app} course={course}>
                       <MatchForTutor routes={Router.getRenderableRoutes()} />
                     </TutorLayout>
                   </TourConductor>

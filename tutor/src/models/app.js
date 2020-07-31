@@ -39,6 +39,7 @@ export default class TutorApp {
 
   @observable tutor_js_url;
   @observable osweb_base_url;
+  @observable is_impersonating;
 
   static rootComponent = Tutor;
 
@@ -75,6 +76,7 @@ export default class TutorApp {
     Notifications.on('tutor-update', this.onNotice);
     Notices.start(this.data);
     this.osweb_base_url = this.data.osweb_base_url;
+    this.is_impersonating = this.data.is_impersonating;
     ExerciseHelpers.setOSWebURL(this.osweb_base_url);
     Chat.initialize();
     startMathJax();
