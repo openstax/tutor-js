@@ -98,4 +98,9 @@ export default {
     text = text.replace(/\n/gi,' ');
     return text.split(' ').length;
   },
+
+  stripHTMLTags(text) {
+    return text.replace(/(<([^>]+)>)/ig, '');
+  },
+
 };

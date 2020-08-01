@@ -7,6 +7,8 @@ import Arrow from './icons/arrow';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
+import S from '../helpers/string';
+
 
 // strip html tags out of page title so it's suitable for
 // setting on the document
@@ -140,7 +142,7 @@ class PagingNavigation extends React.Component {
         target="_blank"
         tabIndex={this.props.isBackwardEnabled ? 0 : -1}
         disabled={cb == null}
-        title={this.props.titles.previous}
+        title={S.stripHTMLTags(this.props.titles.previous)}
         aria-controls="paged-content"
         data-test-id="go-backward"
         onClick={partial(this.clickHandler, cb, this.props.backwardHref)}
@@ -160,7 +162,7 @@ class PagingNavigation extends React.Component {
         href={this.props.forwardHref}
         tabIndex={this.props.isForwardEnabled ? 0 : -1}
         disabled={cb == null}
-        title={this.props.titles.next}
+        title={S.stripHTMLTags(this.props.titles.next)}
         aria-controls="paged-content"
         data-test-id="go-forward"
         onClick={partial(this.clickHandler, cb, this.props.forwardHref)}
