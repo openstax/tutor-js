@@ -2,15 +2,19 @@ import { React, PropTypes, styled, observer, moment } from 'vendor';
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { isNil } from 'lodash';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import SortIcon from '../../components/icons/sort';
 import { EIcon } from '../../components/icons/extension';
+import Responsive from '../../components/responsive';
 
 const TableWrapper = styled.div`
   background-color: white;
-  padding: 40px 10rem;
+
+  ${breakpoint.desktop`
+    padding: 40px 10rem;
+  `}
 
   :first-child {
     .info-circle-icon-button {
@@ -22,45 +26,81 @@ const TableWrapper = styled.div`
 
   .average-score {
     margin-top: 10px;
-    width: 50%;
 
-    span:first-child {
+    > :first-child {
       margin-right: 20px;
     }
   }
-}
+`;
+
+const Header = styled.div`
+  padding: 16px;
+
+  .average-score > * + * {
+    margin-top: 8px;
+  }
+
+  ${breakpoint.desktop`
+    padding: 0;
+
+    .average-score > * {
+      display: inline;
+    }
+  `}
 `;
 
 const Legend = styled.div`
   display: flex;
-  margin-top: 10px;
+  flex-wrap: wrap;
+
+  margin-top: 16px;
+  padding: 0 16px 16px;
+
+  ${breakpoint.desktop`
+    padding: 0;
+  `}
+
+  > * {
+    display: flex;
+    margin-bottom: 8px;
+  }
   span label {
     font-size: 12px;
   }
   .extension {
-    display: flex;
     label {
       margin-left: 8px;
     }
   }
-  span:not(:first-child) {
-    margin-left: 20px;
+  .ox-icon {
+    margin-left: 0;
+  }
+  span:not(:last-child) {
+    margin-right: 16px;
   }
 `;
 
 const AssignmentBlock = styled.div`
-    border: 4px solid ${props => props.assignmentColor};
-    display: inline-block;
-    width: 1.5rem;
-    margin-right: 5px;
+  border: 4px solid ${props => props.assignmentColor};
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 5px;
 `;
 
 const StyledTable = styled(Table)`
-  margin-top: 20px;
+
+  ${breakpoint.desktop`
+    margin-top: 20px;
+  `}
 
   thead {
+    display: none;
     background: ${colors.neutral.lighter};
     border-bottom: 1px solid ${colors.neutral.pale};
+
+    ${breakpoint.desktop`
+      display: table-header-group;
+    `}
 
     tr {
       th {
@@ -74,27 +114,45 @@ const StyledTable = styled(Table)`
   }
 
   &&& tr {
-    height: 40px;
+    ${breakpoint.desktop`
+      height: 40px;
+    `}
     th, td {
       vertical-align: middle;
+      word-break: break-all;
     }
     td:first-child {
       padding-left: 10px;
       cursor: pointer;
       color: ${colors.link};
       font-weight: 600;
+      border-left: 4px solid transparent;
+
+      ${breakpoint.desktop`
+        border-left-width: 8px;
+      `}
+
+      &.border-reading {
+        border-left-color: ${colors.templates.reading.border};
+      }
+      &.border-homework {
+        border-left-color: ${colors.templates.homework.border};
+      }
+      &.border-external {
+        border-left-color: ${colors.templates.external.border};
+      }
+      &.border-event {
+        border-left-color: ${colors.templates.event.border};
+      }
     }
-    .border-reading {
-      border-left: 10px solid ${colors.templates.reading.border};
+
+    .extension-icon {
+      margin-left: 4px;
     }
-    .border-homework {
-      border-left: 10px solid ${colors.templates.homework.border};
-    }
-    .border-external {
-      border-left: 10px solid ${colors.templates.external.border};
-    }
-    .border-event {
-      border-left: 10px solid ${colors.templates.event.border};
+
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
     }
 
   }
@@ -102,6 +160,26 @@ const StyledTable = styled(Table)`
   /** Striped colors */
   tbody tr:nth-of-type(odd) {
     background-color: ${colors.bright};
+  }
+
+  .mobile-title {
+    line-height: 2.4rem;
+    margin-bottom: 3px;
+  }
+`;
+
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  line-height: 2.4rem;
+  font-weight: normal;
+  color: ${colors.neutral.darker};
+
+  > :first-child {
+    width: 96px;
+    color: ${colors.neutral.lite};
+    font-size: 1.2rem;
+    line-height: 1.2rem;
   }
 `;
 
@@ -111,43 +189,106 @@ const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
   return studentTaskPlan ? studentTaskPlan.is_extended : false;
 };
 
+const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
+  <tr>
+    <td
+      className={`border-${sd.reportHeading.type}`}
+      onClick={() => goToAssignment(history, course.id, sd.id)}>
+      <div className="mobile-title">
+        {sd.reportHeading.title}
+      </div>
+      <InfoItem>
+        <div>Due date</div>
+        <div className="icon-wrapper">
+          {moment(sd.due_at).format('MMM D')}
+          {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
+        </div>
+      </InfoItem>
+      <InfoItem>
+        <div>Points scored</div>
+        <div className="icon-wrapper">
+          {sd.humanPoints}
+          {sd.isLate && <Icon color={colors.danger} type="clock" />}
+        </div>
+      </InfoItem>
+      <InfoItem>
+        <div>Percentage</div>
+        <div className="icon-wrapper">
+          <strong>{sd.humanScore}</strong>
+          {sd.is_provisional_score && <Icon variant="circledStar" />}
+        </div>
+      </InfoItem>
+    </td>
+  </tr>
+);
+
+const DesktopStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
+  <tr>
+    <td
+      className={`border-${sd.reportHeading.type}`}
+      onClick={() => goToAssignment(history, course.id, sd.id)}>
+      {sd.reportHeading.title}
+    </td>
+    <td>
+      <div className="icon-wrapper">
+        {moment(sd.due_at).format('MMM D')}
+        {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
+      </div>
+    </td>
+    <td>
+      <div className="icon-wrapper">
+        {sd.humanPoints}
+        {sd.isLate && <Icon color={colors.danger} type="clock" />}
+      </div>
+    </td>
+    <td>
+      <div className="icon-wrapper">
+        {sd.humanScore}
+        {sd.is_provisional_score && <Icon variant="circledStar" />}
+      </div>
+    </td>
+  </tr>
+);
+
 const GradebookTable = observer((
   {
-    history,
-    ux: { student, studentData, course, goToAssignment, sort, displaySort, sortFieldConstants },
+    history, ux,
+    ux: { student, studentData, course, sort, displaySort, sortFieldConstants },
   }) => {
   return (
     <TableWrapper>
-      <h3>
-        <strong>Course Average:</strong> {percentOrDash(student.course_average)}
-        <OverlayTrigger
-          placement="right"
-          delay={{ show: 150, hide: 300 }}
-          overlay={
-            <Popover className="scores-popover">
-              <p>
-                <strong>Course Average = </strong><br/>
-                {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
-              </p>
-            </Popover>
-          }
-        >
-          <Icon
-            type="info-circle"
-            className="info-circle-icon-button"
-          />
-        </OverlayTrigger>
-      </h3>
-      <div className="average-score">
-        <span>
-          <AssignmentBlock assignmentColor={colors.templates.homework.border}/>
-          Homework Average: <strong>{percentOrDash(student.homework_score)}</strong>
-        </span>
-        <span>
-          <AssignmentBlock assignmentColor={colors.templates.reading.border}/>
-          Reading Average: <strong>{percentOrDash(student.reading_score)}</strong>
-        </span>
-      </div>
+      <Header>
+        <h3>
+          <strong>Course Average:</strong> {percentOrDash(student.course_average)}
+          <OverlayTrigger
+            placement="right"
+            delay={{ show: 150, hide: 300 }}
+            overlay={
+              <Popover className="scores-popover">
+                <p>
+                  <strong>Course Average = </strong><br/>
+                  {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
+                </p>
+              </Popover>
+            }
+          >
+            <Icon
+              type="info-circle"
+              className="info-circle-icon-button"
+            />
+          </OverlayTrigger>
+        </h3>
+        <div className="average-score">
+          <div>
+            <AssignmentBlock assignmentColor={colors.templates.homework.border}/>
+            Homework Average: <strong>{percentOrDash(student.homework_score)}</strong>
+          </div>
+          <div>
+            <AssignmentBlock assignmentColor={colors.templates.reading.border}/>
+            Reading Average: <strong>{percentOrDash(student.reading_score)}</strong>
+          </div>
+        </div>
+      </Header>
       <StyledTable striped borderless hover responsive>
         <thead>
           <tr>
@@ -170,26 +311,13 @@ const GradebookTable = observer((
           </tr>
         </thead>
         <tbody>
-          {studentData.map((sd,i) => (
-            <tr key={i}>
-              <td
-                className={`border-${sd.reportHeading.type}`}
-                onClick={() => goToAssignment(history, course.id, sd.id)}>
-                {sd.reportHeading.title}
-              </td>
-              <td>
-                {moment(sd.due_at).format('MMM D')}
-                {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
-              </td>
-              <td>
-                {sd.humanPoints}
-                {sd.isLate && <Icon color={colors.danger} type="clock" />}
-              </td>
-              <td>
-                {sd.humanScore}
-                {sd.is_provisional_score && <Icon variant="circledStar" />}
-              </td>
-            </tr>
+          {studentData.map((sd, i) => (
+            <Responsive
+              desktop={<DesktopStudentDataRow sd={sd} ux={ux} history={history} />}
+              tablet={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
+              mobile={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
+              key={i}
+            />
           ))}
         </tbody>
       </StyledTable>

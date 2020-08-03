@@ -4,7 +4,7 @@ import TourRegion from '../../components/tours/region';
 import TutorLink from '../../components/link';
 import LoadingScreen from 'shared/components/loading-animation';
 import { Icon } from 'shared';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import UX from './ux';
 
 const StudentGradebookHeader = styled.div`
@@ -29,7 +29,15 @@ const StudentGradebookHeader = styled.div`
 `;
 
 const StyledTourRegion = styled(TourRegion)`
-  margin: 40px 10rem;
+  ${breakpoint.desktop`
+    margin: 40px 10rem;
+  `}
+  ${breakpoint.tablet`
+    margin: ${breakpoint.margins.tablet};
+  `}
+  ${breakpoint.mobile`
+    margin: ${breakpoint.margins.mobile};
+  `}
 `;
 
 @observer
