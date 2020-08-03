@@ -137,6 +137,7 @@ describe('String helpers', function() {
     expect(S.stripHTMLTags(
       '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">The Study of Life</span>'
     )).toEqual('1 The Study of Life');
+    expect(S.stripHTMLTags(null)).toBeNull();
   });
 
 });
