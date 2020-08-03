@@ -35,7 +35,7 @@ class MyCourses extends React.Component {
   render() {
     if (Courses.isEmpty) {
       if (User.isConfirmedFaculty) {
-        if (!User.isAllowedInstructor) {
+        if (!User.canCreateCourses) {
           return <NonAllowedTeacher />;
         }
       } else {

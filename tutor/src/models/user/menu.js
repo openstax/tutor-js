@@ -79,7 +79,7 @@ const ROUTES = {
     label: 'Create a Course',
     isAllowed(course) {
       return Boolean(
-        User.isAllowedInstructor && (!course || !course.currentRole.isTeacherStudent)
+        User.canCreateCourses && (!course || !course.currentRole.isTeacherStudent)
       );
     },
     options({ course }) {
@@ -98,7 +98,7 @@ const ROUTES = {
       key: 'cloneCourse', separator: 'after',
     },
     isAllowed(course) {
-      return !!(course && !course.is_preview && User.isAllowedInstructor); },
+      return !!(course && !course.is_preview && User.canCreateCourses); },
   },
   customer_service: {
     label: 'Customer Service',

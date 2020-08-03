@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from 'shared/model';
-import { find, isEmpty, startsWith, includes } from 'lodash';
+import { find, isEmpty, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
@@ -27,18 +27,18 @@ class User extends BaseModel {
   @field name;
   @field first_name;
   @field last_name;
-
+  @field faculty_status;
   @field self_reported_role;
   @field account_uuid;
 
-  @field faculty_status;
+  @field can_create_courses;
   @field profile_url;
-  @field school_type = 'college';
+
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
   @field terms_signatures_needed;
-  @field school_location;
+
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
@@ -81,26 +81,16 @@ class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
-  @computed get isDomesticInstructor() {
-    return this.school_location == 'domestic_school';
-  }
-
-  @computed get isForeignInstructor() {
-    return this.school_location == 'foreign_school';
-  }
-
-  @computed get isAllowedInstructor() {
-    return this.isConfirmedFaculty &&
-      !this.isForeignInstructor &&
-      includes(['college', 'high_school', 'k12_school', 'home_school'], this.school_type);
-  }
-
   @computed get canViewPreviewCourses() {
-    return this.isAllowedInstructor;
+    return Boolean(this.can_create_courses);
+  }
+  
+  @computed get canCreateCourses() {
+    return Boolean(this.can_create_courses);
   }
 
   @computed get isProbablyTeacher() {
-    return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
+    return Boolean(this.can_create_courses || this.self_reported_role === 'instructor' || Courses.teaching.any);
   }
 
   @computed get shouldSignTerms() {
@@ -114,7 +104,7 @@ class User extends BaseModel {
     if (!Flags.tours){ return tags; }
 
     if (
-      (Courses.active.isEmpty && this.isConfirmedFaculty) ||
+      (Courses.active.isEmpty && this.canCreateCourses) ||
         Courses.active.teaching.nonPreview.any
     ) {
       tags.push('teacher');
@@ -161,7 +151,7 @@ class User extends BaseModel {
   }
 
   verifiedRoleForCourse(course) {
-    return course.primaryRole && this.isConfirmedFaculty ? course.primaryRole.type : 'student';
+    return course.primaryRole && this.canCreateCourses ? course.primaryRole.type : 'student';
   }
 
   saveTourView(tour, options) {
@@ -169,7 +159,7 @@ class User extends BaseModel {
   }
 
   @computed get isUnverifiedInstructor() {
-    return !this.isConfirmedFaculty && this.self_reported_role === 'instructor';
+    return !this.canCreateCourses && !this.isConfirmedFaculty && this.self_reported_role === 'instructor';
   }
 
   recordSessionStart() {

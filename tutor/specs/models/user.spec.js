@@ -46,7 +46,7 @@ describe('User Model', () => {
   it('#verifiedRoleForCourse', () => {
     bootstrapCoursesList();
     expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('student');
-    User.faculty_status = 'confirmed_faculty';
+    User.can_create_courses = true;
     expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('teacher');
   });
 
@@ -63,6 +63,7 @@ describe('User Model', () => {
 
   it('#isProbablyTeacher', () => {
     User.faculty_status = 'nope';
+    User.can_create_courses = false;
     User.self_reported_role = 'student';
     Courses.clear();
     expect(User.isProbablyTeacher).toBe(false);
@@ -70,8 +71,11 @@ describe('User Model', () => {
     expect(User.isProbablyTeacher).toBe(true);
     expect(User.canViewPreviewCourses).toBe(false);
     Courses.clear();
-    User.faculty_status = 'confirmed_faculty';
+    User.can_create_courses = false;
+    User.self_reported_role = 'instructor';
     expect(User.isProbablyTeacher).toBe(true);
+    expect(User.canViewPreviewCourses).toBe(false);
+    User.can_create_courses = true;
     expect(User.canViewPreviewCourses).toBe(true);
   });
 
@@ -92,18 +96,6 @@ describe('User Model', () => {
     User.last_name = 'Smith';
     expect(User.lastName).toEqual('Smith');
     expect(User.initials).toEqual('B S');
-  });
-
-  it('detects allowed teachers', () => {
-    User.school_type = 'unknown_school_type';
-    expect(User.isAllowedInstructor).toBe(false);
-    User.faculty_status = 'confirmed_faculty';
-    User.school_type = 'college';
-    expect(User.isAllowedInstructor).toBe(true);
-    User.school_location = 'foreign_school'
-    expect(User.isAllowedInstructor).toBe(false);
-    User.school_location = 'domestic_school'
-    expect(User.isAllowedInstructor).toBe(true);
   });
 
 });

@@ -4,7 +4,7 @@ import BuilderUX from '../../../src/screens/new-course/ux';
 
 
 jest.mock('../../../src/models/user', () => ({
-  isAllowedInstructor: true,
+  canCreateCourses: true,
 }));
 
 describe('CreateCourse: Selecting course subject', function() {

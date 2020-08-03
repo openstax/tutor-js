@@ -7,7 +7,7 @@ jest.mock('../../../src/helpers/router');
 jest.useFakeTimers();
 
 jest.mock('../../../src/models/user', () => ({
-  isAllowedInstructor: true,
+  canCreateCourses: true,
 }));
 
 const testRouter = new TestRouter();
@@ -22,7 +22,7 @@ describe('Course Builder UX Model', () => {
   let ux;
 
   beforeEach(() => {
-    User.isAllowedInstructor = true;
+    User.canCreateCourses = true;
     courses = Factory.coursesMap({ is_teacher: true });
     ux = createTestUX();
     ux.courses.array[0].offering_id = ux.offerings.array[0].id;
@@ -149,7 +149,7 @@ describe('Course Builder UX Model', () => {
   });
 
   it('redirects to not allowed teacher page if teacher isnt allowed access', () => {
-    User.isAllowedInstructor = false;
+    User.canCreateCourses = false;
     ux = createTestUX();
     Router.makePathname.mockReturnValue('/only-teacher');
     jest.runOnlyPendingTimers();
