@@ -132,19 +132,19 @@ exports[`Homework Row renders in progress 1`] = `
   background: #929292;
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c1 {
     min-width: 100%;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c3 {
     padding-left: 1.2rem;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c4 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -152,7 +152,7 @@ exports[`Homework Row renders in progress 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c6 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -160,7 +160,7 @@ exports[`Homework Row renders in progress 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c0.c0.c0 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -410,19 +410,19 @@ exports[`Homework Row renders with completed count 1`] = `
   background: #929292;
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c1 {
     min-width: 100%;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c3 {
     padding-left: 1.2rem;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c4 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -430,7 +430,7 @@ exports[`Homework Row renders with completed count 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c6 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -438,7 +438,7 @@ exports[`Homework Row renders with completed count 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:600px) {
   .c0.c0.c0 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
