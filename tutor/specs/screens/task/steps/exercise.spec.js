@@ -1,5 +1,5 @@
 import Exercise from '../../../../src/screens/task/step/exercise';
-import { Factory, FakeWindow, TimeMock } from '../../../helpers';
+import { Factory, FakeWindow, TimeMock, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -26,11 +26,11 @@ describe('Exercise Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<Exercise {...props} />).toMatchSnapshot();
+    expect(<C><Exercise {...props} /></C>).toMatchSnapshot();
   });
 
   it('can answer', () => {
-    const ex = mount(<Exercise {...props} />);
+    const ex = mount(<C><Exercise {...props} /></C>);
     setFreeResponse(ex, { value: 'test' });
     ex.find('Answer button').first().simulate('click');
     ex.find('AsyncButton').simulate('click');
@@ -44,7 +44,7 @@ describe('Exercise Tasks Screen', () => {
     step.content.content.stimulus_html = '<p>This is stimulus</p>';
     step.content.content.stem_html = '<p>This is stem</p>';
     step.content.context = '<p>This is some good context</p>';
-    const ex = mount(<Exercise {...props} />);
+    const ex = mount(<C><Exercise {...props} /></C>);
     expect(ex).toHaveRendered(`Preamble .exercise-stimulus[html="${step.content.stimulus_html}"]`);
     expect(ex).toHaveRendered(`Preamble .exercise-stem[html="${step.content.stem_html}"]`);
     expect(ex).toHaveRendered(`Preamble .exercise-context[html="${step.content.context}"]`);

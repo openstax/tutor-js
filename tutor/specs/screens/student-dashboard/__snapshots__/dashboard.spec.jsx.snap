@@ -212,19 +212,19 @@ exports[`Student Dashboard displays as loading 1`] = `
   margin-top: 25px;
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c2 {
     min-width: 100%;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c3 {
     padding-left: 1.2rem;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c4 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -232,7 +232,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c5 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -240,7 +240,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c11.c11.c11 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -249,7 +249,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:991px) {
   .c11.c11.c11 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -258,7 +258,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c7 span:last-child {
     margin-left: 0;
     margin-top: 5px;
@@ -1076,19 +1076,19 @@ exports[`Student Dashboard matches snapshot 1`] = `
   margin-top: 25px;
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c2 {
     min-width: 100%;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c3 {
     padding-left: 1.2rem;
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c4 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -1096,7 +1096,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c5 {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -1104,7 +1104,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c11.c11.c11 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -1113,7 +1113,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:991px) {
   .c11.c11.c11 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -1122,7 +1122,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   }
 }
 
-@media (max-width:749px) {
+@media (max-width:767px) {
   .c7 span:last-child {
     margin-left: 0;
     margin-top: 5px;

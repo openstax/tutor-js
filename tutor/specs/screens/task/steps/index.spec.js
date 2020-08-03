@@ -1,4 +1,4 @@
-import { Factory, FakeWindow, ld } from '../../../helpers';
+import { Factory, FakeWindow, ld, C } from '../../../helpers';
 import { TaskStep } from '../../../../src/screens/task/step';
 
 describe('Tasks Steps', () => {
@@ -21,7 +21,7 @@ describe('Tasks Steps', () => {
   it('renders loading', () => {
     props.step.isFetched = false;
     expect(props.step.needsFetched).toBeTruthy();
-    const s = mount(<TaskStep {...props} />);
+    const s = mount(<C><TaskStep {...props} /></C>);
     expect(s).toHaveRendered('ContentLoader');
     s.unmount();
   });
@@ -34,7 +34,7 @@ describe('Tasks Steps', () => {
       'individual-review-intro': 'IndividualReview',
     }, (component, type) => {
       props.step = { type };
-      const ts = mount(<TaskStep {...props} />);
+      const ts = mount(<C><TaskStep {...props} /></C>);
       expect(ts).toHaveRendered(component);
       ts.unmount();
     });

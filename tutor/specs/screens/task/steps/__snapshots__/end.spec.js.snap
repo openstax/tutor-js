@@ -20,7 +20,6 @@ exports[`Tasks Ending Screen completed state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -34,6 +33,12 @@ exports[`Tasks Ending Screen completed state 1`] = `
 
 .c2 {
   padding: 50px 140px;
+}
+
+@media (max-width:991px) {
+  .c0 {
+    padding: 2rem 0;
+  }
 }
 
 <div
@@ -113,7 +118,6 @@ exports[`Tasks Ending Screen completed state 2`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -127,6 +131,12 @@ exports[`Tasks Ending Screen completed state 2`] = `
 
 .c2 {
   padding: 50px 140px;
+}
+
+@media (max-width:991px) {
+  .c0 {
+    padding: 2rem 0;
+  }
 }
 
 <div
@@ -206,7 +216,6 @@ exports[`Tasks Ending Screen not started state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -220,6 +229,12 @@ exports[`Tasks Ending Screen not started state 1`] = `
 
 .c2 {
   padding: 50px 140px;
+}
+
+@media (max-width:991px) {
+  .c0 {
+    padding: 2rem 0;
+  }
 }
 
 <div
@@ -302,7 +317,6 @@ exports[`Tasks Ending Screen partial state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -316,6 +330,12 @@ exports[`Tasks Ending Screen partial state 1`] = `
 
 .c2 {
   padding: 50px 140px;
+}
+
+@media (max-width:991px) {
+  .c0 {
+    padding: 2rem 0;
+  }
 }
 
 <div

@@ -13,7 +13,6 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -37,92 +36,126 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   max-width: 100%;
 }
 
+@media (max-width:991px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
 <div
-  className="c0"
-  data-appearance="college_physics"
+  className="openstax-debug-content"
 >
   <div
-    className="c1 c2 interactive-step"
+    data-purpose="tour-conductor-wrapper"
   >
+    <div>
+      <div
+        className="c0"
+        data-appearance="college_physics"
+      >
+        <div
+          className="c1 c2 interactive-step"
+        >
+          <div
+            className=""
+          >
+            <div
+              className="openstax-exercise-badges"
+            >
+              <span
+                className="interactive"
+              >
+                <svg
+                  className="icon interactive"
+                  version="1.1"
+                  viewBox="0 0 53.23 53.21"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                    id="Layer_2"
+                  >
+                    <g
+                      data-name="Layer 1"
+                      id="Layer_1-2"
+                    >
+                      <path
+                        d="M48.86,0H11.37A4.34,4.34,0,0,0,7,4.35V41.6A4.34,4.34,0,0,0,11.37,46H48.86a4.34,4.34,0,0,0,4.35-4.35V4.35A4.19,4.19,0,0,0,48.86,0Zm1,40.88a1.65,1.65,0,0,1-1.69,1.69H11.85a1.65,1.65,0,0,1-1.69-1.69V5.32a1.65,1.65,0,0,1,1.69-1.69H48.14a1.65,1.65,0,0,1,1.69,1.69Z"
+                        style={
+                          Object {
+                            "fill": "#222e65",
+                          }
+                        }
+                      />
+                      <path
+                        d="M48.14,3.63H11.85a1.65,1.65,0,0,0-1.69,1.69V40.88a1.65,1.65,0,0,0,1.69,1.69H48.14a1.65,1.65,0,0,0,1.69-1.69V5.32A1.65,1.65,0,0,0,48.14,3.63ZM23.46,35.32V10.88L41.12,23.22Z"
+                        style={
+                          Object {
+                            "fill": "none",
+                          }
+                        }
+                      />
+                      <path
+                        d="M3.39,47.65V18.78a1.61,1.61,0,0,0-1.61-1.61H1.61A1.61,1.61,0,0,0,0,18.78V48.86a4.35,4.35,0,0,0,4.35,4.35H33.47a1.61,1.61,0,0,0,1.61-1.61v-.41a1.61,1.61,0,0,0-1.61-1.61H5.32A1.94,1.94,0,0,1,3.39,47.65Z"
+                        style={
+                          Object {
+                            "fill": "#222e65",
+                          }
+                        }
+                      />
+                      <path
+                        d="M26,33.59,39.2,24.53a1.61,1.61,0,0,0,0-2.64L26,12.65A1.61,1.61,0,0,0,23.46,14v18.3A1.61,1.61,0,0,0,26,33.59Z"
+                        style={
+                          Object {
+                            "fill": "#15c0dc",
+                          }
+                        }
+                      />
+                    </g>
+                  </g>
+                </svg>
+                <span>
+                  Interactive
+                </span>
+              </span>
+            </div>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" <div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.15</span><span class=\\"os-divider\\"> </span><span class=\\"os-caption\\"> <a class=\\"os-interactive-link\\" href=\\"https://www.openstaxcollege.org/l/02equation_grapher\\"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>",
+                }
+              }
+            />
+            <button
+              className="c3 continue btn btn-primary btn-lg"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
-      className=""
+      className="visible-when-debugging"
     >
       <div
-        className="openstax-exercise-badges"
+        className="tour-spy-info"
       >
-        <span
-          className="interactive"
-        >
-          <svg
-            className="icon interactive"
-            version="1.1"
-            viewBox="0 0 53.23 53.21"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              data-name="Layer 2"
-              id="Layer_2"
-            >
-              <g
-                data-name="Layer 1"
-                id="Layer_1-2"
-              >
-                <path
-                  d="M48.86,0H11.37A4.34,4.34,0,0,0,7,4.35V41.6A4.34,4.34,0,0,0,11.37,46H48.86a4.34,4.34,0,0,0,4.35-4.35V4.35A4.19,4.19,0,0,0,48.86,0Zm1,40.88a1.65,1.65,0,0,1-1.69,1.69H11.85a1.65,1.65,0,0,1-1.69-1.69V5.32a1.65,1.65,0,0,1,1.69-1.69H48.14a1.65,1.65,0,0,1,1.69,1.69Z"
-                  style={
-                    Object {
-                      "fill": "#222e65",
-                    }
-                  }
-                />
-                <path
-                  d="M48.14,3.63H11.85a1.65,1.65,0,0,0-1.69,1.69V40.88a1.65,1.65,0,0,0,1.69,1.69H48.14a1.65,1.65,0,0,0,1.69-1.69V5.32A1.65,1.65,0,0,0,48.14,3.63ZM23.46,35.32V10.88L41.12,23.22Z"
-                  style={
-                    Object {
-                      "fill": "none",
-                    }
-                  }
-                />
-                <path
-                  d="M3.39,47.65V18.78a1.61,1.61,0,0,0-1.61-1.61H1.61A1.61,1.61,0,0,0,0,18.78V48.86a4.35,4.35,0,0,0,4.35,4.35H33.47a1.61,1.61,0,0,0,1.61-1.61v-.41a1.61,1.61,0,0,0-1.61-1.61H5.32A1.94,1.94,0,0,1,3.39,47.65Z"
-                  style={
-                    Object {
-                      "fill": "#222e65",
-                    }
-                  }
-                />
-                <path
-                  d="M26,33.59,39.2,24.53a1.61,1.61,0,0,0,0-2.64L26,12.65A1.61,1.61,0,0,0,23.46,14v18.3A1.61,1.61,0,0,0,26,33.59Z"
-                  style={
-                    Object {
-                      "fill": "#15c0dc",
-                    }
-                  }
-                />
-              </g>
-            </g>
-          </svg>
-          <span>
-            Interactive
-          </span>
-        </span>
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
       </div>
-      <div
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" <div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.15</span><span class=\\"os-divider\\"> </span><span class=\\"os-caption\\"> <a class=\\"os-interactive-link\\" href=\\"https://www.openstaxcollege.org/l/02equation_grapher\\"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>",
-          }
-        }
-      />
-      <button
-        className="c3 continue btn btn-primary btn-lg"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Continue
-      </button>
     </div>
   </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
 </div>
 `;
