@@ -151,7 +151,7 @@ class User extends BaseModel {
   }
 
   verifiedRoleForCourse(course) {
-    return course.primaryRole && this.canCreateCourses ? course.primaryRole.type : 'student';
+    return this.isConfirmedFaculty && course.primaryRole ? course.primaryRole.type : 'student';
   }
 
   saveTourView(tour, options) {

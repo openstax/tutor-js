@@ -10,6 +10,7 @@ jest.mock('../../src/models/chat');
 jest.mock('react-floater', () => () => null);
 
 const loadTeacherUser = () => {
+  User.faculty_status = 'confirmed_faculty';
   User.can_create_courses = true;
 }
 

@@ -45,8 +45,10 @@ describe('User Model', () => {
 
   it('#verifiedRoleForCourse', () => {
     bootstrapCoursesList();
-    expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('student');
+    expect(User.verifiedRoleForCourse(Courses.get(1))).toEqual('student');
     User.can_create_courses = true;
+    expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('student');
+    User.faculty_status = 'confirmed_faculty';
     expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('teacher');
   });
 
