@@ -40,6 +40,10 @@ const Header = styled.div`
     margin-top: 8px;
   }
 
+  h3 {
+    letter-spacing: -0.096rem;
+  }
+
   ${breakpoint.desktop`
     padding: 0;
 
@@ -189,6 +193,27 @@ const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
   return studentTaskPlan ? studentTaskPlan.is_extended : false;
 };
 
+const DueInfo = ({ sd, course }) => (
+  <div className="icon-wrapper">
+    {moment(sd.due_at).format('MMM D')}
+    {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
+  </div>
+);
+
+const PointsInfo = ({ sd }) => (
+  <div className="icon-wrapper">
+    {sd.humanPoints}
+    {sd.isLate && <Icon color={colors.danger} type="clock" />}
+  </div>
+);
+
+const PercentageInfo = ({ sd  }) => (
+  <div className="icon-wrapper">
+    <strong>{sd.humanScore}</strong>
+    {sd.is_provisional_score && <Icon variant="circledStar" />}
+  </div>
+);
+
 const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
   <tr>
     <td
@@ -199,24 +224,15 @@ const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) =
       </div>
       <InfoItem>
         <div>Due date</div>
-        <div className="icon-wrapper">
-          {moment(sd.due_at).format('MMM D')}
-          {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
-        </div>
+        <DueInfo sd={sd} course={course} />
       </InfoItem>
       <InfoItem>
         <div>Points scored</div>
-        <div className="icon-wrapper">
-          {sd.humanPoints}
-          {sd.isLate && <Icon color={colors.danger} type="clock" />}
-        </div>
+        <PointsInfo sd={sd} />
       </InfoItem>
       <InfoItem>
         <div>Percentage</div>
-        <div className="icon-wrapper">
-          <strong>{sd.humanScore}</strong>
-          {sd.is_provisional_score && <Icon variant="circledStar" />}
-        </div>
+        <PercentageInfo sd={sd} />
       </InfoItem>
     </td>
   </tr>
@@ -235,22 +251,13 @@ const DesktopStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) 
       {sd.reportHeading.title}
     </td>
     <td>
-      <div className="icon-wrapper">
-        {moment(sd.due_at).format('MMM D')}
-        {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
-      </div>
+      <DueInfo sd={sd} course={course} />
     </td>
     <td>
-      <div className="icon-wrapper">
-        {sd.humanPoints}
-        {sd.isLate && <Icon color={colors.danger} type="clock" />}
-      </div>
+      <PointsInfo sd={sd} />
     </td>
     <td>
-      <div className="icon-wrapper">
-        {sd.humanScore}
-        {sd.is_provisional_score && <Icon variant="circledStar" />}
-      </div>
+      <PercentageInfo sd={sd} />
     </td>
   </tr>
 );
