@@ -170,10 +170,10 @@ export const navbars = {
 
 const breakpoint = {
   mobile(...args) {
-    return css`@media(max-width: 749px) { ${css(...args)} }`;
+    return css`@media(max-width: 767px) { ${css(...args)} }`;
   },
   tablet(...args) {
-    return css`@media(max-width: 1199px) { ${css(...args)} }`;
+    return css`@media(max-width: 991px) { ${css(...args)} }`;
   },
   desktop(...args) {
     return css`@media(max-width: 1599px) { ${css(...args)} }`;
@@ -183,13 +183,13 @@ const breakpoint = {
   },
   only: {
     mobile(...args) {
-      return css`@media(max-width: 599px) { ${css(...args)} }`;
+      return css`@media(max-width: 767px) { ${css(...args)} }`;
     },
     tablet(...args) {
-      return css`@media(min-width: 600px) and max-width: 1199px) { ${css(...args)} }`;
+      return css`@media(min-width: 768px) and (max-width: 991px) { ${css(...args)} }`;
     },
     desktop(...args) {
-      return css`@media(min-width: 1200px) and (max-width: 1599px) { ${css(...args)} }`;
+      return css`@media(min-width: 992px) and (max-width: 1599px) { ${css(...args)} }`;
     },
     large(...args) {
       return css`@media(min-width: 1600px) { ${css(...args)} }`;
