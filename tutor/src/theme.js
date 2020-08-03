@@ -170,7 +170,7 @@ export const navbars = {
 
 export const breakpoint = {
   mobile(...args) {
-    return css`@media(max-width: 749px) { ${css(...args)} }`;
+    return css`@media(max-width: 600px) { ${css(...args)} }`;
   },
   tablet(...args) {
     return css`@media(max-width: 1199px) { ${css(...args)} }`;
