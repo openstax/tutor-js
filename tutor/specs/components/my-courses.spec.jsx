@@ -11,7 +11,7 @@ jest.mock('react-floater', () => () => null);
 
 const loadTeacherUser = () => {
   User.faculty_status = 'confirmed_faculty';
-  User.school_location = 'domestic_school';
+  User.can_create_courses = true;
 }
 
 describe('My Courses Component', function() {
@@ -49,7 +49,7 @@ describe('My Courses Component', function() {
   it('renders add course action if user is teacher', function() {
     loadTeacherUser();
     const wrapper = mount(<C><CourseListing /></C>);
-    expect(User.isConfirmedFaculty).toBeTruthy();
+    expect(User.canCreateCourses).toBeTruthy();
 
     expect(wrapper).toHaveRendered('.my-courses-add-zone');
     wrapper.unmount();
@@ -115,6 +115,7 @@ describe('My Courses Component', function() {
 
   it('displays pending screen', () => {
     Courses.clear();
+    User.can_create_courses = false;
     User.self_reported_role = 'instructor';
     const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered('PendingVerification');
@@ -123,19 +124,19 @@ describe('My Courses Component', function() {
 
   describe('non-allowed instructors', () => {
     it('locks them out and displays message when they hve no courses', () => {
-      loadTeacherUser();
+      User.faculty_status = 'confirmed_faculty';
+      User.can_create_courses = false;
       Courses.clear();
-      User.school_type = 'unknown_school_type';
       const wrapper = mount(<C><CourseListing /></C>);
       expect(wrapper).toHaveRendered('NonAllowedTeachers');
       wrapper.unmount();
     });
 
-    it('hides previews if they have courses', () => {
-      loadTeacherUser();
+    it('hides previews if they cannot create course', () => {
+      User.can_create_courses = true;
       const wrapper = mount(<C><CourseListing /></C>);
       expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');
-      User.school_type = 'unknown_school_type';
+      User.can_create_courses = false;
       expect(wrapper).not.toHaveRendered('MyCoursesPreview MyCoursesBasic');
       wrapper.unmount();
     });

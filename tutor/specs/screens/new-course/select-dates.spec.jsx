@@ -3,7 +3,7 @@ import SelectDates from '../../../src/screens/new-course/select-dates';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 jest.mock('../../../src/models/user', () => ({
-  isAllowedInstructor: true,
+  canCreateCourses: true,
 }));
 
 describe('CreateCourse: Selecting course dates', function() {
