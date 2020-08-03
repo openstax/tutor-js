@@ -90,7 +90,7 @@ class User extends BaseModel {
   }
 
   @computed get isProbablyTeacher() {
-    return Boolean(this.can_create_courses || this.self_reported_role === 'instructor' || Courses.teaching.any);
+    return Boolean(this.can_create_courses || this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
   }
 
   @computed get shouldSignTerms() {
