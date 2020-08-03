@@ -16,11 +16,8 @@ const TableWrapper = styled.div`
     padding: 40px 10rem;
   `}
 
-  :first-child {
-    .info-circle-icon-button {
+  .info-circle-icon-button {
     color: ${colors.link};
-    margin-bottom: -2px;
-    width: 1.5rem;
     margin-left: 10px;
   }
 
@@ -42,6 +39,8 @@ const Header = styled.div`
 
   h3 {
     letter-spacing: -0.096rem;
+    display: flex;
+    align-items: center;
   }
 
   ${breakpoint.desktop`
@@ -187,6 +186,10 @@ const InfoItem = styled.div`
   }
 `;
 
+const StyledPopover = styled(Popover)`
+  pointer-events: none;
+`;
+
 const percentOrDash = (score) => isNil(score) ? UNWORKED : `${ScoresHelper.asPercent(score)}%`;
 const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
   const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
@@ -276,17 +279,21 @@ const GradebookTable = observer((
     <TableWrapper>
       <Header>
         <h3>
-          <strong>Course Average:</strong> {percentOrDash(student.course_average)}
+          <span>
+            <strong>Course Average:</strong> {percentOrDash(student.course_average)}
+          </span>
           <OverlayTrigger
             placement="right"
+            trigger={['hover', 'click']}
+            rootClose
             delay={{ show: 150, hide: 300 }}
             overlay={
-              <Popover className="scores-popover">
+              <StyledPopover className="scores-popover">
                 <p>
                   <strong>Course Average = </strong><br/>
                   {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
                 </p>
-              </Popover>
+              </StyledPopover>
             }
           >
             <Icon
