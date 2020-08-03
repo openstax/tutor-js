@@ -100,7 +100,7 @@ export default {
   },
 
   stripHTMLTags(text) {
-    return text.replace(/(<([^>]+)>)/ig, '');
+    return isString(text) ? text.replace(/(<([^>]+)>)/ig, '') : text;
   },
 
 };
