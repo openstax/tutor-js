@@ -221,6 +221,11 @@ const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) =
     </td>
   </tr>
 );
+MobileStudentDataRow.propTypes = {
+  sd: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  ux: PropTypes.object.isRequired,
+};
 
 const DesktopStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
   <tr>
@@ -249,6 +254,11 @@ const DesktopStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) 
     </td>
   </tr>
 );
+DesktopStudentDataRow.propTypes = {
+  sd: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  ux: PropTypes.object.isRequired,
+};
 
 const GradebookTable = observer((
   {
