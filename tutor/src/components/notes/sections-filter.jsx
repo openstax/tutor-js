@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ChapterSection from '../chapter-section';
 import Multiselect from '../multi-select';
 import TagList from '../tag-list';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
 import styled from 'styled-components';
+import BookPartTitle from '../book-part-title';
 
-const WrappedChapterSection = styled(ChapterSection)`
+const SectionTitle = styled(BookPartTitle)`
   margin-right: 1rem;
   font-weight: normal;
+  display: inline;
 `;
 
 export default
@@ -55,12 +56,7 @@ class SectionsFilter extends React.Component {
       {
         id: s.uuid,
         uuid: s.uuid,
-        title: (
-          <span>
-            <WrappedChapterSection chapterSection={s.chapter_section} />
-            {s.title}
-          </span>
-        ),
+        title: <SectionTitle displayChapterSection part={s} />,
         summary: s,
         selected: !!this.props.selected.find(se => se.uuid == s.uuid),
       }

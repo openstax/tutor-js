@@ -18,7 +18,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
       </Styled(ExerciseIdentifierLink)>
       <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
         <styled.div className=\\"related-content-link\\">
-          <div className=\\"sc-AxirZ UCQNQ related-content-link\\">
+          <div className=\\"sc-AxiKw bzEmms related-content-link\\">
             <styled.span>
               <span className=\\"sc-AxhCb dFswVp preamble\\">
                 Comes from
@@ -26,18 +26,20 @@ exports[`Task Step Footer matches snapshot 1`] = `
             </styled.span>
             <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
               <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
-                <ChapterSection chapterSection={{...}}>
-                  <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
-                    <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
-                      1.2
-                    </span>
-                  </styled.span>
-                </ChapterSection>
-                <styled.span>
-                  <span className=\\"sc-AxiKw kpbBIu title\\">
-                    Food Irradiation
-                  </span>
-                </styled.span>
+                <BookPartTitle displayChapterSection={true} part={{...}}>
+                  <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\">
+                    <div className=\\"sc-AxirZ jSNLok book-part-title\\">
+                      <ChapterSection chapterSection={{...}}>
+                        <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
+                          <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
+                            1.2
+                          </span>
+                        </styled.span>
+                      </ChapterSection>
+                      <span dangerouslySetInnerHTML={{...}} />
+                    </div>
+                  </styled.div>
+                </BookPartTitle>
               </a>
             </BrowseTheBook>
           </div>
