@@ -77,11 +77,7 @@ const ROUTES = {
   },
   createNewCourse: {
     label: 'Create a Course',
-    isAllowed(course) {
-      return Boolean(
-        User.canCreateCourses && (!course || !course.currentRole.isTeacherStudent)
-      );
-    },
+    isAllowed() { return User.canCreateCourses; },
     options({ course }) {
       return course ? { separator: 'before' } : { separator: 'both' };
     },

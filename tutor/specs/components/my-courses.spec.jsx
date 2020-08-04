@@ -109,7 +109,10 @@ describe('My Courses Component', function() {
     const c = Courses.get(STUDENT_COURSE_ONE_MODEL.id);
     c.ends_at = moment().add(1, 'week');
     c.starts_at = moment().subtract(1, 'week');
+    User.can_create_courses = true;
     const wrapper = mount(<C><CourseListing /></C>);
+    expect(wrapper).not.toHaveRendered('Redirect');
+    User.can_create_courses = false;
     expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
   });
 
