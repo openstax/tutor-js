@@ -60,8 +60,11 @@ const StepCardHeader = styled.div`
     display: none;
   }
 
-  /* Show the arrows to move to previous and next question.
-  Also show the number of questions */
+  /*
+  1. Show the arrows to move to previous and next question.
+  2. Show the number of questions.
+  3. Override box-shadow of icons when turned into a button. 
+  */
   ${({ theme }) => theme.breakpoint.tablet`
     svg {
       display: inherit;
@@ -70,6 +73,9 @@ const StepCardHeader = styled.div`
     > div span {
         display: inherit;
       }
+    }
+    button[class^='ox-icon-angle']:hover {
+      box-shadow: none;
     }
   }
   `}
@@ -90,60 +96,101 @@ const StepCardQuestion = styled.div`
 
 LoadingCard.displayName = 'LoadingCard';
 
-const StepCard = ({ questionNumber, numberOfQuestions, stepType, isHomework, availablePoints, unpadded, className, children, ...otherProps }) => (
-  <OuterStepCard {...otherProps}>
-    <InnerStepCard className={className}>
-      {questionNumber && isHomework && stepType === 'exercise' &&
-      <StepCardHeader>
-        <div>
-          <Icon
-            size="lg"
-            type="angle-left"
-          />
-          <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
-        </div>
-        <div>
-          <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
-          <Icon
-            size="lg"
-            type="angle-right"
-          />
-        </div>
+const StepCard = ({
+  questionNumber,
+  numberOfQuestions,
+  stepType,
+  isHomework,
+  availablePoints,
+  unpadded,
+  className,
+  children,
+  goBackward,
+  canGoBackward,
+  goForward,
+  canGoForward,
+  ...otherProps }) => 
+  (
+    <OuterStepCard {...otherProps}>
+      <InnerStepCard className={className}>
+        {questionNumber && isHomework && stepType === 'exercise' &&
+        <StepCardHeader>
+          <div>
+            {
+              canGoBackward && 
+              <Icon
+                size="lg"
+                type="angle-left"
+                onClick={goBackward}
+              />
+            }
+            <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+          </div>
+          <div>
+            <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
+            {
+              canGoForward && 
+              <Icon
+                size="lg"
+                type="angle-right"
+                onClick={goForward}
+              />
+            }
+          </div>
         
         
-      </StepCardHeader>
-      }
-      <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
-    </InnerStepCard>
-  </OuterStepCard>
-);
+        </StepCardHeader>
+        }
+        <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
+      </InnerStepCard>
+    </OuterStepCard>
+  );
 StepCard.propTypes = {
   unpadded: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
   questionNumber: PropTypes.number,
   numberOfQuestions: PropTypes.number,
+  goBackward: PropTypes.func,
+  canGoBackward: PropTypes.bool,
+  goForward: PropTypes.func,
+  canGoForward: PropTypes.bool,
   stepType: PropTypes.string,
   isHomework: PropTypes.string,
   availablePoints: PropTypes.number,
 };
 
 
-const TaskStepCard = observer(({ step, questionNumber, numberOfQuestions, children, className, ...otherProps }) => (
-  <StepCard
-    {...otherProps}
-    questionNumber={questionNumber}
-    numberOfQuestions={numberOfQuestions}
-    stepType={step.type}
-    isHomework={step.task.type}
-    data-task-step-id={step.id}
-    availablePoints={step.available_points}
-    className={cn(`${step.type}-step`, className)}
-  >
-    {children}
-    <SpyInfo model={step} />
-  </StepCard>
-));
+const TaskStepCard = observer(({
+  step,
+  questionNumber,
+  numberOfQuestions,
+  children,
+  className,
+  goBackward,
+  canGoBackward,
+  goForward,
+  canGoForward, 
+  ...otherProps }) => 
+  (
+    <StepCard
+      {...otherProps}
+      questionNumber={questionNumber}
+      numberOfQuestions={numberOfQuestions}
+      goBackward={goBackward}
+      canGoBackward={canGoBackward}
+      goForward={goForward}
+      canGoForward={canGoForward}
+      stepType={step.type}
+      isHomework={step.task.type}
+      data-task-step-id={step.id}
+      availablePoints={step.available_points}
+      className={cn(`${step.type}-step`, className)}
+    >
+      {children}
+      <SpyInfo model={step} />
+    </StepCard>
+  ));
 TaskStepCard.displayName = 'TaskStepCard';
 TaskStepCard.propTypes = {
   className: PropTypes.string,

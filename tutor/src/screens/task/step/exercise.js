@@ -84,6 +84,11 @@ class ExerciseTaskStep extends React.Component {
           step={step}
           questionNumber={ux.questionNumberForStep(step)}
           numberOfQuestions={ux.exerciseSteps.length}
+          goBackward={ux.goBackward}
+          canGoBackward={ux.canGoBackward}
+          goForward={ux.goForward}
+          canGoForward={ux.canGoForward}
+
         >
           <Badges
             spacedPractice={step.isSpacedPractice}
