@@ -123,6 +123,9 @@ const StyledTable = styled(Table)`
     th, td {
       vertical-align: middle;
       word-break: break-all;
+      ${breakpoint.desktop`
+        word-break: normal;
+      `}
     }
     td:first-child {
       padding-left: 10px;
