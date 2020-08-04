@@ -21,6 +21,10 @@ const ExercisesTaskHeaderWrapper = styled.div`
     border-bottom: 1px solid ${colors.neutral.pale};
     padding: 20px 10px 10px;
   `}
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    padding: 10px;
+  `};
 `;
 
 const StyledBackLink = styled.div`

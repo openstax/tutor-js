@@ -35,6 +35,9 @@ const StyledStickyTable = styled(StickyTable)`
     background: ${colors.pointsScoredStatus.partial};
   }
 
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    font-size: 1.25rem;
+  `};
 
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
@@ -104,13 +107,6 @@ const StyledStickyTable = styled(StickyTable)`
 }
 `;
 
-const LateWorkCell = styled(Cell)`
-  font-size: 1.1rem;
-  white-space: normal;
-  max-width: 80px;
-  &.late-work { font-weight: bold; }
-`;
-
 const pointsScoredStatus = (step) => {
   if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
   if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
@@ -124,7 +120,9 @@ class TaskProgress extends React.Component {
     steps: PropTypes.array.isRequired,
     goToStep: PropTypes.func.isRequired,
     currentStep: PropTypes.object.isRequired,
+    hideTaskProgressTable: PropTypes.bool.isRequired,
   };
+
   render() {
     const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
@@ -171,8 +169,6 @@ class TaskProgress extends React.Component {
               return null;
             })
           }
-          {task.hasLateWorkPolicy &&
-            <LateWorkCell className="late-work">Late work</LateWorkCell>}
           <Cell>Total</Cell>
         </Row>
         <Row>
@@ -186,8 +182,6 @@ class TaskProgress extends React.Component {
               return <Cell key={stepIndex}></Cell>;
             })
           }
-          {task.hasLateWorkPolicy &&
-            <LateWorkCell>-{task.humanLateWorkPenalty} per {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}</LateWorkCell>}
           <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
@@ -206,10 +200,6 @@ class TaskProgress extends React.Component {
                   return <Cell key={stepIndex}></Cell>;
                 })
               }
-              {task.hasLateWorkPolicy &&
-                <Cell>
-                  {task.publishedLateWorkPenalty ? `${ScoresHelper.formatLatePenalty(task.publishedLateWorkPenalty)}` : '0.0'}
-                </Cell>}
               <Cell>
                 {isNil(task.publishedPoints) ?
                   UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
