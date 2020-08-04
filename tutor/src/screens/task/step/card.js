@@ -66,6 +66,8 @@ const StepCardHeader = styled.div`
   3. Override box-shadow of icons when turned into a button. 
   */
   ${({ theme }) => theme.breakpoint.tablet`
+  font-size: 1.6rem;
+    padding: 14px 26px 14px 8px;
     svg {
       display: inherit;
     }
@@ -117,7 +119,7 @@ const StepCard = ({
         <StepCardHeader>
           <div>
             {
-              canGoBackward && 
+              canGoBackward && goBackward && 
               <Icon
                 size="lg"
                 type="angle-left"
@@ -129,7 +131,7 @@ const StepCard = ({
           <div>
             <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
             {
-              canGoForward && 
+              canGoForward && goForward && 
               <Icon
                 size="lg"
                 type="angle-right"

@@ -97,6 +97,10 @@ const StyledStickyTable = styled(StickyTable)`
       }
     }
   }
+
+  ${({ theme }) => theme.breakpoint.tablet`
+    display: none;
+  `}
 `;
 
 const LateWorkCell = styled(Cell)`
@@ -125,7 +129,7 @@ class TaskProgress extends React.Component {
     let progressIndex = 0;
 
     return (
-      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
+      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'}>
         <Row>
           <Cell>Question number</Cell>
           {
@@ -213,10 +217,7 @@ class TaskProgress extends React.Component {
         }
       </StyledStickyTable>
     );
-
-
   }
-
 }
 
 export default TaskProgress;

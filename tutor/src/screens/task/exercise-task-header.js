@@ -49,14 +49,22 @@ const StyledHeadingTitle = styled.div`
     padding: 0 0.8rem;
     color: ${colors.neutral.pale};
   }
+  div:last-child {
+      display: none;
+    }
   
-  /* Hide the date when screen is screen is tablet size or smaller */
+  /*
+    Hide the date when screen is tablet size or smaller.
+    Show overview icon.
+  */
   ${({ theme }) => theme.breakpoint.tablet`
-    div:nth-child(2) {
+    justify-content: space-between;
+
+    div:nth-child(2), div:nth-child(3) {
       display: none;
     }
     div:last-child {
-      display: none;
+      display: inherit;
     }
   `}
 `;
@@ -116,12 +124,12 @@ class ExercisesTaskHeader extends React.Component {
           <div><span>{ux.task.title}</span></div>
           <div><span>|</span></div>
           <div><span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span></div>
+          <div><Icon type="th" /></div>
         </StyledHeadingTitle>
         <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
       </ExercisesTaskHeaderWrapper>
     );
   }
-
 }
 
 export default ExercisesTaskHeader;
