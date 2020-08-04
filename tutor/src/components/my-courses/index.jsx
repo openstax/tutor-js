@@ -28,7 +28,7 @@ class MyCourses extends React.Component {
       return false;
     }
     return (
-      this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
+      !User.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
     );
   }
 
