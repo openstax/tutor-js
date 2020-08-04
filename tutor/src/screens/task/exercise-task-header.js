@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject, autobind, css } from 'vendor';
+import { React, PropTypes, observer, styled, inject, autobind, css, cn } from 'vendor';
 import TutorLink from '../../components/link';
 import TaskProgress from '../../components/task-progress';
 import UX from './ux';
@@ -65,6 +65,11 @@ const StyledHeadingTitle = styled.div`
     }
     div:last-child {
       display: inherit;
+
+      .isShowingTable {
+        background-color: ${colors.neutral.lighter};
+        border-radius: 50%;
+      }
     }
   `}
 `;
@@ -124,9 +129,20 @@ class ExercisesTaskHeader extends React.Component {
           <div><span>{ux.task.title}</span></div>
           <div><span>|</span></div>
           <div><span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span></div>
-          <div><Icon type="th" /></div>
+          <div>
+            <Icon
+              type="th"
+              onClick={ux.toggleTaskProgressTable}
+              className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })} 
+            />
+          </div>
         </StyledHeadingTitle>
-        <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
+        <TaskProgress
+          steps={ux.steps}
+          goToStep={ux.goToStepId}
+          currentStep={ux.currentStep}
+          hideTaskProgressTable={ux.hideTaskProgressTable}
+        />
       </ExercisesTaskHeaderWrapper>
     );
   }

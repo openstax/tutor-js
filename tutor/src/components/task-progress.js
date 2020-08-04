@@ -98,9 +98,10 @@ const StyledStickyTable = styled(StickyTable)`
     }
   }
 
-  ${({ theme }) => theme.breakpoint.tablet`
+  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.tablet`
     display: none;
-  `}
+  `
+}
 `;
 
 const LateWorkCell = styled(Cell)`
@@ -125,11 +126,11 @@ class TaskProgress extends React.Component {
     currentStep: PropTypes.object.isRequired,
   };
   render() {
-    const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
+    const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
 
     return (
-      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'}>
+      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
         <Row>
           <Cell>Question number</Cell>
           {
