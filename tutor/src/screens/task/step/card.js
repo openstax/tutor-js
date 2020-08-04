@@ -44,6 +44,14 @@ const StepCardHeader = styled.div`
 
 const StepCardQuestion = styled.div`
   ${props => !props.unpadded && 'padding: 50px 140px;'}
+
+  ${({ theme }) => theme.breakpoint.only.tablet`
+    padding: 10px 20px 140px;
+  `}
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    padding: 10px 10px 20px;
+  `}
 `;
 
 
