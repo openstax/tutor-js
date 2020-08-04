@@ -186,7 +186,7 @@ export const breakpoint = {
       return css`@media(max-width: 600px) { ${css(...args)} }`;
     },
     tablet(...args) {
-      return css`@media(min-width: 601px) and max-width: 1199px) { ${css(...args)} }`;
+      return css`@media(min-width: 601px) and (max-width: 1199px) { ${css(...args)} }`;
     },
     desktop(...args) {
       return css`@media(min-width: 1200px) and (max-width: 1599px) { ${css(...args)} }`;
