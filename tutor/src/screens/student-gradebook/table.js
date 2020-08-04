@@ -205,6 +205,10 @@ const DueInfo = ({ sd, course }) => (
     {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
   </div>
 );
+DueInfo.propTypes = {
+  sd: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
+};
 
 const PointsInfo = ({ sd }) => (
   <div className="icon-wrapper">
@@ -212,13 +216,19 @@ const PointsInfo = ({ sd }) => (
     {sd.isLate && <Icon color={colors.danger} type="clock" />}
   </div>
 );
+PointsInfo.propTypes = {
+  sd: PropTypes.object.isRequired,
+};
 
-const PercentageInfo = ({ sd  }) => (
+const PercentageInfo = ({ sd }) => (
   <div className="icon-wrapper">
     <strong>{sd.humanScore}</strong>
     {sd.is_provisional_score && <Icon variant="circledStar" />}
   </div>
 );
+PercentageInfo.propTypes = {
+  sd: PropTypes.object.isRequired,
+};
 
 const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
   <tr>
