@@ -1,6 +1,7 @@
 import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors } from 'theme';
 import { SpyInfo } from './spy-info';
+import { Icon } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import S from '../../../helpers/string';
 
@@ -37,16 +38,48 @@ const StepCardHeader = styled.div`
   padding: 14px 26px;
   background: ${colors.templates.homework.background};
   
-  div:first-child {
-    font-weight: bold;
+  div {
+    display: flex;
+    svg:last-child, div:last-child {
+      margin-left: 15px;
+    }
   }
+
+  div:first-child {
+    div {
+      font-weight: bold;
+      span {
+        display: none;
+      }
+    }
+  }
+  
+  svg {
+    margin-top: 3px;
+    color: ${colors.neutral.gray};
+    display: none;
+  }
+
+  /* Show the arrows to move to previous and next question.
+  Also show the number of questions */
+  ${({ theme }) => theme.breakpoint.tablet`
+    svg {
+      display: inherit;
+    }
+    div:first-child {
+    > div span {
+        display: inherit;
+      }
+    }
+  }
+  `}
 `;
 
 const StepCardQuestion = styled.div`
   ${props => !props.unpadded && 'padding: 50px 140px;'}
 
   ${({ theme }) => theme.breakpoint.only.tablet`
-    padding: 10px 20px 140px;
+    padding: 25px 20px 140px;
   `}
 
   ${({ theme }) => theme.breakpoint.only.mobile`
@@ -57,13 +90,27 @@ const StepCardQuestion = styled.div`
 
 LoadingCard.displayName = 'LoadingCard';
 
-const StepCard = ({ questionNumber, stepType, isHomework, availablePoints, unpadded, className, children, ...otherProps }) => (
+const StepCard = ({ questionNumber, numberOfQuestions, stepType, isHomework, availablePoints, unpadded, className, children, ...otherProps }) => (
   <OuterStepCard {...otherProps}>
     <InnerStepCard className={className}>
       {questionNumber && isHomework && stepType === 'exercise' &&
       <StepCardHeader>
-        <div>Question {questionNumber}</div>
-        <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
+        <div>
+          <Icon
+            size="lg"
+            type="angle-left"
+          />
+          <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+        </div>
+        <div>
+          <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
+          <Icon
+            size="lg"
+            type="angle-right"
+          />
+        </div>
+        
+        
       </StepCardHeader>
       }
       <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
@@ -75,16 +122,18 @@ StepCard.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
   questionNumber: PropTypes.number,
+  numberOfQuestions: PropTypes.number,
   stepType: PropTypes.string,
   isHomework: PropTypes.string,
   availablePoints: PropTypes.number,
 };
 
 
-const TaskStepCard = observer(({ step, questionNumber, children, className, ...otherProps }) => (
+const TaskStepCard = observer(({ step, questionNumber, numberOfQuestions, children, className, ...otherProps }) => (
   <StepCard
     {...otherProps}
     questionNumber={questionNumber}
+    numberOfQuestions={numberOfQuestions}
     stepType={step.type}
     isHomework={step.task.type}
     data-task-step-id={step.id}

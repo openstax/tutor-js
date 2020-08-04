@@ -83,6 +83,7 @@ class ExerciseTaskStep extends React.Component {
         <StyledExercise
           step={step}
           questionNumber={ux.questionNumberForStep(step)}
+          numberOfQuestions={ux.exerciseSteps.length}
         >
           <Badges
             spacedPractice={step.isSpacedPractice}
