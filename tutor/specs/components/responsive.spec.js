@@ -3,15 +3,15 @@ import Responsive from '../../src/components/responsive'
 
 jest.mock('lodash/debounce', () => jest.fn(fn => fn));
 
-const Mobile = () => <p>MOBILE</p> 
-const Tablet = () => <p>TABLET</p> 
+const Mobile = () => <p>MOBILE</p>
+const Tablet = () => <p>TABLET</p>
 const Desktop = () => <p>DESKTOP</p>
 
 
 describe('Responsive Rendering', () => {
   let props;
   jest.useFakeTimers();
-  
+
   beforeEach(() => {
     props = {
       windowImpl: new FakeWindow(),
@@ -23,7 +23,7 @@ describe('Responsive Rendering', () => {
 
   it('switches view depending on window width', () => {
     const { windowImpl } = props;
-    windowImpl.resizeTo({ width: 1024 })
+    windowImpl.resizeTo({ width: 1200 })
     const c = mount(<Responsive {...props} />)
     expect(c).toHaveRendered(Desktop)
     windowImpl.resizeTo({ width: 780 })
@@ -31,7 +31,7 @@ describe('Responsive Rendering', () => {
 
     expect(c).toHaveRendered(Tablet)
 
-    windowImpl.resizeTo({ width: 650 })
+    windowImpl.resizeTo({ width: 550 })
     expect(c).toHaveRendered(Mobile)
   })
 
@@ -49,7 +49,7 @@ describe('Responsive Rendering', () => {
     }
     const c = mount(<Responsive {...props} />)
     expect(c).toHaveRendered(Tablet)
-    props.windowImpl.resizeTo({ width: 1000 })
+    props.windowImpl.resizeTo({ width: 1200 })
     expect(c).toHaveRendered(Desktop)
   })
 
