@@ -169,7 +169,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
   }
 }
 
-@media (max-width:991px) {
+@media (max-width:1199px) {
   .c0.c0.c0 {
     height: -webkit-fit-content;
     height: -moz-fit-content;

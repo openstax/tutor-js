@@ -35,7 +35,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
   padding: 50px 140px;
 }
 
-@media (max-width:991px) {
+@media (max-width:1199px) {
   .c0 {
     padding: 2rem 0;
   }
@@ -145,7 +145,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
   padding: 50px 140px;
 }
 
-@media (max-width:991px) {
+@media (max-width:1199px) {
   .c0 {
     padding: 2rem 0;
   }
@@ -255,7 +255,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
   padding: 50px 140px;
 }
 
-@media (max-width:991px) {
+@media (max-width:1199px) {
   .c0 {
     padding: 2rem 0;
   }
@@ -368,7 +368,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
   padding: 50px 140px;
 }
 
-@media (max-width:991px) {
+@media (max-width:1199px) {
   .c0 {
     padding: 2rem 0;
   }
