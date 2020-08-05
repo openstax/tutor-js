@@ -402,6 +402,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
         "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
         "year": 2017,
       },
+      "hideTaskProgressTable": true,
       "history": undefined,
       "isLocked": false,
       "viewedInfoSteps": Array [],

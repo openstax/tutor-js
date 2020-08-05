@@ -3,6 +3,7 @@ import {
 } from 'vendor';
 import UX from '../ux';
 import { ArbitraryHtmlAndMath as H } from 'shared';
+import { fonts } from 'theme';
 import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import Step from '../../../models/student-tasks/step';
@@ -12,6 +13,8 @@ import Raven from '../../../models/app/raven';
 const StyledExercise = styled(TaskStepCard)`
   font-size: 1.8rem;
   line-height: 3rem;
+  /* add Lato font */
+  ${fonts.sans('2rem')};
 `;
 
 const Preamble = ({ isHidden, content }) => {
@@ -83,7 +86,7 @@ class ExerciseTaskStep extends React.Component {
         <StyledExercise
           step={step}
           questionNumber={ux.questionNumberForStep(step)}
-          numberOfQuestions={ux.exerciseSteps.length}
+          numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
           goBackward={ux.goBackward}
           canGoBackward={ux.canGoBackward}
           goForward={ux.goForward}

@@ -1,5 +1,5 @@
 import { StepFooter } from '../../../../src/screens/task/step/footer';
-import { Factory, TimeMock } from '../../../helpers';
+import { Factory, TimeMock, C } from '../../../helpers';
 
 describe('Task Step Footer', () => {
   let props;
@@ -13,7 +13,7 @@ describe('Task Step Footer', () => {
   });
 
   it('matches snapshot', () => {
-    const exf = mount(<StepFooter {...props} />);
+    const exf = mount(<C><StepFooter {...props} /></C>);
     expect(exf.debug()).toMatchSnapshot();
     exf.unmount();
   });

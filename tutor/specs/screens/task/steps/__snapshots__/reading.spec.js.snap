@@ -24,7 +24,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   padding: 2rem;
 }
 
-.c2 {
+.c3 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: flex-end;
@@ -35,6 +35,18 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
 @media (max-width:991px) {
   .c0 {
     padding: 2rem 0;
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+  .c2 {
+    padding: 25px 20px 140px;
+  }
+}
+
+@media (max-width:767px) {
+  .c2 {
+    padding: 10px 10px 20px;
   }
 }
 
@@ -53,11 +65,11 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           className="c1 reading-step "
         >
           <div
-            className=""
+            className="c2"
           >
             <div />
             <button
-              className="c2 continue btn btn-primary btn-lg"
+              className="c3 continue btn btn-primary btn-lg"
               disabled={false}
               onClick={[Function]}
               type="button"
