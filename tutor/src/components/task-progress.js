@@ -1,8 +1,11 @@
 import { React, PropTypes, observer, cn, styled } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { map, sumBy, isNil } from 'lodash';
+import { Icon } from 'shared';
 import { colors } from 'theme';
 import { CornerTriangle } from './dropped-question';
+import LatePointsInfo from './late-points-info';
 import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
 const PointsScoredStatus = {
@@ -17,6 +20,7 @@ const StyledStickyTable = styled(StickyTable)`
 
   .sticky-table-cell {
     min-height: 40px;
+    position: relative;
   }
 
   .current-step {
@@ -33,6 +37,16 @@ const StyledStickyTable = styled(StickyTable)`
 
   .partial {
     background: ${colors.pointsScoredStatus.partial};
+  }
+
+  .icon {
+    position: absolute;
+    left: 28px;
+    bottom: 24px;
+
+    & svg {
+      height: 8px;
+    }
   }
 
   ${({ theme }) => theme.breakpoint.only.mobile`
@@ -103,8 +117,33 @@ const StyledStickyTable = styled(StickyTable)`
 
   ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.tablet`
     display: none;
-  `
-}
+  `};
+`;
+
+const StyledPopover = styled(Popover)`
+  /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
+    &[style] {
+      border: 1px #d5d5d5 solid !important;
+      top: ${props => props.graded ? '72px' : '42px'} !important;  
+    }
+    padding: 10px 7px;
+    text-align: center;
+
+    p {
+      margin-bottom: 0.2rem;
+    }
+
+    table {
+        font-size: 1.3rem;
+
+        td {
+            line-height: 1.2;
+        }
+
+        tr td:last-child {
+            padding-left: 2px;
+        }
+    }
 `;
 
 const pointsScoredStatus = (step) => {
@@ -112,6 +151,52 @@ const pointsScoredStatus = (step) => {
   if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
   if(step.pointsScored >= step.available_points) return PointsScoredStatus.CORRECT;
   return PointsScoredStatus.PARTIAL;
+};
+
+const renderLateInfoPopover = (step) => {
+  if(isNil(step.pointsScored)) {
+    return (
+      <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
+    );
+  }
+
+  return (
+    <StyledPopover graded>
+      <LatePointsInfo step={step} />
+    </StyledPopover>
+  );
+};
+
+const renderPointsScoredCell = (step) => {
+  if(step.isLate) {
+    return (
+      <OverlayTrigger
+        key={step.id}
+        show={true}
+        placement="bottom"
+        overlay={renderLateInfoPopover(step)}>
+        <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
+          {
+            step.isLate && 
+            <div className="icon">
+              <Icon
+                color={colors.danger}
+                type='clock'
+                data-test-id="late-icon"
+              />
+            </div>
+          }
+          <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+        </Cell>
+      </OverlayTrigger>
+    );
+  }
+
+  return (
+    <Cell key={step.id} className={pointsScoredStatus(step)}>
+      <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+    </Cell>
+  );
 };
 
 @observer
@@ -185,17 +270,13 @@ class TaskProgress extends React.Component {
           <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
         </Row>
         {
-          steps.some(s => s.correct_answer_id || !isNil(s.published_points)) &&
+          steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
             <Row>
               <Cell>Points Scored</Cell>
               {
                 steps.map((step, stepIndex) => {
                   if(!step.isInfo) {
-                    return (
-                      <Cell key={stepIndex} className={pointsScoredStatus(step)}>
-                        {step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }
-                      </Cell>
-                    );
+                    return renderPointsScoredCell(step, stepIndex);
                   }
                   return <Cell key={stepIndex}></Cell>;
                 })

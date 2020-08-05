@@ -41,13 +41,13 @@ exports[`Tasks Ending Screen completed state 1`] = `
   }
 }
 
-@media (min-width:768px) and (max-width:991px) {
+@media (min-width:601px) and (max-width:1199px) {
   .c2 {
     padding: 25px 20px 140px;
   }
 }
 
-@media (max-width:767px) {
+@media (max-width:600px) {
   .c2 {
     padding: 10px 10px 20px;
   }
@@ -151,13 +151,13 @@ exports[`Tasks Ending Screen completed state 2`] = `
   }
 }
 
-@media (min-width:768px) and (max-width:991px) {
+@media (min-width:601px) and (max-width:1199px) {
   .c2 {
     padding: 25px 20px 140px;
   }
 }
 
-@media (max-width:767px) {
+@media (max-width:600px) {
   .c2 {
     padding: 10px 10px 20px;
   }
@@ -261,13 +261,13 @@ exports[`Tasks Ending Screen not started state 1`] = `
   }
 }
 
-@media (min-width:768px) and (max-width:991px) {
+@media (min-width:601px) and (max-width:1199px) {
   .c2 {
     padding: 25px 20px 140px;
   }
 }
 
-@media (max-width:767px) {
+@media (max-width:600px) {
   .c2 {
     padding: 10px 10px 20px;
   }
@@ -374,13 +374,13 @@ exports[`Tasks Ending Screen partial state 1`] = `
   }
 }
 
-@media (min-width:768px) and (max-width:991px) {
+@media (min-width:601px) and (max-width:1199px) {
   .c2 {
     padding: 25px 20px 140px;
   }
 }
 
-@media (max-width:767px) {
+@media (max-width:600px) {
   .c2 {
     padding: 10px 10px 20px;
   }

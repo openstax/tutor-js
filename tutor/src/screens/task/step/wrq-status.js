@@ -78,7 +78,7 @@ const Value=styled.span`
   font-weight: bold;
 `;
 const PointsAndFeedback = observer(({ step }) => {
-  if (!step.isOpenEndedExercise || isNil(step.published_points)) {
+  if (!step.isOpenEndedExercise || isNil(step.published_points_without_lateness)) {
     return null;
   }
 
@@ -86,6 +86,7 @@ const PointsAndFeedback = observer(({ step }) => {
     <StyledPoints>
       <div>
         <Label>Points:</Label>
+        {/* Show original points graded by instructor */}
         <Value>
           {ScoresHelper.formatPoints(step.published_points)} / {ScoresHelper.formatPoints(step.available_points)}
         </Value>

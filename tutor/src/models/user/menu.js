@@ -77,11 +77,7 @@ const ROUTES = {
   },
   createNewCourse: {
     label: 'Create a Course',
-    isAllowed(course) {
-      return Boolean(
-        User.isAllowedInstructor && (!course || !course.currentRole.isTeacherStudent)
-      );
-    },
+    isAllowed() { return User.canCreateCourses; },
     options({ course }) {
       return course ? { separator: 'before' } : { separator: 'both' };
     },
@@ -98,7 +94,7 @@ const ROUTES = {
       key: 'cloneCourse', separator: 'after',
     },
     isAllowed(course) {
-      return !!(course && !course.is_preview && User.isAllowedInstructor); },
+      return !!(course && !course.is_preview && User.canCreateCourses); },
   },
   customer_service: {
     label: 'Customer Service',

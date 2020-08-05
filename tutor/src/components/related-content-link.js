@@ -1,22 +1,15 @@
 import { React, PropTypes, styled, cn } from 'vendor';
 import { isEmpty } from 'lodash';
 import Course from '../models/course';
-import ChapterSection from './chapter-section';
 import RelatedContent from '../models/related-content';
 import BrowseTheBook from './buttons/browse-the-book';
+import BookPartTitle from './book-part-title';
+
 
 const StyledRelatedContentLink = styled.div`
   display: flex;
   .chapter-section { font-weight: normal; color: inherit; }
   .browse-the-book { display: flex; }
-`;
-
-const Title = styled.span.attrs({ className: 'title' })`
-  margin-left: 0.5rem;
-  max-width: 300px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 `;
 
 const Preamble = styled.span.attrs({ className: 'preamble' })`
@@ -39,9 +32,7 @@ const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }
           tabIndex={-1}
         >
           {linkPrefix}
-          <ChapterSection chapterSection={rl.chapter_section} />
-          <Title>{rl.title}</Title>
-
+          <BookPartTitle displayChapterSection part={rl} />
         </BrowseTheBook>))}
     </StyledRelatedContentLink>
   );

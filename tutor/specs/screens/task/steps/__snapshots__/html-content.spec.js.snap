@@ -42,13 +42,13 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   }
 }
 
-@media (min-width:768px) and (max-width:991px) {
+@media (min-width:601px) and (max-width:1199px) {
   .c3 {
     padding: 25px 20px 140px;
   }
 }
 
-@media (max-width:767px) {
+@media (max-width:600px) {
   .c3 {
     padding: 10px 10px 20px;
   }

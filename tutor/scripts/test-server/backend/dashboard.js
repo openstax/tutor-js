@@ -1,10 +1,9 @@
 const Factory = require('object-factory-bot');
 require('../../../specs/factories/student-tasks');
 require ('../../../specs/factories/research_survey');
-const { times, range, pick, clone, omit, find } = require('lodash');
+const { range, pick, clone, omit, find } = require('lodash');
 const { data: bootstrapData } = require('./bootstrap');
 const { now } = require('../time-now');
-const fake = require('faker');
 let survey = Factory.create('ResearchSurvey');
 
 let ROLE = 'teacher';
@@ -60,7 +59,8 @@ module.exports = {
     if (ROLE=='student') {
       data.research_surveys = [ survey ];
     }
-    res.json(data);
+
+    return res.json(data);
   },
 
 };
