@@ -117,7 +117,7 @@ class MyCoursesCurrent extends React.Component {
           <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
-            after={User.isConfirmedFaculty ? <MyCoursesCreate /> : undefined} />
+            after={User.canCreateCourses ? <MyCoursesCreate /> : undefined} />
         </Container>
       </div>
     );

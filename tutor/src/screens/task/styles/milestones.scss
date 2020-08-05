@@ -25,6 +25,7 @@ $milestone-icon-size: 60px;
 }
 
 .milestone {
+  position: relative;
   display: block;
   padding: 1.25rem;
   background: $tutor-white;

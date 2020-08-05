@@ -28,14 +28,14 @@ class MyCourses extends React.Component {
       return false;
     }
     return (
-      this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
+      !User.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
     );
   }
 
   render() {
     if (Courses.isEmpty) {
       if (User.isConfirmedFaculty) {
-        if (!User.isAllowedInstructor) {
+        if (!User.canCreateCourses) {
           return <NonAllowedTeacher />;
         }
       } else {

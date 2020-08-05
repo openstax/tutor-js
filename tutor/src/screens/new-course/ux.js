@@ -43,7 +43,7 @@ class CourseBuilderUX extends BaseModel {
     this.offerings = offerings;
     this.courses = courses;
     this.newCourse = new CreateCourse({ courses, offerings });
-    if (!User.isAllowedInstructor) {
+    if (!User.canCreateCourses) {
       delay(() => // use delay in case we're called from a React constructor
         router.history.replace(
           Router.makePathname('nonAllowedTeacher')

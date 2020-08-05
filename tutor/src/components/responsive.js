@@ -3,8 +3,8 @@ import { defaults } from 'lodash';
 import WindowSize from '../models/window-size';
 
 const DEFAULT_BREAKPOINTS = {
-  tablet: 768,
-  desktop: 992,
+  tablet: 600,
+  desktop: 1199,
 };
 
 
@@ -36,7 +36,7 @@ class Responsive extends React.Component {
     }
     return mobile;
   }
-  
+
 }
 
 export default Responsive;

@@ -23,7 +23,6 @@ describe('My Courses', () => {
     const page = await openPage('/dashboard', { role: 'teacher' });
     await page.evaluate(() => {
       _MODELS.COURSES.clear();
-      _MODELS.USER.faculty_status = 'pending';
       _MODELS.USER.self_reported_role = 'instructor';
     });
     const snapshot = await snapshotPage(page, 'my-courses-pending-verification');
