@@ -232,7 +232,7 @@ const StyledNoAssignmentsDueMessage = styled.div`
 `;
 
 const NoAssignmentsDueMessage = observer(({ courseId }) => (
-  <StyledNoAssignmentsDueMessage>
+  <StyledNoAssignmentsDueMessage data-test-id="gb-no-assignments-message">
     <p>
       Scores will be available in the Gradebook once an assignment is due.
       To see current progress, visit the assignment from your <TutorLink to="dashboard" params={{ courseId }}>dashboard</TutorLink>.
