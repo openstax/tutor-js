@@ -173,7 +173,7 @@ export const breakpoint = {
     return css`@media(max-width: 600px) { ${css(...args)} }`;
   },
   tablet(...args) {
-    return css`@media(max-width: 991px) { ${css(...args)} }`;
+    return css`@media(max-width: 1199px) { ${css(...args)} }`;
   },
   desktop(...args) {
     return css`@media(min-width: 1200px) { ${css(...args)} }`;
@@ -189,7 +189,7 @@ export const breakpoint = {
       return css`@media(min-width: 601px) and (max-width: 1199px) { ${css(...args)} }`;
     },
     desktop(...args) {
-      return css`@media(min-width: 992px) and (max-width: 1599px) { ${css(...args)} }`;
+      return css`@media(min-width: 1200px) and (max-width: 1599px) { ${css(...args)} }`;
     },
     large(...args) {
       return css`@media(min-width: 1600px) { ${css(...args)} }`;
