@@ -14,10 +14,15 @@ import { getCell } from './styles';
 import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
 
+const mainDivCSS = css`
+    max-height: 60vh;
+    min-height: auto;
+    margin: 2.2rem 0 1.4rem;
+}
+`;
+
 const StyledStickyTable = styled(StickyTable)`
-  max-height: 60vh;
-  min-height: auto;
-  margin: 2.2rem 0 1.4rem;
+  ${mainDivCSS};
 
   .sticky-table-row:last-child .sticky-table-cell {
     border-bottom: 1px solid ${colors.neutral.pale};
@@ -29,7 +34,6 @@ const StyledStickyTable = styled(StickyTable)`
 `;
 
 const Cell = getCell('0');
-
 
 const centeredCSS = css`
   display: flex;
@@ -212,8 +216,31 @@ const StyledAggregateData = styled.div`
   }
 `;
 
-const StudentColumnHeader = observer(({ ux }) => {
+const StyledNoAssignmentsDueMessage = styled.div`
+    ${mainDivCSS};
+    background: ${colors.neutral.lighter};
+    border: 1px solid ${colors.neutral.pale};
+    padding: 5% 8%;
+    flex: 0 1 50%;
+    text-align: center;
+    color: ${colors.neutral.grayblue};
+    line-height: 20px;
+    a {
+      text-decoration: underline;
+    }
+}
+`;
 
+const NoAssignmentsDueMessage = observer(({ courseId }) => (
+  <StyledNoAssignmentsDueMessage>
+    <p>
+      Scores will be available in the Gradebook once an assignment is due.
+      To see current progress, visit the assignment from your <TutorLink to="dashboard" params={{ courseId }}>dashboard</TutorLink>.
+    </p>
+  </StyledNoAssignmentsDueMessage>
+));
+
+const StudentColumnHeader = observer(({ ux }) => {
   return (
     <Cell>
       <CellContents>
@@ -476,7 +503,7 @@ const GradebookTable = observer(({ ux }) => {
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
             {/* Correlation on student data and assignment header happens in the BE */}
-            {ux.studentTasks(student).map((task, taskIndex) =>
+            {ux.hasAnyAssignmentHeadings && ux.studentTasks(student).map((task, taskIndex) =>
               <TaskResultCell
                 key={taskIndex}
                 ux={ux}
@@ -487,7 +514,7 @@ const GradebookTable = observer(({ ux }) => {
           </Row>))}
         <AggregateData ux={ux} />
       </StyledStickyTable>
-
+      {!ux.hasAnyAssignmentHeadings && <NoAssignmentsDueMessage courseId={ux.course.id} />}
       {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
       <AverageInfoModal ux={ux} />
       <SetWeightsModal ux={ux} />
