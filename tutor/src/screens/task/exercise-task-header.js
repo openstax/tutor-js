@@ -49,11 +49,11 @@ const StyledHeadingTitle = styled.div`
     white-space: nowrap;
     overflow: hidden;
   };
-  div:nth-child(2) {
+  .title-divider {
     padding: 0 0.8rem;
     color: ${colors.neutral.pale};
   }
-  div:last-child {
+  .overview-task-icon {
       display: none;
     }
   
@@ -64,10 +64,10 @@ const StyledHeadingTitle = styled.div`
   ${({ theme }) => theme.breakpoint.mobile`
     justify-content: space-between;
 
-    div:nth-child(2), div:nth-child(3) {
+    .title-divider, .title-due-date {
       display: none;
     }
-    div:last-child {
+    .overview-task-icon {
       display: inherit;
 
       .isShowingTable {
@@ -130,10 +130,10 @@ class ExercisesTaskHeader extends React.Component {
           </TutorLink>
         </StyledBackLink>
         <StyledHeadingTitle>
-          <div><span>{ux.task.title}</span></div>
-          <div><span>|</span></div>
-          <div><span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span></div>
-          <div>
+          <div className="title-name">{ux.task.title}</div>
+          <div className="title-divider">|</div>
+          <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
+          <div className="overview-task-icon">
             <Icon
               type="th"
               onClick={ux.toggleTaskProgressTable}
