@@ -1,0 +1,25 @@
+name: HealthCheck
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - name: Run checks
+        run: yarn run health-check run
+        env: # Or as an environment variable
+          CYPRESS_USER_LOGIN: ${{ secrets.HEALTHCHECK_USER_LOGIN }}
+          CYPRESS_USER_PASSWORD: ${{ secrets.HEALTHCHECK_USER_PASSWORD }}
+          CYPRESS_BASE_URL: ${{ secrets.HEALTHCHECK_SERVER_URL }}
+          CYPRESS_PAGERDUTY_TOKEN: ${{ secrets.HEALTHCHECK_PAGERDUTY_TOKEN }}
+      - name: Save screenshots of failures
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: failure-screenshots
+          path: screenshots/health-checks

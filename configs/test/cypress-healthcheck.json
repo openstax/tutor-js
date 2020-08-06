@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:3001",
+  "integrationFolder": "tutor/scripts/health-checks",
+  "screenshotsFolder": "screenshots/health-checks",
+  "videosFolder": "screenshots/tutor",
+  "video": false
+}
