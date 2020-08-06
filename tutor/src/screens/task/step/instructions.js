@@ -23,7 +23,7 @@ const Header = styled.h2`
   align-items: center;
 
   ${({ theme }) => theme.breakpoint.tablet`
-    > span > span {
+    .instructions-text {
       display: none;
     }
   `}
@@ -267,7 +267,7 @@ const Instructions = observer((props) => {
       >
         <Header className="heading" templateColors={colors.templates[task.type]}>
           {/* On tablet and mobile screen, do not display the `and instructions` text */}
-          <span>Assignment details <span>and instructions</span></span>
+          <span>Assignment details <span className="instructions-text">and instructions</span></span>
           <Points task={task} />
         </Header>
         <Body>
