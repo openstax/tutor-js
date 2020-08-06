@@ -29,18 +29,36 @@ const StyledBackLink = styled.div`
 `;
 
 const StyledHeadingTitle = styled.div`
+  display: flex;
   font-size: 1.7rem;
   padding: 15px 0;
   width: 100%;
 
-  span:first-child {
+  div + div {
+    margin-left: 10px;
+  }
+
+  div:first-child {
     font-weight: bold;
     letter-spacing: 0.05rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   };
-  span:nth-child(2) {
+  div:nth-child(2) {
     padding: 0 0.8rem;
     color: ${colors.neutral.pale};
   }
+  
+  /* Hide the date when screen is screen is mobile size or smaller */
+  ${({ theme }) => theme.breakpoint.mobile`
+    div:nth-child(2) {
+      display: none;
+    }
+    div:last-child {
+      display: none;
+    }
+  `}
 `;
 
 @inject('setSecondaryTopControls')
@@ -95,9 +113,9 @@ class ExercisesTaskHeader extends React.Component {
           </TutorLink>
         </StyledBackLink>
         <StyledHeadingTitle>
-          <span>{ux.task.title}</span>
-          <span> | </span>
-          <span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span>
+          <div>{ux.task.title}</div>
+          <div>|</div>
+          <div>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
         </StyledHeadingTitle>
         <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
       </ExercisesTaskHeaderWrapper>

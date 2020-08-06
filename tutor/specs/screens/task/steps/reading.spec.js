@@ -1,5 +1,5 @@
 import Reading from '../../../../src/screens/task/step/reading';
-import { Factory, FakeWindow, TestRouter, TimeMock } from '../../../helpers';
+import { Factory, FakeWindow, TestRouter, TimeMock, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 jest.mock('../../../../src/components/book-page', () => (({ children }) =>
@@ -29,7 +29,7 @@ describe('Reading Tasks Screen', () => {
 
 
   it('matches snapshot', () => {
-    expect.snapshot(<Reading {...props} />).toMatchSnapshot();
+    expect.snapshot(<C><Reading {...props} /></C>).toMatchSnapshot();
   });
 
 });

@@ -2,6 +2,7 @@ import Failure from '../../../../src/screens/task/step/failure';
 import Task from '../../../../src/models/student-tasks/task';
 import Step from '../../../../src/models/student-tasks/step';
 import Raven from '../../../../src/models/app/raven';
+import { C } from '../../../helpers';
 jest.mock('../../../../src/models/app/raven');
 
 
@@ -20,7 +21,7 @@ describe('Task Failure', () => {
   });
 
   it('logs step message', () => {
-    const fail = mount(<Failure {...props} />);
+    const fail = mount(<C><Failure {...props} /></C>);
     expect(Raven.log).toHaveBeenCalledWith(
       expect.stringContaining('Failed to save assignment step'),
       { stepId: 1234, taskId: 4321 },
@@ -36,7 +37,7 @@ describe('Task Failure', () => {
       test: 'nope', last: { config: { method: 'get' } },
     };
 
-    const fail = mount(<Failure {...props} />);
+    const fail = mount(<C><Failure {...props} /></C>);
 
     expect(Raven.log).toHaveBeenCalledWith(
       expect.stringContaining('Failed to load assignment'),
