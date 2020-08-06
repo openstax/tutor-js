@@ -50,8 +50,8 @@ const StyledHeadingTitle = styled.div`
     color: ${colors.neutral.pale};
   }
   
-  /* Hide the date when screen is screen is tablet size or smaller */
-  ${({ theme }) => theme.breakpoint.tablet`
+  /* Hide the date when screen is screen is mobile size or smaller */
+  ${({ theme }) => theme.breakpoint.mobile`
     div:nth-child(2) {
       display: none;
     }
@@ -113,9 +113,9 @@ class ExercisesTaskHeader extends React.Component {
           </TutorLink>
         </StyledBackLink>
         <StyledHeadingTitle>
-          <div><span>{ux.task.title}</span></div>
-          <div><span>|</span></div>
-          <div><span>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</span></div>
+          <div>{ux.task.title}</div>
+          <div>|</div>
+          <div>Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
         </StyledHeadingTitle>
         <TaskProgress steps={ux.steps} goToStep={ux.goToStepId} currentStep={ux.currentStep} />
       </ExercisesTaskHeaderWrapper>
