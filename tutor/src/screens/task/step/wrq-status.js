@@ -85,7 +85,7 @@ const PointsAndFeedback = observer(({ step }) => {
   return (
     <StyledPoints>
       <div>
-        <Label>Points:</Label>
+        <Label>Points earned:</Label>
         {/* Show original points graded by instructor */}
         <Value>
           {ScoresHelper.formatPoints(step.published_points)} / {ScoresHelper.formatPoints(step.available_points)}
