@@ -148,6 +148,6 @@ if (Cypress.env('PAGERDUTY_TOKEN')) {
       summary,
       dedup_key: test.title,
     });
-    return true;
+    return false; // must return false so the error is reported
   });
 }
