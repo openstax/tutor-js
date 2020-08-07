@@ -3,7 +3,7 @@
   justify-content: flex-end;
   align-items: center;
   font-size: 1.4rem;
-  margin: 1rem;
+  margin: 1rem 0;
   color: $openstax-neutral;
   .icon {
     height: 20px;
@@ -13,5 +13,8 @@
     display: flex;
     align-items: center;
     & + span { margin-left: 8px; }
+  }
+  svg {
+    margin-right: 0;
   }
 }
