@@ -27,7 +27,7 @@ class MilestonesToggle extends React.Component {
         bsPrefix="milestones-toggle"
       >
         <Icon type="th" />
-        Overview
+        <span>Overview</span>
       </StyledButton>
     );
   }

@@ -1,5 +1,5 @@
 import { React, PropTypes, cn, observer, styled } from 'vendor';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
 import Step from '../../../models/student-tasks/step';
@@ -37,7 +37,7 @@ const StepCardHeader = styled.div`
   justify-content: space-between;
   padding: 14px 26px;
   background: ${colors.templates.homework.background};
-  
+
   div {
     display: flex;
     svg:last-child, div:last-child {
@@ -53,7 +53,7 @@ const StepCardHeader = styled.div`
       }
     }
   }
-  
+
   svg {
     margin-top: 3px;
     color: ${colors.neutral.gray};
@@ -63,7 +63,7 @@ const StepCardHeader = styled.div`
   /*
   1. Show the arrows to move to previous and next question.
   2. Show the number of questions.
-  3. Override box-shadow of icons when turned into a button. 
+  3. Override box-shadow of icons when turned into a button.
   */
   ${({ theme }) => theme.breakpoint.tablet`
   font-size: 1.6rem;
@@ -96,12 +96,16 @@ const StepCardQuestion = styled.div`
 
   &&& {
     .openstax-has-html .frame-wrapper {
-    
+
        min-width: 100%;
        margin: 20px 0;
-     
+
   }
   }
+  ${breakpoint.desktop`
+    padding: 50px 140px;
+    max-width: 1000px;
+  `}
 `;
 
 
@@ -120,7 +124,7 @@ const StepCard = ({
   canGoBackward,
   goForward,
   canGoForward,
-  ...otherProps }) => 
+  ...otherProps }) =>
   (
     <OuterStepCard {...otherProps}>
       <InnerStepCard className={className}>
@@ -128,7 +132,7 @@ const StepCard = ({
         <StepCardHeader>
           <div>
             {
-              canGoBackward && goBackward && 
+              canGoBackward && goBackward &&
               <Icon
                 size="lg"
                 type="angle-left"
@@ -140,7 +144,7 @@ const StepCard = ({
           <div>
             <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
             {
-              canGoForward && goForward && 
+              canGoForward && goForward &&
               <Icon
                 size="lg"
                 type="angle-right"
@@ -148,8 +152,8 @@ const StepCard = ({
               />
             }
           </div>
-        
-        
+
+
         </StepCardHeader>
         }
         <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
@@ -181,8 +185,8 @@ const TaskStepCard = observer(({
   goBackward,
   canGoBackward,
   goForward,
-  canGoForward, 
-  ...otherProps }) => 
+  canGoForward,
+  ...otherProps }) =>
   (
     <StepCard
       {...otherProps}

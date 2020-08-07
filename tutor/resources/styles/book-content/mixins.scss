@@ -40,8 +40,8 @@
   margin-left: -$tutor-card-body-padding-horizontal;
   min-width: calc(100% + #{$tutor-card-body-padding-horizontal * 2} );
   @media screen and ( max-width: $book-content-collapse-breakpoint ){
-    margin-left: -$book-content-narrow-horizontal-padding;
-    min-width: calc(100% + #{$book-content-narrow-horizontal-padding * 2});
+    margin: 16px 0 0;
+    min-width: auto;
   }
 }
 
@@ -68,8 +68,9 @@
     border: none;
     @include book-content-full-width();
     @media screen and ( max-width: $book-content-collapse-breakpoint ){
-      margin-left: -$narrow-horizontal-margin;
-      margin-right: $narrow-horizontal-margin;
+      margin-left: 0;
+      margin-right: 0;
+      min-width: auto;
     }
 
   }

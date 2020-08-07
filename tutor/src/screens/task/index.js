@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, withRouter, observer, computed, idType,
+  React, PropTypes, withRouter, observer, computed, idType, styled,
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
@@ -18,6 +18,7 @@ import external from './external';
 import { StepCard } from './step/card';
 import { SpyInfo } from './step/spy-info';
 import './styles.scss';
+import { breakpoint, navbars } from 'theme';
 
 const TASK_TYPES = {
   event,
@@ -77,6 +78,30 @@ class Task extends React.Component {
 
 }
 
+const StyledTask = styled(Task)`
+  ${breakpoint.desktop`
+    max-width: 1000px;
+  `}
+`;
+
+const TaskWrapper = styled.div`
+  &&.task-screen .book-page {
+    ${breakpoint.only.mobile`
+      padding: 0 ${breakpoint.margins.mobile};
+    `}
+    ${breakpoint.only.tablet`
+      padding: 0 ${breakpoint.margins.tablet};
+    `}
+    ${breakpoint.desktop`
+    `}
+  }
+
+  ${breakpoint.tablet`
+    padding: 0;
+    margin-top: calc(-${navbars.top.height} - 2rem);
+  `}
+`;
+
 export default
 @observer
 class TaskGetter extends React.Component {
@@ -133,18 +158,18 @@ class TaskGetter extends React.Component {
     }
 
     return (
-      <div
+      <TaskWrapper
         data-test-id="student-task"
         className={`task-screen task-${task.type}`}
       >
-        <Task
+        <StyledTask
           key={task}
           course={this.course}
           task={task}
           stepId={this.props.params.stepId}
         />
         <SpyInfo model={task} />
-      </div>
+      </TaskWrapper>
     );
   }
 
