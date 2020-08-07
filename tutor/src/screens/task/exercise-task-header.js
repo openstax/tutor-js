@@ -35,24 +35,31 @@ const StyledBackLink = styled.div`
 const StyledHeadingTitle = styled.div`
   display: flex;
   font-size: 1.7rem;
+  line-height: none;
   padding: 15px 0;
   width: 100%;
 
-  div + div {
-    margin-left: 10px;
-  }
+  .title-info {
+    display: flex;
 
-  div:first-child {
-    font-weight: bold;
-    letter-spacing: 0.05rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  };
-  .title-divider {
-    padding: 0 0.8rem;
-    color: ${colors.neutral.pale};
+    div + div {
+      margin-left: 10px;
+    }
+
+    div:first-child {
+      font-weight: bold;
+      letter-spacing: 0.05rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    };
+
+    .title-divider {
+      padding: 0 0.8rem;
+      color: ${colors.neutral.pale};
+    }
   }
+  
   .overview-task-icon {
       display: none;
     }
@@ -61,18 +68,22 @@ const StyledHeadingTitle = styled.div`
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
-  ${({ theme }) => theme.breakpoint.mobile`
+  ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-
-    .title-divider, .title-due-date {
-      display: none;
-    }
     .overview-task-icon {
       display: inherit;
 
       .isShowingTable {
         background-color: ${colors.neutral.lighter};
         border-radius: 50%;
+      }
+    }
+  `};
+
+  ${({ theme }) => theme.breakpoint.mobile`
+    .title-info {
+      .title-divider, .title-due-date {
+        display: none;
       }
     }
   `}
@@ -130,9 +141,11 @@ class ExercisesTaskHeader extends React.Component {
           </TutorLink>
         </StyledBackLink>
         <StyledHeadingTitle>
-          <div className="title-name">{ux.task.title}</div>
-          <div className="title-divider">|</div>
-          <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
+          <div className="title-info">
+            <div className="title-name">{ux.task.title}</div>
+            <div className="title-divider">|</div>
+            <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
+          </div>
           <div className="overview-task-icon">
             <Icon
               type="th"
