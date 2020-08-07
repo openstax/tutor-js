@@ -63,6 +63,11 @@ class ResponseValidationUX {
   }
 
   @action.bound async onSave() {
+    // we have text but it hasn't changed, go to next
+    if (this.response && !this.textHasChanged) {
+      this.advanceUI();
+      return;
+    }
     if (!this.taskUX.canUpdateCurrentStep) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
       this.taskUX.onFreeResponseComplete(this.step);
@@ -112,11 +117,15 @@ class ResponseValidationUX {
   }
 
   @action advanceUI(result) {
-    if (result.valid || this.isDisplayingNudge) {
-      this.step.beginRecordingAnswer({ free_response: result.response });
-      this.taskUX.onFreeResponseComplete(this.step);
+    if (result) {
+      if (result.valid || this.isDisplayingNudge) {
+        this.step.beginRecordingAnswer({ free_response: result.response });
+        this.taskUX.onFreeResponseComplete(this.step);
+      } else {
+        this.retriedResponse = this.initialResponse;
+      }
     } else {
-      this.retriedResponse = this.initialResponse;
+      this.taskUX.onFreeResponseComplete(this.step);
     }
   }
 
@@ -134,7 +143,10 @@ class ResponseValidationUX {
     if (!this.taskUX.canUpdateCurrentStep){
       return 'Next';
     }
-    return this.step.free_response ? 'Re-submit' : 'Submit';
+    if (this.lastSubmitted) {
+      return this.textHasChanged ? 'Re-submit' : 'Next';
+    }
+    return 'Submit';
   }
 
   @computed get displayNudgeError() {
