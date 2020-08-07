@@ -68,8 +68,13 @@ const StyledHeadingTitle = styled.div`
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
-  ${({ theme }) => theme.breakpoint.tablet`
+  ${({ theme }) => theme.breakpoint.mobile`
     justify-content: space-between;
+    .title-info {
+      .title-divider, .title-due-date {
+        display: none;
+      }
+    }
     .overview-task-icon {
       display: inherit;
 
@@ -79,14 +84,6 @@ const StyledHeadingTitle = styled.div`
       }
     }
   `};
-
-  ${({ theme }) => theme.breakpoint.mobile`
-    .title-info {
-      .title-divider, .title-due-date {
-        display: none;
-      }
-    }
-  `}
 `;
 
 @inject('setSecondaryTopControls')

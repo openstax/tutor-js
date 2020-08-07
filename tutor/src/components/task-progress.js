@@ -115,7 +115,7 @@ const StyledStickyTable = styled(StickyTable)`
     }
   }
 
-  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.tablet`
+  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.mobile`
     display: none;
   `};
 `;
