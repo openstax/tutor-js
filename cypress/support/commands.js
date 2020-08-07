@@ -1,4 +1,4 @@
-import { last, filter } from 'lodash';
+import { last, filter, get } from 'lodash';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -54,7 +54,10 @@ Cypress.Commands.add('dismissLinksPrompt', () => {
 });
 
 Cypress.Commands.add('disableTours', () => {
-  cy.window().then(w => w._MODELS.feature_flags.set('tours', false));
+  cy.window().then(w => {
+    const flags = get(w, '_MODELS.feature_flags');
+    if (flags) { flags.set('tours', false); }
+  });
 });
 
 Cypress.Commands.add('navigationTime', (type = 'domComplete') => {
