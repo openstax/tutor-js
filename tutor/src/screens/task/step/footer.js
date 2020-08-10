@@ -15,6 +15,12 @@ const StyledExerciseFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid ${Theme.colors.neutral.light};
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    .exercise-identifier-link {
+      display: none;
+    }
+  `}
 `;
 
 const StyledExerciseIdentifierLink = styled(ExerciseIdentifierLink)`
@@ -25,16 +31,16 @@ color: ${Theme.colors.neutral.lite};
 const StepFooter = observer(({ course, step, hideContentLink }) => {
   return (
     <StyledExerciseFooter>
-      <StyledExerciseIdentifierLink
-        exerciseId={step.uid}
-        bookUUID={course.ecosystem_book_uuid}
-        related_content={step.content.related_content}
-      />
       {!hideContentLink &&
         <RelatedContentLink
           course={course}
           content={step.content.related_content}
         />}
+      <StyledExerciseIdentifierLink
+        exerciseId={step.uid}
+        bookUUID={course.ecosystem_book_uuid}
+        related_content={step.content.related_content}
+      />
     </StyledExerciseFooter>
   );
 });

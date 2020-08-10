@@ -33,7 +33,8 @@ const InfoRow = styled.div`
     + span {
       margin-left: 1rem;
     }
-  }
+  };
+  color: ${colors.neutral.thin};
 `;
 
 const ControlsRow = styled.div`
@@ -69,7 +70,7 @@ const StyledRevertButton = styled(Button)`
   height: 5rem;
 `;
 const RevertButton = observer(({ ux }) => {
-  if (!ux.canRevert) {
+  if (!ux.textHasChanged || !ux.canRevert) {
     return null;
   }
 
@@ -152,7 +153,11 @@ class FreeResponseInput extends React.Component {
             <NudgeMessage course={course} step={step} ux={ux} />}
           <PointsAndFeedback step={step} />
           <RevertButton size="lg" ux={ux} />
-          <AnswerButton size="lg" data-test-id="submit-answer-btn" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
+          <AnswerButton
+            size="lg"
+            data-test-id="submit-answer-btn"
+            disabled={ux.isSubmitDisabled || !ux.textHasChanged}
+            onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>

@@ -24,7 +24,12 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   padding: 2rem;
 }
 
-.c3 {
+.c3.c3.c3 .openstax-has-html .frame-wrapper {
+  min-width: 100%;
+  margin: 20px 0;
+}
+
+.c4 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: flex-end;
@@ -39,6 +44,18 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
 @media (max-width:1199px) {
   .c0 {
     padding: 2rem 0;
+  }
+}
+
+@media (min-width:601px) and (max-width:1199px) {
+  .c3 {
+    padding: 25px 30px 140px;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    padding: 10px 25px 20px;
   }
 }
 
@@ -57,7 +74,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
           className="c1 c2 interactive-step"
         >
           <div
-            className=""
+            className="c3"
           >
             <div
               className="openstax-exercise-badges"
@@ -127,7 +144,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
               }
             />
             <button
-              className="c3 continue btn btn-primary btn-lg"
+              className="c4 continue btn btn-primary btn-lg"
               disabled={false}
               onClick={[Function]}
               type="button"
