@@ -2,7 +2,7 @@ import {
   FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
 import TaskUX from '../../../../src/screens/task/ux';
-import { Factory, TestRouter, TimeMock, R, delay, C } from '../../../helpers';
+import { Factory, TestRouter, TimeMock, delay, C } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
@@ -37,7 +37,7 @@ describe('Exercise Free Response', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<R><C><C><FreeResponseInput {...props} /></C></C></R>).toMatchSnapshot();
+    expect(<C><FreeResponseInput {...props} /></C>).toMatchSnapshot();
   });
 
   it('reviews text', () => {
