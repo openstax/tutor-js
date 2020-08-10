@@ -14,6 +14,7 @@ exports[`My Courses Component matches snapshot 1`] = `
       >
         <div
           className="my-courses-current"
+          data-test-id="current-courses"
         >
           <div
             className="container"

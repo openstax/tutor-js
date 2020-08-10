@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+NPM=$(npm bin)
+cmd=${1:-run}
+args=${@:2}
+$NPM/cypress $cmd --config-file configs/test/cypress-healthcheck.json $args
