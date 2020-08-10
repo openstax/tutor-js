@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import CoursePage from '../../components/course-page';
 import NoPeriods from '../../components/no-periods';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
@@ -21,6 +21,10 @@ const titleControls = (ux) => {
   return <ScoresReportNav ux={ux} />;
 };
 
+const StyledTourRegion = styled(TourRegion)`
+  display: flex;
+`;
+
 @observer
 class TeacherGradeBook extends React.Component {
 
@@ -41,7 +45,8 @@ class TeacherGradeBook extends React.Component {
     if (!ux.isReady) {
       return <LoadingScreen message="Loading Gradebook…" />;
     }
-    if (ux.hasAnyStudents <= 0) {
+
+    if (!ux.hasAnyStudents) {
       return <NoStudentsMessage courseId={ux.course.id} />;
     }
 
@@ -54,14 +59,14 @@ class TeacherGradeBook extends React.Component {
     return (
       <>
         <Controls ux={ux} />
-        <TourRegion
+        <StyledTourRegion
           id="gradebook"
           className="gradebook-table"
           courseId={ux.course.id}
           otherTours={['preview-gradebook']}
         >
           {body || <Table ux={ux} />}
-        </TourRegion>
+        </StyledTourRegion>
       </>
     );
   }

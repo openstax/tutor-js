@@ -157,6 +157,10 @@ export default class GradeBookUX {
     return some(this.currentPeriodScores.students, s => !s.is_dropped);
   }
 
+  @computed get hasAnyAssignmentHeadings() {
+    return this.headings && this.headings.length > 0;
+  }
+
   @action updateProps(props) {
     this.props = props;
   }
