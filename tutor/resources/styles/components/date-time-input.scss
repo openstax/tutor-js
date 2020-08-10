@@ -885,6 +885,7 @@ tr > .oxdt-cell-in-view {
   &:first-child {
     display: flex;
     flex-direction: column-reverse;
+    justify-content: flex-start;
 
     // somehow the default order is 12, 1, 2, ... so keep the first item as order 1
     li:first-child {
