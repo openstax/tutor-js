@@ -21,6 +21,16 @@ const Header = styled.h2`
   line-height: inherit;
   justify-content: space-between;
   align-items: center;
+
+  ${({ theme }) => theme.breakpoint.tablet`
+    .instructions-text {
+      display: none;
+    }
+  `}
+
+${({ theme }) => theme.breakpoint.only.mobile`
+    padding: 1.5rem 1rem;
+  `}
 `;
 
 const StyledPoints = styled.span`
@@ -50,10 +60,19 @@ const Body = styled.div`
   }
   ul {
     margin-bottom: 3.2rem;
+    padding-left: 15px;
   }
   li {
     margin: 0.5rem 0;
   }
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    padding: 2rem 1.5rem 1rem;
+  `}
+
+  ${({ theme }) => theme.breakpoint.only.tablet`
+    padding: 2rem 3rem 10rem;
+  `}
 `;
 
 const Footer = styled.div`
@@ -65,6 +84,22 @@ const Footer = styled.div`
     margin: 2rem 0;
     padding: 1rem;
   }
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    margin: 0;
+    justify-content: center;
+    .btn {
+      padding: 1rem 14rem;
+    }
+  `}
+
+  ${({ theme }) => theme.breakpoint.only.tablet`
+    margin: 0 3rem;
+    justify-content: center;
+    .btn {
+      padding: 1rem 6rem;
+    }
+  `}
 `;
 
 const Heading = styled.div`
@@ -231,7 +266,8 @@ const Instructions = observer((props) => {
         data-test-id={`${task.type}-instructions`}
       >
         <Header className="heading" templateColors={colors.templates[task.type]}>
-          <span>Assignment details and instructions</span>
+          {/* On tablet and mobile screen, do not display the `and instructions` text */}
+          <span>Assignment details <span className="instructions-text">and instructions</span></span>
           <Points task={task} />
         </Header>
         <Body>

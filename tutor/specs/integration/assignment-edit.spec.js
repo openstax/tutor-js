@@ -251,7 +251,6 @@ context('Assignment Edit', () => {
 
   it('shows error if due date is before open date', () => {
     typedDueDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
-
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });

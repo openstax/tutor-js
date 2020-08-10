@@ -1,5 +1,5 @@
 import HtmlContent from '../../../../src/screens/task/step/html-content';
-import { Factory, TestRouter, TimeMock } from '../../../helpers';
+import { Factory, TestRouter, TimeMock, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -23,12 +23,12 @@ describe('Html Content Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<HtmlContent {...props} />).toMatchSnapshot();
+    expect.snapshot(<C><HtmlContent {...props} /></C>).toMatchSnapshot();
   });
 
   it('renders html', () => {
     props.step.content.html = '<p>testing text</p>';
-    const ia = mount(<HtmlContent {...props} />);
+    const ia = mount(<C><HtmlContent {...props} /></C>);
     expect(ia.text()).toContain('testing text');
     ia.unmount();
   });

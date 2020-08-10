@@ -110,7 +110,7 @@ class MyCoursesCurrent extends React.Component {
     const baseName = 'my-courses-current';
     const courses = Courses.tutor.nonPreview.currentAndFuture.array;
     return (
-      <div className={baseName}>
+      <div data-test-id="current-courses" className={baseName}>
         <Container>
           <MyCoursesTitle title="Current Courses" main={true} />
           {isEmpty(courses) ? <MyCoursesNone /> : undefined}

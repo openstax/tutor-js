@@ -13,7 +13,6 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
@@ -33,31 +32,65 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   float: right;
 }
 
+@media (max-width:1199px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
 <div
-  className="c0"
-  data-task-step-id={1}
+  className="openstax-debug-content"
 >
   <div
-    className="c1 reading-step "
+    data-purpose="tour-conductor-wrapper"
   >
-    <div
-      className=""
-    >
-      <div />
-      <button
-        className="c2 continue btn btn-primary btn-lg"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Continue
-      </button>
+    <div>
       <div
-        className="visible-when-debugging"
+        className="c0"
+        data-task-step-id={1}
       >
-        <ul />
+        <div
+          className="c1 reading-step "
+        >
+          <div
+            className=""
+          >
+            <div />
+            <button
+              className="c2 continue btn btn-primary btn-lg"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Continue
+            </button>
+            <div
+              className="visible-when-debugging"
+            >
+              <ul />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
       </div>
     </div>
   </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
 </div>
 `;

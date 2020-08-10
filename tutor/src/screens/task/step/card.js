@@ -10,7 +10,6 @@ const InnerStepCard = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 960px;
   border-radius: 0.25rem;
   margin: 0 auto 5rem auto;
   border: 1px solid ${colors.neutral.light};
@@ -21,6 +20,10 @@ const InnerStepCard = styled.div`
 export
 const OuterStepCard = styled.div`
   padding: 2rem;
+
+  ${({ theme }) => theme.breakpoint.tablet`
+    padding: 2rem 0;
+  `}
 `;
 
 const LoadingCard = styled(InnerStepCard)`
