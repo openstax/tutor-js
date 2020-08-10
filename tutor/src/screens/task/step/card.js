@@ -93,6 +93,15 @@ const StepCardQuestion = styled.div`
   ${({ theme }) => theme.breakpoint.only.mobile`
     padding: 10px 25px 20px;
   `}
+
+  &&& {
+    .openstax-has-html .frame-wrapper {
+    
+       min-width: 100%;
+       margin: 20px 0;
+     
+  }
+  }
 `;
 
 
