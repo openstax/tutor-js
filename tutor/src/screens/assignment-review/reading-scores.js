@@ -24,6 +24,14 @@ import {
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
 
+const ReadingStickyTable = styled(StyledStickyTable)`
+  .sticky-table-row {
+    .sticky-table-cell {
+      width: 16rem;
+    }
+  }
+`;
+
 const CellContents = styled(BasicCellContents)`
   .data-heading {
     height: 110px;
@@ -73,6 +81,10 @@ const Legend = styled.div`
     & span {
       font-size: 1.2rem;
       color: ${colors.neutral.thin};
+    }
+
+    & a {
+      text-decoration: underline;
     }
   }
 
@@ -304,7 +316,7 @@ const ReadingScores = observer(({ ux }) => {
   return (
     <>
       <TableHeader ux={ux} />
-      <StyledStickyTable data-test-id="scores" borderWidth={'0px'}>
+      <ReadingStickyTable data-test-id="scores" borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader scores={scores} ux={ux} />
           {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
@@ -323,7 +335,7 @@ const ReadingScores = observer(({ ux }) => {
           <Cell borderTop />
           <Cell borderTop />
         </Row>
-      </StyledStickyTable>
+      </ReadingStickyTable>
       <Legend>
         <div>
           <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
@@ -334,7 +346,12 @@ const ReadingScores = observer(({ ux }) => {
         <div className="extension-legend">
           <ExtIcon></ExtIcon><span>Extension granted</span>
         </div>
-
+        <div>
+          <span>
+          The late penalty is applied only to the points earned after the due date. {' '}
+            <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
+          </span>
+        </div>
       </Legend>
     </>
   );
