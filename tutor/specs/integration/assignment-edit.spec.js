@@ -3,7 +3,10 @@ import moment from 'moment-timezone';
 
 context('Assignment Edit', () => {
   const format = 'MMM D | hh:mm A';
-
+  let typedOpenDate = moment().add(1, 'weeks').format('MMM D [| 05:00 PM]')
+  let typedDueDate = moment().add(2, 'weeks').format('MMM D [| 05:00 PM]')
+  let typedClosesDate = moment().add(3, 'weeks').format('MMM D [| 05:00 PM]')
+  
   const fillDetails = () => {
     cy.get('.heading').should('contain.text', 'STEP 1')
     cy.get('.controls .btn-primary').should('be.disabled')
@@ -179,7 +182,7 @@ context('Assignment Edit', () => {
   it('changes open dates to update other dates', () => {
     const templateName = 'Template to update dates'
     const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
-    const typedOpenDate = 'Jun 15 05:00 PM'
+
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     fillDetails()
@@ -227,8 +230,6 @@ context('Assignment Edit', () => {
   })
 
   it('updates date when pivot date is updated', () => {
-    const typedOpenDate = 'Jun 10 05:00 PM'
-    const typedClosesDate = 'Jun 22 05:00 PMM'
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     let currentClosesDate;
@@ -249,9 +250,7 @@ context('Assignment Edit', () => {
   });
 
   it('shows error if due date is before open date', () => {
-    const now = moment();
-    const typedOpenDate = moment(now).format(format);
-    const typedDueDate = moment(now.subtract(5, 'days')).format(format);
+    typedDueDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
@@ -261,11 +260,10 @@ context('Assignment Edit', () => {
     cy.getTestElement('date-error-message').should('contain.text', 'Due time cannot be before the open time');
   });
 
-  it.only('shows error if closes date is before due date', () => {
-    const now = moment();
-    const typedOpenDate = moment(now).format(format);
-    const typedDueDate = moment(now.add(3, 'days')).format(format);
-    const typedClosesDate = moment(now.subtract(1, 'days')).format(format);
+
+  it('shows error if closes date is before due date', () => {
+    typedClosesDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
+
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
