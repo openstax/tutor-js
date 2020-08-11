@@ -1,6 +1,6 @@
 import {
   React, Provider,
-  PropTypes, observer, observable, styled, action,
+  PropTypes, observer, observable, styled, action, computed,
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
@@ -14,14 +14,26 @@ import CourseNagModal       from './course-nag';
 import ErrorMonitoring      from './error-monitoring';
 import { NavbarContext }    from './navbar/context';
 import { SecondaryToolbar } from './navbar/secondary-toolbar';
+import Router from '../helpers/router';
+import { get } from 'lodash';
 
 const StyledLayout = styled.div`
   min-height: 100vh;
+
+  ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
+    .tutor-navbar {
+      display: none;
+    }
+  `}
 `;
 
 const Content = styled.div`
   padding-top: ${Theme.navbars.top.height};
   padding-bottom: ${props => props.hasFooter ? Theme.navbars.bottom.height : 0};
+
+  ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
+    padding-top: 0;
+  `}
 `;
 
 class CourseContext {
@@ -55,6 +67,16 @@ class TutorLayout extends React.Component {
     this.courseContext.course = this.props.course;
   }
 
+  /**
+   * Hide the navbar if user is in the 'viewTaskStep' screen.
+   * Use styled-components to check if the screen is mobile width.
+   */
+  shouldHideNavbar() {
+    const routerName = get(Router.currentMatch(), 'entry.name', '');
+    if(routerName === 'viewTaskStep') return true;
+    return false;
+  }
+
   render() {
     const { app, course } = this.props;
     return (
@@ -64,7 +86,7 @@ class TutorLayout extends React.Component {
         bottomNavbar={this.bottomNavbarContext}
         setSecondaryTopControls={this.setSecondaryTopControls}
       >
-        <StyledLayout>
+        <StyledLayout hasNavbar={!this.shouldHideNavbar}>
           <Navbar
             area="header"
             context={this.topNavbarContext}
@@ -81,7 +103,7 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content hasFooter={!this.bottomNavbarContext.isEmpty}>
+          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.shouldHideNavbar}>
             <ImpersonationWarning app={app} />
             {this.props.children}
           </Content>
