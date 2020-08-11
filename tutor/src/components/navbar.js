@@ -68,7 +68,6 @@ class Navbar extends React.Component {
         isEmpty, className, left, right, center,
       },
     } = this.props;
-
     if (isEmpty) {
       return null;
     }
@@ -76,6 +75,7 @@ class Navbar extends React.Component {
     return (
       <Nav
         area={area}
+        shouldHideNavbar={this.shouldHideNavbar}
         isDocked={isDocked}
         className={cn('tutor-navbar', className)}
       >

@@ -17,6 +17,7 @@ const PointsScoredStatus = {
 
 const StyledStickyTable = styled(StickyTable)`
   padding-bottom: 5px;
+  padding-left: 5px;
 
   .sticky-table-cell {
     min-height: 40px;
@@ -117,6 +118,10 @@ const StyledStickyTable = styled(StickyTable)`
 
   ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.mobile`
     display: none;
+  `};
+
+${({ theme }) => theme.breakpoint.only.mobile`
+    padding-top: 5px;
   `};
 `;
 

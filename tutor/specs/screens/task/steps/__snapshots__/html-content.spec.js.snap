@@ -43,7 +43,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
 
 @media (max-width:1199px) {
   .c0 {
-    padding: 2rem 0;
+    padding: 0;
   }
 }
 

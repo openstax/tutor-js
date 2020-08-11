@@ -23,7 +23,7 @@ const OuterStepCard = styled.div`
   padding: 2rem;
 
   ${({ theme }) => theme.breakpoint.tablet`
-    padding: 2rem 0;
+    padding: 0;
   `}
 `;
 

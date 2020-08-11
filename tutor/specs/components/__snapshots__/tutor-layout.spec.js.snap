@@ -14,10 +14,10 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                     <div data-purpose=\\"tour-conductor-wrapper\\">
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
-                          <styled.div>
-                            <div className=\\"sc-fznKkj aonVk\\">
+                          <styled.div hasNavbar={true}>
+                            <div className=\\"sc-fznKkj dwPkzX\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
-                                <styled.nav area=\\"header\\" isDocked={false} className=\\"tutor-navbar\\">
+                                <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">
                                     <div className=\\"left-side-controls\\">
                                       <Component>
@@ -194,8 +194,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   <CourseNagModal course={[undefined]} modalManager={{...}} tourContext={{...}} spyMode={{...}} />
                                 </Observer>
                               </inject(CourseNagModal)>
-                              <styled.div hasFooter={false}>
-                                <div className=\\"sc-fznZeY jigkPu\\">
+                              <styled.div hasFooter={false} hasNavbar={true}>
+                                <div className=\\"sc-fznZeY afmAJ\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body

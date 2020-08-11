@@ -23,7 +23,7 @@ const ExercisesTaskHeaderWrapper = styled.div`
   `}
 
   ${({ theme }) => theme.breakpoint.only.mobile`
-    padding: 10px;
+    padding: 16px 6px;
   `};
 `;
 
@@ -40,6 +40,7 @@ const StyledHeadingTitle = styled.div`
   width: 100%;
 
   .title-info {
+    padding: 6px;
     display: flex;
 
     div + div {
@@ -70,6 +71,8 @@ const StyledHeadingTitle = styled.div`
   */
   ${({ theme }) => theme.breakpoint.mobile`
     justify-content: space-between;
+    padding: 0;
+    padding-top: 10px;
     .title-info {
       .title-divider, .title-due-date {
         display: none;
