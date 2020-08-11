@@ -2,7 +2,7 @@ import {
   FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
 import TaskUX from '../../../../src/screens/task/ux';
-import { Factory, TestRouter, TimeMock, R, delay } from '../../../helpers';
+import { Factory, TestRouter, TimeMock, delay, C } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
@@ -37,7 +37,7 @@ describe('Exercise Free Response', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<R><FreeResponseInput {...props} /></R>).toMatchSnapshot();
+    expect(<C><FreeResponseInput {...props} /></C>).toMatchSnapshot();
   });
 
   it('reviews text', () => {
@@ -52,14 +52,14 @@ describe('Exercise Free Response', () => {
 
   it('displays question number and stem', () => {
     props.response_validation.isEnabled = false;
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
     expect(fr).toHaveRendered('QuestionStem div[data-question-number=42]');
     fr.unmount();
   });
 
   it('saves text immediately when not validating', () => {
     props.response_validation.isEnabled = false;
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
     const value = 'test test test';
     setFreeResponse(fr, { value });
     expect(props.step.response_validation).toEqual({});
@@ -73,7 +73,7 @@ describe('Exercise Free Response', () => {
       .mockResolvedValue({ data: { valid: false } });
     props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = false;
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
     const value = 'test test test';
     setFreeResponse(fr, { value });
     await delay();
@@ -94,7 +94,7 @@ describe('Exercise Free Response', () => {
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn()
       .mockResolvedValue({ data: { valid: false } });
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
 
     const value = 'test test test';
     expect(fr).toHaveRendered('StepFooter RelatedContentLink');
@@ -144,7 +144,7 @@ describe('Exercise Free Response', () => {
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn()
       .mockResolvedValue({ data: { valid: true } });
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
     const value = 'test test test';
     setFreeResponse(fr, { value });
 
@@ -164,7 +164,7 @@ describe('Exercise Free Response', () => {
     props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn(() => Promise.reject(new Error('timeout')));
-    const fr = mount(<FreeResponseInput {...props} />);
+    const fr = mount(<C><FreeResponseInput {...props} /></C>);
     const value = 'test test test';
     setFreeResponse(fr, { value });
 

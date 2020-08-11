@@ -1,5 +1,5 @@
 import ExerciseQuestion from '../../../../src/screens/task/step/exercise-question';
-import { Factory } from '../../../helpers';
+import { Factory, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -20,7 +20,7 @@ describe('Exercise Free Response', () => {
   });
 
   it('switches from free response to m/c', () => {
-    const eq = mount(<ExerciseQuestion {...props} />);
+    const eq = mount(<C><ExerciseQuestion {...props} /></C>);
     expect(eq).toHaveRendered('FreeResponseInput');
     setFreeResponse(eq, { value: 'this is real answer' });
     expect(eq).not.toHaveRendered('FreeResponseInput');
@@ -30,7 +30,7 @@ describe('Exercise Free Response', () => {
 
   it('renders exercise questions', () => {
     props.ux.questionNumberForStep = jest.fn(() => 42);
-    const eq = mount(<ExerciseQuestion {...props} />);
+    const eq = mount(<C><ExerciseQuestion {...props} /></C>);
     setFreeResponse(eq, { value: 'this is real answer' });
     expect(eq).toHaveRendered('[data-question-number=42]');
     eq.unmount();
@@ -38,7 +38,7 @@ describe('Exercise Free Response', () => {
 
   it('can answer question', () => {
     const { step } = props;
-    const eq = mount(<ExerciseQuestion {...props} />);
+    const eq = mount(<C><ExerciseQuestion {...props} /></C>);
     setFreeResponse(eq, { value: 'this is real answer' });
     eq.find('Answer button').at(1).simulate('click');
     eq.find('AsyncButton').simulate('click');

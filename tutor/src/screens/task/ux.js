@@ -18,6 +18,7 @@ export default class TaskUX {
   @observable _stepId ;
   @observable viewedInfoSteps = [];
   @observable isLocked = false;
+  @observable hideTaskProgressTable = true;
 
   constructor({ task, stepId, history, windowImpl, course }) {
     this.history = history;
@@ -365,6 +366,10 @@ export default class TaskUX {
 
   @computed get progressPercent() {
     return Math.round((this.currentStepIndex / this.steps.length) * 100);
+  }
+
+  @action.bound toggleTaskProgressTable() {
+    this.hideTaskProgressTable = !this.hideTaskProgressTable;
   }
 
 }

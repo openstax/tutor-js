@@ -1,51 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Task Step Footer matches snapshot 1`] = `
-"<StepFooter course={{...}} step={{...}}>
-  <styled.div>
-    <div className=\\"sc-AxhUy iDxQlj\\">
-      <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}}>
-        <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
-          <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
-            ID# 
-            1@1
-             | 
-            <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Food%20Irradiation&book=Concept%20of%20Biology\\">
-              Suggest a correction
-            </a>
-          </div>
-        </ExerciseIdentifierLink>
-      </Styled(ExerciseIdentifierLink)>
-      <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
-        <styled.div className=\\"related-content-link\\">
-          <div className=\\"sc-AxiKw bzEmms related-content-link\\">
-            <styled.span>
-              <span className=\\"sc-AxhCb dFswVp preamble\\">
-                Comes from
-              </span>
-            </styled.span>
-            <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
-              <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
-                <BookPartTitle displayChapterSection={true} part={{...}}>
-                  <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\">
-                    <div className=\\"sc-AxirZ jSNLok book-part-title\\">
-                      <ChapterSection chapterSection={{...}}>
-                        <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
-                          <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
-                            1.2
-                          </span>
-                        </styled.span>
-                      </ChapterSection>
-                      <span dangerouslySetInnerHTML={{...}} />
+"<C>
+  <ThemeProvider theme={{...}}>
+    <ForwardRef noRef={[undefined]} path=\\"/\\" withRef={false}>
+      <MemoryRouter initialIndex={0} initialEntries={{...}}>
+        <Router history={{...}}>
+          <TestContextWrapper>
+            <Memo() backend={[Function: createBackend]}>
+              <Component>
+                <SpyModeWrapper>
+                  <MobXProvider spyMode={{...}}>
+                    <div className=\\"openstax-debug-content\\">
+                      <ModalManager>
+                        <MobXProvider modalManager={{...}}>
+                          <inject-with-modalManager-spyMode(TourConductor) tourContext={[undefined]}>
+                            <TourConductor tourContext={[undefined]} modalManager={{...}} spyMode={{...}}>
+                              <MobXProvider tourContext={{...}}>
+                                <div data-purpose=\\"tour-conductor-wrapper\\">
+                                  <TutorSpecLayout>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
+                                      <div>
+                                        <Navbar area=\\"header\\" context={{...}} isDocked={false} />
+                                        <StepFooter course={{...}} step={{...}}>
+                                          <styled.div>
+                                            <div className=\\"sc-AxhUy BkIXc\\">
+                                              <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
+                                                <styled.div className=\\"related-content-link\\">
+                                                  <div className=\\"sc-AxiKw bzEmms related-content-link\\">
+                                                    <styled.span>
+                                                      <span className=\\"sc-AxhCb dFswVp preamble\\">
+                                                        Comes from
+                                                      </span>
+                                                    </styled.span>
+                                                    <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
+                                                      <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                                                        <BookPartTitle displayChapterSection={true} part={{...}}>
+                                                          <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\">
+                                                            <div className=\\"sc-AxirZ jSNLok book-part-title\\">
+                                                              <ChapterSection chapterSection={{...}}>
+                                                                <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
+                                                                  <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
+                                                                    1.2
+                                                                  </span>
+                                                                </styled.span>
+                                                              </ChapterSection>
+                                                              <span dangerouslySetInnerHTML={{...}} />
+                                                            </div>
+                                                          </styled.div>
+                                                        </BookPartTitle>
+                                                      </a>
+                                                    </BrowseTheBook>
+                                                  </div>
+                                                </styled.div>
+                                              </RelatedContentLink>
+                                              <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}}>
+                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
+                                                  <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
+                                                    ID# 
+                                                    1@1
+                                                     | 
+                                                    <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Food%20Irradiation&book=Concept%20of%20Biology\\">
+                                                      Suggest a correction
+                                                    </a>
+                                                  </div>
+                                                </ExerciseIdentifierLink>
+                                              </Styled(ExerciseIdentifierLink)>
+                                            </div>
+                                          </styled.div>
+                                        </StepFooter>
+                                        <Navbar area=\\"footer\\" context={{...}} />
+                                      </div>
+                                    </MobXProvider>
+                                  </TutorSpecLayout>
+                                  <SpyModeContent>
+                                    <div className=\\"visible-when-debugging\\">
+                                      <div className=\\"tour-spy-info\\">
+                                        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+                                      </div>
+                                    </div>
+                                  </SpyModeContent>
+                                </div>
+                              </MobXProvider>
+                            </TourConductor>
+                          </inject-with-modalManager-spyMode(TourConductor)>
+                        </MobXProvider>
+                      </ModalManager>
+                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                        π
+                      </a>
                     </div>
-                  </styled.div>
-                </BookPartTitle>
-              </a>
-            </BrowseTheBook>
-          </div>
-        </styled.div>
-      </RelatedContentLink>
-    </div>
-  </styled.div>
-</StepFooter>"
+                  </MobXProvider>
+                </SpyModeWrapper>
+              </Component>
+            </Memo()>
+          </TestContextWrapper>
+        </Router>
+      </MemoryRouter>
+    </ForwardRef>
+  </ThemeProvider>
+</C>"
 `;

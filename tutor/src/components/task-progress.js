@@ -49,6 +49,9 @@ const StyledStickyTable = styled(StickyTable)`
     }
   }
 
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    font-size: 1.25rem;
+  `};
 
   /** Add top border on first row */
   .sticky-table-row:first-child > .sticky-table-cell {
@@ -111,6 +114,10 @@ const StyledStickyTable = styled(StickyTable)`
       }
     }
   }
+
+  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.mobile`
+    display: none;
+  `};
 `;
 
 const StyledPopover = styled(Popover)`
@@ -198,13 +205,15 @@ class TaskProgress extends React.Component {
     steps: PropTypes.array.isRequired,
     goToStep: PropTypes.func.isRequired,
     currentStep: PropTypes.object.isRequired,
+    hideTaskProgressTable: PropTypes.bool.isRequired,
   };
+
   render() {
-    const { steps, currentStep, currentStep: { task }, goToStep } = this.props;
+    const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
     let progressIndex = 0;
 
     return (
-      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} >
+      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
         <Row>
           <Cell>Question number</Cell>
           {
