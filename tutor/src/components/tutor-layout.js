@@ -1,6 +1,6 @@
 import {
   React, Provider,
-  PropTypes, observer, observable, styled, action, computed,
+  PropTypes, observer, observable, styled, action,
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
