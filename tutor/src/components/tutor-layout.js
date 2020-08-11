@@ -86,7 +86,7 @@ class TutorLayout extends React.Component {
         bottomNavbar={this.bottomNavbarContext}
         setSecondaryTopControls={this.setSecondaryTopControls}
       >
-        <StyledLayout hasNavbar={!this.shouldHideNavbar}>
+        <StyledLayout hasNavbar={!this.shouldHideNavbar()}>
           <Navbar
             area="header"
             context={this.topNavbarContext}
@@ -103,7 +103,7 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.shouldHideNavbar}>
+          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.shouldHideNavbar()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
           </Content>
