@@ -1,19 +1,25 @@
-import { React, PropTypes } from 'vendor';
-import S from '../helpers/string';
+import { React, PropTypes, styled } from 'vendor';
+import ScoresHelper from '../helpers/scores';
+
+const StyledTable = styled.table`
+  td + td {
+    text-align: right;
+  }
+`;
 
 const LatePointsInfo = ({ step }) => {
   const originalPoints = step.published_points_without_lateness;
   const lateWorkPenalty = step.published_late_work_point_penalty;
   const isLateWorkNotAccepted = step.task.late_work_penalty_applied === 'not_accepted';
   return (
-    <table data-test-id="late-info-points-table">
+    <StyledTable data-test-id="late-info-points-table">
       <tbody>
         <tr>
           <td>Points earned:</td>
           <td>
             {originalPoints == 0
               ? originalPoints
-              : S.numberWithOneDecimalPlace(originalPoints)}
+              : ScoresHelper.formatPoints(originalPoints)}
           </td>
         </tr>
         <tr>
@@ -21,7 +27,7 @@ const LatePointsInfo = ({ step }) => {
           <td>
             {lateWorkPenalty == 0
               ? lateWorkPenalty
-              : S.numberWithOneDecimalPlace(lateWorkPenalty)}
+              : ScoresHelper.formatLatePenalty(lateWorkPenalty)}
           </td>
         </tr>
         <tr>
@@ -30,12 +36,12 @@ const LatePointsInfo = ({ step }) => {
             <strong>
               {step.pointsScored == 0
                 ? step.pointsScored
-                : S.numberWithOneDecimalPlace(step.pointsScored)}
+                : ScoresHelper.formatPoints(step.pointsScored)}
             </strong>
           </td>
         </tr>
       </tbody>
-    </table>
+    </StyledTable>
   );
 };
 LatePointsInfo.propTypes = {
