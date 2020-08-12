@@ -56,8 +56,8 @@ describe('Reading Tasks Screen', () => {
     const pr = mount(<C><Reading {...props} /></C>);
     expect(pr).toHaveRendered('a.paging-control.prev')
     expect(pr).toHaveRendered('a.paging-control.next');
-    pr.find('a.paging-control.next').simulate('click');
-    pr.find('a.paging-control.next').simulate('click');
+    pr.find('a.paging-control.next').first().simulate('click');
+    pr.find('a.paging-control.next').first().simulate('click');
     pr.unmount();
   });
 
