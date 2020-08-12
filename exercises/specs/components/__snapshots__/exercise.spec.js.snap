@@ -1542,14 +1542,18 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         htmlFor="1-option-0"
                         onKeyPress={[Function]}
                       >
-                        <button
-                          aria-label="Choice a:"
-                          className="answer-letter"
-                          data-test-id="answer-choice-a"
-                          disabled={true}
+                        <span
+                          className="answer-letter-wrapper"
                         >
-                          a
-                        </button>
+                          <button
+                            aria-label="Choice a:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-a"
+                            disabled={true}
+                          >
+                            a
+                          </button>
+                        </span>
                         <div
                           className="answer-answer"
                         >
@@ -1593,14 +1597,18 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         htmlFor="1-option-1"
                         onKeyPress={[Function]}
                       >
-                        <button
-                          aria-label="Choice b:"
-                          className="answer-letter"
-                          data-test-id="answer-choice-b"
-                          disabled={true}
+                        <span
+                          className="answer-letter-wrapper"
                         >
-                          b
-                        </button>
+                          <button
+                            aria-label="Choice b:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-b"
+                            disabled={true}
+                          >
+                            b
+                          </button>
+                        </span>
                         <div
                           className="answer-answer"
                         >
@@ -1644,14 +1652,18 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         htmlFor="1-option-2"
                         onKeyPress={[Function]}
                       >
-                        <button
-                          aria-label="Choice c:"
-                          className="answer-letter"
-                          data-test-id="answer-choice-c"
-                          disabled={true}
+                        <span
+                          className="answer-letter-wrapper"
                         >
-                          c
-                        </button>
+                          <button
+                            aria-label="Choice c:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-c"
+                            disabled={true}
+                          >
+                            c
+                          </button>
+                        </span>
                         <div
                           className="answer-answer"
                         >
@@ -2718,9 +2730,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
-                                                  <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
-                                                    a
-                                                  </button>
+                                                  <span className=\\"answer-letter-wrapper\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
+                                                      a
+                                                    </button>
+                                                  </span>
                                                   <div className=\\"answer-answer\\">
                                                     <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
                                                       <div dangerouslySetInnerHTML={{...}} />
@@ -2742,9 +2756,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
-                                                  <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
-                                                    b
-                                                  </button>
+                                                  <span className=\\"answer-letter-wrapper\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
+                                                      b
+                                                    </button>
+                                                  </span>
                                                   <div className=\\"answer-answer\\">
                                                     <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                       <div dangerouslySetInnerHTML={{...}} />
@@ -2766,9 +2782,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
-                                                  <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
-                                                    c
-                                                  </button>
+                                                  <span className=\\"answer-letter-wrapper\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
+                                                      c
+                                                    </button>
+                                                  </span>
                                                   <div className=\\"answer-answer\\">
                                                     <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                       <div dangerouslySetInnerHTML={{...}} />

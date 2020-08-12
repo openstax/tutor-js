@@ -58,14 +58,18 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   htmlFor="7-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -95,14 +99,18 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   htmlFor="7-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -293,14 +301,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   htmlFor="4-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -330,14 +342,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   htmlFor="4-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -367,14 +383,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   htmlFor="4-option-2"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice c:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-c"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    c
-                  </button>
+                    <button
+                      aria-label="Choice c:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-c"
+                      disabled={true}
+                    >
+                      c
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -404,14 +424,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   htmlFor="4-option-3"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice d:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-d"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    d
-                  </button>
+                    <button
+                      aria-label="Choice d:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-d"
+                      disabled={true}
+                    >
+                      d
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -441,14 +465,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   htmlFor="4-option-4"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice e:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-e"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    e
-                  </button>
+                    <button
+                      aria-label="Choice e:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-e"
+                      disabled={true}
+                    >
+                      e
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -579,14 +607,18 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   htmlFor="8-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -616,14 +648,18 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   htmlFor="8-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -653,14 +689,18 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   htmlFor="8-option-2"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice c:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-c"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    c
-                  </button>
+                    <button
+                      aria-label="Choice c:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-c"
+                      disabled={true}
+                    >
+                      c
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -769,14 +809,18 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   htmlFor="9-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -806,14 +850,18 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   htmlFor="9-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -952,14 +1000,18 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   htmlFor="1-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -994,14 +1046,18 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   htmlFor="1-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1036,14 +1092,18 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   htmlFor="1-option-2"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice c:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-c"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    c
-                  </button>
+                    <button
+                      aria-label="Choice c:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-c"
+                      disabled={true}
+                    >
+                      c
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1157,14 +1217,18 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   htmlFor="2-option-0"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice a:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-a"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    a
-                  </button>
+                    <button
+                      aria-label="Choice a:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-a"
+                      disabled={true}
+                    >
+                      a
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1203,14 +1267,18 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   htmlFor="2-option-1"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice b:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-b"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    b
-                  </button>
+                    <button
+                      aria-label="Choice b:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-b"
+                      disabled={true}
+                    >
+                      b
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1249,14 +1317,18 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   htmlFor="2-option-2"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice c:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-c"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    c
-                  </button>
+                    <button
+                      aria-label="Choice c:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-c"
+                      disabled={true}
+                    >
+                      c
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1295,14 +1367,18 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   htmlFor="2-option-3"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice d:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-d"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    d
-                  </button>
+                    <button
+                      aria-label="Choice d:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-d"
+                      disabled={true}
+                    >
+                      d
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >
@@ -1341,14 +1417,18 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   htmlFor="2-option-4"
                   onKeyPress={[Function]}
                 >
-                  <button
-                    aria-label="Choice e:"
-                    className="answer-letter"
-                    data-test-id="answer-choice-e"
-                    disabled={true}
+                  <span
+                    className="answer-letter-wrapper"
                   >
-                    e
-                  </button>
+                    <button
+                      aria-label="Choice e:"
+                      className="answer-letter"
+                      data-test-id="answer-choice-e"
+                      disabled={true}
+                    >
+                      e
+                    </button>
+                  </span>
                   <div
                     className="answer-answer"
                   >

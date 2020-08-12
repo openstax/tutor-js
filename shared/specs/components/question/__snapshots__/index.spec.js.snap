@@ -30,14 +30,18 @@ exports[`Question Component renders and matches snapshot 1`] = `
           htmlFor="1-option-0"
           onKeyPress={[Function]}
         >
-          <button
-            aria-label="Choice a:"
-            className="answer-letter"
-            data-test-id="answer-choice-a"
-            disabled={true}
+          <span
+            className="answer-letter-wrapper"
           >
-            a
-          </button>
+            <button
+              aria-label="Choice a:"
+              className="answer-letter"
+              data-test-id="answer-choice-a"
+              disabled={true}
+            >
+              a
+            </button>
+          </span>
           <div
             className="answer-answer"
           >
@@ -73,14 +77,18 @@ exports[`Question Component renders and matches snapshot 1`] = `
           htmlFor="1-option-1"
           onKeyPress={[Function]}
         >
-          <button
-            aria-label="Choice b:"
-            className="answer-letter"
-            data-test-id="answer-choice-b"
-            disabled={true}
+          <span
+            className="answer-letter-wrapper"
           >
-            b
-          </button>
+            <button
+              aria-label="Choice b:"
+              className="answer-letter"
+              data-test-id="answer-choice-b"
+              disabled={true}
+            >
+              b
+            </button>
+          </span>
           <div
             className="answer-answer"
           >
@@ -116,14 +124,18 @@ exports[`Question Component renders and matches snapshot 1`] = `
           htmlFor="1-option-2"
           onKeyPress={[Function]}
         >
-          <button
-            aria-label="Choice c:"
-            className="answer-letter"
-            data-test-id="answer-choice-c"
-            disabled={true}
+          <span
+            className="answer-letter-wrapper"
           >
-            c
-          </button>
+            <button
+              aria-label="Choice c:"
+              className="answer-letter"
+              data-test-id="answer-choice-c"
+              disabled={true}
+            >
+              c
+            </button>
+          </span>
           <div
             className="answer-answer"
           >
