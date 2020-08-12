@@ -23,4 +23,4 @@ const StyledIcon = styled(Icon).attrs({
 const NextIcon = () => <StyledIcon type="chevron-right" />;
 const PrevIcon = () => <StyledIcon type="chevron-left" />;
 
-export { PrevIcon, NextIcon  };
+export { PrevIcon, NextIcon };

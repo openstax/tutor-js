@@ -5,7 +5,7 @@ import { TaskStep } from './step';
 import ReadingNavbar from './reading-navbar';
 import PagingNavigation from '../../components/paging-navigation';
 import { PrevIcon, NextIcon } from '../../components/icons/pagination';
-import { colors, breakpoint } from 'theme';
+import { breakpoint } from 'theme';
 
 const StyledReading = styled.div`
   && :not(.paging-footer) .paging-control {
@@ -58,6 +58,7 @@ class ReadingTask extends React.Component {
             ux={ux}
             step={ux.currentGroupedStep}
             windowImpl={windowImpl}
+            data-test-id="task-step"
           />
         </PagingNavigation>
       </StyledReading>

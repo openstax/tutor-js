@@ -92,12 +92,16 @@ const TaskWrapper = styled.div`
     ${breakpoint.only.tablet`
       padding: calc(${breakpoint.margins.mobile} * 2) ${breakpoint.margins.tablet};
     `}
+    ${breakpoint.desktop`
+      max-width: 1000px;
+    `}
   }
 
-  ${breakpoint.tablet`
-    padding: 0;
-    margin-top: calc(-${navbars.top.height} - 2rem);
-  `}
+  &&.task-screen.task-reading {
+    ${breakpoint.only.tablet`
+      margin-top: -${navbars.top.height};
+    `}
+  }
 `;
 
 export default
