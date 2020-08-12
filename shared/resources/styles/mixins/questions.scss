@@ -84,22 +84,41 @@
   }
 }
 
+@mixin answer-correct-text {
+  content: 'correct answer';
+  color: $openstax-answer-label-color;
+  margin-left: -1.25 * $openstax-answer-bubble-size;
+  width: 1.25 * $openstax-answer-bubble-size;
+  text-align: center;
+  font-size: 1.2rem;
+  // em used here for line-height for compatibility with IE
+  // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
+  line-height: 1em;
+  margin-top: 0.8rem;
+}
+
 @mixin answer-correct-answer {
   color: $openstax-correct-answer-color;
   .answer-letter {
     @include answer-bubble-correct-answer();
   }
-
   &::before {
-    content: 'correct answer';
-    color: $openstax-answer-label-color;
-    margin-left: -1.25 * $openstax-answer-bubble-size;
-    width: 1.25 * $openstax-answer-bubble-size;
-    text-align: center;
-    font-size: 1.2rem;
-    // em used here for line-height for compatibility with IE
-    // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
-    line-height: 1em;
-    margin-top: 0.8rem;
+    @include answer-correct-text();
+    @media screen and (max-width: $book-content-collapse-breakpoint) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: $book-content-collapse-breakpoint) {
+    .answer-letter-wrapper {
+      display: flex;
+      flex-direction: column;
+      &::after {
+        @include answer-correct-text();
+        width: $openstax-answer-bubble-size !important;
+        margin-left: 0;
+      }
+    }
   }
 }
+
+

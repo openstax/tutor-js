@@ -87,12 +87,10 @@ const StyledTask = styled(Task)`
 const TaskWrapper = styled.div`
   &&.task-screen .book-page {
     ${breakpoint.only.mobile`
-      padding: 0 ${breakpoint.margins.mobile};
+      padding: calc(${breakpoint.margins.mobile} * 2) ${breakpoint.margins.mobile};
     `}
     ${breakpoint.only.tablet`
-      padding: 0 ${breakpoint.margins.tablet};
-    `}
-    ${breakpoint.desktop`
+      padding: calc(${breakpoint.margins.mobile} * 2) ${breakpoint.margins.tablet};
     `}
   }
 

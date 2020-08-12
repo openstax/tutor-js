@@ -40,7 +40,7 @@
   margin-left: -$tutor-card-body-padding-horizontal;
   min-width: calc(100% + #{$tutor-card-body-padding-horizontal * 2} );
   @media screen and ( max-width: $book-content-collapse-breakpoint ){
-    margin: 16px 0 0;
+    margin: 0;
     min-width: auto;
   }
 }
