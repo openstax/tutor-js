@@ -24,6 +24,10 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   padding: 2rem;
 }
 
+.reading-step .c2 {
+  padding: 0;
+}
+
 .c2.c2.c2 .openstax-has-html .frame-wrapper {
   min-width: 100%;
   margin: 20px 0;
@@ -40,6 +44,12 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
 @media (max-width:1199px) {
   .c0 {
     padding: 0;
+  }
+}
+
+@media (min-width:1200px) {
+  .c2 {
+    max-width: 1000px;
   }
 }
 
