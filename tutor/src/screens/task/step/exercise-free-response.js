@@ -8,7 +8,7 @@ import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
 import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
-import { colors } from '../../../theme';
+import { colors, breakpoint } from '../../../theme';
 import Course from '../../../models/course';
 import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
@@ -42,6 +42,10 @@ const ControlsRow = styled.div`
   display: flex;
   justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
   align-items: center;
+
+  ${props => props.isDisplayingNudge && breakpoint.only.mobile`
+    display: block;
+  `}
 `;
 
 const TextArea = styled.textarea`
@@ -57,10 +61,20 @@ const TextArea = styled.textarea`
 `;
 TextArea.displayName = 'TextArea';
 
+const ControlButtons = styled.div`
+${breakpoint.only.mobile`
+    float: right;
+    margin-top: 20px;
+  `}
+`;
+ControlButtons.displayName = 'ControlButtons';
+
 const AnswerButton = styled(Button)`
   margin: 0;
   min-width: 12rem;
   height: 5rem;
+
+  
 `;
 AnswerButton.displayName = 'AnswerButton';
 
@@ -152,14 +166,16 @@ class FreeResponseInput extends React.Component {
           {ux.isDisplayingNudge &&
             <NudgeMessage course={course} step={step} ux={ux} />}
           <PointsAndFeedback step={step} />
-          <RevertButton size="lg" ux={ux} />
-          <AnswerButton
-            size="lg"
-            data-test-id="submit-answer-btn"
-            disabled={ux.isSubmitDisabled || !ux.textHasChanged}
-            onClick={this.onSave}>
-            {ux.submitBtnLabel}
-          </AnswerButton>
+          <ControlButtons>
+            <RevertButton size="lg" ux={ux} />
+            <AnswerButton
+              size="lg"
+              data-test-id="submit-answer-btn"
+              disabled={ux.isSubmitDisabled || !ux.textHasChanged}
+              onClick={this.onSave}>
+              {ux.submitBtnLabel}
+            </AnswerButton>
+          </ControlButtons>  
         </ControlsRow>
         <WRQStatus step={step} />
         <StepFooter

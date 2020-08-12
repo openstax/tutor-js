@@ -20,6 +20,10 @@ const StyledNudgeMessage = styled.div`
   .related-content-link{ display: inline; }
   .preamble { color: ${Theme.colors.neutral.lite}; }
   .title { white-space: normal; }
+
+  ${Theme.breakpoint.only.mobile`
+    max-width: 100%;
+  `}
 `;
 
 const Message = styled.div`
