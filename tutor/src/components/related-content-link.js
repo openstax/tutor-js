@@ -5,9 +5,10 @@ import RelatedContent from '../models/related-content';
 import BrowseTheBook from './buttons/browse-the-book';
 import BookPartTitle from './book-part-title';
 
-
 const StyledRelatedContentLink = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  margin-left: 16px;
   .chapter-section { font-weight: normal; color: inherit; }
   .browse-the-book { display: flex; }
 `;

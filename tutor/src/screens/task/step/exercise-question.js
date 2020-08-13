@@ -9,6 +9,7 @@ import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
+import { breakpoint } from 'theme';
 
 const Controls = styled.div`
   margin: 2.5rem 0;
@@ -20,6 +21,13 @@ const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
   margin-left: 2rem;
+
+  ${breakpoint.tablet`
+    margin: ${breakpoint.margins.tablet};
+  `}
+  ${breakpoint.mobile`
+    margin: ${breakpoint.margins.mobile};
+  `}
 `;
 
 export default
@@ -87,7 +95,7 @@ class ExerciseQuestion extends React.Component {
       <AsyncButton
         size="lg"
         waitingText="Saving…"
-        disabled={!this.answerId} 
+        disabled={!this.answerId}
         onClick={this.onAnswerSave}
         isWaiting={step.api.isPending}
         data-test-id="submit-answer-btn"

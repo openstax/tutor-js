@@ -1,16 +1,3 @@
-@mixin paging-handle-browser-left-offset($left-offset: -75px) {
-  // Only Chrome properly positions the right arrow properly.
-  // (Firefox/Safari/IE) place it to the right of the .arrow-wrapper element
-  // this rule shifts it back inside
-  #ox-react-root-container[data-browser="ie"]      &,
-  #ox-react-root-container[data-browser="safari"]  &,
-  #ox-react-root-container[data-browser="firefox"] &
-  {
-    margin-left: $left-offset;
-  }
-}
-
-
 .tutor-paging-navigation {
 
   $arrow-height: 150px;
@@ -32,6 +19,7 @@
         z-index: 1; //appear above content when page is extremely narrow
         position: fixed;
         top: calc(55vh - #{$arrow-height});
+        transition: fill 150ms linear;
         path {
           transition: fill 150ms linear;
           fill: $tutor-neutral-light;
@@ -46,18 +34,23 @@
     }
 
     &:focus {
-        outline: 0;
+      outline: 0;
 
-        .arrow-wrapper > .arrow.icon > path {
-            fill: lightblue;
+      .arrow-wrapper > .arrow.icon > path {
+        fill: lightblue;
+      }
+      .arrow-wrapper > .ox-icon {
+        border-color: $tutor-blue-control;
+        > path {
+          fill: $tutor-blue-control;
         }
+      }
     }
 
     &.next {
       .arrow-wrapper {
         display: flex;
         justify-content: flex-end;
-        .icon { @include paging-handle-browser-left-offset(-$arrow-width);  }
       }
     }
     &.prev {
@@ -72,6 +65,7 @@
       &:hover {
         text-decoration: none;
         .icon path { fill: $tutor-neutral-lite; }
+        .icon { border-color: $tutor-neutral-lite; }
       }
       &:focus { text-decoration: none; }
     }

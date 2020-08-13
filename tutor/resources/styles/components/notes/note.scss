@@ -117,7 +117,10 @@
     width: 40rem;
     z-index: 20;
     min-height: 175px;
-    @include tutor-shadow(subtle);
+
+    &.open {
+      @include tutor-shadow(subtle);
+    }
 
     &.closed {
       right: -40rem;

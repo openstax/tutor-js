@@ -1,9 +1,9 @@
 import { React, PropTypes, cn, observer, styled } from 'vendor';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
 import Step from '../../../models/student-tasks/step';
-import S from '../../../helpers/string';
+import ScoresHelper from '../../../helpers/scores';
 
 export
 const InnerStepCard = styled.div`
@@ -34,12 +34,14 @@ const LoadingCard = styled(InnerStepCard)`
 
 const StepCardHeader = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 14px 26px;
   background: ${colors.templates.homework.background};
-  
+
   div {
     display: flex;
+    align-items: center;
     svg:last-child, div:last-child {
       margin-left: 15px;
     }
@@ -53,7 +55,7 @@ const StepCardHeader = styled.div`
       }
     }
   }
-  
+
   svg {
     margin-top: 3px;
     color: ${colors.neutral.gray};
@@ -63,7 +65,7 @@ const StepCardHeader = styled.div`
   /*
   1. Show the arrows to move to previous and next question.
   2. Show the number of questions.
-  3. Override box-shadow of icons when turned into a button. 
+  3. Override box-shadow of icons when turned into a button.
   */
   ${({ theme }) => theme.breakpoint.tablet`
   font-size: 1.6rem;
@@ -86,6 +88,10 @@ const StepCardHeader = styled.div`
 const StepCardQuestion = styled.div`
   ${props => !props.unpadded && 'padding: 50px 140px;'}
 
+  ${breakpoint.desktop`
+    max-width: 1000px;
+  `}
+
   ${({ theme }) => theme.breakpoint.only.tablet`
     padding: 25px 30px 140px;
   `}
@@ -94,12 +100,16 @@ const StepCardQuestion = styled.div`
     padding: 10px 25px 20px;
   `}
 
+  .reading-step & {
+    padding: 0;
+  }
+
   &&& {
     .openstax-has-html .frame-wrapper {
-    
+
        min-width: 100%;
        margin: 20px 0;
-     
+
   }
   }
 `;
@@ -120,7 +130,7 @@ const StepCard = ({
   canGoBackward,
   goForward,
   canGoForward,
-  ...otherProps }) => 
+  ...otherProps }) =>
   (
     <OuterStepCard {...otherProps}>
       <InnerStepCard className={className}>
@@ -128,7 +138,7 @@ const StepCard = ({
         <StepCardHeader>
           <div>
             {
-              canGoBackward && goBackward && 
+              canGoBackward && goBackward &&
               <Icon
                 size="lg"
                 type="angle-left"
@@ -138,9 +148,9 @@ const StepCard = ({
             <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
           </div>
           <div>
-            <div>{S.numberWithOneDecimalPlace(availablePoints)} Points</div>
+            <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
             {
-              canGoForward && goForward && 
+              canGoForward && goForward &&
               <Icon
                 size="lg"
                 type="angle-right"
@@ -148,8 +158,8 @@ const StepCard = ({
               />
             }
           </div>
-        
-        
+
+
         </StepCardHeader>
         }
         <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
@@ -181,8 +191,8 @@ const TaskStepCard = observer(({
   goBackward,
   canGoBackward,
   goForward,
-  canGoForward, 
-  ...otherProps }) => 
+  canGoForward,
+  ...otherProps }) =>
   (
     <StepCard
       {...otherProps}

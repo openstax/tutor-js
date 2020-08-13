@@ -22,15 +22,19 @@ exports[`Answer Component renders answer 1`] = `
       htmlFor="1-option-1"
       onKeyPress={[Function]}
     >
-      <button
-        aria-label="Choice b:"
-        className="answer-letter"
-        data-test-id="answer-choice-b"
-        disabled={false}
-        onClick={[Function]}
+      <span
+        className="answer-letter-wrapper"
       >
-        b
-      </button>
+        <button
+          aria-label="Choice b:"
+          className="answer-letter"
+          data-test-id="answer-choice-b"
+          disabled={false}
+          onClick={[Function]}
+        >
+          b
+        </button>
+      </span>
       <div
         className="answer-answer"
       >
@@ -75,15 +79,19 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       htmlFor="4-option-1"
       onKeyPress={[Function]}
     >
-      <button
-        aria-label="Choice b:"
-        className="answer-letter"
-        data-test-id="answer-choice-b"
-        disabled={false}
-        onClick={[Function]}
+      <span
+        className="answer-letter-wrapper"
       >
-        b
-      </button>
+        <button
+          aria-label="Choice b:"
+          className="answer-letter"
+          data-test-id="answer-choice-b"
+          disabled={false}
+          onClick={[Function]}
+        >
+          b
+        </button>
+      </span>
       <div
         className="answer-answer"
       >

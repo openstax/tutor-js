@@ -6,48 +6,86 @@ import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import { Icon } from 'shared';
 import TimeHelper from '../../helpers/time';
 import TutorLink from '../../components/link';
-import Theme from '../../theme';
+import { colors, breakpoint } from 'theme';
 
 const StyledNavbar = styled.div`
-  min-height: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  ${breakpoint.only.mobile`
+    .hide-mobile {
+      display: none;
+    }
+  `}
+`;
+
+const StyledTutorLink = styled(TutorLink)`
+  padding: 1.6rem 0 0;
+  display: inline-block;
+  .ox-icon {
+    margin: 0 0.2rem 0 0;
+  }
 `;
 
 const Top = styled.div`
+  padding: 0 ${breakpoint.margins.tablet};
+  ${breakpoint.only.mobile`
+    padding: 0 ${breakpoint.margins.mobile};
+  `}
+`;
+
+const Middle = styled.div`
   display: flex;
-  flex: 1;
   justify-content: space-between;
+  padding: 0 ${breakpoint.margins.tablet};
+  ${breakpoint.only.mobile`
+    padding: 0 ${breakpoint.margins.mobile};
+  `}
 `;
 
 const Left = styled.div`
-  margin-left: 1rem;
   display: flex;
   align-items: center;
   font-size: 1.6rem;
-  line-height: 2rem;
+  line-height: 2.4rem;
 `;
 
 const Right = styled.div`
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  min-height: 4.4rem;
+
+  button {
+    padding: 1.4rem;
+    margin: 0 0 0 1.4rem;
+    min-width: 4.8rem;
+    min-height: 4.8rem;
+    .ox-icon {
+      margin: 0;
+    }
+    > :not(.ox-icon) {
+      display: none;
+    }
+    ${breakpoint.desktop`
+      > :not(.ox-icon) {
+        display: inline;
+      }
+      .ox-icon {
+        margin-right: 0.8rem;
+      }
+    `}
+  }
 `;
 
 const StyledProgressBar = styled(ProgressBar)`
-   && { border-radius: 0; }
+   && {
+    border-radius: 0;
+    height: 8px;
+  }
 `;
 
 const Divider = styled.span`
-  color: ${Theme.colors.navbars.divider};
+  color: ${colors.navbars.divider};
+  font-weight: bold;
   margin: 0 0.8rem;
-`;
-
-const AngleDivider = styled(Divider)`
-  margin-top: 2px;
-  svg { margin: 0; }
 `;
 
 const TaskTitle = styled.div`
@@ -58,9 +96,6 @@ const TaskTitle = styled.div`
   white-space: nowrap;
 `;
 
-const StyledTutorLink = styled(TutorLink)`
-  margin-left: 0.5rem;
-`;
 
 @inject('setSecondaryTopControls')
 @observer
@@ -100,26 +135,25 @@ class ReadingNavbar extends React.Component {
     return (
       <StyledNavbar>
         <Top>
+          <StyledTutorLink to="dashboard" params={{ courseId: ux.course.id }}>
+            <Icon type="chevron-left" /> Dashboard
+          </StyledTutorLink>
+        </Top>
+        <Middle>
           <Left>
-            <StyledTutorLink to="dashboard" params={{ courseId: ux.course.id }}>
-              {ux.course.name}
-            </StyledTutorLink>
-            <AngleDivider>
-              <Icon type="angle-right" />
-            </AngleDivider>
             <TaskTitle>{ux.task.title}</TaskTitle>
-            <Divider>|</Divider>
-            Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}
+            <Divider className="hide-mobile">|</Divider>
+            <span className="hide-mobile">Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}</span>
           </Left>
           <Right>
-            <MilestonesToggle model={ux.currentStep} />
             <NotesSummaryToggle
               course={ux.course}
               type="reading"
               model={ux.currentStep}
             />
+            <MilestonesToggle model={ux.currentStep} />
           </Right>
-        </Top>
+        </Middle>
         <StyledProgressBar now={ux.progressPercent} variant="success" />
       </StyledNavbar>
     );

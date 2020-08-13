@@ -211,15 +211,17 @@ class Answer extends React.Component {
             onKeyPress={this.onKeyPress}
             htmlFor={`${qid}-option-${iter}`}
             className="answer-label">
-            <button
-              onClick={onChange}
-              aria-label={ariaLabel}
-              className="answer-letter"
-              disabled={disabled}
-              data-test-id={`answer-choice-${ALPHABET[iter]}`}
-            >
-              {ALPHABET[iter]}
-            </button>
+            <span className="answer-letter-wrapper">
+              <button
+                onClick={onChange}
+                aria-label={ariaLabel}
+                className="answer-letter"
+                disabled={disabled}
+                data-test-id={`answer-choice-${ALPHABET[iter]}`}
+              >
+                {ALPHABET[iter]}
+              </button>
+            </span>
             <div className="answer-answer">
               <ArbitraryHtmlAndMath
                 {...htmlAndMathProps}

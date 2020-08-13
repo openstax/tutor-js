@@ -60,6 +60,10 @@
         left: 0;
         top: -20px;
       }
+
+      @media screen and ( max-width: $book-content-collapse-breakpoint ) {
+        padding-top: $book-content-narrow-horizontal-padding;
+      }
     }
 
     .page-loading {

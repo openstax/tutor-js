@@ -41,8 +41,8 @@ class NoteSummaryToggle extends React.Component {
             bsPrefix="summary-toggle"
             onClick={NotesUX.toggleSummary}
           >
-            <MyHighlightsIcon />
-            My Highlights
+            <MyHighlightsIcon className="ox-icon" />
+            <span>My Highlights</span>
           </SecondaryToolbarButton>
         </TourAnchor>
       </TourRegion>

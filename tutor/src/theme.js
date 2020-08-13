@@ -166,6 +166,9 @@ export const navbars = {
   bottom: {
     height: '50px',
   },
+  readingSubnav: {
+    height: '88px',
+  },
 };
 
 export const breakpoint = {

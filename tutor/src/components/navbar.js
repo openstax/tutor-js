@@ -1,7 +1,7 @@
 import {
   React, PropTypes, observer, styled, css, cn,
 } from 'vendor';
-import Theme from '../theme';
+import Theme from 'theme';
 import { NavbarContext } from './navbar/context';
 
 const NavbarBottomShadow = css`
