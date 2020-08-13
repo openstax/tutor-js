@@ -25,6 +25,7 @@ const TitleCell = styled(Cell).withConfig({
 const DueCell = styled(Cell).withConfig({
   displayName: 'DueCell',
 })`
+  flex: 1;
   width: 20rem;
   padding-right: 1rem;
   ${({ theme }) => theme.breakpoint.mobile`
