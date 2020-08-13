@@ -174,6 +174,7 @@ class EventRow extends React.Component {
         >
           <Responsive
             desktop={this.renderDesktop()}
+            tablet={this.renderMobile()}
             mobile={this.renderMobile()}
           />
         </TaskRow>
