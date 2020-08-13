@@ -107,7 +107,6 @@ class EventsCard extends React.Component {
     return (
       <Responsive
         desktop={this.renderDesktop()}
-        tablet={this.renderMobile()}
         mobile={this.renderMobile()}
       />
     );

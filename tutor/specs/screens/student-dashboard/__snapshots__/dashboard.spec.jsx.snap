@@ -85,6 +85,9 @@ exports[`Student Dashboard displays as loading 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   width: 20rem;
   padding-right: 1rem;
 }
@@ -949,6 +952,9 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   width: 20rem;
   padding-right: 1rem;
 }
