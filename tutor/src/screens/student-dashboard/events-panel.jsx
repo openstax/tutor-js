@@ -1,4 +1,4 @@
-import { React, PropTypes } from 'vendor';
+import { React, PropTypes, styled } from 'vendor';
 import { Card } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
@@ -10,6 +10,9 @@ import EmptyCard from './empty-panel';
 import EventRow from './event-row';
 import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
 
+const StyledTitle = styled.span`
+  font-weight: 600;
+`;
 
 export default
 @observer
@@ -32,11 +35,11 @@ class EventsCard extends React.Component {
       return <span className="title">{this.props.title}</span>;
     }
     return (
-      <span className="date-range">
+      <StyledTitle className="date-range">
         <Time date={moment(this.props.startAt).toDate()} />
-        <span>–</span>
+        <span> – </span>
         <Time date={moment(this.props.endAt).toDate()} />
-      </span>
+      </StyledTitle>
     );
   }
   

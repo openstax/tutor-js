@@ -63,20 +63,26 @@ const MobileCell = styled.div`
   
   i {
     padding: 1.3rem;
+    margin-right: 0;
   }
 
-  .assignment-title {
-    font-weight: 600;
-    font-size: 1.6rem;
+  .assignment-title-icon {
+    display: inline-flex;
+    .assignment-title {
+      font-weight: 600;
+      font-size: 1.6rem;
+      padding: 6px 0;
+    }
   }
 
   .mobile-event-info-container {
-    padding: 10px 5px 0 35px;
+    padding: 10px 5px 0 40px;
     width: 100%;
 
     .mobile-event-info {
       display: flex;
       margin-top: 5px;
+      flex-wrap: wrap;
 
       > span:first-child {
         flex: 0 1 20%;
