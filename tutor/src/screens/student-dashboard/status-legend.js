@@ -42,7 +42,7 @@ const StatusIconLegend = () => (
       <div><Icon color={colors.warning} type="exclamation-circle" /></div> <span>Due soon</span>
     </div>
     <div>
-      <div><Icon color={colors.danger} type="clock" /></div> <span>Late</span>
+      <div><Icon color={colors.danger} type="clock" /></div> <span>Late work</span>
     </div>
     <div>
       <div><StyledEIcon /></div> <span>Extension</span>
