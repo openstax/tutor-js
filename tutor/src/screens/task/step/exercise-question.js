@@ -100,7 +100,7 @@ class ExerciseQuestion extends React.Component {
         isWaiting={step.api.isPending}
         data-test-id="submit-answer-btn"
       >
-        Answer
+        Submit
       </AsyncButton>
     );
   }

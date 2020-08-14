@@ -42,6 +42,9 @@ const MobileFooter = styled.div`
     ${breakpoint.only.tablet`
       padding: 0 ${breakpoint.margins.tablet};
     `}
+    &[disabled] {
+      display: none;
+    }
   }
 
   svg {
