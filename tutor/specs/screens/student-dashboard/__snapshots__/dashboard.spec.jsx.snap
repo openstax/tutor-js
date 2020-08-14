@@ -473,7 +473,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                      
                     <span>
-                      Late
+                      Late work
                     </span>
                   </div>
                   <div>
@@ -1356,7 +1356,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                      
                     <span>
-                      Late
+                      Late work
                     </span>
                   </div>
                   <div>
