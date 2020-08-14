@@ -5,30 +5,25 @@ import { colors } from 'theme';
 import { EIcon } from '../../components/icons/extension';
 
 const Wrapper = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
-  margin: 1rem 0;
   font-size: 1.1rem;
   flex-wrap: wrap;
-  justify-content: left;
-  span {
+  padding-top: 1rem;
+  /* https://coryrylan.com/blog/css-gap-space-with-flexbox */
+  --gap-top: 5px;
+  --gap-bottom: 12px;
+  margin: calc(-1 * var(--gap-top)) 0 0 calc(-1 * var(--gap-bottom));
+  width: calc(100% + var(--gap));
+  > div {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    margin: var(--gap-top) 0 0 var(--gap-bottom);
 
-    svg.fa-star {
-      padding: 3px;
+    .extension-icon, svg {
+      margin-top: 2px;
     }
   }
-  span + span {
-    margin-left: 2rem;
-  }
-
-  ${props => props.theme.breakpoint.mobile`
-    span:last-child {
-      margin-left: 0;
-      margin-top: 5px;
-    }
-  `}
 `;
 
 const StyledEIcon = styled(EIcon)`
@@ -43,18 +38,18 @@ const StyledEIcon = styled(EIcon)`
 
 const StatusIconLegend = () => (
   <Wrapper>
-    <span>
-      <Icon color={colors.warning} type="exclamation-circle" /> Due soon
-    </span>
-    <span>
-      <Icon color={colors.danger} type="clock" /> Late
-    </span>
-    <span>
-      <StyledEIcon /> Extension
-    </span>
-    <span>
-      <Icon variant="circledStar" /> Provisional score. Final scores will be available when published by your instructor.
-    </span>
+    <div>
+      <div><Icon color={colors.warning} type="exclamation-circle" /></div> <span>Due soon</span>
+    </div>
+    <div>
+      <div><Icon color={colors.danger} type="clock" /></div> <span>Late work</span>
+    </div>
+    <div>
+      <div><StyledEIcon /></div> <span>Extension</span>
+    </div>
+    <div>
+      <div><Icon variant="circledStar" /></div> <span>Provisional score. Final scores will be available when published by your instructor.</span>
+    </div>
   </Wrapper>
 );
 

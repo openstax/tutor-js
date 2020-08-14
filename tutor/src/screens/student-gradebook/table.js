@@ -12,6 +12,12 @@ import Responsive from '../../components/responsive';
 const TableWrapper = styled.div`
   background-color: white;
 
+  .ox-icon-star {
+    padding: 0.15em;
+    width: 1em;
+    height: 1em;
+  }
+
   ${breakpoint.desktop`
     padding: 40px 10rem;
   `}
@@ -365,11 +371,11 @@ const GradebookTable = observer((
         </span>
         <span>
           <Icon color={colors.danger} type="clock" />
-          <label>Late penalty</label>
+          <label>Late work</label>
         </span>
         <span>
           <Icon variant="circledStar" />
-          <label>Provisional score. FInal scores will be available when published by your instructor.</label>
+          <label>Provisional score. Final scores will be available when published by your instructor.</label>
         </span>
       </Legend>
     </TableWrapper>

@@ -124,8 +124,10 @@ class EventRow extends React.Component {
     return (
       <>
         <MobileCell>
-          <EventTypeIcon event={event} />
-          <span className="assignment-title">{event.title}</span>
+          <div className="assignment-title-icon">
+            <EventTypeIcon event={event} />
+            <span className="assignment-title">{event.title}</span>
+          </div>
           <div className="mobile-event-info-container">
             <div className="mobile-event-info">
               <span>Due on</span> 

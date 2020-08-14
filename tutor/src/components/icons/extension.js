@@ -13,6 +13,7 @@ const GreenCircle = styled.div`
   line-height: 1.4rem;
   border-radius: 50%;
   text-align: center;
+  vertical-align: middle;
 
   ${props => props.inline && css`
     display: inline-block;
