@@ -22,7 +22,7 @@ const StyledCol = styled(Col)`
   .points-info {
     background-color: ${colors.neutral.lighter};
     padding: 5px;
-    
+
     table {
       margin: 0 auto;
     }
@@ -64,7 +64,7 @@ class Milestone extends React.Component {
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
     return (
-      <StyledCol xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
+      <StyledCol xs={6} sm={4} lg={4} data-step-index={stepIndex} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
@@ -86,7 +86,7 @@ class Milestone extends React.Component {
             html={step.preview}
           />
           <div className="icon">
-            {step.isLate && 
+            {step.isLate &&
             <Icon
               color={colors.danger}
               type='clock'
