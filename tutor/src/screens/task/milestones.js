@@ -67,7 +67,7 @@ class Milestone extends React.Component {
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
     return (
-      <StyledCol xs={6} sm={4} lg={4} data-step-index={stepIndex} className="milestone-wrapper">
+      <StyledCol xs={6} sm={4} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
