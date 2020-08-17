@@ -5,18 +5,16 @@ import Breadcrumb from '../../components/breadcrumb';
 import LatePointsInfo from '../../components/late-points-info';
 import { colors } from 'theme';
 import UX from './ux';
+import { breakpoint } from 'theme';
 
 const StyledCol = styled(Col)`
   .points-info-container {
     width: 100%;
     position: absolute;
-    bottom: -40px;
-    left: 50%;
-    opacity: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-top: 1px ${colors.neutral.pale} solid;
-    transition: 0s ease;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
   }
 
   .points-info {
@@ -28,9 +26,14 @@ const StyledCol = styled(Col)`
     }
   }
 
-  &:hover .points-info-container {
-    opacity: 1;
-  }
+  ${breakpoint.desktop`
+    .points-info-container {
+      opacity: 0;
+    }
+    &:hover .points-info-container {
+      opacity: 1;
+    }
+  `}
 
   .icon {
     position: absolute;
