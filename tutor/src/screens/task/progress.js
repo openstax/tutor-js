@@ -5,19 +5,21 @@ import MilestonesToggle from './reading-milestones-toggle';
 import { Modal } from 'react-bootstrap';
 import { breakpoint } from 'theme';
 
+const { margins } = breakpoint;
+
 const StyledModal = styled(Modal)`
   & .modal-dialog.task-milestones {
     ${breakpoint.tablet`
-      margin: ${breakpoint.margins.tablet} auto;
-      width: calc(100% - ${breakpoint.margins.tablet});
-      height: calc(100% - ${breakpoint.margins.tablet});
+      margin: ${margins.tablet} auto;
+      width: calc(100% - ${margins.tablet});
+      height: calc(100% - ${margins.tablet});
     `}
     ${breakpoint.mobile`
-      margin: ${breakpoint.margins.mobile} auto;
-      width: calc(100% - ${breakpoint.margins.mobile});
-      height: calc(100% - ${breakpoint.margins.mobile} * 2);
+      margin: ${margins.mobile} auto;
+      width: calc(100% - ${margins.mobile});
+      height: calc(100% - ${margins.mobile} * 2);
       .modal-header {
-        padding: ${breakpoint.margins.mobile};
+        padding: ${margins.mobile};
       }
       .modal-title {
         font-size: 1.4rem;
@@ -26,14 +28,14 @@ const StyledModal = styled(Modal)`
     `}
     .modal-body {
       ${breakpoint.tablet`
-        padding: ${breakpoint.margins.tablet} calc(${breakpoint.margins.tablet} - 15px);
+        padding: ${margins.tablet} calc(${margins.tablet} - 15px);
       `}
       ${breakpoint.mobile`
-        padding: ${breakpoint.margins.mobile} 0;
+        padding: ${margins.mobile} 0;
         .milestone-wrapper {
-          padding: 0 ${breakpoint.margins.mobile};
+          padding: 0 ${margins.mobile};
           .milestone {
-            margin-bottom: calc(${breakpoint.margins.mobile} * 2);
+            margin-bottom: calc(${margins.mobile} * 2);
           }
         }
       `}
