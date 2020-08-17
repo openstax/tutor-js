@@ -17,26 +17,20 @@ const LatePointsInfo = ({ step }) => {
         <tr>
           <td>Points earned:</td>
           <td>
-            {originalPoints == 0
-              ? originalPoints
-              : ScoresHelper.formatPoints(originalPoints)}
+            {ScoresHelper.formatPoints(originalPoints)}
           </td>
         </tr>
         <tr>
           <td>{isLateWorkNotAccepted ? 'Not accepted' : 'Late penalty'}:</td>
           <td>
-            {lateWorkPenalty == 0
-              ? lateWorkPenalty
-              : ScoresHelper.formatLatePenalty(lateWorkPenalty)}
+            {ScoresHelper.formatLatePenalty(lateWorkPenalty)}
           </td>
         </tr>
         <tr>
           <td><strong>Final points:</strong></td>
           <td>
             <strong>
-              {step.pointsScored == 0
-                ? step.pointsScored
-                : ScoresHelper.formatPoints(step.pointsScored)}
+              {ScoresHelper.formatPoints(step.pointsScored)}
             </strong>
           </td>
         </tr>
