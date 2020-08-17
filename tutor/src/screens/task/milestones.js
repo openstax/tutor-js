@@ -9,7 +9,6 @@ import { breakpoint } from 'theme';
 
 const StyledCol = styled(Col)`
   .points-info-container {
-    width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
