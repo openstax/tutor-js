@@ -16,6 +16,9 @@ const PointsScoredStatus = {
 };
 
 const StyledStickyTable = styled(StickyTable)`
+  padding-bottom: 5px;
+  padding-left: 5px;
+
   .sticky-table-cell {
     min-height: 40px;
     position: relative;
@@ -47,8 +50,8 @@ const StyledStickyTable = styled(StickyTable)`
     }
   }
 
-  ${({ theme }) => theme.breakpoint.tablet`
-    font-size: 1.2rem;
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    font-size: 1.25rem;
   `};
 
   /** Add top border on first row */
@@ -113,8 +116,12 @@ const StyledStickyTable = styled(StickyTable)`
     }
   }
 
-  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.tablet`
+  ${({ theme, hideTaskProgressTable }) => hideTaskProgressTable && theme.breakpoint.mobile`
     display: none;
+  `};
+
+${({ theme }) => theme.breakpoint.only.mobile`
+    padding-top: 5px;
   `};
 `;
 
@@ -122,7 +129,7 @@ const StyledPopover = styled(Popover)`
   /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
     &[style] {
       border: 1px #d5d5d5 solid !important;
-      top: ${props => props.graded ? '62px' : '32px'} !important;  
+      top: ${props => props.graded ? '72px' : '42px'} !important;  
     }
     padding: 10px 7px;
     text-align: center;
