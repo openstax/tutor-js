@@ -85,7 +85,7 @@ const StyledHeadingTitle = styled.div`
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
-  ${({ theme }) => theme.breakpoint.mobile`
+  ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
     padding: 0 5px;
     .title-info {

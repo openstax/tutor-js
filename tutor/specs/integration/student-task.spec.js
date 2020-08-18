@@ -1,6 +1,7 @@
 context('Student Tasks', () => {
 
   beforeEach(() => {
+    cy.viewport(1200, 720)
     cy.setRole('student')
   });
 
@@ -19,7 +20,7 @@ context('Student Tasks', () => {
 
   }
 
-  it('advances after answering a free-response only question', () => {
+  it.only('advances after answering a free-response only question', () => {
     cy.visit('/course/1/task/3') // task id 3 is a hardcoded WRM task
     cy.disableTours();
     cy.get('.icon-instructions').click()
