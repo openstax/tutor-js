@@ -30,6 +30,7 @@ const ExercisesTaskHeaderWrapper = styled.div`
   .sticky-table {
     margin-left: 15px;
     margin-right: 15px;
+
     ${({ theme }) => theme.breakpoint.only.mobile`
       margin-left: 0;
       margin-right: 0;
@@ -83,9 +84,9 @@ const StyledHeadingTitle = styled.div`
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
-  ${({ theme }) => theme.breakpoint.mobile`
+  ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-    padding: 0 5px;
+    padding: 0 10px;
     .title-info {
       .title-divider, .title-due-date {
         display: none;

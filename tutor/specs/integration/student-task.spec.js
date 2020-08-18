@@ -1,6 +1,7 @@
 context('Student Tasks', () => {
 
   beforeEach(() => {
+    cy.viewport(1200, 720)
     cy.setRole('student')
   });
 
