@@ -5,32 +5,34 @@ import Breadcrumb from '../../components/breadcrumb';
 import LatePointsInfo from '../../components/late-points-info';
 import { colors } from 'theme';
 import UX from './ux';
+import { breakpoint } from 'theme';
 
 const StyledCol = styled(Col)`
   .points-info-container {
-    width: 100%;
     position: absolute;
-    bottom: -40px;
-    left: 50%;
-    opacity: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-top: 1px ${colors.neutral.pale} solid;
-    transition: 0s ease;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
   }
 
   .points-info {
     background-color: ${colors.neutral.lighter};
     padding: 5px;
-    
+
     table {
       margin: 0 auto;
     }
   }
 
-  &:hover .points-info-container {
-    opacity: 1;
-  }
+  ${breakpoint.desktop`
+    .points-info-container {
+      opacity: 0;
+    }
+    &:hover .points-info-container {
+      opacity: 1;
+    }
+  `}
 
   .icon {
     position: absolute;
@@ -64,7 +66,7 @@ class Milestone extends React.Component {
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
     return (
-      <StyledCol xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
+      <StyledCol xs={6} sm={4} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
@@ -86,7 +88,7 @@ class Milestone extends React.Component {
             html={step.preview}
           />
           <div className="icon">
-            {step.isLate && 
+            {step.isLate &&
             <Icon
               color={colors.danger}
               type='clock'
