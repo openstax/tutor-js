@@ -16,6 +16,10 @@ const InnerStepCard = styled.div`
   border: 1px solid ${colors.neutral.light};
   border-radius: 0.25rem;
   background-color: white;
+
+  ${breakpoint.desktop`
+    max-width: 1000px;
+  `}
 `;
 
 export
@@ -87,10 +91,6 @@ const StepCardHeader = styled.div`
 
 const StepCardQuestion = styled.div`
   ${props => !props.unpadded && 'padding: 50px 140px;'}
-
-  ${breakpoint.desktop`
-    max-width: 1000px;
-  `}
 
   ${({ theme }) => theme.breakpoint.only.tablet`
     padding: 25px 30px 140px;

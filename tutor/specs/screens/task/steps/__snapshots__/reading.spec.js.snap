@@ -41,15 +41,15 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   float: right;
 }
 
-@media (max-width:1199px) {
-  .c0 {
-    padding: 0;
+@media (min-width:1200px) {
+  .c1 {
+    max-width: 1000px;
   }
 }
 
-@media (min-width:1200px) {
-  .c2 {
-    max-width: 1000px;
+@media (max-width:1199px) {
+  .c0 {
+    padding: 0;
   }
 }
 

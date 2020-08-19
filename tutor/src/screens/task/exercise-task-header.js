@@ -11,32 +11,47 @@ const ExercisesTaskHeaderWrapper = styled.div`
   flex-wrap: wrap;
   min-height: 55px;
   align-items: center;
+  padding: 25px 0 10px;
   ${props => props.unDocked && css`
     background-color: ${colors.white};
     border-bottom: 1px solid ${colors.neutral.pale};
-    padding: 25px 32px 16px;
+    > div {
+      margin-bottom: 10px;
+    }
   `}
 
   ${props => !props.unDocked && css`
     border-bottom: 1px solid ${colors.neutral.pale};
-    padding: 20px 10px 10px;
+    > div {
+      margin-bottom: 10px;
+    }
   `}
 
-  ${({ theme }) => theme.breakpoint.only.mobile`
-    padding: 16px 6px;
-  `};
+  .sticky-table {
+    margin-left: 15px;
+    margin-right: 15px;
+
+    ${({ theme }) => theme.breakpoint.only.mobile`
+      margin-left: 0;
+      margin-right: 0;
+    `};
+  }
 `;
 
 const StyledBackLink = styled.div`
   width: 100%;
   color: ${colors.link};
+  padding-left: 10px;
+  ${({ theme }) => theme.breakpoint.mobile`
+    padding: 0 5px;
+  `};
 `;
 
 const StyledHeadingTitle = styled.div`
   display: flex;
   font-size: 1.7rem;
   line-height: none;
-  padding: 15px 0;
+  padding-left: 10px;
   width: 100%;
 
   .title-info {
@@ -69,10 +84,9 @@ const StyledHeadingTitle = styled.div`
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
-  ${({ theme }) => theme.breakpoint.mobile`
+  ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-    padding: 0;
-    padding-top: 10px;
+    padding: 0 10px;
     .title-info {
       .title-divider, .title-due-date {
         display: none;
@@ -80,6 +94,7 @@ const StyledHeadingTitle = styled.div`
     }
     .overview-task-icon {
       display: inherit;
+      margin-right: 5px;
 
       .isShowingTable {
         background-color: ${colors.neutral.lighter};
