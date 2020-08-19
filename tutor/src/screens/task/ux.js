@@ -154,9 +154,9 @@ export default class TaskUX {
     this._stepId = step.id;
   }
 
-  @action async onFreeResponseComplete(step) {
+  @action async onFreeResponseComplete(step, { wasModified = true } = {}) {
     if (!step.content.requiresAnswerId) {
-      if ((!this.isTeacher) && step.can_be_updated) {
+      if ((!this.isTeacher) && step.can_be_updated && wasModified) {
         await step.save();
       }
       this.goForward();

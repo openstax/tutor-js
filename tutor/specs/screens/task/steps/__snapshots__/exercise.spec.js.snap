@@ -228,6 +228,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     ux={
       TaskUX {
         "becomeStudentIfNeeded": [MockFunction],
+        "canUpdateCurrentStep": true,
         "course": Course {
           "appearance_code": "college_physics",
           "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
