@@ -167,7 +167,7 @@
   .os-table {
     margin-top: 2rem;
     @media screen and ( max-width: $book-content-collapse-breakpoint ) {
-      overflow-x: scroll;
+      overflow-x: auto;
       max-width: calc(100vw - #{$book-content-narrow-horizontal-padding});
     }
     .os-table-title {
