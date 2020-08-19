@@ -69,8 +69,17 @@ class SidebarButtons extends React.Component {
     windowImpl: PropTypes.object,
   }
 
-
   @observable containerTop = null;
+  // Add a resize dummy listener to listen again and get the new container rect specs
+  @observable fakeRender = false;
+
+  componentDidMount() {
+    window.addEventListener('resize', () => this.fakeRender = !this.fakeRender);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.fakeRender = !this.fakeRender);
+  }
 
   @action.bound setContainerRef(el) {
     this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null;
@@ -94,7 +103,7 @@ class SidebarButtons extends React.Component {
     if (!this.props.highlighter) { return null; }
 
     return (
-      <div className="note-edit-buttons" ref={this.setContainerRef}>
+      <div className="note-edit-buttons" ref={this.setContainerRef} key={this.fakeRender}>
         {this.containerTop && this.renderNotes()}
       </div>
     );
