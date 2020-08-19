@@ -130,6 +130,10 @@
       border: thin solid $tutor-neutral-light;
       height: 10rem;
       width: 100%;
+      &[disabled] {
+        background: white;
+        border-color: #e2e43c;
+      }
     }
 
     .button-row {
@@ -169,6 +173,10 @@
       min-height: fit-content;
       bottom: 56px;
       top: inherit;
+
+      &.closed {
+        right: -115rem;
+      }
 
       .button-row {
         display: none;
