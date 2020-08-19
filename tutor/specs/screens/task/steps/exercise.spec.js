@@ -1,5 +1,5 @@
 import Exercise from '../../../../src/screens/task/step/exercise';
-import { Factory, FakeWindow, TimeMock, C } from '../../../helpers';
+import { Factory, FakeWindow, TimeMock, C, deferred } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -21,6 +21,7 @@ describe('Exercise Tasks Screen', () => {
       course: Factory.course(),
       onAnswerSave: jest.fn(),
       currentStep: step,
+      canUpdateCurrentStep: true,
     });
     props = { ux, step: step, windowImpl: new FakeWindow };
   });
@@ -32,12 +33,13 @@ describe('Exercise Tasks Screen', () => {
   it('can answer', () => {
     const ex = mount(<C><Exercise {...props} /></C>);
     setFreeResponse(ex, { value: 'test' });
-    ex.find('Answer button').first().simulate('click');
-    ex.find('AsyncButton').simulate('click');
-    expect(props.ux.onAnswerSave).toHaveBeenCalledWith(
-      step, step.content.questions[0].answers[0],
-    );
-    ex.unmount();
+    deferred(() => {
+      ex.find('Answer button').first().simulate('click');
+      expect(props.ux.onAnswerSave).toHaveBeenCalledWith(
+        step, step.content.questions[0].answers[0],
+      );
+      ex.unmount();
+    })
   });
 
   it('renders stimulus, context & stem before mpq', () => {

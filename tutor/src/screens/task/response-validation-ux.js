@@ -69,8 +69,7 @@ class ResponseValidationUX {
       return;
     }
     if (!this.taskUX.canUpdateCurrentStep) {
-      this.step.beginRecordingAnswer({ free_response: this.initialResponse });
-      this.taskUX.onFreeResponseComplete(this.step);
+      this.taskUX.onFreeResponseComplete(this.step, { wasModified: false });
       return;
     }
     const result = await this.validate();
@@ -79,6 +78,7 @@ class ResponseValidationUX {
       this.advanceUI(result);
     } else {
       this.step.beginRecordingAnswer({ free_response: result.response });
+      this.taskUX.onFreeResponseComplete(this.step, { wasModified: true });
     }
     this.results.push(result);
     this.step.response_validation = { attempts: this.results };
@@ -119,20 +119,22 @@ class ResponseValidationUX {
   @action advanceUI(result) {
     if (result) {
       if (result.valid || this.isDisplayingNudge) {
+        const wasModified = this.textHasChanged;
         this.step.beginRecordingAnswer({ free_response: result.response });
-        this.taskUX.onFreeResponseComplete(this.step);
+        this.taskUX.onFreeResponseComplete(this.step, { wasModified });
       } else {
         this.retriedResponse = this.initialResponse;
       }
     } else {
-      this.taskUX.onFreeResponseComplete(this.step);
+      this.taskUX.onFreeResponseComplete(this.step, { wasModified: this.textHasChanged });
     }
   }
 
   @action.bound submitOriginalResponse(ev) {
     ev && ev.preventDefault();
+    const wasModified = this.textHasChanged;
     this.step.beginRecordingAnswer({ free_response: this.initialResponse });
-    this.taskUX.onFreeResponseComplete(this.step);
+    this.taskUX.onFreeResponseComplete(this.step, { wasModified });
   }
 
   @computed get textHasChanged() {

@@ -171,7 +171,7 @@ class FreeResponseInput extends React.Component {
             <AnswerButton
               size="lg"
               data-test-id="submit-answer-btn"
-              disabled={ux.isSubmitDisabled || !ux.textHasChanged}
+              disabled={ux.isSubmitDisabled}
               onClick={this.onSave}>
               {ux.submitBtnLabel}
             </AnswerButton>
