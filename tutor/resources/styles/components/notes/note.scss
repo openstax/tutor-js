@@ -163,6 +163,17 @@
         }
       }
     }
+
+    @media screen and ( max-width: $book-content-collapse-breakpoint ){
+      width: 100%;
+      min-height: fit-content;
+      bottom: 56px;
+      top: inherit;
+
+      .button-row {
+        display: none;
+      }
+    }
   }
 
   .sidebar-button {
