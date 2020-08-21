@@ -58,12 +58,18 @@
 
 @mixin performance-forecast-key() {
   display: flex;
-  justify-content: space-evenly;
-  min-width: 280px;
+  //min-width: 280px;
+  /* https://coryrylan.com/blog/css-gap-space-with-flexbox */
+  --gap-top: 5px;
+  --gap-bottom: 12px;
+  margin: calc(-1 * var(--gap-top)) 0 0 calc(-1 * var(--gap-bottom));
+  width: calc(100% + var(--gap));
   margin-top: 1rem;
   .item {
     display: flex;
     align-items: center;
+    align-items: flex-start;
+    margin: var(--gap-top) 0 0 var(--gap-bottom);
     @include performance-forecast-colors();
     .progress-bar {
       width: 10px;

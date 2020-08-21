@@ -39,6 +39,11 @@
         font-size: 14px;
         line-height: 20px;
       }
+      @media screen and (max-width: $mobile-collapse-breakpoint) {
+        .info-text {
+          display: none;
+        }
+      }
     }
   }
 
@@ -48,11 +53,11 @@
 
   .guide-group-key {
     &.teacher .guide-key { margin-top: 15px; }
-    min-width: 300px;
+    //min-width: 300px;
+    width: 100%;
 
     .guide-key {
       // overriding the justify-content in `performance-forecast-key`
-      justify-content: space-between !important;
       @include performance-forecast-key();
     }
 

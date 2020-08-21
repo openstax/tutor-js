@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes } from 'vendor';
 import { Container } from 'react-bootstrap';
 import * as PerformanceForecast from '../../flux/performance-forecast';
-
 import Guide from './guide';
 import ColorKey from './color-key';
 
@@ -25,7 +23,7 @@ export default class extends React.Component {
     return (
       <div className="guide-heading">
         <div className="info">
-          <p>
+          <p className="info-text">
             The performance forecast is an estimate of your understanding of a topic. It is personalized display based on your answers to reading questions,
             homework problems, and previous practices.
           </p>

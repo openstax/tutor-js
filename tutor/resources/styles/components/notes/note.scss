@@ -28,7 +28,7 @@
     height: 100%;
     width: 100px;
     right: -140px;
-    @media screen and ( max-width: $book-content-collapse-breakpoint ){
+    @media screen and ( max-width: $tablet-collapse-breakpoint ){
       right: 0;
     }
   }
