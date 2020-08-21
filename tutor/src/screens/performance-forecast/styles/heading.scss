@@ -35,6 +35,10 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
+      p {
+        font-size: 14px;
+        line-height: 20px;
+      }
     }
   }
 
@@ -45,9 +49,10 @@
   .guide-group-key {
     &.teacher .guide-key { margin-top: 15px; }
     min-width: 300px;
-    display: flex;
 
     .guide-key {
+      // overriding the justify-content in `performance-forecast-key`
+      justify-content: space-between !important;
       @include performance-forecast-key();
     }
 
