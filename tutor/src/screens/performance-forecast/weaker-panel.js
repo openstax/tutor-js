@@ -29,7 +29,7 @@ export default class WeakerPanel extends React.Component {
       <>
         <Row className="weaker-header">
           <h3>
-            My Weaker Areas
+            {this.props.weakerTitle}
           </h3>
         </Row>
         <div className="chapter-panel weaker">
