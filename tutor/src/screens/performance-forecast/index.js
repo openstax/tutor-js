@@ -76,7 +76,8 @@ class Guide extends React.Component {
         <Header 
           unDocked={true}
           title="Performance Forecast"
-          courseId={courseId}
+          backTo={Router.makePathname('dashboard', { courseId })}
+          backToText='Dashboard'
         />
         {body}
       </ScrollToTop>
