@@ -10,6 +10,7 @@ Array [
     },
   },
   Object {
+    "icon": "home",
     "label": "Dashboard",
     "name": "dashboard",
     "options": Object {},
@@ -44,7 +45,9 @@ Array [
   Object {
     "label": "Change Student ID",
     "name": "changeStudentId",
-    "options": Object {},
+    "options": Object {
+      "separator": "after",
+    },
     "params": Object {
       "courseId": 2,
     },
@@ -62,6 +65,7 @@ Array [
     },
   },
   Object {
+    "icon": "home",
     "label": "Dashboard",
     "name": "dashboard",
     "options": Object {},
@@ -118,6 +122,16 @@ Array [
     },
   },
   Object {
+    "label": "Copy this Course",
+    "name": "createNewCourse",
+    "options": Object {
+      "key": "cloneCourse",
+    },
+    "params": Object {
+      "sourceId": 1,
+    },
+  },
+  Object {
     "label": "Create a Course",
     "name": "createNewCourse",
     "options": Object {
@@ -125,17 +139,6 @@ Array [
     },
     "params": Object {
       "courseId": 1,
-    },
-  },
-  Object {
-    "label": "Copy this Course",
-    "name": "createNewCourse",
-    "options": Object {
-      "key": "cloneCourse",
-      "separator": "after",
-    },
-    "params": Object {
-      "sourceId": 1,
     },
   },
 ]

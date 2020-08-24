@@ -74,6 +74,53 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   padding-bottom: 0;
 }
 
+@media (min-width:1200px) {
+  .c0.c0.c0 .tutor-navbar {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width:1199px) {
+  .c0.c0.c0 .tutor-navbar {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .c0.c0.c0 .tutor-navbar .control-label {
+    display: none;
+  }
+
+  .c0.c0.c0 .tutor-navbar .dropdown-toggle .ox-icon {
+    margin-left: 1rem;
+  }
+
+  .c0.c0.c0 .tutor-navbar .user-menu .initials {
+    height: 22px;
+    width: 22px;
+    font-size: 0.9rem;
+    -webkit-letter-spacing: -1px;
+    -moz-letter-spacing: -1px;
+    -ms-letter-spacing: -1px;
+    letter-spacing: -1px;
+  }
+
+  .c0.c0.c0 .tutor-navbar .right-side-controls > * {
+    margin-left: 0;
+  }
+
+  .c0.c0.c0 .tutor-navbar .right-side-controls > *:last-child {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c0.c0.c0 .tutor-navbar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -207,23 +254,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         >
                           Help
                         </span>
-                        <svg
-                          aria-hidden="true"
-                          className="svg-inline--fa fa-chevron-down fa-w-14 c3 ox-icon ox-icon-chevron-down toggle"
-                          data-icon="chevron-down"
-                          data-prefix="fas"
-                          focusable="false"
-                          role="img"
-                          style={Object {}}
-                          viewBox="0 0 448 512"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
-                            fill="currentColor"
-                            style={Object {}}
-                          />
-                        </svg>
                       </div>
                     </button>
                     <div
