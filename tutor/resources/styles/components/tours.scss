@@ -21,7 +21,7 @@
 
 }
 
-.openstax-exercise-preview.has-actions .panel-body.on-demo-hover .controls-overlay {
+.openstax-exercise-preview.has-actions .card-body.on-demo-hover .controls-overlay {
   visibility: visible;
   background-color: fade_out( $openstax-neutral-light, 0.2);
   .message { opacity: 1; }
