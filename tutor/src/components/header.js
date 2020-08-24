@@ -44,12 +44,13 @@ const StyledTitle = styled.h1`
 class Header extends React.Component {
   static propTypes = {
     unDocked: PropTypes.bool.isRequired,
-    courseId: PropTypes.string.isRequired,
+    backTo: PropTypes.object.isRequired,
+    backToText: PropTypes.string,
     title: PropTypes.string,
     headerContent: PropTypes.node,
   }
   render() {
-    const { unDocked, courseId, title, headerContent } = this.props;
+    const { unDocked, title, headerContent, backTo, backToText } = this.props;
     return (
       <ExercisesTaskHeaderWrapper
         className="task-homework breadcrumbs-wrapper"
@@ -57,19 +58,20 @@ class Header extends React.Component {
         tabIndex="-1"
         unDocked={unDocked}
       >
-        <StyledBackLink>
-          <TutorLink to="dashboard" params={{ courseId }}>
-            <Icon
-              size="lg"
-              type="angle-left"
-              className="-move-exercise-up circle"
-            />
-              Dashboard
-          </TutorLink>
-        </StyledBackLink>
-        {
-          Boolean(title) && 
-            <StyledTitle>{title}</StyledTitle>
+        {Boolean(backTo) &&
+          <StyledBackLink>
+            <TutorLink to={backTo}>
+              <Icon
+                size="lg"
+                type="angle-left"
+                className="-move-exercise-up circle"
+              />
+              {backToText || 'Back'}
+            </TutorLink>
+          </StyledBackLink>
+        }
+        {Boolean(title) && 
+          <StyledTitle>{title}</StyledTitle>
         }
         {Boolean(headerContent) && headerContent}
       </ExercisesTaskHeaderWrapper>

@@ -7,6 +7,7 @@ import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
 import cn from 'classnames';
 import Router from '../../helpers/router';
+import backInfo from '../../helpers/backInfo';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
 import OXFancyLoader from 'shared/components/staxly-animation';
@@ -14,6 +15,7 @@ import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
 import UserMenu from '../../models/user/menu';
 import RefundModal from './refund-modal';
+import Header from '../header';
 
 const defaultOptions = {
   toolbar: 'no',
@@ -52,8 +54,8 @@ class ManagePayments extends React.Component {
 
   get backLink() {
     const params = Router.currentParams();
-    return params.courseId ? { to: 'dashboard', text: 'Back to Dashboard', params } :
-      { to: 'myCourses', text: 'Back to My Courses' };
+    return params.courseId ? { to: 'dashboard', text: 'Dashboard', params } :
+      { to: 'myCourses', text: 'Back' };
   }
 
   UNSAFE_componentWillMount() {
@@ -158,30 +160,39 @@ class ManagePayments extends React.Component {
   }
 
   render() {
+    const back = backInfo();
     return (
-      <Container className="manage-payments">
-        <RefundModal
-          purchase={this.refunding}
-          onRefund={this.onRefundConfirm}
-          onCancel={this.onRefundCancel}
+      <>
+        <Header 
+          unDocked={true}
+          title="Manage Payments"
+          backTo={back.to || 'myCourses'}
+          backToText={back.text || 'Back'}
         />
-        <header>
-          <h1>Manage payments</h1>
-          <BackButton fallbackLink={this.backLink} />
-        </header>
-        {Purchases.api.isPending ? <OXFancyLoader isLoading /> : this.renderTable()}
-        <div className="footer">
-          <NewTabLink
-            className="refund-policy"
-            href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
-          >
+        <Container className="manage-payments">
+          <RefundModal
+            purchase={this.refunding}
+            onRefund={this.onRefundConfirm}
+            onCancel={this.onRefundCancel}
+          />
+          <header>
+            <h1>Manage payments</h1>
+            <BackButton fallbackLink={this.backLink} />
+          </header>
+          {Purchases.api.isPending ? <OXFancyLoader isLoading /> : this.renderTable()}
+          <div className="footer">
+            <NewTabLink
+              className="refund-policy"
+              href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
+            >
             Refund policy for OpenStax Tutor Beta courses
-          </NewTabLink>
-          <div className="help">
+            </NewTabLink>
+            <div className="help">
             Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </>
     );
   }
 
