@@ -1,6 +1,7 @@
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
 import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
+import Router from '../../helpers/router';
 import UX from './ux';
 import { colors } from 'theme';
 import { Icon } from 'shared';
@@ -127,8 +128,9 @@ class ExercisesTaskHeader extends React.Component {
     return (
       <Header 
         unDocked={unDocked}
-        courseId={ux.course.id}
         headerContent={headerContent(ux)}
+        backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+        backToText='Dashboard'
       />
     );
   }
