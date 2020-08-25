@@ -7,21 +7,11 @@
 }
 
 .manage-payments {
-  margin-top: 2rem;
-  @extend .container;
-  background-color: $tutor-white;
-  @include tutor-shadow(pop);
-  padding: 40px;
-  header {
-    border-bottom: 1px solid $tutor-neutral-light;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 60px;
-    h1 {
-      @include tutor-main-title-font();
-    }
-  }
+  // margin-top: 2rem;
+  // @extend .container;
+  // background-color: $tutor-white;
+  // @include tutor-shadow(pop);
+  // padding: 40px;
   table {
     .btn:not(.btn-link) {
       padding: 5px;
@@ -48,7 +38,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     .help a { margin-left: 0.5rem; }
-//    a { @include tutor-external-link-indicator(); }
   }
 
 }

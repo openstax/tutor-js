@@ -175,10 +175,6 @@ class ManagePayments extends React.Component {
             onRefund={this.onRefundConfirm}
             onCancel={this.onRefundCancel}
           />
-          <header>
-            <h1>Manage payments</h1>
-            <BackButton fallbackLink={this.backLink} />
-          </header>
           {Purchases.api.isPending ? <OXFancyLoader isLoading /> : this.renderTable()}
           <div className="footer">
             <NewTabLink

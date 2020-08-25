@@ -122,9 +122,7 @@ const ROUTES = {
   managePayments: {
     label: 'Manage Payments',
     locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
-    isAllowed(course) { return Boolean(
-      this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any
-    ); },
+    isAllowed(course) { return true; },
   },
   qaHome: {
     label: 'Content Analyst',
