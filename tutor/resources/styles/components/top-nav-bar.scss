@@ -149,11 +149,11 @@
       right: 0;
       top: 0;
       overflow-y: auto;
-      max-height: calc(100vh - 60px);
+      max-height: calc(100vh - $tutor-navbar-height);
     }
     .dropdown-item {
-      padding-left: 8px;
-      padding-right: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 
