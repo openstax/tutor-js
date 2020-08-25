@@ -65,6 +65,13 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   }
 }
 
+@media (min-width:1200px) {
+  .video-step .c2 .openstax-exercise-badges,
+  .interactive-step .c2 .openstax-exercise-badges {
+    margin-right: 3.8rem;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
