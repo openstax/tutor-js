@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`My Courses Component matches snapshot 1`] = `
+@media (max-width:1199px) {
+  .c0 {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width:600px) {
+  .c0 {
+    max-width: 100%;
+    padding: 0 calc(8px * 2);
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -17,7 +31,7 @@ exports[`My Courses Component matches snapshot 1`] = `
           data-test-id="current-courses"
         >
           <div
-            className="container"
+            className="c0 container"
           >
             <div
               className="my-courses-title row"
