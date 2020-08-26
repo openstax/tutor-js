@@ -5,7 +5,7 @@ import { Icon } from 'shared';
 const StyledIcon = styled(Icon).attrs({
   className: 'icon',
 })`
-  &&&.icon {
+  .arrow-wrapper &&&.icon {
     top: calc(55vh - 80px);
     margin: 0 auto;
     path {
