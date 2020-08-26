@@ -6,42 +6,6 @@
   }
 }
 
-.manage-payments {
-  // margin-top: 2rem;
-  // @extend .container;
-  // background-color: $tutor-white;
-  // @include tutor-shadow(pop);
-  // padding: 40px;
-  table {
-    .btn:not(.btn-link) {
-      padding: 5px;
-    }
-    .right {
-      text-align: right;
-    }
-    .refunded {
-      .total {
-        color: $currency-green;
-      }
-    }
-    tbody tr td {
-      vertical-align: middle;
-    }
-    .refund {
-      text-align: center;
-    }
-  }
-
-  .footer {
-    margin: 40px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .help a { margin-left: 0.5rem; }
-  }
-
-}
-
 // TODO - make this a mixin or standard style once UX finishes style guide
 .modal.refund {
   $spacing: 50px;
