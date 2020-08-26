@@ -65,7 +65,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         onClick={Chat.start}
       >
-        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat Support (9 - 5)</span>
+        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat Support (9 - 5 CT)</span>
       </Dropdown.Item>,
       <Dropdown.Item
         style={{ display: 'none' }}
