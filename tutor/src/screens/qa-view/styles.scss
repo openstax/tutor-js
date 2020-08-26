@@ -23,6 +23,11 @@
     .exercise {
       margin-bottom: $tutor-card-body-padding-vertical;
 
+      .openstax-exercise-preview .frame-wrapper {
+        margin-left: 0;
+        min-width: 100%;
+      }
+
       .exercise-free-response-preview {
         height: 80px;
         border: 1px solid $tutor-neutral-dark;
@@ -121,4 +126,8 @@
     }
   }
 
+}
+
+.tutor-app.q-a-dashboard {
+  .user-menu { order: 3; }
 }

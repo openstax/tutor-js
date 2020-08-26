@@ -25,7 +25,7 @@ class EcosystemSelector extends React.Component {
         <Dropdown.Toggle
           variant="ox"
         >
-          Select Ecosystem
+          {(ux.ecosystem && ux.ecosystem.book.titleWithVersion) || 'Select Ecosystem'}
         </Dropdown.Toggle>
         <Dropdown.Menu alignRight>
           {ux.ecosystemsMap.array.map(ec => (

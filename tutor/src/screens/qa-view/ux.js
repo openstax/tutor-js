@@ -5,6 +5,7 @@ import MenuToggle from '../../components/book-menu/toggle';
 import EcosystemSelector from './ecosystem-selector';
 import Router from '../../helpers/router';
 import ViewToggle from './view-toggle';
+import AppearanceSelector from './appearance-selector';
 import UserMenu from '../../components/navbar/user-menu';
 import DefaultExercises from '../../models/exercises';
 import DefaultEcosystems from '../../models/ecosystems';
@@ -24,7 +25,8 @@ export default class QaScreenUX extends BookUX {
   @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
   @observable isShowing2StepPreview = false;
   @observable ignoredExerciseTypes = [];
-
+  @observable appearance_code = 'default';
+  
   constructor({
     history,
     exercises = DefaultExercises,
@@ -76,6 +78,10 @@ export default class QaScreenUX extends BookUX {
     this.history.push(
       Router.makePathname('QADashboard', { ecosystemId }),
     );
+  }
+
+  @action.bound onAppearanceCodeSelect(code) {
+    this.appearance_code = code;
   }
 
   @computed get ecosystem() {
@@ -139,6 +145,7 @@ export default class QaScreenUX extends BookUX {
     });
     nav.right.merge({
       view: ViewToggle,
+      appearance: AppearanceSelector,
       ecosystems: EcosystemSelector,
       menu: UserMenu,
     });
@@ -146,5 +153,10 @@ export default class QaScreenUX extends BookUX {
 
   @action clearNavBar(nav) {
     nav.resetToDefault();
+  }
+
+
+  @computed get courseDataProps() {
+    return { 'data-appearance': this.appearance_code };
   }
 }
