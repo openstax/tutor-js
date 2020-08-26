@@ -1,6 +1,164 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Student Payments Management renders and matches snapshot 1`] = `
+.c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: 55px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 25px 0 10px;
+  border-bottom: 1px solid #d5d5d5;
+  background-color: white;
+}
+
+.c0 > div {
+  margin-bottom: 12px;
+}
+
+.c0 .sticky-table {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.c1 {
+  width: 100%;
+  color: #027EB5;
+  padding-left: 10px;
+}
+
+.c3 {
+  font-size: 3.5rem;
+  padding-left: 12px;
+}
+
+.c4 {
+  padding: 4rem 10rem 50rem;
+  background-color: white;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.c4 table {
+  font-size: 1.4rem;
+}
+
+.c4 table thead th,
+.c4 table tbody td {
+  padding: 1rem;
+}
+
+.c4 table tbody td {
+  vertical-align: middle;
+}
+
+.c4 table tbody .refunded .total {
+  color: #489200;
+}
+
+.c4 .footer {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c4 .footer > * {
+  margin-top: 10px;
+}
+
+.c5 .manage-payment-info-row:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.c5 .manage-payment-info-row:last-child {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.c5 .manage-payment-info-row {
+  padding: 0 10px 10px;
+  width: 100%;
+  border-top: 1px solid #d5d5d5;
+}
+
+.c5 .manage-payment-info-row .manage-payment-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c5 .manage-payment-info-row .manage-payment-info > .refunded {
+  color: #489200 !important;
+}
+
+.c5 .manage-payment-info-row .manage-payment-info > span:first-child {
+  -webkit-flex: 0 1 35%;
+  -ms-flex: 0 1 35%;
+  flex: 0 1 35%;
+  font-size: 1.2rem;
+  color: #6f6f6f;
+}
+
+.c5 .manage-payment-info-row .manage-payment-info > span:last-child {
+  -webkit-flex: 0 1 50%;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%;
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  font-size: 1.3rem;
+  color: #424242;
+}
+
+.c5 .manage-payment-info-row button {
+  margin: 10px 0;
+  font-size: 1.4rem;
+}
+
+@media (max-width:600px) {
+  .c0 .sticky-table {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width:1199px) {
+  .c4 {
+    padding: 2rem 24px;
+  }
+}
+
+@media (max-width:600px) {
+  .c4 {
+    padding: 1rem 8px;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -9,355 +167,637 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   >
     <div>
       <div
-        className="manage-payments container"
+        className="c0 task-homework breadcrumbs-wrapper"
+        role="dialog"
+        tabIndex="-1"
       >
-        <header>
-          <h1>
-            Manage payments
-          </h1>
+        <div
+          className="c1"
+        >
           <a
-            className="btn btn-default"
             href="/foo"
             onClick={[Function]}
           >
-            Back to Dashboard
-          </a>
-        </header>
-        <table
-          className="table table-striped"
-        >
-          <thead>
-            <tr>
-              <th>
-                Item
-              </th>
-              <th>
-                Transaction date
-              </th>
-              <th>
-                Order number
-              </th>
-              <th
-                className="right"
-              >
-                Amount
-              </th>
-              <td />
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              className=""
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-left fa-w-8 fa-lg c2 ox-icon ox-icon-angle-left -move-exercise-up circle"
+              data-icon="angle-left"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <td>
+              <path
+                d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+            Back
+          </a>
+        </div>
+        <h1
+          className="c3"
+        >
+          Manage Payments
+        </h1>
+      </div>
+      <div
+        className="c4 manage-payments"
+      >
+        <div
+          className="c5"
+        >
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 OpenStax Tutor
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 13th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 33uqbxbi324n
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 13.41
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="33uqbxbi324n"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="33uqbxbi324n"
                   href="url-for-test/invoice/33uqbxbi324n"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <button
+              className="async-button btn btn-primary"
+              data-identifier="33uqbxbi324n"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
             >
-              <td>
+              Request Refund
+            </button>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 OpenStax Tutor
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 13th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 nuvwqun23ztq
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 13.41
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="nuvwqun23ztq"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="nuvwqun23ztq"
                   href="url-for-test/invoice/nuvwqun23ztq"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <button
+              className="async-button btn btn-primary"
+              data-identifier="nuvwqun23ztq"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
             >
-              <td>
+              Request Refund
+            </button>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 OpenStax Tutor
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 13th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 ru6ifviicwki
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 13.41
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="ru6ifviicwki"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="ru6ifviicwki"
                   href="url-for-test/invoice/ru6ifviicwki"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <button
+              className="async-button btn btn-primary"
+              data-identifier="ru6ifviicwki"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
             >
-              <td>
+              Request Refund
+            </button>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 OpenStax Tutor
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 14th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 fxa4s2kj75fr
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 13.41
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="fxa4s2kj75fr"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="fxa4s2kj75fr"
                   href="url-for-test/invoice/fxa4s2kj75fr"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <button
+              className="async-button btn btn-primary"
+              data-identifier="fxa4s2kj75fr"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
             >
-              <td>
+              Request Refund
+            </button>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 unit test product
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 16th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 3dmy8nu4v4bg
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 357.25
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="3dmy8nu4v4bg"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="3dmy8nu4v4bg"
                   href="url-for-test/invoice/3dmy8nu4v4bg"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <button
+              className="async-button btn btn-primary"
+              data-identifier="3dmy8nu4v4bg"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
             >
-              <td>
+              Request Refund
+            </button>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 unit test product
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 16th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 kjxdvs9wd7rw
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 1388.07
-              </td>
-              <td />
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="kjxdvs9wd7rw"
                   href="url-for-test/invoice/kjxdvs9wd7rw"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className="refunded"
+              </span>
+            </div>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
             >
-              <td>
+              <span>
+                Item
+              </span>
+              <span>
                 unit test product refund
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 18th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 kjxdvs9wd7rw:refund
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className="refunded"
               >
                 -1388.07
-              </td>
-              <td />
-              <td />
-            </tr>
-            <tr
-              className=""
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
             >
-              <td>
+              <span>
+                Invoice
+              </span>
+              <span />
+            </div>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Item
+              </span>
+              <span>
                 unit test product
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 16th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 cufu6hr4xicy
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className=""
               >
                 1591.48
-              </td>
-              <td />
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span>
                 <a
-                  className="btn btn-link"
                   data-identifier="cufu6hr4xicy"
                   href="url-for-test/invoice/cufu6hr4xicy"
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                 >
                   Invoice
                 </a>
-              </td>
-            </tr>
-            <tr
-              className="refunded"
+              </span>
+            </div>
+          </div>
+          <div
+            className="manage-payment-info-row"
+          >
+            <div
+              className="manage-payment-info"
             >
-              <td>
+              <span>
+                Item
+              </span>
+              <span>
                 unit test product refund
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Transaction date
+              </span>
+              <span>
                 July 19th 2017
-              </td>
-              <td>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Order number
+              </span>
+              <span>
                 cufu6hr4xicy:refund
-              </td>
-              <td
-                className="right total"
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Amount
+              </span>
+              <span
+                className="refunded"
               >
                 -1591.48
-              </td>
-              <td />
-              <td />
-            </tr>
-          </tbody>
-        </table>
+              </span>
+            </div>
+            <div
+              className="manage-payment-info"
+            >
+              <span>
+                Invoice
+              </span>
+              <span />
+            </div>
+          </div>
+        </div>
         <div
           className="footer"
         >
@@ -405,6 +845,111 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
 `;
 
 exports[`Student Payments Management renders empty when no payments 1`] = `
+.c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: 55px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 25px 0 10px;
+  border-bottom: 1px solid #d5d5d5;
+  background-color: white;
+}
+
+.c0 > div {
+  margin-bottom: 12px;
+}
+
+.c0 .sticky-table {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.c1 {
+  width: 100%;
+  color: #027EB5;
+  padding-left: 10px;
+}
+
+.c3 {
+  font-size: 3.5rem;
+  padding-left: 12px;
+}
+
+.c4 {
+  padding: 4rem 10rem 50rem;
+  background-color: white;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.c4 table {
+  font-size: 1.4rem;
+}
+
+.c4 table thead th,
+.c4 table tbody td {
+  padding: 1rem;
+}
+
+.c4 table tbody td {
+  vertical-align: middle;
+}
+
+.c4 table tbody .refunded .total {
+  color: #489200;
+}
+
+.c4 .footer {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c4 .footer > * {
+  margin-top: 10px;
+}
+
+@media (max-width:600px) {
+  .c0 .sticky-table {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width:1199px) {
+  .c4 {
+    padding: 2rem 24px;
+  }
+}
+
+@media (max-width:600px) {
+  .c4 {
+    padding: 1rem 8px;
+  }
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -413,20 +958,46 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   >
     <div>
       <div
-        className="manage-payments container"
+        className="c0 task-homework breadcrumbs-wrapper"
+        role="dialog"
+        tabIndex="-1"
       >
-        <header>
-          <h1>
-            Manage payments
-          </h1>
+        <div
+          className="c1"
+        >
           <a
-            className="btn btn-default"
             href="/foo"
             onClick={[Function]}
           >
-            Back to Dashboard
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-left fa-w-8 fa-lg c2 ox-icon ox-icon-angle-left -move-exercise-up circle"
+              data-icon="angle-left"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+            Back
           </a>
-        </header>
+        </div>
+        <h1
+          className="c3"
+        >
+          Manage Payments
+        </h1>
+      </div>
+      <div
+        className="c4 manage-payments"
+      >
         <div
           className="empty"
         >
