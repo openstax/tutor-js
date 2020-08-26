@@ -4,15 +4,6 @@
 
   @mixin top-nav-action() {
     font-size: 1.6rem;
-
-    @include media-breakpoint-down('sm') {
-      .control-label { display: none; }
-      .ox-icon:not(.toggle) { display: inline-block; }
-    }
-    @include media-breakpoint-up('md') {
-      .control-label { display: inline-block; }
-      .ox-icon:not(.toggle) { display: none; }
-    }
   }
 
   @media print {
@@ -100,6 +91,70 @@
     min-width: 250px;
     white-space: nowrap;
     .btn { margin-left: 10px; }
+  }
+
+  .actions-menu, .mobile-menu {
+    .ox-icon {
+      margin-left: 0;
+    }
+
+    [data-item="dashboard"] {
+      .tour-anchor {
+        display: flex;
+        & > :first-child {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+        }
+      }
+    }
+
+    [data-item="browseBook"],
+    [data-item="viewGradebook"],
+    [data-item="viewPerformanceGuide"],
+    [data-item="changeStudentId"],
+    [data-item="viewQuestionsLibrary"],
+    [data-item="courseSettings"],
+    [data-item="courseRoster"],
+    [data-item="cloneCourse"] {
+      .tour-anchor {
+        padding-left: 2.5rem;
+      }
+    }
+  }
+
+  .mobile-menu {
+    position: inherit;
+    z-index: 1502; // 1 above tour z-index
+
+    .close-icon {
+      display: none;
+    }
+
+    &.show {
+      .open-icon {
+        display: none;
+      }
+      .close-icon {
+        display: block;
+        width: 14px;
+      }
+    }
+
+    .dropdown-menu {
+      margin: 60px 0 0 0 !important;
+      transform: inherit !important;
+      left: 0;
+      right: 0;
+      top: 0;
+      overflow-y: auto;
+      max-height: calc(100vh - $tutor-navbar-height);
+    }
+    .dropdown-item {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   @import './top-nav-bar/center-controls';

@@ -64,6 +64,7 @@ const Icons = {
   'eye':                  require('@fortawesome/free-solid-svg-icons/faEye'),
   'eye-slash':            require('@fortawesome/free-solid-svg-icons/faEyeSlash'),
   'ghost':                require('@fortawesome/free-solid-svg-icons/faGhost'),
+  'home':                 require('@fortawesome/free-solid-svg-icons/faHome'),
   'hand-paper':           require('@fortawesome/free-solid-svg-icons/faHandPaper'),
   'info-circle':          require('@fortawesome/free-solid-svg-icons/faInfoCircle'),
   'lock':                 require('@fortawesome/free-solid-svg-icons/faLock'),

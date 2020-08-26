@@ -5,12 +5,24 @@ import { observer } from 'mobx-react';
 import User from '../../models/user';
 import AccountLink from './account-link';
 import LogOut from './logout';
+import Responsive from '../../components/responsive';
 
 export default
 @observer
 class UserMenu extends React.Component {
 
-  render() {
+  renderItems() {
+    return (
+      <>
+        <Dropdown.Divider />
+        <AccountLink />
+        <Dropdown.Divider />
+        <LogOut />
+      </>
+    );
+  }
+
+  renderDesktop() {
     return (
       <Dropdown
         className="user-menu"
@@ -23,10 +35,18 @@ class UserMenu extends React.Component {
           <span className="initials">{User.initials}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu alignRight>
-          <AccountLink />
-          <LogOut />
+          {this.renderItems()}
         </Dropdown.Menu>
       </Dropdown>
+    );
+  }
+
+  render() {
+    return (
+      <Responsive
+        desktop={this.renderDesktop()}
+        mobile={this.renderItems()}
+      />
     );
   }
 

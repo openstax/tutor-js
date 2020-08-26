@@ -145,12 +145,12 @@ if (Cypress.env('PAGERDUTY_TOKEN')) {
     logToPagerDuty(options);
   });
 
-  Cypress.on('fail', (err, test) => {
-    const summary = `${test.parent.title} ${test.title} failed: ${err.message}`;
+  Cypress.on('fail', (error, test) => {
+    const summary = `${test.parent.title} ${test.title} failed: ${error.message}`;
     logToPagerDuty({
       summary,
       dedup_key: test.title,
     });
-    return false; // must return false so the error is reported
+    throw error;  // must re-throw so the error is reported
   });
 }

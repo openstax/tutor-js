@@ -15,6 +15,7 @@ import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
 import Course from '../../models/course';
 import Theme from '../../theme';
+import Responsive from '../../components/responsive';
 
 // eslint-disable-next-line no-unused-vars
 const PageTips = observer(({ onPlayClick, tourContext, staticContext, ...props }) => {
@@ -64,7 +65,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         onClick={Chat.start}
       >
-        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat with Support</span>
+        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat Support (9 - 5 CT)</span>
       </Dropdown.Item>,
       <Dropdown.Item
         style={{ display: 'none' }}
@@ -123,7 +124,7 @@ class SupportMenu extends React.Component {
     );
   }
 
-  render() {
+  renderDesktop() {
     const { course } = this.props;
     return (
       <Dropdown show={this.show} onToggle={this.onToggle}>
@@ -140,34 +141,51 @@ class SupportMenu extends React.Component {
           >
             <Icon type="question-circle" />
             <span title="Page tips and support" className="control-label">Help</span>
-            <Icon type="chevron-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
         <Dropdown.Menu className={this.hide ? ' hide' : null}>
-          <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
-          <Dropdown.Item
-            key="nav-help-link"
-            className="-help-link"
-            target="_blank"
-            onSelect={this.onSelect}
-            href={UserMenu.helpLinkForCourse(course)}
-          >
-            <span>Help Articles</span>
-          </Dropdown.Item>
-          <SupportDocument course={course} />
-          <BestPracticesGuide course={course} />
-          <Dropdown.Item
-            key="nav-keyboard-shortcuts"
-            className="-help-link"
-            onSelect={this.onSelect}
-            href={this.accessibilityLink}
-            onClick={this.goToAccessibility}
-          >
-            <span>Accessibility Statement</span>
-          </Dropdown.Item>
-          {this.renderChat()}
+          {this.renderItems()}
         </Dropdown.Menu>
       </Dropdown>
+    );
+  }
+
+  renderItems() {
+    const { course } = this.props;
+    return (
+      <>
+        <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
+        <Dropdown.Item
+          key="nav-help-link"
+          className="-help-link"
+          target="_blank"
+          onSelect={this.onSelect}
+          href={UserMenu.helpLinkForCourse(course)}
+        >
+          <span>Help Articles</span>
+        </Dropdown.Item>
+        <SupportDocument course={course} />
+        <BestPracticesGuide course={course} />
+        <Dropdown.Item
+          key="nav-keyboard-shortcuts"
+          className="-help-link"
+          onSelect={this.onSelect}
+          href={this.accessibilityLink}
+          onClick={this.goToAccessibility}
+        >
+          <span>Accessibility Statement</span>
+        </Dropdown.Item>
+        {this.renderChat()}
+      </>
+    );
+  }
+
+  render() {
+    return (
+      <Responsive
+        desktop={this.renderDesktop()}
+        mobile={this.renderItems()}
+      />
     );
   }
 
