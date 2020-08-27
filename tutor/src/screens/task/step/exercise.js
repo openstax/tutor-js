@@ -81,16 +81,17 @@ class ExerciseTaskStep extends React.Component {
   render() {
     const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
+
     return (
       <>
         <StyledExercise
           step={step}
           questionNumber={ux.questionNumberForStep(step)}
           numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
-          goBackward={ux.goBackward}
-          canGoBackward={ux.canGoBackward}
-          goForward={ux.goForward}
-          canGoForward={ux.canGoForward}
+          goBackward={() => ux.goToStep(ux.previousStep)}
+          canGoBackward={Boolean(ux.previousStep)}
+          goForward={() => ux.goToStep(ux.nextStep)}
+          canGoForward={Boolean(ux.nextStep)}
 
         >
           <Badges
