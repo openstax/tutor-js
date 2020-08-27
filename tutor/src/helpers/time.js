@@ -120,7 +120,8 @@ const TimeHelper = {
   },
 
   momentInLocal(date) {
-    return moment.tz(date, this.getLocalTimezone());
+    const tz = this.getLocalTimezone();
+    return tz ? moment.tz(date, tz) : moment(date);
   },
 
   makeMoment(value, ...args) {
@@ -136,7 +137,8 @@ const TimeHelper = {
   },
 
   getLocalTimezone() {
-    return moment.tz.guess();
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //return moment.tz.guess();
   },
 
   getMomentPreserveDate(value, ...args) {
