@@ -1,5 +1,10 @@
 .user-terms {
   @include ost-hero-modal();
+  @media (max-width: $mobile-collapse-breakpoint) {
+    // overriding the inline style
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  };
 }
 
 .user-terms.modal {
@@ -8,15 +13,36 @@
   .modal-dialog {
     opacity: 1;
     transition: opacity .4s ease-in-out;
+    @media (max-width: $mobile-collapse-breakpoint) {
+      height: 100%;
+      margin: 0;
+      max-width: inherit;
+    };
   }
   .modal-content {
     background-color: $tutor-neutral-bright;
+    @media (max-width: $mobile-collapse-breakpoint) {
+      height: 100%;
+    };
   }
   .modal-header {
     font-size: 125%;
     font-weight: bold;
     border-bottom: 0;
     padding: $spacing $spacing*2;
+
+    @media (max-width: $mobile-collapse-breakpoint) {
+      display: flex;
+      flex-flow: column;
+
+      .course-branding {
+        font-size: 12px;
+      }
+      .header-title {
+        margin-top: 15px;
+        font-size: 22px;
+      }
+    };
   }
   .modal-body {
     max-height: 50vh;
@@ -29,21 +55,39 @@
     h1 { font-size: 125%; }
     h2 { font-size: 120%; }
     h3 { font-size: 115%; }
+
+    @media (max-width: $mobile-collapse-breakpoint) {
+      margin: 0 $mobile-margin;
+      padding: 10px $mobile-margin;
+    };
   }
 
   .modal-footer {
     border-top: 0;
     text-align: left;
     padding: $spacing $spacing*2 $spacing*2 $spacing*2;
+
+    @media (max-width: $mobile-collapse-breakpoint) {
+      padding: 2rem;
+      justify-content: center;
+    };
+
     .btn {
       font-size: 20px;
       font-weight: normal;
       padding: 1rem 2rem;
+
+      @media (max-width: $mobile-collapse-breakpoint) {
+        width: 75%;
+      };
     }
   }
   &.show {
     .modal-dialog {
       transform: translateY(110px);
+      @media (max-width: $mobile-collapse-breakpoint) {
+        transform: translateY(0);
+      };
     }
   }
   &.is-loading {
