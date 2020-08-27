@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Row } from 'react-bootstrap';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import WeakerSections from './weaker-sections';
 import PracticeWeakestButton from '../../components/buttons/practice-weakest';
@@ -25,16 +26,23 @@ export default class WeakerPanel extends React.Component {
       <PracticeWeakestButton title="Practice All" courseId={this.props.courseId} />; }
 
     return (
-      <div className="chapter-panel weaker">
-        <div className="chapter metric">
-          <span className="title">
+      <>
+        <Row className="weaker-header">
+          <h3>
             {this.props.weakerTitle}
-          </span>
-          {this.props.weakerExplanation}
-          {practiceBtn}
+          </h3>
+        </Row>
+        <div className="chapter-panel weaker">
+          <div className="chapter metric">
+            <span className="title">
+              {this.props.weakerTitle}
+            </span>
+            {this.props.weakerExplanation}
+            {practiceBtn}
+          </div>
+          <WeakerSections {...this.props} />
         </div>
-        <WeakerSections {...this.props} />
-      </div>
+      </>
     );
   }
 }

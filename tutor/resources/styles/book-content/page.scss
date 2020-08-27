@@ -61,7 +61,7 @@
         top: -20px;
       }
 
-      @media screen and ( max-width: $book-content-collapse-breakpoint ) {
+      @media screen and ( max-width: $tablet-collapse-breakpoint ) {
         padding-top: $book-content-narrow-horizontal-padding;
       }
     }

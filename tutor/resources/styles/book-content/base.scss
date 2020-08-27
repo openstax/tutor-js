@@ -166,7 +166,7 @@
 
   .os-table {
     margin-top: 2rem;
-    @media screen and ( max-width: $book-content-collapse-breakpoint ) {
+    @media screen and ( max-width: $tablet-collapse-breakpoint ) {
       overflow-x: auto;
       max-width: calc(100vw - #{$book-content-narrow-horizontal-padding});
     }

@@ -35,6 +35,15 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
+      p {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      @media screen and (max-width: $mobile-collapse-breakpoint) {
+        .info-text {
+          display: none;
+        }
+      }
     }
   }
 
@@ -44,10 +53,10 @@
 
   .guide-group-key {
     &.teacher .guide-key { margin-top: 15px; }
-    min-width: 300px;
-    display: flex;
+    width: 100%;
 
     .guide-key {
+      // overriding the justify-content in `performance-forecast-key`
       @include performance-forecast-key();
     }
 

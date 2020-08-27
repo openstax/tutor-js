@@ -5,7 +5,7 @@
 @import "./styles/teacher-student";
 
 .performance-forecast {
-  margin-top: 20px;
+  margin-top: 15px;
 
   .tutor-tabs {
     margin-bottom: 20px;
@@ -16,11 +16,6 @@
     }
   }
 
-  @include tutor-shadow(pop);
-
-  .guide-container {
-    min-width: 340px;
-  }
   .icon-guide {
     @include x-icon-size(2.6rem);
     float: left;
