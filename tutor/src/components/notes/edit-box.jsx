@@ -140,7 +140,7 @@ export default function EditBoxWrapper(props) {
   return (
     <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
       {props.note && 
-        <Responsive desktop={renderDesktop(props)} tablet={renderTablet(props)}/>
+        <Responsive desktop={renderDesktop(props)} tablet={renderTablet(props)} mobile={renderTablet(props)}/>
       }
     </div>
   );
