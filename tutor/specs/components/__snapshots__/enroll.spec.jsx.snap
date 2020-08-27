@@ -420,11 +420,6 @@ exports[`Student Enrollment submits with student id when form is clicked 1`] = `
             placeholder="School issued ID"
           />
         </div>
-        <div
-          className="required"
-        >
-          * required for course credit
-        </div>
       </div>
       <div
         className="modal-footer"

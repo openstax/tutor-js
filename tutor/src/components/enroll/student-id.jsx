@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, PropTypes } from 'vendor';
 import { Modal, Button } from 'react-bootstrap';
 
 export default function StudentIDForm({ enrollment }) {
@@ -20,7 +20,6 @@ export default function StudentIDForm({ enrollment }) {
             placeholder='School issued ID'
           />
         </div>
-        <div className="required">* required for course credit</div>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" className="btn btn-success" onClick={enrollment.onStudentIdContinue}>Continue</Button>
@@ -29,3 +28,12 @@ export default function StudentIDForm({ enrollment }) {
     </div>
   );
 }
+
+StudentIDForm.propTypes = {
+  enrollment: PropTypes.shape({
+    student_identifier: PropTypes.string,
+    courseName: PropTypes.string,
+    onStudentIdContinue: PropTypes.func,
+    onCancelStudentId: PropTypes. func,
+  }).isRequired,
+};
