@@ -27,7 +27,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                             <div className=\\"sc-AxhUy BkIXc\\">
                                               <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
                                                 <styled.div className=\\"related-content-link\\">
-                                                  <div className=\\"sc-AxiKw bLWVnR related-content-link\\">
+                                                  <div className=\\"sc-AxiKw dcdLEl related-content-link\\">
                                                     <styled.span>
                                                       <span className=\\"sc-AxhCb dFswVp preamble\\">
                                                         Comes from
