@@ -9,11 +9,14 @@ const ExercisesTaskHeaderWrapper = styled.div`
   min-height: 55px;
   align-items: center;
   padding: 25px 0 10px;
+  ${({ theme }) => theme.breakpoint.only.mobile`
+    padding-bottom: 0;
+  `}
   border-bottom: 1px solid ${colors.neutral.pale};
   > div {
       margin-bottom: 12px;
     }
-  
+
   ${props => props.unDocked && css`
     background-color: ${colors.white};
   `}
@@ -25,6 +28,7 @@ const ExercisesTaskHeaderWrapper = styled.div`
     ${({ theme }) => theme.breakpoint.only.mobile`
       margin-left: 0;
       margin-right: 0;
+      margin-bottom: 0;
     `};
   }
 `;
@@ -68,14 +72,14 @@ class Header extends React.Component {
             {backToText || 'Back'}
           </TutorLink>
         </StyledBackLink>
-        {Boolean(title) && 
+        {Boolean(title) &&
           <StyledTitle>{title}</StyledTitle>
         }
         {Boolean(headerContent) && headerContent}
       </ExercisesTaskHeaderWrapper>
     );
   }
-    
+
 }
 
 export default Header;
