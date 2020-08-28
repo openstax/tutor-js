@@ -147,6 +147,13 @@ Array [
 exports[`Current User Store should return expected menu routes when course is missing 1`] = `
 Array [
   Object {
+    "label": "My Courses",
+    "name": "myCourses",
+    "options": Object {
+      "separator": "after",
+    },
+  },
+  Object {
     "label": "Create a Course",
     "name": "createNewCourse",
     "options": Object {
