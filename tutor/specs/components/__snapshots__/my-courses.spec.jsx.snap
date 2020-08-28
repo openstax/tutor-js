@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`My Courses Component matches snapshot 1`] = `
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c0 {
     max-width: 100%;
     padding: 0 24px;
