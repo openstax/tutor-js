@@ -119,7 +119,7 @@ const ReadingWeights = observer(({ task }) => {
   );
 });
 
-const format = (date) => <Time date={date} format="ddd, MMM D, h:mma" />;
+const format = (date) => <Time date={date} format="concise" />;
 
 const LateWorkPolicy = observer(({ task }) => {
   if (!task.hasLateWorkPolicy) { return null; }
