@@ -30,7 +30,11 @@ const MobileFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid ${colors.neutral.pale};
+  z-index: 1;
   ${breakpoint.reading_pagination`
+    display: block;
+  `}
+  ${breakpoint.desktop`
     display: none;
   `}
 
