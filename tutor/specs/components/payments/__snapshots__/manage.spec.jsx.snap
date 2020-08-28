@@ -87,59 +87,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   margin-top: 10px;
 }
 
-.c5 .manage-payment-info-row:nth-child(odd) {
-  background-color: #f5f5f5;
-}
-
-.c5 .manage-payment-info-row:last-child {
-  border-bottom: 1px solid #d5d5d5;
-}
-
-.c5 .manage-payment-info-row {
-  padding: 0 10px 10px;
-  width: 100%;
-  border-top: 1px solid #d5d5d5;
-}
-
-.c5 .manage-payment-info-row .manage-payment-info {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 10px;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c5 .manage-payment-info-row .manage-payment-info > .refunded {
-  color: #489200 !important;
-}
-
-.c5 .manage-payment-info-row .manage-payment-info > span:first-child {
-  -webkit-flex: 0 1 35%;
-  -ms-flex: 0 1 35%;
-  flex: 0 1 35%;
-  font-size: 1.2rem;
-  color: #6f6f6f;
-}
-
-.c5 .manage-payment-info-row .manage-payment-info > span:last-child {
-  -webkit-flex: 0 1 50%;
-  -ms-flex: 0 1 50%;
-  flex: 0 1 50%;
-  -webkit-align-self: flex-end;
-  -ms-flex-item-align: end;
-  align-self: flex-end;
-  font-size: 1.3rem;
-  color: #424242;
-}
-
-.c5 .manage-payment-info-row button {
-  margin: 10px 0;
-  font-size: 1.4rem;
-}
-
 @media (max-width:600px) {
   .c0 .sticky-table {
     margin-left: 0;
@@ -147,7 +94,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c4 {
     padding: 2rem 24px;
   }
@@ -207,61 +154,48 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
       <div
         className="c4 manage-payments"
       >
-        <div
-          className="c5"
+        <table
+          className="table table-striped"
         >
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
+          <thead>
+            <tr>
+              <th>
                 Item
-              </span>
-              <span>
-                OpenStax Tutor
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
+              </th>
+              <th>
                 Transaction date
-              </span>
-              <span>
-                July 13th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
+              </th>
+              <th>
                 Order number
-              </span>
-              <span>
-                33uqbxbi324n
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
+              </th>
+              <th>
                 Amount
-              </span>
-              <span
-                className=""
+              </th>
+              <th>
+                Invoice
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className=""
+            >
+              <td>
+                OpenStax Tutor
+              </td>
+              <td>
+                July 13th 2017
+              </td>
+              <td>
+                33uqbxbi324n
+              </td>
+              <td
+                className="total"
               >
                 13.41
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="33uqbxbi324n"
                   href="url-for-test/invoice/33uqbxbi324n"
@@ -269,70 +203,39 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-            <button
-              className="async-button btn btn-primary"
-              data-identifier="33uqbxbi324n"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
+              </td>
+              <td
+                className="refund"
+              >
+                <button
+                  className="async-button btn btn-primary"
+                  data-identifier="33uqbxbi324n"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Request Refund
+                </button>
+              </td>
+            </tr>
+            <tr
+              className=""
             >
-              Request Refund
-            </button>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 OpenStax Tutor
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 13th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 nuvwqun23ztq
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 13.41
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="nuvwqun23ztq"
                   href="url-for-test/invoice/nuvwqun23ztq"
@@ -340,70 +243,39 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-            <button
-              className="async-button btn btn-primary"
-              data-identifier="nuvwqun23ztq"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
+              </td>
+              <td
+                className="refund"
+              >
+                <button
+                  className="async-button btn btn-primary"
+                  data-identifier="nuvwqun23ztq"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Request Refund
+                </button>
+              </td>
+            </tr>
+            <tr
+              className=""
             >
-              Request Refund
-            </button>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 OpenStax Tutor
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 13th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 ru6ifviicwki
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 13.41
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="ru6ifviicwki"
                   href="url-for-test/invoice/ru6ifviicwki"
@@ -411,70 +283,39 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-            <button
-              className="async-button btn btn-primary"
-              data-identifier="ru6ifviicwki"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
+              </td>
+              <td
+                className="refund"
+              >
+                <button
+                  className="async-button btn btn-primary"
+                  data-identifier="ru6ifviicwki"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Request Refund
+                </button>
+              </td>
+            </tr>
+            <tr
+              className=""
             >
-              Request Refund
-            </button>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 OpenStax Tutor
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 14th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 fxa4s2kj75fr
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 13.41
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="fxa4s2kj75fr"
                   href="url-for-test/invoice/fxa4s2kj75fr"
@@ -482,70 +323,39 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-            <button
-              className="async-button btn btn-primary"
-              data-identifier="fxa4s2kj75fr"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
+              </td>
+              <td
+                className="refund"
+              >
+                <button
+                  className="async-button btn btn-primary"
+                  data-identifier="fxa4s2kj75fr"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Request Refund
+                </button>
+              </td>
+            </tr>
+            <tr
+              className=""
             >
-              Request Refund
-            </button>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 unit test product
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 16th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 3dmy8nu4v4bg
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 357.25
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="3dmy8nu4v4bg"
                   href="url-for-test/invoice/3dmy8nu4v4bg"
@@ -553,70 +363,39 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-            <button
-              className="async-button btn btn-primary"
-              data-identifier="3dmy8nu4v4bg"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
+              </td>
+              <td
+                className="refund"
+              >
+                <button
+                  className="async-button btn btn-primary"
+                  data-identifier="3dmy8nu4v4bg"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Request Refund
+                </button>
+              </td>
+            </tr>
+            <tr
+              className=""
             >
-              Request Refund
-            </button>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 unit test product
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 16th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 kjxdvs9wd7rw
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 1388.07
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="kjxdvs9wd7rw"
                   href="url-for-test/invoice/kjxdvs9wd7rw"
@@ -624,115 +403,51 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
+              </td>
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className="refunded"
             >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 unit test product refund
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 18th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 kjxdvs9wd7rw:refund
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className="refunded"
+              </td>
+              <td
+                className="total"
               >
                 -1388.07
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
+              </td>
+              <td />
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className=""
             >
-              <span>
-                Invoice
-              </span>
-              <span />
-            </div>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 unit test product
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 16th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 cufu6hr4xicy
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className=""
+              </td>
+              <td
+                className="total"
               >
                 1591.48
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span>
+              </td>
+              <td>
                 <a
                   data-identifier="cufu6hr4xicy"
                   href="url-for-test/invoice/cufu6hr4xicy"
@@ -740,64 +455,35 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </span>
-            </div>
-          </div>
-          <div
-            className="manage-payment-info-row"
-          >
-            <div
-              className="manage-payment-info"
+              </td>
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className="refunded"
             >
-              <span>
-                Item
-              </span>
-              <span>
+              <td>
                 unit test product refund
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Transaction date
-              </span>
-              <span>
+              </td>
+              <td>
                 July 19th 2017
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Order number
-              </span>
-              <span>
+              </td>
+              <td>
                 cufu6hr4xicy:refund
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Amount
-              </span>
-              <span
-                className="refunded"
+              </td>
+              <td
+                className="total"
               >
                 -1591.48
-              </span>
-            </div>
-            <div
-              className="manage-payment-info"
-            >
-              <span>
-                Invoice
-              </span>
-              <span />
-            </div>
-          </div>
-        </div>
+              </td>
+              <td />
+              <td
+                className="refund"
+              />
+            </tr>
+          </tbody>
+        </table>
         <div
           className="footer"
         >
@@ -938,7 +624,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c4 {
     padding: 2rem 24px;
   }

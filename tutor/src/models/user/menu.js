@@ -9,7 +9,6 @@ const ROUTES = {
   myCourses: {
     label: 'My Courses',
     locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
-    isAllowed(course) { return !!course; },
     params: () => undefined,
     options: {
       separator: 'after',
