@@ -139,8 +139,8 @@ const TimeHelper = {
     return moment.tz.guess();
   },
 
-  momentOffsetWithBrowserTzName(date) {
-    return `${moment(date).format('Z')} ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+  browserTzName() {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
   },
 
   getMomentPreserveDate(value, ...args) {

@@ -37,7 +37,7 @@ export default class Time extends React.Component {
         placement="right"
         overlay={
           <Tooltip>
-            {moment(date).format(this.dateFormat('medium'))} {TimeHelper.momentOffsetWithBrowserTzName(date)}
+            {moment(date).format(this.dateFormat('medium'))} {TimeHelper.browserTzName()}
           </Tooltip>
         }
       >
