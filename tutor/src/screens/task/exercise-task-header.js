@@ -5,7 +5,7 @@ import Router from '../../helpers/router';
 import UX from './ux';
 import { colors } from 'theme';
 import { Icon } from 'shared';
-import TimeHelper from 'helpers/time';
+import Time from '../../components/time';
 
 const StyledHeadingTitle = styled.div`
   display: flex;
@@ -35,11 +35,11 @@ const StyledHeadingTitle = styled.div`
       color: ${colors.neutral.pale};
     }
   }
-  
+
   .overview-task-icon {
       display: none;
     }
-  
+
   /*
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
@@ -71,13 +71,13 @@ const headerContent = (ux) => {
         <div className="title-info">
           <div className="title-name">{ux.task.title}</div>
           <div className="title-divider">|</div>
-          <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
+          <div className="title-due-date">Due {<Time date={ux.task.dueAtMoment} format="concise" />}</div>
         </div>
         <div className="overview-task-icon">
           <Icon
             type="th"
             onClick={ux.toggleTaskProgressTable}
-            className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })} 
+            className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
           />
         </div>
       </StyledHeadingTitle>
@@ -126,7 +126,7 @@ class ExercisesTaskHeader extends React.Component {
 
     const { ux, unDocked } = this.props;
     return (
-      <Header 
+      <Header
         unDocked={unDocked}
         headerContent={headerContent(ux)}
         backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}

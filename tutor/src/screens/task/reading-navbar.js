@@ -4,8 +4,8 @@ import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import { Icon } from 'shared';
-import TimeHelper from '../../helpers/time';
 import TutorLink from '../../components/link';
+import Time from '../../components/time';
 import { colors, breakpoint } from 'theme';
 
 const StyledNavbar = styled.div`
@@ -143,7 +143,9 @@ class ReadingNavbar extends React.Component {
           <Left>
             <TaskTitle>{ux.task.title}</TaskTitle>
             <Divider className="hide-mobile">|</Divider>
-            <span className="hide-mobile">Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}</span>
+            <span className="hide-mobile">
+              Due <Time date={ux.task.due_at} format="llll" />
+            </span>
           </Left>
           <Right>
             <NotesSummaryToggle

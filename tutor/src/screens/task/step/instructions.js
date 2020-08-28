@@ -5,7 +5,7 @@ import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
 import S from '../../../helpers/string';
 import ScoresHelper from '../../../helpers/scores';
-import TimeHelper from '../../../helpers/time';
+import Time from '../../../components/time';
 
 const CardBody = styled(InnerStepCard)`
   padding-bottom: 5rem;
@@ -119,7 +119,7 @@ const ReadingWeights = observer(({ task }) => {
   );
 });
 
-const format = (date) => TimeHelper.momentInLocal(date).format(TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT);
+const format = (date) => <Time date={date} format="concise" />;
 
 const LateWorkPolicy = observer(({ task }) => {
   if (!task.hasLateWorkPolicy) { return null; }

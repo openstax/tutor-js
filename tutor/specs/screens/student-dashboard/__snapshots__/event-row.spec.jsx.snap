@@ -210,8 +210,13 @@ exports[`Event Row renders and matches snapshot 1`] = `
         <div
           className="sc-AxiKw c3"
         >
-          <time>
-            Wed, Oct 30, 7:00am CDT
+          <time
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            Wed, Oct 30, 7:00am
           </time>
         </div>
         <div
