@@ -1,3 +1,6 @@
+[![Build Status](https://github.com/openstax/tutor-js/workflows/Build/badge.svg)](https://github.com/openstax/tutor-server)
+[![Test Status](https://github.com/openstax/tutor-js/workflows/TutorJS/badge.svg)](https://github.com/openstax/tutor-server)
+
 # TutorJS
 
 The Front-end code for Openstax Tutor related projects

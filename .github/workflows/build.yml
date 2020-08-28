@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  tutor:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - name: Build assets
+        run: yarn run build tutor
+      - run: rm tutor/dist/archive.tar.gz
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.TUTOR_AWS_REGION }}
+          AWS_S3_BUCKET: ${{ secrets.TUTOR_AWS_S3_BUCKET }}
+          SOURCE_DIR: tutor/dist
