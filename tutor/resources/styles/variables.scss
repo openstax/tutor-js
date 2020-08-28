@@ -81,6 +81,9 @@ $extras-color: $tutor-primary;
 $mobile-collapse-breakpoint: 600px;
 $tablet-collapse-breakpoint: 1199px;
 
+//responsive margins
+$mobile-margin: 8px;
+
 // if these are updated, also change MENU_VISIBLE_BREAKPOINT
 // in src/components/reference-book/reference-book.cjsx
 $book-page-width: 1000px;
