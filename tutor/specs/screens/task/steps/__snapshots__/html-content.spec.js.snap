@@ -67,12 +67,30 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   .c3 {
     padding: 10px 25px 20px;
   }
+
+  .exercise-step .c3 {
+    padding: 8px;
+  }
+
+  .c3.c3 .question-feedback {
+    margin-left: 0;
+  }
+
+  .c3.c3 .question-feedback .arrow {
+    margin-left: 12px;
+  }
 }
 
 @media (min-width:1000px) {
   .video-step .c3 .openstax-exercise-badges,
   .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 .openstax-exercise-badges svg {
+    margin-right: 8px;
   }
 }
 

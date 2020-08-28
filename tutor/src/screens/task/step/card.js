@@ -98,6 +98,13 @@ const StepCardQuestion = styled.div`
 
   ${({ theme }) => theme.breakpoint.only.mobile`
     padding: 10px 25px 20px;
+    .exercise-step & {
+      padding: ${breakpoint.margins.mobile};
+    }
+    && .question-feedback {
+      margin-left: 0;
+      .arrow { margin-left: 12px; }
+    }
   `}
 
   .reading-step & {
@@ -109,6 +116,12 @@ const StepCardQuestion = styled.div`
       .openstax-exercise-badges {
         margin-right: 3.8rem;
       }
+    }
+  `}
+
+  ${breakpoint.mobile`
+    .openstax-exercise-badges svg {
+      margin-right: ${breakpoint.margins.mobile};
     }
   `}
 

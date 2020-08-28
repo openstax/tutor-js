@@ -1,3 +1,4 @@
+
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
 import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
@@ -13,15 +14,12 @@ const StyledHeadingTitle = styled.div`
   line-height: none;
   padding-left: 10px;
   width: 100%;
-
   .title-info {
     padding: 6px;
     display: flex;
-
     div + div {
       margin-left: 10px;
     }
-
     div:first-child {
       font-weight: bold;
       letter-spacing: 0.05rem;
@@ -29,17 +27,14 @@ const StyledHeadingTitle = styled.div`
       white-space: nowrap;
       overflow: hidden;
     };
-
     .title-divider {
       padding: 0 0.8rem;
       color: ${colors.neutral.pale};
     }
   }
-
   .overview-task-icon {
       display: none;
     }
-
   /*
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
@@ -55,7 +50,6 @@ const StyledHeadingTitle = styled.div`
     .overview-task-icon {
       display: inherit;
       margin-right: 5px;
-
       .isShowingTable {
         background-color: ${colors.neutral.lighter};
         border-radius: 50%;
