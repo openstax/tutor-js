@@ -74,14 +74,14 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   padding-bottom: 0;
 }
 
-@media (min-width:1200px) {
+@media (min-width:1000px) {
   .c0.c0.c0 .tutor-navbar {
     padding-left: 24px;
     padding-right: 24px;
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c0.c0.c0 .tutor-navbar {
     padding-left: 24px;
     padding-right: 24px;

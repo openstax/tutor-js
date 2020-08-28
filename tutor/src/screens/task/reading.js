@@ -10,7 +10,7 @@ import { breakpoint } from 'theme';
 const StyledReading = styled.div`
   && :not(.paging-footer) .paging-control {
     display: none;
-    ${breakpoint.desktop`
+    ${breakpoint.reading_pagination`
       display: block;
     `}
   }

@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fznKkj fWJWms\\">
+                            <div className=\\"sc-fznKkj fZlCeP\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">

@@ -255,7 +255,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c12.c12.c12 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -1138,7 +1138,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c12.c12.c12 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
