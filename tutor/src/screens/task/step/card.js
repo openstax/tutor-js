@@ -98,6 +98,13 @@ const StepCardQuestion = styled.div`
 
   ${({ theme }) => theme.breakpoint.only.mobile`
     padding: 10px 25px 20px;
+    .exercise-step & {
+      padding: 0;
+    }
+    && .question-feedback {
+      margin-left: 0;
+      .arrow { margin-left: 12px; }
+    }
   `}
 
   .reading-step & {
