@@ -39,11 +39,6 @@ exports[`Change Student ID renders and matches snapshot for various states 1`] =
           />
         </div>
       </label>
-      <div
-        className="required"
-      >
-        * required for course credit
-      </div>
     </div>
     <div
       className="modal-footer"

@@ -8,7 +8,6 @@ import Notifications from '../../model/notifications';
 const TYPES = {
   system: require('./system').default,
   accounts: require('./email').default,
-  [Notifications.POLLING_TYPES.MISSING_STUDENT_ID]: require('./missing-student-id').default,
   [Notifications.POLLING_TYPES.COURSE_HAS_ENDED]:   require('./course-has-ended').default,
 };
 
