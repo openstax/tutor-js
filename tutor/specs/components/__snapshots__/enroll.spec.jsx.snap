@@ -406,7 +406,7 @@ exports[`Student Enrollment submits with student id when form is clicked 1`] = `
         <div
           className="sub-title"
         >
-          Enter your school-issued student ID number *
+          Enter your school-issued student ID number
         </div>
         <div
           className="inputs"

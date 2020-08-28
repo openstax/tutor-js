@@ -69,7 +69,7 @@ class ChangeStudentId extends React.Component {
   }
 
   renderWarning() {
-    return <div className="invalid-warning">An ID is required for credit. You have not yet entered an ID</div>;
+    return <div className="invalid-warning">You have not yet entered an ID</div>;
   }
 
   render() {
@@ -84,7 +84,7 @@ class ChangeStudentId extends React.Component {
             <h3>Update your student ID</h3>
           </div>
           <Form.Label className="id-number-body">
-            <div className="sub-title">Enter your school-issued student ID number *</div>
+            <div className="sub-title">Enter your school-issued student ID number</div>
             <div className="inputs">
 
               <span className="student-id-icon"></span>

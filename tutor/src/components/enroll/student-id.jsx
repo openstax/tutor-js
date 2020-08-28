@@ -11,7 +11,7 @@ export default function StudentIDForm({ enrollment }) {
           <h4>{enrollment.courseName}</h4>
         </div>
 
-        <div className="sub-title">Enter your school-issued student ID number *</div>
+        <div className="sub-title">Enter your school-issued student ID number</div>
         <div className="inputs">
           <span className="student-id-icon"></span>
           <input
