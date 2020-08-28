@@ -3,7 +3,6 @@ import React from 'react';
 import classnames from 'classnames';
 import String from '../../helpers/string';
 import { ExercisePreview } from 'shared';
-import { toJS } from 'mobx';
 import UX from './ux';
 import Exercise from '../../models/exercises/exercise';
 
@@ -48,6 +47,7 @@ export default class ExerciseCard extends React.Component {
         questionFooters={freeResponse}
         displayAllTags={true}
         displayFeedback={true}
+        extractedInfo={exercise}
       >
         <a
           target="_blank"

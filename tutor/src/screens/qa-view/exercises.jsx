@@ -35,5 +35,4 @@ class Exercises extends React.Component {
       </div>
     );
   }
-
-};
+}
