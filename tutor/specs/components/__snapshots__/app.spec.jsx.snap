@@ -119,6 +119,11 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
     padding-left: 8px;
     padding-right: 8px;
   }
+
+  .my-courses .c0.c0.c0 .tutor-navbar {
+    padding-left: calc(8px * 2);
+    padding-right: calc(8px * 2);
+  }
 }
 
 <div

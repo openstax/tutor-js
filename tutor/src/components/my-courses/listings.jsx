@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { computed, observable } from 'mobx';
+import {
+  React, PropTypes, computed, observer, observable, styled,
+} from 'vendor';
 import { isEmpty, merge, map, take, last } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -12,6 +11,18 @@ import CourseModel from '../../models/course';
 import CreateACourse from './create-a-course';
 import { CoursePreview, Course, CourseTeacher } from './course';
 import TourAnchor from '../tours/anchor';
+import { breakpoint } from 'theme';
+
+const StyledContainer = styled(Container)`
+  ${breakpoint.tablet`
+    max-width: 100%;
+    padding: 0 ${breakpoint.margins.tablet};
+  `}
+  ${breakpoint.mobile`
+    max-width: 100%;
+    padding: 0 calc(${breakpoint.margins.mobile} * 2);
+  `}
+`;
 
 function wrapCourseItem(Item, course = {}) {
   return (
@@ -111,14 +122,14 @@ class MyCoursesCurrent extends React.Component {
     const courses = Courses.tutor.nonPreview.currentAndFuture.array;
     return (
       <div data-test-id="current-courses" className={baseName}>
-        <Container>
+        <StyledContainer>
           <MyCoursesTitle title="Current Courses" main={true} />
           {isEmpty(courses) ? <MyCoursesNone /> : undefined}
           <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
             after={User.canCreateCourses ? <MyCoursesCreate /> : undefined} />
-        </Container>
+        </StyledContainer>
       </div>
     );
   }
@@ -141,7 +152,7 @@ class MyCoursesBasic extends React.Component {
     return (
       (
         <div className={baseName}>
-          <Container>
+          <StyledContainer>
             <MyCoursesTitle title={title} />
             <MyCoursesBase
               className={`${baseName}-section`}
@@ -149,7 +160,7 @@ class MyCoursesBasic extends React.Component {
               before={before}
               after={after}
             />
-          </Container>
+          </StyledContainer>
         </div>
       )
     );

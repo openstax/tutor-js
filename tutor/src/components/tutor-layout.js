@@ -54,6 +54,10 @@ const StyledLayout = styled.div`
       padding-left: ${breakpoint.margins.mobile};
       padding-right: ${breakpoint.margins.mobile};
     }
+    .my-courses &&& .tutor-navbar {
+      padding-left: calc(${breakpoint.margins.mobile} * 2);
+      padding-right: calc(${breakpoint.margins.mobile} * 2);
+    }
   `}
 
   ${props => !props.hasNavbar && breakpoint.only.mobile`
