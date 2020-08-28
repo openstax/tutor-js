@@ -210,8 +210,13 @@ exports[`Homework Row renders in progress 1`] = `
         <div
           className="sc-fznyAO c3"
         >
-          <time>
-            Sun, Oct 15, 7:00am CDT
+          <time
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            Sun, Oct 15, 7:00am
           </time>
         </div>
         <div
@@ -491,8 +496,13 @@ exports[`Homework Row renders with completed count 1`] = `
         <div
           className="sc-fznyAO c3"
         >
-          <time>
-            Sat, Oct 14, 7:00am CDT
+          <time
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            Sat, Oct 14, 7:00am
           </time>
         </div>
         <div
