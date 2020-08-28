@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { Icon } from 'shared';
 import { Note, PageNotes } from '../../models/notes';
 import getRangeRect from './getRangeRect';
+import WindowSize from '../../models/window-size';
 
 @observer
 class NoteButton extends React.Component {
@@ -41,7 +42,6 @@ class NoteButton extends React.Component {
     if (highlightTop == null) { return null; }
 
     const top = highlightTop - containerTop - 5;
-
     return (
       <Icon
         type="comment-solid"
@@ -69,6 +69,7 @@ class SidebarButtons extends React.Component {
     windowImpl: PropTypes.object,
   }
 
+  windowSize = new WindowSize({ windowImpl: this.props.windowImpl });
 
   @observable containerTop = null;
 
@@ -92,9 +93,8 @@ class SidebarButtons extends React.Component {
 
   render() {
     if (!this.props.highlighter) { return null; }
-
     return (
-      <div className="note-edit-buttons" ref={this.setContainerRef}>
+      <div className="note-edit-buttons" ref={this.setContainerRef} key={this.windowSize.width}>
         {this.containerTop && this.renderNotes()}
       </div>
     );

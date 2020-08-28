@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
 import Note from '../../models/notes/note';
+import Responsive from '../responsive';
 
 @observer
 class EditBox extends React.Component {
@@ -79,6 +80,8 @@ class EditBox extends React.Component {
       previous, next, seeAll,
     } } = this;
 
+    const { textAreaDisabled } = this.props;
+
     return (
       <div className="edit-box">
         <textarea
@@ -86,6 +89,7 @@ class EditBox extends React.Component {
           ref={i => this.input = i}
           value={annotation}
           onChange={this.onUpdate}
+          disabled={textAreaDisabled || false}
         />
         {this.renderWarning()}
         <div className="button-row">
@@ -118,13 +122,26 @@ class EditBox extends React.Component {
     );
   }
 }
+EditBox.propTypes = {
+  textAreaDisabled: PropTypes.boolean,
+};
+
+const renderDesktop = (props) => {
+  return <EditBox {...props} textAreaDisabled={false} />;
+};
+
+const renderTablet = (props) => {
+  return <EditBox {...props} textAreaDisabled={true} />;
+};
 
 
 export default function EditBoxWrapper(props) {
   const show = !!props.note;
   return (
     <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
-      {props.note && <EditBox {...props} />}
+      {props.note && 
+        <Responsive desktop={renderDesktop(props)} tablet={renderTablet(props)} mobile={renderTablet(props)}/>
+      }
     </div>
   );
 }
