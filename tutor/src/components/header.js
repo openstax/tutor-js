@@ -44,7 +44,7 @@ const StyledTitle = styled.h1`
 class Header extends React.Component {
   static propTypes = {
     unDocked: PropTypes.bool.isRequired,
-    backTo: PropTypes.object.isRequired,
+    backTo: PropTypes.string.isRequired,
     backToText: PropTypes.string,
     title: PropTypes.string,
     headerContent: PropTypes.node,
@@ -58,18 +58,16 @@ class Header extends React.Component {
         tabIndex="-1"
         unDocked={unDocked}
       >
-        {Boolean(backTo) &&
-          <StyledBackLink>
-            <TutorLink to={backTo}>
-              <Icon
-                size="lg"
-                type="angle-left"
-                className="-move-exercise-up circle"
-              />
-              {backToText || 'Back'}
-            </TutorLink>
-          </StyledBackLink>
-        }
+        <StyledBackLink>
+          <TutorLink to={backTo}>
+            <Icon
+              size="lg"
+              type="angle-left"
+              className="-move-exercise-up circle"
+            />
+            {backToText || 'Back'}
+          </TutorLink>
+        </StyledBackLink>
         {Boolean(title) && 
           <StyledTitle>{title}</StyledTitle>
         }
