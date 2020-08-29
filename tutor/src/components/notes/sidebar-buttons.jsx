@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { Icon } from 'shared';
 import { Note, PageNotes } from '../../models/notes';
 import getRangeRect from './getRangeRect';
+import WindowSize from '../../models/window-size';
 
 @observer
 class NoteButton extends React.Component {
@@ -41,7 +42,6 @@ class NoteButton extends React.Component {
     if (highlightTop == null) { return null; }
 
     const top = highlightTop - containerTop - 5;
-
     return (
       <Icon
         type="comment-solid"
@@ -69,17 +69,9 @@ class SidebarButtons extends React.Component {
     windowImpl: PropTypes.object,
   }
 
+  windowSize = new WindowSize({ windowImpl: this.props.windowImpl });
+
   @observable containerTop = null;
-  // Add a resize dummy listener to listen again and get the new container rect specs
-  @observable fakeRender = false;
-
-  componentDidMount() {
-    window.addEventListener('resize', () => this.fakeRender = !this.fakeRender);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', () => this.fakeRender = !this.fakeRender);
-  }
 
   @action.bound setContainerRef(el) {
     this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null;
@@ -101,9 +93,8 @@ class SidebarButtons extends React.Component {
 
   render() {
     if (!this.props.highlighter) { return null; }
-
     return (
-      <div className="note-edit-buttons" ref={this.setContainerRef} key={this.fakeRender}>
+      <div className="note-edit-buttons" ref={this.setContainerRef} key={this.windowSize.width}>
         {this.containerTop && this.renderNotes()}
       </div>
     );
