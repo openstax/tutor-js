@@ -17,6 +17,7 @@ const ROUTES = {
   },
   dashboard: {
     label: 'Dashboard',
+    icon: 'home',
     isAllowed(course) { return !!course; },
   },
   browseBook: {
@@ -74,12 +75,8 @@ const ROUTES = {
     roles: {
       student: 'changeStudentId',
     },
-  },
-  createNewCourse: {
-    label: 'Create a Course',
-    isAllowed() { return User.canCreateCourses; },
-    options({ course }) {
-      return course ? { separator: 'before' } : { separator: 'both' };
+    options: {
+      separator: 'after',
     },
   },
   cloneCourse: {
@@ -90,11 +87,19 @@ const ROUTES = {
     roles: {
       teacher: 'createNewCourse',
     },
-    options: {
-      key: 'cloneCourse', separator: 'after',
-    },
     isAllowed(course) {
-      return !!(course && !course.is_preview && User.canCreateCourses); },
+      return !!(course && !course.is_preview && User.canCreateCourses);
+    },
+    options: {
+      key: 'cloneCourse',
+    },
+  },
+  createNewCourse: {
+    label: 'Create a Course',
+    isAllowed() { return User.canCreateCourses; },
+    options({ course }) {
+      return course ? { separator: 'before' } : { separator: 'both' };
+    },
   },
   customer_service: {
     label: 'Customer Service',
@@ -196,6 +201,7 @@ const UserMenu = observable({
       addRouteProperty(route, 'options', routeRules, options, {});
       addRouteProperty(route, 'params', routeRules, options, course ? { courseId } : null);
       addRouteProperty(route, 'label', routeRules, options);
+      addRouteProperty(route, 'icon', routeRules, options);
       routes.push(route);
     });
     return routes;

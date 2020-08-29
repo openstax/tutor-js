@@ -37,7 +37,7 @@
   .dropdown-menu {
     border-width: 0;
     border-top: 4px solid $green;
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2);
     margin-top: -4px;
     min-width: calc(100% + 15px);
     margin-left: -15px;
@@ -67,6 +67,7 @@
 
     input[type=submit] {
       @include tutor-sans-font(1.4rem, 1.4rem);
+      color: $tutor-neutral-darker;
       border: 0;
       background-color: transparent;
       width: 100%;
@@ -103,6 +104,7 @@
       align-items: center;
       border-radius: $diameter/2;
       font-size: $diameter * 0.4;
+      font-weight: 500;
       color: white;
       background-color: #2e7194;
       letter-spacing: -2px;

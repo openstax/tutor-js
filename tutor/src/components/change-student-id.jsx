@@ -98,7 +98,6 @@ class ChangeStudentId extends React.Component {
             </div>
           </Form.Label>
           {this.isValid ? null : this.renderWarning()}
-          <div className="required">* required for course credit</div>
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton

@@ -47,7 +47,7 @@ class TermsModal extends React.Component {
         className={className}
       >
         <Modal.Header>
-          <Branding isBeta={true} /> {this.title}
+          <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
         </Modal.Header>
         <Modal.Body>
           {map(User.terms.unsigned, (t) =>

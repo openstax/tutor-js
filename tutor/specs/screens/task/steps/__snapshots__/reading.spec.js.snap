@@ -41,19 +41,19 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   float: right;
 }
 
-@media (min-width:1200px) {
+@media (min-width:1000px) {
   .c1 {
     max-width: 1000px;
   }
 }
 
-@media (max-width:1199px) {
+@media (max-width:999px) {
   .c0 {
     padding: 0;
   }
 }
 
-@media (min-width:601px) and (max-width:1199px) {
+@media (min-width:601px) and (max-width:999px) {
   .c2 {
     padding: 25px 30px 140px;
   }
@@ -62,6 +62,13 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
 @media (max-width:600px) {
   .c2 {
     padding: 10px 25px 20px;
+  }
+}
+
+@media (min-width:1000px) {
+  .video-step .c2 .openstax-exercise-badges,
+  .interactive-step .c2 .openstax-exercise-badges {
+    margin-right: 3.8rem;
   }
 }
 

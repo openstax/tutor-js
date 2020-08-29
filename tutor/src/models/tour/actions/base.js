@@ -17,7 +17,7 @@ export class BaseAction extends BaseModel {
   }
 
   @computed get el() {
-    return this.document.querySelector(this.selector);
+    return this.step.element;
   }
 
   $(selector) {

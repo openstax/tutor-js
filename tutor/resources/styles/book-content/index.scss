@@ -17,7 +17,7 @@
 
 @mixin tutor-book-content-body() {
   padding: 0 $tutor-book-padding-horizontal $tutor-book-padding-vertical $tutor-book-padding-horizontal;
-  @media screen and ( max-width: $book-content-collapse-breakpoint ){
+  @media screen and ( max-width: $tablet-collapse-breakpoint ){
     padding: 0 $book-content-narrow-horizontal-padding;
   }
   counter-reset: question;

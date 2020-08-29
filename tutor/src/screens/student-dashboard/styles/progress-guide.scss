@@ -42,7 +42,6 @@
     }
 
     .guide-key {
-      margin: 10px 0;
       @include performance-forecast-key();
       flex-wrap: wrap;
       min-width: initial;
@@ -53,6 +52,7 @@
     .view-performance-forecast {
       margin-left: 0;
       margin-bottom: 0.5rem;
+      margin-top: 1rem;
       width: 100%;
       text-overflow: ellipsis;
       overflow: hidden;

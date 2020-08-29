@@ -39,7 +39,7 @@
 @mixin book-content-full-width() {
   margin-left: -$tutor-card-body-padding-horizontal;
   min-width: calc(100% + #{$tutor-card-body-padding-horizontal * 2} );
-  @media screen and ( max-width: $book-content-collapse-breakpoint ){
+  @media screen and ( max-width: $tablet-collapse-breakpoint ){
     margin: 0;
     min-width: auto;
   }
@@ -49,7 +49,7 @@
   .paged-content {
     width: 100%;
 
-    @media screen and ( min-width: $book-content-collapse-breakpoint ){
+    @media screen and ( min-width: $tablet-collapse-breakpoint ){
       width: $book-page-width;
     }
   }
@@ -67,7 +67,7 @@
     margin: 20px auto;
     border: none;
     @include book-content-full-width();
-    @media screen and ( max-width: $book-content-collapse-breakpoint ){
+    @media screen and ( max-width: $tablet-collapse-breakpoint ){
       margin-left: 0;
       margin-right: 0;
       min-width: auto;

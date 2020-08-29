@@ -7,10 +7,12 @@ import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
 import Course from '../../models/course';
+import { breakpoint } from 'theme';
+import Responsive from '../../components/responsive';
 
 const RoutedDropdownItem = (props) => {
   // eslint-disable-next-line react/prop-types
-  let { label } = props;
+  let { label, icon } = props;
   const {
     // eslint-disable-next-line react/prop-types
     name, tourId, className, route, locked, href, options = {},
@@ -38,14 +40,19 @@ const RoutedDropdownItem = (props) => {
     );
   }
 
+  if (icon) {
+    icon = <span className="icon"><Icon type={icon} /></span>;
+  }
+
   return (
     <Dropdown.Item
       onClick={onClick}
       data-item={options.key || name}
       disabled={locked}
-      className={cn(className, { locked, active })}
+      className={cn(className, { locked, active, icon })}
     >
       <TourAnchor id={tourId}>
+        {icon}
         {label}
       </TourAnchor>
     </Dropdown.Item>
@@ -60,10 +67,11 @@ RoutedDropdownItem.propTypes = {
 
 
 // eslint-disable-next-line
-function BrowseBookDropdownItem({ course, className, active, label, ...props }) {
+function BrowseBookDropdownItem({ course, className, active, label, name, ...props }) {
   return (
     <Dropdown.Item
-      {...props}
+      className={className}
+      data-item={name}
       href={`/book/${course.id}`}
       target="_blank"
     >
@@ -132,12 +140,7 @@ class ActionsMenu extends React.Component {
     return item;
   }
 
-  render() {
-    const menuRoutes = UserMenu.getRoutes(this.props.course);
-    if (isEmpty(menuRoutes)) {
-      return null;
-    }
-
+  renderDesktop(menuRoutes) {
     return (
       <Dropdown className="actions-menu">
         <Dropdown.Toggle
@@ -147,12 +150,33 @@ class ActionsMenu extends React.Component {
         >
           <Icon type="bars" />
           <span className="control-label" title="Menu and settings">Menu</span>
-          <Icon type="chevron-down" className="toggle" />
         </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {flatMap(menuRoutes, this.renderDropdownItem)}
+        <Dropdown.Menu alignRight={true}>
+          {this.renderItems(menuRoutes)}
         </Dropdown.Menu>
       </Dropdown>
+    );
+  }
+
+  renderItems(menuRoutes) {
+    return (
+      <>
+        {flatMap(menuRoutes, this.renderDropdownItem)}
+      </>
+    );
+  }
+
+  render() {
+    const menuRoutes = UserMenu.getRoutes(this.props.course);
+    if (isEmpty(menuRoutes)) {
+      return null;
+    }
+
+    return (
+      <Responsive
+        desktop={this.renderDesktop(menuRoutes)}
+        mobile={this.renderItems(menuRoutes)}
+      />
     );
   }
 

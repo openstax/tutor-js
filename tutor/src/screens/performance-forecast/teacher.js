@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import BackButton from '../../components/buttons/back-button';
-import Router from '../../helpers/router';
 import { first, get } from 'lodash';
 import CoursePeriodsNavShell from '../../components/course-periods-nav';
 import CourseGroupingLabel from '../../components/course-grouping-label';
@@ -11,7 +9,6 @@ import TourRegion from '../../components/tours/region';
 
 import Guide from './guide';
 import ColorKey from './color-key';
-import InfoLink from './info-link';
 
 export default class extends React.Component {
   static displayName = 'PerformanceForecastTeacherDisplay';
@@ -48,17 +45,14 @@ export default class extends React.Component {
     return (
       <div>
         <div className="guide-heading">
-          <div className="guide-group-title">
-            {'\
-    Performance Forecast '}
-            <InfoLink type="teacher" />
-          </div>
           <div className="info">
+            <p>
+              The performance forecast is an estimate of each group’s understanding of a topic. It is personalized display based on their answers to reading questions,
+              homework problems, and previous practices.
+            </p>
             <div className="guide-group-key teacher">
               <ColorKey />
             </div>
-            <BackButton
-              fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }} />
           </div>
         </div>
         <CoursePeriodsNavShell

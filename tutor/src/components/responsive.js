@@ -4,7 +4,7 @@ import WindowSize from '../models/window-size';
 
 const DEFAULT_BREAKPOINTS = {
   tablet: 600,
-  desktop: 1199,
+  desktop: 999,
 };
 
 

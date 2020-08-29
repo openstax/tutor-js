@@ -30,7 +30,7 @@ const MobileFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid ${colors.neutral.pale};
-  ${breakpoint.desktop`
+  ${breakpoint.reading_pagination`
     display: none;
   `}
 
@@ -183,14 +183,14 @@ class PagingNavigation extends React.Component {
     const cb = this.props.isBackwardEnabled ? this.props.onBackwardNavigation : null;
     return {
       href: this.props.backwardHref,
-      target: "_blank",
+      target: '_blank',
       tabIndex: this.props.isBackwardEnabled ? 0 : -1,
       disabled: cb == null,
       title: S.stripHTMLTags(this.props.titles.previous),
-      'aria-controls': "paged-content",
+      'aria-controls': 'paged-content',
       onClick: partial(this.clickHandler, cb, this.props.backwardHref),
       className: classnames('paging-control', 'prev', { active: this.activeNav === 'prev' }),
-    }
+    };
   }
 
   @computed get forwardLinkProps() {
@@ -200,10 +200,10 @@ class PagingNavigation extends React.Component {
       tabIndex: this.props.isForwardEnabled ? 0 : -1,
       disabled: cf == null,
       title: S.stripHTMLTags(this.props.titles.next),
-      'aria-controls': "paged-content",
+      'aria-controls': 'paged-content',
       onClick: partial(this.clickHandler, cf, this.props.forwardHref),
       className: classnames('paging-control', 'next', { active: this.activeNav === 'next' }),
-    }
+    };
   }
 
   renderPrev() {

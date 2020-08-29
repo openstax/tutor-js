@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fznKkj dwPkzX\\">
+                            <div className=\\"sc-fznKkj fZlCeP\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">
@@ -58,121 +58,120 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                       <Component>
                                         <Menus>
                                           <Memo(wrappedComponent) courseContext={{...}}>
-                                            <StudentPayNowBtn course={[undefined]} />
-                                            <withRouter(inject(SupportMenu)) course={[undefined]}>
-                                              <inject(SupportMenu) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
-                                                <Observer>
-                                                  <SupportMenu course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}}>
-                                                    <Dropdown show={true} onToggle={[Function: res]} navbar={false}>
-                                                      <ReactOverlaysDropdown drop={[undefined]} show={true} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
-                                                        <div onKeyDown={[Function: handleKeyDown]} className=\\"show dropdown\\">
-                                                          <DropdownToggle id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
-                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
-                                                                <inject(TourAnchor) id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
-                                                                  <Observer>
-                                                                    <TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]} tourContext={{...}} tag=\\"div\\" className=\\"\\">
-                                                                      <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
-                                                                        <Icon type=\\"question-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle\\" icon={{...}}>
-                                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
-                                                                                <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
-                                                                              </svg>
-                                                                            </FontAwesomeIcon>
-                                                                          </IconWrapper>
-                                                                        </Icon>
-                                                                        <span title=\\"Page tips and support\\" className=\\"control-label\\">
-                                                                          Help
-                                                                        </span>
-                                                                        <Icon type=\\"chevron-down\\" className=\\"toggle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down toggle\\" icon={{...}}>
-                                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-chevron-down toggle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-down\\" className=\\"svg-inline--fa fa-chevron-down fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-chevron-down toggle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                                <path fill=\\"currentColor\\" d=\\"M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z\\" style={{...}} />
-                                                                              </svg>
-                                                                            </FontAwesomeIcon>
-                                                                          </IconWrapper>
-                                                                        </Icon>
-                                                                      </div>
-                                                                    </TourAnchor>
-                                                                  </Observer>
-                                                                </inject(TourAnchor)>
-                                                              </button>
-                                                            </Button>
-                                                          </DropdownToggle>
-                                                          <DropdownMenu className=\\" hide\\" alignRight={false} flip={true}>
-                                                            <div x-placement=\\"bottom-start\\" aria-labelledby=\\"support-menu\\" style={{...}} className=\\" hide dropdown-menu show\\">
-                                                              <Memo(wrappedComponent) onPlayClick={[Function: res]} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
-                                                              <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
-                                                                <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
-                                                                  <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
-                                                                    <span>
-                                                                      Help Articles
-                                                                    </span>
-                                                                  </a>
-                                                                </SafeAnchor>
-                                                              </DropdownItem>
-                                                              <SupportDocumentLink course={[undefined]}>
-                                                                <DropdownItem className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" as={{...}} disabled={false}>
-                                                                  <SafeAnchor target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" disabled={false} className=\\"support-document-link dropdown-item\\" onClick={[Function]}>
-                                                                    <a target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" className=\\"support-document-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
-                                                                      <inject(TourAnchor) id=\\"menu-support-document\\">
+                                            <Responsive desktop={{...}} mobile={{...}}>
+                                              <Memo(wrappedComponent) course={[undefined]}>
+                                                <StudentPayNowBtn course={[undefined]} />
+                                                <ActionsMenu course={[undefined]} />
+                                                <withRouter(inject(SupportMenu)) course={[undefined]}>
+                                                  <inject(SupportMenu) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
+                                                    <Observer>
+                                                      <SupportMenu course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}}>
+                                                        <Responsive desktop={{...}} mobile={{...}}>
+                                                          <Dropdown show={true} onToggle={[Function: res]} navbar={false}>
+                                                            <ReactOverlaysDropdown drop={[undefined]} show={true} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                              <div onKeyDown={[Function: handleKeyDown]} className=\\"show dropdown\\">
+                                                                <DropdownToggle id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
+                                                                  <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
+                                                                    <button onClick={[Function]} aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
+                                                                      <inject(TourAnchor) id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
                                                                         <Observer>
-                                                                          <TourAnchor id=\\"menu-support-document\\" tourContext={{...}} tag=\\"div\\" className=\\"\\">
-                                                                            <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"menu-support-document\\">
-                                                                              Getting Started Guide
+                                                                          <TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]} tourContext={{...}} tag=\\"div\\" className=\\"\\">
+                                                                            <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
+                                                                              <Icon type=\\"question-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                                                <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle\\" icon={{...}}>
+                                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                                      <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
+                                                                                    </svg>
+                                                                                  </FontAwesomeIcon>
+                                                                                </IconWrapper>
+                                                                              </Icon>
+                                                                              <span title=\\"Page tips and support\\" className=\\"control-label\\">
+                                                                                Help
+                                                                              </span>
                                                                             </div>
                                                                           </TourAnchor>
                                                                         </Observer>
                                                                       </inject(TourAnchor)>
-                                                                    </a>
-                                                                  </SafeAnchor>
-                                                                </DropdownItem>
-                                                              </SupportDocumentLink>
-                                                              <BestPracticesGuide course={[undefined]} />
-                                                              <DropdownItem className=\\"-help-link\\" onSelect={[Function: res]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} as={{...}} disabled={false}>
-                                                                <SafeAnchor href=\\"/accessibility-statement/\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
-                                                                  <a href=\\"/accessibility-statement/\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
-                                                                    <span>
-                                                                      Accessibility Statement
-                                                                    </span>
-                                                                  </a>
-                                                                </SafeAnchor>
-                                                              </DropdownItem>
-                                                            </div>
-                                                          </DropdownMenu>
+                                                                    </button>
+                                                                  </Button>
+                                                                </DropdownToggle>
+                                                                <DropdownMenu className=\\" hide\\" alignRight={false} flip={true}>
+                                                                  <div x-placement=\\"bottom-start\\" aria-labelledby=\\"support-menu\\" style={{...}} className=\\" hide dropdown-menu show\\">
+                                                                    <Memo(wrappedComponent) onPlayClick={[Function: res]} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
+                                                                    <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
+                                                                      <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
+                                                                        <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
+                                                                          <span>
+                                                                            Help Articles
+                                                                          </span>
+                                                                        </a>
+                                                                      </SafeAnchor>
+                                                                    </DropdownItem>
+                                                                    <SupportDocumentLink course={[undefined]}>
+                                                                      <DropdownItem className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" as={{...}} disabled={false}>
+                                                                        <SafeAnchor target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" disabled={false} className=\\"support-document-link dropdown-item\\" onClick={[Function]}>
+                                                                          <a target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" className=\\"support-document-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
+                                                                            <inject(TourAnchor) id=\\"menu-support-document\\">
+                                                                              <Observer>
+                                                                                <TourAnchor id=\\"menu-support-document\\" tourContext={{...}} tag=\\"div\\" className=\\"\\">
+                                                                                  <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"menu-support-document\\">
+                                                                                    Getting Started Guide
+                                                                                  </div>
+                                                                                </TourAnchor>
+                                                                              </Observer>
+                                                                            </inject(TourAnchor)>
+                                                                          </a>
+                                                                        </SafeAnchor>
+                                                                      </DropdownItem>
+                                                                    </SupportDocumentLink>
+                                                                    <BestPracticesGuide course={[undefined]} />
+                                                                    <DropdownItem className=\\"-help-link\\" onSelect={[Function: res]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} as={{...}} disabled={false}>
+                                                                      <SafeAnchor href=\\"/accessibility-statement/\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
+                                                                        <a href=\\"/accessibility-statement/\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
+                                                                          <span>
+                                                                            Accessibility Statement
+                                                                          </span>
+                                                                        </a>
+                                                                      </SafeAnchor>
+                                                                    </DropdownItem>
+                                                                  </div>
+                                                                </DropdownMenu>
+                                                              </div>
+                                                            </ReactOverlaysDropdown>
+                                                          </Dropdown>
+                                                        </Responsive>
+                                                      </SupportMenu>
+                                                    </Observer>
+                                                  </inject(SupportMenu)>
+                                                </withRouter(inject(SupportMenu))>
+                                                <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
+                                                  <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
+                                                    <Observer>
+                                                      <PreviewAddCourseBtn course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
+                                                    </Observer>
+                                                  </inject(PreviewAddCourseBtn)>
+                                                </withRouter(inject(PreviewAddCourseBtn))>
+                                                <UserMenu>
+                                                  <Responsive desktop={{...}} mobile={{...}}>
+                                                    <Dropdown className=\\"user-menu\\" navbar={false}>
+                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                        <div onKeyDown={[Function: handleKeyDown]} className=\\"user-menu dropdown\\">
+                                                          <DropdownToggle id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\">
+                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
+                                                                <span className=\\"initials\\" />
+                                                              </button>
+                                                            </Button>
+                                                          </DropdownToggle>
+                                                          <DropdownMenu alignRight={true} flip={true} />
                                                         </div>
                                                       </ReactOverlaysDropdown>
                                                     </Dropdown>
-                                                  </SupportMenu>
-                                                </Observer>
-                                              </inject(SupportMenu)>
-                                            </withRouter(inject(SupportMenu))>
-                                            <ActionsMenu course={[undefined]} />
-                                            <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
-                                              <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
-                                                <Observer>
-                                                  <PreviewAddCourseBtn course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
-                                                </Observer>
-                                              </inject(PreviewAddCourseBtn)>
-                                            </withRouter(inject(PreviewAddCourseBtn))>
-                                            <UserMenu>
-                                              <Dropdown className=\\"user-menu\\" navbar={false}>
-                                                <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
-                                                  <div onKeyDown={[Function: handleKeyDown]} className=\\"user-menu dropdown\\">
-                                                    <DropdownToggle id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\">
-                                                      <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
-                                                          <span className=\\"initials\\" />
-                                                        </button>
-                                                      </Button>
-                                                    </DropdownToggle>
-                                                    <DropdownMenu alignRight={true} flip={true} />
-                                                  </div>
-                                                </ReactOverlaysDropdown>
-                                              </Dropdown>
-                                            </UserMenu>
+                                                  </Responsive>
+                                                </UserMenu>
+                                              </Memo(wrappedComponent)>
+                                            </Responsive>
                                           </Memo(wrappedComponent)>
                                         </Menus>
                                       </Component>

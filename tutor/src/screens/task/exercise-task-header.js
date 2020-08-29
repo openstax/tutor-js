@@ -1,51 +1,11 @@
-import { React, PropTypes, observer, styled, inject, autobind, css, cn } from 'vendor';
-import TutorLink from '../../components/link';
+import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
 import TaskProgress from '../../components/task-progress';
+import Header from '../../components/header';
+import Router from '../../helpers/router';
 import UX from './ux';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import TimeHelper from 'helpers/time';
-
-const ExercisesTaskHeaderWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 55px;
-  align-items: center;
-  padding: 25px 0 10px;
-  ${props => props.unDocked && css`
-    background-color: ${colors.white};
-    border-bottom: 1px solid ${colors.neutral.pale};
-    > div {
-      margin-bottom: 10px;
-    }
-  `}
-
-  ${props => !props.unDocked && css`
-    border-bottom: 1px solid ${colors.neutral.pale};
-    > div {
-      margin-bottom: 10px;
-    }
-  `}
-
-  .sticky-table {
-    margin-left: 15px;
-    margin-right: 15px;
-
-    ${({ theme }) => theme.breakpoint.only.mobile`
-      margin-left: 0;
-      margin-right: 0;
-    `};
-  }
-`;
-
-const StyledBackLink = styled.div`
-  width: 100%;
-  color: ${colors.link};
-  padding-left: 10px;
-  ${({ theme }) => theme.breakpoint.mobile`
-    padding: 0 5px;
-  `};
-`;
 
 const StyledHeadingTitle = styled.div`
   display: flex;
@@ -104,6 +64,33 @@ const StyledHeadingTitle = styled.div`
   `};
 `;
 
+const headerContent = (ux) => {
+  return (
+    <>
+      <StyledHeadingTitle>
+        <div className="title-info">
+          <div className="title-name">{ux.task.title}</div>
+          <div className="title-divider">|</div>
+          <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
+        </div>
+        <div className="overview-task-icon">
+          <Icon
+            type="th"
+            onClick={ux.toggleTaskProgressTable}
+            className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })} 
+          />
+        </div>
+      </StyledHeadingTitle>
+      <TaskProgress
+        steps={ux.steps}
+        goToStep={ux.goToStepId}
+        currentStep={ux.currentStep}
+        hideTaskProgressTable={ux.hideTaskProgressTable}
+      />
+    </>
+  );
+};
+
 @inject('setSecondaryTopControls')
 @observer
 class ExercisesTaskHeader extends React.Component {
@@ -139,43 +126,12 @@ class ExercisesTaskHeader extends React.Component {
 
     const { ux, unDocked } = this.props;
     return (
-      <ExercisesTaskHeaderWrapper
-        className="task-homework breadcrumbs-wrapper"
-        role="dialog"
-        tabIndex="-1"
+      <Header 
         unDocked={unDocked}
-      >
-        <StyledBackLink>
-          <TutorLink to="dashboard" params={{ courseId: ux.course.id }}>
-            <Icon
-              size="lg"
-              type="angle-left"
-              className="-move-exercise-up circle"
-            />
-          Dashboard
-          </TutorLink>
-        </StyledBackLink>
-        <StyledHeadingTitle>
-          <div className="title-info">
-            <div className="title-name">{ux.task.title}</div>
-            <div className="title-divider">|</div>
-            <div className="title-due-date">Due {TimeHelper.toShortHumanDateTimeTz(ux.task.dueAtMoment)}</div>
-          </div>
-          <div className="overview-task-icon">
-            <Icon
-              type="th"
-              onClick={ux.toggleTaskProgressTable}
-              className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })} 
-            />
-          </div>
-        </StyledHeadingTitle>
-        <TaskProgress
-          steps={ux.steps}
-          goToStep={ux.goToStepId}
-          currentStep={ux.currentStep}
-          hideTaskProgressTable={ux.hideTaskProgressTable}
-        />
-      </ExercisesTaskHeaderWrapper>
+        headerContent={headerContent(ux)}
+        backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+        backToText='Dashboard'
+      />
     );
   }
 }

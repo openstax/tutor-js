@@ -16,11 +16,47 @@ import { NavbarContext }    from './navbar/context';
 import { SecondaryToolbar } from './navbar/secondary-toolbar';
 import Router from '../helpers/router';
 import { get } from 'lodash';
+import { breakpoint } from 'theme';
 
 const StyledLayout = styled.div`
   min-height: 100vh;
 
-  ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
+  ${breakpoint.desktop`
+   &&& .tutor-navbar {
+      padding-left: ${breakpoint.margins.tablet};
+      padding-right: ${breakpoint.margins.tablet};
+    }
+  `}
+
+  ${breakpoint.tablet`
+    &&& .tutor-navbar {
+      padding-left: ${breakpoint.margins.tablet};
+      padding-right: ${breakpoint.margins.tablet};
+      .control-label { display: none; }
+      .dropdown-toggle .ox-icon { margin-left: 1rem; }
+      .user-menu .initials {
+        height: 22px;
+        width: 22px;
+        font-size: 0.9rem;
+        letter-spacing: -1px;
+      }
+      .right-side-controls > * {
+        margin-left: 0;
+        &:last-child {
+          margin-left: 1rem;
+        }
+      }
+    }
+  `}
+
+  ${breakpoint.mobile`
+    &&& .tutor-navbar {
+      padding-left: ${breakpoint.margins.mobile};
+      padding-right: ${breakpoint.margins.mobile};
+    }
+  `}
+
+  ${props => !props.hasNavbar && breakpoint.only.mobile`
     .tutor-navbar {
       display: none;
     }

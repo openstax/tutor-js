@@ -35,7 +35,6 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-left: 16px;
 }
 
 .c0 .chapter-section {

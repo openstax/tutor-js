@@ -3,7 +3,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import createReactClass from 'create-react-class';
 import { Dropdown, Container } from 'react-bootstrap';
-import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import { sortBy, matches } from 'lodash';
 import Name from '../../components/name';
@@ -82,8 +81,6 @@ const Display = createReactClass({
           <div className="guide-group-key">
             <ColorKey />
           </div>
-          <BackButton
-            fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }} />
         </div>
       </div>
     );

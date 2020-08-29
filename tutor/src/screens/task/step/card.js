@@ -104,6 +104,14 @@ const StepCardQuestion = styled.div`
     padding: 0;
   }
 
+  ${breakpoint.desktop`
+    .video-step &, .interactive-step & {
+      .openstax-exercise-badges {
+        margin-right: 3.8rem;
+      }
+    }
+  `}
+
   &&& {
     .openstax-has-html .frame-wrapper {
 

@@ -104,11 +104,11 @@
   }
   &::before {
     @include answer-correct-text();
-    @media screen and (max-width: $book-content-collapse-breakpoint) {
+    @media screen and (max-width: $tablet-collapse-breakpoint) {
       display: none;
     }
   }
-  @media screen and (max-width: $book-content-collapse-breakpoint) {
+  @media screen and (max-width: $tablet-collapse-breakpoint) {
     .answer-letter-wrapper {
       display: flex;
       flex-direction: column;

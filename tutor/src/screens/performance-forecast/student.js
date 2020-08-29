@@ -1,13 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes } from 'vendor';
 import { Container } from 'react-bootstrap';
-import BackButton from '../../components/buttons/back-button';
-import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
-
 import Guide from './guide';
 import ColorKey from './color-key';
-import InfoLink from './info-link';
 
 export default class extends React.Component {
   static displayName = 'PerformanceForecastStudentDisplay';
@@ -27,20 +22,17 @@ export default class extends React.Component {
   renderHeading = () => {
     return (
       <div className="guide-heading">
-        <div className="guide-group-title">
-          {'\
-    Performance Forecast '}
-          <InfoLink type="student" />
-        </div>
         <div className="info">
+          <p className="info-text">
+            The performance forecast is an estimate of your understanding of a topic. It is personalized display based on your answers to reading questions,
+            homework problems, and previous practices.
+          </p>
           <div className="guide-group-key">
             <div className="guide-practice-message">
               Click on the bar to practice the topic
             </div>
             <ColorKey />
           </div>
-          <BackButton
-            fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }} />
         </div>
       </div>
     );

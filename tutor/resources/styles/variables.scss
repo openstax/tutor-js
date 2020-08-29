@@ -77,13 +77,19 @@ $external-color: $tutor-tertiary;
 $event-color: $tutor-secondary;
 $extras-color: $tutor-primary;
 
+//breakpoint:
+$mobile-collapse-breakpoint: 600px;
+$tablet-collapse-breakpoint: 999px;
+
+//responsive margins
+$mobile-margin: 8px;
+
 // if these are updated, also change MENU_VISIBLE_BREAKPOINT
 // in src/components/reference-book/reference-book.cjsx
 $book-page-width: 1000px;
 $book-menu-width: 300px;
 $reference-book-collapse-width: 85%;
 
-$book-content-collapse-breakpoint: 1199px;
 $mobile-breakpoint: 600px;
 $book-content-narrow-horizontal-padding: 24px;
 $book-content-vertical-image-margin: 1rem;

@@ -3,6 +3,7 @@ import { ScrollToTop } from 'shared';
 import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import LoadableItem from '../../components/loadable-item';
+import Header from '../../components/header';
 import TeacherComponent from './teacher';
 import StudentComponent from './student';
 import TeacherStudentComponent from './teacher-student';
@@ -71,7 +72,15 @@ class Guide extends React.Component {
       body = <Student />;
     }
     return (
-      <ScrollToTop>{body}</ScrollToTop>
+      <ScrollToTop>
+        <Header 
+          unDocked={true}
+          title="Performance Forecast"
+          backTo={Router.makePathname('dashboard', { courseId })}
+          backToText='Dashboard'
+        />
+        {body}
+      </ScrollToTop>
     );
   }
 }

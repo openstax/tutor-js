@@ -2,45 +2,49 @@
 
   padding: 4rem;
 
-  @include media-breakpoint-down('md') {
-    .weaker .explanation {
-      p {
-        display: inline;
-        & + p { margin-left: 1rem; }
-      }
+  @media screen and (max-width: $tablet-collapse-breakpoint) {
+    padding: 2rem;
+    .row {
       margin-bottom: 1rem;
     }
+  }
+
+  @media screen and (max-width: $mobile-collapse-breakpoint) {
+    .weaker-header {
+      display: none;
+    }
+  }
+
+  .row h3 {
+    font-weight: 600;
+    font-size: 24px;
   }
 
   .chapter-panel {
     // use flex display unless the columns should collapse
     // this allows the height of the colums to match so the
     // border will extend the complete height
-    @include media-breakpoint-up('md') {
-      display: flex;
-    }
+    display: flex;
 
     .chapter,
     .section {
       @extend %grid-column;
-      @include media-breakpoint-down(md) {
-        @include make-col(6)
+      margin-bottom: 10px;
+      @include make-col(3);
+      @media screen and (max-width: $mobile-collapse-breakpoint) {
+        @include make-col(6);
+        max-width: 100%;
+        flex: inherit;
       }
-      @include media-breakpoint-up(md) {
+      @media (min-width: $mobile-collapse-breakpoint) and (max-width: $tablet-collapse-breakpoint) {
         @include make-col(4)
-      }
-      @include media-breakpoint-up(lg) {
-        @include make-col(3)
       }
     }
 
     .chapter {
-
       min-height: 7rem;
-      @include media-breakpoint-up('md') {
-        border-right: 1px solid $tutor-neutral-light;
-      }
-      @include media-breakpoint-down('md') {
+      border-right: 1px solid $tutor-neutral-light;
+      @media screen and (max-width: $mobile-collapse-breakpoint) {
         border-right: 0px;
         border-bottom: 1px solid $tutor-neutral-light;
         margin-bottom: 2rem;
