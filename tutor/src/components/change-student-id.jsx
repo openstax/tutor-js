@@ -9,6 +9,7 @@ import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
+import Header from './header';
 
 export default
 @withRouter
@@ -76,43 +77,51 @@ class ChangeStudentId extends React.Component {
     if (this.isSaved) { return this.renderSuccess(); }
 
     return (
-      <Modal.Dialog
-        className="change-student-id"
-      >
-        <Modal.Body>
-          <div className="title">
-            <h3>Update your student ID</h3>
-          </div>
-          <Form.Label className="id-number-body">
-            <div className="sub-title">Enter your school-issued student ID number</div>
-            <div className="inputs">
-
-              <span className="student-id-icon"></span>
-              <input
-                autoFocus
-                onKeyUp={this.checkValidity}
-                ref={i => (this.input = i)}
-                placeholder='School issued ID'
-                defaultValue={this.student.student_identifier}
-              />
+      <>
+        <Header
+          unDocked={true}
+          backTo={Router.makePathname('dashboard', { courseId: this.courseId })}
+          backToText='Dashboard'
+          title='Change Student ID'
+        />
+        <Modal.Dialog
+          className="change-student-id"
+        >
+          <Modal.Body>
+            <div className="title">
+              <h3>Update your student ID</h3>
             </div>
-          </Form.Label>
-          {this.isValid ? null : this.renderWarning()}
-        </Modal.Body>
-        <Modal.Footer>
-          <AsyncButton
-            disabled={!this.isValid}
-            variant="primary"
-            className="btn btn-success"
-            isWaiting={!!this.student.api.isPending}
-            waitingText={'Confirming…'}
-            onClick={this.onSubmit}
-          >
+            <Form.Label className="id-number-body">
+              <div className="sub-title">Enter your school-issued student ID number</div>
+              <div className="inputs">
+
+                <span className="student-id-icon"></span>
+                <input
+                  autoFocus
+                  onKeyUp={this.checkValidity}
+                  ref={i => (this.input = i)}
+                  placeholder='School issued ID'
+                  defaultValue={this.student.student_identifier}
+                />
+              </div>
+            </Form.Label>
+            {this.isValid ? null : this.renderWarning()}
+          </Modal.Body>
+          <Modal.Footer>
+            <AsyncButton
+              disabled={!this.isValid}
+              variant="primary"
+              className="btn btn-success"
+              isWaiting={!!this.student.api.isPending}
+              waitingText={'Confirming…'}
+              onClick={this.onSubmit}
+            >
             Save
-          </AsyncButton>
-          <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
+            </AsyncButton>
+            <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </>
     );
   }
 }
