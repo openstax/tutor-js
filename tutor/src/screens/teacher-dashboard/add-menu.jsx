@@ -6,6 +6,7 @@ import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import { colors } from 'theme';
+import S from '../../helpers/string';
 
 const StyledMenuContainer = styled.div`
   & hr {
@@ -36,25 +37,25 @@ export default class CourseAddMenu {
     if (hasPeriods) {
       links = [
         {
-          text: 'Add Reading',
+          text: `Add ${S.assignmentHeaderText('reading')}`,
           to: 'editAssignment',
           params: { type: 'reading', courseId: course.id, id: 'new' },
           type: 'reading',
           query: { due_at },
         }, {
-          text: 'Add Homework',
+          text: `Add ${S.assignmentHeaderText('homework')}`,
           to: 'editAssignment',
           params: { type: 'homework', courseId: course.id, id: 'new' },
           type: 'homework',
           query: { due_at },
         }, {
-          text: 'Add External Assignment',
+          text: `Add ${S.assignmentHeaderText('external')}`,
           to: 'editAssignment',
           params: { type: 'external', courseId: course.id, id: 'new' },
           type: 'external',
           query: { due_at },
         }, {
-          text: 'Add Event',
+          text: `Add ${S.assignmentHeaderText('event')}`,
           to: 'editAssignment',
           params: { type: 'event', courseId: course.id, id: 'new' },
           type: 'event',

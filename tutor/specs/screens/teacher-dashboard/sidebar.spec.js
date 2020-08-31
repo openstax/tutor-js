@@ -20,10 +20,10 @@ describe('CourseCalendar AddAssignmentMenu', function() {
     const wrapper = mount(<C><Sidebar {...props} /></C>);
     const links = wrapper.find('.new-assignments li').map(el => el.render().text());
     expect(links).toEqual([
-      'Add Reading',
-      'Add Homework',
-      'Add External Assignment',
-      'Add Event',
+      'Add reading',
+      'Add homework',
+      'Add external assignment',
+      'Add event',
     ]);
   });
 
