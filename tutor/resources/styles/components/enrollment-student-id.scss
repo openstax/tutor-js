@@ -40,6 +40,11 @@
     .title {
       margin-bottom: 50px;
       text-align: center;
+
+      h2 {
+        font-size: 2.45rem;
+        font-weight: 500;
+      }
     }
     .sub-title, .required {
       color: $tutor-neutral-thin-dark;

@@ -89,7 +89,7 @@ class ChangeStudentId extends React.Component {
         >
           <Modal.Body>
             <div className="title">
-              <h3>Update your student ID</h3>
+              <h2>Update your student ID</h2>
             </div>
             <Form.Label className="id-number-body">
               <div className="sub-title">Enter your school-issued student ID number</div>
