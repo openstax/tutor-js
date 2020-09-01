@@ -116,6 +116,9 @@ Cypress.Commands.add('selectOrCreateCourse', (subject) => {
       cy.get('.list-group-item').first().click();
       cy.get('.btn-primary').contains('Continue').click();
 
+      // accept default of "create new course"
+      cy.get('.btn-primary').contains('Continue').click();
+      
       // accept default name
       cy.get('.btn-primary').contains('Continue').click();
 

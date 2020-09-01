@@ -6,7 +6,7 @@ context('Assignments', () => {
     cy.loginAccount();
     cy.disableTours();
     cy.selectOrCreateCourse('biology_2e');
-    return
+
     cy.get('.day.today .label').click()
     cy.get('#course-add-dropdown [data-assignment-type="homework"]').click()
     cy.getTestElement('edit-assignment-name').type(`${moment().format('YYYYMMDD-HH')} test homwork`)
