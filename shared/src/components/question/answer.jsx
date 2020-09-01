@@ -127,7 +127,7 @@ class Answer extends React.Component {
     let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
     let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
     if (qid == null) { qid = `auto-${idCounter++}`; }
-
+    
     const isChecked = isAnswerChecked(answer, chosenAnswer);
     const isCorrect = isAnswerCorrect(answer, correctAnswerId);
 

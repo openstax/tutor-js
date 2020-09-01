@@ -143,7 +143,7 @@ class AnswersTable extends React.Component {
 
     const chosenAnswer = [answer_id, this.state.answer_id];
     let checkedAnswerIndex = null;
-
+    console.log(answers);
     const questionAnswerProps = {
       qid: id || `auto-${idCounter++}`,
       correctAnswerId: correct_answer_id,
