@@ -52,6 +52,11 @@ const Student = makeSimpleStore(extendConfig({
     getAllSections(courseId) {
       return findAllSections(this._get(courseId));
     },
+
+    getSectionsWithClues(courseId) {
+      return filter(findAllSections(this._get(courseId)), 'clue.is_real');
+    },
+
   },
 }, new CrudConfig)
 );
@@ -99,7 +104,7 @@ const TeacherStudent = makeSimpleStore(extendConfig({
     getAllSections(courseId, { roleId }) {
       return findAllSections((this._local[courseId] != null ? this._local[courseId][roleId] : undefined) || {});
     },
-
+    
     reload(id, { roleId }) {
       return (this._reload[id] != null ? this._reload[id][roleId] : undefined);
     },

@@ -25,7 +25,7 @@ class ProgressGuide extends React.Component {
   render() {
     const { courseId } = this.props;
     const sections = PerformanceForecast.Helpers.recentSections(
-      PerformanceForecast.Student.store.getAllSections(courseId)
+      PerformanceForecast.Student.store.getSectionsWithClues(courseId)
     );
 
     return (
@@ -77,8 +77,7 @@ class ProgressGuideCards extends React.Component {
             and previous practices.
           </p>
           <p>
-            This area will fill in with topics as you
-            complete your assignments
+            This area will fill in with topics as your assignments are graded.
           </p>
           <SpyMode.Content>
             <ul>
@@ -99,7 +98,7 @@ class ProgressGuideCards extends React.Component {
   }
 
   render() {
-    const sections = PerformanceForecast.Student.store.getAllSections(this.props.courseId);
+    const sections = PerformanceForecast.Student.store.getSectionsWithClues(this.props.courseId);
     const recent = PerformanceForecast.Helpers.recentSections(sections);
     if (isEmpty(recent)) { return this.renderEmpty(sections); }
 
