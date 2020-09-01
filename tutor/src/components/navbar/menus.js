@@ -12,8 +12,8 @@ import UserMenu            from './user-menu';
 const DesktopMenus = observer(({ course }) => (
   <>
     <StudentPayNowBtn    course={course} />
-    <ActionsMenu         course={course} />
     <SupportMenu         course={course} />
+    <ActionsMenu         course={course} />
     <PreviewAddCourseBtn course={course} />
     <UserMenu />
   </>
@@ -30,8 +30,8 @@ const MobileMenus = observer(({ course }) => (
       <Icon type="close" className="close-icon" />
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <ActionsMenu course={course} />
       <SupportMenu course={course} />
+      <ActionsMenu course={course} />
       <UserMenu />
     </Dropdown.Menu>
   </Dropdown>
