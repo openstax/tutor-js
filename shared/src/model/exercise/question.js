@@ -1,4 +1,4 @@
-import { uniq, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
+import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
@@ -134,8 +134,10 @@ class ExerciseQuestion extends BaseModel {
     if (isEmpty(this.stem_html)){
       return { valid: false, part: 'Question Stem' };
     }
-    if (isEmpty(this.answers) && !this.isOpenEnded) {
-      return { valid: false, part: 'Answer' };
+    if(!this.isOpenEnded) {
+      if (isEmpty(this.answers)) { return { valid: false, part: 'Answer' }; }
+      // make sure that one correct answer is selected
+      if (every(this.answers, a => !a.isCorrect)) {return { valid: false, part: 'Correct Answer' }; }
     }
     return reduce(this.answers, (memo, answer) => ({
       valid: memo.valid && answer.validity.valid,

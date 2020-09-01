@@ -16,6 +16,10 @@ const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 let idCounter = 0;
 
 const isAnswerCorrect = function(answer, correctAnswerId) {
+  // if answer does not have an id, check the isCorrect property.
+  if (!(answer.id || correctAnswerId)) {
+    return answer.isCorrect;
+  }
   let isCorrect = answer.id === correctAnswerId;
   if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
 
