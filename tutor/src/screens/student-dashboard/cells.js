@@ -14,9 +14,6 @@ const TitleCell = styled(Cell).withConfig({
   i {
     flex-shrink: 0;
   }
-  span {
-    word-break: break-all;
-  }
   ${({ theme }) => theme.breakpoint.mobile`
     min-width: 100%;
   `}

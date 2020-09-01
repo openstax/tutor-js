@@ -68,10 +68,6 @@ exports[`Student Dashboard displays as loading 1`] = `
   flex-shrink: 0;
 }
 
-.c2 span {
-  word-break: break-all;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -979,10 +975,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-}
-
-.c2 span {
-  word-break: break-all;
 }
 
 .c4 {
