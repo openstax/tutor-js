@@ -172,53 +172,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                   </label>
                 </section>
               </div>
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <div
-                    className="correct-incorrect"
-                  />
-                  <label
-                    className="answer-label"
-                    htmlFor="1-option-3"
-                    onKeyPress={[Function]}
-                  >
-                    <span
-                      className="answer-letter-wrapper"
-                    >
-                      <button
-                        aria-label="Choice d:"
-                        className="answer-letter"
-                        data-test-id="answer-choice-d"
-                        disabled={true}
-                      >
-                        d
-                      </button>
-                    </span>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        className="answer-content"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<ol>
-  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
-  <li>objects are large enough to be seen with the naked eye, and</li>
-  <li>there is the involvement of a weak gravitational field</li>
-</ol>
-",
-                          }
-                        }
-                      />
-                    </div>
-                  </label>
-                </section>
-              </div>
             </div>
             <div
               className="detailed-solution"
