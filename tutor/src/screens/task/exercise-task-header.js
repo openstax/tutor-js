@@ -8,12 +8,14 @@ import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import Time from '../../components/time';
 
-const StyledWrapper = styled.div`
+const StyledHeader = styled(Header)`
+  padding-bottom: 8px;
+
   .sticky-table {
     ${breakpoint.only.mobile`
       margin-left: -${breakpoint.margins.mobile};
       margin-right: -${breakpoint.margins.mobile};
-      margin-bottom: -24px;
+      margin-bottom: -${breakpoint.margins.mobile};
     `};
   }
 `;
@@ -25,6 +27,7 @@ const StyledHeadingTitle = styled.div`
   width: 100%;
   .title-info {
     padding: 6px;
+    padding-left: 0;
     display: flex;
     div + div {
       margin-left: 10px;
@@ -129,15 +132,12 @@ class ExercisesTaskHeader extends React.Component {
 
     const { ux, unDocked } = this.props;
     return (
-      <StyledWrapper>
-        <Header
-          unDocked={unDocked}
-          headerContent={headerContent(ux)}
-          backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-          backToText='Dashboard'
-          className="task-homework breadcrumbs-wrapper"
-        />
-      </StyledWrapper>
+      <StyledHeader
+        unDocked={unDocked}
+        headerContent={headerContent(ux)}
+        backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+        backToText='Dashboard'
+      />
     );
   }
 }

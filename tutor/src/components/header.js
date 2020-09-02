@@ -60,12 +60,13 @@ class Header extends React.Component {
     headerContent: PropTypes.node,
   }
   render() {
-    const { unDocked, title, headerContent, backTo, backToText, backToParams } = this.props;
+    const { unDocked, title, headerContent, backTo, backToText, backToParams, className } = this.props;
     return (
       <HeaderWrapper
         role="dialog"
         tabIndex="-1"
         unDocked={unDocked}
+        className={className}
       >
         <StyledBackLink>
           <TutorLink to={backTo} params={backToParams}>
