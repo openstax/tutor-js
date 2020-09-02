@@ -55,6 +55,7 @@ class Header extends React.Component {
     unDocked: PropTypes.bool.isRequired,
     backTo: PropTypes.string.isRequired,
     backToText: PropTypes.string,
+    backToParams: PropTypes.object,
     title: PropTypes.string,
     headerContent: PropTypes.node,
   }

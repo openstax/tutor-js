@@ -1,11 +1,9 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import Table from './table';
 import TourRegion from '../../components/tours/region';
-import TutorLink from '../../components/link';
 import Header from '../../components/header';
 import LoadingScreen from 'shared/components/loading-animation';
-import { Icon } from 'shared';
-import { colors, breakpoint } from 'theme';
+import { breakpoint } from 'theme';
 import UX from './ux';
 
 const StyledTourRegion = styled(TourRegion)`
@@ -46,10 +44,10 @@ class StudentGradebook extends React.Component {
     return (
       <>
         <Header
-         backTo="dashboard"
-         backToParams={{ courseId: ux.course.id }}
-         backToText="Dashboard"
-         title="Scores"
+          backTo="dashboard"
+          backToParams={{ courseId: ux.course.id }}
+          backToText="Dashboard"
+          title="Scores"
         />
         <StyledTourRegion
           id="gradebook"
