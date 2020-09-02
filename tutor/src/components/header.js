@@ -2,46 +2,51 @@ import { React, PropTypes, observer, styled, css } from 'vendor';
 import TutorLink from './link';
 import { colors } from 'theme';
 import { Icon } from 'shared';
+import { breakpoint } from 'theme';
 
-const ExercisesTaskHeaderWrapper = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 55px;
   align-items: center;
-  padding: 25px 0 10px;
-  ${({ theme }) => theme.breakpoint.only.mobile`
-    padding-bottom: 0;
-  `}
+  background-color: ${colors.white};
   border-bottom: 1px solid ${colors.neutral.pale};
+  padding: 16px 24px 16px;
+  ${breakpoint.tablet`
+    padding: 16px ${breakpoint.margins.tablet};
+  `}
+  ${breakpoint.mobile`
+    padding: 16px ${breakpoint.margins.mobile};
+  `}
+
   > div {
-      margin-bottom: 12px;
-    }
+    margin-bottom: 8px;
+  }
 
   ${props => props.unDocked && css`
     background-color: ${colors.white};
   `}
-
-  .sticky-table {
-    margin-left: 15px;
-    margin-right: 15px;
-
-    ${({ theme }) => theme.breakpoint.only.mobile`
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 0;
-    `};
-  }
 `;
 
 const StyledBackLink = styled.div`
   width: 100%;
-  color: ${colors.link};
-  padding-left: 10px;
+  a {
+    color: ${colors.link};
+  }
+  .ox-icon { margin-left: 0; }
 `;
 
 const StyledTitle = styled.h1`
-  font-size: 3.5rem;
-  padding-left: 12px;
+  font-weight: bold;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  letter-spacing: -0.144rem;
+  margin: 0;
+  ${breakpoint.mobile`
+    font-size: 1.8rem;
+    line-height: 3rem;
+    letter-spacing: -0.072rem;
+  `}
 `;
 
 @observer
@@ -54,20 +59,18 @@ class Header extends React.Component {
     headerContent: PropTypes.node,
   }
   render() {
-    const { unDocked, title, headerContent, backTo, backToText } = this.props;
+    const { unDocked, title, headerContent, backTo, backToText, backToParams } = this.props;
     return (
-      <ExercisesTaskHeaderWrapper
-        className="task-homework breadcrumbs-wrapper"
+      <HeaderWrapper
         role="dialog"
         tabIndex="-1"
         unDocked={unDocked}
       >
         <StyledBackLink>
-          <TutorLink to={backTo}>
+          <TutorLink to={backTo} params={backToParams}>
             <Icon
               size="lg"
               type="angle-left"
-              className="-move-exercise-up circle"
             />
             {backToText || 'Back'}
           </TutorLink>
@@ -76,7 +79,7 @@ class Header extends React.Component {
           <StyledTitle>{title}</StyledTitle>
         }
         {Boolean(headerContent) && headerContent}
-      </ExercisesTaskHeaderWrapper>
+      </HeaderWrapper>
     );
   }
 
