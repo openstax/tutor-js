@@ -36,8 +36,8 @@ const MobileMenus = observer(({ course }) => (
       <Icon type="close" className="close-icon" />
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <SupportMenu course={course} />
       <ActionsMenu course={course} />
+      <SupportMenu course={course} />
       <UserMenu />
     </Dropdown.Menu>
   </Dropdown>
