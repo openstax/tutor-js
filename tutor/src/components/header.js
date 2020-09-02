@@ -58,6 +58,7 @@ class Header extends React.Component {
     backToParams: PropTypes.object,
     title: PropTypes.string,
     headerContent: PropTypes.node,
+    className: PropTypes.string,
   }
   render() {
     const { unDocked, title, headerContent, backTo, backToText, backToParams, className } = this.props;
