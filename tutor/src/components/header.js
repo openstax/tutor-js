@@ -11,9 +11,9 @@ const HeaderWrapper = styled.div`
   align-items: center;
   background-color: ${colors.white};
   border-bottom: 1px solid ${colors.neutral.pale};
-  padding: 16px 24px 16px;
+  padding: 24px 32px;
   ${breakpoint.tablet`
-    padding: 16px ${breakpoint.margins.tablet};
+    padding: 24px ${breakpoint.margins.tablet};
   `}
   ${breakpoint.mobile`
     padding: 16px ${breakpoint.margins.mobile};
