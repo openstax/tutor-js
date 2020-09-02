@@ -20,7 +20,13 @@ const DesktopMenus = observer(({ course }) => (
 ));
 
 const MobileMenus = observer(({ course }) => (
-  <Dropdown className="mobile-menu">
+  <Dropdown
+    className="mobile-menu"
+    onToggle={(v) => {
+      const el = window.document.querySelector('body');
+      v ? el.classList.add('freeze-scroll') : el.classList.remove('freeze-scroll');
+    }}
+  >
     <Dropdown.Toggle
       id="mobile-menu"
       aria-label="Menu and settings"
