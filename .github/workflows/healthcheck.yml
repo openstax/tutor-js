@@ -1,6 +1,7 @@
 name: HealthCheck
 
 on:
+  push:
   schedule:
     - cron: '*/30 * * * *' # every 30 minutes
 
