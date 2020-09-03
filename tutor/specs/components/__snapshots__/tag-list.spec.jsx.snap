@@ -32,7 +32,7 @@ exports[`TagList component renders items 1`] = `
 .c4 {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 32px;
+  margin-left: 20px;
 }
 
 <div
