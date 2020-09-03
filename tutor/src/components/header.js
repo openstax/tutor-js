@@ -11,6 +11,7 @@ const ExercisesTaskHeaderWrapper = styled.div`
   padding: 25px 0 10px;
   ${({ theme }) => theme.breakpoint.only.mobile`
     padding-bottom: 0;
+    height: 20vh;
   `}
   border-bottom: 1px solid ${colors.neutral.pale};
   > div {

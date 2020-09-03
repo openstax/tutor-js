@@ -72,7 +72,7 @@ const Content = styled.div`
   padding-bottom: ${props => props.hasFooter ? Theme.navbars.bottom.height : 0};
 
   ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
-    padding-top: 0;
+    padding: 0;
   `}
 `;
 
