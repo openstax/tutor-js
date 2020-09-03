@@ -285,6 +285,9 @@ export default function dom(el) {
       };
     },
 
+    hideOverflow(on = true) {
+      on ? this.addClass('hide-overflow') : this.removeClass('hide-overflow');
+    },
 
   };
 

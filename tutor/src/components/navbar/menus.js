@@ -8,6 +8,7 @@ import StudentPayNowBtn    from './student-pay-now-btn';
 import ActionsMenu         from './actions-menu';
 import PreviewAddCourseBtn from './preview-add-course-btn';
 import UserMenu            from './user-menu';
+import dom                 from '../../helpers/dom';
 
 const DesktopMenus = observer(({ course }) => (
   <>
@@ -22,10 +23,7 @@ const DesktopMenus = observer(({ course }) => (
 const MobileMenus = observer(({ course }) => (
   <Dropdown
     className="mobile-menu"
-    onToggle={(v) => {
-      const el = window.document.querySelector('body');
-      v ? el.classList.add('freeze-scroll') : el.classList.remove('freeze-scroll');
-    }}
+    onToggle={v => dom(document.body).hideOverflow(v) }
   >
     <Dropdown.Toggle
       id="mobile-menu"

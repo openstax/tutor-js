@@ -52,6 +52,6 @@ body[data-js-error]::before {
   color: red;
 }
 
-body.freeze-scroll {
+.hide-overflow {
   overflow: hidden;
 }
