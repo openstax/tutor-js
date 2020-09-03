@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, css } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import TutorLink from '../../../components/link';
 import { colors } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
