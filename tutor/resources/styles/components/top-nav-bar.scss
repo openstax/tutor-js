@@ -109,7 +109,10 @@
         }
       }
     }
-
+    // don't display double dividers
+    .dropdown-divider + .dropdown-divider {
+      display: none;
+    }
     [data-item="browseBook"],
     [data-item="viewGradebook"],
     [data-item="viewPerformanceGuide"],
