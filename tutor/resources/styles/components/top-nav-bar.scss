@@ -132,13 +132,16 @@
       display: none;
     }
 
+    .ox-icon {
+      width: 16px;
+    }
+
     &.show {
       .open-icon {
         display: none;
       }
       .close-icon {
         display: block;
-        width: 14px;
       }
     }
 

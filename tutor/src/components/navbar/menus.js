@@ -30,8 +30,8 @@ const MobileMenus = observer(({ course }) => (
       aria-label="Menu and settings"
       variant="ox"
     >
-      <Icon type="bars" className="open-icon" />
-      <Icon type="close" className="close-icon" />
+      <Icon type="bars" className="open-icon" size="lg" />
+      <Icon type="close" className="close-icon" size="lg" />
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <ActionsMenu course={course} />
