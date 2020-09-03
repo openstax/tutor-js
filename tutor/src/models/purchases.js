@@ -15,7 +15,7 @@ class PurchasesMap extends Map {
   @computed get withRefunds() {
     return flatten(map(this.array, (purchase) =>
       purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
-    ));
+    )).reverse();
   }
 
 
