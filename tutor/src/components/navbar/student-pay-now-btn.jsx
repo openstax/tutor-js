@@ -1,9 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, action, observable, observer } from 'vendor';
 import { Button } from 'react-bootstrap';
-import { get } from 'lodash';
-import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Course from '../../models/course';
@@ -14,6 +10,23 @@ When the free trial ends, you'll be prompted to pay to maintain access
 to your course. You will not lose any of the work you have completed
 during the free trial.
 `;
+const isInTrialPeriod = (course) => {
+  return Boolean(course && !Payments.config.is_enabled && course.isInTrialPeriod);
+};
+
+const willDisplayPayment = (course) => {
+  if (isInTrialPeriod(course)) { return true; }
+
+  if (!course || !course.needsPayment) { return false; }
+  const student = course.userStudentRecord;
+  if (!student) { return false; }
+  // if the student is locked out then the pay now modal is already being displayed
+  // if they're comped don't even mention payments here
+  if (student.mustPayImmediately || student.is_comped) { return false; }
+
+  return true;
+};
+
 
 export default
 @observer
@@ -55,14 +68,9 @@ class StudentPayNowBtn extends React.Component {
   }
 
   render() {
-    const student = get(this.props.course, 'userStudentRecord');
-    if (!student) { return null; }
+    if (!willDisplayPayment(this.props.course)) { return null; }
 
-    // if the student is locked out then the pay now modal is already being displayed
-    // if they're comped don't even mention payments
-    if (student.mustPayImmediately || student.is_comped) { return null; }
-
-    if (!Payments.config.is_enabled && this.props.course && this.props.course.isInTrialPeriod) {
+    if (isInTrialPeriod(this.props.course)) {
       return (
         <span className="student-pay-now">
           Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
@@ -70,11 +78,11 @@ class StudentPayNowBtn extends React.Component {
       );
     }
 
-    if (!this.props.course || !this.props.course.needsPayment) { return null; }
-
     return (
       <span className="student-pay-now">
-        You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
+        <span className="days">
+          You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
+        </span>
         {this.renderModal()}
         <Button variant="primary" onClick={this.onClick}>
           Pay now
@@ -83,3 +91,5 @@ class StudentPayNowBtn extends React.Component {
     );
   }
 }
+
+export { willDisplayPayment, StudentPayNowBtn };

@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fznKkj feiMkx\\">
+                            <div className=\\"sc-fznZeY cEHWoC\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">
@@ -207,6 +207,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   </nav>
                                 </styled.nav>
                               </Navbar>
+                              <MobilePaymentBar course={[undefined]} />
                               <withRouter(inject-with-courseContext(ServerErrorMonitoring))>
                                 <inject-with-courseContext(ServerErrorMonitoring) history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                   <ServerErrorMonitoring history={{...}} location={{...}} match={{...}} staticContext={[undefined]} courseContext={{...}} />
@@ -222,7 +223,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fznZeY afmAJ\\">
+                                <div className=\\"sc-fzokOt izXDjT\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body
