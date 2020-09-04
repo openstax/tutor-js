@@ -103,12 +103,20 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
 
 @media (max-width:999px) {
   .c4 {
-    padding: 2rem 24px;
+    padding: 0;
+  }
+
+  .c4 .footer {
+    padding: 1rem 24px;
   }
 }
 
 @media (max-width:600px) {
   .c4 {
+    padding: 0;
+  }
+
+  .c4 .footer {
     padding: 1rem 8px;
   }
 }
@@ -149,7 +157,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 style={Object {}}
               />
             </svg>
-            Back
+            My Courses
           </a>
         </div>
         <h1
@@ -186,26 +194,130 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </thead>
           <tbody>
             <tr
-              className=""
+              className="refunded"
             >
               <td>
-                OpenStax Tutor
+                unit test product refund
               </td>
               <td>
-                July 13th 2017
+                Jul 19th 2017
               </td>
               <td>
-                33uqbxbi324n
+                cufu6hr4xicy:refund
               </td>
               <td
                 className="total"
               >
-                13.41
+                -1591.48
+              </td>
+              <td />
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className=""
+            >
+              <td>
+                unit test product
+              </td>
+              <td>
+                Jul 16th 2017
+              </td>
+              <td>
+                cufu6hr4xicy
+              </td>
+              <td
+                className="total"
+              >
+                1591.48
               </td>
               <td>
                 <a
-                  data-identifier="33uqbxbi324n"
-                  href="url-for-test/invoice/33uqbxbi324n"
+                  data-identifier="cufu6hr4xicy"
+                  href="url-for-test/invoice/cufu6hr4xicy"
+                  onClick={[Function]}
+                >
+                  Invoice
+                </a>
+              </td>
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className="refunded"
+            >
+              <td>
+                unit test product refund
+              </td>
+              <td>
+                Jul 18th 2017
+              </td>
+              <td>
+                kjxdvs9wd7rw:refund
+              </td>
+              <td
+                className="total"
+              >
+                -1388.07
+              </td>
+              <td />
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className=""
+            >
+              <td>
+                unit test product
+              </td>
+              <td>
+                Jul 16th 2017
+              </td>
+              <td>
+                kjxdvs9wd7rw
+              </td>
+              <td
+                className="total"
+              >
+                1388.07
+              </td>
+              <td>
+                <a
+                  data-identifier="kjxdvs9wd7rw"
+                  href="url-for-test/invoice/kjxdvs9wd7rw"
+                  onClick={[Function]}
+                >
+                  Invoice
+                </a>
+              </td>
+              <td
+                className="refund"
+              />
+            </tr>
+            <tr
+              className=""
+            >
+              <td>
+                unit test product
+              </td>
+              <td>
+                Jul 16th 2017
+              </td>
+              <td>
+                3dmy8nu4v4bg
+              </td>
+              <td
+                className="total"
+              >
+                357.25
+              </td>
+              <td>
+                <a
+                  data-identifier="3dmy8nu4v4bg"
+                  href="url-for-test/invoice/3dmy8nu4v4bg"
                   onClick={[Function]}
                 >
                   Invoice
@@ -216,7 +328,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               >
                 <button
                   className="async-button btn btn-primary"
-                  data-identifier="33uqbxbi324n"
+                  data-identifier="3dmy8nu4v4bg"
                   disabled={false}
                   onClick={[Function]}
                   type="button"
@@ -232,10 +344,10 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 OpenStax Tutor
               </td>
               <td>
-                July 13th 2017
+                Jul 14th 2017
               </td>
               <td>
-                nuvwqun23ztq
+                fxa4s2kj75fr
               </td>
               <td
                 className="total"
@@ -244,8 +356,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
-                  data-identifier="nuvwqun23ztq"
-                  href="url-for-test/invoice/nuvwqun23ztq"
+                  data-identifier="fxa4s2kj75fr"
+                  href="url-for-test/invoice/fxa4s2kj75fr"
                   onClick={[Function]}
                 >
                   Invoice
@@ -256,7 +368,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               >
                 <button
                   className="async-button btn btn-primary"
-                  data-identifier="nuvwqun23ztq"
+                  data-identifier="fxa4s2kj75fr"
                   disabled={false}
                   onClick={[Function]}
                   type="button"
@@ -272,7 +384,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 OpenStax Tutor
               </td>
               <td>
-                July 13th 2017
+                Jul 13th 2017
               </td>
               <td>
                 ru6ifviicwki
@@ -312,10 +424,10 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 OpenStax Tutor
               </td>
               <td>
-                July 14th 2017
+                Jul 13th 2017
               </td>
               <td>
-                fxa4s2kj75fr
+                nuvwqun23ztq
               </td>
               <td
                 className="total"
@@ -324,8 +436,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
-                  data-identifier="fxa4s2kj75fr"
-                  href="url-for-test/invoice/fxa4s2kj75fr"
+                  data-identifier="nuvwqun23ztq"
+                  href="url-for-test/invoice/nuvwqun23ztq"
                   onClick={[Function]}
                 >
                   Invoice
@@ -336,7 +448,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               >
                 <button
                   className="async-button btn btn-primary"
-                  data-identifier="fxa4s2kj75fr"
+                  data-identifier="nuvwqun23ztq"
                   disabled={false}
                   onClick={[Function]}
                   type="button"
@@ -349,23 +461,23 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               className=""
             >
               <td>
-                unit test product
+                OpenStax Tutor
               </td>
               <td>
-                July 16th 2017
+                Jul 13th 2017
               </td>
               <td>
-                3dmy8nu4v4bg
+                33uqbxbi324n
               </td>
               <td
                 className="total"
               >
-                357.25
+                13.41
               </td>
               <td>
                 <a
-                  data-identifier="3dmy8nu4v4bg"
-                  href="url-for-test/invoice/3dmy8nu4v4bg"
+                  data-identifier="33uqbxbi324n"
+                  href="url-for-test/invoice/33uqbxbi324n"
                   onClick={[Function]}
                 >
                   Invoice
@@ -376,7 +488,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               >
                 <button
                   className="async-button btn btn-primary"
-                  data-identifier="3dmy8nu4v4bg"
+                  data-identifier="33uqbxbi324n"
                   disabled={false}
                   onClick={[Function]}
                   type="button"
@@ -384,110 +496,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                   Request Refund
                 </button>
               </td>
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                unit test product
-              </td>
-              <td>
-                July 16th 2017
-              </td>
-              <td>
-                kjxdvs9wd7rw
-              </td>
-              <td
-                className="total"
-              >
-                1388.07
-              </td>
-              <td>
-                <a
-                  data-identifier="kjxdvs9wd7rw"
-                  href="url-for-test/invoice/kjxdvs9wd7rw"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className="refunded"
-            >
-              <td>
-                unit test product refund
-              </td>
-              <td>
-                July 18th 2017
-              </td>
-              <td>
-                kjxdvs9wd7rw:refund
-              </td>
-              <td
-                className="total"
-              >
-                -1388.07
-              </td>
-              <td />
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                unit test product
-              </td>
-              <td>
-                July 16th 2017
-              </td>
-              <td>
-                cufu6hr4xicy
-              </td>
-              <td
-                className="total"
-              >
-                1591.48
-              </td>
-              <td>
-                <a
-                  data-identifier="cufu6hr4xicy"
-                  href="url-for-test/invoice/cufu6hr4xicy"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className="refunded"
-            >
-              <td>
-                unit test product refund
-              </td>
-              <td>
-                July 19th 2017
-              </td>
-              <td>
-                cufu6hr4xicy:refund
-              </td>
-              <td
-                className="total"
-              >
-                -1591.48
-              </td>
-              <td />
-              <td
-                className="refund"
-              />
             </tr>
           </tbody>
         </table>
@@ -640,12 +648,20 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
 
 @media (max-width:999px) {
   .c4 {
-    padding: 2rem 24px;
+    padding: 0;
+  }
+
+  .c4 .footer {
+    padding: 1rem 24px;
   }
 }
 
 @media (max-width:600px) {
   .c4 {
+    padding: 0;
+  }
+
+  .c4 .footer {
     padding: 1rem 8px;
   }
 }
@@ -686,7 +702,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
                 style={Object {}}
               />
             </svg>
-            Back
+            My Courses
           </a>
         </div>
         <h1

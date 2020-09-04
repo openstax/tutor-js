@@ -7,7 +7,6 @@ import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
 import styled from 'styled-components';
 import cn from 'classnames';
-import Router from '../../helpers/router';
 import backInfo from '../../helpers/backInfo';
 import Purchases from '../../models/purchases';
 import OXFancyLoader from 'shared/components/staxly-animation';
@@ -18,6 +17,8 @@ import RefundModal from './refund-modal';
 import Header from '../header';
 import Responsive from '../responsive';
 import { colors, breakpoint } from 'theme';
+
+const formatDate = (dte) => moment(dte).format('MMM Do YYYY');
 
 const StyledContainer = styled.div`
   padding: 4rem 10rem 50rem;
@@ -49,11 +50,16 @@ const StyledContainer = styled.div`
   }
 
   ${breakpoint.tablet`
-    padding: 2rem ${breakpoint.margins.tablet};
+    padding: 0;
+    .footer {
+      padding: 1rem ${breakpoint.margins.tablet};
+    }
   `}
-
   ${breakpoint.mobile`
-    padding: 1rem ${breakpoint.margins.mobile};
+    padding: 0;
+    .footer {
+      padding: 1rem ${breakpoint.margins.mobile};
+    }
   `}
 
 
@@ -72,7 +78,12 @@ const PaymentInfoRows = styled.div`
     padding: 0 10px 10px;
     width: 100%;
     border-top: 1px solid ${colors.neutral.pale};
-
+    ${breakpoint.tablet`
+      padding: ${breakpoint.margins.tablet};
+    `}
+    ${breakpoint.mobile`
+      padding: ${breakpoint.margins.mobile};
+    `}
     .manage-payment-info {
       display: flex;
       margin-top: 10px;
@@ -136,16 +147,25 @@ class ManagePayments extends React.Component {
     }),
   };
 
-  @observable refunding;
-
-  get backLink() {
-    const params = Router.currentParams();
-    return params.courseId ? { to: 'dashboard', text: 'Dashboard', params } :
-      { to: 'myCourses', text: 'Back' };
-  }
+  @observable refundi
 
   UNSAFE_componentWillMount() {
+    // for testing, it's helpful to insert a dummy payment record
+    // to do this, comment out the fetch and uncomment the rest
     Purchases.fetch();
+    // setTimeout(() => {
+    //   Purchases.onLoaded({ data: { orders: [
+    //     {
+    //       identifier: 1234, product_instance_uuid: '387bf53c-ee0d-11ea-adc1-0242ac120002',
+    //       is_refunded: false, sales_tax: 0.0, total: 10.00,
+    //       updated_at: moment().subtract(1, 'week').toISOString(),
+    //       purchased_at: moment().subtract(1, 'week').toISOString(),
+    //       product: {
+    //         name: 'OpenStax Tutor Beta', price: '10.00', uuid: 'fa882aa5-1093-43ff-aa7a-914ba3242f5a',
+    //       },
+    //     },
+    //   ] } });
+    // });
   }
 
   @action.bound
@@ -215,7 +235,7 @@ class ManagePayments extends React.Component {
           {Purchases.withRefunds.map(purchase =>
             <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
               <td>{purchase.product.name}</td>
-              <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
+              <td>{formatDate(purchase.purchased_at)}</td>
               <td>{purchase.identifier}</td>
               <td className="total">
                 {purchase.formattedTotal}
@@ -244,7 +264,7 @@ class ManagePayments extends React.Component {
             <div className="manage-payment-info">
               <span>Transaction date</span> 
               <span>
-                {moment(purchase.purchased_at).format('MMMM Do YYYY')}
+                {formatDate(purchase.purchased_at)}
               </span>
             </div>
             <div className="manage-payment-info">
@@ -290,8 +310,8 @@ class ManagePayments extends React.Component {
         <Header 
           unDocked={true}
           title="Manage Payments"
-          backTo={back.to || 'myCourses'}
-          backToText={back.text || 'Back'}
+          backTo={back.to}
+          backToText={back.text}
         />
         <StyledContainer className="manage-payments">
           <RefundModal
