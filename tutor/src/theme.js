@@ -171,18 +171,27 @@ export const navbars = {
   },
 };
 
+const BREAKPOINTS = {
+  mobile: 600,
+  tablet: 999,
+  desktop: 1000,
+  large: 1600,
+};
+
+export { BREAKPOINTS };
+
 export const breakpoint = {
   mobile(...args) {
-    return css`@media(max-width: 600px) { ${css(...args)} }`;
+    return css`@media(max-width: ${BREAKPOINTS.mobile}px) { ${css(...args)} }`;
   },
   tablet(...args) {
-    return css`@media(max-width: 999px) { ${css(...args)} }`;
+    return css`@media(max-width: ${BREAKPOINTS.tablet}px) { ${css(...args)} }`;
   },
   desktop(...args) {
-    return css`@media(min-width: 1000px) { ${css(...args)} }`;
+    return css`@media(min-width: ${BREAKPOINTS.desktop}px) { ${css(...args)} }`;
   },
   large(...args) {
-    return css`@media(min-width: 1600px) { ${css(...args)} }`;
+    return css`@media(min-width: ${BREAKPOINTS.large}px) { ${css(...args)} }`;
   },
   // Keep the reading task arrow pagination to the 1200px breakpoint
   reading_pagination(...args) {
@@ -190,16 +199,16 @@ export const breakpoint = {
   },
   only: {
     mobile(...args) {
-      return css`@media(max-width: 600px) { ${css(...args)} }`;
+      return css`@media(max-width: ${BREAKPOINTS.mobile}px) { ${css(...args)} }`;
     },
     tablet(...args) {
-      return css`@media(min-width: 601px) and (max-width: 999px) { ${css(...args)} }`;
+      return css`@media(min-width: ${BREAKPOINTS.mobile+1}px) and (max-width: ${BREAKPOINTS.tablet}px) { ${css(...args)} }`;
     },
     desktop(...args) {
-      return css`@media(min-width: 1000px) and (max-width: 1599px) { ${css(...args)} }`;
+      return css`@media(min-width: ${BREAKPOINTS.desktop}px) and (max-width: ${BREAKPOINTS.large-1}px) { ${css(...args)} }`;
     },
     large(...args) {
-      return css`@media(min-width: 1600px) { ${css(...args)} }`;
+      return css`@media(min-width: ${BREAKPOINTS.large}px) { ${css(...args)} }`;
     },
   },
   margins: {
