@@ -74,6 +74,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   padding-bottom: 0;
 }
 
+.mobile-payment-bar + .c4 {
+  padding-top: calc(60px*2);
+}
+
 @media (min-width:1000px) {
   .c0.c0.c0 .tutor-navbar {
     padding-left: 24px;
