@@ -49,19 +49,6 @@ describe('Notifications', function() {
     expect(Notifications.getActive()).toEqual([]);
   });
 
-  it('adds missing student id when course role is set', function() {
-    const changeListener = jest.fn();
-    Notifications.once('change', changeListener);
-    const course = { id: '1', ends_at: moment().add(1, 'day'), students: [{ role_id: '111' }] };
-    const role = { id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z', latest_enrollment_at: '2016-01-30T01:15:43.807Z' };
-    Notifications.setCourseRole(course, role);
-    expect(changeListener).toHaveBeenCalled();
-    const active = Notifications.getActive()[0];
-    expect(active.type).toEqual('missing_student_id');
-    expect(active.course).toEqual(course);
-    expect(active.role).toEqual(role);
-  });
-
   it('clears old notices when course role is set', function() {
     Notifications.setCourseRole(
       { id: '1', students: [{ role_id: '111' }], ends_at: '2011-11-11T01:15:43.807Z' },
