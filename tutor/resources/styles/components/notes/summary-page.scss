@@ -2,10 +2,33 @@
   // Force fixed modal-scroll-top button to attach to modal
   // by using a no-effect transform.
   transform: rotate(0);
+  // make the modal biggers
+  @media screen and ( max-width: $mobile-collapse-breakpoint ){
+    margin: 1rem;
+    width: calc(100vw - #{$mobile-margin} * 2);
+    height: 100%;
+  }
 }
 
 .modal-dialog.notes-modal {
   @include tutor-modal-v2;
+
+  @media screen and ( max-width: $mobile-collapse-breakpoint ){
+    .modal-header {
+      padding: $mobile-margin;
+      .modal-title {
+        font-size: 1.75rem;
+      }
+    }
+    
+    .modal-body {
+      .summary-page {
+        .filter-area, .notes {
+          padding: $mobile-margin;
+        }
+      }
+    }
+  }
 
   .modal-body {
     padding: 0;
@@ -20,6 +43,11 @@
     font-size: 1.6rem;
     background: transparent;
     border: 0;
+
+    @media screen and ( max-width: $mobile-collapse-breakpoint ){
+      right: 20px;
+      bottom: 20px;
+    }
 
     svg {
       height: 32px;
@@ -184,6 +212,10 @@
           justify-content: center;
           align-items: center;
 
+          @media screen and ( max-width: $mobile-collapse-breakpoint ){
+            margin-right: 1.6rem;
+          }
+
           &:last-child {
             margin: 0;
           }
@@ -218,6 +250,12 @@
             border: thin solid $tutor-neutral-light;
             padding: 1rem;
             width: 100%;
+          }
+        }
+
+        img {
+          @media screen and ( max-width: $mobile-collapse-breakpoint ){
+            max-width: 85%;
           }
         }
       }
