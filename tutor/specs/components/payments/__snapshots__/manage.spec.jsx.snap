@@ -234,6 +234,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="cufu6hr4xicy"
                   href="url-for-test/invoice/cufu6hr4xicy"
                   onClick={[Function]}
@@ -286,6 +287,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="kjxdvs9wd7rw"
                   href="url-for-test/invoice/kjxdvs9wd7rw"
                   onClick={[Function]}
@@ -316,6 +318,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="3dmy8nu4v4bg"
                   href="url-for-test/invoice/3dmy8nu4v4bg"
                   onClick={[Function]}
@@ -356,6 +359,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="fxa4s2kj75fr"
                   href="url-for-test/invoice/fxa4s2kj75fr"
                   onClick={[Function]}
@@ -396,6 +400,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="ru6ifviicwki"
                   href="url-for-test/invoice/ru6ifviicwki"
                   onClick={[Function]}
@@ -436,6 +441,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="nuvwqun23ztq"
                   href="url-for-test/invoice/nuvwqun23ztq"
                   onClick={[Function]}
@@ -476,6 +482,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               </td>
               <td>
                 <a
+                  className="invoice-link"
                   data-identifier="33uqbxbi324n"
                   href="url-for-test/invoice/33uqbxbi324n"
                   onClick={[Function]}

@@ -105,6 +105,10 @@ const PaymentInfoRows = styled.div`
         font-size: 1.3rem;
         color: ${props => props.theme.colors.neutral.darker};
       }
+
+      .invoice-link {
+        font-weight: bold
+      }
     }
 
     button {
@@ -210,6 +214,7 @@ class ManagePayments extends React.Component {
         data-identifier={purchase.identifier}
         onClick={this.onShowInvoiceClick}
         href={purchase.invoiceURL}
+        className="invoice-link"
       >
         Invoice
       </a>
