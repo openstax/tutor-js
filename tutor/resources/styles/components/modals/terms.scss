@@ -41,6 +41,10 @@
       .header-title {
         margin-top: 15px;
         font-size: 22px;
+        @media (max-width: $mobile-collapse-breakpoint) {
+          text-align: center;
+          line-height: 24px;
+        };
       }
     };
   }
