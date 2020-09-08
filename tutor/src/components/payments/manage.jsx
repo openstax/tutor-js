@@ -147,7 +147,7 @@ class ManagePayments extends React.Component {
     }),
   };
 
-  @observable refundi
+  @observable refunding;
 
   UNSAFE_componentWillMount() {
     // for testing, it's helpful to insert a dummy payment record
