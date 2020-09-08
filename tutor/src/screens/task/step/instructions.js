@@ -103,7 +103,7 @@ const Footer = styled.div`
     justify-content: center;
     width: 100%;
     .btn {
-      padding: 1rem 14rem;
+      padding: 2rem 6rem;
     }
   `}
 

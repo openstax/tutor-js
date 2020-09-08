@@ -43,6 +43,10 @@ const StyledBackLink = styled.div`
 const StyledTitle = styled.h1`
   font-size: 3.5rem;
   padding-left: 12px;
+
+  ${({ theme }) => theme.breakpoint.only.mobile`
+      font-size: 2.5rem;
+    `};
 `;
 
 @observer

@@ -102,6 +102,12 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   }
 }
 
+@media (max-width:600px) {
+  .c3 {
+    font-size: 2.5rem;
+  }
+}
+
 @media (max-width:999px) {
   .c4 {
     padding: 2rem 24px;
@@ -637,6 +643,12 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    font-size: 2.5rem;
   }
 }
 
