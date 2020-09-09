@@ -3,10 +3,20 @@ import { React, styled, cn } from 'vendor';
 import { Primary }  from './buttons';
 import CourseUX from '../../../models/course/ux';
 import CourseBranding from '../../branding/course';
+import { colors } from 'theme';
 
 const Footer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const StyledPrimary = styled(Primary)`
+  background: ${colors.blue_info};
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  width: 256px;
+  height: 48px;
 `;
 
 function ValueProp({ className, children, ride }) {
@@ -14,7 +24,7 @@ function ValueProp({ className, children, ride }) {
     <div data-test-id="value-prop" className={cn('value-prop', className)}>
       {children}
       <Footer>
-        <Primary onClick={ride.onNextStep}>Continue</Primary>
+        <StyledPrimary onClick={ride.onNextStep}>Continue</StyledPrimary>
       </Footer>
     </div>
   );
@@ -62,7 +72,7 @@ function WelcomeToTutorMessage(props) {
   const { className, children } = props;
   return (
     <ValueProp {...props} className={cn('welcome-to-tutor', className)}>
-      <h1 className="heading">Welcome to <CourseBranding />!</h1>
+      <h1 className="heading"><span className="welcome-to">Welcome to</span> <CourseBranding />!</h1>
       {children}
       <TutorValueColumns {...props} />
     </ValueProp>
