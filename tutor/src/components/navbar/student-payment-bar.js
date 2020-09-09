@@ -7,6 +7,8 @@ import Course from '../../models/course';
 
 const PaymentBar = styled(Nav)`
   top: ${Theme.navbars.top.height};
+  /* less than the nav so it is not on top of the dropdown navbar */
+  z-index: ${Theme.zIndex.navbar - 10};
   .student-pay-now {
     align-items: center;
     font-size: 1.4rem;
