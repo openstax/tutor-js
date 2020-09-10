@@ -19,7 +19,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   background-color: #00c1de;
   -webkit-transition: background-color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out;
-  background: #007da4;
+  background: #007297;
   font-weight: bold;
   border: none;
   border-radius: 2px;
@@ -29,6 +29,10 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
 
 .c1:hover {
   background-color: #00dcfd;
+}
+
+.c1:hover {
+  background: #2092b7;
 }
 
 <div
