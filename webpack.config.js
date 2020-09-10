@@ -1,6 +1,7 @@
 const path    = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ManifestPlugin = require('webpack-assets-manifest');
 
 const PORTS = {
   tutor:      '8000',
@@ -29,9 +30,9 @@ const config = {
   mode: production ? 'production' : 'development',
   entry: ENTRIES[project],
   output: {
-    filename: production ? '[name].min.js' : '[name].js',
+    filename: production ? '[name]-[hash].min.js' : '[name].js',
     path: path.resolve(__dirname, project, 'dist'),
-    chunkFilename: '[name]-chunk-[hash].js',
+    //chunkFilename: '[name]-chunk-[hash].js',
     publicPath,
   },
   devtool: production ? 'source-map' : 'inline-source-map',
@@ -75,6 +76,10 @@ const config = {
       maxInitialRequests: 1,
     },
   },
+  performance: {
+    maxEntrypointSize: 2.5 * 1000000, // 1MB
+    maxAssetSize: 2.1 * 1000000,
+  },
   watchOptions: {
     aggregateTimeout: 500,
     poll: 1000,
@@ -100,7 +105,15 @@ const config = {
   },
 };
 
-if (!production) {
+if (production) {
+  config.plugins.push(
+    new ManifestPlugin({
+      writeToDisk: true,
+      entrypoints: true,
+      integrity: true,
+    }),
+  );
+} else {
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
   );

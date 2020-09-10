@@ -35,6 +35,7 @@ window._MODELS = Object.assign({
   toasts: Toasts,
 }, BOOTSTRAPED_MODELS);
 
+
 export default class TutorApp {
 
   @observable tutor_js_url;
@@ -70,7 +71,10 @@ export default class TutorApp {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
     });
-
+    // tell webpack where to load chunks from.
+    // eslint-disable-next-line no-undef
+    __webpack_public_path__ = this.data.assets_url;
+    
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);
