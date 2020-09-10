@@ -11,12 +11,16 @@ const Footer = styled.div`
 `;
 
 const StyledPrimary = styled(Primary)`
-  background: ${colors.blue_info};
+  background: #007297;
   font-weight: bold;
   border: none;
   border-radius: 2px;
   width: 256px;
   height: 48px;
+
+  &:hover {
+    background: #2092b7;
+  }
 `;
 
 function ValueProp({ className, children, ride }) {
