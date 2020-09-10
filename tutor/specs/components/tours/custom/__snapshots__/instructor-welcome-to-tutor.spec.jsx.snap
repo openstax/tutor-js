@@ -1,19 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
-.c1 {
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 4px;
-  background-color: #00c1de;
-  -webkit-transition: background-color 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.c1:hover {
-  background-color: #00dcfd;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -25,6 +12,25 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   justify-content: center;
 }
 
+.c1 {
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #00c1de;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+  background: #007da4;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  width: 256px;
+  height: 48px;
+}
+
+.c1:hover {
+  background-color: #00dcfd;
+}
+
 <div
   className="value-prop welcome-to-tutor has-forest-background"
   data-test-id="value-prop"
@@ -32,7 +38,12 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   <h1
     className="heading"
   >
-    Welcome to 
+    <span
+      className="welcome-to"
+    >
+      Welcome to
+    </span>
+     
     <span
       className="course-branding"
       data-is-beta={true}
@@ -85,7 +96,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
     className="c0"
   >
     <button
-      className="c1"
+      className="sc-AxjAm c1"
     >
       Continue
     </button>
