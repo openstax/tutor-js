@@ -3,7 +3,6 @@ import { React, styled, cn } from 'vendor';
 import { Primary }  from './buttons';
 import CourseUX from '../../../models/course/ux';
 import CourseBranding from '../../branding/course';
-import { colors } from 'theme';
 
 const Footer = styled.div`
   display: flex;
