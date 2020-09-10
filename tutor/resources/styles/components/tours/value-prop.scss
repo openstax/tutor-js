@@ -136,8 +136,9 @@
     }
   }
 
-  @media screen and (max-width: $tablet-collapse-breakpoint), (max-width: $mobile-collapse-breakpoint) {
-    padding: 24px;
+  @media (max-width: $tablet-collapse-breakpoint), (max-width: $mobile-collapse-breakpoint) {
+    min-width: calc(100vw - 30px);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.5) !important;
 
     .column-content {
       flex-direction: column;
@@ -155,8 +156,10 @@
     }
   }
 
-  @media screen and (max-width: $tablet-collapse-breakpoint) {
-    min-width: calc(100vw - 48px);
+  @media (max-width: $tablet-collapse-breakpoint) {
+    min-width: calc(100vw - 50px);
+    padding: 32px 44px 44px;
+
     .heading {
       font-size: 2.4rem;
       line-height: 3rem;
@@ -167,8 +170,9 @@
     }
   }
 
-  @media screen and (max-width: $mobile-collapse-breakpoint) {
-    min-width: calc(100vw - 30px);
+  @media (max-width: $mobile-collapse-breakpoint) {
+    padding: 16px 24px 24px;
+
     .heading {
       font-size: 1.8rem;
       line-height: 2.6rem;
