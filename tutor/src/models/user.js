@@ -33,7 +33,7 @@ class User extends BaseModel {
 
   @field can_create_courses;
   @field profile_url;
-
+  @field is_test;
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
@@ -176,6 +176,23 @@ class User extends BaseModel {
     return { category, code, data };
   }
 
+  @computed get metrics() {
+    return {
+      role: this.isProbablyTeacher ? 'instructor' : 'student',
+      is_new_user: Courses.completed.nonPreview.isEmpty,
+      is_test_user: this.is_test,
+      has_viewed_preview: Courses.preview.any,
+      courses: Courses.nonPreview.array.map(c => ({
+        subject: c.appearance_code,
+        type: c.is_preview ? 'preview' : 'real',
+        role: c.currentRole.type,
+        active: c.isActive,
+        enrollment: c.currentRole.isTeacher ? c.num_enrolled_students : -1,
+        enrollment_type: c.is_lms_enabled ? 'lms' : 'links',
+        cost: c.does_cost,
+      })),
+    };
+  }
 }
 
 export { User };
