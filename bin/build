@@ -24,7 +24,6 @@ node --max_old_space_size=4096 $(npm bin)/webpack --config webpack.config.js
 SHA=`git rev-parse HEAD`
 
 cd $OX_PROJECT/dist
-echo '// unused' > tutor.min.css
 echo "{" > ./rev-manifest.json
 LAST_FILE=""
 for minified in *.min.*; do
@@ -37,7 +36,7 @@ for minified in *.min.*; do
   fi
   echo -n '  "'$minified'": "'$hashed'"' >> ./rev-manifest.json
   LAST_FILE=$hashed
-  cp $minified $hashed
+  mv $minified $hashed
 done
 echo -e "\n}" >> ./rev-manifest.json
 
