@@ -64,12 +64,30 @@ const Translators = {
   },
 };
 
+const TAG_MANAGER_ID = 'GTM-W6N7PB';
 
 let GA = undefined;
 let trackerNames = undefined;
 
 var Analytics = {
-
+  // copied from BIT
+  initTagManager(w, d, s, l, i) {
+    // Disable ESLint rules since we're copying Google's script
+    /* eslint-disable one-var, prefer-const, prefer-template */
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
+    let f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+    // Breaks in tests because there are no scripts
+    if (f) {
+      j.async = true;
+      j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    }
+  },
+  
   // Set the Command Queue (ga) and cache the (possibly multiple) tracker names
   setGa(ga) {
     trackerNames = undefined;
@@ -78,6 +96,7 @@ var Analytics = {
       GA(function() {
         trackerNames = GA.getAll().map(function(tracker) { return tracker.get('name'); });
       });
+      this.initTagManager(window, document, 'script', 'dataLayer', TAG_MANAGER_ID);
     }
 
     return GA;
