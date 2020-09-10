@@ -34,7 +34,21 @@ export default class WindowSize {
   @computed get isMobile() {
     return this.current.width <= BREAKPOINTS.mobile;
   }
-  
+
+  @computed get isTablet() {
+    return !this.isMobile && this.current.width <= BREAKPOINTS.tablet;
+  }
+
+  @computed get isDesktop() {
+    return this.current.width >= BREAKPOINTS.desktop;
+  }
+
+  @computed get currentBreakpoint() {
+    if (this.isMobile) { return 'mobile'; }
+    if (this.isTablet) { return 'tablet'; }
+    return 'desktop';
+  }
+
   readSize(windowImpl = window) {
     return {
       width: windowImpl.innerWidth,
