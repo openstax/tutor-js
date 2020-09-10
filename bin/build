@@ -40,6 +40,9 @@ for minified in *.min.*; do
   cp $minified $hashed
 done
 echo -e "\n}" >> ./rev-manifest.json
-cd ..
-tar -czf ../archive.tar.gz -C ./dist .
-mv ../archive.tar.gz ./dist/
+
+if [ "$2" = "archive" ]; then
+  cd ..
+  tar -czf ../archive.tar.gz -C ./dist .
+  mv ../archive.tar.gz ./dist/
+fi
