@@ -77,7 +77,7 @@ const headerContent = (ux) => {
         <div className="title-info">
           <div className="title-name">{ux.task.title}</div>
           <div className="title-divider">|</div>
-          <div className="title-due-date">Due {<Time date={ux.task.dueAtMoment} format="concise" />}</div>
+          <div className="title-due-date">Due {<Time date={ux.task.due_at} format="concise" />}</div>
         </div>
         <div className="overview-task-icon">
           <Icon

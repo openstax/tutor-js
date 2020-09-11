@@ -75,7 +75,7 @@ const Content = styled.div`
     padding-top: calc(${Theme.navbars.top.height}*2);
   }
   ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
-    padding-top: 0;
+    padding: 0;
   `}
 `;
 

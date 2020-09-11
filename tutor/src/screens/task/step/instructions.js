@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import TutorLink from '../../../components/link';
-import { colors } from '../../../theme';
+import { colors, navbars } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
 import S from '../../../helpers/string';
@@ -9,6 +9,12 @@ import Time from '../../../components/time';
 
 const CardBody = styled(InnerStepCard)`
   padding-bottom: 5rem;
+  /* reading assignment has a sticky navigation bar at the bottom */
+  /* all other assignments, make this div to fill up the screen (the header is 20vh) */
+  ${({ theme, taskType }) => taskType !== 'reading' && theme.breakpoint.only.mobile`
+    height: calc(100vh - ${navbars.top.height} - ${navbars.bottom.height});
+    margin: 0;
+  `}
 `;
 
 const Header = styled.h2`
@@ -85,11 +91,19 @@ const Footer = styled.div`
     padding: 1rem;
   }
 
+  /* reading assignment has a sticky navigation bar at the bottom */
+  /* all other assignments, make the footer stick to the bottom */
+  ${({ theme, taskType }) => taskType !== 'reading' && theme.breakpoint.only.mobile`
+      position: absolute;
+      bottom: 0;
+  `}
+
   ${({ theme }) => theme.breakpoint.only.mobile`
     margin: 0;
     justify-content: center;
+    width: 100%;
     .btn {
-      padding: 1rem 14rem;
+      padding: 2rem 6rem;
     }
   `}
 
@@ -264,6 +278,7 @@ const Instructions = observer((props) => {
     <OuterStepCard>
       <CardBody
         data-test-id={`${task.type}-instructions`}
+        taskType={task.type}
       >
         <Header className="heading" templateColors={colors.templates[task.type]}>
           {/* On tablet and mobile screen, do not display the `and instructions` text */}
@@ -279,7 +294,7 @@ const Instructions = observer((props) => {
           <ReadingWeights task={task} />
           <ExternalTaskInfo task={task} />
         </Body>
-        <Footer>
+        <Footer taskType={task.type}>
           <ContinueBtn ux={ux} />
         </Footer>
       </CardBody>
