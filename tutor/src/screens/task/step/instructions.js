@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import TutorLink from '../../../components/link';
-import { colors } from '../../../theme';
+import { colors, navbars } from '../../../theme';
 import { OuterStepCard, InnerStepCard } from './card';
 import StepContinueBtn from './continue-btn';
 import S from '../../../helpers/string';
@@ -12,7 +12,7 @@ const CardBody = styled(InnerStepCard)`
   /* reading assignment has a sticky navigation bar at the bottom */
   /* all other assignments, make this div to fill up the screen (the header is 20vh) */
   ${({ theme, taskType }) => taskType !== 'reading' && theme.breakpoint.only.mobile`
-    height: 80vh;
+    height: calc(100vh - ${navbars.top.height} - ${navbars.bottom.height});
     margin: 0;
   `}
 `;
