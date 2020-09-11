@@ -32,7 +32,7 @@ const config = {
   output: {
     filename: production ? '[name]-[hash].min.js' : '[name].js',
     path: path.resolve(__dirname, project, 'dist'),
-    //chunkFilename: '[name]-chunk-[hash].js',
+    chunkFilename: '[name]-chunk-[hash].js',
     publicPath,
   },
   devtool: production ? 'source-map' : 'inline-source-map',
