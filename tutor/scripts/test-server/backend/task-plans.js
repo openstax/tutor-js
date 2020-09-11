@@ -128,7 +128,7 @@ module.exports = {
 
   route(server) {
     server.get('/api/plans/:id', this.get);
-    server.patch('/api/plans/:id', this.update);
+    server.put('/api/plans/:id', this.update);
     server.delete('/api/plans/:id', this.delete);
     server.get('/api/courses/:courseId/plans', this.getPast);
     server.get('/api/plans/:id/scores', this.getScores);

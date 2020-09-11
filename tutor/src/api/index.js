@@ -95,7 +95,7 @@ const startAPI = function() {
   // notes
   connectModelUpdate(Note, 'save', {
     onSuccess: 'onUpdated',
-    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    method() { return this.isNew ? 'POST' : 'PUT'; },
     pattern() {
       return this.isNew ? 'pages/{pageUuid}/notes' : 'notes/{id}';
     },
@@ -271,7 +271,7 @@ const startAPI = function() {
 
   connectModelRead(GradingTemplate, 'save', {
     onSuccess: 'onSaved',
-    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    method() { return this.isNew ? 'POST' : 'PUT'; },
     pattern() {
       return this.isNew ?
         'courses/{courseId}/grading_templates' : 'grading_templates/{id}';

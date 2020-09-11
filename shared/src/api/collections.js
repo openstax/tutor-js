@@ -112,7 +112,7 @@ const ROUTE_UNIQUES = ['subject', 'action'];
 const METHODS_TO_ACTIONS = {
   POST: 'create',
   GET: 'read',
-  PATCH: 'update',
+  PUT: 'update',
   DELETE: 'delete',
   PUT: 'modify',
 };
