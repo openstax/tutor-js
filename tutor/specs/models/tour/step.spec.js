@@ -33,4 +33,11 @@ describe('TourStep Model', () => {
     expect(step.isViewable).toBe(true);
   });
 
+  it('is not viewable if the viewport matches a disabled breakpoint', () => {
+    expect(step.isViewable).toBe(true);
+    step.disabledBreakpoints = ['mobile', 'tablet'];
+    step.windowSize = { currentBreakpoint: 'mobile' };
+    expect(step.isViewable).toBe(false);
+  });
+
 });

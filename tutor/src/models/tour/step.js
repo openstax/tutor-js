@@ -6,10 +6,13 @@ import {
   computed, action,
 } from 'mobx';
 
+import { isEmpty, intersection } from 'lodash';
+
 import Markdown from 'markdown-it';
 import MDRegex from 'markdown-it-regexp';
 
 import Actions from './actions';
+import WindowSize from '../window-size';
 
 const MD = Markdown({ html: true, linkify: true, typographer: true });
 
@@ -41,6 +44,9 @@ class TourStep extends BaseModel {
   @field displayWithButtons = true;
   @field({ type: 'object' }) action;
   @field className;
+  @field({ type: 'array' }) disabledBreakpoints;
+
+  windowSize = new WindowSize();
 
   @computed get target() {
     return this.anchor_id ? `[data-tour-anchor-id="${this.anchor_id}"]` : null;
@@ -88,6 +94,9 @@ class TourStep extends BaseModel {
   }
 
   get isViewable() {
+    if (!isEmpty(intersection(this.disabledBreakpoints, [this.windowSize.currentBreakpoint]))) {
+      return false;
+    }
     return Boolean(!this.target || this.element);
   }
 

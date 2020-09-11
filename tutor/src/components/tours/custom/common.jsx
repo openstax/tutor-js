@@ -9,12 +9,25 @@ const Footer = styled.div`
   justify-content: center;
 `;
 
+const StyledPrimary = styled(Primary)`
+  background: #007297;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  width: 256px;
+  height: 48px;
+
+  &:hover {
+    background: #2092b7;
+  }
+`;
+
 function ValueProp({ className, children, ride }) {
   return (
     <div data-test-id="value-prop" className={cn('value-prop', className)}>
       {children}
       <Footer>
-        <Primary onClick={ride.onNextStep}>Continue</Primary>
+        <StyledPrimary onClick={ride.onNextStep}>Continue</StyledPrimary>
       </Footer>
     </div>
   );
@@ -62,7 +75,7 @@ function WelcomeToTutorMessage(props) {
   const { className, children } = props;
   return (
     <ValueProp {...props} className={cn('welcome-to-tutor', className)}>
-      <h1 className="heading">Welcome to <CourseBranding />!</h1>
+      <h1 className="heading"><span className="welcome-to">Welcome to</span> <CourseBranding />!</h1>
       {children}
       <TutorValueColumns {...props} />
     </ValueProp>
