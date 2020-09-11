@@ -19,9 +19,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding: 26px 32px;
   background-color: white;
   border-bottom: 1px solid #d5d5d5;
-  padding: 24px 32px;
   background-color: white;
 }
 
@@ -97,13 +97,13 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
 
 @media (max-width:999px) {
   .c0 {
-    padding: 24px 24px;
+    padding: 32px 24px;
   }
 }
 
 @media (max-width:600px) {
   .c0 {
-    padding: 16px 8px;
+    padding: 32px 8px;
   }
 }
 
@@ -588,9 +588,9 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding: 26px 32px;
   background-color: white;
   border-bottom: 1px solid #d5d5d5;
-  padding: 24px 32px;
   background-color: white;
 }
 
@@ -666,13 +666,13 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
 
 @media (max-width:999px) {
   .c0 {
-    padding: 24px 24px;
+    padding: 32px 24px;
   }
 }
 
 @media (max-width:600px) {
   .c0 {
-    padding: 16px 8px;
+    padding: 32px 8px;
   }
 }
 

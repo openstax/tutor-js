@@ -1,22 +1,21 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
 import TutorLink from './link';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
-import { breakpoint } from 'theme';
 
 const HeaderWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 55px;
   align-items: center;
+  padding: 26px 32px;
   background-color: ${colors.white};
   border-bottom: 1px solid ${colors.neutral.pale};
-  padding: 24px 32px;
   ${breakpoint.tablet`
-    padding: 24px ${breakpoint.margins.tablet};
+    padding: 32px ${breakpoint.margins.tablet};
   `}
   ${breakpoint.mobile`
-    padding: 16px ${breakpoint.margins.mobile};
+    padding: 32px ${breakpoint.margins.mobile};
   `}
 
   > div {
