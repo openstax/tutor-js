@@ -99,6 +99,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
     margin-left: 1rem;
   }
 
+  .c0.c0.c0 .tutor-navbar .user-menu {
+    margin-right: -0.75rem;
+  }
+
   .c0.c0.c0 .tutor-navbar .user-menu .initials {
     height: 22px;
     width: 22px;
@@ -124,9 +128,14 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
     padding-right: 8px;
   }
 
-  .my-courses .c0.c0.c0 .tutor-navbar {
+  .my-courses .c0.c0.c0 .tutor-navbar,
+  .dashboard .c0.c0.c0 .tutor-navbar {
     padding-left: calc(8px * 2);
     padding-right: calc(8px * 2);
+  }
+
+  .c0 #mobile-menu {
+    margin-right: calc(-8px * 2 - 2px);
   }
 }
 

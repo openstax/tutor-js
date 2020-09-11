@@ -13,4 +13,31 @@
     }
   }
 
+  .notification {
+    @media (max-width: $tablet-collapse-breakpoint), (max-width: $mobile-collapse-breakpoint) {
+      font-size: 1.4rem;
+      font-weight: 500;
+      height: 40px;
+
+      .ox-icon {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+      }
+      .dismiss {
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: $tablet-collapse-breakpoint) {
+      padding: 0 24px;
+    }
+
+    @media (max-width: $mobile-collapse-breakpoint) {
+      padding: 0 16px;
+      .dismiss {
+        margin-right: -1px;
+      }
+    }
+  }
 }
