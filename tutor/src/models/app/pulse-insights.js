@@ -3,7 +3,7 @@ import Raven from './raven';
 import Flags from '../feature_flags';
 
 export default {
-  boot() {
+  boot({ app }) {
     if (!Flags.pulse_insights) {
       return Promise.resolve({});
     }
@@ -14,7 +14,7 @@ export default {
     };
     w.pi('identify', 'PI-16384954');
     w.pi('get', 'surveys');
-
+    w.pi('set_custom_data', app.user.metrics);
     return loadjs('//js.pulseinsights.com/surveys.js', {
       async: true,
       returnPromise: true,

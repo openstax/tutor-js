@@ -47,7 +47,7 @@ export default class TutorApp {
     await documentReady();
 
     const app = new TutorApp();
-    [Raven, PulseInsights, Api].forEach(lib => lib.boot());
+    [Raven, Api].forEach(lib => lib.boot({ app }));
 
     app.data = readBootstrapData();
     if (isEmpty(app.data)) {
@@ -66,6 +66,7 @@ export default class TutorApp {
 
   @action.bound initializeApp() {
     window._MODELS.bootstrapData = this.data;
+    window._MODELS.app = this;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
@@ -82,6 +83,9 @@ export default class TutorApp {
     startMathJax();
     TransitionAssistant.startMonitoring();
     Raven.setUser(User);
+    this.user = User;
+    this.courses = Courses;
+    PulseInsights.boot({ app: this });
     return Promise.resolve(this);
   }
 
