@@ -35,11 +35,14 @@ const StyledLayout = styled.div`
       padding-right: ${breakpoint.margins.tablet};
       .control-label { display: none; }
       .dropdown-toggle .ox-icon { margin-left: 1rem; }
-      .user-menu .initials {
-        height: 22px;
-        width: 22px;
-        font-size: 0.9rem;
-        letter-spacing: -1px;
+      .user-menu {
+        margin-right: -0.75rem;
+        .initials {
+          height: 22px;
+          width: 22px;
+          font-size: 0.9rem;
+          letter-spacing: -1px;
+        }
       }
       .right-side-controls > * {
         margin-left: 0;
@@ -55,9 +58,13 @@ const StyledLayout = styled.div`
       padding-left: ${breakpoint.margins.mobile};
       padding-right: ${breakpoint.margins.mobile};
     }
-    .my-courses &&& .tutor-navbar {
+    .my-courses &&& .tutor-navbar, .dashboard &&& .tutor-navbar {
       padding-left: calc(${breakpoint.margins.mobile} * 2);
       padding-right: calc(${breakpoint.margins.mobile} * 2);
+    }
+
+    #mobile-menu {
+      margin-right: calc(-${breakpoint.margins.mobile} * 2 - 2px);
     }
   `}
 
