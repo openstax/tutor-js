@@ -38,7 +38,7 @@ window._MODELS = Object.assign({
 
 export default class TutorApp {
 
-  @observable tutor_js_url;
+  @observable tutor_assets_hash;
   @observable osweb_base_url;
   @observable is_impersonating;
 
@@ -89,13 +89,13 @@ export default class TutorApp {
     return Promise.resolve(this);
   }
 
-  @action.bound onNotice({ tutor_js_url, feature_flags }) {
+  @action.bound onNotice({ tutor_assets_hash, feature_flags }) {
     // set flags first because other behaviour might rely on them
     FeatureFlagsApi.merge(feature_flags);
     // when it's null, the url should default to the first update
-    if (isNil(this.tutor_js_url)) {
-      this.tutor_js_url = tutor_js_url;
-    } else if (this.tutor_js_url !== tutor_js_url) {
+    if (isNil(this.tutor_assets_hash)) {
+      this.tutor_assets_hash = tutor_assets_hash;
+    } else if (this.tutor_assets_hash !== tutor_assets_hash) {
       Toasts.push({ handler: 'reload' });
     }
   }
