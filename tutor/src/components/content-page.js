@@ -1,4 +1,4 @@
-import { React, styled } from 'vendor';
+import { styled } from 'vendor';
 import { breakpoint } from 'theme';
 
 const ContentPage = styled.div`
