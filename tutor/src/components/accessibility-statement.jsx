@@ -1,29 +1,8 @@
 import { React, styled } from 'vendor';
 import Router from '../helpers/router';
 import { Table } from 'react-bootstrap';
-import { breakpoint } from 'theme';
+import ContentPage from './content-page';
 import Header from './header';
-
-const Page = styled.div`
-  background: #fff;
-  line-height: 2rem;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 40px 80px;
-  ${breakpoint.tablet`
-    padding: calc(${breakpoint.margins.mobile} * 2) ${breakpoint.margins.tablet};
-  `}
-  ${breakpoint.mobile`
-    padding: ${breakpoint.margins.mobile};
-  `}
-  h3 {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
-  p, ul {
-    margin-bottom: 2rem;
-  }
-`;
 
 export default function AccessibilityStatement() {
   const params = Router.currentParams();
@@ -38,7 +17,7 @@ export default function AccessibilityStatement() {
         title="Accessibility Statement"
         unDocked
       />
-      <Page>
+      <ContentPage>
         <h3>Accessibility</h3>
         <p>
           At OpenStax, we're committed to ensuring that OpenStax Tutor is as accessible as possible to the widest possible audience, including students with disabilities.
@@ -149,7 +128,7 @@ export default function AccessibilityStatement() {
             </tr>
           </tbody>
         </Table>
-      </Page>
+      </ContentPage>
     </>
   );
 }
