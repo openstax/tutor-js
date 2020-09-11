@@ -10,7 +10,6 @@ export default class ModelApi {
     create: 0,
     update: 0,
     delete: 0,
-    modify: 0,
   });
 
   @observable errors = {};
@@ -30,7 +29,7 @@ export default class ModelApi {
   @computed get isFetchInProgress() {
     return Boolean(this.requestsInProgress.get('read'));
   }
-  
+
   @computed get isWriteInProgress() {
     return Boolean(
       this.requestsInProgress.get('put') ||

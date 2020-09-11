@@ -24,7 +24,7 @@ module.exports = {
     return res.json(tmpl);
   },
 
-  patch(req, res) {
+  put(req, res) {
     const tmpl = TEMPLATES_MAP[parseInt(req.params.id)];
     if (!tmpl) {
       return res.status(404).end('error');
@@ -36,6 +36,6 @@ module.exports = {
   route(server) {
     server.get('/api/courses/:courseId/grading_templates', this.get);
     server.post('/api/courses/:courseId/grading_templates', this.post);
-    server.patch('/api/grading_templates/:id', this.patch);
+    server.put('/api/grading_templates/:id', this.put);
   },
 };

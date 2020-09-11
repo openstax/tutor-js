@@ -4,13 +4,13 @@ module.exports = {
 
   setRole() { }, // do nothing, this is always teacher
 
-  patch(req, res) {
+  put(req, res) {
     const course = getCourse(req.params.id);
     Object.assign(course, req.body);
     return res.json(course);
   },
 
   route(server) {
-    server.patch('/api/courses/:id', this.patch);
+    server.put('/api/courses/:id', this.put);
   },
 };

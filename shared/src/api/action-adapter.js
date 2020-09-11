@@ -199,7 +199,6 @@ const adaptHandler = apiHandler => ({
   connectRead:    partial(connectAction, 'read', apiHandler),
   connectUpdate:  partial(connectAction, 'update', apiHandler),
   connectDelete:  partial(connectAction, 'delete', apiHandler),
-  connectModify:  partial(connectAction, 'modify', apiHandler),
   connectModelCreate: partial(connectModelAction, 'create', apiHandler),
   connectModelRead:   partial(connectModelAction, 'read', apiHandler),
   connectModelUpdate: partial(connectModelAction, 'update', apiHandler),

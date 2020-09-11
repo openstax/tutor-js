@@ -12,7 +12,7 @@ const WRM_ID_LATE_NOT_ACCEPTED = 4;
 
 // create a WRM task
 TASKS[WRM_ID] = Factory.create('StudentTask', { id: WRM_ID, type: 'homework', wrm: true, stepCount: 10 });
-TASKS[WRM_ID_LATE_NOT_ACCEPTED] = Factory.create('StudentTask', 
+TASKS[WRM_ID_LATE_NOT_ACCEPTED] = Factory.create('StudentTask',
   { id: WRM_ID_LATE_NOT_ACCEPTED, type: 'homework', wrm: true, stepCount: 10, isLateNotAccepted: true });
 
 const taskForId = (id, attrs = {}) => (
@@ -66,7 +66,7 @@ module.exports = {
   route(server) {
     server.get('/api/tasks/:id', this.getTask);
     server.get('/api/steps/:id', this.getStep);
-    server.patch('/api/steps/:id', this.saveStep);
+    server.put('/api/steps/:id', this.saveStep);
     server.put('/api/steps/:id/grade', this.gradeStep);
   },
 };
