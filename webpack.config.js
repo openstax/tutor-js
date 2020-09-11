@@ -69,11 +69,17 @@ const config = {
         NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
       },
     }),
+    new ManifestPlugin({
+      writeToDisk: true,
+      entrypoints: true,
+      output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-manifest.json` : 'manifest.json',
+    }),
+
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 1,
+      maxInitialRequests: 5,
     },
   },
   performance: {
@@ -105,15 +111,7 @@ const config = {
   },
 };
 
-if (production) {
-  config.plugins.push(
-    new ManifestPlugin({
-      writeToDisk: true,
-      entrypoints: true,
-      integrity: true,
-    }),
-  );
-} else {
+if (!production) {
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
   );

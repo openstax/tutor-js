@@ -21,4 +21,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.TUTOR_AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.TUTOR_AWS_S3_BUCKET }}
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
           SOURCE_DIR: tutor/dist
