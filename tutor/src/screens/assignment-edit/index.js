@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 import UX from './ux';
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
+import S from '../../helpers/string';
 
 import './styles.scss';
 
@@ -71,7 +72,7 @@ class AssignmentBuilder extends React.Component {
             courseId={ux.course.id}
           >
             <ContentWrapper>
-              <CourseBreadcrumb course={this.ux.course} currentTitle={`Add ${ux.plan.type}`} />
+              <CourseBreadcrumb course={this.ux.course} currentTitle={`Add ${S.assignmentHeaderText(ux.plan.type)}`} />
               <Formik
                 initialValues={ux.formValues}
                 validateOnMount={true}

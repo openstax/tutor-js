@@ -135,6 +135,7 @@
       a {
         padding: 3px 12px;
         color: $tutor-neutral-darker;
+        text-transform: capitalize;
         &:hover, &:focus { text-decoration: none; }
       }
     }

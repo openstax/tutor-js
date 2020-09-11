@@ -132,9 +132,11 @@ const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => 
   return (
     <ScrollToTop>
       <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
+        {Boolean(ux.steps && ux.steps.headerText) &&
         <HeaderStep>
           {ux.steps.headerText}
-        </HeaderStep>
+        </HeaderStep> 
+        }
         {title}
       </Header>
       <BodyWrapper>
