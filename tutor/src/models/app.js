@@ -71,9 +71,12 @@ export default class TutorApp {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
     });
-    // tell webpack where to load chunks from.
-    // eslint-disable-next-line no-undef
-    __webpack_public_path__ = this.data.assets_url;
+    // are we running under webpack?
+    if (typeof __webpack_public_path__ !== 'undefined') {
+      // if so, tell it where to load chunks from.
+      // eslint-disable-next-line no-undef
+      __webpack_public_path__ = this.data.assets_url;
+    }
     
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
