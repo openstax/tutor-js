@@ -11,7 +11,11 @@
       "customComponent": "StudentWelcomeToTutor"
     }, {
       "title": "Welcome to your dashboard!",
-      "body": "Think of your dashboard as base camp – you can see which assignments are due this week, review your past work, and answer practice questions in topics where you need extra review."
+      "body": "Think of your dashboard as base camp – you can see which assignments are due this week, review your past work, and answer practice questions in topics where you need extra review.",
+      "disabledBreakpoints": [
+        "tablet",
+        "mobile"
+      ]
     }, {
       "title": "Here’s where you see personal analytics",
       "body": "The Performance Forecast is the compass in your pocket: it helps you measure how you’re are doing on each topic, and it gives you an opportunity to get extra practice.",
@@ -20,7 +24,11 @@
       "is_fixed": true,
       "action": {
         "id": "open-actions-menu"
-      }
+      },
+      "disabledBreakpoints": [
+        "tablet",
+        "mobile"
+      ]
     }, {
       "title": "Browse the book",
       "body": "Review the OpenStax textbook here.",
@@ -29,7 +37,11 @@
       "is_fixed": true,
       "action": {
         "id": "open-actions-menu"
-      }
+      },
+      "disabledBreakpoints": [
+        "tablet",
+        "mobile"
+      ]
     }, {
       "title": "Here’s where you can get more information on OpenStax Tutor features",
       "body": "Review your Getting Started Guide to learn about features in OpenStax Tutor, like two-step questions, spaced practice, highlighting, note-taking and more.",
@@ -38,7 +50,11 @@
       "is_fixed": true,
       "action": {
         "id": "open-support-menu"
-      }
+      },
+      "disabledBreakpoints": [
+        "tablet",
+        "mobile"
+      ]
     }
   ]
 },

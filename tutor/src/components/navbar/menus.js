@@ -8,26 +8,30 @@ import StudentPayNowBtn    from './student-pay-now-btn';
 import ActionsMenu         from './actions-menu';
 import PreviewAddCourseBtn from './preview-add-course-btn';
 import UserMenu            from './user-menu';
+import dom                 from '../../helpers/dom';
 
 const DesktopMenus = observer(({ course }) => (
   <>
     <StudentPayNowBtn    course={course} />
-    <ActionsMenu         course={course} />
     <SupportMenu         course={course} />
+    <ActionsMenu         course={course} />
     <PreviewAddCourseBtn course={course} />
     <UserMenu />
   </>
 ));
 
 const MobileMenus = observer(({ course }) => (
-  <Dropdown className="mobile-menu">
+  <Dropdown
+    className="mobile-menu"
+    onToggle={v => dom(document.body).hideOverflow(v) }
+  >
     <Dropdown.Toggle
       id="mobile-menu"
       aria-label="Menu and settings"
       variant="ox"
     >
-      <Icon type="bars" className="open-icon" />
-      <Icon type="close" className="close-icon" />
+      <Icon type="bars" className="open-icon" size="lg" />
+      <Icon type="close" className="close-icon" size="lg" />
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <ActionsMenu course={course} />

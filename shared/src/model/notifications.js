@@ -27,7 +27,6 @@ const CLIENT_ID = 'client-specified';
 
 const Notifications = {
   POLLING_TYPES: {
-    MISSING_STUDENT_ID: 'missing_student_id',
     COURSE_HAS_ENDED: 'course_has_ended',
   },
 
@@ -112,18 +111,10 @@ const Notifications = {
   },
 
   // Called when the current course and/or role has changed
-  // The notification logic may display a notice
-  // based on the relationship or if student identifier is missing
+  // The notification logic may display a notice based on the relationship
   setCourseRole(course, role) {
     let id;
     if (isEmpty(role) || (role.type === 'teacher')) { return; }
-    const studentId = __guard__(find(course.students, { role_id: role.id }), x => x.student_identifier);
-    if (isEmpty(studentId) && (moment().diff(role.joined_at, 'days') > 7)) {
-      id = this.POLLING_TYPES.MISSING_STUDENT_ID;
-      this.display({ id, type: id, course, role });
-    } else {
-      this.removeType(this.POLLING_TYPES.MISSING_STUDENT_ID);
-    }
     if (moment(course.ends_at).isBefore(moment(), 'day')) {
       id = this.POLLING_TYPES.COURSE_HAS_ENDED;
       this.display({ id, type: id, course, role });

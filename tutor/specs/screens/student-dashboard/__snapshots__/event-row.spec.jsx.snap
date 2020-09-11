@@ -63,10 +63,6 @@ exports[`Event Row renders and matches snapshot 1`] = `
   flex-shrink: 0;
 }
 
-.c1 span {
-  word-break: break-all;
-}
-
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;

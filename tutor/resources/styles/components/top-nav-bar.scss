@@ -31,6 +31,24 @@
     }
   }
 
+  .dropdown-menu {
+    padding: 0;
+
+    .dropdown-item {
+      border-bottom: 1px solid #f5f5f5;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .dropdown-divider {
+      margin: 0;
+    }
+    .dropdown-divider + .dropdown-divider {
+      display: none;
+    }
+  }
+
+
   > * {
     display: flex;
     align-items: center;
@@ -109,7 +127,10 @@
         }
       }
     }
-
+    // don't display double dividers
+    .dropdown-divider + .dropdown-divider {
+      display: none;
+    }
     [data-item="browseBook"],
     [data-item="viewGradebook"],
     [data-item="viewPerformanceGuide"],
@@ -132,28 +153,27 @@
       display: none;
     }
 
+    .ox-icon {
+      width: 16px;
+    }
+
     &.show {
       .open-icon {
         display: none;
       }
       .close-icon {
         display: block;
-        width: 14px;
       }
     }
 
     .dropdown-menu {
-      margin: 60px 0 0 0 !important;
+      margin: #{$tutor-navbar-height} 0 0 !important;
       transform: inherit !important;
       left: 0;
       right: 0;
       top: 0;
       overflow-y: auto;
-      max-height: calc(100vh - $tutor-navbar-height);
-    }
-    .dropdown-item {
-      padding-left: 16px;
-      padding-right: 16px;
+      max-height: calc(100vh - #{$tutor-navbar-height} * 3);
     }
   }
 

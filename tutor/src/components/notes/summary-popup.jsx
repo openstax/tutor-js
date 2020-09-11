@@ -106,7 +106,7 @@ class SummaryPopup extends React.Component {
           className="modal-action"
           onClick={this.openSummaryWindow}
         >
-          <Icon type="print"/> Print
+          <Icon type="print"/>
         </Button>
         <PopoutWindow
           title={`${course.name} highlights and notes`}

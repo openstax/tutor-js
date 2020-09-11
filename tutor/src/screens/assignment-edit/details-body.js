@@ -222,7 +222,7 @@ const DetailsBody = observer(({ ux }) => {
     <Body>
       <SplitRow>
         <RowLabel htmlFor="title">
-          Assignment name
+          {ux.titleTextLabel}
           <HintText>(This will show on the student dashboard)</HintText>
         </RowLabel>
         <StyledTextInput

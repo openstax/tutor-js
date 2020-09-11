@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fznKkj feiMkx\\">
+                            <div className=\\"sc-fzokOt OoIRN\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">
@@ -28,7 +28,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/dashboard\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/dashboard\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
-                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fzpans iRdary\\">
+                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fzplWN UJQZP\\">
                                                         <defs>
                                                           <style />
                                                         </defs>
@@ -61,35 +61,6 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             <Responsive desktop={{...}} mobile={{...}}>
                                               <Memo(wrappedComponent) course={[undefined]}>
                                                 <StudentPayNowBtn course={[undefined]} />
-                                                <ActionsMenu course={[undefined]}>
-                                                  <Responsive desktop={{...}} mobile={{...}}>
-                                                    <Dropdown className=\\"actions-menu\\" navbar={false}>
-                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
-                                                        <div onKeyDown={[Function: handleKeyDown]} className=\\"actions-menu dropdown\\">
-                                                          <DropdownToggle id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\">
-                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
-                                                                <Icon type=\\"bars\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                                  <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}}>
-                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                        <path fill=\\"currentColor\\" d=\\"M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z\\" style={{...}} />
-                                                                      </svg>
-                                                                    </FontAwesomeIcon>
-                                                                  </IconWrapper>
-                                                                </Icon>
-                                                                <span className=\\"control-label\\" title=\\"Menu and settings\\">
-                                                                  Menu
-                                                                </span>
-                                                              </button>
-                                                            </Button>
-                                                          </DropdownToggle>
-                                                          <DropdownMenu alignRight={true} flip={true} />
-                                                        </div>
-                                                      </ReactOverlaysDropdown>
-                                                    </Dropdown>
-                                                  </Responsive>
-                                                </ActionsMenu>
                                                 <withRouter(inject(SupportMenu)) course={[undefined]}>
                                                   <inject(SupportMenu) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                                     <Observer>
@@ -173,6 +144,35 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     </Observer>
                                                   </inject(SupportMenu)>
                                                 </withRouter(inject(SupportMenu))>
+                                                <ActionsMenu course={[undefined]}>
+                                                  <Responsive desktop={{...}} mobile={{...}}>
+                                                    <Dropdown className=\\"actions-menu\\" navbar={false}>
+                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                        <div onKeyDown={[Function: handleKeyDown]} className=\\"actions-menu dropdown\\">
+                                                          <DropdownToggle id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\">
+                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
+                                                                <Icon type=\\"bars\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                                  <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}}>
+                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                        <path fill=\\"currentColor\\" d=\\"M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z\\" style={{...}} />
+                                                                      </svg>
+                                                                    </FontAwesomeIcon>
+                                                                  </IconWrapper>
+                                                                </Icon>
+                                                                <span className=\\"control-label\\" title=\\"Menu and settings\\">
+                                                                  Menu
+                                                                </span>
+                                                              </button>
+                                                            </Button>
+                                                          </DropdownToggle>
+                                                          <DropdownMenu alignRight={true} flip={true} />
+                                                        </div>
+                                                      </ReactOverlaysDropdown>
+                                                    </Dropdown>
+                                                  </Responsive>
+                                                </ActionsMenu>
                                                 <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
                                                   <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                                     <Observer>
@@ -207,6 +207,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   </nav>
                                 </styled.nav>
                               </Navbar>
+                              <MobilePaymentBar course={[undefined]} />
                               <withRouter(inject-with-courseContext(ServerErrorMonitoring))>
                                 <inject-with-courseContext(ServerErrorMonitoring) history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                   <ServerErrorMonitoring history={{...}} location={{...}} match={{...}} staticContext={[undefined]} courseContext={{...}} />
@@ -222,7 +223,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fznZeY afmAJ\\">
+                                <div className=\\"sc-fzqBZW fzNIlu\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body

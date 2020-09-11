@@ -4,18 +4,30 @@ import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
 import Router from '../../helpers/router';
 import UX from './ux';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import Time from '../../components/time';
+
+const StyledHeader = styled(Header)`
+  padding-bottom: 8px;
+
+  .sticky-table {
+    ${breakpoint.only.mobile`
+      margin-left: -${breakpoint.margins.mobile};
+      margin-right: -${breakpoint.margins.mobile};
+      margin-bottom: -${breakpoint.margins.mobile};
+    `};
+  }
+`;
 
 const StyledHeadingTitle = styled.div`
   display: flex;
   font-size: 1.7rem;
   line-height: none;
-  padding-left: 10px;
   width: 100%;
   .title-info {
     padding: 6px;
+    padding-left: 0;
     display: flex;
     div + div {
       margin-left: 10px;
@@ -26,7 +38,7 @@ const StyledHeadingTitle = styled.div`
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-    };
+    }
     .title-divider {
       padding: 0 0.8rem;
       color: ${colors.neutral.pale};
@@ -41,7 +53,7 @@ const StyledHeadingTitle = styled.div`
   */
   ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 10px 0 0;
     .title-info {
       .title-divider, .title-due-date {
         display: none;
@@ -120,7 +132,7 @@ class ExercisesTaskHeader extends React.Component {
 
     const { ux, unDocked } = this.props;
     return (
-      <Header
+      <StyledHeader
         unDocked={unDocked}
         headerContent={headerContent(ux)}
         backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}

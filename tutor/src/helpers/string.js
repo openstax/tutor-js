@@ -103,4 +103,9 @@ export default {
     return isString(text) ? text.replace(/(<([^>]+)>)/ig, '') : text;
   },
 
+  assignmentHeaderText(type) {
+    if(type === 'external') return 'external assignment';
+    return type;
+  },
+
 };

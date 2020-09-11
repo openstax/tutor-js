@@ -17,6 +17,7 @@ import { SecondaryToolbar } from './navbar/secondary-toolbar';
 import Router from '../helpers/router';
 import { get } from 'lodash';
 import { breakpoint } from 'theme';
+import { MobilePaymentBar } from './navbar/student-payment-bar';
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -70,7 +71,9 @@ const StyledLayout = styled.div`
 const Content = styled.div`
   padding-top: ${Theme.navbars.top.height};
   padding-bottom: ${props => props.hasFooter ? Theme.navbars.bottom.height : 0};
-
+  .mobile-payment-bar + & {
+    padding-top: calc(${Theme.navbars.top.height}*2);
+  }
   ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
     padding-top: 0;
   `}
@@ -136,6 +139,7 @@ class TutorLayout extends React.Component {
             <SecondaryToolbar
               controls={this.secondaryTopControls}
             />}
+          <MobilePaymentBar course={course} />
           <ErrorMonitoring />
           <TermsModal />
           <Toasts />

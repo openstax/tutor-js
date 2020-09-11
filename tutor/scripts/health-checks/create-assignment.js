@@ -6,14 +6,13 @@ context('Assignments', () => {
     cy.loginAccount();
     cy.disableTours();
     cy.selectOrCreateCourse('biology_2e');
-    return
+
     cy.get('.day.today .label').click()
     cy.get('#course-add-dropdown [data-assignment-type="homework"]').click()
     cy.getTestElement('edit-assignment-name').type(`${moment().format('YYYYMMDD-HH')} test homwork`)
     cy.get('.btn-primary').click()
 
     // TOC load
-
     cy.get('.chapter[data-is-expanded="true"] .chapter-checkbox').click()
     cy.checkLastRequestTime(/readings$/, 3, 'seconds')
     cy.get('.btn-primary').click()

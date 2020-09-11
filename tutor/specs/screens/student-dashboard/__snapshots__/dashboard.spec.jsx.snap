@@ -68,10 +68,6 @@ exports[`Student Dashboard displays as loading 1`] = `
   flex-shrink: 0;
 }
 
-.c2 span {
-  word-break: break-all;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -365,7 +361,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <span
                         className="c3 date-range"
@@ -392,17 +388,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       Scores
                     </div>
@@ -535,7 +531,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <span
                         className="title"
@@ -544,17 +540,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       Scores
                     </div>
@@ -568,7 +564,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-event"
@@ -579,7 +575,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -591,7 +587,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -605,7 +601,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -643,7 +639,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-external"
@@ -654,7 +650,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -666,7 +662,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -680,7 +676,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -718,7 +714,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-homework"
@@ -729,7 +725,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -741,7 +737,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -755,7 +751,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -793,7 +789,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-reading"
@@ -804,7 +800,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -816,7 +812,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -830,7 +826,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -981,10 +977,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
   flex-shrink: 0;
 }
 
-.c2 span {
-  word-break: break-all;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1278,7 +1270,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <span
                         className="c3 date-range"
@@ -1305,17 +1297,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       Scores
                     </div>
@@ -1448,7 +1440,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <span
                         className="title"
@@ -1457,17 +1449,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       Scores
                     </div>
@@ -1481,7 +1473,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-event"
@@ -1492,7 +1484,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -1504,7 +1496,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -1518,7 +1510,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -1556,7 +1548,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-external"
@@ -1567,7 +1559,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -1579,7 +1571,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -1593,7 +1585,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -1631,7 +1623,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-homework"
@@ -1642,7 +1634,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -1654,7 +1646,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -1668,7 +1660,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"
@@ -1706,7 +1698,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     tabIndex={-1}
                   >
                     <div
-                      className="sc-fznyAO c2"
+                      className="sc-fznKkj c2"
                     >
                       <i
                         className="c13 icon-reading"
@@ -1717,7 +1709,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznyAO c4"
+                      className="sc-fznKkj c4"
                     >
                       <time
                         onBlur={[Function]}
@@ -1729,7 +1721,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </time>
                     </div>
                     <div
-                      className="sc-fznyAO c5"
+                      className="sc-fznKkj c5"
                     >
                       <div
                         className="c14"
@@ -1743,7 +1735,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </div>
                     <div
-                      className="sc-fznyAO c6"
+                      className="sc-fznKkj c6"
                     >
                       <div
                         className="c14"

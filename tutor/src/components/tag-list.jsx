@@ -32,7 +32,7 @@ const IconWrapper = styled.span`
 const ClearAllButton = styled.a`
   display: inline-block;
   vertical-align: middle;
-  margin-left: 32px;
+  margin-left: 20px;
 `;
 
 @observer
