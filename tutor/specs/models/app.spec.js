@@ -18,14 +18,15 @@ describe('Tutor App model', () => {
 
   beforeEach(() => app = new App());
 
-  it('sends a toast notice when url changes', () => {
-    app.onNotice({ tutor_js_url: 'test.com' });
-    expect(app.tutor_js_url).toEqual('test.com');
+  it('sends a toast notice when assets change', () => {
+    app.onNotice({ tutor_assets_hash: 'jasdlkfjla' });
+    expect(app.tutor_assets_hash).toEqual('jasdlkfjla');
     expect(Toasts.push).not.toHaveBeenCalled();
 
-    app.onNotice({ tutor_js_url: 'test.com/new-js' });
-
-    expect(app.tutor_js_url).toEqual('test.com');
+    app.onNotice({ tutor_assets_hash: 'zjklub' });
+    // will not update if it's non-null and different
+    expect(app.tutor_assets_hash).toEqual('jasdlkfjla');
+    // instead it'll reload
     expect(Toasts.push).toHaveBeenCalledWith({ handler: 'reload' });
   });
 
