@@ -12,7 +12,7 @@ Factory.define('ExerciseUser')
 
 Factory.define('ExerciseAnswer')
   .id(sequence)
-  .correctness(({ siblings }) => siblings.find(a => a.correctness > 0) ? 0 : fake.random.arrayElement([1.0, 1.0, 1.0, 0]))
+  .correctness(({ siblings }) => siblings.find(a => a.correctness > 0) ? 0 : 1.0)
   .content_html(({ parent, object }) => [
     [
       'Natural philosophy and physics are essentially the same thing.',

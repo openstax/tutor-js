@@ -16,6 +16,10 @@ const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 let idCounter = 0;
 
 const isAnswerCorrect = function(answer, correctAnswerId) {
+  // if answer does not have an id, check the isCorrect property.
+  if (!(answer.id || correctAnswerId)) {
+    return answer.isCorrect;
+  }
   let isCorrect = answer.id === correctAnswerId;
   if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
 
@@ -123,7 +127,7 @@ class Answer extends React.Component {
     let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
     let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
     if (qid == null) { qid = `auto-${idCounter++}`; }
-
+    
     const isChecked = isAnswerChecked(answer, chosenAnswer);
     const isCorrect = isAnswerCorrect(answer, correctAnswerId);
 
