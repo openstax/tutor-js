@@ -114,7 +114,6 @@ const METHODS_TO_ACTIONS = {
   GET: 'read',
   PUT: 'update',
   DELETE: 'delete',
-  PUT: 'modify',
 };
 
 const makeRoute = function(options = {}) {
