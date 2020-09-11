@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content Page renders and matches snapshot 1`] = `
+.c0 {
+  background: #fff;
+  line-height: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 40px 80px;
+}
+
+.c0 h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.c0 p,
+.c0 ul {
+  margin-bottom: 2rem;
+}
+
+@media (max-width:999px) {
+  .c0 {
+    padding: calc(8px * 2) 24px;
+  }
+}
+
+@media (max-width:600px) {
+  .c0 {
+    padding: 8px;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
