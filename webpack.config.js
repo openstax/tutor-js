@@ -79,7 +79,7 @@ const config = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 5,
+      maxInitialRequests: production ? 5 : 1,
     },
   },
   performance: {
