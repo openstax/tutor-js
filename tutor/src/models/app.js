@@ -72,7 +72,7 @@ export default class TutorApp {
       if (data) { model.bootstrap(data); }
     });
     // are we running under webpack?
-    if (typeof __webpack_public_path__ !== 'undefined') {
+    if (this.data.assets_url && typeof __webpack_public_path__ !== 'undefined') {
       // if so, tell it where to load chunks from.
       // eslint-disable-next-line no-undef
       __webpack_public_path__ = this.data.assets_url;
