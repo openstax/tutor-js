@@ -4,7 +4,7 @@ import {
 import Exercises from '../../exercises';
 import {
   filter, sumBy, find, isNil, compact, sortBy,
-  get, some, reduce, every, uniq, isNumber,
+  get, some, reduce, every, uniq, isNumber, isEmpty,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
@@ -137,6 +137,7 @@ class TaskPlanScoreStudent extends BaseModel {
   }
 
   @computed get extension() {
+    if(isEmpty(this.tasking.scores.taskPlan.extensions)) return null;
     return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
   }
 
