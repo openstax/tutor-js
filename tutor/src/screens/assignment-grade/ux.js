@@ -1,9 +1,11 @@
-import { observable, action, computed } from 'vendor';
+import { observable, action, computed, moment } from 'vendor';
 import { first, filter, isEmpty, findIndex } from 'lodash';
 import Courses from '../../models/courses-map';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
 import UiSettings from 'shared/model/ui-settings';
+import Time from '../../models/time';
+
 
 export default class AssignmentGradingUX {
 
@@ -126,6 +128,10 @@ export default class AssignmentGradingUX {
 
   isResponseGraded(response) {
     return response.grader_points !== undefined;
+  }
+
+  isStudentAvailableToGrade(response) {
+    return !response.student.extension || (!!response.student.extension && moment(response.student.extension.due_at).isBefore(Time.now));
   }
 
   @action async saveScore({ points, comment, response, doGoToOverview = false, doMoveNextQuestion = false }) {

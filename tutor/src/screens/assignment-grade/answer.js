@@ -1,5 +1,5 @@
-import { React, PropTypes, observer, useRef, useEffect, styled, css, cn } from 'vendor';
-import { Button } from 'react-bootstrap';
+import { React, PropTypes, observer, useRef, useEffect, styled, css, cn, moment } from 'vendor';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { useState } from 'react';
 import { isNumber } from 'lodash';
@@ -49,7 +49,7 @@ const ScoreWrapper = styled.div`
   margin-bottom: .8rem;
 `;
 
-const Points = React.forwardRef(({ response, onChange }, ref) => {
+const Points = React.forwardRef(({ response, onChange, isStudentAvailableToGrade }, ref) => {
   return (
     <ScoreWrapper>
       <b>Points:</b>
@@ -67,7 +67,7 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
           else onChange(parseFloat(e.target.value, 10));
         }}
         defaultValue={response.grader_points}
-        disabled={Boolean(!onChange)}
+        disabled={Boolean(!onChange) || !isStudentAvailableToGrade}
       /> out of {ScoresHelper.formatPoints(response.availablePoints)}
     </ScoreWrapper>
   );
@@ -76,6 +76,7 @@ const Points = React.forwardRef(({ response, onChange }, ref) => {
 Points.propTypes = {
   response: PropTypes.object.isRequired,
   onChange: PropTypes.func,
+  isStudentAvailableToGrade: PropTypes.bool,
 };
 
 const Comment = styled.textarea`
@@ -119,6 +120,9 @@ const GradingStudent = observer(({ response, ux, index }) => {
   const pointRef = useRef();
   const commentsRef = useRef();
 
+  // students cannot be graded if a student has an extension and the current time is before the extension due date
+  const isStudentAvailableToGrade = ux.isStudentAvailableToGrade(response);
+
   useEffect(() => {
     pointRef.current.select();
     pointRef.current.focus();
@@ -137,22 +141,26 @@ const GradingStudent = observer(({ response, ux, index }) => {
         <StudentName ux={ux} student={student} index={index} />
         <p>{response.free_response ? response.free_response : '(No response provided)'}</p>
       </Panel>
-      <Panel>
-        <Points response={response} onChange={setPoints} ref={pointRef} />
-        <b>Comment:</b>
-        <Comment name="comment" defaultValue={response.gradedComments} ref={commentsRef} />
-        {
-          (!ux.isLastQuestion || !ux.isLastStudent || ux.isResponseGraded(response)) &&
-          <SaveButton
-            className="btn btn-standard btn-primary"
-            disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
-            onClick={() => ux.saveScore({
-              response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
-            })}>
-            {saveLabel}
-          </SaveButton>
-        }
-        {ux.isLastStudent && !ux.isResponseGraded(response) &&
+      <OverlayTrigger
+        trigger={!isStudentAvailableToGrade ? ['hover', 'focus'] : null}
+        overlay={<Tooltip>{!isStudentAvailableToGrade ? `You can grade this response after the extension due date: ${moment(response.student.extension.due_at).format('MM-DD-YYYY hh:mm a')}.` : ''}</Tooltip>}
+      >
+        <Panel>
+          <Points response={response} onChange={setPoints} ref={pointRef} isStudentAvailableToGrade={isStudentAvailableToGrade} />
+          <b>Comment:</b>
+          <Comment name="comment" defaultValue={response.gradedComments} ref={commentsRef} disabled={!isStudentAvailableToGrade} />
+          {
+            (!ux.isLastQuestion || !ux.isLastStudent || ux.isResponseGraded(response)) &&
+            <SaveButton
+              className="btn btn-standard btn-primary"
+              disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points || !isStudentAvailableToGrade}
+              onClick={() => ux.saveScore({
+                response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
+              })}>
+              {saveLabel}
+            </SaveButton>
+          }
+          {ux.isLastStudent && !ux.isResponseGraded(response) &&
           <SaveButton
             variant="plain"
             className={cn('btn btn-standard', { 'btn-primary': ux.isLastQuestion })}
@@ -162,8 +170,9 @@ const GradingStudent = observer(({ response, ux, index }) => {
             })}>
             {'Save & Exit'}
           </SaveButton>
-        }
-      </Panel>
+          }
+        </Panel>
+      </OverlayTrigger>
     </GradingStudentWrapper>
   );
 });
