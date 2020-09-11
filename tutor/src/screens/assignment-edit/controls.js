@@ -17,6 +17,12 @@ const Footer = styled.div`
   .btn, .btn.btn-plain {
     padding: 0.6rem 2rem;
   }
+
+  .btn.btn-plain {
+    background: #fff;
+    color: ${colors.neutral.dark};
+    border: 1px solid ${colors.neutral.pale};
+  }
 `;
 
 const FooterInner = styled.div`
@@ -33,12 +39,8 @@ const LeftButton = styled(Button).attrs({
   variant: 'plain',
 })`
   &.btn.btn-plain {
-    background: #fff;
-    color: ${colors.neutral.dark};
-    border: 1px solid ${colors.neutral.pale};
     min-width: 10rem;
-  }
-`;
+  }`;
 
 const RightButton = styled(Button)`
   min-width: 16rem;

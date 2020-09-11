@@ -477,4 +477,14 @@ export default class AssignmentUX {
   @computed get canEditSettings() {
     return this.plan.isNew || every(this.plan.tasking_plans, ['isPastOpen', false]);
   }
+
+  @computed get titleTextLabel() {
+    if(this.plan.isEvent) return 'Event name';
+    return 'Assignment name';
+  }
+
+  @computed get headerTextLabel() {
+    if(this.plan.isExternal) return 'external assignment';
+    return this.plan.type;
+  }
 }

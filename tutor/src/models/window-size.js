@@ -1,6 +1,7 @@
 import { computed } from 'mobx';
 import { fromResource } from 'mobx-utils';
 import { debounce } from 'lodash';
+import { BREAKPOINTS } from '../theme';
 
 export default class WindowSize {
 
@@ -28,6 +29,24 @@ export default class WindowSize {
 
   @computed get height() {
     return this.current.height;
+  }
+
+  @computed get isMobile() {
+    return this.current.width <= BREAKPOINTS.mobile;
+  }
+
+  @computed get isTablet() {
+    return !this.isMobile && this.current.width <= BREAKPOINTS.tablet;
+  }
+
+  @computed get isDesktop() {
+    return this.current.width >= BREAKPOINTS.desktop;
+  }
+
+  @computed get currentBreakpoint() {
+    if (this.isMobile) { return 'mobile'; }
+    if (this.isTablet) { return 'tablet'; }
+    return 'desktop';
   }
 
   readSize(windowImpl = window) {

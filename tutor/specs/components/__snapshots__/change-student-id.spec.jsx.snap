@@ -1,65 +1,191 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Change Student ID renders and matches snapshot for various states 1`] = `
+Array [
+  .c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: 55px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 26px 32px;
+  background-color: white;
+  border-bottom: 1px solid #d5d5d5;
+  background-color: white;
+}
+
+.c0 > div {
+  margin-bottom: 8px;
+}
+
+.c1 {
+  width: 100%;
+}
+
+.c1 a {
+  color: #027EB5;
+}
+
+.c1 .ox-icon {
+  margin-left: 0;
+}
+
+.c3 {
+  font-weight: bold;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.144rem;
+  -moz-letter-spacing: -0.144rem;
+  -ms-letter-spacing: -0.144rem;
+  letter-spacing: -0.144rem;
+  margin: 0;
+}
+
+@media (max-width:999px) {
+  .c0 {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width:600px) {
+  .c0 {
+    padding: 32px 8px;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    font-size: 1.8rem;
+    line-height: 3rem;
+    -webkit-letter-spacing: -0.072rem;
+    -moz-letter-spacing: -0.072rem;
+    -ms-letter-spacing: -0.072rem;
+    letter-spacing: -0.072rem;
+  }
+}
+
 <div
-  className="modal-dialog change-student-id"
->
-  <div
-    className="modal-content"
+    className="c0"
+    role="dialog"
+    tabIndex="-1"
   >
     <div
-      className="modal-body"
+      className="c1"
+    >
+      <a
+        href="go-to-dash"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-angle-left fa-w-8 fa-lg c2 ox-icon ox-icon-angle-left"
+          data-icon="angle-left"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 256 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+        Dashboard
+      </a>
+    </div>
+    <h1
+      className="c3"
+    >
+      Change Student ID
+    </h1>
+  </div>,
+  @media (max-width:999px) {
+
+}
+
+@media (max-width:600px) {
+
+}
+
+@media (max-width:600px) {
+
+}
+
+<div
+    className="modal-dialog change-student-id"
+  >
+    <div
+      className="modal-content"
     >
       <div
-        className="title"
+        className="modal-body"
       >
-        <h3>
-          Update your student ID
-        </h3>
+        <div
+          className="title"
+        >
+          <h2>
+            Update your student ID
+          </h2>
+        </div>
+        <label
+          className="id-number-body form-label"
+        >
+          <div
+            className="sub-title"
+          >
+            Enter your school-issued student ID number
+          </div>
+          <div
+            className="inputs"
+          >
+            <span
+              className="student-id-icon"
+            />
+            <input
+              autoFocus={true}
+              defaultValue="1234"
+              onKeyUp={[Function]}
+              placeholder="School issued ID"
+            />
+          </div>
+        </label>
       </div>
-      <label
-        className="id-number-body form-label"
+      <div
+        className="modal-footer"
       >
-        <div
-          className="sub-title"
+        <button
+          className="async-button btn btn-success btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
         >
-          Enter your school-issued student ID number
-        </div>
-        <div
-          className="inputs"
+          Save
+        </button>
+        <button
+          className="cancel btn btn-link"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
         >
-          <span
-            className="student-id-icon"
-          />
-          <input
-            autoFocus={true}
-            defaultValue="1234"
-            onKeyUp={[Function]}
-            placeholder="School issued ID"
-          />
-        </div>
-      </label>
+          Cancel
+        </button>
+      </div>
     </div>
-    <div
-      className="modal-footer"
-    >
-      <button
-        className="async-button btn btn-success btn btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Save
-      </button>
-      <button
-        className="cancel btn btn-link"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        Cancel
-      </button>
-    </div>
-  </div>
-</div>
+  </div>,
+]
 `;

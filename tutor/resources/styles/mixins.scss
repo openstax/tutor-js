@@ -10,11 +10,15 @@
   background-size: cover;
 }
 
-@mixin ost-hero-backdrop($full-screen: false) {
+@mixin ost-hero-backdrop($full-screen: false, $top: false) {
   z-index: $zindex-fixed - 1; // right below z-index of menus
   &::before {
     position: fixed;
-    top: $tutor-navbar-height;
+    @if $top {
+      top: $top;
+    } @else {
+      top: $tutor-navbar-height;
+    }  
     left: 0;
     bottom: 0;
     right: 0;
@@ -41,7 +45,7 @@
 @mixin ost-hero-modal($full-screen: false) {
   &.modal-backdrop {
     z-index: $zindex-fixed - 2;
-    if $full-screen {
+    @if $full-screen {
       z-index: $zindex-fixed + 1;
     }
   }

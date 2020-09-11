@@ -19,7 +19,7 @@ class Responsive extends React.Component {
     desktop: PropTypes.node,
   }
 
-  windowSize = new WindowSize({ windowImpl: this.props.windowImpl })
+  windowSize = new WindowSize({ windowImpl: this.props.windowImpl });
 
   @computed get breakpoints() {
     return defaults({}, this.props.breakpoints, DEFAULT_BREAKPOINTS);

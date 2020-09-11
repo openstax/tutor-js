@@ -13,7 +13,6 @@ context('Assignments', () => {
     cy.get('.btn-primary').click()
 
     // TOC load
-
     cy.get('.chapter[data-is-expanded="true"] .chapter-checkbox').click()
     cy.checkLastRequestTime(/readings$/, 3, 'seconds')
     cy.get('.btn-primary').click()

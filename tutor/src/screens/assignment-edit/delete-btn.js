@@ -77,7 +77,7 @@ class DeleteButton extends React.Component {
         />
         <Button
           onClick={this.open}
-          variant="default"
+          variant="plain"
           className="control delete-assignment"
         >
           <Icon type="trash" />Delete
