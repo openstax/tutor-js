@@ -1,6 +1,7 @@
 const path    = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ManifestPlugin = require('webpack-assets-manifest');
 
 const PORTS = {
   tutor:      '8000',
@@ -29,7 +30,7 @@ const config = {
   mode: production ? 'production' : 'development',
   entry: ENTRIES[project],
   output: {
-    filename: production ? '[name].min.js' : '[name].js',
+    filename: production ? '[name]-[hash].min.js' : '[name].js',
     path: path.resolve(__dirname, project, 'dist'),
     chunkFilename: '[name]-chunk-[hash].js',
     publicPath,
@@ -68,12 +69,22 @@ const config = {
         NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
       },
     }),
+    new ManifestPlugin({
+      writeToDisk: true,
+      entrypoints: true,
+      output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-manifest.json` : 'manifest.json',
+    }),
+
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 1,
+      maxInitialRequests: production ? 5 : 1,
     },
+  },
+  performance: {
+    maxEntrypointSize: 2.5 * 1000000, // 1MB
+    maxAssetSize: 2.1 * 1000000,
   },
   watchOptions: {
     aggregateTimeout: 500,

@@ -144,6 +144,7 @@
     "validator": "^11.1.0",
     "wait-on": "^3.3.0",
     "weak-map": "^1.0.5",
+    "webpack-assets-manifest": "^3.1.1",
     "when-dom-ready": "^1.2.12",
     "youtube-player": "https://github.com/nathanstitt/youtube-player.git#iframe-or-window"
   },

@@ -35,9 +35,10 @@ window._MODELS = Object.assign({
   toasts: Toasts,
 }, BOOTSTRAPED_MODELS);
 
+
 export default class TutorApp {
 
-  @observable tutor_js_url;
+  @observable tutor_assets_hash;
   @observable osweb_base_url;
   @observable is_impersonating;
 
@@ -71,7 +72,13 @@ export default class TutorApp {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
     });
-
+    // are we running under webpack?
+    if (this.data.assets_url && typeof __webpack_public_path__ !== 'undefined') {
+      // if so, tell it where to load chunks from.
+      // eslint-disable-next-line no-undef
+      __webpack_public_path__ = this.data.assets_url;
+    }
+    
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);
@@ -89,13 +96,13 @@ export default class TutorApp {
     return Promise.resolve(this);
   }
 
-  @action.bound onNotice({ tutor_js_url, feature_flags }) {
+  @action.bound onNotice({ tutor_assets_hash, feature_flags }) {
     // set flags first because other behaviour might rely on them
     FeatureFlagsApi.merge(feature_flags);
     // when it's null, the url should default to the first update
-    if (isNil(this.tutor_js_url)) {
-      this.tutor_js_url = tutor_js_url;
-    } else if (this.tutor_js_url !== tutor_js_url) {
+    if (isNil(this.tutor_assets_hash)) {
+      this.tutor_assets_hash = tutor_assets_hash;
+    } else if (this.tutor_assets_hash !== tutor_assets_hash) {
       Toasts.push({ handler: 'reload' });
     }
   }
