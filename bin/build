@@ -21,3 +21,31 @@ fi
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
 node --max_old_space_size=4096 $(npm bin)/webpack --config webpack.config.js
 
+# we're done unless the "archive" flag from the ansible build is set
+if [ "$2" != "archive" ]; then
+  exit 0
+fi
+
+SHA=`git rev-parse HEAD`
+
+cd $OX_PROJECT/dist
+echo "{" > ./rev-manifest.json
+LAST_FILE=""
+for minified in *.min.js; do
+  filename="${minified##*/}"  # discard directory
+  base="${filename%%.[^.]*}"  # Strip longest match of . plus at least one non-dot char from end
+  ext="${filename:${#base} + 1}"  # Substring from len of base thru end
+  hashed=$base-$SHA.$ext
+  if [ "$LAST_FILE" ]; then
+      echo "," >> ./rev-manifest.json
+  fi
+  key=$(echo $minified | sed 's/-.*min/\.min/')
+  echo -n '  "'$key'": "'$hashed'"' >> ./rev-manifest.json
+  LAST_FILE=$hashed
+done
+echo -e "\n}" >> ./rev-manifest.json
+
+cd ..
+tar -czf ../archive.tar.gz -C ./dist .
+mv ../archive.tar.gz ./dist/
+
