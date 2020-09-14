@@ -121,7 +121,7 @@ class TutorLayout extends React.Component {
    * Hide the navbar if user is in the 'viewTaskStep' screen.
    * Use styled-components to check if the screen is mobile width.
    */
-  shouldHideNavbar() {
+  isUserInViewTaskStep() {
     const routerName = get(Router.currentMatch(), 'entry.name', '');
     if(routerName === 'viewTaskStep') return true;
     return false;
@@ -136,7 +136,7 @@ class TutorLayout extends React.Component {
         bottomNavbar={this.bottomNavbarContext}
         setSecondaryTopControls={this.setSecondaryTopControls}
       >
-        <StyledLayout hasNavbar={!this.shouldHideNavbar()}>
+        <StyledLayout hasNavbar={!this.isUserInViewTaskStep()}>
           <Navbar
             area="header"
             context={this.topNavbarContext}
@@ -146,7 +146,7 @@ class TutorLayout extends React.Component {
             <SecondaryToolbar
               controls={this.secondaryTopControls}
             />}
-          <MobilePaymentBar course={course} />
+          {!this.isUserInViewTaskStep() && <MobilePaymentBar course={course} />}
           <ErrorMonitoring />
           <TermsModal />
           <Toasts />
@@ -154,7 +154,7 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.shouldHideNavbar()}>
+          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.isUserInViewTaskStep()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
           </Content>

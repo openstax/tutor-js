@@ -81,7 +81,7 @@ class StudentPayNowBtn extends React.Component {
     return (
       <span className="student-pay-now">
         <span className="days">
-          You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
+          You have 14 left in your free trial
         </span>
         {this.renderModal()}
         <Button variant="primary" onClick={this.onClick}>
