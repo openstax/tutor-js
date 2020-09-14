@@ -21,6 +21,11 @@ fi
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
 node --max_old_space_size=4096 $(npm bin)/webpack --config webpack.config.js
 
+# we're done unless the "archive" flag from the ansible build is set
+if [ "$2" != "archive" ]; then
+  exit 0
+fi
+
 SHA=`git rev-parse HEAD`
 
 cd $OX_PROJECT/dist
@@ -40,9 +45,7 @@ for minified in *.min.js; do
 done
 echo -e "\n}" >> ./rev-manifest.json
 
-if [ "$2" = "archive" ]; then
-  cd ..
-  tar -czf ../archive.tar.gz -C ./dist .
-  mv ../archive.tar.gz ./dist/
-fi
+cd ..
+tar -czf ../archive.tar.gz -C ./dist .
+mv ../archive.tar.gz ./dist/
 
