@@ -29,7 +29,8 @@
         padding: 16px;
     
         .heading {
-          padding: 0;
+          padding: 15px 0 0;
+          font-size: 16px;
         }
       }
     }
@@ -46,6 +47,7 @@
     background-color: $tutor-neutral-lighter;
 
     .heading {
+      line-height: 20px;
       font-weight: 700;
       font-size: 18px;
       padding: 50px 50px 0 50px;
