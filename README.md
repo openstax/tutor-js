@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/openstax/tutor-js/workflows/Build/badge.svg)](https://github.com/openstax/tutor-server)
-[![Test Status](https://github.com/openstax/tutor-js/workflows/TutorJS/badge.svg)](https://github.com/openstax/tutor-server)
+[![Build Status](https://github.com/openstax/tutor-js/workflows/Build/badge.svg)](https://github.com/openstax/tutor-js)
+[![Test Status](https://github.com/openstax/tutor-js/workflows/TutorJS/badge.svg)](https://github.com/openstax/tutor-js)
 
 # TutorJS
 
