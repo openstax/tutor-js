@@ -64,7 +64,7 @@ export default class extends React.Component {
           weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
           heading={this.renderHeading()}
           emptyMessage={this.renderEmptyMessage()}
-          allSections={PerformanceForecast.Student.store.getSectionsWithClues(courseId)}
+          allSections={PerformanceForecast.Student.store.getAllSections(courseId)}
           chapters={PerformanceForecast.Student.store.get(courseId).children} />
       </Container>
     );

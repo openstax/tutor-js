@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { filter } from 'lodash';
 import ChapterSectionType from './chapter-section-type';
 import BookPartTitle from '../../components/book-part-title';
 import ProgressBar from './progress-bar';
@@ -27,7 +28,7 @@ const PerformanceForecastChapter = (props) => {
           section={chapter}
           displaying="chapter" />
       </div>
-      {chapter.children.map((section, i) =>
+      {filter(chapter.children, 'clue.is_real').map((section, i) =>
         <Section key={i} section={section} {...props} />)}
     </div>
   );
