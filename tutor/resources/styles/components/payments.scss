@@ -2,6 +2,9 @@
   overflow: scroll;
   .modal-dialog {
     width: 570px;
+    @media screen and ( max-width: $mobile-collapse-breakpoint ) {
+      width: 100%;
+    }
     .payments-wrapper {
       padding-bottom: 50px;
     }
