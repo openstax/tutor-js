@@ -16,6 +16,7 @@ const host         = process.env.OX_PROJECT_HOST || 'localhost';
 const servePath    = `http://${host}:${port}`;
 const publicPath   = process.env.PUBLIC_PATH || (production ? '/assets/' : `${servePath}/dist/`);
 const defaultEntry = `./${project}/index.js`;
+const isTutor      = project == 'tutor';
 
 const ENTRIES = {
   tutor: {
@@ -79,7 +80,7 @@ const config = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: production ? 5 : 1,
+      maxInitialRequests: (production && isTutor) ? 5 : 1,
     },
   },
   performance: {
