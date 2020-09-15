@@ -4,6 +4,20 @@
     margin: 50px;
     button { margin-top: 2rem; }
   }
+
+  @media screen and ( max-width: $mobile-collapse-breakpoint ){
+    width: auto;
+    margin: 25px;
+
+    .error-message {
+      margin: 0;
+      button {
+        margin: 4rem auto 1rem;
+        display: block;
+        padding: 12px 40px;
+    }
+    }
+  }
 }
 
 // TODO - make this a mixin or standard style once UX finishes style guide
@@ -66,5 +80,10 @@
 .payments-panel {
   .error-message {
     padding: 20px;
+    line-height: 20px;
+
+    @media screen and ( max-width: $mobile-collapse-breakpoint ){
+      padding: 24px 16px;
+    }
   }
 }
