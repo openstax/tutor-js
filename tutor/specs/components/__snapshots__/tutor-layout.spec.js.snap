@@ -207,7 +207,6 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   </nav>
                                 </styled.nav>
                               </Navbar>
-                              <MobilePaymentBar course={[undefined]} />
                               <withRouter(inject-with-courseContext(ServerErrorMonitoring))>
                                 <inject-with-courseContext(ServerErrorMonitoring) history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                   <ServerErrorMonitoring history={{...}} location={{...}} match={{...}} staticContext={[undefined]} courseContext={{...}} />
