@@ -1,4 +1,4 @@
-.make-payment.modal
+.make-payment.modal {
   overflow: scroll;
   .modal-dialog {
     width: 570px;
@@ -6,7 +6,7 @@
       width: 100%;
     }
     .payments-wrapper {
-      padding-bottom: 50px;
+      padding-bottom: 60px;
     }
     .error-message {
       margin: 50px;
