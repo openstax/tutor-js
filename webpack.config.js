@@ -72,7 +72,7 @@ const config = {
     new ManifestPlugin({
       writeToDisk: true,
       entrypoints: true,
-      output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-manifest.json` : 'manifest.json',
+      output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-assets.json` : 'assets.json',
     }),
 
   ],
