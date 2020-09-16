@@ -102,7 +102,7 @@ class Payments extends BaseModel {
       <p>
         Sorry, we’re unable to process a payment right now. Please try again,
         and if the problem persists please
-        contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>
+        contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>.
       </p>
     );
     clearTimeout(this.pendingTimeout);

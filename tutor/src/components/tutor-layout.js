@@ -117,14 +117,14 @@ class TutorLayout extends React.Component {
     this.courseContext.course = this.props.course;
   }
 
-  /**
-   * Hide the navbar if user is in the 'viewTaskStep' screen.
-   * Use styled-components to check if the screen is mobile width.
-   */
-  shouldHideNavbar() {
+  isViewingTaskStep() {
     const routerName = get(Router.currentMatch(), 'entry.name', '');
-    if(routerName === 'viewTaskStep') return true;
-    return false;
+    return routerName === 'viewTaskStep';
+  }
+
+  isViewingCourseDashboard() {
+    const routerName = get(Router.currentMatch(), 'entry.name', '');
+    return routerName === 'dashboard';
   }
 
   render() {
@@ -136,7 +136,13 @@ class TutorLayout extends React.Component {
         bottomNavbar={this.bottomNavbarContext}
         setSecondaryTopControls={this.setSecondaryTopControls}
       >
-        <StyledLayout hasNavbar={!this.shouldHideNavbar()}>
+        {
+          /**
+           * Hide the navbar if user is in the 'viewTaskStep' screen.
+           * Use styled-components to check if the screen is mobile width.
+           */
+        }
+        <StyledLayout hasNavbar={!this.isViewingTaskStep()}>
           <Navbar
             area="header"
             context={this.topNavbarContext}
@@ -146,7 +152,12 @@ class TutorLayout extends React.Component {
             <SecondaryToolbar
               controls={this.secondaryTopControls}
             />}
-          <MobilePaymentBar course={course} />
+          {
+          /**
+           * Hide the mobile payment bar in every screen except the dashboard
+           */
+          }
+          {this.isViewingCourseDashboard() && <MobilePaymentBar course={course} />}
           <ErrorMonitoring />
           <TermsModal />
           <Toasts />
@@ -154,7 +165,7 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.shouldHideNavbar()}>
+          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.isViewingTaskStep()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
           </Content>
