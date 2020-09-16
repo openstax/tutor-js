@@ -119,14 +119,12 @@ class TutorLayout extends React.Component {
 
   isViewingTaskStep() {
     const routerName = get(Router.currentMatch(), 'entry.name', '');
-    if(routerName === 'viewTaskStep') return true;
-    return false;
+    return routerName === 'viewTaskStep';
   }
 
   isViewingCourseDashboard() {
     const routerName = get(Router.currentMatch(), 'entry.name', '');
-    if(routerName === 'dashboard') return true;
-    return false;
+    return routerName === 'dashboard';
   }
 
   render() {
