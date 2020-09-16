@@ -52,7 +52,7 @@ describe('Event Row', function() {
   })
 
   it('adds a deleted class for deleted tasks', function() {
-    expect(deletedRow.find('a.task').hasClass('deleted')).toBe(true);
+    expect(deletedRow.find('div.task').hasClass('deleted')).toBe(true);
   });
 
   it('shows the hide button when showing deleted tasks', function() {
@@ -65,8 +65,8 @@ describe('Event Row', function() {
   });
 
   it('allows onclick for event row if deleted', function() {
-    expect(deletedRow.find('a.task').prop('onClick')).toBeTruthy();
-    expect(regularRow.find('a.task').prop('onClick')).toBeTruthy();
+    expect(deletedRow.find('div.task div a').prop('onClick')).toBeTruthy();
+    expect(regularRow.find('div.task div a').prop('onClick')).toBeTruthy();
   });
 
   it('does not render deleted and unstarted task', () => {

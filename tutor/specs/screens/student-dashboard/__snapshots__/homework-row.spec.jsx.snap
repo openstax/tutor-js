@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Homework Row renders in progress 1`] = `
-.c7 {
+.c8 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -11,7 +11,7 @@ exports[`Homework Row renders in progress 1`] = `
   background: #5e5e5e;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,7 +26,11 @@ exports[`Homework Row renders in progress 1`] = `
   align-items: center;
 }
 
-.c2 {
+.c6 a {
+  font-weight: 600;
+}
+
+.c3 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -38,7 +42,7 @@ exports[`Homework Row renders in progress 1`] = `
   background-position: center;
 }
 
-.c1 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -57,13 +61,13 @@ exports[`Homework Row renders in progress 1`] = `
   flex: 1;
 }
 
-.c1 i {
+.c2 i {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -83,7 +87,7 @@ exports[`Homework Row renders in progress 1`] = `
   padding-right: 1rem;
 }
 
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -100,7 +104,7 @@ exports[`Homework Row renders in progress 1`] = `
   padding-right: 1rem;
 }
 
-.c6 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -117,7 +121,7 @@ exports[`Homework Row renders in progress 1`] = `
   width: 8rem;
 }
 
-.c6 svg.fa-star {
+.c7 svg.fa-star {
   padding: 3px;
 }
 
@@ -129,22 +133,42 @@ exports[`Homework Row renders in progress 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.c1 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+  display: contents;
+  color: #424242;
+}
+
+.c1:hover {
+  color: #424242;
 }
 
 @media (max-width:600px) {
-  .c1 {
+  .c2 {
     min-width: 100%;
   }
 }
 
 @media (max-width:600px) {
-  .c3 {
+  .c4 {
     padding-left: 1.2rem;
   }
 }
 
 @media (max-width:600px) {
-  .c4 {
+  .c5 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -152,7 +176,7 @@ exports[`Homework Row renders in progress 1`] = `
 }
 
 @media (max-width:600px) {
-  .c6 {
+  .c7 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -184,62 +208,73 @@ exports[`Homework Row renders in progress 1`] = `
     data-purpose="tour-conductor-wrapper"
   >
     <div>
-      <a
+      <div
         aria-label="Work on homework: proactive engage web-readiness"
         className="sc-fzokOt c0 task homework viewable"
         data-event-id={1}
         href="/course/1/task/1"
-        onClick={[Function]}
+        onKeyDown={[Function]}
         tabIndex={0}
       >
-        <div
-          className="sc-fznKkj c1"
-        >
-          <i
-            className="c2 icon-homework"
-            type="homework"
-          />
-          <span>
-            proactive engage web-readiness
-          </span>
-        </div>
-        <div
-          className="sc-fznKkj c3"
-        >
-          <time
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Sun, Oct 15, 7:00am
-          </time>
-        </div>
-        <div
-          className="sc-fznKkj c4"
+        <a
+          className="sc-fzokOt c1"
+          href="/course/1/task/1"
+          onClick={[Function]}
         >
           <div
-            className="c5"
+            className="sc-fznKkj c2"
           >
-            <span
-              className="tour-anchor"
-              data-tour-anchor-id="assignment-progress-status"
-            >
-              1/10 completed
+            <i
+              className="c3 icon-homework"
+              type="homework"
+            />
+            <span>
+              proactive engage web-readiness
             </span>
           </div>
-        </div>
+          <div
+            className="sc-fznKkj c4"
+          >
+            <time
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+            >
+              Sun, Oct 15, 7:00am
+            </time>
+          </div>
+          <div
+            className="sc-fznKkj c5"
+          >
+            <div
+              className="c6"
+            >
+              <span
+                className="tour-anchor"
+                data-tour-anchor-id="assignment-progress-status"
+              >
+                1/10 completed
+              </span>
+            </div>
+          </div>
+        </a>
         <div
-          className="sc-fznKkj c6"
+          className="sc-fznKkj c7"
         >
           <div
-            className="c5"
+            className="c6"
           >
-            5.0
+            <a
+              href="/course/1/gradebook"
+              onClick={[Function]}
+            >
+              5.0
+            </a>
             <svg
               aria-hidden="true"
               background="#5e5e5e"
-              className="svg-inline--fa fa-star fa-w-18 c7 ox-icon ox-icon-star"
+              className="svg-inline--fa fa-star fa-w-18 c8 ox-icon ox-icon-star"
               color="white"
               data-icon="star"
               data-prefix="fas"
@@ -258,7 +293,7 @@ exports[`Homework Row renders in progress 1`] = `
             </svg>
           </div>
         </div>
-      </a>
+      </div>
     </div>
     <div
       className="visible-when-debugging"
@@ -283,7 +318,7 @@ exports[`Homework Row renders in progress 1`] = `
 `;
 
 exports[`Homework Row renders with completed count 1`] = `
-.c7 {
+.c8 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -293,7 +328,7 @@ exports[`Homework Row renders with completed count 1`] = `
   background: #5e5e5e;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -308,7 +343,11 @@ exports[`Homework Row renders with completed count 1`] = `
   align-items: center;
 }
 
-.c2 {
+.c6 a {
+  font-weight: 600;
+}
+
+.c3 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -320,7 +359,7 @@ exports[`Homework Row renders with completed count 1`] = `
   background-position: center;
 }
 
-.c1 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -339,13 +378,13 @@ exports[`Homework Row renders with completed count 1`] = `
   flex: 1;
 }
 
-.c1 i {
+.c2 i {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -365,7 +404,7 @@ exports[`Homework Row renders with completed count 1`] = `
   padding-right: 1rem;
 }
 
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -382,7 +421,7 @@ exports[`Homework Row renders with completed count 1`] = `
   padding-right: 1rem;
 }
 
-.c6 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -399,7 +438,7 @@ exports[`Homework Row renders with completed count 1`] = `
   width: 8rem;
 }
 
-.c6 svg.fa-star {
+.c7 svg.fa-star {
   padding: 3px;
 }
 
@@ -411,22 +450,42 @@ exports[`Homework Row renders with completed count 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.c1 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+  display: contents;
+  color: #424242;
+}
+
+.c1:hover {
+  color: #424242;
 }
 
 @media (max-width:600px) {
-  .c1 {
+  .c2 {
     min-width: 100%;
   }
 }
 
 @media (max-width:600px) {
-  .c3 {
+  .c4 {
     padding-left: 1.2rem;
   }
 }
 
 @media (max-width:600px) {
-  .c4 {
+  .c5 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -434,7 +493,7 @@ exports[`Homework Row renders with completed count 1`] = `
 }
 
 @media (max-width:600px) {
-  .c6 {
+  .c7 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -466,62 +525,73 @@ exports[`Homework Row renders with completed count 1`] = `
     data-purpose="tour-conductor-wrapper"
   >
     <div>
-      <a
+      <div
         aria-label="Work on homework: rich reintermediate e-business"
         className="sc-fzokOt c0 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
-        onClick={[Function]}
+        onKeyDown={[Function]}
         tabIndex={0}
       >
-        <div
-          className="sc-fznKkj c1"
-        >
-          <i
-            className="c2 icon-homework"
-            type="homework"
-          />
-          <span>
-            rich reintermediate e-business
-          </span>
-        </div>
-        <div
-          className="sc-fznKkj c3"
-        >
-          <time
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Sat, Oct 14, 7:00am
-          </time>
-        </div>
-        <div
-          className="sc-fznKkj c4"
+        <a
+          className="sc-fzokOt c1"
+          href="/course/2/task/2"
+          onClick={[Function]}
         >
           <div
-            className="c5"
+            className="sc-fznKkj c2"
           >
-            <span
-              className="tour-anchor"
-              data-tour-anchor-id="assignment-progress-status"
-            >
-              2/8 completed
+            <i
+              className="c3 icon-homework"
+              type="homework"
+            />
+            <span>
+              rich reintermediate e-business
             </span>
           </div>
-        </div>
+          <div
+            className="sc-fznKkj c4"
+          >
+            <time
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+            >
+              Sat, Oct 14, 7:00am
+            </time>
+          </div>
+          <div
+            className="sc-fznKkj c5"
+          >
+            <div
+              className="c6"
+            >
+              <span
+                className="tour-anchor"
+                data-tour-anchor-id="assignment-progress-status"
+              >
+                2/8 completed
+              </span>
+            </div>
+          </div>
+        </a>
         <div
-          className="sc-fznKkj c6"
+          className="sc-fznKkj c7"
         >
           <div
-            className="c5"
+            className="c6"
           >
-            6.0
+            <a
+              href="/course/2/gradebook"
+              onClick={[Function]}
+            >
+              6.0
+            </a>
             <svg
               aria-hidden="true"
               background="#5e5e5e"
-              className="svg-inline--fa fa-star fa-w-18 c7 ox-icon ox-icon-star"
+              className="svg-inline--fa fa-star fa-w-18 c8 ox-icon ox-icon-star"
               color="white"
               data-icon="star"
               data-prefix="fas"
@@ -540,7 +610,7 @@ exports[`Homework Row renders with completed count 1`] = `
             </svg>
           </div>
         </div>
-      </a>
+      </div>
     </div>
     <div
       className="visible-when-debugging"

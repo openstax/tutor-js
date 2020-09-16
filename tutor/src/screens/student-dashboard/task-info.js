@@ -1,6 +1,9 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
+import TutorLink from '../../components/link';
+import Router from '../../helpers/router';
+import { UNWORKED } from '../../helpers/scores';
 
 import TourAnchor from '../../components/tours/anchor';
 
@@ -8,6 +11,10 @@ const Feedback = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  a {
+    font-weight: 600;
+  }
 `;
 
 const TaskStatus = observer(({ event, course }) => {
@@ -34,10 +41,17 @@ TaskStatus.propTypes = {
   course: PropTypes.object.isRequired,
 };
 
-const TaskScore = observer(({ event }) => {
+const TaskScore = observer(({ event, course }) => {
   return (
-    <Feedback>
-      {event.humanScore}
+    <Feedback> 
+      {
+        event.humanScore === UNWORKED
+          ? event.humanScore
+          : 
+          <TutorLink to={Router.makePathname('viewGradebook', { courseId: course.id })}>
+            {event.humanScore}
+          </TutorLink>
+      }
       {event.is_provisional_score && <Icon variant="circledStar" />}
     </Feedback>
   );
