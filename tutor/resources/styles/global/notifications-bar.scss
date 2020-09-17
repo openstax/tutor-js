@@ -28,6 +28,10 @@
       .dismiss {
         margin-right: 0;
       }
+      .action {
+        font-size: 1.4rem;
+        padding: 4px 8px;
+      }
     }
 
     @media (max-width: $tablet-collapse-breakpoint) {
