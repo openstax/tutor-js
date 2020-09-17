@@ -1,13 +1,14 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany, action, session, computed, observable,
 } from 'shared/model';
+import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
 import Student from './student';
 import { AppActions } from '../../flux/app';
-export { StudentTaskStep };
 import S from '../../helpers/string';
-import moment from 'moment';
+import Time from '../../models/time';
+export { StudentTaskStep };
 
 export default
 @identifiedBy('student-tasks/task')
@@ -87,6 +88,12 @@ class StudentTask extends BaseModel {
 
   @computed get closesAtMoment() {
     return moment(this.closes_at);
+  }
+  
+  @computed get isAssignmentClosed() {
+    console.log(this.closes_at);
+    console.log(this.closesAtMoment);
+    return this.closesAtMoment.isSameOrBefore(Time.now);
   }
 
   @computed get completed() {

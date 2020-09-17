@@ -27,6 +27,10 @@ const IconWrapper = styled.div.attrs({
   }
 `;
 
+const StyledPagingNavigation = styled(PagingNavigation)`
+  margin-top: 60px;
+`;
+
 @observer
 class ReadingTask extends React.Component {
 
@@ -41,7 +45,7 @@ class ReadingTask extends React.Component {
     return (
       <StyledReading className="reading-task">
         <ReadingNavbar ux={ux} />
-        <PagingNavigation
+        <StyledPagingNavigation
           className={cn('progress-panel')}
           enableKeys={true}
           forwardRenderer={<IconWrapper><NextIcon /></IconWrapper>}
@@ -60,7 +64,7 @@ class ReadingTask extends React.Component {
             windowImpl={windowImpl}
             data-test-id="task-step"
           />
-        </PagingNavigation>
+        </StyledPagingNavigation>
       </StyledReading>
     );
   }

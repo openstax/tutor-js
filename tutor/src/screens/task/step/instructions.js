@@ -271,7 +271,6 @@ const PracticeInstructions = observer(({ task }) => {
 });
 
 const Instructions = observer((props) => {
-
   const { ux, ux: { task } } = props;
 
   return (

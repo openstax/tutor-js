@@ -4,6 +4,7 @@ import {
 import UX from './ux';
 import ExerciseTaskHeader from './exercise-task-header';
 import { TaskStep } from './step';
+import AssignmentClosedBanner from './assignment-closed-banner';
 
 const SyledHomework = styled.div`
 
@@ -23,6 +24,7 @@ class HomeworkTask extends React.Component {
     return (
       <SyledHomework className="homework-task">
         <ExerciseTaskHeader ux={ux} unDocked />
+        {ux.task.isAssignmentClosed && <AssignmentClosedBanner />}
         <TaskStep
           ux={ux}
           step={ux.currentGroupedStep}
