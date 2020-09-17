@@ -32,13 +32,13 @@
         font-size: 1.4rem;
         padding: 4px 8px;
       }
-    }
 
-    .desktop-text {
-      display: none;
-    }
-    .mobile-text {
-      display: inline;
+      .desktop-text {
+        display: none;
+      }
+      .mobile-text {
+        display: inline;
+      }
     }
 
     @media (max-width: $tablet-collapse-breakpoint) {
