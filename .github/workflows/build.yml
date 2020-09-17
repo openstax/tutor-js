@@ -23,7 +23,7 @@ jobs:
       - name: Upload built Tutor JS assets to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks
+          args: --follow-symlinks --cache-control public,max-age=31536000
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.TUTOR_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TUTOR_AWS_SECRET_ACCESS_KEY }}
