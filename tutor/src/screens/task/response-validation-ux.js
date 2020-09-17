@@ -64,7 +64,8 @@ class ResponseValidationUX {
 
   @action.bound async onSave() {
     // we have text but it hasn't changed, go to next
-    if (this.response && !this.textHasChanged) {
+    // allow go to next if assignment is closed
+    if (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed) {
       this.advanceUI();
       return;
     }
@@ -158,6 +159,8 @@ class ResponseValidationUX {
   }
 
   @computed get isSubmitDisabled() {
+    // enabled next button so user can click and go to next step
+    if(this.step.task.isAssignmentClosed) return false;
     return Boolean(
       this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response),
     );
