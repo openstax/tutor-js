@@ -91,8 +91,6 @@ class StudentTask extends BaseModel {
   }
   
   @computed get isAssignmentClosed() {
-    console.log(this.closes_at);
-    console.log(this.closesAtMoment);
     return this.closesAtMoment.isSameOrBefore(Time.now);
   }
 
