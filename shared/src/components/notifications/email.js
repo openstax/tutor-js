@@ -127,9 +127,10 @@ class EmailNotification extends React.Component {
     return (
       <span className="body">
         <Icon type="envelope" />
-        {'\
-    Verify your email\
-         '}
+        <span className="desktop-text">
+          Verifying your email address allows you to recover your password if you ever forget it.
+        </span>
+        <span className="mobile-text">Verify your email</span>
         <a className="action" onClick={this.onVerify}>
           Verify now
         </a>

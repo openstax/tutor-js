@@ -32,6 +32,10 @@
       flex: 1;
     }
 
+    .mobile-text {
+      display: none;
+    }
+
     & + .notification:not(.acknowledged) {
       border-top: 1px solid darken($openstax-primary, 5%);
     }

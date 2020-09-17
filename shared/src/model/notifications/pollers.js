@@ -130,7 +130,11 @@ class TutorUpdates extends Poller {
 
 
 class AccountsNagger extends Poller {
-  constructor(type, notices) { super(type, notices, moment.duration(1, 'day')); }
+  constructor(type, notices) {
+    super(type, notices, moment.duration(1, 'day'));
+    // uncomment FOR DEBUGGING to get notification bar to show up
+    // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
+  }
 
   onReply({ data }) {
     User.setCurrent(data);
