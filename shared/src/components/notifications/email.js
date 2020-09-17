@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { delay, defer } from 'lodash';
 import URLs from '../../model/urls';
 import Notifications from '../../model/notifications';
+import Responsive from '../../../../tutor/src/components/responsive';
 
 class EmailNotification extends React.Component {
   static propTypes = {
@@ -124,12 +125,16 @@ class EmailNotification extends React.Component {
   };
 
   renderStart = () => {
+    const shortText = 'Verify your email';
+
     return (
       <span className="body">
         <Icon type="envelope" />
-        {'\
-    Verify your email\
-         '}
+          <Responsive
+            desktop={'Verifying your email address allows you to recover your password if you ever forget it.'}
+            tablet={shortText}
+            mobile={shortText}
+          />
         <a className="action" onClick={this.onVerify}>
           Verify now
         </a>
