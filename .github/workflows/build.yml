@@ -30,3 +30,4 @@ jobs:
           AWS_REGION: ${{ secrets.TUTOR_AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.TUTOR_AWS_S3_BUCKET }}
           SOURCE_DIR: tutor/dist
+          DEST_DIR: assets
