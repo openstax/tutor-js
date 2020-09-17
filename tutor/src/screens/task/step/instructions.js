@@ -216,7 +216,7 @@ const ContinueBtn = observer(({ ux }) => {
   }
 
   let buttonLabel = 'Start';
-  if (ux.task.completed) {
+  if (ux.task.completed || ux.task.isAssignmentClosed) {
     buttonLabel = 'Review';
   }
   else if (ux.task.started) {
