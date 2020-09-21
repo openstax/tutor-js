@@ -18,6 +18,7 @@ import Router from '../helpers/router';
 import { get } from 'lodash';
 import { breakpoint } from 'theme';
 import { MobilePaymentBar } from './navbar/student-payment-bar';
+import GoToTop from './go-to-top';
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -168,6 +169,7 @@ class TutorLayout extends React.Component {
           <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.isViewingTaskStep()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
+            <GoToTop />
           </Content>
           <Navbar
             area="footer"
