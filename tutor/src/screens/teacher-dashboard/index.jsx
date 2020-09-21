@@ -89,6 +89,8 @@ class TeacherDashboardWrapper extends React.Component {
     if (course.currentRole.isTeacherStudent && course.roles.teacher) {
       course.current_role_id = null;
     }
+    // getting the reference book data to show chapters and sections in the plan details
+    this.props.course.referenceBook.fetch();
   }
 
   componentWillUnmount() {

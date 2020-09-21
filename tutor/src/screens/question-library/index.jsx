@@ -19,7 +19,8 @@ class QuestionsDashboardShell extends React.Component {
   }
 
   componentDidMount() {
-    this.course.referenceBook.fetch();
+    if (!this.course.referenceBook.uuid)
+      this.course.referenceBook.fetch();
   }
 
   render() {
@@ -27,4 +28,4 @@ class QuestionsDashboardShell extends React.Component {
     return <Dashboard course={this.course} />;
   }
 
-};
+}
