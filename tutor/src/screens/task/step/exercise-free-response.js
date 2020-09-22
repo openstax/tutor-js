@@ -169,7 +169,7 @@ class FreeResponseInput extends React.Component {
           {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
           
           <span>{ux.responseWords} words</span>
-          {ux.isOverWordLimit && <span class="word-limit-error-info">Maximum {ux.wordLimit} words</span> }
+          {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span> }
 
         </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
