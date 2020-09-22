@@ -17,7 +17,13 @@
     @media (max-width: $tablet-collapse-breakpoint), (max-width: $mobile-collapse-breakpoint) {
       font-size: 1.4rem;
       font-weight: 500;
-      height: 40px;
+      min-height: 40px;
+      height: auto;
+
+      &.email {
+        .body {
+        }
+      }
 
       .ox-icon {
         height: 2rem;
@@ -31,6 +37,8 @@
       .action {
         font-size: 1.4rem;
         padding: 4px 8px;
+        height: 32px;
+        white-space: nowrap;
       }
 
       .desktop-text {
@@ -49,6 +57,19 @@
       padding: 0 16px;
       .dismiss {
         margin-right: -1px;
+      }
+      .body {
+        &.verify {
+          margin: 5px 0;
+        }
+        .message {
+          text-align: left;
+          margin-left: 0.75rem;
+        }
+      }
+      &.email input[type="text"] {
+        width: 7rem;
+        padding-left: 0.45rem;
       }
     }
   }
