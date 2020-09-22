@@ -1,8 +1,7 @@
 import { React, styled, observer, observable, action } from 'vendor';
 import { debounce } from 'lodash';
 import { Icon } from 'shared';
-import Theme from 'theme';
-
+import Theme, { breakpoint } from 'theme';
 
 const StyledIcon = styled(Icon)`
   &&.btn {
@@ -38,6 +37,9 @@ const StyledIcon = styled(Icon)`
   .modal-open & {
     display: none;
   }
+  ${breakpoint.mobile`
+    display: none;
+  `};
 `;
 
 export default
