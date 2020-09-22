@@ -169,7 +169,7 @@ class TutorLayout extends React.Component {
           <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.isViewingTaskStep()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
-            <GoToTop />
+            {course && course.currentRole.isTeacher && <GoToTop />}
           </Content>
           <Navbar
             area="footer"

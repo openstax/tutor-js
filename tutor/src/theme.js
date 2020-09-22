@@ -246,6 +246,7 @@ const TutorTheme = {
   zIndex: {
     navbar: 1030,
     footer: 5,
+    goToTop: 1031,
   },
 };
 
