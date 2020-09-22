@@ -27,6 +27,9 @@ const InfoRow = styled.div`
   margin: 8px 0;
   display: flex;
   justify-content: ${props => props.hasSubmitted ? 'space-between' : 'flex-end'};
+  .word-limit-error-info {
+    color: ${colors.danger};
+  }
   span {
     font-size: 12px;
     line-height: 16px;
@@ -57,6 +60,9 @@ const TextArea = styled.textarea`
   border: 1px solid ${colors.neutral.std};
   color: ${colors.neutral.dark};
   ${props => props.isErrored && TextAreaErrorStyle};
+  ${props => props.showWarning && css`
+    border: 2px solid ${colors.danger};
+  `}
   background-color: ${props => props.readOnly && colors.neutral.cool};
 `;
 TextArea.displayName = 'TextArea';
@@ -155,12 +161,16 @@ class FreeResponseInput extends React.Component {
           data-test-id="free-response-box"
           placeholder="Enter your response..."
           isErrored={ux.displayNudgeError}
+          showWarning={ux.isOverWordLimit}
           aria-label="question response text box"
           readOnly={ux.taskUX.isReadOnly}
         />
         <InfoRow hasSubmitted={!!ux.lastSubmitted}>
           {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+          
           <span>{ux.responseWords} words</span>
+          {ux.isOverWordLimit && <span class="word-limit-error-info">Maximum {ux.wordLimit} words</span> }
+
         </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
@@ -171,7 +181,7 @@ class FreeResponseInput extends React.Component {
             <AnswerButton
               size="lg"
               data-test-id="submit-answer-btn"
-              disabled={ux.isSubmitDisabled}
+              disabled={ux.isSubmitDisabled || ux.isOverWordLimit}
               onClick={this.onSave}>
               {ux.submitBtnLabel}
             </AnswerButton>

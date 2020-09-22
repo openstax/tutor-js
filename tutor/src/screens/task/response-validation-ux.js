@@ -12,6 +12,7 @@ class ResponseValidationUX {
   @observable messages;
   @observable messageIndex;
   @observable results = [];
+  @observable wordLimit = 500;
 
   constructor({ step, messages, taskUX, validator = new ResponseValidation() }) {
     this.step = step;
@@ -56,6 +57,11 @@ class ResponseValidationUX {
 
   @computed get responseWords() {
     return S.countWords(this.response);
+  }
+
+  // Word limit is 500
+  @computed get isOverWordLimit() {
+    return this.responseWords > this.wordLimit;
   }
 
   @computed get course() {
