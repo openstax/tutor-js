@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from 'shared/model';
-import { find, isEmpty, startsWith } from 'lodash';
+import { find, isEmpty, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
@@ -177,20 +177,19 @@ class User extends BaseModel {
   }
 
   @computed get metrics() {
+    const courses = Courses.nonPreview.array;
+    const getValues = (attr) => uniq(map(courses, attr)).join(';');
     return {
       role: this.isProbablyTeacher ? 'instructor' : 'student',
       is_new_user: Courses.completed.nonPreview.isEmpty,
       is_test_user: this.is_test,
       has_viewed_preview: Courses.preview.any,
-      courses: Courses.nonPreview.array.map(c => ({
-        subject: c.appearance_code,
-        type: c.is_preview ? 'preview' : 'real',
-        role: c.currentRole.type,
-        active: c.isActive,
-        enrollment: c.currentRole.isTeacher ? c.num_enrolled_students : -1,
-        enrollment_type: c.is_lms_enabled ? 'lms' : 'links',
-        cost: c.does_cost,
-      })),
+      has_per_cost_course: Boolean(find(courses, 'does_cost')),
+      course_subjects: getValues('appearance_code'),
+      course_types: getValues(c => c.is_preview ? 'preview' : 'real'),
+      course_roles: getValues('currentRole.type'),
+      course_enrollment_types: getValues(c => c.is_lms_enabled ? 'lms' : 'links'),
+      max_course_enrollment: max(courses.map(c => c.currentRole.isTeacher ? c.num_enrolled_students : -1)),
     };
   }
 }
