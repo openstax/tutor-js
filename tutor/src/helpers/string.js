@@ -93,10 +93,7 @@ export default {
 
   countWords(text) {
     if(!text) return 0;
-    text = text.replace(/(^\s*)|(\s*$)/gi,'');
-    text = text.replace(/[ ]{2,}/gi,' ');
-    text = text.replace(/\n/gi,' ');
-    return text.split(' ').length;
+    return text.match(/\b[-?(\w+)?]+\b/gi).length;
   },
 
   stripHTMLTags(text) {
