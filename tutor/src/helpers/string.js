@@ -93,6 +93,7 @@ export default {
 
   countWords(text) {
     if(!text) return 0;
+    //https://css-tricks.com/build-word-counter-app/
     return text.match(/\b[-?(\w+)?]+\b/gi).length;
   },
 
