@@ -1,7 +1,7 @@
 import { React, styled, observer, observable, action } from 'vendor';
 import { debounce } from 'lodash';
 import { Icon } from 'shared';
-import Theme, { colors } from 'theme';
+import Theme from 'theme';
 
 
 const StyledIcon = styled(Icon)`
@@ -34,6 +34,10 @@ const StyledIcon = styled(Icon)`
       }
     }
   }
+
+  .modal-open & {
+    display: none;
+  }
 `;
 
 export default
@@ -56,21 +60,7 @@ class GoToTop extends React.Component {
 
   componentWillMount() {
     this.onScroll = debounce(this.onScroll, 10);
-    let passiveIfSupported = false;
-
-    try {
-      window.addEventListener("test", null,
-        Object.defineProperty(
-          {},
-          "passive",
-          {
-            get: function() { passiveIfSupported = { passive: false }; }
-          }
-        )
-      );
-    } catch(err) {}
-
-    window.addEventListener('scroll', this.onScroll, passiveIfSupported);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
   }
 
   componentWillUnMount() {
