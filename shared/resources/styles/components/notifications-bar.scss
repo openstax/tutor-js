@@ -28,8 +28,14 @@
         text-align: right;
       }
     }
-    .body {
+    .body, .content {
       flex: 1;
+    }
+
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .mobile-text {

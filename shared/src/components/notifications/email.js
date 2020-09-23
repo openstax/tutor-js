@@ -179,8 +179,10 @@ class EmailNotification extends React.Component {
     );
     return (
       <div className={classNames}>
-        {error}
-        {body}
+        <div className="content">
+          {error}
+          {body}
+        </div>
         <a className="dismiss" onClick={this.props.onDismiss}>
           <Icon type="close" />
         </a>
