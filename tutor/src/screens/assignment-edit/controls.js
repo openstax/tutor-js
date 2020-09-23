@@ -56,7 +56,7 @@ const Controls = observer(({ middleControls, ux, ux: {
 
   if (isLast) {
     rightButtons = [
-      <RightButton key="draft" variant="secondary" onClick={onSaveAsDraftClick} disabled={!canSaveAsDraft}>Save as Draft</RightButton>,
+      <RightButton data-test-id="save-draft-button" key="draft" variant="secondary" onClick={onSaveAsDraftClick} disabled={!canSaveAsDraft}>Save as Draft</RightButton>,
       <RightButton key="publish" variant="primary" disabled={!canSubmit} onClick={onPublishClick}>Publish</RightButton>,
     ];
   } else {

@@ -249,15 +249,16 @@ context('Assignment Edit', () => {
     })
   });
 
-  it('shows error if due date is before open date', () => {
+  it.only('shows error if due date is before open date', () => {
     typedDueDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
-    cy.visit('/course/2/assignment/edit/homework/new')
+    cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
     cy.get('.oxdt-ok').click();
     cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true });
     cy.get('.oxdt-ok').last().click();
     cy.getTestElement('date-error-message').should('contain.text', 'Due time cannot be before the open time');
+    cy.getTestElement('save-draft-button').should('be.disabled');
   });
 
 
@@ -273,5 +274,13 @@ context('Assignment Edit', () => {
     cy.get('input[name="tasking_plans[0].closes_at"]').clear({ force: true }).type(typedClosesDate, { force: true });
     cy.get('.oxdt-ok').last().click();
     cy.getTestElement('date-error-message').should('contain.text', 'Close time cannot be before the due time');
+  });
+
+  it('disable the save as draft button if no title is given to the assignment', () => {
+    cy.visit('/course/2/assignment/edit/external/new')
+    cy.disableTours()
+    cy.getTestElement('save-draft-button').should('be.disabled');
+    cy.get('input[name="title"]').type('add assignment name, now save as draft should be enabled')
+    cy.getTestElement('save-draft-button').should('not.be.disabled');
   });
 });
