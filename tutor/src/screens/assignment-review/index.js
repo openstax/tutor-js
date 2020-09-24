@@ -94,7 +94,7 @@ class AssignmentReview extends React.Component {
     );
   }
 
-  @action.bound renderTabs({ ux: { hasEnrollments, course, planScores } }) {
+  @action.bound renderTabs({ ux: { hasEnrollments, course, planScores }, tabIndex }) {
     const AvailableTabs = [Details];
 
     // pre-wrm courses have confusion around weights so we hide them
@@ -110,12 +110,12 @@ class AssignmentReview extends React.Component {
       }
 
     }
-    const Tab = AvailableTabs[this.tabIndex] || Details;
+    const Tab = AvailableTabs[tabIndex] || Details;
 
     return (
       <>
         <StyledTabs
-          selectedIndex={this.tabIndex}
+          selectedIndex={tabIndex}
           params={this.props.params}
           onSelect={this.onTabSelection}
           tabs={AvailableTabs.map(t => t.title)}
@@ -150,7 +150,7 @@ class AssignmentReview extends React.Component {
                 onChange={setSelectedPeriod}
               />
             </Heading>
-            {this.renderTabs({ ux: this.ux })}
+            {this.renderTabs({ ux: this.ux, tabIndex: this.tabIndex })}
           </ContentWrapper>
         </ScrollToTop>
       </BackgroundWrapper>
