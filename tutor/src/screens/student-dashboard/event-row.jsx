@@ -22,9 +22,10 @@ const NotOpenNoticeWrapper = styled.div`
   background: ${({ theme }) => theme.colors.neutral.lighter};
 `;
 
-const TaskRow = styled(Row).attrs({
-  as: 'a',
-})`
+const TaskRow = styled(Row)`
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  transition: all 0.1s ease-in;
   ${({ theme }) => theme.breakpoint.mobile`
      ${fitContentHeight}
   `}
@@ -38,6 +39,16 @@ const fitContentHeight = `
   &&& {
     height: fit-content;
     max-height: none;
+  }
+`;
+
+const ClickableInfoRow = styled(Row).attrs({
+  as: 'a',
+})`
+  display: contents;
+  color: #424242;
+  :hover {
+    color: #424242;
   }
 `;
 
@@ -92,6 +103,11 @@ class EventRow extends React.Component {
     }
   }
 
+  @action.bound onHitEnter(ev) {
+    if(ev.key === 'Enter')
+      this.onClick(ev);
+  }
+
   @computed get isViewable() {
     return get(this.props, 'viewable', this.props.event.isViewable);
   }
@@ -100,18 +116,22 @@ class EventRow extends React.Component {
     const { event, course } = this.props;
     return (
       <>
-        <TitleCell>
-          <EventTypeIcon event={event} />
-          <span>{event.title}</span>
-        </TitleCell>
-        <DueCell>
-          <EventTime event={event} />
-          {event.is_extended && <StyledEIcon />}
-          <HideButton event={event} />
-        </DueCell>
-        <StatusCell>
-          <TaskStatus event={event} course={course} />
-        </StatusCell>
+        <ClickableInfoRow
+          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+          onClick={this.onClick}>
+          <TitleCell>
+            <EventTypeIcon event={event} />
+            <span>{event.title}</span>
+          </TitleCell>
+          <DueCell>
+            <EventTime event={event} />
+            {event.is_extended && <StyledEIcon />}
+            <HideButton event={event} />
+          </DueCell>
+          <StatusCell>
+            <TaskStatus event={event} course={course} />
+          </StatusCell>
+        </ClickableInfoRow>
         <ScoreCell>
           <TaskScore event={event} course={course} />
         </ScoreCell>
@@ -149,7 +169,6 @@ class EventRow extends React.Component {
               </span>
             </div>
           </div>
-          
         </MobileCell>
       </>
     );
@@ -167,17 +186,17 @@ class EventRow extends React.Component {
             viewable: this.isViewable,
             deleted: event.is_deleted,
           })}
-          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
           aria-label={`Work on ${event.type}: ${this.props.event.title}`}
           tabIndex={this.isViewable ? 0 : -1}
-          onClick={this.onClick}
-          onKeyDown={this.isViewable ? this.onKey : undefined}
+          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+          onKeyDown={this.isViewable ? this.onHitEnter : undefined}
           data-event-id={this.props.event.id}
         >
           <Responsive
             desktop={this.renderDesktop()}
             mobile={this.renderMobile()}
           />
+          
         </TaskRow>
       </>
     );

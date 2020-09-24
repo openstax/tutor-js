@@ -16,7 +16,7 @@ exports[`Student Dashboard displays as loading 1`] = `
   background: #5e5e5e;
 }
 
-.c14 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -31,7 +31,11 @@ exports[`Student Dashboard displays as loading 1`] = `
   align-items: center;
 }
 
-.c13 {
+.c15 a {
+  font-weight: 600;
+}
+
+.c14 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -158,6 +162,26 @@ exports[`Student Dashboard displays as loading 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.c13 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+  display: contents;
+  color: #424242;
+}
+
+.c13:hover {
+  color: #424242;
 }
 
 .c3 {
@@ -555,58 +579,68 @@ exports[`Student Dashboard displays as loading 1`] = `
                       Scores
                     </div>
                   </div>
-                  <a
+                  <div
                     aria-label="Work on event: robust strategize synergies"
                     className="c12 task event"
                     data-event-id={7}
                     href="/course/1/task/7"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-event"
-                        type="event"
-                      />
-                      <span>
-                        robust strategize synergies
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/7"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          
+                        <i
+                          className="c14 icon-event"
+                          type="event"
+                        />
+                        <span>
+                          robust strategize synergies
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        10.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          10.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -629,59 +663,69 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on external: virtual disintermediate e-commerce"
                     className="c12 task external"
                     data-event-id={6}
                     href="/course/1/task/6"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-external"
-                        type="external"
-                      />
-                      <span>
-                        virtual disintermediate e-commerce
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/6"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          Clicked
+                        <i
+                          className="c14 icon-external"
+                          type="external"
+                        />
+                        <span>
+                          virtual disintermediate e-commerce
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            Clicked
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -704,59 +748,69 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on homework: 24/7 incubate paradigms"
                     className="c12 task homework"
                     data-event-id={8}
                     href="/course/1/task/8"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-homework"
-                        type="homework"
-                      />
-                      <span>
-                        24/7 incubate paradigms
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/8"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          Not started
+                        <i
+                          className="c14 icon-homework"
+                          type="homework"
+                        />
+                        <span>
+                          24/7 incubate paradigms
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            Not started
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        9.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          9.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -779,59 +833,69 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on reading: real-time empower content"
                     className="c12 task reading"
                     data-event-id={5}
                     href="/course/1/task/5"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-reading"
-                        type="reading"
-                      />
-                      <span>
-                        real-time empower content
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/5"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          In progress
+                        <i
+                          className="c14 icon-reading"
+                          type="reading"
+                        />
+                        <span>
+                          real-time empower content
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            In progress
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        8.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          8.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -854,7 +918,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -925,7 +989,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   background: #5e5e5e;
 }
 
-.c14 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -940,7 +1004,11 @@ exports[`Student Dashboard matches snapshot 1`] = `
   align-items: center;
 }
 
-.c13 {
+.c15 a {
+  font-weight: 600;
+}
+
+.c14 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -1067,6 +1135,26 @@ exports[`Student Dashboard matches snapshot 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.c13 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+  display: contents;
+  color: #424242;
+}
+
+.c13:hover {
+  color: #424242;
 }
 
 .c3 {
@@ -1464,58 +1552,68 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       Scores
                     </div>
                   </div>
-                  <a
+                  <div
                     aria-label="Work on event: transparent exploit architectures"
                     className="c12 task event"
                     data-event-id={3}
                     href="/course/1/task/3"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-event"
-                        type="event"
-                      />
-                      <span>
-                        transparent exploit architectures
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/3"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          
+                        <i
+                          className="c14 icon-event"
+                          type="event"
+                        />
+                        <span>
+                          transparent exploit architectures
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        3.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          3.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -1538,59 +1636,69 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on external: value-added reintermediate architectures"
                     className="c12 task external"
                     data-event-id={2}
                     href="/course/1/task/2"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-external"
-                        type="external"
-                      />
-                      <span>
-                        value-added reintermediate architectures
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/2"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          Not started
+                        <i
+                          className="c14 icon-external"
+                          type="external"
+                        />
+                        <span>
+                          value-added reintermediate architectures
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            Not started
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        6.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          6.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -1613,59 +1721,69 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on homework: interactive mesh convergence"
                     className="c12 task homework"
                     data-event-id={4}
                     href="/course/1/task/4"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-homework"
-                        type="homework"
-                      />
-                      <span>
-                        interactive mesh convergence
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/4"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          12/12 completed
+                        <i
+                          className="c14 icon-homework"
+                          type="homework"
+                        />
+                        <span>
+                          interactive mesh convergence
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            12/12 completed
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        2.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          2.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -1688,59 +1806,69 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
-                  <a
+                  </div>
+                  <div
                     aria-label="Work on reading: proactive engage web-readiness"
                     className="c12 task reading"
                     data-event-id={1}
                     href="/course/1/task/1"
-                    onClick={[Function]}
                     tabIndex={-1}
                   >
-                    <div
-                      className="sc-fznKkj c2"
-                    >
-                      <i
-                        className="c13 icon-reading"
-                        type="reading"
-                      />
-                      <span>
-                        proactive engage web-readiness
-                      </span>
-                    </div>
-                    <div
-                      className="sc-fznKkj c4"
-                    >
-                      <time
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onMouseOut={[Function]}
-                        onMouseOver={[Function]}
-                      >
-                        Wed, Oct 21, 7:00am
-                      </time>
-                    </div>
-                    <div
-                      className="sc-fznKkj c5"
+                    <a
+                      className="c13"
+                      href="/course/1/task/1"
+                      onClick={[Function]}
                     >
                       <div
-                        className="c14"
+                        className="sc-fznKkj c2"
                       >
-                        <span
-                          className="tour-anchor"
-                          data-tour-anchor-id="assignment-progress-status"
-                        >
-                          In progress
+                        <i
+                          className="c14 icon-reading"
+                          type="reading"
+                        />
+                        <span>
+                          proactive engage web-readiness
                         </span>
                       </div>
-                    </div>
+                      <div
+                        className="sc-fznKkj c4"
+                      >
+                        <time
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          Wed, Oct 21, 7:00am
+                        </time>
+                      </div>
+                      <div
+                        className="sc-fznKkj c5"
+                      >
+                        <div
+                          className="c15"
+                        >
+                          <span
+                            className="tour-anchor"
+                            data-tour-anchor-id="assignment-progress-status"
+                          >
+                            In progress
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                     <div
                       className="sc-fznKkj c6"
                     >
                       <div
-                        className="c14"
+                        className="c15"
                       >
-                        5.0
+                        <a
+                          href="/course/1/gradebook"
+                          onClick={[Function]}
+                        >
+                          5.0
+                        </a>
                         <svg
                           aria-hidden="true"
                           background="#5e5e5e"
@@ -1763,7 +1891,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </svg>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
