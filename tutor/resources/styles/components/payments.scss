@@ -1,8 +1,17 @@
-.make-payment.modal .modal-dialog {
-  width: 570px;
-  .error-message {
-    margin: 50px;
-    button { margin-top: 2rem; }
+.make-payment.modal {
+  overflow: scroll;
+  .modal-dialog {
+    width: 570px;
+    @media screen and ( max-width: $mobile-collapse-breakpoint ) {
+      width: 100%;
+    }
+    .payments-wrapper {
+      padding-bottom: 60px;
+    }
+    .error-message {
+      margin: 50px;
+      button { margin-top: 2rem; }
+    }
   }
 
   @media screen and ( max-width: $mobile-collapse-breakpoint ){
