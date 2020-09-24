@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find, groupBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
@@ -58,6 +58,10 @@ export default class AssignmentReviewUX {
     await this.planScores.taskPlan.analytics.fetch();
     const period = find(this.assignedPeriods, p => p.id == periodId);
     this.selectedPeriod = period ? period : first(this.assignedPeriods);
+
+    if (!this.course.referenceBook.uuid) {
+      await this.course.referenceBook.fetch();
+    }
 
     await this.planScores.ensureExercisesLoaded();
 
@@ -404,6 +408,14 @@ export default class AssignmentReviewUX {
 
   @computed get hasGradeableAnswers() {
     return Boolean(this.gradeableQuestionCount > 0);
+  }
+
+  @computed get groupExercisesByPageUUID() {
+    const questions = this.scores.questionsInfo;
+    return groupBy(questions, q => {
+      //console.log(this.course.referenceBook.pages.byUUID.get(q.exercise.page_uuid));
+      return q.exercise.page_uuid;
+    });
   }
 
   @action.bound scrollToQuestion(questionId, index) {

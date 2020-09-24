@@ -4,7 +4,7 @@ import {
 import Exercises from '../../exercises';
 import {
   filter, sumBy, find, isNil, compact, sortBy,
-  get, some, reduce, every, uniq, isNumber, isEmpty,
+  get, some, reduce, every, uniq, isNumber, isEmpty, groupBy,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';

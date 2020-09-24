@@ -1,14 +1,14 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import TutorLink from '../../components/link';
+import { isEmpty, compact } from 'lodash';
 import { Button } from 'react-bootstrap';
+import TutorLink from '../../components/link';
 import ScoresHelper from '../../helpers/scores';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
-import { isEmpty, compact } from 'lodash';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -386,9 +386,9 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
-const QuestionList = observer(({ ux, scores }) => {
+const QuestionList = observer(({ ux, scores, doGroupByTopic }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
-  
+
   if (scores.questionsInfo && scores.questionsInfo.length === 0) {
     return (
       <StyledNoActivity>
@@ -397,6 +397,25 @@ const QuestionList = observer(({ ux, scores }) => {
       </StyledNoActivity>
     );
   }
+
+  if(doGroupByTopic) {
+    return Object.keys(ux.groupExercisesByPageUUID).map((key, index) => (
+      <div key={index}>
+        <h1>
+          <ArbitraryHtmlAndMath
+            html={ux.course.referenceBook.pages.byUUID.get(key).title} />
+        </h1>
+        <HomeworkQuestions
+          questionsInfo={ux.groupExercisesByPageUUID[key]}
+          questionType="teacher-review"
+          headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+          questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+          footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+          styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
+      </div>
+    ));
+  }
+
   return <HomeworkQuestions
     questionsInfo={scores.questionsInfo}
     questionType="teacher-review"
@@ -404,6 +423,7 @@ const QuestionList = observer(({ ux, scores }) => {
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
     styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
+
 });
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,
@@ -457,7 +477,7 @@ const Overview = observer(({ ux }) => {
   return (
     <Wrapper data-test-id="overview">
       {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
-      <QuestionList ux={ux} scores={ux.scores} />
+      <QuestionList ux={ux} scores={ux.scores} doGroupByTopic={ux.planScores.isReading} />
     </Wrapper>
   );
 
