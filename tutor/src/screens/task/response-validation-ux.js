@@ -165,7 +165,7 @@ class ResponseValidationUX {
 
   @computed get isSubmitDisabled() {
     return Boolean(
-      this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response),
+      this.taskUX.isLocked || this.displayNudgeError || S.isEmpty(this.response) || this.isOverWordLimit,
     );
   }
 
