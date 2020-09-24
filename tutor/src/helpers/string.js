@@ -1,4 +1,4 @@
-import { isNaN, isString, isEmpty } from 'lodash';
+import { isNaN, isString, isEmpty, trimStart, trimEnd } from 'lodash';
 
 const SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
 const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
@@ -92,11 +92,14 @@ export default {
   },
 
   countWords(text) {
-    if(!text) return 0;
-    text = text.replace(/(^\s*)|(\s*$)/gi,'');
-    text = text.replace(/[ ]{2,}/gi,' ');
-    text = text.replace(/\n/gi,' ');
-    return text.split(' ').length;
+    if(!isString(text)) return 0;
+
+    let trimmedText = trimStart(text);
+    trimmedText = trimEnd(trimmedText);
+    //https://css-tricks.com/build-word-counter-app/
+    const words = trimmedText.match(/\b[-?(\w+)?]+\b/gi);
+    if(!words) return 0;
+    return words.length;
   },
 
   stripHTMLTags(text) {
