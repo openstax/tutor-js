@@ -56,6 +56,10 @@ const StyledStickyTable = styled(StickyTable)`
     border-top: 1px solid ${colors.neutral.pale};
     background-color: ${colors.neutral.lightest};
 
+    &.completed {
+      background-color: #e5e5e5;
+    }
+
     :not(:first-child):not(:last-child):not(.late-work) {
       color: ${colors.link};
       cursor: pointer;
@@ -122,7 +126,7 @@ const StyledPopover = styled(Popover)`
   /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
     &[style] {
       border: 1px #d5d5d5 solid !important;
-      top: ${props => props.graded ? '62px' : '32px'} !important;  
+      top: ${props => props.graded ? '62px' : '32px'} !important;
     }
     padding: 10px 7px;
     text-align: center;
@@ -175,7 +179,7 @@ const renderPointsScoredCell = (step) => {
         overlay={renderLateInfoPopover(step)}>
         <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
           {
-            step.isLate && 
+            step.isLate &&
             <div className="icon">
               <Icon
                 color={colors.danger}
@@ -222,8 +226,9 @@ class TaskProgress extends React.Component {
                   <Cell
                     key={stepIndex}
                     data-step-index={stepIndex}
-                    className={cn({ 'current-step': step === currentStep })}
-                    onClick={() => goToStep(step.id)}>
+                    className={cn({ 'current-step': step === currentStep, 'completed': step.is_completed })}
+                    onClick={() => goToStep(step.id)}
+                  >
                     {progressIndex}
                     {step.isDroppedQuestion &&
                       <CornerTriangle color="blue"
