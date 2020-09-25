@@ -14,12 +14,12 @@ const TYPES = {
 };
 
 function QuestionTypeTag(props) {
-  const { isTypeLocked } = props.exercise;
+  const { isOpenEnded } = props.exercise;
   return (
     <SingleDropdown
-      readonly={isTypeLocked}
+      readonly={isOpenEnded}
       {...props} label="Question Type" type={TYPE} choices={TYPES}
-      icon={isTypeLocked && <Icon variant="infoCircle" tooltip='"Open Ended" exercises must be type practice' />}
+      icon={isOpenEnded && <Icon variant="infoCircle" tooltip='"Open Ended" exercises must be type practice' />}
     />
   );
 }

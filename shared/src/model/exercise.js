@@ -100,8 +100,4 @@ class Exercise extends BaseModel {
     this.tags.findOrAddWithType('type').value = 'practice';
   }
 
-  @computed get isTypeLocked() {
-    return Boolean(this.isSinglePart && this.isOpenEnded);
-  }
-
 }
