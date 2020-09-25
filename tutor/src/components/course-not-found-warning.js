@@ -16,7 +16,6 @@ class CourseNotFoundWarning extends React.Component {
   static propTypes = {
     areaName: PropTypes.string.isRequired,
     history: PropTypes.object.isRequired,
-    dismiss: PropTypes.func,
     messageType: PropTypes.oneOf(Object.keys(MESSAGES)),
   }
 
@@ -24,19 +23,19 @@ class CourseNotFoundWarning extends React.Component {
     areaName: 'course',
   }
 
-  goToMyCourses() {
+  goToMyCourses = () => {
     this.props.history.push(TutorRouter.makePathname('myCourses'));
   }
 
 
   render() {
-    const { areaName, messageType, dismiss } = this.props;
+    const { areaName, messageType } = this.props;
 
     return (
       <WarningModal
         onDismiss={this.goToMyCourses}
         title={`Sorry, you can’t access this ${areaName}`}
-        footer={<Button className="dismiss" onClick={dismiss}>Close</Button>}
+        footer={<Button className="dismiss" onClick={this.goToMyCourses}>Close</Button>}
       >
         {MESSAGES[messageType] || MESSAGES.notMember}
       </WarningModal>
