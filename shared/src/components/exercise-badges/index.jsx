@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import React from 'react';
 import Icon from '../icon';
 import { map, compact } from 'lodash';
@@ -8,87 +9,107 @@ import classnames from 'classnames';
 
 
 const BADGES = {
-  multiPart: (
-    <span key="mpq" className="mpq">
-      <MultiPart />
-      <span>
-        Multi-part question
+  multiPart: {
+    el: (
+      <span key="mpq" className="mpq">
+        <MultiPart />
+        <span>
+          Multi-part question
+        </span>
       </span>
-    </span>
-  ),
-  interactive: (
-    <span key="interactive" className="interactive">
-      <Interactive />
-      <span>
-        Interactive
+    ),
+  },
+  interactive: {
+    el: (
+      <span key="interactive" className="interactive">
+        <Interactive />
+        <span>
+          Interactive
+        </span>
       </span>
-    </span>
-  ),
-  video: (
-    <span key="video" className="video">
-      <Interactive />
-      <span>
-        Video
+    ),
+  },
+  video: {
+    el: (
+      <span key="video" className="video">
+        <Interactive />
+        <span>
+          Video
+        </span>
       </span>
-    </span>
-  ),
-  personalized: (
-    <span key="personalized" className="personalized">
-      <i className="icon icon-sm icon-personalized" />
-      <span>
-        Personalized
+    ),
+  },
+  personalized: {
+    el: (
+      <span key="personalized" className="personalized">
+        <i className="icon icon-sm icon-personalized" />
+        <span>
+          Personalized
+        </span>
+        <Icon type="info-circle" />
       </span>
-      <Icon
-        type="info-circle"
-        tooltip="Personalized questions are choosen specifically for you by Tutor based on your learning history" />
-    </span>
-  ),
-  spacedPractice: (
-    <span key="spacedPractice" className="spaced-practice">
-      <i className="icon icon-sm icon-spaced-practice" />
-      <span>
-        Spaced Practice
+    ),
+    tooltip: 'Personalized questions are choosen specifically for you by Tutor based on your learning history',
+  },
+  spacedPractice: {
+    el: (
+      <span key="spacedPractice" className="spaced-practice">
+        <i className="icon icon-sm icon-spaced-practice" />
+        <span>
+          Spaced Practice
+        </span>
+        <Icon type="info-circle" />
       </span>
-      <Icon
-        type="info-circle"
-        tooltip={
-          <div>
-            <h6>What is spaced practice?</h6>
-            <p>
-              Did you know?  Research shows you can strengthen your
-              memory—<b>and spend less time studying</b>—if
-              you revisit material over multiple study sessions.
-            </p>
-            <p>
-              Tutor will include <b>spaced practice</b> questions from prior
-              assignments to give your learning a boost. You may occasionally
-              see questions you’ve seen before.
-            </p>
-          </div>
-        }
-      />
-    </span>
-  ),
-  writtenResponse: (
-    <span key="wrm" className="wrm">
-      <i className="icon icon-md icon-wrm" />
-      <span>
-        Written-response
+    ),
+    tooltip: (
+      <div>
+        <h6>What is spaced practice?</h6>
+        <p>
+          Did you know?  Research shows you can strengthen your
+          memory—<b>and spend less time studying</b>—if
+          you revisit material over multiple study sessions.
+        </p>
+        <p>
+          Tutor will include <b>spaced practice</b> questions from prior
+          assignments to give your learning a boost. You may occasionally
+          see questions you’ve seen before.
+        </p>
+      </div>
+    ),
+  },
+  writtenResponse: {
+    el: (
+      <span key="wrm" className="wrm">
+        <i className="icon icon-md icon-wrm" />
+        <span>
+          Written-response
+        </span>
+        <Icon type="info-circle" />
       </span>
-      <Icon
-        type="info-circle"
-        tooltip={
-          <div>
-            <p>
-            This is an open-ended question. Feedback will be available once the response is graded.
-            </p>
-          </div>
-        }
-      />
-    </span>
-  ),
+    ),
+    tooltip: (
+      <div>
+        <p>
+          This is an open-ended question. Feedback will be available once the response is graded.
+        </p>
+      </div>
+    ),
+  },
 };
 
+
+const Badge = ({ el, tooltip }) => {
+  if (!tooltip) { return el; }
+  return (
+    <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
+      {el}
+    </OverlayTrigger>
+  );
+};
+Badge.propTypes = {
+  el: PropTypes.node.isRequired,
+  tooltip: PropTypes.node,
+};
 export default
 function ExerciseBadges({ className, ...badgeProps }) {
   const badges = compact(map(badgeProps, (wants, type) => wants && BADGES[type]));
@@ -96,10 +117,8 @@ function ExerciseBadges({ className, ...badgeProps }) {
   if (!badges.length) { return null; }
 
   return (
-    <div
-      className={classnames('openstax-exercise-badges', className)}
-    >
-      {badges}
+    <div className={classnames('openstax-exercise-badges', className)} >
+      {badges.map((badge, index) => <Badge key={index} {...badge} />)}
     </div>
   );
 
