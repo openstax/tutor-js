@@ -71,4 +71,6 @@ const GoToTop = observer(() => {
   );
 });
 
+GoToTop.displayName = 'GoToTop';
+
 export default GoToTop;
