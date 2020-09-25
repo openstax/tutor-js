@@ -4,7 +4,7 @@ import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import ScoresHelper from '../../helpers/scores';
-import { isEmpty } from 'lodash';
+import { isEmpty, map, compact } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
@@ -163,7 +163,7 @@ const StyledSectionsAssigned = styled.div`
       margin-bottom: 2rem;
     }
   }
- ` 
+ `
 ;
 
 const StyledExerciseNumber = styled(ExerciseNumber)`
@@ -191,6 +191,22 @@ QuestionHeader.propTypes = {
   info:  PropTypes.object.isRequired,
 };
 
+const SectionInfo = observer((props) => {
+  const { dok, blooms, aplo } = props.info.exercise.tags.important;
+  return (
+    <div className="section-link-wrapper">
+      <div className="exercise-tags">
+        {map(compact([dok, blooms, aplo]), (tag, index) => (
+          <span key={index} className="exercise-tag">
+            {tag.asString}
+          </span>
+        ))}
+      </div>
+      <SectionLink {...props} />
+    </div>
+  );
+});
+
 const Questions = observer(({ ux, questionsInfo }) => {
   if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
   let Content;
@@ -212,7 +228,7 @@ const Questions = observer(({ ux, questionsInfo }) => {
         {ux.isExercisesReady ? (
           <StyledHomeworkQuestions
             questionsInfo={questionsInfo}
-            sectionLinkRenderer={(props) => <SectionLink {...props} />}
+            sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
             headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
             styleVariant="submission"
           />) : <Loading message="Loading Questions…"/>}
@@ -234,7 +250,7 @@ const AssignedSections = observer(({ assignedSections = [], courseId }) => {
       <StyledSectionsAssigned>
         <h6>Sections Assigned</h6>
         <ul>
-          {assignedSections.map((section) => 
+          {assignedSections.map((section) =>
             <a key={section.pathId} target="_blank" href={`/book/${courseId}/page/${section.id}`}><li><BookPartTitle part={section} displayChapterSection /></li></a>
           )}
         </ul>

@@ -140,11 +140,23 @@ const Body = styled.div`
       }
     }
 
-    .book-part-title {
-      margin-bottom: 25px;
-      text-decoration: underline;
+    .section-link-wrapper {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      &.singular {
+        justify-content: flex-end;
+      }
+      & + div {
+        margin-top: 1.3rem;
+      }
+      .tags > * {
+        margin-right: 1rem;
+        color: ${colors.neutral.lite};
+      }
+      .chapter-section {
+        color: inherit;
+      }
     }
   `}
 `;

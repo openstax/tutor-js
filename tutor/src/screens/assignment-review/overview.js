@@ -387,9 +387,15 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
+const SectionInfo = observer((props) => (
+  <div className="section-link-wrapper singular">
+    <SectionLink {...props} />
+  </div>
+));
+
 const QuestionList = observer(({ ux, scores }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
-  
+
   if (scores.questionsInfo && scores.questionsInfo.length === 0) {
     return (
       <StyledNoActivity>
@@ -401,7 +407,7 @@ const QuestionList = observer(({ ux, scores }) => {
   return <HomeworkQuestions
     questionsInfo={scores.questionsInfo}
     questionType="teacher-review"
-    sectionLinkRenderer={(props) => <SectionLink {...props} />}
+    sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
     headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
