@@ -1,7 +1,7 @@
 import { React, styled, observer, observable, action } from 'vendor';
-import { debounce } from 'lodash';
 import { Icon } from 'shared';
 import Theme, { breakpoint } from 'theme';
+import ScrollTracker from './scroll-tracker';
 
 const StyledIcon = styled(Icon)`
   &&.btn {
@@ -42,44 +42,33 @@ const StyledIcon = styled(Icon)`
   `};
 `;
 
-export default
-@observer
-class GoToTop extends React.Component {
-  @observable show = false;
+const scrollStore = observable({
+  scrollTop: 0,
+  clientHeight: 0,
+});
 
-  @action.bound onScroll() {
-    const el = document.scrollingElement;
-    if (el.scrollTop > (el.clientHeight * 4)) {
-      this.show = true;
-    } else {
-      this.show = false;
-    }
-  }
-
-  @action.bound onClick() {
+const GoToTop = observer(() => {
+  const onScroll = ({ scrollTop, clientHeight }) => {
+    scrollStore.scrollTop = scrollTop;
+    scrollStore.clientHeight = clientHeight;
+  };
+  const onClick = () => {
     document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  };
+  const listener = ScrollTracker({ onScroll: onScroll });
 
-  componentWillMount() {
-    this.onScroll = debounce(this.onScroll, 10);
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-  }
+  if (!(scrollStore.scrollTop > scrollStore.clientHeight * 4))
+    return null;
 
-  componentWillUnMount() {
-    window.removeEventListener('scroll', this.onScroll);
-  }
+  return (
+    <StyledIcon
+      type="angle-up"
+      onClick={onClick}
+      title="Go to the top of the page"
+    >
+      Go To Top
+    </StyledIcon>
+  );
+});
 
-  render() {
-    if (this.show == false) { return null; }
-    return (
-      <StyledIcon
-        type="angle-up"
-        onClick={this.onClick}
-        title="Go to the top of the page"
-      >
-        Go To Top
-      </StyledIcon>
-    );
-  }
-
-}
+export default GoToTop;
