@@ -1,7 +1,6 @@
 import { React, PropTypes, cn, styled, observer, css } from 'vendor';
 import { colors } from 'theme';
 import Question from 'shared/components/question';
-import BookPartTitle from './book-part-title';
 
 const HomeworkQuestionsWrapper = styled.div`
 
@@ -163,7 +162,7 @@ export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
   index, info,
-  showSection,
+  sectionLinkRenderer: SectionLink,
   questionInfoRenderer: QuestionInfo,
   headerContentRenderer: HeaderContent,
   footerContentRenderer: FooterContent,
@@ -188,10 +187,7 @@ const ReviewExerciseCard = observer(({
           displayFormats={false}
           type={questionType}
         />
-        {Boolean(showSection &&
-        info.exercise &&
-        info.exercise.page &&
-        info.exercise.page.title) && <a target="_blank" href={`/book/${info.exercise.book.id}/page/${info.exercise.page.id}`}><BookPartTitle part={info.exercise.page} displayChapterSection /></a> }
+        {SectionLink && <SectionLink info={info} /> }
         {QuestionInfo && <QuestionInfo info={info} />}
         {FooterContent && <FooterContent info={info} />}
       </Body>
@@ -209,20 +205,20 @@ const HomeworkQuestions = observer(({
   questionsInfo,
   questionType,
   className,
+  sectionLinkRenderer,
   headerContentRenderer,
   questionInfoRenderer,
   footerContentRenderer,
   styleVariant,
-  showSection,
 }) => (
   <HomeworkQuestionsWrapper className={cn('homework-questions', className)}>
     {questionsInfo.map((info, index) => (
       <ReviewExerciseCard
         info={info}
-        showSection={showSection}
         index={index}
         questionType={questionType}
         key={info.key}
+        sectionLinkRenderer={sectionLinkRenderer}
         headerContentRenderer={headerContentRenderer}
         questionInfoRenderer={questionInfoRenderer}
         footerContentRenderer={footerContentRenderer}

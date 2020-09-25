@@ -9,6 +9,7 @@ import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
+import SectionLink from './section-link';
 import ExternalLink from '../../components/new-tab-link';
 import BookPartTitle from '../../components/book-part-title';
 import { TruncatedText } from '../../components/text';
@@ -210,8 +211,8 @@ const Questions = observer(({ ux, questionsInfo }) => {
 
         {ux.isExercisesReady ? (
           <StyledHomeworkQuestions
-            showSection
             questionsInfo={questionsInfo}
+            sectionLinkRenderer={(props) => <SectionLink {...props} />}
             headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
             styleVariant="submission"
           />) : <Loading message="Loading Questions…"/>}

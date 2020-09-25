@@ -8,6 +8,7 @@ import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-que
 import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
+import SectionLink from './section-link';
 import { isEmpty, compact } from 'lodash';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
@@ -399,8 +400,8 @@ const QuestionList = observer(({ ux, scores }) => {
   }
   return <HomeworkQuestions
     questionsInfo={scores.questionsInfo}
-    showSection
     questionType="teacher-review"
+    sectionLinkRenderer={(props) => <SectionLink {...props} />}
     headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
