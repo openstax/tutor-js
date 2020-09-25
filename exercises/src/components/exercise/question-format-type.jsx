@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import Question  from 'shared/model/exercise/question';
 
 @observer
@@ -29,7 +29,7 @@ class QuestionFormatType extends React.Component {
 
     return (
       <div className="format-type">
-        {map(Question.FORMAT_TYPES, (name, id) => (
+        {map(question.allowedFormatTypes, (name, id) => (
           <div key={id}>
             <input
               type="radio"

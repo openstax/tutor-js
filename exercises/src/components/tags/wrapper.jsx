@@ -15,6 +15,7 @@ function TagWrapper(props) {
       <div className="heading">
         <span className="label">
           {props.label}
+          {props.icon}
         </span>
         <div className="controls">
           {props.onAdd && <Icon onClick={props.onAdd} type="plus-circle" />}
@@ -32,6 +33,7 @@ TagWrapper.propTypes = {
   children: PropTypes.node,
   singleTag: PropTypes.bool,
   'has-single-tag': PropTypes.bool,
+  icon: PropTypes.node,
   label: PropTypes.string.isRequired,
 };
 
