@@ -70,7 +70,7 @@ class CourseRoster extends React.Component {
   render() {
     const { course, course: { periods: { active: periods } } } = this;
     if (0 === periods.length) { return this.renderEmpty(); }
-    const activePeriod = periods[this.periodIndex];
+    const activePeriod = periods[this.periodIndex] || periods[0];
 
     return (
       <CoursePage

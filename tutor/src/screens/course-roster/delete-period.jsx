@@ -69,10 +69,10 @@ class DeletePeriodLink extends React.Component {
     onDelete: PropTypes.func.isRequired,
   }
 
-  @observable showModalForPeriod = false;
+  @observable showModalForPeriod;
 
   @action.bound close() {
-    this.showModalForPeriod = false;
+    this.showModalForPeriod = null;
   }
 
   @action.bound open() {
