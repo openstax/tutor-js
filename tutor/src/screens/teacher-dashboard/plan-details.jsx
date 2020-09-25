@@ -287,8 +287,6 @@ class CoursePlanDetails extends React.Component {
         <Button variant="link" onClick={() => this.showMoreSections = !this.showMoreSections}>{this.showMoreSections ? 'See fewer sections' : `+${assignedSections.length - 2} more sections`}</Button>
       </SectionsAssignedWrapper>
     );
-
-
   }
 
   render() {
