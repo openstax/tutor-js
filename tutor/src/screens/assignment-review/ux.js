@@ -60,6 +60,7 @@ export default class AssignmentReviewUX {
     this.selectedPeriod = period ? period : first(this.assignedPeriods);
 
     await this.planScores.ensureExercisesLoaded();
+    await this.course.referenceBook.ensureLoaded();
 
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);

@@ -9,7 +9,9 @@ import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
+import SectionLink from './section-link';
 import ExternalLink from '../../components/new-tab-link';
+import BookPartTitle from '../../components/book-part-title';
 import { TruncatedText } from '../../components/text';
 
 
@@ -150,6 +152,20 @@ const StyledHomeworkQuestions = styled(HomeworkQuestions)`
   }
 `;
 
+const StyledSectionsAssigned = styled.div`
+  h6 {
+    letter-spacing: 0.05rem;
+    margin-bottom: 25px;
+  }
+  ul {
+    font-size: 1.6rem;
+    li {
+      margin-bottom: 2rem;
+    }
+  }
+ ` 
+;
+
 const StyledExerciseNumber = styled(ExerciseNumber)`
   font-size: 1.6rem;
 `;
@@ -196,6 +212,7 @@ const Questions = observer(({ ux, questionsInfo }) => {
         {ux.isExercisesReady ? (
           <StyledHomeworkQuestions
             questionsInfo={questionsInfo}
+            sectionLinkRenderer={(props) => <SectionLink {...props} />}
             headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
             styleVariant="submission"
           />) : <Loading message="Loading Questions…"/>}
@@ -205,6 +222,23 @@ const Questions = observer(({ ux, questionsInfo }) => {
   return (
     <Section data-test-id="questions-block">
       {Content}
+    </Section>
+  );
+});
+
+const AssignedSections = observer(({ assignedSections = [], courseId }) => {
+  if(!assignedSections) return null;
+
+  return (
+    <Section>
+      <StyledSectionsAssigned>
+        <h6>Sections Assigned</h6>
+        <ul>
+          {assignedSections.map((section) => 
+            <a key={section.pathId} target="_blank" href={`/book/${courseId}/page/${section.id}`}><li><BookPartTitle part={section} displayChapterSection /></li></a>
+          )}
+        </ul>
+      </StyledSectionsAssigned>
     </Section>
   );
 });
@@ -334,6 +368,7 @@ const Details = observer(({ ux }) => {
         }
       </Top>
       <Questions ux={ux} questionsInfo={taskPlan.questionsInfo} />
+      {taskPlan.isReading && <AssignedSections assignedSections={taskPlan.assignedSections} courseId={ux.course.id} />}
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
       {isDisplayingEditAssignment && <EditModal ux={ux} />}
     </DetailsWrapper>

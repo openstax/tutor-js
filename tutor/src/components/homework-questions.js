@@ -139,6 +139,13 @@ const Body = styled.div`
         border-color: #4B8315;
       }
     }
+
+    .book-part-title {
+      margin-bottom: 25px;
+      text-decoration: underline;
+      display: flex;
+      justify-content: flex-end;
+    }
   `}
 `;
 
@@ -155,34 +162,38 @@ export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
   index, info,
+  sectionLinkRenderer: SectionLink,
   questionInfoRenderer: QuestionInfo,
   headerContentRenderer: HeaderContent,
   footerContentRenderer: FooterContent,
   questionType = 'teacher-preview',
   styleVariant = 'points',
-}) => (
-  <QuestionPreview className="openstax-exercise-preview">
-    <QuestionHeader variant={styleVariant} className="question-header">
-      <HeaderContent
-        styleVariant={styleVariant}
-        info={info}
-        label={`Question ${index + 1}`}
-      />
-    </QuestionHeader>
-    <Body className="card-body" variant={styleVariant}>
-      <Question
-        className="openstax-question-preview"
-        question={info.question}
-        hideAnswers={false}
-        choicesEnabled={false}
-        displayFormats={false}
-        type={questionType}
-      />
-      {QuestionInfo && <QuestionInfo info={info} />}
-      {FooterContent && <FooterContent info={info} />}
-    </Body>
-  </QuestionPreview>
-));
+}) => {
+  return (
+    <QuestionPreview className="openstax-exercise-preview">
+      <QuestionHeader variant={styleVariant} className="question-header">
+        <HeaderContent
+          styleVariant={styleVariant}
+          info={info}
+          label={`Question ${index + 1}`}
+        />
+      </QuestionHeader>
+      <Body className="card-body" variant={styleVariant}>
+        <Question
+          className="openstax-question-preview"
+          question={info.question}
+          hideAnswers={false}
+          choicesEnabled={false}
+          displayFormats={false}
+          type={questionType}
+        />
+        {SectionLink && <SectionLink info={info} /> }
+        {QuestionInfo && <QuestionInfo info={info} />}
+        {FooterContent && <FooterContent info={info} />}
+      </Body>
+    </QuestionPreview>
+  );
+});
 ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
 ReviewExerciseCard.propTypes = {
   headerContentRenderer: PropTypes.func.isRequired,
@@ -194,6 +205,7 @@ const HomeworkQuestions = observer(({
   questionsInfo,
   questionType,
   className,
+  sectionLinkRenderer,
   headerContentRenderer,
   questionInfoRenderer,
   footerContentRenderer,
@@ -206,6 +218,7 @@ const HomeworkQuestions = observer(({
         index={index}
         questionType={questionType}
         key={info.key}
+        sectionLinkRenderer={sectionLinkRenderer}
         headerContentRenderer={headerContentRenderer}
         questionInfoRenderer={questionInfoRenderer}
         footerContentRenderer={footerContentRenderer}
