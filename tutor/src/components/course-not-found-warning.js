@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import WarningModal from './warning-modal';
 import TutorRouter from '../helpers/router';
+
+const MESSAGES = {
+  notAllowed: 'This page can only be viewed by the account holder.',
+  notMember: 'You must be a member of this course to use this link. If your instructor sent you this link, ask your instructor for an enrollment link.',
+};
 
 @withRouter
 class CourseNotFoundWarning extends React.Component {
@@ -10,6 +16,8 @@ class CourseNotFoundWarning extends React.Component {
   static propTypes = {
     areaName: PropTypes.string.isRequired,
     history: PropTypes.object.isRequired,
+    dismiss: PropTypes.func,
+    messageType: PropTypes.oneOf(Object.keys(MESSAGES)),
   }
 
   static defaultProps = {
@@ -22,14 +30,15 @@ class CourseNotFoundWarning extends React.Component {
 
 
   render() {
-    const { areaName } = this.props;
+    const { areaName, messageType, dismiss } = this.props;
 
     return (
       <WarningModal
         onDismiss={this.goToMyCourses}
         title={`Sorry, you can’t access this ${areaName}`}
+        footer={<Button className="dismiss" onClick={dismiss}>Close</Button>}
       >
-        Either it does not exist or you do not have permission to access it.
+        {MESSAGES[messageType] || MESSAGES.notMember}
       </WarningModal>
     );
   }
