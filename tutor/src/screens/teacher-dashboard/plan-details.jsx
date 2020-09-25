@@ -1,10 +1,10 @@
 import {
   React, PropTypes, observer, inject,
-  computed, observable, action, styled,
+  computed, observable, action, styled, cn,
 } from 'vendor';
 import { first } from 'lodash';
+import { Modal, Row, Col, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import Course from '../../models/course';
-import { Modal, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
@@ -13,19 +13,42 @@ import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import SupportEmailLink from '../../components/support-email-link';
-import moment from 'moment';
+import BookPartTitle from '../../components/book-part-title';
 import TemplateModal from '../../components/course-modal';
-import cn from 'classnames';
 import TimeHelper from '../../helpers/time';
 
 const DateFieldsWrapper = styled.div`
-  padding-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
   margin-top: 4rem;
+`;
+
+const SectionsAssignedWrapper = styled.div`
+  margin-bottom: 2.5rem;
+  margin-top: 4.5rem;
+
+  ul {
+    padding-inline-start: 15px;
+    margin-bottom: 0.5rem;
+
+    .hidden {
+      display: none;
+    }
+  }
+
+  .btn-link {
+    margin-left: 5px;
+    text-decoration: underline;
+    font-weight: 600;
+  }
 `;
 
 const StyledTemplateModal = styled(TemplateModal)`
   & .modal-dialog {
     max-width: 72rem;
+  }
+
+  &&& .modal-body {
+    padding: 4rem 4rem 2rem;
   }
 
   h6 {
@@ -67,6 +90,7 @@ class CoursePlanDetails extends React.Component {
   }
 
   @observable showAssignmentLinks = false;
+  @observable showMoreSections = false;
   @observable selectedPeriodId = this.props.plan.activeAssignedPeriods.length > 0 ? first(this.props.plan.activeAssignedPeriods).id : undefined;
 
   @computed get linkParams() {
@@ -209,6 +233,7 @@ class CoursePlanDetails extends React.Component {
       t.target_id == periodId && t.target_type === 'period'
     );
   }
+  
 
   renderDateFields() {
     const { isEvent } = this.props.plan;
@@ -245,6 +270,27 @@ class CoursePlanDetails extends React.Component {
     );
   }
 
+  // Render the assigned sections.
+  // Show only the first two with a button to show the rest of the sections.
+  renderAssignedSections() {
+    const { plan: { assignedSections } } = this.props;
+
+    if(!assignedSections) return null;
+    return (
+      <SectionsAssignedWrapper>
+        <h6>Sections Assigned</h6>
+        {assignedSections.map((section, i) => 
+          <ul key={section.pathId}>
+            <li className={cn({ 'hidden': i >= 2 && !this.showMoreSections })}><BookPartTitle part={section} displayChapterSection /></li>
+          </ul>
+        )}
+        <Button variant="link" onClick={() => this.showMoreSections = !this.showMoreSections}>{this.showMoreSections ? 'See fewer sections' : `+${assignedSections.length - 2} more sections`}</Button>
+      </SectionsAssignedWrapper>
+    );
+
+
+  }
+
   render() {
     const { course, plan: { title, type }, className, onHide } = this.props;
 
@@ -269,6 +315,7 @@ class CoursePlanDetails extends React.Component {
           <Modal.Body>
             {this.body}
             {this.tasking && this.renderDateFields()}
+            {(type === 'homework' || type === 'reading') && this.renderAssignedSections()}
             <hr />
           </Modal.Body>
           {this.footer}
