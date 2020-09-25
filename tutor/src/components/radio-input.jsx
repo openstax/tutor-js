@@ -13,7 +13,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
   opacity: 0;
 
   & + label {
-    ${props => !isEmpty(props.label) && 'margin-left: 1.4rem;'}
+    ${props => !isEmpty(props.label) && 'padding-left: 1.4rem;'}
     ${props => props.labelSize === 'lg' && 'font-size: 1.6rem;'}
   }
 
