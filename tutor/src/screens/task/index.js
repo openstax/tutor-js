@@ -134,7 +134,7 @@ class TaskGetter extends React.Component {
 
   render() {
     if (!this.course) {
-      return <CourseNotFoundWarning area="assignment" />;
+      return <CourseNotFoundWarning areaName="assignment" messageType="notAllowed" />;
     }
 
     const { task } = this;
