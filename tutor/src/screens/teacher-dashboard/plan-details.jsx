@@ -1,9 +1,8 @@
 import {
   React, PropTypes, observer, inject,
-  computed, observable, action, styled,
+  computed, observable, action, styled, cn,
 } from 'vendor';
 import { first } from 'lodash';
-import cn from 'classnames';
 import { Modal, Row, Col, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import Course from '../../models/course';
 import TourContext from '../../models/tour/context';
@@ -281,7 +280,7 @@ class CoursePlanDetails extends React.Component {
       <SectionsAssignedWrapper>
         <h6>Sections Assigned</h6>
         {assignedSections.map((section, i) => 
-          <ul key={i}>
+          <ul key={section.pathId}>
             <li className={cn({ 'hidden': i >= 2 && !this.showMoreSections })}><BookPartTitle part={section} displayChapterSection /></li>
           </ul>
         )}

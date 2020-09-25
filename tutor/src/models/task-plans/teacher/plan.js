@@ -365,7 +365,7 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get assignedSections() {
-    return this.course.referenceBook.pages.all.filter(page => this.pageIds.includes(page.id));
+    return compact(this.pageIds.map(pgId => this.course.referenceBook.pages.byId.get(pgId)));
   }
 
   @action addExercise(ex) {
