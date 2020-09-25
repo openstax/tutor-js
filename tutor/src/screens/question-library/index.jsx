@@ -19,9 +19,7 @@ class QuestionsDashboardShell extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.course.referenceBook.ensureLoaded()) {
-      this.course.referenceBook.fetch();
-    }
+    this.course.referenceBook.ensureLoaded();
   }
 
   render() {
