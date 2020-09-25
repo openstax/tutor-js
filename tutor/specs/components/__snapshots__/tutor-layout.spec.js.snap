@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fzokOt lomzUL\\">
+                            <div className=\\"sc-fzqBZW kiSsTi\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar\\">
                                   <nav className=\\"sc-AxjAm fhzKny tutor-navbar\\">
@@ -222,7 +222,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fzqBZW fzNIlu\\">
+                                <div className=\\"sc-fzqNJr imKUEr\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body
