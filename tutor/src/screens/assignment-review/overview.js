@@ -399,6 +399,7 @@ const QuestionList = observer(({ ux, scores }) => {
   }
   return <HomeworkQuestions
     questionsInfo={scores.questionsInfo}
+    showSection
     questionType="teacher-review"
     headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
     questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}

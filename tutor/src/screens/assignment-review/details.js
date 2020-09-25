@@ -210,6 +210,7 @@ const Questions = observer(({ ux, questionsInfo }) => {
 
         {ux.isExercisesReady ? (
           <StyledHomeworkQuestions
+            showSection
             questionsInfo={questionsInfo}
             headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
             styleVariant="submission"
@@ -366,7 +367,7 @@ const Details = observer(({ ux }) => {
         }
       </Top>
       <Questions ux={ux} questionsInfo={taskPlan.questionsInfo} />
-      <AssignedSections assignedSections={taskPlan.assignedSections} courseId={ux.course.id} />
+      {taskPlan.isReading && <AssignedSections assignedSections={taskPlan.assignedSections} courseId={ux.course.id} />}
       {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
       {isDisplayingEditAssignment && <EditModal ux={ux} />}
     </DetailsWrapper>
