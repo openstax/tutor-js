@@ -145,7 +145,7 @@ context('Assignment Review', () => {
     cy.get('[role="tooltip"]').contains('cannot withdraw')
   });
 
-  it.only('should go directly to the submission overview tab', () => {
+  it('should go directly to the submission overview tab', () => {
     cy.visit('/course/1/assignment/review/2/1?tab=1')
     cy.getTestElement('overview').should('exist');
     cy.getTestElement('student-free-responses').should('exist');

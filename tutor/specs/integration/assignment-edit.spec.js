@@ -249,7 +249,7 @@ context('Assignment Edit', () => {
     })
   });
 
-  it.only('shows error if due date is before open date', () => {
+  it('shows error if due date is before open date', () => {
     typedDueDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
     cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
