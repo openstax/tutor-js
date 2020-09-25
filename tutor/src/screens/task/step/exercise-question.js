@@ -28,6 +28,11 @@ const StyledExerciseQuestion = styled.div`
   ${breakpoint.mobile`
     margin: ${breakpoint.margins.mobile};
   `}
+  .openstax-answer {
+    border-top: 1px solid #d5d5d5;
+    margin: 10px 0;
+    padding: 10px 0;
+  }
 `;
 
 export default
