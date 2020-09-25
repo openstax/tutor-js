@@ -81,7 +81,7 @@ class StudentsRoster extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {sortBy(students, 'last_name').map(this.renderStudentRow)}
+          {sortBy(students, s => s.last_name.toLowerCase()).map(this.renderStudentRow)}
         </tbody>
       </Table>
     );
