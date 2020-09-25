@@ -190,7 +190,8 @@ const ReviewExerciseCard = observer(({
         />
         {Boolean(showSection &&
         info.exercise &&
-        info.exercise.page) && <a target="_blank" href={`/book/${info.exercise.book.id}/page/${info.exercise.page.id}`}><BookPartTitle part={info.exercise.page} displayChapterSection /></a> }
+        info.exercise.page &&
+        info.exercise.page.title) && <a target="_blank" href={`/book/${info.exercise.book.id}/page/${info.exercise.page.id}`}><BookPartTitle part={info.exercise.page} displayChapterSection /></a> }
         {QuestionInfo && <QuestionInfo info={info} />}
         {FooterContent && <FooterContent info={info} />}
       </Body>
