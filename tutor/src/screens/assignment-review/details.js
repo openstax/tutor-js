@@ -4,14 +4,14 @@ import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import ScoresHelper from '../../helpers/scores';
-import { isEmpty } from 'lodash';
+import { isEmpty, map, compact } from 'lodash';
 import PreviewTooltip from '../assignment-edit/preview-tooltip';
 import DeleteModal from './delete-modal';
 import EditModal from './edit-modal';
 import GradingBlock from './grading-block';
 import ExternalLink from '../../components/new-tab-link';
 import { TruncatedText } from '../../components/text';
-
+import TutorLink from '../../components/link';
 
 const DetailsWrapper = styled.div`
   .no-students-message {
@@ -169,6 +169,28 @@ const QuestionHeader = observer(({ styleVariant, label, info }) => {
   );
 });
 
+const QuestionInfo = observer(({ ux, info: { exercise } }) => {
+  const { dok, blooms, aplo } = exercise.tags.important;
+  return (
+    <div className="book-info">
+      <div className="exercise-tags">
+        {map(compact([dok, blooms, aplo]), (tag, index) => (
+          <span key={index} className="exercise-tag">
+            {tag.asString}
+          </span>
+        ))}
+      </div>
+      <TutorLink
+        to="viewReferenceBookPage"
+        params={{ courseId: ux.course.id, pageId: exercise.page.id }}
+      >
+        {exercise.page.chapter_section.asString} {exercise.page.title}
+      </TutorLink>
+    </div>
+  );
+});
+
+
 QuestionHeader.propTypes = {
   styleVariant: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -197,6 +219,7 @@ const Questions = observer(({ ux, questionsInfo }) => {
           <StyledHomeworkQuestions
             questionsInfo={questionsInfo}
             headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+            questionInfoRenderer={(props) => <QuestionInfo ux={ux} {...props} />}
             styleVariant="submission"
           />) : <Loading message="Loading Questions…"/>}
       </>

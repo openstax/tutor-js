@@ -258,6 +258,24 @@ const WRQFreeResponse = observer(({ info }) => {
   );
 });
 
+const QuestionInfo = observer(({ ux, info }) => {
+  const page = info.exercise.page;
+
+  return (
+    <>
+      <div className="book-info singular">
+        <TutorLink
+          to="viewReferenceBookPage"
+          params={{ courseId: ux.course.id, pageId: page.id }}
+        >
+          {page.chapter_section.asString} {page.title}
+        </TutorLink>
+      </div>
+      <QuestionFreeResponse ux={ux} info={info} />
+    </>
+  );
+});
+
 const QuestionFreeResponse = observer(({ ux, info }) => {
   if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
   return (
@@ -401,7 +419,7 @@ const QuestionList = observer(({ ux, scores }) => {
     questionsInfo={scores.questionsInfo}
     questionType="teacher-review"
     headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+    questionInfoRenderer={(props) => <QuestionInfo ux={ux} {...props} />}
     footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
     styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
 });

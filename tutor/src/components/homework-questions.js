@@ -139,6 +139,22 @@ const Body = styled.div`
         border-color: #4B8315;
       }
     }
+
+    .book-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &.singular {
+        justify-content: flex-end;
+      }
+      & + div {
+        margin-top: 1.3rem;
+      }
+      .tags > * {
+        margin-right: 1rem;
+        color: ${colors.neutral.lite};
+      }
+    }
   `}
 `;
 
