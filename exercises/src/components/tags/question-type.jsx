@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Icon } from 'shared';
 import { observer } from 'mobx-react';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
@@ -13,9 +14,12 @@ const TYPES = {
 };
 
 function QuestionTypeTag(props) {
+  const { isTypeLocked } = props.exercise;
   return (
     <SingleDropdown
+      readonly={isTypeLocked}
       {...props} label="Question Type" type={TYPE} choices={TYPES}
+      icon={isTypeLocked && <Icon variant="infoCircle" tooltip='"Open Ended" exercises must be type practice' />}
     />
   );
 }

@@ -95,4 +95,15 @@ class Exercise extends BaseModel {
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
   }
+
+  @action onQuestionFreeResponseSelected() {
+    if (this.isMultiPart) { return; }
+    this.tags.findOrAddWithType('type').value = 'practice';
+
+  }
+
+  @computed get isTypeLocked() {
+    return Boolean(this.isSinglePart && this.isOpenEnded);
+  }
+
 }

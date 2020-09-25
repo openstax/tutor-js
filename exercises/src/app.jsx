@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider, observer } from 'mobx-react';
+import { Provider } from 'mobx-react';
+import PropTypes from 'prop-types';
 import { action } from 'mobx';
 import UX from './ux';
 import Search from './components/search';
@@ -15,6 +16,10 @@ export default class App extends React.Component {
 
   ux = new UX();
 
+  static propTypes = {
+    data: PropTypes.object,
+  }
+  
   @action.bound onNav(ev) {
     ev.preventDefault();
     this.router.history.push(ev.currentTarget.pathname);
@@ -33,8 +38,9 @@ export default class App extends React.Component {
       <Provider ux={ux}>
         <BrowserRouter ref={br => this.router = br}>
           <div>
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" className="justify-content-between">
               <Navbar.Brand onClick={this.onNav} href="/">OX Exercises</Navbar.Brand>
+
               <Nav className="exercise-navbar-controls" >
                 <Nav.Link onClick={this.onNav} href="/search">
                   Search
@@ -45,8 +51,8 @@ export default class App extends React.Component {
                 <Route path="/search" component={Search.Controls} />
                 <Route path="/exercise/:uid" component={Exercise.Controls} />
                 <Route path="/preview/:uid" component={Preview.Controls} />
+                <UserActionsMenu user={user} />
               </Nav>
-              <UserActionsMenu user={user} />
             </Navbar>
             <Container fluid className="openstax exercises">
               <Toasts />
