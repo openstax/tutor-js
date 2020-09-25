@@ -34,7 +34,7 @@ class TaskPractice extends React.Component {
 
   render() {
     if (!this.course) {
-      return <CourseNotFoundWarning area="assignment" messageType="notAllowed" />;
+      return <CourseNotFoundWarning areaName="assignment" messageType="notAllowed" />;
     }
 
     if (!this.taskId) {
