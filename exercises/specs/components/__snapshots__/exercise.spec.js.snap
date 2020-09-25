@@ -1249,11 +1249,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     6
                   </option>
-                  <option
-                    value="7"
-                  >
-                    7
-                  </option>
                 </select>
               </div>
             </div>
@@ -2556,9 +2551,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </option>
                                             <option value=\\"6\\">
                                               6
-                                            </option>
-                                            <option value=\\"7\\">
-                                              7
                                             </option>
                                           </select>
                                         </div>
