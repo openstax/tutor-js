@@ -42,11 +42,9 @@ class ExerciseQuestion extends BaseModel {
   @belongsTo({ model: 'exercise' }) exercise;
 
   @computed get allowedFormatTypes() {
-    if (this.exercise.isSinglePart) {
-      const type = this.exercise.tags.withType('type');
-      if (type && type.value != 'practice') {
-        return omit(ExerciseQuestion.FORMAT_TYPES, 'open-ended');
-      }
+    const type = this.exercise.tags.withType('type');
+    if (type && type.value != 'practice') {
+      return omit(ExerciseQuestion.FORMAT_TYPES, 'open-ended');
     }
     return ExerciseQuestion.FORMAT_TYPES;
   }

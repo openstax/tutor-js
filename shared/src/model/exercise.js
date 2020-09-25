@@ -97,9 +97,7 @@ class Exercise extends BaseModel {
   }
 
   @action onQuestionFreeResponseSelected() {
-    if (this.isMultiPart) { return; }
     this.tags.findOrAddWithType('type').value = 'practice';
-
   }
 
   @computed get isTypeLocked() {
