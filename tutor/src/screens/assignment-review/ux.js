@@ -23,6 +23,7 @@ export default class AssignmentReviewUX {
   @observable searchingExtensionsMatcher = null;
   @observable reverseNameOrder = false;
   @observable displayTotalInPercent = false;
+  @observable hideStudentsName = false;
 
   freeResponseQuestions = observable.map();
   @observable pendingExtensions = observable.map();
@@ -333,6 +334,10 @@ export default class AssignmentReviewUX {
     await this.planScores.ensureExercisesLoaded();
   }
 
+  @action.bound toogleNameVisibility() {
+    this.hideStudentsName = !this.hideStudentsName;
+  }
+
   @computed get isPublishingScores() {
     return Boolean(
       this.taskingPlan && this.taskingPlan.api.isPending
@@ -442,5 +447,9 @@ export default class AssignmentReviewUX {
       return false;
     }
     return student.total_fraction >= 0.5;
+  }
+
+  getStudentName(student) {
+    return this.hideStudentsName ? 'Student response' : student.name;
   }
 }

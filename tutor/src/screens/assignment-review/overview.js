@@ -195,7 +195,7 @@ const MCQFreeResponse = observer(({ ux, question }) => (
       const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
       return (studentQuestion && studentQuestion.free_response) && (
         <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-          <div className="name">{student.name}</div>
+          <div className="name">{ux.getStudentName(student)}</div>
           <div className="resp">{studentQuestion.free_response}</div>
         </StyledQuestionFreeResponse>
       );
@@ -221,7 +221,7 @@ const MCQFreeResponse = observer(({ ux, question }) => (
   })
 ));
 
-const WRQFreeResponse = observer(({ info }) => {
+const WRQFreeResponse = observer(({ ux, info }) => {
   const responses = info.responses.map((response, i) => {
     const student = response.student;
     return response.free_response && (
@@ -232,7 +232,7 @@ const WRQFreeResponse = observer(({ info }) => {
           longResponse={response.free_response.length > 2000}
         >
           <div>
-            <div className="name">{student.name}</div>
+            <div className="name">{ux.getStudentName(student)}</div>
             <div className="resp">
               <p>{response.free_response}</p>
             </div>
@@ -331,9 +331,28 @@ const StyledNoActivity = styled.div`
   }
 `;
 
-const StyledTopicHeader = styled.h3`
-  font-weight: 600;
-  line-height: 30px;
+const StyledTopicHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  h3 {
+    font-weight: 600;
+    line-height: 30px;
+    padding-top: 8px;
+  }
+
+  &&& {
+    button {
+      border: 1px solid #d5d5d5d5;
+      background: transparent;
+      color: #5E6062;
+      font-weight: 100;
+      padding: 10px 20px 10px 10px;
+
+      span {
+        margin-left: 5px;
+      }
+    }
+  }
 `;
 
 const GradingBlock = observer(({ ux }) => {
@@ -413,7 +432,7 @@ HomeworkQuestionsWrapper.propTypes = {
   questionsInfo: PropTypes.any.isRequired,
 };
 
-const QuestionList = observer(({ ux, scores, doGroupByTopic }) => {
+const QuestionList = observer(({ ux, scores }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
 
   if (scores.questionsInfo && scores.questionsInfo.length === 0) {
@@ -425,12 +444,23 @@ const QuestionList = observer(({ ux, scores, doGroupByTopic }) => {
     );
   }
 
-  if(doGroupByTopic) {
+  if(ux.planScores.isReading) {
     return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
       <div key={index}>
         <StyledTopicHeader>
-          <ArbitraryHtmlAndMath
-            html={key} />
+          <h3>
+            <ArbitraryHtmlAndMath
+              html={key} />
+          </h3>
+          {/** Only the show the button at the top with the very first header */}
+          {
+            index === 0 &&
+            <Button variant="default" onClick={ux.toogleNameVisibility}>
+              <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
+              />
+              <span>{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
+            </Button>
+          }
         </StyledTopicHeader>
         <HomeworkQuestionsWrapper
           questionsInfo={scores.groupQuestionsByPageTopic[key]}
@@ -499,7 +529,7 @@ const Overview = observer(({ ux }) => {
   return (
     <Wrapper data-test-id="overview">
       {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
-      <QuestionList ux={ux} scores={ux.scores} doGroupByTopic={ux.planScores.isReading} />
+      <QuestionList ux={ux} scores={ux.scores} />
     </Wrapper>
   );
 
