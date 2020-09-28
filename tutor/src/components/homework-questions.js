@@ -199,8 +199,8 @@ const ReviewExerciseCard = observer(({
           displayFormats={false}
           type={questionType}
         />
-        {SectionLink && <SectionLink info={info} /> }
         {QuestionInfo && <QuestionInfo info={info} />}
+        {SectionLink && <SectionLink info={info} /> }
         {FooterContent && <FooterContent info={info} />}
       </Body>
     </QuestionPreview>
