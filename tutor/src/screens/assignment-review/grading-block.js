@@ -102,6 +102,9 @@ const ChartItem = styled.div`
   &:last-child { border-width: 1px 1px 1px 0; }
   &:only-child { border-width: 1px; }
   width: ${props => props.width}%;
+  min-width ${props => css`
+    calc(0.5rem + 1rem * ${props.value.toString().length});
+  `};
   height: 4.5rem;
   display: flex;
   align-items: center;
@@ -152,6 +155,7 @@ const StackedBarChart = observer(({ stats, isReading = false }) => {
         {stats.filter(s => s.value > 0).map((stat, i) =>
           <ChartItem
             width={stat.percent * 100}
+            value={stat.value}
             variant={stat.label}
             aria-label={`${stat.label}: ${stat.value}`}
             key={`chart-item-${i}`}
