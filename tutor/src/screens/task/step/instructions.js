@@ -216,7 +216,7 @@ const ContinueBtn = observer(({ ux }) => {
   }
 
   let buttonLabel = 'Start';
-  if (ux.task.completed) {
+  if (ux.task.completed || ux.task.isAssignmentClosed) {
     buttonLabel = 'Review';
   }
   else if (ux.task.started) {
@@ -271,7 +271,6 @@ const PracticeInstructions = observer(({ task }) => {
 });
 
 const Instructions = observer((props) => {
-
   const { ux, ux: { task } } = props;
 
   return (

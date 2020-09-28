@@ -1,4 +1,4 @@
-import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every } from 'lodash';
+import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every, omit } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
@@ -40,6 +40,14 @@ class ExerciseQuestion extends BaseModel {
   @hasMany({ model: Solution, inverseOf: 'question' }) collaborator_solutions;
 
   @belongsTo({ model: 'exercise' }) exercise;
+
+  @computed get allowedFormatTypes() {
+    const type = this.exercise.tags.withType('type');
+    if (type && type.value != 'practice') {
+      return omit(ExerciseQuestion.FORMAT_TYPES, 'open-ended');
+    }
+    return ExerciseQuestion.FORMAT_TYPES;
+  }
 
   @computed get isMultipleChoice() {
     return this.hasFormat('multiple-choice');
@@ -113,6 +121,8 @@ class ExerciseQuestion extends BaseModel {
       }
     } else if ('multiple-choice' === name && !formats.includes('free-response')) {
       formats = formats.concat('free-response');
+    } else if (name == 'free-response') {
+      this.exercise.onQuestionFreeResponseSelected(this);
     }
     this.formats = uniq(formats).sort();
   }

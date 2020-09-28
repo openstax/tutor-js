@@ -398,6 +398,10 @@ export default class AssignmentUX {
     ));
   }
 
+  @computed get canSaveAsDraft() {
+    return !this.plan.isPublished && !!this.form.values.title && this.plan.tasking_plans.areValid();
+  }
+
   @action.bound async onSaveAsDraftClick() {
     await this.saveAsDraft();
     this.onComplete();

@@ -3,6 +3,7 @@ import { React, observable, withRouter, action, inject, observer, cn } from 'ven
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import { NavbarContext } from '../../components/navbar/context';
+import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import './styles.scss';
 
 export default
@@ -42,7 +43,7 @@ class ReferenceBookShell extends React.Component {
   render() {
     const { ux } = this;
     if (!ux) { return null; }
-
+    if (!ux.course) { return <CourseNotFoundWarning />; }
     return (
       <ReferenceBook
         ux={ux}

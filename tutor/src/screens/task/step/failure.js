@@ -45,7 +45,8 @@ class Failure extends React.Component {
   }
 
   get isLoading() {
-    return 'get' === get(this.props.step, 'api.errors.last.config.method');
+    const model = this.props.step || this.props.task;
+    return 'get' === get(model, 'api.errors.last.config.method');
   }
 
   render() {

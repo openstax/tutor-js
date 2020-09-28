@@ -282,6 +282,9 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
+    // users can go forward if assignment is closed.
+    if(this._task.isAssignmentClosed) return true;
+    
     if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
 
     if (this.currentStepIndex < this.steps.length - 1) {

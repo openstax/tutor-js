@@ -22,6 +22,13 @@ describe('User Model', () => {
     expect(User.terms).toBeInstanceOf(UserTerms);
   });
 
+  it('calculates metrics tags', () => {
+    bootstrapCoursesList();
+    expect(User.metrics.is_new_user).toEqual(true)
+    expect(User.metrics.course_subjects).toEqual('testing');
+    expect(User.metrics.course_types).toEqual('real');
+  })
+  
   it('calculates audience tags', () => {
     bootstrapCoursesList();
     expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-not-previewed']);

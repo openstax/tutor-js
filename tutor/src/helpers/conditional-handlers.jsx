@@ -35,9 +35,6 @@ const getConditionalHandlers = (Router) => {
       const { courseId } = props.params;
       extend(props, { courseId });
       const course = Courses.get(courseId);
-      if (!course) {
-        return <CourseNotFoundWarning />;
-      }
 
       if (!props.match.isExact) {
         return (
@@ -45,7 +42,7 @@ const getConditionalHandlers = (Router) => {
         );
       }
 
-      if (course.currentRole.isTeacher) {
+      if (course && course.currentRole.isTeacher) {
         return <Teacher {...props} />;
       } else {
         return <Student {...props} />;

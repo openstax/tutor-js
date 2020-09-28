@@ -3,11 +3,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { isEmpty, sortBy } from 'lodash';
 import { Table } from 'react-bootstrap';
-import TutorLink from '../../components/link';
 import { autobind } from 'core-decorators';
 import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
-import CourseGroupingLabel from '../../components/course-grouping-label';
 import NoStudentsMessage from '../../components/no-students-message';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
@@ -83,7 +81,7 @@ class StudentsRoster extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {sortBy(students, 'last_name').map(this.renderStudentRow)}
+          {sortBy(students, s => s.last_name.toLowerCase()).map(this.renderStudentRow)}
         </tbody>
       </Table>
     );

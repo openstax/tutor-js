@@ -1,13 +1,13 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany, action, session, computed, observable,
 } from 'shared/model';
+import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
 import Student from './student';
-import { AppActions } from '../../flux/app';
-export { StudentTaskStep };
 import S from '../../helpers/string';
-import moment from 'moment';
+import Time from '../../models/time';
+export { StudentTaskStep };
 
 export default
 @identifiedBy('student-tasks/task')
@@ -88,6 +88,10 @@ class StudentTask extends BaseModel {
   @computed get closesAtMoment() {
     return moment(this.closes_at);
   }
+  
+  @computed get isAssignmentClosed() {
+    return this.closesAtMoment.isSameOrBefore(Time.now);
+  }
 
   @computed get completed() {
     return this.steps.every(s => s.is_completed);
@@ -95,32 +99,6 @@ class StudentTask extends BaseModel {
 
   @computed get started() {
     return this.steps.some(s => s.is_completed);
-  }
-
-  // attempt to load the task until isLoaded returns true or we exceed 30 attempts
-  async load() {
-    if (this.isLoading) return this;
-    this.isLoading = true;
-    try {
-      let tries_remaining = 6;
-      while(tries_remaining > 0) {
-        await this.fetch();
-        if (this.isLoaded) {
-          break;
-        }
-        // exponential backoff between tries: 1, 2, 4 .. 32 (plus some milliseconds of random)
-        await new Promise(resolve => setTimeout(resolve, 1000*(2**(6 - tries_remaining) + Math.random())));
-        tries_remaining--;
-      }
-      if (tries_remaining == 0) {
-        // create a synthetic server error to display the "no exercises are available" modal
-        AppActions.setServerError({ status: 504, data: { errors: [{ code: 'biglearn_not_ready' }] } });
-      }
-    } catch (err) {
-      AppActions.setServerError({ status: 504, data: { errors: [err] } });
-    }
-    this.isLoading = false;
-    return this;
   }
 
   // called by API

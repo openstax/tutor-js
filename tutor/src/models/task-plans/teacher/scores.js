@@ -4,7 +4,7 @@ import {
 import Exercises from '../../exercises';
 import {
   filter, sumBy, find, isNil, compact, sortBy,
-  get, some, reduce, every, uniq, isNumber, isEmpty, groupBy,
+  get, some, reduce, every, uniq, isNumber, isEmpty, groupBy, orderBy,
 } from 'lodash';
 import DroppedQuestion from './dropped_question';
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
@@ -384,6 +384,15 @@ class TaskPlanScoresTasking extends BaseModel {
   @computed get hasAnyResponses() {
     const wrmQuestions = this.wrmQuestions;
     return some(wrmQuestions, q => q.is_completed);
+  }
+
+  @computed get groupQuestionsByPageTopic() {
+    const questions = this.questionsInfo;
+    //order the questions by the exercise page id so when it is grouped, the first chapters are shown first. (assumes page ids are in incremental order)
+    const sortedQuestions = orderBy(questions, ['exercise.page.id'], ['asc']);
+    return groupBy(sortedQuestions, q => {
+      return q.exercise.page.title;
+    });
   }
 }
 

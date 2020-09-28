@@ -15,19 +15,47 @@ jobs:
       - name: Install npm
         uses: bahmutov/npm-install@v1
 
-      - name: Build Tutor JS assets
+      - name: Build tutor-js assets
         run: yarn run build tutor
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
 
-      - name: Upload built Tutor JS assets to S3
+      - name: Upload built tutor-js assets to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks
+          args: >-
+            --follow-symlinks --cache-control public,max-age=31536000 --metadata-directive REPLACE
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.TUTOR_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TUTOR_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.TUTOR_AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.TUTOR_AWS_S3_BUCKET }}
           SOURCE_DIR: tutor/dist
+          DEST_DIR: assets
+
+  exercises:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v2
+
+      - name: Install npm
+        uses: bahmutov/npm-install@v1
+
+      - name: Build exercises-js assets
+        run: yarn run build exercises
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+
+      - name: Upload built exercises-js assets to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: >-
+            --follow-symlinks --cache-control public,max-age=31536000 --metadata-directive REPLACE
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.EXERCISES_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.EXERCISES_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.EXERCISES_AWS_REGION }}
+          AWS_S3_BUCKET: ${{ secrets.EXERCISES_AWS_S3_BUCKET }}
+          SOURCE_DIR: exercises/dist
           DEST_DIR: assets

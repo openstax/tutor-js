@@ -1,5 +1,5 @@
 import { React, observable, action, computed } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find, groupBy } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find, groupBy, orderBy } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import DropQuestion from '../../models/task-plans/teacher/dropped_question';
 import EditUX from '../assignment-edit/ux';
@@ -64,6 +64,7 @@ export default class AssignmentReviewUX {
     }
 
     await this.planScores.ensureExercisesLoaded();
+    await this.course.referenceBook.ensureLoaded();
 
     this.exercisesHaveBeenFetched = true;
     this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
@@ -408,14 +409,6 @@ export default class AssignmentReviewUX {
 
   @computed get hasGradeableAnswers() {
     return Boolean(this.gradeableQuestionCount > 0);
-  }
-
-  @computed get groupExercisesByPageUUID() {
-    const questions = this.scores.questionsInfo;
-    return groupBy(questions, q => {
-      //console.log(this.course.referenceBook.pages.byUUID.get(q.exercise.page_uuid));
-      return q.exercise.page_uuid;
-    });
   }
 
   @action.bound scrollToQuestion(questionId, index) {

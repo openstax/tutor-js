@@ -89,6 +89,8 @@ class TeacherDashboardWrapper extends React.Component {
     if (course.currentRole.isTeacherStudent && course.roles.teacher) {
       course.current_role_id = null;
     }
+    
+    course.referenceBook.ensureLoaded();
   }
 
   componentWillUnmount() {

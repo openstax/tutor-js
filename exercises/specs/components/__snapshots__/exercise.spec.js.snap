@@ -151,21 +151,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           >
             <div>
               <input
-                checked={false}
-                id="input-open-ended"
-                name="0-formats"
-                onChange={[Function]}
-                type="radio"
-                value="open-ended"
-              />
-              <label
-                htmlFor="input-open-ended"
-              >
-                Open Ended
-              </label>
-            </div>
-            <div>
-              <input
                 checked={true}
                 id="input-multiple-choice"
                 name="0-formats"
@@ -771,6 +756,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               >
                 <select
                   className="form-control"
+                  disabled={false}
                   onChange={[Function]}
                   value="conceptual"
                 >
@@ -1249,11 +1235,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     6
                   </option>
-                  <option
-                    value="7"
-                  >
-                    7
-                  </option>
                 </select>
               </div>
             </div>
@@ -1691,12 +1672,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                             <div className=\\"question\\">
                               <QuestionFormatType question={{...}}>
                                 <div className=\\"format-type\\">
-                                  <div>
-                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: res]} checked={false} />
-                                    <label htmlFor=\\"input-open-ended\\">
-                                      Open Ended
-                                    </label>
-                                  </div>
                                   <div>
                                     <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: res]} checked={true} />
                                     <label htmlFor=\\"input-multiple-choice\\">
@@ -2234,8 +2209,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </LoTags>
                                 <ApLoTags exercise={{...}} />
                                 <QuestionTypeTag exercise={{...}}>
-                                  <SingleDropdown exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}}>
-                                    <TagWrapper label=\\"Question Type\\" singleTag={true}>
+                                  <SingleDropdown readonly={false} exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}} icon={false}>
+                                    <TagWrapper label=\\"Question Type\\" icon={false} singleTag={true}>
                                       <div className=\\"tag-type has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
@@ -2244,7 +2219,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"conceptual\\">
+                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"conceptual\\" disabled={false}>
                                             <option value=\\"conceptual-or-recall\\">
                                               Conceptual or Recall
                                             </option>
@@ -2499,7 +2474,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </CnxFeature>
                                 <DokTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"DOK\\" type=\\"dok\\" choices={{...}}>
-                                    <TagWrapper label=\\"DOK\\" singleTag={true}>
+                                    <TagWrapper label=\\"DOK\\" icon={[undefined]} singleTag={true}>
                                       <div className=\\"tag-type has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
@@ -2508,7 +2483,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\">
+                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2529,7 +2504,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </DokTag>
                                 <BloomsTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"Blooms\\" type=\\"blooms\\" choices={{...}}>
-                                    <TagWrapper label=\\"Blooms\\" singleTag={true}>
+                                    <TagWrapper label=\\"Blooms\\" icon={[undefined]} singleTag={true}>
                                       <div className=\\"tag-type has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
@@ -2538,7 +2513,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\">
+                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2557,9 +2532,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <option value=\\"6\\">
                                               6
                                             </option>
-                                            <option value=\\"7\\">
-                                              7
-                                            </option>
                                           </select>
                                         </div>
                                       </div>
@@ -2568,7 +2540,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </BloomsTag>
                                 <TimeTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"Time\\" type=\\"time\\" choices={{...}}>
-                                    <TagWrapper label=\\"Time\\" singleTag={true}>
+                                    <TagWrapper label=\\"Time\\" icon={[undefined]} singleTag={true}>
                                       <div className=\\"tag-type has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
@@ -2577,7 +2549,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"long\\">
+                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"long\\" disabled={[undefined]}>
                                             <option value=\\"short\\">
                                               Short
                                             </option>

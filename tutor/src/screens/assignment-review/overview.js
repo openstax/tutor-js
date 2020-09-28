@@ -9,6 +9,7 @@ import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-que
 import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
+import SectionLink from './section-link';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -330,6 +331,11 @@ const StyledNoActivity = styled.div`
   }
 `;
 
+const StyledTopicHeader = styled.h3`
+  font-weight: 600;
+  line-height: 30px;
+`;
+
 const GradingBlock = observer(({ ux }) => {
   if (!ux.canDisplayGradingButton) { return null; }
 
@@ -386,6 +392,27 @@ const StyledCell = styled(Cell)`
   `}
 `;
 
+const SectionInfo = observer((props) => (
+  <div className="section-link-wrapper singular">
+    <SectionLink {...props} />
+  </div>
+));
+
+const HomeworkQuestionsWrapper = ({ ux, questionsInfo }) => (
+  <HomeworkQuestions
+    questionsInfo={questionsInfo}
+    questionType="teacher-review"
+    sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
+    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
+);
+HomeworkQuestionsWrapper.propTypes = {
+  ux: PropTypes.object.isRequired,
+  questionsInfo: PropTypes.any.isRequired,
+};
+
 const QuestionList = observer(({ ux, scores, doGroupByTopic }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
 
@@ -399,35 +426,30 @@ const QuestionList = observer(({ ux, scores, doGroupByTopic }) => {
   }
 
   if(doGroupByTopic) {
-    return Object.keys(ux.groupExercisesByPageUUID).map((key, index) => (
+    return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
       <div key={index}>
-        <h1>
+        <StyledTopicHeader>
           <ArbitraryHtmlAndMath
-            html={ux.course.referenceBook.pages.byUUID.get(key).title} />
-        </h1>
-        <HomeworkQuestions
-          questionsInfo={ux.groupExercisesByPageUUID[key]}
-          questionType="teacher-review"
-          headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-          questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-          footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-          styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
+            html={key} />
+        </StyledTopicHeader>
+        <HomeworkQuestionsWrapper
+          questionsInfo={scores.groupQuestionsByPageTopic[key]}
+          ux={ux}
+        />
       </div>
     ));
   }
 
-  return <HomeworkQuestions
+  return <HomeworkQuestionsWrapper
     questionsInfo={scores.questionsInfo}
-    questionType="teacher-review"
-    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
+    ux={ux}
+  />;
 
 });
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,
   scores: PropTypes.any.isRequired,
+  doGroupByTopic: PropTypes.bool,
 };
 
 
