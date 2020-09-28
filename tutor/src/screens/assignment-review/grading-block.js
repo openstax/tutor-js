@@ -103,7 +103,7 @@ const ChartItem = styled.div`
   &:only-child { border-width: 1px; }
   width: ${props => props.width}%;
   min-width ${props => css`
-    calc(0.5rem + 1rem * ${props.value.toString().length});
+    calc(1rem + 1rem * ${props.value.toString().length});
   `};
   height: 4.5rem;
   display: flex;
