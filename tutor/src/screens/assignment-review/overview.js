@@ -195,7 +195,7 @@ const MCQFreeResponse = observer(({ ux, question }) => (
       const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
       return (studentQuestion && studentQuestion.free_response) && (
         <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-          <div className="name">{ux.getStudentName(student)}</div>
+          <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
           <div className="resp">{studentQuestion.free_response}</div>
         </StyledQuestionFreeResponse>
       );
@@ -232,7 +232,7 @@ const WRQFreeResponse = observer(({ ux, info }) => {
           longResponse={response.free_response.length > 2000}
         >
           <div>
-            <div className="name">{ux.getStudentName(student)}</div>
+            <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
             <div className="resp">
               <p>{response.free_response}</p>
             </div>
@@ -426,10 +426,10 @@ const SectionInfo = observer((props) => (
 ));
 
 const NamesToogleButton = observer(({ ux }) => (
-  <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility}>
+  <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility} data-test-id="names-toogle-button">
     <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
     />
-    <span>{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
+    <span data-test-id="names-toogle-button-text">{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
   </StyledNamesToogleButton>
 ));
 
