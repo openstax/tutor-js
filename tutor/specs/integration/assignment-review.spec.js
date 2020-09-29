@@ -157,12 +157,12 @@ context('Assignment Review', () => {
     cy.getTestElement('scores').should('exist');
   });
 
-  it('should hide the student names', () => {
+  it.only('should hide the student names', () => {
     cy.visit('/course/1/assignment/review/2/1?tab=1')
     cy.getTestElement('names-toogle-button').should('exist');
     // names are shown first, so button label is "Hide student names"
     cy.getTestElement('names-toogle-button-text').should('have.text', 'Hide student names');
-    cy.getTestElement('names-toogle-button').click();
+    cy.getTestElement('names-toogle-button').click({ force: true });
     cy.getTestElement('names-toogle-button-text').should('have.text', 'Show student names');
     // all names should be hidden
     cy.getTestElement('wrq-response-student-name').should(($name) => {
