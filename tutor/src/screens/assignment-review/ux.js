@@ -60,10 +60,6 @@ export default class AssignmentReviewUX {
     const period = find(this.assignedPeriods, p => p.id == periodId);
     this.selectedPeriod = period ? period : first(this.assignedPeriods);
 
-    if (!this.course.referenceBook.uuid) {
-      await this.course.referenceBook.fetch();
-    }
-
     await this.planScores.ensureExercisesLoaded();
     await this.course.referenceBook.ensureLoaded();
 
