@@ -339,18 +339,26 @@ const StyledTopicHeader = styled.div`
     line-height: 30px;
     padding-top: 8px;
   }
+`;
 
+const StyledNamesToogleButtonWrapper = styled.div`
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid ${colors.neutral.pale};
+`;
+
+const StyledNamesToogleButton = styled(Button)`
   &&& {
-    button {
-      border: 1px solid #d5d5d5d5;
-      background: transparent;
-      color: #5E6062;
-      font-weight: 100;
-      padding: 10px 20px 10px 10px;
+    border: 1px solid ${colors.neutral.pale};
+    background: transparent;
+    color: ${colors.neutral.grayblue};
+    font-weight: 100;
+    padding: 10px 20px 10px 10px;
 
-      span {
-        margin-left: 5px;
-      }
+    span {
+      margin-left: 5px;
     }
   }
 `;
@@ -417,6 +425,14 @@ const SectionInfo = observer((props) => (
   </div>
 ));
 
+const NamesToogleButton = observer(({ ux }) => (
+  <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility}>
+    <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
+    />
+    <span>{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
+  </StyledNamesToogleButton>
+));
+
 const HomeworkQuestionsWrapper = ({ ux, questionsInfo }) => (
   <HomeworkQuestions
     questionsInfo={questionsInfo}
@@ -455,11 +471,7 @@ const QuestionList = observer(({ ux, scores }) => {
           {/** Only the show the button at the top with the very first header */}
           {
             index === 0 &&
-            <Button variant="default" onClick={ux.toogleNameVisibility}>
-              <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
-              />
-              <span>{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
-            </Button>
+            <NamesToogleButton ux={ux}/>
           }
         </StyledTopicHeader>
         <HomeworkQuestionsWrapper
@@ -470,16 +482,22 @@ const QuestionList = observer(({ ux, scores }) => {
     ));
   }
 
-  return <HomeworkQuestionsWrapper
-    questionsInfo={scores.questionsInfo}
-    ux={ux}
-  />;
+  return (
+    <>
+      <StyledNamesToogleButtonWrapper>
+        <NamesToogleButton ux={ux}/>
+      </StyledNamesToogleButtonWrapper>
+      <HomeworkQuestionsWrapper
+        questionsInfo={scores.questionsInfo}
+        ux={ux}
+      />
+    </>
+  );
 
 });
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,
   scores: PropTypes.any.isRequired,
-  doGroupByTopic: PropTypes.bool,
 };
 
 
