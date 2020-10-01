@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { isUndefined, isNull } from 'lodash';
+import { isUndefined } from 'lodash';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
@@ -205,7 +205,6 @@ const StudentColumnHeader = observer(({ ux }) => (
 ));
 
 const StudentCell = observer(({ ux, student, striped }) => {
-  console.log(student);
   const countData = ux.getReadingCountData(student);
   return (
     <>
