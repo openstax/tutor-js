@@ -135,6 +135,8 @@ const GradingStudent = observer(({ response, ux, index }) => {
       ? 'Save & open next question'
       : 'Save';
 
+  const disabledInfoTooltipMessage = ux.getDisabledInfoTooltipMessage(response, isStudentAvailableToGrade, ux.selectedHeading.dropped);
+
   return (
     <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer" showShadow={!ux.isResponseGraded(response)}>
       <Panel>
@@ -142,10 +144,10 @@ const GradingStudent = observer(({ response, ux, index }) => {
         <p>{response.free_response ? response.free_response : '(No response provided)'}</p>
       </Panel>
       <OverlayTrigger
-        trigger={!isStudentAvailableToGrade ? ['hover', 'focus'] : null}
+        trigger={disabledInfoTooltipMessage ? ['hover', 'focus'] : null}
         overlay={
           <Tooltip>
-            {ux.disabledInfoTooltipMessage(response, isStudentAvailableToGrade, Boolean(ux.selectedHeading.dropped))}
+            {disabledInfoTooltipMessage}
           </Tooltip>
         }>
         <Panel>
