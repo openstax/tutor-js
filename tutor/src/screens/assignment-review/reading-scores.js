@@ -1,9 +1,10 @@
 import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { isUndefined, isNull } from 'lodash';
 import LoadingScreen from 'shared/components/loading-animation';
 import { colors } from 'theme';
-import ScoresHelper from '../../helpers/scores';
+import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import ExtensionIcon from '../../components/icons/extension';
 import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
@@ -204,6 +205,7 @@ const StudentColumnHeader = observer(({ ux }) => (
 ));
 
 const StudentCell = observer(({ ux, student, striped }) => {
+  console.log(student);
   const countData = ux.getReadingCountData(student);
   return (
     <>
@@ -225,9 +227,13 @@ const StudentCell = observer(({ ux, student, striped }) => {
           <StyledTotal
             isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
           >
-            {ux.displayTotalInPercent ?
-              `${ScoresHelper.asPercent(student.total_fraction || 0)}%` :
-              ScoresHelper.formatPoints(student.total_points)}
+            {/** BE does not returns total_fraction and total_points if student did not start the assingment and it is before due date; otherwise it returns 0 after the due date */}
+            {ux.displayTotalInPercent
+              ?`${ScoresHelper.asPercent(student.total_fraction || 0)}%`
+              : isUndefined(student.total_points)
+                ? UNWORKED
+                : ScoresHelper.formatPoints(student.total_points) 
+            }
           </StyledTotal>
           <LateWork>
             {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
