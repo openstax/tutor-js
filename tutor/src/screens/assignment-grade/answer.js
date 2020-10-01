@@ -49,7 +49,7 @@ const ScoreWrapper = styled.div`
   margin-bottom: .8rem;
 `;
 
-const Points = React.forwardRef(({ response, onChange, isStudentAvailableToGrade }, ref) => {
+const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
   return (
     <ScoreWrapper>
       <b>Points:</b>
@@ -66,8 +66,8 @@ const Points = React.forwardRef(({ response, onChange, isStudentAvailableToGrade
           if(e.target.value === '') onChange(undefined);
           else onChange(parseFloat(e.target.value, 10));
         }}
-        defaultValue={response.grader_points}
-        disabled={Boolean(!onChange) || !isStudentAvailableToGrade}
+        defaultValue={ux.getDropQuestionPoints || response.grader_points}
+        disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(ux.selectedHeading.dropped)}
       /> out of {ScoresHelper.formatPoints(response.availablePoints)}
     </ScoreWrapper>
   );
@@ -76,7 +76,7 @@ const Points = React.forwardRef(({ response, onChange, isStudentAvailableToGrade
 Points.propTypes = {
   response: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  isStudentAvailableToGrade: PropTypes.bool,
+  ux: PropTypes.object,
 };
 
 const Comment = styled.textarea`
@@ -146,7 +146,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
         overlay={<Tooltip>{!isStudentAvailableToGrade ? `You can grade this response after the extension due date: ${moment(response.student.extension.due_at).format('MM-DD-YYYY hh:mm a')}.` : ''}</Tooltip>}
       >
         <Panel>
-          <Points response={response} onChange={setPoints} ref={pointRef} isStudentAvailableToGrade={isStudentAvailableToGrade} />
+          <Points response={response} onChange={setPoints} ref={pointRef} ux={ux} />
           <b>Comment:</b>
           <Comment name="comment" defaultValue={response.gradedComments} ref={commentsRef} disabled={!isStudentAvailableToGrade} />
           {
@@ -185,7 +185,7 @@ const CollapsedStudent = observer(({ ux, response, index }) => {
     }}
     >
       <StudentName ux={ux} student={response.student} />
-      <Points response={response} />
+      <Points response={response} ux={ux} />
     </Box>);
 });
 
