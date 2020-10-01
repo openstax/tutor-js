@@ -66,7 +66,7 @@ const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
           if(e.target.value === '') onChange(undefined);
           else onChange(parseFloat(e.target.value, 10));
         }}
-        defaultValue={ux.getDropQuestionPoints ? ScoresHelper.formatPoints(ux.getDropQuestionPoints) : response.grader_points}
+        defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(ux.getDropQuestionPoints) : response.grader_points}
         disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(ux.selectedHeading.dropped)}
       /> out of {ScoresHelper.formatPoints(response.availablePoints)}
     </ScoreWrapper>
@@ -143,17 +143,29 @@ const GradingStudent = observer(({ response, ux, index }) => {
       </Panel>
       <OverlayTrigger
         trigger={!isStudentAvailableToGrade ? ['hover', 'focus'] : null}
-        overlay={<Tooltip>{!isStudentAvailableToGrade ? `You can grade this response after the extension due date: ${moment(response.student.extension.due_at).format('MM-DD-YYYY hh:mm a')}.` : ''}</Tooltip>}
-      >
+        overlay={
+          <Tooltip>
+            {ux.disabledInfoTooltipMessage(response, isStudentAvailableToGrade, Boolean(ux.selectedHeading.dropped))}
+          </Tooltip>
+        }>
         <Panel>
           <Points response={response} onChange={setPoints} ref={pointRef} ux={ux} />
           <b>Comment:</b>
-          <Comment name="comment" defaultValue={response.gradedComments} ref={commentsRef} disabled={!isStudentAvailableToGrade} />
+          <Comment
+            name="comment"
+            defaultValue={response.gradedComments}
+            ref={commentsRef}
+            disabled={!isStudentAvailableToGrade || Boolean(ux.selectedHeading.dropped)} />
           {
             (!ux.isLastQuestion || !ux.isLastStudent || ux.isResponseGraded(response)) &&
             <SaveButton
               className="btn btn-standard btn-primary"
-              disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points || !isStudentAvailableToGrade}
+              disabled={
+                !isNumber(points) ||
+                points > response.availablePoints||
+                response.grader_points === points ||
+                !isStudentAvailableToGrade ||
+                Boolean(ux.selectedHeading.dropped)}
               onClick={() => ux.saveScore({
                 response, points, comment: commentsRef.current.value, doGoToOverview: false, doMoveNextQuestion: ux.isLastStudent ? true : false,
               })}>
