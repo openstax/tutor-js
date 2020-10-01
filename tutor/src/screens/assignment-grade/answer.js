@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, useRef, useEffect, styled, css, cn, moment } from 'vendor';
+import { React, PropTypes, observer, useRef, useEffect, styled, css, cn } from 'vendor';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { useState } from 'react';
