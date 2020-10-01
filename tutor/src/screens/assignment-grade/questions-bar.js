@@ -72,13 +72,13 @@ const Question = observer(({ heading, ux, index }) => {
     <StyledQuestionWrapper>
       <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-StyledStyledButton-id={`question-${index}`}>
         <h6>{heading.title}</h6>
-        {stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
+        {Boolean(droppedQuestion) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
       
       </StyledButton>
       {
         Boolean(droppedQuestion) &&
         <CornerTriangle color="blue"
-          tooltip={droppedQuestion.dropped_method == 'zeroed' ?
+          tooltip={droppedQuestion.drop_method == 'zeroed' ?
             'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
         />
       }
