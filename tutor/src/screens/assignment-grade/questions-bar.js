@@ -3,6 +3,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
 import PublishScores from '../../components/buttons/publish-scores';
+import { CornerTriangle } from '../../components/dropped-question';
 
 const Bar = styled.div`
   display: flex;
@@ -18,7 +19,11 @@ const StyledSettingsIcon = styled(SettingsIcon)`
     margin-left: 20px;
 `;
 
-const QuestionWrapper = styled.button`
+const StyledQuestionWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledButton = styled.button`
   border: 1px solid ${colors.neutral.pale};
   width: 6rem;
   height: 6rem;
@@ -39,7 +44,6 @@ const QuestionWrapper = styled.button`
 
 const QuestionsWrapper = styled.div`
   display: flex;
-
 `;
 
 const Controls = styled.div`
@@ -62,11 +66,23 @@ const StyledPublishScores = styled(PublishScores)`
 const Question = observer(({ heading, ux, index }) => {
   const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
   const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
+  const droppedQuestion = heading.dropped;
+
   return (
-    <QuestionWrapper current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
-      <h6>{heading.title}</h6>
-      {stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
-    </QuestionWrapper>
+    <StyledQuestionWrapper>
+      <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-StyledStyledButton-id={`question-${index}`}>
+        <h6>{heading.title}</h6>
+        {stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
+      
+      </StyledButton>
+      {
+        Boolean(droppedQuestion) &&
+        <CornerTriangle color="blue"
+          tooltip={droppedQuestion.dropped_method == 'zeroed' ?
+            'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
+        />
+      }
+    </StyledQuestionWrapper>
   );
 });
 
