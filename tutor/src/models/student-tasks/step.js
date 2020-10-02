@@ -177,7 +177,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get canEditFreeResponse() {
     return Boolean(
-      !this.answer_id &&
+      this.can_be_updated && !this.answer_id &&
         this.formats.includes('free-response') &&
         (this.content.isOpenEnded || S.isEmpty(this.free_response))
     );
@@ -210,7 +210,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @action markViewed() {
-    if (!this.isExercise && !this.isExternalUrl && !this.is_completed) {
+    if (this.can_be_updated && !this.isExercise && !this.isExternalUrl && !this.is_completed) {
       this.is_completed = true;
       this.save();
     }

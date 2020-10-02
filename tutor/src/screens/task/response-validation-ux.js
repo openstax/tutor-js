@@ -71,7 +71,7 @@ class ResponseValidationUX {
   @action.bound async onSave() {
     // we have text but it hasn't changed, go to next
     // allow go to next if assignment is closed
-    if (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed) {
+    if (!this.step.can_be_updated || (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed)) {
       this.advanceUI();
       return;
     }
