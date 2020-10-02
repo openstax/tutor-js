@@ -79,7 +79,7 @@ const Question = observer(({ heading, ux, index }) => {
         Boolean(droppedQuestion) &&
         <CornerTriangle color="blue"
           tooltip={droppedQuestion.drop_method == 'zeroed' ?
-            'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
+            'Question dropped: question is worth 0 points' : 'Question dropped: full credit assigned for this question'}
         />
       }
     </StyledQuestionWrapper>

@@ -134,18 +134,6 @@ export default class AssignmentGradingUX {
     return !response.student.extension || (!!response.student.extension && moment(response.student.extension.due_at).isBefore(Time.now));
   }
 
-  getDisabledInfoTooltipMessage(response, isStudentAvailableToGrade, questionDropped) {
-    let message = '';
-
-    if(questionDropped) {
-      message = `This question has been dropped: ${questionDropped.drop_method == 'zeroed' ? 'question is worth 0 points' : 'full credit assigned' }.`;
-    }
-    else if (!isStudentAvailableToGrade) {
-      message = `You can grade this response after the extension due date: ${moment(response.student.extension.due_at).format('MM-DD-YYYY hh:mm a')}.`;
-    }
-    return message;
-  }
-
   @action async saveScore({ points, comment, response, doGoToOverview = false, doMoveNextQuestion = false }) {
     const grade = new Grade({ points, comment, response });
     await grade.save();

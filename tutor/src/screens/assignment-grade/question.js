@@ -98,7 +98,7 @@ const ExpandGraded = observer(({ ux }) => {
           ux.selectedHeading.dropped
             ? ScoresHelper.formatPoints(ux.getDropQuestionPoints)
             : ScoresHelper.formatPoints(ux.selectedHeading.averageGradedPoints)
-        } out of {ScoresHelper.formatPoints(ux.selectedHeading.responseStats.availablePoints)}
+        } out of {ScoresHelper.formatPoints(ux.selectedHeading.points_without_dropping)}
       </label>
     </ExpandGradedWrapper>
   );
