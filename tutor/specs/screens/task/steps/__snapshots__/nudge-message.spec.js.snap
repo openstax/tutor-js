@@ -359,6 +359,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
     ResponseValidationUX {
       "advanceUI": [MockFunction],
       "displayNudgeError": true,
+      "recordFinalResponse": [MockFunction],
       "validate": [MockFunction],
     }
   }
@@ -728,6 +729,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "Message": [Function],
         "title": "Take another chance",
       },
+      "recordFinalResponse": [MockFunction],
       "validate": [MockFunction],
     }
   }
@@ -1097,6 +1099,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "Message": [Function],
         "title": "Not sure? Here’s a hint",
       },
+      "recordFinalResponse": [MockFunction],
       "validate": [MockFunction],
     }
   }
@@ -1466,6 +1469,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "Message": [Function],
         "title": "Try again",
       },
+      "recordFinalResponse": [MockFunction],
       "validate": [MockFunction],
     }
   }
@@ -1835,6 +1839,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "Message": [Function],
         "title": "Give it another shot",
       },
+      "recordFinalResponse": [MockFunction],
       "validate": [MockFunction],
     }
   }
