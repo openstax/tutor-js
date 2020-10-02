@@ -75,20 +75,32 @@ class ResponseValidationUX {
       this.advanceUI();
       return;
     }
+    
     if (!this.taskUX.canUpdateCurrentStep) {
       this.taskUX.onFreeResponseComplete(this.step, { wasModified: false });
       return;
     }
+    
+    if (!this.validator.isEnabled) {
+      this.recordFinalResponse(this.response);
+      return;
+    }
+
     const result = await this.validate();
 
     if (this.validator.isUIEnabled) {
       this.advanceUI(result);
     } else {
-      this.step.beginRecordingAnswer({ free_response: result.response });
-      this.taskUX.onFreeResponseComplete(this.step, { wasModified: true });
+      this.recordFinalResponse(result.response);
     }
+
     this.results.push(result);
     this.step.response_validation = { attempts: this.results };
+  }
+
+  @action recordFinalResponse(free_response) {
+    this.step.beginRecordingAnswer({ free_response });
+    this.taskUX.onFreeResponseComplete(this.step, { wasModified: true });
   }
 
   @action async validate() {
@@ -99,7 +111,7 @@ class ResponseValidationUX {
       const reply = await this.validator.validate({
         uid: this.step.uid,
         response: submitted,
-      });
+      }) || {};
       const validation = extend({}, reply.data, {
         timestamp: (new Date()).toISOString(),
         response: submitted, nudge,
