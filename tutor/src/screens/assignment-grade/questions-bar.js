@@ -70,7 +70,7 @@ const Question = observer(({ heading, ux, index }) => {
 
   return (
     <StyledQuestionWrapper>
-      <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-StyledStyledButton-id={`question-${index}`}>
+      <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
         <h6>{heading.title}</h6>
         {Boolean(droppedQuestion) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
       
