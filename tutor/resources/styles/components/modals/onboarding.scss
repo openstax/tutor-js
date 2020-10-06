@@ -38,8 +38,13 @@
   &.pay-now-or-later,
   &.free-trial-ended,
   &.make-payment {
+    margin: 0;
+    width: 100%;
     .modal-dialog {
       transform: translateY(80px);
+      @media screen and ( max-width: $mobile-collapse-breakpoint ){
+        margin: 0;
+      }
     }
   }
 
