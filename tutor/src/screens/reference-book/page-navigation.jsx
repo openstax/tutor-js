@@ -10,6 +10,7 @@ export default
 class ReferenceViewPageNavigation extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    children: PropTypes.node,
   };
 
   render() {
@@ -17,10 +18,11 @@ class ReferenceViewPageNavigation extends React.Component {
     return (
       <PagingNavigation
         className="book-page-wrapper"
+        renderMobileFooter={true}
         {...ux.pagingProps}
       >
         {this.props.children}
       </PagingNavigation>
     );
   }
-};
+}

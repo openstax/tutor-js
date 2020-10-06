@@ -10,7 +10,11 @@
     }
   }
   .paging-control {
+    display: none;
     flex: 1;
+    @media screen and (min-width: 1200px) {
+      display: block;
+    }
     .arrow-wrapper {
       width: 100%;
       height: 100%;
