@@ -87,6 +87,9 @@ const getRoutes = (router) => {
         { path: 'grading-templates', name: 'gradingTemplates',
           renderer: r(() => import('./screens/grading-templates')),
         },
+        { path: 'practice-questions', name: 'practiceQuestions',
+          renderer: r(() => import('./screens/practice-questions')),
+        },
       ],
     }, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement',

@@ -36,6 +36,7 @@ const colorDefinitions = {
   highlight:     '#d2f7fc', // light blue
   bright_green:  '#61b22a',
   bright_blue:   '#0dc0dc',
+  cerulan:       '#007297',
 };
 
 const tasks = {
