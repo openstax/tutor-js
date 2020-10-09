@@ -19,13 +19,15 @@ const StyledSavePracticeButton = styled.button`
 `;
 
 const SavePracticeButton = ({ disabled = false }) => {
-  return <StyledSavePracticeButton disabled={disabled}> 
-    <Icon
-      type="plus"
-      color={colors.cerulan}
-      className="save-practice-icon"/>
-   Save to practice 
-  </StyledSavePracticeButton>;
+  return (
+    <StyledSavePracticeButton disabled={disabled} className="save-practice-button"> 
+      <Icon
+        type="plus"
+        color={colors.cerulan}
+        className="save-practice-icon"/>
+      Save to practice 
+    </StyledSavePracticeButton>
+  );
 };
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,

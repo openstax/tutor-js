@@ -9,12 +9,22 @@ import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
+import SavePracticeButton from '../../practice-questions/save-practice-button';
 import { breakpoint } from 'theme';
 
 const Controls = styled.div`
   margin: 2.5rem 0;
   display: flex;
   justify-content: flex-end;
+  flex-flow: column wrap-reverse;
+
+  > * {
+    width: 25%;
+  }
+
+  .save-practice-button {
+    margin-top: 2rem;
+  }
 `;
 
 const StyledExerciseQuestion = styled.div`
@@ -153,6 +163,7 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
+          <SavePracticeButton disabled={true} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
