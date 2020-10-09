@@ -71,6 +71,10 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     );
   }
 
+  @computed get availablePointsWithoutDropping() {
+    return get(this.questionHeading, 'points_without_dropping', 0.0);
+  }
+
   @computed get latePenalty() {
     return ScoresHelper.formatLatePenalty(this.late_work_point_penalty);
   }
