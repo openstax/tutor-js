@@ -48,7 +48,7 @@ describe('Reference Book Component', function() {
   it('navigates forward and back between pages', function() {
     Router.makePathname.mockReturnValue('/test/route/3');
     const book = mount(<R><ReferenceBook {...props} /></R>);
-    book.find('.paging-control.next').simulate('click');
+    book.find('.paging-control.next').at(0).simulate('click');
     expect(history.push).toHaveBeenCalledWith('/test/route/3');
   });
 
