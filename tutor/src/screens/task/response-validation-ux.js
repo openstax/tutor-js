@@ -71,24 +71,36 @@ class ResponseValidationUX {
   @action.bound async onSave() {
     // we have text but it hasn't changed, go to next
     // allow go to next if assignment is closed
-    if (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed) {
+    if (!this.step.can_be_updated || (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed)) {
       this.advanceUI();
       return;
     }
+    
     if (!this.taskUX.canUpdateCurrentStep) {
       this.taskUX.onFreeResponseComplete(this.step, { wasModified: false });
       return;
     }
+    
+    if (!this.validator.isEnabled) {
+      this.recordFinalResponse(this.response);
+      return;
+    }
+
     const result = await this.validate();
 
     if (this.validator.isUIEnabled) {
       this.advanceUI(result);
     } else {
-      this.step.beginRecordingAnswer({ free_response: result.response });
-      this.taskUX.onFreeResponseComplete(this.step, { wasModified: true });
+      this.recordFinalResponse(result.response);
     }
+
     this.results.push(result);
     this.step.response_validation = { attempts: this.results };
+  }
+
+  @action recordFinalResponse(free_response) {
+    this.step.beginRecordingAnswer({ free_response });
+    this.taskUX.onFreeResponseComplete(this.step, { wasModified: true });
   }
 
   @action async validate() {
@@ -99,7 +111,7 @@ class ResponseValidationUX {
       const reply = await this.validator.validate({
         uid: this.step.uid,
         response: submitted,
-      });
+      }) || {};
       const validation = extend({}, reply.data, {
         timestamp: (new Date()).toISOString(),
         response: submitted, nudge,

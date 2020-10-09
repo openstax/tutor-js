@@ -50,4 +50,11 @@ describe('Exercise Free Response', () => {
     eq.unmount();
   });
 
+  it('shows MC when step cannot be updated', () => {
+    props.step.can_be_updated = false;
+    const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+    expect(eq).toHaveRendered('AnswersTable')
+    eq.unmount();
+  });
+
 });
