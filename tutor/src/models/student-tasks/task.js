@@ -81,16 +81,17 @@ class StudentTask extends BaseModel {
     return Boolean(this.api.hasBeenFetched && (isEmpty(this.steps) || !this.steps[0].isPlaceHolder));
   }
 
+  // due_at/closes at will not be set for task of type "practice"
   @computed get dueAtMoment() {
-    return moment(this.due_at);
+    return this.due_at && moment(this.due_at);
   }
 
   @computed get closesAtMoment() {
-    return moment(this.closes_at);
+    return this.closes_at && moment(this.closes_at);
   }
   
   @computed get isAssignmentClosed() {
-    return this.closesAtMoment.isSameOrBefore(Time.now);
+    return Boolean(this.closes_at && this.closesAtMoment.isSameOrBefore(Time.now));
   }
 
   @computed get completed() {

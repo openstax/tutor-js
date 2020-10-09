@@ -70,15 +70,32 @@ const StyledHeadingTitle = styled.div`
   `};
 `;
 
+const TaskInfo = ({ task }) => {
+  let dueInfo = null;
+  if (task.due_at)
+    dueInfo = (
+      <>
+        <div className="title-divider">|</div>
+        <div className="title-due-date">Due {<Time date={task.due_at} format="concise" />}</div>
+      </>
+    );
+
+  return (
+    <div className="title-info">
+      <div className="title-name">{task.title}</div>
+      {dueInfo}
+    </div>
+  );
+};
+TaskInfo.propTypes = {
+  task: PropTypes.object.isRequired,
+};
+
 const headerContent = (ux) => {
   return (
     <>
       <StyledHeadingTitle>
-        <div className="title-info">
-          <div className="title-name">{ux.task.title}</div>
-          <div className="title-divider">|</div>
-          <div className="title-due-date">Due {<Time date={ux.task.due_at} format="concise" />}</div>
-        </div>
+        <TaskInfo task={ux.task} />
         <div className="overview-task-icon">
           <Icon
             type="th"
