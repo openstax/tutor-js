@@ -66,7 +66,7 @@ const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
           if(e.target.value === '') onChange(undefined);
           else onChange(parseFloat(e.target.value, 10));
         }}
-        defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(ux.getDropQuestionPoints) : response.grader_points}
+        defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(ux.dropQuestionPoints) : response.grader_points}
         disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(ux.selectedHeading.dropped)}
       /> out of {ScoresHelper.formatPoints(response.availablePointsWithoutDropping)}
     </ScoreWrapper>
