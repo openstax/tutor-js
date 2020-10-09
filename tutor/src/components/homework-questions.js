@@ -144,6 +144,7 @@ const Body = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 20px;
       &.singular {
         justify-content: flex-end;
       }
@@ -156,6 +157,9 @@ const Body = styled.div`
       }
       .chapter-section {
         color: inherit;
+      }
+      .book-part-title > span {
+        text-decoration: underline;
       }
     }
   `}
