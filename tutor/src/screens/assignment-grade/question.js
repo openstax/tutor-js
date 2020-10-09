@@ -94,7 +94,13 @@ const ExpandGraded = observer(({ ux }) => {
         {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {gradeProgress}
       </Button>
       <label>
-        Average Score: {ScoresHelper.formatPoints(ux.selectedHeading.averageGradedPoints)} out of {ScoresHelper.formatPoints(ux.selectedHeading.responseStats.availablePoints)}
+        Average Score: {
+          ScoresHelper.formatPoints(
+            ux.selectedHeading.dropped
+              ? ux.dropQuestionPoints
+              : ux.selectedHeading.averageGradedPoints
+          )
+        } out of {ScoresHelper.formatPoints(ux.selectedHeading.points_without_dropping)}
       </label>
     </ExpandGradedWrapper>
   );

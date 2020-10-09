@@ -1,7 +1,8 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
-import TutorLink from '../../components/link';
+import { isEmpty, compact } from 'lodash';
 import { Button } from 'react-bootstrap';
+import TutorLink from '../../components/link';
 import ScoresHelper from '../../helpers/scores';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
@@ -9,7 +10,6 @@ import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
-import { isEmpty, compact } from 'lodash';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -195,7 +195,7 @@ const MCQFreeResponse = observer(({ ux, question }) => (
       const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
       return (studentQuestion && studentQuestion.free_response) && (
         <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-          <div className="name">{student.name}</div>
+          <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
           <div className="resp">{studentQuestion.free_response}</div>
         </StyledQuestionFreeResponse>
       );
@@ -221,7 +221,7 @@ const MCQFreeResponse = observer(({ ux, question }) => (
   })
 ));
 
-const WRQFreeResponse = observer(({ info }) => {
+const WRQFreeResponse = observer(({ ux, info }) => {
   const responses = info.responses.map((response, i) => {
     const student = response.student;
     return response.free_response && (
@@ -232,7 +232,7 @@ const WRQFreeResponse = observer(({ info }) => {
           longResponse={response.free_response.length > 2000}
         >
           <div>
-            <div className="name">{student.name}</div>
+            <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
             <div className="resp">
               <p>{response.free_response}</p>
             </div>
@@ -331,6 +331,38 @@ const StyledNoActivity = styled.div`
   }
 `;
 
+const StyledTopicHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  h3 {
+    font-weight: 600;
+    line-height: 30px;
+    padding-top: 8px;
+  }
+`;
+
+const StyledNamesToogleButtonWrapper = styled.div`
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid ${colors.neutral.pale};
+`;
+
+const StyledNamesToogleButton = styled(Button)`
+  &&& {
+    border: 1px solid ${colors.neutral.pale};
+    background: transparent;
+    color: ${colors.neutral.grayblue};
+    font-weight: 100;
+    padding: 10px 20px 10px 10px;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+`;
+
 const GradingBlock = observer(({ ux }) => {
   if (!ux.canDisplayGradingButton) { return null; }
 
@@ -393,6 +425,29 @@ const SectionInfo = observer((props) => (
   </div>
 ));
 
+const NamesToogleButton = observer(({ ux }) => (
+  <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility} data-test-id="names-toogle-button">
+    <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
+    />
+    <span data-test-id="names-toogle-button-text">{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
+  </StyledNamesToogleButton>
+));
+
+const HomeworkQuestionsWrapper = ({ ux, questionsInfo }) => (
+  <HomeworkQuestions
+    questionsInfo={questionsInfo}
+    questionType="teacher-review"
+    sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
+    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
+);
+HomeworkQuestionsWrapper.propTypes = {
+  ux: PropTypes.object.isRequired,
+  questionsInfo: PropTypes.any.isRequired,
+};
+
 const QuestionList = observer(({ ux, scores }) => {
   if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
 
@@ -404,14 +459,41 @@ const QuestionList = observer(({ ux, scores }) => {
       </StyledNoActivity>
     );
   }
-  return <HomeworkQuestions
-    questionsInfo={scores.questionsInfo}
-    questionType="teacher-review"
-    sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
-    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />;
+
+  if(ux.planScores.isReading) {
+    return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
+      <div key={index}>
+        <StyledTopicHeader>
+          <h3>
+            <ArbitraryHtmlAndMath
+              html={key} />
+          </h3>
+          {/** Only the show the button at the top with the very first header */}
+          {
+            index === 0 &&
+            <NamesToogleButton ux={ux}/>
+          }
+        </StyledTopicHeader>
+        <HomeworkQuestionsWrapper
+          questionsInfo={scores.groupQuestionsByPageTopic[key]}
+          ux={ux}
+        />
+      </div>
+    ));
+  }
+
+  return (
+    <>
+      <StyledNamesToogleButtonWrapper>
+        <NamesToogleButton ux={ux}/>
+      </StyledNamesToogleButtonWrapper>
+      <HomeworkQuestionsWrapper
+        questionsInfo={scores.questionsInfo}
+        ux={ux}
+      />
+    </>
+  );
+
 });
 QuestionList.propTypes = {
   ux: PropTypes.object.isRequired,

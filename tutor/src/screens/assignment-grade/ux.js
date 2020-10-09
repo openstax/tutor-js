@@ -162,6 +162,14 @@ export default class AssignmentGradingUX {
     return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
   }
 
+  @computed get dropQuestionPoints() {
+    const droppedQuestion = this.selectedHeading.dropped;
+    if(droppedQuestion) {
+      return droppedQuestion.drop_method == 'zeroed' ? 0 : this.selectedHeading.points_without_dropping;
+    }
+    return null;
+  }
+
   @action.bound async onPublishScores() {
     this.isPublishingScores = true;
     await this.taskingPlan.publishScores();
