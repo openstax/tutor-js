@@ -10,7 +10,6 @@ const StyledTable = styled.table`
 const LatePointsInfo = ({ step }) => {
   const originalPoints = step.published_points_without_lateness;
   const lateWorkPenalty = step.published_late_work_point_penalty;
-  const isLateWorkNotAccepted = step.task.late_work_penalty_applied === 'not_accepted';
   return (
     <StyledTable data-test-id="late-info-points-table">
       <tbody>
@@ -21,7 +20,7 @@ const LatePointsInfo = ({ step }) => {
           </td>
         </tr>
         <tr>
-          <td>{isLateWorkNotAccepted ? 'Not accepted' : 'Late penalty'}:</td>
+          <td>Late penalty:</td>
           <td>
             {ScoresHelper.formatLatePenalty(lateWorkPenalty)}
           </td>
