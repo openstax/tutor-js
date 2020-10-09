@@ -49,7 +49,7 @@ class ExerciseDetails extends React.Component {
     if (!this.props.selectedSection) {
       return;
     }
-    if (!this.props.selectedSection.eq(prevProps.selectedSection)) {
+    if (!prevProps.selectedSection || !this.props.selectedSection.eq(prevProps.selectedSection)) {
       const index = this.exercises.findIndex(
         ex => ex.page.chapter_section.eq(this.props.selectedSection)
       );

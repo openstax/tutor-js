@@ -392,8 +392,8 @@ class TaskPlanScoresTasking extends BaseModel {
 
   @computed get groupQuestionsByPageTopic() {
     const questions = this.questionsInfo;
-    //order the questions by the exercise page id so when it is grouped, the first chapters are shown first. (assumes page ids are in incremental order)
-    const sortedQuestions = orderBy(questions, ['exercise.page.id'], ['asc']);
+    //order the questions by the exercise page's chapter_section so that the first chapters are shown first
+    const sortedQuestions = orderBy(questions, ['exercise.page.chapter_section.asNumber'], ['asc']);
     return groupBy(sortedQuestions, q => {
       return q.exercise.page.title;
     });
