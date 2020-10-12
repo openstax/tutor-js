@@ -1,4 +1,5 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
+import { concat } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { ExerciseNumber, Question } from '../../components/homework-questions';
 import Answer from './answer';
@@ -140,8 +141,11 @@ const Overiew = observer(({ ux }) => {
   );
 });
 
-const IndividualQuestion = observer(({ ux }) =>
-  (
+const IndividualQuestion = observer(({ ux }) => {
+  let responses = ux.expandGradedAnswers
+    ? concat(ux.gradedResponses, ux.needsGradingResponses)
+    : ux.needsGradingResponses;
+  return (
     <StyledQuestion>
       <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
       <QuestionBody>
@@ -153,15 +157,7 @@ const IndividualQuestion = observer(({ ux }) =>
           displayFormats={false}
         />
         <ExpandGraded ux={ux} />
-        {
-          Boolean(ux.expandGradedAnswers) && ux.gradedResponses.map((response, index) =>
-            <Answer
-              response={response}
-              key={index}
-              index={index}
-              ux={ux} />)
-        }
-        {ux.needsGradingResponses.map((response, index) =>
+        {responses.map((response, index) =>
           <Answer
             response={response}
             key={index}
@@ -169,8 +165,8 @@ const IndividualQuestion = observer(({ ux }) =>
             ux={ux} />)}
       </QuestionBody>
     </StyledQuestion>
-  )
-);
+  );
+});
 const AssignmentGradingQuestion = observer(({ ux }) => {
   const Component = ux.showOverview ? Overiew : IndividualQuestion;
 
