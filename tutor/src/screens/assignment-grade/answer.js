@@ -66,7 +66,7 @@ const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
           if(e.target.value === '') onChange(undefined);
           else onChange(parseFloat(e.target.value, 10));
         }}
-        defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(ux.dropQuestionPoints) : response.grader_points}
+        defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(response.droppedQuestionPoints) : response.grader_points}
         disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(ux.selectedHeading.dropped)}
       /> out of {ScoresHelper.formatPoints(response.availablePointsWithoutDropping)}
     </ScoreWrapper>
@@ -134,7 +134,21 @@ const StyledStudentAnswer = styled.div`
 const getDisabledInfoTooltipMessage = (response, isStudentAvailableToGrade, questionDropped) => {
   let message = '';
   if(questionDropped) {
-    message = `This question has been dropped: ${questionDropped.drop_method == 'zeroed' ? 'question is worth 0 points' : 'full credit assigned' }.`;
+    message = 'This question has been dropped: ';
+    // no credit message
+    if (questionDropped.drop_method == 'zeroed') {
+      message += 'question is worth 0 points.';
+    }
+    // full credit points message
+    else {
+      // student has not answered the question yet
+      if (!response.is_completed) {
+        message += 'Full credit will be assigned after the student attempts the question.';
+      }
+      else {
+        message += 'full credit assigned.';
+      }
+    }
   }
   else if (!isStudentAvailableToGrade) {
     message = `You can grade this response after the extension due date: ${moment(response.student.extension.due_at).format('MM-DD-YYYY hh:mm a')}.`;
