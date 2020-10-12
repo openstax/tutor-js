@@ -96,7 +96,8 @@ class StudentTaskStep extends BaseModel {
   @field published_comments;
   @field published_points_without_lateness;
   @field published_late_work_point_penalty;
-  
+  @field tasked_id;
+
   @field({ type: 'object' }) task;
   @observable content;
 
@@ -136,7 +137,7 @@ class StudentTaskStep extends BaseModel {
   @computed get isOpenEndedExercise() {
     return this.isExercise && this.content.isOpenEnded;
   }
-  
+
   @computed get isWrittenResponseExercise() {
     return this.isExercise && this.content.isWrittenResponse;
   }

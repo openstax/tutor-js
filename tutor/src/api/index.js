@@ -47,6 +47,7 @@ import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 import Stats from '../models/stats';
 import { GradingTemplate, GradingTemplates } from '../models/grading/templates';
+import { PracticeQuestions, PracticeQuestion } from '../models/practice-questions';
 
 const {
   connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
@@ -184,6 +185,20 @@ const startAPI = function() {
 
   connectModelCreate(StudentTasks, 'practice', {
     pattern: 'courses/{courseId}/practice',
+  });
+
+  connectModelRead(PracticeQuestions, 'fetch', {
+    pattern: 'courses/{courseId}/practice_questions',
+    onSuccess: 'onLoaded',
+  });
+  connectModelCreate(PracticeQuestion, 'save', {
+    method: 'POST',
+    pattern: 'courses/{courseId}/practice_questions',
+    onSuccess: 'onSaved',
+  });
+  connectModelDelete(PracticeQuestion, 'destroy', {
+    pattern: 'courses/{courseId}/practice_questions/{id}',
+    onSuccess: 'onDestroyed',
   });
 
   connectModelRead(StudentTask, 'fetch', {
