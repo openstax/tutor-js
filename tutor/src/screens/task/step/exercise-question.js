@@ -56,6 +56,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @observable selectedAnswer = null;
+  @observable testId = 1;
 
   @computed get needsSaved() {
     const { step } = this.props;
@@ -99,9 +100,22 @@ class ExerciseQuestion extends React.Component {
     ux.onAnswerContinue(step);
   }
 
+  @action.bound addOrRemovePracticeQuestion() {
+    if(this.isQuestionSaved) {
+      this.testId = 2;
+    }
+    else {
+      this.testId = 1;
+    }
+  }
+
   @computed get answerId() {
     return this.selectedAnswer ?
       this.selectedAnswer.id : this.props.step.answer_id;
+  }
+
+  @computed get isQuestionSaved() {
+    return this.testId == 1;
   }
 
   renderSaveButton() {
@@ -132,7 +146,6 @@ class ExerciseQuestion extends React.Component {
   render() {
     const { ux, question, step, ux: { course } } = this.props;
     const questionNumber = ux.questionNumberForStep(step);
-
     if (step.canEditFreeResponse) {
       return (
         <FreeResponseInput
@@ -163,7 +176,7 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          <SavePracticeButton disabled={true} />
+          <SavePracticeButton addOrRemove={this.addOrRemovePracticeQuestion} isSaved={this.isQuestionSaved} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
