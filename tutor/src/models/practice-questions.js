@@ -23,7 +23,7 @@ class PracticeQuestions extends Map {
     this.delete(question.id);
   }
 
-  @action findByUid(uid) {
+  findByUid(uid) {
     return find(this.array, ['uid', uid]);
   }
 

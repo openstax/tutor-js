@@ -9,12 +9,22 @@ import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
+import SavePracticeButton from '../../practice-questions/save-practice-button';
 import { breakpoint } from 'theme';
 
 const Controls = styled.div`
   margin: 2.5rem 0;
   display: flex;
   justify-content: flex-end;
+  flex-flow: column wrap-reverse;
+
+  > * {
+    width: 25%;
+  }
+
+  .save-practice-button {
+    margin-top: 2rem;
+  }
 `;
 
 const StyledExerciseQuestion = styled.div`
@@ -46,6 +56,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @observable selectedAnswer = null;
+  @observable isSavingOrRemovingPracticeQuestion = false;
 
   @computed get needsSaved() {
     const { step } = this.props;
@@ -89,9 +100,26 @@ class ExerciseQuestion extends React.Component {
     ux.onAnswerContinue(step);
   }
 
+  @action.bound async addOrRemovePracticeQuestion() {
+    this.isSavingOrRemovingPracticeQuestion = true;
+    if(this.practiceQuestion) {
+      await this.practiceQuestion.destroy();
+    }
+    else {
+      const { ux, step } = this.props;
+      await ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
+    }
+    this.isSavingOrRemovingPracticeQuestion = false;
+  }
+
   @computed get answerId() {
     return this.selectedAnswer ?
       this.selectedAnswer.id : this.props.step.answer_id;
+  }
+
+  @computed get practiceQuestion() {
+    const { ux, step } = this.props;
+    return ux.course.practiceQuestions.findByUid(step.uid);
   }
 
   renderSaveButton() {
@@ -122,7 +150,6 @@ class ExerciseQuestion extends React.Component {
   render() {
     const { ux, question, step, ux: { course } } = this.props;
     const questionNumber = ux.questionNumberForStep(step);
-
     if (step.canEditFreeResponse) {
       return (
         <FreeResponseInput
@@ -153,6 +180,10 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
+          <SavePracticeButton
+            addOrRemove={this.addOrRemovePracticeQuestion}
+            isSaved={Boolean(this.practiceQuestion)}
+            isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
