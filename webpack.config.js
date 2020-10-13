@@ -71,8 +71,9 @@ const config = {
       },
     }),
     new ManifestPlugin({
-      writeToDisk: true,
+      assets: process.env.RELEASE_VERSION ? { version: process.env.RELEASE_VERSION } : {},
       entrypoints: true,
+      writeToDisk: true,
       output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-assets.json` : 'assets.json',
     }),
 
