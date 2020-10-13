@@ -23,15 +23,15 @@ const StyledSavePracticeButton = styled.button`
     }
 `;
 
-const getIconAndLabel = (isSaved, isSaving) => {
-  if (isSaving) {
+const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
+  if (isSavingOrRemoving) {
     return (
       <>
         <Icon
           type='spinner'
           spin
           className="save-practice-icon" />
-        <span>Saving...</span>
+        <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
       </>
     );
   }
@@ -63,26 +63,25 @@ const getIconAndLabel = (isSaved, isSaving) => {
  * Creates a button that says "Save to practice" or "Remove from pratice" depending if the question was saved or not.
  * The state of the button is not controlled in this component because a student can click this button in a MPQ and save all of the questions in that MPQ.
  * Therefore we pass the `isSaved` prop to see if the question was saved, and `addOrRemove` function to call the api to remove or add the question to pratice.
- * @param {*} param0 
  */
-const SavePracticeButton = ({ disabled = false, isSaved = false, isSaving = false, addOrRemove }) => {
+const SavePracticeButton = ({ disabled = false, isSaved = false, isSavingOrRemoving = false, addOrRemove = null }) => {
   return (
     <>
       <StyledSavePracticeButton
-        disabled={disabled}
+        disabled={disabled || !addOrRemove}
         onClick={addOrRemove}
         isSaved={isSaved}
         className="save-practice-button"> 
-        {getIconAndLabel(isSaved, isSaving)}
+        {getIconAndLabel(isSaved, isSavingOrRemoving)}
       </StyledSavePracticeButton>
     </>
   );
 };
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,
-  isSaving: PropTypes.bool,
-  isSaved: PropTypes.bool.isRequired,
-  addOrRemove: PropTypes.func.isRequired,
+  isSavingOrRemoving: PropTypes.bool,
+  isSaved: PropTypes.bool,
+  addOrRemove: PropTypes.func,
 };
 
 export default SavePracticeButton;

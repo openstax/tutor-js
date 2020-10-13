@@ -56,7 +56,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @observable selectedAnswer = null;
-  @observable isSavingPracticeQuestion = false;
+  @observable isSavingOrRemovingPracticeQuestion = false;
 
   @computed get needsSaved() {
     const { step } = this.props;
@@ -101,7 +101,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @action.bound async addOrRemovePracticeQuestion() {
-    this.isSavingPracticeQuestion = true;
+    this.isSavingOrRemovingPracticeQuestion = true;
     if(this.practiceQuestion) {
       await this.practiceQuestion.destroy();
     }
@@ -109,7 +109,7 @@ class ExerciseQuestion extends React.Component {
       const { ux, step } = this.props;
       await ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
     }
-    this.isSavingPracticeQuestion = false;
+    this.isSavingOrRemovingPracticeQuestion = false;
   }
 
   @computed get answerId() {
@@ -183,7 +183,7 @@ class ExerciseQuestion extends React.Component {
           <SavePracticeButton
             addOrRemove={this.addOrRemovePracticeQuestion}
             isSaved={Boolean(this.practiceQuestion)}
-            isSaving={this.isSavingPracticeQuestion} />
+            isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
