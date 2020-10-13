@@ -101,11 +101,11 @@ class ExerciseQuestion extends React.Component {
   }
 
   @action.bound addOrRemovePracticeQuestion() {
-    if(this.isQuestionSaved) {
-      this.testId = 2;
+    if(this.practiceQuestion) {
+      this.practiceQuestion.remove();
     }
     else {
-      this.testId = 1;
+      this.props.ux.course.practiceQuestions.create({ tasked_exercise_id: this.props.step.tasked_id });
     }
   }
 
@@ -114,8 +114,8 @@ class ExerciseQuestion extends React.Component {
       this.selectedAnswer.id : this.props.step.answer_id;
   }
 
-  @computed get isQuestionSaved() {
-    return this.testId == 1;
+  @computed get practiceQuestion() {
+    return this.props.ux.course.practiceQuestions.array.find(pq => pq.tasked_exercise_id === this.props.step.tasked_id);
   }
 
   renderSaveButton() {
@@ -145,6 +145,8 @@ class ExerciseQuestion extends React.Component {
 
   render() {
     const { ux, question, step, ux: { course } } = this.props;
+    console.log(course);
+    console.log(step);
     const questionNumber = ux.questionNumberForStep(step);
     if (step.canEditFreeResponse) {
       return (
@@ -176,7 +178,7 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          <SavePracticeButton addOrRemove={this.addOrRemovePracticeQuestion} isSaved={this.isQuestionSaved} />
+          <SavePracticeButton addOrRemove={this.addOrRemovePracticeQuestion} isSaved={Boolean(this.practiceQuestion)} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
