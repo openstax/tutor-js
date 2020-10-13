@@ -19,7 +19,7 @@ const StyledWrapper = styled.div`
     }
 `;
 
-const EmptyPracticeQuestions = () => {
+const PracticeQuestionsEmptyList = () => {
   return <StyledWrapper>
     <div className="empty-practice-questions-content">
       <p>No questions have been saved for practice.</p>
@@ -29,4 +29,4 @@ const EmptyPracticeQuestions = () => {
   </StyledWrapper>;
 };
 
-export default EmptyPracticeQuestions;
+export default PracticeQuestionsEmptyList;

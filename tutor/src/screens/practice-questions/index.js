@@ -3,7 +3,7 @@ import { ScrollToTop } from 'shared';
 import Router from '../../helpers/router';
 import Header from '../../components/header';
 import UX from './ux';
-import EmptyPracticeQuestions from './empty-practice-questions';
+import PracticeQuestionsEmptyList from './empty-list';
 
 @withRouter
 @observer
@@ -35,7 +35,7 @@ class PracticeQuestions extends React.Component {
           backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
           backToText='Dashboard'
         />
-        <EmptyPracticeQuestions />
+        <PracticeQuestionsEmptyList />
       </ScrollToTop>
     );
 
