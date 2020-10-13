@@ -1,7 +1,7 @@
-import { isString, get, pick, extend } from 'lodash';
+import { extend } from 'lodash';
 import { computed, action } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, session,
+  BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
 export default
