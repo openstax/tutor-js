@@ -338,6 +338,7 @@ const StyledTopicHeader = styled.div`
     font-weight: 600;
     line-height: 30px;
     padding-top: 8px;
+    color: ${colors.dark_blue};
   }
 `;
 
