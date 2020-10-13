@@ -253,13 +253,13 @@ const CollapsedStudent = observer(({ ux, response, index }) => {
         ux.selectedStudentIndex = index;
     }}
     >
-      <StudentName ux={ux} student={response.student} />
+      <StudentName ux={ux} student={response.student} index={index} />
       <Points response={response} ux={ux} />
     </Box>);
 });
 
 
-const Student = observer(({ index, response, ux, ...props }) => {
+const Answer = observer(({ index, response, ux, ...props }) => {
   let Component;
   const { student } = response;
 
@@ -283,4 +283,4 @@ const Student = observer(({ index, response, ux, ...props }) => {
 });
 
 
-export default Student;
+export default Answer;
