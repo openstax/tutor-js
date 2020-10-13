@@ -56,7 +56,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @observable selectedAnswer = null;
-  @observable testId = 1;
+  @observable isSavingPracticeQuestion = false;
 
   @computed get needsSaved() {
     const { step } = this.props;
@@ -100,13 +100,16 @@ class ExerciseQuestion extends React.Component {
     ux.onAnswerContinue(step);
   }
 
-  @action.bound addOrRemovePracticeQuestion() {
+  @action.bound async addOrRemovePracticeQuestion() {
+    this.isSavingPracticeQuestion = true;
     if(this.practiceQuestion) {
-      this.practiceQuestion.remove();
+      await this.practiceQuestion.destroy();
     }
     else {
-      this.props.ux.course.practiceQuestions.create({ tasked_exercise_id: this.props.step.tasked_id });
+      const { ux, step } = this.props;
+      await ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
     }
+    this.isSavingPracticeQuestion = false;
   }
 
   @computed get answerId() {
@@ -115,7 +118,8 @@ class ExerciseQuestion extends React.Component {
   }
 
   @computed get practiceQuestion() {
-    return this.props.ux.course.practiceQuestions.array.find(pq => pq.tasked_exercise_id === this.props.step.tasked_id);
+    const { ux, step } = this.props;
+    return ux.course.practiceQuestions.findByUid(step.uid);
   }
 
   renderSaveButton() {
@@ -145,8 +149,6 @@ class ExerciseQuestion extends React.Component {
 
   render() {
     const { ux, question, step, ux: { course } } = this.props;
-    console.log(course);
-    console.log(step);
     const questionNumber = ux.questionNumberForStep(step);
     if (step.canEditFreeResponse) {
       return (
@@ -178,7 +180,10 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          <SavePracticeButton addOrRemove={this.addOrRemovePracticeQuestion} isSaved={Boolean(this.practiceQuestion)} />
+          <SavePracticeButton
+            addOrRemove={this.addOrRemovePracticeQuestion}
+            isSaved={Boolean(this.practiceQuestion)}
+            isSaving={this.isSavingPracticeQuestion} />
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>

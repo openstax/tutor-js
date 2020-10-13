@@ -23,20 +23,38 @@ const StyledSavePracticeButton = styled.button`
     }
 `;
 
-const getIcon = (isSaved) => {
+const getIconAndLabel = (isSaved, isSaving) => {
+  if (isSaving) {
+    return (
+      <>
+        <Icon
+          type='spinner'
+          spin
+          className="save-practice-icon" />
+        <span>Saving...</span>
+      </>
+    );
+  }
+  
+  if(isSaved) {
+    return (
+      <>
+        <Icon
+          type="minus"
+          color="white"
+          className="save-practice-icon"/>
+        <span>Remove from practice</span>
+      </>
+    );
+  }
+
   return (
     <>
-      {
-        isSaved
-          ? <Icon
-            type="minus"
-            color="white"
-            className="save-practice-icon"/>
-          : <Icon
-            type="plus"
-            color={colors.cerulan}
-            className="save-practice-icon"/>
-      }
+      <Icon
+        type="plus"
+        color={colors.cerulan}
+        className="save-practice-icon"/>
+      <span>Save to practice</span>
     </>
   );
 };
@@ -47,20 +65,22 @@ const getIcon = (isSaved) => {
  * Therefore we pass the `isSaved` prop to see if the question was saved, and `addOrRemove` function to call the api to remove or add the question to pratice.
  * @param {*} param0 
  */
-const SavePracticeButton = ({ disabled = false, isSaved, addOrRemove }) => {
+const SavePracticeButton = ({ disabled = false, isSaved = false, isSaving = false, addOrRemove }) => {
   return (
-    <StyledSavePracticeButton
-      disabled={disabled}
-      onClick={addOrRemove}
-      isSaved={isSaved}
-      className="save-practice-button"> 
-      {getIcon(isSaved)}
-      {isSaved ? 'Remove from' : 'Save to'} practice 
-    </StyledSavePracticeButton>
+    <>
+      <StyledSavePracticeButton
+        disabled={disabled}
+        onClick={addOrRemove}
+        isSaved={isSaved}
+        className="save-practice-button"> 
+        {getIconAndLabel(isSaved, isSaving)}
+      </StyledSavePracticeButton>
+    </>
   );
 };
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,
+  isSaving: PropTypes.bool,
   isSaved: PropTypes.bool.isRequired,
   addOrRemove: PropTypes.func.isRequired,
 };

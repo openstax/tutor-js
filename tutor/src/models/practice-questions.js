@@ -1,8 +1,5 @@
-import { action, observable, computed } from 'mobx';
-import { sortBy, values, find } from 'lodash';
-import {
-  BaseModel, identifiedBy, hasMany, session, identifier,
-} from 'shared/model';
+import { action } from 'mobx';
+import { find } from 'lodash';
 import Map from 'shared/model/map';
 import PracticeQuestion from './practice-questions/practice-question';
 
@@ -26,9 +23,9 @@ class PracticeQuestions extends Map {
     this.delete(question.id);
   }
 
-  @action findByUid(uid) {
+  findByUid(uid) {
     return find(this.array, ['uid', uid]);
-  };
+  }
 
   async create({ tasked_exercise_id }) {
     const question = new PracticeQuestion({
