@@ -23,8 +23,8 @@ class PracticeQuestions extends Map {
     this.delete(question.id);
   }
 
-  findByUid(uid) {
-    return find(this.array, ['uid', uid]);
+  @action findByExerciseId(exerciseId) {
+    return find(this.array, ['exercise_id', exerciseId]);
   }
 
   async create({ tasked_exercise_id }) {

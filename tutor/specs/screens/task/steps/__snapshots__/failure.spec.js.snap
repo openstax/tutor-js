@@ -10,6 +10,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "content": undefined,
       "correct_answer_id": undefined,
       "dropped_method": undefined,
+      "exercise_id": undefined,
       "external_url": undefined,
       "feedback_html": undefined,
       "formats": Array [],
@@ -29,6 +30,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "response_validation": Object {},
       "spy": Object {},
       "task": Object {},
+      "tasked_id": undefined,
       "type": undefined,
       "uid": undefined,
     }
