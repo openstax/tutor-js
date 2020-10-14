@@ -221,6 +221,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "type": "homework",
         },
         "task_association_name": "steps",
+        "tasked_id": undefined,
         "type": "exercise",
         "uid": "1@1",
       }
@@ -575,6 +576,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
             "type": "homework",
           },
           "task_association_name": "steps",
+          "tasked_id": undefined,
           "type": "exercise",
           "uid": "1@1",
         },

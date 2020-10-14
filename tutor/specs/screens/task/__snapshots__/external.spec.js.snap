@@ -55,6 +55,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "spy": Object {},
               "task": [Circular],
               "task_association_name": "steps",
+              "tasked_id": undefined,
               "type": "external_url",
               "uid": null,
             },

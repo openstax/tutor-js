@@ -72,6 +72,7 @@ exports[`Tasks Info matches snapshot 1`] = `
           "spy": Object {},
           "task": [Circular],
           "task_association_name": "steps",
+          "tasked_id": undefined,
           "type": "reading",
           "uid": null,
         },

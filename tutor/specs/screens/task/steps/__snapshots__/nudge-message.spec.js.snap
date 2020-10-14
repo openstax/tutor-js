@@ -351,6 +351,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "type": "homework",
       },
       "task_association_name": "steps",
+      "tasked_id": undefined,
       "type": "exercise",
       "uid": "1@1",
     }
@@ -716,6 +717,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "type": "homework",
       },
       "task_association_name": "steps",
+      "tasked_id": undefined,
       "type": "exercise",
       "uid": "1@1",
     }
@@ -1085,6 +1087,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "type": "homework",
       },
       "task_association_name": "steps",
+      "tasked_id": undefined,
       "type": "exercise",
       "uid": "1@1",
     }
@@ -1454,6 +1457,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "type": "homework",
       },
       "task_association_name": "steps",
+      "tasked_id": undefined,
       "type": "exercise",
       "uid": "1@1",
     }
@@ -1823,6 +1827,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "type": "homework",
       },
       "task_association_name": "steps",
+      "tasked_id": undefined,
       "type": "exercise",
       "uid": "1@1",
     }

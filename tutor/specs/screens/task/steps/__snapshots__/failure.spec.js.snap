@@ -29,6 +29,7 @@ exports[`Task Failure matches snapshot 1`] = `
       "response_validation": Object {},
       "spy": Object {},
       "task": Object {},
+      "tasked_id": undefined,
       "type": undefined,
       "uid": undefined,
     }
