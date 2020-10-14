@@ -17,6 +17,7 @@ const ExercisePreviewWrapper = observer((props) => {
         isSelected={props.getExerciseIsSelected(exercise)}
         exercise={exercise.content}
         extractedInfo={exercise}
+        questionType={props.questionType}
         onOverlayClick={props.onExerciseToggle}
         overlayActions={props.getExerciseActions(exercise)} />
     </TourAnchor>
@@ -30,6 +31,7 @@ ExercisePreviewWrapper.propTypes = {
   onExerciseToggle:       PropTypes.func.isRequired,
   getExerciseIsSelected:  PropTypes.func.isRequired,
   getExerciseActions:     PropTypes.func.isRequired,
+  questionType:           PropTypes.string,
 };
 
 export default ExercisePreviewWrapper;

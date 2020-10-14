@@ -37,6 +37,7 @@ class ExercisePreview extends React.Component {
     children:        PropTypes.node,
     isVerticallyTruncated: PropTypes.bool,
     questionFooters: PropTypes.object,
+    questionType:    PropTypes.string,
   };
 
   static defaultProps = {
@@ -128,7 +129,7 @@ class ExercisePreview extends React.Component {
                   choicesEnabled={false}
                   displayFormats={this.props.displayFormats}
                   show_all_feedback={this.props.displayFeedback}
-                  type="teacher-preview"
+                  type={this.props.questionType || 'teacher-preview'}
                 >
                   {this.props.questionFooters && this.props.questionFooters[index]}
                 </Question>
@@ -142,13 +143,16 @@ class ExercisePreview extends React.Component {
               </div>
             ))}
           </div>
-          <div className="exercise-tags">
-            {map(this.tags, (tag, index) => (
-              <span key={index} className="exercise-tag">
-                {tag.title}
-              </span>
-            ))}
-          </div>
+          {
+            this.props.questionType !== 'student-preview' &&
+            <div className="exercise-tags">
+              {map(this.tags, (tag, index) => (
+                <span key={index} className="exercise-tag">
+                  {tag.title}
+                </span>
+              ))}
+            </div>
+          }
         </Card.Body>
         {this.props.children && <Card.Footer>{this.renderFooter()}</Card.Footer>}
       </Card>

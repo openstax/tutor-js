@@ -1,5 +1,6 @@
 import { React, withRouter, observer, PropTypes } from 'vendor';
 import { ScrollToTop } from 'shared';
+import Loading from 'shared/components/loading-animation';
 import Router from '../../helpers/router';
 import Header from '../../components/header';
 import UX from './ux';
@@ -26,6 +27,16 @@ class PracticeQuestions extends React.Component {
     });
   }
 
+  renderComponent(ux) {
+    if(ux.isInitializing) {
+      return <Loading message="Loading your practice questions…" />;
+    }
+    if (ux.isPracticeQuestionsEmpty) {
+      return <PracticeQuestionsEmptyList />;
+    }
+    return <PracticeQuestionsList ux={ux} />;
+  }
+
   render() {
     const { ux } = this;
     return (
@@ -37,9 +48,7 @@ class PracticeQuestions extends React.Component {
           backToText='Dashboard'
         />
         {
-          ux.isPracticeQuestionsEmpty || ux.isExercisesLoading
-            ? <PracticeQuestionsEmptyList />
-            : <PracticeQuestionsList ux={ux} />
+          this.renderComponent(ux)
         }
       </ScrollToTop>
     );

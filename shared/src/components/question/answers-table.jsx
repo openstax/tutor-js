@@ -120,7 +120,7 @@ class AnswersTable extends React.Component {
     const { type, question, answer_id } = this.props;
     return (
       (question.formats.length > 1) &&
-        !['teacher-preview', 'teacher-review'].includes(type)
+        !['teacher-preview', 'teacher-review', 'student-preview'].includes(type)
     );
   };
 

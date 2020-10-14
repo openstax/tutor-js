@@ -1,9 +1,14 @@
-import { action, computed } from 'vendor';
+import { action, computed, observable } from 'vendor';
 import Courses from '../../models/courses-map';
 import Exercises from '../../models/exercises';
 
 export default class PracticeQuestionsUX {
+
+  @observable isInitializing = false;
+  @observable course;
+
   @action async initialize({ courseId }) {
+    this.isInitializing = true;
     this.course = Courses.get(courseId);
     await this.course.practiceQuestions.fetch();
     
@@ -14,14 +19,12 @@ export default class PracticeQuestionsUX {
           exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
         });
     }
+
+    this.isInitializing = false;
   }
 
   @computed get isPracticeQuestionsEmpty() {
     return this.course.practiceQuestions.isEmpty;
-  }
-
-  @computed get isExercisesLoading() {
-    return Exercises.api.isPending;
   }
 
   @computed get exercises() {
