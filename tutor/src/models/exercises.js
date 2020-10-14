@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find, uniq } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find, uniq, map } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -16,6 +16,10 @@ export class ExercisesMap extends Map {
 
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
+  }
+
+  @computed get uniqPageIds() {
+    return uniq(map(this.array, 'page.id'));
   }
 
   noneForPageIds(pageIds) {

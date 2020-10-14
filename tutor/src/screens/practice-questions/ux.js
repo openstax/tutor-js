@@ -8,11 +8,23 @@ export default class PracticeQuestionsUX {
     await this.course.practiceQuestions.fetch();
     
     if(!this.isPracticeQuestionsEmpty) {
-      await Exercises.fetch({ course: this.course, exercise_ids: [528] });
+      await this.course.referenceBook.ensureLoaded();
+      await Exercises.fetch(
+        { course: this.course,
+          exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
+        });
     }
   }
 
   @computed get isPracticeQuestionsEmpty() {
     return this.course.practiceQuestions.isEmpty;
+  }
+
+  @computed get isExercisesLoading() {
+    return Exercises.api.isPending;
+  }
+
+  @computed get exercises() {
+    return Exercises;
   }
 }

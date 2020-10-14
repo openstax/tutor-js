@@ -37,7 +37,7 @@ class PracticeQuestions extends React.Component {
           backToText='Dashboard'
         />
         {
-          ux.isPracticeQuestionsEmpty
+          ux.isPracticeQuestionsEmpty || ux.isExercisesLoading
             ? <PracticeQuestionsEmptyList />
             : <PracticeQuestionsList ux={ux} />
         }

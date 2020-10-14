@@ -1,36 +1,38 @@
-import { React, styled } from 'vendor';
-import { colors } from 'theme';
-import { ExercisePreview } from 'shared';
-import Exercises from '../../models/exercises';
+import { React, PropTypes } from 'vendor';
+import Course from '../../models/course';
+import ExerciseCards from '../../components/exercises/cards';
+import TourRegion from '../../components/tours/region';
+
+const ExerciseCardsWrapper = props => (
+  <TourRegion
+    id="question-library-exercises"
+    otherTours={['preview-question-library-exercises']}
+    course={props.course.id}
+  >
+    <ExerciseCards {...props} />
+  </TourRegion>
+);
+ExerciseCardsWrapper.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
 
 const PracticeQuestionsList = ({ ux }) => {
-//   const sharedProps = {
-//     exercises,
-//     course: this.props.course,
-//     book: this.props.course.referenceBook,
-//     pageIds: this.props.pageIds,
-//     onExerciseToggle: this.onExerciseToggle,
-//     getExerciseActions: this.getExerciseActions,
-//     getExerciseIsSelected: this.getExerciseIsSelected,
-//     topScrollOffset: 100,
-//   };
-  // const exercises = Exercises.array.map(ex => ex.content);
-  //Exercises.fetch({ course: ux.course, exercise_ids: [528] });
-  console.log(Exercises);
-  if(Exercises.isEmpty) return <div>dddd</div>;
-  //console.log(exercises);
+  const sharedProps = {
+    exercises: ux.exercises,
+    course: ux.course,
+    book: ux.course.referenceBook,
+    pageIds: ux.exercises.uniqPageIds,
+    onExerciseToggle: () => console.log(1),
+    getExerciseActions: () => console.log(1),
+    getExerciseIsSelected: () => console.log(1),
+    topScrollOffset: 100,
+  };
   return (
-    <ExercisePreview
-      key={1}
-      className="exercise-card"
-      isInteractive={false}
-      isVerticallyTruncated={true}
-      isSelected={false}
-      exercise={Exercises.array[0].content}
-      extractedInfo={Exercises.array[0]}
-      onOverlayClick={undefined}
-      overlayActions={undefined} />
-    // <div>list</div>
+    <ExerciseCardsWrapper
+      {...sharedProps}
+      watchEvent="change-exercise-"
+      focusedExercise={undefined}
+      onShowDetailsViewClick={undefined} />
   );
 };
 

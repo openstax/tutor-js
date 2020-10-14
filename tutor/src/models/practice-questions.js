@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { find } from 'lodash';
+import { find, map } from 'lodash';
 import Map from 'shared/model/map';
 import PracticeQuestion from './practice-questions/practice-question';
 
@@ -23,8 +23,12 @@ class PracticeQuestions extends Map {
     this.delete(question.id);
   }
 
-  @action findByExerciseId(exerciseId) {
-    return find(this.array, ['exercise_id', exerciseId]);
+  findByExerciseId(exerciseId) {
+    return find(this.array, ['exercise_id', parseInt(exerciseId, 10)]);
+  }
+
+  getAllExerciseIds() {
+    return map(this.array, a => a.exercise_id);
   }
 
   async create({ tasked_exercise_id }) {
