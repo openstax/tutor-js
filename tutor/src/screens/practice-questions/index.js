@@ -4,6 +4,7 @@ import Router from '../../helpers/router';
 import Header from '../../components/header';
 import UX from './ux';
 import PracticeQuestionsEmptyList from './empty-list';
+import PracticeQuestionsList from './list';
 
 @withRouter
 @observer
@@ -35,7 +36,11 @@ class PracticeQuestions extends React.Component {
           backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
           backToText='Dashboard'
         />
-        <PracticeQuestionsEmptyList />
+        {
+          ux.isPracticeQuestionsEmpty
+            ? <PracticeQuestionsEmptyList />
+            : <PracticeQuestionsList ux={ux} />
+        }
       </ScrollToTop>
     );
 
