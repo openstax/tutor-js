@@ -9,18 +9,13 @@ export default
 class PracticeQuestion extends BaseModel {
 
   @identifier id;
-  @field exercise_number;
-  @field exercise_version;
   @field tasked_exercise_id;
+  @field exercise_id;
   @field available;
 
   constructor(attrs = {}, map) {
     super(attrs);
     this.map = map;
-  }
-
-  @computed get uid() {
-    return `${this.exercise_number}@${this.exercise_version}`;
   }
 
   save() {
