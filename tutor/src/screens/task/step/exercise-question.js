@@ -119,7 +119,7 @@ class ExerciseQuestion extends React.Component {
 
   @computed get practiceQuestion() {
     const { ux, step } = this.props;
-    return ux.course.practiceQuestions.findByUid(step.uid);
+    return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
   }
 
   renderSaveButton() {
