@@ -51,6 +51,7 @@ exports[`Tasks Info matches snapshot 1`] = `
           },
           "correct_answer_id": undefined,
           "dropped_method": undefined,
+          "exercise_id": undefined,
           "external_url": null,
           "feedback_html": undefined,
           "formats": Array [],

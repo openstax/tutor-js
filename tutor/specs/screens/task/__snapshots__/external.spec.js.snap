@@ -34,6 +34,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
+              "exercise_id": undefined,
               "external_url": "http://freeda.info",
               "feedback_html": undefined,
               "formats": Array [],

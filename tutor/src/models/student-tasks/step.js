@@ -97,6 +97,7 @@ class StudentTaskStep extends BaseModel {
   @field published_points_without_lateness;
   @field published_late_work_point_penalty;
   @field tasked_id;
+  @field exercise_id;
 
   @field({ type: 'object' }) task;
   @observable content;
