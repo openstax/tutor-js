@@ -27,6 +27,10 @@ class PracticeQuestions extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.ux.clear();
+  }
+
   renderComponent(ux) {
     if(ux.isInitializing) {
       return <Loading message="Loading your practice questions…" />;

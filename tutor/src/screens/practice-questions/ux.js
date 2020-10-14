@@ -10,17 +10,25 @@ export default class PracticeQuestionsUX {
   @action async initialize({ courseId }) {
     this.isInitializing = true;
     this.course = Courses.get(courseId);
+    // not refreshing
     await this.course.practiceQuestions.fetch();
-    
     if(!this.isPracticeQuestionsEmpty) {
       await this.course.referenceBook.ensureLoaded();
       await Exercises.fetch(
-        { course: this.course,
+        { 
+          course: this.course,
           exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
         });
     }
-
     this.isInitializing = false;
+  }
+
+  /**
+   * Needs to clear the exercises when unmounting.
+   * Otherwise it will still have the same exercises even if students deletes from the assignments.
+   */
+  @action clear() {
+    Exercises.clear();
   }
 
   @computed get isPracticeQuestionsEmpty() {
