@@ -17,6 +17,11 @@ const Controls = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-flow: column wrap-reverse;
+  ${breakpoint.mobile`
+    button {
+      width: 50%;
+    }
+  `}
 
   > * {
     width: 25%;
@@ -180,11 +185,14 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          <SavePracticeButton
-            addOrRemove={this.addOrRemovePracticeQuestion}
-            isSaved={Boolean(this.practiceQuestion)}
-            isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion}
-            isMpq={Boolean(step.multiPartGroup)}/>
+          {
+            !ux.task.isPractice &&
+            <SavePracticeButton
+              addOrRemove={this.addOrRemovePracticeQuestion}
+              isSaved={Boolean(this.practiceQuestion)}
+              isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion}
+              isMpq={Boolean(step.multiPartGroup)}/>
+          }
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
