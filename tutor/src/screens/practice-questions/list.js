@@ -87,7 +87,7 @@ const PracticeQuestionsList = ({ ux }) => {
     }
     actions.delete = {
       message: 'Delete',
-      handler: () => console.log('delete'),
+      handler: () => ux.deletePracticeQuestion(exercise.id),
     };
 
     return actions;

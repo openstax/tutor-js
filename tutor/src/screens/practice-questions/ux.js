@@ -38,4 +38,16 @@ export default class PracticeQuestionsUX {
   @computed get exercises() {
     return Exercises;
   }
+
+  @action async deletePracticeQuestion(exerciseId) {
+    const a = this.course.practiceQuestions.findByExerciseId(exerciseId);
+    await a.destroy();
+    console.log(this.course.practiceQuestions);
+    await Exercises.fetch(
+      { 
+        course: this.course,
+        exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
+      });
+    console.log(Exercises);
+  }
 }
