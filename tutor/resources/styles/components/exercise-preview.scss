@@ -51,6 +51,16 @@
   }
 }
 
+// checkmark when user selects a question card in MPP screen
+.practice-questions-list {
+  .openstax-exercise-preview.has-actions {
+    .card-body {
+      .selected-student-preview-check:before {
+        background-image: url("../../images/icons/mpp-selected-question.svg");
+      }
+    }
+  }
+}
 
 .openstax-exercise-preview {
   @include book-content-interactives();

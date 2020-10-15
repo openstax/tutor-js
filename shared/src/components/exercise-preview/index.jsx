@@ -112,6 +112,10 @@ class ExercisePreview extends React.Component {
         {this.props.header && <Card.Header>{this.props.header}</Card.Header>}
         <Card.Body>
           {this.props.isSelected ? <div className="selected-mask" /> : undefined}
+          {
+            this.props.isSelected && this.props.questionType === 'student-preview'
+              ? <div className="selected-student-preview-check" /> : undefined
+          }
           <ControlsOverlay
             exercise={this.props.exercise}
             actions={this.props.overlayActions}

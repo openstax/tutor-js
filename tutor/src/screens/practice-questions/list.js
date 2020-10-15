@@ -10,26 +10,62 @@ const StyledExerciseCardsWrapper = styled.div`
   // to take into account the footer sticked at the bottom
   margin-bottom: 8rem;
   .exercise-cards {
-    & .exercise-sections {
+    .exercise-sections {
       margin-top: 6rem;
       label {
         margin-bottom: 2rem;
       }
     }
-    & .exercises {
+    .exercises {
       display: flex;
       flex-wrap: wrap;
       -webkit-box-pack: justify;
       justify-content: space-between;
       padding-bottom: 1.6rem;
-
       > div {
         flex: 0 1 49%;
         margin-bottom: 3.5rem;
-
         .openstax-answer {
           border-top: 0.1rem solid ${colors.neutral.pale};
           padding: 0.5rem 0;
+        }
+        .card-body {
+          .selected-mask {
+            background-color: #6abcce;
+            opacity: 0.14;
+          }
+          .selected-student-preview-check {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            :before {
+              content: "";
+              display: block;
+              margin-top: 8%;
+              margin-left: 90%;
+              background-size: 95%;
+              background-repeat: no-repeat;
+              height: 50px;
+              width: 50px;
+            }
+          }
+          .controls-overlay {
+            .message {
+              display: flex;
+              flex-flow: column;
+              .action.delete {
+                background-color: #929292;
+                height: 60px;
+                padding-top: 20px;
+                &:before {
+                  content: none;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -117,7 +153,7 @@ const PracticeQuestionsList = ({ ux }) => {
 
   return (
     <>
-      <StyledExerciseCardsWrapper>
+      <StyledExerciseCardsWrapper className="practice-questions-list">
         <ExerciseCards
           {...sharedProps}
           focusedExercise={undefined}
