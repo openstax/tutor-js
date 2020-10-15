@@ -10,7 +10,6 @@ export default class PracticeQuestionsUX {
   @action async initialize({ courseId }) {
     this.isInitializing = true;
     this.course = Courses.get(courseId);
-    // not refreshing
     await this.course.practiceQuestions.fetch();
     if(!this.isPracticeQuestionsEmpty) {
       await this.course.referenceBook.ensureLoaded();
@@ -23,16 +22,12 @@ export default class PracticeQuestionsUX {
     this.isInitializing = false;
   }
 
-  /**
-   * Needs to clear the exercises when unmounting.
-   * Otherwise it will still have the same exercises even if students deletes from the assignments.
-   */
-  @action clear() {
-    Exercises.clear();
+  @computed get practiceQuestions() {
+    return this.course.practiceQuestions;
   }
 
   @computed get isPracticeQuestionsEmpty() {
-    return this.course.practiceQuestions.isEmpty;
+    return this.practiceQuestions.isEmpty;
   }
 
   @computed get exercises() {
@@ -40,9 +35,17 @@ export default class PracticeQuestionsUX {
   }
 
   @action async deletePracticeQuestion(exerciseId) {
-    const practiceQuestion = this.course.practiceQuestions.findByExerciseId(exerciseId);
+    const practiceQuestion = this.practiceQuestions.findByExerciseId(exerciseId);
     await practiceQuestion.destroy();
     // after the practice question was deleted from the api, delete it from exercises also.
-    this.exercises.deleteByExerciseId(parseInt(exerciseId, 10));
+    this.exercises.deleteByExerciseId(exerciseId);
+  }
+
+  /**
+   * Needs to clear the exercises when unmounting.
+   * Otherwise it will still have the same exercises even if students deletes from the assignments.
+   */
+  @action clear() {
+    Exercises.clear();
   }
 }

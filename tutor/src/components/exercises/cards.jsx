@@ -20,13 +20,14 @@ const SectionLabel = styled.label`
 @observer
 class SectionsExercises extends React.Component {
   static propTypes = {
-    pageId:                 PropTypes.string.isRequired,
-    book:                   PropTypes.instanceOf(Book).isRequired,
-    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    getExerciseIsSelected:  PropTypes.func.isRequired,
-    getExerciseActions:     PropTypes.func.isRequired,
-    onShowDetailsViewClick: PropTypes.func,
-    onExerciseToggle:       PropTypes.func,
+    pageId:                     PropTypes.string.isRequired,
+    book:                       PropTypes.instanceOf(Book).isRequired,
+    exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
+    getExerciseIsSelected:      PropTypes.func.isRequired,
+    getExerciseActions:         PropTypes.func.isRequired,
+    getExerciseDisableMessage:  PropTypes.func,
+    onShowDetailsViewClick:     PropTypes.func,
+    onExerciseToggle:           PropTypes.func,
   };
 
   render() {
@@ -58,16 +59,17 @@ export default
 class ExerciseCards extends React.Component {
 
   static propTypes = {
-    pageIds:                ArrayOrMobxType.isRequired,
-    book:                   PropTypes.instanceOf(Book).isRequired,
-    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    getExerciseIsSelected:  PropTypes.func.isRequired,
-    getExerciseActions:     PropTypes.func.isRequired,
-    onExerciseToggle:       PropTypes.func,
-    onShowDetailsViewClick: PropTypes.func,
-    focusedExercise:        PropTypes.instanceOf(Exercise),
-    topScrollOffset:        PropTypes.number,
-    windowImpl:             PropTypes.object,
+    pageIds:                    ArrayOrMobxType.isRequired,
+    book:                       PropTypes.instanceOf(Book).isRequired,
+    exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
+    getExerciseIsSelected:      PropTypes.func.isRequired,
+    getExerciseActions:         PropTypes.func.isRequired,
+    getExerciseDisableMessage:  PropTypes.func,
+    onExerciseToggle:           PropTypes.func,
+    onShowDetailsViewClick:     PropTypes.func,
+    focusedExercise:            PropTypes.instanceOf(Exercise),
+    topScrollOffset:            PropTypes.number,
+    windowImpl:                 PropTypes.object,
   };
 
   static defaultProps = {

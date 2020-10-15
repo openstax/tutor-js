@@ -34,7 +34,8 @@ const StyledExerciseCardsWrapper = styled.div`
             background-color: #6abcce;
             opacity: 0.14;
           }
-          .selected-student-preview-check {
+          // checkmark when a question is selected
+          .selected-student-mpp-check {
             position: absolute;
             top: 0;
             right: 0;
@@ -83,11 +84,10 @@ const StyledFooterControls = styled.div`
     position: fixed;
     bottom: 0;
     justify-content: flex-end;
-
+    z-index: 1;
     button {
       padding: 1rem 3rem;
     }
-
      &&& {
        button + button {
         margin-left: 3.2rem;
@@ -133,6 +133,15 @@ const PracticeQuestionsList = ({ ux }) => {
     return some(selectedExerciseIds, se => se === exercise.id);
   };
 
+  const getExerciseDisableMessage = (exercise) => {
+    const practiceQuestion = ux.practiceQuestions.findByExerciseId(exercise.id);
+    
+    if(practiceQuestion && !practiceQuestion.available) {
+      return 'This question can be practiced after it has been graded';
+    }
+    return null;
+  };
+
   const clearSelection = () => {
     setSelectedExerciseIds([]);
   };
@@ -148,6 +157,7 @@ const PracticeQuestionsList = ({ ux }) => {
     pageIds: ux.exercises.uniqPageIds,
     getExerciseActions,
     getExerciseIsSelected,
+    getExerciseDisableMessage,
     topScrollOffset: 100,
   };
 
@@ -156,9 +166,7 @@ const PracticeQuestionsList = ({ ux }) => {
       <StyledExerciseCardsWrapper className="practice-questions-list">
         <ExerciseCards
           {...sharedProps}
-          focusedExercise={undefined}
-          questionType="student-preview"
-          onShowDetailsViewClick={undefined} />
+          questionType="student-mpp" />
       </StyledExerciseCardsWrapper>
       <StyledFooterControls>
         <Button

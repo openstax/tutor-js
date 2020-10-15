@@ -19,19 +19,26 @@ const ExercisePreviewWrapper = observer((props) => {
         extractedInfo={exercise}
         questionType={props.questionType}
         onOverlayClick={props.onExerciseToggle}
-        overlayActions={props.getExerciseActions(exercise)} />
+        overlayActions={props.getExerciseActions(exercise)}
+        disableMessage={
+          props.getExerciseDisableMessage
+            ? props.getExerciseDisableMessage(exercise)
+            : undefined
+        }
+      />
     </TourAnchor>
   );
 });
 
 ExercisePreviewWrapper.displayName = 'ExercisePreviewWrapper';
 ExercisePreviewWrapper.propTypes = {
-  exercise:               PropTypes.object.isRequired,
-  getExerciseIsSelected:  PropTypes.func.isRequired,
-  getExerciseActions:     PropTypes.func.isRequired,
-  onShowDetailsViewClick: PropTypes.func,
-  onExerciseToggle:       PropTypes.func,
-  questionType:           PropTypes.string,
+  exercise:                   PropTypes.object.isRequired,
+  getExerciseIsSelected:      PropTypes.func.isRequired,
+  getExerciseActions:         PropTypes.func.isRequired,
+  onShowDetailsViewClick:     PropTypes.func,
+  getExerciseDisableMessage:  PropTypes.func,
+  onExerciseToggle:           PropTypes.func,
+  questionType:               PropTypes.string,
 };
 
 export default ExercisePreviewWrapper;

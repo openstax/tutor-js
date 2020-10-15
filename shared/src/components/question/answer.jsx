@@ -141,7 +141,7 @@ class Answer extends React.Component {
     if (!hasCorrectAnswer
         && (type !== 'teacher-review')
         && (type !== 'teacher-preview')
-        && (type !== 'student-preview')) {
+        && (type !== 'student-mpp')) {
       ({ onChange } = this);
     }
 

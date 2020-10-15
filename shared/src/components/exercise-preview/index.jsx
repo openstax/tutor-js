@@ -38,6 +38,7 @@ class ExercisePreview extends React.Component {
     isVerticallyTruncated: PropTypes.bool,
     questionFooters: PropTypes.object,
     questionType:    PropTypes.string,
+    disableMessage:  PropTypes.string,
   };
 
   static defaultProps = {
@@ -103,6 +104,7 @@ class ExercisePreview extends React.Component {
       'is-displaying-feedback':  this.props.displayFeedback,
       'has-interactive':  info.hasInteractive,
     });
+    console.log(this.props.disableMessage);
     return (
       <Card
         className={classes}
@@ -113,13 +115,18 @@ class ExercisePreview extends React.Component {
         <Card.Body>
           {this.props.isSelected ? <div className="selected-mask" /> : undefined}
           {
-            this.props.isSelected && this.props.questionType === 'student-preview'
-              ? <div className="selected-student-preview-check" /> : undefined
+            this.props.isSelected && this.props.questionType === 'student-mpp'
+              ? <div className="selected-student-mpp-check" /> : undefined
           }
-          <ControlsOverlay
-            exercise={this.props.exercise}
-            actions={this.props.overlayActions}
-            onClick={this.props.onOverlayClick} />
+          {this.props.disableMessage
+            ? <div class="disabled-message">
+              <p>{this.props.disableMessage}</p>
+            </div>
+            : <ControlsOverlay
+              exercise={this.props.exercise}
+              actions={this.props.overlayActions}
+              onClick={this.props.onOverlayClick} />
+          }
           <div className="exercise-body">
             <ExerciseBadges multiPart={info.isMultiPart} video={info.hasVideo} interactive={info.hasInteractive} writtenResponse={info.isWrittenResponse} />
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
@@ -148,7 +155,7 @@ class ExercisePreview extends React.Component {
             ))}
           </div>
           {
-            this.props.questionType !== 'student-preview' &&
+            this.props.questionType !== 'student-mpp' &&
             <div className="exercise-tags">
               {map(this.tags, (tag, index) => (
                 <span key={index} className="exercise-tag">
