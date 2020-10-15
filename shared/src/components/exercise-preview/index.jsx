@@ -104,7 +104,6 @@ class ExercisePreview extends React.Component {
       'is-displaying-feedback':  this.props.displayFeedback,
       'has-interactive':  info.hasInteractive,
     });
-    console.log(this.props.disableMessage);
     return (
       <Card
         className={classes}

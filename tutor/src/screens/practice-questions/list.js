@@ -3,17 +3,30 @@ import { some, remove, isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import UX from './ux';
 
 const StyledExerciseCardsWrapper = styled.div`
   // to take into account the footer sticked at the bottom
   margin-bottom: 8rem;
+  ${breakpoint.tablet`
+    padding: 10px;
+    margin-bottom: 5.6rem;
+  `}
   .exercise-cards {
-    .exercise-sections {
+    .exercise-sections:first-child {
       margin-top: 6rem;
+      ${breakpoint.tablet`
+        margin-top: 1.5rem;
+      `}
+    }
+    .exercise-sections {
       label {
         margin-bottom: 2rem;
+        ${breakpoint.mobile`
+          font-size: 16px;
+          margin-bottom 1rem;
+        `}
       }
     }
     .exercises {
@@ -25,6 +38,9 @@ const StyledExerciseCardsWrapper = styled.div`
       > div {
         flex: 0 1 49%;
         margin-bottom: 3.5rem;
+        ${breakpoint.tablet`
+          flex: 0 1 100%;
+        `}
         .openstax-answer {
           border-top: 0.1rem solid ${colors.neutral.pale};
           padding: 0.5rem 0;
@@ -58,7 +74,7 @@ const StyledExerciseCardsWrapper = styled.div`
               display: flex;
               flex-flow: column;
               .action.delete {
-                background-color: #929292;
+                background-color: ${colors.neutral.lite};
                 height: 60px;
                 padding-top: 20px;
                 &:before {
@@ -85,12 +101,25 @@ const StyledFooterControls = styled.div`
     bottom: 0;
     justify-content: flex-end;
     z-index: 1;
-    button {
+    ${breakpoint.mobile`
+      height: 5.6rem;
+      justify-content: center;
+      padding: 0;
+    `}
+    .btn {
       padding: 1rem 3rem;
+      ${breakpoint.mobile`
+        padding: 1rem;
+        font-size: 1.4rem;
+        width: 40%;
+      `}
     }
      &&& {
-       button + button {
-        margin-left: 3.2rem;
+       .btn + .btn {
+          margin-left: 3.2rem;
+          ${breakpoint.mobile`
+            margin-left: 3rem;
+          `}
        }
     }
 `;
