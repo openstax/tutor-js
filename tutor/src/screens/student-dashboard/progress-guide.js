@@ -62,6 +62,12 @@ class ProgressGuideCards extends React.Component {
     );
   }
 
+  @action.bound viewMyPracticeQuestions() {
+    return this.props.history.push(
+      Router.makePathname('practiceQuestions', this.props)
+    );
+  }
+
   renderEmpty(sections) {
     return (
       <Card className="progress-guide empty">
@@ -113,6 +119,12 @@ class ProgressGuideCards extends React.Component {
             className="view-performance-forecast"
             role="link"
           >View All Topics</Button>
+          <Button
+            variant="outline-secondary"
+            onClick={this.viewMyPracticeQuestions}
+            className="view-my-practice-questions"
+            role="link"
+          >My Practice Questions</Button>
         </div>
       </Card>
     );
