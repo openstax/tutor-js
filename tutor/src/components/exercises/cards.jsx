@@ -23,10 +23,10 @@ class SectionsExercises extends React.Component {
     pageId:                 PropTypes.string.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
     exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    onShowDetailsViewClick: PropTypes.func.isRequired,
-    onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
     getExerciseActions:     PropTypes.func.isRequired,
+    onShowDetailsViewClick: PropTypes.func,
+    onExerciseToggle:       PropTypes.func,
   };
 
   render() {
@@ -61,10 +61,10 @@ class ExerciseCards extends React.Component {
     pageIds:                ArrayOrMobxType.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
     exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
     getExerciseActions:     PropTypes.func.isRequired,
-    onShowDetailsViewClick: PropTypes.func.isRequired,
+    onExerciseToggle:       PropTypes.func,
+    onShowDetailsViewClick: PropTypes.func,
     focusedExercise:        PropTypes.instanceOf(Exercise),
     topScrollOffset:        PropTypes.number,
     windowImpl:             PropTypes.object,

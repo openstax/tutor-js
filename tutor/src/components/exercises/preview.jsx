@@ -27,10 +27,10 @@ const ExercisePreviewWrapper = observer((props) => {
 ExercisePreviewWrapper.displayName = 'ExercisePreviewWrapper';
 ExercisePreviewWrapper.propTypes = {
   exercise:               PropTypes.object.isRequired,
-  onShowDetailsViewClick: PropTypes.func.isRequired,
-  onExerciseToggle:       PropTypes.func.isRequired,
   getExerciseIsSelected:  PropTypes.func.isRequired,
   getExerciseActions:     PropTypes.func.isRequired,
+  onShowDetailsViewClick: PropTypes.func,
+  onExerciseToggle:       PropTypes.func,
   questionType:           PropTypes.string,
 };
 

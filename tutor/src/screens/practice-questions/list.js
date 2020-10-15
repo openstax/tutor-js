@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { some, remove } from 'lodash';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
 import UX from './ux';
@@ -31,16 +33,53 @@ const StyledExerciseCardsWrapper = styled.div`
 `;
 
 const PracticeQuestionsList = ({ ux }) => {
+  const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
+
+  const getExerciseActions = (exercise) => {
+    let actions = {};
+
+    // if exercise is included, show the exclude button
+    if (getExerciseIsSelected(exercise)) {
+      actions.exclude = {
+        message: 'Exclude question',
+        handler: () => {
+          // need to make new copy to remove
+          const copyExerciseIds = selectedExerciseIds.slice();
+          remove(copyExerciseIds, se => se === exercise.id);
+          setSelectedExerciseIds(copyExerciseIds);
+        },
+      };
+    }
+    else {
+      actions.include = {
+        message: 'Include question',
+        handler: () => {
+          setSelectedExerciseIds([...selectedExerciseIds, exercise.id]);
+        },
+      };
+    }
+    actions.delete = {
+      message: 'Delete',
+      handler: () => console.log('delete'),
+    };
+
+    return actions;
+  };
+
+  const getExerciseIsSelected = (exercise) => {
+    return some(selectedExerciseIds, se => se === exercise.id);
+  };
+
   const sharedProps = {
     exercises: ux.exercises,
     course: ux.course,
     book: ux.course.referenceBook,
     pageIds: ux.exercises.uniqPageIds,
-    onExerciseToggle: () => console.log(1),
-    getExerciseActions: () => console.log(1),
-    getExerciseIsSelected: () => console.log(1),
+    getExerciseActions,
+    getExerciseIsSelected,
     topScrollOffset: 100,
   };
+
   return (
     <StyledExerciseCardsWrapper>
       <ExerciseCards
