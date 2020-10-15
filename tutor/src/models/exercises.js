@@ -141,8 +141,10 @@ export class ExercisesMap extends Map {
     });
   }
 
+  @action deleteByExerciseId(exerciseId) {
+    this._map.delete(exerciseId);
+  }
 }
-
 
 const exercisesMap = new ExercisesMap();
 

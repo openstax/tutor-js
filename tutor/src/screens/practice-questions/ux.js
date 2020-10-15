@@ -40,14 +40,9 @@ export default class PracticeQuestionsUX {
   }
 
   @action async deletePracticeQuestion(exerciseId) {
-    const a = this.course.practiceQuestions.findByExerciseId(exerciseId);
-    await a.destroy();
-    console.log(this.course.practiceQuestions);
-    await Exercises.fetch(
-      { 
-        course: this.course,
-        exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
-      });
-    console.log(Exercises);
+    const practiceQuestion = this.course.practiceQuestions.findByExerciseId(exerciseId);
+    await practiceQuestion.destroy();
+    // after the practice question was deleted from the api, delete it from exercises also.
+    this.exercises.deleteByExerciseId(parseInt(exerciseId, 10));
   }
 }
