@@ -1,4 +1,5 @@
 import { React, styled, PropTypes, css } from 'vendor';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
@@ -59,29 +60,55 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
   );
 };
 
+const mpqTooltip = (
+  <Tooltip id="mpq-practice-question-tooltip">
+      All parts get saved in a multi-part question.
+  </Tooltip>
+);
+
 /**
  * Creates a button that says "Save to practice" or "Remove from pratice" depending if the question was saved or not.
  * The state of the button is not controlled in this component because a student can click this button in a MPQ and save all of the questions in that MPQ.
  * Therefore we pass the `isSaved` prop to see if the question was saved, and `addOrRemove` function to call the api to remove or add the question to pratice.
  */
-const SavePracticeButton = ({ disabled = false, isSaved = false, isSavingOrRemoving = false, addOrRemove = null }) => {
-  return (
-    <>
-      <StyledSavePracticeButton
-        disabled={disabled || !addOrRemove}
-        onClick={addOrRemove}
-        isSaved={isSaved}
-        className="save-practice-button"> 
-        {getIconAndLabel(isSaved, isSavingOrRemoving)}
-      </StyledSavePracticeButton>
-    </>
+const SavePracticeButton = ({
+  disabled = false,
+  isSaved = false,
+  isSavingOrRemoving = false,
+  addOrRemove = null,
+  isMpq = false,
+}) => {
+
+  const savePracticeButton = (
+    <StyledSavePracticeButton
+      disabled={disabled || !addOrRemove}
+      onClick={addOrRemove}
+      isSaved={isSaved}
+      className="save-practice-button"> 
+      {getIconAndLabel(isSaved, isSavingOrRemoving)}
+    </StyledSavePracticeButton>
   );
+
+  // return button with mpq tooltip info
+  // only after the question was saved
+  if(isMpq && isSaved) {
+    return(
+      <OverlayTrigger
+        placement="right"
+        overlay={mpqTooltip}
+        delay={{ show: 50, hide: 150 }}>
+        {savePracticeButton}
+      </OverlayTrigger>
+    );
+  }
+  return savePracticeButton;
 };
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,
   isSavingOrRemoving: PropTypes.bool,
   isSaved: PropTypes.bool,
   addOrRemove: PropTypes.func,
+  isMpq: PropTypes.bool,
 };
 
 export default SavePracticeButton;

@@ -183,7 +183,8 @@ class ExerciseQuestion extends React.Component {
           <SavePracticeButton
             addOrRemove={this.addOrRemovePracticeQuestion}
             isSaved={Boolean(this.practiceQuestion)}
-            isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion} />
+            isSavingOrRemoving={this.isSavingOrRemovingPracticeQuestion}
+            isMpq={Boolean(step.multiPartGroup)}/>
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
