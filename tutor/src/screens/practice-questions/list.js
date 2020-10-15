@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { some, remove } from 'lodash';
+import { useState } from 'react';
+import { some, remove, isEmpty } from 'lodash';
+import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
+import { colors } from 'theme';
 import UX from './ux';
 
 const StyledExerciseCardsWrapper = styled.div`
+  // to take into account the footer sticked at the bottom
+  margin-bottom: 8rem;
   .exercise-cards {
     & .exercise-sections {
       margin-top: 6rem;
@@ -24,12 +28,35 @@ const StyledExerciseCardsWrapper = styled.div`
         margin-bottom: 3.5rem;
 
         .openstax-answer {
-          border-top: 1px solid #d5d5d5;
-          padding: 5px 0;
+          border-top: 0.1rem solid ${colors.neutral.pale};
+          padding: 0.5rem 0;
         }
       }
     }
   }
+`;
+
+const StyledFooterControls = styled.div`
+    display: flex;
+    width: 100%;
+    height: 8rem;
+    padding: 1.5rem 3.5rem;
+    background-color: white;
+    border-top: 2px solid ${colors.neutral.pale};
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    justify-content: flex-end;
+
+    button {
+      padding: 1rem 3rem;
+    }
+
+     &&& {
+       button + button {
+        margin-left: 3.2rem;
+       }
+    }
 `;
 
 const PracticeQuestionsList = ({ ux }) => {
@@ -70,6 +97,14 @@ const PracticeQuestionsList = ({ ux }) => {
     return some(selectedExerciseIds, se => se === exercise.id);
   };
 
+  const clearSelection = () => {
+    setSelectedExerciseIds([]);
+  };
+
+  const startPractice = () => {
+    console.log('start practice');
+  };
+
   const sharedProps = {
     exercises: ux.exercises,
     course: ux.course,
@@ -81,13 +116,29 @@ const PracticeQuestionsList = ({ ux }) => {
   };
 
   return (
-    <StyledExerciseCardsWrapper>
-      <ExerciseCards
-        {...sharedProps}
-        focusedExercise={undefined}
-        questionType="student-preview"
-        onShowDetailsViewClick={undefined} />
-    </StyledExerciseCardsWrapper>
+    <>
+      <StyledExerciseCardsWrapper>
+        <ExerciseCards
+          {...sharedProps}
+          focusedExercise={undefined}
+          questionType="student-preview"
+          onShowDetailsViewClick={undefined} />
+      </StyledExerciseCardsWrapper>
+      <StyledFooterControls>
+        <Button
+          variant="default"
+          disabled={isEmpty(selectedExerciseIds)}
+          onClick={clearSelection}>
+              Clear Selection
+        </Button>
+        <Button
+          variant="primary"
+          disabled={isEmpty(selectedExerciseIds)}
+          onClick={startPractice}>
+            Start Practice
+        </Button>
+      </StyledFooterControls>
+    </>
   );
 };
 PracticeQuestionsList.propTypes = {
