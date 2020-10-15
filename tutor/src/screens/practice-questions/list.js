@@ -16,7 +16,7 @@ const StyledExerciseCardsWrapper = styled.div`
   .exercise-cards {
     // ipad pro
     @media only screen and (max-width:1024px) {
-      margin: 2rem;
+      margin: 0.5rem;
     }
     .exercise-sections:first-child {
       margin-top: 6rem;
@@ -179,9 +179,7 @@ const PracticeQuestionsList = ({ ux }) => {
     setSelectedExerciseIds([]);
   };
 
-  const startPractice = () => {
-    console.log('start practice');
-  };
+  const startPractice = () => {};
 
   const sharedProps = {
     exercises: ux.exercises,
