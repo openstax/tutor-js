@@ -14,6 +14,10 @@ const StyledExerciseCardsWrapper = styled.div`
     margin-bottom: 5.6rem;
   `}
   .exercise-cards {
+    // ipad pro
+    @media only screen and (max-width:1024px) {
+      margin: 2rem;
+    }
     .exercise-sections:first-child {
       margin-top: 6rem;
       ${breakpoint.tablet`
