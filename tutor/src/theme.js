@@ -46,7 +46,7 @@ const tasks = {
   event:    colorDefinitions.secondary,
   failure:  colorDefinitions.danger,
 };
-tasks.practice_worst_topics = tasks.page_practice = tasks.homework;
+tasks.practice_worst_topics = tasks.page_practice = tasks.practice_saved = tasks.homework;
 
 export const colors = {
   ...colorDefinitions,
@@ -138,7 +138,7 @@ export const colors = {
     },
   },
 };
-colors.templates.practice_worst_topics = colors.templates.page_practice = colors.templates.homework;
+colors.templates.practice_worst_topics = colors.templates.page_practice = colors.templates.practice_saved = colors.templates.homework;
 
 export const fonts = {
   faces: {
