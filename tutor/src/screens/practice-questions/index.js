@@ -17,6 +17,7 @@ class PracticeQuestions extends React.Component {
     params: PropTypes.shape({
       courseId: PropTypes.string.isRequired,
     }),
+    history: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -31,14 +32,16 @@ class PracticeQuestions extends React.Component {
     this.ux.clear();
   }
 
-  renderComponent(ux) {
+  renderComponent() {
+    const { ux } = this;
+    const { history } = this.props;
     if(ux.isInitializing) {
       return <Loading message="Loading your practice questions…" />;
     }
     if (ux.isPracticeQuestionsEmpty) {
       return <PracticeQuestionsEmptyList />;
     }
-    return <PracticeQuestionsList ux={ux} />;
+    return <PracticeQuestionsList ux={ux} history={history} />;
   }
 
   render() {
@@ -52,13 +55,11 @@ class PracticeQuestions extends React.Component {
           backToText='Dashboard'
         />
         {
-          this.renderComponent(ux)
+          this.renderComponent()
         }
       </ScrollToTop>
     );
-
   }
 }
-
 
 export default PracticeQuestions;

@@ -3,6 +3,8 @@ import { some, remove, isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
+import Router from '../../helpers/router';
+import { PRACTICE } from '../../models/student-tasks';
 import { colors, breakpoint } from 'theme';
 import UX from './ux';
 
@@ -128,7 +130,7 @@ const StyledFooterControls = styled.div`
     }
 `;
 
-const PracticeQuestionsList = ({ ux }) => {
+const PracticeQuestionsList = ({ ux, history }) => {
   const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
 
   const getExerciseActions = (exercise) => {
@@ -169,7 +171,7 @@ const PracticeQuestionsList = ({ ux }) => {
   const getExerciseDisableMessage = (exercise) => {
     const practiceQuestion = ux.practiceQuestions.findByExerciseId(exercise.id);
     
-    if(practiceQuestion && !practiceQuestion.available) {
+    if(practiceQuestion && practiceQuestion.available) {
       return 'This question can be practiced after it has been graded';
     }
     return null;
@@ -179,7 +181,20 @@ const PracticeQuestionsList = ({ ux }) => {
     setSelectedExerciseIds([]);
   };
 
-  const startPractice = () => {};
+  const startPractice = () => {
+    return history.push(
+      Router.makePathname(
+        'practiceTopics',
+        { courseId: ux.course.id },
+        { 
+          query: { 
+            type: PRACTICE.SAVED,
+            practice_question_ids: selectedExerciseIds,
+          },
+        }
+      )
+    );
+  };
 
   const sharedProps = {
     exercises: ux.exercises,
@@ -218,6 +233,7 @@ const PracticeQuestionsList = ({ ux }) => {
 };
 PracticeQuestionsList.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default PracticeQuestionsList;

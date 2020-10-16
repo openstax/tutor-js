@@ -3,6 +3,11 @@ import Map from 'shared/model/map';
 import StudentTask from './student-tasks/task';
 import StudentTaskStep from './student-tasks/step';
 
+const PRACTICE = {
+  WORST: 'worst',
+  SAVED: 'saved',
+};
+
 class StudentTasks extends Map {
 
   static Model = StudentTask;
@@ -21,16 +26,27 @@ class StudentTasks extends Map {
     return task;
   }
 
-  practice({ page_ids }, { pattern }) {
+  practice(query, interceptor) {
     const req = {
       courseId: this.course.id,
-      data: { page_ids },
     };
-    if (isEmpty(page_ids)) {
-      req.pattern = pattern + '/worst';
+    
+    if (query.type === PRACTICE.WORST) {
+      req.data = {
+        page_ids: query.page_ids,
+      };
+      if (isEmpty(query.page_ids)) {
+        req.pattern = interceptor.pattern + '/worst';
+      }
+    }
+    else if (query.type === PRACTICE.SAVED) {
+      req.data = {
+        practice_question_ids: query.practice_question_ids,
+      };
+      req.pattern = interceptor.pattern + '/saved';
     }
     return req;
   }
 }
 
-export { StudentTasks, StudentTask, StudentTaskStep };
+export { StudentTasks, StudentTask, StudentTaskStep, PRACTICE };
