@@ -483,6 +483,7 @@ class TeacherTaskPlan extends BaseModel {
   onApiRequestComplete({ data }) {
     this.api.errors = {};
     this.update(data);
+    this.is_publish_requested = false;
     this.unmodified_plans = data.tasking_plans;
   }
 
