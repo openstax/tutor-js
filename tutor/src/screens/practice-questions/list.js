@@ -171,7 +171,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
   const getExerciseDisableMessage = (exercise) => {
     const practiceQuestion = ux.practiceQuestions.findByExerciseId(exercise.id);
     
-    if(practiceQuestion && practiceQuestion.available) {
+    if(practiceQuestion && !practiceQuestion.available) {
       return 'This question can be practiced after it has been graded';
     }
     return null;
