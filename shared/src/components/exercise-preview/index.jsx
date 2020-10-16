@@ -118,7 +118,7 @@ class ExercisePreview extends React.Component {
               ? <div className="selected-student-mpp-check" /> : undefined
           }
           {this.props.disableMessage
-            ? <div class="disabled-message">
+            ? <div className="disabled-message">
               <p>{this.props.disableMessage}</p>
             </div>
             : <ControlsOverlay

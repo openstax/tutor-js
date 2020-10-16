@@ -29,6 +29,8 @@ class PracticeQuestion extends BaseModel {
   @action onSaved({ data }) {
     this.update(data);
     if (!this.map.get(this.id)) {
+      // delete the pending key, and set the new one with its id and the data
+      this.map.delete('pending');
       this.map.set(this.id, this);
     }
   }

@@ -1,4 +1,4 @@
-import { React, styled, PropTypes, css } from 'vendor';
+import { React, styled, PropTypes, css, useObserver } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
@@ -35,8 +35,7 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
         <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
       </>
     );
-  }
-  
+  } 
   if(isSaved) {
     return (
       <>
@@ -66,32 +65,59 @@ const mpqTooltip = (
   </Tooltip>
 );
 
-/**
- * Creates a button that says "Save to practice" or "Remove from pratice" depending if the question was saved or not.
- * The state of the button is not controlled in this component because a student can click this button in a MPQ and save all of the questions in that MPQ.
- * Therefore we pass the `isSaved` prop to see if the question was saved, and `addOrRemove` function to call the api to remove or add the question to pratice.
- */
 const SavePracticeButton = ({
   disabled = false,
-  isSaved = false,
-  isSavingOrRemoving = false,
-  addOrRemove = null,
-  isMpq = false,
-}) => {
+  practiceQuestions = undefined,
+  taskStep = undefined,
+}) => useObserver(() => {
+
+  const saveOrRemovePracticeQuestion = () => {
+    const practiceQuestion = getPracticeQuestion();
+    if(practiceQuestion) {
+      practiceQuestion.destroy();
+    }
+    else {
+      practiceQuestions.create({ tasked_exercise_id: taskStep.tasked_id });
+    }
+  };
+
+  const getPracticeQuestion = () => {
+    return practiceQuestions.findByExerciseId(taskStep.exercise_id);
+  };
+
+  const isSaved = () => {
+    return Boolean(getPracticeQuestion());
+  };
+
+  const isMpq = () => {
+    return Boolean(taskStep && taskStep.multiPartGroup);
+  };
 
   const savePracticeButton = (
-    <StyledSavePracticeButton
-      disabled={disabled || !addOrRemove}
-      onClick={addOrRemove}
-      isSaved={isSaved}
-      className="save-practice-button"> 
-      {getIconAndLabel(isSaved, isSavingOrRemoving)}
-    </StyledSavePracticeButton>
+    <>
+      {
+        disabled
+          ? (
+            <StyledSavePracticeButton
+              disabled={disabled}
+              className="save-practice-button"> 
+              {getIconAndLabel()}
+            </StyledSavePracticeButton>
+          )
+          : (
+            <StyledSavePracticeButton
+              onClick={saveOrRemovePracticeQuestion}
+              isSaved={isSaved()}
+              className="save-practice-button"> 
+              {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
+            </StyledSavePracticeButton>
+          )
+      }
+    </>
   );
-
   // return button with mpq tooltip info
   // only after the question was saved
-  if(isMpq && isSaved) {
+  if(isMpq() && isSaved()) {
     return(
       <OverlayTrigger
         placement="right"
@@ -102,13 +128,11 @@ const SavePracticeButton = ({
     );
   }
   return savePracticeButton;
-};
+});
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,
-  isSavingOrRemoving: PropTypes.bool,
-  isSaved: PropTypes.bool,
-  addOrRemove: PropTypes.func,
-  isMpq: PropTypes.bool,
+  practiceQuestions: PropTypes.object,
+  taskStep: PropTypes.object,
 };
 
 export default SavePracticeButton;
