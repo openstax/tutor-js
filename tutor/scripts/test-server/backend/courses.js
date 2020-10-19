@@ -10,7 +10,12 @@ module.exports = {
     return res.json(course);
   },
 
+  getPracticeQuestions(req, res) {
+    return res.json([]);
+  },
+
   route(server) {
     server.put('/api/courses/:id', this.put);
+    server.get('/api/courses/:id/practice_questions', this.getPracticeQuestions);
   },
 };
