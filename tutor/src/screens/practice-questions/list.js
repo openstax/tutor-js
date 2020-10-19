@@ -7,6 +7,7 @@ import Router from '../../helpers/router';
 import { PRACTICE } from '../../models/student-tasks';
 import { colors, breakpoint } from 'theme';
 import UX from './ux';
+import DeleteQuestionModal from './delete-modal';
 
 const StyledExerciseCardsWrapper = styled.div`
   // to take into account the footer sticked at the bottom
@@ -132,6 +133,7 @@ const StyledFooterControls = styled.div`
 
 const PracticeQuestionsList = ({ ux, history }) => {
   const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
+  const [exerciseToBeDeleted, setExerciseToBeDeleted] = useState(null);
 
   const getExerciseActions = (exercise) => {
     let actions = {};
@@ -158,9 +160,8 @@ const PracticeQuestionsList = ({ ux, history }) => {
     }
     actions.delete = {
       message: 'Delete',
-      handler: () => ux.deletePracticeQuestion(exercise.id),
+      handler: () => setExerciseToBeDeleted(exercise),
     };
-
     return actions;
   };
 
@@ -233,6 +234,13 @@ const PracticeQuestionsList = ({ ux, history }) => {
             Start Practice
         </Button>
       </StyledFooterControls>
+      { exerciseToBeDeleted && 
+        <DeleteQuestionModal
+          onDelete={() => {
+            ux.deletePracticeQuestion(exerciseToBeDeleted.id);
+            setExerciseToBeDeleted(null);
+          }}
+          onCancel={() => setExerciseToBeDeleted(null)}/> }
     </>
   );
 };
