@@ -1,25 +1,44 @@
 import { action, computed, observable } from 'vendor';
 import Courses from '../../models/courses-map';
 import Exercises from '../../models/exercises';
+import Router from '../../helpers/router';
 
 export default class PracticeQuestionsUX {
 
   @observable isInitializing = false;
   @observable course;
 
-  @action async initialize({ courseId }) {
+  @action async initialize({ courseId, history }) {
     this.isInitializing = true;
     this.course = Courses.get(courseId);
-    await this.course.practiceQuestions.fetch();
+    
+    // if existing practice exists, it will redirect to that practice step
+    await this.checkExistingPractice(history);
+    
+    await this.practiceQuestions.fetch();
     if(!this.isPracticeQuestionsEmpty) {
       await this.course.referenceBook.ensureLoaded();
       await Exercises.fetch(
         { 
           course: this.course,
-          exercise_ids: this.course.practiceQuestions.getAllExerciseIds(), 
+          exercise_ids: this.practiceQuestions.getAllExerciseIds(), 
         });
     }
     this.isInitializing = false;
+  }
+
+  async checkExistingPractice(history) {
+    await this.practiceQuestions.checkExisting();
+    
+    if(this.practiceQuestions.current_task_id) {
+      history.push(
+        Router.makePathname(
+          'viewTask',
+          { courseId: this.course.id, 
+            id: this.practiceQuestions.current_task_id,
+          }
+        ));
+    }
   }
 
   @computed get practiceQuestions() {

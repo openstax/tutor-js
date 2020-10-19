@@ -25,6 +25,7 @@ class PracticeQuestions extends React.Component {
     this.ux = new UX();
     this.ux.initialize({
       courseId: props.params.courseId,
+      history: props.history,
     });
   }
 

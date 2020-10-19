@@ -1,10 +1,13 @@
 import { action, computed } from 'mobx';
 import { find, map } from 'lodash';
 import Map from 'shared/model/map';
+import { field } from 'shared/model';
 import PracticeQuestion from './practice-questions/practice-question';
 
 class PracticeQuestions extends Map {
   static Model = PracticeQuestion
+
+  @field current_task_id;
 
   constructor({ course }) {
     super();
@@ -15,8 +18,16 @@ class PracticeQuestions extends Map {
     return { courseId: this.course.id };
   }
 
+  checkExisting() {
+    return { courseId: this.course.id };
+  }
+
   @action onLoaded({ data: questions }) {
     this.mergeModelData(questions);
+  }
+
+  @action onFoundExistingPractice({ data }) {
+    this.current_task_id = data.id;
   }
 
   @action onQuestionDeleted(question) {

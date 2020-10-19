@@ -191,6 +191,10 @@ const startAPI = function() {
     pattern: 'courses/{courseId}/practice_questions',
     onSuccess: 'onLoaded',
   });
+  connectModelRead(PracticeQuestions, 'checkExisting', {
+    pattern: 'courses/{courseId}/practice/saved',
+    onSuccess: 'onFoundExistingPractice',
+  });
   connectModelCreate(PracticeQuestion, 'save', {
     method: 'POST',
     pattern: 'courses/{courseId}/practice_questions',
