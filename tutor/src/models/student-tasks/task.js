@@ -40,6 +40,7 @@ class StudentTask extends BaseModel {
   @computed get isEvent() { return 'event' === this.type; }
   @computed get isExternal() { return 'external' === this.type; }
   @computed get isPractice() { return this.type && this.type.includes('practice'); }
+  @computed get isSavedPractice() { return this.type && this.type === 'practice_saved'; }
   @observable isLoading = false
 
   @computed get publishedLateWorkPenalty() {
