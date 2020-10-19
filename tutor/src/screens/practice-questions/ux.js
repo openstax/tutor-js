@@ -34,13 +34,6 @@ export default class PracticeQuestionsUX {
     return Exercises;
   }
 
-  @action async deletePracticeQuestion(exerciseId) {
-    const practiceQuestion = this.practiceQuestions.findByExerciseId(exerciseId);
-    await practiceQuestion.destroy();
-    // after the practice question was deleted from the api, delete it from exercises also.
-    this.exercises.deleteByExerciseId(exerciseId);
-  }
-
   /**
    * Needs to clear the exercises when unmounting.
    * Otherwise it will still have the same exercises even if students deletes from the assignments.

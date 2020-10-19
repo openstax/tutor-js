@@ -202,6 +202,13 @@ const PracticeQuestionsList = ({ ux, history }) => {
       ));
   };
 
+  const deletePracticeQuestion = async (exerciseId) => {
+    const practiceQuestion = ux.practiceQuestions.findByExerciseId(exerciseId);
+    await practiceQuestion.destroy();
+    // after the practice question was deleted from the api, delete it from exercises also.
+    ux.exercises.deleteByExerciseId(exerciseId);
+  };
+
   const sharedProps = {
     exercises: ux.exercises,
     course: ux.course,
@@ -237,7 +244,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
       { exerciseToBeDeleted && 
         <DeleteQuestionModal
           onDelete={() => {
-            ux.deletePracticeQuestion(exerciseToBeDeleted.id);
+            deletePracticeQuestion(exerciseToBeDeleted.id);
             setExerciseToBeDeleted(null);
           }}
           onCancel={() => setExerciseToBeDeleted(null)}/> }
