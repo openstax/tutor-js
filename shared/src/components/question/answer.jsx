@@ -134,7 +134,7 @@ class Answer extends React.Component {
     const classes = cn('answers-answer', {
       'disabled': disabled,
       'answer-checked': isChecked,
-      'answer-correct': isCorrect,
+      'answer-correct': isCorrect && type !== 'student-mpp',
     }
     );
 

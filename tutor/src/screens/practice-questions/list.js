@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { some, remove, isEmpty } from 'lodash';
+import { some, remove, isEmpty, uniq, map, compact } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
@@ -182,6 +182,12 @@ const PracticeQuestionsList = ({ ux, history }) => {
   };
 
   const startPractice = () => {
+    const practiceQuestionIds = compact(
+      uniq(map(selectedExerciseIds, eid => {
+        const pq = ux.practiceQuestions.findByExerciseId(eid);
+        return pq ? pq.id : null;
+      })));
+
     return history.push(
       Router.makePathname(
         'practiceTopics',
@@ -189,11 +195,10 @@ const PracticeQuestionsList = ({ ux, history }) => {
         { 
           query: { 
             type: PRACTICE.SAVED,
-            practice_question_ids: selectedExerciseIds,
+            practice_question_ids: practiceQuestionIds,
           },
         }
-      )
-    );
+      ));
   };
 
   const sharedProps = {
