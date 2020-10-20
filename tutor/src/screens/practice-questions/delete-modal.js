@@ -65,7 +65,8 @@ const DeleteQuestionModal = observer(({ onDelete, onCancel }) => {
 });
 
 DeleteQuestionModal.propTypes = {
-  ux: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default DeleteQuestionModal;

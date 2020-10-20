@@ -209,7 +209,8 @@ const PracticeQuestionsList = ({ ux, history }) => {
     ux.exercises.deleteByExerciseId(exerciseId);
   };
 
-  const sharedProps = {
+  const exerciseCardProps = {
+    questionType: 'student-mpp',
     exercises: ux.exercises,
     course: ux.course,
     book: ux.course.referenceBook,
@@ -223,9 +224,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
   return (
     <>
       <StyledExerciseCardsWrapper className="practice-questions-list">
-        <ExerciseCards
-          {...sharedProps}
-          questionType="student-mpp" />
+        <ExerciseCards {...exerciseCardProps}/>
       </StyledExerciseCardsWrapper>
       <StyledFooterControls>
         <Button
@@ -241,7 +240,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
             Start Practice
         </Button>
       </StyledFooterControls>
-      { exerciseToBeDeleted && 
+      {exerciseToBeDeleted && 
         <DeleteQuestionModal
           onDelete={() => {
             deletePracticeQuestion(exerciseToBeDeleted.id);
@@ -252,7 +251,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
   );
 };
 PracticeQuestionsList.propTypes = {
-  ux: PropTypes.instanceOf(UX).isRequired,
+  ux: PropTypes.instanceOf(UX),
   history: PropTypes.object.isRequired,
 };
 
