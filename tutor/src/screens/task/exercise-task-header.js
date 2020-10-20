@@ -117,7 +117,7 @@ const headerContent = (ux) => {
           <StyledExitPracticeButton
             variant="default"
             className="btn-standard btn-inline"
-            onClick={() => console.log('exit practice')}>
+            onClick={ux.onExitPractice}>
             Exit Practice
           </StyledExitPracticeButton>
         }

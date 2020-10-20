@@ -209,7 +209,11 @@ const startAPI = function() {
     onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
     query() { return { course_id: this.course.id }; },
   });
-
+  connectModelUpdate(StudentTask, 'exit', {
+    method: 'PUT',
+    pattern: 'courses/{courseId}/practice/{id}/exit',
+    query() { return { courseId: this.course.id }; },
+  });
   connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', onFail: 'setApiErrors', pattern: 'steps/{id}',
     query() { return { task_id: this.task.id, course_id: this.task.course.id }; },

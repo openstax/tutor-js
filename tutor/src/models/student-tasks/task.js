@@ -121,4 +121,8 @@ class StudentTask extends BaseModel {
     }
     this.steps.forEach(s => s.task = this);
   }
+
+  exit() { 
+    return { courseId: this.course.id };
+  }
 }
