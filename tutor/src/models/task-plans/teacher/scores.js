@@ -108,6 +108,19 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
     return UNWORKED;
   }
+
+  /**
+   * If question is dropped with full points but student has not attempted the question yet, show 0
+   */
+  @computed get droppedQuestionPoints() {
+    const droppedQuestion = this.questionHeading.dropped;
+    if(droppedQuestion) {
+      return droppedQuestion.drop_method == 'zeroed' || !this.is_completed
+        ? 0
+        : this.availablePointsWithoutDropping;
+    }
+    return 0;
+  }
 }
 
 @identifiedBy('task-plan/scores/student')
@@ -220,6 +233,7 @@ class TaskPlanScoreHeading extends BaseModel {
       availablePoints: this.points,
       averageGradedPoints: sumBy(responsesInAvgs, 'gradedPoints') / responsesInAvgs.length,
       correct: filter(responses, 'is_correct').length,
+      averageGradedPointsWithDroppedQuestion: sumBy(responsesInAvgs, 'droppedQuestionPoints') / responsesInAvgs.length,
     };
   }
 
@@ -253,6 +267,10 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get averageGradedPoints() {
     return this.responseStats.averageGradedPoints;
+  }
+
+  @computed get averageGradedPointsWithDroppedQuestion() {
+    return this.responseStats.averageGradedPointsWithDroppedQuestion;
   }
 
   @computed get isTrouble() {
@@ -392,8 +410,8 @@ class TaskPlanScoresTasking extends BaseModel {
 
   @computed get groupQuestionsByPageTopic() {
     const questions = this.questionsInfo;
-    //order the questions by the exercise page id so when it is grouped, the first chapters are shown first. (assumes page ids are in incremental order)
-    const sortedQuestions = orderBy(questions, ['exercise.page.id'], ['asc']);
+    //order the questions by the exercise page's chapter_section so that the first chapters are shown first
+    const sortedQuestions = orderBy(questions, ['exercise.page.chapter_section.asNumber'], ['asc']);
     return groupBy(sortedQuestions, q => {
       return q.exercise.page.title;
     });

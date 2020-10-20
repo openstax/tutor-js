@@ -8,6 +8,10 @@
   @include book-page();
   .page {
     margin-top: 10rem;
+
+    @media screen and ( max-width: $tablet-collapse-breakpoint) {
+      margin-top: 2.5rem;
+    }
   }
   .book-page-wrapper.not-found {
     text-align: center;

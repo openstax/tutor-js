@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { styled } from 'vendor';
+import { styled, css } from 'vendor';
 import { isFunction, partial, defer } from 'lodash';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
-import Arrow from './icons/arrow';
+import { PrevIcon, NextIcon } from './icons/pagination';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
@@ -15,9 +15,6 @@ import { colors, breakpoint } from 'theme';
 // strip html tags out of page title so it's suitable for
 // setting on the document
 const cleanTitle = (title) => title.replace(/<[^>]*>/g, '');
-
-const leftArrow = <div className="arrow-wrapper"><Arrow direction="left" /></div>;
-const rightArrow = <div className="arrow-wrapper"><Arrow direction="right" /></div>;
 
 const MobileFooter = styled.div`
   position: fixed;
@@ -33,6 +30,10 @@ const MobileFooter = styled.div`
   z-index: 1;
   ${breakpoint.reading_pagination`
     display: none;
+  `}
+
+  ${props => !props.isPrevEnabled && css`
+    justify-content: flex-end;
   `}
 
   a {
@@ -53,6 +54,16 @@ const MobileFooter = styled.div`
   }
   svg + span, span + svg {
     margin-left: 0.8rem;
+  }
+`;
+
+const IconWrapper = styled.div.attrs({
+  className: 'arrow-wrapper',
+})`
+  &&.arrow-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 100px;
   }
 `;
 
@@ -81,6 +92,7 @@ class PagingNavigation extends React.Component {
     documentImpl: PropTypes.shape({
       title: PropTypes.string,
     }),
+    renderMobileFooter: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -88,8 +100,8 @@ class PagingNavigation extends React.Component {
     enableKeys: true,
     forwardHref: '#',
     backwardHref: '#',
-    forwardRenderer: rightArrow,
-    backwardRenderer: leftArrow,
+    forwardRenderer: <IconWrapper><NextIcon /></IconWrapper>,
+    backwardRenderer: <IconWrapper><PrevIcon /></IconWrapper>,
     titles: {
       next: 'Go Forward',
       previous: 'Go Back',
@@ -225,7 +237,7 @@ class PagingNavigation extends React.Component {
 
   renderMobileFooter() {
     return (
-      <MobileFooter className="paging-footer">
+      <MobileFooter className="paging-footer" isPrevEnabled={this.props.isBackwardEnabled}>
         <a data-test-id="footer-go-backward" {...this.backwardLinkProps}>
           <Icon type="chevron-left" /> <span>Previous</span>
         </a>

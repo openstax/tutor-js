@@ -84,6 +84,12 @@
       width: 1.2rem;
       margin-left: 0.8rem;
     }
+
+    @media screen and ( max-width: $tablet-collapse-breakpoint) {
+      .my-highlights-label {
+        display: none;
+      }
+    }
   }
 
   .book-links {

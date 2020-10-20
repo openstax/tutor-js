@@ -4,7 +4,9 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
 const Instructions = observer((props) => {
-  const { hasFeedback, hasIncorrectAnswer } = props;
+  const { can_be_updated, hasFeedback, hasIncorrectAnswer } = props;
+
+  if (!can_be_updated) { return null; }
 
   if (hasIncorrectAnswer && hasFeedback) {
     return (

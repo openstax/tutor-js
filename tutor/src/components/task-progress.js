@@ -124,28 +124,30 @@ const StyledStickyTable = styled(StickyTable)`
 
 const StyledPopover = styled(Popover)`
   /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
-    &[style] {
-      border: 1px #d5d5d5 solid !important;
-      top: ${props => props.graded ? '62px' : '32px'} !important;
+  &[style] {
+    border: 1px #d5d5d5 solid !important;
+    top: ${props => props.graded ? '62px' : '32px'} !important;
+  }
+
+  pointer-events: none;
+  padding: 10px 7px;
+  text-align: center;
+
+  p {
+    margin-bottom: 0.2rem;
+  }
+
+  table {
+    font-size: 1.3rem;
+
+    td {
+      line-height: 1.2;
     }
-    padding: 10px 7px;
-    text-align: center;
 
-    p {
-      margin-bottom: 0.2rem;
+    tr td:last-child {
+      padding-left: 2px;
     }
-
-    table {
-        font-size: 1.3rem;
-
-        td {
-            line-height: 1.2;
-        }
-
-        tr td:last-child {
-            padding-left: 2px;
-        }
-    }
+  }
 `;
 
 const pointsScoredStatus = (step) => {

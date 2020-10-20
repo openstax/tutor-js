@@ -57,12 +57,15 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  it('saves text immediately when not validating', () => {
+  it('saves text immediately when not validating', async () => {
+    props.step.can_be_updated = true
+
     props.response_validation.isEnabled = false;
     const fr = mount(<C><FreeResponseInput {...props} /></C>);
     const value = 'test test test';
     setFreeResponse(fr, { value });
-    expect(props.step.response_validation).toEqual({});
+    await delay();
+    expect(props.step.response_validation).toEqual({ })
     expect(props.step.free_response).toEqual(value);
     expect(props.step.canEditFreeResponse).toBe(false);
     fr.unmount();
@@ -83,7 +86,6 @@ describe('Exercise Free Response', () => {
     });
     expect(props.step.free_response).toEqual(value);
     expect(props.step.canEditFreeResponse).toBe(false);
-    expect(fr.instance().ux.isDisplayingNudge).toBe(false);
     expect(fr).toHaveRendered('StepFooter RelatedContentLink');
     expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
     fr.unmount();
@@ -117,7 +119,7 @@ describe('Exercise Free Response', () => {
     expect(fr).toHaveRendered('NudgeMessage');
     expect(fr.find('NudgeMessage').text()).toContain('Not sure? Here’s a hint');
     expect(fr).toHaveRendered('AnswerButton[disabled=true]');
-    expect(fr.find('AnswerButton').text()).toEqual('Re-submit');
+    expect(fr.find('AnswerButton').text()).toEqual('Submit');
     expect(props.step.free_response).toBeUndefined();
 
     const updatedValue = 'a new value';
@@ -139,7 +141,7 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  fit('hides nudge ui when free response is valid', async () => {
+  it('hides nudge ui when free response is valid', async () => {
     props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = true;
     props.response_validation.validate = jest.fn()
@@ -176,5 +178,4 @@ describe('Exercise Free Response', () => {
     });
     expect(Raven.captureException).toHaveBeenCalled();
   });
-
 });

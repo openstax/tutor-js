@@ -137,6 +137,7 @@ Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
   if (pageIds.length == 0) {
     pageIds = book.children[1].children.map(pg => pg.id);
   }
+
   pageIds.forEach(pgId => {
     map.onLoaded({
       data: {

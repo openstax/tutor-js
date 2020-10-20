@@ -11,7 +11,7 @@ describe('Exercise Details Component', function() {
 
   beforeEach(() => {
     book = Factory.book();
-    const pageIds = Array.from(book.pages.byId.keys());
+    const pageIds = Array.from(book.pages.byId.keys()).slice(0, 5);
     exercises = Factory.exercisesMap({ book, pageIds, count: 4 });
     props = {
       book,
@@ -27,7 +27,7 @@ describe('Exercise Details Component', function() {
     };
   });
 
-  xit('can navigate back/forward', () => {
+  it('can navigate back/forward', () => {
     const deets = mount(<Details {...props} />);
     expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[1].content.uid}"]`);
     deets.find('.paging-control.next').simulate('click');
@@ -36,6 +36,7 @@ describe('Exercise Details Component', function() {
     deets.find('.paging-control.prev').simulate('click');
     expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[0].content.uid}"]`);
     expect(deets).toHaveRendered('.paging-control.prev[disabled]');
+    deets.unmount()
   });
 
 });
