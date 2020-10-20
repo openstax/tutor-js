@@ -14,8 +14,16 @@ module.exports = {
     return res.json([]);
   },
 
+  savePracticeQuestion(req, res) {
+    return res.json({
+      exercise_id: 22,
+    });
+  },
+
   route(server) {
     server.put('/api/courses/:id', this.put);
     server.get('/api/courses/:id/practice_questions', this.getPracticeQuestions);
+    // /course/1/task/2/step/22  with exercise_id 22
+    server.post('/api/courses/:id/practice_questions', this.savePracticeQuestion);
   },
 };

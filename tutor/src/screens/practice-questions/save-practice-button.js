@@ -100,7 +100,8 @@ const SavePracticeButton = ({
           ? (
             <StyledSavePracticeButton
               disabled={disabled}
-              className="save-practice-button"> 
+              className="save-practice-button"
+              data-test-id="save-practice-button"> 
               {getIconAndLabel()}
             </StyledSavePracticeButton>
           )
@@ -108,7 +109,8 @@ const SavePracticeButton = ({
             <StyledSavePracticeButton
               onClick={saveOrRemovePracticeQuestion}
               isSaved={isSaved()}
-              className="save-practice-button"> 
+              className="save-practice-button"
+              data-test-id="save-practice-button"> 
               {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
             </StyledSavePracticeButton>
           )

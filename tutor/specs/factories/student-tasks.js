@@ -80,6 +80,7 @@ Factory.define('StudentTaskStep')
   .published_points(({ isLateNotAccepted }) => isLateNotAccepted ? 0 : null)
   .published_points_without_lateness(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
   .published_late_work_point_penalty(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
+  .exercise_id(sequence)
 
 Factory.define('StudentTask')
   .id(sequence)
