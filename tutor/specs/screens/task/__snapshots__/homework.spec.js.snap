@@ -193,7 +193,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 16,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -393,7 +393,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 17,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -593,7 +593,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 18,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -793,7 +793,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 19,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -993,7 +993,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 20,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -1537,7 +1537,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 1,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -1737,7 +1737,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 2,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -1937,7 +1937,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 3,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -2137,7 +2137,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 4,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [
@@ -2337,7 +2337,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               },
               "correct_answer_id": undefined,
               "dropped_method": undefined,
-              "exercise_id": undefined,
+              "exercise_id": 5,
               "external_url": null,
               "feedback_html": undefined,
               "formats": Array [

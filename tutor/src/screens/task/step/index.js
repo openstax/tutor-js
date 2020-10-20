@@ -80,7 +80,7 @@ class TaskStep extends React.Component {
       onContinue: ux.canGoForward ? ux.goForward : null,
     };
 
-    STEP_TYPES.end = step.task.type === 'practice_saved'
+    STEP_TYPES.end = step.task && step.task.type === 'practice_saved'
       ? SavedPracticeEnd 
       : End;
 

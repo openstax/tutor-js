@@ -305,7 +305,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       },
       "correct_answer_id": undefined,
       "dropped_method": undefined,
-      "exercise_id": undefined,
+      "exercise_id": 1,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -672,7 +672,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       },
       "correct_answer_id": undefined,
       "dropped_method": undefined,
-      "exercise_id": undefined,
+      "exercise_id": 1,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1043,7 +1043,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       },
       "correct_answer_id": undefined,
       "dropped_method": undefined,
-      "exercise_id": undefined,
+      "exercise_id": 1,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1414,7 +1414,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       },
       "correct_answer_id": undefined,
       "dropped_method": undefined,
-      "exercise_id": undefined,
+      "exercise_id": 1,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
@@ -1785,7 +1785,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       },
       "correct_answer_id": undefined,
       "dropped_method": undefined,
-      "exercise_id": undefined,
+      "exercise_id": 1,
       "external_url": null,
       "feedback_html": undefined,
       "formats": Array [

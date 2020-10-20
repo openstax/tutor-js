@@ -175,7 +175,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         },
         "correct_answer_id": undefined,
         "dropped_method": undefined,
-        "exercise_id": undefined,
+        "exercise_id": 1,
         "external_url": null,
         "feedback_html": undefined,
         "formats": Array [
@@ -531,7 +531,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           },
           "correct_answer_id": undefined,
           "dropped_method": undefined,
-          "exercise_id": undefined,
+          "exercise_id": 1,
           "external_url": null,
           "feedback_html": undefined,
           "formats": Array [
