@@ -15,7 +15,6 @@ const Card = ({ children }) => (
   </StepCard>
 );
 Card.propTypes = {
-  ux: PropTypes.instanceOf(UX).isRequired,
   children: PropTypes.node.isRequired,
 };
 
