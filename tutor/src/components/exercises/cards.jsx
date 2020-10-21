@@ -39,10 +39,13 @@ class SectionsExercises extends React.Component {
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
-      <div className="exercise-sections" data-section={page.chapter_section.asString}>
-        <SectionLabel>
-          <BookPartTitle part={page} displayChapterSection />
-        </SectionLabel>
+      <div className="exercise-sections">
+        {
+          page && 
+          <SectionLabel>
+            <BookPartTitle part={page} displayChapterSection />
+          </SectionLabel>
+        }
         <div className="exercises">
           {map(sectionExercises, (exercise) =>
             <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}

@@ -228,12 +228,14 @@ const PracticeQuestionsList = ({ ux, history }) => {
       </StyledExerciseCardsWrapper>
       <StyledFooterControls>
         <Button
+          data-test-id="clear-practice-selection"
           variant="default"
           disabled={isEmpty(selectedExerciseIds)}
           onClick={clearSelection}>
               Clear Selection
         </Button>
         <Button
+          data-test-id="start-practice"
           variant="primary"
           disabled={isEmpty(selectedExerciseIds)}
           onClick={startPractice}>
