@@ -1,5 +1,6 @@
 context('My Practice Questions', () => {
 
+  //all tests have just one question
   beforeEach(() => {
     cy.setRole('student')
   });
@@ -24,10 +25,11 @@ context('My Practice Questions', () => {
     cy.get('.card-body').should('exist');
     cy.get('.card-body').click({ force: true });
     cy.get('.card-body .disabled-message').should('be.visible');
-    cy.get('.card-body .disable-message').should('have.text', 'This question can be practiced after it has been graded');
+    cy.get('.card-body .disabled-message').should('have.text', 
+      'This question can be practiced after it has been graded');
   })
 
-  it.only('should list a question that is available', () => {
+  it('should list a question that is available, include and exclude the question', () => {
     cy.visit('/course/1/practice-questions')
     cy.disableTours();
     cy.getTestElement('clear-practice-selection').should('exist');
@@ -52,5 +54,14 @@ context('My Practice Questions', () => {
     cy.get('.selected-mask').should('not.exist');
     cy.getTestElement('clear-practice-selection').should('be.disabled');
     cy.getTestElement('start-practice').should('be.disabled');
+  })
+
+  it('should list a question that is available and delete the question', () => {
+    cy.visit('/course/1/practice-questions')
+    cy.disableTours();
+    cy.get('.delete').click({ force: true });
+    cy.getTestElement('confirm-delete-practice-question').click();
+    cy.get('.empty-practice-questions-content .empty-practice-questions-header')
+      .should('have.text', 'No questions have been saved for practice.');
   })
 })

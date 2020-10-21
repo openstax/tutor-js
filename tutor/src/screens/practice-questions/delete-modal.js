@@ -43,7 +43,7 @@ const DeleteQuestionModal = observer(({ onDelete, onCancel }) => {
         <ControlsWrapper>
           <Controls>
             <Button
-              data-test-id="confirm-delete-assignment"
+              data-test-id="confirm-delete-practice-question"
               variant="default"
               className="btn-standard btn-inline"
               onClick={onDelete}
@@ -51,7 +51,7 @@ const DeleteQuestionModal = observer(({ onDelete, onCancel }) => {
               Delete
             </Button>
             <Button
-              data-test-id="cancel-delete-assignment"
+              data-test-id="cancel-delete-practice-question"
               className="btn-standard btn-inline"
               onClick={onCancel}
             >
