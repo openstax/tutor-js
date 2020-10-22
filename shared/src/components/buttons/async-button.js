@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { delay } from 'lodash';
 import RefreshButton from './refresh-button';
 import Icon from '../icon';
 
-export default class extends React.Component {
+export default class AsyncButton extends React.Component {
   static defaultProps = {
     isDone: false,
     isFailed: false,
@@ -45,38 +44,6 @@ export default class extends React.Component {
     delayTimeout: null,
   };
 
-  componentDidUpdate() {
-    const { isWaiting, isJob } = this.props;
-    let { isTimedout, delayTimeout } = this.state;
-
-    if (!delayTimeout && isWaiting && !isTimedout) {
-      const timeout = this.props.timeoutLength || (isJob ? 600000 : 30000);
-      delayTimeout = delay(this.checkForTimeout, timeout);
-      this.setState({ delayTimeout });
-    }
-  }
-
-  componentWillUnmount() {
-    return this.clearDelay();
-  } // make sure any pending timeouts are removed
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.isWaiting !== nextProps.isWaiting) {
-      if (!nextProps.isWaiting) { this.clearDelay(); }
-      this.setState({ delayTimeout: null });
-    }
-  }
-
-  checkForTimeout = () => {
-    const { isWaiting } = this.props;
-    if (isWaiting) { this.setState({ isTimedout: true, delayTimeout: null }); }
-  };
-
-  clearDelay = () => {
-    const { delayTimeout } = this.state;
-    if (delayTimeout) { clearTimeout(delayTimeout); }
-  };
-
   render() {
     let spinner, stateClass, text;
     let {
@@ -84,13 +51,13 @@ export default class extends React.Component {
       isWaiting, isDone, isFailed, children, waitingText,
       failedProps, doneText, ...buttonProps
     } = this.props;
-    const { isTimedout } = this.state;
+
     // needs to be capitalized so JSX will transpile as a variable, not element
     const FailedState = this.props.failedState;
 
     const buttonTypeClass = 'async-button';
 
-    if (isFailed || isTimedout) {
+    if (isFailed) {
       stateClass = 'is-failed';
       return <FailedState {...failedProps} />;
     } else if (isWaiting) {
