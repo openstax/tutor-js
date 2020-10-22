@@ -69,14 +69,24 @@ export class ExercisesMap extends Map {
 
 
   // called by API
-  fetch({ book, course, ecosystem_id, page_ids, exercise_ids, limit = 'homework_core', query = {} }) {
+  fetch({
+    book,
+    course,
+    ecosystem_id,
+    page_ids,
+    exercise_ids,
+    limit = 'homework_core',
+    query = {},
+    action = 'exercises',
+  }) {
     if (!ecosystem_id) {
       if (course && !book) {
         book = course.referenceBook;
       }
       ecosystem_id = book.id;
     }
-    let url = `ecosystems/${ecosystem_id}/exercises`;
+
+    let url = `ecosystems/${ecosystem_id}/${action}`;
 
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
