@@ -11,17 +11,18 @@ export default class PracticeQuestionsUX {
   @action async initialize({ courseId, history }) {
     this.isInitializing = true;
     this.course = Courses.get(courseId);
-    
+
     // if existing practice exists, it will redirect to that practice step
     await this.checkExistingPractice(history);
-    
+
     await this.practiceQuestions.fetch();
     if(!this.isPracticeQuestionsEmpty) {
       await this.course.referenceBook.ensureLoaded();
       await Exercises.fetch(
-        { 
+        {
           course: this.course,
-          exercise_ids: this.practiceQuestions.getAllExerciseIds(), 
+          exercise_ids: this.practiceQuestions.getAllExerciseIds(),
+          action: 'practice_exercises',
         });
     }
     this.isInitializing = false;
