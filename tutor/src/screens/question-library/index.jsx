@@ -1,7 +1,5 @@
-import React from 'react';
-import { computed } from 'mobx';
-import { observer } from 'mobx-react';
-
+import { React, PropTypes, computed, observer } from 'vendor';
+import Exercises from '../../models/exercises';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
@@ -12,6 +10,13 @@ import './styles.scss';
 export default
 @observer
 class QuestionsDashboardShell extends React.Component {
+  static propTypes = {
+    exercises: PropTypes.object,
+  }
+
+  static defaultProps = {
+    exercises: Exercises,
+  }
 
   @computed get course() {
     const { courseId } = Router.currentParams();
@@ -19,12 +24,13 @@ class QuestionsDashboardShell extends React.Component {
   }
 
   componentDidMount() {
+    this.props.exercises.clear();
     this.course.referenceBook.ensureLoaded();
   }
 
   render() {
     if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
-    return <Dashboard course={this.course} />;
+    return <Dashboard exercises={this.props.exercises} course={this.course} />;
   }
 
 }
