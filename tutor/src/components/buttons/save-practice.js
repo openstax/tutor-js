@@ -1,4 +1,4 @@
-import { React, styled, PropTypes, css, useObserver } from 'vendor';
+import { React, styled, PropTypes, css, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
@@ -65,11 +65,12 @@ const mpqTooltip = (
   </Tooltip>
 );
 
-const SavePracticeButton = ({
+
+const SavePracticeButton = observer(({
   disabled = false,
   practiceQuestions = undefined,
   taskStep = undefined,
-}) => useObserver(() => {
+}) => {
 
   const saveOrRemovePracticeQuestion = () => {
     const practiceQuestion = getPracticeQuestion();
@@ -124,13 +125,15 @@ const SavePracticeButton = ({
       <OverlayTrigger
         placement="right"
         overlay={mpqTooltip}
-        delay={{ show: 50, hide: 150 }}>
+        delay={{ show: 50, hide: 150 }}
+      >
         {savePracticeButton}
       </OverlayTrigger>
     );
   }
   return savePracticeButton;
 });
+
 SavePracticeButton.propTypes = {
   disabled: PropTypes.bool,
   practiceQuestions: PropTypes.object,

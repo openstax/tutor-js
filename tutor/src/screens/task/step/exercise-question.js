@@ -9,7 +9,7 @@ import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
-import SavePracticeButton from '../../practice-questions/save-practice-button';
+import SavePracticeButton from '../../../components/buttons/save-practice';
 import { breakpoint } from 'theme';
 
 const Controls = styled.div`
@@ -183,7 +183,7 @@ class ExerciseQuestion extends React.Component {
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
           {
-            ux.task && !ux.task.isPractice &&
+            ux.task && !ux.task.isSavedPractice &&
             <SavePracticeButton
               practiceQuestions={ux.course.practiceQuestions}
               taskStep={step}

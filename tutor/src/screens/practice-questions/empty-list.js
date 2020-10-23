@@ -1,6 +1,6 @@
 import { React, styled } from 'vendor';
 import { colors } from 'theme';
-import SavePracticeButton from './save-practice-button';
+import SavePracticeButton from '../../components/buttons/save-practice';
 
 const StyledWrapper = styled.div`
     display: flex;
