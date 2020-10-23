@@ -197,6 +197,16 @@ $openstax-books: (
     accent     : lighten($tutor-primary, 5%),
     control    : $openstax-book-warmer-blue,
   ),
+  psych_2e: (
+    primary    : #fff,
+    secondary  : #009977,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : $tutor-tertiary,  // dark blue
+    quaternary : $tutor-quaternary,
+    highlight  : $tutor-highlight,
+    accent     : lighten($tutor-primary, 5%),
+    control    : $tutor-neutral-lightest,
+  )
 );
 
 @function openstax-book-color($book, $type) {
@@ -226,6 +236,7 @@ $openstax-book-thumbnails: (
   ap_us_history   : 'ap_us_history-book-thumbnail.svg',
   biology_2e      : 'biology_2e-book-thumbnail.svg',
   entrepreneurship: 'entrepreneurship-book-thumbnail.svg',
+  psych_2e        : 'psychology_2e.svg',
 );
 
 @mixin book-content-thumbnail($book) {
