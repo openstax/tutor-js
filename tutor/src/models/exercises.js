@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find, uniq } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find, uniq, map } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -16,6 +16,10 @@ export class ExercisesMap extends Map {
 
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
+  }
+
+  @computed get uniqPageIds() {
+    return uniq(map(this.array, 'page.id'));
   }
 
   noneForPageIds(pageIds) {
@@ -65,14 +69,24 @@ export class ExercisesMap extends Map {
 
 
   // called by API
-  fetch({ book, course, ecosystem_id, page_ids, exercise_ids, limit = 'homework_core', query = {} }) {
+  fetch({
+    book,
+    course,
+    ecosystem_id,
+    page_ids,
+    exercise_ids,
+    limit = 'homework_core',
+    query = {},
+    action = 'exercises',
+  }) {
     if (!ecosystem_id) {
       if (course && !book) {
         book = course.referenceBook;
       }
       ecosystem_id = book.id;
     }
-    let url = `ecosystems/${ecosystem_id}/exercises`;
+
+    let url = `ecosystems/${ecosystem_id}/${action}`;
 
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
@@ -137,8 +151,10 @@ export class ExercisesMap extends Map {
     });
   }
 
+  @action deleteByExerciseId(exerciseId) {
+    this._map.delete(parseInt(exerciseId, 10));
+  }
 }
-
 
 const exercisesMap = new ExercisesMap();
 

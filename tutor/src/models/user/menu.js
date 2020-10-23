@@ -29,6 +29,12 @@ const ROUTES = {
       student: 'viewGradebook',
     },
   },
+  practiceQuestions: {
+    label: 'My Practice Questions',
+    roles: {
+      student: 'practiceQuestions',
+    },
+  },
   guide: {
     label: 'Performance Forecast',
     isAllowed(course) { return get(course, 'is_concept_coach') !== true; },

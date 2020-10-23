@@ -37,6 +37,7 @@ export default class TaskUX {
         this.goToStepId(stepId);
       }
     );
+    this.course.practiceQuestions.fetch();
   }
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });

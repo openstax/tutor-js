@@ -56,9 +56,11 @@ const getRoutes = (router) => {
               renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],
-        }, {
+        },
+        {
           path: 'practice/:taskId?', name: 'practiceTopics',
-          renderer: r(() => import('./screens/task/practice'), 'Practice') },
+          renderer: r(() => import('./screens/task/practice'), 'Practice'),
+        },
         {
           path: 'assignment/edit/:type/:id/:step?', name: 'editAssignment',
           renderer: r(() => import('./screens/assignment-edit'), 'Assignment Builder') },
@@ -86,6 +88,9 @@ const getRoutes = (router) => {
         },
         { path: 'grading-templates', name: 'gradingTemplates',
           renderer: r(() => import('./screens/grading-templates')),
+        },
+        { path: 'practice-questions', name: 'practiceQuestions',
+          renderer: r(() => import('./screens/practice-questions')),
         },
       ],
     }, {

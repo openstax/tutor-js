@@ -47,6 +47,7 @@ import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 import Stats from '../models/stats';
 import { GradingTemplate, GradingTemplates } from '../models/grading/templates';
+import { PracticeQuestions, PracticeQuestion } from '../models/practice-questions';
 
 const {
   connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
@@ -186,11 +187,33 @@ const startAPI = function() {
     pattern: 'courses/{courseId}/practice',
   });
 
+  connectModelRead(PracticeQuestions, 'fetch', {
+    pattern: 'courses/{courseId}/practice_questions',
+    onSuccess: 'onLoaded',
+  });
+  connectModelRead(PracticeQuestions, 'checkExisting', {
+    pattern: 'courses/{courseId}/practice/saved',
+    onSuccess: 'onFoundExistingPractice',
+  });
+  connectModelCreate(PracticeQuestion, 'save', {
+    method: 'POST',
+    pattern: 'courses/{courseId}/practice_questions',
+    onSuccess: 'onSaved',
+  });
+  connectModelDelete(PracticeQuestion, 'destroy', {
+    pattern: 'courses/{courseId}/practice_questions/{id}',
+    onSuccess: 'onDestroyed',
+  });
+
   connectModelRead(StudentTask, 'fetch', {
     onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
     query() { return { course_id: this.course.id }; },
   });
-
+  connectModelUpdate(StudentTask, 'exit', {
+    method: 'PUT',
+    pattern: 'courses/{courseId}/practice/{id}/exit',
+    query() { return { courseId: this.course.id }; },
+  });
   connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', onFail: 'setApiErrors', pattern: 'steps/{id}',
     query() { return { task_id: this.task.id, course_id: this.task.course.id }; },

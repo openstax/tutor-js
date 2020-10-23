@@ -37,6 +37,8 @@ class ExercisePreview extends React.Component {
     children:        PropTypes.node,
     isVerticallyTruncated: PropTypes.bool,
     questionFooters: PropTypes.object,
+    questionType:    PropTypes.string,
+    disableMessage:  PropTypes.string,
   };
 
   static defaultProps = {
@@ -91,6 +93,7 @@ class ExercisePreview extends React.Component {
 
   render() {
     const info = this.props.extractedInfo;
+
     const classes = classnames( 'openstax-exercise-preview', this.props.className, {
       'answers-hidden':   this.props.hideAnswers,
       'has-actions':      !isEmpty(this.props.overlayActions),
@@ -110,11 +113,18 @@ class ExercisePreview extends React.Component {
       >
         {this.props.header && <Card.Header>{this.props.header}</Card.Header>}
         <Card.Body>
-          {this.props.isSelected ? <div className="selected-mask" /> : undefined}
-          <ControlsOverlay
-            exercise={this.props.exercise}
-            actions={this.props.overlayActions}
-            onClick={this.props.onOverlayClick} />
+          {this.props.isSelected && <div className="selected-mask" />}
+          { this.props.isSelected && this.props.questionType === 'student-mpp' &&
+            <div className="selected-student-mpp-check" />}
+          {this.props.disableMessage && (
+            <div className="disabled-message">
+              <p>{this.props.disableMessage}</p>
+            </div> )}
+          {!this.props.disableMessage && (
+            <ControlsOverlay
+              exercise={this.props.exercise}
+              actions={this.props.overlayActions}
+              onClick={this.props.onOverlayClick} /> )}
           <div className="exercise-body">
             <ExerciseBadges multiPart={info.isMultiPart} video={info.hasVideo} interactive={info.hasInteractive} writtenResponse={info.isWrittenResponse} />
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
@@ -128,7 +138,7 @@ class ExercisePreview extends React.Component {
                   choicesEnabled={false}
                   displayFormats={this.props.displayFormats}
                   show_all_feedback={this.props.displayFeedback}
-                  type="teacher-preview"
+                  type={this.props.questionType || 'teacher-preview'}
                 >
                   {this.props.questionFooters && this.props.questionFooters[index]}
                 </Question>
@@ -142,13 +152,16 @@ class ExercisePreview extends React.Component {
               </div>
             ))}
           </div>
-          <div className="exercise-tags">
-            {map(this.tags, (tag, index) => (
-              <span key={index} className="exercise-tag">
-                {tag.title}
-              </span>
-            ))}
-          </div>
+          {
+            this.props.questionType !== 'student-mpp' &&
+            <div className="exercise-tags">
+              {map(this.tags, (tag, index) => (
+                <span key={index} className="exercise-tag">
+                  {tag.title}
+                </span>
+              ))}
+            </div>
+          }
         </Card.Body>
         {this.props.children && <Card.Footer>{this.renderFooter()}</Card.Footer>}
       </Card>

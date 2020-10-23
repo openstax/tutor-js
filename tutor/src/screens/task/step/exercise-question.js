@@ -9,12 +9,27 @@ import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
+import SavePracticeButton from '../../../components/buttons/save-practice';
 import { breakpoint } from 'theme';
 
 const Controls = styled.div`
   margin: 2.5rem 0;
   display: flex;
   justify-content: flex-end;
+  flex-flow: column wrap-reverse;
+  ${breakpoint.mobile`
+    button {
+      width: 50%;
+    }
+  `}
+
+  > * {
+    width: 25%;
+  }
+
+  .save-practice-button {
+    margin-top: 2rem;
+  }
 `;
 
 const StyledExerciseQuestion = styled.div`
@@ -89,9 +104,24 @@ class ExerciseQuestion extends React.Component {
     ux.onAnswerContinue(step);
   }
 
+  @action.bound async addOrRemovePracticeQuestion() {
+    if(this.practiceQuestion) {
+      this.practiceQuestion.destroy();
+    }
+    else {
+      const { ux, step } = this.props;
+      ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
+    }
+  }
+
   @computed get answerId() {
     return this.selectedAnswer ?
       this.selectedAnswer.id : this.props.step.answer_id;
+  }
+
+  @computed get practiceQuestion() {
+    const { ux, step } = this.props;
+    return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
   }
 
   renderSaveButton() {
@@ -122,7 +152,6 @@ class ExerciseQuestion extends React.Component {
   render() {
     const { ux, question, step, ux: { course } } = this.props;
     const questionNumber = ux.questionNumberForStep(step);
-
     if (step.canEditFreeResponse) {
       return (
         <FreeResponseInput
@@ -153,6 +182,13 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
+          {
+            ux.task && !ux.task.isSavedPractice &&
+            <SavePracticeButton
+              practiceQuestions={ux.course.practiceQuestions}
+              taskStep={step}
+            />
+          }
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>

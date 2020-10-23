@@ -1,5 +1,6 @@
 
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
+import ExitPracticeButton from '../../components/buttons/exit-practice';
 import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
 import Router from '../../helpers/router';
@@ -22,6 +23,7 @@ const StyledHeader = styled(Header)`
 
 const StyledHeadingTitle = styled.div`
   display: flex;
+  justify-content: space-between;
   font-size: 1.7rem;
   line-height: none;
   width: 100%;
@@ -70,6 +72,7 @@ const StyledHeadingTitle = styled.div`
   `};
 `;
 
+
 const TaskInfo = ({ task }) => {
   let dueInfo = null;
   if (task.due_at)
@@ -103,6 +106,7 @@ const headerContent = (ux) => {
             className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
           />
         </div>
+        <ExitPracticeButton task={ux.task} />
       </StyledHeadingTitle>
       <TaskProgress
         steps={ux.steps}

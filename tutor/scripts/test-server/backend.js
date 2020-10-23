@@ -40,6 +40,7 @@ const GET_HANDLERS = {
   'courses/:courseId/guide': require('./backend/performance-forecast'),
   'ecosystems/:ecosystemId/readings': require('./backend/readings'),
   'ecosystems/:ecosystemId/exercises/homework_core': require('./backend/exercises'),
+  'ecosystems/:ecosystemId/practice_exercises': require('./backend/exercises'),
   'ecosystems/:ecosystemId/exercises': require('./backend/exercises'),
 };
 

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import TutorLink from '../link';
+import { PRACTICE } from '../../models/student-tasks';
 
 export default
 class PracticeWeakestButton extends React.Component {
@@ -20,7 +21,7 @@ class PracticeWeakestButton extends React.Component {
     return (
       <TutorLink
         className="weakest btn btn-outline-secondary view-performance-forecast"
-        params={{ courseId }} to="practiceTopics" query={{ worst: true }}
+        params={{ courseId }} to="practiceTopics" query={{ type: PRACTICE.WORST }}
       >
         {this.props.title}
       </TutorLink>

@@ -20,13 +20,14 @@ const SectionLabel = styled.label`
 @observer
 class SectionsExercises extends React.Component {
   static propTypes = {
-    pageId:                 PropTypes.string.isRequired,
-    book:                   PropTypes.instanceOf(Book).isRequired,
-    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    onShowDetailsViewClick: PropTypes.func.isRequired,
-    onExerciseToggle:       PropTypes.func.isRequired,
-    getExerciseIsSelected:  PropTypes.func.isRequired,
-    getExerciseActions:     PropTypes.func.isRequired,
+    pageId:                     PropTypes.string.isRequired,
+    book:                       PropTypes.instanceOf(Book).isRequired,
+    exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
+    getExerciseIsSelected:      PropTypes.func.isRequired,
+    getExerciseActions:         PropTypes.func.isRequired,
+    getExerciseDisableMessage:  PropTypes.func,
+    onShowDetailsViewClick:     PropTypes.func,
+    onExerciseToggle:           PropTypes.func,
   };
 
   render() {
@@ -38,10 +39,13 @@ class SectionsExercises extends React.Component {
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
-      <div className="exercise-sections" data-section={page.chapter_section.asString}>
-        <SectionLabel>
-          <BookPartTitle part={page} displayChapterSection />
-        </SectionLabel>
+      <div className="exercise-sections">
+        {
+          page && 
+          <SectionLabel>
+            <BookPartTitle part={page} displayChapterSection />
+          </SectionLabel>
+        }
         <div className="exercises">
           {map(sectionExercises, (exercise) =>
             <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
@@ -58,16 +62,17 @@ export default
 class ExerciseCards extends React.Component {
 
   static propTypes = {
-    pageIds:                ArrayOrMobxType.isRequired,
-    book:                   PropTypes.instanceOf(Book).isRequired,
-    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    onExerciseToggle:       PropTypes.func.isRequired,
-    getExerciseIsSelected:  PropTypes.func.isRequired,
-    getExerciseActions:     PropTypes.func.isRequired,
-    onShowDetailsViewClick: PropTypes.func.isRequired,
-    focusedExercise:        PropTypes.instanceOf(Exercise),
-    topScrollOffset:        PropTypes.number,
-    windowImpl:             PropTypes.object,
+    pageIds:                    ArrayOrMobxType.isRequired,
+    book:                       PropTypes.instanceOf(Book).isRequired,
+    exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
+    getExerciseIsSelected:      PropTypes.func.isRequired,
+    getExerciseActions:         PropTypes.func.isRequired,
+    getExerciseDisableMessage:  PropTypes.func,
+    onExerciseToggle:           PropTypes.func,
+    onShowDetailsViewClick:     PropTypes.func,
+    focusedExercise:            PropTypes.instanceOf(Exercise),
+    topScrollOffset:            PropTypes.number,
+    windowImpl:                 PropTypes.object,
   };
 
   static defaultProps = {
