@@ -6,9 +6,30 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
-.c1 {
+.c2 {
   font-weight: 700;
   color: #424242;
+}
+
+.c1 {
+  display: inline-block;
+}
+
+.c1 .os-number {
+  font-weight: normal;
+}
+
+.c1 .os-number .os-part-text {
+  font-weight: normal;
+}
+
+.c1 .chapter-section {
+  font-weight: normal;
+  margin-right: 0.5rem;
+}
+
+.c1 .label {
+  margin-right: 0.5rem;
 }
 
 <div>
@@ -48,16 +69,29 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
         <div
           className="section"
         >
-          <h2>
+          <div
+            className="c1 book-part-title"
+            style={
+              Object {
+                "fontSize": "150%",
+                "marginBottom": "1rem",
+              }
+            }
+          >
             <span
-              className="c1 chapter-section"
+              className="c2 chapter-section"
               data-chapter-section="1.3"
             >
               1.3
             </span>
-             
-            incremental
-          </h2>
+            <span
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "incremental",
+                }
+              }
+            />
+          </div>
           <div
             style={
               Object {
