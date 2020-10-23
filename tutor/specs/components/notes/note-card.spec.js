@@ -27,7 +27,7 @@ describe('Notes Summary Page', () => {
 
   it('renders with link', () => {
     const nc = mount(<NoteCard {...props} />);
-    expect(nc).toHaveRendered(`a[target="_blank"][href="/book/${course.ecosystem_id}/section/${note.chapter_section.asString}?highlight=${note.id}"]`);
+    expect(nc).toHaveRendered(`a[target="_blank"][href="/book/${course.ecosystem_id}/page/${note.page_id}?highlight=${note.id}"]`);
     nc.unmount();
   });
 
