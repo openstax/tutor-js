@@ -35,7 +35,7 @@ class ExitPractice extends React.Component {
   }
 
   render() {
-    if (this.props.task.isSavedPractice) return null;
+    if (!this.props.task.isPractice) return null;
 
     return (
 

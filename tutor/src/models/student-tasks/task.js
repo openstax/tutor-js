@@ -39,8 +39,8 @@ class StudentTask extends BaseModel {
   @computed get isHomework() { return 'homework' === this.type; }
   @computed get isEvent() { return 'event' === this.type; }
   @computed get isExternal() { return 'external' === this.type; }
-  
-  @computed get isPractice() { return ['pracice_saved', 'page_practice', 'practice_worst_topics'].includes(this.type); }
+
+  @computed get isPractice() { return ['practice_saved', 'page_practice', 'practice_worst_topics'].includes(this.type); }
   @computed get isSavedPractice() { return this.type === 'practice_saved'; }
   @observable isLoading = false
 
@@ -91,7 +91,7 @@ class StudentTask extends BaseModel {
   @computed get closesAtMoment() {
     return this.closes_at && moment(this.closes_at);
   }
-  
+
   @computed get isAssignmentClosed() {
     return Boolean(this.closes_at && this.closesAtMoment.isSameOrBefore(Time.now));
   }
