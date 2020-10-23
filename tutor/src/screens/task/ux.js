@@ -272,17 +272,6 @@ export default class TaskUX {
     }
   }
 
-  @action.bound async onExitPractice() {
-    await this.task.exit();
-    this.history.push(
-      Router.makePathname('practiceQuestions', 
-        { 
-          courseId: this.course.id, 
-          id: this.task.id,
-        }
-      ));
-  }
-
   async scrollToCurrentStep(immediate) {
     const stepSelector = `[data-task-step-id="${this.currentStep.id}"]`;
     await this.scroller.scrollToSelector(stepSelector, { immediate, deferred: !immediate });

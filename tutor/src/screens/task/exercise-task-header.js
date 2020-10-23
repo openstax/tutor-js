@@ -1,6 +1,6 @@
 
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
-import { Button } from 'react-bootstrap';
+import ExitPracticeButton from '../../components/buttons/exit-practice';
 import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
 import Router from '../../helpers/router';
@@ -72,12 +72,6 @@ const StyledHeadingTitle = styled.div`
   `};
 `;
 
-const StyledExitPracticeButton = styled(Button)`
-  &&& {
-    height: 2.8rem;
-    padding: 15px 25px;
-  }
-`;
 
 const TaskInfo = ({ task }) => {
   let dueInfo = null;
@@ -101,6 +95,7 @@ TaskInfo.propTypes = {
 };
 
 const headerContent = (ux) => {
+  console.log('hc')
   return (
     <>
       <StyledHeadingTitle>
@@ -112,15 +107,7 @@ const headerContent = (ux) => {
             className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
           />
         </div>
-        {
-          ux.task.isSavedPractice && 
-          <StyledExitPracticeButton
-            variant="default"
-            className="btn-standard btn-inline"
-            onClick={ux.onExitPractice}>
-            Exit Practice
-          </StyledExitPracticeButton>
-        }
+        <ExitPracticeButton task={ux.task} />
       </StyledHeadingTitle>
       <TaskProgress
         steps={ux.steps}
