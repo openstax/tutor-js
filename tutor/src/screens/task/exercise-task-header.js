@@ -95,7 +95,6 @@ TaskInfo.propTypes = {
 };
 
 const headerContent = (ux) => {
-  console.log('hc')
   return (
     <>
       <StyledHeadingTitle>
