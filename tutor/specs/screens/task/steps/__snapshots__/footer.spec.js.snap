@@ -36,8 +36,8 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                     <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
                                                       <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
-                                                          <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\">
-                                                            <div className=\\"sc-AxirZ jSNLok book-part-title\\">
+                                                          <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>
+                                                            <div className=\\"sc-AxirZ jSNLok book-part-title\\" style={[undefined]}>
                                                               <ChapterSection chapterSection={{...}}>
                                                                 <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
                                                                   <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">

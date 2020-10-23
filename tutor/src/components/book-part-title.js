@@ -28,13 +28,14 @@ const StyledBookPartTitle = styled.div`
 
 const hasChapterSection = /os-number/;
 
-const BookPartTitle = ({ part, label, className, boldChapterSection, displayChapterSection }) => {
+const BookPartTitle = ({ part, style, label, className, boldChapterSection, displayChapterSection }) => {
 
   return (
     <StyledBookPartTitle
       boldChapterSection={boldChapterSection}
       hideChapterSection={!displayChapterSection}
       className={cn('book-part-title', className)}
+      style={style}
     >
       {label && !part.title.includes(label) && (
         <span className="label">{label}</span>
@@ -55,6 +56,7 @@ BookPartTitle.propTypes = {
   label: PropTypes.node,
   className: PropTypes.string,
   boldChapterSection: PropTypes.bool,
+  style: PropTypes.object,
   displayChapterSection: PropTypes.bool,
 };
 
