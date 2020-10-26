@@ -15,6 +15,7 @@ import HistoricalThinking from '../tags/historical-thinking';
 import ReasoningProcess from '../tags/reasoning-process';
 import ApLo from '../tags/aplo';
 import RequiresContext from '../tags/requires-context';
+import SciencePractice from '../tags/science-practice';
 import Exercise from '../../models/exercises/exercise';
 
 function ExerciseTags({ exercise }) {
@@ -26,6 +27,7 @@ function ExerciseTags({ exercise }) {
       {!validity.valid && <Alert variant="warning">{validity.part}</Alert>}
       <div className="tags">
         <Books {...tagProps} />
+        <SciencePractice {...tagProps} />
         <Lo {...tagProps} />
         <ApLo {...tagProps} />
         <QuestionType {...tagProps} />
