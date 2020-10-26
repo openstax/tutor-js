@@ -7,7 +7,7 @@ exports[`Lo tags component renders and matches snapshot 1`] = `
 }
 
 <div
-  className="tag-type"
+  className="tag-type lo"
 >
   <div
     className="heading"

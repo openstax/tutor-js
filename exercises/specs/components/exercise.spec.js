@@ -56,4 +56,18 @@ describe('Exercises component', () => {
     ex.unmount();
   });
 
+  it('should show Science Practice tag if the book selected is AP Physics or AP Bio', () => {
+    const ex = mount(<Router><Exercise {...props} /></Router>);
+    //AP Physics
+    ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-apphys' } });
+    expect(ex).toHaveRendered('.tag-type.sciencePractice');
+    //deletes the science practice field if other than AP Physics or AP Bio is selected
+    ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-econ' } });
+    expect(ex).not.toHaveRendered('.tag-type.sciencePractice');
+    //AP Bio
+    ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-apbio' } });
+    expect(ex).toHaveRendered('.tag-type.sciencePractice');
+    ex.find('.tag-type.sciencePractice select').simulate('change', { target: { value: 'argumentation' } });
+    expect(props.exercises.get(exercise.uid).tags.withType('science-practice').raw).toEqual('science-practice:argumentation');
+  });
 });
