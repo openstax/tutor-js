@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import { camelCase } from 'lodash';
 import { Icon } from 'shared';
 
 function TagWrapper(props) {
 
-  const classes = classnames('tag-type', {
+  const classes = classnames('tag-type', camelCase(props.label), {
     'has-error': props.error,
     'has-single-tag': props.singleTag === true,
   });

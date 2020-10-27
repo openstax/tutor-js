@@ -496,7 +496,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             className="tags"
           >
             <div
-              className="tag-type has-single-tag"
+              className="tag-type book has-single-tag"
             >
               <div
                 className="heading"
@@ -645,7 +645,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type"
+              className="tag-type lo"
             >
               <div
                 className="heading"
@@ -737,7 +737,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type questionType has-single-tag"
             >
               <div
                 className="heading"
@@ -784,7 +784,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type"
+              className="tag-type filterType"
             >
               <div
                 className="heading"
@@ -949,7 +949,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type"
+              className="tag-type requiresContext"
             >
               <div
                 className="heading"
@@ -975,7 +975,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type cnxModule has-single-tag"
             >
               <div
                 className="heading"
@@ -1056,7 +1056,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type cnxFeature has-single-tag"
             >
               <div
                 className="heading"
@@ -1137,7 +1137,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type dok has-single-tag"
             >
               <div
                 className="heading"
@@ -1183,7 +1183,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type blooms has-single-tag"
             >
               <div
                 className="heading"
@@ -1239,7 +1239,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type has-single-tag"
+              className="tag-type time has-single-tag"
             >
               <div
                 className="heading"
@@ -2064,7 +2064,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <div className=\\"tags\\">
                                 <BookTags exercise={{...}}>
                                   <TagWrapper label=\\"Book\\" onAdd={[Function: res]} singleTag={true}>
-                                    <div className=\\"tag-type has-single-tag\\">
+                                    <div className=\\"tag-type book has-single-tag\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
                                           Book
@@ -2153,9 +2153,10 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                     </div>
                                   </TagWrapper>
                                 </BookTags>
+                                <SciencePracticeTags exercise={{...}} />
                                 <LoTags exercise={{...}}>
                                   <TagWrapper label=\\"LO\\" onAdd={[Function: res]}>
-                                    <div className=\\"tag-type\\">
+                                    <div className=\\"tag-type lo\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
                                           LO
@@ -2211,7 +2212,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <QuestionTypeTag exercise={{...}}>
                                   <SingleDropdown readonly={false} exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}} icon={false}>
                                     <TagWrapper label=\\"Question Type\\" icon={false} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type questionType has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             Question Type
@@ -2243,7 +2244,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <FilterTypeTag exercise={{...}}>
                                   <MultiSelect exercise={{...}} label=\\"Filter Type\\" tagType=\\"filter-type\\" options={{...}}>
                                     <TagWrapper label=\\"Filter Type\\">
-                                      <div className=\\"tag-type\\">
+                                      <div className=\\"tag-type filterType\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             Filter Type
@@ -2361,7 +2362,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </FilterTypeTag>
                                 <RequiresContextTag exercise={{...}}>
                                   <TagWrapper label=\\"Requires Context\\">
-                                    <div className=\\"tag-type\\">
+                                    <div className=\\"tag-type requiresContext\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
                                           Requires Context
@@ -2377,7 +2378,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <CnxModTag exercise={{...}}>
                                   <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\">
                                     <TagWrapper label=\\"CNX Module\\" onAdd={[Function: res]} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type cnxModule has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             CNX Module
@@ -2426,7 +2427,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <CnxFeature exercise={{...}}>
                                   <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function]} placeholder=\\"feature-id\\" validateInput={[Function]}>
                                     <TagWrapper label=\\"CNX Feature\\" onAdd={[Function: res]} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type cnxFeature has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             CNX Feature
@@ -2475,7 +2476,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <DokTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"DOK\\" type=\\"dok\\" choices={{...}}>
                                     <TagWrapper label=\\"DOK\\" icon={[undefined]} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type dok has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             DOK
@@ -2505,7 +2506,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <BloomsTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"Blooms\\" type=\\"blooms\\" choices={{...}}>
                                     <TagWrapper label=\\"Blooms\\" icon={[undefined]} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type blooms has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             Blooms
@@ -2541,7 +2542,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <TimeTag exercise={{...}}>
                                   <SingleDropdown exercise={{...}} label=\\"Time\\" type=\\"time\\" choices={{...}}>
                                     <TagWrapper label=\\"Time\\" icon={[undefined]} singleTag={true}>
-                                      <div className=\\"tag-type has-single-tag\\">
+                                      <div className=\\"tag-type time has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             Time
