@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 import {
@@ -20,7 +20,7 @@ export {
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
   useState, useHistory, useLocation, useParams, useEffect, useRef,
-  useObserver, useLocalStore,
+  useObserver, useLocalStore, useCallback,
 
 };
 export { observable, action, computed } from 'mobx';
