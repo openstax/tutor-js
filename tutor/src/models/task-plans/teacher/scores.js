@@ -226,7 +226,8 @@ class TaskPlanScoreHeading extends BaseModel {
 
   @computed get responseStats() {
     const responses = this.studentResponses;
-    const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints));
+    //don't include students who were dropped
+    const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints) && !response.student.is_dropped);
     return {
       completed: filter(responses, 'is_completed').length,
       hasFreeResponse: Boolean(find(responses, 'free_response')),
@@ -282,6 +283,10 @@ class TaskPlanScoreHeading extends BaseModel {
   @computed get humanCorrectResponses() {
     const { correct, completed } = this.responseStats;
     return `${this.gradedStats.remaining > 0 ? UNWORKED : correct} / ${completed}`;
+  }
+
+  @computed get displayAverageGradedPoints() {
+    return this.dropped ? this.averageGradedPointsWithDroppedQuestion : this.averageGradedPoints;
   }
 }
 
