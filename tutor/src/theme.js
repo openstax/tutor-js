@@ -36,6 +36,7 @@ const colorDefinitions = {
   highlight:     '#d2f7fc', // light blue
   bright_green:  '#61b22a',
   bright_blue:   '#0dc0dc',
+  cerulan:       '#007297',
   dark_blue:     '#002469',
 };
 
@@ -46,7 +47,7 @@ const tasks = {
   event:    colorDefinitions.secondary,
   failure:  colorDefinitions.danger,
 };
-tasks.practice_worst_topics = tasks.page_practice = tasks.homework;
+tasks.practice_worst_topics = tasks.page_practice = tasks.practice_saved = tasks.homework;
 
 export const colors = {
   ...colorDefinitions,
@@ -138,7 +139,7 @@ export const colors = {
     },
   },
 };
-colors.templates.practice_worst_topics = colors.templates.page_practice = colors.templates.homework;
+colors.templates.practice_worst_topics = colors.templates.page_practice = colors.templates.practice_saved = colors.templates.homework;
 
 export const fonts = {
   faces: {

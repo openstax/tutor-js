@@ -10,3 +10,14 @@
 .popover-header {
   @include tutor-sans-font(1.75rem, 1.75rem);
 }
+
+.tooltip#mpq-practice-question-tooltip {
+  .arrow {
+    left: 1px;
+  }
+  .tooltip-inner {
+    padding: 5px 10px;
+    width: 75%;
+    font-size: 1.2rem;
+  }
+}

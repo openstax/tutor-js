@@ -17,6 +17,11 @@ const TagAssociation = {
     });
   }),
 
+  removeType: action(function(type) {
+    const tag = this.withType(type);
+    this.remove(tag);
+  }),
+
   setUniqueValue: action(function(tag, value) {
     const existing = find(this, { type: tag.type, value: value });
     if (existing) {

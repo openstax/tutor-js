@@ -23,6 +23,7 @@ const titleControls = (ux) => {
 
 const StyledTourRegion = styled(TourRegion)`
   display: flex;
+  flex-flow: column;
 `;
 
 @observer

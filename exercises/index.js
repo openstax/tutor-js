@@ -7,7 +7,18 @@ import renderRoot from 'shared/helpers/render-root';
 import './resources/styles/app.scss';
 import Root from './src/app';
 
-async function loadApp() {
+
+function documentReady() {
+  if (document.readyState != 'loading'){
+    return Promise.resolve();
+  } else {
+    return new Promise((resolve) => {
+      document.addEventListener('DOMContentLoaded', resolve);
+    });
+  }
+}
+
+documentReady().then(async () => {
   api.start();
   startMathJax();
   const data = JSON.parse(
@@ -23,6 +34,4 @@ async function loadApp() {
       rootRenderer(NewApp.default);
     });
   }
-}
-
-document.addEventListener('DOMContentLoaded', loadApp);
+});

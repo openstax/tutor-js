@@ -11,6 +11,7 @@ import Placeholder from './placeholder';
 import HtmlContent from './html-content';
 import Failure from './failure';
 import End from './end';
+import SavedPracticeEnd from './saved_practice_end';
 import { LoadingCard } from './card';
 import Instructions from './instructions';
 import {
@@ -22,7 +23,6 @@ import {
 
 
 const STEP_TYPES = {
-  end: End,
   reading: Reading,
   video: HtmlContent,
   exercise: Exercise,
@@ -61,6 +61,9 @@ class TaskStep extends React.Component {
       api: PropTypes.shape({
         hasErrors: PropTypes.bool,
       }),
+      task: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+      }),
     }).isRequired,
   };
 
@@ -76,6 +79,10 @@ class TaskStep extends React.Component {
       ...this.props,
       onContinue: ux.canGoForward ? ux.goForward : null,
     };
+
+    STEP_TYPES.end = step.task && step.task.type === 'practice_saved'
+      ? SavedPracticeEnd 
+      : End;
 
     if ('mpq' === type) {
       return (

@@ -111,7 +111,7 @@ class NoteCard extends React.Component {
                 <Icon type="edit" />
               </button>}
             <a
-              href={`/book/${note.course.ecosystem_id}/section/${note.chapter_section.asString}?highlight=${note.id}`}
+              href={`/book/${note.course.id}/page/${note.page_id}?highlight=${note.id}`}
               target="_blank"
               className="view-in-book"
               title="View in book"

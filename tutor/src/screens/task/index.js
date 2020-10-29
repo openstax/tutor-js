@@ -27,6 +27,7 @@ const TASK_TYPES = {
   external,
   page_practice: homework,
   practice_worst_topics: homework,
+  practice_saved: homework,
 };
 
 const isStepId = (id) => id && id.match(/^\d+$/);

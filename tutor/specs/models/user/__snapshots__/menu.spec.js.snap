@@ -35,6 +35,14 @@ Array [
     },
   },
   Object {
+    "label": "My Practice Questions",
+    "name": "practiceQuestions",
+    "options": Object {},
+    "params": Object {
+      "courseId": 2,
+    },
+  },
+  Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
     "options": Object {},

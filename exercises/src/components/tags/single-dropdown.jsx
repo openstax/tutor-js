@@ -14,7 +14,7 @@ class SingleDropdown extends React.Component {
     type:  PropTypes.string.isRequired,
     readonly: PropTypes.bool,
     icon: PropTypes.node,
-    choices: PropTypes.array.isRequired,
+    choices: PropTypes.object.isRequired,
   };
 
   @action.bound updateTag(ev) {

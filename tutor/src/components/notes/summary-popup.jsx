@@ -1,13 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { React, PropTypes, observer, action, observable } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
-import ChapterSection from '../chapter-section';
+import BookPartTitle from '../book-part-title';
+
 
 const NotesForPage = observer(({
   notes, page, selectedPages,
@@ -19,10 +17,7 @@ const NotesForPage = observer(({
 
   return (
     <div className="section">
-      <h2>
-        <ChapterSection chapterSection={page.chapter_section}
-        /> {page.title}
-      </h2>
+      <BookPartTitle style={{ fontSize: '150%', marginBottom: '1rem' }} part={page} displayChapterSection />
       {pageNotes.byPagePosition.map((note) => (
         <div
           key={note.id}

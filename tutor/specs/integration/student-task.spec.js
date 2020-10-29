@@ -95,6 +95,22 @@ context('Student Tasks', () => {
     cy.getTestElement('submit-answer-btn').should('be.disabled')
   })
 
+  it('should be able to question to my practice', () => {
+    cy.visit('/course/1/task/2')
+    cy.get('.sticky-table [data-step-index=3]').click({ force: true })
+    cy.get('.exercise-step').then(st => {
+      const fr = st.find('[data-test-id="free-response-box"]')
+      if (fr.length > 0){
+        cy.wrap(fr).type('test')
+        cy.getTestElement('submit-answer-btn').click()
+      }
+    })
+    cy.getTestElement('save-practice-button').should('exist');
+    cy.getTestElement('save-practice-button').should('have.text', 'Remove from practice');
+    cy.getTestElement('save-practice-button').click();
+    cy.getTestElement('save-practice-button').should('have.text', 'Save to practice');
+  })
+
   it('deals with steps being removed', () => {
     const taskId = 8
     cy.visit(`/course/1/task/${taskId}`)

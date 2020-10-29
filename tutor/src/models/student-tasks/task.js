@@ -39,7 +39,9 @@ class StudentTask extends BaseModel {
   @computed get isHomework() { return 'homework' === this.type; }
   @computed get isEvent() { return 'event' === this.type; }
   @computed get isExternal() { return 'external' === this.type; }
-  @computed get isPractice() { return this.type && this.type.includes('practice'); }
+
+  @computed get isPractice() { return ['practice_saved', 'page_practice', 'practice_worst_topics'].includes(this.type); }
+  @computed get isSavedPractice() { return this.type === 'practice_saved'; }
   @observable isLoading = false
 
   @computed get publishedLateWorkPenalty() {
@@ -89,7 +91,7 @@ class StudentTask extends BaseModel {
   @computed get closesAtMoment() {
     return this.closes_at && moment(this.closes_at);
   }
-  
+
   @computed get isAssignmentClosed() {
     return Boolean(this.closes_at && this.closesAtMoment.isSameOrBefore(Time.now));
   }
@@ -119,5 +121,12 @@ class StudentTask extends BaseModel {
       this.steps.splice(steps.length, this.steps.length - steps.length);
     }
     this.steps.forEach(s => s.task = this);
+  }
+
+  exit() {
+    return {
+      courseId: this.course.id,
+      id: this.id,
+    };
   }
 }

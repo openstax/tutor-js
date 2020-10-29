@@ -7,7 +7,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
 }
 
 <div
-  className="tag-type"
+  className="tag-type cnxModule"
 >
   <div
     className="heading"

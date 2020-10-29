@@ -7,7 +7,7 @@ exports[`Book tags component renders tags 1`] = `
 }
 
 <div
-  className="tag-type has-single-tag"
+  className="tag-type book has-single-tag"
 >
   <div
     className="heading"
