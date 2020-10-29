@@ -399,7 +399,7 @@ export default class AssignmentUX {
   }
 
   @computed get canSaveAsDraft() {
-    return !this.plan.isPublished && !!this.form.values.title && this.plan.tasking_plans.areValid();
+    return !this.plan.isPublished && this.form.values.title.trim() && this.plan.tasking_plans.areValid();
   }
 
   @action.bound async onSaveAsDraftClick() {
