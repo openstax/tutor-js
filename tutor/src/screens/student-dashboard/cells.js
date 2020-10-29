@@ -1,4 +1,5 @@
 import { styled } from 'vendor';
+import { colors } from 'theme';
 
 const Cell = styled.div`
   display: flex;
@@ -54,9 +55,12 @@ const ScoreCell = styled(Cell).withConfig({
   }
 `;
 
-const MobileCell = styled.div`
+const MobileRow = styled.div.attrs({
+  as: 'a',
+})`
   padding: 1.5rem 1rem;
   width: inherit;
+  color: ${colors.neutral.darker};
   
   i {
     padding: 1.3rem;
@@ -113,4 +117,4 @@ const Row = styled.div`
   background: ${({ theme }) => theme.colors.neutral.lite};
 `;
 
-export { Row, MobileCell, TitleCell, DueCell, StatusCell, ScoreCell };
+export { Row, MobileRow, TitleCell, DueCell, StatusCell, ScoreCell };

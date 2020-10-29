@@ -8,7 +8,7 @@ import HideButton from './hide-button';
 import { TaskStatus, TaskScore } from './task-info';
 import Course from '../../models/course';
 import EventTypeIcon from './event-type-icon';
-import { Row, MobileCell, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
+import { Row, MobileRow, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
 import { EIcon } from '../../components/icons/extension';
 import Responsive from '../../components/responsive';
 
@@ -143,7 +143,7 @@ class EventRow extends React.Component {
     const { event, course } = this.props;
     return (
       <>
-        <MobileCell
+        <MobileRow
           href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
           onClick={this.onClick}>
           <div className="assignment-title-icon">
@@ -171,7 +171,7 @@ class EventRow extends React.Component {
               </span>
             </div>
           </div>
-        </MobileCell>
+        </MobileRow>
       </>
     );
   }
