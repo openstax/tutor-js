@@ -143,7 +143,9 @@ class EventRow extends React.Component {
     const { event, course } = this.props;
     return (
       <>
-        <MobileCell>
+        <MobileCell
+          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+          onClick={this.onClick}>
           <div className="assignment-title-icon">
             <EventTypeIcon event={event} />
             <span className="assignment-title">{event.title}</span>
