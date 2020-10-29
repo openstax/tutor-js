@@ -18,7 +18,7 @@ export default class GradeBookUX {
 
   windowSize = new WindowSize();
 
-  @observable isNameInverted = false;
+  @observable isNameInverted = true;
   @observable showAverageInfoModal = false;
   @observable isReady = false;
   @observable currentPeriodScores;
