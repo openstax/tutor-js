@@ -1,4 +1,3 @@
-
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
 import ExitPracticeButton from '../../components/buttons/exit-practice';
 import TaskProgress from '../../components/task-progress';
@@ -8,6 +7,7 @@ import UX from './ux';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import Time from '../../components/time';
+import task from '../../helpers/task';
 
 const StyledHeader = styled(Header)`
   padding-bottom: 8px;
@@ -106,7 +106,7 @@ const headerContent = (ux) => {
             className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
           />
         </div>
-        <ExitPracticeButton task={ux.task} />
+        <ExitPracticeButton task={ux.task} stepId={ux._stepId} />
       </StyledHeadingTitle>
       <TaskProgress
         steps={ux.steps}

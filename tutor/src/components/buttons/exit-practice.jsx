@@ -19,6 +19,7 @@ class ExitPractice extends React.Component {
   static propTypes = {
     task: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    stepId: PropTypes.string,
   }
 
   @computed get destinationPath() {
@@ -35,7 +36,8 @@ class ExitPractice extends React.Component {
   }
 
   render() {
-    if (!this.props.task.isPractice) return null;
+    const { task, stepId } = this.props;
+    if (!task.isPractice || (task.completed && stepId && stepId === 'end')) return null;
 
     return (
 
