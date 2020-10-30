@@ -118,7 +118,8 @@ class EventRow extends React.Component {
       <>
         <ClickableInfoRow
           href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-          onClick={this.onClick}>
+          onClick={this.onClick}
+        >
           <TitleCell>
             <EventTypeIcon event={event} />
             <span>{event.title}</span>
@@ -142,10 +143,11 @@ class EventRow extends React.Component {
   renderMobile() {
     const { event, course } = this.props;
     return (
-      <>
-        <MobileRow
+      <MobileRow>
+        <a
           href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-          onClick={this.onClick}>
+          onClick={this.onClick}
+        >
           <div className="assignment-title-icon">
             <EventTypeIcon event={event} />
             <span className="assignment-title">{event.title}</span>
@@ -164,15 +166,15 @@ class EventRow extends React.Component {
                 <TaskStatus event={event} course={course} />
               </span>
             </div>
-            <div className="mobile-event-info">
-              <span>Score</span>
-              <span>
-                <TaskScore event={event} course={course} />
-              </span>
-            </div>
           </div>
-        </MobileRow>
-      </>
+        </a>
+        <div className="mobile-event-info-container">
+          <div className="mobile-event-info">
+            <span>Score</span>
+            <TaskScore event={event} course={course} />
+          </div>
+        </div>
+      </MobileRow>
     );
   }
 

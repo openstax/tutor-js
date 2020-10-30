@@ -55,7 +55,7 @@ const ScoreCell = styled(Cell).withConfig({
   }
 `;
 
-const MobileRow = styled.a`
+const MobileRow = styled.div`
   padding: 1.5rem 1rem;
   width: inherit;
   color: ${colors.neutral.darker};
@@ -75,7 +75,7 @@ const MobileRow = styled.a`
   }
 
   .mobile-event-info-container {
-    padding: 10px 5px 0 40px;
+    padding: 0 5px 0 40px;
     width: 100%;
 
     .mobile-event-info {

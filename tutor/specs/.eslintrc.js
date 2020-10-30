@@ -21,6 +21,7 @@ module.exports = {
     "global":     false,
     "cy":         false,
     "context":    false,
+    "Cypress":    false,
   },
   "rules": {
     "react/prop-types": 0,
