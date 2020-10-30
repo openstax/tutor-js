@@ -16,3 +16,9 @@ jobs:
       - uses: bahmutov/npm-install@v1
       - name: Run tests
         run: yarn run ci ${{ matrix.project }}
+      - name: Save screenshots of failures
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: failure-screenshots
+          path: screenshots/tutor
