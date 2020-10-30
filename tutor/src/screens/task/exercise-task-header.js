@@ -106,7 +106,7 @@ const headerContent = (ux) => {
             className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
           />
         </div>
-        <ExitPracticeButton task={ux.task} stepId={ux._stepId} />
+        <ExitPracticeButton task={ux.task} />
       </StyledHeadingTitle>
       <TaskProgress
         steps={ux.steps}
