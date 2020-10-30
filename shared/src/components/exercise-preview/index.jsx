@@ -126,7 +126,10 @@ class ExercisePreview extends React.Component {
               actions={this.props.overlayActions}
               onClick={this.props.onOverlayClick} /> )}
           <div className="exercise-body">
-            <ExerciseBadges multiPart={info.isMultiPart} video={info.hasVideo} interactive={info.hasInteractive} writtenResponse={info.isWrittenResponse} />
+            {
+              this.props.questionType !== 'student-mpp' &&
+              <ExerciseBadges multiPart={info.isMultiPart} video={info.hasVideo} interactive={info.hasInteractive} writtenResponse={info.isWrittenResponse} />
+            }
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
             {this.renderStimulus()}
             {map(this.exercise.questions, (question, index) => (

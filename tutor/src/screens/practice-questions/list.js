@@ -68,7 +68,7 @@ const StyledExerciseCardsWrapper = styled.div`
             :before {
               content: "";
               display: block;
-              margin-top: 8%;
+              margin-top: 2%;
               margin-left: 90%;
               background-size: 95%;
               background-repeat: no-repeat;
