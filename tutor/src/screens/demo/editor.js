@@ -1,7 +1,9 @@
 import { React } from 'vendor';
-
+import { asyncComponent } from '../../helpers/async-component'
 import { InlineEditor } from '../../components/editor';
 
+//const AtlaskitEditor = asyncComponent(() => import(/* webpackChunkName: 'atlaskit' */ './atlaskit'));
+import AtlaskitEditor from './atlaskit';
 
 const fakeExercise = `
           The graph shows what effect temperature has on the functioning of enzymes.
@@ -51,8 +53,7 @@ const EditorDemo = () => {
 
   return (
     <div>
-
-
+      <AtlaskitEditor content={fakeExercise}  />
       <InlineEditor content={fakeExercise} />
 
     </div>
