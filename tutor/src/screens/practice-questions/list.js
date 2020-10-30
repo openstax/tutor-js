@@ -80,12 +80,20 @@ const StyledExerciseCardsWrapper = styled.div`
             .message {
               display: flex;
               flex-flow: column;
-              .action.delete {
-                background-color: ${colors.neutral.lite};
-                height: 60px;
-                padding-top: 20px;
-                &:before {
-                  content: none;
+              .action {
+                &.exclude {
+                  background-color: #424242;
+                  &:before { 
+                    background-color: #424242;
+                  }
+                }
+                &.delete {
+                  background-color: ${colors.neutral.lite};
+                  height: 60px;
+                  padding-top: 20px;
+                  &:before {
+                    content: none;
+                  }
                 }
               }
             }

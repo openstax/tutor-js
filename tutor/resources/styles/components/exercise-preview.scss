@@ -11,7 +11,10 @@
           }
           &.exclude {
             background-color: $openstax-primary;
-            &:before { background-image: url("../../images/icons/exercise-exclude-card-view-action.svg"); }
+            &:before { 
+              background-image: url("../../images/icons/exercise-exclude-card-view-action-transparent.svg");
+              background-color: $openstax-primary;
+            }
           }
           &.details {
             background-color: $openstax-neutral-dark;
@@ -79,7 +82,7 @@
   }
 }
 
-// checkmark when user selects a question card in MPP screen
+// MPP exercise preview cards
 .practice-questions-list {
   .openstax-exercise-preview.has-actions {
     .card-body {
