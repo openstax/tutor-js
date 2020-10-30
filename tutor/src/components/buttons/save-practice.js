@@ -10,6 +10,7 @@ const StyledSavePracticeButton = styled.button`
     line-height: 1.8rem;
     color: ${colors.cerulan};
     padding: 2px 5px;
+    background-color: white;
 
     ${props => props.isSaved && css`
       color: white;
