@@ -12,8 +12,8 @@ export const withScreenSizes = (sizes, tests) => {
   }
   sizes.forEach(size => {
     const [w,h] = SCREENS[size];
-    Cypress.log({ message: `with ${size} screen size (${w}, ${h})` })
     cy.viewport(w, h)
     tests(size, SCREENS[size])
+    cy.viewport(SCREENS.desktop[0], SCREENS.desktop[1])
   })
 };
