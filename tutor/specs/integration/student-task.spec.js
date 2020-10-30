@@ -106,9 +106,9 @@ context('Student Tasks', () => {
       }
     })
     cy.getTestElement('save-practice-button').should('exist');
-    cy.getTestElement('save-practice-button').should('have.text', 'Remove from practice');
-    cy.getTestElement('save-practice-button').click();
     cy.getTestElement('save-practice-button').should('have.text', 'Save to practice');
+    cy.getTestElement('save-practice-button').click();
+    cy.getTestElement('save-practice-button').should('have.text', 'Remove from practice');
   })
 
   it('deals with steps being removed', () => {
