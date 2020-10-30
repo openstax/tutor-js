@@ -95,30 +95,30 @@ const SavePracticeButton = observer(({
     return Boolean(taskStep && taskStep.multiPartGroup);
   };
 
-  const savePracticeButton = (
-    <>
-      {
-        disabled
-          ? (
-            <StyledSavePracticeButton
-              disabled={disabled}
-              className="save-practice-button"
-              data-test-id="save-practice-button"> 
-              {getIconAndLabel()}
-            </StyledSavePracticeButton>
-          )
-          : (
-            <StyledSavePracticeButton
-              onClick={saveOrRemovePracticeQuestion}
-              isSaved={isSaved()}
-              className="save-practice-button"
-              data-test-id="save-practice-button"> 
-              {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
-            </StyledSavePracticeButton>
-          )
-      }
-    </>
-  );
+  const savePracticeButton = () => {
+    if(disabled) {
+      return (
+        <StyledSavePracticeButton
+          disabled={disabled}
+          className="save-practice-button"
+          data-test-id="save-practice-button"> 
+          {getIconAndLabel()}
+        </StyledSavePracticeButton>
+      );
+    }
+
+    return (
+      <StyledSavePracticeButton
+        onClick={saveOrRemovePracticeQuestion}
+        isSaved={isSaved()}
+        className="save-practice-button"
+        data-test-id="save-practice-button"> 
+        {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
+      </StyledSavePracticeButton>
+    );
+  };
+    
+
   // return button with mpq tooltip info
   // only after the question was saved
   if(isMpq() && isSaved()) {
@@ -128,11 +128,12 @@ const SavePracticeButton = observer(({
         overlay={mpqTooltip}
         delay={{ show: 50, hide: 150 }}
       >
-        {savePracticeButton}
+        {savePracticeButton()}
       </OverlayTrigger>
     );
   }
-  return savePracticeButton;
+  return savePracticeButton();
+
 });
 
 SavePracticeButton.propTypes = {
