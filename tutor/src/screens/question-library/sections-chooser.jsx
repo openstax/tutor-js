@@ -20,6 +20,23 @@ const StyledHeader = styled(Header)`
   }
 `;
 
+const StyledFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  &&& {
+    .wrapper {
+      margin: 0;
+      button {
+        padding: 0.5rem 2.5rem;
+      }
+      .btn + .btn {
+        margin-left: 1.6rem;
+      }
+    }
+  }
+`;
+
 export default
 @observer
 class QLSectionsChooser extends React.Component {
@@ -72,24 +89,25 @@ class QLSectionsChooser extends React.Component {
             book={this.props.course.referenceBook}
           />
         </TourRegion>
-        <div className="section-controls footer">
+        <StyledFooter className="section-controls footer">
           <div className="wrapper">
+            <Button
+              variant="default"
+              className="cancel"
+              disabled={isEmpty(this.pageIds)}
+              onClick={this.clearQuestions}
+            >
+              Clear selection
+            </Button>
             <Button
               variant="primary"
               disabled={isEmpty(this.pageIds)}
               onClick={this.showQuestions}
             >
-              Show Questions
-            </Button>
-            <Button
-              variant="default"
-              className="cancel"
-              onClick={this.clearQuestions}
-            >
-              Cancel
+              Show questions
             </Button>
           </div>
-        </div>
+        </StyledFooter>
       </div>
     );
   }
