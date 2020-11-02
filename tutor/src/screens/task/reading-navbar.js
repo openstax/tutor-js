@@ -158,7 +158,7 @@ class ReadingNavbar extends React.Component {
           </Right>
         </Middle>
         <StyledProgressBar now={ux.progressPercent} variant="success" />
-        {ux.task.isAssignmentClosed && <AssignmentClosedBanner />}
+        <AssignmentClosedBanner ux={ux} />
       </StyledNavbar>
     );
   }

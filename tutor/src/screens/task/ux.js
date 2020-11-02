@@ -37,7 +37,18 @@ export default class TaskUX {
         this.goToStepId(stepId);
       }
     );
-    this.course.practiceQuestions.fetch();
+    if (!this.course.currentRole.isTeacher) {
+      this.course.practiceQuestions.fetch();
+    }
+  }
+
+  @computed get canSaveToPractice() {
+    return Boolean(
+      this.task &&
+        !this.course.currentRole.isTeacher && // a teacher can review students work
+        !this.task.isPractice &&
+        !this.currentStep.isWrittenResponseExercise
+    );
   }
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });

@@ -182,13 +182,11 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          {
-            ux.task && !ux.task.isPractice && !step.isWrittenResponseExercise &&
+          { ux.canSaveToPractice && (
             <SavePracticeButton
               practiceQuestions={ux.course.practiceQuestions}
               taskStep={step}
-            />
-          }
+            />)}
         </Controls>
         <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
