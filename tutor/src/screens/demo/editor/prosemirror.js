@@ -24,7 +24,7 @@ const mySchema = new Schema({
         },
       },
     })).append(
-      [ImgNodeSpec],     
+      [ImgNodeSpec],
     ),
   marks: schema.spec.marks,
 });
@@ -45,7 +45,7 @@ class ImageView {
 }
 
 const nodeViews = {
-  img: (...args) => new ImageView(...args)
+  'image': (...args) => new ImageView(...args),
 }
 
 const parser = DOMParser.fromSchema(mySchema);
@@ -57,15 +57,15 @@ const ProseMirrorEditor = ({ content }) => {
   useEffect(() => {
     if (wrapperRef.current) {
       contentRef.current.innerHTML = content;
-      setEditor(
-        new EditorView(wrapperRef.current, {
-          nodeViews,
-          state: EditorState.create({
-            doc: parser.parse(contentRef.current),
-            plugins: exampleSetup({ schema: mySchema }),
-          }),
-        })
-      );
+
+      const ed = new EditorView(wrapperRef.current, {
+        nodeViews,
+        state: EditorState.create({
+          doc: parser.parse(contentRef.current),
+          plugins: exampleSetup({ schema: mySchema }),
+        }),
+      })
+      setEditor(ed)
     }
   }, []);
 

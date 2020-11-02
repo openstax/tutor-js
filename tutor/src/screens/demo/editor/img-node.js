@@ -1,6 +1,3 @@
-
-
-
 const CSS_ROTATE_PATTERN = /rotate\(([0-9\.]+)rad\)/i;
 const EMPTY_CSS_VALUE = new Set(['0%', '0pt', '0px']);
 
@@ -83,9 +80,30 @@ const ImageNodeSpec = {
   draggable: true,
   parseDOM: [{tag: 'img[src]', getAttrs}],
   toDOM(node) {
-
     return ['img', node.attrs];
   },
 };
 
-export default ImageNodeSpec;
+const FE = {
+
+    inline: true,
+    attrs: {
+      src: {},
+      alt: {default: null},
+      title: {default: null}
+    },
+    group: "inline",
+    draggable: true,
+    parseDOM: [{tag: "img[src]", getAttrs(dom) {
+      console.log("PAR")
+      return {
+        src: dom.getAttribute("src"),
+        title: dom.getAttribute("title"),
+        alt: dom.getAttribute("alt")
+      }
+    }}],
+    toDOM(node) { let {src, alt, title} = node.attrs; return ["img", {src, alt, title}] }
+
+}
+      
+export default FE // ImageNodeSpec;
