@@ -20,6 +20,30 @@ const StyledHeader = styled(Header)`
   }
 `;
 
+const StyledTourRegion = styled(TourRegion)`
+  &&& {
+    padding: 2rem 3.2rem;
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 3rem;
+      margin-bottom: 1.6rem;
+    }
+    .chapter {
+      > div:first-child {
+        > span { margin-left: 4rem; }
+      }
+      > div:last-child {
+        > div {
+          margin-left: 3rem;
+          > span { margin-left: 3rem; }
+
+        }
+      }
+    }
+  }
+`;
+
 const StyledFooter = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -78,17 +102,18 @@ class QLSectionsChooser extends React.Component {
           title="Question Library"
           headerContent={<p>The Question Library is a collection of peer-reviewed questions included with your course.</p>}
         />
-        <TourRegion
+        <StyledTourRegion
           className="sections-list"
           id="question-library-sections-chooser"
           otherTours={['preview-question-library-sections-chooser', 'question-library-super']}
           courseId={this.props.course.id}>
+          <h2>Select chapter and section to view questions</h2>
           <Chooser
             onSelectionChange={this.onSectionChange}
             selectedPageIds={this.pageIds}
             book={this.props.course.referenceBook}
           />
-        </TourRegion>
+        </StyledTourRegion>
         <StyledFooter className="section-controls footer">
           <div className="wrapper">
             <Button
