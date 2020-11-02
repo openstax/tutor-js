@@ -1,15 +1,24 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { styled, PropTypes, React } from 'vendor';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import Course from '../../models/course';
 import { ExercisesMap } from '../../models/exercises';
+import Router from '../../helpers/router';
 import TourRegion from '../../components/tours/region';
-import BackButton from '../../components/buttons/back-button';
 import Chooser from '../../components/sections-chooser';
+import Header from '../../components/header';
 
+const StyledHeader = styled(Header)`
+  h1 {
+    width: 100%;
+    margin-bottom: 1.6rem;
+  }
+  p {
+    margin-bottom: 0;
+  }
+`;
 
 export default
 @observer
@@ -45,17 +54,13 @@ class QLSectionsChooser extends React.Component {
   render() {
     return (
       <div className="sections-chooser panel">
-        <div className="header">
-          <div className="wrapper">
-            <h2>
-              Question Library
-            </h2>
-            <BackButton
-              fallbackLink={{
-                text: 'Back to Dashboard', to: 'dashboard', params: { courseId: this.props.course.id },
-              }} />
-          </div>
-        </div>
+        <StyledHeader
+          unDocked
+          backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
+          backToText='Dashboard'
+          title="Question Library"
+          headerContent={<p>The Question Library is a collection of peer-reviewed questions included with your course.</p>}
+        />
         <TourRegion
           className="sections-list"
           id="question-library-sections-chooser"
@@ -88,5 +93,4 @@ class QLSectionsChooser extends React.Component {
       </div>
     );
   }
-
 }
