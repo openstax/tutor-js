@@ -1,7 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Homework from '../../../src/screens/task/homework';
 import { TestRouter, Factory, C, FakeWindow, ld, TimeMock } from '../../helpers';
-import AssignmentClosedBanner from '../../../src/screens/task/assignment-closed-banner';
 
 describe('Reading Tasks Screen', () => {
   let props, history;
@@ -46,7 +45,7 @@ describe('Reading Tasks Screen', () => {
       props.ux.task.steps.forEach(s => s.type = 'placeholder');
       const h = mount(<C><Homework {...props} /></C>);
       expect(h).toHaveRendered('Instructions');
-      expect(h.contains(<AssignmentClosedBanner />)).toBe(false);
+      expect(h.find('AssignmentClosedBanner').isEmptyRender()).toBe(true);
       props.ux.goForward();
       expect(h).toHaveRendered('IndividualReview');
       props.ux.isLocked = false;
@@ -70,7 +69,7 @@ describe('Reading Tasks Screen', () => {
 
     it('renders assignment closed banner', () => {
       const h = mount(<C><Homework {...props} /></C>);
-      expect(h.contains(<AssignmentClosedBanner />)).toBe(true);
+      expect(h.find('AssignmentClosedBanner').isEmptyRender()).toBe(false);
       h.unmount();
     });
   })
