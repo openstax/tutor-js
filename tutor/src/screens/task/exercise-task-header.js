@@ -7,7 +7,6 @@ import UX from './ux';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import Time from '../../components/time';
-import task from '../../helpers/task';
 
 const StyledHeader = styled(Header)`
   padding-bottom: 8px;
