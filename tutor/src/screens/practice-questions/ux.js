@@ -18,6 +18,7 @@ export default class PracticeQuestionsUX {
     await this.practiceQuestions.fetch();
     if(!this.isPracticeQuestionsEmpty) {
       await this.course.referenceBook.ensureLoaded();
+      this.clear();
       await Exercises.fetch(
         {
           course: this.course,

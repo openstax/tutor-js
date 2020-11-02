@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import { React, styled, PropTypes } from 'vendor';
 
 const StyledAssignmentClosedBanner = styled.div`
   background-color: #5e6062;
@@ -9,16 +8,21 @@ const StyledAssignmentClosedBanner = styled.div`
   font-size: 1.3rem;
 `;
 
-const AssignmentClosedBanner = () => {
+const AssignmentClosedBanner = ({ ux }) => {
+  if (!ux.task.isAssignmentClosed) {
+    return null;
+  }
   return ( 
     <StyledAssignmentClosedBanner>
-      <span>This assignment is closed. You can no longer add or edit a response.</span>
+      <span>This assignment is closed.</span>
+      {!ux.course.currentRole.isTeacher && (
+        <span> You can no longer add or edit a response.</span>)}
     </StyledAssignmentClosedBanner>
   );
 };
 
 AssignmentClosedBanner.propTypes = {
-
+  ux: PropTypes.object.isRequired,
 };
 
 export default AssignmentClosedBanner;

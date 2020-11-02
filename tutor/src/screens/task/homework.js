@@ -24,7 +24,7 @@ class HomeworkTask extends React.Component {
     return (
       <SyledHomework className="homework-task">
         <ExerciseTaskHeader ux={ux} unDocked />
-        {ux.task.isAssignmentClosed && <AssignmentClosedBanner />}
+        <AssignmentClosedBanner ux={ux} />
         <TaskStep
           ux={ux}
           step={ux.currentGroupedStep}
