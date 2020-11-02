@@ -28,6 +28,10 @@ class QuestionsDashboardShell extends React.Component {
     this.course.referenceBook.ensureLoaded();
   }
 
+  componentWillUnmount() {
+    this.props.exercises.clear();
+  }
+
   render() {
     if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
     return <Dashboard exercises={this.props.exercises} course={this.course} />;
