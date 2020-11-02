@@ -9,14 +9,12 @@ import Router from '../../helpers/router';
 import TourRegion from '../../components/tours/region';
 import Chooser from '../../components/sections-chooser';
 import Header from '../../components/header';
+import { colors } from 'theme';
 
 const StyledHeader = styled(Header)`
   h1 {
     width: 100%;
     margin-bottom: 1.6rem;
-  }
-  p {
-    margin-bottom: 0;
   }
 `;
 
@@ -61,6 +59,13 @@ const StyledFooter = styled.div`
   }
 `;
 
+const StyledHeaderInfo = styled.p`
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: ${colors.neutral.thin};
+  margin-bottom: 0;
+`;
+
 export default
 @observer
 class QLSectionsChooser extends React.Component {
@@ -92,6 +97,9 @@ class QLSectionsChooser extends React.Component {
     this.pageIds = pageIds;
   }
 
+  headerInfo = () => 
+    <StyledHeaderInfo>The Question Library is a collection of peer-reviewed questions included with your course.</StyledHeaderInfo>
+
   render() {
     return (
       <div className="sections-chooser panel">
@@ -100,7 +108,7 @@ class QLSectionsChooser extends React.Component {
           backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
           backToText='Dashboard'
           title="Question Library"
-          headerContent={<p>The Question Library is a collection of peer-reviewed questions included with your course.</p>}
+          headerContent={this.headerInfo()}
         />
         <StyledTourRegion
           className="sections-list"
