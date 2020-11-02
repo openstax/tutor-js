@@ -14,7 +14,7 @@ import CourseModel from '../models/course';
 import ReferenceBookNode from '../models/reference-book/node';
 import BookPartTitle from './book-part-title';
 
-const CHECKED_COLOR = '#f47642';
+const CHECKED_COLOR = ' #df571e';
 
 const SectionWrapper = styled.div`
   display: flex;
