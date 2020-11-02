@@ -24,7 +24,7 @@ const SectionWrapper = styled.div`
   margin-bottom: 0.75rem;
   cursor: pointer;
   font-size: 1.6rem;
-  > * { margin-left: 1rem; }
+  > * { margin-left: 2rem; }
   input { font-size: 1.7rem; margin-left: 1.2rem; }
 `;
 
