@@ -74,16 +74,18 @@ describe('Questions Dashboard Component', function() {
   it('renders details, then select more sections, then display', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).toHaveRendered('SectionsChooser');
-    const input = `[data-section-id="${page_ids[1]}"] input`;
-    expect(dash.find(input).props().checked).toBe(false);
-    dash.find(input).simulate('click');
+    const input = `[data-section-id="${page_ids[1]}"] Icon`;
+    // square is not selected
+    expect(dash.find(input).first().props().type).toBe('square');
+    dash.find(input).first().simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(dash).toHaveRendered('ExercisesDisplay');
     dash.find('.action.details').at(0).simulate('click');
     expect(dash).toHaveRendered('ExerciseDetails');
     dash.find('ExercisesDisplay').props().onSelectSections();
     expect(dash).toHaveRendered('SectionsChooser');
-    expect(dash.find(input).props().checked).toBe(true);
+    // check-square-solid is selected
+    expect(dash.find(input).first().props().type).toBe('check-square-solid');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(dash).toHaveRendered('ExercisesDisplay');
     expect(dash).not.toHaveRendered('ExerciseDetails');

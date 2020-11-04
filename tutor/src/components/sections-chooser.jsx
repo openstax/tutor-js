@@ -14,16 +14,20 @@ import CourseModel from '../models/course';
 import ReferenceBookNode from '../models/reference-book/node';
 import BookPartTitle from './book-part-title';
 
+const CHECKED_COLOR = ' #df571e';
+
 const SectionWrapper = styled.div`
   display: flex;
   height: 2.5rem;
   align-items: center;
   margin-left: 0.5rem;
+  margin-bottom: 0.75rem;
   cursor: pointer;
-  font-size: 1.5rem;
-  > * { margin-left: 1rem; }
+  font-size: 1.6rem;
+  > * { margin-left: 2rem; }
   input { font-size: 1.7rem; margin-left: 1.2rem; }
   border-bottom: ${props => props.theme.borders.box};
+  padding: 1.8rem 0;
 `;
 
 @observer
@@ -43,6 +47,7 @@ class Section extends React.Component {
   render() {
     const { section } = this.props;
     const classNames = cn('section', { selected: this.isSelected() });
+    const checkBoxType = this.isSelected() ? 'checked' : 'unchecked';
     return (
       <SectionWrapper
         className={classNames}
@@ -50,7 +55,9 @@ class Section extends React.Component {
         onClick={this.toggleSection}
       >
         <span className="section-checkbox">
-          <input type="checkbox" readOnly={true} checked={this.isSelected()} />
+          <TriStateCheckbox
+            type={checkBoxType}
+            checkedColor={CHECKED_COLOR} />
         </span>
         <BookPartTitle
           className="section-title"
@@ -70,9 +77,9 @@ const ChapterHeading = styled.div`
   cursor: pointer;
   font-size: 1.7rem;
   border-bottom: ${props => props.theme.borders.box};
-  > * {
-  margin-left: 1rem;
-  }
+  margin-bottom: 0.5rem;
+  padding: 1.8rem 0;
+  > * { margin-left: 1rem; }
   .chapter-title {
     flex: 1;
   }
@@ -136,7 +143,10 @@ class ChapterAccordion extends React.Component {
           onClick={this.onAccordianToggle}
         >
           <span className="chapter-checkbox">
-            <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
+            <TriStateCheckbox
+              type={checkBoxType}
+              onClick={this.toggleSectionSelections}
+              checkedColor={CHECKED_COLOR} />
           </span>
           <BookPartTitle
             className="chapter-title"
@@ -164,11 +174,6 @@ class ChapterAccordion extends React.Component {
     );
   }
 }
-
-const SectionChooserWrapper = styled.div`
-  border: ${props => props.theme.borders.box};
-  border-radius: 4px;
-`;
 
 export default
 @observer
@@ -228,7 +233,7 @@ class SectionsChooser extends React.Component {
     }
 
     return (
-      <SectionChooserWrapper>
+      <>
         {book.chapters.map((chapter, i) =>
           <ChapterAccordion
             key={i}
@@ -237,7 +242,7 @@ class SectionsChooser extends React.Component {
             selections={this.selections}
             chapter={chapter}
           />)}
-      </SectionChooserWrapper>
+      </>
     );
   }
 }
