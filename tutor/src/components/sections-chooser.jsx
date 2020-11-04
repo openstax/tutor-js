@@ -26,6 +26,8 @@ const SectionWrapper = styled.div`
   font-size: 1.6rem;
   > * { margin-left: 2rem; }
   input { font-size: 1.7rem; margin-left: 1.2rem; }
+  border-bottom: ${props => props.theme.borders.box};
+  padding: 1.8rem 0;
 `;
 
 @observer
@@ -74,7 +76,9 @@ const ChapterHeading = styled.div`
   align-items: center;
   cursor: pointer;
   font-size: 1.7rem;
+  border-bottom: ${props => props.theme.borders.box};
   margin-bottom: 0.5rem;
+  padding: 1.8rem 0;
   > * { margin-left: 1rem; }
   .chapter-title {
     flex: 1;
