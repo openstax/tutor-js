@@ -1,13 +1,39 @@
 import {
-  React, PropTypes, observer, inject, autobind, cn,
+  React, PropTypes, observer, autobind, cn, styled,
 } from 'vendor';
 import { keys } from 'lodash';
 import { Button, ButtonGroup } from 'react-bootstrap';
-
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
+import ScrollSpy from '../../components/scroll-spy';
+import Sectionizer from '../../components/exercises/sectionizer';
+import { colors } from 'theme';
+import { Icon } from 'shared';
 
-@inject('setSecondaryTopControls')
+const StyledExerciseControls = styled.div`
+  // sections
+  .exercise-controls-bar:first-child {
+    height: 70px;
+    border-bottom: 1px solid ${colors.neutral.pale};
+    overflow-x: auto;
+    justify-content: flex-start;
+    // hack to add 'margin' when div is overflowed
+    border-right: 1.1rem solid transparent;
+    border-left: 1.1rem solid transparent;
+    .sectionizer {
+      margin: 0 1.7rem;
+    }
+    .back-to-section {
+      padding: 0;
+      min-width: 8rem;
+      svg {
+        margin-right: 0.5rem;
+        margin-left: 0;
+      }
+    }
+  }
+`;
+
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
@@ -25,19 +51,9 @@ class ExerciseControls extends React.Component {
     sectionizerProps:  PropTypes.object,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onShowCardViewClick: PropTypes.func.isRequired,
-    setSecondaryTopControls: PropTypes.func.isRequired,
+    displayedChapterSections: PropTypes.array,
+    showingDetails: PropTypes.bool,
   };
-
-  static defaultProps = { sectionizerProps: {} };
-
-  constructor(props) {
-    super(props);
-    props.setSecondaryTopControls(this.renderControls);
-  }
-
-  componentWillUnmount() {
-    this.props.setSecondaryTopControls(null);
-  }
 
   getSections = () => {
     return (
@@ -53,10 +69,17 @@ class ExerciseControls extends React.Component {
     );
   };
 
-  render() { return null; }
+  render() { 
+    const { course, displayedChapterSections, showingDetails } = this.props;
 
-  @autobind renderControls() {
-    const { course } = this.props;
+    let sectionizerProps;
+
+    if (showingDetails) {
+      sectionizerProps = {
+        currentSection: this.currentSection,
+        onSectionClick: this.setCurrentSection,
+      };
+    }
 
     const filters =
       <TourAnchor id="exercise-type-toggle">
@@ -81,16 +104,42 @@ class ExerciseControls extends React.Component {
       </TourAnchor>;
 
     return (
-      <div className="exercise-controls-bar">
-        {this.props.children}
-        <div className="filters-wrapper">
-          {!course.is_concept_coach ? filters : undefined}
-        </div>
-        <Button onClick={this.props.onSelectSections}>
+      <StyledExerciseControls>
+        {
+          displayedChapterSections &&
+          <div className="exercise-controls-bar">
+            <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
+              <Icon
+                size="lg"
+                type="angle-left"
+              />
+            Sections
+            </Button>
+            <ScrollSpy dataSelector="data-section">
+              <Sectionizer
+                ref="sectionizer"
+                {...sectionizerProps}
+                fullWidth
+                onScreenElements={[]}
+                chapter_sections={displayedChapterSections}
+              />
+            </ScrollSpy>
+          </div>
+        }
+        <div className="exercise-controls-bar">
+          <div className="filters-wrapper">
+            {!course.is_concept_coach ? filters : undefined}
+          </div>
+          <Button onClick={this.props.onSelectSections}>
           + Select more sections
-        </Button>
-      </div>
+          </Button>
+        </div>
+      </StyledExerciseControls>
     );
+  }
+
+  @autobind renderControls() {
+    
   }
 }
 

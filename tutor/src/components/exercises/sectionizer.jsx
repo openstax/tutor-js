@@ -10,6 +10,9 @@ import WindowSize from '../../models/window-size';
 import ScrollTo from '../../helpers/scroll-to';
 import ChapterSection from '../../models/chapter-section';
 
+/**
+ * If fullWidth prop is passed, show all the sections without the arrows
+ */
 @observer
 class Sectionizer extends React.Component {
 
@@ -18,19 +21,21 @@ class Sectionizer extends React.Component {
       PropTypes.instanceOf(ChapterSection)
     ).isRequired,
     onScreenElements:  PropTypes.array.isRequired,
-    nonAvailableWidth: PropTypes.number.isRequired,
+    nonAvailableWidth: PropTypes.number,
     onSectionClick:    PropTypes.func,
     currentSection:    PropTypes.instanceOf(ChapterSection),
     windowImpl:        PropTypes.object,
     initialScrollTarget: PropTypes.string,
     disableScroll:       PropTypes.bool,
+    fullWidth:         PropTypes.bool,
   }
 
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
   windowSize = new WindowSize(this.props.windowImpl);
 
   @computed get renderCount() {
-    return (Math.floor( this.windowSize.width - this.props.nonAvailableWidth) / 42) - 2;
+    const nonAvailableWidth = this.props.nonAvailableWidth || 0;
+    return (Math.floor( this.windowSize.width - nonAvailableWidth) / 42) - 2;
   }
 
   @observable scrollingTo = first(this.props.chapter_sections);
@@ -113,7 +118,7 @@ class Sectionizer extends React.Component {
     const active = this.currentSection;
     const currentPage = findIndex(sections, section => section === active);
     const links = [];
-    if (sections.length > this.renderCount) {
+    if (!this.props.fullWidth && sections.length > this.renderCount) {
       const pages = Pagination.getPaginationModel({ currentPage: currentPage + 1, totalPages: sections.length });
       for (i = 0; i < pages.length; i++) {
         const page = pages[i];
@@ -134,21 +139,34 @@ class Sectionizer extends React.Component {
     return links;
   }
 
+  renderSectionLinks () {
+    if (!this.props.fullWidth) {
+      return(
+        <>
+          <div
+            className={cn('prev', { disabled: 0 === this.scrollIndex })}
+            onClick={this.goBack}>
+            ❮❮
+          </div>
+          {this.renderCurrentLinks()}
+          <div
+            className="next"
+            className={cn('next', { disabled: (this.props.chapter_sections.length - 1) === this.scrollIndex })}
+            onClick={this.goNext}>
+             ❯❯
+          </div>
+        </>
+      );
+    }
+    return this.renderCurrentLinks();
+  }
+
   render() {
     return (
       <div className="sectionizer">
-        <div
-          className={cn('prev', { disabled: 0 === this.scrollIndex })}
-          onClick={this.goBack}>
-          ❮❮
-        </div>
-        {this.renderCurrentLinks()}
-        <div
-          className="next"
-          className={cn('next', { disabled: (this.props.chapter_sections.length - 1) === this.scrollIndex })}
-          onClick={this.goNext}>
-          ❯❯
-        </div>
+        {
+          this.renderSectionLinks()
+        }
       </div>
     );
   }

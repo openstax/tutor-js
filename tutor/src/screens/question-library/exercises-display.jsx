@@ -8,13 +8,13 @@ import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
-import ScrollSpy from '../../components/scroll-spy';
-import Sectionizer from '../../components/exercises/sectionizer';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
+import Header from '../../components/header';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
+import Router from '../../helpers/router';
 
 const ExerciseDetailsWrapper = props => (
   <TourRegion id="question-library-details" courseId={props.course.id}>
@@ -254,41 +254,31 @@ class ExercisesDisplay extends React.Component {
       return <Loading />;
     }
 
-    let sectionizerProps;
-
-    if (this.props.showingDetails) {
-      sectionizerProps = {
-        currentSection: this.currentSection,
-        onSectionClick: this.setCurrentSection,
-      };
-    }
     return (
-      <div className="exercises-display">
-        <div className="sections-questions-view">
-          <ExerciseControls
-            onSelectSections={this.props.onSelectSections}
-            filter={this.filter}
-            course={this.props.course}
-            showingDetails={this.props.showingDetails}
-            onFilterChange={this.onFilterChange}
-            onSectionSelect={this.scrollToSection}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
-            exercises={exercises}
-          >
-            <ScrollSpy dataSelector="data-section">
-              <Sectionizer
-                ref="sectionizer"
-                {...sectionizerProps}
-                nonAvailableWidth={600}
-                onScreenElements={[]}
-                chapter_sections={this.displayedChapterSections}
-              />
-            </ScrollSpy>
-          </ExerciseControls>
+      <>
+        <Header
+          unDocked
+          backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
+          backToText='Dashboard'
+          title="Question Library"
+        />
+        <ExerciseControls
+          onSelectSections={this.props.onSelectSections}
+          filter={this.filter}
+          course={this.props.course}
+          showingDetails={this.props.showingDetails}
+          onFilterChange={this.onFilterChange}
+          onSectionSelect={this.scrollToSection}
+          onShowCardViewClick={this.onShowCardViewClick}
+          onShowDetailsViewClick={this.onShowDetailsViewClick}
+          exercises={exercises}
+          showingDetails={this.props.showingDetails}
+          displayedChapterSections={this.displayedChapterSections}
+        />
+        <div className="exercises-display"> 
           {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
         </div>
-      </div>
+      </>
     );
   }
 }
