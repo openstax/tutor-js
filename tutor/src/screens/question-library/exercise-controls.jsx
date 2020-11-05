@@ -1,12 +1,12 @@
-import {
-  React, PropTypes, observer, cn, styled,
-} from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
+import { Formik } from 'formik';
 import { keys } from 'lodash';
-import { Button, ButtonGroup, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
+import RadioInput from '../../components/radio-input';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
@@ -14,11 +14,11 @@ const StyledExerciseControls = styled.div`
   .exercise-controls-bar {
     height: 65px;
     border-bottom: 1px solid ${colors.neutral.pale};
+    justify-content: flex-start;
   }
   // sections
   .exercise-controls-bar:first-child {
     overflow-x: auto;
-    justify-content: flex-start;
     // hack to add 'margin' when div is overflowed
     border-right: 1.1rem solid transparent;
     border-left: 1.1rem solid transparent;
@@ -41,6 +41,15 @@ const StyledExerciseControls = styled.div`
       font-weight: 700;
       color: ${colors.neutral.grayblue};
     }
+    .filters-wrapper {
+      margin-left: 2.3rem;
+      label {
+        margin-bottom: 0;
+      }
+      span+span {
+        margin-left: 3.3rem;
+      }
+    }
   }
 `;
 
@@ -54,7 +63,6 @@ class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     onSelectSections: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
     exercises: PropTypes.shape({
       all: PropTypes.object,
       homework: PropTypes.object,
@@ -85,7 +93,7 @@ class ExerciseControls extends React.Component {
   };
 
   render() { 
-    const { course, displayedChapterSections, showingDetails } = this.props;
+    const { course, displayedChapterSections, showingDetails, filter } = this.props;
 
     let sectionizerProps;
 
@@ -124,40 +132,39 @@ class ExerciseControls extends React.Component {
 
     const filters =
       <TourAnchor id="exercise-type-toggle">
-        <ButtonGroup className="filters">
-          <Button
-            variant="default"
-            data-filter="reading"
-            onClick={this.onFilterClick}
-            className={cn('reading', { 'active': this.props.filter === 'reading' })}
-          >
-            Reading
-          </Button>
-          <Button
-            variant="default"
-            data-filter="homework"
-            onClick={this.onFilterClick}
-            className={cn('homework', { 'active': this.props.filter === 'homework' })}
-          >
-            Homework
-          </Button>
-        </ButtonGroup>
+        <RadioInput
+          name="filter-assignment-type"
+          value="homework"
+          label="Homework questions"
+          labelSize="lg"
+          data-filter="homework"
+          checked={filter === 'homework'}
+          onChange={this.onFilterClick}
+        />
+        <RadioInput
+          name="filter-assignment-type"
+          value="reading"
+          label="Reading questions"
+          labelSize="lg"
+          data-filter="reading"
+          checked={filter === 'reading'}
+          onChange={this.onFilterClick}
+        />
       </TourAnchor>;
 
     return (
       <StyledExerciseControls>
         { displayedChapterSections.length > 0 && sections }
-        <div className="exercise-controls-bar">
-          <OverlayTrigger placement="bottom" overlay={libraryPopover}>
-            <span className="library-label">Library</span>
-          </OverlayTrigger>
-          <div className="filters-wrapper">
-            {!course.is_concept_coach ? filters : undefined}
+        <Formik>
+          <div className="exercise-controls-bar">
+            <OverlayTrigger placement="bottom" overlay={libraryPopover}>
+              <span className="library-label">Library</span>
+            </OverlayTrigger>
+            <div className="filters-wrapper">
+              {!course.is_concept_coach ? filters : undefined}
+            </div>
           </div>
-          <Button onClick={this.props.onSelectSections}>
-          + Select more sections
-          </Button>
-        </div>
+        </Formik>
       </StyledExerciseControls>
     );
   }

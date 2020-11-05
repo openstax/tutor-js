@@ -57,7 +57,7 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  @observable filter = 'reading';
+  @observable filter = 'homework';
   @observable currentSection;
   @observable showingDetails = false;
   @observable displayFeedback = false;
