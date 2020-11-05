@@ -1,8 +1,8 @@
 import {
-  React, PropTypes, observer, autobind, cn, styled,
+  React, PropTypes, observer, cn, styled,
 } from 'vendor';
 import { keys } from 'lodash';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Popover, OverlayTrigger } from 'react-bootstrap';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
@@ -11,10 +11,12 @@ import { colors } from 'theme';
 import { Icon } from 'shared';
 
 const StyledExerciseControls = styled.div`
+  .exercise-controls-bar {
+    height: 65px;
+    border-bottom: 1px solid ${colors.neutral.pale};
+  }
   // sections
   .exercise-controls-bar:first-child {
-    height: 70px;
-    border-bottom: 1px solid ${colors.neutral.pale};
     overflow-x: auto;
     justify-content: flex-start;
     // hack to add 'margin' when div is overflowed
@@ -32,12 +34,25 @@ const StyledExerciseControls = styled.div`
       }
     }
   }
+  // filters and create question button
+  .exercise-controls-bar:nth-child(2) {
+    padding: 0 3.2rem;
+    .library-label {
+      font-weight: 700;
+      color: ${colors.neutral.grayblue};
+    }
+  }
+`;
+
+const StyledPopover = styled(Popover)`
+  padding: 1.5rem;
+  color: ${colors.neutral.darker};
 `;
 
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    course:      PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
     onSelectSections: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     exercises: PropTypes.shape({
@@ -81,6 +96,32 @@ class ExerciseControls extends React.Component {
       };
     }
 
+    const libraryPopover =
+      <StyledPopover>
+        OpenStax Tutor has two main assignment types: Reading and Homework,
+        and offers different question libraries for each type.
+      </StyledPopover>;
+
+    const sections =
+      <div className="exercise-controls-bar">
+        <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
+          <Icon
+            size="lg"
+            type="angle-left"
+          />
+        Sections
+        </Button>
+        <ScrollSpy dataSelector="data-section">
+          <Sectionizer
+            ref="sectionizer"
+            {...sectionizerProps}
+            fullWidth
+            onScreenElements={[]}
+            chapter_sections={displayedChapterSections}
+          />
+        </ScrollSpy>
+      </div>;
+
     const filters =
       <TourAnchor id="exercise-type-toggle">
         <ButtonGroup className="filters">
@@ -105,28 +146,11 @@ class ExerciseControls extends React.Component {
 
     return (
       <StyledExerciseControls>
-        {
-          displayedChapterSections &&
-          <div className="exercise-controls-bar">
-            <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
-              <Icon
-                size="lg"
-                type="angle-left"
-              />
-            Sections
-            </Button>
-            <ScrollSpy dataSelector="data-section">
-              <Sectionizer
-                ref="sectionizer"
-                {...sectionizerProps}
-                fullWidth
-                onScreenElements={[]}
-                chapter_sections={displayedChapterSections}
-              />
-            </ScrollSpy>
-          </div>
-        }
+        { displayedChapterSections.length > 0 && sections }
         <div className="exercise-controls-bar">
+          <OverlayTrigger placement="bottom" overlay={libraryPopover}>
+            <span className="library-label">Library</span>
+          </OverlayTrigger>
           <div className="filters-wrapper">
             {!course.is_concept_coach ? filters : undefined}
           </div>
@@ -136,10 +160,6 @@ class ExerciseControls extends React.Component {
         </div>
       </StyledExerciseControls>
     );
-  }
-
-  @autobind renderControls() {
-    
   }
 }
 
