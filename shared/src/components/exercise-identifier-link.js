@@ -28,8 +28,13 @@ class ExerciseIdentifierLink extends React.Component {
   getLocationInfo() {
     const info = this.props.related_content ?
       first(this.props.related_content) : this.props;
-
-    return pick(info, 'chapter_section', 'title');
+    // book titles may have HTML in them, remove any tags
+    const lo = pick(info, 'chapter_section', 'title');
+    lo.title = (lo.title || '').replace(/(<([^>]+)>)/gi, '');
+    if (lo.title.includes(lo.chapter_section.toString())) {
+      lo.chapter_section = '';
+    }
+    return lo;
   }
 
   render() {
