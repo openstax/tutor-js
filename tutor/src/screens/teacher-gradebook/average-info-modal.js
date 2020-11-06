@@ -135,10 +135,10 @@ const AverageInfoModal = ({ ux }) => {
             <StyleTable>
               <thead>
                 <tr>
-                  <th>HW1</th>
-                  <th>HW2</th>
-                  <th>HW3</th>
-                  <th>Homework assignment average</th>
+                  <th>RD1</th>
+                  <th>RD2</th>
+                  <th>RD3</th>
+                  <th>Reading assignment average</th>
                 </tr>
               </thead>
               <tbody>
