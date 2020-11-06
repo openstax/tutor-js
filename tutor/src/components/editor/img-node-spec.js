@@ -2,7 +2,7 @@ const CSS_ROTATE_PATTERN = /rotate\(([0-9\.]+)rad\)/i;
 const EMPTY_CSS_VALUE = new Set(['0%', '0pt', '0px']);
 
 function getAttrs(dom) {
-  console.log(dom)
+
   const {cssFloat, display, marginTop, marginLeft} = dom.style;
   let {width, height} = dom.style;
   let align = dom.getAttribute('data-align') || dom.getAttribute('align');

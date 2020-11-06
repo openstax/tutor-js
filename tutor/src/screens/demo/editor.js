@@ -1,12 +1,25 @@
 import { React } from 'vendor';
 import { asyncComponent } from '../../helpers/async-component';
-import { InlineEditor } from '../../components/editor';
+// import { Editor } from '../../components/editor';
+import { Editor, COMMAND_GROUPS, TABLE_COMMANDS_GROUP } from 'prosemirror-plus'
+// import { Editor } from 'prosemirror-plus'
+
+import convertFromHTML from 'prosemirror-plus/dist/convertFromHTML'
+
+console.log({ TABLE_COMMANDS_GROUP, COMMAND_GROUPS })
+
+COMMAND_GROUPS.splice(8,1)
+
+// import {COMMAND_GROUPS} from 'prosemirror-plus/dist/ui/EditorToolbarConfig';
+
+const docJSON = { 'type': 'doc', 'attrs': { 'layout': null, 'padding': null, 'width': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'marks': [{ 'type': 'mark-font-type', 'attrs': { 'name': 'Arial Black' } }], 'text': 'First line Arial black' }] }, { 'type': 'ordered_list', 'attrs': { 'id': null, 'counterReset': null, 'indent': 0, 'following': null, 'listStyleType': null, 'name': null, 'start': 1 }, 'content': [{ 'type': 'list_item', 'attrs': { 'align': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'List 1' }] }] }] }, { 'type': 'ordered_list', 'attrs': { 'id': null, 'counterReset': null, 'indent': 1, 'following': null, 'listStyleType': null, 'name': null, 'start': 1 }, 'content': [{ 'type': 'list_item', 'attrs': { 'align': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'Child' }] }] }] }, { 'type': 'ordered_list', 'attrs': { 'id': null, 'counterReset': 'none', 'indent': 0, 'following': null, 'listStyleType': null, 'name': null, 'start': 1 }, 'content': [{ 'type': 'list_item', 'attrs': { 'align': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'List 2' }] }] }] }, { 'type': 'paragraph', 'attrs': { 'align': 'center', 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'Align' }] }, { 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'marks': [{ 'type': 'mark-text-color', 'attrs': { 'color': '#f20d96' } }], 'text': 'Font' }, { 'type': 'text', 'text': ' ' }, { 'type': 'text', 'marks': [{ 'type': 'mark-text-highlight', 'attrs': { 'highlightColor': '#e5e5e5' } }], 'text': 'Color ' }, { 'type': 'text', 'marks': [{ 'type': 'strong' }], 'text': 'align ' }, { 'type': 'text', 'marks': [{ 'type': 'link', 'attrs': { 'href': 'http://www.google.com', 'rel': 'noopener noreferrer nofollow', 'target': 'blank', 'title': null } }, { 'type': 'em' }], 'text': 'Link to google' }, { 'type': 'text', 'marks': [{ 'type': 'em' }], 'text': ' ' }, { 'type': 'text', 'marks': [{ 'type': 'underline' }], 'text': 'underline ' }, { 'type': 'text', 'marks': [{ 'type': 'em' }, { 'type': 'strong' }, { 'type': 'mark-text-color', 'attrs': { 'color': '#e5e5e5' } }, { 'type': 'mark-text-highlight', 'attrs': { 'highlightColor': '#979797' } }, { 'type': 'underline' }], 'text': 'combined' }] }, { 'type': 'heading', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null, 'level': 1 }, 'content': [{ 'type': 'text', 'text': 'Header 1' }] }, { 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null } }, { 'type': 'table', 'attrs': { 'marginLeft': null }, 'content': [{ 'type': 'table_row', 'content': [{ 'type': 'table_cell', 'attrs': { 'colspan': 1, 'rowspan': 1, 'colwidth': null, 'borderColor': null, 'background': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'marks': [{ 'type': 'strong' }], 'text': 'Cell 1' }] }] }, { 'type': 'table_cell', 'attrs': { 'colspan': 1, 'rowspan': 1, 'colwidth': null, 'borderColor': null, 'background': null }, 'content': [{ 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'Cell 2' }] }] }] }] }, { 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null } }, { 'type': 'paragraph', 'attrs': { 'align': null, 'color': null, 'id': null, 'indent': null, 'lineSpacing': null, 'paddingBottom': null, 'paddingTop': null }, 'content': [{ 'type': 'text', 'text': 'Subscript ' }, { 'type': 'text', 'marks': [{ 'type': 'super' }], 'text': '2 ' }] }] };
 
 // const AtlaskitEditor = asyncComponent(() => import(/* webpackChunkName: 'atlaskit' */ './atlaskit'));
 // import AtlaskitEditor from './atlaskit';
-const TrixEditor = asyncComponent(() => import(/* webpackChunkName: 'trix' */ './editor/trix'));
-const ProseMirrorEditor = asyncComponent(() => import(/* webpackChunkName: 'prosemirror' */ './editor/prosemirror'));
+//const TrixEditor = asyncComponent(() => import(/* webpackChunkName: 'trix' */ './editor/trix'));
+//const ProseMirrorEditor = asyncComponent(() => import(/* webpackChunkName: 'prosemirror' */ './editor/prosemirror'));
 // import ProseMirrorEditor from './prosemirror';
+
 
 const fakeExercise = `
 <div>
@@ -60,11 +73,34 @@ const fakeExercise = `
       // <InlineEditor content={fakeExercise} />
 
 const EditorDemo = () => {
+  const [editorView, setEditorView] = React.useState()
+  const [editorState, setEditorState] = React.useState(
+    convertFromHTML(fakeExercise),
+  )
+  const onReady = React.useCallback((ev) => {
+    setEditorView(ev)
+  })
+  const onChange = React.useCallback(({ state, transaction }) => {
+
+    // const { data: { state, transaction }
+    //if (transaction.docChanged) {
+    setEditorState(state.apply(transaction))
+    //}
+  })
 
   return (
-    <div>
+    <div style={{ margin: '100px auto', maxWidth: '1100px', height: '500px' }}>
 
-      <ProseMirrorEditor content={fakeExercise} />
+      <Editor
+        onReady={onReady}
+        editorState={editorState}
+        onChange={onChange}
+        height="100%" width="100%"
+        readOnly={false} disabled={false}
+        data={docJSON} embedded={false}
+        fitToContent
+        defaultHTML={fakeExercise}
+      />
 
     </div>
   );

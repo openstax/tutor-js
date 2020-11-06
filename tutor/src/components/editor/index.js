@@ -7,9 +7,8 @@ import {addListNodes} from 'prosemirror-schema-list'
 import {exampleSetup} from 'prosemirror-example-setup';
 import {tableEditing, columnResizing, tableNodes, fixTables} from 'prosemirror-tables';
 import Wrapper from './wrapper.js';
-import 'prosemirror-example-setup/style/style.css';
-import './prosemirror.css';
-import ImgNodeSpec from './img-node'
+import ImgNodeSpec from './img-node-spec'
+import ImgNodeView from './image-node-view'
 
 function bindNodeView(NodeView) {
   return (node, view, getPos, decorations) => {
@@ -35,49 +34,25 @@ const mySchema = new Schema({
   marks: schema.spec.marks,
 });
 
-class ImageView {
-  constructor(node) {
-
-    // The editor will use this as the node's DOM representation
-    this.dom = document.createElement("img")
-    this.dom.src = node.attrs.src
-    this.dom.addEventListener("click", e => {
-      console.log("You clicked me!")
-      e.preventDefault()
-    })
-  }
-
-  stopEvent() { return true }
-}
 
 const nodeViews = {
-  'image': (...args) => new ImageView(...args),
+  'image': (...args) => new ImgNodeView(...args),
 }
-
-
-const boundNodeViews = {};
-
-Object.keys(nodeViews).forEach(nodeName => {
-  const nodeView = nodeViews[nodeName];
-  
-
-  boundNodeViews[nodeName] = bindNodeView(nodeView);
-
-});
 
 
 const parser = DOMParser.fromSchema(mySchema);
 
-const ProseMirrorEditor = ({ content }) => {
+
+export const Editor = ({ content }) => {
   const [editor, setEditor] = useState();
   const wrapperRef = useRef();
   const contentRef = useRef();
   useEffect(() => {
     if (wrapperRef.current) {
       contentRef.current.innerHTML = content;
-      console.log({ boundNodeViews, mySchema })
+
       const ed = new EditorView(wrapperRef.current, {
-        nodeViews: boundNodeViews,
+        nodeViews: nodeViews,
         state: EditorState.create({
           doc: parser.parse(contentRef.current),
           plugins: exampleSetup({ schema: mySchema }),
@@ -97,4 +72,3 @@ const ProseMirrorEditor = ({ content }) => {
 
 };
 
-export default ProseMirrorEditor;
