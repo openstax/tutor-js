@@ -331,7 +331,7 @@ class ManagePayments extends React.Component {
           <div className="footer">
             <NewTabLink
               className="refund-policy"
-              href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
+              href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
             >
             Refund policy for OpenStax Tutor Beta courses
             </NewTabLink>
