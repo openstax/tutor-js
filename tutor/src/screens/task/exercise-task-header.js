@@ -1,4 +1,3 @@
-
 import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
 import ExitPracticeButton from '../../components/buttons/exit-practice';
 import TaskProgress from '../../components/task-progress';
