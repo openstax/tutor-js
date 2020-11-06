@@ -19,6 +19,10 @@ const InnerStepCard = styled.div`
 
   ${breakpoint.desktop`
     max-width: 1000px;
+    min-width: 750px;
+  `}
+  ${breakpoint.large`
+    min-width: 1000px;
   `}
 `;
 
