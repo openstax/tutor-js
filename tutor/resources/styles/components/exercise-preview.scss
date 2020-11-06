@@ -11,10 +11,7 @@
           }
           &.exclude {
             background-color: $openstax-primary;
-            &:before { 
-              background-image: url("../../images/icons/exercise-exclude-card-view-action-transparent.svg");
-              background-color: $openstax-primary;
-            }
+            &:before { background-image: url("../../images/icons/exercise-exclude-card-view-action.svg"); }
           }
           &.details {
             background-color: $openstax-neutral-dark;
@@ -88,6 +85,15 @@
     .card-body {
       .selected-student-mpp-check:before {
         background-image: url("../../images/icons/mpp-selected-question.svg");
+      }
+      .controls-overlay {
+        .message {
+          .action {
+            &.exclude {
+              &:before { background-image: url("../../images/icons/mpp-exclude-action.svg"); }
+            }
+          }
+        }
       }
     }
   }
