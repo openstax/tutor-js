@@ -123,6 +123,7 @@ var Analytics = {
     const course = Courses.get(courseId);
     if (course) {
       this.ga('set', 'dimension1', course.appearance_code);
+      this.ga('set', 'dimension2', course.currentRole.type);
     }
   },
 
