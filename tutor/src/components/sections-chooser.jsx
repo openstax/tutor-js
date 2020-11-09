@@ -13,8 +13,7 @@ import BookModel from '../models/reference-book';
 import CourseModel from '../models/course';
 import ReferenceBookNode from '../models/reference-book/node';
 import BookPartTitle from './book-part-title';
-
-const CHECKED_COLOR = ' #df571e';
+import { colors } from 'theme';
 
 const SectionWrapper = styled.div`
   display: flex;
@@ -57,7 +56,7 @@ class Section extends React.Component {
         <span className="section-checkbox">
           <TriStateCheckbox
             type={checkBoxType}
-            checkedColor={CHECKED_COLOR} />
+            checkedColor={colors.orange} />
         </span>
         <BookPartTitle
           className="section-title"
@@ -146,7 +145,7 @@ class ChapterAccordion extends React.Component {
             <TriStateCheckbox
               type={checkBoxType}
               onClick={this.toggleSectionSelections}
-              checkedColor={CHECKED_COLOR} />
+              checkedColor={colors.orange} />
           </span>
           <BookPartTitle
             className="chapter-title"
