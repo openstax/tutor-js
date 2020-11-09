@@ -88,7 +88,7 @@ class ExerciseCards extends React.Component {
     if (this.props.focusedExercise) {
       this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
     } else {
-      this.scroller.scrollToSelector('.exercise-sections');
+      this.scroller.scrollToSelector('.exercise-sections', { scrollTopOffset: this.props.topScrollOffset });
     }
   }
 

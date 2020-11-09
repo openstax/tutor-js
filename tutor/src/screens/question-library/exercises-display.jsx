@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -15,6 +15,16 @@ import Header from '../../components/header';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
 import Router from '../../helpers/router';
+
+const StyledExerciseDisplay = styled.div`
+  .controls-wrapper {
+    position: sticky;
+    top: 5.9rem;
+    z-index: 10;
+  }
+`;
+
+const TOP_SCROLL_OFFSET = 335;
 
 const ExerciseDetailsWrapper = props => (
   <TourRegion id="question-library-details" courseId={props.course.id}>
@@ -219,7 +229,7 @@ class ExercisesDisplay extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      topScrollOffset: 100,
+      topScrollOffset: TOP_SCROLL_OFFSET,
     };
 
     if (this.props.showingDetails) {
@@ -255,30 +265,33 @@ class ExercisesDisplay extends React.Component {
     }
 
     return (
-      <>
-        <Header
-          unDocked
-          backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
-          backToText='Dashboard'
-          title="Question Library"
-        />
-        <ExerciseControls
-          onSelectSections={this.props.onSelectSections}
-          filter={this.filter}
-          course={this.props.course}
-          showingDetails={this.props.showingDetails}
-          onFilterChange={this.onFilterChange}
-          onSectionSelect={this.scrollToSection}
-          onShowCardViewClick={this.onShowCardViewClick}
-          onShowDetailsViewClick={this.onShowDetailsViewClick}
-          exercises={exercises}
-          showingDetails={this.props.showingDetails}
-          displayedChapterSections={this.displayedChapterSections}
-        />
+      <StyledExerciseDisplay>
+        <div className="controls-wrapper">
+          <Header
+            unDocked
+            backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
+            backToText='Dashboard'
+            title="Question Library"
+          />
+          <ExerciseControls
+            onSelectSections={this.props.onSelectSections}
+            filter={this.filter}
+            course={this.props.course}
+            showingDetails={this.props.showingDetails}
+            onFilterChange={this.onFilterChange}
+            onSectionSelect={this.scrollToSection}
+            onShowCardViewClick={this.onShowCardViewClick}
+            onShowDetailsViewClick={this.onShowDetailsViewClick}
+            exercises={exercises}
+            showingDetails={this.props.showingDetails}
+            displayedChapterSections={this.displayedChapterSections}
+            topScrollOffset={TOP_SCROLL_OFFSET}
+          />
+        </div>
         <div className="exercises-display"> 
           {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
         </div>
-      </>
+      </StyledExerciseDisplay>
     );
   }
 }

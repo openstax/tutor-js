@@ -28,6 +28,7 @@ class Sectionizer extends React.Component {
     initialScrollTarget: PropTypes.string,
     disableScroll:       PropTypes.bool,
     fullWidth:         PropTypes.bool,
+    topScrollOffset:   PropTypes.number,
   }
 
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
@@ -47,7 +48,7 @@ class Sectionizer extends React.Component {
 
   componentDidMount() {
     if (this.props.disableScroll != false && this.props.initialScrollTarget) {
-      this.scroller.scrollToSelector(this.props.initialScrollTarget);
+      this.scroller.scrollToSelector(this.props.initialScrollTarget, { scrollTopOffset: this.props.topScrollOffset });
     }
   }
 
@@ -55,7 +56,7 @@ class Sectionizer extends React.Component {
     if (this.props.onSectionClick) {
       this.props.onSectionClick(section);
     } else {
-      this.scroller.scrollToSelector(`[data-section='${section}']`);
+      this.scroller.scrollToSelector(`[data-section='${section}']`, { scrollTopOffset: this.props.topScrollOffset });
     }
   }
 

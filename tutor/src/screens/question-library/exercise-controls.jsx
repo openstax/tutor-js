@@ -76,6 +76,7 @@ class ExerciseControls extends React.Component {
     onShowCardViewClick: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
     showingDetails: PropTypes.bool,
+    topScrollOffset: PropTypes.number,
   };
 
   getSections = () => {
@@ -93,7 +94,7 @@ class ExerciseControls extends React.Component {
   };
 
   render() { 
-    const { course, displayedChapterSections, showingDetails, filter } = this.props;
+    const { course, displayedChapterSections, showingDetails, filter, topScrollOffset } = this.props;
 
     let sectionizerProps;
 
@@ -126,6 +127,7 @@ class ExerciseControls extends React.Component {
             fullWidth
             onScreenElements={[]}
             chapter_sections={displayedChapterSections}
+            topScrollOffset={topScrollOffset}
           />
         </ScrollSpy>
       </div>;
