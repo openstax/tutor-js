@@ -20,7 +20,7 @@ describe('Sections Chooser', () => {
     expect(props.onSelectionChange).toHaveBeenCalled();
     props.onSelectionChange.mockReset();
     const pageId = book.pages.byId.keys()[2];
-    chooser.find(`[data-section-id="${pageId}"] input`).simulate('click');
+    chooser.find(`[data-section-id="${pageId}"] span`).first().simulate('click');
     expect(props.onSelectionChange).toHaveBeenCalledWith(
       expect.arrayContaining([pageId])
     );
