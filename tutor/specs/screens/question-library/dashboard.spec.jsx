@@ -26,7 +26,7 @@ describe('Questions Dashboard Component', function() {
       FactoryBot.create(
         'TutorExercise',
         {
-          // QL displays homework assignment first
+          // QL displays homework exercises first
           pool_types: ['homework_core'],
           page_uuid: book.pages.byId.get(page_id).uuid,
         },
