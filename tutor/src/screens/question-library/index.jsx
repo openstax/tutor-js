@@ -29,7 +29,7 @@ class QuestionsDashboardShell extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.exercises.clear();
+    Exercises.clear();
   }
 
   render() {
