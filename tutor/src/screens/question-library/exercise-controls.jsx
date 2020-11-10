@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import { Formik } from 'formik';
 import { keys } from 'lodash';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import Course from '../../models/course';
@@ -7,6 +6,7 @@ import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
+import ExerciseFilters from '../../components/exercises/questions-filters';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
@@ -14,10 +14,11 @@ const StyledExerciseControls = styled.div`
   .exercise-controls-bar {
     height: 65px;
     border-bottom: 1px solid ${colors.neutral.pale};
-    justify-content: flex-start;
+    display: flex;
   }
   // sections
   .exercise-controls-bar:first-child {
+    justify-content: flex-start;
     overflow-x: auto;
     // hack to add 'margin' when div is overflowed
     border-right: 1.1rem solid transparent;
@@ -36,18 +37,22 @@ const StyledExerciseControls = styled.div`
   }
   // filters and create question button
   .exercise-controls-bar:nth-child(2) {
+    justify-content: space-between;
     padding: 0 3.2rem;
     .library-label {
       font-weight: 700;
       color: ${colors.neutral.grayblue};
     }
-    .filters-wrapper {
-      margin-left: 2.3rem;
-      label {
-        margin-bottom: 0;
-      }
-      span+span {
-        margin-left: 3.3rem;
+    .assignment-controls-wrapper {
+      display: flex;
+      .assignment-filters {
+        margin-left: 2.3rem;
+        label {
+          margin-bottom: 0;
+        }
+        span+span {
+          margin-left: 3.3rem;
+        }
       }
     }
   }
@@ -132,7 +137,7 @@ class ExerciseControls extends React.Component {
         </ScrollSpy>
       </div>;
 
-    const filters =
+    const assignmentFilters =
       <TourAnchor id="exercise-type-toggle">
         <RadioInput
           name="filter-assignment-type"
@@ -142,6 +147,7 @@ class ExerciseControls extends React.Component {
           data-filter="homework"
           checked={filter === 'homework'}
           onChange={this.onFilterClick}
+          standalone
         />
         <RadioInput
           name="filter-assignment-type"
@@ -151,22 +157,26 @@ class ExerciseControls extends React.Component {
           data-filter="reading"
           checked={filter === 'reading'}
           onChange={this.onFilterClick}
+          standalone
         />
       </TourAnchor>;
 
     return (
       <StyledExerciseControls>
         { displayedChapterSections.length > 0 && sections }
-        <Formik>
-          <div className="exercise-controls-bar">
+        <div className="exercise-controls-bar">
+          <div className="assignment-controls-wrapper">
             <OverlayTrigger placement="bottom" overlay={libraryPopover}>
               <span className="library-label">Library</span>
             </OverlayTrigger>
-            <div className="filters-wrapper">
-              {!course.is_concept_coach ? filters : undefined}
+            <div className="assignment-filters">
+              {!course.is_concept_coach ? assignmentFilters : undefined}
             </div>
           </div>
-        </Formik>
+          <div className="questions-controls-wrapper">
+            <ExerciseFilters />
+          </div>
+        </div>
       </StyledExerciseControls>
     );
   }
