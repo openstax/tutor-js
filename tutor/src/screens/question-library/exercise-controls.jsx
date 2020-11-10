@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import { Formik } from 'formik';
 import { keys } from 'lodash';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import Course from '../../models/course';
@@ -19,9 +18,7 @@ const StyledExerciseControls = styled.div`
   // sections
   .exercise-controls-bar:first-child {
     overflow-x: auto;
-    // hack to add 'margin' when div is overflowed
-    border-right: 1.1rem solid transparent;
-    border-left: 1.1rem solid transparent;
+    padding: 0 2.4rem;
     .sectionizer {
       margin: 0 1.7rem;
     }
@@ -36,7 +33,7 @@ const StyledExerciseControls = styled.div`
   }
   // filters and create question button
   .exercise-controls-bar:nth-child(2) {
-    padding: 0 3.2rem;
+    padding: 0 3.5rem;
     .library-label {
       font-weight: 700;
       color: ${colors.neutral.grayblue};
@@ -142,6 +139,7 @@ class ExerciseControls extends React.Component {
           data-filter="homework"
           checked={filter === 'homework'}
           onChange={this.onFilterClick}
+          standalone
         />
         <RadioInput
           name="filter-assignment-type"
@@ -151,22 +149,21 @@ class ExerciseControls extends React.Component {
           data-filter="reading"
           checked={filter === 'reading'}
           onChange={this.onFilterClick}
+          standalone
         />
       </TourAnchor>;
 
     return (
       <StyledExerciseControls>
         { displayedChapterSections.length > 0 && sections }
-        <Formik>
-          <div className="exercise-controls-bar">
-            <OverlayTrigger placement="bottom" overlay={libraryPopover}>
-              <span className="library-label">Library</span>
-            </OverlayTrigger>
-            <div className="filters-wrapper">
-              {!course.is_concept_coach ? filters : undefined}
-            </div>
+        <div className="exercise-controls-bar">
+          <OverlayTrigger placement="bottom" overlay={libraryPopover}>
+            <span className="library-label">Library</span>
+          </OverlayTrigger>
+          <div className="filters-wrapper">
+            {!course.is_concept_coach ? filters : undefined}
           </div>
-        </Formik>
+        </div>
       </StyledExerciseControls>
     );
   }
