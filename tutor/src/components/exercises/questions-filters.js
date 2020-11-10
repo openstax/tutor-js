@@ -98,7 +98,7 @@ CustomMenu.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
   style: PropTypes.object.isRequired,
-  'aria-labelledby': PropTypes.bool.isRequired,
+  'aria-labelledby': PropTypes.string.isRequired,
 };
 
 const QuestionFilters = (props) => {
@@ -115,18 +115,18 @@ const QuestionFilters = (props) => {
         <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              setValue(checked);
+              props.onQuestionTypeFilterChange('showMPQ', checked);
             }}
-            checked={value}
+            checked={props.showMPQ}
             label="Multiple-choice questions"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              setValue(checked);
+              props.onQuestionTypeFilterChange('showWRQ', checked);
             }}
-            checked={value}
+            checked={props.showWRQ}
             label="Written-response questions"
             labelSize="lg"
             standalone
@@ -175,6 +175,9 @@ const QuestionFilters = (props) => {
 QuestionFilters.propTypes = {
   className: PropTypes.string,
   exerciseType: PropTypes.string.isRequired,
+  showMPQ: PropTypes.bool.isRequired,
+  showWRQ: PropTypes.bool.isRequired,
+  onQuestionTypeFilterChange: PropTypes.func.isRequired,
 };
 
 export default QuestionFilters;

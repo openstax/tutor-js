@@ -80,38 +80,38 @@ class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     onSelectSections: PropTypes.func.isRequired,
-    exercises: PropTypes.shape({
-      all: PropTypes.object,
-      homework: PropTypes.object,
-      reading: PropTypes.object,
-    }).isRequired,
     selectedExercises: PropTypes.array,
-    filter: PropTypes.string,
-    onFilterChange: PropTypes.func.isRequired,
+    exerciseTypeFilter: PropTypes.string,
+    onExerciseTypeFilterChange: PropTypes.func.isRequired,
     sectionizerProps:  PropTypes.object,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onShowCardViewClick: PropTypes.func.isRequired,
+    showMPQ: PropTypes.bool.isRequired,
+    showWRQ: PropTypes.bool.isRequired,
+    onQuestionTypeFilterChange: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
   };
 
-  getSections = () => {
+  onExerciseTypeFilterClick = (ev) => {
+    let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
+    if (exerciseTypeFilter === this.props.exerciseTypeFilter) { exerciseTypeFilter = ''; }
     return (
-      keys(this.props.exercises.all.grouped)
-    );
-  };
-
-  onFilterClick = (ev) => {
-    let filter = ev.currentTarget.getAttribute('data-filter');
-    if (filter === this.props.filter) { filter = ''; }
-    return (
-      this.props.onFilterChange( filter )
+      this.props.onExerciseTypeFilterChange( exerciseTypeFilter )
     );
   };
 
   render() { 
-    const { course, displayedChapterSections, showingDetails, filter, topScrollOffset } = this.props;
+    const {
+      course,
+      displayedChapterSections,
+      showingDetails,
+      exerciseTypeFilter,
+      topScrollOffset,
+      showWRQ,
+      showMPQ,
+      onQuestionTypeFilterChange } = this.props;
 
     let sectionizerProps;
 
@@ -156,9 +156,9 @@ class ExerciseControls extends React.Component {
           value="homework"
           label="Homework questions"
           labelSize="lg"
-          data-filter="homework"
-          checked={filter === 'homework'}
-          onChange={this.onFilterClick}
+          data-exercise-filter="homework"
+          checked={exerciseTypeFilter === 'homework'}
+          onChange={this.onExerciseTypeFilterClick}
           standalone
         />
         <RadioInput
@@ -166,9 +166,9 @@ class ExerciseControls extends React.Component {
           value="reading"
           label="Reading questions"
           labelSize="lg"
-          data-filter="reading"
-          checked={filter === 'reading'}
-          onChange={this.onFilterClick}
+          data-exercise-filter="reading"
+          checked={exerciseTypeFilter === 'reading'}
+          onChange={this.onExerciseTypeFilterClick}
           standalone
         />
       </TourAnchor>;
@@ -186,8 +186,13 @@ class ExerciseControls extends React.Component {
             </div>
           </div>
           <div className="questions-controls-wrapper">
-            <QuestionFilters className="question-filters" exerciseType={filter}/>
-            <CreateQuestionButton exerciseType={filter} />
+            <QuestionFilters
+              className="question-filters"
+              exerciseType={exerciseTypeFilter}
+              showMPQ={showMPQ}
+              showWRQ={showWRQ}
+              onQuestionTypeFilterChange={onQuestionTypeFilterChange}/>
+            <CreateQuestionButton exerciseType={exerciseTypeFilter} />
           </div>    
         </div>
       </StyledExerciseControls>
