@@ -39,7 +39,7 @@ class SectionsExercises extends React.Component {
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
-      <div className="exercise-sections">
+      <div className="exercise-sections" data-section={page ? page.chapter_section.asString : ''}>
         {
           page && 
           <SectionLabel>

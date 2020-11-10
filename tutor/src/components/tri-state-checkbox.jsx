@@ -11,7 +11,7 @@ const ICON_TYPES = {
   unchecked: 'square',
 };
 
-const COLORS = {
+let COLORS = {
   partial: Theme.colors.neutral.lite,
   checked: '#4b89f5', // chrome's checked color
   unchecked: Theme.colors.neutral.lite,
@@ -21,7 +21,15 @@ class TriStateCheckbox extends React.Component {
   static propTypes = {
     type: PropTypes.oneOf(keys(ICON_TYPES)).isRequired,
     onClick: PropTypes.func,
+    checkedColor: PropTypes.string,
   };
+
+  constructor(props){
+    super(props);
+    if(props.checkedColor) {
+      COLORS.checked = props.checkedColor;
+    }
+  }
 
   onClick = (ev) => {
     ev.preventDefault();
