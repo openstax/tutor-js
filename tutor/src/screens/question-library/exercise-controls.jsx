@@ -6,7 +6,7 @@ import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
-import ExerciseFilters from '../../components/exercises/questions-filters';
+import QuestionFilters from '../../components/exercises/questions-filters';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
@@ -53,6 +53,16 @@ const StyledExerciseControls = styled.div`
         span+span {
           margin-left: 3.3rem;
         }
+      }
+    }
+    .questions-controls-wrapper {
+      display: flex;
+      height: 40px;
+      .question-filters {
+        padding: 1rem 3rem;
+      }
+      .btn {
+        padding: 0 4rem;
       }
     }
   }
@@ -174,7 +184,13 @@ class ExerciseControls extends React.Component {
             </div>
           </div>
           <div className="questions-controls-wrapper">
-            <ExerciseFilters />
+            <QuestionFilters className="question-filters"/>
+            {/*TODO: add modal*/}
+            <Button
+              variant="primary"
+            >
+              Create question
+            </Button>
           </div>
         </div>
       </StyledExerciseControls>

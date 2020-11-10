@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css } from 'vendor';
+import { React, PropTypes, styled, css, cn } from 'vendor';
 import { useState, forwardRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import CheckboxInput from '../checkbox-input';
@@ -10,7 +10,7 @@ const border = css`
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 `;
 
-const StyledExercisesFilter = styled.div`
+const StyledQuestionFilter = styled.div`
     display: flex;
 `;
 
@@ -30,24 +30,27 @@ const StyledDropdown = styled(Dropdown)`
         margin-left: 3rem;
     }
     .dropdown-menu.show {
-        ${border}
-        display: flex;
-        flex-flow: column wrap;
-        width: 300px;
-        padding: 2.9rem 1.6rem;
-        color: ${colors.neutral.darker};
-        span:not(:first-child) {
-            margin-top: 1rem;
-        }
-        &:after {    
-            content: '';
-            display: block;
-            position: absolute;
-            width: ${props => props.blankwidth || '100px'};
-            top: -6px;
-            left: 0px;
-            border: 3px solid white;
-        }
+      ${border}
+      display: flex;
+      flex-flow: column wrap;
+      padding: 2.9rem 1.6rem;
+      color: ${colors.neutral.darker};
+      width: 25rem;
+      span label {
+        font-size: 1.4rem;
+      }
+      span:not(:first-child) {
+          margin-top: 1rem;
+      }
+      &:after {    
+        content: '';
+        display: block;
+        position: absolute;
+        width: ${props => props.blankwidth || '100px'};
+        top: -6px;
+        left: 0px;
+        border: 3px solid white;
+      }
     }
 `;
 
@@ -83,7 +86,7 @@ const CustomMenu = forwardRef(
     return (
       <div
         ref={ref}
-        style={{ ...style, ...inlineStyle }}
+        style={{ ...style, ...inlineStyle, top: '-2px' }}
         className={className}
         aria-labelledby={labeledBy}
       >
@@ -101,16 +104,16 @@ CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.bool.isRequired,
 };
 
-const ExerciseFilters = () => {
+const QuestionFilters = (props) => {
   const [value, setValue] = useState(false);
   return (
-    <StyledExercisesFilter>
+    <StyledQuestionFilter className={cn(props.className)}>
       <StyledDropdown blankwidth='13.8rem'>
         <Dropdown.Toggle
           as={CustomToggle}
           text="Question Type"
           id="dropdown-custom-components"/>
-        <Dropdown.Menu as={CustomMenu} inlineStyle={{ top: '-2px' }}>
+        <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
               setValue(checked);
@@ -136,7 +139,7 @@ const ExerciseFilters = () => {
           as={CustomToggle}
           text="Question Source"
           id="dropdown-custom-components"/>
-        <Dropdown.Menu as={CustomMenu} inlineStyle={{ top: '-2px', left: '5px' }}>
+        <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
               setValue(checked);
@@ -166,12 +169,12 @@ const ExerciseFilters = () => {
           />
         </Dropdown.Menu>
       </StyledDropdown>
-    </StyledExercisesFilter>
+    </StyledQuestionFilter>
   );
 };
 
-ExerciseFilters.propTypes = {
-
+QuestionFilters.propTypes = {
+  className: PropTypes.string,
 };
 
-export default ExerciseFilters;
+export default QuestionFilters;
