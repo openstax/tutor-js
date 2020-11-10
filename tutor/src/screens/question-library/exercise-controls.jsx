@@ -20,9 +20,7 @@ const StyledExerciseControls = styled.div`
   .exercise-controls-bar:first-child {
     justify-content: flex-start;
     overflow-x: auto;
-    // hack to add 'margin' when div is overflowed
-    border-right: 1.1rem solid transparent;
-    border-left: 1.1rem solid transparent;
+    padding: 0 2.4rem;
     .sectionizer {
       margin: 0 1.7rem;
     }
@@ -37,8 +35,12 @@ const StyledExerciseControls = styled.div`
   }
   // filters and create question button
   .exercise-controls-bar:nth-child(2) {
+<<<<<<< HEAD
     justify-content: space-between;
     padding: 0 3.2rem;
+=======
+    padding: 0 3.5rem;
+>>>>>>> ql-toolbar
     .library-label {
       font-weight: 700;
       color: ${colors.neutral.grayblue};
