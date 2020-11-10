@@ -7,14 +7,18 @@ import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import QuestionFilters from '../../components/exercises/questions-filters';
+import CreateQuestionButton from '../../components/create-question';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
 const StyledExerciseControls = styled.div`
   .exercise-controls-bar {
+    display: flex;
     height: 65px;
     border-bottom: 1px solid ${colors.neutral.pale};
-    display: flex;
+    label {
+      font-size: 1.4rem;
+    }
   }
   // sections
   .exercise-controls-bar:first-child {
@@ -35,19 +39,15 @@ const StyledExerciseControls = styled.div`
   }
   // filters and create question button
   .exercise-controls-bar:nth-child(2) {
-<<<<<<< HEAD
     justify-content: space-between;
     padding: 0 3.2rem;
-=======
-    padding: 0 3.5rem;
->>>>>>> ql-toolbar
     .library-label {
       font-weight: 700;
       color: ${colors.neutral.grayblue};
     }
-    .assignment-controls-wrapper {
+    .exercise-controls-wrapper {
       display: flex;
-      .assignment-filters {
+      .exercise-filters {
         margin-left: 2.3rem;
         label {
           margin-bottom: 0;
@@ -149,7 +149,7 @@ class ExerciseControls extends React.Component {
         </ScrollSpy>
       </div>;
 
-    const assignmentFilters =
+    const exerciseFilters =
       <TourAnchor id="exercise-type-toggle">
         <RadioInput
           name="filter-assignment-type"
@@ -177,23 +177,18 @@ class ExerciseControls extends React.Component {
       <StyledExerciseControls>
         { displayedChapterSections.length > 0 && sections }
         <div className="exercise-controls-bar">
-          <div className="assignment-controls-wrapper">
+          <div className="exercise-controls-wrapper">
             <OverlayTrigger placement="bottom" overlay={libraryPopover}>
               <span className="library-label">Library</span>
             </OverlayTrigger>
-            <div className="assignment-filters">
-              {!course.is_concept_coach ? assignmentFilters : undefined}
+            <div className="exercise-filters">
+              {!course.is_concept_coach ? exerciseFilters : undefined}
             </div>
           </div>
           <div className="questions-controls-wrapper">
-            <QuestionFilters className="question-filters"/>
-            {/*TODO: add modal*/}
-            <Button
-              variant="primary"
-            >
-              Create question
-            </Button>
-          </div>
+            <QuestionFilters className="question-filters" exerciseType={filter}/>
+            <CreateQuestionButton exerciseType={filter} />
+          </div>    
         </div>
       </StyledExerciseControls>
     );

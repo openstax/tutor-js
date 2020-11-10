@@ -36,9 +36,6 @@ const StyledDropdown = styled(Dropdown)`
       padding: 2.9rem 1.6rem;
       color: ${colors.neutral.darker};
       width: 25rem;
-      span label {
-        font-size: 1.4rem;
-      }
       span:not(:first-child) {
           margin-top: 1rem;
       }
@@ -105,6 +102,8 @@ CustomMenu.propTypes = {
 };
 
 const QuestionFilters = (props) => {
+  if(props.exerciseType !== 'homework') return null;
+
   const [value, setValue] = useState(false);
   return (
     <StyledQuestionFilter className={cn(props.className)}>
@@ -175,6 +174,7 @@ const QuestionFilters = (props) => {
 
 QuestionFilters.propTypes = {
   className: PropTypes.string,
+  exerciseType: PropTypes.string.isRequired,
 };
 
 export default QuestionFilters;
