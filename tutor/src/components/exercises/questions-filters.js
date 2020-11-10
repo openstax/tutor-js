@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, cn } from 'vendor';
-import { useState, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import CheckboxInput from '../checkbox-input';
 import { Icon } from 'shared';
@@ -15,7 +15,8 @@ const StyledQuestionFilter = styled.div`
 `;
 
 const StyledDropdown = styled(Dropdown)` 
-    > span {  
+    > span {
+        cursor: pointer;
         padding: 1.8rem 1rem;
         color: ${colors.neutral.grayblue};
         font-weight: 700;
@@ -104,7 +105,6 @@ CustomMenu.propTypes = {
 const QuestionFilters = (props) => {
   if(props.exerciseType !== 'homework') return null;
 
-  const [value, setValue] = useState(false);
   return (
     <StyledQuestionFilter className={cn(props.className)}>
       <StyledDropdown blankwidth='13.8rem'>
@@ -141,27 +141,27 @@ const QuestionFilters = (props) => {
         <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              setValue(checked);
+              props.onQuestionTypeFilterChange('showTutor', checked);
             }}
-            checked={value}
+            checked={props.showTutor}
             label="Openstax Tutor"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              setValue(checked);
+              props.onQuestionTypeFilterChange('showOwned', checked);
             }}
-            checked={value}
+            checked={props.showOwned}
             label="My questions"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              setValue(checked);
+              props.onQuestionTypeFilterChange('showOthers', checked);
             }}
-            checked={value}
+            checked={props.showOthers}
             label="My co-teachers"
             labelSize="lg"
             standalone
@@ -177,6 +177,9 @@ QuestionFilters.propTypes = {
   exerciseType: PropTypes.string.isRequired,
   showMPQ: PropTypes.bool.isRequired,
   showWRQ: PropTypes.bool.isRequired,
+  showTutor: PropTypes.bool.isRequired,
+  showOwned: PropTypes.bool.isRequired,
+  showOthers: PropTypes.bool.isRequired,
   onQuestionTypeFilterChange: PropTypes.func.isRequired,
 };
 

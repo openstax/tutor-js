@@ -68,9 +68,13 @@ class ExercisesDisplay extends React.Component {
   };
 
   @observable exerciseTypeFilter = 'homework';
-  // question-filters.js filtering criteria
+  // questions-filters.js filtering criteria
   @observable showMPQ = true;
   @observable showWRQ = true;
+  @observable showTutor = true;
+  @observable showOwned = false;
+  @observable showOthers = false;
+
   @observable currentSection;
   @observable showingDetails = false;
   @observable displayFeedback = false;
@@ -305,6 +309,9 @@ class ExercisesDisplay extends React.Component {
             topScrollOffset={TOP_SCROLL_OFFSET}
             showMPQ={this.showMPQ}
             showWRQ={this.showWRQ}
+            showTutor={this.showTutor}
+            showOwned={this.showOwned}
+            showOthers={this.showOthers}
             exerciseTypeFilter={this.exerciseTypeFilter}
             onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
             onQuestionTypeFilterChange={this.onQuestionTypeFilterChange}

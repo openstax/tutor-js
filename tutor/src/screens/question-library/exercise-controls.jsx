@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import { keys } from 'lodash';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
@@ -20,8 +19,7 @@ const StyledExerciseControls = styled.div`
       font-size: 1.4rem;
     }
   }
-  // sections
-  .exercise-controls-bar:first-child {
+  .sections-control {
     justify-content: flex-start;
     overflow-x: auto;
     padding: 0 2.4rem;
@@ -37,8 +35,7 @@ const StyledExerciseControls = styled.div`
       }
     }
   }
-  // filters and create question button
-  .exercise-controls-bar:nth-child(2) {
+  .filters-control {
     justify-content: space-between;
     padding: 0 3.2rem;
     .library-label {
@@ -88,6 +85,9 @@ class ExerciseControls extends React.Component {
     onShowCardViewClick: PropTypes.func.isRequired,
     showMPQ: PropTypes.bool.isRequired,
     showWRQ: PropTypes.bool.isRequired,
+    showTutor: PropTypes.bool.isRequired,
+    showOwned: PropTypes.bool.isRequired,
+    showOthers: PropTypes.bool.isRequired,
     onQuestionTypeFilterChange: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
     showingDetails: PropTypes.bool,
@@ -111,6 +111,9 @@ class ExerciseControls extends React.Component {
       topScrollOffset,
       showWRQ,
       showMPQ,
+      showTutor,
+      showOwned,
+      showOthers,
       onQuestionTypeFilterChange } = this.props;
 
     let sectionizerProps;
@@ -129,7 +132,7 @@ class ExerciseControls extends React.Component {
       </StyledPopover>;
 
     const sections =
-      <div className="exercise-controls-bar">
+      <div className="exercise-controls-bar sections-control">
         <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
           <Icon
             size="lg"
@@ -176,7 +179,7 @@ class ExerciseControls extends React.Component {
     return (
       <StyledExerciseControls>
         { displayedChapterSections.length > 0 && sections }
-        <div className="exercise-controls-bar">
+        <div className="exercise-controls-bar filters-control">
           <div className="exercise-controls-wrapper">
             <OverlayTrigger placement="bottom" overlay={libraryPopover}>
               <span className="library-label">Library</span>
@@ -191,6 +194,9 @@ class ExerciseControls extends React.Component {
               exerciseType={exerciseTypeFilter}
               showMPQ={showMPQ}
               showWRQ={showWRQ}
+              showTutor={showTutor}
+              showOwned={showOwned}
+              showOthers={showOthers}
               onQuestionTypeFilterChange={onQuestionTypeFilterChange}/>
             <CreateQuestionButton exerciseType={exerciseTypeFilter} />
           </div>    
