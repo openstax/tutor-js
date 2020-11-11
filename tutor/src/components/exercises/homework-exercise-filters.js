@@ -1,7 +1,8 @@
 import { React, PropTypes, styled, css, cn } from 'vendor';
-import { forwardRef } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import CheckboxInput from '../checkbox-input';
+import { ExercisesMap } from '../../models/exercises';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 
@@ -105,6 +106,28 @@ CustomMenu.propTypes = {
 const QuestionFilters = (props) => {
   if(props.exerciseType !== 'homework') return null;
 
+  const [filters, setFilters] = useState({
+    showMPQ: true,
+    showWRQ: true,
+    showTutor: true,
+    showOwned: true,
+    showOthers: true,
+  });
+
+  const onFiltersChanged = (filter, checked) => {
+    setFilters(prevFilters => ({ ...prevFilters, [filter]: checked }));
+  };
+
+  useEffect(() => {
+    let ex = props.exercises;
+    if(!ex) return [];
+    ex = ex.where(e =>
+      (filters.showMPQ && e.isMultiChoice) ||
+        (filters.showWRQ && e.isWrittenResponse));
+    props.returnFilteredExercises(ex);
+    return () => {};
+  }, [filters]);
+
   return (
     <StyledQuestionFilter className={cn(props.className)}>
       <StyledDropdown blankwidth='13.8rem'>
@@ -115,18 +138,18 @@ const QuestionFilters = (props) => {
         <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              props.onQuestionTypeFilterChange('showMPQ', checked);
+              onFiltersChanged('showMPQ', checked);
             }}
-            checked={props.showMPQ}
+            checked={filters.showMPQ}
             label="Multiple-choice questions"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              props.onQuestionTypeFilterChange('showWRQ', checked);
+              onFiltersChanged('showWRQ', checked);
             }}
-            checked={props.showWRQ}
+            checked={filters.showWRQ}
             label="Written-response questions"
             labelSize="lg"
             standalone
@@ -141,27 +164,27 @@ const QuestionFilters = (props) => {
         <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              props.onQuestionTypeFilterChange('showTutor', checked);
+              onFiltersChanged('showTutor', checked);
             }}
-            checked={props.showTutor}
+            checked={filters.showTutor}
             label="Openstax Tutor"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              props.onQuestionTypeFilterChange('showOwned', checked);
+              onFiltersChanged('showOwned', checked);
             }}
-            checked={props.showOwned}
+            checked={filters.showOwned}
             label="My questions"
             labelSize="lg"
             standalone
           />
           <CheckboxInput
             onChange={({ target: { checked } }) => {
-              props.onQuestionTypeFilterChange('showOthers', checked);
+              onFiltersChanged('showOthers', checked);
             }}
-            checked={props.showOthers}
+            checked={filters.showOthers}
             label="My co-teachers"
             labelSize="lg"
             standalone
@@ -175,12 +198,8 @@ const QuestionFilters = (props) => {
 QuestionFilters.propTypes = {
   className: PropTypes.string,
   exerciseType: PropTypes.string.isRequired,
-  showMPQ: PropTypes.bool.isRequired,
-  showWRQ: PropTypes.bool.isRequired,
-  showTutor: PropTypes.bool.isRequired,
-  showOwned: PropTypes.bool.isRequired,
-  showOthers: PropTypes.bool.isRequired,
-  onQuestionTypeFilterChange: PropTypes.func.isRequired,
+  exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+  returnFilteredExercises: PropTypes.func.isRequired,
 };
 
 export default QuestionFilters;

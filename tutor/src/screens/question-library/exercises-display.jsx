@@ -72,12 +72,7 @@ class ExercisesDisplay extends React.Component {
   }
 
   @observable exerciseTypeFilter = 'homework';
-  // questions-filters.js filtering criteria
-  @observable showMPQ = true;
-  @observable showWRQ = true;
-  @observable showTutor = true;
-  @observable showOwned = true;
-  @observable showOthers = true;
+  @observable exercises = this.props.exercises;
 
   @observable currentSection;
   @observable showingDetails = false;
@@ -85,16 +80,18 @@ class ExercisesDisplay extends React.Component {
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
+    this.exercises = this.props.exercises[exerciseTypeFilter];
   };
-
-  onQuestionTypeFilterChange = (type, checked) => {
-    this[type] = checked;
-  }
 
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
     this.currentSection = currentSection;
   };
+
+  // called by question-filters that returns the filtered exercises
+  onFilterHomeworkExercises = (filteredExercises) => {
+    this.exercises = filteredExercises;
+  }
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
     this.selectedExercise = exercise.wrapper;
@@ -230,19 +227,6 @@ class ExercisesDisplay extends React.Component {
     })));
   }
 
-  @computed get filteredExercises() {
-    const allExercises = this.props.exercises;
-    if(!allExercises) return [];
-
-    let exercises = allExercises[this.exerciseTypeFilter];
-    if(this.exerciseTypeFilter === 'homework') {
-      exercises = exercises.where(e =>
-        (this.showMPQ && e.isMultiChoice) ||
-        (this.showWRQ && e.isWrittenResponse));
-    }
-    return exercises;
-  }
-
   getExerciseIsSelected = (exercise) => {
     return exercise.is_excluded;
   };
@@ -306,27 +290,19 @@ class ExercisesDisplay extends React.Component {
             title="Question Library"
           />
           <ExerciseControls
-            onSelectSections={this.props.onSelectSections}
             course={this.props.course}
-            showingDetails={this.props.showingDetails}
-            onSectionSelect={this.scrollToSection}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
-            showingDetails={this.props.showingDetails}
-            displayedChapterSections={this.displayedChapterSections}
-            topScrollOffset={TOP_SCROLL_OFFSET}
-            showMPQ={this.showMPQ}
-            showWRQ={this.showWRQ}
-            showTutor={this.showTutor}
-            showOwned={this.showOwned}
-            showOthers={this.showOthers}
+            exercises={this.props.exercises}
+            onSelectSections={this.props.onSelectSections}
             exerciseTypeFilter={this.exerciseTypeFilter}
             onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
-            onQuestionTypeFilterChange={this.onQuestionTypeFilterChange}
+            onFilterHomeworkExercises={this.onFilterHomeworkExercises}
+            displayedChapterSections={this.displayedChapterSections}
+            showingDetails={this.props.showingDetails}
+            topScrollOffset={TOP_SCROLL_OFFSET}
           />
         </div>
         <div className="exercises-display"> 
-          {this.renderExercises(this.filteredExercises)}
+          {this.renderExercises(this.exercises)}
         </div>
       </StyledExerciseDisplay>
     );

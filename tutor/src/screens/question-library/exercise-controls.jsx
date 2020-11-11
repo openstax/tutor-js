@@ -5,8 +5,9 @@ import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
-import QuestionFilters from '../../components/exercises/questions-filters';
+import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
 import CreateQuestionButton from '../../components/create-question';
+import { ExercisesMap } from '../../models/exercises';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 
@@ -76,19 +77,11 @@ const StyledPopover = styled(Popover)`
 class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectSections: PropTypes.func.isRequired,
-    selectedExercises: PropTypes.array,
-    exerciseTypeFilter: PropTypes.string,
+    exerciseTypeFilter: PropTypes.string.isRequired,
     onExerciseTypeFilterChange: PropTypes.func.isRequired,
-    sectionizerProps:  PropTypes.object,
-    onShowDetailsViewClick: PropTypes.func.isRequired,
-    onShowCardViewClick: PropTypes.func.isRequired,
-    showMPQ: PropTypes.bool.isRequired,
-    showWRQ: PropTypes.bool.isRequired,
-    showTutor: PropTypes.bool.isRequired,
-    showOwned: PropTypes.bool.isRequired,
-    showOthers: PropTypes.bool.isRequired,
-    onQuestionTypeFilterChange: PropTypes.func.isRequired,
+    onFilterHomeworkExercises: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
@@ -104,17 +97,13 @@ class ExerciseControls extends React.Component {
 
   render() { 
     const {
+      exercises,
       course,
       displayedChapterSections,
       showingDetails,
       exerciseTypeFilter,
       topScrollOffset,
-      showWRQ,
-      showMPQ,
-      showTutor,
-      showOwned,
-      showOthers,
-      onQuestionTypeFilterChange } = this.props;
+      onFilterHomeworkExercises } = this.props;
 
     let sectionizerProps;
 
@@ -192,15 +181,11 @@ class ExerciseControls extends React.Component {
             </div>
           </div>
           <div className="questions-controls-wrapper">
-            <QuestionFilters
+            <HomeExerciseFilters
               className="question-filters"
+              exercises={exercises}
               exerciseType={exerciseTypeFilter}
-              showMPQ={showMPQ}
-              showWRQ={showWRQ}
-              showTutor={showTutor}
-              showOwned={showOwned}
-              showOthers={showOthers}
-              onQuestionTypeFilterChange={onQuestionTypeFilterChange}/>
+              returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
             <CreateQuestionButton exerciseType={exerciseTypeFilter} />
           </div>    
         </div>
