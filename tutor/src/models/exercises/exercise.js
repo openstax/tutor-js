@@ -4,6 +4,7 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import Tag from './tag';
+import Author from './author';
 import ExerciseContent from 'shared/model/exercise';
 import ReferenceBookNode from '../reference-book/node';
 import { getters } from '../../helpers/computed-property';
@@ -28,6 +29,7 @@ class TutorExercise extends BaseModel {
   @field url = '';
   @field context;
   @field preview;
+  @belongsTo({ model: Author }) author;
 
   @hasMany({ model: RelatedContent }) related_content;
 

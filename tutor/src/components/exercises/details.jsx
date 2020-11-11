@@ -27,6 +27,9 @@ class ExerciseDetails extends React.Component {
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
     windowImpl:            PropTypes.object,
+    exerciseType:          PropTypes.string,
+    sectionHasExercises:   PropTypes.bool,
+    onSelectSections:      PropTypes.func,
   };
 
   @observable currentIndex;
@@ -85,7 +88,10 @@ class ExerciseDetails extends React.Component {
     const exercise = this.exercises[this.currentIndex] || first(this.exercises);
     if (!exercise) {
       return (
-        <NoExercisesFound />
+        <NoExercisesFound
+          isHomework={this.props.exerciseType === 'homework'}
+          sectionHasExercises={this.props.sectionHasExercises}
+          onSelectSections={this.props.onSelectSections}/>
       );
     }
     const moves = this.getValidMovements();

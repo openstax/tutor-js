@@ -11,16 +11,26 @@ import ExerciseCards from '../../components/exercises/cards';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
-import Header from '../../components/header';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
-import Router from '../../helpers/router';
+import Scroller from '../../helpers/scroll-to';
+import { colors } from 'theme';
 
 const StyledExerciseDisplay = styled.div`
   .controls-wrapper {
     position: sticky;
     top: 5.9rem;
     z-index: 10;
+  }
+  .homework-questions-info {
+    background-color: white;
+    padding: 3rem 4.2rem 1.2rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: ${colors.neutral.thin};
+    strong {
+      font-weight: 700;
+    }
   }
 `;
 
@@ -67,19 +77,35 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  @observable filter = 'homework';
+  componentWillUnmount() {
+    this.props.exercises.clear();
+  }
+
+  @observable exerciseTypeFilter = 'homework';
+  @observable filteredExercises = this.props.exercises;
+
   @observable currentSection;
   @observable showingDetails = false;
   @observable displayFeedback = false;
 
-  onFilterChange = (filter) => {
-    this.filter = filter;
+  scroller = new Scroller({ windowImpl: this.windowImpl });
+
+  onExerciseTypeFilterChange = (exerciseTypeFilter) => {
+    this.exerciseTypeFilter = exerciseTypeFilter;
+    this.filteredExercises = this.props.exercises[exerciseTypeFilter];
+    // scroll to top if exercise type is changed
+    this.scroller.scrollToTop({ deferred: true });
   };
 
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
     this.currentSection = currentSection;
   };
+
+  // called by question-filters that returns the filtered exercises
+  onFilterHomeworkExercises = (filteredExercises) => {
+    this.filteredExercises = filteredExercises;
+  }
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
     this.selectedExercise = exercise.wrapper;
@@ -220,7 +246,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-
     const sharedProps = {
       exercises,
       course: this.props.course,
@@ -230,6 +255,11 @@ class ExercisesDisplay extends React.Component {
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
       topScrollOffset: TOP_SCROLL_OFFSET,
+      onSelectSections: this.props.onSelectSections,
+      exerciseType: this.exerciseTypeFilter,
+      // exercises in this scope are already filtered
+      // check if the SECTIONS SELECTED has exercises
+      sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
     };
 
     if (this.props.showingDetails) {
@@ -255,6 +285,21 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
+  renderHomeworkExercisesInfo = (exerciseType) => {
+    if(exerciseType !== 'homework') return null;
+
+    return (
+      <div className="homework-questions-info">
+        <p>
+          <strong>Homework questions </strong>
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
+        </p>
+      </div>
+    );
+  }
+
   render() {
     const { pageIds, exercises } = this.props;
     if (isEmpty(pageIds)) {
@@ -267,29 +312,21 @@ class ExercisesDisplay extends React.Component {
     return (
       <StyledExerciseDisplay>
         <div className="controls-wrapper">
-          <Header
-            unDocked
-            backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
-            backToText='Dashboard'
-            title="Question Library"
-          />
           <ExerciseControls
-            onSelectSections={this.props.onSelectSections}
-            filter={this.filter}
             course={this.props.course}
-            showingDetails={this.props.showingDetails}
-            onFilterChange={this.onFilterChange}
-            onSectionSelect={this.scrollToSection}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
-            exercises={exercises}
-            showingDetails={this.props.showingDetails}
+            exercises={this.props.exercises}
+            onSelectSections={this.props.onSelectSections}
+            exerciseTypeFilter={this.exerciseTypeFilter}
+            onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
+            onFilterHomeworkExercises={this.onFilterHomeworkExercises}
             displayedChapterSections={this.displayedChapterSections}
+            showingDetails={this.props.showingDetails}
             topScrollOffset={TOP_SCROLL_OFFSET}
           />
         </div>
+        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
         <div className="exercises-display"> 
-          {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
+          {this.renderExercises(this.filteredExercises)}
         </div>
       </StyledExerciseDisplay>
     );
