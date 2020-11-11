@@ -15,6 +15,7 @@ import Header from '../../components/header';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
 import Router from '../../helpers/router';
+import Scroller from '../../helpers/scroll-to';
 
 const StyledExerciseDisplay = styled.div`
   .controls-wrapper {
@@ -78,9 +79,13 @@ class ExercisesDisplay extends React.Component {
   @observable showingDetails = false;
   @observable displayFeedback = false;
 
+  scroller = new Scroller({ windowImpl: this.windowImpl });
+
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
     this.exercises = this.props.exercises[exerciseTypeFilter];
+    // scroll to top if exercise type is changed
+    this.scroller.scrollToTop({ deferred: true });
   };
 
   // called by sectionizer and details view
@@ -284,7 +289,7 @@ class ExercisesDisplay extends React.Component {
       <StyledExerciseDisplay>
         <div className="controls-wrapper">
           <Header
-            unDocked
+            unDocked={true}
             backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
             backToText='Dashboard'
             title="Question Library"

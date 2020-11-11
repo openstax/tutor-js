@@ -119,7 +119,7 @@ const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, cla
   };
 
   // updates the props.exercises when a filter has changed
-  // send the filtered exercises back through props.returnFilteredExercises
+  // send the filtered props.exercises back through props.returnFilteredExercises
   useEffect(() => {
     let ex = exercises;
     if(!ex) return [];
