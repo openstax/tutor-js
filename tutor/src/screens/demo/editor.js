@@ -1,14 +1,14 @@
 import { React } from 'vendor';
 import { asyncComponent } from '../../helpers/async-component';
 // import { Editor } from '../../components/editor';
-import { Editor, COMMAND_GROUPS, TABLE_COMMANDS_GROUP } from 'prosemirror-plus'
-// import { Editor } from 'prosemirror-plus'
+//import { Editor, COMMAND_GROUPS, TABLE_COMMANDS_GROUP } from 'pmrosemirror-plus'
 
-import convertFromHTML from 'prosemirror-plus/dist/convertFromHTML'
+import * as Editor from 'perry-white'
+//import 'perry-white/dist/styles.css'
+// import convertFromHTML from 'prosemirror-plus/dist/convertFromHTML'
 
-console.log({ TABLE_COMMANDS_GROUP, COMMAND_GROUPS })
+console.log(Editor)
 
-COMMAND_GROUPS.splice(8,1)
 
 // import {COMMAND_GROUPS} from 'prosemirror-plus/dist/ui/EditorToolbarConfig';
 
@@ -75,7 +75,7 @@ const fakeExercise = `
 const EditorDemo = () => {
   const [editorView, setEditorView] = React.useState()
   const [editorState, setEditorState] = React.useState(
-    convertFromHTML(fakeExercise),
+
   )
   const onReady = React.useCallback((ev) => {
     setEditorView(ev)
