@@ -135,12 +135,20 @@ class StudentTaskStep extends BaseModel {
     return Boolean(this.dropped_method);
   }
 
+  // read properties from content when it may not have been fetched yet
+  readContentProperty(property) {
+    if (!this.content) {
+      return null;
+    }
+    return this.content[property];
+  }
+
   @computed get isOpenEndedExercise() {
-    return this.isExercise && this.content.isOpenEnded;
+    return Boolean(this.isExercise && this.readContentProperty('isOpenEnded'));
   }
 
   @computed get isWrittenResponseExercise() {
-    return this.isExercise && this.content.isWrittenResponse;
+    return Boolean(this.isExercise && this.readContentProperty('isWrittenResponse'));
   }
 
   @computed get isCorrect() {
@@ -181,7 +189,7 @@ class StudentTaskStep extends BaseModel {
     return Boolean(
       this.can_be_updated && !this.answer_id &&
         this.formats.includes('free-response') &&
-        (this.content.isOpenEnded || S.isEmpty(this.free_response))
+        (this.readContentProperty('isOpenEnded') || S.isEmpty(this.free_response))
     );
   }
 
