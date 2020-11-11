@@ -33,6 +33,10 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   margin: 20px 0;
 }
 
+.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
+}
+
 .c3 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;

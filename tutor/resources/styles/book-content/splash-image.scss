@@ -7,8 +7,7 @@
   }
 
   // splash elements are full width without margin or surrounding padding
-  .splash,
-  .splash-video {
+  .splash {
     @include book-content-full-width();
     margin-bottom: 2rem;
     padding-bottom: 2rem;
@@ -17,7 +16,9 @@
       border: 0;
       margin: 0;
     }
-
+    .frame-wrapper {
+      margin-top: 0;
+    }
     figcaption {
       padding: 20px;
     }

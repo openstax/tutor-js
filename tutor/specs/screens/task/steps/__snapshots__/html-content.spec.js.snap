@@ -33,6 +33,10 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   margin: 20px 0;
 }
 
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
+}
+
 .c4 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;

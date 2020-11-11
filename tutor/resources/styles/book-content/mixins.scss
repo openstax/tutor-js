@@ -63,10 +63,7 @@
   {
     width: 100%;
     height: $tutor-interactive-iframe-height;
-
-    margin: 20px auto;
     border: none;
-    @include book-content-full-width();
     @media screen and ( max-width: $tablet-collapse-breakpoint ){
       margin-left: 0;
       margin-right: 0;
