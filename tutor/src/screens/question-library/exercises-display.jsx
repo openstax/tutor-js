@@ -82,7 +82,7 @@ class ExercisesDisplay extends React.Component {
   }
 
   @observable exerciseTypeFilter = 'homework';
-  @observable exercises = this.props.exercises;
+  @observable filteredExercises = this.props.exercises;
 
   @observable currentSection;
   @observable showingDetails = false;
@@ -92,7 +92,7 @@ class ExercisesDisplay extends React.Component {
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
-    this.exercises = this.props.exercises[exerciseTypeFilter];
+    this.filteredExercises = this.props.exercises[exerciseTypeFilter];
     // scroll to top if exercise type is changed
     this.scroller.scrollToTop({ deferred: true });
   };
@@ -104,7 +104,7 @@ class ExercisesDisplay extends React.Component {
 
   // called by question-filters that returns the filtered exercises
   onFilterHomeworkExercises = (filteredExercises) => {
-    this.exercises = filteredExercises;
+    this.filteredExercises = filteredExercises;
   }
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
@@ -285,6 +285,21 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
+  renderHomeworkExercisesInfo = (exerciseType) => {
+    if(exerciseType !== 'homework') return null;
+
+    return (
+      <div className="homework-questions-info">
+        <p>
+          <strong>Homework questions </strong>
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
+        </p>
+      </div>
+    );
+  }
+
   render() {
     const { pageIds, exercises } = this.props;
     if (isEmpty(pageIds)) {
@@ -309,16 +324,9 @@ class ExercisesDisplay extends React.Component {
             topScrollOffset={TOP_SCROLL_OFFSET}
           />
         </div>
-        <div className="homework-questions-info">
-          <p>
-            <strong>Homework questions </strong>
-          are varied in complexity and can be either multiple-choice or written-response. In this library,
-          you can add your own questions, copy and edit OpenStax questions,
-          or exclude questions not relevant to your course.
-          </p>
-        </div>
+        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
         <div className="exercises-display"> 
-          {this.renderExercises(this.exercises)}
+          {this.renderExercises(this.filteredExercises)}
         </div>
       </StyledExerciseDisplay>
     );

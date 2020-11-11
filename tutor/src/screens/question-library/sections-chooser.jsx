@@ -36,7 +36,6 @@ const StyledTourRegion = styled(TourRegion)`
         > div {
           margin-left: 3rem;
           > span { margin-left: 3rem; }
-
         }
       }
     }

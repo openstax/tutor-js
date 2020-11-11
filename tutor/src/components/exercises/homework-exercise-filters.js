@@ -123,9 +123,17 @@ const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, cla
   useEffect(() => {
     let ex = exercises;
     if(!ex) return [];
-    ex = ex.where(e =>
-      (filters.showMPQ && e.isMultiChoice) ||
-        (filters.showWRQ && e.isWrittenResponse));
+    ex = ex.where(e => {
+      const filterByQuestionSource =
+      (filters.showTutor && e.author.belongsToOpenStax) ||
+      (filters.showOwned && e.author.belongsToCurrentUser) ||
+      (filters.showOthers && e.author.belongsToOtherAuthors);
+      const filterByQuestionType =
+       (filters.showMPQ && e.isMultiChoice) ||
+       (filters.showWRQ && e.isWrittenResponse);
+      
+      return filterByQuestionSource && filterByQuestionType;
+    });
     returnFilteredExercises(ex);
     return () => {};
   }, [filters]);
