@@ -11,17 +11,26 @@ import ExerciseCards from '../../components/exercises/cards';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
-import Header from '../../components/header';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
-import Router from '../../helpers/router';
 import Scroller from '../../helpers/scroll-to';
+import { colors } from 'theme';
 
 const StyledExerciseDisplay = styled.div`
   .controls-wrapper {
     position: sticky;
     top: 5.9rem;
     z-index: 10;
+  }
+  .homework-questions-info {
+    background-color: white;
+    padding: 3rem 4.2rem 1.2rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: ${colors.neutral.thin};
+    strong {
+      font-weight: 700;
+    }
   }
 `;
 
@@ -288,12 +297,6 @@ class ExercisesDisplay extends React.Component {
     return (
       <StyledExerciseDisplay>
         <div className="controls-wrapper">
-          <Header
-            unDocked={true}
-            backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
-            backToText='Dashboard'
-            title="Question Library"
-          />
           <ExerciseControls
             course={this.props.course}
             exercises={this.props.exercises}
@@ -305,6 +308,14 @@ class ExercisesDisplay extends React.Component {
             showingDetails={this.props.showingDetails}
             topScrollOffset={TOP_SCROLL_OFFSET}
           />
+        </div>
+        <div className="homework-questions-info">
+          <p>
+            <strong>Homework questions </strong>
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
+          </p>
         </div>
         <div className="exercises-display"> 
           {this.renderExercises(this.exercises)}

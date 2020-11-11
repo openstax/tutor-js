@@ -118,13 +118,17 @@ class TutorLayout extends React.Component {
     this.courseContext.course = this.props.course;
   }
 
+  getRouterName() {
+    return get(Router.currentMatch(), 'entry.name', '');
+  }
+
   isViewingTaskStep() {
-    const routerName = get(Router.currentMatch(), 'entry.name', '');
+    const routerName = this.getRouterName();
     return routerName === 'viewTaskStep';
   }
 
   isViewingCourseDashboard() {
-    const routerName = get(Router.currentMatch(), 'entry.name', '');
+    const routerName = this.getRouterName();
     return routerName === 'dashboard';
   }
 
@@ -152,6 +156,8 @@ class TutorLayout extends React.Component {
           {this.secondaryTopControls &&
             <SecondaryToolbar
               controls={this.secondaryTopControls}
+              // adding the router name as a class so we can override the nav css based on the screen
+              className={this.getRouterName()}
             />}
           {
           /**
@@ -166,7 +172,11 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content hasFooter={!this.bottomNavbarContext.isEmpty} hasNavbar={!this.isViewingTaskStep()}>
+          <Content
+          // adding the router name as a class so we can override the content css based on the screen
+            className={this.getRouterName()}
+            hasFooter={!this.bottomNavbarContext.isEmpty}
+            hasNavbar={!this.isViewingTaskStep()}>
             <ImpersonationWarning app={app} />
             {this.props.children}
             {course && course.currentRole.isTeacher && <GoToTop />}

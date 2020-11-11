@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, observer } from 'vendor';
+import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { NavbarBottomShadow } from '../navbar.js';
 
 const Padding = css`
@@ -12,7 +12,7 @@ const StyledSecondaryToolbar = styled.div`
   position: sticky;
   background: white;
   ${props => !props.renderFn.unpadded && Padding}
-    ${NavbarBottomShadow};
+  ${NavbarBottomShadow};
 `;
 
 @observer
@@ -20,13 +20,14 @@ class SecondaryToolbar extends React.Component {
 
   static propTypes = {
     controls: PropTypes.func.isRequired,
+    className: PropTypes.string,
   }
 
   render() {
-    const { controls } = this.props;
+    const { controls, className } = this.props;
 
     return (
-      <StyledSecondaryToolbar renderFn={controls}>
+      <StyledSecondaryToolbar renderFn={controls} className={cn(className)}>
         {controls()}
       </StyledSecondaryToolbar>
     );
