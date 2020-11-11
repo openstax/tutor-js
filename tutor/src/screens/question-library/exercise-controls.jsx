@@ -140,16 +140,19 @@ class ExerciseControls extends React.Component {
           />
         Sections
         </Button>
-        <ScrollSpy dataSelector="data-section">
-          <Sectionizer
-            ref="sectionizer"
-            {...sectionizerProps}
-            fullWidth
-            onScreenElements={[]}
-            chapter_sections={displayedChapterSections}
-            topScrollOffset={topScrollOffset}
-          />
-        </ScrollSpy>
+        {
+          displayedChapterSections.length > 0 && 
+          <ScrollSpy dataSelector="data-section">
+            <Sectionizer
+              ref="sectionizer"
+              {...sectionizerProps}
+              fullWidth
+              onScreenElements={[]}
+              chapter_sections={displayedChapterSections}
+              topScrollOffset={topScrollOffset}
+            />
+          </ScrollSpy>
+        }
       </div>;
 
     const exerciseFilters =
@@ -178,7 +181,7 @@ class ExerciseControls extends React.Component {
 
     return (
       <StyledExerciseControls>
-        { displayedChapterSections.length > 0 && sections }
+        {sections}
         <div className="exercise-controls-bar filters-control">
           <div className="exercise-controls-wrapper">
             <OverlayTrigger placement="bottom" overlay={libraryPopover}>

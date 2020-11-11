@@ -67,6 +67,10 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
+  componentWillUnmount() {
+    this.props.exercises.clear();
+  }
+
   @observable exerciseTypeFilter = 'homework';
   // questions-filters.js filtering criteria
   @observable showMPQ = true;
@@ -244,7 +248,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-
     const sharedProps = {
       exercises,
       course: this.props.course,
@@ -254,6 +257,11 @@ class ExercisesDisplay extends React.Component {
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
       topScrollOffset: TOP_SCROLL_OFFSET,
+      onSelectSections: this.props.onSelectSections,
+      exerciseType: this.exerciseTypeFilter,
+      // exercises in this scope are already filtered
+      // check if the SECTIONS SELECTED has exercises
+      sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
     };
 
     if (this.props.showingDetails) {

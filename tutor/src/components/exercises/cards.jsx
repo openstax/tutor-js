@@ -73,6 +73,9 @@ class ExerciseCards extends React.Component {
     focusedExercise:            PropTypes.instanceOf(Exercise),
     topScrollOffset:            PropTypes.number,
     windowImpl:                 PropTypes.object,
+    exerciseType:               PropTypes.string,
+    sectionHasExercises:        PropTypes.bool,
+    onSelectSections:           PropTypes.func,
   };
 
   static defaultProps = {
@@ -100,7 +103,10 @@ class ExerciseCards extends React.Component {
     const { pageIds, exercises, ...sectionProps } = this.props;
 
     if (exercises.noneForPageIds(pageIds)) {
-      return <NoExercisesFound />;
+      return <NoExercisesFound
+        isHomework={this.props.exerciseType === 'homework'}
+        sectionHasExercises={this.props.sectionHasExercises}
+        onSelectSections={this.props.onSelectSections} />;
     }
 
     let sections = map(pageIds, pageId => (
