@@ -54,20 +54,20 @@ const StyledDropdown = styled(Dropdown)`
 `;
 
 //needs ref to get into the DOM
-const CustomToggle = forwardRef((props, ref) => {
+const CustomToggle = forwardRef(({ text, onClick, 'aria-expanded': ariaExpanded }, ref) => {
   return (
     <span
-      aria-label={props.text}
+      aria-label={text}
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
-        props.onClick(e);
+        onClick(e);
       }}
     >
-      {props.text}
+      {text}
       <Icon
         size="lg"
-        type={props['aria-expanded'] ? 'angle-up' : 'angle-down'}
+        type={ariaExpanded ? 'angle-up' : 'angle-down'}
       />
     </span>
   );
@@ -103,8 +103,8 @@ CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
-const QuestionFilters = (props) => {
-  if(props.exerciseType !== 'homework') return null;
+const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, className='' }) => {
+  if(exerciseType !== 'homework') return null;
 
   const [filters, setFilters] = useState({
     showMPQ: true,
@@ -118,18 +118,20 @@ const QuestionFilters = (props) => {
     setFilters(prevFilters => ({ ...prevFilters, [filter]: checked }));
   };
 
+  // updates the props.exercises when a filter has changed
+  // send the filtered exercises back through props.returnFilteredExercises
   useEffect(() => {
-    let ex = props.exercises;
+    let ex = exercises;
     if(!ex) return [];
     ex = ex.where(e =>
       (filters.showMPQ && e.isMultiChoice) ||
         (filters.showWRQ && e.isWrittenResponse));
-    props.returnFilteredExercises(ex);
+    returnFilteredExercises(ex);
     return () => {};
   }, [filters]);
 
   return (
-    <StyledQuestionFilter className={cn(props.className)}>
+    <StyledQuestionFilter className={cn(className)}>
       <StyledDropdown blankwidth='13.8rem'>
         <Dropdown.Toggle
           as={CustomToggle}
