@@ -76,8 +76,8 @@ class ExercisesDisplay extends React.Component {
   @observable showMPQ = true;
   @observable showWRQ = true;
   @observable showTutor = true;
-  @observable showOwned = false;
-  @observable showOthers = false;
+  @observable showOwned = true;
+  @observable showOthers = true;
 
   @observable currentSection;
   @observable showingDetails = false;
