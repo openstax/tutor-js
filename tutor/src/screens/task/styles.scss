@@ -18,12 +18,15 @@
   .video-step,
   .interactive-step {
     @include tutor-book-notes();
-    [data-type="note"] > [data-type=content] {
-      border-top: 0;
-      border-bottom: 0;
+     [data-type="note"] > [data-type=content] {
+
+
+    border-top: 0;
+    border-bottom: 0;
     }
   }
-  [data-type="footnote-refs"] {
+
+  [data-type="footnote-refs"] + [data-type="footnote-refs"] {
     display: none;
   }
 }

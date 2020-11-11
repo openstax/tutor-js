@@ -320,7 +320,6 @@ class BookPage extends React.Component {
       const { root } = this;
       const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
       const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
-
       const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
 
       if (otherLinks != null ? otherLinks.length : undefined) { if (typeof this.renderOtherLinks === 'function') {
@@ -333,8 +332,8 @@ class BookPage extends React.Component {
       }
 
       forEach(root.querySelectorAll(INTER_BOOK_LINKS), link => {
-        this.props.ux.rewriteBookLink(link);
         link.target = '_self';
+        this.props.ux.rewriteBookLink(link);
       });
     });
   }
