@@ -4,7 +4,6 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import Tag from './tag';
-import Author from './author';
 import ExerciseContent from 'shared/model/exercise';
 import ReferenceBookNode from '../reference-book/node';
 import { getters } from '../../helpers/computed-property';
@@ -29,7 +28,7 @@ class TutorExercise extends BaseModel {
   @field url = '';
   @field context;
   @field preview;
-  @belongsTo({ model: Author }) author;
+  @field({ type: 'object' }) author;
 
   @hasMany({ model: RelatedContent }) related_content;
 
@@ -102,4 +101,8 @@ class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
+  // Openstax exercises returns an id of 0;
+  @computed get belongsToOpenStax() { return this.author.id === '0'; }
+  belongsToCurrentUserProfileId(profileId) { return this.author.id === profileId; }
+  belongsToOtherAuthorProfileIds(profileId) { return !this.belongsToOpenStax && this.author.id !== profileId; }
 }

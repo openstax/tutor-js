@@ -109,6 +109,7 @@ exports[`Question Stem matches snapshot 1`] = `
         "versions": Array [],
         "wrapper": StudentTaskExerciseStep {
           "_page": undefined,
+          "author": Object {},
           "average_step_number": undefined,
           "book": undefined,
           "content": [Circular],

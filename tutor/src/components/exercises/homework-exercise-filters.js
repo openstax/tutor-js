@@ -3,6 +3,7 @@ import { forwardRef, useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import CheckboxInput from '../checkbox-input';
 import { ExercisesMap } from '../../models/exercises';
+import User from '../../models/user';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 
@@ -125,9 +126,9 @@ const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, cla
     if(!ex) return [];
     ex = ex.where(e => {
       const filterByQuestionSource =
-      (filters.showTutor && e.author.belongsToOpenStax) ||
-      (filters.showOwned && e.author.belongsToCurrentUser) ||
-      (filters.showOthers && e.author.belongsToOtherAuthors);
+      (filters.showTutor && e.belongsToOpenStax) ||
+      (filters.showOwned && e.belongsToCurrentUserProfileId(User.profile_id)) ||
+      (filters.showOthers && e.belongsToOtherAuthorProfileIds(User.profile_id));
       const filterByQuestionType =
        (filters.showMPQ && e.isMultiChoice) ||
        (filters.showWRQ && e.isWrittenResponse);
