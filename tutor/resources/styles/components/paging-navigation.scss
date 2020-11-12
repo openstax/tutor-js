@@ -23,15 +23,22 @@
         z-index: 1; //appear above content when page is extremely narrow
         position: fixed;
         top: calc(55vh - #{$arrow-height});
-        transition: fill 150ms linear;
+        transition: all 150ms linear;
         path {
-          transition: fill 150ms linear;
+          transition: all 150ms linear;
           fill: $tutor-neutral-light;
         }
         height: $arrow-height;
         width: $arrow-height / 2;
       }
     }
+
+    &:hover {
+      .icon  {
+        background: $tutor-neutral-light;
+      }
+    }
+
 
     @media print {
       display: none;
