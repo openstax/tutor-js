@@ -3,9 +3,11 @@ import { asyncComponent } from '../../helpers/async-component';
 // import { Editor } from '../../components/editor';
 //import { Editor, COMMAND_GROUPS, TABLE_COMMANDS_GROUP } from 'pmrosemirror-plus'
 
-import * as Editor from 'perry-white'
+import {Editor} from 'perry-white'
 //import 'perry-white/dist/styles.css'
 // import convertFromHTML from 'prosemirror-plus/dist/convertFromHTML'
+
+import 'perry-white/dist/styles.css';
 
 console.log(Editor)
 
