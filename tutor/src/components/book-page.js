@@ -29,12 +29,16 @@ const IMAGE_SIZE_CLASSES = [
   'full-width', 'scaled-down', 'scaled-down-60', 'full-width', 'scaled-down-30',
 ];
 
+function getClosestFigureLikeElement(el) {
+  return el.closest('.os-figure')
+    || el.closest('figure')
+    || el.closest('[data-type=media]');
+}
+
 // called with the context set to the image
 function processImage() {
   const img = dom(this);
-  const figure = img.closest('.os-figure')
-    || img.closest('figure')
-    || img.closest('[data-type=media]');
+  const figure = getClosestFigureLikeElement(img);
   if (!figure) { return; }
 
   if (figure.querySelector('.splash')) {
@@ -114,21 +118,33 @@ class BookPage extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.props.ux.page.ensureLoaded();
+  }
+
+  processVideo(root) {
+    const video = root.querySelector('.splash-video');
+    if (!video){ return; }
+    const figure = getClosestFigureLikeElement(dom(video));
+    if (figure) {
+      figure.classList.add('splash');
+      video.classList.remove('splash-video');
+    }
+  }
+
+  cleanupContent(root) {
+    this.detectImgAspectRatio(root);
+    this.cleanUpAbstracts(root);
+    this.insertSplash(root);
+    this.processLinks(root);
+    this.processVideo(root);
   }
 
   componentDidMount() {
     this.props.ux.checkForTeacherContent();
     this.linkContentIsMounted = true;
-
     const { root } = this;
-
     this.insertCanonicalLink(root);
-    this.detectImgAspectRatio(root);
-    this.cleanUpAbstracts(root);
-    this.insertSplash(root);
-    this.processLinks(root);
+    this.cleanupContent(root);
     if (this.props.history) {
       this.removeHistoryChangeListener = this.props.history.listen(this.scrollToSelector);
     }
@@ -141,10 +157,7 @@ class BookPage extends React.Component {
     this.props.ux.page.ensureLoaded();
     this.props.ux.checkForTeacherContent();
     this.updateCanonicalLink(root);
-    this.detectImgAspectRatio(root);
-    this.cleanUpAbstracts(root);
-    this.insertSplash(root);
-    this.processLinks();
+    this.cleanupContent(root);
   }
 
   componentWillUnmount() {

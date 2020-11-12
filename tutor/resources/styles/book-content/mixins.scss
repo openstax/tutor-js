@@ -58,13 +58,9 @@
 @mixin book-content-interactives(
   $narrow-horizontal-margin: $book-content-narrow-horizontal-padding
 ) {
-  .frame-wrapper,
-  iframe.interactive
-  {
+  .interactive .frame-wrapper {
     width: 100%;
     height: $tutor-interactive-iframe-height;
-
-    margin: 20px auto;
     border: none;
     @include book-content-full-width();
     @media screen and ( max-width: $tablet-collapse-breakpoint ){

@@ -39,9 +39,8 @@ exports[`Tasks Ending Screen completed state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .frame-wrapper {
-  min-width: 100%;
-  margin: 20px 0;
+.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
 }
 
 @media (min-width:1000px) {
@@ -196,9 +195,8 @@ exports[`Tasks Ending Screen completed state 2`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .frame-wrapper {
-  min-width: 100%;
-  margin: 20px 0;
+.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
 }
 
 @media (min-width:1000px) {
@@ -353,9 +351,8 @@ exports[`Tasks Ending Screen not started state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .frame-wrapper {
-  min-width: 100%;
-  margin: 20px 0;
+.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
 }
 
 @media (min-width:1000px) {
@@ -513,9 +510,8 @@ exports[`Tasks Ending Screen partial state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .frame-wrapper {
-  min-width: 100%;
-  margin: 20px 0;
+.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+  margin-top: 0;
 }
 
 @media (min-width:1000px) {
