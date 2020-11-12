@@ -28,11 +28,6 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   padding: 0;
 }
 
-.c3.c3.c3 .openstax-has-html .frame-wrapper {
-  min-width: 100%;
-  margin: 20px 0;
-}
-
 .c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
