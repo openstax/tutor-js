@@ -113,6 +113,9 @@ export const colors = {
       background: neutral.pale,
       border: neutral.dark,
     },
+    addEditQuestion: {
+      background: '#dff2f7',
+    },
   },
 
   exercises: {

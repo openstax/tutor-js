@@ -6,7 +6,7 @@ import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
-import CreateQuestionButton from '../../components/create-question';
+import CreateQuestionButton from '../../components/add-edit-question';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { ExercisesMap } from '../../models/exercises';
 import { colors } from 'theme';
@@ -92,6 +92,7 @@ class ExerciseControls extends React.Component {
     onExerciseTypeFilterChange: PropTypes.func.isRequired,
     onFilterHomeworkExercises: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
+    pageIds: PropTypes.array,
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
     setSecondaryTopControls: PropTypes.func.isRequired,
@@ -122,7 +123,8 @@ class ExerciseControls extends React.Component {
       showingDetails,
       exerciseTypeFilter,
       topScrollOffset,
-      onFilterHomeworkExercises } = this.props;
+      onFilterHomeworkExercises,
+      pageIds } = this.props;
 
     let sectionizerProps;
 
@@ -206,7 +208,10 @@ class ExerciseControls extends React.Component {
               exercises={exercises}
               exerciseType={exerciseTypeFilter}
               returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
-            <CreateQuestionButton exerciseType={exerciseTypeFilter} />
+            <CreateQuestionButton
+              exerciseType={exerciseTypeFilter} 
+              book={course.referenceBook}
+              pageIds={pageIds}/>
           </div>    
         </div>
       </StyledExerciseControls>
