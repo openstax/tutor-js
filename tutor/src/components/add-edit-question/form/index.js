@@ -1,8 +1,9 @@
 import { React, observer, styled } from 'vendor';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import { Modal } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
 import AddEditQuestionFormTopic from './topic';
+import AddEditQuestionFormTags from './tags';
 
 const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
     .modal-dialog {
@@ -23,7 +24,10 @@ const AddEditQuestionForm = observer(({ ux }) => {
       </Modal.Header>
       <Modal.Body>
         <Formik>
-          <AddEditQuestionFormTopic ux={ux} />
+          <Form>
+            <AddEditQuestionFormTopic ux={ux} />
+            <AddEditQuestionFormTags ux={ux} />
+          </Form>
         </Formik>
       </Modal.Body>
     </StyledAddEditQuestionModal>

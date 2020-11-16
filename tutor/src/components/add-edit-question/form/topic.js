@@ -59,7 +59,7 @@ const dropDownReferenceNode = (
       <div><span>{label}</span></div>
       <TutorDropdown
         toggleName={selectedNode
-          ? selectedNode.titleWithSection: ' '}
+          ? selectedNode.titleWithSection: `Select ${label}`}
         dropdownItems={nodes}
       />
     </div>
