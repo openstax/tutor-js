@@ -60,6 +60,10 @@ The speed limit on some interstate highways is roughly <span data-math="100,\\te
 </div>
 `;
 
-const EditorDemo = () => <ClickToEdit html={fakeExercise} />
+const EditorDemo = () => (
+  <div className="openstax-question">
+    <ClickToEdit html={fakeExercise} />
+  </div>
+)
 
 export default EditorDemo;

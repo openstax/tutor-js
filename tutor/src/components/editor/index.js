@@ -1,49 +1,27 @@
 import { React, useState, useMemo } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
-import { Editor, convertFromHTML, Foo as PWFoo, UICommand } from 'perry-white'
+import { Editor, convertToHTML, convertFromHTML, UICommand } from 'perry-white'
 import { last } from 'lodash'
-import { Foo as FormialFoo } from 'formial';
+
 // import { Foo } from 'perry-white'
 
 
-// import 'perry-white/dist/styles.css'
-
-class A extends FormialFoo {
-
-}
-
-class B extends PWFoo {
-
-}
+import 'perry-white/dist/styles.css'
 
 
-console.log(
-  "FORMIAL", new A(),
-)
+class SaveCommand extends UICommand {
 
-console.log(
-  "PW",  new B(),
-)
-
-
-class SaveCommand extends Foo {
-
-  constructor() {
+  constructor(onClick) {
     super()
+    this.onClick = onClick
   }
 
-    //isEnabled() { return true }
+  isEnabled() { return true }
+  isActive() { return true }
 
-    isActive = (state) => {
-        return true
-    }
-    isEnabled = (state) => {
-        return true
-    }
-
-    execute = () => {
-        debugger
-    }
+  execute = (state) => {
+    this.onClick(convertToHTML(state))
+  }
 
 //    isActive() { return true }
 }
@@ -55,6 +33,9 @@ class SaveCommand extends Foo {
 
 class EditorRuntime {
 
+  constructor({ onSave }) {
+    this.onSave = onSave // (html) => onSave(html)
+  }
   // Image Upload
   canUploadImage() {
     return true
@@ -86,26 +67,30 @@ class EditorRuntime {
     })
   }
 
-  filterCommandGroups(groups) {
+  // onSave = (html) => {
+  //   debugger
+  //   this._onSave()
+  // }
+
+  filterCommandGroups = (groups) => {
 
 
-    last(groups)['[save] Save:'] = (new SaveCommand())
+    last(groups)['[save] Save'] = (new SaveCommand(this.onSave))
     // groups.forEach(g => {
     //     delete g['[font_download] Font Type']
     // })
-    console.log("FILTER", groups)
+
     return groups
   }
 }
 
 
-const Editing = ({ html }) => {
+const Editing = ({ html, onSave }) => {
 
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
-  const runtime = useMemo(() => new EditorRuntime(), [])
+  const runtime = useMemo(() => new EditorRuntime({ onSave }), [onSave])
 
   return (
-    <div style={{ margin: '100px auto', maxWidth: '1100px', height: '500px' }}>
 
       <Editor
         defaultEditorState={defaultEditorState}
@@ -114,24 +99,28 @@ const Editing = ({ html }) => {
         fitToContent
       />
 
-    </div>
   );
 };
 
+const ClickToEdit = ({ html: defaultHTML }) => {
+  const [isEditing, setEditing] = useState(false)
+  const [currentHTML, setHTML] = useState(defaultHTML)
+  const onSave = React.useCallback((html) => {
+    if (html) {
+      setHTML(html)
+      setEditing(false)
+    }
+  }, [setEditing, setHTML])
+  const body = isEditing ?
+    <Editing html={currentHTML} onSave={onSave} /> : <HTML html={currentHTML} onClick={() => setEditing(true)}/>;
 
-const ClickToEdit = ({ html }) => {
-  return <p>hi</p>
-
-  const [isEditing, setEditing] = useState(true)
-  const [currentHTML, setHTML] = useState(html)
-
-  if (isEditing) {
-    return <Editing html={currentHTML} />
-  }
-  return <HTML html={currentHTML} onClick={() => setEditing(true)}/>
+  return (
+    <div style={{ margin: '100px auto', maxWidth: '1100px', height: '500px' }}>
+      {body}
+    </div>
+  )
 
 }
 
 
 export { ClickToEdit }
-
