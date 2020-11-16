@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import AddEditQuestionFormBlock from './block';
 import TutorDropdown from '../../../components/dropdown';
+import AddEditQuestionUX from '../ux';
 import { colors } from 'theme';
 
 const lineHeight = css`
@@ -21,9 +22,11 @@ const StyledTopicForm = styled.div`
   justify-content: space-between;
   margin-right: 15rem;
   .dropdown-wrapper {
+    display: flex;
     span {
       color: ${colors.neutral.darker};
       font-weight: 700;
+      ${lineHeight}
     }
     .dropdown {
       margin-left: 2rem;
@@ -34,43 +37,48 @@ const StyledTopicForm = styled.div`
   }
 `;
 
-const TopicForm = observer(({ ux }) => {
-  const chapters = map(ux.preSelectedChapters, psc => 
+/** 
+ * Reference nodes are chapter/sections in a book
+*/
+const dropDownReferenceNode = (
+  preSelectedNodes,
+  selectedNode,
+  onSelect,
+  label) => {
+  const nodes = map(preSelectedNodes, psc => 
     <Dropdown.Item
       key={psc.uuid}
       value={psc.uuid}
       eventKey={psc.uuid}
-      onSelect={ux.setSelectedChapterByUUID}>
+      onSelect={onSelect}>
       {psc.titleWithSection}
     </Dropdown.Item>
   );
-  const chapterSections = map(ux.preSelectedChapterSections, pscs =>
-    <Dropdown.Item
-      key={pscs.uuid}
-      value={pscs.uuid}
-      eventKey={pscs.uuid}
-      onSelect={ux.setSelectedChapterSectionByUUID}>
-      {pscs.titleWithSection}
-    </Dropdown.Item>
+  return (
+    <div className="dropdown-wrapper">
+      <div><span>{label}</span></div>
+      <TutorDropdown
+        toggleName={selectedNode
+          ? selectedNode.titleWithSection: ' '}
+        dropdownItems={nodes}
+      />
+    </div>
   );
+};
+
+const TopicForm = observer(({ ux }) => {
   return (
     <StyledTopicForm>
-      <div className="dropdown-wrapper">
-        <span>Chapter</span>
-        <TutorDropdown
-          toggleName={ux.selectedChapter
-            ? ux.selectedChapter.titleWithSection: ' '}
-          dropdownItems={chapters}
-        />
-      </div>
-      <div className="dropdown-wrapper">
-        <span>Section</span>
-        <TutorDropdown
-          toggleName={ux.selectedChapterSection
-            ? ux.selectedChapterSection.titleWithSection: ' '}
-          dropdownItems={chapterSections}
-        />
-      </div>
+      { dropDownReferenceNode(
+        ux.preSelectedChapters,
+        ux.selectedChapter,
+        ux.setSelectedChapterByUUID,
+        'Chapter') }
+      { dropDownReferenceNode(
+        ux.preSelectedChapterSections,
+        ux.selectedChapterSection,
+        ux.setSelectedChapterSectionByUUID,
+        'Section') }
       <div className="book-link">
         <a
           aria-label="Browse the book"
@@ -82,6 +90,9 @@ const TopicForm = observer(({ ux }) => {
     </StyledTopicForm>
   );
 });
+TopicForm.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
 
 const Topic = observer(({ ux }) => {
   return (
@@ -91,9 +102,8 @@ const Topic = observer(({ ux }) => {
     />
   );
 });
-
 Topic.propTypes = {
-
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 export default Topic;

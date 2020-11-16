@@ -21,8 +21,12 @@ export default class AddEditQuestionUX {
     // sections
     this.pageIds = props.pageIds;
 
+    // auto selected if there is only one chapter or selected pre-selected
     if(this.preSelectedChapters.length === 1) {
       this.selectedChapter = this.preSelectedChapters[0];
+      if(this.preSelectedChapterSections.length === 1) {
+        this.selectedChapterSection = this.preSelectedChapterSections[0];
+      }
     }
   }
 
