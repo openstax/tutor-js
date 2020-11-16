@@ -7,7 +7,6 @@ const AddEditQuestionButton = observer((props) => {
   if(props.exerciseType !== 'homework') {
     return null;
   }
-  console.log(props.chapterSections);
   const ux = new AddEditQuestionUX(props);
   
   return (

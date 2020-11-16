@@ -159,6 +159,13 @@ class ReferenceBookNode extends BaseModel {
     return !NON_ASSIGNABLE_TITLES.find(m => this.titleText.match(m));
   }
 
+  @computed get titleWithSection() {
+    if(!this.chapter_section || !this.chapter_section.chapter) {
+      return this.titleText;
+    }
+    return `${this.chapter_section.chapter}. ${this.titleText}`;
+  }
+
 }
 
 // a mock page for use by entities such as exercises that need to indicate

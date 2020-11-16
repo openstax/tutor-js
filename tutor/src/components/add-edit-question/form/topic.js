@@ -1,6 +1,6 @@
-import { React, PropTypes, styled, css } from 'vendor';
+import { React, PropTypes, styled, css, observer } from 'vendor';
 import { map } from 'lodash';
-import { useField } from 'formik';
+// import { useField } from 'formik';
 import { Dropdown } from 'react-bootstrap';
 import AddEditQuestionFormBlock from './block';
 import TutorDropdown from '../../../components/dropdown';
@@ -34,13 +34,23 @@ const StyledTopicForm = styled.div`
   }
 `;
 
-const renderTopicForm = ({ ux }) => {
-  const [field, meta, errors] = useField({ name: 'chapter' });
-  const dropdownItems = map(ux.preSelectedChapters, psc => 
+const TopicForm = observer(({ ux }) => {
+  const chapters = map(ux.preSelectedChapters, psc => 
     <Dropdown.Item
+      key={psc.uuid}
+      value={psc.uuid}
       eventKey={psc.uuid}
-      onSelect={k => ux.selectedChapterUUID = k}>
-      {`${psc.chapter_section.chapter}. ${psc.titleText}`}
+      onSelect={ux.setSelectedChapterByUUID}>
+      {psc.titleWithSection}
+    </Dropdown.Item>
+  );
+  const chapterSections = map(ux.preSelectedChapterSections, pscs =>
+    <Dropdown.Item
+      key={pscs.uuid}
+      value={pscs.uuid}
+      eventKey={pscs.uuid}
+      onSelect={ux.setSelectedChapterSectionByUUID}>
+      {pscs.titleWithSection}
     </Dropdown.Item>
   );
   return (
@@ -48,15 +58,17 @@ const renderTopicForm = ({ ux }) => {
       <div className="dropdown-wrapper">
         <span>Chapter</span>
         <TutorDropdown
-          toggleName='3. Culture'
-          dropdownItems={dropdownItems}
+          toggleName={ux.selectedChapter
+            ? ux.selectedChapter.titleWithSection: ' '}
+          dropdownItems={chapters}
         />
       </div>
       <div className="dropdown-wrapper">
         <span>Section</span>
         <TutorDropdown
-          toggleName='3. Culture'
-          dropdownItems={dropdownItems}
+          toggleName={ux.selectedChapterSection
+            ? ux.selectedChapterSection.titleWithSection: ' '}
+          dropdownItems={chapterSections}
         />
       </div>
       <div className="book-link">
@@ -69,16 +81,16 @@ const renderTopicForm = ({ ux }) => {
       </div>
     </StyledTopicForm>
   );
-};
+});
 
-const Topic = ({ ux }) => {
+const Topic = observer(({ ux }) => {
   return (
     <StyledAddEditQuestionFormBlock
       label="Topic"
-      formContentRenderer={(props) => renderTopicForm({ ux, ...props })}
+      formContentRenderer={() => <TopicForm ux={ux}/>}
     />
   );
-};
+});
 
 Topic.propTypes = {
 
