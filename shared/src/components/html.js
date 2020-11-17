@@ -74,7 +74,7 @@ class ArbitraryHtmlAndMath extends React.Component {
       ev.preventDefault();
     }
     if(this.props.onClick) {
-      this.props.onClick(ev)
+      this.props.onClick(ev);
     }
   }
 
@@ -107,4 +107,4 @@ const HTML = React.forwardRef((props, ref) => (
   <ArbitraryHtmlAndMath forwardedRef={ref} {...props} />
 ));
 
-export default HTML
+export default HTML;

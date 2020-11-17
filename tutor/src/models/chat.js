@@ -22,7 +22,6 @@ export default {
   },
 
   setElementVisiblity(online, offline) {
-    return
     if (!this.isEnabled) { return; }
     try {
       window.liveagent.showWhenOnline(ELEMENT_ID, online);

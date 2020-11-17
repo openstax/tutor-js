@@ -1,5 +1,5 @@
 import { React } from 'vendor';
-import { ClickToEdit } from '../../components/editor'
+import { ClickToEdit } from '../../components/editor';
 
 const fakeExercise = `
 <div>
@@ -8,7 +8,7 @@ const fakeExercise = `
 
 How many <span data-math="\\text{km/h}"></span> are equal to <span data-math="1.0\\,\\text{m/s}">1.0\\,\\text{m/s}</span>? Hint: Carry out the explicit steps involved in the conversion.
 
-The speed limit on some interstate highways is roughly <span data-math="100,\\text{km/h}\">100\\,\\text{km/h}</span>. How many miles per hour is this if <span data-math=\"1.0\\,\\text{mile}\">1.0\\,\\text{mile}</span> is about <span data-math="1.609,\\text{km}">1.609,\text{km}</span>?
+The speed limit on some interstate highways is roughly <span data-math="100,\\text{km/h}">100\\,\\text{km/h}</span>. How many miles per hour is this if <span data-math="1.0\\,\\text{mile}">1.0\\,\\text{mile}</span> is about <span data-math="1.609,\\text{km}">1.609,\text{km}</span>?
 
           <img src="https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_aeb10979cb1265ae1f928677f271c8e4f0f6154a26723b80e40ca3db913579d3.png" alt="The x-axis is temperature in Celsius degrees, ranging from 0 to 70 degrees in increments of 10 degrees.  The y-axis is rate of reaction and is not numbered.  The curve begins at 0 degrees, where the rate of the reaction is close to zero.  The curve proceeds upwards with a sharp slope until peaking at about 38 degrees, where an indicator line is labeled “optimal temperature.”  The curve is relatively flat for another ten degrees and then drops precipitously  from 50 to 60 degrees, hitting zero again at about 61 degrees." />
 
@@ -63,6 +63,6 @@ const EditorDemo = () => (
   <div className="openstax-question">
     <ClickToEdit html={fakeExercise} />
   </div>
-)
+);
 
 export default EditorDemo;
