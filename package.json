@@ -51,8 +51,6 @@
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
-    "@babel/eslint-parser": "^7.12.1",
-    "@babel/helper-validator-identifier": "^7.10.4",
     "@babel/node": "^7.5.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
