@@ -52,12 +52,20 @@ const StyledMenu = styled(Dropdown.Menu)`
   }
 `;
 
-const TutorDropdown = ({ toggleName, dropdownItems, dropdownTestId = '', toggleDataTestId = '' }) => {
+const TutorDropdown = ({
+  toggleName,
+  dropdownItems,
+  dropdownTestId = '',
+  toggleDataTestId = '',
+  disabled = false }) => {
   return (
     <StyledDropdown data-test-id={dropdownTestId}>
       {
         toggleName &&
-          <StyledToggle variant="outline" data-test-id={toggleDataTestId}>
+          <StyledToggle
+            variant="outline"
+            data-test-id={toggleDataTestId}
+            disabled={disabled}>
             <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
           </StyledToggle>
       }
@@ -71,6 +79,7 @@ TutorDropdown.propTypes = {
   toggleName: PropTypes.string,
   dropdownTestId: PropTypes.string,
   toggleDataTestId: PropTypes.string,
+  disabled: PropTypes.bool,
   dropdownItems: PropTypes.node.isRequired,
 };
 

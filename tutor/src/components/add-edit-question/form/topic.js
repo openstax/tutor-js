@@ -44,7 +44,8 @@ const dropDownReferenceNode = (
   preSelectedNodes,
   selectedNode,
   onSelect,
-  label) => {
+  label,
+  disabled = false) => {
   const nodes = map(preSelectedNodes, psc => 
     <Dropdown.Item
       key={psc.uuid}
@@ -61,6 +62,7 @@ const dropDownReferenceNode = (
         toggleName={selectedNode
           ? selectedNode.titleWithSection: `Select ${label}`}
         dropdownItems={nodes}
+        disabled={disabled}
       />
     </div>
   );
@@ -78,7 +80,8 @@ const TopicForm = observer(({ ux }) => {
         ux.preSelectedChapterSections,
         ux.selectedChapterSection,
         ux.setSelectedChapterSectionByUUID,
-        'Section') }
+        'Section',
+        !ux.selectedChapter) }
       <div className="book-link">
         <a
           aria-label="Browse the book"
