@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find } from 'lodash';
-import { TAG_BLOOMS, TAG_DOKS } from './form/blocks/tags/constants';
+import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 
 export default class AddEditQuestionUX {
 
@@ -22,6 +22,10 @@ export default class AddEditQuestionUX {
   @observable tagDifficulty;
   @observable tagBloom;
   @observable tagDok;
+  // general
+  @observable questionName;
+  @observable allowOthersCopyEdit = false;
+  @observable annonymize = false;
 
   constructor(props = {}) {
     this.book = props.book;
@@ -90,5 +94,13 @@ export default class AddEditQuestionUX {
 
   @action.bound changeDokTag(dokValue) {
     this.tagDok = find(TAG_DOKS, td => td.value === dokValue);
+  }
+
+  @action.bound changeAllowOthersCopyEdit({ target: { checked } }) {
+    this.allowOthersCopyEdit = checked;
+  }
+
+  @action.bound changeAnnonymize({ target: { checked } }) {
+    this.annonymize = checked;
   }
 }

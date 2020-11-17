@@ -1,10 +1,9 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, startCase } from 'lodash';
-// import { useField } from 'formik';
 import { Dropdown, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import AddEditQuestionFormBlock from '../shared';
-import TutorDropdown from '../../../../dropdown';
-import AddEditQuestionUX from '../../../ux';
+import TutorDropdown from '../../../dropdown';
+import AddEditQuestionUX from '../../ux';
 import { TAG_TIMES, TAG_DIFFICULTIES, TAG_BLOOMS, TAG_DOKS } from './constants';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
@@ -142,6 +141,7 @@ const dropDownTags = (
   );
 };
 
+// buttons for time and difficulty tags
 const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
   return (
     <ButtonGroup aria-label={ariaLabel}>

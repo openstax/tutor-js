@@ -3,8 +3,8 @@ import { map } from 'lodash';
 // import { useField } from 'formik';
 import { Dropdown } from 'react-bootstrap';
 import AddEditQuestionFormBlock from './shared';
-import TutorDropdown from '../../../dropdown';
-import AddEditQuestionUX from '../../ux';
+import TutorDropdown from '../../dropdown';
+import AddEditQuestionUX from '../ux';
 import { colors } from 'theme';
 
 const lineHeight = css`
