@@ -1,5 +1,4 @@
 import { React } from 'vendor';
-
 import { ClickToEdit } from '../../components/editor'
 
 const fakeExercise = `
