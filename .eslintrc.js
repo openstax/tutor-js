@@ -3,7 +3,7 @@ module.exports = {
     "browser": true,
     "es6": true
   },
-  "parser": "babel-eslint",
+  'parser': '@babel/eslint-parser',
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaFeatures": {
@@ -62,7 +62,6 @@ module.exports = {
       "error",
       "single"
     ],
-    semi: ["error", "always"],
     "react/prefer-stateless-function": [2, {
       "ignorePureComponents": true
     }],
