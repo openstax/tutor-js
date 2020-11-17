@@ -1,10 +1,9 @@
-import { React, PropTypes, styled, css, observer } from 'vendor';
-import { map } from 'lodash';
+import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 // import { useField } from 'formik';
 import { Dropdown, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import AddEditQuestionFormBlock from './block';
 import TutorDropdown from '../../../components/dropdown';
-import AddEditQuestionUX from '../ux';
+import AddEditQuestionUX, { TIME_TAGS, TAG_DIFFICULTIES } from '../ux';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 
@@ -28,13 +27,13 @@ const StyledTagForm = styled.div`
             flex: 0 1 45%;
             ${fullWidthTablet}
         }
-        > .tag-bloom, .tag-knowledge {
+        > .tag-bloom, .tag-dok {
             flex: 0 1 50%;
             ${fullWidthTablet}
         }
     }
     .tag-time, .tag-difficulty,
-        .tag-bloom, .tag-knowledge {
+        .tag-bloom, .tag-dok {
         display: flex;
         flex-flow: row wrap;
         label, .label-info {
@@ -54,14 +53,22 @@ const StyledTagForm = styled.div`
             ${fullWidthTablet}
             .btn {
                 background: white;
-                color: #424242;
+                color: ${colors.neutral.darker};
                 padding: 0.5rem 0;
-                border-color: #d5d5d5;
+                border-color: ${colors.neutral.pale};
                 width: 100%;
+                &.selected {
+                    background-color: ${colors.neutral.pale};
+                }
+                :active {
+                    color: initial;
+                    background-color: initial;
+                    border-color: ${colors.neutral.pale};
+                }
             }
         }
     }
-    .tag-bloom, .tag-knowledge {
+    .tag-bloom, .tag-dok {
         .label-info {
             flex: 0 1 40%;
             svg {
@@ -99,7 +106,7 @@ const bloomPopover =
     <a href="www.google.com" target="_blank">Learn More</a>
   </StyledPopover>;
 
-const knowledgePopover =
+const dokPopover =
   <StyledPopover>
     <p>
         Depth of Knowledge or DoK is used to identify the level of rigor for
@@ -117,10 +124,28 @@ const TagForm = observer(({ ux }) => {
       <div className="tag-form">
         <div className="tag-time">
           <label>Time</label>
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="secondary">Short</Button>
-            <Button variant="secondary">Medium</Button>
-            <Button variant="secondary">Long</Button>
+          <ButtonGroup aria-label="Tag times">
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagTime === TIME_TAGS.SHORT })}
+              value={TIME_TAGS.SHORT}
+              onClick={ux.changeTagTime}>
+                Short
+            </Button>
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagTime === TIME_TAGS.MEDIUM })}
+              value={TIME_TAGS.MEDIUM}
+              onClick={ux.changeTagTime}>
+                Medium
+            </Button>
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagTime === TIME_TAGS.LONG })}
+              value={TIME_TAGS.LONG}
+              onClick={ux.changeTagTime}>
+                Long
+            </Button>
           </ButtonGroup>
         </div>
         <div className="tag-bloom">
@@ -143,16 +168,34 @@ const TagForm = observer(({ ux }) => {
         </div>
         <div className="tag-difficulty">
           <label>Difficulty</label>
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="secondary">Easy</Button>
-            <Button variant="secondary">Medium</Button>
-            <Button variant="secondary">Difficult</Button>
+          <ButtonGroup aria-label="Tag difficulties">
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.EASY })}
+              value={TAG_DIFFICULTIES.EASY}
+              onClick={ux.changetagDifficulty}>
+                Easy
+            </Button>
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.MEDIUM })}
+              value={TAG_DIFFICULTIES.MEDIUM}
+              onClick={ux.changetagDifficulty}>
+                Medium
+            </Button>
+            <Button
+              variant="secondary"
+              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.DIFFICULT })}
+              value={TAG_DIFFICULTIES.DIFFICULT}
+              onClick={ux.changetagDifficulty}>
+                Difficult
+            </Button>
           </ButtonGroup>
         </div>
-        <div className="tag-knowledge">
+        <div className="tag-dok">
           <div className="label-info">
             <label>Depth of knowledge</label>
-            <OverlayTrigger placement="bottom" overlay={knowledgePopover}>
+            <OverlayTrigger placement="bottom" overlay={dokPopover}>
               <Icon type="question-circle" />
             </OverlayTrigger>
           </div>

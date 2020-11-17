@@ -1,6 +1,18 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find } from 'lodash';
 
+export const TIME_TAGS = {
+  SHORT: 'SHORT',
+  MEDIUM: 'MEDIUM',
+  LONG: 'LONG',
+};
+
+export const TAG_DIFFICULTIES = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  DIFFICULT: 'DIFFICULT',
+};
+
 export default class AddEditQuestionUX {
 
   // local
@@ -12,9 +24,15 @@ export default class AddEditQuestionUX {
   // chapter/section ids
   @observable pageIds;
 
-  //form
+  /** form */
+  // chapter/sections
   @observable selectedChapter;
   @observable selectedChapterSection;
+  // tags
+  @observable tagTime;
+  @observable tagDifficulty;
+  @observable tagBloom;
+  @observable tagDok;
 
   constructor(props = {}) {
     this.book = props.book;
@@ -67,5 +85,13 @@ export default class AddEditQuestionUX {
 
   @action.bound setSelectedChapterSectionByUUID(uuid) {
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === uuid);
+  }
+
+  @action.bound changeTagTime({ target: { value } }) {
+    this.tagTime = value;
+  }
+
+  @action.bound changetagDifficulty({ target: { value } }) {
+    this.tagDifficulty = value;
   }
 }
