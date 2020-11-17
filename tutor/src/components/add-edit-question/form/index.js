@@ -2,8 +2,8 @@ import { React, observer, styled } from 'vendor';
 import { Formik, Form } from 'formik';
 import { Modal } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
-import AddEditQuestionFormTopic from './topic';
-import AddEditQuestionFormTags from './tags';
+import AddEditQuestionFormTopic from './blocks/topic';
+import AddEditQuestionFormTags from './blocks/tags';
 
 const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
     .modal-dialog {

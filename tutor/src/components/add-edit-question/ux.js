@@ -1,17 +1,6 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find } from 'lodash';
-
-export const TIME_TAGS = {
-  SHORT: 'SHORT',
-  MEDIUM: 'MEDIUM',
-  LONG: 'LONG',
-};
-
-export const TAG_DIFFICULTIES = {
-  EASY: 'EASY',
-  MEDIUM: 'MEDIUM',
-  DIFFICULT: 'DIFFICULT',
-};
+import { TAG_BLOOMS, TAG_DOKS } from './form/blocks/tags/constants';
 
 export default class AddEditQuestionUX {
 
@@ -87,11 +76,19 @@ export default class AddEditQuestionUX {
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === uuid);
   }
 
-  @action.bound changeTagTime({ target: { value } }) {
+  @action.bound changeTimeTag({ target: { value } }) {
     this.tagTime = value;
   }
 
-  @action.bound changetagDifficulty({ target: { value } }) {
+  @action.bound changeDifficultyTag({ target: { value } }) {
     this.tagDifficulty = value;
+  }
+
+  @action.bound changeBloomTag(bloomValue) {
+    this.tagBloom = find(TAG_BLOOMS, tg => tg.value === bloomValue);
+  }
+
+  @action.bound changeDokTag(dokValue) {
+    this.tagDok = find(TAG_DOKS, td => td.value === dokValue);
   }
 }

@@ -1,9 +1,11 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
+import { map, startCase } from 'lodash';
 // import { useField } from 'formik';
 import { Dropdown, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import AddEditQuestionFormBlock from './block';
-import TutorDropdown from '../../../components/dropdown';
-import AddEditQuestionUX, { TIME_TAGS, TAG_DIFFICULTIES } from '../ux';
+import AddEditQuestionFormBlock from '../shared';
+import TutorDropdown from '../../../../dropdown';
+import AddEditQuestionUX from '../../../ux';
+import { TAG_TIMES, TAG_DIFFICULTIES, TAG_BLOOMS, TAG_DOKS } from './constants';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 
@@ -70,14 +72,14 @@ const StyledTagForm = styled.div`
     }
     .tag-bloom, .tag-dok {
         .label-info {
-            flex: 0 1 40%;
+            flex: 0 1 35%;
             svg {
                 margin-left: 1rem;
                 color: ${colors.bright_blue};
             }
         }
         .dropdown {
-            flex: 0 1 55%;
+            flex: 0 1 60%;
             ${fullWidthTablet}
             .btn {
                 width: 100%;
@@ -97,6 +99,7 @@ const StyledPopover = styled(Popover)`
   }
 `;
 
+// popovers info
 const bloomPopover =
   <StyledPopover>
     <p>
@@ -114,6 +117,46 @@ const dokPopover =
     </p>
     <a href="www.google.com" target="_blank">Learn More</a>
   </StyledPopover>;
+
+// dropdown for bloom and dok tags
+const dropDownTags = (
+  tags,
+  selectedTag,
+  onSelect
+) => {
+  const tagItems = map(tags, t => 
+    <Dropdown.Item
+      key={t.value}
+      value={t.value}
+      eventKey={t.value}
+      onSelect={onSelect}>
+      {t.text}
+    </Dropdown.Item>
+  );
+  return (
+    <TutorDropdown
+      toggleName={selectedTag
+        ? selectedTag.text : 'Select level'}
+      dropdownItems={tagItems}
+    />
+  );
+};
+
+const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
+  return (
+    <ButtonGroup aria-label={ariaLabel}>
+      {map(tags, t => 
+        <Button
+          variant="secondary"
+          className={cn({ 'selected': selectedTag === t })}
+          value={t}
+          onClick={onClick}>
+          {startCase(t)}
+        </Button>
+      )}
+    </ButtonGroup>
+  );
+};
   
 const TagForm = observer(({ ux }) => {
   return (
@@ -124,29 +167,7 @@ const TagForm = observer(({ ux }) => {
       <div className="tag-form">
         <div className="tag-time">
           <label>Time</label>
-          <ButtonGroup aria-label="Tag times">
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagTime === TIME_TAGS.SHORT })}
-              value={TIME_TAGS.SHORT}
-              onClick={ux.changeTagTime}>
-                Short
-            </Button>
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagTime === TIME_TAGS.MEDIUM })}
-              value={TIME_TAGS.MEDIUM}
-              onClick={ux.changeTagTime}>
-                Medium
-            </Button>
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagTime === TIME_TAGS.LONG })}
-              value={TIME_TAGS.LONG}
-              onClick={ux.changeTagTime}>
-                Long
-            </Button>
-          </ButtonGroup>
+          {buttonTags(TAG_TIMES, ux.tagTime, ux.changeTimeTag, 'Tag times')}
         </div>
         <div className="tag-bloom">
           <div className="label-info">
@@ -155,42 +176,11 @@ const TagForm = observer(({ ux }) => {
               <Icon type="question-circle" />
             </OverlayTrigger>
           </div>
-          <TutorDropdown
-            toggleName={'Select level'}
-            dropdownItems={<Dropdown.Item
-              key={1}
-              value={1}
-              eventKey={1}
-            >
-            bloom nam
-            </Dropdown.Item>}
-          />
+          {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
         </div>
         <div className="tag-difficulty">
           <label>Difficulty</label>
-          <ButtonGroup aria-label="Tag difficulties">
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.EASY })}
-              value={TAG_DIFFICULTIES.EASY}
-              onClick={ux.changetagDifficulty}>
-                Easy
-            </Button>
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.MEDIUM })}
-              value={TAG_DIFFICULTIES.MEDIUM}
-              onClick={ux.changetagDifficulty}>
-                Medium
-            </Button>
-            <Button
-              variant="secondary"
-              className={cn({ 'selected': ux.tagDifficulty === TAG_DIFFICULTIES.DIFFICULT })}
-              value={TAG_DIFFICULTIES.DIFFICULT}
-              onClick={ux.changetagDifficulty}>
-                Difficult
-            </Button>
-          </ButtonGroup>
+          {buttonTags(TAG_DIFFICULTIES, ux.tagDifficulty, ux.changeDifficultyTag, 'Tag difficulties')}
         </div>
         <div className="tag-dok">
           <div className="label-info">
@@ -199,16 +189,7 @@ const TagForm = observer(({ ux }) => {
               <Icon type="question-circle" />
             </OverlayTrigger>
           </div>
-          <TutorDropdown
-            toggleName={'Select level'}
-            dropdownItems={<Dropdown.Item
-              key={1}
-              value={1}
-              eventKey={1}
-            >
-            bloom nam
-            </Dropdown.Item>}
-          />
+          {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}
         </div>
       </div>
     </StyledTagForm>

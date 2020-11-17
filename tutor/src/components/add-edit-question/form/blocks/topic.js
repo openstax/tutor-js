@@ -2,9 +2,9 @@ import { React, PropTypes, styled, css, observer } from 'vendor';
 import { map } from 'lodash';
 // import { useField } from 'formik';
 import { Dropdown } from 'react-bootstrap';
-import AddEditQuestionFormBlock from './block';
-import TutorDropdown from '../../../components/dropdown';
-import AddEditQuestionUX from '../ux';
+import AddEditQuestionFormBlock from './shared';
+import TutorDropdown from '../../../dropdown';
+import AddEditQuestionUX from '../../ux';
 import { colors } from 'theme';
 
 const lineHeight = css`
