@@ -36,7 +36,6 @@ export class EditorRuntime {
         if (error) {
           reject(error)
         } else {
-          debugger
           resolve({
             id: blob.id,
             width: 0,
