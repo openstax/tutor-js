@@ -1,12 +1,11 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, startCase } from 'lodash';
-import { Dropdown, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import AddEditQuestionFormBlock from '../shared';
+import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
+import AddEditQuestionFormBlock, { QuestionInfo } from '../shared';
 import TutorDropdown from '../../../dropdown';
 import AddEditQuestionUX from '../../ux';
 import { TAG_TIMES, TAG_DIFFICULTIES, TAG_BLOOMS, TAG_DOKS } from './constants';
 import { colors, breakpoint } from 'theme';
-import { Icon } from 'shared';
 
 const fullWidthTablet = css`
     ${breakpoint.tablet`
@@ -68,10 +67,6 @@ const StyledTagForm = styled.div`
     .tag-bloom, .tag-dok {
         .label-info {
             flex: 0 1 35%;
-            svg {
-                margin-left: 1rem;
-                color: ${colors.bright_blue};
-            }
         }
         .dropdown {
             flex: 0 1 60%;
@@ -82,36 +77,6 @@ const StyledTagForm = styled.div`
         }
     }
 `;
-
-const StyledPopover = styled(Popover)`
-  padding: 1.5rem;
-  font-size: 1.4rem;
-  p {
-    color: ${colors.neutral.darker};
-  }
-  a {
-    font-weight: 500;
-  }
-`;
-
-// popovers info
-const bloomPopover =
-  <StyledPopover>
-    <p>
-        Bloom’s taxonomy is designed to make it easier for
-        teachers to classify learning outcomes and write better assessments.
-    </p>
-    <a href="www.google.com" target="_blank">Learn More</a>
-  </StyledPopover>;
-
-const dokPopover =
-  <StyledPopover>
-    <p>
-        Depth of Knowledge or DoK is used to identify the level of rigor for
-        an assessment and categorize activities according to the level of complexity in thinking.
-    </p>
-    <a href="www.google.com" target="_blank">Learn More</a>
-  </StyledPopover>;
 
 // dropdown for bloom and dok tags
 const dropDownTags = (
@@ -168,9 +133,16 @@ const TagForm = observer(({ ux }) => {
         <div className="tag-bloom">
           <div className="label-info">
             <label>Bloom's taxonomy</label>
-            <OverlayTrigger placement="top" overlay={bloomPopover}>
-              <Icon type="question-circle" />
-            </OverlayTrigger>
+            <QuestionInfo 
+              popoverInfo={
+                <>
+                  <p>
+                    Bloom’s taxonomy is designed to make it easier for
+                    teachers to classify learning outcomes and write better assessments.
+                  </p>
+                  <a href="www.google.com" target="_blank">Learn More</a>
+                </>
+              }/>
           </div>
           {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
         </div>
@@ -181,9 +153,17 @@ const TagForm = observer(({ ux }) => {
         <div className="tag-dok">
           <div className="label-info">
             <label>Depth of knowledge</label>
-            <OverlayTrigger placement="bottom" overlay={dokPopover}>
-              <Icon type="question-circle" />
-            </OverlayTrigger>
+            <QuestionInfo
+              placement="bottom"
+              popoverInfo={
+                <>
+                  <p>
+                    Depth of Knowledge or DoK is used to identify the level of rigor for
+                    an assessment and categorize activities according to the level of complexity in thinking.
+                  </p>
+                  <a href="www.google.com" target="_blank">Learn More</a>
+                </>
+              }/>
           </div>
           {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}
         </div>

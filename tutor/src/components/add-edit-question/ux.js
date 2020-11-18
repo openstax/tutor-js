@@ -19,6 +19,9 @@ export default class AddEditQuestionUX {
   @observable selectedChapterSection;
   // question
   @observable questionText;
+  @observable answerKeyText;
+  @observable isTwoStep;
+  @observable detailedSolution;
   // tags
   @observable tagTime;
   @observable tagDifficulty;
@@ -84,6 +87,18 @@ export default class AddEditQuestionUX {
 
   @action.bound changeQuestionText({ target: { value } }) {
     this.questionText = value;
+  }
+
+  @action.bound changeAnwserKeyText({ target: { value } }) {
+    this.answerKeyText = value;
+  }
+
+  @action.bound changeIsTwoStep({ target: { checked } }) {
+    this.isTwoStep = checked;
+  }
+
+  @action.bound changeDetailedSolution({ target: { value } }) {
+    this.detailedSolution = value;
   }
 
   @action.bound changeTimeTag({ target: { value } }) {

@@ -1,8 +1,7 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { useState } from 'react';
-import { Form, Dropdown, Button } from 'react-bootstrap';
-import AddEditQuestionFormBlock, { AddEditFormTextInput } from './shared';
-import TutorDropdown from '../../dropdown';
+import { Button } from 'react-bootstrap';
+import AddEditQuestionFormBlock, { AddEditFormTextInput, QuestionInfo } from './shared';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
 import { colors, breakpoint } from 'theme';
@@ -43,32 +42,119 @@ const StyledQuestionForm = styled.div`
             display: flex;
             flex-flow: row wrap;
         }
-        label {
+        label, .left-side {
             flex: 0 1 9%;
             margin: auto 0;
         }
+        .question-text .form-control,
+        .question-answer-key .form-control,
+        .detailed-solution .form-control,
+        .right-side {
+          flex: 0 1 70%;
+          ${fullWidthTablet}
+        }
         .question-text {
-            .form-control {
-                flex: 0 1 70%;
-                ${fullWidthTablet}
+          margin-top: 1.6rem;
+        }
+        .question-answer-key {
+          margin-top: 3.2rem;
+        }
+        .two-step-wrapper {
+          .right-side {
+            .two-step-label {
+              margin-left: 1rem;
             }
+            .two-step-info {
+              margin-left: 2.3rem;
+              color: ${colors.neutral.thin};
+            }
+          }
+          svg[data-icon="check-square"] {
+            color: ${colors.neutral.std};
+          }
+          // overriding checkbox svg css
+          svg[data-icon="question-circle"] {
+            position: static;
+            margin: 0 0.5rem;
+            height: 1.4rem;
+            width: 1.4rem;
+          } 
         }
     }
 `;
 
 const MCQForm = observer(({ ux }) => {
-  return <div>MCQ form</div>;
+  const twoStepLabel = 
+    <>
+      <span className="two-step-label">Make this Two-step question </span>
+      <QuestionInfo
+        placement="right"
+        popoverInfo={
+          <>
+            <p>
+              A two-step question requires students to recall an answer from memory
+              before viewing the multiple-choice options.
+              Our research shows that retrieval practice helps to improve knowledge retention.
+            </p>
+            <p>
+              Students will be graded only on the multiple-choice step.
+              You can view student reponses in the ‘Submission overview’ tab.
+            </p>
+          </>
+        }/>
+    </>;
+  return (
+    <>
+      <AddEditFormTextInput
+        onChange={ux.changeQuestionText}
+        value={ux.questionText}
+        label='Question'
+        placeholder="Enter question or problem statement."
+        className="question-text"
+      />
+      <div className="two-step-wrapper">
+        <div className="left-side"></div>
+        <div className="right-side">
+          <CheckboxInput
+            onChange={ux.changeIsTwoStep}
+            label={twoStepLabel}
+            checked={ux.isTwoStep}
+            standalone
+          />
+          <p className="two-step-info">
+            Ask students to answer in their own words before displaying the multiple-choice options.
+          </p>
+        </div>
+      </div>
+      <AddEditFormTextInput
+        onChange={ux.changeDetailedSolution}
+        value={ux.detailedSolution}
+        label='Detailed solution'
+        placeholder="Optional. This is not visible to students."
+        className="detailed-solution"
+      />
+    </>
+  );
 });
 
 const WRQForm = observer(({ ux }) => {
   return (
-    <AddEditFormTextInput
-      onChange={ux.changeQuestionText}
-      value={ux.questionText}
-      label='Question'
-      placeholder="Enter question or problem statement."
-      className="question-text"
-    />
+    <>
+      <AddEditFormTextInput
+        onChange={ux.changeQuestionText}
+        value={ux.questionText}
+        label='Question'
+        placeholder="Enter question or problem statement."
+        className="question-text"
+      />
+      <AddEditFormTextInput
+        onChange={ux.changeAnswerKeyText}
+        value={ux.answerKeyText}
+        label='Answer Key'
+        placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
+        className="question-answer-key"
+      />
+    </>
   );
 });
 

@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, cn, observer } from 'vendor';
-import { Form } from 'react-bootstrap';
-import { colors, breakpoint } from 'theme';
+import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { colors } from 'theme';
+import { Icon } from 'shared';
 
 const StyledRowContent = styled.div`
   display: flex;
@@ -38,8 +39,41 @@ const StyledAddEditFormTextInput = styled(Form.Group)`
             background-color: ${colors.white};
         }
     }
-  
 `;
+
+const StyledPopover = styled(Popover)`
+  padding: 1.5rem;
+  font-size: 1.4rem;
+  p {
+    color: ${colors.neutral.darker};
+  }
+  a {
+    font-weight: 500;
+  }
+`;
+
+const StyledQuestionInfoIcon = styled(Icon)`
+  &.question-info-icon {
+    margin-left: 1rem;
+    color:${colors.bright_blue};
+  }
+`;
+
+export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
+  const popover = <StyledPopover>
+    {popoverInfo}
+  </StyledPopover>;
+
+  return (
+    <OverlayTrigger placement={placement} overlay={popover}>
+      <StyledQuestionInfoIcon type="question-circle" className="question-info-icon" />
+    </OverlayTrigger>
+  );
+};
+QuestionInfo.propTypes = {
+  popoverInfo: PropTypes.node.isRequired,
+  placement: PropTypes.string,
+};
 
 export const AddEditFormTextInput = observer(({ onChange, value, label, placeholder, className }) => {
   return (
