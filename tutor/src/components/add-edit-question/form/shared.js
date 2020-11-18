@@ -89,7 +89,7 @@ export const AddEditFormTextInput = observer(({ onChange, value, label, placehol
   );
 });
 
-const AddEditQuestionFormBlock = ({
+export const AddEditQuestionFormBlock = ({
   label,
   formContentRenderer: FormContent,
   className,
@@ -116,5 +116,3 @@ AddEditQuestionFormBlock.propTypes = {
   showGrayBackground: PropTypes.bool,
   addPadding: PropTypes.bool,
 };
-
-export default AddEditQuestionFormBlock;

@@ -21,6 +21,7 @@ export default class AddEditQuestionUX {
   @observable questionText;
   @observable answerKeyText;
   @observable isTwoStep;
+  @observable answers = [];
   @observable detailedSolution;
   // tags
   @observable tagTime;
@@ -43,6 +44,13 @@ export default class AddEditQuestionUX {
       if(this.preSelectedChapterSections.length === 1) {
         this.selectedChapterSection = this.preSelectedChapterSections[0];
       }
+    }
+
+    // show 4 answers by default
+    for(let i = 0; i < 4; i++) {
+      this.answers.push({
+        text: '', feedback: '',
+      });
     }
   }
 
@@ -71,6 +79,7 @@ export default class AddEditQuestionUX {
       some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
   }
 
+  // actions for topic form section
   @action.bound setSelectedChapterByUUID(uuid) {
     this.selectedChapter = find(this.preSelectedChapters, psc => psc.uuid === uuid);
     if(this.preSelectedChapterSections.length === 1) {
@@ -85,6 +94,7 @@ export default class AddEditQuestionUX {
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === uuid);
   }
 
+  // actions for question form section
   @action.bound changeQuestionText({ target: { value } }) {
     this.questionText = value;
   }
@@ -97,10 +107,27 @@ export default class AddEditQuestionUX {
     this.isTwoStep = checked;
   }
 
+  @action changeAnswers(answer, index) {
+    this.answers[index].text = answer;
+  }
+
+  @action changeFeedback(feedback, index) {
+    this.answers[index].feedback = feedback;
+  }
+
+  @action.bound addOption() {
+    // up to 6 answers only
+    if(this.answers.length === 6) return;
+    this.answers.push({
+      text: '', feedback: '',
+    });
+  }
+
   @action.bound changeDetailedSolution({ target: { value } }) {
     this.detailedSolution = value;
   }
 
+  // actions for tags form section
   @action.bound changeTimeTag({ target: { value } }) {
     this.tagTime = value;
   }
@@ -117,6 +144,7 @@ export default class AddEditQuestionUX {
     this.tagDok = find(TAG_DOKS, td => td.value === dokValue);
   }
 
+  // actions for general form section
   @action.bound changeQuestionName({ target: { value } }) {
     this.questionName = value;
   }

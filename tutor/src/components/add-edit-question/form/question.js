@@ -1,7 +1,8 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
+import { map } from 'lodash';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import AddEditQuestionFormBlock, { AddEditFormTextInput, QuestionInfo } from './shared';
+import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './shared';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
 import { colors, breakpoint } from 'theme';
@@ -37,49 +38,77 @@ const StyledQuestionForm = styled.div`
         }
     }
     .question-form {
-        padding: 2.4rem 1.8rem;
-        > div {
-            display: flex;
-            flex-flow: row wrap;
-        }
-        label, .left-side {
-            flex: 0 1 9%;
-            margin: auto 0;
-        }
-        .question-text .form-control,
-        .question-answer-key .form-control,
-        .detailed-solution .form-control,
+      padding: 2.4rem 1.8rem;
+      > div:not(.answer-choice-wrapper) {
+          display: flex;
+          flex-flow: row wrap;
+      }
+      label, .left-side {
+          flex: 0 1 9%;
+          margin: auto 0;
+      }
+      .question-text .form-control,
+      .question-answer-key .form-control,
+      .detailed-solution .form-control,
+      .right-side {
+        flex: 0 1 70%;
+        ${fullWidthTablet}
+      }
+      .question-text {
+        margin-top: 1.6rem;
+      }
+      .question-answer-key {
+        margin-top: 3.2rem;
+      }
+      .two-step-wrapper {
         .right-side {
-          flex: 0 1 70%;
-          ${fullWidthTablet}
+          .two-step-label {
+            margin-left: 1rem;
+            line-height: 3rem;
+          }
+          .two-step-info {
+            margin-left: 2.3rem;
+            color: ${colors.neutral.thin};
+          }
         }
-        .question-text {
-          margin-top: 1.6rem;
+        svg[data-icon="check-square"] {
+          color: ${colors.neutral.std};
         }
-        .question-answer-key {
-          margin-top: 3.2rem;
-        }
-        .two-step-wrapper {
+        // overriding checkbox svg css
+        svg[data-icon="question-circle"] {
+          position: static;
+          margin: 0 0.5rem;
+          height: 1.4rem;
+          width: 1.4rem;
+        } 
+      }
+      .answer-choice-wrapper {
+          display: column;
+          flex-flow: column wrap;
+          margin-bottom: 2rem;
+        > div {
+          display: flex;
+          flex-flow: row wrap;
+          .left-side {
+            margin: 2rem 0;
+          }
           .right-side {
-            .two-step-label {
-              margin-left: 1rem;
+            [class*="question-answer-"] {
+              margin-bottom: 0.5rem;
             }
-            .two-step-info {
-              margin-left: 2.3rem;
-              color: ${colors.neutral.thin};
+            [class*="question-feedback-"] {
+              width: 90%;
+              line-height: 0;
             }
           }
-          svg[data-icon="check-square"] {
-            color: ${colors.neutral.std};
+          .add-option {
+            padding: 0;
+            margin-top: 1rem;
+            color: ${colors.cerulan};
+            font-weight: 700;
           }
-          // overriding checkbox svg css
-          svg[data-icon="question-circle"] {
-            position: static;
-            margin: 0 0.5rem;
-            height: 1.4rem;
-            width: 1.4rem;
-          } 
         }
+      }
     }
 `;
 
@@ -103,6 +132,42 @@ const MCQForm = observer(({ ux }) => {
           </>
         }/>
     </>;
+
+  const renderAnswers = () => map(ux.answers, (a, index) => 
+    <div key={index}>
+      <div className="left-side">check</div>
+      <div className="right-side">
+        <AddEditFormTextInput
+          onChange={({ target: { value } }) => ux.changeAnswers(value, index)}
+          value={a.text}
+          placeholder={`Add Answer ${index + 1}`}
+          className={`question-answer-${index + 1}`}
+        />
+        <AddEditFormTextInput
+          onChange={({ target: { value } }) => ux.changeFeedback(value, index)}
+          value={a.feedback}
+          placeholder='Add Feedback'
+          className={`question-feedback-${index + 1}`}
+        />
+      </div>
+    </div>
+  );
+  
+  const renderAddOptionButton = () => {
+    if(ux.answers.length === 6) return null;
+    return (
+      <div>
+        <div className="left-side"></div>
+        <Button
+          variant="link"
+          className="add-option"
+          onClick={ux.addOption}>
+             Add option
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <>
       <AddEditFormTextInput
@@ -125,6 +190,10 @@ const MCQForm = observer(({ ux }) => {
             Ask students to answer in their own words before displaying the multiple-choice options.
           </p>
         </div>
+      </div>
+      <div className="answer-choice-wrapper">
+        {renderAnswers()}
+        {renderAddOptionButton()}
       </div>
       <AddEditFormTextInput
         onChange={ux.changeDetailedSolution}

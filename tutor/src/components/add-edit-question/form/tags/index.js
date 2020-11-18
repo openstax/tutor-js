@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, startCase } from 'lodash';
 import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
-import AddEditQuestionFormBlock, { QuestionInfo } from '../shared';
+import { AddEditQuestionFormBlock, QuestionInfo } from '../shared';
 import TutorDropdown from '../../../dropdown';
 import AddEditQuestionUX from '../../ux';
 import { TAG_TIMES, TAG_DIFFICULTIES, TAG_BLOOMS, TAG_DOKS } from './constants';

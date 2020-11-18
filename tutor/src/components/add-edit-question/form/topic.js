@@ -2,7 +2,7 @@ import { React, PropTypes, styled, css, observer } from 'vendor';
 import { map } from 'lodash';
 // import { useField } from 'formik';
 import { Dropdown } from 'react-bootstrap';
-import AddEditQuestionFormBlock from './shared';
+import { AddEditQuestionFormBlock } from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
 

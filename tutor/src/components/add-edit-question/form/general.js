@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
-import AddEditQuestionFormBlock, { AddEditFormTextInput } from './shared';
+import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
