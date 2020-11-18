@@ -17,6 +17,8 @@ export default class AddEditQuestionUX {
   // chapter/sections
   @observable selectedChapter;
   @observable selectedChapterSection;
+  // question
+  @observable questionText;
   // tags
   @observable tagTime;
   @observable tagDifficulty;
@@ -80,6 +82,10 @@ export default class AddEditQuestionUX {
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === uuid);
   }
 
+  @action.bound changeQuestionText({ target: { value } }) {
+    this.questionText = value;
+  }
+
   @action.bound changeTimeTag({ target: { value } }) {
     this.tagTime = value;
   }
@@ -94,6 +100,10 @@ export default class AddEditQuestionUX {
 
   @action.bound changeDokTag(dokValue) {
     this.tagDok = find(TAG_DOKS, td => td.value === dokValue);
+  }
+
+  @action.bound changeQuestionName({ target: { value } }) {
+    this.questionName = value;
   }
 
   @action.bound changeAllowOthersCopyEdit({ target: { checked } }) {

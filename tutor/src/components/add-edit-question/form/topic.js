@@ -5,14 +5,13 @@ import { Dropdown } from 'react-bootstrap';
 import AddEditQuestionFormBlock from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
-import { colors } from 'theme';
 
 const lineHeight = css`
   line-height: 3.2rem;
 `;
 
 const StyledAddEditQuestionFormBlock = styled(AddEditQuestionFormBlock)`
-  .label-wrapper span {
+  .label-wrapper label {
     ${lineHeight}
   }
 `;
@@ -23,9 +22,7 @@ const StyledTopicForm = styled.div`
   margin-right: 15rem;
   .dropdown-wrapper {
     display: flex;
-    span {
-      color: ${colors.neutral.darker};
-      font-weight: 700;
+    label {
       ${lineHeight}
     }
     .dropdown {
@@ -57,7 +54,7 @@ const dropDownReferenceNode = (
   );
   return (
     <div className="dropdown-wrapper">
-      <div><span>{label}</span></div>
+      <div><label>{label}</label></div>
       <TutorDropdown
         toggleName={selectedNode
           ? selectedNode.titleWithSection: `Select ${label}`}
@@ -101,6 +98,7 @@ const Topic = observer(({ ux }) => {
   return (
     <StyledAddEditQuestionFormBlock
       label="Topic"
+      addPadding={false}
       formContentRenderer={() => <TopicForm ux={ux}/>}
     />
   );

@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
-import { Form, Dropdown } from 'react-bootstrap';
-import AddEditQuestionFormBlock from './shared';
+import { Dropdown } from 'react-bootstrap';
+import AddEditQuestionFormBlock, { AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
@@ -22,8 +22,6 @@ const StyledGeneralForm = styled.div`
         > label {
             flex: 0 1 9%;
             margin: auto 0;
-            color: ${colors.neutral.darker};
-            font-weight: 700;
         }
     }
 
@@ -31,16 +29,6 @@ const StyledGeneralForm = styled.div`
       > .form-control {
           flex: 0 1 50%;
           ${fullWidthTablet}
-      }
-      > input {
-          color: ${colors.neutral.darker};
-          &::placeholder {
-              font-size: 1.4rem;
-              color: ${colors.neutral.thin};
-          }
-          &:focus {
-              background-color: white;
-          }
       }
     }
 
@@ -51,6 +39,9 @@ const StyledGeneralForm = styled.div`
       > div {
         display: flex;
         flex-flow: column wrap;
+        span label {
+          font-weight: normal;
+        }
         span:first-child {
           margin-bottom: 1rem;
         }
@@ -67,15 +58,13 @@ const StyledGeneralForm = styled.div`
 const GeneralForm = observer(({ ux }) => {
   return (
     <StyledGeneralForm>
-      <Form.Group controlId="questionName" className="question-info">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          onChange={ux.changeQuestionName}
-          value={ux.questionName}
-          placeholder="Enter question name. Optional."
-        />
-      </Form.Group>
+      <AddEditFormTextInput
+        onChange={ux.changeQuestionName}
+        value={ux.questionName}
+        label='Name'
+        placeholder="Enter question name. Optional."
+        className="question-info"
+      />
       {/** TODO: get teachers name and make this controlled in UX */}
       <div className="authors-info">
         <label>Author</label>

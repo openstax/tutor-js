@@ -40,10 +40,6 @@ const StyledTagForm = styled.div`
         label, .label-info {
             margin: auto 0;
         }
-        label {
-            font-weight: 700;
-            color: ${colors.neutral.darker};
-        }
     }
     .tag-time, .tag-difficulty {
         label {
