@@ -31,7 +31,7 @@ export default class AddEditQuestionUX {
   @observable tagDok;
   // general
   @observable questionName;
-  @observable allowOthersCopyEdit = false;
+  @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
 
   constructor(props = {}) {
