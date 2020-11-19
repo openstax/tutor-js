@@ -108,6 +108,7 @@ const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
     <ButtonGroup aria-label={ariaLabel}>
       {map(tags, t => 
         <Button
+          key={t}
           variant="secondary"
           className={cn({ 'selected': selectedTag === t })}
           value={t}

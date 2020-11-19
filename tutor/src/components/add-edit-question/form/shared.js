@@ -75,10 +75,10 @@ QuestionInfo.propTypes = {
   placement: PropTypes.string,
 };
 
-export const AddEditFormTextInput = observer(({ onChange, value, label, placeholder, className }) => {
+export const AddEditFormTextInput = observer(({ onChange,value, label, placeholder, className }) => {
   return (
     <StyledAddEditFormTextInput controlId={className} className={className}>
-      <Form.Label>{label}</Form.Label>
+      {label && <Form.Label>{label}</Form.Label>}
       <Form.Control
         type="text"
         onChange={onChange}

@@ -6,6 +6,7 @@ import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
 import { colors, breakpoint } from 'theme';
+import { Icon } from 'shared';
 
 const fullWidthTablet = css`
     ${breakpoint.tablet`
@@ -39,7 +40,7 @@ const StyledQuestionForm = styled.div`
     }
     .question-form {
       padding: 2.4rem 1.8rem;
-      > div:not(.answer-choice-wrapper) {
+      > div:not(.option-choices-wrapper) {
           display: flex;
           flex-flow: row wrap;
       }
@@ -82,18 +83,21 @@ const StyledQuestionForm = styled.div`
           width: 1.4rem;
         } 
       }
-      .answer-choice-wrapper {
+      .option-choices-wrapper {
           display: column;
           flex-flow: column wrap;
           margin-bottom: 2rem;
         > div {
           display: flex;
           flex-flow: row wrap;
+          > div:not(.add-option-wrapper) {
+            margin-top: 1rem;
+          }
           .left-side {
             margin: 2rem 0;
           }
           .right-side {
-            [class*="question-answer-"] {
+            [class*="question-option-"] {
               margin-bottom: 0.5rem;
             }
             [class*="question-feedback-"] {
@@ -101,9 +105,15 @@ const StyledQuestionForm = styled.div`
               line-height: 0;
             }
           }
+          .option-icons {
+            margin-top: 0.3rem;
+            margin-left: 2.4rem;
+            button svg {
+              color: ${colors.neutral.std};
+            }
+          }
           .add-option {
             padding: 0;
-            margin-top: 1rem;
             color: ${colors.cerulan};
             font-weight: 700;
           }
@@ -133,15 +143,15 @@ const MCQForm = observer(({ ux }) => {
         }/>
     </>;
 
-  const renderAnswers = () => map(ux.answers, (a, index) => 
+  const renderOptions = () => map(ux.options, (a, index) => 
     <div key={index}>
       <div className="left-side">check</div>
       <div className="right-side">
         <AddEditFormTextInput
-          onChange={({ target: { value } }) => ux.changeAnswers(value, index)}
+          onChange={({ target: { value } }) => ux.changeOptions(value, index)}
           value={a.text}
-          placeholder={`Add Answer ${index + 1}`}
-          className={`question-answer-${index + 1}`}
+          placeholder={`Add Option ${index + 1}`}
+          className={`question-option-${index + 1}`}
         />
         <AddEditFormTextInput
           onChange={({ target: { value } }) => ux.changeFeedback(value, index)}
@@ -150,13 +160,27 @@ const MCQForm = observer(({ ux }) => {
           className={`question-feedback-${index + 1}`}
         />
       </div>
+      <div className="option-icons">
+        <Icon
+          type="arrow-up"
+          onClick={() => ux.moveUpOption(index)}
+          buttonProps={{ disabled: index === 0 }}/>
+        <Icon
+          type="arrow-down"
+          onClick={() => ux.moveDownOption(index)}
+          buttonProps={{ disabled: index === ux.options.length - 1 }}/>
+        <Icon
+          type="trash"
+          onClick={() => ux.deleteOption(index)}
+          buttonProps={{ disabled: ux.options.length === 2 }}/>
+      </div>
     </div>
   );
-  
+
   const renderAddOptionButton = () => {
-    if(ux.answers.length === 6) return null;
+    if(ux.options.length === 6) return null;
     return (
-      <div>
+      <div className="add-option-wrapper">
         <div className="left-side"></div>
         <Button
           variant="link"
@@ -191,8 +215,8 @@ const MCQForm = observer(({ ux }) => {
           </p>
         </div>
       </div>
-      <div className="answer-choice-wrapper">
-        {renderAnswers()}
+      <div className="option-choices-wrapper">
+        {renderOptions()}
         {renderAddOptionButton()}
       </div>
       <AddEditFormTextInput

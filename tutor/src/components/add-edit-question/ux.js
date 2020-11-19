@@ -21,7 +21,7 @@ export default class AddEditQuestionUX {
   @observable questionText;
   @observable answerKeyText;
   @observable isTwoStep;
-  @observable answers = [];
+  @observable options = [];
   @observable detailedSolution;
   // tags
   @observable tagTime;
@@ -46,9 +46,9 @@ export default class AddEditQuestionUX {
       }
     }
 
-    // show 4 answers by default
+    // show 4 options by default
     for(let i = 0; i < 4; i++) {
-      this.answers.push({
+      this.options.push({
         text: '', feedback: '',
       });
     }
@@ -107,20 +107,36 @@ export default class AddEditQuestionUX {
     this.isTwoStep = checked;
   }
 
-  @action changeAnswers(answer, index) {
-    this.answers[index].text = answer;
+  @action changeOptions(answer, index) {
+    this.options[index].text = answer;
   }
 
   @action changeFeedback(feedback, index) {
-    this.answers[index].feedback = feedback;
+    this.options[index].feedback = feedback;
   }
 
   @action.bound addOption() {
-    // up to 6 answers only
-    if(this.answers.length === 6) return;
-    this.answers.push({
+    // up to 6 options only
+    if(this.options.length === 6) return;
+    this.options.push({
       text: '', feedback: '',
     });
+  }
+
+  @action deleteOption(index) {
+    this.options.splice(index, 1);
+  }
+
+  @action moveUpOption(index) {
+    let tempOption = this.options[index];
+    this.options[index] = this.options[index - 1];
+    this.options[index - 1] = tempOption;
+  }
+
+  @action moveDownOption(index) {
+    let tempOption = this.options[index];
+    this.options[index] = this.options[index + 1];
+    this.options[index + 1] = tempOption;
   }
 
   @action.bound changeDetailedSolution({ target: { value } }) {
