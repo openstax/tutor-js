@@ -89,7 +89,7 @@ const TopicForm = observer(({ ux }) => {
       <div className="book-link">
         <a
           aria-label="Browse the book"
-          href={`/book/${1}`}
+          href={ux.browseBookLink}
           target="_blank">
             Browse the book
         </a>

@@ -8,8 +8,9 @@ export default class AddEditQuestionUX {
   @observable showForm = false;
 
   // props
-  @observable question;
+  //@observable question;
   @observable book;
+  @observable courseId;
   // chapter/section ids
   @observable pageIds;
 
@@ -35,6 +36,7 @@ export default class AddEditQuestionUX {
 
   constructor(props = {}) {
     this.book = props.book;
+    this.courseId = props.courseId;
     // sections
     this.pageIds = props.pageIds;
 
@@ -58,9 +60,7 @@ export default class AddEditQuestionUX {
     this.showForm = show;
   }
 
-  /**
-   * Chapters that the user has selected
-   */
+  // Chapters that the user has selected
   @computed get preSelectedChapters() {
     // return the chapters by checking the section pageIds
     return filter(this.book.chapters, bc => 
@@ -68,15 +68,27 @@ export default class AddEditQuestionUX {
         some(this.pageIds, pi => pi === c.id)));
   }
 
-  /**
-   * Sections that the user has selected
-   */
+  // Sections that the user has selected
   @computed get preSelectedChapterSections() {
     if (!this.selectedChapter) {
       return null;
     }
     return filter(this.selectedChapter.children, scc => 
       some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
+  }
+
+  // Get the browe book link with the chapter or section selected
+  @computed get browseBookLink() {
+    let browseBookLink = `/book/${this.courseId}`;
+    if (this.selectedChapterSection) {
+      browseBookLink += `/page/${this.selectedChapterSection.id}`;
+    }
+    else if (this.selectedChapter &&
+      this.selectedChapter.children &&
+      this.selectedChapter.children.length > 0) {
+      browseBookLink += `/page/${this.selectedChapter.children[0].id}`;
+    }
+    return browseBookLink;
   }
 
   // actions for topic form section

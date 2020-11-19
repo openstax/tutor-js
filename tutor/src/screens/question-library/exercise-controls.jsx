@@ -211,7 +211,8 @@ class ExerciseControls extends React.Component {
             <CreateQuestionButton
               exerciseType={exerciseTypeFilter} 
               book={course.referenceBook}
-              pageIds={pageIds}/>
+              pageIds={pageIds}
+              courseId={course.id}/>
           </div>    
         </div>
       </StyledExerciseControls>
