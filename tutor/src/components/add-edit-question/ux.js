@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find } from 'lodash';
+import { filter, some, find, forEach } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 
 export default class AddEditQuestionUX {
@@ -49,7 +49,7 @@ export default class AddEditQuestionUX {
     // show 4 options by default
     for(let i = 0; i < 4; i++) {
       this.options.push({
-        text: '', feedback: '',
+        text: '', feedback: '', isCorrect: false,
       });
     }
   }
@@ -115,11 +115,21 @@ export default class AddEditQuestionUX {
     this.options[index].feedback = feedback;
   }
 
+  @action checkCorrectOption(index) {
+    forEach(this.options, (o, optionIndex) => {
+      if(optionIndex === index) {
+        o.isCorrect = true;
+      } else {
+        o.isCorrect = false;
+      }
+    });
+  }
+
   @action.bound addOption() {
     // up to 6 options only
     if(this.options.length === 6) return;
     this.options.push({
-      text: '', feedback: '',
+      text: '', feedback: '', isCorrect: false,
     });
   }
 

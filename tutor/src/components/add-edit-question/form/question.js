@@ -95,6 +95,18 @@ const StyledQuestionForm = styled.div`
           }
           .left-side {
             margin: 2rem 0;
+            button {
+              float: right;
+              margin-right: 0.5rem;
+              margin-top: 0.5rem;
+              svg {
+                font-size: 2rem;
+                color: ${colors.neutral.pale};
+                &.is-correct {
+                  color: ${colors.green};
+                }
+              }
+            }
           }
           .right-side {
             [class*="question-option-"] {
@@ -143,19 +155,25 @@ const MCQForm = observer(({ ux }) => {
         }/>
     </>;
 
-  const renderOptions = () => map(ux.options, (a, index) => 
+  const renderOptions = () => map(ux.options, (o, index) => 
     <div key={index}>
-      <div className="left-side">check</div>
+      <div className="left-side">
+        <Icon
+          type="check-circle"
+          className={cn({ 'is-correct': o.isCorrect })}
+          onClick={() => ux.checkCorrectOption(index)}
+          buttonProps={{ disabled: o.isCorrect }}/>
+      </div>
       <div className="right-side">
         <AddEditFormTextInput
           onChange={({ target: { value } }) => ux.changeOptions(value, index)}
-          value={a.text}
+          value={o.text}
           placeholder={`Add Option ${index + 1}`}
           className={`question-option-${index + 1}`}
         />
         <AddEditFormTextInput
           onChange={({ target: { value } }) => ux.changeFeedback(value, index)}
-          value={a.feedback}
+          value={o.feedback}
           placeholder='Add Feedback'
           className={`question-feedback-${index + 1}`}
         />
