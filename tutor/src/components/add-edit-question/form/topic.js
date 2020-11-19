@@ -37,12 +37,14 @@ const StyledTopicForm = styled.div`
 /** 
  * Reference nodes are chapter/sections in a book
 */
-const dropDownReferenceNode = (
+const dropDownReferenceNode = ({
   preSelectedNodes,
   selectedNode,
   onSelect,
   label,
-  disabled = false) => {
+  disabled = false,
+  shouldBeFocus = false
+  }) => {
   const nodes = map(preSelectedNodes, psc => 
     <Dropdown.Item
       key={psc.uuid}
@@ -60,6 +62,7 @@ const dropDownReferenceNode = (
           ? selectedNode.titleWithSection: `Select ${label}`}
         dropdownItems={nodes}
         disabled={disabled}
+        shouldBeFocus={shouldBeFocus}
       />
     </div>
   );
@@ -68,17 +71,21 @@ const dropDownReferenceNode = (
 const TopicForm = observer(({ ux }) => {
   return (
     <StyledTopicForm>
-      { dropDownReferenceNode(
-        ux.preSelectedChapters,
-        ux.selectedChapter,
-        ux.setSelectedChapterByUUID,
-        'Chapter') }
-      { dropDownReferenceNode(
-        ux.preSelectedChapterSections,
-        ux.selectedChapterSection,
-        ux.setSelectedChapterSectionByUUID,
-        'Section',
-        !ux.selectedChapter) }
+      { dropDownReferenceNode({
+        preSelectedNodes: ux.preSelectedChapters,
+        selectedNode: ux.selectedChapter,
+        onSelect: ux.setSelectedChapterByUUID,
+        label: 'Chapter',
+        shouldBeFocus: !ux.selectedChapter
+        })}
+      { dropDownReferenceNode({
+        preSelectedNodes: ux.preSelectedChapterSections,
+        selectedNode: ux.selectedChapterSection,
+        onSelect: ux.setSelectedChapterSectionByUUID,
+        label: 'Section',
+        disabled: !ux.selectedChapter,
+        shouldBeFocus: ux.selectedChapter && !ux.selectedChapterSection
+        })}
       <div className="book-link">
         <a
           aria-label="Browse the book"

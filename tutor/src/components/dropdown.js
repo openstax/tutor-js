@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from 'vendor';
+import { React, PropTypes, styled, useRef, useEffect } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { TruncatedText } from './text';
 import { colors } from 'theme';
@@ -57,7 +57,15 @@ const TutorDropdown = ({
   dropdownItems,
   dropdownTestId = '',
   toggleDataTestId = '',
-  disabled = false }) => {
+  disabled = false,
+  shouldBeFocus = false }) => {
+  const dropdownRef = useRef();
+  useEffect(() => {
+    if(dropdownRef && dropdownRef.current) {
+      dropdownRef.current.focus()
+    }
+  }, []);
+
   return (
     <StyledDropdown data-test-id={dropdownTestId}>
       {
@@ -65,7 +73,8 @@ const TutorDropdown = ({
           <StyledToggle
             variant="outline"
             data-test-id={toggleDataTestId}
-            disabled={disabled}>
+            disabled={disabled}
+            ref={shouldBeFocus ? dropdownRef : null}>
             <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
           </StyledToggle>
       }
