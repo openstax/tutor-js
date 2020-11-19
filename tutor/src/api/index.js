@@ -7,7 +7,7 @@
 import adapters from './adapter';
 import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
-import Exercises from '../models/exercises';
+import Exercises, { Exercise } from '../models/exercises';
 import ReferenceBook from '../models/reference-book';
 import ReferenceBookNode from '../models/reference-book/node';
 import Ecosystems from '../models/ecosystems';
@@ -229,7 +229,11 @@ const startAPI = function() {
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Course,
-    'saveExerciseExclusion', { pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseExcluded' }
+    'saveExerciseExclusion', { method: 'PUT', pattern: 'courses/{id}/exercises/exclude', onSuccess: 'onExerciseExcluded' }
+  );
+
+  connectModelCreate(Exercise,
+    'createExercise', { pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseCreated' }
   );
 
   connectModelRead(CourseLMS, 'fetch', { pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete' });
