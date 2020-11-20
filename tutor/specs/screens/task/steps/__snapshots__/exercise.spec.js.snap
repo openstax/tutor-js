@@ -13,6 +13,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "can_be_updated": true,
         "content": StudentTaskExerciseStep {
           "_page": undefined,
+          "author": Object {},
           "average_step_number": undefined,
           "book": undefined,
           "content": Exercise {
@@ -369,6 +370,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "can_be_updated": true,
           "content": StudentTaskExerciseStep {
             "_page": undefined,
+            "author": Object {},
             "average_step_number": undefined,
             "book": undefined,
             "content": Exercise {

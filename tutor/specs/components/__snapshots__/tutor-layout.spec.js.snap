@@ -221,7 +221,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   <CourseNagModal course={[undefined]} modalManager={{...}} tourContext={{...}} spyMode={{...}} />
                                 </Observer>
                               </inject(CourseNagModal)>
-                              <styled.div hasFooter={false} hasNavbar={true}>
+                              <styled.div className=\\"\\" hasFooter={false} hasNavbar={true}>
                                 <div className=\\"sc-fzqNJr imKUEr\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>

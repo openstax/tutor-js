@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -8,13 +8,33 @@ import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
-import ScrollSpy from '../../components/scroll-spy';
-import Sectionizer from '../../components/exercises/sectionizer';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
+import Scroller from '../../helpers/scroll-to';
+import { colors } from 'theme';
+
+const StyledExerciseDisplay = styled.div`
+  .controls-wrapper {
+    position: sticky;
+    top: 5.9rem;
+    z-index: 10;
+  }
+  .homework-questions-info {
+    background-color: white;
+    padding: 3rem 4.2rem 1.2rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: ${colors.neutral.thin};
+    strong {
+      font-weight: 700;
+    }
+  }
+`;
+
+const TOP_SCROLL_OFFSET = 335;
 
 const ExerciseDetailsWrapper = props => (
   <TourRegion id="question-library-details" courseId={props.course.id}>
@@ -57,19 +77,35 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  @observable filter = 'reading';
+  componentWillUnmount() {
+    this.props.exercises.clear();
+  }
+
+  @observable exerciseTypeFilter = 'homework';
+  @observable filteredExercises = this.props.exercises;
+
   @observable currentSection;
   @observable showingDetails = false;
   @observable displayFeedback = false;
 
-  onFilterChange = (filter) => {
-    this.filter = filter;
+  scroller = new Scroller({ windowImpl: this.windowImpl });
+
+  onExerciseTypeFilterChange = (exerciseTypeFilter) => {
+    this.exerciseTypeFilter = exerciseTypeFilter;
+    this.filteredExercises = this.props.exercises[exerciseTypeFilter];
+    // scroll to top if exercise type is changed
+    this.scroller.scrollToTop({ deferred: true });
   };
 
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
     this.currentSection = currentSection;
   };
+
+  // called by question-filters that returns the filtered exercises
+  onFilterHomeworkExercises = (filteredExercises) => {
+    this.filteredExercises = filteredExercises;
+  }
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
     this.selectedExercise = exercise.wrapper;
@@ -210,7 +246,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-
     const sharedProps = {
       exercises,
       course: this.props.course,
@@ -219,7 +254,12 @@ class ExercisesDisplay extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      topScrollOffset: 100,
+      topScrollOffset: TOP_SCROLL_OFFSET,
+      onSelectSections: this.props.onSelectSections,
+      exerciseType: this.exerciseTypeFilter,
+      // exercises in this scope are already filtered
+      // check if the SECTIONS SELECTED has exercises
+      sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
     };
 
     if (this.props.showingDetails) {
@@ -245,6 +285,21 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
+  renderHomeworkExercisesInfo = (exerciseType) => {
+    if(exerciseType !== 'homework') return null;
+
+    return (
+      <div className="homework-questions-info">
+        <p>
+          <strong>Homework questions </strong>
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
+        </p>
+      </div>
+    );
+  }
+
   render() {
     const { pageIds, exercises } = this.props;
     if (isEmpty(pageIds)) {
@@ -254,41 +309,26 @@ class ExercisesDisplay extends React.Component {
       return <Loading />;
     }
 
-    let sectionizerProps;
-
-    if (this.props.showingDetails) {
-      sectionizerProps = {
-        currentSection: this.currentSection,
-        onSectionClick: this.setCurrentSection,
-      };
-    }
     return (
-      <div className="exercises-display">
-        <div className="sections-questions-view">
+      <StyledExerciseDisplay>
+        <div className="controls-wrapper">
           <ExerciseControls
-            onSelectSections={this.props.onSelectSections}
-            filter={this.filter}
             course={this.props.course}
+            exercises={this.props.exercises}
+            onSelectSections={this.props.onSelectSections}
+            exerciseTypeFilter={this.exerciseTypeFilter}
+            onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
+            onFilterHomeworkExercises={this.onFilterHomeworkExercises}
+            displayedChapterSections={this.displayedChapterSections}
             showingDetails={this.props.showingDetails}
-            onFilterChange={this.onFilterChange}
-            onSectionSelect={this.scrollToSection}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
-            exercises={exercises}
-          >
-            <ScrollSpy dataSelector="data-section">
-              <Sectionizer
-                ref="sectionizer"
-                {...sectionizerProps}
-                nonAvailableWidth={600}
-                onScreenElements={[]}
-                chapter_sections={this.displayedChapterSections}
-              />
-            </ScrollSpy>
-          </ExerciseControls>
-          {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
+            topScrollOffset={TOP_SCROLL_OFFSET}
+          />
         </div>
-      </div>
+        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
+        <div className="exercises-display"> 
+          {this.renderExercises(this.filteredExercises)}
+        </div>
+      </StyledExerciseDisplay>
     );
   }
 }

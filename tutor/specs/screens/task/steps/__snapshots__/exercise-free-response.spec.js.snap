@@ -241,6 +241,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "versions": Array [],
           "wrapper": StudentTaskExerciseStep {
             "_page": undefined,
+            "author": Object {},
             "average_step_number": undefined,
             "book": undefined,
             "content": [Circular],
@@ -321,6 +322,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "can_be_updated": true,
         "content": StudentTaskExerciseStep {
           "_page": undefined,
+          "author": Object {},
           "average_step_number": undefined,
           "book": undefined,
           "content": Exercise {
@@ -563,6 +565,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
               "can_be_updated": true,
               "content": StudentTaskExerciseStep {
                 "_page": undefined,
+                "author": Object {},
                 "average_step_number": undefined,
                 "book": undefined,
                 "content": Exercise {

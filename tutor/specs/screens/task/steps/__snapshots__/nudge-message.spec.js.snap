@@ -143,6 +143,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -511,6 +512,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -883,6 +885,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -1255,6 +1258,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -1627,6 +1631,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
