@@ -42,6 +42,7 @@ const colorDefinitions = {
   strong_red:    '#c22032',
   soft_red:      '#e298a0',
   gray_red:      '#f8e8ea',
+  orange:        '#df571e',
 };
 
 const tasks = {
