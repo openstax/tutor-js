@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useRef, useEffect } from 'vendor';
+import { React, PropTypes, styled, useRef, useEffect, css } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { TruncatedText } from './text';
 import { colors } from 'theme';
@@ -36,6 +36,11 @@ const StyledToggle = styled(Dropdown.Toggle)`
       flex-basis: 0;
       font-size: 24px;
     }
+
+    ${props => props.hasError && css`
+      border-color: #E298A0;
+      background-color: #f8e8ea;
+    `}
   }
 `;
 
@@ -58,23 +63,25 @@ const TutorDropdown = ({
   dropdownTestId = '',
   toggleDataTestId = '',
   disabled = false,
-  shouldBeFocus = false }) => {
+  shouldBeFocus = false,
+  hasError = false}) => {
   const dropdownRef = useRef();
   useEffect(() => {
     if(dropdownRef && dropdownRef.current) {
       dropdownRef.current.focus()
     }
   }, []);
-
   return (
     <StyledDropdown data-test-id={dropdownTestId}>
       {
         toggleName &&
           <StyledToggle
+            type="button"
             variant="outline"
             data-test-id={toggleDataTestId}
             disabled={disabled}
-            ref={shouldBeFocus ? dropdownRef : null}>
+            ref={shouldBeFocus ? dropdownRef : null}
+            hasError={hasError}>
             <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
           </StyledToggle>
       }

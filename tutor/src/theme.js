@@ -39,6 +39,9 @@ const colorDefinitions = {
   cerulan:       '#007297',
   dark_blue:     '#002469',
   green:         '#77af42',
+  strong_red:    '#c22032',
+  soft_red:      '#e298a0',
+  gray_red:      '#f8e8ea',
 };
 
 const tasks = {

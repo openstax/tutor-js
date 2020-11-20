@@ -95,9 +95,10 @@ export const AddEditQuestionFormBlock = ({
   className,
   showGrayBackground = false,
   addPadding = true,
+  onFocus,
 }) => {
   return (
-    <StyledRowContent className={cn({ className })}>
+    <StyledRowContent className={className} onFocus={onFocus ? onFocus : null}>
       <div
         className={cn('label-wrapper', { 'gray-background': showGrayBackground })}>
         <span>{label}</span>
@@ -115,4 +116,5 @@ AddEditQuestionFormBlock.propTypes = {
   className: PropTypes.string,
   showGrayBackground: PropTypes.bool,
   addPadding: PropTypes.bool,
+  onFocus: PropTypes.func,
 };

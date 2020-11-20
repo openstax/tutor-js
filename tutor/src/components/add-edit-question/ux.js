@@ -1,11 +1,17 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach } from 'lodash';
+import { filter, some, find, forEach, pickBy } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 
 export default class AddEditQuestionUX {
 
   // local
   @observable showForm = false;
+
+  @observable isEmpty = {
+    selectedChapter: false,
+    selectedChapterSection: false,
+    questionText: false,
+  }
 
   // props
   //@observable question;
@@ -93,6 +99,7 @@ export default class AddEditQuestionUX {
 
   // actions for topic form section
   @action.bound setSelectedChapterByUUID(uuid) {
+    if(this.selectedChapter && this.selectedChapter.uuid === uuid) return;
     this.selectedChapter = find(this.preSelectedChapters, psc => psc.uuid === uuid);
     if(this.preSelectedChapterSections.length === 1) {
       this.selectedChapterSection = this.preSelectedChapterSections[0];
@@ -100,15 +107,18 @@ export default class AddEditQuestionUX {
     else {
       this.selectedChapterSection = null;
     }
+    this.isEmpty.selectedChapter = false;
   }
 
   @action.bound setSelectedChapterSectionByUUID(uuid) {
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === uuid);
+    this.isEmpty.selectedChapterSection = false;
   }
 
   // actions for question form section
   @action.bound changeQuestionText({ target: { value } }) {
     this.questionText = value;
+    this.isEmpty.questionText = false;
   }
 
   @action.bound changeAnwserKeyText({ target: { value } }) {
@@ -193,5 +203,28 @@ export default class AddEditQuestionUX {
 
   @action.bound changeAnnonymize({ target: { checked } }) {
     this.annonymize = checked;
+  }
+
+  /**
+   * This method checks if the `fields` (fields in the form) are empty.
+   * If so, set this.isEmpty[field] to true.
+   * NOTE: Each `field` name should match the observable variable name so we can check the thruthy of `this[field]`.
+   * @param {*} fields - an array of `field` 
+   */
+  @action.bound checkValidityOfFields(fields = []) {
+    let filterIsEmptyFields;
+    // if `fields` is empty, then check all of the `this.isEmpty` fields
+    if(fields.length > 0) {
+      filterIsEmptyFields = pickBy(this.isEmpty, (ie, key) => {
+        return some(fields, f => f === key);
+      });
+    }
+    else {
+      filterIsEmptyFields = this.isEmpty;
+    }
+
+    forEach(filterIsEmptyFields, (value, key) => {
+      this.isEmpty[key] = !Boolean(this[key])
+    })
   }
 }

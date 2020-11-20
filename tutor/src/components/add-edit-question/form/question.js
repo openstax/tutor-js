@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
-import { map } from 'lodash';
+import { map, partial } from 'lodash';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './shared';
@@ -217,7 +217,7 @@ const MCQForm = observer(({ ux }) => {
         value={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
-        className="question-text"
+        className={cn('question-text', {'isEmpty': ux.isEmpty.questionText})}
       />
       <div className="two-step-wrapper">
         <div className="left-side"></div>
@@ -256,7 +256,7 @@ const WRQForm = observer(({ ux }) => {
         value={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
-        className="question-text"
+        className={cn('question-text', {'isEmpty': ux.isEmpty.questionText})}
       />
       <AddEditFormTextInput
         onChange={ux.changeAnswerKeyText}
@@ -308,6 +308,7 @@ const Question = observer(({ ux }) => {
       label="Question"
       showGrayBackground={true}
       addPadding={false}
+      onFocus={partial(ux.checkValidityOfFields, ['selectedChapter', 'selectedChapterSection'])}
       formContentRenderer={() => <QuestionForm ux={ux}/>}
     />
   );

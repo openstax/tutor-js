@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
-import { map, startCase } from 'lodash';
+import { map, startCase, partial } from 'lodash';
 import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, QuestionInfo } from '../shared';
 import TutorDropdown from '../../../dropdown';
@@ -181,6 +181,7 @@ const Tag = observer(({ ux }) => {
     <AddEditQuestionFormBlock
       label="Tags"
       showGrayBackground={true}
+      onFocus={partial(ux.checkValidityOfFields, [])}
       formContentRenderer={() => <TagForm ux={ux}/>}
     />
   );

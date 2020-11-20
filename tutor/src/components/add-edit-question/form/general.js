@@ -1,4 +1,5 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
+import { partial } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
@@ -123,6 +124,7 @@ const General = observer(({ ux }) => {
     <AddEditQuestionFormBlock
       label="General"
       showGrayBackground={true}
+      onFocus={partial(ux.checkValidityOfFields, [])}
       formContentRenderer={() => <GeneralForm ux={ux}/>}
     />
   );
