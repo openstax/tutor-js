@@ -1,8 +1,18 @@
 import { DirectUpload } from '@rails/activestorage';
-import { last } from 'lodash';
+import { last, omit, isEmpty } from 'lodash';
 import { convertToHTML, UICommand } from 'perry-white';
 
 const STORAGE_PATH = '/rails/active_storage';
+
+const HIDDEN_COMMANDS = [
+  '[font_download] Font Type',
+  '[format_size] Text Size',
+  '[format_color_text] Text color',
+  '[border_color] Highlight color',
+  '[format_clear] Clear formats',
+  '[undo] Undo',
+  '[redo] Redo',
+];
 
 class SaveCommand extends UICommand {
 
@@ -47,8 +57,15 @@ export class EditorRuntime {
     });
   }
 
-  filterCommandGroups = (groups) => {
-    last(groups)['[save] Save'] = (new SaveCommand(this.onSave));
-    return groups;
+  filterCommandGroups = (standardGroups) => {
+    const updatedGroups = [];
+    standardGroups.forEach(group => {
+      const newGroup = omit(group, HIDDEN_COMMANDS);
+      if (!isEmpty(newGroup)) {
+        updatedGroups.push(newGroup);
+      }
+    });
+    last(updatedGroups)['[save] Save'] = (new SaveCommand(this.onSave));
+    return updatedGroups;
   }
 }
