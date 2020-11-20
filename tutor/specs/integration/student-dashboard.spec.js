@@ -20,6 +20,7 @@ context('Dashboard', () => {
   it('loads assignments', () => {
     withScreenSizes(() => {
       setupDashboard();
+      cy.getTestElement('all-past-work-tab').click()
       cy.get('.task.homework').first().click()
       cy.getTestElement('student-task').should('exist')
     })

@@ -30,6 +30,7 @@ class User extends BaseModel {
   @field faculty_status;
   @field self_reported_role;
   @field account_uuid;
+  @field profile_id;
 
   @field can_create_courses;
   @field profile_url;

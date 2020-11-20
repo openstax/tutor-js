@@ -1,5 +1,11 @@
 @import '../screen-styles';
 
+.viewQuestionsLibrary {
+  padding-top: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
 .questions-dashboard {
   $padding: 20px;
   .wrapper {

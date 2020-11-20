@@ -204,6 +204,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -462,6 +463,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -832,6 +834,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
