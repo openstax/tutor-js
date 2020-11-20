@@ -36,9 +36,9 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
 const AddEditQuestionForm = observer(({ ux }) => {
   return (
     <StyledAddEditQuestionModal
-      show={ux.showForm}
+      show={ux.showAddEditForm}
       backdrop="static"
-      onHide={() => ux.setShowForm(false)}
+      onHide={() => ux.setShowAddEditForm(false)}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         Create Question

@@ -1,22 +1,36 @@
 import { React, PropTypes, observer } from 'vendor';
 import { Button } from 'react-bootstrap';
-import AddEditQuestionForm from './form';
 import AddEditQuestionUX from './ux';
+import AddEditQuestionForm from './form';
+import AddEditQuestionTermsOfUse from './terms-of-use';
 
 const AddEditQuestionButton = observer((props) => {
   if(props.exerciseType !== 'homework') {
     return null;
   }
   const ux = new AddEditQuestionUX(props);
+
+  const onOpenForm = () => {
+    //TODO: if user did not sign yet (get from BE), show terms of use
+    const didUserAgreed = false;
+    if(!didUserAgreed) {
+      ux.setShowAddEditTermsOfUse(true);
+    }
+    else {
+      ux.setShowAddEditForm(true);
+    }
+  };
   
   return (
     <>
       <Button
         variant="primary"
-        onClick={() => ux.setShowForm(true)}>
+        onClick={onOpenForm}>
         Create question
       </Button>
       <AddEditQuestionForm ux={ux} />
+      <AddEditQuestionTermsOfUse ux={ux} />
+
     </>
   );
 });

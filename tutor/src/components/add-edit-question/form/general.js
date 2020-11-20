@@ -4,7 +4,7 @@ import { Dropdown } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
-import CheckboxInput from '../../../components/checkbox-input';
+import CheckboxInput from '../../checkbox-input';
 import { colors, breakpoint } from 'theme';
 
 const fullWidthTablet = css`

@@ -5,7 +5,8 @@ import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 export default class AddEditQuestionUX {
 
   // local
-  @observable showForm = false;
+  @observable showAddEditForm = false;
+  @observable showAddEditTermsOfUse = false;
 
   @observable isEmpty = {
     selectedChapter: false,
@@ -62,8 +63,12 @@ export default class AddEditQuestionUX {
     }
   }
 
-  @action.bound setShowForm(show) {
-    this.showForm = show;
+  @action.bound setShowAddEditForm(show) {
+    this.showAddEditForm = show;
+  }
+
+  @action.bound setShowAddEditTermsOfUse(show) {
+    this.showAddEditTermsOfUse = show;
   }
 
   // Chapters that the user has selected
