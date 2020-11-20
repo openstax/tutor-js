@@ -1,5 +1,5 @@
 import { React, observer, styled } from 'vendor';
-import { Modal, Form } from 'react-bootstrap';
+import { Modal, Form, Button } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
 import AddEditQuestionFormTopic from './topic';
 import AddEditQuestionFormQuestion from './question';
@@ -16,6 +16,19 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
       label {
         color: ${colors.neutral.darker};
         font-weight: 700;
+      }
+      .buttons-wrapper {
+        float: right;
+        .btn + .btn {
+          margin-left: 1.6rem;
+        }
+        .btn {
+          font-weight: 700;
+          padding: 0.75rem 4rem;
+          :not(.btn-primary) {
+            color: ${colors.neutral.grayblue};
+          }
+        }
       }
     }
 `;
@@ -36,6 +49,25 @@ const AddEditQuestionForm = observer(({ ux }) => {
           <AddEditQuestionFormQuestion ux={ux} />
           <AddEditQuestionFormTags ux={ux} />
           <AddEditQuestionFormGeneral ux={ux} />
+          <div className="buttons-wrapper">
+            <Button
+                variant="default"
+                className="cancel"
+                onClick={() => console.log('PREVIEW')}>
+                Preview
+              </Button>
+            <Button
+              variant="default"
+              className="cancel"
+              onClick={() => console.log('PUBLISH')}>
+              Publish question
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => console.log('PUBLISH & EXIT')}>
+              Publish &amp; Exit
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </StyledAddEditQuestionModal>
