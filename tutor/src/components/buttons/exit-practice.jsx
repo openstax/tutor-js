@@ -35,7 +35,8 @@ class ExitPractice extends React.Component {
   }
 
   render() {
-    if (!this.props.task.isPractice) return null;
+    const { task } = this.props;
+    if (!task.isPractice || task.completed) return null;
 
     return (
 

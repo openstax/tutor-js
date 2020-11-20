@@ -19,6 +19,10 @@ const InnerStepCard = styled.div`
 
   ${breakpoint.desktop`
     max-width: 1000px;
+    min-width: 750px;
+  `}
+  ${breakpoint.large`
+    min-width: 1000px;
   `}
 `;
 
@@ -126,12 +130,7 @@ const StepCardQuestion = styled.div`
   `}
 
   &&& {
-    .openstax-has-html .frame-wrapper {
-
-       min-width: 100%;
-       margin: 20px 0;
-
-  }
+    .openstax-has-html .splash .frame-wrapper { margin-top: 0; }
   }
 `;
 

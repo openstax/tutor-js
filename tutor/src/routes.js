@@ -118,6 +118,10 @@ const getRoutes = (router) => {
       path: '/stats', name: 'Stats',
       renderer: r(() => import('./screens/stats/index.jsx')),
     },
+    {
+      path: '/demo/editor', name: 'Test different editors',
+      renderer: r(() => import('./screens/demo/editor.js')),
+    },
   ];
 };
 

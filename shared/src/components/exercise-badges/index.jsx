@@ -114,7 +114,7 @@ export default
 function ExerciseBadges({ className, ...badgeProps }) {
   const badges = compact(map(badgeProps, (wants, type) => wants && BADGES[type]));
 
-  if (!badges.length) { return null; }
+  if (!badges.length || badgeProps.questionType === 'student-mpp') { return null; }
 
   return (
     <div className={classnames('openstax-exercise-badges', className)} >
@@ -131,4 +131,5 @@ ExerciseBadges.propTypes = {
   interactive:    PropTypes.bool,
   multiPart:      PropTypes.bool,
   video:          PropTypes.bool,
+  questionType:   PropTypes.string,
 };

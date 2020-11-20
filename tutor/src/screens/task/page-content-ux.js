@@ -31,6 +31,10 @@ export default class PageContentUX extends BookUX {
 
   }
 
+  rewriteBookLink(link) {
+    link.target = '_blank';
+  }
+
   @action checkForTeacherContent() { }
 
 }
