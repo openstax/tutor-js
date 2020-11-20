@@ -7,10 +7,10 @@ import PreviewTooltip from './preview-tooltip';
 import Tasking from './tasking';
 import ConfirmTemplateModal from './confirm-template-modal';
 import { OverlayTrigger, Dropdown } from 'react-bootstrap';
+import TutorDropdown from '../../components/dropdown';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
-import { TruncatedText } from '../../components/text';
 import NewIcon from '../../components/new-icon';
 
 const lengthLimit = (n) =>
@@ -48,55 +48,6 @@ const StyledTextArea = styled(TextArea)`
   color: ${colors.neutral.darker};
 `;
 
-const StyledDropdown = styled(Dropdown)`
-  display: inline-flex;
-  .dropdown-item {
-    white-space: break-spaces;
-  }
-`;
-
-const StyledToggle = styled(Dropdown.Toggle)`
-
-  &&& {
-    border: 1px solid ${colors.forms.borders.light};
-    color: ${colors.neutral.darker};
-    background: #fff;
-    height: 3.4rem;
-    width: 25rem;
-    text-align: left;
-    padding: 0 1rem;
-    font-size: 1.4rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    appearance: none;
-    border-radius: 0.4rem;
-
-    &:focus {
-      border-color: ${colors.forms.borders.focus};
-      box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
-    }
-
-    &:after {
-      color: ${colors.neutral.std};
-      flex-basis: 0;
-    }
-  }
-`;
-
-const StyledMenu = styled(Dropdown.Menu)`
-  && {
-    width: 100%;
-    border-radius: 0.4rem;
-
-    .dropdown-item {
-      padding: 0.8rem 1rem;
-      font-size: 1.4rem;
-      color: ${colors.neutral.darker};
-    }
-  }
-`;
-
 const StyledAddItem = styled(Dropdown.Item)`
   &&& {
     color: ${colors.link};
@@ -125,6 +76,28 @@ const EditModal = observer(({ ux }) => {
 });
 
 const TemplateField = observer(({ ux }) => {
+  const dropdownItems = 
+    <>
+      {
+        ux.gradingTemplates.map(t =>
+          <Dropdown.Item
+            key={t.id}
+            value={t.id}
+            eventKey={t.id}
+            onSelect={k => ux.onSelectTemplate(k)}
+            data-test-id={`${t.name}`}
+          >
+            {t.name}
+          </Dropdown.Item>)
+      }
+      {
+        ux.canAddTemplate &&
+        <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
+      + Add new template
+        </StyledAddItem>
+      }
+    </>;
+
   return (
     <SplitRow>
       <RowLabel htmlFor="">
@@ -134,27 +107,11 @@ const TemplateField = observer(({ ux }) => {
         <HintText>(Apply a pre-set submission and grading policy template)</HintText>
       </RowLabel>
       <div>
-        <StyledDropdown data-test-id="grading-templates">
-          <StyledToggle variant="outline" data-test-id="selected-grading-template">
-            <TruncatedText maxWidth="25rem">{ux.gradingTemplate.name}</TruncatedText>
-          </StyledToggle>
-          <StyledMenu>
-            {ux.gradingTemplates.map(t =>
-              <Dropdown.Item
-                key={t.id}
-                value={t.id}
-                eventKey={t.id}
-                onSelect={k => ux.onSelectTemplate(k)}
-                data-test-id={`${t.name}`}
-              >
-                {t.name}
-              </Dropdown.Item>)}
-            {ux.canAddTemplate &&
-              <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
-                + Add new template
-              </StyledAddItem>}
-          </StyledMenu>
-        </StyledDropdown>
+        <TutorDropdown
+          toggleName={ux.gradingTemplate.name}
+          dropdownItems={dropdownItems}
+          dropdownTestId="grading-templates"
+          toggleClassname="selected-grading-template"/>
         <PreviewTooltip template={ux.gradingTemplate} />
       </div>
     </SplitRow>

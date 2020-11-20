@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, observer, styled, css } from 'vendor';
 import { Modal } from 'react-bootstrap';
 import { colors } from 'theme';
 import { omit } from 'lodash';
@@ -6,8 +6,11 @@ import { omit } from 'lodash';
 const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitProps)} />)`
   .modal-dialog {
     .modal-header {
-      padding: 1.2rem 3.2rem;
-      border-left: 0.8rem solid ${props => props.templateColors.border};
+      padding: 1.2rem 4rem;
+      ${props => props.templateColors.border && css`
+        border-left: 0.8rem solid ${props => props.templateColors.border};
+        padding: 1.2rem 3.2rem;
+      `}
       background-color: ${props => props.templateColors.background};
       font-size: 1.8rem;
       font-weight: bold;

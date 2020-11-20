@@ -320,6 +320,7 @@ class ExercisesDisplay extends React.Component {
             onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
             onFilterHomeworkExercises={this.onFilterHomeworkExercises}
             displayedChapterSections={this.displayedChapterSections}
+            pageIds={pageIds}
             showingDetails={this.props.showingDetails}
             topScrollOffset={TOP_SCROLL_OFFSET}
           />
