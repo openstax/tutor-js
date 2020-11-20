@@ -217,7 +217,7 @@ const MCQForm = observer(({ ux }) => {
         value={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
-        className={cn('question-text', {'isEmpty': ux.isEmpty.questionText})}
+        className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
       />
       <div className="two-step-wrapper">
         <div className="left-side"></div>
@@ -256,7 +256,7 @@ const WRQForm = observer(({ ux }) => {
         value={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
-        className={cn('question-text', {'isEmpty': ux.isEmpty.questionText})}
+        className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
       />
       <AddEditFormTextInput
         onChange={ux.changeAnswerKeyText}

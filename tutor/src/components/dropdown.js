@@ -64,11 +64,11 @@ const TutorDropdown = ({
   toggleDataTestId = '',
   disabled = false,
   shouldBeFocus = false,
-  hasError = false}) => {
+  hasError = false }) => {
   const dropdownRef = useRef();
   useEffect(() => {
     if(dropdownRef && dropdownRef.current) {
-      dropdownRef.current.focus()
+      dropdownRef.current.focus();
     }
   }, []);
   return (
@@ -97,6 +97,8 @@ TutorDropdown.propTypes = {
   toggleDataTestId: PropTypes.string,
   disabled: PropTypes.bool,
   dropdownItems: PropTypes.node.isRequired,
+  shouldBeFocus: PropTypes.bool,
+  hasError: PropTypes.bool,
 };
 
 export default TutorDropdown;

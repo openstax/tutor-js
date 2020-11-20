@@ -77,14 +77,14 @@ const GeneralForm = observer(({ ux }) => {
                 key={1}
                 value={1}
                 eventKey={1}
-                onSelect={() => console.log('changed author name')}>
+                onSelect={() => window.alert('changed to user name')}>
         Co-teacher's name
               </Dropdown.Item>
               <Dropdown.Item
                 key={2}
                 value={2}
                 eventKey={2}
-                onSelect={() => console.log('changed teaching assitant name')}>
+                onSelect={() => window.alert('changed teaching assitant name')}>
         Teaching Assistant’s name
               </Dropdown.Item>
             </>}

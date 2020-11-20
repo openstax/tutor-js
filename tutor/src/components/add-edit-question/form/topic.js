@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
-import { map, startCase, partial } from 'lodash';
+import { map, startCase } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import { AddEditQuestionFormBlock } from './shared';
 import TutorDropdown from '../../dropdown';
@@ -49,8 +49,8 @@ const dropDownReferenceNode = ({
   disabled,
   shouldBeFocus,
   onFocus,
-  showIsEmpty
-  }) => {
+  showIsEmpty,
+}) => {
   const nodes = map(preSelectedNodes, psc => 
     <Dropdown.Item
       key={psc.uuid}
@@ -77,6 +77,16 @@ const dropDownReferenceNode = ({
     </div>
   );
 };
+dropDownReferenceNode.propTypes = {
+  preSelectedNodes: PropTypes.array.isRequired,
+  selectedNode: PropTypes.object,
+  onSelect: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  shouldBeFocus: PropTypes.bool.isRequired,
+  onFocus: PropTypes.func,
+  showIsEmpty: PropTypes.bool,
+};
 
 const TopicForm = observer(({ ux }) => {
   return (
@@ -85,19 +95,19 @@ const TopicForm = observer(({ ux }) => {
         preSelectedNodes: ux.preSelectedChapters,
         selectedNode: ux.selectedChapter,
         onSelect: ux.setSelectedChapterByUUID,
-        label:'chapter',
+        label: 'chapter',
         shouldBeFocus: !ux.selectedChapter,
         showIsEmpty: ux.isEmpty.selectedChapter,
-        })}
+      })}
       { dropDownReferenceNode({
         preSelectedNodes: ux.preSelectedChapterSections,
         selectedNode: ux.selectedChapterSection,
         onSelect: ux.setSelectedChapterSectionByUUID,
-        label:'section',
+        label: 'section',
         disabled: !ux.selectedChapter,
         shouldBeFocus: ux.selectedChapter && !ux.selectedChapterSection,
         showIsEmpty: ux.isEmpty.selectedChapterSection,
-        })}
+      })}
       <div className="book-link">
         <a
           aria-label="Browse the book"

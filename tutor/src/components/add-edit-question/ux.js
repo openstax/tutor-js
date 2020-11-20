@@ -224,7 +224,7 @@ export default class AddEditQuestionUX {
     }
 
     forEach(filterIsEmptyFields, (value, key) => {
-      this.isEmpty[key] = !Boolean(this[key])
-    })
+      this.isEmpty[key] = !this[key];
+    });
   }
 }

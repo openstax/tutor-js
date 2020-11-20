@@ -1,7 +1,7 @@
 import { merge, pick, filter } from 'lodash';
 import { action, computed } from 'mobx';
 import {
-  BaseModel, hasMany, identifiedBy, identifier, field, session, some,
+  BaseModel, hasMany, identifiedBy, identifier, field, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';

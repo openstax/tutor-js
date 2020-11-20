@@ -51,20 +51,20 @@ const AddEditQuestionForm = observer(({ ux }) => {
           <AddEditQuestionFormGeneral ux={ux} />
           <div className="buttons-wrapper">
             <Button
-                variant="default"
-                className="cancel"
-                onClick={() => console.log('PREVIEW')}>
+              variant="default"
+              className="cancel"
+              onClick={() => window.alert('preview')}>
                 Preview
-              </Button>
+            </Button>
             <Button
               variant="default"
               className="cancel"
-              onClick={() => console.log('PUBLISH')}>
+              onClick={() => window.alert('publish')}>
               Publish question
             </Button>
             <Button
               variant="primary"
-              onClick={() => console.log('PUBLISH & EXIT')}>
+              onClick={() => window.alert('publish and exit')}>
               Publish &amp; Exit
             </Button>
           </div>
