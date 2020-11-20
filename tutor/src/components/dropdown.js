@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useRef, useEffect, css } from 'vendor';
+import { React, PropTypes, styled, useRef, useEffect, css, cn } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { TruncatedText } from './text';
 import { colors } from 'theme';
@@ -37,10 +37,10 @@ const StyledToggle = styled(Dropdown.Toggle)`
       font-size: 24px;
     }
 
-    ${props => props.hasError && css`
+    &.has-error {
       border-color: #E298A0;
       background-color: #f8e8ea;
-    `}
+    }
   }
 `;
 
@@ -78,10 +78,10 @@ const TutorDropdown = ({
           <StyledToggle
             type="button"
             variant="outline"
+            className={cn({ 'has-error': hasError })}
             data-test-id={toggleDataTestId}
             disabled={disabled}
-            ref={shouldBeFocus ? dropdownRef : null}
-            hasError={hasError}>
+            ref={shouldBeFocus ? dropdownRef : null}>
             <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
           </StyledToggle>
       }
