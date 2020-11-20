@@ -1,15 +1,16 @@
-import { React, PropTypes, useState, useMemo } from 'vendor';
+import { React, PropTypes, styled, cn, useState, useMemo } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
 import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
 import { EditorRuntime } from './runtime';
 
-const Editing = ({ html, onSave }) => {
+const Editing = ({ className, html, onSave }) => {
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
   const runtime = useMemo(() => new EditorRuntime({ onSave }), [onSave]);
 
   return (
     <Editor
+      className={className}
       defaultEditorState={defaultEditorState}
       height="100%" width="100%"
       runtime={runtime}
@@ -18,11 +19,17 @@ const Editing = ({ html, onSave }) => {
   );
 };
 Editing.propTypes = {
+  className: PropTypes.string,
   html: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
 };
 
-const ClickToEdit = ({ html: defaultHTML }) => {
+const Wrapper = styled.div({
+  margin: '40px',
+  height: '500px',
+});
+
+const ClickToEdit = ({ className, html: defaultHTML }) => {
   const [isEditing, setEditing] = useState(false);
   const [currentHTML, setHTML] = useState(defaultHTML);
   const onSave = React.useCallback((html) => {
@@ -35,13 +42,14 @@ const ClickToEdit = ({ html: defaultHTML }) => {
     <Editing html={currentHTML} onSave={onSave} /> : <HTML html={currentHTML} onClick={() => setEditing(true)}/>;
 
   return (
-    <div style={{ margin: '100px', height: '500px' }}>
+    <Wrapper className={cn('editable-html', className, { isEditing })}>
       {body}
-    </div>
+    </Wrapper>
   );
 
 };
 ClickToEdit.propTypes = {
+  className: PropTypes.string,
   html: PropTypes.string.isRequired,
 };
 
