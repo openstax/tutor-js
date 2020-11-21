@@ -116,8 +116,8 @@ export default class AddEditQuestionUX {
   }
 
   // actions for question form section
-  @action.bound changeQuestionText({ target: { value } }) {
-    this.questionText = value;
+  @action.bound changeQuestionText(text) {
+    this.questionText = text;
     this.isEmpty.questionText = false;
   }
 

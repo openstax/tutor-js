@@ -2,7 +2,9 @@ import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, partial } from 'lodash';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './shared';
+import {
+  AddEditQuestionFormBlock, AddEditFormTextInput, AnswerHTMLEditor, QuestionInfo,
+} from './shared';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
 import { colors, breakpoint } from 'theme';
@@ -212,7 +214,7 @@ const MCQForm = observer(({ ux }) => {
 
   return (
     <>
-      <AddEditFormTextInput
+      <AnswerHTMLEditor
         onChange={ux.changeQuestionText}
         value={ux.questionText}
         label='Question'
@@ -251,12 +253,19 @@ const MCQForm = observer(({ ux }) => {
 const WRQForm = observer(({ ux }) => {
   return (
     <>
-      <AddEditFormTextInput
+      <AnswerHTMLEditor
         onChange={ux.changeQuestionText}
         value={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
         className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
+      />
+      <AnswerHTMLEditor
+        onChange={ux.changeAnswerKeyText}
+        value={ux.answerKeyText}
+        label='Answer Key'
+        placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
+        className="question-answer-key"
       />
       <AddEditFormTextInput
         onChange={ux.changeAnswerKeyText}

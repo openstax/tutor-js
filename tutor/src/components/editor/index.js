@@ -4,7 +4,7 @@ import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
 import { EditorRuntime } from './runtime';
 
-const Editing = ({ className, html, onSave }) => {
+const Editing = ({ className, html, onSave, ...props }) => {
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
   const runtime = useMemo(() => new EditorRuntime({ onSave }), [onSave]);
 
@@ -15,6 +15,8 @@ const Editing = ({ className, html, onSave }) => {
       height="100%" width="100%"
       runtime={runtime}
       fitToContent
+      autoFocus
+      {...props}
     />
   );
 };
@@ -27,19 +29,36 @@ Editing.propTypes = {
 const Wrapper = styled.div({
   margin: '40px',
   height: '500px',
+  display: 'flex',
+  '.openstax-has-html': {
+    flex: 1,
+  },
 });
 
-const ClickToEdit = ({ className, html: defaultHTML }) => {
+export const EditableHTML = ({
+  className,
+  html: defaultHTML = '',
+  placeholder,
+  onChange,
+}) => {
   const [isEditing, setEditing] = useState(false);
   const [currentHTML, setHTML] = useState(defaultHTML);
   const onSave = React.useCallback((html) => {
     if (html) {
       setHTML(html);
       setEditing(false);
+      if (onChange) {
+        onChange(html);
+      }
     }
   }, [setEditing, setHTML]);
-  const body = isEditing ?
-    <Editing html={currentHTML} onSave={onSave} /> : <HTML html={currentHTML} onClick={() => setEditing(true)}/>;
+  let body;
+  if (isEditing) {
+    body = <Editing html={currentHTML} onSave={onSave} />;
+  } else {
+    body = <HTML autoFocus html={currentHTML || placeholder} onClick={() => setEditing(true)}/>;
+  }
+
 
   return (
     <Wrapper className={cn('editable-html', className, { isEditing })}>
@@ -48,10 +67,9 @@ const ClickToEdit = ({ className, html: defaultHTML }) => {
   );
 
 };
-ClickToEdit.propTypes = {
+EditableHTML.propTypes = {
   className: PropTypes.string,
+  placeholder: PropTypes.node,
+  onChange: PropTypes.func,
   html: PropTypes.string.isRequired,
 };
-
-
-export { ClickToEdit };
