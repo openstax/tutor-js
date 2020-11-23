@@ -4,9 +4,9 @@ import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
 import { EditorRuntime } from './runtime';
 
-const Editing = ({ className, html, onSave, ...props }) => {
+const Editing = ({ className, html, onImageUpload, onSave, ...props }) => {
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
-  const runtime = useMemo(() => new EditorRuntime({ onSave }), [onSave]);
+  const runtime = useMemo(() => new EditorRuntime({ onSave, onImageUpload }), [onSave, onImageUpload]);
 
   return (
     <Editor
@@ -24,6 +24,7 @@ Editing.propTypes = {
   className: PropTypes.string,
   html: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
+  onImageUpload: PropTypes.func.isRequired,
 };
 
 const Wrapper = styled.div({
@@ -39,6 +40,7 @@ export const EditableHTML = ({
   className,
   html: defaultHTML = '',
   placeholder,
+  onImageUpload,
   onChange,
 }) => {
   const [isEditing, setEditing] = useState(false);
@@ -54,7 +56,7 @@ export const EditableHTML = ({
   }, [setEditing, setHTML]);
   let body;
   if (isEditing) {
-    body = <Editing html={currentHTML} onSave={onSave} />;
+    body = <Editing html={currentHTML} onImageUpload={onImageUpload} onSave={onSave} />;
   } else {
     body = <HTML autoFocus html={currentHTML || placeholder} onClick={() => setEditing(true)}/>;
   }
@@ -71,5 +73,6 @@ EditableHTML.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.node,
   onChange: PropTypes.func,
+  onImageUpload: PropTypes.func.isRequired,
   html: PropTypes.string.isRequired,
 };

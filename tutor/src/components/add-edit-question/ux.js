@@ -121,6 +121,11 @@ export default class AddEditQuestionUX {
     this.isEmpty.questionText = false;
   }
 
+  // called when an image is added to the HTML for question text
+  @action.bound onImageUpload(blob, url) { // eslint-disable-line no-unused-vars
+    // TODO save blob.signed_id and send them to BE when the exercise is saved
+  }
+
   @action.bound changeAnwserKeyText({ target: { value } }) {
     this.answerKeyText = value;
   }

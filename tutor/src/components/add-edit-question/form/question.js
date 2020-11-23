@@ -215,6 +215,7 @@ const MCQForm = observer(({ ux }) => {
   return (
     <>
       <AnswerHTMLEditor
+        onImageUpload={ux.onImageUpload}
         onChange={ux.changeQuestionText}
         value={ux.questionText}
         label='Question'

@@ -31,8 +31,9 @@ class SaveCommand extends UICommand {
 
 export class EditorRuntime {
 
-  constructor({ onSave }) {
+  constructor({ onSave, onImageUpload }) {
     this.onSave = onSave;
+    this.onImageUpload = onImageUpload;
   }
 
   canUploadImage() {
@@ -46,11 +47,15 @@ export class EditorRuntime {
         if (error) {
           reject(error);
         } else {
+          const src = `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
+          if (this.onImageUpload) {
+            this.onImageUpload(blob, src);
+          }
           resolve({
             id: blob.id,
-            width: 0,
+            width: 0, // 0 will use images natural size
             height: 0,
-            src: `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`,
+            src,
           });
         }
       });
