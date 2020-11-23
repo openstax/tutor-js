@@ -39,7 +39,7 @@ AddEditQuestionButton.propTypes = {
   exerciseType: PropTypes.string.isRequired,
   book: PropTypes.object.isRequired,
   pageIds: PropTypes.array.isRequired,
-  courseId: PropTypes.string.isRequired,
+  course: PropTypes.object.isRequired,
 };
 
 export default AddEditQuestionButton;

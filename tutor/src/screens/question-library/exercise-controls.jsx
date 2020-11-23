@@ -212,7 +212,7 @@ class ExerciseControls extends React.Component {
               exerciseType={exerciseTypeFilter} 
               book={course.referenceBook}
               pageIds={pageIds}
-              courseId={course.id}/>
+              course={course}/>
           </div>    
         </div>
       </StyledExerciseControls>

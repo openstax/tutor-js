@@ -149,6 +149,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "uuid": undefined,
             },
           ],
+          "teacher_profiles": Array [],
           "term": "spring",
           "timezone": "US/Central",
           "uses_pre_wrm_scores": false,

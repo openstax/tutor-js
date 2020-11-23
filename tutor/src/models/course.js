@@ -13,6 +13,7 @@ import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
+import TeacherProfiles from './course/teacher-profiles';
 import Scores from './scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
@@ -55,6 +56,7 @@ class Course extends BaseModel {
   @field default_open_time;
   @field ecosystem_book_uuid;
   @field ecosystem_id;
+  @field teacher_profiles;
 
   @field is_active;
   @field is_college;
@@ -107,6 +109,7 @@ class Course extends BaseModel {
     teacherStudent() { return find(this, { isTeacherStudent: true }); },
   }) }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
+  @hasMany({ model: TeacherProfiles, inverseOf: 'course' }) teacher_profiles;
 
   constructor(attrs, map) {
     super(attrs);
@@ -297,6 +300,10 @@ class Course extends BaseModel {
 
   @computed get primaryRole() {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
+  }
+
+  @computed get getCurrentUser() {
+    return find(this.teacher_profiles, tp => tp.isCurrentUser);
   }
 
   // called by API

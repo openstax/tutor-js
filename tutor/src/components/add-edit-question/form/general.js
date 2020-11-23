@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
-import { partial } from 'lodash';
+import { partial, map } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
@@ -57,6 +57,16 @@ const StyledGeneralForm = styled.div`
 `;
   
 const GeneralForm = observer(({ ux }) => {
+  const authors = map(ux.course.teacher_profiles, tp => (
+    <Dropdown.Item
+      key={tp.id}
+      value={tp.id}
+      eventKey={tp.id}
+      onSelect={ux.changeAuthor}>
+      {tp.name}
+    </Dropdown.Item>
+  ));
+
   return (
     <StyledGeneralForm>
       <AddEditFormTextInput
@@ -66,28 +76,11 @@ const GeneralForm = observer(({ ux }) => {
         placeholder="Enter question name. Optional."
         className="question-info"
       />
-      {/** TODO: get teachers name and make this controlled in UX */}
       <div className="authors-info">
         <label>Author</label>
         <TutorDropdown
-          toggleName={'Teacher\'s name'}
-          dropdownItems={
-            <>
-              <Dropdown.Item
-                key={1}
-                value={1}
-                eventKey={1}
-                onSelect={() => window.alert('changed to user name')}>
-        Co-teacher's name
-              </Dropdown.Item>
-              <Dropdown.Item
-                key={2}
-                value={2}
-                eventKey={2}
-                onSelect={() => window.alert('changed teaching assitant name')}>
-        Teaching Assistant’s name
-              </Dropdown.Item>
-            </>}
+          toggleName={ux.author ? ux.author.name : ' '}
+          dropdownItems={authors}
         />
       </div>
       <div className="sharing-info">

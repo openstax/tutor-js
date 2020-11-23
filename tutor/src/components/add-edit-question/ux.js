@@ -17,7 +17,7 @@ export default class AddEditQuestionUX {
   // props
   //@observable question;
   @observable book;
-  @observable courseId;
+  @observable course;
   // chapter/section ids
   @observable pageIds;
 
@@ -38,14 +38,16 @@ export default class AddEditQuestionUX {
   @observable tagDok;
   // general
   @observable questionName;
+  @observable author;
   @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
 
   constructor(props = {}) {
     this.book = props.book;
-    this.courseId = props.courseId;
+    this.course = props.course;
     // sections
     this.pageIds = props.pageIds;
+    this.author = props.course.getCurrentUser;
 
     // auto selected if there is only one chapter or selected pre-selected
     if(this.preSelectedChapters.length === 1) {
@@ -54,7 +56,6 @@ export default class AddEditQuestionUX {
         this.selectedChapterSection = this.preSelectedChapterSections[0];
       }
     }
-
     // show 4 options by default
     for(let i = 0; i < 4; i++) {
       this.options.push({
@@ -200,6 +201,10 @@ export default class AddEditQuestionUX {
   // actions for general form section
   @action.bound changeQuestionName({ target: { value } }) {
     this.questionName = value;
+  }
+
+  @action.bound changeAuthor(userProfileId) {
+    this.author = find(this.course.teacher_profiles, tp => tp.id == userProfileId);
   }
 
   @action.bound changeAllowOthersCopyEdit({ target: { checked } }) {
