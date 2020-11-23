@@ -17,6 +17,10 @@
             background-color: $openstax-neutral-dark;
             &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
           }
+          &.edit {
+            background-color: #007297; // dark blue
+            &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
+          }
           &.feedback-on {
             background-color: $openstax-neutral-dark;
             &:before { background-image: url("../../images/icons/exercise-feedback-on-action.svg"); }

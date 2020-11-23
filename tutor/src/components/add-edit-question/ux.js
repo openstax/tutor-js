@@ -5,8 +5,7 @@ import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 export default class AddEditQuestionUX {
 
   // local
-  @observable showAddEditForm = false;
-  @observable showAddEditTermsOfUse = false;
+  @observable didUserAgreeTermsOfUse;
 
   @observable isEmpty = {
     selectedChapter: false,
@@ -14,12 +13,14 @@ export default class AddEditQuestionUX {
     questionText: false,
   }
 
-  // props
+  /** props */
   //@observable question;
   @observable book;
   @observable course;
   // chapter/section ids
   @observable pageIds;
+  // Parent of the AddEditQuestion controls the display of the modal
+  onDisplayModal;
 
   /** form */
   // chapter/sections
@@ -48,6 +49,10 @@ export default class AddEditQuestionUX {
     // sections
     this.pageIds = props.pageIds;
     this.author = props.course.getCurrentUser;
+    this.onDisplayModal = props.onDisplayModal;
+
+    //TODO: get from BE
+    this.didUserAgreeTermsOfUse = false;
 
     // auto selected if there is only one chapter or selected pre-selected
     if(this.preSelectedChapters.length === 1) {
@@ -64,12 +69,8 @@ export default class AddEditQuestionUX {
     }
   }
 
-  @action.bound setShowAddEditForm(show) {
-    this.showAddEditForm = show;
-  }
-
-  @action.bound setShowAddEditTermsOfUse(show) {
-    this.showAddEditTermsOfUse = show;
+  @action.bound agreeTermsOfUse() {
+    this.didUserAgreeTermsOfUse = true;
   }
 
   // Chapters that the user has selected

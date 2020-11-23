@@ -11,6 +11,7 @@ import ExerciseCards from '../../components/exercises/cards';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
+import AddEditQuestionModal from '../../components/add-edit-question';
 import Course from '../../models/course';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
 import Scroller from '../../helpers/scroll-to';
@@ -88,6 +89,8 @@ class ExercisesDisplay extends React.Component {
   @observable showingDetails = false;
   @observable displayFeedback = false;
 
+  @observable showAddEditQuestionModal = false;
+
   scroller = new Scroller({ windowImpl: this.windowImpl });
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
@@ -96,6 +99,10 @@ class ExercisesDisplay extends React.Component {
     // scroll to top if exercise type is changed
     this.scroller.scrollToTop({ deferred: true });
   };
+
+  @action.bound onDisplayAddEditQuestionModal(show) {
+    this.showAddEditQuestionModal = show;
+  }
 
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
@@ -140,7 +147,6 @@ class ExercisesDisplay extends React.Component {
     const { exercises } = this.props;
     let minExerciseCount;
     const exercise = exerciseContent.wrapper;
-    // const isSelected = !ExerciseStore.isExerciseExcluded(exercise.id);
     const is_excluded = !exercise.is_excluded;
     if (is_excluded) {
       minExerciseCount = exercises.isMinimumExcludedForPage(exercise.page);
@@ -217,12 +223,20 @@ class ExercisesDisplay extends React.Component {
   };
 
   addCardActions = (actions) => {
-    return (
-      actions.details = {
-        message: 'Question details',
-        handler: this.onShowDetailsViewClick,
-      }
-    );
+    actions.edit = {
+      message: 'Edit',
+      handler: () => console.log('edit'),
+    };
+    actions.details = {
+      message: 'Question details',
+      handler: this.onShowDetailsViewClick,
+    };
+    // return (
+    //   actions.details = {
+    //     message: 'Question details',
+    //     handler: this.onShowDetailsViewClick,
+    //   }
+    // );
   };
 
   @action.bound reportError(ev, exercise) {
@@ -301,7 +315,7 @@ class ExercisesDisplay extends React.Component {
   }
 
   render() {
-    const { pageIds, exercises } = this.props;
+    const { pageIds, exercises, course, onSelectSections, showingDetails } = this.props;
     if (isEmpty(pageIds)) {
       return null;
     }
@@ -313,22 +327,30 @@ class ExercisesDisplay extends React.Component {
       <StyledExerciseDisplay>
         <div className="controls-wrapper">
           <ExerciseControls
-            course={this.props.course}
-            exercises={this.props.exercises}
-            onSelectSections={this.props.onSelectSections}
+            course={course}
+            exercises={exercises}
+            onSelectSections={onSelectSections}
             exerciseTypeFilter={this.exerciseTypeFilter}
             onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
             onFilterHomeworkExercises={this.onFilterHomeworkExercises}
             displayedChapterSections={this.displayedChapterSections}
-            pageIds={pageIds}
-            showingDetails={this.props.showingDetails}
+            showingDetails={showingDetails}
             topScrollOffset={TOP_SCROLL_OFFSET}
+            showAddEditQuestionModal={this.showAddEditQuestionModal}
+            onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}
           />
         </div>
         {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
         <div className="exercises-display"> 
           {this.renderExercises(this.filteredExercises)}
         </div>
+        <AddEditQuestionModal
+          exerciseType={this.exerciseTypeFilter} 
+          book={course.referenceBook}
+          pageIds={pageIds}
+          course={course}
+          showModal={this.showAddEditQuestionModal}
+          onDisplayModal={this.onDisplayAddEditQuestionModal} />
       </StyledExerciseDisplay>
     );
   }
