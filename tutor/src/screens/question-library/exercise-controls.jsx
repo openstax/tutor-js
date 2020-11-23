@@ -86,7 +86,7 @@ const StyledPopover = styled(Popover)`
 class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+    homeworkExercises: PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectSections: PropTypes.func.isRequired,
     exerciseTypeFilter: PropTypes.string.isRequired,
     onExerciseTypeFilterChange: PropTypes.func.isRequired,
@@ -118,7 +118,7 @@ class ExerciseControls extends React.Component {
 
   @autobind renderControls() {
     const {
-      exercises,
+      homeworkExercises,
       course,
       displayedChapterSections,
       showingDetails,
@@ -190,6 +190,25 @@ class ExerciseControls extends React.Component {
         />
       </TourAnchor>;
 
+    const homeworkFitlers = () => {
+      if(exerciseTypeFilter !== 'homework') {
+        return null;
+      }
+      return (
+        <div className="questions-controls-wrapper">
+          <HomeExerciseFilters
+            className="question-filters"
+            exercises={homeworkExercises}
+            returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
+          <Button
+            variant="primary"
+            onClick={partial(onDisplayAddEditQuestionModal, true)}>
+                Create question
+          </Button>
+        </div>    
+      );
+    };
+
     return (
       <StyledExerciseControls>
         <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
@@ -203,18 +222,7 @@ class ExerciseControls extends React.Component {
               {!course.is_concept_coach ? exerciseFilters : undefined}
             </div>
           </div>
-          <div className="questions-controls-wrapper">
-            <HomeExerciseFilters
-              className="question-filters"
-              exercises={exercises}
-              exerciseType={exerciseTypeFilter}
-              returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
-            <Button
-              variant="primary"
-              onClick={partial(onDisplayAddEditQuestionModal, true)}>
-              Create question
-            </Button>
-          </div>    
+          {homeworkFitlers()}
         </div>
       </StyledExerciseControls>
     );

@@ -5,9 +5,9 @@ import AddEditQuestionTermsOfUse from './terms-of-use';
 
 const AddEditQuestionModals = observer(({ ux }) => {
   if(ux.didUserAgreeTermsOfUse) {
-    return <AddEditQuestionForm ux={ux}/>;
+    return <AddEditQuestionForm ux={ux} />;
   }
-  return <AddEditQuestionTermsOfUse ux={ux}/>;
+  return <AddEditQuestionTermsOfUse ux={ux} />;
 });
 
 const AddEditQuestion = observer((props) => {
@@ -21,6 +21,7 @@ const AddEditQuestion = observer((props) => {
 });
 AddEditQuestion.propTypes = {
   exerciseType: PropTypes.string.isRequired,
+  exercise: PropTypes.object,
   book: PropTypes.object.isRequired,
   pageIds: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,

@@ -104,9 +104,7 @@ CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.string.isRequired,
 };
 
-const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, className='' }) => {
-  if(exerciseType !== 'homework') return null;
-
+const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) => {
   const [filters, setFilters] = useState({
     showMPQ: true,
     showWRQ: true,
@@ -208,7 +206,6 @@ const QuestionFilters = ({ exerciseType, exercises, returnFilteredExercises, cla
 
 QuestionFilters.propTypes = {
   className: PropTypes.string,
-  exerciseType: PropTypes.string.isRequired,
   exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
   returnFilteredExercises: PropTypes.func.isRequired,
 };
