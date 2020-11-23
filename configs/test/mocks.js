@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 jest.mock(
   'popper.js',
   () =>
@@ -24,3 +25,9 @@ jest.mock(
       disableEventListeners() { }
     }
 );
+
+// eslint-disable-next-line no-undef
+global.MutationObserver = class {
+  disconnect() {}
+  observe() {}
+};
