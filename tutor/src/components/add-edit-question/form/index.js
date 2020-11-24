@@ -1,10 +1,11 @@
-import { React, styled, observer } from 'vendor';
+import { React, styled, observer, PropTypes } from 'vendor';
 import { Modal, Form, Button } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
 import AddEditQuestionFormTopic from './topic';
 import AddEditQuestionFormQuestion from './question';
 import AddEditQuestionFormTags from './tags';
 import AddEditQuestionFormGeneral from './general';
+import AddEditQuestionUX from '../ux';
 import { colors } from 'theme';
 
 const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
@@ -80,6 +81,9 @@ const FormButtons = observer(({ ux }) => {
     </>
   );
 });
+FormButtons.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
 
 const AddEditQuestionForm = observer(({ ux }) => {
   return (
@@ -107,5 +111,8 @@ const AddEditQuestionForm = observer(({ ux }) => {
     </StyledAddEditQuestionModal>
   );
 });
+AddEditQuestionForm.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
 
 export default AddEditQuestionForm;

@@ -8,129 +8,129 @@ import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 
 const fullWidthTablet = css`
-    ${breakpoint.tablet`
-        flex: 0 1 100%;
-    `}
+  ${breakpoint.tablet`
+      flex: 0 1 100%;
+  `}
 `;
 
 const StyledQuestionForm = styled.div`
-    .header-toggle {
-        background-color: ${colors.white};
-        .btn {
-            padding: 1rem 5rem;
-            color: ${colors.neutral.thin};
-            background-color: ${colors.white};
-            border: none;
-            &.selected {
-                background-color: ${colors.neutral.bright};
-                color: ${colors.neutral.darker};
-                font-weight: 500;
-                border-top-right-radius: 1rem;
-            }
-            &:disabled {
-                opacity: 1;
-            }
-            &:active {
-                background-color: inherit;
-                color: inherit;
-                border-color: inherit;
-            }
-        }
+  .header-toggle {
+      background-color: ${colors.white};
+      .btn {
+          padding: 1rem 5rem;
+          color: ${colors.neutral.thin};
+          background-color: ${colors.white};
+          border: none;
+          &.selected {
+              background-color: ${colors.neutral.bright};
+              color: ${colors.neutral.darker};
+              font-weight: 500;
+              border-top-right-radius: 1rem;
+          }
+          &:disabled {
+              opacity: 1;
+          }
+          &:active {
+              background-color: inherit;
+              color: inherit;
+              border-color: inherit;
+          }
+      }
+  }
+  .question-form {
+    padding: 2.4rem 1.8rem;
+    > div:not(.option-choices-wrapper) {
+        display: flex;
+        flex-flow: row wrap;
     }
-    .question-form {
-      padding: 2.4rem 1.8rem;
-      > div:not(.option-choices-wrapper) {
-          display: flex;
-          flex-flow: row wrap;
-      }
-      label, .left-side {
-          flex: 0 1 9%;
-          margin: auto 0;
-      }
-      .question-text .form-control,
-      .question-answer-key .form-control,
-      .detailed-solution .form-control,
+    label, .left-side {
+        flex: 0 1 9%;
+        margin: auto 0;
+    }
+    .question-text .form-control,
+    .question-answer-key .form-control,
+    .detailed-solution .form-control,
+    .right-side {
+      flex: 0 1 70%;
+      ${fullWidthTablet}
+    }
+    .question-text {
+      margin-top: 1.6rem;
+    }
+    .question-answer-key {
+      margin-top: 3.2rem;
+    }
+    .two-step-wrapper {
       .right-side {
-        flex: 0 1 70%;
-        ${fullWidthTablet}
-      }
-      .question-text {
-        margin-top: 1.6rem;
-      }
-      .question-answer-key {
-        margin-top: 3.2rem;
-      }
-      .two-step-wrapper {
-        .right-side {
-          .two-step-label {
-            margin-left: 1rem;
-            line-height: 3rem;
-          }
-          .two-step-info {
-            margin-left: 2.3rem;
-            color: ${colors.neutral.thin};
-          }
+        .two-step-label {
+          margin-left: 1rem;
+          line-height: 3rem;
         }
-        svg[data-icon="check-square"] {
-          color: ${colors.neutral.std};
+        .two-step-info {
+          margin-left: 2.3rem;
+          color: ${colors.neutral.thin};
         }
-        // overriding checkbox svg css
-        svg[data-icon="question-circle"] {
-          position: static;
-          margin: 0 0.5rem;
-          height: 1.4rem;
-          width: 1.4rem;
-        } 
       }
-      .option-choices-wrapper {
-          display: column;
-          flex-flow: column wrap;
-          margin-bottom: 2rem;
-        > div {
-          display: flex;
-          flex-flow: row wrap;
-          > div:not(.add-option-wrapper) {
-            margin-top: 1rem;
-          }
-          .left-side {
-            margin: 2rem 0;
-            button {
-              float: right;
-              margin-right: 0.5rem;
-              margin-top: 0.5rem;
-              svg {
-                font-size: 2rem;
-                color: ${colors.neutral.pale};
-                &.is-correct {
-                  color: ${colors.green};
-                }
+      svg[data-icon="check-square"] {
+        color: ${colors.neutral.std};
+      }
+      // overriding checkbox svg css
+      svg[data-icon="question-circle"] {
+        position: static;
+        margin: 0 0.5rem;
+        height: 1.4rem;
+        width: 1.4rem;
+      } 
+    }
+    .option-choices-wrapper {
+        display: column;
+        flex-flow: column wrap;
+        margin-bottom: 2rem;
+      > div {
+        display: flex;
+        flex-flow: row wrap;
+        > div:not(.add-option-wrapper) {
+          margin-top: 1rem;
+        }
+        .left-side {
+          margin: 2rem 0;
+          button {
+            float: right;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            svg {
+              font-size: 2rem;
+              color: ${colors.neutral.pale};
+              &.is-correct {
+                color: ${colors.green};
               }
             }
           }
-          .right-side {
-            [class*="question-option-"] {
-              margin-bottom: 0.5rem;
-            }
-            [class*="question-feedback-"] {
-              width: 90%;
-              line-height: 0;
-            }
+        }
+        .right-side {
+          [class*="question-option-"] {
+            margin-bottom: 0.5rem;
           }
-          .option-icons {
-            margin-top: 0.3rem;
-            margin-left: 2.4rem;
-            button svg {
-              color: ${colors.neutral.std};
-            }
+          [class*="question-feedback-"] {
+            width: 90%;
+            line-height: 0;
           }
-          .add-option {
-            padding: 0;
-            color: ${colors.cerulan};
-            font-weight: 700;
+        }
+        .option-icons {
+          margin-top: 0.3rem;
+          margin-left: 2.4rem;
+          button svg {
+            color: ${colors.neutral.std};
           }
+        }
+        .add-option {
+          padding: 0;
+          color: ${colors.cerulan};
+          font-weight: 700;
         }
       }
     }
+  }
 `;
 
 const Form = observer(({ ux }) => {
@@ -266,6 +266,9 @@ const Form = observer(({ ux }) => {
     </>
   );
 });
+Form.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
 
 const QuestionForm = observer(({ ux }) => {
   // if editing, only show the button type only.
