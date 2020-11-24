@@ -19,7 +19,7 @@
           }
           &.copyEdit {
             background-color: #007297; // dark blue
-            &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-copy-edit-action.svg"); }
           }
           &.feedback-on {
             background-color: $openstax-neutral-dark;

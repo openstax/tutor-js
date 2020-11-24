@@ -41,7 +41,9 @@ const AddEditQuestionForm = observer(({ ux }) => {
       onHide={() => ux.onDisplayModal(false)}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
-        {ux.from_exercise_id ? 'Copy & Edit' : 'Create'} Question
+        {ux.from_exercise_id ? 
+          !ux.isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'
+          : 'Create'} Question
       </Modal.Header>
       <Modal.Body>
         <Form>

@@ -1,12 +1,15 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find, forEach, pickBy } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
+import User from '../../models/user';
 
 export default class AddEditQuestionUX {
 
   // local
   @observable didUserAgreeTermsOfUse;
   @observable isMCQ;
+  // other users or OpenStax
+  @observable isUserGeneratedQuestion = false;
 
   @observable isEmpty = {
     selectedChapter: false,
@@ -17,13 +20,14 @@ export default class AddEditQuestionUX {
   /** props */
   @observable book;
   @observable course;
+  @observable exercise;
   // chapter/section ids
   @observable pageIds;
   // Parent of the AddEditQuestion controls the display of the modal
   onDisplayModal;
 
   /** form */
-  @observable from_exercise_id;
+  @observable from_exercise_id = null;
   // chapter/sections
   @observable selectedChapter;
   @observable selectedChapterSection;
@@ -47,9 +51,9 @@ export default class AddEditQuestionUX {
   constructor(props = {}) {
     this.book = props.book;
     this.course = props.course;
-    // sections
+    // props
     this.pageIds = props.pageIds;
-    this.author = props.course.getCurrentUser;
+    this.exercise = props.exercise;
     this.onDisplayModal = props.onDisplayModal;
 
     //TODO: get from BE
@@ -57,6 +61,8 @@ export default class AddEditQuestionUX {
 
     // edit or create
     if(props.exercise) {
+      this.exercise = props.exercise;
+      this.isUserGeneratedQuestion = props.exercise.belongsToCurrentUserProfileId(User.profile_id);
       this.populateExerciseContent(props.exercise);
     }
     else {
@@ -75,6 +81,8 @@ export default class AddEditQuestionUX {
       }
       this.isMCQ = true;
     }
+    // get author
+    this.author = this.authors[0];
   }
 
   populateExerciseContent(exercise) {
@@ -139,6 +147,19 @@ export default class AddEditQuestionUX {
     }
     return filter(this.selectedChapter.children, scc => 
       some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
+  }
+
+  @computed get authors() {
+    // if creating or editing own question, show all teachers in course
+    if(!this.from_exercise_id || this.isUserGeneratedQuestion) {
+      return [...this.course.teacher_profiles];
+    }
+    else if (this.exercise) {
+      // if editing an openstax question or other teacher's question,
+      // show current user and current author only
+      return [this.exercise.author, this.course.getCurrentUser];
+    }
+    return [this.course.getCurrentUser];
   }
 
   // Get the browe book link with the chapter or section selected

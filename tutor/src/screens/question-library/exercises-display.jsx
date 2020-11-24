@@ -13,6 +13,7 @@ import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
 import AddEditQuestionModal from '../../components/add-edit-question';
 import Course from '../../models/course';
+import User from '../../models/user';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
 import Scroller from '../../helpers/scroll-to';
 import { colors } from 'theme';
@@ -233,8 +234,9 @@ class ExercisesDisplay extends React.Component {
   addCardActions = (actions, exercise) => {
     // For now, MPQ are not allowed to be edited
     if(!exercise.isMultiPart) {
+      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
       actions.copyEdit = {
-        message: 'Copy & Edit',
+        message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,
       };
     }

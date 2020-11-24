@@ -57,7 +57,7 @@ const StyledGeneralForm = styled.div`
 `;
   
 const GeneralForm = observer(({ ux }) => {
-  const authors = map(ux.course.teacher_profiles, tp => (
+  const authors = map(ux.authors, tp => (
     <Dropdown.Item
       key={tp.id}
       value={tp.id}

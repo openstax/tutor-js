@@ -268,6 +268,7 @@ const Form = observer(({ ux }) => {
 });
 
 const QuestionForm = observer(({ ux }) => {
+  // if editing, only show the button type only.
   const renderButtonsPanel = () => {
     let buttons;
     const isEditing = ux.from_exercise_id;
