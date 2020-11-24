@@ -233,6 +233,7 @@ const Form = observer(({ ux }) => {
     if(!ux.isMCQ) {
       return (
         <AnswerHTMLEditor
+          onImageUpload={ux.onImageUpload}
           onChange={ux.changeDetailedSolution}
           html={ux.detailedSolution}
           label='Answer Key'
@@ -262,6 +263,7 @@ const Form = observer(({ ux }) => {
           {renderAddOptionButton()}
         </div>
         <AnswerHTMLEditor
+          onImageUpload={ux.onImageUpload}
           onChange={ux.changeDetailedSolution}
           html={ux.detailedSolution}
           label='Detailed solution'
@@ -275,6 +277,7 @@ const Form = observer(({ ux }) => {
   return (
     <>
       <AnswerHTMLEditor
+        onImageUpload={ux.onImageUpload}
         onChange={ux.changeQuestionText}
         html={ux.questionText}
         label='Question'

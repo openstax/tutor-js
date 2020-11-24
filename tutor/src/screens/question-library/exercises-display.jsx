@@ -106,7 +106,7 @@ class ExercisesDisplay extends React.Component {
 
   @action.bound onDisplayAddEditQuestionModal(show) {
     if(!show) {this.selectedExercise = null;}
-    this.showAddEditQuestionModal = show;
+    this.showAddEditQuestionModal = !!show;
   }
 
   // called by sectionizer and details view
