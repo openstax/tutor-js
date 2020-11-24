@@ -12,9 +12,7 @@ const Editing = ({ className, html, onImageUpload, onSave, ...props }) => {
     <Editor
       className={className}
       defaultEditorState={defaultEditorState}
-      height="100%" width="100%"
       runtime={runtime}
-      fitToContent
       autoFocus
       {...props}
     />
@@ -29,7 +27,7 @@ Editing.propTypes = {
 
 const Wrapper = styled.div({
   margin: '40px',
-  height: '500px',
+  minHeight: '300px',
   display: 'flex',
   '.openstax-has-html': {
     flex: 1,
