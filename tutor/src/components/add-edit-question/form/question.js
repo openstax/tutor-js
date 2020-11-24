@@ -268,23 +268,36 @@ const Form = observer(({ ux }) => {
 });
 
 const QuestionForm = observer(({ ux }) => {
-  return (
-    <StyledQuestionForm>
-      <div className="header-toggle">
+  const renderButtonsPanel = () => {
+    let buttons;
+    const isEditing = ux.from_exercise_id;
+    if(!isEditing || ux.isMCQ) {
+      buttons = 
         <Button
           variant="light"
           className={cn({ 'selected': ux.isMCQ })}
           onClick={() => ux.isMCQ = true}
           disabled={ux.isMCQ}>
-                Multiple-choice question
-        </Button>
+          Multiple-choice question
+        </Button>;
+    }
+    if(!isEditing || !ux.isMCQ) buttons = 
+      <>
+        {buttons}
         <Button
           variant="light"
           className={cn({ 'selected': !ux.isMCQ })}
           onClick={() => ux.isMCQ = false}
           disabled={!ux.isMCQ}>
-                Written-response question
+          Written-response question
         </Button>
+      </>;
+    return buttons;
+  };
+  return (
+    <StyledQuestionForm>
+      <div className="header-toggle">
+        {renderButtonsPanel()}
       </div>
       <div className="question-form">
         <Form ux={ux} />
