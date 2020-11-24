@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, partial } from 'lodash';
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import {
   AddEditQuestionFormBlock, AddEditFormTextInput, AnswerHTMLEditor, QuestionInfo,
@@ -11,132 +10,149 @@ import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 
 const fullWidthTablet = css`
-    ${breakpoint.tablet`
-        flex: 0 1 100%;
-    `}
+  ${breakpoint.tablet`
+      flex: 0 1 100%;
+  `}
 `;
 
 const StyledQuestionForm = styled.div`
-    .header-toggle {
-        background-color: ${colors.white};
-        .btn {
-            padding: 1rem 5rem;
-            color: ${colors.neutral.thin};
-            background-color: ${colors.white};
-            border: none;
-            &.selected {
-                background-color: ${colors.neutral.bright};
-                color: ${colors.neutral.darker};
-                font-weight: 500;
-                border-top-right-radius: 1rem;
-            }
-            &:disabled {
-                opacity: 1;
-            }
-            &:active {
-                background-color: inherit;
-                color: inherit;
-                border-color: inherit;
-            }
-        }
+  .header-toggle {
+      background-color: ${colors.white};
+      .btn {
+          padding: 1rem 5rem;
+          color: ${colors.neutral.thin};
+          background-color: ${colors.white};
+          border: none;
+          &.selected {
+              background-color: ${colors.neutral.bright};
+              color: ${colors.neutral.darker};
+              font-weight: 500;
+              border-top-right-radius: 1rem;
+          }
+          &:disabled {
+              opacity: 1;
+          }
+          &:active {
+              background-color: inherit;
+              color: inherit;
+              border-color: inherit;
+          }
+      }
+  }
+  .question-form {
+    padding: 2.4rem 1.8rem;
+    > div:not(.option-choices-wrapper) {
+        display: flex;
+        flex-flow: row wrap;
     }
-    .question-form {
-      padding: 2.4rem 1.8rem;
-      > div:not(.option-choices-wrapper) {
-          display: flex;
-          flex-flow: row wrap;
+    label, .left-side {
+        flex: 0 1 9%;
+        margin: auto 0;
+    }
+    .question-text,
+    .question-answer-key,
+    .detailed-solution,
+    .right-side {
+      flex: 0 1 70%;
+      ${fullWidthTablet}
+      .editable-html {
+        margin: 0;
+        background-color: white;
+        border: 1px solid ${colors.neutral.pale};
+        flex: 0 1 77%;
+        .openstax-has-html {
+          margin: 1rem;
+        }
       }
-      label, .left-side {
-          flex: 0 1 9%;
-          margin: auto 0;
+      // overriding the inline style
+      .perry-white {
+          border: 1px solid ${colors.neutral.pale};
+          width: 100% !important;
+        }
       }
-      .question-text .form-control,
-      .question-answer-key .form-control,
-      .detailed-solution .form-control,
+    }
+    .question-text {
+      margin-top: 1.6rem;
+      margin-bottom: 0;
+    }
+    .question-answer-key {
+      margin-top: 3.2rem;
+    }
+    .two-step-wrapper {
       .right-side {
-        flex: 0 1 70%;
-        ${fullWidthTablet}
-      }
-      .question-text {
-        margin-top: 1.6rem;
-      }
-      .question-answer-key {
-        margin-top: 3.2rem;
-      }
-      .two-step-wrapper {
-        .right-side {
-          .two-step-label {
-            margin-left: 1rem;
-            line-height: 3rem;
-          }
-          .two-step-info {
-            margin-left: 2.3rem;
-            color: ${colors.neutral.thin};
-          }
+        margin-top: 1rem;
+        .two-step-label {
+          margin-left: 1rem;
+          line-height: 3rem;
         }
-        svg[data-icon="check-square"] {
-          color: ${colors.neutral.std};
+        .two-step-info {
+          margin-left: 2.3rem;
+          color: ${colors.neutral.thin};
         }
-        // overriding checkbox svg css
-        svg[data-icon="question-circle"] {
-          position: static;
-          margin: 0 0.5rem;
-          height: 1.4rem;
-          width: 1.4rem;
-        } 
       }
-      .option-choices-wrapper {
-          display: column;
-          flex-flow: column wrap;
-          margin-bottom: 2rem;
-        > div {
-          display: flex;
-          flex-flow: row wrap;
-          > div:not(.add-option-wrapper) {
-            margin-top: 1rem;
-          }
-          .left-side {
-            margin: 2rem 0;
-            button {
-              float: right;
-              margin-right: 0.5rem;
-              margin-top: 0.5rem;
-              svg {
-                font-size: 2rem;
-                color: ${colors.neutral.pale};
-                &.is-correct {
-                  color: ${colors.green};
-                }
+      svg[data-icon="check-square"] {
+        color: ${colors.neutral.std};
+      }
+      // overriding checkbox svg css
+      svg[data-icon="question-circle"] {
+        position: static;
+        margin: 0 0.5rem;
+        height: 1.4rem;
+        width: 1.4rem;
+      } 
+    }
+    .option-choices-wrapper {
+        display: column;
+        flex-flow: column wrap;
+        margin-bottom: 2rem;
+      > div {
+        display: flex;
+        flex-flow: row wrap;
+        > div:not(.add-option-wrapper) {
+          margin-top: 1rem;
+        }
+        .left-side {
+          margin: 2rem 0;
+          button {
+            float: right;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            svg {
+              font-size: 2rem;
+              color: ${colors.neutral.pale};
+              &.is-correct {
+                color: ${colors.green};
               }
             }
           }
-          .right-side {
-            [class*="question-option-"] {
-              margin-bottom: 0.5rem;
-            }
-            [class*="question-feedback-"] {
-              width: 90%;
-              line-height: 0;
-            }
+        }
+        .right-side {
+          [class*="question-option-"] {
+            margin-bottom: 0.5rem;
           }
-          .option-icons {
-            margin-top: 0.3rem;
-            margin-left: 2.4rem;
-            button svg {
-              color: ${colors.neutral.std};
-            }
+          [class*="question-feedback-"] {
+            width: 90%;
+            line-height: 0;
           }
-          .add-option {
-            padding: 0;
-            color: ${colors.cerulan};
-            font-weight: 700;
+        }
+        .option-icons {
+          margin-top: 0.3rem;
+          margin-left: 2.4rem;
+          button svg {
+            color: ${colors.neutral.std};
           }
+        }
+        .add-option {
+          padding: 0;
+          color: ${colors.cerulan};
+          font-weight: 700;
         }
       }
     }
+  }
 `;
 
-const MCQForm = observer(({ ux }) => {
+const Form = observer(({ ux }) => {
   const twoStepLabel = 
     <>
       <span className="two-step-label">Make this Two-step question </span>
@@ -192,13 +208,13 @@ const MCQForm = observer(({ ux }) => {
         <Icon
           type="trash"
           onClick={() => ux.deleteOption(index)}
-          buttonProps={{ disabled: ux.options.length === 2 }}/>
+          buttonProps={{ disabled: ux.options.length <= 2 }}/>
       </div>
     </div>
   );
 
   const renderAddOptionButton = () => {
-    if(ux.options.length === 6) return null;
+    if(ux.options.length >= 6) return null;
     return (
       <div className="add-option-wrapper">
         <div className="left-side"></div>
@@ -212,98 +228,105 @@ const MCQForm = observer(({ ux }) => {
     );
   };
 
+  const renderQuestionInfo = () => {
+    // if isMCQ is true, show MCQ form; otherwise show WRQ form
+    if(!ux.isMCQ) {
+      return (
+        <AnswerHTMLEditor
+          onImageUpload={ux.onImageUpload}
+          onChange={ux.changeDetailedSolution}
+          html={ux.detailedSolution}
+          label='Answer Key'
+          placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
+          className="question-answer-key"
+        />
+      );
+    }
+    return (
+      <>
+        <div className="two-step-wrapper">
+          <div className="left-side"></div>
+          <div className="right-side">
+            <CheckboxInput
+              onChange={ux.changeIsTwoStep}
+              label={twoStepLabel}
+              checked={ux.isTwoStep}
+              standalone
+            />
+            <p className="two-step-info">
+            Ask students to answer in their own words before displaying the multiple-choice options.
+            </p>
+          </div>
+        </div>
+        <div className="option-choices-wrapper">
+          {renderOptions()}
+          {renderAddOptionButton()}
+        </div>
+        <AnswerHTMLEditor
+          onImageUpload={ux.onImageUpload}
+          onChange={ux.changeDetailedSolution}
+          html={ux.detailedSolution}
+          label='Detailed solution'
+          placeholder="Optional. This is not visible to students."
+          className="detailed-solution"
+        />
+      </>
+    );
+  };
+
   return (
     <>
       <AnswerHTMLEditor
         onImageUpload={ux.onImageUpload}
         onChange={ux.changeQuestionText}
-        value={ux.questionText}
+        html={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
         className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
       />
-      <div className="two-step-wrapper">
-        <div className="left-side"></div>
-        <div className="right-side">
-          <CheckboxInput
-            onChange={ux.changeIsTwoStep}
-            label={twoStepLabel}
-            checked={ux.isTwoStep}
-            standalone
-          />
-          <p className="two-step-info">
-            Ask students to answer in their own words before displaying the multiple-choice options.
-          </p>
-        </div>
-      </div>
-      <div className="option-choices-wrapper">
-        {renderOptions()}
-        {renderAddOptionButton()}
-      </div>
-      <AddEditFormTextInput
-        onChange={ux.changeDetailedSolution}
-        value={ux.detailedSolution}
-        label='Detailed solution'
-        placeholder="Optional. This is not visible to students."
-        className="detailed-solution"
-      />
+      {renderQuestionInfo()}
     </>
   );
 });
-
-const WRQForm = observer(({ ux }) => {
-  return (
-    <>
-      <AnswerHTMLEditor
-        onChange={ux.changeQuestionText}
-        value={ux.questionText}
-        label='Question'
-        placeholder="Enter question or problem statement."
-        className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
-      />
-      <AnswerHTMLEditor
-        onChange={ux.changeAnswerKeyText}
-        value={ux.answerKeyText}
-        label='Answer Key'
-        placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
-        className="question-answer-key"
-      />
-      <AddEditFormTextInput
-        onChange={ux.changeAnswerKeyText}
-        value={ux.answerKeyText}
-        label='Answer Key'
-        placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
-        className="question-answer-key"
-      />
-    </>
-  );
-});
+Form.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
 
 const QuestionForm = observer(({ ux }) => {
-  // if isMCQ is true, show MCQ form; otherwise show WRQ form
-  const [isMCQ, setIsMCQ] = useState(true);
-  const ComponentForm = isMCQ ? MCQForm : WRQForm;
-
+  // if editing, only show the button type only.
+  const renderButtonsPanel = () => {
+    let buttons;
+    const isEditing = ux.from_exercise_id;
+    if(!isEditing || ux.isMCQ) {
+      buttons = 
+        <Button
+          variant="light"
+          className={cn({ 'selected': ux.isMCQ })}
+          onClick={() => ux.isMCQ = true}
+          disabled={ux.isMCQ}>
+          Multiple-choice question
+        </Button>;
+    }
+    if(!isEditing || !ux.isMCQ) buttons = 
+      <>
+        {buttons}
+        <Button
+          variant="light"
+          className={cn({ 'selected': !ux.isMCQ })}
+          onClick={() => ux.isMCQ = false}
+          disabled={!ux.isMCQ}>
+          Written-response question
+        </Button>
+      </>;
+    return buttons;
+  };
   return (
     <StyledQuestionForm>
       <div className="header-toggle">
-        <Button
-          variant="light"
-          className={cn({ 'selected': isMCQ })}
-          onClick={() => setIsMCQ(true)}
-          disabled={isMCQ}>
-                Multiple-choice question
-        </Button>
-        <Button
-          variant="light"
-          className={cn({ 'selected': !isMCQ })}
-          onClick={() => setIsMCQ(false)}
-          disabled={!isMCQ}>
-                Written-response question
-        </Button>
+        {renderButtonsPanel()}
       </div>
       <div className="question-form">
-        <ComponentForm ux={ux} />
+        <Form ux={ux} />
       </div>
     </StyledQuestionForm>
   );

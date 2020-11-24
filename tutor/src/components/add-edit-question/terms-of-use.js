@@ -43,9 +43,9 @@ const AddEditQuestionTermsOfUse = observer(({ ux }) => {
   const [agree, setAgree] = useState(false);
   return (
     <StyledAddEditQuestionTermsOfUseModal
-      show={ux.showAddEditTermsOfUse}
+      show={true}
       backdrop="static"
-      onHide={() => ux.setShowAddEditTermsOfUse(false)}
+      onHide={() => ux.onDisplayModal(false)}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         Terms of use
@@ -77,16 +77,13 @@ Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
           <Button
             variant="default"
             className="cancel"
-            onClick={() => ux.setShowAddEditTermsOfUse(false)}>
+            onClick={() => ux.onDisplayModal(false)}>
                 Cancel
           </Button>
           <Button
             variant="primary"
             disabled={!agree}
-            onClick={() => {
-              ux.setShowAddEditTermsOfUse(false);
-              ux.setShowAddEditForm(true);
-            }}>
+            onClick={ux.agreeTermsOfUse}>
               Done
           </Button>
         </div>

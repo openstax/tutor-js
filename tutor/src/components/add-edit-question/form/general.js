@@ -13,6 +13,22 @@ const fullWidthTablet = css`
     `}
 `;
 
+const checkboxes = css`
+  span label {
+    font-weight: normal;
+    font-size: 1.6rem;
+  }
+  span:first-child {
+    margin-bottom: 1rem;
+  }
+  svg {
+    top: 2px !important;
+    &[data-icon="check-square"] {
+      color: ${colors.neutral.std};
+    }
+  }
+`;
+
 const StyledGeneralForm = styled.div`
     > div {
         display: flex;
@@ -33,6 +49,13 @@ const StyledGeneralForm = styled.div`
       }
     }
 
+    .authors-info {
+      span {
+        margin: auto 1rem;
+        color: ${colors.neutral.thin};
+      }
+    }
+
     .sharing-info {
       > label {
         margin: 0;
@@ -40,24 +63,24 @@ const StyledGeneralForm = styled.div`
       > div {
         display: flex;
         flex-flow: column wrap;
-        span label {
-          font-weight: normal;
-        }
-        span:first-child {
-          margin-bottom: 1rem;
-        }
-        svg {
-          top: 2px;
-          &[data-icon="check-square"] {
-            color: ${colors.neutral.std};
-          }
-        }
+        ${checkboxes}
+      }
+    }
+
+    .exclude-original-info {
+      > label {
+        margin: 0;
+      }
+      ${checkboxes}
+      .exclude-more-info {
+        font-size: 1.4rem;
+        color: ${colors.neutral.thin};
       }
     }
 `;
   
 const GeneralForm = observer(({ ux }) => {
-  const authors = map(ux.course.teacher_profiles, tp => (
+  const authors = map(ux.authors, tp => (
     <Dropdown.Item
       key={tp.id}
       value={tp.id}
@@ -66,6 +89,30 @@ const GeneralForm = observer(({ ux }) => {
       {tp.name}
     </Dropdown.Item>
   ));
+
+  const isEditingNonUserQuestion = ux.from_exercise_id && !ux.isUserGeneratedQuestion;
+
+  const excludeOriginalInfo = () => {
+    if(!isEditingNonUserQuestion) {
+      return null;
+    }
+    return (
+      <div className="exclude-original-info">
+        <label>Exclude Original?</label>
+        <CheckboxInput
+          onChange={ux.changeExcludeOriginal}
+          label={
+            <>
+              <span>Exclude the original question from my Question Library. </span>
+              <span className="exclude-more-info">(exclusions apply only to future assignments)</span>
+            </>
+          }
+          checked={ux.excludeOriginal}
+          standalone
+        />
+      </div>
+    );
+  };
 
   return (
     <StyledGeneralForm>
@@ -82,6 +129,9 @@ const GeneralForm = observer(({ ux }) => {
           toggleName={ux.author ? ux.author.name : ' '}
           dropdownItems={authors}
         />
+        {isEditingNonUserQuestion && 
+          <span>Credit the original author if you haven’t made substantial changes to the question</span>
+        }
       </div>
       <div className="sharing-info">
         <label>Sharing</label>
@@ -105,6 +155,7 @@ const GeneralForm = observer(({ ux }) => {
           />
         </div>
       </div>
+      {excludeOriginalInfo()}
     </StyledGeneralForm>
   );
 });

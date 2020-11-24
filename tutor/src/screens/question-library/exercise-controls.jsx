@@ -1,12 +1,12 @@
 import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { partial } from 'lodash';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
-import CreateQuestionButton from '../../components/add-edit-question';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { ExercisesMap } from '../../models/exercises';
 import { colors } from 'theme';
@@ -86,16 +86,17 @@ const StyledPopover = styled(Popover)`
 class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+    homeworkExercises: PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectSections: PropTypes.func.isRequired,
     exerciseTypeFilter: PropTypes.string.isRequired,
     onExerciseTypeFilterChange: PropTypes.func.isRequired,
     onFilterHomeworkExercises: PropTypes.func.isRequired,
     displayedChapterSections: PropTypes.array,
-    pageIds: PropTypes.array,
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
     setSecondaryTopControls: PropTypes.func.isRequired,
+    showAddEditQuestionModal: PropTypes.bool.isRequired,
+    onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -117,14 +118,14 @@ class ExerciseControls extends React.Component {
 
   @autobind renderControls() {
     const {
-      exercises,
+      homeworkExercises,
       course,
       displayedChapterSections,
       showingDetails,
       exerciseTypeFilter,
       topScrollOffset,
       onFilterHomeworkExercises,
-      pageIds } = this.props;
+      onDisplayAddEditQuestionModal } = this.props;
 
     let sectionizerProps;
 
@@ -189,6 +190,25 @@ class ExerciseControls extends React.Component {
         />
       </TourAnchor>;
 
+    const homeworkFitlers = () => {
+      if(exerciseTypeFilter !== 'homework') {
+        return null;
+      }
+      return (
+        <div className="questions-controls-wrapper">
+          <HomeExerciseFilters
+            className="question-filters"
+            exercises={homeworkExercises}
+            returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
+          <Button
+            variant="primary"
+            onClick={partial(onDisplayAddEditQuestionModal, true)}>
+                Create question
+          </Button>
+        </div>    
+      );
+    };
+
     return (
       <StyledExerciseControls>
         <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
@@ -202,18 +222,7 @@ class ExerciseControls extends React.Component {
               {!course.is_concept_coach ? exerciseFilters : undefined}
             </div>
           </div>
-          <div className="questions-controls-wrapper">
-            <HomeExerciseFilters
-              className="question-filters"
-              exercises={exercises}
-              exerciseType={exerciseTypeFilter}
-              returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
-            <CreateQuestionButton
-              exerciseType={exerciseTypeFilter} 
-              book={course.referenceBook}
-              pageIds={pageIds}
-              course={course}/>
-          </div>    
+          {homeworkFitlers()}
         </div>
       </StyledExerciseControls>
     );
