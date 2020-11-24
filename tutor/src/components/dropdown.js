@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, useRef, useEffect, css, cn } from 'vendor';
+import { React, PropTypes, styled, useRef, useEffect, cn } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { TruncatedText } from './text';
 import { colors } from 'theme';

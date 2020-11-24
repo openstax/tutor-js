@@ -81,13 +81,13 @@ context('Assignment Review', () => {
     cy.getTestElement('grading-templates').click();
     cy.getTestElement('Second Homework').click();
     cy.getTestElement('confirm-change-template').click();
-    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
+    cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
 
     // Can cancel
     cy.getTestElement('grading-templates').click();
     cy.getTestElement('Default Homework').click();
     cy.getTestElement('cancel-confirm-change-template').click();
-    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
+    cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
   });
 
   // TODO: fix this test

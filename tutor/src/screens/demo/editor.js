@@ -1,5 +1,5 @@
 import { React } from 'vendor';
-import { ClickToEdit } from '../../components/editor';
+import { EditableHTML } from '../../components/editor';
 
 const fakeExercise = `
 <div>
@@ -61,7 +61,7 @@ The speed limit on some interstate highways is roughly <span data-math="100,\\te
 
 const EditorDemo = () => (
   <div className="openstax-question">
-    <ClickToEdit html={fakeExercise} />
+    <EditableHTML html={fakeExercise} />
   </div>
 );
 
