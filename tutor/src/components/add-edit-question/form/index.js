@@ -1,4 +1,4 @@
-import { React, observer, styled } from 'vendor';
+import { React, styled, observer } from 'vendor';
 import { Modal, Form, Button } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
 import AddEditQuestionFormTopic from './topic';
@@ -33,6 +33,54 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
     }
 `;
 
+const FormButtons = observer(({ ux }) => {
+  const previewButton = 
+    <Button
+      variant="default"
+      className="preview"
+      onClick={() => window.alert('preview')}>
+        Preview
+    </Button>;
+
+  // if editing
+  if(ux.from_exercise_id) {
+    return (
+      <>
+        {previewButton}
+        <Button
+          variant="default"
+          className="cancel"
+          onClick={() => window.alert('cancel')}>
+            Cancel
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => window.alert('publishing changes')}>
+            Publish changes
+        </Button>
+      </>
+    );
+  }
+  // otherwise it is creating
+  return (
+    <>
+      {previewButton}
+      <Button
+        variant="default"
+        className="publish"
+        onClick={() => window.alert('publish')}>
+          Publish question
+      </Button>
+      <Button
+        variant="primary"
+        className="publish"
+        onClick={() => window.alert('publish and exit')}>
+          Publish &amp; Exit
+      </Button>
+    </>
+  );
+});
+
 const AddEditQuestionForm = observer(({ ux }) => {
   return (
     <StyledAddEditQuestionModal
@@ -52,23 +100,7 @@ const AddEditQuestionForm = observer(({ ux }) => {
           <AddEditQuestionFormTags ux={ux} />
           <AddEditQuestionFormGeneral ux={ux} />
           <div className="buttons-wrapper">
-            <Button
-              variant="default"
-              className="cancel"
-              onClick={() => window.alert('preview')}>
-                Preview
-            </Button>
-            <Button
-              variant="default"
-              className="cancel"
-              onClick={() => window.alert('publish')}>
-              Publish question
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => window.alert('publish and exit')}>
-              Publish &amp; Exit
-            </Button>
+            <FormButtons ux={ux} />
           </div>
         </Form>
       </Modal.Body>

@@ -47,6 +47,7 @@ export default class AddEditQuestionUX {
   @observable author;
   @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
+  @observable excludeOriginal = false;
 
   constructor(props = {}) {
     this.book = props.book;
@@ -282,6 +283,10 @@ export default class AddEditQuestionUX {
 
   @action.bound changeAnnonymize({ target: { checked } }) {
     this.annonymize = checked;
+  }
+
+  @action.bound changeExcludeOriginal({ target: { checked } }) {
+    this.excludeOriginal = checked;
   }
 
   /**
