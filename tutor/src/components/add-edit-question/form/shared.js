@@ -78,7 +78,7 @@ QuestionInfo.propTypes = {
 
 
 const EditableHTMLPanel = styled(EditableHTML)({
-  height: '200px',
+
   flex: 1,
   '.ProseMirror.pw-prosemirror-editor': {
     padding: '2rem',
