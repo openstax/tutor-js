@@ -133,7 +133,7 @@ const StyledQuestionForm = styled.div`
     }
 `;
 
-const MCQForm = observer(({ ux }) => {
+const Form = observer(({ ux }) => {
   const twoStepLabel = 
     <>
       <span className="two-step-label">Make this Two-step question </span>
@@ -209,45 +209,50 @@ const MCQForm = observer(({ ux }) => {
     );
   };
 
-  return (
-    <>
-      <AddEditFormTextInput
-        onChange={ux.changeQuestionText}
-        value={ux.questionText}
-        label='Question'
-        placeholder="Enter question or problem statement."
-        className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
-      />
-      <div className="two-step-wrapper">
-        <div className="left-side"></div>
-        <div className="right-side">
-          <CheckboxInput
-            onChange={ux.changeIsTwoStep}
-            label={twoStepLabel}
-            checked={ux.isTwoStep}
-            standalone
-          />
-          <p className="two-step-info">
+  const renderQuestionInfo = () => {
+    // if isMCQ is true, show MCQ form; otherwise show WRQ form
+    if(!ux.isMCQ) {
+      return (
+        <AddEditFormTextInput
+          onChange={ux.changeDetailedSolution}
+          value={ux.detailedSolution}
+          label='Answer Key'
+          placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
+          className="question-answer-key"
+        />
+      );
+    }
+    return (
+      <>
+        <div className="two-step-wrapper">
+          <div className="left-side"></div>
+          <div className="right-side">
+            <CheckboxInput
+              onChange={ux.changeIsTwoStep}
+              label={twoStepLabel}
+              checked={ux.isTwoStep}
+              standalone
+            />
+            <p className="two-step-info">
             Ask students to answer in their own words before displaying the multiple-choice options.
-          </p>
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="option-choices-wrapper">
-        {renderOptions()}
-        {renderAddOptionButton()}
-      </div>
-      <AddEditFormTextInput
-        onChange={ux.changeDetailedSolution}
-        value={ux.detailedSolution}
-        label='Detailed solution'
-        placeholder="Optional. This is not visible to students."
-        className="detailed-solution"
-      />
-    </>
-  );
-});
+        <div className="option-choices-wrapper">
+          {renderOptions()}
+          {renderAddOptionButton()}
+        </div>
+        <AddEditFormTextInput
+          onChange={ux.changeDetailedSolution}
+          value={ux.detailedSolution}
+          label='Detailed solution'
+          placeholder="Optional. This is not visible to students."
+          className="detailed-solution"
+        />
+      </>
+    );
+  };
 
-const WRQForm = observer(({ ux }) => {
   return (
     <>
       <AddEditFormTextInput
@@ -257,21 +262,12 @@ const WRQForm = observer(({ ux }) => {
         placeholder="Enter question or problem statement."
         className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
       />
-      <AddEditFormTextInput
-        onChange={ux.changeAnswerKeyText}
-        value={ux.answerKeyText}
-        label='Answer Key'
-        placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
-        className="question-answer-key"
-      />
+      {renderQuestionInfo()}
     </>
   );
 });
 
 const QuestionForm = observer(({ ux }) => {
-  // if isMCQ is true, show MCQ form; otherwise show WRQ form
-  const ComponentForm = ux.isMCQ ? MCQForm : WRQForm;
-
   return (
     <StyledQuestionForm>
       <div className="header-toggle">
@@ -291,7 +287,7 @@ const QuestionForm = observer(({ ux }) => {
         </Button>
       </div>
       <div className="question-form">
-        <ComponentForm ux={ux} />
+        <Form ux={ux} />
       </div>
     </StyledQuestionForm>
   );

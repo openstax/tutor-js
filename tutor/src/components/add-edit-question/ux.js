@@ -29,9 +29,9 @@ export default class AddEditQuestionUX {
   @observable selectedChapterSection;
   // question
   @observable questionText;
-  @observable answerKeyText;
   @observable isTwoStep;
   @observable options = [];
+  // detailed solution (MCQ). answer key (WRQ)
   @observable detailedSolution;
   // tags
   @observable tagTime;
@@ -97,7 +97,6 @@ export default class AddEditQuestionUX {
     });
     const detailedSolution = find(question.collaborator_solutions, cs => cs.solution_type === 'detailed');
     this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
-    this.answerKey = detailedSolution ? detailedSolution.content_html : '';
     
     // tags
     if(exercise.tags && exercise.tags.length > 0) {
@@ -178,10 +177,6 @@ export default class AddEditQuestionUX {
   @action.bound changeQuestionText({ target: { value } }) {
     this.questionText = value;
     this.isEmpty.questionText = false;
-  }
-
-  @action.bound changeAnwserKeyText({ target: { value } }) {
-    this.answerKeyText = value;
   }
 
   @action.bound changeIsTwoStep({ target: { checked } }) {
