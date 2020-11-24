@@ -196,9 +196,14 @@ export default class AddEditQuestionUX {
   }
 
   // actions for question form section
-  @action.bound changeQuestionText({ target: { value } }) {
-    this.questionText = value;
+  @action.bound changeQuestionText(text) {
+    this.questionText = text;
     this.isEmpty.questionText = false;
+  }
+
+  // called when an image is added to the HTML for question text
+  @action.bound onImageUpload(blob, url) { // eslint-disable-line no-unused-vars
+    // TODO save blob.signed_id and send them to BE when the exercise is saved
   }
 
   @action.bound changeIsTwoStep({ target: { checked } }) {

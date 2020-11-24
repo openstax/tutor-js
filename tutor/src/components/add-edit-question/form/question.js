@@ -1,7 +1,9 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, partial } from 'lodash';
 import { Button } from 'react-bootstrap';
-import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './shared';
+import {
+  AddEditQuestionFormBlock, AddEditFormTextInput, AnswerHTMLEditor, QuestionInfo,
+} from './shared';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
 import { colors, breakpoint } from 'theme';
@@ -47,21 +49,34 @@ const StyledQuestionForm = styled.div`
         flex: 0 1 9%;
         margin: auto 0;
     }
-    .question-text .form-control,
-    .question-answer-key .form-control,
-    .detailed-solution .form-control,
+    .question-text,
+    .question-answer-key,
+    .detailed-solution,
     .right-side {
       flex: 0 1 70%;
       ${fullWidthTablet}
+      .editable-html {
+        margin: 0;
+        background-color: white;
+        border: 1px solid ${colors.neutral.pale};
+        flex: 0 1 77%;
+      }
+      // overriding the inline style
+      .perry-white {
+          border: 1px solid ${colors.neutral.pale};
+        }
+      }
     }
     .question-text {
       margin-top: 1.6rem;
+      margin-bottom: 0;
     }
     .question-answer-key {
       margin-top: 3.2rem;
     }
     .two-step-wrapper {
       .right-side {
+        margin-top: 1rem;
         .two-step-label {
           margin-left: 1rem;
           line-height: 3rem;
@@ -213,7 +228,7 @@ const Form = observer(({ ux }) => {
     // if isMCQ is true, show MCQ form; otherwise show WRQ form
     if(!ux.isMCQ) {
       return (
-        <AddEditFormTextInput
+        <AnswerHTMLEditor
           onChange={ux.changeDetailedSolution}
           value={ux.detailedSolution}
           label='Answer Key'
@@ -242,7 +257,7 @@ const Form = observer(({ ux }) => {
           {renderOptions()}
           {renderAddOptionButton()}
         </div>
-        <AddEditFormTextInput
+        <AnswerHTMLEditor
           onChange={ux.changeDetailedSolution}
           value={ux.detailedSolution}
           label='Detailed solution'
@@ -255,7 +270,7 @@ const Form = observer(({ ux }) => {
 
   return (
     <>
-      <AddEditFormTextInput
+      <AnswerHTMLEditor
         onChange={ux.changeQuestionText}
         value={ux.questionText}
         label='Question'

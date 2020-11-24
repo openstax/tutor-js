@@ -2,6 +2,7 @@ import { React, PropTypes, styled, cn, observer } from 'vendor';
 import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
+import { EditableHTML } from '../../editor';
 
 const StyledRowContent = styled.div`
   display: flex;
@@ -73,6 +74,27 @@ export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
 QuestionInfo.propTypes = {
   popoverInfo: PropTypes.node.isRequired,
   placement: PropTypes.string,
+};
+
+
+const EditableHTMLPanel = styled(EditableHTML)({
+  height: '200px',
+  flex: 1,
+  '.ProseMirror.pw-prosemirror-editor': {
+    padding: '2rem',
+  },
+});
+
+export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
+  <StyledRowContent className={className}>
+    {label && <Form.Label>{label}</Form.Label>}
+    <EditableHTMLPanel {...props} html={html || ''}/>
+  </StyledRowContent>
+);
+AnswerHTMLEditor.propTypes = {
+  html: PropTypes.string,
+  label: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export const AddEditFormTextInput = observer(({ onChange,value, label, placeholder, className }) => {
