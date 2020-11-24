@@ -163,8 +163,7 @@ class ReferenceBookNode extends BaseModel {
     if(!this.chapter_section || !this.chapter_section.chapter) {
       return this.titleText;
     }
-    const chapterSection = this.chapter_section;
-    return `${chapterSection.chapter}.${chapterSection.section || ' '} ${this.titleText}`;
+    return `${this.chapter_section.asString}. ${this.titleText}`;
   }
 
 }

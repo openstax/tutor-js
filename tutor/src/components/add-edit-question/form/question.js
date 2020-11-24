@@ -60,10 +60,14 @@ const StyledQuestionForm = styled.div`
         background-color: white;
         border: 1px solid ${colors.neutral.pale};
         flex: 0 1 77%;
+        .openstax-has-html {
+          margin: 1rem;
+        }
       }
       // overriding the inline style
       .perry-white {
           border: 1px solid ${colors.neutral.pale};
+          width: 100% !important;
         }
       }
     }
@@ -230,7 +234,7 @@ const Form = observer(({ ux }) => {
       return (
         <AnswerHTMLEditor
           onChange={ux.changeDetailedSolution}
-          value={ux.detailedSolution}
+          html={ux.detailedSolution}
           label='Answer Key'
           placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
           className="question-answer-key"
@@ -259,7 +263,7 @@ const Form = observer(({ ux }) => {
         </div>
         <AnswerHTMLEditor
           onChange={ux.changeDetailedSolution}
-          value={ux.detailedSolution}
+          html={ux.detailedSolution}
           label='Detailed solution'
           placeholder="Optional. This is not visible to students."
           className="detailed-solution"
@@ -272,7 +276,7 @@ const Form = observer(({ ux }) => {
     <>
       <AnswerHTMLEditor
         onChange={ux.changeQuestionText}
-        value={ux.questionText}
+        html={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
         className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}

@@ -58,7 +58,7 @@ export default class AddEditQuestionUX {
     this.onDisplayModal = props.onDisplayModal;
 
     //TODO: get from BE
-    this.didUserAgreeTermsOfUse = true;
+    this.didUserAgreeTermsOfUse = false;
 
     // edit or create
     if(props.exercise) {
