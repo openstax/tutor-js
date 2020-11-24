@@ -108,6 +108,10 @@ class ExerciseQuestion extends BaseModel {
     return !this.hasFormat('free-response');
   }
 
+  @computed get isTwoStep() {
+    return Boolean(this.hasFormat('multiple-choice') && this.hasFormat('free-response'));
+  }
+
   @action setExclusiveFormat(name) {
     if (name == 'open-ended') { name = 'free-response'; }
 

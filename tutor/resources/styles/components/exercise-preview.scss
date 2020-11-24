@@ -17,7 +17,7 @@
             background-color: $openstax-neutral-dark;
             &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
           }
-          &.edit {
+          &.copyEdit {
             background-color: #007297; // dark blue
             &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
           }

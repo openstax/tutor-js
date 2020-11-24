@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, partial } from 'lodash';
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput, QuestionInfo } from './shared';
 import AddEditQuestionUX from '../ux';
@@ -190,13 +189,13 @@ const MCQForm = observer(({ ux }) => {
         <Icon
           type="trash"
           onClick={() => ux.deleteOption(index)}
-          buttonProps={{ disabled: ux.options.length === 2 }}/>
+          buttonProps={{ disabled: ux.options.length <= 2 }}/>
       </div>
     </div>
   );
 
   const renderAddOptionButton = () => {
-    if(ux.options.length === 6) return null;
+    if(ux.options.length >= 6) return null;
     return (
       <div className="add-option-wrapper">
         <div className="left-side"></div>
@@ -271,24 +270,23 @@ const WRQForm = observer(({ ux }) => {
 
 const QuestionForm = observer(({ ux }) => {
   // if isMCQ is true, show MCQ form; otherwise show WRQ form
-  const [isMCQ, setIsMCQ] = useState(true);
-  const ComponentForm = isMCQ ? MCQForm : WRQForm;
+  const ComponentForm = ux.isMCQ ? MCQForm : WRQForm;
 
   return (
     <StyledQuestionForm>
       <div className="header-toggle">
         <Button
           variant="light"
-          className={cn({ 'selected': isMCQ })}
-          onClick={() => setIsMCQ(true)}
-          disabled={isMCQ}>
+          className={cn({ 'selected': ux.isMCQ })}
+          onClick={() => ux.isMCQ = true}
+          disabled={ux.isMCQ}>
                 Multiple-choice question
         </Button>
         <Button
           variant="light"
-          className={cn({ 'selected': !isMCQ })}
-          onClick={() => setIsMCQ(false)}
-          disabled={!isMCQ}>
+          className={cn({ 'selected': !ux.isMCQ })}
+          onClick={() => ux.isMCQ = false}
+          disabled={!ux.isMCQ}>
                 Written-response question
         </Button>
       </div>

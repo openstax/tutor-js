@@ -6,6 +6,7 @@ export default class AddEditQuestionUX {
 
   // local
   @observable didUserAgreeTermsOfUse;
+  @observable isMCQ;
 
   @observable isEmpty = {
     selectedChapter: false,
@@ -14,7 +15,6 @@ export default class AddEditQuestionUX {
   }
 
   /** props */
-  //@observable question;
   @observable book;
   @observable course;
   // chapter/section ids
@@ -23,6 +23,7 @@ export default class AddEditQuestionUX {
   onDisplayModal;
 
   /** form */
+  @observable from_exercise_id;
   // chapter/sections
   @observable selectedChapter;
   @observable selectedChapterSection;
@@ -52,21 +53,72 @@ export default class AddEditQuestionUX {
     this.onDisplayModal = props.onDisplayModal;
 
     //TODO: get from BE
-    this.didUserAgreeTermsOfUse = false;
+    this.didUserAgreeTermsOfUse = true;
 
-    // auto selected if there is only one chapter or selected pre-selected
-    if(this.preSelectedChapters.length === 1) {
-      this.selectedChapter = this.preSelectedChapters[0];
-      if(this.preSelectedChapterSections.length === 1) {
-        this.selectedChapterSection = this.preSelectedChapterSections[0];
+    // edit or create
+    if(props.exercise) {
+      this.populateExerciseContent(props.exercise);
+    }
+    else {
+      // auto selected if there is only one chapter or selected pre-selected
+      if(this.preSelectedChapters.length === 1) {
+        this.selectedChapter = this.preSelectedChapters[0];
+        if(this.preSelectedChapterSections.length === 1) {
+          this.selectedChapterSection = this.preSelectedChapterSections[0];
+        }
       }
+      // show 4 options by default
+      for(let i = 0; i < 4; i++) {
+        this.options.push({
+          text: '', feedback: '', isCorrect: false,
+        });
+      }
+      this.isMCQ = true;
     }
-    // show 4 options by default
-    for(let i = 0; i < 4; i++) {
+  }
+
+  populateExerciseContent(exercise) {
+    // question - can only edit questions that are not MPQ
+    const question = exercise.content.questions[0];
+    this.from_exercise_id = exercise.id;
+    this.isMCQ = question.isMultipleChoice;
+    // chapter & section
+    this.selectedChapter = find(this.preSelectedChapters, psc => some(psc.children, c => c.uuid === exercise.page_uuid));
+    this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === exercise.page_uuid);
+    
+    this.questionText = question.stem_html;
+    this.isTwoStep = question.isTwoStep;
+    forEach(question.answers, a => {
       this.options.push({
-        text: '', feedback: '', isCorrect: false,
+        text: a.content_html,
+        feedback: a.feedback_html,
+        isCorrect: a.isCorrect,
       });
+    });
+    const detailedSolution = find(question.collaborator_solutions, cs => cs.solution_type === 'detailed');
+    this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
+    this.answerKey = detailedSolution ? detailedSolution.content_html : '';
+    
+    // tags
+    if(exercise.tags && exercise.tags.length > 0) {
+      const exerciseTags = exercise.tags;
+      const time = find(exerciseTags, t => t.type === 'time');
+      const difficulty = find(exerciseTags, t => t.type === 'difficulty');
+      this.tagTime = time ? time.value : undefined;
+      this.tagDifficulty = difficulty ? difficulty.value : undefined;
+      this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS);
+      this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS);
     }
+
+    //general
+    this.questionName = question.nickname;
+  }
+
+  populateExerciseTagLevel(exerciseTags, tags) {
+    return find(tags, tg => {
+      const tag = find(exerciseTags, ect => ect.type === 'dok');
+      return tag ? tag.value === tg.value : false;
+    });
   }
 
   @action.bound agreeTermsOfUse() {

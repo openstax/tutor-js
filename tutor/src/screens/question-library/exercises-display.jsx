@@ -230,11 +230,14 @@ class ExercisesDisplay extends React.Component {
     );
   };
 
-  addCardActions = (actions) => {
-    actions.edit = {
-      message: 'Edit',
-      handler: this.onEditExercise,
-    };
+  addCardActions = (actions, exercise) => {
+    // For now, MPQ are not allowed to be edited
+    if(!exercise.isMultiPart) {
+      actions.copyEdit = {
+        message: 'Copy & Edit',
+        handler: this.onEditExercise,
+      };
+    }
     actions.details = {
       message: 'Question details',
       handler: this.onShowDetailsViewClick,
@@ -324,7 +327,6 @@ class ExercisesDisplay extends React.Component {
     if (exercises.isFetching({ pageIds })) {
       return <Loading />;
     }
-    console.log(this.selectedExercise);
     return (
       <StyledExerciseDisplay>
         <div className="controls-wrapper">
