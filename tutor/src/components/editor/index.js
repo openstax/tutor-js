@@ -2,11 +2,10 @@ import { React, PropTypes, styled, cn, useState, useMemo } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
 import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
-import { EditorRuntime } from './runtime';
+import { FullFeaturedEditorRuntime, LimitedEditorRuntime } from './runtime';
 
-const Editing = ({ className, html, onImageUpload, onSave, ...props }) => {
+const Editing = ({ className, html, runtime, ...props }) => {
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
-  const runtime = useMemo(() => new EditorRuntime({ onSave, onImageUpload }), [onSave, onImageUpload]);
 
   return (
     <Editor
@@ -20,6 +19,7 @@ const Editing = ({ className, html, onImageUpload, onSave, ...props }) => {
 };
 Editing.propTypes = {
   className: PropTypes.string,
+  runtime: PropTypes.object.isRequired,
   html: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
   onImageUpload: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ Editing.propTypes = {
 
 const Wrapper = styled.div({
   margin: '40px',
-  minHeight: '300px',
+  minHeight: '150px',
   display: 'flex',
   '.openstax-has-html': {
     flex: 1,
@@ -40,6 +40,7 @@ export const EditableHTML = ({
   placeholder,
   onImageUpload,
   onChange,
+  limitedEditing,
 }) => {
   const [isEditing, setEditing] = useState(false);
   const [currentHTML, setHTML] = useState(defaultHTML);
@@ -52,9 +53,13 @@ export const EditableHTML = ({
       }
     }
   }, [setEditing, setHTML]);
+  const runtimes = useMemo(() => ({
+    full: new FullFeaturedEditorRuntime({ onSave, onImageUpload }),
+    limited: new LimitedEditorRuntime({ onSave, onImageUpload }),
+  }), [onSave, onImageUpload]);
   let body;
   if (isEditing) {
-    body = <Editing html={currentHTML} onImageUpload={onImageUpload} onSave={onSave} />;
+    body = <Editing html={currentHTML} runtime={limitedEditing ? runtimes.limited : runtimes.full} />;
   } else {
     body = <HTML autoFocus html={currentHTML || placeholder} onClick={() => setEditing(true)}/>;
   }
@@ -71,6 +76,7 @@ EditableHTML.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.node,
   onChange: PropTypes.func,
+  limitedEditing: PropTypes.bool.isRequired,
   onImageUpload: PropTypes.func.isRequired,
   html: PropTypes.string.isRequired,
 };

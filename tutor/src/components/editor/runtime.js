@@ -1,5 +1,5 @@
 import { DirectUpload } from '@rails/activestorage';
-import { last, omit, isEmpty } from 'lodash';
+import { map, omit, isEmpty, pick } from 'lodash';
 import { convertToHTML, UICommand } from 'perry-white';
 
 const STORAGE_PATH = '/rails/active_storage';
@@ -12,6 +12,15 @@ const HIDDEN_COMMANDS = [
   '[format_clear] Clear formats',
   '[undo] Undo',
   '[redo] Redo',
+];
+
+const LIMITED_COMMANDS = [
+  '[format_bold] Bold',
+  '[format_italic] Italic',
+  '[superscript] Superscript',
+  '[functions] Math',
+  '[link] Apply link',
+  '[format_clear] Clear formats',
 ];
 
 class SaveCommand extends UICommand {
@@ -29,7 +38,30 @@ class SaveCommand extends UICommand {
   }
 }
 
-export class EditorRuntime {
+export class LimitedEditorRuntime {
+  constructor({ onSave }) {
+    this.onSave = onSave;
+  }
+
+  canUploadImage() {
+    return false;
+  }
+
+  filterCommandGroups(standardGroups) {
+    const commands = {};
+
+    standardGroups.forEach(group => {
+      const newGroup = pick(group, LIMITED_COMMANDS);
+      if (!isEmpty(newGroup)) {
+        Object.assign(commands, newGroup);
+      }
+    });
+    commands['[save] Save'] = new SaveCommand(this.onSave);
+    return [commands];
+  }
+}
+
+export class FullFeaturedEditorRuntime {
 
   constructor({ onSave, onImageUpload }) {
     this.onSave = onSave;
@@ -62,15 +94,12 @@ export class EditorRuntime {
     });
   }
 
-  filterCommandGroups = (standardGroups) => {
-    const updatedGroups = [];
+  filterCommandGroups(standardGroups) {
+    const commands = {};
     standardGroups.forEach(group => {
-      const newGroup = omit(group, HIDDEN_COMMANDS);
-      if (!isEmpty(newGroup)) {
-        updatedGroups.push(newGroup);
-      }
+      Object.assign(commands, omit(group, HIDDEN_COMMANDS));
     });
-    last(updatedGroups)['[save] Save'] = (new SaveCommand(this.onSave));
-    return updatedGroups;
+    commands['[save] Save'] = new SaveCommand(this.onSave);
+    return map(commands, (cmd, label) => ({ [label]: cmd  }));
   }
 }

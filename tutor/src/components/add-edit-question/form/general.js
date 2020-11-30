@@ -117,6 +117,7 @@ const GeneralForm = observer(({ ux }) => {
   return (
     <StyledGeneralForm>
       <AddEditFormTextInput
+        plainText
         onChange={ux.changeQuestionName}
         value={ux.questionName}
         label='Name'
