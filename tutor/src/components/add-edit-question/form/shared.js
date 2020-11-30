@@ -27,6 +27,32 @@ const StyledRowContent = styled.div`
       padding: 2.4rem 1.8rem;
     }
   }
+  .editor-wrapper {
+    .editor {
+      display: flex;
+      flex-flow: column wrap;
+      .error-info {
+        color: ${colors.strong_red};
+      }
+      .editable-html {
+        margin: 0;
+        background-color: white;
+        border: 1px solid ${colors.neutral.pale};
+        .openstax-has-html {
+          margin: 1rem;
+        }
+      } 
+      // overriding the inline style
+      .perry-white {
+        border: 1px solid ${colors.neutral.pale};
+        width: 100% !important;
+      }
+    }
+    &.isEmpty .editable-html {
+      border: 1px solid ${colors.soft_red};
+      background-color: ${colors.gray_red};
+    }
+  }
 `;
 
 const StyledAddEditFormTextInput = styled(Form.Group)`
@@ -78,23 +104,26 @@ QuestionInfo.propTypes = {
 
 
 const EditableHTMLPanel = styled(EditableHTML)({
-
   flex: 1,
   '.ProseMirror.pw-prosemirror-editor': {
     padding: '2rem',
   },
 });
 
-export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
-  <StyledRowContent className={className}>
+export const AnswerHTMLEditor = ({ className, label, html, errorInfo, ...props }) => (
+  <StyledRowContent className={cn('editor-wrapper', className)}>
     {label && <Form.Label>{label}</Form.Label>}
-    <EditableHTMLPanel {...props} html={html || ''}/>
+    <div className="editor">
+      <EditableHTMLPanel {...props} html={html || ''}/>
+      {errorInfo && <p className="error-info">{errorInfo}</p>}
+    </div>
   </StyledRowContent>
 );
 AnswerHTMLEditor.propTypes = {
   html: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
+  errorInfo: PropTypes.string,
 };
 
 export const AddEditFormTextInput = observer(({ onChange,value, label, placeholder, className }) => {

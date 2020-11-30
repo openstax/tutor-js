@@ -38,8 +38,8 @@ const StyledToggle = styled(Dropdown.Toggle)`
     }
 
     &.has-error {
-      border-color: #E298A0;
-      background-color: #f8e8ea;
+      border-color: ${colors.soft_red};
+      background-color: ${colors.gray_red};
     }
   }
 `;

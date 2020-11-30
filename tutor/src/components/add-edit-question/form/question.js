@@ -55,20 +55,8 @@ const StyledQuestionForm = styled.div`
     .right-side {
       flex: 0 1 70%;
       ${fullWidthTablet}
-      .editable-html {
-        margin: 0;
-        background-color: white;
-        border: 1px solid ${colors.neutral.pale};
+      .editor {
         flex: 0 1 77%;
-        .openstax-has-html {
-          margin: 1rem;
-        }
-      }
-      // overriding the inline style
-      .perry-white {
-          border: 1px solid ${colors.neutral.pale};
-          width: 100% !important;
-        }
       }
     }
     .question-text {
@@ -102,9 +90,9 @@ const StyledQuestionForm = styled.div`
       } 
     }
     .option-choices-wrapper {
-        display: column;
-        flex-flow: column wrap;
-        margin-bottom: 2rem;
+      display: column;
+      flex-flow: column wrap;
+      margin-bottom: 2rem;
       > div {
         display: flex;
         flex-flow: row wrap;
@@ -122,6 +110,11 @@ const StyledQuestionForm = styled.div`
               color: ${colors.neutral.pale};
               &.is-correct {
                 color: ${colors.green};
+              }
+              &.check-correct-empty {
+                color: #ffafb9;
+                border-radius: 40px;
+                border: 2px solid ${colors.soft_red};
               }
             }
           }
@@ -147,6 +140,10 @@ const StyledQuestionForm = styled.div`
           color: ${colors.cerulan};
           font-weight: 700;
         }
+      }
+      .check-correct-error {
+        margin: 1rem 0 0 7.5rem;
+        color: ${colors.strong_red};
       }
     }
   }
@@ -178,7 +175,7 @@ const Form = observer(({ ux }) => {
       <div className="left-side">
         <Icon
           type="check-circle"
-          className={cn({ 'is-correct': o.isCorrect })}
+          className={cn({ 'is-correct': o.isCorrect, 'check-correct-empty': ux.isEmpty.correctOption })}
           onClick={() => ux.checkCorrectOption(index)}
           buttonProps={{ disabled: o.isCorrect }}/>
       </div>
@@ -258,6 +255,7 @@ const Form = observer(({ ux }) => {
           </div>
         </div>
         <div className="option-choices-wrapper">
+          {ux.isEmpty.correctOption && <p className="check-correct-error">Check correct option</p>}
           {renderOptions()}
           {renderAddOptionButton()}
         </div>
@@ -271,7 +269,7 @@ const Form = observer(({ ux }) => {
       </>
     );
   };
-
+  
   return (
     <>
       <AnswerHTMLEditor
@@ -280,6 +278,7 @@ const Form = observer(({ ux }) => {
         label='Question'
         placeholder="Enter question or problem statement."
         className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
+        errorInfo={ux.isEmpty.questionText ? 'Question field cannot be empty' : ''}
       />
       {renderQuestionInfo()}
     </>

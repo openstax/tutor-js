@@ -1,7 +1,8 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy } from 'lodash';
+import { filter, some, find, forEach, pickBy, every } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
+import S from '../../helpers/string';
 
 export default class AddEditQuestionUX {
 
@@ -11,10 +12,12 @@ export default class AddEditQuestionUX {
   // other users or OpenStax
   @observable isUserGeneratedQuestion = false;
 
+  // track emptiness of required fields
   @observable isEmpty = {
     selectedChapter: false,
     selectedChapterSection: false,
     questionText: false,
+    correctOption: false,
   }
 
   /** props */
@@ -198,7 +201,9 @@ export default class AddEditQuestionUX {
   // actions for question form section
   @action.bound changeQuestionText(text) {
     this.questionText = text;
-    this.isEmpty.questionText = false;
+    if(!S.isEmpty(S.stripHTMLTags(text))) {
+      this.isEmpty.questionText = false;
+    }
   }
 
   // called when an image is added to the HTML for question text
@@ -226,6 +231,7 @@ export default class AddEditQuestionUX {
         o.isCorrect = false;
       }
     });
+    this.isEmpty.correctOption = false;
   }
 
   @action.bound addOption() {
@@ -313,7 +319,13 @@ export default class AddEditQuestionUX {
     }
 
     forEach(filterIsEmptyFields, (value, key) => {
-      this.isEmpty[key] = !this[key];
+      // check if there is a corect option selected
+      if(key === 'correctOption') {
+        this.isEmpty[key] = every(this.options, o => !o.isCorrect);
+      }
+      else {
+        this.isEmpty[key] = !this[key];
+      }
     });
   }
 }
