@@ -128,7 +128,7 @@ TextInputHTMLEditor.propTypes = {
 export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
   <StyledRowContent className={className}>
     {label && <Form.Label>{label}</Form.Label>}
-    <EditableHTMLPanel {...props} limited={false} html={html || ''}/>
+    <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
   </StyledRowContent>
 );
 AnswerHTMLEditor.propTypes = {

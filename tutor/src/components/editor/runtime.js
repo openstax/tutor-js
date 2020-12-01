@@ -1,6 +1,6 @@
 import { DirectUpload } from '@rails/activestorage';
 import { map, omit, isEmpty, pick } from 'lodash';
-import { convertToHTML, UICommand } from 'perry-white';
+import { convertToHTML } from 'perry-white';
 
 const STORAGE_PATH = '/rails/active_storage';
 
@@ -23,21 +23,6 @@ const LIMITED_COMMANDS = [
   '[format_clear] Clear formats',
 ];
 
-class SaveCommand extends UICommand {
-
-  constructor(onClick) {
-    super();
-    this.onClick = onClick;
-  }
-
-  isEnabled() { return true; }
-  isActive() { return true; }
-
-  execute = (state) => {
-    this.onClick(convertToHTML(state));
-  }
-}
-
 export class LimitedEditorRuntime {
   constructor({ onSave }) {
     this.onSave = onSave;
@@ -47,16 +32,18 @@ export class LimitedEditorRuntime {
     return false;
   }
 
+  onBlur(state) {
+    this.onSave(convertToHTML(state));
+  }
+
   filterCommandGroups(standardGroups) {
     const commands = {};
-
     standardGroups.forEach(group => {
       const newGroup = pick(group, LIMITED_COMMANDS);
       if (!isEmpty(newGroup)) {
         Object.assign(commands, newGroup);
       }
     });
-    commands['[save] Save'] = new SaveCommand(this.onSave);
     return [commands];
   }
 }
@@ -94,12 +81,15 @@ export class FullFeaturedEditorRuntime {
     });
   }
 
+  onBlur(state) {
+    this.onSave(convertToHTML(state));
+  }
+
   filterCommandGroups(standardGroups) {
     const commands = {};
     standardGroups.forEach(group => {
       Object.assign(commands, omit(group, HIDDEN_COMMANDS));
     });
-    commands['[save] Save'] = new SaveCommand(this.onSave);
     return map(commands, (cmd, label) => ({ [label]: cmd  }));
   }
 }

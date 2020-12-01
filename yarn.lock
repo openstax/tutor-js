@@ -8244,6 +8244,11 @@ math-random@^1.0.1:
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
   integrity sha512-rUxjysqif/BZQH2yhd5Aaq7vXMSx9NdEsQcyA07uEzIvxgI7zIr33gGsh+RU0/XjmQpCW7RsVof1vlkvQVCK5A==
 
+"mathlive@>= 0.55.0 < 1", mathlive@^0.59.0:
+  version "0.59.0"
+  resolved "https://registry.yarnpkg.com/mathlive/-/mathlive-0.59.0.tgz#95e3720a8c16a295d266c36ddf9d6c8bfc363228"
+  integrity sha512-CUf7kAY1UWTvJm5IFJrFlXssyl851aGPNAdlchMbAMZQnryudQJE59BlrPTtAeY95k41PGqMmM8Vozj+We+hNA==
+
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -8817,11 +8822,6 @@ node-libs-browser@^2.2.1:
     url "^0.11.0"
     util "^0.11.0"
     vm-browserify "^1.0.1"
-
-node-mathquill@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/node-mathquill/-/node-mathquill-0.10.2.tgz#3c523cac8c4cf1e827b6c7681b0817f300e4956c"
-  integrity sha1-PFI8rIxM8egntsdoGwgX8wDklWw=
 
 node-modules-regexp@^1.0.0:
   version "1.0.0"
@@ -9563,14 +9563,14 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-perry-white@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/perry-white/-/perry-white-0.1.5.tgz#d0fb487865e5bde6eba04d38b4fe794d9a57072c"
-  integrity sha512-BO+sjKZX+9qAJaHEHQc8+leZvkSx9JH9x0P2YCNRQXZnm/9ebBnLr//yhrZpaodg1XMlX4VyAvMcjOQg+ZqcLQ==
+perry-white@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/perry-white/-/perry-white-0.2.1.tgz#90c0926de67d322275f0998428eb71df239b85de"
+  integrity sha512-tNsN/iDvsAS4OQetq/sPP3YL1IRtQ20f4/5tLqTs341N8iKCji/Y6o1vf972GHRe3pahE1FrCD1+wmzGxNe6Pg==
   dependencies:
     browserkeymap "2.0.2"
     color "3.1.2"
-    node-mathquill "0.10.2"
+    mathlive "^0.59.0"
     nullthrows "1.1.1"
     prosemirror-collab "1.2.2"
     prosemirror-commands "1.1.4"
@@ -9587,6 +9587,7 @@ perry-white@0.1.5:
     prosemirror-utils "0.9.6"
     prosemirror-view "^1.15.2"
     query-string "^6.13.7"
+    react-mathlive "^3.0.5-preview.1"
     resize-observer-polyfill "1.5.1"
     smooth-scroll-into-view-if-needed "^1.1.28"
     stable "0.1.8"
@@ -10432,6 +10433,16 @@ react-dock@^0.2.4:
     lodash.debounce "^3.1.1"
     prop-types "^15.5.8"
 
+react-dom@^16.7.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
+
 react-dom@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
@@ -10516,6 +10527,15 @@ react-maskedinput@4.0.1:
   dependencies:
     inputmask-core "^2.1.1"
     prop-types "^15.5.7"
+
+react-mathlive@^3.0.5-preview.1:
+  version "3.0.5-preview.1"
+  resolved "https://registry.yarnpkg.com/react-mathlive/-/react-mathlive-3.0.5-preview.1.tgz#4914e1c166777113cebd033babf94332bf3a8b26"
+  integrity sha512-NkFat1clT1zuAcXd+jgsNtTcNHk1450JhhY645taEJ1yIgCrbKvqIvGxnJGXxQu7mkq3jf1iqfwDj9Gb0q7m3Q==
+  dependencies:
+    mathlive ">= 0.55.0 < 1"
+    react "^16.7.0"
+    react-dom "^16.7.0"
 
 react-onclickoutside@^6.9.0:
   version "6.9.0"
@@ -10661,6 +10681,15 @@ react@16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
+react@^16.7.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -11304,6 +11333,14 @@ scheduler@^0.18.0:
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
   integrity sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, cn, useState, useMemo } from 'vendor';
+import { React, PropTypes, Theme, styled, cn, useState, useMemo, useEffect } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
 import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
@@ -57,6 +57,9 @@ export const EditableHTML = ({
     full: new FullFeaturedEditorRuntime({ onSave, onImageUpload }),
     limited: new LimitedEditorRuntime({ onSave, onImageUpload }),
   }), [onSave, onImageUpload]);
+  useEffect(() => {
+    document.body.style.setProperty('--keyboard-zindex', Theme.zIndex.modal + 1);
+  },[]);
   let body;
   if (isEditing) {
     body = <Editing html={currentHTML} runtime={limitedEditing ? runtimes.limited : runtimes.full} />;
