@@ -7,7 +7,7 @@
 import adapters from './adapter';
 import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
-import Exercises, { Exercise } from '../models/exercises';
+import Exercises from '../models/exercises';
 import ReferenceBook from '../models/reference-book';
 import ReferenceBookNode from '../models/reference-book/node';
 import Ecosystems from '../models/ecosystems';
@@ -232,7 +232,7 @@ const startAPI = function() {
     'saveExerciseExclusion', { method: 'PUT', pattern: 'courses/{id}/exercises/exclude', onSuccess: 'onExerciseExcluded' }
   );
 
-  connectModelCreate(Exercise,
+  connectModelCreate(Course,
     'createExercise', { pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseCreated' }
   );
 

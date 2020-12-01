@@ -311,11 +311,21 @@ class Course extends BaseModel {
   save() {
     return { id: this.id, data: pick(this, SAVEABLE_ATTRS) };
   }
+
   saveExerciseExclusion({ exercise, is_excluded }) {
     exercise.is_excluded = is_excluded; // eagerly set exclusion
     return { data: [{ id: exercise.id, is_excluded }] };
   }
   onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
+  }
+
+  createExercise(exercise) {
+    return { 
+      data: exercise,
+    };
+  }
+  onExerciseCreated(data) {
+    console.log(data);
   }
 }

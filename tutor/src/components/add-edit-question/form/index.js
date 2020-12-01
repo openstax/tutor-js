@@ -39,7 +39,8 @@ const FormButtons = observer(({ ux }) => {
     <Button
       variant="default"
       className="preview"
-      onClick={() => window.alert('preview')}>
+      onClick={() => window.alert('preview')}
+      disabled={!ux.isReadyToPublish}>
         Preview
     </Button>;
 
@@ -69,13 +70,15 @@ const FormButtons = observer(({ ux }) => {
       <Button
         variant="default"
         className="publish"
-        onClick={() => window.alert('publish')}>
+        onClick={() => ux.publish(true)}
+        disabled={!ux.isReadyToPublish}>
           Publish question
       </Button>
       <Button
         variant="primary"
         className="publish"
-        onClick={() => window.alert('publish and exit')}>
+        onClick={() => window.alert('publish and exit')}
+        disabled={!ux.isReadyToPublish}>
           Publish &amp; Exit
       </Button>
     </>

@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy, every } from 'lodash';
+import { filter, some, find, forEach, pickBy, every, map } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
@@ -155,7 +155,7 @@ export default class AddEditQuestionUX {
 
   @computed get authors() {
     // if creating or editing own question, show all teachers in course
-    if(!this.from_exercise_id || this.isUserGeneratedQuestion) {
+    if(this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
       return [...this.course.teacher_profiles];
     }
     else if (this.exercise) {
@@ -298,6 +298,69 @@ export default class AddEditQuestionUX {
 
   @action.bound changeExcludeOriginal({ target: { checked } }) {
     this.excludeOriginal = checked;
+  }
+
+  @action async publish(doExit) {
+    await this.course.createExercise({
+      selectedChapterSection: this.selectedChapterSection.id,
+      authorId: this.author.id,
+      derived_from_id: this.from_exercise_id,
+      questionText: this.questionText,
+      questionName: this.questionName,
+      options: this.processOptions(),
+      detailedSolution: this.detailedSolution,
+      isTwoStep: this.isTwoStep,
+      tags: this.processTags(),
+      annonymize: this.annonymize,
+      copyable: this.allowOthersCopyEdit,
+    });
+
+    if(doExit) {
+      this.onDisplayModal(false);
+    }
+  }
+
+  processTags() {
+    const tagkeys = ['tagTime', 'tagDifficulty', 'tagBloom', 'tagDok'];
+    let tags = {};
+    forEach(tagkeys, key => {
+      if(this[key]) {
+        tags[key] = { value: parseInt(this[key].value, 10) || this[key] };
+      }
+    });
+
+    return tags;
+  }
+
+  processOptions() {
+    return map(this.filledOptions, o => {
+      return {
+        content: o.text,
+        feedback: o.feedback,
+        correctness: o.isCorrect ? '1.0' : '0.0',
+      };
+    });
+  }
+
+  @computed get filledOptions() {
+    return filter(this.options, o => !S.isEmpty(S.stripHTMLTags(o.text)));
+  }
+
+  @computed get isReadyToPublish() {
+    // check chapter and section
+    const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
+    // check question section
+    let isQuestionFilled;
+    if(this.isMCQ) {
+      isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
+    }
+    else {
+      isQuestionFilled = Boolean(this.questionText);
+    }
+    // check author
+    const isAuthorSelected = Boolean(this.author);
+
+    return isTopicSelected && isQuestionFilled && isAuthorSelected;
   }
 
   /**
