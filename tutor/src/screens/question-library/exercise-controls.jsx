@@ -86,7 +86,7 @@ const StyledPopover = styled(Popover)`
 class ExerciseControls extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    homeworkExercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectSections: PropTypes.func.isRequired,
     exerciseTypeFilter: PropTypes.string.isRequired,
     onExerciseTypeFilterChange: PropTypes.func.isRequired,
@@ -118,7 +118,7 @@ class ExerciseControls extends React.Component {
 
   @autobind renderControls() {
     const {
-      homeworkExercises,
+      exercises,
       course,
       displayedChapterSections,
       showingDetails,
@@ -198,7 +198,7 @@ class ExerciseControls extends React.Component {
         <div className="questions-controls-wrapper">
           <HomeExerciseFilters
             className="question-filters"
-            exercises={homeworkExercises}
+            exercises={exercises.homework}
             returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
           <Button
             variant="primary"

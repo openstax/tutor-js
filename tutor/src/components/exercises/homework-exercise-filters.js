@@ -135,7 +135,7 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
     });
     returnFilteredExercises(ex);
     return () => {};
-  }, [filters]);
+  }, [filters, exercises]);
 
   return (
     <StyledQuestionFilter className={cn(className)}>

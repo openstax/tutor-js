@@ -36,7 +36,7 @@ export default class AddEditQuestionUX {
   @observable selectedChapterSection;
   // question
   @observable questionText;
-  @observable isTwoStep;
+  @observable isTwoStep = false;
   @observable options = [];
   // detailed solution (MCQ). answer key (WRQ)
   @observable detailedSolution;
@@ -52,6 +52,9 @@ export default class AddEditQuestionUX {
   @observable annonymize = false;
   @observable excludeOriginal = false;
 
+  // for creating the exercise
+  exercises;
+
   constructor(props = {}) {
     this.book = props.book;
     this.course = props.course;
@@ -59,6 +62,7 @@ export default class AddEditQuestionUX {
     this.pageIds = props.pageIds;
     this.exercise = props.exercise;
     this.onDisplayModal = props.onDisplayModal;
+    this.exercises = props.exercises;
 
     //TODO: get from BE
     this.didUserAgreeTermsOfUse = true;
@@ -180,6 +184,27 @@ export default class AddEditQuestionUX {
     return browseBookLink;
   }
 
+  @computed get filledOptions() {
+    return filter(this.options, o => !S.isEmpty(S.stripHTMLTags(o.text)));
+  }
+
+  @computed get isReadyToPublish() {
+    // check chapter and section
+    const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
+    // check question section
+    let isQuestionFilled;
+    if(this.isMCQ) {
+      isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
+    }
+    else {
+      isQuestionFilled = Boolean(this.questionText);
+    }
+    // check author
+    const isAuthorSelected = Boolean(this.author);
+
+    return isTopicSelected && isQuestionFilled && isAuthorSelected;
+  }
+
   // actions for topic form section
   @action.bound setSelectedChapterByUUID(uuid) {
     if(this.selectedChapter && this.selectedChapter.uuid === uuid) return;
@@ -258,8 +283,8 @@ export default class AddEditQuestionUX {
     this.options[index + 1] = tempOption;
   }
 
-  @action.bound changeDetailedSolution({ target: { value } }) {
-    this.detailedSolution = value;
+  @action.bound changeDetailedSolution(text) {
+    this.detailedSolution = text;
   }
 
   // actions for tags form section
@@ -301,22 +326,28 @@ export default class AddEditQuestionUX {
   }
 
   @action async publish(doExit) {
-    await this.course.createExercise({
-      selectedChapterSection: this.selectedChapterSection.id,
-      authorId: this.author.id,
-      derived_from_id: this.from_exercise_id,
-      questionText: this.questionText,
-      questionName: this.questionName,
-      options: this.processOptions(),
-      detailedSolution: this.detailedSolution,
-      isTwoStep: this.isTwoStep,
-      tags: this.processTags(),
-      annonymize: this.annonymize,
-      copyable: this.allowOthersCopyEdit,
+    await this.exercises.createExercise({
+      course: this.course,
+      data: {
+        selectedChapterSection: this.selectedChapterSection.id,
+        authorId: this.author.id,
+        derived_from_id: this.from_exercise_id,
+        questionText: this.questionText,
+        questionName: this.questionName,
+        options: this.processOptions(),
+        detailedSolution: this.detailedSolution,
+        isTwoStep: this.isTwoStep,
+        tags: this.processTags(),
+        annonymize: this.annonymize,
+        copyable: this.allowOthersCopyEdit,
+      },
     });
 
     if(doExit) {
       this.onDisplayModal(false);
+    }
+    else {
+      this.resetForm();
     }
   }
 
@@ -342,25 +373,25 @@ export default class AddEditQuestionUX {
     });
   }
 
-  @computed get filledOptions() {
-    return filter(this.options, o => !S.isEmpty(S.stripHTMLTags(o.text)));
-  }
-
-  @computed get isReadyToPublish() {
-    // check chapter and section
-    const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
-    // check question section
-    let isQuestionFilled;
-    if(this.isMCQ) {
-      isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
-    }
-    else {
-      isQuestionFilled = Boolean(this.questionText);
-    }
-    // check author
-    const isAuthorSelected = Boolean(this.author);
-
-    return isTopicSelected && isQuestionFilled && isAuthorSelected;
+  @action resetForm() {
+    this.questionText = '';
+    this.isTwoStep = false;
+    forEach(this.options, o => {
+      o.text = '';
+      o.feedback = '';
+      o.isCorrect = false;
+    });
+    this.detailedSolution = '';
+    // tags
+    this.tagTime = undefined;
+    this.tagDifficulty = undefined;
+    this.tagBloom = undefined;
+    this.tagDok = undefined;
+    // general
+    this.questionName = '';
+    this.allowOthersCopyEdit = true;
+    this.annonymize = false;
+    this.excludeOriginal = false;
   }
 
   /**

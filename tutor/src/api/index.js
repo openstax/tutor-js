@@ -232,8 +232,8 @@ const startAPI = function() {
     'saveExerciseExclusion', { method: 'PUT', pattern: 'courses/{id}/exercises/exclude', onSuccess: 'onExerciseExcluded' }
   );
 
-  connectModelCreate(Course,
-    'createExercise', { pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseCreated' }
+  connectModelCreate(Exercises.constructor,
+    'createExercise', { pattern: 'courses/{courseId}/exercises', onSuccess: 'onExerciseCreated' }
   );
 
   connectModelRead(CourseLMS, 'fetch', { pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete' });

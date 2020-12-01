@@ -84,8 +84,7 @@ class ExercisesDisplay extends React.Component {
   }
 
   @observable exerciseTypeFilter = 'homework';
-  @observable displayedExercises = this.props.exercises[this.exerciseTypeFilter];
-  @observable filteredExercises = this.displayedExercises;
+  @observable filteredExercises = this.props.exercises[this.exerciseTypeFilter];
   @observable selectedExercise;
 
   @observable currentSection;
@@ -98,8 +97,7 @@ class ExercisesDisplay extends React.Component {
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
-    this.displayedExercises = this.props.exercises[this.exerciseTypeFilter];
-    this.filteredExercises = this.displayedExercises;
+    this.filteredExercises = this.props.exercises[this.exerciseTypeFilter];
     // scroll to top if exercise type is changed
     this.scroller.scrollToTop({ deferred: true });
   };
@@ -336,7 +334,7 @@ class ExercisesDisplay extends React.Component {
             course={course}
             onSelectSections={onSelectSections}
             exerciseTypeFilter={this.exerciseTypeFilter}
-            homeworkExercises={this.displayedExercises}
+            exercises={exercises}
             onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
             onFilterHomeworkExercises={this.onFilterHomeworkExercises}
             displayedChapterSections={this.displayedChapterSections}
@@ -357,7 +355,8 @@ class ExercisesDisplay extends React.Component {
           pageIds={pageIds}
           course={course}
           showModal={this.showAddEditQuestionModal}
-          onDisplayModal={this.onDisplayAddEditQuestionModal} />
+          onDisplayModal={this.onDisplayAddEditQuestionModal}
+          exercises={exercises} />
       </StyledExerciseDisplay>
     );
   }

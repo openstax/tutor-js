@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, cn, useState, useMemo } from 'vendor';
+import { React, PropTypes, styled, cn, useState, useMemo, useEffect } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
 import { Editor, convertFromHTML } from 'perry-white';
 import 'perry-white/dist/styles.css';
@@ -52,6 +52,12 @@ export const EditableHTML = ({
       }
     }
   }, [setEditing, setHTML]);
+
+  // listen if the html prop is changed outside of the editor
+  useEffect(() => {
+    setHTML(defaultHTML);
+  }, [defaultHTML]);
+
   let body;
   if (isEditing) {
     body = <Editing html={currentHTML} onImageUpload={onImageUpload} onSave={onSave} />;

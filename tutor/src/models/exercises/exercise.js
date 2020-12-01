@@ -14,6 +14,10 @@ export default
 @identifiedBy('exercises/exercise')
 class TutorExercise extends BaseModel {
 
+  constructor(attrs = {}) {
+    super(attrs);
+  }
+
   @identifier id;
   @field ecosystem_id;
 

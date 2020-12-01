@@ -319,13 +319,4 @@ class Course extends BaseModel {
   onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
   }
-
-  createExercise(exercise) {
-    return { 
-      data: exercise,
-    };
-  }
-  onExerciseCreated(data) {
-    console.log(data);
-  }
 }
