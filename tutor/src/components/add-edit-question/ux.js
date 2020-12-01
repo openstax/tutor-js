@@ -1,8 +1,9 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy, every, map } from 'lodash';
+import { filter, some, find, forEach, pickBy, every, map, isEqual } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
+import { unix } from 'moment';
 
 export default class AddEditQuestionUX {
 
@@ -11,6 +12,7 @@ export default class AddEditQuestionUX {
   @observable isMCQ;
   // other users or OpenStax
   @observable isUserGeneratedQuestion = false;
+  initialStateForm;
 
   // track emptiness of required fields
   @observable isEmpty = {
@@ -25,6 +27,7 @@ export default class AddEditQuestionUX {
     show: false,
     shouldExitOnPublish: false,
   }
+  @observable showExitWarningModal = false;
 
   /** props */
   @observable book;
@@ -34,6 +37,8 @@ export default class AddEditQuestionUX {
   @observable pageIds;
   // Parent of the AddEditQuestion controls the display of the modal
   onDisplayModal;
+  // for creating the exercise
+  exercises;
 
   /** form */
   @observable from_exercise_id = null;
@@ -43,7 +48,7 @@ export default class AddEditQuestionUX {
   // question
   @observable questionText;
   @observable isTwoStep = false;
-  @observable options = [];
+  options = [];
   // detailed solution (MCQ). answer key (WRQ)
   @observable detailedSolution;
   // tags
@@ -57,9 +62,6 @@ export default class AddEditQuestionUX {
   @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
   @observable excludeOriginal = false;
-
-  // for creating the exercise
-  exercises;
 
   constructor(props = {}) {
     this.book = props.book;
@@ -97,9 +99,15 @@ export default class AddEditQuestionUX {
     }
     // get author
     this.author = this.authors[0];
+    //track initial state
+    this.setInitialState();
+    // make `this.options` observable after getting a shallow copy of `this.options` in `this.setInitialState`.
+    // otherwise, it will keep updating also the inital state of options in `this.initialStateForm`.
+    // Observable arrays: https://doc.ebichu.cc/mobx/refguide/array.html
+    this.options = observable(this.options);
   }
 
-  populateExerciseContent(exercise) {
+  @action populateExerciseContent(exercise) {
     // question - can only edit questions that are not MPQ
     const question = exercise.content.questions[0];
     this.from_exercise_id = exercise.id;
@@ -140,6 +148,26 @@ export default class AddEditQuestionUX {
       const tag = find(exerciseTags, ect => ect.type === 'dok');
       return tag ? tag.value === tg.value : false;
     });
+  }
+
+  @action setInitialState() {
+    this.initialStateForm = {
+      selectedChapter: this.selectedChapter,
+      selectedChapterSection: this.selectedChapterSection,
+      questionText: this.questionText,
+      isTwoStep: this.isTwoStep,
+      options: this.options.slice(),
+      detailedSolution: this.detailedSolution,
+      tagTime: this.tagTime,
+      tagDifficulty: this.tagDifficulty,
+      tagDok: this.tagDok,
+      tagBloom: this.tagBloom,
+      questionName: this.questionName,
+      author: this.author,
+      allowOthersCopyEdit: this.allowOthersCopyEdit,
+      annonymize: this.annonymize,
+      excludeOriginal: this.excludeOriginal,
+    };
   }
 
   @action.bound agreeTermsOfUse() {
@@ -209,6 +237,17 @@ export default class AddEditQuestionUX {
     const isAuthorSelected = Boolean(this.author);
 
     return isTopicSelected && isQuestionFilled && isAuthorSelected;
+  }
+
+  @computed get hasAnyFeedback() {
+    return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
+  }
+
+  @computed get hasAnyChanges() {
+    return some(
+      map(this.initialStateForm, (f, key) => isEqual(this[key], f)),
+      t => !t
+    );
   }
 
   // actions for topic form section
@@ -332,7 +371,7 @@ export default class AddEditQuestionUX {
   }
 
   @action async publish(shouldExit) {
-    if(!this.hasAnyFeedback()) {
+    if(!this.hasAnyFeedback) {
       this.feedbackTipModal = {
         show: true,
         shouldExitOnPublish: shouldExit,
@@ -419,8 +458,13 @@ export default class AddEditQuestionUX {
     this.excludeOriginal = false;
   }
 
-  @action hasAnyFeedback() {
-    return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
+  @action doExitForm() {
+    if(this.hasAnyChanges){
+      this.showExitWarningModal = true;
+    }
+    else {
+      this.onDisplayModal(false);
+    }
   }
 
   /**

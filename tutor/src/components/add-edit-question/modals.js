@@ -66,4 +66,36 @@ FeedbackTipModal.propTypes = {
   ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
-export { FeedbackTipModal };
+const ExitWarningModal = observer(({ ux }) => {
+  return (
+    <Modal
+      show={ux.showExitWarningModal}
+      backdrop="static"
+    >
+      <StyledHeader>
+        Exit without publishing?
+      </StyledHeader>
+      <StyledBody>
+        <p>The question is not published yet and will not be saved. Are you sure you want to exit this form?</p>
+        <ControlsWrapper>
+          <Controls>
+            <Button variant="default" size="lg" onClick={() => {
+              ux.showExitWarningModal = false;
+              ux.onDisplayModal(false);
+            }}>
+                Yes, exit
+            </Button>
+            <Button variant="primary" size="lg" onClick={() => ux.showExitWarningModal = false}>
+                Cancel
+            </Button>
+          </Controls>
+        </ControlsWrapper>
+      </StyledBody>
+    </Modal>
+  );
+});
+ExitWarningModal.propTypes = {
+  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+};
+
+export { FeedbackTipModal, ExitWarningModal };

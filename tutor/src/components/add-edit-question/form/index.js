@@ -93,7 +93,7 @@ const AddEditQuestionForm = observer(({ ux }) => {
     <StyledAddEditQuestionModal
       show={true}
       backdrop="static"
-      onHide={() => ux.onDisplayModal(false)}
+      onHide={() => ux.doExitForm()}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         {ux.from_exercise_id ? 
