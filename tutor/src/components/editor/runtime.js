@@ -10,6 +10,11 @@ const HIDDEN_COMMANDS = [
   '[format_color_text] Text color',
   '[border_color] Highlight color',
   '[format_clear] Clear formats',
+  '[format_line_spacing] Line spacing',
+  '[format_indent_decrease] Indent less',
+  '[format_indent_increase] Indent more',
+  '[format_align_justify] Justify',
+  '[H1] Header 1',
   '[undo] Undo',
   '[redo] Redo',
 ];
