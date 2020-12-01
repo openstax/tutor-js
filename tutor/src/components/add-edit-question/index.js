@@ -2,10 +2,16 @@ import { React, PropTypes, observer } from 'vendor';
 import AddEditQuestionUX from './ux';
 import AddEditQuestionForm from './form';
 import AddEditQuestionTermsOfUse from './terms-of-use';
+import { FeedbackTipModal } from './modals';
 
 const AddEditQuestionModals = observer(({ ux }) => {
   if(ux.didUserAgreeTermsOfUse) {
-    return <AddEditQuestionForm ux={ux} />;
+    return (
+      <>
+        <AddEditQuestionForm ux={ux} />
+        <FeedbackTipModal ux={ux} />
+      </>
+    );
   }
   return <AddEditQuestionTermsOfUse ux={ux} />;
 });

@@ -20,6 +20,12 @@ export default class AddEditQuestionUX {
     correctOption: false,
   }
 
+  //modal
+  @observable feedbackTipModal = {
+    show: false,
+    shouldExitOnPublish: false,
+  }
+
   /** props */
   @observable book;
   @observable course;
@@ -325,7 +331,19 @@ export default class AddEditQuestionUX {
     this.excludeOriginal = checked;
   }
 
-  @action async publish(doExit) {
+  @action async publish(shouldExit) {
+    if(!this.hasAnyFeedback()) {
+      this.feedbackTipModal = {
+        show: true,
+        shouldExitOnPublish: shouldExit,
+      };
+    }
+    else {
+      this.doPublish(shouldExit);
+    }
+  }
+
+  @action async doPublish(shouldExit) {
     await this.exercises.createExercise({
       course: this.course,
       data: {
@@ -343,11 +361,18 @@ export default class AddEditQuestionUX {
       },
     });
 
-    if(doExit) {
+    if(shouldExit) {
       this.onDisplayModal(false);
     }
     else {
       this.resetForm();
+    }
+
+    if(this.feedbackTipModal.show) {
+      this.feedbackTipModal = {
+        show: false,
+        shouldExitOnPublish: false,
+      };
     }
   }
 
@@ -392,6 +417,10 @@ export default class AddEditQuestionUX {
     this.allowOthersCopyEdit = true;
     this.annonymize = false;
     this.excludeOriginal = false;
+  }
+
+  @action hasAnyFeedback() {
+    return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
   }
 
   /**
