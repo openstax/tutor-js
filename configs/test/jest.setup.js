@@ -30,7 +30,12 @@ if (!global.document.createRange) {
     },
   }));
 }
-
+if (!global.window.customElements) {
+  global.customElements = {
+    get: () => false,
+    define: () => false,
+  };
+}
 
 Object.defineProperty(window, 'scrollTo', { value: jest.fn(), writable: true });
 
