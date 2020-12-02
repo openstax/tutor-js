@@ -6,7 +6,6 @@ import { FullFeaturedEditorRuntime, LimitedEditorRuntime } from './runtime';
 
 const Editing = ({ className, html, runtime, ...props }) => {
   const defaultEditorState = useMemo(() => convertFromHTML(html, null, null), [html]);
-
   return (
     <Editor
       className={className}
@@ -21,8 +20,6 @@ Editing.propTypes = {
   className: PropTypes.string,
   runtime: PropTypes.object.isRequired,
   html: PropTypes.string.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onImageUpload: PropTypes.func.isRequired,
 };
 
 const Wrapper = styled.div({
@@ -80,6 +77,6 @@ EditableHTML.propTypes = {
   placeholder: PropTypes.node,
   onChange: PropTypes.func,
   limitedEditing: PropTypes.bool.isRequired,
-  onImageUpload: PropTypes.func.isRequired,
+  onImageUpload: PropTypes.func,
   html: PropTypes.string.isRequired,
 };
