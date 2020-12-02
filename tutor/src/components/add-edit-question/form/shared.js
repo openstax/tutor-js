@@ -110,12 +110,28 @@ const EditableHTMLPanel = styled(EditableHTML)({
   },
 });
 
-export const AnswerHTMLEditor = ({ className, label, html, errorInfo, ...props }) => (
+
+export const TextInputHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
   <StyledRowContent className={cn('editor-wrapper', className)}>
     {label && <Form.Label>{label}</Form.Label>}
     <div className="editor">
-      <EditableHTMLPanel {...props} html={html || ''}/>
-      {errorInfo && <p className="error-info">{errorInfo}</p>}
+      <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
+    </div>
+    {errorInfo && <p className="error-info">{errorInfo}</p>}
+  </StyledRowContent>
+);
+TextInputHTMLEditor.propTypes = {
+  html: PropTypes.string,
+  label: PropTypes.string,
+  className: PropTypes.string,
+  errorInfo: PropTypes.string,
+};
+
+export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
+  <StyledRowContent className={cn('editor-wrapper', className)}>
+    {label && <Form.Label>{label}</Form.Label>}
+    <div className="editor">
+      <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
     </div>
   </StyledRowContent>
 );
@@ -123,19 +139,16 @@ AnswerHTMLEditor.propTypes = {
   html: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
-  errorInfo: PropTypes.string,
 };
 
-export const AddEditFormTextInput = observer(({ onChange,value, label, placeholder, className }) => {
+export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className }) => {
+  const input = plainText ?
+    <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
+    <TextInputHTMLEditor onSave={onChange} html={value} />;
   return (
     <StyledAddEditFormTextInput controlId={className} className={className}>
       {label && <Form.Label>{label}</Form.Label>}
-      <Form.Control
-        type="text"
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-      />
+      {input}
     </StyledAddEditFormTextInput>
   );
 });

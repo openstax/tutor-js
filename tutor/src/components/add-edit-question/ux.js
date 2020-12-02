@@ -339,8 +339,8 @@ export default class AddEditQuestionUX {
     this.options[index + 1] = tempOption;
   }
 
-  @action.bound changeDetailedSolution(text) {
-    this.detailedSolution = text;
+  @action.bound changeDetailedSolution(value) {
+    this.detailedSolution = value;
   }
 
   // actions for tags form section
