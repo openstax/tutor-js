@@ -98,4 +98,31 @@ ExitWarningModal.propTypes = {
   ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
-export { FeedbackTipModal, ExitWarningModal };
+const CoursePreviewOnlyModal = observer(({ onDisplayModal }) => {
+  return (
+    <Modal
+      show={true}
+      backdrop="static"
+      onHide={() => onDisplayModal(false)}>
+      <StyledHeader closeButton>
+        This is a demo course!
+      </StyledHeader>
+      <StyledBody>
+        <p>Adding or editing a question is <strong>not allowed</strong> in a demo course. 
+            You can create a live course to add or edit questions.</p>
+        <ControlsWrapper>
+          <Controls>
+            <Button variant="primary" size="lg" onClick={() => onDisplayModal(false)}>
+                Okay
+            </Button>
+          </Controls>
+        </ControlsWrapper>
+      </StyledBody>
+    </Modal>
+  );
+});
+CoursePreviewOnlyModal.propTypes = {
+  onDisplayModal: PropTypes.func.isRequired,
+};
+
+export { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal };

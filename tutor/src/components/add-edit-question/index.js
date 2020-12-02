@@ -2,28 +2,30 @@ import { React, PropTypes, observer } from 'vendor';
 import AddEditQuestionUX from './ux';
 import AddEditQuestionForm from './form';
 import AddEditQuestionTermsOfUse from './terms-of-use';
-import { FeedbackTipModal, ExitWarningModal } from './modals';
+import { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal } from './modals';
 
 const AddEditQuestionModals = observer(({ ux }) => {
-  if(ux.didUserAgreeTermsOfUse) {
-    return (
-      <>
-        <AddEditQuestionForm ux={ux} />
-        <FeedbackTipModal ux={ux} />
-        <ExitWarningModal ux={ux} />
-      </>
-    );
+  if(!ux.didUserAgreeTermsOfUse) {
+    return <AddEditQuestionTermsOfUse ux={ux} />;
   }
-  return <AddEditQuestionTermsOfUse ux={ux} />;
+  return (
+    <>
+      <AddEditQuestionForm ux={ux} />
+      <FeedbackTipModal ux={ux} />
+      <ExitWarningModal ux={ux} />
+    </>
+  );
 });
 
 const AddEditQuestion = observer((props) => {
-  if(props.exerciseType !== 'homework') {
+  if(props.exerciseType !== 'homework' || !props.showModal) {
     return null;
   }
+  if(props.course.is_preview) {
+    return <CoursePreviewOnlyModal onDisplayModal={props.onDisplayModal} />;
+  }
+
   const ux = new AddEditQuestionUX(props);
-  
-  if(!props.showModal) return null;
   return <AddEditQuestionModals ux={ux} />;
 });
 AddEditQuestion.propTypes = {
