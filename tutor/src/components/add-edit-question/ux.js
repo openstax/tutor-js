@@ -421,7 +421,7 @@ export default class AddEditQuestionUX {
     let tags = {};
     forEach(tagkeys, key => {
       if(this[key]) {
-        tags[key] = { value: parseInt(this[key].value, 10) || this[key] };
+        tags[key] = { value: this[key].value || this[key] };
       }
     });
 

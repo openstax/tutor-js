@@ -47,11 +47,11 @@ export const TAG_DOKS = [
     value: '2',
   },
   {
-    text: 'Level 3: Analyze (strategic thinking) ',
+    text: 'Level 3: Analyze (strategic thinking)',
     value: '3',
   },
   {
-    text: 'Level 3: Analyze (strategic thinking) ',
+    text: 'Level 4: Augment/Synthesize',
     value: '4',
   },
 ];
