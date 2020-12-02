@@ -134,9 +134,9 @@ export default class AddEditQuestionUX {
       this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS, 'dok');
       this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS, 'blooms');
     }
-
+    
     //general
-    this.questionName = question.nickname;
+    this.questionName = question.title;
   }
 
   populateExerciseTagLevel(exerciseTags, tags, tagType) {
@@ -250,6 +250,13 @@ export default class AddEditQuestionUX {
     const tempInitialStateForm = omit(this.initialStateForm, ['selectedChapter', 'selectedChapterSection', 'author']);
     return some(
       map(tempInitialStateForm, (f, key) => isEqual(this[key], f)),
+      t => !t
+    );
+  }
+
+  @computed get hasAnyChanges() {
+    return some(
+      map(this.initialStateForm, (f, key) => isEqual(this[key], f)),
       t => !t
     );
   }

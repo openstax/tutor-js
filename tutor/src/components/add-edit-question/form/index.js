@@ -57,7 +57,8 @@ const FormButtons = observer(({ ux }) => {
         </Button>
         <Button
           variant="primary"
-          onClick={() => window.alert('publishing changes')}>
+          onClick={() => ux.publish(true)}
+          disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
             Publish changes
         </Button>
       </>
