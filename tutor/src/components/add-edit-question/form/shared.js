@@ -6,7 +6,6 @@ import { EditableHTML } from '../../editor';
 
 const StyledRowContent = styled.div`
   display: flex;
-  margin-bottom: 4rem;
   >.label-wrapper {
     flex: 0 1 10%;
     font-size: 1.4rem;
@@ -28,6 +27,11 @@ const StyledRowContent = styled.div`
     }
   }
   .editor-wrapper {
+    .limited {
+      .editable-html {
+        min-height: 80px;
+      }
+    }
     .editor {
       display: flex;
       flex-flow: column wrap;
@@ -40,6 +44,11 @@ const StyledRowContent = styled.div`
         border: 1px solid ${colors.neutral.pale};
         .openstax-has-html {
           margin: 1rem;
+          // placeholder are not in a <p> tag
+          color: ${colors.neutral.thin};
+          p {
+            color: ${colors.neutral.darker};
+          }
         }
       } 
       // overriding the inline style
@@ -112,12 +121,12 @@ const EditableHTMLPanel = styled(EditableHTML)({
 
 
 export const TextInputHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
-  <StyledRowContent className={cn('editor-wrapper', className)}>
+  <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
     {label && <Form.Label>{label}</Form.Label>}
-    <div className="editor">
+    <div className="editor limited">
       <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
+      {errorInfo && <p className="error-info">{errorInfo}</p>}
     </div>
-    {errorInfo && <p className="error-info">{errorInfo}</p>}
   </StyledRowContent>
 );
 TextInputHTMLEditor.propTypes = {
@@ -127,11 +136,12 @@ TextInputHTMLEditor.propTypes = {
   errorInfo: PropTypes.string,
 };
 
-export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
-  <StyledRowContent className={cn('editor-wrapper', className)}>
+export const AnswerHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
+  <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
     {label && <Form.Label>{label}</Form.Label>}
     <div className="editor">
       <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
+      {errorInfo && <p className="error-info">{errorInfo}</p>}
     </div>
   </StyledRowContent>
 );
@@ -139,12 +149,13 @@ AnswerHTMLEditor.propTypes = {
   html: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
+  errorInfo: PropTypes.string,
 };
 
-export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className }) => {
+export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className, errorInfo }) => {
   const input = plainText ?
     <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
-    <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} />;
+    <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} errorInfo={errorInfo} />;
   return (
     <StyledAddEditFormTextInput controlId={className} className={className}>
       {label && <Form.Label>{label}</Form.Label>}

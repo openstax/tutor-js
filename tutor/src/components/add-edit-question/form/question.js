@@ -50,13 +50,16 @@ const StyledQuestionForm = styled.div`
         margin: auto 0;
     }
     .question-text,
-    .question-answer-key,
     .detailed-solution,
+    .question-answer-key,
     .right-side {
       flex: 0 1 70%;
       ${fullWidthTablet}
       .editor {
         flex: 0 1 77%;
+        &.limited {
+          flex: 0 1 100%;
+        }
       }
     }
     .question-text {
@@ -120,6 +123,7 @@ const StyledQuestionForm = styled.div`
           }
         }
         .right-side {
+          flex: 0 1 77%;
           [class*="question-option-"] {
             margin-bottom: 0.5rem;
           }
@@ -170,7 +174,7 @@ const Form = observer(({ ux }) => {
     </>;
 
   const renderOptions = () => map(ux.options, (o, index) => 
-    <div key={index}>
+    <div className="options-feedback" key={index}>
       <div className="left-side">
         <Icon
           type="check-circle"
@@ -184,6 +188,7 @@ const Form = observer(({ ux }) => {
           value={o.text}
           placeholder={`Add Option ${index + 1}`}
           className={`question-option-${index + 1}`}
+          errorInfo={ux.isEmpty.options[index] ? 'Add at least two options' : ''}
         />
         <AddEditFormTextInput
           onChange={(value) => ux.changeFeedback(value, index)}
@@ -279,7 +284,7 @@ const Form = observer(({ ux }) => {
         html={ux.questionText}
         label='Question'
         placeholder="Enter question or problem statement."
-        className={cn('question-text', { 'isEmpty': ux.isEmpty.questionText })}
+        className="question-text"
         errorInfo={ux.isEmpty.questionText ? 'Question field cannot be empty' : ''}
       />
       {renderQuestionInfo()}

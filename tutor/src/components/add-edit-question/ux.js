@@ -17,6 +17,7 @@ export default class AddEditQuestionUX {
     selectedChapterSection: false,
     questionText: false,
     correctOption: false,
+    options: [false, false],
   }
 
   //modal
@@ -237,9 +238,6 @@ export default class AddEditQuestionUX {
     // check author
     const isAuthorSelected = Boolean(this.author);
 
-    console.log(isTopicSelected);
-    console.log(isQuestionFilled);
-
     return isTopicSelected && isQuestionFilled && isAuthorSelected;
   }
 
@@ -300,9 +298,10 @@ export default class AddEditQuestionUX {
   }
 
   @action changeOptions(answer, index) {
-    console.log(answer);
-    console.log(index);
     this.options[index].text = answer;
+    if(index <= 2) {
+      this.isEmpty.options[index] = false;
+    }
   }
 
   @action changeFeedback(feedback, index) {
@@ -506,8 +505,12 @@ export default class AddEditQuestionUX {
       if(key === 'correctOption') {
         this.isEmpty[key] = every(this.options, o => !o.isCorrect);
       }
+      else if (key === 'options') {
+        this.isEmpty[key][0] = S.isEmpty(S.stripHTMLTags(this[key][0].text));
+        this.isEmpty[key][1] = S.isEmpty(S.stripHTMLTags(this[key][1].text));
+      }
       else {
-        this.isEmpty[key] = !this[key];
+        this.isEmpty[key] = typeof this[key] === 'string' ? S.isEmpty(S.stripHTMLTags(this[key])) : !this[key];
       }
     });
   }
