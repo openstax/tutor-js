@@ -237,6 +237,9 @@ export default class AddEditQuestionUX {
     // check author
     const isAuthorSelected = Boolean(this.author);
 
+    console.log(isTopicSelected);
+    console.log(isQuestionFilled);
+
     return isTopicSelected && isQuestionFilled && isAuthorSelected;
   }
 
@@ -297,6 +300,8 @@ export default class AddEditQuestionUX {
   }
 
   @action changeOptions(answer, index) {
+    console.log(answer);
+    console.log(index);
     this.options[index].text = answer;
   }
 

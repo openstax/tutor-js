@@ -125,7 +125,6 @@ const StyledQuestionForm = styled.div`
           }
           [class*="question-feedback-"] {
             width: 90%;
-            line-height: 0;
           }
         }
         .option-icons {

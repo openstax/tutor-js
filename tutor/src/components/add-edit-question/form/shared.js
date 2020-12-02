@@ -144,7 +144,7 @@ AnswerHTMLEditor.propTypes = {
 export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className }) => {
   const input = plainText ?
     <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
-    <TextInputHTMLEditor onSave={onChange} html={value} />;
+    <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} />;
   return (
     <StyledAddEditFormTextInput controlId={className} className={className}>
       {label && <Form.Label>{label}</Form.Label>}
