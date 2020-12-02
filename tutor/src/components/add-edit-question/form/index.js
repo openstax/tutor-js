@@ -52,7 +52,7 @@ const FormButtons = observer(({ ux }) => {
         <Button
           variant="default"
           className="cancel"
-          onClick={() => window.alert('cancel')}>
+          onClick={ux.doExitForm}>
             Cancel
         </Button>
         <Button
@@ -93,7 +93,7 @@ const AddEditQuestionForm = observer(({ ux }) => {
     <StyledAddEditQuestionModal
       show={true}
       backdrop="static"
-      onHide={() => ux.doExitForm()}
+      onHide={ux.doExitForm}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         {ux.from_exercise_id ? 

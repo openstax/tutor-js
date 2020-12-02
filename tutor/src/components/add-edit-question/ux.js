@@ -462,7 +462,7 @@ export default class AddEditQuestionUX {
     this.excludeOriginal = false;
   }
 
-  @action doExitForm() {
+  @action.bound doExitForm() {
     if(this.canExit){
       this.showExitWarningModal = true;
     }
