@@ -97,14 +97,6 @@ class ExerciseDetails extends React.Component {
     const moves = this.getValidMovements();
     return (
       <div className="exercise-details">
-        <div className="controls">
-          <a
-            className="show-cards"
-            onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
-          >
-            <Icon type="th" size="lg" /> Back to Card View
-          </a>
-        </div>
 
         <PagingNavigation
           isForwardEnabled={moves.next}
@@ -113,6 +105,12 @@ class ExerciseDetails extends React.Component {
           onBackwardNavigation={this.onPrev}
           scrollOnNavigation={false}
         >
+          <a
+            className="show-cards"
+            onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
+          >
+            Back to Card View
+          </a>
           <div className="exercise-content">
             <ExercisePreview
               className="exercise-card"
