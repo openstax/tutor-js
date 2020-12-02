@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy, every } from 'lodash';
+import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
@@ -9,8 +9,7 @@ export default class AddEditQuestionUX {
   // local
   @observable didUserAgreeTermsOfUse;
   @observable isMCQ;
-  // other users or OpenStax
-  @observable isUserGeneratedQuestion = false;
+  initialStateForm;
 
   // track emptiness of required fields
   @observable isEmpty = {
@@ -20,6 +19,13 @@ export default class AddEditQuestionUX {
     correctOption: false,
   }
 
+  //modal
+  @observable feedbackTipModal = {
+    show: false,
+    shouldExitOnPublish: false,
+  }
+  @observable showExitWarningModal = false;
+
   /** props */
   @observable book;
   @observable course;
@@ -28,6 +34,8 @@ export default class AddEditQuestionUX {
   @observable pageIds;
   // Parent of the AddEditQuestion controls the display of the modal
   onDisplayModal;
+  // for creating the exercise
+  exercises;
 
   /** form */
   @observable from_exercise_id = null;
@@ -35,18 +43,18 @@ export default class AddEditQuestionUX {
   @observable selectedChapter;
   @observable selectedChapterSection;
   // question
-  @observable questionText;
-  @observable isTwoStep;
-  @observable options = [];
+  @observable questionText = '';
+  @observable isTwoStep = false;
+  options = [];
   // detailed solution (MCQ). answer key (WRQ)
-  @observable detailedSolution;
+  @observable detailedSolution = '';
   // tags
   @observable tagTime;
   @observable tagDifficulty;
   @observable tagBloom;
   @observable tagDok;
   // general
-  @observable questionName;
+  @observable questionName = '';
   @observable author;
   @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
@@ -59,6 +67,7 @@ export default class AddEditQuestionUX {
     this.pageIds = props.pageIds;
     this.exercise = props.exercise;
     this.onDisplayModal = props.onDisplayModal;
+    this.exercises = props.exercises;
 
     //TODO: get from BE
     this.didUserAgreeTermsOfUse = true;
@@ -66,7 +75,6 @@ export default class AddEditQuestionUX {
     // edit or create
     if(props.exercise) {
       this.exercise = props.exercise;
-      this.isUserGeneratedQuestion = props.exercise.belongsToCurrentUserProfileId(User.profile_id);
       this.populateExerciseContent(props.exercise);
     }
     else {
@@ -87,9 +95,15 @@ export default class AddEditQuestionUX {
     }
     // get author
     this.author = this.authors[0];
+    //track initial state
+    this.setInitialState();
+    // make `this.options` observable after getting a shallow copy of `this.options` in `this.setInitialState`.
+    // otherwise, it will keep updating also the inital state of options in `this.initialStateForm`.
+    // Observable arrays: https://doc.ebichu.cc/mobx/refguide/array.html
+    this.options = observable(this.options);
   }
 
-  populateExerciseContent(exercise) {
+  @action populateExerciseContent(exercise) {
     // question - can only edit questions that are not MPQ
     const question = exercise.content.questions[0];
     this.from_exercise_id = exercise.id;
@@ -111,25 +125,45 @@ export default class AddEditQuestionUX {
     this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
     
     // tags
-    if(exercise.tags && exercise.tags.length > 0) {
-      const exerciseTags = exercise.tags;
+    if(exercise.content.tags && exercise.tags.length > 0) {
+      const exerciseTags = exercise.content.tags;
       const time = find(exerciseTags, t => t.type === 'time');
       const difficulty = find(exerciseTags, t => t.type === 'difficulty');
       this.tagTime = time ? time.value : undefined;
       this.tagDifficulty = difficulty ? difficulty.value : undefined;
-      this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS);
-      this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS);
+      this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS, 'dok');
+      this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS, 'blooms');
     }
-
+    
     //general
-    this.questionName = question.nickname;
+    this.questionName = question.title;
   }
 
-  populateExerciseTagLevel(exerciseTags, tags) {
+  populateExerciseTagLevel(exerciseTags, tags, tagType) {
     return find(tags, tg => {
-      const tag = find(exerciseTags, ect => ect.type === 'dok');
+      const tag = find(exerciseTags, ect => ect.type === tagType);
       return tag ? tag.value === tg.value : false;
     });
+  }
+
+  @action setInitialState() {
+    this.initialStateForm = {
+      selectedChapter: this.selectedChapter,
+      selectedChapterSection: this.selectedChapterSection,
+      questionText: this.questionText,
+      isTwoStep: this.isTwoStep,
+      options: this.options.slice(),
+      detailedSolution: this.detailedSolution,
+      tagTime: this.tagTime,
+      tagDifficulty: this.tagDifficulty,
+      tagDok: this.tagDok,
+      tagBloom: this.tagBloom,
+      questionName: this.questionName,
+      author: this.author,
+      allowOthersCopyEdit: this.allowOthersCopyEdit,
+      annonymize: this.annonymize,
+      excludeOriginal: this.excludeOriginal,
+    };
   }
 
   @action.bound agreeTermsOfUse() {
@@ -153,17 +187,22 @@ export default class AddEditQuestionUX {
       some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
   }
 
+  // other users or OpenStax
+  @computed get isNonUserGeneratedQuestion() {
+    return this.from_exercise_id && (this.exercise.belongsToOpenStax || this.exercise.belongsToOtherAuthorProfileIds(User.profile_id));
+  }
+
+  @computed get isUserGeneratedQuestion() {
+    return this.from_exercise_id && this.exercise.belongsToCurrentUserProfileId(User.profile_id);
+  }
+
   @computed get authors() {
     // if creating or editing own question, show all teachers in course
-    if(!this.from_exercise_id || this.isUserGeneratedQuestion) {
+    if(this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
       return [...this.course.teacher_profiles];
     }
-    else if (this.exercise) {
-      // if editing an openstax question or other teacher's question,
-      // show current user and current author only
-      return [this.exercise.author, this.course.getCurrentUser];
-    }
-    return [this.course.getCurrentUser];
+    else 
+      return [this.course.getCurrentUser];
   }
 
   // Get the browe book link with the chapter or section selected
@@ -178,6 +217,51 @@ export default class AddEditQuestionUX {
       browseBookLink += `/page/${this.selectedChapter.children[0].id}`;
     }
     return browseBookLink;
+  }
+
+  @computed get filledOptions() {
+    return filter(this.options, o => !S.isEmpty(S.stripHTMLTags(o.text)));
+  }
+
+  @computed get isReadyToPublish() {
+    // check chapter and section
+    const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
+    // check question section
+    let isQuestionFilled;
+    if(this.isMCQ) {
+      isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
+    }
+    else {
+      isQuestionFilled = Boolean(this.questionText);
+    }
+    // check author
+    const isAuthorSelected = Boolean(this.author);
+
+    console.log(isTopicSelected);
+    console.log(isQuestionFilled);
+
+    return isTopicSelected && isQuestionFilled && isAuthorSelected;
+  }
+
+  @computed get hasAnyFeedback() {
+    return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
+  }
+
+  @computed get canExit() {
+    // ignore check for chapter, section and author
+    // after publish, we reset everything except this three fields
+    const tempInitialStateForm = omit(this.initialStateForm, ['selectedChapter', 'selectedChapterSection', 'author']);
+    return some(
+      map(tempInitialStateForm, (f, key) => isEqual(this[key], f)),
+      t => !t
+    );
+  }
+
+  @computed get hasAnyChanges() {
+    return some(
+      map(this.initialStateForm, (f, key) => isEqual(this[key], f)),
+      t => !t
+    );
   }
 
   // actions for topic form section
@@ -216,6 +300,8 @@ export default class AddEditQuestionUX {
   }
 
   @action changeOptions(answer, index) {
+    console.log(answer);
+    console.log(index);
     this.options[index].text = answer;
   }
 
@@ -298,6 +384,103 @@ export default class AddEditQuestionUX {
 
   @action.bound changeExcludeOriginal({ target: { checked } }) {
     this.excludeOriginal = checked;
+  }
+
+  @action async publish(shouldExit) {
+    if(!this.hasAnyFeedback) {
+      this.feedbackTipModal = {
+        show: true,
+        shouldExitOnPublish: shouldExit,
+      };
+    }
+    else {
+      this.doPublish(shouldExit);
+    }
+  }
+
+  @action async doPublish(shouldExit) {
+    await this.exercises.createExercise({
+      course: this.course,
+      data: {
+        selectedChapterSection: this.selectedChapterSection.id,
+        authorId: parseInt(this.author.id, 10),
+        derived_from_id: this.from_exercise_id,
+        questionText: this.questionText,
+        questionName: this.questionName,
+        options: this.processOptions(),
+        detailedSolution: this.detailedSolution,
+        isTwoStep: this.isTwoStep,
+        tags: this.processTags(),
+        annonymize: this.annonymize,
+        copyable: this.allowOthersCopyEdit,
+      },
+    });
+
+    if(shouldExit) {
+      this.onDisplayModal(false);
+    }
+    else {
+      this.resetForm();
+    }
+
+    if(this.feedbackTipModal.show) {
+      this.feedbackTipModal = {
+        show: false,
+        shouldExitOnPublish: false,
+      };
+    }
+  }
+
+  processTags() {
+    const tagkeys = ['tagTime', 'tagDifficulty', 'tagBloom', 'tagDok'];
+    let tags = {};
+    forEach(tagkeys, key => {
+      if(this[key]) {
+        tags[key] = { value: this[key].value || this[key] };
+      }
+    });
+
+    return tags;
+  }
+
+  processOptions() {
+    return map(this.filledOptions, o => {
+      return {
+        content: o.text,
+        feedback: o.feedback,
+        correctness: o.isCorrect ? '1.0' : '0.0',
+      };
+    });
+  }
+
+  @action resetForm() {
+    this.questionText = '';
+    this.isTwoStep = false;
+    forEach(this.options, o => {
+      o.text = '';
+      o.feedback = '';
+      o.isCorrect = false;
+    });
+    this.detailedSolution = '';
+    // tags
+    this.tagTime = undefined;
+    this.tagDifficulty = undefined;
+    this.tagBloom = undefined;
+    this.tagDok = undefined;
+    // general
+    this.questionName = '';
+    this.allowOthersCopyEdit = true;
+    this.annonymize = false;
+    this.excludeOriginal = false;
+  }
+
+  @action.bound doExitForm() {
+    if(this.canExit){
+      this.showExitWarningModal = true;
+    }
+    else {
+      this.onDisplayModal(false);
+    }
   }
 
   /**

@@ -39,7 +39,8 @@ const FormButtons = observer(({ ux }) => {
     <Button
       variant="default"
       className="preview"
-      onClick={() => window.alert('preview')}>
+      onClick={() => window.alert('preview')}
+      disabled={!ux.isReadyToPublish}>
         Preview
     </Button>;
 
@@ -51,12 +52,13 @@ const FormButtons = observer(({ ux }) => {
         <Button
           variant="default"
           className="cancel"
-          onClick={() => window.alert('cancel')}>
+          onClick={ux.doExitForm}>
             Cancel
         </Button>
         <Button
           variant="primary"
-          onClick={() => window.alert('publishing changes')}>
+          onClick={() => ux.publish(true)}
+          disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
             Publish changes
         </Button>
       </>
@@ -69,13 +71,15 @@ const FormButtons = observer(({ ux }) => {
       <Button
         variant="default"
         className="publish"
-        onClick={() => window.alert('publish')}>
+        onClick={() => ux.publish(false)}
+        disabled={!ux.isReadyToPublish}>
           Publish question
       </Button>
       <Button
         variant="primary"
         className="publish"
-        onClick={() => window.alert('publish and exit')}>
+        onClick={() => ux.publish(true)}
+        disabled={!ux.isReadyToPublish}>
           Publish &amp; Exit
       </Button>
     </>
@@ -90,7 +94,7 @@ const AddEditQuestionForm = observer(({ ux }) => {
     <StyledAddEditQuestionModal
       show={true}
       backdrop="static"
-      onHide={() => ux.onDisplayModal(false)}
+      onHide={ux.doExitForm}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         {ux.from_exercise_id ? 

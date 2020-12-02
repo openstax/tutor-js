@@ -50,6 +50,12 @@ export const EditableHTML = ({
       }
     }
   }, [setEditing, setHTML]);
+
+  // listen if the html prop is changed outside of the editor
+  useEffect(() => {
+    setHTML(defaultHTML);
+  }, [defaultHTML]);
+
   const runtimes = useMemo(() => ({
     full: new FullFeaturedEditorRuntime({ onSave, onImageUpload }),
     limited: new LimitedEditorRuntime({ onSave, onImageUpload }),

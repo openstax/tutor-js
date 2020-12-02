@@ -33,7 +33,8 @@ class ExerciseQuestion extends BaseModel {
   @identifier id;
   @field is_answer_order_important = false;
   @field stem_html = '';
-  @field stimulus_html = ''
+  @field stimulus_html = '';
+  @field title = '';
   @field({ type: 'array' }) hints;
   @hasMany({ model: Format, inverseOf: 'question' }) formats;
   @hasMany({ model: Answer, inverseOf: 'question' }) answers;

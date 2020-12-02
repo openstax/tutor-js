@@ -112,9 +112,11 @@ const EditableHTMLPanel = styled(EditableHTML)({
 
 
 export const TextInputHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
-  <StyledRowContent className={className}>
+  <StyledRowContent className={cn('editor-wrapper', className)}>
     {label && <Form.Label>{label}</Form.Label>}
-    <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
+    <div className="editor">
+      <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
+    </div>
     {errorInfo && <p className="error-info">{errorInfo}</p>}
   </StyledRowContent>
 );
@@ -126,9 +128,11 @@ TextInputHTMLEditor.propTypes = {
 };
 
 export const AnswerHTMLEditor = ({ className, label, html, ...props }) => (
-  <StyledRowContent className={className}>
+  <StyledRowContent className={cn('editor-wrapper', className)}>
     {label && <Form.Label>{label}</Form.Label>}
-    <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
+    <div className="editor">
+      <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
+    </div>
   </StyledRowContent>
 );
 AnswerHTMLEditor.propTypes = {
@@ -140,7 +144,7 @@ AnswerHTMLEditor.propTypes = {
 export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className }) => {
   const input = plainText ?
     <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
-    <TextInputHTMLEditor onSave={onChange} html={value} />;
+    <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} />;
   return (
     <StyledAddEditFormTextInput controlId={className} className={className}>
       {label && <Form.Label>{label}</Form.Label>}
