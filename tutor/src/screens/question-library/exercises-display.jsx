@@ -201,6 +201,13 @@ class ExercisesDisplay extends React.Component {
         handler: this.onExerciseToggle,
       };
     }
+    if (!exercise.isMultiPart) {
+      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+      actions.copyEdit = {
+        message: `${!isUserGeneratedQuestion ? 'Copy & Edit question' : 'Edit'}`,
+        handler: this.onEditExercise,
+      };
+    }
     if (this.props.showingDetails) {
       this.addDetailsActions(actions, exercise);
     } else {
@@ -217,7 +224,7 @@ class ExercisesDisplay extends React.Component {
       };
     } else {
       actions['feedback-on'] = {
-        message: 'Preview Feedback',
+        message: 'Show Feedback',
         handler: this.toggleFeedback,
       };
     }
@@ -231,7 +238,7 @@ class ExercisesDisplay extends React.Component {
 
   addCardActions = (actions, exercise) => {
     // For now, MPQ are not allowed to be edited
-    if(!exercise.isMultiPart) {
+    if (!exercise.isMultiPart) {
       const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
@@ -345,7 +352,7 @@ class ExercisesDisplay extends React.Component {
           />
         </div>
         {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
-        <div className="exercises-display"> 
+        <div className="exercises-display">
           {this.renderExercises(this.filteredExercises)}
         </div>
         <AddEditQuestionModal

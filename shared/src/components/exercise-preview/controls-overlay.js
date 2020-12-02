@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, partial } from 'lodash';
 import classnames from 'classnames';
+import { Icon } from 'shared';
 
 class ControlsOverlay extends React.Component {
   static propTypes = {
@@ -23,6 +24,15 @@ class ControlsOverlay extends React.Component {
   render() {
     if (isEmpty(this.props.actions)) { return null; }
 
+    const iconTypes = {
+      'include': 'plus-circle',
+      'exclude': 'minus-circle',
+      'copyEdit': 'edit',
+      'feedback-on': 'eye',
+      'feedback-off': 'eye-slash',
+      'report-error': 'exclamation-circle',
+    };
+
     return (
       <div
         onClick={this.props.onClick ? this.onClick : undefined}
@@ -38,6 +48,7 @@ class ControlsOverlay extends React.Component {
                   className={`action ${type}`}
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
+                  <Icon type={iconTypes[type]} />
                   <span>
                     {action.message}
                   </span>

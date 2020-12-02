@@ -9,8 +9,7 @@ $exercise-details-body-height: calc(100vh - 250px);
   .paged-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
+    justify-content: flex-start;
   }
 
   .tutor-paging-navigation {
@@ -29,11 +28,13 @@ $exercise-details-body-height: calc(100vh - 250px);
       top: 130px;
       @include transition('top 0.2s ease-out');
     }
+  }
 
-    .show-cards {
-      color: $tutor-neutral;
-      cursor: pointer;
-    }
+  a:not([href]).show-cards {
+    color: $tutor-blue-control;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 1.2rem;
   }
 
   .exercise-card {

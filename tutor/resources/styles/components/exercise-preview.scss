@@ -3,6 +3,9 @@
   .card-body:hover {
     min-height: 20rem;
     .controls-overlay {
+      svg {
+        display: none;
+      }
       .message {
         .action {
           &.include {
@@ -70,11 +73,58 @@
     .card-body,
     .card-body:hover {
       .controls-overlay {
+        width: 45px;
         .message {
+          border: 1px solid #d5d5d5;
           .action {
+            height: 43px;
+            width: 47px;
+            background: #fff;
+            color: #818181;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              box-shadow: none;
+            }
+
+            svg {
+              display: block;
+              font-size: 1.6rem;
+            }
+            &:before {
+              display: none;
+            }
+            span {
+              display: none;
+              position: absolute;
+              left: 46px;
+              background: inherit;
+              height: 45px;
+              width: 150px;
+              border: 1px solid #d5d5d5;
+              border-width: 1px 1px 1px 0;
+              font-size: 1.4rem;
+              font-weight: normal;
+            }
+            &:hover {
+              &:not(.exclude):not(.include) {
+                color: #424242;
+              }
+              span {
+                display: flex;
+                align-items: center;
+              }
+            }
+
             &.exclude {
               background-color: $openstax-primary;
-              &:before { background-image: url("../../images/icons/exercise-exclude-details-view-action.svg"); }
+              color: #fff;
+            }
+            &.include {
+              background-color: #0DC0DC;
+              color: #fff;
             }
           }
         }
