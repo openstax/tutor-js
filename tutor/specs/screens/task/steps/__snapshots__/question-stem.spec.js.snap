@@ -165,6 +165,7 @@ exports[`Question Stem matches snapshot 1`] = `
       "is_answer_order_important": false,
       "stem_html": "Name one thing that the friction between two surfaces may depend on.",
       "stimulus_html": "",
+      "title": "",
     }
   }
   questionNumber={911}
