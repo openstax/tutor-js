@@ -181,13 +181,13 @@ const Form = observer(({ ux }) => {
       </div>
       <div className="right-side">
         <AddEditFormTextInput
-          onChange={({ target: { value } }) => ux.changeOptions(value, index)}
+          onChange={(value) => ux.changeOptions(value, index)}
           value={o.text}
           placeholder={`Add Option ${index + 1}`}
           className={`question-option-${index + 1}`}
         />
         <AddEditFormTextInput
-          onChange={({ target: { value } }) => ux.changeFeedback(value, index)}
+          onChange={(value) => ux.changeFeedback(value, index)}
           value={o.feedback}
           placeholder='Add Feedback'
           className={`question-feedback-${index + 1}`}

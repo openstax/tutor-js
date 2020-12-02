@@ -1,6 +1,6 @@
 import { DirectUpload } from '@rails/activestorage';
-import { last, omit, isEmpty } from 'lodash';
-import { convertToHTML, UICommand } from 'perry-white';
+import { map, omit, isEmpty, pick } from 'lodash';
+import { convertToHTML } from 'perry-white';
 
 const STORAGE_PATH = '/rails/active_storage';
 
@@ -10,26 +10,50 @@ const HIDDEN_COMMANDS = [
   '[format_color_text] Text color',
   '[border_color] Highlight color',
   '[format_clear] Clear formats',
+  '[format_line_spacing] Line spacing',
+  '[format_indent_decrease] Indent less',
+  '[format_indent_increase] Indent more',
+  '[format_align_justify] Justify',
+  '[H1] Header 1',
   '[undo] Undo',
   '[redo] Redo',
 ];
 
-class SaveCommand extends UICommand {
+const LIMITED_COMMANDS = [
+  '[format_bold] Bold',
+  '[format_italic] Italic',
+  '[superscript] Superscript',
+  '[functions] Math',
+  '[link] Apply link',
+  '[format_clear] Clear formats',
+];
 
-  constructor(onClick) {
-    super();
-    this.onClick = onClick;
+export class LimitedEditorRuntime {
+  constructor({ onSave }) {
+    this.onSave = onSave;
   }
 
-  isEnabled() { return true; }
-  isActive() { return true; }
+  canUploadImage() {
+    return false;
+  }
 
-  execute = (state) => {
-    this.onClick(convertToHTML(state));
+  onBlur(state) {
+    this.onSave(convertToHTML(state));
+  }
+
+  filterCommandGroups(standardGroups) {
+    const commands = {};
+    standardGroups.forEach(group => {
+      const newGroup = pick(group, LIMITED_COMMANDS);
+      if (!isEmpty(newGroup)) {
+        Object.assign(commands, newGroup);
+      }
+    });
+    return [commands];
   }
 }
 
-export class EditorRuntime {
+export class FullFeaturedEditorRuntime {
 
   constructor({ onSave, onImageUpload }) {
     this.onSave = onSave;
@@ -62,15 +86,15 @@ export class EditorRuntime {
     });
   }
 
-  filterCommandGroups = (standardGroups) => {
-    const updatedGroups = [];
+  onBlur(state) {
+    this.onSave(convertToHTML(state));
+  }
+
+  filterCommandGroups(standardGroups) {
+    const commands = {};
     standardGroups.forEach(group => {
-      const newGroup = omit(group, HIDDEN_COMMANDS);
-      if (!isEmpty(newGroup)) {
-        updatedGroups.push(newGroup);
-      }
+      Object.assign(commands, omit(group, HIDDEN_COMMANDS));
     });
-    last(updatedGroups)['[save] Save'] = (new SaveCommand(this.onSave));
-    return updatedGroups;
+    return map(commands, (cmd, label) => ({ [label]: cmd  }));
   }
 }

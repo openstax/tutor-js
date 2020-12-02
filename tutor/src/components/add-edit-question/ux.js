@@ -258,7 +258,7 @@ export default class AddEditQuestionUX {
     this.options[index + 1] = tempOption;
   }
 
-  @action.bound changeDetailedSolution({ target: { value } }) {
+  @action.bound changeDetailedSolution(value) {
     this.detailedSolution = value;
   }
 
