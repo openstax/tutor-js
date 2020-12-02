@@ -90,10 +90,8 @@ const GeneralForm = observer(({ ux }) => {
     </Dropdown.Item>
   ));
 
-  const isEditingNonUserQuestion = ux.from_exercise_id && !ux.isUserGeneratedQuestion;
-
   const excludeOriginalInfo = () => {
-    if(!isEditingNonUserQuestion) {
+    if(!ux.isNonUserGeneratedQuestion) {
       return null;
     }
     return (
@@ -127,9 +125,10 @@ const GeneralForm = observer(({ ux }) => {
         <label>Author</label>
         <TutorDropdown
           toggleName={ux.author ? ux.author.name : ' '}
+          disabled={ux.isNonUserGeneratedQuestion}
           dropdownItems={authors}
         />
-        {isEditingNonUserQuestion && 
+        {ux.isNonUserGeneratedQuestion && 
           <span>Credit the original author if you haven’t made substantial changes to the question</span>
         }
       </div>

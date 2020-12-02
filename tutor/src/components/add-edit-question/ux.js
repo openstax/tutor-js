@@ -3,15 +3,12 @@ import { filter, some, find, forEach, pickBy, every, map, isEqual } from 'lodash
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
-import { unix } from 'moment';
 
 export default class AddEditQuestionUX {
 
   // local
   @observable didUserAgreeTermsOfUse;
   @observable isMCQ;
-  // other users or OpenStax
-  @observable isUserGeneratedQuestion = false;
   initialStateForm;
 
   // track emptiness of required fields
@@ -78,7 +75,6 @@ export default class AddEditQuestionUX {
     // edit or create
     if(props.exercise) {
       this.exercise = props.exercise;
-      this.isUserGeneratedQuestion = props.exercise.belongsToCurrentUserProfileId(User.profile_id);
       this.populateExerciseContent(props.exercise);
     }
     else {
@@ -191,17 +187,22 @@ export default class AddEditQuestionUX {
       some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
   }
 
+  // other users or OpenStax
+  @computed get isNonUserGeneratedQuestion() {
+    return this.from_exercise_id && (this.exercise.belongsToOpenStax || this.exercise.belongsToOtherAuthorProfileIds(User.profile_id));
+  }
+
+  @computed get isUserGeneratedQuestion() {
+    return this.from_exercise_id && this.exercise.belongsToCurrentUserProfileId(User.profile_id);
+  }
+
   @computed get authors() {
     // if creating or editing own question, show all teachers in course
     if(this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
       return [...this.course.teacher_profiles];
     }
-    else if (this.exercise) {
-      // if editing an openstax question or other teacher's question,
-      // show current user and current author only
-      return [this.exercise.author, this.course.getCurrentUser];
-    }
-    return [this.course.getCurrentUser];
+    else 
+      return [this.course.getCurrentUser];
   }
 
   // Get the browe book link with the chapter or section selected
@@ -387,7 +388,7 @@ export default class AddEditQuestionUX {
       course: this.course,
       data: {
         selectedChapterSection: this.selectedChapterSection.id,
-        authorId: this.author.id,
+        authorId: parseInt(this.author.id, 10),
         derived_from_id: this.from_exercise_id,
         questionText: this.questionText,
         questionName: this.questionName,
