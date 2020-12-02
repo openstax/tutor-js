@@ -188,7 +188,7 @@ const Form = observer(({ ux }) => {
           value={o.text}
           placeholder={`Add Option ${index + 1}`}
           className={`question-option-${index + 1}`}
-          errorInfo={ux.isEmpty.options[index] ? 'Add at least two options' : ''}
+          errorInfo={index <= 1 && ux.isEmpty.options[index] ? 'Add at least two options' : ''}
         />
         <AddEditFormTextInput
           onChange={(value) => ux.changeFeedback(value, index)}

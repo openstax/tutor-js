@@ -299,7 +299,7 @@ export default class AddEditQuestionUX {
 
   @action changeOptions(answer, index) {
     this.options[index].text = answer;
-    if(index <= 2) {
+    if(index <= 1) {
       this.isEmpty.options[index] = false;
     }
   }
