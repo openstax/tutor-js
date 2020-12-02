@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy, every, map, isEqual } from 'lodash';
+import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
@@ -43,18 +43,18 @@ export default class AddEditQuestionUX {
   @observable selectedChapter;
   @observable selectedChapterSection;
   // question
-  @observable questionText;
+  @observable questionText = '';
   @observable isTwoStep = false;
   options = [];
   // detailed solution (MCQ). answer key (WRQ)
-  @observable detailedSolution;
+  @observable detailedSolution = '';
   // tags
   @observable tagTime;
   @observable tagDifficulty;
   @observable tagBloom;
   @observable tagDok;
   // general
-  @observable questionName;
+  @observable questionName = '';
   @observable author;
   @observable allowOthersCopyEdit = true;
   @observable annonymize = false;
@@ -244,9 +244,12 @@ export default class AddEditQuestionUX {
     return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
   }
 
-  @computed get hasAnyChanges() {
+  @computed get canExit() {
+    // ignore check for chapter, section and author
+    // after publish, we reset everything except this three fields
+    const tempInitialStateForm = omit(this.initialStateForm, ['selectedChapter', 'selectedChapterSection', 'author']);
     return some(
-      map(this.initialStateForm, (f, key) => isEqual(this[key], f)),
+      map(tempInitialStateForm, (f, key) => isEqual(this[key], f)),
       t => !t
     );
   }
@@ -460,7 +463,7 @@ export default class AddEditQuestionUX {
   }
 
   @action doExitForm() {
-    if(this.hasAnyChanges){
+    if(this.canExit){
       this.showExitWarningModal = true;
     }
     else {
