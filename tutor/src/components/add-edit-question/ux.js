@@ -125,23 +125,23 @@ export default class AddEditQuestionUX {
     this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
     
     // tags
-    if(exercise.tags && exercise.tags.length > 0) {
-      const exerciseTags = exercise.tags;
+    if(exercise.content.tags && exercise.tags.length > 0) {
+      const exerciseTags = exercise.content.tags;
       const time = find(exerciseTags, t => t.type === 'time');
       const difficulty = find(exerciseTags, t => t.type === 'difficulty');
       this.tagTime = time ? time.value : undefined;
       this.tagDifficulty = difficulty ? difficulty.value : undefined;
-      this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS);
-      this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS);
+      this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS, 'dok');
+      this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS, 'blooms');
     }
 
     //general
     this.questionName = question.nickname;
   }
 
-  populateExerciseTagLevel(exerciseTags, tags) {
+  populateExerciseTagLevel(exerciseTags, tags, tagType) {
     return find(tags, tg => {
-      const tag = find(exerciseTags, ect => ect.type === 'dok');
+      const tag = find(exerciseTags, ect => ect.type === tagType);
       return tag ? tag.value === tg.value : false;
     });
   }
