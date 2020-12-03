@@ -39,7 +39,7 @@ const FormButtons = observer(({ ux }) => {
     <Button
       variant="default"
       className="preview"
-      onClick={() => window.alert('preview')}
+      onClick={() => ux.showPreviewQuestionModal = true}
       disabled={!ux.isReadyToPublish}>
         Preview
     </Button>;

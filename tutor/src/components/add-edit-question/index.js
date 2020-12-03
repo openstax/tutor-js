@@ -2,7 +2,11 @@ import { React, PropTypes, observer } from 'vendor';
 import AddEditQuestionUX from './ux';
 import AddEditQuestionForm from './form';
 import AddEditQuestionTermsOfUse from './terms-of-use';
-import { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal } from './modals';
+import { 
+  FeedbackTipModal,
+  ExitWarningModal,
+  CoursePreviewOnlyModal,
+  QuestionPreviewModal } from './modals';
 
 const AddEditQuestionModals = observer(({ ux }) => {
   if(!ux.didUserAgreeTermsOfUse) {
@@ -13,6 +17,7 @@ const AddEditQuestionModals = observer(({ ux }) => {
       <AddEditQuestionForm ux={ux} />
       <FeedbackTipModal ux={ux} />
       <ExitWarningModal ux={ux} />
+      <QuestionPreviewModal ux={ux} />
     </>
   );
 });
