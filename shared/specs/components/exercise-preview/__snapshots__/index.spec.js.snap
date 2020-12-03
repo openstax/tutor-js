@@ -28,6 +28,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
           <svg
             aria-hidden="true"
             className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+            data-action="include"
             data-icon="plus-circle"
             data-prefix="fas"
             focusable="false"
