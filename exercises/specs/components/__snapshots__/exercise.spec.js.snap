@@ -1530,68 +1530,75 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             </div>
           </div>
           <div
-            className="exercise-tags"
+            className="exercise-footer"
           >
-            <span
-              className="exercise-tag"
-            >
-              lo:stax-phys:1-2-1
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              blooms:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              book:stax-phys
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxfeature:one-1
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxmod:
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              dok:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              filter-type:test-prep
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              requires-context:true
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              time:long
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              type:conceptual
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              Nickname:maurine
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              ID:1@1
-            </span>
+            <div>
+              <div
+                className="exercise-tags"
+              >
+                <span
+                  className="exercise-tag"
+                >
+                  lo:stax-phys:1-2-1
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  blooms:3
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  book:stax-phys
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  context-cnxfeature:one-1
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  context-cnxmod:
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  dok:3
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  filter-type:test-prep
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  requires-context:true
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  time:long
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  type:conceptual
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  Nickname:maurine
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  ID:1@1
+                </span>
+              </div>
+            </div>
+            <div />
           </div>
         </div>
       </div>
@@ -2808,43 +2815,48 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </Question>
                                 </div>
                               </div>
-                              <div className=\\"exercise-tags\\">
-                                <span className=\\"exercise-tag\\">
-                                  lo:stax-phys:1-2-1
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  blooms:3
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  book:stax-phys
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  context-cnxfeature:one-1
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  context-cnxmod:
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  dok:3
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  filter-type:test-prep
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  requires-context:true
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  time:long
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  type:conceptual
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  Nickname:desmond
-                                </span>
-                                <span className=\\"exercise-tag\\">
-                                  ID:14@1
-                                </span>
+                              <div className=\\"exercise-footer\\">
+                                <div>
+                                  <div className=\\"exercise-tags\\">
+                                    <span className=\\"exercise-tag\\">
+                                      lo:stax-phys:1-2-1
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      blooms:3
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      book:stax-phys
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      context-cnxfeature:one-1
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      context-cnxmod:
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      dok:3
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      filter-type:test-prep
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      requires-context:true
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      time:long
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      type:conceptual
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      Nickname:desmond
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
+                                      ID:14@1
+                                    </span>
+                                  </div>
+                                </div>
+                                <div />
                               </div>
                             </div>
                           </CardBody>
