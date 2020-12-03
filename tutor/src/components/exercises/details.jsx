@@ -10,6 +10,7 @@ import { Icon } from 'shared';
 import ChapterSection from '../../models/chapter-section';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
+import BookPartTitle from '../book-part-title';
 
 @observer
 class ExerciseDetails extends React.Component {
@@ -95,6 +96,19 @@ class ExerciseDetails extends React.Component {
       );
     }
     const moves = this.getValidMovements();
+
+    const leftFooter = (
+      <div className="author">
+        Author: {exercise.author.name}
+      </div>
+    );
+
+    const rightFooter = (
+      <a target="_blank" href={`/book/${exercise.id}/page/${exercise.page.id}`} className="section-link">
+        <BookPartTitle part={exercise.page} displayChapterSection />
+      </a>
+    );
+
     return (
       <div className="exercise-details">
 
@@ -121,6 +135,8 @@ class ExerciseDetails extends React.Component {
               extractedInfo={exercise}
               exercise={exercise.content}
               actionsOnSide={true}
+              leftFooterRenderer={leftFooter}
+              rightFooterRenderer={rightFooter}
             />
           </div>
         </PagingNavigation>
