@@ -194,33 +194,40 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="exercise-tags"
+        className="exercise-footer"
       >
-        <span
-          className="exercise-tag"
-        >
-          lo:stax-phys:1-2-1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          blooms:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          dok:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          time:long
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          ID:1@1
-        </span>
+        <div>
+          <div
+            className="exercise-tags"
+          >
+            <span
+              className="exercise-tag"
+            >
+              lo:stax-phys:1-2-1
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              blooms:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              dok:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              ID:1@1
+            </span>
+          </div>
+        </div>
+        <div />
       </div>
     </div>
   </div>
