@@ -14,6 +14,9 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
         max-width: 95%;
     }
     .modal-body {
+      form > div:not(:first-child) {
+        margin-top: 4rem;
+      }
       label {
         color: ${colors.neutral.darker};
         font-weight: 700;
