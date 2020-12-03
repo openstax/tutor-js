@@ -8,6 +8,7 @@ const HIDDEN_COMMANDS = [
   '[font_download] Font Type',
   '[format_size] Text Size',
   '[format_color_text] Text color',
+  '[format_strikethrough] Strike through',
   '[border_color] Highlight color',
   '[format_clear] Clear formats',
   '[format_line_spacing] Line spacing',
@@ -23,6 +24,7 @@ const LIMITED_COMMANDS = [
   '[format_bold] Bold',
   '[format_italic] Italic',
   '[superscript] Superscript',
+  '[subscript] Subscript',
   '[functions] Math',
   '[link] Apply link',
   '[format_clear] Clear formats',
@@ -93,6 +95,7 @@ export class FullFeaturedEditorRuntime {
   filterCommandGroups(standardGroups) {
     const commands = {};
     standardGroups.forEach(group => {
+      // console.log(Object.keys(group)) // for finding the commands to enable/disable
       Object.assign(commands, omit(group, HIDDEN_COMMANDS));
     });
     return map(commands, (cmd, label) => ({ [label]: cmd  }));
