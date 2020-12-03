@@ -25,6 +25,7 @@ class ControlsOverlay extends React.Component {
     if (isEmpty(this.props.actions)) { return null; }
 
     const iconTypes = {
+      'details': 'info-circle',
       'include': 'plus-circle',
       'exclude': 'minus-circle',
       'copyEdit': 'edit',
@@ -48,7 +49,7 @@ class ControlsOverlay extends React.Component {
                   className={`action ${type}`}
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
-                  <Icon type={iconTypes[type]} />
+                  <Icon type={iconTypes[type]} data-action={type} />
                   <span>
                     {action.message}
                   </span>
