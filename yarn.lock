@@ -9563,10 +9563,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-perry-white@0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/perry-white/-/perry-white-0.2.4.tgz#fa7ed4afcee707520b0958ce5c0a54f22215603d"
-  integrity sha512-OAg3XGIkjjpr5gQ9FerJotCt3LtO9kspJq5XeQtFE0xw+XI/7VMuoSG7iKdpszontJg4pWIQYWf707Ga1HhVxw==
+perry-white@0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/perry-white/-/perry-white-0.2.5.tgz#a0c6f8e616f3738b766152830a169b4916d4eb67"
+  integrity sha512-z5Ttdf2Py/rT4eewhDP4F68XHa/Iv49NM5Sp4NJ+PdFMb+dc8dn/tEJeHTRM8shtNIANUo2UysAykLsnfKTNdw==
   dependencies:
     browserkeymap "2.0.2"
     color "3.1.2"
