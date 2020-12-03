@@ -47,6 +47,7 @@ export default class AddEditQuestionUX {
   @observable questionText = '';
   @observable isTwoStep = false;
   options = [];
+  @observable images = [];
   // detailed solution (MCQ). answer key (WRQ)
   @observable detailedSolution = '';
   // tags
@@ -289,8 +290,8 @@ export default class AddEditQuestionUX {
   }
 
   // called when an image is added to the HTML for question text
-  @action.bound onImageUpload(blob, url) { // eslint-disable-line no-unused-vars
-    // TODO save blob.signed_id and send them to BE when the exercise is saved
+  @action.bound onImageUpload(blob) {
+    this.images.push(blob);
   }
 
   @action.bound changeIsTwoStep({ target: { checked } }) {
@@ -412,6 +413,7 @@ export default class AddEditQuestionUX {
         tags: this.processTags(),
         annonymize: this.annonymize,
         copyable: this.allowOthersCopyEdit,
+        images: this.images.map(img => img.signed_id),
       },
     });
 
@@ -471,6 +473,7 @@ export default class AddEditQuestionUX {
     this.allowOthersCopyEdit = true;
     this.annonymize = false;
     this.excludeOriginal = false;
+    this.images.clear();
   }
 
   @action.bound doExitForm() {

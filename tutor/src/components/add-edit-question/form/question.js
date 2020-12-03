@@ -56,7 +56,7 @@ const StyledQuestionForm = styled.div`
       flex: 0 1 70%;
       ${fullWidthTablet}
       .editor {
-        flex: 0 1 77%;
+        flex: 1;
         &.limited {
           flex: 0 1 100%;
         }
