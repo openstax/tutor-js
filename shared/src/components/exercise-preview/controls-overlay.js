@@ -49,7 +49,7 @@ class ControlsOverlay extends React.Component {
                   className={`action ${type}`}
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
-                  <Icon type={iconTypes[type]} data-action={type} />
+                  {iconTypes[type] && <Icon type={iconTypes[type]} data-action={type} />}
                   <span>
                     {action.message}
                   </span>

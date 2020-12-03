@@ -39,6 +39,8 @@ class ExercisePreview extends React.Component {
     questionFooters: PropTypes.object,
     questionType:    PropTypes.string,
     disableMessage:  PropTypes.string,
+    leftFooterRenderer: PropTypes.node,
+    rightFooterRenderer: PropTypes.node,
   };
 
   static defaultProps = {
@@ -157,16 +159,24 @@ class ExercisePreview extends React.Component {
               </div>
             ))}
           </div>
-          {
-            this.props.questionType !== 'student-mpp' &&
-            <div className="exercise-tags">
-              {map(this.tags, (tag, index) => (
-                <span key={index} className="exercise-tag">
-                  {tag.title}
-                </span>
-              ))}
+          <div className="exercise-footer">
+            <div>
+              {
+                this.props.questionType !== 'student-mpp' &&
+                <div className="exercise-tags">
+                  {map(this.tags, (tag, index) => (
+                    <span key={index} className="exercise-tag">
+                      {tag.title}
+                    </span>
+                  ))}
+                </div>
+              }
+              {this.props.leftFooterRenderer}
             </div>
-          }
+            <div>
+              {this.props.rightFooterRenderer}
+            </div>
+          </div>
         </Card.Body>
         {this.props.children && <Card.Footer>{this.renderFooter()}</Card.Footer>}
       </Card>

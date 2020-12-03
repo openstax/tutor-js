@@ -116,7 +116,7 @@
     $action-square-height: 75px;
     $size-scale: 0.5;
     .card-body, .card-body:hover {
-      padding-left: 90px;
+      padding: 2.8rem 2.8rem 2.8rem 90px;
       position: relative;
       .controls-overlay {
         visibility: visible;
@@ -208,11 +208,12 @@
 
       .question-feedback-content {
         display: none;
+        margin-top: 0.5rem;
         margin-bottom: 5px;
         color: $openstax-neutral;
         margin-left: 0;
-        @include sans(1.1rem, 1.1rem);
-        font-style: italic;
+        font-size: 1.4rem;
+        line-height: 2rem;
       }
 
     }
@@ -253,6 +254,12 @@
       color: #6f6f6f;
       font-size: 14px;
       line-height: 24px;
+    }
+
+    .exercise-footer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
     }
   }
 

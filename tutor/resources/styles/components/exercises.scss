@@ -62,6 +62,25 @@ $exercise-details-body-height: calc(100vh - 250px);
     .icon.arrow { position: absolute; }
   }
 
+  .detailed-solution, .exercise-footer {
+    color: #6f6f6f;
+    line-height: 2rem;
+    .author {
+      margin-top: 1.2rem;
+    }
+    a .chapter-section {
+      color: inherit;
+    }
+  }
+
+  .detailed-solution {
+    margin-bottom: 3.5rem;
+  }
+
+  .exercise-footer {
+    margin-top: 2.5rem;
+  }
+
 }
 
 .exercise-controls-bar {
