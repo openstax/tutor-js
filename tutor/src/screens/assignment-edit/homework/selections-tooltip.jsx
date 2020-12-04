@@ -8,8 +8,8 @@ const SelectionsTooltip = () => (
     overlay={
       <Popover id="homework-selections-popover">
         <Popover.Content>
-          <p>These are questions selected by OpenStax Tutor's machine learning algorithms, using knowledge about each student's performance.</p>
-          <p>Questions are drawn from the Question Library, accessible from your dashboard.</p>
+          <p>These are questions assigned by OpenStax Tutor based on each student’s performance and the material covered so far in the course. </p>
+          <p>Questions are automatically drawn from the Question Library, and each question is worth 1 point.</p>
         </Popover.Content>
       </Popover>
     }
