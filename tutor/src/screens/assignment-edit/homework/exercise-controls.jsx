@@ -1,7 +1,6 @@
 import {
   React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
-import { partial } from 'lodash';
 import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
