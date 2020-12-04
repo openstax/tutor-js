@@ -8,6 +8,12 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
 
 .c0 {
   background: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 59px;
+  z-index: 1050;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
 }
 
 .c11 {
@@ -248,7 +254,7 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
               className="tutor-selections"
             >
               <div>
-                OpenStax Tutor Selections
+                Personalized questions
               </div>
               <button
                 className="btn btn-link"
