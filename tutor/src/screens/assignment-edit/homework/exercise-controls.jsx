@@ -214,6 +214,9 @@ class ExerciseControls extends React.Component {
       <Filters>
         <HomeExerciseFilters
           className="question-filters"
+          // need to pass the `exercises.homework` so the useEffect can be triggered
+          // useEffect treats an Observable map as an array so it won't listen to changes
+          // if we add or delete an element.
           exercises={ux.exercises.homework}
           returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
         <Button

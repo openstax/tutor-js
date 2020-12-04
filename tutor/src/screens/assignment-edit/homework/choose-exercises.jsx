@@ -6,6 +6,7 @@ import ExerciseDetails from '../../../components/exercises/details';
 import AddEditQuestionModal from '../../../components/add-edit-question';
 import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
+import User from '../../../models/user';
 import { Body } from '../builder';
 import { colors } from '../../../theme';
 
@@ -28,6 +29,7 @@ class ChooseExercises extends React.Component {
   @observable currentSection;
   @observable displayFeedback;
   @observable focusedExercise;
+  @observable selectedExercise;
   @observable showAddEditQuestionModal = false;
 
   @action.bound onShowDetailsViewClick() {
@@ -42,6 +44,11 @@ class ChooseExercises extends React.Component {
   @action.bound onDisplayAddEditQuestionModal(show) {
     if(!show) {this.selectedExercise = null;}
     this.showAddEditQuestionModal = !!show;
+  }
+
+  @action.bound onEditExercise = (ev, exercise) => {
+    this.selectedExercise = exercise.wrapper;
+    this.onDisplayAddEditQuestionModal(ev, true);
   }
 
   getExerciseActions = (exercise) => {
@@ -87,7 +94,18 @@ class ChooseExercises extends React.Component {
     );
   };
 
-  addCardActions = (actions) => {
+  addCardActions = (actions, exercise) => {
+    action.details = {
+      message: 'Question details',
+      handler: this.showDetails,
+    };
+    if (!exercise.isMultiPart) {
+      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+      actions.copyEdit = {
+        message: `${!isUserGeneratedQuestion ? 'Copy & Edit question' : 'Edit question'}`,
+        handler: this.onEditExercise,
+      };
+    }
     return (
       actions.details = {
         message: 'Question details',
