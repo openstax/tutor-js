@@ -25,6 +25,7 @@ export default class AssignmentUX {
   @observable isShowingAddTemplate = false;
   @observable isShowingConfirmTemplate = false;
   @observable exercises;
+  @observable filteredExercises;
   @observable isReady = false;
   @observable form;
   @observable activeFilter = 'all';
@@ -94,6 +95,7 @@ export default class AssignmentUX {
 
     this.history = history;
     this.exercises = exercises;
+    this.filteredExercises = exercises;
     // task plans can't contain "foreign" exercises
     // We must clear out the exercises cache so that exercises
     // that belong to other ecosystems aren't present.
@@ -447,8 +449,13 @@ export default class AssignmentUX {
     });
   }
 
+  @action onFilterHomeworkExercises(ex) {
+    console.log(ex);
+    this.filteredExercises = ex;
+  }
+
   @action.bound onChangeFilter(value) {
-    this.activeFilter = value;
+    this.actFilterive = value;
   }
 
   @action.bound onShowAddTemplate() {

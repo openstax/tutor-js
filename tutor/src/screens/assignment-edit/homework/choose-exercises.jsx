@@ -112,7 +112,7 @@ class ChooseExercises extends React.Component {
   }
 
   render() {
-    const { ux, ux: { exercises } } = this.props;
+    const { ux, ux: { exercises, filteredExercises, goBackward } } = this.props;
     if (exercises.isFetching({ pageIds: ux.selectedPageIds })){
       return <Loading />;
     }
@@ -146,6 +146,9 @@ class ChooseExercises extends React.Component {
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick}
           filter={ux.activeFilter}
+          filteredExercises={filteredExercises}
+          goBackward={goBackward}
+          
         />
       );
     }

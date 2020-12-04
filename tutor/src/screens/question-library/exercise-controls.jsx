@@ -190,7 +190,7 @@ class ExerciseControls extends React.Component {
         />
       </TourAnchor>;
 
-    const homeworkFitlers = () => {
+    const homeworkFiltersAndCreateButton = () => {
       if(exerciseTypeFilter !== 'homework') {
         return null;
       }
@@ -222,7 +222,7 @@ class ExerciseControls extends React.Component {
               {!course.is_concept_coach ? exerciseFilters : undefined}
             </div>
           </div>
-          {homeworkFitlers()}
+          {homeworkFiltersAndCreateButton()}
         </div>
       </StyledExerciseControls>
     );

@@ -1,11 +1,11 @@
 import {
   React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
+import HomeExerciseFilters from '../../../components/exercises/homework-exercise-filters';
 import SelectionsTooltip from './selections-tooltip';
 import { colors } from '../../../theme';
 
@@ -13,32 +13,13 @@ const Wrapper = styled.div`
   background: #fff;
 `;
 
-const Filter = styled.div`
+const Filters = styled.div`
+  padding: 25px;
+  border-top: 1px solid ${colors.neutral.pale};
   background-color: ${colors.neutral.lightest};
-  border: 1px solid ${colors.neutral.pale};
-  border-width: 1px 0;
-  padding: 1.6rem 4rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1.6rem;
-
-  & > :first-child {
-    margin-right: 2.4rem;
-  }
-`;
-
-const StyledToggleButton = styled(ToggleButton)`
-  &.btn.btn-plain {
-    background-color: ${colors.neutral.white};
-    color: ${colors.neutral.dark};
-    border: 1px solid ${colors.neutral.pale};
-    padding: 1rem 2rem;
-    margin-right: 1.2rem;
-
-    &.active {
-      background-color: ${colors.neutral.light};
-    }
+  
+  .dropdown-menu.show {
+    width: 30rem;
   }
 `;
 
@@ -215,9 +196,25 @@ class ExerciseControls extends React.Component {
     );
   }
 
+  homeworkFiltersAndCreateButton({ ux }) {
+    return (
+      <Filters>
+        <HomeExerciseFilters
+          className="question-filters"
+          exercises={ux.exercises}
+          returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
+        {/* <Button
+          variant="primary"
+          onClick={partial(onDisplayAddEditQuestionModal, true)}>
+              Create question
+        </Button> */}
+      </Filters>    
+    );
+  }
+
   render() {
     const { ux, ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
-
+    console.log(this.props);
     return (
       <Wrapper>
         <Columns>
@@ -269,7 +266,7 @@ class ExerciseControls extends React.Component {
             </Columns>
           </Indicators>
         </Columns>
-        <Filter>
+        {/* <Filter>
           <strong>Filter</strong>
           <ToggleButtonGroup
             type="radio"
@@ -281,7 +278,9 @@ class ExerciseControls extends React.Component {
             <StyledToggleButton variant="plain" value="mc">Multiple-choice questions only</StyledToggleButton>
             <StyledToggleButton variant="plain" value="oe">Written-response questions only</StyledToggleButton>
           </ToggleButtonGroup>
-        </Filter>
+        </Filter> */}
+        {this.homeworkFiltersAndCreateButton({ ux })}
+
       </Wrapper>
     );
   }

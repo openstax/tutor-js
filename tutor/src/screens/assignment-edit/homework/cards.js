@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, ArrayOrMobxType, styled, computed,
+  React, PropTypes, observer, ArrayOrMobxType, styled,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ExercisePreview from '../../../components/exercises/preview';
@@ -100,39 +100,19 @@ class SectionsExercises extends React.Component {
   static propTypes = {
     pageId:                 PropTypes.string.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
-    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+    filteredExercises:      PropTypes.instanceOf(ExercisesMap).isRequired,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
     getExerciseActions:     PropTypes.func.isRequired,
-    filter:                 PropTypes.string,
   };
 
-  @computed get showMultipleChoice() {
-    return this.props.filter != 'oe';
-  }
-
-  @computed get showOpenEnded() {
-    return this.props.filter != 'mc';
-  }
-
   render() {
-    const { pageId, book, exercises, ...previewProps } = this.props;
+    const { pageId, book, filteredExercises, ...previewProps } = this.props;
     const page = book.pages.byId.get(pageId);
-    const pageExercises = exercises.byPageId[pageId];
-    if (isEmpty(pageExercises)) { return null; }
-
-    let mcExercises, oeExercises = [];
-
-    if (this.showMultipleChoice) {
-      mcExercises = pageExercises.filter(e => e.content.questions[0].isMultipleChoice);
-    }
-
-    if (this.showOpenEnded) {
-      oeExercises = pageExercises.filter(e => e.content.questions[0].isOpenEnded);
-    }
-
-    if (isEmpty(mcExercises) && isEmpty(oeExercises)) { return null; }
+    const pageExercises = filteredExercises.byPageId[pageId];
+    const mcExercises = pageExercises.filter(e => e.content.questions[0].isMultipleChoice);
+    const oeExercises = pageExercises.filter(e => e.content.questions[0].isOpenEnded);
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
@@ -168,10 +148,12 @@ class ExerciseCards extends React.Component {
     pageIds:                ArrayOrMobxType.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
     exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+    filteredExercises:      PropTypes.instanceOf(ExercisesMap).isRequired,
     onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
     getExerciseActions:     PropTypes.func.isRequired,
     onShowDetailsViewClick: PropTypes.func.isRequired,
+    goBackward:             PropTypes.func.isRequired,
     focusedExercise:        PropTypes.instanceOf(Exercise),
     topScrollOffset:        PropTypes.number,
     disableScroll:          PropTypes.bool,
@@ -202,16 +184,19 @@ class ExerciseCards extends React.Component {
   }
 
   render() {
-    const { pageIds, exercises, ...sectionProps } = this.props;
+    const { pageIds, exercises, filteredExercises, goBackward, ...sectionProps } = this.props;
 
-    if (exercises.noneForPageIds(pageIds)) {
-      return <NoExercisesFound />;
+    if (exercises.noneForPageIds(pageIds) || filteredExercises.noneForPageIds(pageIds)) {
+      return <NoExercisesFound 
+        isHomework={true}
+        sectionHasExercises={exercises.noneForPageIds(pageIds) ? false : true}
+        onSelectSections={goBackward}/>;
     }
 
     let sections = map(pageIds, pageId => (
       <SectionsExercises
         key={pageId}
-        exercises={exercises}
+        filteredExercises={filteredExercises}
         pageId={pageId}
         {...sectionProps}
       />
