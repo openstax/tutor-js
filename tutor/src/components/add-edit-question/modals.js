@@ -1,6 +1,6 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, useState, useEffect } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
-import { map, find } from 'lodash';
+import { map, find, isEmpty } from 'lodash';
 import { colors } from 'theme';
 import { Question, ArbitraryHtmlAndMath } from 'shared';
 import AddEditQuestionUX from './ux';
@@ -23,6 +23,10 @@ const PreviewModal = styled(Modal)`
       border: 1px solid ${colors.neutral.std};
       color: ${colors.neutral.dark};
       background-color: ${colors.neutral.cool};
+    }
+    .btn.btn-primary {
+      float: right;
+      margin-top: 1rem;
     }
   }
 `;
@@ -150,8 +154,14 @@ CoursePreviewOnlyModal.propTypes = {
 };
 
 const QuestionPreviewModal = observer(({ ux }) => {
-  if(!ux.showPreviewQuestionModal) return null;
-  
+  // dont show answers yet when it is a two-step question
+  const [showAnswers, setshowAnswers] = useState(!ux.isTwoStep);
+  const [freeResponseText, setFreeReponseText] = useState('');
+
+  useEffect(() => {
+    setshowAnswers(!ux.isTwoStep);
+  }, [ux.isTwoStep]);
+
   const question = new QuestionModel({
     stem_html: ux.questionText,
     answers: map(ux.filledOptions, o => {
@@ -181,13 +191,24 @@ const QuestionPreviewModal = observer(({ ux }) => {
           question={question}
           answer_id={correctAnswer ? correctAnswer.id : null}
           correct_answer_id={correctAnswer ? correctAnswer.id : null}
+          hideAnswers={!showAnswers}
         />
         {
-          ux.isTwoStep &&
-          <textarea
-            placeholder="Enter your response..."
-            aria-label="question response text box"
-            readOnly />
+          !showAnswers &&
+          <>
+            <textarea
+              placeholder="Enter your response..."
+              aria-label="question response text box"
+              value={freeResponseText}
+              onChange={({ target: { value } }) => setFreeReponseText(value)} />
+            <Button
+              size="lg"
+              disabled={isEmpty(freeResponseText.trim())}
+              onClick={() => setshowAnswers(true)}
+            >
+              Submit
+            </Button>
+            </>
         }
         
       </>;
