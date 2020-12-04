@@ -11,6 +11,9 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
             background-color: ${colors.neutral.lighter};
         }
     }
+    .i-agree {
+        display: flex;
+    }
     .modal-dialog {
         margin: 4rem auto;
         max-width: 55%;

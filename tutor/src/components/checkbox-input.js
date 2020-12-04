@@ -43,7 +43,7 @@ const CheckboxInput = observer((props) => {
   const id = props.id || uniqueId(props.name);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className={props.className}>
       <StyledCheckboxInput
         {...field}
         {...props}
