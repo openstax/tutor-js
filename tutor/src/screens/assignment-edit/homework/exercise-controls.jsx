@@ -1,6 +1,8 @@
 import {
   React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
+import { partial } from 'lodash';
+import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
@@ -14,12 +16,21 @@ const Wrapper = styled.div`
 `;
 
 const Filters = styled.div`
-  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
   border-top: 1px solid ${colors.neutral.pale};
   background-color: ${colors.neutral.lightest};
   
-  .dropdown-menu.show {
-    width: 30rem;
+  .question-filters {
+    margin-top: 0.75rem;
+    .dropdown-menu.show {
+      width: 30rem;
+    }
+  }
+
+  .btn.btn-primary {
+    padding: 0.5rem 5rem;
   }
 `;
 
@@ -121,8 +132,9 @@ const SectionizerControls = styled.div`
 class ExerciseControls extends React.Component {
   static propTypes = {
     ux: PropTypes.object.isRequired,
-    sectionizerProps:    PropTypes.object,
+    sectionizerProps: PropTypes.object,
     hideSectionizer: PropTypes.bool,
+    onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 
   renderSectionizer() {
@@ -196,25 +208,25 @@ class ExerciseControls extends React.Component {
     );
   }
 
-  homeworkFiltersAndCreateButton({ ux }) {
+  homeworkFiltersAndCreateButton() {
+    const { ux, onDisplayAddEditQuestionModal } = this.props;
     return (
       <Filters>
         <HomeExerciseFilters
           className="question-filters"
           exercises={ux.exercises}
           returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
-        {/* <Button
+        <Button
           variant="primary"
           onClick={partial(onDisplayAddEditQuestionModal, true)}>
               Create question
-        </Button> */}
+        </Button>
       </Filters>    
     );
   }
 
   render() {
     const { ux, ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
-    console.log(this.props);
     return (
       <Wrapper>
         <Columns>
@@ -266,21 +278,7 @@ class ExerciseControls extends React.Component {
             </Columns>
           </Indicators>
         </Columns>
-        {/* <Filter>
-          <strong>Filter</strong>
-          <ToggleButtonGroup
-            type="radio"
-            name="filter"
-            value={ux.activeFilter}
-            onChange={ux.onChangeFilter}
-          >
-            <StyledToggleButton variant="plain" value="all">All questions</StyledToggleButton>
-            <StyledToggleButton variant="plain" value="mc">Multiple-choice questions only</StyledToggleButton>
-            <StyledToggleButton variant="plain" value="oe">Written-response questions only</StyledToggleButton>
-          </ToggleButtonGroup>
-        </Filter> */}
-        {this.homeworkFiltersAndCreateButton({ ux })}
-
+        {this.homeworkFiltersAndCreateButton()}
       </Wrapper>
     );
   }

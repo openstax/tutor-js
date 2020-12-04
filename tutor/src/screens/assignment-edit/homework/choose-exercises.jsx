@@ -3,6 +3,7 @@ import Loading from 'shared/components/loading-animation';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
+import AddEditQuestionModal from '../../../components/add-edit-question';
 import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
 import { Body } from '../builder';
@@ -27,6 +28,7 @@ class ChooseExercises extends React.Component {
   @observable currentSection;
   @observable displayFeedback;
   @observable focusedExercise;
+  @observable showAddEditQuestionModal = false;
 
   @action.bound onShowDetailsViewClick() {
     this.currentView = 'details';
@@ -35,6 +37,11 @@ class ChooseExercises extends React.Component {
   @action.bound onShowCardViewClick(ev, exercise) {
     this.currentView = 'cards';
     this.focusedExercise = exercise;
+  }
+
+  @action.bound onDisplayAddEditQuestionModal(show) {
+    if(!show) {this.selectedExercise = null;}
+    this.showAddEditQuestionModal = !!show;
   }
 
   getExerciseActions = (exercise) => {
@@ -145,7 +152,6 @@ class ChooseExercises extends React.Component {
           disableScroll
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick}
-          filter={ux.activeFilter}
           filteredExercises={filteredExercises}
           goBackward={goBackward}
           
@@ -165,10 +171,20 @@ class ChooseExercises extends React.Component {
             onSectionClick: this.setCurrentSection,
             nonAvailableWidth: 600,
             chapter_sections: ux.selectedChapterSections,
-          }} />
+          }}
+          onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}/>
         <StyledBody>
           {body}
         </StyledBody>
+        <AddEditQuestionModal
+          exerciseType="homework"
+          exercise={this.selectedExercise}
+          book={ux.course.referenceBook}
+          pageIds={ux.selectedPageIds}
+          course={ux.course}
+          showModal={this.showAddEditQuestionModal}
+          onDisplayModal={this.onDisplayAddEditQuestionModal}
+          exercises={exercises} />
       </TourRegion>
     );
   }

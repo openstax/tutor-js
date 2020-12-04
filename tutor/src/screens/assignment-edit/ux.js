@@ -450,7 +450,6 @@ export default class AssignmentUX {
   }
 
   @action onFilterHomeworkExercises(ex) {
-    console.log(ex);
     this.filteredExercises = ex;
   }
 
