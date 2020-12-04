@@ -12,6 +12,11 @@ import { colors } from '../../../theme';
 
 const Wrapper = styled.div`
   background: #fff;
+  position: sticky;
+  top: 59px;
+  z-index: 1050;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
 `;
 
 const Filters = styled.div`
