@@ -112,7 +112,7 @@ class ChooseExercises extends React.Component {
   }
 
   render() {
-    const { ux, ux: { exercises, filteredExercises, goBackward } } = this.props;
+    const { ux, ux: { exercises, filteredExercises, steps: { goBackward } } } = this.props;
     if (exercises.isFetching({ pageIds: ux.selectedPageIds })){
       return <Loading />;
     }
