@@ -214,19 +214,19 @@ class ExerciseControls extends React.Component {
       <Filters>
         <HomeExerciseFilters
           className="question-filters"
-          exercises={ux.exercises}
+          exercises={ux.exercises.homework}
           returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
         <Button
           variant="primary"
           onClick={partial(onDisplayAddEditQuestionModal, true)}>
               Create question
         </Button>
-      </Filters>    
+      </Filters>
     );
   }
 
   render() {
-    const { ux, ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
+    const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
     return (
       <Wrapper>
         <Columns>
