@@ -28,7 +28,6 @@ export default class AssignmentUX {
   @observable filteredExercises;
   @observable isReady = false;
   @observable form;
-  @observable activeFilter = 'all';
   @observable templates;
   @observable plan;
   @observable didUserChangeDatesManually = false;
@@ -451,10 +450,6 @@ export default class AssignmentUX {
 
   @action onFilterHomeworkExercises(ex) {
     this.filteredExercises = ex;
-  }
-
-  @action.bound onChangeFilter(value) {
-    this.actFilterive = value;
   }
 
   @action.bound onShowAddTemplate() {
