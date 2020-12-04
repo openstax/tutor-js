@@ -111,6 +111,10 @@ class SectionsExercises extends React.Component {
     const { pageId, book, filteredExercises, ...previewProps } = this.props;
     const page = book.pages.byId.get(pageId);
     const pageExercises = filteredExercises.byPageId[pageId];
+    if(isEmpty(pageExercises)) {
+      return null;
+    }
+
     const mcExercises = pageExercises.filter(e => e.content.questions[0].isMultipleChoice);
     const oeExercises = pageExercises.filter(e => e.content.questions[0].isOpenEnded);
 
