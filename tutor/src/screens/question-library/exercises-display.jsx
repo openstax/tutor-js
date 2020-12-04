@@ -347,7 +347,6 @@ class ExercisesDisplay extends React.Component {
             displayedChapterSections={this.displayedChapterSections}
             showingDetails={showingDetails}
             topScrollOffset={TOP_SCROLL_OFFSET}
-            showAddEditQuestionModal={this.showAddEditQuestionModal}
             onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}
           />
         </div>

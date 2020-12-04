@@ -95,7 +95,6 @@ class ExerciseControls extends React.Component {
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
     setSecondaryTopControls: PropTypes.func.isRequired,
-    showAddEditQuestionModal: PropTypes.bool.isRequired,
     onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 
@@ -190,7 +189,7 @@ class ExerciseControls extends React.Component {
         />
       </TourAnchor>;
 
-    const homeworkFitlers = () => {
+    const homeworkFiltersAndCreateButton = () => {
       if(exerciseTypeFilter !== 'homework') {
         return null;
       }
@@ -198,6 +197,9 @@ class ExerciseControls extends React.Component {
         <div className="questions-controls-wrapper">
           <HomeExerciseFilters
             className="question-filters"
+            // need to pass the `exercises.homework` so the useEffect can be triggered
+            // useEffect treats an Observable map as an array so it won't listen to changes
+            // if we add or delete an element.
             exercises={exercises.homework}
             returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
           <Button
@@ -222,7 +224,7 @@ class ExerciseControls extends React.Component {
               {!course.is_concept_coach ? exerciseFilters : undefined}
             </div>
           </div>
-          {homeworkFitlers()}
+          {homeworkFiltersAndCreateButton()}
         </div>
       </StyledExerciseControls>
     );

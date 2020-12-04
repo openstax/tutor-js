@@ -8,41 +8,38 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
 
 .c0 {
   background: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 59px;
+  z-index: 1050;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
 }
 
 .c11 {
-  background-color: #fafafa;
-  border: 1px solid #d5d5d5;
-  border-width: 1px 0;
-  padding: 1.6rem 4rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 1.6rem;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+  border-top: 1px solid #d5d5d5;
+  background-color: #fafafa;
 }
 
-.c11 > :first-child {
-  margin-right: 2.4rem;
+.c11 .question-filters {
+  margin-top: 0.75rem;
 }
 
-.c12.btn.btn-plain {
-  color: #5f6163;
-  border: 1px solid #d5d5d5;
-  padding: 1rem 2rem;
-  margin-right: 1.2rem;
+.c11 .question-filters .dropdown-menu.show {
+  width: 30rem;
 }
 
-.c12.btn.btn-plain.active {
-  background-color: #e4e4e4;
+.c11 .btn.btn-primary {
+  padding: 0.5rem 5rem;
 }
 
 .c9 {
@@ -257,7 +254,7 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
               className="tutor-selections"
             >
               <div>
-                OpenStax Tutor Selections
+                Personalized questions
               </div>
               <button
                 className="btn btn-link"
@@ -351,65 +348,14 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
   <div
     className="c11"
   >
-    <strong>
-      Filter
-    </strong>
-    <div
-      className="btn-group btn-group-toggle"
-      role="group"
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
     >
-      <label
-        className="c12 btn btn-plain"
-        disabled={false}
-      >
-        <input
-          autoComplete="off"
-          checked={false}
-          disabled={false}
-          name="filter"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          type="radio"
-          value="all"
-        />
-        All questions
-      </label>
-      <label
-        className="c12 btn btn-plain"
-        disabled={false}
-      >
-        <input
-          autoComplete="off"
-          checked={false}
-          disabled={false}
-          name="filter"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          type="radio"
-          value="mc"
-        />
-        Multiple-choice questions only
-      </label>
-      <label
-        className="c12 btn btn-plain"
-        disabled={false}
-      >
-        <input
-          autoComplete="off"
-          checked={false}
-          disabled={false}
-          name="filter"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          type="radio"
-          value="oe"
-        />
-        Written-response questions only
-      </label>
-    </div>
+      Create question
+    </button>
   </div>
 </div>
 `;
