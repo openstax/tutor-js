@@ -105,6 +105,10 @@ CustomMenu.propTypes = {
 };
 
 const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) => {
+  if(!exercises) {
+    return null;
+  }
+
   const [filters, setFilters] = useState({
     showMPQ: true,
     showWRQ: true,

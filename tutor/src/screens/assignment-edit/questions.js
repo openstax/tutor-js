@@ -49,7 +49,7 @@ const Indicators = observer(({ ux }) => {
         testId="selection-count-footer"
       />
       <Indicator
-        title="OpenStax Tutor selections"
+        title="Personalized questions"
         value={ux.numTutorSelections}
         testId="tutor-count-footer"
       />

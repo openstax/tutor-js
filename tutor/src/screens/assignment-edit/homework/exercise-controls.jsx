@@ -217,11 +217,11 @@ class ExerciseControls extends React.Component {
           // need to pass the `exercises.homework` so the useEffect can be triggered
           // useEffect treats an Observable map as an array so it won't listen to changes
           // if we add or delete an element.
-          exercises={ux.exercises.homework}
+          exercises={ux.exercises ? ux.exercises.homework : null}
           returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
         <Button
           variant="primary"
-          onClick={partial(onDisplayAddEditQuestionModal, true)}>
+          onClick={() => onDisplayAddEditQuestionModal(true)}>
               Create question
         </Button>
       </Filters>
@@ -259,7 +259,7 @@ class ExerciseControls extends React.Component {
               <Indicator>
                 <TourAnchor id="tutor-selections">
                   <div className="tutor-selections">
-                    <div>OpenStax Tutor Selections</div>
+                    <div>Personalized questions</div>
                     <SelectionsTooltip />
                     <Columns>
                       {this.renderDecreaseButton()}

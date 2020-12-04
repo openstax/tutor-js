@@ -6,11 +6,11 @@ describe('ExerciseControls', function() {
       numMCQs: 1,
       numWRQs: 2,
       numTutorSelections: 3,
-      totalSelections: 6
+      totalSelections: 6,
     },
     sectionizerProps: {
-      chapter_sections: []
-    }
+      chapter_sections: [],
+    },
   };
 
   it('renders the correct question counts', () => {
