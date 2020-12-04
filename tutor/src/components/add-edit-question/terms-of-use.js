@@ -59,7 +59,7 @@ const AddEditQuestionTermsOfUse = observer(({ ux }) => {
       </Modal.Header>
       <Modal.Body>
 
-        <p>{ux.termsOfUse}</p>
+        <div dangerouslySetInnerHTML={{ __html: ux.termsOfUse }} />
 
         <CheckboxInput
           className="i-agree"
