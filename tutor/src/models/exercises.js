@@ -155,6 +155,12 @@ export class ExercisesMap extends Map {
   @action deleteByExerciseId(exerciseId) {
     this._map.delete(parseInt(exerciseId, 10));
   }
+  deleteExercise(course, exercise) {
+    return { courseId: course.id, exerciseNumber: exercise.content.number };
+  }
+  onExerciseDeleted(resp, [ , exercise]) {
+    this.deleteByExerciseId(exercise.id);
+  }
 
   createExercise({ course, data }) {
     return { 
