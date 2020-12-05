@@ -54,7 +54,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 34,
                   "published_at": "2015-04-22T19:30:19.475Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -162,7 +161,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   ],
                   "uid": "34@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -174,6 +172,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 16,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -256,7 +255,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 36,
                   "published_at": "2015-04-22T19:30:19.493Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -364,7 +362,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   ],
                   "uid": "36@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -376,6 +373,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 17,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -458,7 +456,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 33,
                   "published_at": "2015-04-22T19:30:19.467Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -566,7 +563,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   ],
                   "uid": "33@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -578,6 +574,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 18,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -660,7 +657,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 36,
                   "published_at": "2015-04-22T19:30:19.493Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -768,7 +764,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   ],
                   "uid": "36@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -780,6 +775,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 19,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -862,7 +858,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 31,
                   "published_at": "2015-04-22T19:30:19.452Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -970,7 +965,6 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   ],
                   "uid": "31@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -982,6 +976,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 20,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -1410,7 +1405,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 34,
                   "published_at": "2015-04-22T19:30:19.475Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -1518,7 +1512,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   ],
                   "uid": "34@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -1530,6 +1523,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 1,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -1612,7 +1606,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 34,
                   "published_at": "2015-04-22T19:30:19.475Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -1720,7 +1713,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   ],
                   "uid": "34@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -1732,6 +1724,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 2,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -1814,7 +1807,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 31,
                   "published_at": "2015-04-22T19:30:19.452Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -1922,7 +1914,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   ],
                   "uid": "31@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -1934,6 +1925,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 3,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -2016,7 +2008,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 33,
                   "published_at": "2015-04-22T19:30:19.467Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -2124,7 +2115,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   ],
                   "uid": "33@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -2136,6 +2126,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 4,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
@@ -2218,7 +2209,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 34,
                   "published_at": "2015-04-22T19:30:19.475Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -2326,7 +2316,6 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   ],
                   "uid": "34@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -2338,6 +2327,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                 "has_video": false,
                 "id": 5,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],
