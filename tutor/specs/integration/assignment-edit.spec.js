@@ -115,7 +115,7 @@ context('Assignment Edit', () => {
     cy.get('[data-test-id="total-count-footer"]').should('contain.text', '4')
   });
 
-  it.only('filters question types', () => {
+  it('filters question types', () => {
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     fillDetails()
