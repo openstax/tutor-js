@@ -1,7 +1,35 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, useState, useEffect } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
+import { map, find, isEmpty } from 'lodash';
 import { colors } from 'theme';
+import { Question, ArbitraryHtmlAndMath } from 'shared';
 import AddEditQuestionUX from './ux';
+import QuestionModel from '../../../../shared/src/model/exercise/question';
+
+const PreviewModal = styled(Modal)`
+  .modal-dialog {
+    min-width: 800px;
+  }
+  .modal-body {
+    .context {
+      color: ${colors.neutral.thin};
+    }
+    textarea {
+      width: 100%;
+      min-height: 10.5em;
+      line-height: 1.5em;
+      margin: 2.5rem 0 0 0;
+      padding: 0.5em;
+      border: 1px solid ${colors.neutral.std};
+      color: ${colors.neutral.dark};
+      background-color: ${colors.neutral.cool};
+    }
+    .btn.btn-primary {
+      float: right;
+      margin-top: 1rem;
+    }
+  }
+`;
 
 const StyledHeader = styled(Modal.Header)`
   font-weight: bold;
@@ -125,4 +153,92 @@ CoursePreviewOnlyModal.propTypes = {
   onDisplayModal: PropTypes.func.isRequired,
 };
 
-export { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal };
+const QuestionPreviewModal = observer(({ ux }) => {
+  // dont show answers yet when it is a two-step question
+  const [showAnswers, setshowAnswers] = useState(!ux.isTwoStep);
+  const [freeResponseText, setFreeReponseText] = useState('');
+
+  useEffect(() => {
+    setshowAnswers(!ux.isTwoStep);
+  }, [ux.isTwoStep]);
+
+  const question = new QuestionModel({
+    stem_html: ux.questionText,
+    answers: map(ux.filledOptions, o => {
+      return {
+        id: o.id,
+        content_html: o.text,
+        correctness: o.isCorrect ? '1.0' : '0.0',
+        feedback_html: o.feedback,
+      };
+    }),
+    formats: [ux.isMCQ ? 'multiple-choice' : 'free-response'],
+  });
+  //only OS questions has context
+  const context = () => {
+    if (!ux.exercise || !ux.exercise.context) return null;
+    return (
+      <ArbitraryHtmlAndMath className="context" block={true} html={ux.exercise.context} />
+    );
+  };
+
+  let QuestionComponent;
+  if (ux.isMCQ) {
+    const correctAnswer = find(ux.filledOptions, o => o.isCorrect);
+    QuestionComponent =
+      <>
+        <Question
+          question={question}
+          answer_id={correctAnswer ? correctAnswer.id : null}
+          correct_answer_id={correctAnswer ? correctAnswer.id : null}
+          hideAnswers={!showAnswers}
+        />
+        {
+          !showAnswers &&
+          <>
+            <textarea
+              placeholder="Enter your response..."
+              aria-label="question response text box"
+              value={freeResponseText}
+              onChange={({ target: { value } }) => setFreeReponseText(value)} />
+            <Button
+              size="lg"
+              disabled={isEmpty(freeResponseText.trim())}
+              onClick={() => setshowAnswers(true)}
+            >
+              Submit
+            </Button>
+            </>
+        }
+        
+      </>;
+  }
+  else {
+    QuestionComponent = 
+      <>
+        <Question question={question}/>
+        <textarea
+          placeholder="Enter your response..."
+          aria-label="question response text box"
+          readOnly />
+      </>
+    ;
+  }
+
+  return (
+    <PreviewModal
+      show={ux.showPreviewQuestionModal}
+      backdrop="static"
+      onHide={() => ux.showPreviewQuestionModal = false}>
+      <StyledHeader closeButton>
+        Question Preview
+      </StyledHeader>
+      <StyledBody>
+        {context()}
+        {QuestionComponent}
+      </StyledBody>
+    </PreviewModal>
+  );
+});
+
+export { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal, QuestionPreviewModal };

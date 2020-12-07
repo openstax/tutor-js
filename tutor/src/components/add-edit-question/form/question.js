@@ -304,7 +304,7 @@ const Form = observer(({ ux }) => {
         <div className="left-side">Context</div>
         <div className="right-side">
           This question comes with media.
-          <Button variant="link" onClick={() => window.alert('preview')}>Preview</Button>
+          <Button variant="link" onClick={() => ux.showPreviewQuestionModal = true}>Preview</Button>
           to see it.
         </div>
       </div>

@@ -227,7 +227,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 31,
                 "published_at": "2015-04-22T19:30:19.452Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -335,7 +334,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 ],
                 "uid": "31@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -347,6 +345,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "has_video": false,
               "id": 1,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -487,7 +486,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 31,
                 "published_at": "2015-04-22T19:30:19.452Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -595,7 +593,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 ],
                 "uid": "31@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -607,6 +604,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "has_video": false,
               "id": 2,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -859,7 +857,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 34,
                 "published_at": "2015-04-22T19:30:19.475Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -967,7 +964,6 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
                 ],
                 "uid": "34@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -979,6 +975,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
               "has_video": false,
               "id": 3,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],

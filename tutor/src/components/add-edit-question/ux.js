@@ -7,7 +7,6 @@ import S from '../../helpers/string';
 export default class AddEditQuestionUX {
 
   // local
-  @observable didUserAgreeTermsOfUse;
   @observable isMCQ;
   initialStateForm;
 
@@ -26,6 +25,7 @@ export default class AddEditQuestionUX {
     shouldExitOnPublish: false,
   }
   @observable showExitWarningModal = false;
+  @observable showPreviewQuestionModal = false;
 
   /** props */
   @observable book;
@@ -72,8 +72,6 @@ export default class AddEditQuestionUX {
     this.exercises = props.exercises;
 
     //TODO: get from BE
-    this.didUserAgreeTermsOfUse = true;
-
     // edit or create
     if(props.exercise) {
       this.exercise = props.exercise;
@@ -88,9 +86,9 @@ export default class AddEditQuestionUX {
         }
       }
       // show 4 options by default
-      for(let i = 0; i < 4; i++) {
+      for(let i = 1; i <= 4; i++) {
         this.options.push({
-          text: '', feedback: '', isCorrect: false,
+          id: i, text: '', feedback: '', isCorrect: false,
         });
       }
       this.isMCQ = true;
@@ -118,6 +116,7 @@ export default class AddEditQuestionUX {
     this.isTwoStep = question.isTwoStep;
     forEach(question.answers, a => {
       this.options.push({
+        id: a.id,
         text: a.content_html,
         feedback: a.feedback_html,
         isCorrect: a.isCorrect,
@@ -168,8 +167,18 @@ export default class AddEditQuestionUX {
     };
   }
 
+  @computed get termsOfUse() {
+    const term = User.terms.get('exercise_editing');
+    return term ? term.content : '';
+  }
+
+  @computed get didUserAgreeTermsOfUse() {
+    return User.terms.hasAgreedTo('exercise_editing');
+  }
+
   @action.bound agreeTermsOfUse() {
-    this.didUserAgreeTermsOfUse = true;
+    const term = User.terms.get('exercise_editing');
+    User.terms.sign([term.id]);
   }
 
   // Chapters that the user has selected
@@ -324,7 +333,7 @@ export default class AddEditQuestionUX {
     // up to 6 options only
     if(this.options.length === 6) return;
     this.options.push({
-      text: '', feedback: '', isCorrect: false,
+      id: this.options.length, text: '', feedback: '', isCorrect: false,
     });
   }
 

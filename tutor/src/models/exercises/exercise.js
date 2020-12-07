@@ -25,6 +25,7 @@ class TutorExercise extends BaseModel {
   @belongsTo({ model: 'book' }) book;
   @belongsTo({ model: 'course' }) course;
   @field is_excluded = false;
+  @field is_copyable = true;
   @field has_interactive = false;
   @field has_video = false;
   @field page_uuid = false;
@@ -96,6 +97,10 @@ class TutorExercise extends BaseModel {
 
   @computed get isMultiPart() {
     return this.content.isMultiPart;
+  }
+
+  @computed get canCopy() {
+    return Boolean(this.is_copyable && !this.isMultiPart);
   }
 
   @computed get hasInteractive() {

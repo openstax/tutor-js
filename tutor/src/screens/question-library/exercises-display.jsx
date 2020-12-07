@@ -190,6 +190,8 @@ class ExercisesDisplay extends React.Component {
 
   getExerciseActions = (exercise) => {
     const actions = {};
+    const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+
     if (this.getExerciseIsSelected(exercise)) {
       actions.include = {
         message: 'Re-Include question',
@@ -201,22 +203,21 @@ class ExercisesDisplay extends React.Component {
         handler: this.onExerciseToggle,
       };
     }
-    if (!exercise.isMultiPart) {
-      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+    if (exercise.canCopy) {
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit question' : 'Edit question'}`,
         handler: this.onEditExercise,
       };
     }
     if (this.props.showingDetails) {
-      this.addDetailsActions(actions, exercise);
+      this.addDetailsActions(actions, exercise, isUserGeneratedQuestion);
     } else {
       this.addCardActions(actions, exercise);
     }
     return actions;
   };
 
-  addDetailsActions = (actions) => {
+  addDetailsActions = (actions, exercise, isUserGeneratedQuestion) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -228,12 +229,16 @@ class ExercisesDisplay extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    return (
-      actions['report-error'] = {
-        message: 'Suggest a correction',
-        handler: this.reportError,
-      }
-    );
+    actions['report-error'] = {
+      message: 'Suggest a correction',
+      handler: this.reportError,
+    };
+    if (isUserGeneratedQuestion) {
+      actions.deleteExercise = {
+        message: 'Delete question',
+        handler: () => this.props.exercises.deleteExercise(this.props.course, exercise),
+      };
+    }
   };
 
   addCardActions = (actions, exercise) => {

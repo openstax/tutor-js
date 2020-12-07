@@ -1,11 +1,11 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from 'shared/model';
-import { find, isEmpty, startsWith, map, uniq, max } from 'lodash';
+import { find, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
-import { UserTerms } from './user/terms';
+import { UserTerms, Term } from './user/terms';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
@@ -38,8 +38,7 @@ class User extends BaseModel {
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
-  @field terms_signatures_needed;
-
+  @hasMany({ model: Term  }) available_terms;
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
@@ -92,12 +91,6 @@ class User extends BaseModel {
 
   @computed get isProbablyTeacher() {
     return Boolean(this.can_create_courses || this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
-  }
-
-  @computed get shouldSignTerms() {
-    return this.terms_signatures_needed && (
-      this.terms.api.isPendingInitialFetch || !isEmpty(this.terms.unsigned)
-    );
   }
 
   @computed get tourAudienceTags() {
