@@ -51,7 +51,6 @@ const StyledQuestionForm = styled.div`
     }
     label, .left-side {
         flex: 0 1 9%;
-        margin: auto 0;
     }
     .question-text,
     .detailed-solution,
@@ -91,7 +90,7 @@ const StyledQuestionForm = styled.div`
       // overriding checkbox svg css
       svg[data-icon="question-circle"] {
         position: static;
-        margin: 0 0.5rem;
+        margin: 0.2rem 0.5rem;
         height: 1.4rem;
         width: 1.4rem;
       } 
@@ -126,10 +125,14 @@ const StyledQuestionForm = styled.div`
             margin-right: 0.5rem;
             margin-top: 0.5rem;
             svg {
-              font-size: 2rem;
+              height: 2.4rem;
+              width: 2.4rem;
               color: ${colors.neutral.pale};
+              border: 1px solid ${colors.neutral.pale};
+              border-radius: 50%;
               &.is-correct {
                 color: ${colors.green};
+                border: 1px solid ${colors.green};
               }
               &.check-correct-empty {
                 color: #ffafb9;
@@ -152,7 +155,11 @@ const StyledQuestionForm = styled.div`
           margin-top: 0.3rem;
           margin-left: 2.4rem;
           button svg {
+            height: 1.4rem;
             color: ${colors.neutral.std};
+          }
+          button[disabled] {
+            opacity: 0.4;
           }
         }
         .add-option {
@@ -203,7 +210,6 @@ const Form = observer(({ ux }) => {
         <AddEditFormTextInput
           onChange={(value) => ux.changeOptions(value, index)}
           value={o.text}
-          placeholder={`Add Option ${index + 1}`}
           className={`question-option-${index + 1}`}
           errorInfo={index <= 1 && ux.isEmpty.options[index] ? 'Add at least two options' : ''}
         />
@@ -286,7 +292,7 @@ const Form = observer(({ ux }) => {
           onChange={ux.changeDetailedSolution}
           html={ux.detailedSolution}
           label='Detailed solution'
-          placeholder="Optional. This is not visible to students."
+          placeholder="Optional."
           className="detailed-solution"
         />
       </>

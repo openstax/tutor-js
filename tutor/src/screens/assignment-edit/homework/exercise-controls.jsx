@@ -14,9 +14,9 @@ const Wrapper = styled.div`
   background: #fff;
   position: sticky;
   top: 59px;
-  z-index: 1050;
-  border-top: 1px solid #d5d5d5;
-  border-bottom: 1px solid #d5d5d5;
+  z-index: 1;
+  border-top: 1px solid ${colors.neutral.pale};
+  border-bottom: 1px solid ${colors.neutral.pale};
 `;
 
 const Filters = styled.div`

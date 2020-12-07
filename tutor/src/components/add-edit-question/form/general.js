@@ -141,7 +141,7 @@ const GeneralForm = observer(({ ux }) => {
             label={
               <>
                 <span>Allow other instructors to copy and edit this question under the CC-BY license. </span>
-                <a href="www.google.com" target="_blank">Learn more.</a>
+                {/* <a href="www.google.com" target="_blank">Learn more.</a> */}
               </>
             }
             checked={ux.allowOthersCopyEdit}

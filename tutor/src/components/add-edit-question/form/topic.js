@@ -18,6 +18,7 @@ const StyledAddEditQuestionFormBlock = styled(AddEditQuestionFormBlock)`
 
 const StyledTopicForm = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-right: 15rem;
   .dropdown-wrapper {

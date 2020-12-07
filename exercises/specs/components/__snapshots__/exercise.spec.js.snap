@@ -1726,8 +1726,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <Icon tooltip=\\"Add New\\" type=\\"plus-square\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
                                   <OverlayTrigger placement=\\"auto\\" trigger={{...}} overlay={{...}} defaultOverlayShown={false}>
                                     <RefHolder>
-                                      <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\" onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-                                        <button onClick={[Function: res]} disabled={false} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
+                                      <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} onBlur={[Function]} active={false} disabled={false} type=\\"button\\" onFocus={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
+                                        <button onClick={[Function: res]} onBlur={[Function]} disabled={false} onFocus={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
                                           <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}}>
                                             <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                               <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -1751,8 +1751,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           Distractor
                                         </label>
                                         <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"green\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" color=\\"green\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" color=\\"green\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"green\\">
@@ -1764,8 +1764,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1777,8 +1777,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1804,8 +1804,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           Distractor
                                         </label>
                                         <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
@@ -1817,8 +1817,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1830,8 +1830,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1843,8 +1843,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1870,8 +1870,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           Distractor
                                         </label>
                                         <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
@@ -1883,8 +1883,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1896,8 +1896,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1909,8 +1909,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1936,8 +1936,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           Distractor
                                         </label>
                                         <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
@@ -1949,8 +1949,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-down\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1962,8 +1962,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -1975,8 +1975,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2002,8 +2002,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           Distractor
                                         </label>
                                         <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" color=\\"lightGray\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-check-circle is-correct\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
@@ -2015,8 +2015,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-arrow-circle-up\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2028,8 +2028,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                         <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} active={false} disabled={false} type=\\"button\\">
-                                            <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                          <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                            <button onClick={[Function: wrapper]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
                                               <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                   <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-ban\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2078,8 +2078,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </span>
                                         <div className=\\"controls\\">
                                           <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                              <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                     <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2142,8 +2142,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </BookSelection>
                                           <span className=\\"controls\\">
                                             <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2170,8 +2170,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </span>
                                         <div className=\\"controls\\">
                                           <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                              <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                     <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2197,8 +2197,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <TagError error={[undefined]} />
                                           <span className=\\"controls\\">
                                             <Icon type=\\"trash\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2392,8 +2392,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </span>
                                           <div className=\\"controls\\">
                                             <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2412,8 +2412,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <TagError error=\\"\\" />
                                             <span className=\\"controls\\">
                                               <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                  <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                  <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                       <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                         <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2441,8 +2441,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </span>
                                           <div className=\\"controls\\">
                                             <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2461,8 +2461,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <TagError error=\\"\\" />
                                             <span className=\\"controls\\">
                                               <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
-                                                  <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                  <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                       <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                         <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>

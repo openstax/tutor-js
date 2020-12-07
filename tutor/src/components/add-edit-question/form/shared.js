@@ -1,11 +1,12 @@
-import { React, PropTypes, styled, cn, observer } from 'vendor';
-import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { React, PropTypes, styled, cn, observer, useState } from 'vendor';
+import { Form, Overlay, Popover } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import { EditableHTML } from '../../editor';
 
 const StyledRowContent = styled.div`
   display: flex;
+  flex-wrap: wrap;
   >.label-wrapper {
     flex: 0 1 10%;
     font-size: 1.4rem;
@@ -19,6 +20,7 @@ const StyledRowContent = styled.div`
   }
   >.content-form {
     flex: 0 1 90%;
+    flex-wrap: wrap;
     &.gray-background {
       background-color: ${colors.neutral.bright};
     }
@@ -48,6 +50,8 @@ const StyledRowContent = styled.div`
           color: ${colors.neutral.thin};
           p {
             color: ${colors.neutral.darker};
+            line-height: 2.4rem;
+            font-size: 1.6rem;
           }
         }
       } 
@@ -92,18 +96,43 @@ const StyledQuestionInfoIcon = styled(Icon)`
   &.question-info-icon {
     margin-left: 1rem;
     color:${colors.bright_blue};
+    margin: 0;
   }
 `;
 
 export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+
+  const handleClick = (event) => {
+    setShow(!show);
+    if(!show) {
+      setTarget(event.target);
+    }
+    else {
+      setTarget(null);
+    }
+  };
   const popover = <StyledPopover>
     {popoverInfo}
   </StyledPopover>;
 
   return (
-    <OverlayTrigger placement={placement} overlay={popover}>
-      <StyledQuestionInfoIcon type="question-circle" className="question-info-icon" />
-    </OverlayTrigger>
+    <>
+      <StyledQuestionInfoIcon
+        type="question-circle"
+        className="question-info-icon"
+        onClick={handleClick}
+        onBlur={handleClick}/>
+      <Overlay
+        show={show}
+        target={target}
+        placement={placement}
+      >
+        {popover}
+      </Overlay>
+    </>
+  
   );
 };
 QuestionInfo.propTypes = {

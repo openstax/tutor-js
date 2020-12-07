@@ -46,13 +46,18 @@ const StyledToggle = styled(Dropdown.Toggle)`
 
 const StyledMenu = styled(Dropdown.Menu)`
   && {
-    width: 100%;
+    min-width: 100%;
     border-radius: 0.4rem;
 
     .dropdown-item {
       padding: 0.8rem 1rem;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
       color: ${colors.neutral.darker};
+      text-overflow: ellipsis;
+      max-width: 400px;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 `;
