@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, session, field, hasMany, computed, action,
 } from '../model';
-import { reduce, map, filter, inRange, merge, every, some } from 'lodash';
+import { reduce, map, filter, inRange, merge, every, some, isNil } from 'lodash';
 import TagAssociation from './exercise/tag-association';
 import invariant from 'invariant';
 import Attachment from './exercise/attachment';
@@ -54,11 +54,13 @@ class Exercise extends BaseModel {
   }
 
   @computed get number() {
-    return this.uid.split('@')[0];
+    const n = this.uid.split('@')[0];
+    return isNil(n) ? n : Number(n) ;
   }
 
   @computed get version() {
-    return this.uid.split('@')[1];
+    const n = this.uid.split('@')[1];
+    return isNil(n) ? n : Number(n) ;
   }
 
   @computed get cnxModuleUUIDs() {
