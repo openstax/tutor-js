@@ -143,10 +143,11 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
 
   return (
     <StyledQuestionFilter className={cn(className)}>
-      <StyledDropdown blankwidth='13.8rem'>
+      <StyledDropdown blankwidth='13.8rem' data-test-id="question-type-menu">
         <Dropdown.Toggle
           as={CustomToggle}
           text="Question Type"
+
           id="dropdown-custom-components"/>
         <Dropdown.Menu as={CustomMenu}>
           <CheckboxInput
@@ -156,6 +157,7 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
             checked={filters.showMPQ}
             label="Multiple-choice questions"
             labelSize="lg"
+            data-test-id='mcq-filter'
             standalone
           />
           <CheckboxInput
@@ -165,6 +167,7 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
             checked={filters.showWRQ}
             label="Written-response questions"
             labelSize="lg"
+            data-test-id='wrq-filter'
             standalone
           />
         </Dropdown.Menu>

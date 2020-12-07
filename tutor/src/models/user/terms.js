@@ -77,11 +77,6 @@ class UserTerms extends BaseModel {
       }
     });
 
-    // this.unsigned.forEach((t) => {
-    //   if (names.includes(t.name)) {
-    //     t.is_signed = true;
-    //   }
-    // });
   }
 
   // called by api

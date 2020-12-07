@@ -9,14 +9,16 @@ exports[`Exercise controls component renders and matches snapshot 1`] = `
     role="group"
   >
     <a
-      className="btn btn-primary"
+      aria-disabled={true}
+      className="btn btn-primary disabled"
       href="#"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
+      tabIndex={-1}
       title="Go to previous exercise"
     >
-      ◀
+      ◅
     </a>
     <a
       aria-disabled={true}
