@@ -201,7 +201,7 @@ class ExercisesDisplay extends React.Component {
         handler: this.onExerciseToggle,
       };
     }
-    if (!exercise.isMultiPart) {
+    if (!exercise.isMultiPart && exercise.isHomework) {
       const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit question' : 'Edit question'}`,
@@ -238,7 +238,7 @@ class ExercisesDisplay extends React.Component {
 
   addCardActions = (actions, exercise) => {
     // For now, MPQ are not allowed to be edited
-    if (!exercise.isMultiPart) {
+    if (!exercise.isMultiPart && exercise.isHomework) {
       const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
