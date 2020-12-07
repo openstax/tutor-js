@@ -41,6 +41,10 @@ const StyledQuestionForm = styled.div`
   }
   .question-form {
     padding: 2.4rem 1.8rem;
+    .mcq-info {
+      margin-bottom: 2rem;
+      color: ${colors.neutral.thin};
+    }
     > div:not(.option-choices-wrapper) {
         display: flex;
         flex-flow: row wrap;
@@ -91,6 +95,19 @@ const StyledQuestionForm = styled.div`
         height: 1.4rem;
         width: 1.4rem;
       } 
+    }
+    .context-info-wrapper {
+      .left-side {
+        color: ${colors.neutral.darker};
+        font-weight: 700;
+      }
+      .right-side {
+        color: ${colors.neutral.thin};
+        .btn.btn-link {
+          padding: 0 0.15rem;
+          vertical-align: inherit;
+        }
+      }
     }
     .option-choices-wrapper {
       display: column;
@@ -276,8 +293,28 @@ const Form = observer(({ ux }) => {
     );
   };
   
+  const contextInfo = () => {
+    const exercise = ux.exercise;
+    if(!exercise || !exercise.context) {
+      return null;
+    }
+
+    return (
+      <div className="context-info-wrapper">
+        <div className="left-side">Context</div>
+        <div className="right-side">
+          This question comes with media.
+          <Button variant="link" onClick={() => window.alert('preview')}>Preview</Button>
+          to see it.
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
+      { ux.isMCQ && <p className="mcq-info">Add question, multiple distractors, and check the correct answer.</p> }
+      {contextInfo()}
       <AnswerHTMLEditor
         onImageUpload={ux.onImageUpload}
         onChange={ux.changeQuestionText}
