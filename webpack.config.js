@@ -81,7 +81,7 @@ const config = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 1 , // (production && isTutor) ? 5 : 1,
+      maxInitialRequests: (production && isTutor) ? 5 : 1,
     },
   },
   performance: {
