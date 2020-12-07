@@ -51,7 +51,6 @@ const StyledQuestionForm = styled.div`
     }
     label, .left-side {
         flex: 0 1 9%;
-        margin: auto 0;
     }
     .question-text,
     .detailed-solution,
@@ -286,7 +285,7 @@ const Form = observer(({ ux }) => {
           onChange={ux.changeDetailedSolution}
           html={ux.detailedSolution}
           label='Detailed solution'
-          placeholder="Optional. This is not visible to students."
+          placeholder="Optional."
           className="detailed-solution"
         />
       </>

@@ -50,6 +50,8 @@ const StyledRowContent = styled.div`
           color: ${colors.neutral.thin};
           p {
             color: ${colors.neutral.darker};
+            line-height: 2.4rem;
+            font-size: 1.6rem;
           }
         }
       } 
