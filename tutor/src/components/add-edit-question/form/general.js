@@ -148,9 +148,9 @@ const GeneralForm = observer(({ ux }) => {
             standalone
           />
           <CheckboxInput
-            onChange={ux.changeAnnonymize}
-            label="Annonymize my name on the question."
-            checked={ux.annonymize}
+            onChange={ux.changeAnonymize}
+            label="Anonymize my name on the question."
+            checked={ux.anonymize}
             standalone
           />
         </div>
