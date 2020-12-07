@@ -91,7 +91,7 @@ const StyledQuestionForm = styled.div`
       // overriding checkbox svg css
       svg[data-icon="question-circle"] {
         position: static;
-        margin: 0 0.5rem;
+        margin: 0.2rem 0.5rem;
         height: 1.4rem;
         width: 1.4rem;
       } 

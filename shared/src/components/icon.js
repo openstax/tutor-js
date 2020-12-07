@@ -212,7 +212,7 @@ class Icon extends React.Component {
       defaults(providedProps, Variants[variant]);
     }
     const {
-      onClick, buttonProps, tooltipProps, btnVariant,
+      onClick, onBlur, buttonProps, tooltipProps, btnVariant,
       type, className, tooltip, onNavbar, busy, asButton,
       ...props
     } = providedProps;
@@ -250,6 +250,7 @@ class Icon extends React.Component {
             'btn btn-standard btn-icon': asButton,
           })}
           onClick={onClick}
+          onBlur={onBlur}
           {...buttonProps}
         >{icon}</Button>
       );
