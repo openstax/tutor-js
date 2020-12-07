@@ -100,7 +100,7 @@ class TutorExercise extends BaseModel {
   }
 
   @computed get canCopy() {
-    return Boolean(this.is_copyable && !this.isMultiPart);
+    return Boolean(this.is_copyable && !this.isMultiPart && this.isHomework);
   }
 
   @computed get hasInteractive() {
