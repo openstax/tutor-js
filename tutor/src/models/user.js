@@ -38,7 +38,7 @@ class User extends BaseModel {
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
-  @hasMany({ model: Term  }) available_terms;
+  @hasMany({ model: Term  }) available_terms = [];
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 

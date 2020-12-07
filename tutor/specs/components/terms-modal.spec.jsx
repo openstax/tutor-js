@@ -4,17 +4,17 @@ import User from '../../src/models/user';
 import { Term, UserTerms } from '../../src/models/user/terms';
 
 jest.mock('../../src/models/user', () => ({
-  terms_signatures_needed: false,
-  terms: { unsigned: [] },
-  get shouldSignTerms() { return this.terms_signatures_needed && this.terms.unsigned.length > 0; },
+  available_terms: [],
 }));
 
 describe('Terms agreement modal', () => {
 
   let modalManager;
+  let terms;
 
   beforeEach(() => {
-    User.terms = new UserTerms({ user: User });
+    terms = new UserTerms({ user: User });
+    User.terms = terms
     modalManager = new ModalManager();
     modalManager.canDisplay = () => true;
   });
@@ -34,7 +34,7 @@ describe('Terms agreement modal', () => {
 
     describe('only signed terms', () => {
       beforeEach(() => {
-        User.terms.terms = [
+        User.terms.available_terms = [
           {
             id: 42,
             name: 'general_terms_of_use',
@@ -56,8 +56,8 @@ describe('Terms agreement modal', () => {
 
     describe('some unsigned terms', () => {
       beforeEach(() => {
-        User.terms.terms = [
-          {
+        terms.user.available_terms = [
+          new Term({
             id: 42,
             name: 'general_terms_of_use',
             title: 'Terms of Use',
@@ -66,12 +66,13 @@ describe('Terms agreement modal', () => {
             is_signed: false,
             has_signed_before: true,
             is_proxy_signed: false,
-          },
+          }),
         ];
       });
 
       it('renders', () => {
         const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
+        expect(terms.user.available_terms[0].isRequired).toBe(true)
         expect(modal.text()).toContain('I agree');
       });
     });
@@ -79,14 +80,16 @@ describe('Terms agreement modal', () => {
 
   it('signs term when agreed', () => {
     const term = new Term({
-      id: 1, is_signed: false, content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
+      id: 1, is_signed: false, name: 'privacy_policy', content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
     });
     term.sign = jest.fn();
-    User.terms.terms = [ term ];
-    User.terms.sign = jest.fn();
-    User.terms_signatures_needed = true;
+    expect(term.isRequired).toBe(true)
+    terms.user.available_terms = [term];
+    terms.sign = jest.fn();
+
     const modal = mount(<TermsModal canBeDisplayed modalManager={modalManager} />);
+
     modal.find('Button').simulate('click');
-    expect(User.terms.sign).toHaveBeenCalled();
+    expect(terms.sign).toHaveBeenCalled();
   });
 });

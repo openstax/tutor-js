@@ -1,8 +1,8 @@
-import { UserTerms } from '../../../src/models/user/terms';
+import { UserTerms, Term } from '../../../src/models/user/terms';
 import User from '../../../src/models/user';
 
 jest.mock('../../../src/models/user', () => ({
-  terms_signatures_needed: true,
+  available_terms: [],
 }));
 
 describe('User Terms Store', function() {
@@ -12,26 +12,22 @@ describe('User Terms Store', function() {
     terms = new UserTerms({ user: User });
   });
 
-  it('filters out signed terms', () => {
+  it('filters out non required terms', () => {
     terms.onLoaded({
       data: [
-        { id: 1, is_signed: false },
-        { id: 2, is_signed: true },
-        { id: 3, is_signed: false },
+        { id: 1, name: 'none', is_signed: false },
+        { id: 2, name: 'complete', is_signed: true },
+        { id: 3, name: 'privacy_policy', is_signed: false, isRequired: true },
       ],
     });
-    expect(terms.unsigned.map((t) => t.id)).toEqual([1, 3]);
+    expect(terms.requiredAndUnsigned.map((t) => t.id)).toEqual([3]);
   });
 
   it('signs unsigned terms and removes them from list', () => {
-    terms.onLoaded({
-      data: [
-        { id: 1, is_signed: false, title: 'TEST' },
-      ],
-    });
-    const term = terms.unsigned[0];
-    terms.onSigned();
+    const term = new Term({ id: 1, is_signed: false, title: 'TEST', name: 'privacy_policy' })
+    terms.user.available_terms = [ term ];
+    terms.onSigned({}, [[1]]);
     expect(term.is_signed).toBe(true);
-    expect(terms.unsigned).toHaveLength(0);
+    expect(terms.requiredAndUnsigned).toHaveLength(0);
   });
 });
