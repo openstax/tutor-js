@@ -11,7 +11,7 @@ import { colors } from 'theme';
 const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
     .modal-dialog {
         margin: 4rem auto;
-        max-width: 95%;
+        max-width: 1200px;
     }
     .modal-body {
       form > div:not(:first-child) {

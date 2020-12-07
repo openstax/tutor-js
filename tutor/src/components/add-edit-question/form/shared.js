@@ -6,6 +6,7 @@ import { EditableHTML } from '../../editor';
 
 const StyledRowContent = styled.div`
   display: flex;
+  flex-wrap: wrap;
   >.label-wrapper {
     flex: 0 1 10%;
     font-size: 1.4rem;
@@ -19,6 +20,7 @@ const StyledRowContent = styled.div`
   }
   >.content-form {
     flex: 0 1 90%;
+    flex-wrap: wrap;
     &.gray-background {
       background-color: ${colors.neutral.bright};
     }
