@@ -8,12 +8,14 @@ context('Assignment Review', () => {
   });
 
   it('loads and views feedback', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('submission-overview-tab').click();
     cy.getTestElement('overview').should('exist');
     cy.getTestElement('student-free-responses').should('exist');
   });
 
   it('loads and views scores', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('assignment-scores-tab').click()
     cy.getTestElement('scores').should('exist');
   });
