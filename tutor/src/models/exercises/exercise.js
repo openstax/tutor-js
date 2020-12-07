@@ -105,6 +105,10 @@ class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
+  @computed get canCopyOrEdit() {
+    return !this.isMultiPart && this.isHomework;
+  }
+
   // Openstax exercises returns an id of 0;
   @computed get belongsToOpenStax() { return this.author.id === '0'; }
   belongsToCurrentUserProfileId(profileId) { return this.author.id == profileId; }

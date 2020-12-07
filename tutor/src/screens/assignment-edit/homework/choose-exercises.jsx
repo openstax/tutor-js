@@ -99,7 +99,7 @@ class ChooseExercises extends React.Component {
       message: 'Question details',
       handler: this.showDetails,
     };
-    if (!exercise.isMultiPart && exercise.isHomework) {
+    if (exercise.canCopyOrEdit) {
       const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
