@@ -115,16 +115,15 @@ context('Assignment Edit', () => {
     cy.get('[data-test-id="total-count-footer"]').should('contain.text', '4')
   });
 
-  xit('filters question types', () => {
+  it.only('filters question types', () => {
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     fillDetails()
     cy.get('.controls .btn-primary').click()
     cy.get('.chapter-checkbox .btn').first().click()
     cy.get('.controls .btn-primary').click()
-    cy.get('[name="filter"][value="oe"]').click({ force: true })
-    cy.get('[data-section]').should('not.contain.text', 'Multiple Choice Questions')
-    cy.get('[name="filter"][value="mc"]').click({ force: true })
+    cy.getTestElement('question-type-menu').click()
+    cy.getTestElement('wrq-filter').click({ force: true })
     cy.get('[data-section]').should('not.contain.text', 'Written Response Questions')
   });
 
