@@ -61,7 +61,7 @@ export default class AddEditQuestionUX {
   @observable questionName = '';
   @observable author;
   @observable allowOthersCopyEdit = true;
-  @observable annonymize = false;
+  @observable anonymize = false;
   @observable excludeOriginal = false;
 
   constructor(props = {}) {
@@ -164,7 +164,7 @@ export default class AddEditQuestionUX {
       questionName: this.questionName,
       author: this.author,
       allowOthersCopyEdit: this.allowOthersCopyEdit,
-      annonymize: this.annonymize,
+      anonymize: this.anonymize,
       excludeOriginal: this.excludeOriginal,
     };
   }
@@ -391,8 +391,8 @@ export default class AddEditQuestionUX {
     this.allowOthersCopyEdit = checked;
   }
 
-  @action.bound changeAnnonymize({ target: { checked } }) {
-    this.annonymize = checked;
+  @action.bound changeAnonymize({ target: { checked } }) {
+    this.anonymize = checked;
   }
 
   @action.bound changeExcludeOriginal({ target: { checked } }) {
@@ -424,7 +424,7 @@ export default class AddEditQuestionUX {
         detailedSolution: this.detailedSolution,
         isTwoStep: this.isTwoStep,
         tags: this.processTags(),
-        annonymize: this.annonymize,
+        anonymize: this.anonymize,
         copyable: this.allowOthersCopyEdit,
         images: this.images.map(img => img.signed_id),
       },
@@ -484,7 +484,7 @@ export default class AddEditQuestionUX {
     // general
     this.questionName = '';
     this.allowOthersCopyEdit = true;
-    this.annonymize = false;
+    this.anonymize = false;
     this.excludeOriginal = false;
     this.images.clear();
   }
