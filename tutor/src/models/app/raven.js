@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser';
 import { first, isEmpty, isObject, each } from 'lodash';
-const isProd = (process.env.NODE_ENV === 'production');
+import { isProd } from '../../helpers/production';
 
 const isMathJaxUrl = /mathjax/;
 

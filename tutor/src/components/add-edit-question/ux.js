@@ -4,6 +4,8 @@ import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
 
+const TERMS_NAME = 'exercise_edifting';
+
 export default class AddEditQuestionUX {
 
   // local
@@ -168,17 +170,19 @@ export default class AddEditQuestionUX {
   }
 
   @computed get termsOfUse() {
-    const term = User.terms.get('exercise_editing');
+    const term = User.terms.get(TERMS_NAME);
     return term ? term.content : '';
   }
 
   @computed get didUserAgreeTermsOfUse() {
-    return User.terms.hasAgreedTo('exercise_editing');
+    return User.terms.hasAgreedTo(TERMS_NAME);
   }
 
   @action.bound agreeTermsOfUse() {
-    const term = User.terms.get('exercise_editing');
-    User.terms.sign([term.id]);
+    const term = User.terms.get(TERMS_NAME);
+    if (term) {
+      User.terms.sign([term.id]);
+    }
   }
 
   // Chapters that the user has selected

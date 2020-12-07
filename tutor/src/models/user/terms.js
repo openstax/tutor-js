@@ -2,6 +2,7 @@ import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany,
 } from 'shared/model';
 import { computed, action } from 'mobx';
+import { isProd } from '../../helpers/production';
 
 const REQUIRED_FOR_EVERYONE = [
   'general_terms_of_use',
@@ -36,7 +37,8 @@ class UserTerms extends BaseModel {
 
   hasAgreedTo(name) {
     const term = this.get(name);
-    return term ? term.hasAgreed : false;
+    // allow bypassing terms on local dev since the localBE will not have the terms loaded
+    return term ? term.hasAgreed : !isProd;
   }
 
   @computed get areSignaturesNeeded() {
