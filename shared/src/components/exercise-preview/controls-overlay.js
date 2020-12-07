@@ -4,6 +4,18 @@ import { isEmpty, partial } from 'lodash';
 import classnames from 'classnames';
 import { Icon } from 'shared';
 
+const ICONS = {
+  'details': 'info-circle',
+  'include': 'plus-circle',
+  'exclude': 'minus-circle',
+  'copyEdit': 'edit',
+  'feedback-on': 'eye',
+  'feedback-off': 'eye-slash',
+  'report-error': 'exclamation-circle',
+  'deleteExercise': 'trash',
+};
+
+
 class ControlsOverlay extends React.Component {
   static propTypes = {
     onClick:  PropTypes.func,
@@ -24,17 +36,6 @@ class ControlsOverlay extends React.Component {
   render() {
     if (isEmpty(this.props.actions)) { return null; }
 
-    const iconTypes = {
-      'details': 'info-circle',
-      'include': 'plus-circle',
-      'exclude': 'minus-circle',
-      'copyEdit': 'edit',
-      'feedback-on': 'eye',
-      'feedback-off': 'eye-slash',
-      'report-error': 'exclamation-circle',
-      'deleteExercise': 'trash',
-    };
-
     return (
       <div
         onClick={this.props.onClick ? this.onClick : undefined}
@@ -50,7 +51,7 @@ class ControlsOverlay extends React.Component {
                   className={`action ${type}`}
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
-                  {iconTypes[type] && <Icon type={iconTypes[type]} data-action={type} />}
+                  {ICONS[type] && <Icon type={ICONS[type]} data-action={type} />}
                   <span>
                     {action.message}
                   </span>
