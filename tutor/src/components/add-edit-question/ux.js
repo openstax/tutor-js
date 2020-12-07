@@ -7,7 +7,6 @@ import S from '../../helpers/string';
 export default class AddEditQuestionUX {
 
   // local
-  @observable didUserAgreeTermsOfUse;
   @observable isMCQ;
   initialStateForm;
 
@@ -72,8 +71,6 @@ export default class AddEditQuestionUX {
     this.exercises = props.exercises;
 
     //TODO: get from BE
-    this.didUserAgreeTermsOfUse = true;
-
     // edit or create
     if(props.exercise) {
       this.exercise = props.exercise;
@@ -168,8 +165,18 @@ export default class AddEditQuestionUX {
     };
   }
 
+  @computed get termsOfUse() {
+    const term = User.terms.get('exercise_editing');
+    return term ? term.content : '';
+  }
+
+  @computed get didUserAgreeTermsOfUse() {
+    return User.terms.hasAgreedTo('exercise_editing');
+  }
+
   @action.bound agreeTermsOfUse() {
-    this.didUserAgreeTermsOfUse = true;
+    const term = User.terms.get('exercise_editing');
+    User.terms.sign([term.id]);
   }
 
   // Chapters that the user has selected

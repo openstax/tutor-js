@@ -207,7 +207,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             [Circular],
@@ -238,7 +237,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": StudentTaskExerciseStep {
             "_page": undefined,
@@ -253,6 +251,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
             "has_video": false,
             "id": 1,
             "isSelected": false,
+            "is_copyable": true,
             "is_excluded": false,
             "page_uuid": false,
             "pool_types": Array [],
@@ -347,7 +346,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
             "id": undefined,
             "is_vocab": undefined,
             "nickname": undefined,
-            "number": 35,
             "published_at": "2015-04-22T19:30:19.483Z",
             "questions": Array [
               ExerciseQuestion {
@@ -455,7 +453,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
             ],
             "uid": "35@1",
             "uuid": undefined,
-            "version": 1,
             "versions": Array [],
             "wrapper": [Circular],
             "wrapper_association_name": "content",
@@ -467,6 +464,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "has_video": false,
           "id": 1,
           "isSelected": false,
+          "is_copyable": true,
           "is_excluded": false,
           "page_uuid": false,
           "pool_types": Array [],
@@ -591,7 +589,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
                   "id": undefined,
                   "is_vocab": undefined,
                   "nickname": undefined,
-                  "number": 35,
                   "published_at": "2015-04-22T19:30:19.483Z",
                   "questions": Array [
                     ExerciseQuestion {
@@ -699,7 +696,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
                   ],
                   "uid": "35@1",
                   "uuid": undefined,
-                  "version": 1,
                   "versions": Array [],
                   "wrapper": [Circular],
                   "wrapper_association_name": "content",
@@ -711,6 +707,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
                 "has_video": false,
                 "id": 1,
                 "isSelected": false,
+                "is_copyable": true,
                 "is_excluded": false,
                 "page_uuid": false,
                 "pool_types": Array [],

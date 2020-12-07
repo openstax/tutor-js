@@ -1,9 +1,12 @@
 .openstax-has-html {
   @include tutor-tables($tutor-white, $tutor-white);
-  img[align="center"] {
-    clear: both;
-    display: block;
-    float: none;
-    margin: auto;
+  img {
+    max-width: 100%;
+    &[align="center"] {
+      clear: both;
+      display: block;
+      float: none;
+      margin: auto;
+    }
   }
 }
