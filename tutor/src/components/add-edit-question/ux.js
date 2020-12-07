@@ -25,6 +25,7 @@ export default class AddEditQuestionUX {
     shouldExitOnPublish: false,
   }
   @observable showExitWarningModal = false;
+  @observable showPreviewQuestionModal = false;
 
   /** props */
   @observable book;
@@ -85,9 +86,9 @@ export default class AddEditQuestionUX {
         }
       }
       // show 4 options by default
-      for(let i = 0; i < 4; i++) {
+      for(let i = 1; i <= 4; i++) {
         this.options.push({
-          text: '', feedback: '', isCorrect: false,
+          id: i, text: '', feedback: '', isCorrect: false,
         });
       }
       this.isMCQ = true;
@@ -115,6 +116,7 @@ export default class AddEditQuestionUX {
     this.isTwoStep = question.isTwoStep;
     forEach(question.answers, a => {
       this.options.push({
+        id: a.id,
         text: a.content_html,
         feedback: a.feedback_html,
         isCorrect: a.isCorrect,
@@ -331,7 +333,7 @@ export default class AddEditQuestionUX {
     // up to 6 options only
     if(this.options.length === 6) return;
     this.options.push({
-      text: '', feedback: '', isCorrect: false,
+      id: this.options.length, text: '', feedback: '', isCorrect: false,
     });
   }
 
