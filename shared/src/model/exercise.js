@@ -26,12 +26,11 @@ class Exercise extends BaseModel {
   @identifier uuid;
   @field id;
   @field uid;
-  @field version;
   @field nickname;
   @field({ type: 'array' }) versions;
 
   @field is_vocab;
-  @field number;
+
   @field stimulus_html;
 
   @session published_at;
@@ -52,6 +51,14 @@ class Exercise extends BaseModel {
 
   @computed get pool_types() {
     return [];
+  }
+
+  @computed get number() {
+    return this.uid.split('@')[0];
+  }
+
+  @computed get version() {
+    return this.uid.split('@')[1];
   }
 
   @computed get cnxModuleUUIDs() {

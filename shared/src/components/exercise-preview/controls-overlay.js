@@ -32,6 +32,7 @@ class ControlsOverlay extends React.Component {
       'feedback-on': 'eye',
       'feedback-off': 'eye-slash',
       'report-error': 'exclamation-circle',
+      'deleteExercise': 'trash',
     };
 
     return (

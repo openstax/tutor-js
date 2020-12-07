@@ -236,6 +236,10 @@ const startAPI = function() {
     'createExercise', { pattern: 'courses/{courseId}/exercises', onSuccess: 'onExerciseCreated' }
   );
 
+  connectModelDelete(Exercises.constructor,
+    'deleteExercise', { pattern: 'courses/{courseId}/exercises/{exerciseNumber}', onSuccess: 'onExerciseDeleted' }
+  );
+
   connectModelRead(CourseLMS, 'fetch', { pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete' });
 
   connectModelUpdate(CoursePairLMS, 'save', { method: 'POST', pattern: 'lms/courses/{course.id}/pair', onSuccess: 'onPaired' });
