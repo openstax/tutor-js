@@ -117,7 +117,7 @@
   .exercise-cards {
     @include exercise-cards-column-layout();
     // specificity to match exercise preview nesting
-    .exercise-card.has-actions .controls-overlay .message .action { width: 160px; }
+    .exercise-card.has-actions .controls-overlay .message .action { width: 11rem; }
   }
 }
 

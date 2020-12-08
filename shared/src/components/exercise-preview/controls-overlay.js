@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, partial } from 'lodash';
@@ -52,9 +53,9 @@ class ControlsOverlay extends React.Component {
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
                   {ICONS[type] && <Icon type={ICONS[type]} data-action={type} />}
-                  <span>
+                  <div className={cn({ 'label-message': Boolean(ICONS[type]) })}>
                     {action.message}
-                  </span>
+                  </div>
                 </div>);
             }
             return result;

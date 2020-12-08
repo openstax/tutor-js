@@ -107,7 +107,7 @@ const Badge = ({ el, tooltip, isTeacher }) => {
   );
 };
 Badge.propTypes = {
-  el: PropTypes.node.isRequired,
+  el: PropTypes.func.isRequired,
   tooltip: PropTypes.node,
   isTeacher: PropTypes.bool,
 };

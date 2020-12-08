@@ -251,7 +251,7 @@ class ExercisesDisplay extends React.Component {
       };
     }
     actions.details = {
-      message: 'Question details',
+      message: 'Details',
       handler: this.onShowDetailsViewClick,
     };
   };
