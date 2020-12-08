@@ -122,6 +122,7 @@ context('Assignment Review', () => {
 
   it('hides overview and scores tabs if not reading or homework', () => {
     // Homework
+    cy.wait('@taskPlan');
     cy.getTestElement('submission-overview-tab').should('exist');
     cy.getTestElement('assignment-scores-tab').should('exist');
 
@@ -142,6 +143,7 @@ context('Assignment Review', () => {
   });
 
   it('cannot deselect sections', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('edit-assignment').click();
     cy.getTestElement('select-sections').click({ force: true });
     cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')
