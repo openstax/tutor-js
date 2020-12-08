@@ -4,7 +4,7 @@ import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
 
-const TERMS_NAME = 'exercise_edifting';
+const TERMS_NAME = 'exercise_editing';
 
 export default class AddEditQuestionUX {
 
