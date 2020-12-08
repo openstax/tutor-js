@@ -288,6 +288,7 @@ class ExercisesDisplay extends React.Component {
       topScrollOffset: TOP_SCROLL_OFFSET,
       onSelectSections: this.props.onSelectSections,
       exerciseType: this.exerciseTypeFilter,
+      questionType: 'teacher-preview',
       // exercises in this scope are already filtered
       // check if the SECTIONS SELECTED has exercises
       sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
@@ -340,7 +341,7 @@ class ExercisesDisplay extends React.Component {
     if(!info) {
       return null;
     }
-    
+
     return (
       <div className="question-type-info">
         {info}

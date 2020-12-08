@@ -145,7 +145,7 @@ class ExercisePreview extends React.Component {
                   choicesEnabled={false}
                   displayFormats={this.props.displayFormats}
                   show_all_feedback={this.props.displayFeedback}
-                  type={this.props.questionType || 'teacher-preview'}
+                  type={this.props.questionType}
                 >
                   {this.props.questionFooters && this.props.questionFooters[index]}
                 </Question>
