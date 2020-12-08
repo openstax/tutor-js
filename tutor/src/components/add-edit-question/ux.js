@@ -379,7 +379,7 @@ export default class AddEditQuestionUX {
   }
 
   // actions for general form section
-  @action.bound changeQuestionName({ target: { value } }) {
+  @action.bound changeQuestionName(value) {
     this.questionName = value;
   }
 
