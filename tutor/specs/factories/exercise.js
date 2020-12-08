@@ -4,6 +4,10 @@ const {
 } = require('./helpers');
 require('../../../shared/specs/factories/exercise')
 
+Factory.define('ExerciseAuthor')
+  .id('0')
+  .name('OpenStax Tutor')
+
 Factory.define('TutorExercise')
   .id(sequence)
   .content(reference('Exercise'))
@@ -20,6 +24,7 @@ Factory.define('TutorExercise')
   .url(({ object }) =>
     `https://exercises.openstax.org/exercises/${object.content.uid}`
   )
+  .author(reference('ExerciseAuthor'))
   .question_stats(() => []);
 
 Factory.define('OpenEndedTutorExercise')
@@ -38,4 +43,5 @@ Factory.define('OpenEndedTutorExercise')
   .url(({ object }) =>
     `https://exercises.openstax.org/exercises/${object.content.uid}`
   )
+  .author(reference('ExerciseAuthor'))
   .question_stats(() => []);

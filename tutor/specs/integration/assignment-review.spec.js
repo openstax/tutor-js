@@ -8,12 +8,14 @@ context('Assignment Review', () => {
   });
 
   it('loads and views feedback', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('submission-overview-tab').click();
     cy.getTestElement('overview').should('exist');
     cy.getTestElement('student-free-responses').should('exist');
   });
 
   it('loads and views scores', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('assignment-scores-tab').click()
     cy.getTestElement('scores').should('exist');
   });
@@ -81,13 +83,13 @@ context('Assignment Review', () => {
     cy.getTestElement('grading-templates').click();
     cy.getTestElement('Second Homework').click();
     cy.getTestElement('confirm-change-template').click();
-    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
+    cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
 
     // Can cancel
     cy.getTestElement('grading-templates').click();
     cy.getTestElement('Default Homework').click();
     cy.getTestElement('cancel-confirm-change-template').click();
-    cy.getTestElement('selected-grading-template').should('have.text', 'Second Homework');
+    cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
   });
 
   // TODO: fix this test
@@ -120,6 +122,7 @@ context('Assignment Review', () => {
 
   it('hides overview and scores tabs if not reading or homework', () => {
     // Homework
+    cy.wait('@taskPlan');
     cy.getTestElement('submission-overview-tab').should('exist');
     cy.getTestElement('assignment-scores-tab').should('exist');
 
@@ -140,6 +143,7 @@ context('Assignment Review', () => {
   });
 
   it('cannot deselect sections', () => {
+    cy.wait('@taskPlan');
     cy.getTestElement('edit-assignment').click();
     cy.getTestElement('select-sections').click({ force: true });
     cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')

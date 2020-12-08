@@ -69,6 +69,7 @@ const Icons = {
   'info-circle':          require('@fortawesome/free-solid-svg-icons/faInfoCircle'),
   'lock':                 require('@fortawesome/free-solid-svg-icons/faLock'),
   'minus':                require('@fortawesome/free-solid-svg-icons/faMinus'),
+  'minus-circle':         require('@fortawesome/free-solid-svg-icons/faMinusCircle'),
   'paper-plane':          require('@fortawesome/free-solid-svg-icons/faPaperPlane'),
   'pencil-alt':           require('@fortawesome/free-solid-svg-icons/faPencilAlt'),
   'plus':                 require('@fortawesome/free-solid-svg-icons/faPlus'),
@@ -211,7 +212,7 @@ class Icon extends React.Component {
       defaults(providedProps, Variants[variant]);
     }
     const {
-      onClick, buttonProps, tooltipProps, btnVariant,
+      onClick, onBlur, buttonProps, tooltipProps, btnVariant,
       type, className, tooltip, onNavbar, busy, asButton,
       ...props
     } = providedProps;
@@ -249,6 +250,7 @@ class Icon extends React.Component {
             'btn btn-standard btn-icon': asButton,
           })}
           onClick={onClick}
+          onBlur={onBlur}
           {...buttonProps}
         >{icon}</Button>
       );

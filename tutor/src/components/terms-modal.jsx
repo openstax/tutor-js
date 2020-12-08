@@ -19,11 +19,17 @@ class TermsModal extends React.Component {
     modalManager: PropTypes.instanceOf(ModalManager).isRequired,
   }
 
-  @computed get title() {
-    return String.toSentence(map(User.terms.unsigned, 'title'));
+  @computed get terms() {
+    return User.terms.requiredAndUnsigned;
   }
 
-  @action.bound onAgreement() { User.terms.sign(); }
+  @computed get title() {
+    return String.toSentence(map(this.terms, 'title'));
+  }
+
+  @action.bound onAgreement() {
+    User.terms.sign(map(this.terms, 'id'));
+  }
 
   componentDidMount() {
     this.props.modalManager.queue(this, 1);
@@ -31,7 +37,7 @@ class TermsModal extends React.Component {
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return User.shouldSignTerms;
+    return User.terms.areSignaturesNeeded;
   }
 
   render() {
@@ -50,7 +56,7 @@ class TermsModal extends React.Component {
           <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
         </Modal.Header>
         <Modal.Body>
-          {map(User.terms.unsigned, (t) =>
+          {map(this.terms, (t) =>
             <div key={t.id}>
               <h1 className="title">{t.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: t.content }} />

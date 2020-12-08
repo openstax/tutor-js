@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -8,13 +8,35 @@ import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
-import ScrollSpy from '../../components/scroll-spy';
-import Sectionizer from '../../components/exercises/sectionizer';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
+import AddEditQuestionModal from '../../components/add-edit-question';
 import Course from '../../models/course';
+import User from '../../models/user';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
+import Scroller from '../../helpers/scroll-to';
+import { colors } from 'theme';
+
+const StyledExerciseDisplay = styled.div`
+  .controls-wrapper {
+    position: sticky;
+    top: 5.9rem;
+    z-index: 10;
+  }
+  .homework-questions-info {
+    background-color: white;
+    padding: 3rem 4.2rem 1.2rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: ${colors.neutral.thin};
+    strong {
+      font-weight: 700;
+    }
+  }
+`;
+
+const TOP_SCROLL_OFFSET = 335;
 
 const ExerciseDetailsWrapper = props => (
   <TourRegion id="question-library-details" courseId={props.course.id}>
@@ -57,19 +79,43 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  @observable filter = 'reading';
+  componentWillUnmount() {
+    this.props.exercises.clear();
+  }
+
+  @observable exerciseTypeFilter = 'homework';
+  @observable filteredExercises = this.props.exercises[this.exerciseTypeFilter];
+  @observable selectedExercise;
+
   @observable currentSection;
   @observable showingDetails = false;
   @observable displayFeedback = false;
 
-  onFilterChange = (filter) => {
-    this.filter = filter;
+  @observable showAddEditQuestionModal = false;
+
+  scroller = new Scroller({ windowImpl: this.windowImpl });
+
+  onExerciseTypeFilterChange = (exerciseTypeFilter) => {
+    this.exerciseTypeFilter = exerciseTypeFilter;
+    this.filteredExercises = this.props.exercises[this.exerciseTypeFilter];
+    // scroll to top if exercise type is changed
+    this.scroller.scrollToTop({ deferred: true });
   };
+
+  @action.bound onDisplayAddEditQuestionModal(show) {
+    if(!show) {this.selectedExercise = null;}
+    this.showAddEditQuestionModal = !!show;
+  }
 
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
     this.currentSection = currentSection;
   };
+
+  // called by question-filters that returns the filtered exercises
+  onFilterHomeworkExercises = (filteredExercises) => {
+    this.filteredExercises = filteredExercises;
+  }
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
     this.selectedExercise = exercise.wrapper;
@@ -104,7 +150,6 @@ class ExercisesDisplay extends React.Component {
     const { exercises } = this.props;
     let minExerciseCount;
     const exercise = exerciseContent.wrapper;
-    // const isSelected = !ExerciseStore.isExerciseExcluded(exercise.id);
     const is_excluded = !exercise.is_excluded;
     if (is_excluded) {
       minExerciseCount = exercises.isMinimumExcludedForPage(exercise.page);
@@ -136,11 +181,17 @@ class ExercisesDisplay extends React.Component {
     } else {
       this.props.course.saveExerciseExclusion({ exercise, is_excluded });
     }
-
   };
+
+  @action.bound onEditExercise = (ev, exercise) => {
+    this.selectedExercise = exercise.wrapper;
+    this.onDisplayAddEditQuestionModal(ev, true);
+  }
 
   getExerciseActions = (exercise) => {
     const actions = {};
+    const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+
     if (this.getExerciseIsSelected(exercise)) {
       actions.include = {
         message: 'Re-Include question',
@@ -152,15 +203,21 @@ class ExercisesDisplay extends React.Component {
         handler: this.onExerciseToggle,
       };
     }
+    if (exercise.canCopy) {
+      actions.copyEdit = {
+        message: `${!isUserGeneratedQuestion ? 'Copy & Edit question' : 'Edit question'}`,
+        handler: this.onEditExercise,
+      };
+    }
     if (this.props.showingDetails) {
-      this.addDetailsActions(actions, exercise);
+      this.addDetailsActions(actions, exercise, isUserGeneratedQuestion);
     } else {
       this.addCardActions(actions, exercise);
     }
     return actions;
   };
 
-  addDetailsActions = (actions) => {
+  addDetailsActions = (actions, exercise, isUserGeneratedQuestion) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -168,25 +225,35 @@ class ExercisesDisplay extends React.Component {
       };
     } else {
       actions['feedback-on'] = {
-        message: 'Preview Feedback',
+        message: 'Show Feedback',
         handler: this.toggleFeedback,
       };
     }
-    return (
-      actions['report-error'] = {
-        message: 'Suggest a correction',
-        handler: this.reportError,
-      }
-    );
+    actions['report-error'] = {
+      message: 'Suggest a correction',
+      handler: this.reportError,
+    };
+    if (isUserGeneratedQuestion) {
+      actions.deleteExercise = {
+        message: 'Delete question',
+        handler: () => this.props.exercises.deleteExercise(this.props.course, exercise),
+      };
+    }
   };
 
-  addCardActions = (actions) => {
-    return (
-      actions.details = {
-        message: 'Question details',
-        handler: this.onShowDetailsViewClick,
-      }
-    );
+  addCardActions = (actions, exercise) => {
+    // For now, MPQ are not allowed to be edited
+    if (exercise.canCopy) {
+      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+      actions.copyEdit = {
+        message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
+        handler: this.onEditExercise,
+      };
+    }
+    actions.details = {
+      message: 'Question details',
+      handler: this.onShowDetailsViewClick,
+    };
   };
 
   @action.bound reportError(ev, exercise) {
@@ -210,7 +277,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-
     const sharedProps = {
       exercises,
       course: this.props.course,
@@ -219,7 +285,12 @@ class ExercisesDisplay extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      topScrollOffset: 100,
+      topScrollOffset: TOP_SCROLL_OFFSET,
+      onSelectSections: this.props.onSelectSections,
+      exerciseType: this.exerciseTypeFilter,
+      // exercises in this scope are already filtered
+      // check if the SECTIONS SELECTED has exercises
+      sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
     };
 
     if (this.props.showingDetails) {
@@ -245,50 +316,59 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
+  renderHomeworkExercisesInfo = (exerciseType) => {
+    if(exerciseType !== 'homework') return null;
+
+    return (
+      <div className="homework-questions-info">
+        <p>
+          <strong>Homework questions </strong>
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
+        </p>
+      </div>
+    );
+  }
+
   render() {
-    const { pageIds, exercises } = this.props;
+    const { pageIds, exercises, course, onSelectSections, showingDetails } = this.props;
     if (isEmpty(pageIds)) {
       return null;
     }
     if (exercises.isFetching({ pageIds })) {
       return <Loading />;
     }
-
-    let sectionizerProps;
-
-    if (this.props.showingDetails) {
-      sectionizerProps = {
-        currentSection: this.currentSection,
-        onSectionClick: this.setCurrentSection,
-      };
-    }
     return (
-      <div className="exercises-display">
-        <div className="sections-questions-view">
+      <StyledExerciseDisplay>
+        <div className="controls-wrapper">
           <ExerciseControls
-            onSelectSections={this.props.onSelectSections}
-            filter={this.filter}
-            course={this.props.course}
-            showingDetails={this.props.showingDetails}
-            onFilterChange={this.onFilterChange}
-            onSectionSelect={this.scrollToSection}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
+            course={course}
+            onSelectSections={onSelectSections}
+            exerciseTypeFilter={this.exerciseTypeFilter}
             exercises={exercises}
-          >
-            <ScrollSpy dataSelector="data-section">
-              <Sectionizer
-                ref="sectionizer"
-                {...sectionizerProps}
-                nonAvailableWidth={600}
-                onScreenElements={[]}
-                chapter_sections={this.displayedChapterSections}
-              />
-            </ScrollSpy>
-          </ExerciseControls>
-          {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
+            onExerciseTypeFilterChange={this.onExerciseTypeFilterChange}
+            onFilterHomeworkExercises={this.onFilterHomeworkExercises}
+            displayedChapterSections={this.displayedChapterSections}
+            showingDetails={showingDetails}
+            topScrollOffset={TOP_SCROLL_OFFSET}
+            onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}
+          />
         </div>
-      </div>
+        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
+        <div className="exercises-display">
+          {this.renderExercises(this.filteredExercises)}
+        </div>
+        <AddEditQuestionModal
+          exerciseType={this.exerciseTypeFilter}
+          exercise={this.selectedExercise}
+          book={course.referenceBook}
+          pageIds={pageIds}
+          course={course}
+          showModal={this.showAddEditQuestionModal}
+          onDisplayModal={this.onDisplayAddEditQuestionModal}
+          exercises={exercises} />
+      </StyledExerciseDisplay>
     );
   }
 }

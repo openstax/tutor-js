@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
@@ -13,6 +13,14 @@ import S from '../../helpers/string';
 
 import './styles.scss';
 
+// Toolbar in step 3 needs to be sticked at the top but the overflow: hidden property prevents that to happen.
+const StyledBackgroundWrapper = styled(BackgroundWrapper)`
+  &.questions {
+    overflow: inherit;
+    top: -20px;
+    padding: 20px 2.4rem;
+  }
+`;
 @withRouter
 @observer
 class AssignmentBuilder extends React.Component {
@@ -63,7 +71,7 @@ class AssignmentBuilder extends React.Component {
     }
 
     return (
-      <BackgroundWrapper>
+      <StyledBackgroundWrapper className={this.props.params.step}>
         <ScrollToTop>
           <TourRegion
             className="assignment-builder"
@@ -82,7 +90,7 @@ class AssignmentBuilder extends React.Component {
             </ContentWrapper>
           </TourRegion>
         </ScrollToTop>
-      </BackgroundWrapper>
+      </StyledBackgroundWrapper>
     );
   }
 }

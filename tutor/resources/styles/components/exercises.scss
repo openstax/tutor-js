@@ -9,8 +9,7 @@ $exercise-details-body-height: calc(100vh - 250px);
   .paged-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
+    justify-content: flex-start;
   }
 
   .tutor-paging-navigation {
@@ -29,11 +28,13 @@ $exercise-details-body-height: calc(100vh - 250px);
       top: 130px;
       @include transition('top 0.2s ease-out');
     }
+  }
 
-    .show-cards {
-      color: $tutor-neutral;
-      cursor: pointer;
-    }
+  a:not([href]).show-cards {
+    color: $tutor-blue-control;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 1.2rem;
   }
 
   .exercise-card {
@@ -61,12 +62,25 @@ $exercise-details-body-height: calc(100vh - 250px);
     .icon.arrow { position: absolute; }
   }
 
-}
+  .detailed-solution, .exercise-footer {
+    color: #6f6f6f;
+    line-height: 2rem;
+    .author {
+      margin-top: 1.2rem;
+    }
+    a .chapter-section {
+      color: inherit;
+    }
+  }
 
-.no-exercises-found {
-  text-align: center;
-  padding-top: 200px;
-  min-height: 100vh; // make it fill screen so it can be scrolled to
+  .detailed-solution {
+    margin-bottom: 3.5rem;
+  }
+
+  .exercise-footer {
+    margin-top: 2.5rem;
+  }
+
 }
 
 .exercise-controls-bar {

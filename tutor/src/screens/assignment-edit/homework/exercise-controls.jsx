@@ -1,44 +1,40 @@
 import {
   React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
+import HomeExerciseFilters from '../../../components/exercises/homework-exercise-filters';
 import SelectionsTooltip from './selections-tooltip';
 import { colors } from '../../../theme';
 
 const Wrapper = styled.div`
   background: #fff;
+  position: sticky;
+  top: 59px;
+  z-index: 1;
+  border-top: 1px solid ${colors.neutral.pale};
+  border-bottom: 1px solid ${colors.neutral.pale};
 `;
 
-const Filter = styled.div`
-  background-color: ${colors.neutral.lightest};
-  border: 1px solid ${colors.neutral.pale};
-  border-width: 1px 0;
-  padding: 1.6rem 4rem;
+const Filters = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1.6rem;
-
-  & > :first-child {
-    margin-right: 2.4rem;
-  }
-`;
-
-const StyledToggleButton = styled(ToggleButton)`
-  &.btn.btn-plain {
-    background-color: ${colors.neutral.white};
-    color: ${colors.neutral.dark};
-    border: 1px solid ${colors.neutral.pale};
-    padding: 1rem 2rem;
-    margin-right: 1.2rem;
-
-    &.active {
-      background-color: ${colors.neutral.light};
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+  border-top: 1px solid ${colors.neutral.pale};
+  background-color: ${colors.neutral.lightest};
+  
+  .question-filters {
+    margin-top: 0.75rem;
+    .dropdown-menu.show {
+      width: 30rem;
     }
+  }
+
+  .btn.btn-primary {
+    padding: 0.5rem 5rem;
   }
 `;
 
@@ -140,8 +136,9 @@ const SectionizerControls = styled.div`
 class ExerciseControls extends React.Component {
   static propTypes = {
     ux: PropTypes.object.isRequired,
-    sectionizerProps:    PropTypes.object,
+    sectionizerProps: PropTypes.object,
     hideSectionizer: PropTypes.bool,
+    onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 
   renderSectionizer() {
@@ -215,9 +212,28 @@ class ExerciseControls extends React.Component {
     );
   }
 
-  render() {
-    const { ux, ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
+  homeworkFiltersAndCreateButton() {
+    const { ux, onDisplayAddEditQuestionModal } = this.props;
+    return (
+      <Filters>
+        <HomeExerciseFilters
+          className="question-filters"
+          // need to pass the `exercises.homework` so the useEffect can be triggered
+          // useEffect treats an Observable map as an array so it won't listen to changes
+          // if we add or delete an element.
+          exercises={ux.exercises ? ux.exercises.homework : null}
+          returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
+        <Button
+          variant="primary"
+          onClick={() => onDisplayAddEditQuestionModal(true)}>
+              Create question
+        </Button>
+      </Filters>
+    );
+  }
 
+  render() {
+    const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
     return (
       <Wrapper>
         <Columns>
@@ -247,7 +263,7 @@ class ExerciseControls extends React.Component {
               <Indicator>
                 <TourAnchor id="tutor-selections">
                   <div className="tutor-selections">
-                    <div>OpenStax Tutor Selections</div>
+                    <div>Personalized questions</div>
                     <SelectionsTooltip />
                     <Columns>
                       {this.renderDecreaseButton()}
@@ -269,19 +285,7 @@ class ExerciseControls extends React.Component {
             </Columns>
           </Indicators>
         </Columns>
-        <Filter>
-          <strong>Filter</strong>
-          <ToggleButtonGroup
-            type="radio"
-            name="filter"
-            value={ux.activeFilter}
-            onChange={ux.onChangeFilter}
-          >
-            <StyledToggleButton variant="plain" value="all">All questions</StyledToggleButton>
-            <StyledToggleButton variant="plain" value="mc">Multiple-choice questions only</StyledToggleButton>
-            <StyledToggleButton variant="plain" value="oe">Written-response questions only</StyledToggleButton>
-          </ToggleButtonGroup>
-        </Filter>
+        {this.homeworkFiltersAndCreateButton()}
       </Wrapper>
     );
   }

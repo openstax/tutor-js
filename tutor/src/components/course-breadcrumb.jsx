@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, Theme } from 'vendor';
+import { React, PropTypes, styled, Theme, cn } from 'vendor';
 import { Icon } from 'shared';
 import TutorLink from './link';
 import { Course } from '../models/courses-map';
@@ -38,9 +38,9 @@ const TaskTitle = styled(TruncatedText)`
   color: ${Theme.colors.neutral.darker};
 `;
 
-const CourseBreadcrumb = ({ course, currentTitle, titleSize, plan, noBottomMargin }) => {
+const CourseBreadcrumb = ({ course, currentTitle, plan, noBottomMargin, className = '' }) => {
   return (
-    <Wrapper noBottomMargin={noBottomMargin}>
+    <Wrapper noBottomMargin={noBottomMargin} className={cn(className)}>
       <Links>
         <TutorLink to="dashboard" params={{ courseId: course.id }}>
           {course.name}
@@ -73,7 +73,8 @@ CourseBreadcrumb.propTypes = {
   course: PropTypes.instanceOf(Course).isRequired,
   plan: PropTypes.object,
   currentTitle: PropTypes.string.isRequired,
-  titleSize: PropTypes.string,
+  noBottomMargin: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default CourseBreadcrumb;

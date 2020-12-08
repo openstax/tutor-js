@@ -10,6 +10,7 @@ import { Icon } from 'shared';
 import ChapterSection from '../../models/chapter-section';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
+import BookPartTitle from '../book-part-title';
 
 @observer
 class ExerciseDetails extends React.Component {
@@ -27,6 +28,9 @@ class ExerciseDetails extends React.Component {
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
     windowImpl:            PropTypes.object,
+    exerciseType:          PropTypes.string,
+    sectionHasExercises:   PropTypes.bool,
+    onSelectSections:      PropTypes.func,
   };
 
   @observable currentIndex;
@@ -85,20 +89,28 @@ class ExerciseDetails extends React.Component {
     const exercise = this.exercises[this.currentIndex] || first(this.exercises);
     if (!exercise) {
       return (
-        <NoExercisesFound />
+        <NoExercisesFound
+          isHomework={this.props.exerciseType === 'homework'}
+          sectionHasExercises={this.props.sectionHasExercises}
+          onSelectSections={this.props.onSelectSections}/>
       );
     }
     const moves = this.getValidMovements();
+
+    const leftFooter = (
+      <div className="author">
+        Author: {exercise.author.name}
+      </div>
+    );
+
+    const rightFooter = (
+      <a target="_blank" href={`/book/${exercise.id}/page/${exercise.page.id}`} className="section-link">
+        <BookPartTitle part={exercise.page} displayChapterSection />
+      </a>
+    );
+
     return (
       <div className="exercise-details">
-        <div className="controls">
-          <a
-            className="show-cards"
-            onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
-          >
-            <Icon type="th" size="lg" /> Back to Card View
-          </a>
-        </div>
 
         <PagingNavigation
           isForwardEnabled={moves.next}
@@ -107,6 +119,12 @@ class ExerciseDetails extends React.Component {
           onBackwardNavigation={this.onPrev}
           scrollOnNavigation={false}
         >
+          <a
+            className="show-cards"
+            onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
+          >
+            Back to Card View
+          </a>
           <div className="exercise-content">
             <ExercisePreview
               className="exercise-card"
@@ -117,6 +135,8 @@ class ExerciseDetails extends React.Component {
               extractedInfo={exercise}
               exercise={exercise.content}
               actionsOnSide={true}
+              leftFooterRenderer={leftFooter}
+              rightFooterRenderer={rightFooter}
             />
           </div>
         </PagingNavigation>

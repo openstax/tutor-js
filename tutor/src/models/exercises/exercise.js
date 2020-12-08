@@ -14,6 +14,10 @@ export default
 @identifiedBy('exercises/exercise')
 class TutorExercise extends BaseModel {
 
+  constructor(attrs = {}) {
+    super(attrs);
+  }
+
   @identifier id;
   @field ecosystem_id;
 
@@ -21,6 +25,7 @@ class TutorExercise extends BaseModel {
   @belongsTo({ model: 'book' }) book;
   @belongsTo({ model: 'course' }) course;
   @field is_excluded = false;
+  @field is_copyable = true;
   @field has_interactive = false;
   @field has_video = false;
   @field page_uuid = false;
@@ -28,6 +33,7 @@ class TutorExercise extends BaseModel {
   @field url = '';
   @field context;
   @field preview;
+  @field({ type: 'object' }) author;
 
   @hasMany({ model: RelatedContent }) related_content;
 
@@ -93,6 +99,10 @@ class TutorExercise extends BaseModel {
     return this.content.isMultiPart;
   }
 
+  @computed get canCopy() {
+    return Boolean(this.is_copyable && !this.isMultiPart && this.isHomework);
+  }
+
   @computed get hasInteractive() {
     return this.has_interactive;
   }
@@ -100,4 +110,8 @@ class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
+  // Openstax exercises returns an id of 0;
+  @computed get belongsToOpenStax() { return this.author.id === '0'; }
+  belongsToCurrentUserProfileId(profileId) { return this.author.id == profileId; }
+  belongsToOtherAuthorProfileIds(profileId) { return !this.belongsToOpenStax && this.author.id != profileId; }
 }

@@ -25,6 +25,8 @@ class ArbitraryHtmlAndMath extends React.Component {
     shouldExcludeFrame: PropTypes.func,
     windowImpl: PropTypes.object,
     history: PropTypes.object,
+    forwardedRef: PropTypes.any,
+    onClick: PropTypes.func,
   };
 
   static contextType = RouterContext;
@@ -71,16 +73,20 @@ class ArbitraryHtmlAndMath extends React.Component {
       this.context.history.push(ev.target.pathname + ev.target.hash);
       ev.preventDefault();
     }
+    if(this.props.onClick) {
+      this.props.onClick(ev);
+    }
   }
 
   render() {
-    const { className, block } = this.props;
+    const { className, block, forwardedRef } = this.props;
 
-    const otherProps = omit(this.props, 'staticContext', 'className', 'block', 'html', 'shouldExcludeFrame', 'processHtmlAndMath');
+    const otherProps = omit(this.props, 'staticContext', 'className', 'block', 'html', 'shouldExcludeFrame', 'processHtmlAndMath', 'forwardedRef');
     const ourProps = {
       className: classnames('openstax-has-html', className),
       dangerouslySetInnerHTML: this.getHTMLFromProp(),
       onClick: this.onClick,
+      ref: forwardedRef,
     };
 
 
@@ -96,4 +102,9 @@ class ArbitraryHtmlAndMath extends React.Component {
   }
 }
 
-export default ArbitraryHtmlAndMath;
+
+const HTML = React.forwardRef((props, ref) => (
+  <ArbitraryHtmlAndMath forwardedRef={ref} {...props} />
+));
+
+export default HTML;

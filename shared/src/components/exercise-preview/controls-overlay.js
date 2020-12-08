@@ -2,6 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, partial } from 'lodash';
 import classnames from 'classnames';
+import { Icon } from 'shared';
+
+const ICONS = {
+  'details': 'info-circle',
+  'include': 'plus-circle',
+  'exclude': 'minus-circle',
+  'copyEdit': 'edit',
+  'feedback-on': 'eye',
+  'feedback-off': 'eye-slash',
+  'report-error': 'exclamation-circle',
+  'deleteExercise': 'trash',
+};
+
 
 class ControlsOverlay extends React.Component {
   static propTypes = {
@@ -38,6 +51,7 @@ class ControlsOverlay extends React.Component {
                   className={`action ${type}`}
                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
                 >
+                  {ICONS[type] && <Icon type={ICONS[type]} data-action={type} />}
                   <span>
                     {action.message}
                   </span>

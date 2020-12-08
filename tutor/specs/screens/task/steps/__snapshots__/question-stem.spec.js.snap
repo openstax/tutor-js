@@ -74,7 +74,6 @@ exports[`Question Stem matches snapshot 1`] = `
         "id": undefined,
         "is_vocab": undefined,
         "nickname": undefined,
-        "number": 35,
         "published_at": "2015-04-22T19:30:19.483Z",
         "questions": Array [
           [Circular],
@@ -105,10 +104,10 @@ exports[`Question Stem matches snapshot 1`] = `
         ],
         "uid": "35@1",
         "uuid": undefined,
-        "version": 1,
         "versions": Array [],
         "wrapper": StudentTaskExerciseStep {
           "_page": undefined,
+          "author": Object {},
           "average_step_number": undefined,
           "book": undefined,
           "content": [Circular],
@@ -119,6 +118,7 @@ exports[`Question Stem matches snapshot 1`] = `
           "has_video": false,
           "id": 1,
           "isSelected": false,
+          "is_copyable": true,
           "is_excluded": false,
           "page_uuid": false,
           "pool_types": Array [],
@@ -164,6 +164,7 @@ exports[`Question Stem matches snapshot 1`] = `
       "is_answer_order_important": false,
       "stem_html": "Name one thing that the friction between two surfaces may depend on.",
       "stimulus_html": "",
+      "title": "",
     }
   }
   questionNumber={911}

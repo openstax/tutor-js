@@ -229,7 +229,15 @@ const startAPI = function() {
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Course,
-    'saveExerciseExclusion', { pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseExcluded' }
+    'saveExerciseExclusion', { method: 'PUT', pattern: 'courses/{id}/exercises/exclude', onSuccess: 'onExerciseExcluded' }
+  );
+
+  connectModelCreate(Exercises.constructor,
+    'createExercise', { pattern: 'courses/{courseId}/exercises', onSuccess: 'onExerciseCreated' }
+  );
+
+  connectModelDelete(Exercises.constructor,
+    'deleteExercise', { pattern: 'courses/{courseId}/exercises/{exerciseNumber}', onSuccess: 'onExerciseDeleted' }
   );
 
   connectModelRead(CourseLMS, 'fetch', { pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete' });

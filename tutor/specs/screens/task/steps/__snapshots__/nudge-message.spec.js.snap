@@ -125,6 +125,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
           "uuid": undefined,
         },
       ],
+      "teacher_profiles": Array [],
       "term": "spring",
       "timezone": "US/Central",
       "uses_pre_wrm_scores": false,
@@ -143,6 +144,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -165,7 +167,6 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             ExerciseQuestion {
@@ -244,6 +245,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
               "is_answer_order_important": false,
               "stem_html": "Name one thing that the friction between two surfaces may depend on.",
               "stimulus_html": "",
+              "title": "",
             },
           ],
           "stimulus_html": "",
@@ -272,7 +274,6 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": [Circular],
           "wrapper_association_name": "content",
@@ -284,6 +285,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "has_video": false,
         "id": 1,
         "isSelected": false,
+        "is_copyable": true,
         "is_excluded": false,
         "page_uuid": false,
         "pool_types": Array [],
@@ -493,6 +495,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
           "uuid": undefined,
         },
       ],
+      "teacher_profiles": Array [],
       "term": "spring",
       "timezone": "US/Central",
       "uses_pre_wrm_scores": false,
@@ -511,6 +514,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -533,7 +537,6 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             ExerciseQuestion {
@@ -612,6 +615,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
               "is_answer_order_important": false,
               "stem_html": "Name one thing that the friction between two surfaces may depend on.",
               "stimulus_html": "",
+              "title": "",
             },
           ],
           "stimulus_html": "",
@@ -640,7 +644,6 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": [Circular],
           "wrapper_association_name": "content",
@@ -652,6 +655,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "has_video": false,
         "id": 1,
         "isSelected": false,
+        "is_copyable": true,
         "is_excluded": false,
         "page_uuid": false,
         "pool_types": Array [],
@@ -865,6 +869,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
           "uuid": undefined,
         },
       ],
+      "teacher_profiles": Array [],
       "term": "spring",
       "timezone": "US/Central",
       "uses_pre_wrm_scores": false,
@@ -883,6 +888,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -905,7 +911,6 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             ExerciseQuestion {
@@ -984,6 +989,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
               "is_answer_order_important": false,
               "stem_html": "Name one thing that the friction between two surfaces may depend on.",
               "stimulus_html": "",
+              "title": "",
             },
           ],
           "stimulus_html": "",
@@ -1012,7 +1018,6 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": [Circular],
           "wrapper_association_name": "content",
@@ -1024,6 +1029,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "has_video": false,
         "id": 1,
         "isSelected": false,
+        "is_copyable": true,
         "is_excluded": false,
         "page_uuid": false,
         "pool_types": Array [],
@@ -1237,6 +1243,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
           "uuid": undefined,
         },
       ],
+      "teacher_profiles": Array [],
       "term": "spring",
       "timezone": "US/Central",
       "uses_pre_wrm_scores": false,
@@ -1255,6 +1262,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -1277,7 +1285,6 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             ExerciseQuestion {
@@ -1356,6 +1363,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
               "is_answer_order_important": false,
               "stem_html": "Name one thing that the friction between two surfaces may depend on.",
               "stimulus_html": "",
+              "title": "",
             },
           ],
           "stimulus_html": "",
@@ -1384,7 +1392,6 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": [Circular],
           "wrapper_association_name": "content",
@@ -1396,6 +1403,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "has_video": false,
         "id": 1,
         "isSelected": false,
+        "is_copyable": true,
         "is_excluded": false,
         "page_uuid": false,
         "pool_types": Array [],
@@ -1609,6 +1617,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
           "uuid": undefined,
         },
       ],
+      "teacher_profiles": Array [],
       "term": "spring",
       "timezone": "US/Central",
       "uses_pre_wrm_scores": false,
@@ -1627,6 +1636,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "can_be_updated": true,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
+        "author": Object {},
         "average_step_number": undefined,
         "book": undefined,
         "content": Exercise {
@@ -1649,7 +1659,6 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
           "id": undefined,
           "is_vocab": undefined,
           "nickname": undefined,
-          "number": 35,
           "published_at": "2015-04-22T19:30:19.483Z",
           "questions": Array [
             ExerciseQuestion {
@@ -1728,6 +1737,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
               "is_answer_order_important": false,
               "stem_html": "Name one thing that the friction between two surfaces may depend on.",
               "stimulus_html": "",
+              "title": "",
             },
           ],
           "stimulus_html": "",
@@ -1756,7 +1766,6 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
           ],
           "uid": "35@1",
           "uuid": undefined,
-          "version": 1,
           "versions": Array [],
           "wrapper": [Circular],
           "wrapper_association_name": "content",
@@ -1768,6 +1777,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "has_video": false,
         "id": 1,
         "isSelected": false,
+        "is_copyable": true,
         "is_excluded": false,
         "page_uuid": false,
         "pool_types": Array [],

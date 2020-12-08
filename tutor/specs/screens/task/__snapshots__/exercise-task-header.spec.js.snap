@@ -32,6 +32,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -54,7 +55,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 32,
                 "published_at": "2015-04-22T19:30:19.459Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -133,6 +133,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "According to Newton’s First Law, a body in motion tends to remain in motion at constant velocity. However, when you slide an object across a surface, the object eventually slows down and stops. Why?",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -161,7 +162,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "32@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -173,6 +173,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 1,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -232,6 +233,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -254,7 +256,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 35,
                 "published_at": "2015-04-22T19:30:19.483Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -333,6 +334,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "Name one thing that the friction between two surfaces may depend on.",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -361,7 +363,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "35@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -373,6 +374,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 2,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -432,6 +434,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -454,7 +457,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 33,
                 "published_at": "2015-04-22T19:30:19.467Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -533,6 +535,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "How do you express mathematically that no external force is acting on a body?",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -561,7 +564,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "33@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -573,6 +575,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 3,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -632,6 +635,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -654,7 +658,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 36,
                 "published_at": "2015-04-22T19:30:19.493Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -733,6 +736,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "Why does a puck slide more smoothly on an air-hockey table when the air is turned on?",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -761,7 +765,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "36@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -773,6 +776,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 4,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -832,6 +836,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -854,7 +859,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 35,
                 "published_at": "2015-04-22T19:30:19.483Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -933,6 +937,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "Name one thing that the friction between two surfaces may depend on.",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -961,7 +966,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "35@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -973,6 +977,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 5,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -1032,6 +1037,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -1054,7 +1060,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 34,
                 "published_at": "2015-04-22T19:30:19.475Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -1133,6 +1138,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "What is friction?",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -1161,7 +1167,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "34@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -1173,6 +1178,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 6,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -1232,6 +1238,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "can_be_updated": true,
             "content": StudentTaskExerciseStep {
               "_page": undefined,
+              "author": Object {},
               "average_step_number": undefined,
               "book": undefined,
               "content": Exercise {
@@ -1254,7 +1261,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "id": undefined,
                 "is_vocab": undefined,
                 "nickname": undefined,
-                "number": 31,
                 "published_at": "2015-04-22T19:30:19.452Z",
                 "questions": Array [
                   ExerciseQuestion {
@@ -1333,6 +1339,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                     "is_answer_order_important": false,
                     "stem_html": "What does Newton’s First Law state?",
                     "stimulus_html": "",
+                    "title": "",
                   },
                 ],
                 "stimulus_html": "",
@@ -1361,7 +1368,6 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 ],
                 "uid": "31@1",
                 "uuid": undefined,
-                "version": 1,
                 "versions": Array [],
                 "wrapper": [Circular],
                 "wrapper_association_name": "content",
@@ -1373,6 +1379,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
               "has_video": false,
               "id": 7,
               "isSelected": false,
+              "is_copyable": true,
               "is_excluded": false,
               "page_uuid": false,
               "pool_types": Array [],
@@ -1551,6 +1558,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
                 "uuid": undefined,
               },
             ],
+            "teacher_profiles": Array [],
             "term": "spring",
             "timezone": "US/Central",
             "uses_pre_wrm_scores": false,
@@ -1685,6 +1693,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uuid": undefined,
           },
         ],
+        "teacher_profiles": Array [],
         "term": "spring",
         "timezone": "US/Central",
         "uses_pre_wrm_scores": false,

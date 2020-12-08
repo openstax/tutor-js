@@ -5,6 +5,7 @@ import * as lms from '../components/toasts/lms';
 import * as scores from '../components/toasts/scores';
 import Reload from '../components/toasts/reload';
 import ScoresPublished from '../components/toasts/scores-published';
+import QuestionPublished from '../components/toasts/add-edit';
 
 const JobToasts = { lms, scores };
 
@@ -18,6 +19,9 @@ setHandlers({
   },
   scoresPublished() {
     return ScoresPublished;
+  },
+  questionPublished() {
+    return QuestionPublished;
   },
 });
 

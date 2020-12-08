@@ -151,12 +151,19 @@ class ReferenceBookNode extends BaseModel {
   }
 
   @computed get titleText() {
-    const match = this.title.match(/<span class="os-text">([^<]+)<\/span>/);
+    const match = this.title.match(/class="os-text">([^<]+)<\/span>/);
     return match ? match[1] : this.title;
   }
 
   @computed get isAssignable() {
     return !NON_ASSIGNABLE_TITLES.find(m => this.titleText.match(m));
+  }
+
+  @computed get titleWithSection() {
+    if(!this.chapter_section || !this.chapter_section.chapter) {
+      return this.titleText;
+    }
+    return `${this.chapter_section.asString}. ${this.titleText}`;
   }
 
 }

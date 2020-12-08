@@ -38,6 +38,11 @@ const colorDefinitions = {
   bright_blue:   '#0dc0dc',
   cerulan:       '#007297',
   dark_blue:     '#002469',
+  green:         '#77af42',
+  strong_red:    '#c22032',
+  soft_red:      '#e298a0',
+  gray_red:      '#f8e8ea',
+  orange:        '#df571e',
 };
 
 const tasks = {
@@ -112,6 +117,9 @@ export const colors = {
     neutral: {
       background: neutral.pale,
       border: neutral.dark,
+    },
+    addEditQuestion: {
+      background: '#dff2f7',
     },
   },
 
@@ -249,6 +257,7 @@ const TutorTheme = {
     navbar: 1030,
     footer: 5,
     goToTop: 1031,
+    modal: 1050,
   },
 };
 

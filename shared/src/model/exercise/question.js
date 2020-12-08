@@ -33,7 +33,8 @@ class ExerciseQuestion extends BaseModel {
   @identifier id;
   @field is_answer_order_important = false;
   @field stem_html = '';
-  @field stimulus_html = ''
+  @field stimulus_html = '';
+  @field title = '';
   @field({ type: 'array' }) hints;
   @hasMany({ model: Format, inverseOf: 'question' }) formats;
   @hasMany({ model: Answer, inverseOf: 'question' }) answers;
@@ -106,6 +107,10 @@ class ExerciseQuestion extends BaseModel {
 
   @computed get requiresChoicesFormat() {
     return !this.hasFormat('free-response');
+  }
+
+  @computed get isTwoStep() {
+    return Boolean(this.hasFormat('multiple-choice') && this.hasFormat('free-response'));
   }
 
   @action setExclusiveFormat(name) {
