@@ -43,9 +43,11 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               style={Object {}}
             />
           </svg>
-          <span>
+          <div
+            className="label-message"
+          >
             ReInclude question
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -73,8 +75,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="7-option-0"
+                  name="7-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -89,6 +97,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -114,8 +123,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="7-option-1"
+                  name="7-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -130,6 +145,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -330,8 +346,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="4-option-0"
+                  name="4-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -346,6 +368,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -371,8 +394,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="4-option-1"
+                  name="4-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -387,6 +416,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -520,8 +550,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="8-option-0"
+                  name="8-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -536,6 +572,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -561,8 +598,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="8-option-1"
+                  name="8-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -577,6 +620,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -602,8 +646,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="8-option-2"
+                  name="8-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -618,6 +668,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-c"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       c
                     </button>
@@ -643,8 +694,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="8-option-3"
+                  name="8-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -659,6 +716,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-d"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       d
                     </button>
@@ -770,8 +828,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="9-option-0"
+                  name="9-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -786,6 +850,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -811,8 +876,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="9-option-1"
+                  name="9-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -827,6 +898,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -968,8 +1040,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="1-option-0"
+                  name="1-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -984,6 +1062,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -1014,8 +1093,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="1-option-1"
+                  name="1-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -1030,6 +1115,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -1146,8 +1232,14 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="2-option-0"
+                  name="2-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -1162,6 +1254,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       className="answer-letter"
                       data-test-id="answer-choice-a"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       a
                     </button>
@@ -1196,8 +1289,14 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="2-option-1"
+                  name="2-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -1212,6 +1311,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       className="answer-letter"
                       data-test-id="answer-choice-b"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       b
                     </button>
@@ -1246,8 +1346,14 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 className="answers-answer disabled"
                 role="region"
               >
-                <div
-                  className="correct-incorrect"
+                <input
+                  checked={false}
+                  className="answer-input-box"
+                  disabled={true}
+                  id="2-option-2"
+                  name="2-options"
+                  onChange={[Function]}
+                  type="radio"
                 />
                 <label
                   className="answer-label"
@@ -1262,6 +1368,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       className="answer-letter"
                       data-test-id="answer-choice-c"
                       disabled={true}
+                      onClick={[Function]}
                     >
                       c
                     </button>
