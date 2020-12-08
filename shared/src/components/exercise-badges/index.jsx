@@ -10,7 +10,7 @@ import classnames from 'classnames';
 
 const BADGES = {
   multiPart: {
-    el: (
+    el: () => (
       <span key="mpq" className="mpq">
         <MultiPart />
         <span>
@@ -20,7 +20,7 @@ const BADGES = {
     ),
   },
   interactive: {
-    el: (
+    el: () => (
       <span key="interactive" className="interactive">
         <Interactive />
         <span>
@@ -30,7 +30,7 @@ const BADGES = {
     ),
   },
   video: {
-    el: (
+    el: () => (
       <span key="video" className="video">
         <Interactive />
         <span>
@@ -40,7 +40,7 @@ const BADGES = {
     ),
   },
   personalized: {
-    el: (
+    el: () => (
       <span key="personalized" className="personalized">
         <i className="icon icon-sm icon-personalized" />
         <span>
@@ -52,7 +52,7 @@ const BADGES = {
     tooltip: 'Personalized questions are choosen specifically for you by Tutor based on your learning history',
   },
   spacedPractice: {
-    el: (
+    el: () => (
       <span key="spacedPractice" className="spaced-practice">
         <i className="icon icon-sm icon-spaced-practice" />
         <span>
@@ -78,13 +78,13 @@ const BADGES = {
     ),
   },
   writtenResponse: {
-    el: (
+    el: (isTeacher) => (
       <span key="wrm" className="wrm">
         <i className="icon icon-md icon-wrm" />
         <span>
           Written-response
         </span>
-        <Icon type="info-circle" />
+        {!isTeacher && <Icon type="info-circle" /> }
       </span>
     ),
     tooltip: (
@@ -98,27 +98,27 @@ const BADGES = {
 };
 
 
-const Badge = ({ el, tooltip }) => {
-  if (!tooltip) { return el; }
+const Badge = ({ el, tooltip, isTeacher }) => {
+  if (!tooltip || isTeacher) { return el(isTeacher); }
   return (
     <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
-      {el}
+      {el(isTeacher)}
     </OverlayTrigger>
   );
 };
 Badge.propTypes = {
   el: PropTypes.node.isRequired,
   tooltip: PropTypes.node,
+  isTeacher: PropTypes.bool,
 };
 export default
 function ExerciseBadges({ className, ...badgeProps }) {
   const badges = compact(map(badgeProps, (wants, type) => wants && BADGES[type]));
-
   if (!badges.length || badgeProps.questionType === 'student-mpp') { return null; }
 
   return (
     <div className={classnames('openstax-exercise-badges', className)} >
-      {badges.map((badge, index) => <Badge key={index} {...badge} />)}
+      {badges.map((badge, index) => <Badge key={index} {...badge} isTeacher={badgeProps.questionType === 'teacher-preview'}/>)}
     </div>
   );
 

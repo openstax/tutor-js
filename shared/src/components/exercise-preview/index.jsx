@@ -133,7 +133,7 @@ class ExercisePreview extends React.Component {
               video={info.hasVideo}
               interactive={info.hasInteractive}
               writtenResponse={info.isWrittenResponse}
-              questionType={this.props.questionType} />
+              questionType={this.props.questionType || 'teacher-preview'} />
             {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
             {this.renderStimulus()}
             {map(this.exercise.questions, (question, index) => (
