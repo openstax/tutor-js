@@ -15,7 +15,6 @@ const StyledHeader = styled(Header)`
   h1 {
     width: 100%;
     margin-bottom: 1.6rem;
-    padding-top: 4rem;
   }
 `;
 

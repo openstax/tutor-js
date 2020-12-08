@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   background: #fff;
   position: sticky;
   top: 59px;
-  z-index: 1;
+  z-index: 10;
   border-top: 1px solid ${colors.neutral.pale};
   border-bottom: 1px solid ${colors.neutral.pale};
 `;

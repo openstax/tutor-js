@@ -1,9 +1,9 @@
 &-exercise-preview {
   position: relative;
-  $action-square-width: 140px;
+  $action-square-width: 11rem;
   $action-square-height: 130px;
 
-  $action-icon-circle-size: 80px;
+  $action-icon-circle-size: 50px;
   @mixin sans($size: 1.5rem, $line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
     font-weight: 400;
@@ -72,7 +72,7 @@
       @include transition(all .25s ease-in-out);
 
       .message {
-        display: block;
+        display: flex;
         font-size: 1.5rem;
         line-height: 1.5rem;
         font-weight: 700;
@@ -89,10 +89,9 @@
           &:hover { box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
           &:before {
-
             content: "";
             display: block;
-            margin: 10% auto;
+            margin: 14% auto;
             background-repeat: no-repeat;
             background-size: 100%;
             padding-top: 0;
@@ -104,6 +103,11 @@
             border-radius: $action-icon-circle-size / 2;
             width: $action-icon-circle-size;
             height: $action-icon-circle-size;
+          }
+
+          .label-message {
+            margin-top: 1.5rem;
+            font-size: 1.4rem;
           }
         }
       }

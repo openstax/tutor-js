@@ -12,6 +12,7 @@ import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
 import AddEditQuestionModal from '../../components/add-edit-question';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Course from '../../models/course';
 import User from '../../models/user';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
@@ -24,7 +25,7 @@ const StyledExerciseDisplay = styled.div`
     top: 5.9rem;
     z-index: 10;
   }
-  .homework-questions-info {
+  .question-type-info {
     background-color: white;
     padding: 3rem 4.2rem 1.2rem;
     font-size: 1.6rem;
@@ -34,6 +35,13 @@ const StyledExerciseDisplay = styled.div`
       font-weight: 700;
     }
   }
+`;
+
+const StyledCourseBreadcrumb = styled(CourseBreadcrumb)`
+  margin: 0;
+  padding: 2rem;
+  background-color: white;
+  max-width: 100%;
 `;
 
 const TOP_SCROLL_OFFSET = 335;
@@ -251,7 +259,7 @@ class ExercisesDisplay extends React.Component {
       };
     }
     actions.details = {
-      message: 'Question details',
+      message: 'Details',
       handler: this.onShowDetailsViewClick,
     };
   };
@@ -288,6 +296,7 @@ class ExercisesDisplay extends React.Component {
       topScrollOffset: TOP_SCROLL_OFFSET,
       onSelectSections: this.props.onSelectSections,
       exerciseType: this.exerciseTypeFilter,
+      questionType: 'teacher-preview',
       // exercises in this scope are already filtered
       // check if the SECTIONS SELECTED has exercises
       sectionHasExercises: !this.props.exercises[this.exerciseTypeFilter].isEmpty,
@@ -316,17 +325,34 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
-  renderHomeworkExercisesInfo = (exerciseType) => {
-    if(exerciseType !== 'homework') return null;
+  renderQuestionTypeInfo = (exerciseType) => {
+    let info = null;
 
-    return (
-      <div className="homework-questions-info">
+    if(exerciseType === 'homework') {
+      info = 
         <p>
           <strong>Homework questions </strong>
-          are varied in complexity and can be either multiple-choice or written-response. In this library,
-          you can add your own questions, copy and edit OpenStax questions,
-          or exclude questions not relevant to your course.
-        </p>
+      are varied in complexity and can be either multiple-choice or written-response. In this library,
+      you can add your own questions, copy and edit OpenStax questions,
+      or exclude questions not relevant to your course.
+        </p>;
+    }
+    else if (exerciseType === 'reading') {
+      info = 
+        <p>
+          <strong>Reading questions </strong>
+          are all multiple-choice and conceptual in nature. These are auto-assigned by OpenStax Tutor.
+          In this library, you can exclude questions not relevant to your course, and OpenStax Tutor will not assign those questions to your students.
+        </p>;
+    }
+
+    if(!info) {
+      return null;
+    }
+
+    return (
+      <div className="question-type-info">
+        {info}
       </div>
     );
   }
@@ -341,6 +367,7 @@ class ExercisesDisplay extends React.Component {
     }
     return (
       <StyledExerciseDisplay>
+        <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
         <div className="controls-wrapper">
           <ExerciseControls
             course={course}
@@ -355,7 +382,7 @@ class ExercisesDisplay extends React.Component {
             onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}
           />
         </div>
-        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
+        {this.renderQuestionTypeInfo(this.exerciseTypeFilter)}
         <div className="exercises-display">
           {this.renderExercises(this.filteredExercises)}
         </div>

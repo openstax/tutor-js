@@ -96,7 +96,7 @@ class ChooseExercises extends React.Component {
 
   addCardActions = (actions, exercise) => {
     action.details = {
-      message: 'Question details',
+      message: 'Details',
       handler: this.showDetails,
     };
     if (exercise.canCopy) {
@@ -108,7 +108,7 @@ class ChooseExercises extends React.Component {
     }
     return (
       actions.details = {
-        message: 'Question details',
+        message: 'Details',
         handler: this.showDetails,
       }
     );

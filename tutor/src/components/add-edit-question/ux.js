@@ -222,7 +222,7 @@ export default class AddEditQuestionUX {
 
   // Get the browe book link with the chapter or section selected
   @computed get browseBookLink() {
-    let browseBookLink = `/book/${this.courseId}`;
+    let browseBookLink = `/book/${this.course.id}`;
     if (this.selectedChapterSection) {
       browseBookLink += `/page/${this.selectedChapterSection.id}`;
     }
