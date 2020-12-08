@@ -22,6 +22,7 @@ const StyledDropdown = styled(Dropdown)`
         padding: 1.8rem 1rem;
         color: ${colors.neutral.grayblue};
         font-weight: 700;
+        border: 1px solid transparent;
         svg {
             margin-left: 0.7rem;
         }
@@ -143,7 +144,7 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
 
   return (
     <StyledQuestionFilter className={cn(className)}>
-      <StyledDropdown blankwidth='13.8rem' data-test-id="question-type-menu">
+      <StyledDropdown blankwidth='13.9rem' data-test-id="question-type-menu">
         <Dropdown.Toggle
           as={CustomToggle}
           text="Question Type"

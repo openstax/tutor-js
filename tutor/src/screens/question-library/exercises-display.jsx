@@ -24,7 +24,7 @@ const StyledExerciseDisplay = styled.div`
     top: 5.9rem;
     z-index: 10;
   }
-  .homework-questions-info {
+  .question-type-info {
     background-color: white;
     padding: 3rem 4.2rem 1.2rem;
     font-size: 1.6rem;
@@ -316,17 +316,34 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
-  renderHomeworkExercisesInfo = (exerciseType) => {
-    if(exerciseType !== 'homework') return null;
+  renderQuestionTypeInfo = (exerciseType) => {
+    let info = null;
 
-    return (
-      <div className="homework-questions-info">
+    if(exerciseType === 'homework') {
+      info = 
         <p>
           <strong>Homework questions </strong>
-          are varied in complexity and can be either multiple-choice or written-response. In this library,
-          you can add your own questions, copy and edit OpenStax questions,
-          or exclude questions not relevant to your course.
-        </p>
+      are varied in complexity and can be either multiple-choice or written-response. In this library,
+      you can add your own questions, copy and edit OpenStax questions,
+      or exclude questions not relevant to your course.
+        </p>;
+    }
+    else if (exerciseType === 'reading') {
+      info = 
+        <p>
+          <strong>Reading questions </strong>
+          are all multiple-choice and conceptual in nature. These are auto-assigned by OpenStax Tutor.
+          In this library, you can exclude questions not relevant to your course, and OpenStax Tutor will not assign those questions to your students.
+        </p>;
+    }
+
+    if(!info) {
+      return null;
+    }
+    
+    return (
+      <div className="question-type-info">
+        {info}
       </div>
     );
   }
@@ -355,7 +372,7 @@ class ExercisesDisplay extends React.Component {
             onDisplayAddEditQuestionModal={this.onDisplayAddEditQuestionModal}
           />
         </div>
-        {this.renderHomeworkExercisesInfo(this.exerciseTypeFilter)}
+        {this.renderQuestionTypeInfo(this.exerciseTypeFilter)}
         <div className="exercises-display">
           {this.renderExercises(this.filteredExercises)}
         </div>
