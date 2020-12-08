@@ -12,6 +12,7 @@ import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
 import AddEditQuestionModal from '../../components/add-edit-question';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Course from '../../models/course';
 import User from '../../models/user';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
@@ -34,6 +35,13 @@ const StyledExerciseDisplay = styled.div`
       font-weight: 700;
     }
   }
+`;
+
+const StyledCourseBreadcrumb = styled(CourseBreadcrumb)`
+  margin: 0;
+  padding: 2rem;
+  background-color: white;
+  max-width: 100%;
 `;
 
 const TOP_SCROLL_OFFSET = 335;
@@ -359,6 +367,7 @@ class ExercisesDisplay extends React.Component {
     }
     return (
       <StyledExerciseDisplay>
+        <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
         <div className="controls-wrapper">
           <ExerciseControls
             course={course}

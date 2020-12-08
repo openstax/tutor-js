@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
+import { React, PropTypes, observer, styled, inject } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
 import Course from '../../models/course';
@@ -7,7 +7,6 @@ import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
-import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { ExercisesMap } from '../../models/exercises';
 import { colors } from 'theme';
 import { Icon } from 'shared';
@@ -69,19 +68,11 @@ const StyledExerciseControls = styled.div`
   }
 `;
 
-const StyledCourseBreadcrumb = styled(CourseBreadcrumb)`
-  margin: 0;
-  padding: 2rem;
-  background-color: white;
-  max-width: 100%;
-`;
-
 const StyledPopover = styled(Popover)`
   padding: 1.5rem;
   color: ${colors.neutral.darker};
 `;
 
-@inject('setSecondaryTopControls')
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
@@ -98,15 +89,6 @@ class ExerciseControls extends React.Component {
     onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    props.setSecondaryTopControls(this.renderControls);
-  }
-
-  componentWillUnmount() {
-    this.props.setSecondaryTopControls(null);
-  }
-
   onExerciseTypeFilterClick = (ev) => {
     let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
     if (exerciseTypeFilter === this.props.exerciseTypeFilter) { exerciseTypeFilter = ''; }
@@ -115,7 +97,7 @@ class ExerciseControls extends React.Component {
     );
   };
 
-  @autobind renderControls() {
+  renderControls() {
     const {
       exercises,
       course,
@@ -213,7 +195,6 @@ class ExerciseControls extends React.Component {
 
     return (
       <StyledExerciseControls>
-        <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
         {sections}
         <div className="exercise-controls-bar filters-control">
           <div className="exercise-controls-wrapper">
@@ -230,7 +211,7 @@ class ExerciseControls extends React.Component {
     );
   }
 
-  render() { return null; }
+  render() { return this.renderControls(); }
 }
 
 export default ExerciseControls;
