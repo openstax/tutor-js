@@ -31,7 +31,7 @@ const noResultsInFiltering = () =>
 const noQuestionsInSection = (isHomework, onSelectSections) =>
   <>
     <h3>
-        No exercises found.
+        No exercises questions found.
     </h3>
     <p className="lead">
       Select a different {backToSelectionSections(onSelectSections)}
