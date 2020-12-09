@@ -112,6 +112,6 @@ class TutorExercise extends BaseModel {
 
   // Openstax exercises returns an id of 0;
   @computed get belongsToOpenStax() { return this.author.id === '0'; }
-  belongsToCurrentUserProfileId(profileId) { return this.author.id == profileId; }
-  belongsToOtherAuthorProfileIds(profileId) { return !this.belongsToOpenStax && this.author.id != profileId; }
+  belongsToUser(user) { return this.author.id == user.profile_id; }
+  belongsToOtherUser(user) { return !this.belongsToOpenStax && !this.belongsToUser(user); }
 }

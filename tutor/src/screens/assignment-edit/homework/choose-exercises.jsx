@@ -100,7 +100,7 @@ class ChooseExercises extends React.Component {
       handler: this.showDetails,
     };
     if (exercise.canCopy) {
-      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+      const isUserGeneratedQuestion = exercise.belongsToCurrentUser(User);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,

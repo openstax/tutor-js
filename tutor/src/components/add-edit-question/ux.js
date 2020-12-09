@@ -192,11 +192,11 @@ export default class AddEditQuestionUX {
 
   // other users or OpenStax
   @computed get isNonUserGeneratedQuestion() {
-    return this.from_exercise_id && (this.exercise.belongsToOpenStax || this.exercise.belongsToOtherAuthorProfileIds(User.profile_id));
+    return this.from_exercise_id && this.exercise.belongsToOtherUser(User);
   }
 
   @computed get isUserGeneratedQuestion() {
-    return this.from_exercise_id && this.exercise.belongsToCurrentUserProfileId(User.profile_id);
+    return this.from_exercise_id && this.exercise.belongsToUser(User);
   }
 
   @computed get authors() {
