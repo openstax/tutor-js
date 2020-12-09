@@ -156,7 +156,7 @@ context('Assignment Review', () => {
     cy.getTestElement('student-free-responses').should('exist');
   });
 
-  it('should go directly to the assignment scores tab', () => {
+  it.skip('should go directly to the assignment scores tab', () => {
     cy.visit('/course/1/assignment/review/2/1?tab=2')
     cy.getTestElement('scores').should('exist');
   });
