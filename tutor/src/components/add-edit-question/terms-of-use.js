@@ -76,7 +76,7 @@ const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false
         Terms of use
       </Modal.Header>
       <Modal.Body>
-        {termContent}
+        <div dangerouslySetInnerHTML={{ __html: termContent }} />
         {!displayOnly && 
         <>
           <CheckboxInput
@@ -97,7 +97,7 @@ const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false
               variant="primary"
               disabled={!agree}
               onClick={agreeTermsOfUse}>
-              Done
+              Accept and continue
             </Button>
           </div>
         </>
