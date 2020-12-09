@@ -19,7 +19,7 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
     }
     .modal-dialog {
         margin: 4rem auto;
-        max-width: 55%;
+        max-width: 1200px;
     }
     .modal-body {
       > span {
@@ -40,6 +40,20 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
                 color: ${colors.neutral.grayblue};
                 background-color: ${colors.white};
            }   
+        }
+      }
+      // terms content
+      h4 {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 700;
+      }
+      h5 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        center {
+          font-size: 2.4rem;
         }
       }
     }
