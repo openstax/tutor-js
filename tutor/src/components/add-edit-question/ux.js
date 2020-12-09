@@ -28,6 +28,7 @@ export default class AddEditQuestionUX {
   }
   @observable showExitWarningModal = false;
   @observable showPreviewQuestionModal = false;
+  @observable showTermsOfUse = false;
 
   /** props */
   @observable book;

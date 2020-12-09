@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
 import { partial, map } from 'lodash';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Button } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
 import AddEditQuestionUX from '../ux';
@@ -141,7 +141,7 @@ const GeneralForm = observer(({ ux }) => {
             label={
               <>
                 <span>Allow other instructors to copy and edit this question under the CC-BY license. </span>
-                {/* <a href="www.google.com" target="_blank">Learn more.</a> */}
+                <Button variant="link" onClick={() => ux.showTermsOfUse = true}>Learn more.</Button>
               </>
             }
             checked={ux.allowOthersCopyEdit}
