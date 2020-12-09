@@ -1,4 +1,4 @@
-import { React, observer, styled, useEffect, useMemo } from 'vendor';
+import { React, observer, styled, useEffect, useMemo, PropTypes } from 'vendor';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import AddEditQuestionTermsOfUseModal from '../course-modal';
@@ -52,8 +52,39 @@ const agreeTermsOfUse = () => {
   }
 };
 
-const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
+const TermAgreement = ({ onClose }) => {
   const [agree, setAgree] = useState(false);
+  return (
+    <>
+      <CheckboxInput
+        className="i-agree"
+        onChange={() => setAgree(prevState => !prevState)}
+        label="I certify that these questions do not violate any copyright, trademark, or other intellectual property laws."
+        checked={agree}
+        standalone
+      />
+      <div className="buttons-wrapper">
+        <Button
+          variant="default"
+          className="cancel"
+          onClick={onClose}>
+                Cancel
+        </Button>
+        <Button
+          variant="primary"
+          disabled={!agree}
+          onClick={agreeTermsOfUse}>
+              Accept and continue
+        </Button>
+      </div>
+    </>
+  );
+};
+TermAgreement.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
+
+const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
   const [termContent, setTermContent] = useState(null);
 
   const term = useMemo(() => User.terms.get(TERMS_NAME),
@@ -77,34 +108,15 @@ const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false
       </Modal.Header>
       <Modal.Body>
         <div dangerouslySetInnerHTML={{ __html: termContent }} />
-        {!displayOnly && 
-        <>
-          <CheckboxInput
-            className="i-agree"
-            onChange={() => setAgree(prevState => !prevState)}
-            label="I certify that these questions do not violate any copyright, trademark, or other intellectual property laws."
-            checked={agree}
-            standalone
-          />
-          <div className="buttons-wrapper">
-            <Button
-              variant="default"
-              className="cancel"
-              onClick={onClose}>
-                Cancel
-            </Button>
-            <Button
-              variant="primary"
-              disabled={!agree}
-              onClick={agreeTermsOfUse}>
-              Accept and continue
-            </Button>
-          </div>
-        </>
-        }
+        {!displayOnly && <TermAgreement onClose={onClose} /> }
       </Modal.Body>
     </StyledAddEditQuestionTermsOfUseModal>
   );
 });
+AddEditQuestionTermsOfUse.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  displayOnly: PropTypes.bool,
+};
 
 export default AddEditQuestionTermsOfUse;
