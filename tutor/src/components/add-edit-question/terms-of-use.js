@@ -1,10 +1,12 @@
-import { React, observer, styled, useEffect } from 'vendor';
+import { React, observer, styled, useEffect, useMemo } from 'vendor';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import AddEditQuestionTermsOfUseModal from '../course-modal';
 import CheckboxInput from '../checkbox-input';
 import { colors } from 'theme';
 import User from '../../models/user';
+
+const TERMS_NAME = 'exercise_editing';
 
 const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseModal)`
     &&& {
@@ -43,45 +45,63 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
     }
 `;
 
-const AddEditQuestionTermsOfUse = observer(({ ux }) => {
+const agreeTermsOfUse = () => {
+  const term = User.terms.get(TERMS_NAME);
+  if (term) {
+    User.terms.sign([term.id]);
+  }
+};
+
+const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
   const [agree, setAgree] = useState(false);
+  const [termContent, setTermContent] = useState(null);
+
+  const term = useMemo(() => User.terms.get(TERMS_NAME),
+    [User.terms.get(TERMS_NAME).content]);
+  
   useEffect(() => {
     User.terms.fetch();
   }, []);
+  useEffect(() => {
+    setTermContent(term ? term.content : '');
+  }, [term.content]);
+  
   return (
     <StyledAddEditQuestionTermsOfUseModal
-      show={true}
+      show={show}
       backdrop="static"
-      onHide={() => ux.onDisplayModal(false)}
+      onHide={onClose}
       templateType="addEditQuestion">
       <Modal.Header closeButton>
         Terms of use
       </Modal.Header>
       <Modal.Body>
-
-        <div dangerouslySetInnerHTML={{ __html: ux.termsOfUse }} />
-
-        <CheckboxInput
-          className="i-agree"
-          onChange={() => setAgree(prevState => !prevState)}
-          label="I certify that these questions do not violate any copyright, trademark, or other intellectual property laws."
-          checked={agree}
-          standalone
-        />
-        <div className="buttons-wrapper">
-          <Button
-            variant="default"
-            className="cancel"
-            onClick={() => ux.onDisplayModal(false)}>
+        {termContent}
+        {!displayOnly && 
+        <>
+          <CheckboxInput
+            className="i-agree"
+            onChange={() => setAgree(prevState => !prevState)}
+            label="I certify that these questions do not violate any copyright, trademark, or other intellectual property laws."
+            checked={agree}
+            standalone
+          />
+          <div className="buttons-wrapper">
+            <Button
+              variant="default"
+              className="cancel"
+              onClick={onClose}>
                 Cancel
-          </Button>
-          <Button
-            variant="primary"
-            disabled={!agree}
-            onClick={ux.agreeTermsOfUse}>
+            </Button>
+            <Button
+              variant="primary"
+              disabled={!agree}
+              onClick={agreeTermsOfUse}>
               Done
-          </Button>
-        </div>
+            </Button>
+          </div>
+        </>
+        }
       </Modal.Body>
     </StyledAddEditQuestionTermsOfUseModal>
   );

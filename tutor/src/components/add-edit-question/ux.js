@@ -169,20 +169,8 @@ export default class AddEditQuestionUX {
     };
   }
 
-  @computed get termsOfUse() {
-    const term = User.terms.get(TERMS_NAME);
-    return term ? term.content : '';
-  }
-
   @computed get didUserAgreeTermsOfUse() {
     return User.terms.hasAgreedTo(TERMS_NAME);
-  }
-
-  @action.bound agreeTermsOfUse() {
-    const term = User.terms.get(TERMS_NAME);
-    if (term) {
-      User.terms.sign([term.id]);
-    }
   }
 
   // Chapters that the user has selected
