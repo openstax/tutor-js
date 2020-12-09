@@ -6,10 +6,10 @@ import { observable, computed, action } from 'mobx';
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
-import { Icon } from 'shared';
 import ChapterSection from '../../models/chapter-section';
-import { ExercisesMap } from '../../models/exercises';
-import Book from '../../models/reference-book';
+import { ExercisesMap, exerciseSort } from '../../models/exercises';
+import Course from '../../models/course';
+import User from '../../models/user';
 import BookPartTitle from '../book-part-title';
 
 @observer
@@ -17,7 +17,7 @@ class ExerciseDetails extends React.Component {
   static displayName = 'ExerciseDetails';
 
   static propTypes = {
-    book:                  PropTypes.instanceOf(Book).isRequired,
+    course:                PropTypes.instanceOf(Course).isRequired,
     exercises:             PropTypes.instanceOf(ExercisesMap).isRequired,
     selectedExercise:      PropTypes.object.isRequired,
     onExerciseToggle:      PropTypes.func.isRequired,
@@ -37,7 +37,11 @@ class ExerciseDetails extends React.Component {
   @observable currentSection;
 
   @computed get exercises() {
-    return this.props.exercises.array;
+    return exerciseSort(
+      this.props.exercises.array,
+      this.props.course,
+      User,
+    );
   }
 
   UNSAFE_componentWillMount() {

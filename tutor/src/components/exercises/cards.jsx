@@ -1,15 +1,15 @@
 import {
-  React, PropTypes, observer, ArrayOrMobxType, styled,
+  React, PropTypes, observer, ArrayOrMobxType, styled, computed,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ExercisePreview from './preview';
 import BookPartTitle from '../book-part-title';
 import ScrollTo from '../../helpers/scroll-to';
-import { ExercisesMap } from '../../models/exercises';
+import { ExercisesMap, exerciseSort } from '../../models/exercises';
 import Exercise from '../../models/exercises/exercise';
-import Book from '../../models/reference-book';
+import Course from '../../models/course';
 import NoExercisesFound from './no-exercises-found';
-
+import User from '../../models/user';
 
 const SectionLabel = styled.label`
   font-size: 2.8rem;
@@ -21,7 +21,7 @@ const SectionLabel = styled.label`
 class SectionsExercises extends React.Component {
   static propTypes = {
     pageId:                     PropTypes.string.isRequired,
-    book:                       PropTypes.instanceOf(Book).isRequired,
+    course:                     PropTypes.instanceOf(Course).isRequired,
     exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
     getExerciseIsSelected:      PropTypes.func.isRequired,
     getExerciseActions:         PropTypes.func.isRequired,
@@ -30,10 +30,18 @@ class SectionsExercises extends React.Component {
     onExerciseToggle:           PropTypes.func,
   };
 
+  @computed get exercises() {
+    return exerciseSort(
+      this.props.exercises.byPageId[this.props.pageId],
+      this.props.course,
+      User,
+    );
+  }
+
   render() {
-    const { pageId, book, exercises, ...previewProps } = this.props;
-    const page = book.pages.byId.get(pageId);
-    const sectionExercises = exercises.byPageId[pageId];
+    const { pageId, course, ...previewProps } = this.props;
+    const sectionExercises = this.exercises;
+    const page = course.referenceBook.pages.byId.get(pageId);
 
     if (isEmpty(sectionExercises)) { return null; }
 
@@ -63,7 +71,7 @@ class ExerciseCards extends React.Component {
 
   static propTypes = {
     pageIds:                    ArrayOrMobxType.isRequired,
-    book:                       PropTypes.instanceOf(Book).isRequired,
+    course:                     PropTypes.instanceOf(Course).isRequired,
     exercises:                  PropTypes.instanceOf(ExercisesMap).isRequired,
     getExerciseIsSelected:      PropTypes.func.isRequired,
     getExerciseActions:         PropTypes.func.isRequired,
