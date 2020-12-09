@@ -6,6 +6,7 @@ import { isEmpty, uniq, compact, map } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
+import ExercisesFooter from './exercises-footer';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
 import ExerciseHelpers from '../../helpers/exercise';
@@ -386,6 +387,7 @@ class ExercisesDisplay extends React.Component {
         <div className="exercises-display">
           {this.renderExercises(this.filteredExercises)}
         </div>
+        <ExercisesFooter />
         <AddEditQuestionModal
           exerciseType={this.exerciseTypeFilter}
           exercise={this.selectedExercise}

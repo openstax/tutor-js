@@ -10,7 +10,9 @@ import {
 
 const AddEditQuestionModals = observer(({ ux }) => {
   if(!ux.didUserAgreeTermsOfUse) {
-    return <AddEditQuestionTermsOfUse ux={ux} />;
+    return <AddEditQuestionTermsOfUse
+      onClose={() => ux.onDisplayModal(false)}
+      show={true} />;
   }
   return (
     <>

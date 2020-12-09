@@ -85,7 +85,6 @@ class ExerciseControls extends React.Component {
     displayedChapterSections: PropTypes.array,
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
-    setSecondaryTopControls: PropTypes.func.isRequired,
     onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
   };
 

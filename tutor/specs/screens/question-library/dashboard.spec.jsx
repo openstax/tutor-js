@@ -4,6 +4,8 @@ import { last } from 'lodash';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
+import User from '../../../src/models/user';
+import { Term, UserTerms } from '../../../src/models/user/terms';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -12,13 +14,28 @@ jest.mock('../../../src/helpers/exercise');
 jest.mock('../../../src/helpers/scroll-to');
 
 describe('Questions Dashboard Component', function() {
-  let props, course, exercises, book, page_ids;
+  let props, course, exercises, book, page_ids, terms;
 
   beforeEach(function() {
     course = Factory.course();
     book = course.referenceBook;
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ ecosystem_id: course.ecosystem_id, pageIds: [], count: 0 });
+
+    terms = new UserTerms({ user: User });
+    User.terms = terms
+    terms.user.available_terms = [
+      new Term({
+        id: 42,
+        name: 'exercise_editing',
+        title: 'exercise_editing',
+        content: 'exercise_editing',
+        version: 2,
+        is_signed: true,
+        has_signed_before: true,
+        is_proxy_signed: false,
+      }),
+    ];
 
     exercises.fetch = jest.fn(() => Promise.resolve());
     page_ids = course.referenceBook.children[1].children.assignable.map(p => p.id);
