@@ -27,7 +27,7 @@ class ChooseExercises extends React.Component {
 
   @observable currentView = 'cards';
   @observable currentSection;
-  @observable displayFeedback;
+  @observable displayFeedback = true;
   @observable focusedExercise;
   @observable selectedExercise;
   @observable showAddEditQuestionModal = false;
@@ -53,6 +53,7 @@ class ChooseExercises extends React.Component {
 
   getExerciseActions = (exercise) => {
     const { ux } = this.props;
+    const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
 
     const actions = {};
     if (exercise.isSelected) {
@@ -67,14 +68,14 @@ class ChooseExercises extends React.Component {
       };
     }
     if (this.currentView === 'details') {
-      this.addDetailsActions(actions, exercise);
+      this.addDetailsActions(actions, exercise, isUserGeneratedQuestion);
     } else {
       this.addCardActions(actions, exercise);
     }
     return actions;
   };
 
-  addDetailsActions = (actions) => {
+  addDetailsActions = (actions, exercise, isUserGeneratedQuestion) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -86,12 +87,19 @@ class ChooseExercises extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    return (
+
+    if (isUserGeneratedQuestion) {
+      actions.deleteExercise = {
+        message: 'Delete question',
+        handler: () => this.props.ux.exercises.deleteExercise(this.props.ux.course, exercise),
+      };
+    }
+    else {
       actions['report-error'] = {
         message: 'Suggest a correction',
         handler: this.reportError,
-      }
-    );
+      };
+    }
   };
 
   addCardActions = (actions, exercise) => {

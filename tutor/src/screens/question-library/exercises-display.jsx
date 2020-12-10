@@ -238,14 +238,17 @@ class ExercisesDisplay extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    actions['report-error'] = {
-      message: 'Suggest a correction',
-      handler: this.reportError,
-    };
+    
     if (isUserGeneratedQuestion) {
       actions.deleteExercise = {
         message: 'Delete question',
         handler: () => this.props.exercises.deleteExercise(this.props.course, exercise),
+      };
+    }
+    else {
+      actions['report-error'] = {
+        message: 'Suggest a correction',
+        handler: this.reportError,
       };
     }
   };
