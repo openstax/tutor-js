@@ -141,7 +141,7 @@ const TagForm = observer(({ ux }) => {
                     Bloom’s taxonomy is designed to make it easier for
                     teachers to classify learning outcomes and write better assessments.
                   </p>
-                  {/* <a href="www.google.com" target="_blank">Learn More</a> */}
+                  <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
               }/>
           </div>
@@ -162,7 +162,7 @@ const TagForm = observer(({ ux }) => {
                     Depth of Knowledge or DoK is used to identify the level of rigor for
                     an assessment and categorize activities according to the level of complexity in thinking.
                   </p>
-                  {/* <a href="www.google.com" target="_blank">Learn More</a> */}
+                  <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
               }/>
           </div>

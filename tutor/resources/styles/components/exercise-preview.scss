@@ -96,7 +96,7 @@
             &:before {
               display: none;
             }
-            span {
+            .label-message {
               display: none;
               position: absolute;
               left: 46px;
@@ -112,7 +112,7 @@
               &:not(.exclude):not(.include) {
                 color: #424242;
               }
-              span {
+              .label-message {
                 display: flex;
                 align-items: center;
               }

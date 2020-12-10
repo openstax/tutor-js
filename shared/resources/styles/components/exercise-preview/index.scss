@@ -104,13 +104,12 @@
             width: $action-icon-circle-size;
             height: $action-icon-circle-size;
           }
-
-          .label-message {
-            margin-top: 1.5rem;
-            font-size: 1.4rem;
-          }
         }
       }
+    }
+    &:not(.actions-on-side) .controls-overlay .label-message {
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
     }
   } // end controls-overlay
 

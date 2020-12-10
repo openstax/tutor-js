@@ -35,8 +35,6 @@ const StyledRowContent = styled.div`
       }
     }
     .editor {
-      display: flex;
-      flex-flow: column wrap;
       .error-info {
         color: ${colors.strong_red};
       }
@@ -123,11 +121,13 @@ export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
         type="question-circle"
         className="question-info-icon"
         onClick={handleClick}
-        onBlur={handleClick}/>
+      />
       <Overlay
+        rootClose
         show={show}
         target={target}
         placement={placement}
+        onHide={() => setShow(false)}
       >
         {popover}
       </Overlay>
