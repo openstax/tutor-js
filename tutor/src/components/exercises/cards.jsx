@@ -43,7 +43,7 @@ class SectionsExercises extends React.Component {
     const sectionExercises = this.exercises;
     const page = course.referenceBook.pages.byId.get(pageId);
 
-    if (!page || isEmpty(sectionExercises)) { return null; }
+    if (isEmpty(sectionExercises)) { return null; }
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
