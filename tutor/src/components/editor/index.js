@@ -27,7 +27,7 @@ const Wrapper = styled.div({
   minHeight: '150px',
   display: 'flex',
   '.openstax-has-html': {
-    flex: 1,
+    width: '100%',
   },
 });
 
@@ -67,7 +67,7 @@ export const EditableHTML = ({
   if (isEditing) {
     body = <Editing html={currentHTML} runtime={limitedEditing ? runtimes.limited : runtimes.full} />;
   } else {
-    body = <HTML autoFocus html={currentHTML || placeholder} onClick={() => setEditing(true)}/>;
+    body = <HTML block className="preview" autoFocus html={currentHTML || placeholder} onClick={() => setEditing(true)}/>;
   }
 
 
