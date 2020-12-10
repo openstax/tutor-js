@@ -130,8 +130,8 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
     ex = ex.where(e => {
       const filterByQuestionSource =
       (filters.showTutor && e.belongsToOpenStax) ||
-      (filters.showOwned && e.belongsToCurrentUserProfileId(User.profile_id)) ||
-      (filters.showOthers && e.belongsToOtherAuthorProfileIds(User.profile_id));
+      (filters.showOwned && e.belongsToUser(User)) ||
+      (filters.showOthers && e.belongsToOtherUser(User));
       const filterByQuestionType =
        (filters.showMPQ && e.isMultiChoice) ||
        (filters.showWRQ && e.isWrittenResponse);

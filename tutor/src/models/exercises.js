@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find, uniq, map } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
 import Toasts from './toasts';
 
@@ -10,6 +10,21 @@ const COMPLETE = Symbol('COMPLETE');
 const PENDING = Symbol('PENDING');
 
 export { COMPLETE, PENDING };
+
+
+export const exerciseSort = (exercises, course, user) => {
+  return sortBy(exercises, (ex) => {
+    if (ex.belongsToUser(user)) {
+      return 1;
+    } else if (course.teacher_profiles.find(tp => ex.belongsToUser(tp))) {
+      return 2;
+    } else if (!ex.belongsToOpenStax){
+      return 3;
+    }
+    return 4;
+  });
+};
+
 
 export class ExercisesMap extends Map {
 

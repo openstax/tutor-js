@@ -201,7 +201,7 @@ class ExercisesDisplay extends React.Component {
 
   getExerciseActions = (exercise) => {
     const actions = {};
-    const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+    const isUserGeneratedQuestion = exercise.belongsToUser(User);
 
     if (this.getExerciseIsSelected(exercise)) {
       actions.include = {
@@ -258,7 +258,7 @@ class ExercisesDisplay extends React.Component {
   addCardActions = (actions, exercise) => {
     // For now, MPQ are not allowed to be edited
     if (exercise.canCopy) {
-      const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+      const isUserGeneratedQuestion = exercise.belongsToUser(User);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,
@@ -299,7 +299,6 @@ class ExercisesDisplay extends React.Component {
     const sharedProps = {
       exercises,
       course: this.props.course,
-      book: this.props.course.referenceBook,
       pageIds: this.props.pageIds,
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,

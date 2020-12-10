@@ -29,9 +29,14 @@ const StyledRowContent = styled.div`
     }
   }
   .editor-wrapper {
-    .limited {
+    :not(.limited), &.detailed-solution {
       .editable-html {
         min-height: 80px;
+      }
+    }
+    .limited {
+      .editable-html {
+        min-height: 40px;
       }
     }
     .editor {

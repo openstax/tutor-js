@@ -19,6 +19,7 @@ import PulseInsights from './app/pulse-insights';
 import Toasts from './toasts';
 import Tutor from '../components/root';
 import ResponseValidation from './response_validation';
+import Exercises from './exercises';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -33,6 +34,7 @@ window._MODELS = Object.assign({
   settings: UiSettings,
   notifications: Notifications,
   toasts: Toasts,
+  exercises: Exercises,
 }, BOOTSTRAPED_MODELS);
 
 

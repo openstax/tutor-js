@@ -7,14 +7,15 @@ jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
 
 describe('Exercise Details Component', function() {
 
-  let exercises, props, book;
+  let exercises, props, course;
 
   beforeEach(() => {
-    book = Factory.book();
+    course = Factory.course();
+    const book = Factory.book();
     const pageIds = Array.from(book.pages.byId.keys()).slice(0, 5);
     exercises = Factory.exercisesMap({ book, pageIds, count: 4 });
     props = {
-      book,
+      course,
       exercises,
       pageIds,
       selectedSection:        book.chapter_section,
