@@ -4,6 +4,7 @@ import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
 import AddEditQuestionModal from '../../../components/add-edit-question';
+import { DeleteExerciseModal } from '../../../components/add-edit-question/modals';
 import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
 import User from '../../../models/user';
@@ -31,6 +32,7 @@ class ChooseExercises extends React.Component {
   @observable focusedExercise;
   @observable selectedExercise;
   @observable showAddEditQuestionModal = false;
+  @observable showDeleteQuestionModal = false;
 
   @action.bound onShowDetailsViewClick() {
     this.currentView = 'details';
@@ -49,6 +51,11 @@ class ChooseExercises extends React.Component {
   @action.bound onEditExercise = (ev, exercise) => {
     this.selectedExercise = exercise.wrapper;
     this.onDisplayAddEditQuestionModal(ev, true);
+  }
+
+  @action.bound onDeleteExercise() {
+    this.props.ux.exercises.deleteExercise(this.props.ux.course, this.selectedExercise);
+    this.showDeleteQuestionModal = false;
   }
 
   getExerciseActions = (exercise) => {
@@ -91,7 +98,7 @@ class ChooseExercises extends React.Component {
     if (isUserGeneratedQuestion) {
       actions.deleteExercise = {
         message: 'Delete question',
-        handler: () => this.props.ux.exercises.deleteExercise(this.props.ux.course, exercise),
+        handler: () => this.showDeleteQuestionModal = true,
       };
     }
     else {
@@ -211,6 +218,10 @@ class ChooseExercises extends React.Component {
           showModal={this.showAddEditQuestionModal}
           onDisplayModal={this.onDisplayAddEditQuestionModal}
           exercises={exercises} />
+        <DeleteExerciseModal
+          show={this.showDeleteQuestionModal}
+          onHide={() => this.showDeleteQuestionModal = false} 
+          onDelete={this.onDeleteExercise} />
       </TourRegion>
     );
   }
