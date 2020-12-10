@@ -60,7 +60,7 @@ class ChooseExercises extends React.Component {
 
   getExerciseActions = (exercise) => {
     const { ux } = this.props;
-    const isUserGeneratedQuestion = exercise.belongsToCurrentUserProfileId(User.profile_id);
+    const isUserGeneratedQuestion = exercise.belongsToCurrentUser(User);
 
     const actions = {};
     if (exercise.isSelected) {
@@ -77,7 +77,7 @@ class ChooseExercises extends React.Component {
     if (this.currentView === 'details') {
       this.addDetailsActions(actions, exercise, isUserGeneratedQuestion);
     } else {
-      this.addCardActions(actions, exercise);
+      this.addCardActions(actions, exercise, isUserGeneratedQuestion);
     }
     return actions;
   };
@@ -109,13 +109,12 @@ class ChooseExercises extends React.Component {
     }
   };
 
-  addCardActions = (actions, exercise) => {
+  addCardActions = (actions, exercise, isUserGeneratedQuestion) => {
     action.details = {
       message: 'Details',
       handler: this.showDetails,
     };
     if (exercise.canCopy) {
-      const isUserGeneratedQuestion = exercise.belongsToCurrentUser(User);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,
