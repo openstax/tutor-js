@@ -389,7 +389,8 @@ export default class AddEditQuestionUX {
   }
 
   @action async publish(shouldExit) {
-    if(!this.hasAnyFeedback) {
+    // only show feedback tip modal if form is MCQ
+    if(!this.hasAnyFeedback && this.isMCQ) {
       this.feedbackTipModal = {
         show: true,
         shouldExitOnPublish: shouldExit,
