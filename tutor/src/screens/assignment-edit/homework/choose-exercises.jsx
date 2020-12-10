@@ -4,6 +4,7 @@ import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
 import AddEditQuestionModal from '../../../components/add-edit-question';
+import { DeleteExerciseModal } from '../../../components/add-edit-question/modals';
 import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
 import User from '../../../models/user';
@@ -27,10 +28,11 @@ class ChooseExercises extends React.Component {
 
   @observable currentView = 'cards';
   @observable currentSection;
-  @observable displayFeedback;
+  @observable displayFeedback = true;
   @observable focusedExercise;
   @observable selectedExercise;
   @observable showAddEditQuestionModal = false;
+  @observable showDeleteQuestionModal = false;
 
   @action.bound onShowDetailsViewClick() {
     this.currentView = 'details';
@@ -51,8 +53,14 @@ class ChooseExercises extends React.Component {
     this.onDisplayAddEditQuestionModal(ev, true);
   }
 
+  @action.bound onDeleteExercise() {
+    this.props.ux.exercises.deleteExercise(this.props.ux.course, this.selectedExercise);
+    this.showDeleteQuestionModal = false;
+  }
+
   getExerciseActions = (exercise) => {
     const { ux } = this.props;
+    const isUserGeneratedQuestion = exercise.belongsToUser(User);
 
     const actions = {};
     if (exercise.isSelected) {
@@ -67,14 +75,14 @@ class ChooseExercises extends React.Component {
       };
     }
     if (this.currentView === 'details') {
-      this.addDetailsActions(actions, exercise);
+      this.addDetailsActions(actions, exercise, isUserGeneratedQuestion);
     } else {
-      this.addCardActions(actions, exercise);
+      this.addCardActions(actions, exercise, isUserGeneratedQuestion);
     }
     return actions;
   };
 
-  addDetailsActions = (actions) => {
+  addDetailsActions = (actions, exercise, isUserGeneratedQuestion) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -86,21 +94,27 @@ class ChooseExercises extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    return (
+
+    if (isUserGeneratedQuestion) {
+      actions.deleteExercise = {
+        message: 'Delete question',
+        handler: () => this.showDeleteQuestionModal = true,
+      };
+    }
+    else {
       actions['report-error'] = {
         message: 'Suggest a correction',
         handler: this.reportError,
-      }
-    );
+      };
+    }
   };
 
-  addCardActions = (actions, exercise) => {
+  addCardActions = (actions, exercise, isUserGeneratedQuestion) => {
     action.details = {
       message: 'Details',
       handler: this.showDetails,
     };
     if (exercise.canCopy) {
-      const isUserGeneratedQuestion = exercise.belongsToCurrentUser(User);
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,
@@ -144,7 +158,6 @@ class ChooseExercises extends React.Component {
 
     const sharedProps = {
       exercises: ux.displayedExercises,
-      book: ux.referenceBook,
       onExerciseToggle: ux.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
@@ -156,6 +169,7 @@ class ChooseExercises extends React.Component {
       body = (
         <ExerciseDetails
           {...sharedProps}
+          course={ux.course}
           topScrollOffset={60}
           selectedExercise={this.selectedExercise}
           onSectionChange={this.setCurrentSection}
@@ -168,6 +182,7 @@ class ChooseExercises extends React.Component {
         <ExerciseCards
           {...sharedProps}
           disableScroll
+          book={ux.referenceBook}
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick}
           filteredExercises={filteredExercises}
@@ -203,6 +218,10 @@ class ChooseExercises extends React.Component {
           showModal={this.showAddEditQuestionModal}
           onDisplayModal={this.onDisplayAddEditQuestionModal}
           exercises={exercises} />
+        <DeleteExerciseModal
+          show={this.showDeleteQuestionModal}
+          onHide={() => this.showDeleteQuestionModal = false} 
+          onDelete={this.onDeleteExercise} />
       </TourRegion>
     );
   }

@@ -13,6 +13,7 @@ import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
 import AddEditQuestionModal from '../../components/add-edit-question';
+import { DeleteExerciseModal } from '../../components/add-edit-question/modals';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Course from '../../models/course';
 import User from '../../models/user';
@@ -98,9 +99,10 @@ class ExercisesDisplay extends React.Component {
 
   @observable currentSection;
   @observable showingDetails = false;
-  @observable displayFeedback = false;
+  @observable displayFeedback = true;
 
   @observable showAddEditQuestionModal = false;
+  @observable showDeleteQuestionModal = false;
 
   scroller = new Scroller({ windowImpl: this.windowImpl });
 
@@ -238,14 +240,17 @@ class ExercisesDisplay extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    actions['report-error'] = {
-      message: 'Suggest a correction',
-      handler: this.reportError,
-    };
+    
     if (isUserGeneratedQuestion) {
       actions.deleteExercise = {
         message: 'Delete question',
-        handler: () => this.props.exercises.deleteExercise(this.props.course, exercise),
+        handler: () => this.showDeleteQuestionModal = true,
+      };
+    }
+    else {
+      actions['report-error'] = {
+        message: 'Suggest a correction',
+        handler: this.reportError,
       };
     }
   };
@@ -271,6 +276,11 @@ class ExercisesDisplay extends React.Component {
 
   @action.bound toggleFeedback() {
     this.displayFeedback = !this.displayFeedback;
+  }
+
+  @action.bound onDeleteExercise() {
+    this.props.exercises.deleteExercise(this.props.course, this.selectedExercise);
+    this.showDeleteQuestionModal = false;
   }
 
   @computed get displayedChapterSections() {
@@ -396,6 +406,10 @@ class ExercisesDisplay extends React.Component {
           showModal={this.showAddEditQuestionModal}
           onDisplayModal={this.onDisplayAddEditQuestionModal}
           exercises={exercises} />
+        <DeleteExerciseModal
+          show={this.showDeleteQuestionModal}
+          onHide={() => this.showDeleteQuestionModal = false} 
+          onDelete={this.onDeleteExercise} />
       </StyledExerciseDisplay>
     );
   }

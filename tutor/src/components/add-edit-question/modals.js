@@ -241,4 +241,42 @@ const QuestionPreviewModal = observer(({ ux }) => {
   );
 });
 
-export { FeedbackTipModal, ExitWarningModal, CoursePreviewOnlyModal, QuestionPreviewModal };
+const DeleteExerciseModal = ({ show, onHide, onDelete }) => {
+  return (
+    <Modal
+      show={show}
+      backdrop="static"
+    >
+      <StyledHeader>
+          Delete Question?
+      </StyledHeader>
+      <StyledBody>
+        <p>Are you sure you want to permanently delete this question? Question <strong>will not</strong> be deleted from any open assignments.</p>
+        <p>You can’t undo this action.</p>
+        <p className="note">Tip: To exclude a bad question from an open assignment, drop it from the assignment details page.</p>
+        <ControlsWrapper>
+          <Controls>
+            <Button variant="default" size="lg" onClick={onDelete}>
+                  Yes, delete
+            </Button>
+            <Button variant="primary" size="lg" onClick={onHide}>
+                  Cancel
+            </Button>
+          </Controls>
+        </ControlsWrapper>
+      </StyledBody>
+    </Modal>
+  );
+};
+DeleteExerciseModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export {
+  FeedbackTipModal,
+  ExitWarningModal,
+  CoursePreviewOnlyModal,
+  QuestionPreviewModal,
+  DeleteExerciseModal };
