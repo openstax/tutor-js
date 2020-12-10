@@ -60,7 +60,7 @@ class ChooseExercises extends React.Component {
 
   getExerciseActions = (exercise) => {
     const { ux } = this.props;
-    const isUserGeneratedQuestion = exercise.belongsToCurrentUser(User);
+    const isUserGeneratedQuestion = exercise.belongsToUser(User);
 
     const actions = {};
     if (exercise.isSelected) {
@@ -158,7 +158,6 @@ class ChooseExercises extends React.Component {
 
     const sharedProps = {
       exercises: ux.displayedExercises,
-      book: ux.referenceBook,
       onExerciseToggle: ux.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
@@ -170,6 +169,7 @@ class ChooseExercises extends React.Component {
       body = (
         <ExerciseDetails
           {...sharedProps}
+          course={ux.course}
           topScrollOffset={60}
           selectedExercise={this.selectedExercise}
           onSectionChange={this.setCurrentSection}
@@ -182,6 +182,7 @@ class ChooseExercises extends React.Component {
         <ExerciseCards
           {...sharedProps}
           disableScroll
+          book={ux.referenceBook}
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick}
           filteredExercises={filteredExercises}

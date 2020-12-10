@@ -65,6 +65,7 @@ export default class AssignmentUX {
       }
     }
     this.course = course;
+    await this.course.referenceBook.ensureLoaded();
     this.dueAt = due_at;
 
     if (this.plan.isNew) {
