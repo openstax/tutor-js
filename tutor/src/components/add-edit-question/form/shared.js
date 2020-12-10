@@ -35,8 +35,6 @@ const StyledRowContent = styled.div`
       }
     }
     .editor {
-      display: flex;
-      flex-flow: column wrap;
       .error-info {
         color: ${colors.strong_red};
       }
