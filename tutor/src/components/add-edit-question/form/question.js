@@ -76,10 +76,10 @@ const StyledQuestionForm = styled.div`
       .right-side {
         margin-top: 1rem;
         .two-step-label {
-          margin-left: 1rem;
-          line-height: 3rem;
+          line-height: 1rem;
         }
         .two-step-info {
+          margin-top: -0.5rem;
           margin-left: 2.3rem;
           color: ${colors.neutral.thin};
         }
