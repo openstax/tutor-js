@@ -237,10 +237,6 @@
 
     }
 
-    .detailed-solution {
-      display: none;
-    }
-
     .exercise-tags {
       @include metadata-styles();
       .exercise-tag + .exercise-tag:before {
@@ -269,7 +265,6 @@
 
   &.is-displaying-feedback {
     .card-body .answers-table .question-feedback-content { display: table; }
-    .detailed-solution{ display: block; }
   }
 
   .stimulus {

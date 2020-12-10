@@ -6,7 +6,6 @@ import { observable, computed, action } from 'mobx';
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
-import { Icon } from 'shared';
 import ChapterSection from '../../models/chapter-section';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';

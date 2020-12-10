@@ -98,7 +98,7 @@ class ExercisesDisplay extends React.Component {
 
   @observable currentSection;
   @observable showingDetails = false;
-  @observable displayFeedback = false;
+  @observable displayFeedback = true;
 
   @observable showAddEditQuestionModal = false;
 
