@@ -336,15 +336,18 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderQuestionTypeInfo = (exerciseType) => {
+    if (this.props.showingDetails) {
+      return null;
+    }
     let info = null;
 
     if(exerciseType === 'homework') {
       info = 
         <p>
           <strong>Homework questions </strong>
-      are varied in complexity and can be either multiple-choice or written-response. In this library,
-      you can add your own questions, copy and edit OpenStax questions,
-      or exclude questions not relevant to your course.
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
         </p>;
     }
     else if (exerciseType === 'reading') {
