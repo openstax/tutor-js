@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, css, observer } from 'vendor';
-import { partial, map } from 'lodash';
+import { partial } from 'lodash';
 import { Dropdown, Button } from 'react-bootstrap';
 import { AddEditQuestionFormBlock, AddEditFormTextInput } from './shared';
 import TutorDropdown from '../../dropdown';
@@ -57,6 +57,7 @@ const StyledGeneralForm = styled.div`
     }
 
     .sharing-info {
+      margin-bottom: 2rem !important;
       > label {
         margin: 0;
       }
@@ -80,18 +81,9 @@ const StyledGeneralForm = styled.div`
 `;
   
 const GeneralForm = observer(({ ux }) => {
-  const authors = map(ux.authors, tp => (
-    <Dropdown.Item
-      key={tp.id}
-      value={tp.id}
-      eventKey={tp.id}
-      onSelect={ux.changeAuthor}>
-      {tp.name}
-    </Dropdown.Item>
-  ));
 
   const excludeOriginalInfo = () => {
-    if(!ux.isNonUserGeneratedQuestion) {
+    if(!ux.fromExercise || ux.isUserGeneratedQuestion) {
       return null;
     }
     return (
@@ -126,12 +118,17 @@ const GeneralForm = observer(({ ux }) => {
         <label>Author</label>
         <TutorDropdown
           toggleName={ux.author ? ux.author.name : ' '}
-          disabled={ux.isNonUserGeneratedQuestion}
-          dropdownItems={authors}
+          disabled={!!ux.fromExercise}
+          dropdownItems={ux.authors.map(tp => (
+            <Dropdown.Item
+              key={tp.id}
+              value={tp.id}
+              eventKey={tp.id}
+              onSelect={ux.changeAuthor}
+            >
+              {tp.name}
+            </Dropdown.Item>))}
         />
-        {ux.isNonUserGeneratedQuestion && 
-          <span>Credit the original author if you haven’t made substantial changes to the question</span>
-        }
       </div>
       <div className="sharing-info">
         <label>Sharing</label>
