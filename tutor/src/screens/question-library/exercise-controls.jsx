@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
 import Course from '../../models/course';
@@ -99,7 +99,6 @@ class ExerciseControls extends React.Component {
   renderControls() {
     const {
       exercises,
-      course,
       displayedChapterSections,
       showingDetails,
       exerciseTypeFilter,
@@ -146,51 +145,36 @@ class ExerciseControls extends React.Component {
         }
       </div>;
 
-    const exerciseFilters =
-      <TourAnchor id="exercise-type-toggle">
-        <RadioInput
-          name="filter-assignment-type"
-          value="homework"
-          label="Homework questions"
-          labelSize="lg"
-          data-exercise-filter="homework"
-          checked={exerciseTypeFilter === 'homework'}
-          onChange={this.onExerciseTypeFilterClick}
-          standalone
-        />
-        <RadioInput
-          name="filter-assignment-type"
-          value="reading"
-          label="Reading questions"
-          labelSize="lg"
-          data-exercise-filter="reading"
-          checked={exerciseTypeFilter === 'reading'}
-          onChange={this.onExerciseTypeFilterClick}
-          standalone
-        />
-      </TourAnchor>;
-
     const homeworkFiltersAndCreateButton = () => {
       if(exerciseTypeFilter !== 'homework') {
         return null;
       }
+      // need to pass the `exercises.homework` so the useEffect can be triggered
+      // useEffect treats an Observable map as an array so it won't listen to changes
+      // if we add or delete an element.
       return (
         <div className="questions-controls-wrapper">
           <HomeExerciseFilters
             className="question-filters"
-            // need to pass the `exercises.homework` so the useEffect can be triggered
-            // useEffect treats an Observable map as an array so it won't listen to changes
-            // if we add or delete an element.
             exercises={exercises.homework}
-            returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}/>
+            returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}
+          />
           <Button
             variant="primary"
             onClick={partial(onDisplayAddEditQuestionModal, true)}>
-                Create question
+            Create question
           </Button>
         </div>    
       );
     };
+
+    if (showingDetails) {
+      return (
+        <StyledExerciseControls>
+          {sections}
+        </StyledExerciseControls>
+      );
+    }
 
     return (
       <StyledExerciseControls>
@@ -201,7 +185,28 @@ class ExerciseControls extends React.Component {
               <span className="library-label">Library</span>
             </OverlayTrigger>
             <div className="exercise-filters">
-              {!course.is_concept_coach ? exerciseFilters : undefined}
+              <TourAnchor id="exercise-type-toggle">
+                <RadioInput
+                  name="filter-assignment-type"
+                  value="homework"
+                  label="Homework questions"
+                  labelSize="lg"
+                  data-exercise-filter="homework"
+                  checked={exerciseTypeFilter === 'homework'}
+                  onChange={this.onExerciseTypeFilterClick}
+                  standalone
+                />
+                <RadioInput
+                  name="filter-assignment-type"
+                  value="reading"
+                  label="Reading questions"
+                  labelSize="lg"
+                  data-exercise-filter="reading"
+                  checked={exerciseTypeFilter === 'reading'}
+                  onChange={this.onExerciseTypeFilterClick}
+                  standalone
+                />
+              </TourAnchor>
             </div>
           </div>
           {homeworkFiltersAndCreateButton()}
