@@ -1,5 +1,6 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
+import Toasts from '../../models/toasts';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
 import S from '../../helpers/string';
@@ -70,14 +71,13 @@ export default class AddEditQuestionUX {
     this.course = props.course;
     // props
     this.pageIds = props.pageIds;
-    this.exercise = props.exercise;
+
     this.onDisplayModal = props.onDisplayModal;
     this.exercises = props.exercises;
 
     //TODO: get from BE
     // edit or create
     if(props.exercise) {
-      this.exercise = props.exercise;
       this.populateExerciseContent(props.exercise);
     }
     else {
@@ -104,6 +104,10 @@ export default class AddEditQuestionUX {
     // otherwise, it will keep updating also the inital state of options in `this.initialStateForm`.
     // Observable arrays: https://doc.ebichu.cc/mobx/refguide/array.html
     this.options = observable(this.options);
+  }
+
+  @computed get fromExercise() {
+    return this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
   }
 
   @action populateExerciseContent(exercise) {
@@ -193,11 +197,11 @@ export default class AddEditQuestionUX {
 
   // other users or OpenStax
   @computed get isNonUserGeneratedQuestion() {
-    return this.from_exercise_id && this.exercise.belongsToOtherUser(User);
+    return this.fromExercise && !this.fromExercise.belongsToUser(User);
   }
 
   @computed get isUserGeneratedQuestion() {
-    return this.from_exercise_id && this.exercise.belongsToUser(User);
+    return this.fromExercise && this.fromExercise.belongsToUser(User);
   }
 
   @computed get authors() {
@@ -402,6 +406,9 @@ export default class AddEditQuestionUX {
   }
 
   @action async doPublish(shouldExit) {
+    // store exericse since saving the new one it might remove old from map
+    const exercise = this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
+
     await this.exercises.createExercise({
       course: this.course,
       data: {
@@ -418,8 +425,16 @@ export default class AddEditQuestionUX {
         copyable: this.allowOthersCopyEdit,
         images: this.images.map(img => img.signed_id),
       },
+      page_ids: this.selectedChapterSection ? [this.selectedChapterSection.id] : null,
+      book: this.course.referenceBook,
     });
 
+    // notify UI
+    Toasts.push({ handler: 'questionPublished', status: 'ok' });
+    // exclude original exercise
+    if (this.excludeOriginal && exercise) {
+      this.course.saveExerciseExclusion({ exercise, is_excluded: true });
+    }
     if(shouldExit) {
       this.onDisplayModal(false);
     }
