@@ -3,7 +3,6 @@ import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
 import { extend, groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
-import Toasts from './toasts';
 
 const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
@@ -184,12 +183,14 @@ export class ExercisesMap extends Map {
     };
   }
   async onExerciseCreated({ data }, [{ course }]) {
-    await this.fetch(
-      {
-        course: course,
-        exercise_ids: [data.id],
-      });
-    Toasts.push({ handler: 'questionPublished', status: 'ok' });
+    // remove any existing copies
+    const existing = [...this.array];
+    existing.forEach((ex) => {
+      if (ex.content.number == data.content.number)
+        this.delete(ex.id);
+    });
+
+    await this.fetch({ course, exercise_ids: [data.id] });
   }
 }
 
