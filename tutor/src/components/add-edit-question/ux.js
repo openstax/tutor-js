@@ -25,6 +25,7 @@ export default class AddEditQuestionUX {
   //modal
   @observable feedbackTipModal = {
     show: false,
+    didShow: false,
     shouldExitOnPublish: false,
   }
   @observable showExitWarningModal = false;
@@ -394,9 +395,10 @@ export default class AddEditQuestionUX {
 
   @action async publish(shouldExit) {
     // only show feedback tip modal if form is MCQ
-    if(!this.hasAnyFeedback && this.isMCQ) {
+    if(!this.hasAnyFeedback && this.isMCQ && !this.feedbackTipModal.didShow) {
       this.feedbackTipModal = {
         show: true,
+        didShow: true,
         shouldExitOnPublish: shouldExit,
       };
     }
