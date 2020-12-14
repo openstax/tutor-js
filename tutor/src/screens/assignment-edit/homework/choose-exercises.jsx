@@ -162,6 +162,7 @@ class ChooseExercises extends React.Component {
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
       pageIds: ux.selectedPageIds,
+      questionType: 'teacher-preview',
     };
 
     let body;
