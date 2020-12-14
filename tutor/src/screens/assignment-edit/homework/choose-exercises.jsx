@@ -70,7 +70,7 @@ class ChooseExercises extends React.Component {
       };
     } else {
       actions.include = {
-        message: 'Add question',
+        message: 'Include question',
         handler: ux.onExerciseToggle,
       };
     }
@@ -95,13 +95,14 @@ class ChooseExercises extends React.Component {
       };
     }
 
+    this.addCopyEditAction(actions, exercise);
+
     if (isUserGeneratedQuestion) {
       actions.deleteExercise = {
         message: 'Delete question',
         handler: () => this.showDeleteQuestionModal = true,
       };
-    }
-    else {
+    } else {
       actions['report-error'] = {
         message: 'Suggest a correction',
         handler: this.reportError,
@@ -109,23 +110,30 @@ class ChooseExercises extends React.Component {
     }
   };
 
-  addCardActions = (actions, exercise, isUserGeneratedQuestion) => {
-    action.details = {
-      message: 'Details',
-      handler: this.showDetails,
-    };
+  addCopyEditAction = (actions, exercise) => {
+    const isUserGeneratedQuestion = exercise.belongsToUser(User);
     if (exercise.canCopy) {
       actions.copyEdit = {
         message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
         handler: this.onEditExercise,
       };
+
     }
-    return (
-      actions.details = {
-        message: 'Details',
-        handler: this.showDetails,
-      }
-    );
+  }
+
+  addCardActions = (actions, exercise) => {
+    action.details = {
+      message: 'Details',
+      handler: this.showDetails,
+    };
+
+    this.addCopyEditAction(actions, exercise);
+
+    actions.details = {
+      message: 'Details',
+      handler: this.showDetails,
+    };
+
   };
 
   @action.bound reportError(ev, exercise) {
