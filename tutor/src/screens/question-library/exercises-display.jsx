@@ -240,7 +240,9 @@ class ExercisesDisplay extends React.Component {
         handler: this.toggleFeedback,
       };
     }
-    
+
+    this.addCopyEdit(actions, exercise);
+
     if (isUserGeneratedQuestion) {
       actions.deleteExercise = {
         message: 'Delete question',
@@ -255,8 +257,7 @@ class ExercisesDisplay extends React.Component {
     }
   };
 
-  addCardActions = (actions, exercise) => {
-    // For now, MPQ are not allowed to be edited
+  addCopyEdit = (actions, exercise) => {
     if (exercise.canCopy) {
       const isUserGeneratedQuestion = exercise.belongsToUser(User);
       actions.copyEdit = {
@@ -264,6 +265,10 @@ class ExercisesDisplay extends React.Component {
         handler: this.onEditExercise,
       };
     }
+  }
+
+  addCardActions = (actions, exercise) => {
+    this.addCopyEdit(actions, exercise);
     actions.details = {
       message: 'Details',
       handler: this.onShowDetailsViewClick,
@@ -342,9 +347,9 @@ class ExercisesDisplay extends React.Component {
       info = 
         <p>
           <strong>Homework questions </strong>
-      are varied in complexity and can be either multiple-choice or written-response. In this library,
-      you can add your own questions, copy and edit OpenStax questions,
-      or exclude questions not relevant to your course.
+          are varied in complexity and can be either multiple-choice or written-response. In this library,
+          you can add your own questions, copy and edit OpenStax questions,
+          or exclude questions not relevant to your course.
         </p>;
     }
     else if (exerciseType === 'reading') {
