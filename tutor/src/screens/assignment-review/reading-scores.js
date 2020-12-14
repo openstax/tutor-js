@@ -231,12 +231,12 @@ const StudentCell = observer(({ ux, student, striped }) => {
               ?`${ScoresHelper.asPercent(student.total_fraction || 0)}%`
               : isUndefined(student.total_points)
                 ? UNWORKED
-                : ScoresHelper.formatPoints(student.total_points) 
+                : ScoresHelper.formatPoints(student.total_points)
             }
           </StyledTotal>
           <LateWork>
             {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
-            {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon />}
+            {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
           </LateWork>
         </CellContents>
       </Cell>
