@@ -132,6 +132,10 @@
   [data-type="document-title"]:not(h3) {
     display: none;
   }
+  // overide display:none above for page titles inside reference sections
+  section.references [data-type="document-title"] {
+    display: block;
+  }
 
   [data-type="title"] {
     font-family: $tutor-sans-font-face;
