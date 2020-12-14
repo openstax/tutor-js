@@ -51,7 +51,7 @@ class Poller {
   get shouldPoll() {
     // we poll if the document is visible and a poll is due
     return this.notices.windowImpl.document.hidden !== true &&
-      moment().isSameOrAfter(this.lastPoll.add(this.interval));
+      moment().isSameOrAfter(this.lastPoll.clone().add(this.interval));
   }
 
   poll() {
