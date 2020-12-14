@@ -20,7 +20,7 @@ const SectionWrapper = styled.div`
   height: 2.5rem;
   align-items: center;
   margin-left: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
   font-size: 1.6rem;
   > * { margin-left: 2rem; }

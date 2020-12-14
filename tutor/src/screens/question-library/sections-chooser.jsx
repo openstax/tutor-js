@@ -38,14 +38,17 @@ const StyledTourRegion = styled(TourRegion)`
         }
       }
     }
+    .book-link {
+      float: right;
+    }
   }
 `;
 
 const StyledFooter = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  &&& {
+  &&&.footer {
+    background-color: ${colors.neutral.pale};
     .wrapper {
       margin: 0;
       button {
@@ -54,8 +57,10 @@ const StyledFooter = styled.div`
       .btn + .btn {
         margin-left: 1.6rem;
       }
+      .btn-default:not([disabled]) {
+        background-color: white;
+      }
     }
-  }
 `;
 
 const StyledHeaderInfo = styled.p`
@@ -114,6 +119,14 @@ class QLSectionsChooser extends React.Component {
           id="question-library-sections-chooser"
           otherTours={['preview-question-library-sections-chooser', 'question-library-super']}
           courseId={this.props.course.id}>
+          <div className="book-link">
+            <a
+              aria-label="Browse the book"
+              href={`/book/${this.props.course.id}`}
+              target="_blank">
+            Browse the book
+            </a>
+          </div>
           <h2>Select chapter and section to view questions</h2>
           <Chooser
             onSelectionChange={this.onSectionChange}
