@@ -47,9 +47,8 @@ const StyledTourRegion = styled(TourRegion)`
 const StyledFooter = styled.div`
   display: flex;
   justify-content: flex-end;
-  background-color: ${colors.neutral.pale};
-
-  &&& {
+  &&&.footer {
+    background-color: ${colors.neutral.pale};
     .wrapper {
       margin: 0;
       button {
@@ -62,7 +61,6 @@ const StyledFooter = styled.div`
         background-color: white;
       }
     }
-  }
 `;
 
 const StyledHeaderInfo = styled.p`
