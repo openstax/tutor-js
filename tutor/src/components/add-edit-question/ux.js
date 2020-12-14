@@ -253,6 +253,10 @@ export default class AddEditQuestionUX {
     return some(this.filledOptions, fo => !S.isEmpty(S.stripHTMLTags(fo.feedback)));
   }
 
+  @computed get shouldShowFeedbackTipModal() {
+    return !this.hasAnyFeedback && this.isMCQ && !this.feedbackTipModal.didShow;
+  }
+
   @computed get canExit() {
     // ignore check for chapter, section and author
     // after publish, we reset everything except this three fields
@@ -395,7 +399,7 @@ export default class AddEditQuestionUX {
 
   @action async publish(shouldExit) {
     // only show feedback tip modal if form is MCQ
-    if(!this.hasAnyFeedback && this.isMCQ && !this.feedbackTipModal.didShow) {
+    if(this.shouldShowFeedbackTipModal) {
       this.feedbackTipModal = {
         show: true,
         didShow: true,
