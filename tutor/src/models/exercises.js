@@ -13,7 +13,7 @@ export { COMPLETE, PENDING };
 
 export const exerciseSort = (exercises, course, user) => {
   return sortBy(exercises, (ex) => {
-    const cs = ex.page.chapter_section.asString;
+    const cs = ex.page.chapter_section.asNumber;
     if (ex.belongsToUser(user)) {
       return [cs, 1];
     } else if (course.teacher_profiles.find(tp => ex.belongsToUser(tp))) {

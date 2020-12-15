@@ -286,6 +286,9 @@ class ExercisesDisplay extends React.Component {
   @action.bound onDeleteExercise() {
     this.props.exercises.deleteExercise(this.props.course, this.selectedExercise);
     this.showDeleteQuestionModal = false;
+    if (this.props.showingDetails) {
+      this.props.onShowCardViewClick();
+    }
   }
 
   @computed get displayedChapterSections() {
