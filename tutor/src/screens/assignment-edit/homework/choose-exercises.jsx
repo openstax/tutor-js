@@ -56,6 +56,7 @@ class ChooseExercises extends React.Component {
   @action.bound onDeleteExercise() {
     this.props.ux.exercises.deleteExercise(this.props.ux.course, this.selectedExercise);
     this.showDeleteQuestionModal = false;
+    this.currentView = 'cards';
   }
 
   getExerciseActions = (exercise) => {
