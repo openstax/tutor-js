@@ -13,14 +13,15 @@ export { COMPLETE, PENDING };
 
 export const exerciseSort = (exercises, course, user) => {
   return sortBy(exercises, (ex) => {
+    const cs = ex.page.chapter_section.asString;
     if (ex.belongsToUser(user)) {
-      return 1;
+      return [cs, 1];
     } else if (course.teacher_profiles.find(tp => ex.belongsToUser(tp))) {
-      return 2;
+      return [cs, 2];
     } else if (!ex.belongsToOpenStax){
-      return 3;
+      return [cs, 3];
     }
-    return 4;
+    return [cs, 4];
   });
 };
 
