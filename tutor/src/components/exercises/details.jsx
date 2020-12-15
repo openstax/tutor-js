@@ -24,6 +24,7 @@ class ExerciseDetails extends React.Component {
     onShowCardViewClick:   PropTypes.func.isRequired,
     getExerciseActions:    PropTypes.func.isRequired,
     getExerciseIsSelected: PropTypes.func.isRequired,
+    questionType:          PropTypes.string,
     selectedSection:       PropTypes.instanceOf(ChapterSection),
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
@@ -124,6 +125,7 @@ class ExerciseDetails extends React.Component {
               displayFeedback={this.props.displayFeedback}
               extractedInfo={exercise}
               exercise={exercise.content}
+              questionType={this.props.questionType}
               actionsOnSide={true}
               leftFooterRenderer={leftFooter}
               rightFooterRenderer={rightFooter}
