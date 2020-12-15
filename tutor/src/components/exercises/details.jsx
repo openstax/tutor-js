@@ -53,20 +53,6 @@ class ExerciseDetails extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (!this.props.selectedSection) {
-      return;
-    }
-    if (!prevProps.selectedSection || !this.props.selectedSection.eq(prevProps.selectedSection)) {
-      const index = this.exercises.findIndex(
-        ex => ex.page.chapter_section.eq(this.props.selectedSection)
-      );
-      if (index != -1) {
-        this.currentIndex = index;
-      }
-    }
-  }
-
   @action.bound onPrev() { this.moveTo(this.currentIndex - 1); }
   @action.bound onNext() { this.moveTo(this.currentIndex + 1); }
 
