@@ -1,8 +1,16 @@
 import { visitPage } from './helpers'
 
+// // playwright has a 30s timeout, make jests larger so we see errors
+jest.setTimeout(15 * 1000)
+
 describe('Assignment Review', () => {
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    context.setDefaultTimeout(10*1000)
+
+    await visitPage(page, '/course/1/assignment/review/2')
+    await page.route('/api/plans/*', req => req.continue())
+
     // cy.visit('/course/1/assignment/review/2')
     // cy.disableTours();
     // cy.server();
@@ -10,53 +18,45 @@ describe('Assignment Review', () => {
   });
 
   it('loads and views feedback', async () => {
-    await visitPage(page, '/course/1/assignment/review/2')
     await page.click('testEl=submission-overview-tab')
-    // cy.getTestElement('overview').should('exist');
-    // cy.getTestElement('student-free-responses').should('exist');
+    await expect(page).toHaveSelector('testEl=student-free-responses')
   });
 
-  // it('loads and views scores', () => {
-  //   cy.wait('@taskPlan');
-  //   cy.getTestElement('assignment-scores-tab').click()
-  //   cy.getTestElement('scores').should('exist');
-  // });
+  it('loads and views scores', async () => {
+    await page.click('testEl=assignment-scores-tab')
+    await expect(page).toHaveSelector('testEl=scores')
+  });
 
-  // it.skip('can publish scores', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-  //   cy.route('PUT', '/api/tasking_plans/*/grade*').as('publishScores');
-  //   cy.wait('@getGradingTemplates');
+  it('can grade WRM', async () => {
+    await page.route('/api/courses/1/grading_templates*', req => req.continue())
+    await page.click('testEl=grade-answers-btn')
+    await page.fill('input[name="score"]', '1')
+    await page.fill('textarea[name="comment"]', 'good answer!')
+    await page.click('testEl=save-grade-btn')
+  });
 
-  //   cy.getTestElement('assignment-scores-tab').click();
-  //   cy.getTestElement('publish-scores').click();
-  //   cy.getTestElement('published-scores-toast').should('exist');
-  // });
+  // this spec will fail if re-ran repeatedlly when it runs out of questions to drop
+  it('can drop questions', async () => {
+    await page.click('testEl=assignment-scores-tab')
+    await page.click('testEl=drop-questions-btn')
+    const qId = await page.$eval('testEl=drop-question-row >> input[type="checkbox"]:not(:checked)', el => el.id)
+    await page.click(`label[for="${qId}"] >> svg`)
+    await page.click('testEl=save-btn')
+    await expect(page).toHaveSelector('[data-test-id="dropped-question-indicator"]')
+  })
 
-  // it.skip('can drop questions', () => {
-  //   cy.getTestElement('assignment-scores-tab').click()
-  //   cy.getTestElement('drop-questions-btn').click()
-  //   cy.getTestElement('drop-questions-modal').should('exist')
 
-  //   cy.getTestElement('drop-question-row').then(([,row]) => {
-  //     row.querySelector('input[type="checkbox"]').click()
-  //     const { questionId } = row.dataset;
-  //     cy.wrap(row.querySelector('input[type="radio"][value="zeroed"]')).should('be.checked')
-  //     cy.getTestElement('save-btn').should('be.disabled')
-  //     cy.getTestElement('cancel-btn').click()
-  //     cy.getTestElement('drop-questions-modal').should('not.exist')
-  //     cy.getTestElement('drop-questions-btn').click()
-  //     cy.get(`[data-question-id=${questionId}] input[type="checkbox"]`).should('be.checked')
-  //   })
-  // });
+  fit('can render grading template preview', async () => {
+    await expect(page).not.toHaveSelector('testEl=grading-template-card', { timeout: 10 })
+    await page.click('testEl=preview-card-trigger')
+    await expect(page).toHaveSelector('testEl=grading-template-card')
 
-  // it('can render grading template preview', () => {
   //   cy.server();
   //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
   //   cy.getTestElement('grading-template-card').should('not.exist');
   //   cy.getTestElement('preview-card-trigger').click();
   //   cy.getTestElement('grading-template-card').should('exist');
-  // });
+  });
 
   // it('can delete assignment', () => {
   //   cy.server();
