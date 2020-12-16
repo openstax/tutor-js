@@ -247,11 +247,22 @@ class PagingNavigation extends React.Component {
       </MobileFooter>
     );
   }
+  
+  renderControls() {
+    if (!this.props.controls) return null;
+
+    return (
+      <div className="action-controls">
+        {this.props.controls}
+      </div>
+    );
+  }
 
   render() {
     return (
       <>
         <div className={classnames('tutor-paging-navigation', this.props.className)}>
+          {this.renderControls()}
           {this.renderPrev()}
           <div
             tabIndex="0"
