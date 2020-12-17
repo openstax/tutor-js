@@ -8,7 +8,7 @@ exports[`Paging Navigation renders and matches snapshot 1`] = `
 
 .arrow-wrapper .c2.c2.c2.icon {
   top: calc(55vh - 80px);
-  margin: 0 auto;
+  margin: 80px auto;
   height: 80px;
   width: 80px;
   border: 1px solid #5e6062;

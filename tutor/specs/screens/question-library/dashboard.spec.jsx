@@ -118,7 +118,7 @@ describe('Questions Dashboard Component', function() {
     course.saveExerciseExclusion = jest.fn();
     const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
     const exercise = exercises.array.find(e => uid == e.content.uid);
-    dash.find(`[data-exercise-id="${uid}"] .action.exclude`).simulate('click');
+    dash.find('.controls-overlay .action.exclude').simulate('click');
     expect(course.saveExerciseExclusion).toHaveBeenCalledWith({ exercise, is_excluded: true });
     dash.unmount();
   });
