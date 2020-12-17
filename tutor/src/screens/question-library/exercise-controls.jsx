@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, observer, inject, autobind, styled } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
 import Course from '../../models/course';
@@ -73,6 +73,7 @@ const StyledPopover = styled(Popover)`
   color: ${colors.neutral.darker};
 `;
 
+@inject('setSecondaryTopControls')
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
@@ -86,7 +87,14 @@ class ExerciseControls extends React.Component {
     showingDetails: PropTypes.bool,
     topScrollOffset: PropTypes.number,
     onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
+    setSecondaryTopControls: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    //props.setSecondaryTopControls(this.renderControls);
+    
+  }
 
   onExerciseTypeFilterClick = (ev) => {
     let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
@@ -96,7 +104,7 @@ class ExerciseControls extends React.Component {
     );
   };
 
-  renderControls() {
+  @autobind renderControls() {
     const {
       exercises,
       displayedChapterSections,

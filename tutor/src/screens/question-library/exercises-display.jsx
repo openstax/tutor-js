@@ -22,6 +22,7 @@ import Scroller from '../../helpers/scroll-to';
 import { colors } from 'theme';
 
 const StyledExerciseDisplay = styled.div`
+background-color: black;
   .controls-wrapper {
     position: sticky;
     top: 5.9rem;

@@ -176,9 +176,9 @@ const QuestionPreviewModal = observer(({ ux }) => {
   });
   //only OS questions has context
   const context = () => {
-    if (!ux.exercise || !ux.exercise.context) return null;
+    if (!ux.context) return null;
     return (
-      <ArbitraryHtmlAndMath className="context" block={true} html={ux.exercise.context} />
+      <ArbitraryHtmlAndMath className="context" block={true} html={ux.context} />
     );
   };
 
