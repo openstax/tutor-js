@@ -1,20 +1,14 @@
-import { visitPage } from './helpers'
+import { visitPage, setTimeouts } from './helpers'
 
-// // playwright has a 30s timeout, make jests larger so we see errors
-jest.setTimeout(15 * 1000)
+// the BE mock api server is primarily in backend/task-plans
 
 describe('Assignment Review', () => {
 
   beforeEach(async () => {
-    context.setDefaultTimeout(10*1000)
+    await setTimeouts()
 
     await visitPage(page, '/course/1/assignment/review/2')
     await page.route('/api/plans/*', req => req.continue())
-
-    // cy.visit('/course/1/assignment/review/2')
-    // cy.disableTours();
-    // cy.server();
-    // cy.route('GET', '/api/plans/*').as('taskPlan');
   });
 
   it('loads and views feedback', async () => {
@@ -30,6 +24,8 @@ describe('Assignment Review', () => {
   it('can grade WRM', async () => {
     await page.route('/api/courses/1/grading_templates*', req => req.continue())
     await page.click('testEl=grade-answers-btn')
+    // if this times out, restart the backend server
+    // the specs may have ran to many times and graded all the responses
     await page.fill('input[name="score"]', '1')
     await page.fill('textarea[name="comment"]', 'good answer!')
     await page.click('testEl=save-grade-btn')
@@ -46,134 +42,133 @@ describe('Assignment Review', () => {
   })
 
 
-  fit('can render grading template preview', async () => {
+  it('can render grading template preview', async () => {
     await expect(page).not.toHaveSelector('testEl=grading-template-card', { timeout: 10 })
     await page.click('testEl=preview-card-trigger')
     await expect(page).toHaveSelector('testEl=grading-template-card')
-
-  //   cy.server();
-  //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-  //   cy.getTestElement('grading-template-card').should('not.exist');
-  //   cy.getTestElement('preview-card-trigger').click();
-  //   cy.getTestElement('grading-template-card').should('exist');
   });
 
-  // it('can delete assignment', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-  //   cy.route('DELETE', '/api/plans/2*').as('deletePlan');
-  //   cy.getTestElement('delete-assignment').click();
-  //   cy.getTestElement('confirm-delete-assignment').click();
-  //   cy.wait('@deletePlan');
-  //   cy.location('pathname').should('include', '/course/1/t/month');
-  // });
+  it('can delete assignment', async () => {
+    await page.click('testEl=delete-assignment')
+    await page.click('testEl=confirm-delete-assignment')
+    await page.waitForNavigation()
+    expect(
+      await page.evaluate(() => document.location.pathname)
+    ).toMatch('/course/1/t/month/')
+  });
 
-  // it('can update details', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-  //   cy.getTestElement('edit-assignment').click();
-  //   cy.getTestElement('edit-assignment-name').clear().type('Update');
-  //   cy.getTestElement('confirm-save-assignment').click();
-  //   cy.getTestElement('assignment-name').should('have.text', 'Update');
-  // });
+  it('can update details', async() => {
+    await page.click('testEl=edit-assignment')
+    await page.fill('testEl=edit-assignment-name', 'Update')
+    await page.click('testEl=confirm-save-assignment')
+    await expect(page).toHaveText('testEl=assignment-name', 'Update')
+  });
 
-  // it('requires confirmation when changing grading template', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/courses/1/grading_templates*').as('getGradingTemplates');
-  //   // Can change
-  //   cy.getTestElement('edit-assignment').click();
-  //   cy.getTestElement('grading-templates').click();
-  //   cy.getTestElement('Second Homework').click();
-  //   cy.getTestElement('confirm-change-template').click();
-  //   cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
+  it('requires confirmation when changing grading template', async () => {
+    await page.click('testEl=edit-assignment')
+    await page.click('testEl=grading-templates')
+    await page.click('testEl="Second Homework"')
+    await page.click('testEl=confirm-change-template')
+    await expect(page).toHaveText('testEl=grading-templates', 'Second Homework')
 
-  //   // Can cancel
-  //   cy.getTestElement('grading-templates').click();
-  //   cy.getTestElement('Default Homework').click();
-  //   cy.getTestElement('cancel-confirm-change-template').click();
-  //   cy.getTestElement('grading-templates', ' button').should('have.text', 'Second Homework');
-  // });
+    // Can cancel
+    await page.click('testEl=grading-templates')
+    await page.click('testEl="Default Homework"')
+    await page.click('testEl=cancel-confirm-change-template')
+    await expect(page).toHaveText('testEl=grading-templates', 'Second Homework')
+  });
 
-  // // TODO: fix this test
-  // it.skip('only renders grading & questions blocks for homework', () => {
-  //   cy.visit('/course/1/assignment/review/1');
-  //   cy.getTestElement('grading-block').should('not.exist');
-  //   cy.getTestElement('questions-block').should('not.exist');
+  it('renders appropriate template and grading blocks for plan types', async () => {
+    // the beforeEach will visit review/2 which is gradable
+    // IMPORTANT must set timeout on a not exists, otherwise it keeps trying forever
+    await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
+    await expect(page).toHaveText('testEl=grading-block', 'Grade answers')
+    await expect(page).not.toHaveText('testEl=grading-block', 'View submissions', { timeout: 100 })
 
+    // now visit review/1 which is a reading
+    await visitPage(page, '/course/1/assignment/review/1')
+    await expect(page).toHaveText('testEl=grading-template-name', 'Default Reading')
+    await expect(page).not.toHaveText('testEl=grading-block', 'Grade answers', { timeout: 100 })
+    await expect(page).toHaveText('testEl=grading-block', 'View submissions')
 
-  //   cy.visit('/course/1/assignment/review/2');
-  //   cy.server();
-  //   cy.route('GET', '/api/plans/*').as('taskPlan');
-  //   cy.wait('@taskPlan');
-  //   cy.getTestElement('grading-block').should('exist');
-  //   cy.getTestElement('questions-block').should('exist');
+    // review/4 is external
+    await visitPage(page, '/course/1/assignment/review/4')
+    await expect(page).not.toHaveSelector('testEl=grading-block', { timeout: 100 })
+    await expect(page).not.toHaveSelector('testEl=grading-template-name', { timeout: 100 })
 
-  //   cy.visit('/course/1/assignment/review/4');
-  //   cy.getTestElement('grading-block').should('not.exist');
-  //   cy.getTestElement('questions-block').should('not.exist');
+    // review/4 is event
+    await visitPage(page, '/course/1/assignment/review/5')
+    await expect(page).not.toHaveSelector('testEl=grading-block', { timeout: 100 })
+    await expect(page).not.toHaveSelector('testEl=grading-template-name', { timeout: 100 })
+  });
 
-  //   cy.visit('/course/1/assignment/review/5');
-  //   cy.getTestElement('grading-block').should('not.exist');
-  //   cy.getTestElement('questions-block').should('not.exist');
-  // });
+  it('edits unopened assigments in edit view', async () => {
+    await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
+    // the beforeEach will visit review/2 which is closed and non-editable
+    const docPath = await page.evaluate(() => document.location.pathname)
+    const name = await page.$eval('testEl=assignment-name', el => el.innerText)
+    await page.click('testEl=edit-assignment')
+    await expect(page).toHaveText('css=.modal-dialog', `Edit ${name} details`)
+    expect(
+      await page.evaluate(() => document.location.pathname)
+    ).toMatch(docPath)
+    await page.click('testEl=cancel-save-assignment')
 
-  // it.skip('can edit assigned questions', () => {
-  //   cy.getTestElement('edit-assigned-questions').click();
-  //   cy.location('pathname').should('include', '/course/1/assignment/edit/homework/2/points');
-  // });
+    // review/7 is unopened hw
+    await visitPage(page, '/course/1/assignment/review/7')
+    await page.click('testEl=edit-assignment')
+    expect(
+      await page.evaluate(() => document.location.pathname)
+    ).toMatch('/assignment/edit/homework/7')
+  });
 
-  // it('hides overview and scores tabs if not reading or homework', () => {
-  //   // Homework
-  //   cy.wait('@taskPlan');
-  //   cy.getTestElement('submission-overview-tab').should('exist');
-  //   cy.getTestElement('assignment-scores-tab').should('exist');
+  it('hides overview and scores tabs if not reading or homework', async () => {
+    // Homework
+    await expect(page).toHaveSelector('testEl=submission-overview-tab')
+    await expect(page).toHaveSelector('testEl=assignment-scores-tab')
 
-  //   // Reading
-  //   cy.visit('/course/1/assignment/review/1');
-  //   cy.getTestElement('submission-overview-tab').should('exist');
-  //   cy.getTestElement('assignment-scores-tab').should('exist');
+    // Reading
+    await visitPage(page, '/course/1/assignment/review/1')
+    await expect(page).toHaveSelector('testEl=submission-overview-tab')
+    await expect(page).toHaveSelector('testEl=assignment-scores-tab')
 
-  //   // External
-  //   cy.visit('/course/1/assignment/review/3');
-  //   cy.getTestElement('submission-overview-tab').should('not.exist');
-  //   cy.getTestElement('assignment-scores-tab').should('not.exist');
+    // External
+    await visitPage(page, '/course/1/assignment/review/4')
+    await expect(page).not.toHaveSelector('testEl=submission-overview-tab', { timeout: 100 })
+    await expect(page).toHaveSelector('testEl=assignment-scores-tab')
 
-  //   // Event
-  //   cy.visit('/course/1/assignment/review/4');
-  //   cy.getTestElement('submission-overview-tab').should('not.exist');
-  //   cy.getTestElement('assignment-scores-tab').should('not.exist');
-  // });
+    // Event
+    await visitPage(page, '/course/1/assignment/review/5')
+    await expect(page).not.toHaveSelector('testEl=submission-overview-tab', { timeout: 100 })
+    await expect(page).not.toHaveSelector('testEl=assignment-scores-tab', { timeout: 100 })
+  });
 
-  // it('cannot deselect sections', () => {
-  //   cy.wait('@taskPlan');
-  //   cy.getTestElement('edit-assignment').click();
-  //   cy.getTestElement('select-sections').click({ force: true });
-  //   cy.getTestElement('tasking').first().find('[data-icon="check-square"]').first().trigger('mouseover')
-  //   cy.get('[role="tooltip"]').contains('cannot withdraw')
-  // });
+  it('cannot deselect sections', async () => {
+    await visitPage(page, '/course/1/assignment/review/1')
+    await page.click('testEl=edit-assignment')
+    await page.click('testEl=select-sections', { force: true })
+    await page.hover('testEl=tasking >> css=[data-icon="check-square"]')
+    await expect(page).toHaveText('css=[role=tooltip]', 'cannot withdraw')
+  });
 
-  // it('should go directly to the submission overview tab', () => {
-  //   cy.visit('/course/1/assignment/review/2/1?tab=1')
-  //   cy.getTestElement('overview').should('exist');
-  //   cy.getTestElement('student-free-responses').should('exist');
-  // });
+  it('should go directly to the submission overview tab', async () => {
+    await visitPage(page, '/course/1/assignment/review/2?tab=1')
+    await expect(page).toHaveSelector('testEl=overview')
+    await expect(page).toHaveSelector('testEl=student-free-responses')
+  });
 
-  // it.skip('should go directly to the assignment scores tab', () => {
-  //   cy.visit('/course/1/assignment/review/2/1?tab=2')
-  //   cy.getTestElement('scores').should('exist');
-  // });
+  it('should go directly to the assignment scores tab', async () => {
+    await visitPage(page, '/course/1/assignment/review/2?tab=2')
+    await expect(page).toHaveSelector('testEl=scores')
+  });
 
-  // it('should hide the student names', () => {
-  //   cy.visit('/course/1/assignment/review/2/1?tab=1')
-  //   cy.getTestElement('names-toogle-button').should('exist');
-  //   // names are shown first, so button label is "Hide student names"
-  //   cy.getTestElement('names-toogle-button-text').should('have.text', 'Hide student names');
-  //   cy.getTestElement('names-toogle-button').click({ force: true });
-  //   cy.getTestElement('names-toogle-button-text').should('have.text', 'Show student names');
-  //   // all names should be hidden
-  //   cy.getTestElement('wrq-response-student-name').should(($name) => {
-  //     expect($name).to.contain('Student response')
-  //   })
-  // });
-
+  it('should hide the student names', async () => {
+    await page.click('testEl=submission-overview-tab')
+    // names are shown first, so button label is "Hide student names"
+    await expect(page).toHaveText('testEl=names-toogle-button', 'Hide student names')
+    await expect(page).toHaveSelector('testEl=wrq-response-student-name')
+    await page.click('testEl=names-toogle-button')
+    await expect(page).toHaveText('testEl=names-toogle-button', 'Show student names')
+    await expect(page).toHaveText('testEl=wrq-response-student-name', 'Student response')
+  });
 });

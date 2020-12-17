@@ -21,7 +21,7 @@ const EXERCISES = {};
 
 
 function getExercise(id) {
-  return EXERCISES[id] || (EXERCISES[id] = Factory.create('TutorExercise', { id }));
+  return EXERCISES[id] || (EXERCISES[id] = Factory.create(id % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id }));
 }
 
 module.exports = {

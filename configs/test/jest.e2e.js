@@ -9,7 +9,8 @@ const config = {
       URL: `http://localhost:${serverPort}`,
     },
   },
-  testEnvironment: '../configs/test/playwright.env.ts',
+  testEnvironment: '../configs/test/playwright.env.js',
+  setupFilesAfterEnv: ['expect-playwright'],
   testEnvironmentOptions: { // jest-playwright options can be put here
     launchOptions: {
       // headless: false,

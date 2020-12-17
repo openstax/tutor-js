@@ -8,9 +8,8 @@ TEST=$1
 
 if [[ "$TEST" = "lint" ]]; then
   ./bin/lint || exit 112
-elif [[ "$TEST" = "integration" ]]; then
-  yarn run tutor:test:server &
-  yarn run tutor:test:cypress
+elif [[ "$TEST" = "e2e" ]]; then
+  yarn run tutor:test:server && ./bin/test $TEST --all
 else
   ./bin/test $TEST --all
 fi
