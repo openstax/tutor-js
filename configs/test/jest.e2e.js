@@ -7,6 +7,7 @@ const config = {
   globals: {
     testConfig: {
       URL: `http://localhost:${serverPort}`,
+      DEBUG: !!process.env.DEBUG,
     },
   },
   testEnvironment: '../configs/test/playwright.env.js',
