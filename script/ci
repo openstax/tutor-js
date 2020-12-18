@@ -8,8 +8,6 @@ TEST=$1
 
 if [[ "$TEST" = "lint" ]]; then
   ./bin/lint || exit 112
-elif [[ "$TEST" = "e2e" ]]; then
-  yarn run tutor:test:server && ./bin/test $TEST --all
 else
-  ./bin/test $TEST --all
+  ./bin/test $TEST --all --verbose
 fi

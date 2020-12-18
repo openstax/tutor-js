@@ -16,7 +16,7 @@
     "test": "./bin/test",
     "tdd": "./bin/tdd",
     "cypress": "yarn run tutor:test:cypress open",
-    "ci": "./script/ci",
+    "ci": "./script/test/e2e --all --verbose",
     "health-check": "./bin/health-check",
     "tutor:test:server": "node tutor/scripts/test-server/index.js",
     "tutor:test:server:fe": "node tutor/scripts/test-server/frontend.js --fe 8110 --be 8111",

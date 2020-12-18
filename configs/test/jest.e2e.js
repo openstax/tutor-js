@@ -16,7 +16,6 @@ const config = {
       // headless: false,
     },
   },
-
 };
 
 

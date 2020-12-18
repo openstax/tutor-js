@@ -1,19 +1,22 @@
 const serverPort = process.env.SERVER_PORT || 8110;
 
+const DEBUG = Boolean(process.env.DEBUG || false);
+
 const config = {
   launchOptions: {
-    // headless: false,
+    headless: !DEBUG,
+    devtools: DEBUG,
   },
 };
 
-// this seems good but times out. need to investigate
-// if (!process.env.EXERNAL_SERVER) {
-//   config.serverOptions = {
-//     command: 'node tutor/scripts/test-server/index.js',
-//     launchTimeout: 50000,
-//     port: serverPort,
-//   };
-// }
-
+if (!process.env.EXERNAL_SERVER) {
+  config.serverOptions = {
+    command: 'node tutor/scripts/test-server/index.js',
+    basePath: '/dist/tutor.js',
+    launchTimeout: 50000,
+    port: serverPort,
+    protocol: 'http',
+  };
+}
 
 module.exports = config;
