@@ -300,7 +300,8 @@ const Form = observer(({ ux }) => {
   };
   
   const contextInfo = () => {
-    if(!ux.context) {
+    const exercise = ux.exercise;	
+    if(!exercise || !exercise.context) {	
       return null;
     }
 
