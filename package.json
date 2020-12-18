@@ -12,7 +12,6 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "preci": "npm run validate",
     "test": "./bin/test",
     "tdd": "./bin/tdd",
     "cypress": "yarn run tutor:test:cypress open",
@@ -24,7 +23,6 @@
     "tutor:test:unit": "./bin/test tutor",
     "tutor:test:e2e": "./bin/test e2e",
     "tutor:test:integration": "concurrently yarn:tutor:test:cypress yarn:tutor:test:server",
-    "precoverage": "npm run validate",
     "serve": "./bin/serve",
     "cached-serve": "CACHE=true npm run serve",
     "debug": "./bin/debug",
@@ -35,8 +33,6 @@
     "build-archive": "./bin/build tutor archive",
     "check-dependencies": "node ./bin/check-dependencies",
     "lint": "./bin/lint",
-    "validate": "./bin/validate-console-messages.sh",
-    "prestart": "npm run validate",
     "start": "./bin/tdd",
     "generate-tutor-loading-screen": "./script/generate-tutor-boot-screen",
     "cached-start": "CACHE=true ./bin/tdd"
