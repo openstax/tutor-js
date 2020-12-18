@@ -48,7 +48,6 @@ export default class AddEditQuestionUX {
   @observable selectedChapter;
   @observable selectedChapterSection;
   // question
-  @observable context = '';
   @observable questionText = '';
   @observable isTwoStep = false;
   options = [];
@@ -120,7 +119,6 @@ export default class AddEditQuestionUX {
     this.selectedChapter = find(this.preSelectedChapters, psc => some(psc.children, c => c.uuid === exercise.page_uuid));
     this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === exercise.page_uuid);
     
-    this.context = exercise.context;
     this.questionText = question.stem_html;
     this.isTwoStep = question.isTwoStep;
     forEach(question.answers, a => {
