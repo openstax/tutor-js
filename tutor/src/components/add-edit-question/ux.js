@@ -35,7 +35,6 @@ export default class AddEditQuestionUX {
   /** props */
   @observable book;
   @observable course;
-  @observable exercise;
   // chapter/section ids
   @observable pageIds;
   // Parent of the AddEditQuestion controls the display of the modal
