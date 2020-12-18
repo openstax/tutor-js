@@ -78,6 +78,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   padding-top: calc(60px*2);
 }
 
+.c4.viewQuestionsLibrary {
+  padding-top: 0;
+}
+
 @media (min-width:1000px) {
   .c0.c0.c0 .tutor-navbar {
     padding-left: 24px;
@@ -159,7 +163,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="c0"
             >
               <nav
-                className="c1 tutor-navbar"
+                className="c1 tutor-navbar nav-"
               >
                 <div
                   className="left-side-controls"
