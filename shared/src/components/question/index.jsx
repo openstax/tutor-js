@@ -15,6 +15,7 @@ class QuestionHtml extends React.Component {
   static propTypes = {
     html: PropTypes.string,
     type: PropTypes.string,
+    hidden: PropTypes.bool,
     questionNumber: PropTypes.number,
   };
 
@@ -28,8 +29,8 @@ class QuestionHtml extends React.Component {
   };
 
   render() {
-    const { questionNumber, html, type } = this.props;
-    if (!(html.length > 0)) { return null; }
+    const { questionNumber, html, type, hidden } = this.props;
+    if (hidden === true || !(html.length > 0)) { return null; }
 
     const htmlAndMathProps = pick(this.context, 'processHtmlAndMath');
 
@@ -59,6 +60,7 @@ class Question extends React.Component {
     task: PropTypes.object,
     correct_answer_id: idType,
     hideAnswers: PropTypes.bool,
+    hidePreambles: PropTypes.bool,
     exercise_uid: PropTypes.string,
     displayFormats:  PropTypes.bool,
     processHtmlAndMath: PropTypes.bool,
@@ -108,7 +110,9 @@ class Question extends React.Component {
 
   render() {
     let exerciseUid, solution;
-    const { question, correct_answer_id, exercise_uid, className, questionNumber, context, task } = this.props;
+    const {
+      question, correct_answer_id, exercise_uid, className, questionNumber, context, task, hidePreambles,
+    } = this.props;
     const { stem_html, collaborator_solutions, formats, stimulus_html } = question;
 
     const hasCorrectAnswer = !!correct_answer_id;
@@ -138,9 +142,9 @@ class Question extends React.Component {
     return (
 
       <div className={classes} data-question-number={questionNumber}>
-        <QuestionHtml type="context" html={context} />
-        <QuestionHtml type="stimulus" html={stimulus_html} />
-        <QuestionHtml type="stem" html={stem_html} questionNumber={questionNumber} />
+        <QuestionHtml type="context" html={context} hidden={hidePreambles} />
+        <QuestionHtml type="stimulus" html={stimulus_html} hidden={hidePreambles} />
+        <QuestionHtml type="stem" html={stem_html} hidden={hidePreambles} questionNumber={questionNumber} />
         {this.props.children}
         <AnswersTable {...this.props} hasCorrectAnswer={hasCorrectAnswer} />
         {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
