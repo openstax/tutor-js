@@ -85,6 +85,9 @@ const Content = styled.div`
   ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
     padding: 0;
   `}
+  &.viewQuestionsLibrary {
+    padding-top: 0;
+  }
 `;
 
 class CourseContext {

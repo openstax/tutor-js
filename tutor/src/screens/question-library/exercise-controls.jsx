@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, inject, autobind, styled } from 'vendor';
+import { React, PropTypes, observer, inject, autobind, styled, cn } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
 import Course from '../../models/course';
@@ -15,7 +15,6 @@ const StyledExerciseControls = styled.div`
   .exercise-controls-bar {
     display: flex;
     height: 60px;
-    border-top: 1px solid ${colors.neutral.pale};
     label {
       font-size: 1.4rem;
     }
@@ -23,6 +22,7 @@ const StyledExerciseControls = styled.div`
   .sections-control {
     justify-content: flex-start;
     overflow-x: auto;
+    border-bottom: 1px solid ${colors.neutral.pale};
     .sectionizer {
       margin: 0 1.7rem;
     }
@@ -34,9 +34,11 @@ const StyledExerciseControls = styled.div`
         margin-left: 0;
       }
     }
+    &.is-details {
+      border-bottom: inherit;
+    }
   }
   .filters-control {
-    border-bottom: 1px solid ${colors.neutral.pale};
     justify-content: space-between;
     padding: 0 2.2rem;
     .library-label {
@@ -130,7 +132,7 @@ class ExerciseControls extends React.Component {
       </StyledPopover>;
 
     const sections =
-      <div className="exercise-controls-bar sections-control">
+      <div className={cn('exercise-controls-bar sections-control', { 'is-details': showingDetails })}>
         <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
           <Icon
             size="lg"

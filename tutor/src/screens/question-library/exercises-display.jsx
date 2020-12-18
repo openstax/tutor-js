@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled, cn,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -22,11 +22,16 @@ import Scroller from '../../helpers/scroll-to';
 import { colors } from 'theme';
 
 const StyledExerciseDisplay = styled.div`
-background-color: black;
   .controls-wrapper {
     position: sticky;
-    top: 5.9rem;
+    top: 0;
     z-index: 10;
+    border-top: 1px solid ${colors.neutral.pale};
+    border-bottom: 1px solid ${colors.neutral.pale};
+    &.isSticky {
+      border-bottom: inherit;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 0px;
+    }
   }
   .question-type-info {
     background-color: white;
@@ -90,9 +95,7 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  componentWillUnmount() {
-    this.props.exercises.clear();
-  }
+  @observable isControlsSticky = false;
 
   @observable exerciseTypeFilter = 'homework';
   @observable filteredExercises = this.props.exercises[this.exerciseTypeFilter];
@@ -106,6 +109,28 @@ class ExercisesDisplay extends React.Component {
   @observable showDeleteQuestionModal = false;
 
   scroller = new Scroller({ windowImpl: this.windowImpl });
+
+  componentWillUnmount() {
+    this.props.exercises.clear();
+    document.removeEventListener('scroll', this.checkIsControlsSticky);
+  }
+
+  componentDidMount() {
+    document.addEventListener('scroll', this.checkIsControlsSticky);
+  }
+
+  // Checking if the controls-bar is sticked to the top.
+  // If so, show box-shadow.
+  @action.bound checkIsControlsSticky() {
+    const windowImpl = this.windowImpl || window;
+    const topOffset = this.showingDetails ? 160 : 250;
+    if (windowImpl.scrollY > topOffset && !this.isControlsSticky) {
+      this.isControlsSticky = true;
+    }
+    else if (windowImpl.scrollY <= topOffset && this.isControlsSticky) {
+      this.isControlsSticky = false;
+    }
+  }
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
@@ -390,7 +415,7 @@ class ExercisesDisplay extends React.Component {
     return (
       <StyledExerciseDisplay>
         <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
-        <div className="controls-wrapper">
+        <div className={cn('controls-wrapper', { 'isSticky': this.isControlsSticky })}>
           <ExerciseControls
             course={course}
             onSelectSections={onSelectSections}
