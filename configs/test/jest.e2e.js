@@ -11,11 +11,6 @@ const config = {
   },
   testEnvironment: '../configs/test/playwright.env.js',
   setupFilesAfterEnv: ['expect-playwright'],
-  testEnvironmentOptions: { // jest-playwright options can be put here
-    launchOptions: {
-      // headless: false,
-    },
-  },
 };
 
 
