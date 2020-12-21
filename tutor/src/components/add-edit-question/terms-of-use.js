@@ -73,7 +73,7 @@ const TermAgreement = ({ onClose }) => {
       <CheckboxInput
         className="i-agree"
         onChange={() => setAgree(prevState => !prevState)}
-        label="I certify that these questions do not violate any copyright, trademark, or other intellectual property laws."
+        label="I have read and agree to these terms of use."
         checked={agree}
         standalone
       />
