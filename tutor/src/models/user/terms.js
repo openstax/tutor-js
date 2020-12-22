@@ -50,7 +50,7 @@ class UserTerms extends BaseModel {
   }
 
   @action.bound fetchIfNeeded() {
-    if (this.user.terms_signatures_needed) { this.fetch(); }
+    if (this.areSignaturesNeeded) { this.fetch(); }
   }
 
   get(name) {
