@@ -33,6 +33,7 @@ class TermsModal extends React.Component {
 
   componentDidMount() {
     this.props.modalManager.queue(this, 1);
+    User.terms.fetchIfNeeded();
   }
 
   // for terms to be displayed the user must be in a course and need them signed
