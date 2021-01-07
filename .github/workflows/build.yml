@@ -31,7 +31,7 @@ jobs:
           AWS_REGION: ${{ secrets.TUTOR_AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.TUTOR_AWS_S3_BUCKET }}
           SOURCE_DIR: tutor/dist
-          DEST_DIR: assets
+          DEST_DIR: dist
 
   exercises:
     runs-on: ubuntu-18.04
@@ -58,4 +58,4 @@ jobs:
           AWS_REGION: ${{ secrets.EXERCISES_AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.EXERCISES_AWS_S3_BUCKET }}
           SOURCE_DIR: exercises/dist
-          DEST_DIR: assets
+          DEST_DIR: dist
