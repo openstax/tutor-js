@@ -100,7 +100,7 @@ class SectionsExercises extends React.Component {
   static propTypes = {
     pageId:                 PropTypes.string.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
-    filteredExercises:      PropTypes.instanceOf(ExercisesMap).isRequired,
+    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
@@ -108,9 +108,9 @@ class SectionsExercises extends React.Component {
   };
 
   render() {
-    const { pageId, book, filteredExercises, ...previewProps } = this.props;
+    const { pageId, book, exercises, ...previewProps } = this.props;
     const page = book.pages.byId.get(pageId);
-    const pageExercises = filteredExercises.byPageId[pageId];
+    const pageExercises = exercises.byPageId[pageId];
     if(isEmpty(pageExercises)) {
       return null;
     }
@@ -152,7 +152,6 @@ class ExerciseCards extends React.Component {
     pageIds:                ArrayOrMobxType.isRequired,
     book:                   PropTypes.instanceOf(Book).isRequired,
     exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-    filteredExercises:      PropTypes.instanceOf(ExercisesMap).isRequired,
     onExerciseToggle:       PropTypes.func.isRequired,
     getExerciseIsSelected:  PropTypes.func.isRequired,
     getExerciseActions:     PropTypes.func.isRequired,
@@ -188,9 +187,9 @@ class ExerciseCards extends React.Component {
   }
 
   render() {
-    const { pageIds, exercises, filteredExercises, goBackward, ...sectionProps } = this.props;
+    const { pageIds, exercises, goBackward, ...sectionProps } = this.props;
 
-    if (exercises.noneForPageIds(pageIds) || filteredExercises.noneForPageIds(pageIds)) {
+    if (exercises.noneForPageIds(pageIds)) {
       return <NoExercisesFound 
         isHomework={true}
         sectionHasExercises={exercises.noneForPageIds(pageIds) ? false : true}
@@ -200,7 +199,7 @@ class ExerciseCards extends React.Component {
     let sections = map(pageIds, pageId => (
       <SectionsExercises
         key={pageId}
-        filteredExercises={filteredExercises}
+        exercises={exercises}
         pageId={pageId}
         {...sectionProps}
       />
