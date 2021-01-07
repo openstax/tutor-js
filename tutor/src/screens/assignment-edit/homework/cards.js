@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, ArrayOrMobxType, styled,
+  React, PropTypes, observer, ArrayOrMobxType, computed, styled,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ExercisePreview from '../../../components/exercises/preview';
@@ -81,8 +81,9 @@ const Exercises = observer(({ id, exercises, title, hintText, ...previewProps })
         <HintText>{hintText}</HintText>
       </Header>
       <Columns>
-        {map(exercises, (exercise) =>
-          <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
+        {exercises.map((exercise) => (
+          <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />
+        ))}
       </Columns>
     </div>
   );
@@ -107,16 +108,24 @@ class SectionsExercises extends React.Component {
     getExerciseActions:     PropTypes.func.isRequired,
   };
 
+  @computed get pageExercises() {
+    return this.props.exercises.byPageId[this.props.pageId];
+  }
+
+  @computed get mcExercises() {
+    return this.pageExercises.filter(e => e.isMultiChoice);
+  }
+
+  @computed get oeExercises() {
+    return this.pageExercises.filter(e => e.isOpenEnded);
+  }
+
   render() {
-    const { pageId, book, exercises, ...previewProps } = this.props;
-    const page = book.pages.byId.get(pageId);
-    const pageExercises = exercises.byPageId[pageId];
-    if(isEmpty(pageExercises)) {
+    const { pageId, book, ...previewProps } = this.props;
+    if(isEmpty(this.pageExercises)) {
       return null;
     }
-
-    const mcExercises = pageExercises.filter(e => e.content.questions[0].isMultipleChoice);
-    const oeExercises = pageExercises.filter(e => e.content.questions[0].isOpenEnded);
+    const page = book.pages.byId.get(pageId);
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
@@ -127,16 +136,16 @@ class SectionsExercises extends React.Component {
         <Exercises
           title="Multiple Choice Questions"
           hintText="(MCQs are auto-graded by Tutor)"
-          exercises={mcExercises}
           id={`mc-${pageId}`}
           {...previewProps}
+          exercises={this.mcExercises}
         />
         <Exercises
           title="Written Response Questions"
           hintText="(WRQs have to be manually graded by the teacher)"
-          exercises={oeExercises}
           id={`oe-${pageId}`}
           {...previewProps}
+          exercises={this.oeExercises}
         />
       </Wrapper>
     );

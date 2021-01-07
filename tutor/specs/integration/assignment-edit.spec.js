@@ -249,9 +249,10 @@ context('Assignment Edit', () => {
   });
 
   it('shows error if due date is before open date', () => {
-    typedDueDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
+    typedDueDate = moment(typedOpenDate, 'MMM D [| 05:00 PM]').subtract(1, 'day').format('MMM D [| 05:00 PM]')
     cy.visit('/course/2/assignment/edit/external/new')
     cy.disableTours()
+    cy.get('input[name="title"]').type('test assignment #1')
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
     cy.get('.oxdt-ok').click();
     cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true });
@@ -262,10 +263,11 @@ context('Assignment Edit', () => {
 
 
   it('shows error if closes date is before due date', () => {
-    typedClosesDate = moment().subtract(1, 'weeks').format('MMM D [| 05:00 PM]')
+    typedClosesDate = moment(typedDueDate, 'MMM D [| 05:00 PM]').subtract(1, 'day').format('MMM D [| 05:00 PM]')
 
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
+    cy.get('input[name="title"]').type('test assignment #1')
     cy.get('input[name="tasking_plans[0].opens_at"]').clear({ force: true }).type(typedOpenDate, { force: true });
     cy.get('.oxdt-ok').click();
     cy.get('input[name="tasking_plans[0].due_at"]').clear({ force: true }).type(typedDueDate, { force: true });
