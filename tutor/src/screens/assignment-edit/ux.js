@@ -391,7 +391,7 @@ export default class AssignmentUX {
   }
 
   @computed get displayedExercises() {
-    return this.exercises.where(ex => (
+    return this.filteredExercises.where(ex => (
       this.isExerciseSelected(ex) || (
         ex.isHomework && ex.isAssignable &&
         ex.page && this.selectedPageIds.includes(ex.page.id)
