@@ -31,6 +31,12 @@
     font-weight: bold;
   }
 
+  // book index
+  .os-index-item {
+    .os-term + .os-term-section-link {
+      margin-left: 0.5rem;
+    }
+  }
 
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
   table + .os-caption-container{
