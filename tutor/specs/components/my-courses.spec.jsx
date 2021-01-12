@@ -20,6 +20,7 @@ describe('My Courses Component', function() {
 
   afterEach(() => {
     Courses.clear();
+    User.fetch = jest.fn();
     User.faculty_status = '';
     User.school_type = 'college';
     User.self_reported_role = '';
