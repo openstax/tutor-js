@@ -1,4 +1,6 @@
 const serverPort = process.env.SERVER_PORT || 8110;
+const DEBUG = !!process.env.DEBUG;
+
 
 const config = {
   rootDir: '../../tutor',
@@ -7,9 +9,10 @@ const config = {
   globals: {
     testConfig: {
       URL: `http://localhost:${serverPort}`,
-      DEBUG: !!process.env.DEBUG,
+      DEBUG,
     },
   },
+  testTimeout: (DEBUG ? 90 : 20 )* 1000,
   testEnvironment: '../configs/test/playwright.env.js',
   setupFilesAfterEnv: ['expect-playwright'],
 };
