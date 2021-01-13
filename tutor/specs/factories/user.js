@@ -2,9 +2,9 @@ const { Factory, uuid, sequence } = require('./helpers');
 
 Factory.define('User')
   .profile_id(sequence)
-  .name(({ is_teacher }) => is_teacher ? 'Charles Morris' : 'Atticus Finch')
   .first_name(({ is_teacher }) => is_teacher ? 'Charles' : 'Atticus')
   .last_name(({ is_teacher }) => is_teacher ? 'Morris' : 'Finch')
+  .name(({ object }) => `${object.first_name} ${object.last_name}`)
   .is_admin(false)
   .is_customer_service(false)
   .is_content_analyst(false)

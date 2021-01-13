@@ -50,6 +50,7 @@ class RemoveTeacherLink extends React.Component {
 
           <AsyncButton
             variant="danger"
+            data-test-id="remove-confirm-btn"
             onClick={this.performDeletion}
             isWaiting={teacher.api.isPending}
             waitingText="Removing..."
@@ -71,8 +72,9 @@ class RemoveTeacherLink extends React.Component {
         rootClose={true}
         trigger="click"
         placement="left"
-        overlay={this.confirmPopOver()}>
-        <a>
+        overlay={this.confirmPopOver()}
+      >
+        <a className="remove">
           <Icon type="ban" />
           {' Remove'}
         </a>

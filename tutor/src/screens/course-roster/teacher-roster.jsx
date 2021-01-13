@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { map } from 'lodash';
 import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
 import RemoveTeacherLink from './remove-teacher';
@@ -18,7 +17,7 @@ class TeacherRoster extends React.Component {
 
   @autobind renderRow(teacher) {
     return (
-      <tr key={teacher.id}>
+      <tr key={teacher.id} data-teacher-id={teacher.role_id}>
         <td>
           {teacher.first_name}
         </td>
@@ -71,4 +70,4 @@ class TeacherRoster extends React.Component {
       </div>
     );
   }
-};
+}

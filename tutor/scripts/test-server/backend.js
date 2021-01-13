@@ -48,6 +48,7 @@ const MULTI_HANDLERS = [
   require('./backend/tasks'),
   require('./backend/terms'),
   require('./backend/exercises'),
+  require('./backend/course-roster'),
 ];
 
 // routes that have custom logic
