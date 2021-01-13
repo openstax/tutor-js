@@ -28,6 +28,15 @@ const Wrapper = styled.div({
   display: 'flex',
   '.openstax-has-html': {
     width: '100%',
+    img: {
+      '&:not([align])': {
+        clear: 'both',
+        display: 'block',
+        float: 'none',
+        margin: 'auto',
+      },
+    },
+  
   },
 });
 
