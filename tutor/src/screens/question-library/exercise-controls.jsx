@@ -161,6 +161,7 @@ class ExerciseControls extends React.Component {
           />
           <Button
             variant="primary"
+            data-test-id="create-question"
             onClick={partial(onDisplayAddEditQuestionModal, true)}>
             Create question
           </Button>

@@ -259,10 +259,10 @@ const AssignedSections = observer(({ assignedSections = [], courseId }) => {
   );
 });
 
-const TemplateInfo = observer(({ template }) => {
+const TemplateInfo = observer(({ template, ...props }) => {
   if (!template) { return null; }
   return (
-    <TemplateInfoWrapper>
+    <TemplateInfoWrapper {...props}>
       {template.name}
       <PreviewTooltip template={template} variant="primary" />
     </TemplateInfoWrapper>
@@ -359,7 +359,7 @@ const Details = observer(({ ux }) => {
               <Row>
                 <Title>Grading template</Title>
                 <Item>
-                  <TemplateInfo template={planScores.grading_template} />
+                  <TemplateInfo data-test-id="grading-template-name" template={planScores.grading_template} />
                 </Item>
               </Row>
             }

@@ -146,6 +146,7 @@ class QLSectionsChooser extends React.Component {
             </Button>
             <Button
               variant="primary"
+              data-test-id="show-questions"
               disabled={isEmpty(this.pageIds)}
               onClick={this.showQuestions}
             >

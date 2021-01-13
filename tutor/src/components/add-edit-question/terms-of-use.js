@@ -82,13 +82,14 @@ const TermAgreement = ({ onClose }) => {
           variant="default"
           className="cancel"
           onClick={onClose}>
-                Cancel
+          Cancel
         </Button>
         <Button
+          data-test-id="agree-to-terms"
           variant="primary"
           disabled={!agree}
           onClick={agreeTermsOfUse}>
-              Accept and continue
+          Accept and continue
         </Button>
       </div>
     </>
@@ -103,26 +104,30 @@ const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false
 
   const term = useMemo(() => User.terms.get(TERMS_NAME),
     [User.terms.get(TERMS_NAME).content]);
-  
+
   useEffect(() => {
-    User.terms.fetch();
-  }, []);
+    if (show) {
+      User.terms.fetch();
+    }
+  }, [show]);
   useEffect(() => {
     setTermContent(term ? term.content : '');
   }, [term.content]);
-  
+
   return (
     <StyledAddEditQuestionTermsOfUseModal
       show={show}
       backdrop="static"
       onHide={onClose}
-      templateType="addEditQuestion">
+      data-test-id="terms-modal"
+      templateType="addEditQuestion"
+    >
       <Modal.Header closeButton>
         Terms of use
       </Modal.Header>
       <Modal.Body>
-        <div dangerouslySetInnerHTML={{ __html: termContent }} />
-        {!displayOnly && <TermAgreement onClose={onClose} /> }
+        <div data-is-loaded={!!termContent} dangerouslySetInnerHTML={{ __html: termContent }} />
+        {!displayOnly && <TermAgreement onClose={onClose} />}
       </Modal.Body>
     </StyledAddEditQuestionTermsOfUseModal>
   );

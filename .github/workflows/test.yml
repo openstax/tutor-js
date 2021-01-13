@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        project: ['lint', 'tutor', 'shared', 'exercises', 'integration']
+        project: ['lint', 'tutor', 'shared', 'exercises', 'e2e']
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1

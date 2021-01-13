@@ -79,11 +79,11 @@ const StyledGeneralForm = styled.div`
       }
     }
 `;
-  
+
 const GeneralForm = observer(({ ux }) => {
 
   const excludeOriginalInfo = () => {
-    if(!ux.fromExercise || ux.isUserGeneratedQuestion) {
+    if (!ux.fromExercise || ux.isUserGeneratedQuestion) {
       return null;
     }
     return (
@@ -119,9 +119,9 @@ const GeneralForm = observer(({ ux }) => {
         <TutorDropdown
           toggleName={ux.author ? ux.author.name : ' '}
           disabled={!!ux.fromExercise}
-          dropdownItems={ux.authors.map(tp => (
+          dropdownItems={ux.authors.map((tp, i) => (
             <Dropdown.Item
-              key={tp.id}
+              key={i}
               value={tp.id}
               eventKey={tp.id}
               onSelect={ux.changeAuthor}
@@ -166,7 +166,7 @@ const General = observer(({ ux }) => {
       label="General"
       showGrayBackground={true}
       onFocus={partial(ux.checkValidityOfFields, [])}
-      formContentRenderer={() => <GeneralForm ux={ux}/>}
+      formContentRenderer={() => <GeneralForm ux={ux} />}
     />
   );
 });
