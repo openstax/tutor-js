@@ -2,3 +2,5 @@
 @import './tutor-bootstrap';
 @import '~pattern-library/core/pattern-library/headers';
 @import '~react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.css';
+$pwContentWrapperClass: 'openstax-has-html'; // match shared/components/html component
+@import '~perry-white/scss/rendered-html';
