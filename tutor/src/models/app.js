@@ -52,8 +52,8 @@ export default class TutorApp {
     const app = new TutorApp();
     [Raven, Api].forEach(lib => lib.boot({ app }));
 
-    this.data = await app.fetch();
-    await app.initializeApp();
+    const { data } = await app.fetch();
+    await app.initializeApp(data);
   }
 
   static logError(error, info) {
@@ -64,8 +64,8 @@ export default class TutorApp {
     Raven.captureException(error, { extra: info });
   }
 
-  @action.bound initializeApp() {
-    window._MODELS.bootstrapData = this.data;
+  @action.bound initializeApp(data) {
+    window._MODELS.bootstrapData = this.data = data;
     window._MODELS.app = this;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
