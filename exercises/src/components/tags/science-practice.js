@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
+import { filter, some, reduce } from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
@@ -23,25 +24,43 @@ const AP_BIO = {
   'argumentation': 'Argumentation',
 };
 
-const getBookTagValue = (tags) => {
-  const tag = tags.withType('book');
-  return tag ? tag.value : '';
+const ALL_AP_BOOKS = [
+  {
+    tag: 'stax-apphys',
+    choices: AP_PHYSICS,
+  },
+  {
+    tag: 'stax-apbio',
+    choices: AP_BIO,
+  },
+];
+
+const getApBookTags = (tags) => {
+  const booksTag = tags.withType('book', { multiple: true });
+  return filter(ALL_AP_BOOKS, aab => some(booksTag, bt => bt.value === aab.tag));
 };
 
 const SciencePracticeTags = (props) => {
-  const bookTagValue = getBookTagValue(props.exercise.tags);
+  // const bookTags = getBookTags(props.exercise.tags);
+  // const filteredApBooks = filter(apBooks, sb => some(bookTags, bt => bt.value === sb.tag));
 
-  let choices;
-  if(bookTagValue === 'stax-apphys') {
-    choices = AP_PHYSICS;
-  }
-  if(bookTagValue === 'stax-apbio') {
-    choices = AP_BIO;
-  }
+  const [apBooks, setApBooks] = useState(getApBookTags(props.exercise.tags));
 
-  if(!choices) {
-    return null;
-  }
+  useEffect(() => {
+    const updatedApBooks = getApBookTags(props.exercise.tags);
+    setApBooks(updatedApBooks);
+  }, [props]);
+
+  if(apBooks.length <= 0) return null;
+
+  // A way to handle if both AP books are selected.
+  // Theresa said it will not happen, but we need to handle this scenario.
+  const choices = useMemo(() =>
+    reduce(apBooks, (result, book) => {
+      return { ...result, ...book.choices };
+    }, {}), 
+  [apBooks]); 
+
   return (
     <SingleDropdown {...props} label="Science Practice" type="science-practice" choices={choices} />
   );
