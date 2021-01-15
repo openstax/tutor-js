@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
-import { filter, some, reduce } from 'lodash';
+import { filter, some, reduce, isEmpty } from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
@@ -41,25 +41,22 @@ const getApBookTags = (tags) => {
 };
 
 const SciencePracticeTags = (props) => {
-  // const bookTags = getBookTags(props.exercise.tags);
-  // const filteredApBooks = filter(apBooks, sb => some(bookTags, bt => bt.value === sb.tag));
-
   const [apBooks, setApBooks] = useState(getApBookTags(props.exercise.tags));
 
   useEffect(() => {
     const updatedApBooks = getApBookTags(props.exercise.tags);
     setApBooks(updatedApBooks);
-  }, [props]);
+  }, [JSON.stringify(props.exercise.tags)]);
 
-  if(apBooks.length <= 0) return null;
-
-  // A way to handle if both AP books are selected.
+  // Merge all the choices if both AP Physics and AP Bio are selected.
   // Theresa said it will not happen, but we need to handle this scenario.
   const choices = useMemo(() =>
     reduce(apBooks, (result, book) => {
       return { ...result, ...book.choices };
     }, {}), 
   [apBooks]); 
+
+  if(isEmpty(choices)) return null;
 
   return (
     <SingleDropdown {...props} label="Science Practice" type="science-practice" choices={choices} />

@@ -18,8 +18,6 @@ class BookTagSelect extends React.Component {
   };
 
   @action.bound updateTag(ev) {
-    // science practice options changes per book. delete it as a new book is selected.
-    //this.props.exercise.tags.removeType('science-practice');
     this.props.exercise.tags.setUniqueValue(this.props.tag, ev.target.value);
   }
 
