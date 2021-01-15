@@ -62,15 +62,15 @@ const SciencePracticeTags = (props) => {
   // if not, then delete the science-practice tag
   // if no choices, then delete the science-practice tag also
   useEffect(() => {
+    const tag = props.exercise.tags.withType(TagType);
     if(!isEmpty(choices)) {
-      const tag = props.exercise.tags.withType(TagType);
       if(tag && tag.value) {
         const doHaveChoice = some(choices, (_, key) => tag.value === key);
         if(!doHaveChoice)
           props.exercise.tags.removeType(TagType);
       }
     }
-    else {
+    else if(tag) {
       props.exercise.tags.removeType(TagType);
     }
   }, [choices]);
