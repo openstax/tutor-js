@@ -1,10 +1,10 @@
 import App from '../../src/models/app';
 import Toasts from '../../src/models/toasts';
-import { readBootstrapData, documentReady } from '../../src/helpers/dom';
+import { documentReady } from '../../src/helpers/dom';
 import Raven from '../../src/models/app/raven';
 
 jest.mock('../../src/helpers/dom', () => ({
-  readBootstrapData: jest.fn(() => ({ courses: [] })),
+  fetch: jest.fn(() => ({ courses: [] })),
   documentReady: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../src/models/app/raven');
@@ -33,7 +33,6 @@ describe('Tutor App model', () => {
   it('boots after document is ready, starts raven and reads data', async () => {
     await App.boot();
     expect(documentReady).toHaveBeenCalled();
-    expect(readBootstrapData).toHaveBeenCalled();
     expect(Raven.boot).toHaveBeenCalled();
   });
 });

@@ -1,6 +1,4 @@
 import { get } from 'lodash';
-import Raven from '../models/app/raven';
-
 /**
  * Utility functions to make DOM manipulation easier.
  */
@@ -297,22 +295,6 @@ export default function dom(el) {
 export function read_csrf() {
   const meta = document.querySelector('meta[name=csrf-token]');
   return meta ? meta.getAttribute('content') : '';
-}
-
-export function readBootstrapData(root = document) {
-  const el = root.querySelector('#tutor-boostrap-data');
-  if (el) {
-    try {
-      return JSON.parse(el.textContent);
-    } catch(e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to parse JSON:', e, el.textContent);
-      Raven.captureException(e, { json: el.textContent });
-      return {};
-    }
-  } else {
-    return {};
-  }
 }
 
 export function documentReady() {
