@@ -34,7 +34,7 @@ class SingleDropdown extends React.Component {
             value={get(tag, 'value', '')}
             disabled={this.props.readonly}
           >
-            {!tag && <option key="blank" value="" />}
+            <option key="blank" value="" />
             {map(this.props.choices, (name, tag) => (
               <option key={tag} value={tag}>
                 {name}

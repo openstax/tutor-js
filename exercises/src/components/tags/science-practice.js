@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
+import { filter, some, reduce, isEmpty } from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
@@ -23,27 +24,61 @@ const AP_BIO = {
   'argumentation': 'Argumentation',
 };
 
-const getBookTagValue = (tags) => {
-  const tag = tags.withType('book');
-  return tag ? tag.value : '';
+const ALL_AP_BOOKS = [
+  {
+    tag: 'stax-apphys',
+    choices: AP_PHYSICS,
+  },
+  {
+    tag: 'stax-apbio',
+    choices: AP_BIO,
+  },
+];
+
+const TagType = 'science-practice';
+
+const getApBookTags = (tags) => {
+  const booksTag = tags.withType('book', { multiple: true });
+  return filter(ALL_AP_BOOKS, aab => some(booksTag, bt => bt.value === aab.tag));
 };
 
 const SciencePracticeTags = (props) => {
-  const bookTagValue = getBookTagValue(props.exercise.tags);
+  const [apBooks, setApBooks] = useState(getApBookTags(props.exercise.tags));
 
-  let choices;
-  if(bookTagValue === 'stax-apphys') {
-    choices = AP_PHYSICS;
-  }
-  if(bookTagValue === 'stax-apbio') {
-    choices = AP_BIO;
-  }
+  useEffect(() => {
+    const updatedApBooks = getApBookTags(props.exercise.tags);
+    setApBooks(updatedApBooks);
+  }, [JSON.stringify(props.exercise.tags)]);
 
-  if(!choices) {
-    return null;
-  }
+  // Merge all the choices if both AP Physics and AP Bio are selected.
+  // Theresa said it will not happen, but we need to handle this scenario.
+  const choices = useMemo(() =>
+    reduce(apBooks, (result, book) => {
+      return { ...result, ...book.choices };
+    }, {}), 
+  [apBooks]); 
+
+  // this hooks check for the choices and see if the tag value matches any of the choices
+  // if not, then delete the science-practice tag
+  // if no choices, then delete the science-practice tag also
+  useEffect(() => {
+    const tag = props.exercise.tags.withType(TagType);
+    if(!isEmpty(choices)) {
+      if(tag && tag.value) {
+        const doHaveChoice = some(choices, (_, key) => tag.value === key);
+        if(!doHaveChoice)
+          props.exercise.tags.removeType(TagType);
+      }
+    }
+    else if(tag) {
+      props.exercise.tags.removeType(TagType);
+    }
+  }, [choices]);
+
+  if(isEmpty(choices)) return null;
+
   return (
-    <SingleDropdown {...props} label="Science Practice" type="science-practice" choices={choices} />
+    <SingleDropdown {...props} label="Science Practice" type={TagType} choices={choices} />
   );
 };
 
