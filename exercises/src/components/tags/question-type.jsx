@@ -7,9 +7,9 @@ import SingleDropdown from './single-dropdown';
 
 const TYPE = 'type';
 const TYPES = {
-  'conceptual-or-recall': 'Conceptual or Recall',
-  'conceptual': 'Conceptual',
-  'recall': 'Recall',
+  'conceptual-or-recall': 'Reading or Homework',
+  'conceptual': 'Reading',
+  'recall': 'Homework',
   'practice': 'Practice',
 };
 
