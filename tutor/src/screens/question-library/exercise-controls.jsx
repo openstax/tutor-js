@@ -92,12 +92,6 @@ class ExerciseControls extends React.Component {
     setSecondaryTopControls: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    //props.setSecondaryTopControls(this.renderControls);
-    
-  }
-
   onExerciseTypeFilterClick = (ev) => {
     let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
     if (exerciseTypeFilter === this.props.exerciseTypeFilter) { exerciseTypeFilter = ''; }
