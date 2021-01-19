@@ -761,6 +761,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="conceptual"
                 >
                   <option
+                    value=""
+                  />
+                  <option
                     value="conceptual-or-recall"
                   >
                     Conceptual or Recall
@@ -1160,6 +1163,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="3"
                 >
                   <option
+                    value=""
+                  />
+                  <option
                     value="1"
                   >
                     1
@@ -1205,6 +1211,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   onChange={[Function]}
                   value="3"
                 >
+                  <option
+                    value=""
+                  />
                   <option
                     value="1"
                   >
@@ -1261,6 +1270,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   onChange={[Function]}
                   value="long"
                 >
+                  <option
+                    value=""
+                  />
                   <option
                     value="short"
                   >
@@ -2242,6 +2254,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"conceptual\\" disabled={false}>
+                                            <option value=\\"\\" />
                                             <option value=\\"conceptual-or-recall\\">
                                               Conceptual or Recall
                                             </option>
@@ -2506,6 +2519,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2536,6 +2550,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2572,6 +2587,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"long\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"short\\">
                                               Short
                                             </option>
