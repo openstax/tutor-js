@@ -63,23 +63,37 @@ class ExercisePreview extends React.Component {
   };
 
   getCleanPreview = () => {
-    return trimEnd(last(this.exercise.questions).stem_html);
+    return this.props.extractedInfo.preview ? this.props.extractedInfo.preview : trimEnd(last(this.exercise.questions).stem_html);
   };
 
+  @computed get showPreview() {
+    return Boolean(
+      !this.props.isInteractive && this.props.extractedInfo.preview
+    );
+  }
+
   renderStimulus = () => {
-    if (this.props.isInteractive || !this.props.extractedInfo.preview) {
-      return (
-        <ArbitraryHtmlAndMath
-          className="stimulus"
-          block={true}
-          html={this.props.exercise.stimulus_html} />
-      );
-    } else {
-      return (
-        <ArbitraryHtmlAndMath className="stimulus" block={true} html={this.getCleanPreview()} />
-      );
-    }
+    return (
+      <ArbitraryHtmlAndMath
+        block
+        className="exercise stimulus"
+        html={this.showPreview ? this.getCleanPreview() : this.props.exercise.stimulus_html}
+      />
+    );
   };
+
+  renderOverlayActions = () => {
+    if (this.props.disableMessage || !this.props.overlayActions) {
+      return null;
+    }
+
+    return (
+      <ControlsOverlay
+        exercise={this.props.exercise}
+        actions={this.props.overlayActions}
+        onClick={this.props.onOverlayClick} />
+    );
+  }
 
   @computed get tags() {
     const { displayAllTags, displayNickname, exercise } = this.props;
@@ -122,11 +136,7 @@ class ExercisePreview extends React.Component {
             <div className="disabled-message">
               <p>{this.props.disableMessage}</p>
             </div> )}
-          {!this.props.disableMessage && (
-            <ControlsOverlay
-              exercise={this.props.exercise}
-              actions={this.props.overlayActions}
-              onClick={this.props.onOverlayClick} /> )}
+          {this.renderOverlayActions()}
           <div className="exercise-body">
             <ExerciseBadges
               multiPart={info.isMultiPart}
@@ -143,6 +153,7 @@ class ExercisePreview extends React.Component {
                   className="openstax-question-preview"
                   question={question}
                   choicesEnabled={false}
+                  hidePreambles={this.showPreview}
                   displayFormats={this.props.displayFormats}
                   show_all_feedback={this.props.displayFeedback}
                   type={this.props.questionType}

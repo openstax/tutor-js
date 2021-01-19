@@ -311,7 +311,7 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get isEveryExerciseMultiChoice() {
-    return every(this.exercises, 'isMultiChoice');
+    return this.exercises.length && every(this.exercises, 'isMultiChoice');
   }
 
   @computed get questionsInfo() {

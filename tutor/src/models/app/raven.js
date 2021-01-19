@@ -29,7 +29,7 @@ const RavenErrorLogging = {
     if (!isProd) { return; }
     Sentry.init({
       debug: false,
-      dsn: 'https://10044345c10446119e980e2ba2f5fe14@sentry.cnx.org/10',
+      dsn: 'https://c591c5c17b6f46c1b0656a10e0b8adfa@o484761.ingest.sentry.io/5538479',
       environment: first(window.location.host.split('.')),
       beforeBreadcrumb(breadcrumb) {
         if (isMathjax(breadcrumb)) { return null; }

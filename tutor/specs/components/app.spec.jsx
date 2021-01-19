@@ -9,6 +9,8 @@ jest.mock('../../src/models/user', () => ({
   },
   can_create_courses: true,
   terms: {
+    areSignaturesNeeded: false,
+    fetchIfNeeded() {},
     api: {
       isPending: false,
     },

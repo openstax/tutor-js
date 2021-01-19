@@ -43,9 +43,10 @@ const scoresForId = (courseId, planId) => {
   let scores = SCORES[planId];
   if (!scores) {
     const course = getCourse(courseId);
-    const plan = planForId(planId, { course: course });
+    const plan = planForId(planId, { course: course, days_ago: planId < 5 ? 30 : planId * -1  });
     const exercises = plan.type.match(/homework/) ? times(8).map((id) => getExercise(id)) : [];
     SCORES[planId] = scores = Factory.create('TaskPlanScores', { task_plan: plan, grades: {}, course, exercises });
+
   } else {
     scores.tasking_plans.forEach(tp => {
       tp.students.forEach(s => {

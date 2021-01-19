@@ -39,9 +39,6 @@ const GET_HANDLERS = {
   'courses/:courseId/performance': require('./backend/performance'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
   'ecosystems/:ecosystemId/readings': require('./backend/readings'),
-  'ecosystems/:ecosystemId/exercises/homework_core': require('./backend/exercises'),
-  'ecosystems/:ecosystemId/practice_exercises': require('./backend/exercises'),
-  'ecosystems/:ecosystemId/exercises': require('./backend/exercises'),
 };
 
 const MULTI_HANDLERS = [
@@ -49,6 +46,8 @@ const MULTI_HANDLERS = [
   require('./backend/task-plans'),
   require('./backend/courses'),
   require('./backend/tasks'),
+  require('./backend/terms'),
+  require('./backend/exercises'),
 ];
 
 // routes that have custom logic

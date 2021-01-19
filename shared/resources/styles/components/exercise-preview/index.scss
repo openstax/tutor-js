@@ -272,10 +272,12 @@
       width: 200px;
       height: 200px;
       margin: auto;
-      overflow: hidden;
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      text-indent: 400px; // move text out of the frame so only background image shows up
+       // move text out of the frame so only background image shows up
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
       &.video       { @include x-icon-bg("video-placeholder");       }
       &.interactive { @include x-icon-bg("interactive-placeholder"); }
     }
