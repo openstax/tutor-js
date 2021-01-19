@@ -186,7 +186,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="requires-choices"
               >
                 <input
-                  checked={false}
+                  checked={true}
                   id="input-rq"
                   onChange={[Function]}
                   type="checkbox"
@@ -194,8 +194,27 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <label
                   htmlFor="input-rq"
                 >
-                  Requires Choices
+                  Two Step Question
                 </label>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-question-circle fa-w-16 c0 ox-icon ox-icon-question-circle question-info-icon"
+                  data-icon="question-circle"
+                  data-prefix="fas"
+                  focusable="false"
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
               </div>
               <div
                 className="order-matters"
@@ -761,6 +780,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="conceptual"
                 >
                   <option
+                    value=""
+                  />
+                  <option
                     value="conceptual-or-recall"
                   >
                     Conceptual or Recall
@@ -1160,6 +1182,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="3"
                 >
                   <option
+                    value=""
+                  />
+                  <option
                     value="1"
                   >
                     1
@@ -1205,6 +1230,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   onChange={[Function]}
                   value="3"
                 >
+                  <option
+                    value=""
+                  />
                   <option
                     value="1"
                   >
@@ -1261,6 +1289,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   onChange={[Function]}
                   value="long"
                 >
+                  <option
+                    value=""
+                  />
                   <option
                     value="short"
                   >
@@ -1707,10 +1738,26 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </div>
                                   <div className=\\"multi-choice-boxes\\">
                                     <div className=\\"requires-choices\\">
-                                      <input type=\\"checkbox\\" id=\\"input-rq\\" checked={false} onChange={[Function: res]} />
+                                      <input type=\\"checkbox\\" id=\\"input-rq\\" checked={true} onChange={[Function: res]} />
                                       <label htmlFor=\\"input-rq\\">
-                                        Requires Choices
+                                        Two Step Question
                                       </label>
+                                      <OverlayTrigger trigger=\\"hover\\" placement=\\"right\\" overlay={{...}} defaultOverlayShown={false}>
+                                        <RefHolder>
+                                          <Icon type=\\"question-circle\\" className=\\"question-info-icon\\" buttonProps={{...}} tooltipProps={{...}} onMouseOver={[Function]} onMouseOut={[Function]}>
+                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function]} onMouseOut={[Function]} icon={{...}}>
+                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function]} onMouseOut={[Function]} icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} onMouseOver={[Function]} onMouseOut={[Function]}>
+                                                  <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
+                                                </svg>
+                                              </FontAwesomeIcon>
+                                            </IconWrapper>
+                                          </Icon>
+                                        </RefHolder>
+                                        <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
+                                          <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} containerPadding={5} />
+                                        </Overlay>
+                                      </OverlayTrigger>
                                     </div>
                                     <div className=\\"order-matters\\">
                                       <input type=\\"checkbox\\" id=\\"input-om\\" checked={false} onChange={[Function: res]} />
@@ -2242,6 +2289,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"conceptual\\" disabled={false}>
+                                            <option value=\\"\\" />
                                             <option value=\\"conceptual-or-recall\\">
                                               Conceptual or Recall
                                             </option>
@@ -2506,6 +2554,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2536,6 +2585,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
                                             </option>
@@ -2572,6 +2622,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </div>
                                         <div className=\\"tag\\">
                                           <select className=\\"form-control\\" onChange={[Function: res]} value=\\"long\\" disabled={[undefined]}>
+                                            <option value=\\"\\" />
                                             <option value=\\"short\\">
                                               Short
                                             </option>
