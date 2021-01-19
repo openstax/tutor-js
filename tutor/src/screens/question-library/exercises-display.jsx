@@ -96,8 +96,6 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  @observable isControlsSticky = false;
-
   @observable exerciseTypeFilter = 'homework';
   @observable filteredExercises = this.props.exercises[this.exerciseTypeFilter];
   @observable selectedExercise;
