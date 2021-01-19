@@ -456,6 +456,7 @@ export default class AddEditQuestionUX {
       this.feedbackTipModal = {
         show: false,
         shouldExitOnPublish: false,
+        didShow: this.feedbackTipModal.didShow,
       };
     }
   }
