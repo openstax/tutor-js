@@ -1,7 +1,7 @@
 import { React, PropTypes, Theme, styled, cn, useState, useMemo, useEffect } from 'vendor';
 import { ArbitraryHtmlAndMath as HTML } from 'shared';
 import { Editor, convertFromHTML } from 'perry-white';
-import 'perry-white/dist/styles.css';
+import 'perry-white/scss/editor.scss';
 import { FullFeaturedEditorRuntime, LimitedEditorRuntime } from './runtime';
 
 const Editing = ({ className, html, runtime, ...props }) => {
@@ -28,6 +28,15 @@ const Wrapper = styled.div({
   display: 'flex',
   '.openstax-has-html': {
     width: '100%',
+    img: {
+      '&:not([align])': {
+        clear: 'both',
+        display: 'block',
+        float: 'none',
+        margin: 'auto',
+      },
+    },
+  
   },
 });
 

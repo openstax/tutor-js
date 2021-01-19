@@ -8,5 +8,25 @@
       float: none;
       margin: auto;
     }
+    &[align="left"] {
+      margin: 0 40px 20px 0;
+    }
+    &[align="right"] {
+      margin: 0 0 20px 40px;
+    }
+  }
+
+  blockquote {
+    background-color: var(--pw-blockquote-background-color);
+    border-left: var(--pw-blockquote-border);
+    border-radius: 1px;
+    color: var(--pw-blockquote-color);
+    font-family: var(--pw-blockquote-font-family);
+    font-size: 1.4em;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 50px auto;
+    padding: 1.2em 10% 1.2em 10%;
+    position: relative;
   }
 }
