@@ -38,13 +38,11 @@ class QuestionFormatType extends React.Component {
         placement="right"
         overlay={
           <StyledTwoStepInfo>
-            <>
-              <p>
+            <p>
               A two-step question requires students to recall an answer from memory
               before viewing the multiple-choice options.
               Our research shows that retrieval practice helps to improve knowledge retention.
-              </p>
-            </>
+            </p>
           </StyledTwoStepInfo>
         }
       >
