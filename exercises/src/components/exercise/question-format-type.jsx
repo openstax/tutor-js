@@ -3,7 +3,14 @@ import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
+import styled from 'styled-components';
 import Question  from 'shared/model/exercise/question';
+import { Icon } from 'shared';
+
+const StyledTwoStepInfo = styled(Popover)`
+  padding: 1rem;
+`;
 
 @observer
 class QuestionFormatType extends React.Component {
@@ -17,11 +24,40 @@ class QuestionFormatType extends React.Component {
   }
 
   @action.bound setChoiceRequired(ev) {
-    this.props.question.toggleFormat('free-response', !ev.target.checked);
+    this.props.question.toggleFormat('free-response', ev.target.checked);
   }
 
   @action.bound preserveOrderClicked(ev) {
     this.props.question.is_answer_order_important = ev.target.checked;
+  }
+
+  renderTwoStepInfo() {
+    return (
+      <OverlayTrigger
+        trigger="hover"
+        placement="right"
+        overlay={
+          <StyledTwoStepInfo>
+            <>
+              <p>
+              A two-step question requires students to recall an answer from memory
+              before viewing the multiple-choice options.
+              Our research shows that retrieval practice helps to improve knowledge retention.
+              </p>
+              <p>
+              Students will be graded only on the multiple-choice step.
+              You can view student reponses in the ‘Submission overview’ tab.
+              </p>
+            </>
+          </StyledTwoStepInfo>
+        }
+      >
+        <Icon
+          type="question-circle"
+          className="question-info-icon"
+        />
+      </OverlayTrigger>
+    );
   }
 
   render() {
@@ -50,12 +86,13 @@ class QuestionFormatType extends React.Component {
               <input
                 type="checkbox"
                 id="input-rq"
-                checked={!question.hasFormat('free-response')}
+                checked={question.hasFormat('free-response')}
                 onChange={this.setChoiceRequired}
               />
               <label htmlFor="input-rq">
-                Requires Choices
+                Two Step Question
               </label>
+              {this.renderTwoStepInfo()}
             </div>
             <div className="order-matters">
               <input
