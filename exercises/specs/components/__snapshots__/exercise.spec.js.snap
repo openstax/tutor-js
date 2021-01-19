@@ -756,7 +756,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type questionType has-single-tag"
+              className="tag-type assignmentType"
             >
               <div
                 className="heading"
@@ -764,7 +764,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="label"
                 >
-                  Question Type
+                  Assignment Type
                 </span>
                 <div
                   className="controls"
@@ -773,36 +773,109 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  disabled={false}
-                  onChange={[Function]}
-                  value="conceptual"
+                <div
+                  className="c1 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="conceptual-or-recall"
+                  <div
+                    className=" css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    Conceptual or Recall
-                  </option>
-                  <option
-                    value="conceptual"
-                  >
-                    Conceptual
-                  </option>
-                  <option
-                    value="recall"
-                  >
-                    Recall
-                  </option>
-                  <option
-                    value="practice"
-                  >
-                    Practice
-                  </option>
-                </select>
+                    <div
+                      className=" css-1hwfws3"
+                    >
+                      <div
+                        className=" css-1wa3eu0-placeholder"
+                      >
+                        Select...
+                      </div>
+                      <div
+                        className="css-w8afj7-Input"
+                      >
+                        <div
+                          className=""
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-2-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className=" css-1g48xl4-IndicatorsContainer"
+                    >
+                      <span
+                        className=" css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className=" css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-tj5bde-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -880,7 +953,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                             autoComplete="off"
                             autoCorrect="off"
                             disabled={false}
-                            id="react-select-2-input"
+                            id="react-select-3-input"
                             onBlur={[Function]}
                             onChange={[Function]}
                             onFocus={[Function]}
@@ -1629,7 +1702,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="exercise-tag"
                 >
-                  type:conceptual
+                  type:reading
                 </span>
                 <span
                   className="exercise-tag"
@@ -2278,35 +2351,89 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </LoTags>
                                 <ApLoTags exercise={{...}} />
                                 <QuestionTypeTag exercise={{...}}>
-                                  <SingleDropdown readonly={false} exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}} icon={false}>
-                                    <TagWrapper label=\\"Question Type\\" icon={false} singleTag={true}>
-                                      <div className=\\"tag-type questionType has-single-tag\\">
+                                  <MultiSelect readonly={false} exercise={{...}} label=\\"Assignment Type\\" type=\\"type\\" options={{...}} icon={false}>
+                                    <TagWrapper label=\\"Assignment Type\\">
+                                      <div className=\\"tag-type assignmentType\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
-                                            Question Type
+                                            Assignment Type
                                           </span>
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"conceptual\\" disabled={false}>
-                                            <option value=\\"\\" />
-                                            <option value=\\"conceptual-or-recall\\">
-                                              Conceptual or Recall
-                                            </option>
-                                            <option value=\\"conceptual\\">
-                                              Conceptual
-                                            </option>
-                                            <option value=\\"recall\\">
-                                              Recall
-                                            </option>
-                                            <option value=\\"practice\\">
-                                              Practice
-                                            </option>
-                                          </select>
+                                          <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]}>
+                                            <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
+                                              <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" id={[undefined]} onKeyDown={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl css-2b097c-container\\" id={[undefined]} onKeyDown={[Function]}>
+                                                      <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function]} onTouchEnd={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\" css-yk16xz-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
+                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\">
+                                                                <div className=\\" css-1hwfws3\\">
+                                                                  <Placeholder cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Placeholder\\">
+                                                                      <div className=\\" css-1wa3eu0-placeholder\\">
+                                                                        Select...
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Placeholder>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-6-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                    <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
+                                                                      <div className=\\"css-w8afj7-Input\\">
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-6-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                          <div className=\\"\\" style={{...}}>
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-6-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <div style={{...}} />
+                                                                          </div>
+                                                                        </AutosizeInput>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Input>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </ValueContainer>
+                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
+                                                                <div className=\\" css-1g48xl4-IndicatorsContainer\\">
+                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
+                                                                      <span className=\\" css-1okebmr-indicatorSeparator\\" />
+                                                                    </EmotionCssPropInternal>
+                                                                  </IndicatorSeparator>
+                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                        <DownChevron>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </DownChevron>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </DropdownIndicator>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </IndicatorsContainer>
+                                                          </div>
+                                                        </EmotionCssPropInternal>
+                                                      </Control>
+                                                    </div>
+                                                  </EmotionCssPropInternal>
+                                                </SelectContainer>
+                                              </Select>
+                                            </StateManager>
+                                          </StyledSelect>
                                         </div>
                                       </div>
                                     </TagWrapper>
-                                  </SingleDropdown>
+                                  </MultiSelect>
                                 </QuestionTypeTag>
                                 <HistoricalThinkingTag exercise={{...}} />
                                 <ReasoningProcessTag exercise={{...}} />
@@ -2359,12 +2486,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                       </MultiValueGeneric>
                                                                     </ForwardRef(render)>
                                                                   </MultiValue>
-                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-4-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-7-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
                                                                     <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
                                                                       <div className=\\"css-w8afj7-Input\\">
-                                                                        <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-7-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
                                                                           <div className=\\"\\" style={{...}}>
-                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-7-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
                                                                             <div style={{...}} />
                                                                           </div>
                                                                         </AutosizeInput>
@@ -2912,7 +3039,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       time:long
                                     </span>
                                     <span className=\\"exercise-tag\\">
-                                      type:conceptual
+                                      type:reading
                                     </span>
                                     <span className=\\"exercise-tag\\">
                                       Nickname:desmond

@@ -138,7 +138,7 @@ Factory.define('OpenEndedExerciseQuestion')
 
 Factory.define('Exercise')
   .tags([
-    'type:conceptual',
+    'type:reading',
     'requires-context:true',
     'filter-type:test-prep',
     'blooms:3',
@@ -165,7 +165,7 @@ Factory.define('Exercise')
 
 Factory.define('OpenEndedExercise')
   .tags([
-    'type:conceptual',
+    'type:reading',
     'requires-context:true',
     'filter-type:test-prep',
     'blooms:4',
