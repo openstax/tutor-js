@@ -310,7 +310,12 @@ export default class AddEditQuestionUX {
 
   @action changeOptions(answer, index) {
     this.options[index].text = answer;
-    if(index <= 1) {
+    // if two or more options are filled, then take out the errors
+    if(this.filledOptions.length >= 2 && some(this.isEmpty.options, o => o)) {
+      this.isEmpty.options[0] = false;
+      this.isEmpty.options[1] = false;
+    }
+    else if (index <= 1 && this.isEmpty.options[index]) {
       this.isEmpty.options[index] = false;
     }
   }
@@ -531,9 +536,18 @@ export default class AddEditQuestionUX {
       if(key === 'correctOption') {
         this.isEmpty[key] = every(this.options, o => !o.isCorrect);
       }
-      else if (key === 'options') {
-        this.isEmpty[key][0] = S.isEmpty(S.stripHTMLTags(this[key][0].text));
-        this.isEmpty[key][1] = S.isEmpty(S.stripHTMLTags(this[key][1].text));
+      else if (key === 'options' && this.filledOptions.length <= 1) {
+        // if there ar no filled options, show the inline error in the first two option editors
+        if(this.filledOptions.length === 0) {
+          this.isEmpty[key][0] = true;
+          this.isEmpty[key][1] = true;
+        }
+        else if (this.filledOptions.length === 1) {
+          // show error in the first option editor
+          this.isEmpty[key][0] = S.isEmpty(S.stripHTMLTags(this[key][0].text));
+          // show error in the second option editor if the first is filled
+          this.isEmpty[key][1] = S.isEmpty(S.stripHTMLTags(this[key][1].text)) && !this.isEmpty[key][0];
+        }
       }
       else {
         this.isEmpty[key] = typeof this[key] === 'string' ? S.isEmpty(S.stripHTMLTags(this[key])) : !this[key];
