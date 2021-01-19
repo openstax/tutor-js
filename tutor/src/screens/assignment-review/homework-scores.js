@@ -172,6 +172,8 @@ const AssignmentHeading = observer(({ ux, heading }) => (
       <HeadingBottom>
         {heading.dropped &&
           <CornerTriangle color="blue"
+            data-test-id="dropped-question-indicator"
+            data-question-id={`Q${heading.question_id}`}
             tooltip={heading.dropped.drop_method == 'zeroed' ?
               'Points changed to 0' : 'Full credit given to all students'}
           />}

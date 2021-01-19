@@ -1152,7 +1152,26 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
                   "uuid": undefined,
                 },
               ],
-              "teacher_profiles": Array [],
+              "teacher_profiles": Array [
+                CourseRole {
+                  "$nonSerializable": Object {
+                    "course": true,
+                  },
+                  "course": [Circular],
+                  "course_association_name": "teacher_profiles",
+                  "id": 1,
+                  "name": "Review Teacher 1",
+                },
+                CourseRole {
+                  "$nonSerializable": Object {
+                    "course": true,
+                  },
+                  "course": [Circular],
+                  "course_association_name": "teacher_profiles",
+                  "id": 2,
+                  "name": "Review Teacher 2",
+                },
+              ],
               "term": "spring",
               "timezone": "US/Central",
               "uses_pre_wrm_scores": false,
@@ -1286,7 +1305,26 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               "uuid": undefined,
             },
           ],
-          "teacher_profiles": Array [],
+          "teacher_profiles": Array [
+            CourseRole {
+              "$nonSerializable": Object {
+                "course": true,
+              },
+              "course": [Circular],
+              "course_association_name": "teacher_profiles",
+              "id": 1,
+              "name": "Review Teacher 1",
+            },
+            CourseRole {
+              "$nonSerializable": Object {
+                "course": true,
+              },
+              "course": [Circular],
+              "course_association_name": "teacher_profiles",
+              "id": 2,
+              "name": "Review Teacher 2",
+            },
+          ],
           "term": "spring",
           "timezone": "US/Central",
           "uses_pre_wrm_scores": false,
@@ -2503,7 +2541,26 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
                   "uuid": undefined,
                 },
               ],
-              "teacher_profiles": Array [],
+              "teacher_profiles": Array [
+                CourseRole {
+                  "$nonSerializable": Object {
+                    "course": true,
+                  },
+                  "course": [Circular],
+                  "course_association_name": "teacher_profiles",
+                  "id": 1,
+                  "name": "Review Teacher 1",
+                },
+                CourseRole {
+                  "$nonSerializable": Object {
+                    "course": true,
+                  },
+                  "course": [Circular],
+                  "course_association_name": "teacher_profiles",
+                  "id": 2,
+                  "name": "Review Teacher 2",
+                },
+              ],
               "term": "spring",
               "timezone": "US/Central",
               "uses_pre_wrm_scores": false,
@@ -2637,7 +2694,26 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               "uuid": undefined,
             },
           ],
-          "teacher_profiles": Array [],
+          "teacher_profiles": Array [
+            CourseRole {
+              "$nonSerializable": Object {
+                "course": true,
+              },
+              "course": [Circular],
+              "course_association_name": "teacher_profiles",
+              "id": 1,
+              "name": "Review Teacher 1",
+            },
+            CourseRole {
+              "$nonSerializable": Object {
+                "course": true,
+              },
+              "course": [Circular],
+              "course_association_name": "teacher_profiles",
+              "id": 2,
+              "name": "Review Teacher 2",
+            },
+          ],
           "term": "spring",
           "timezone": "US/Central",
           "uses_pre_wrm_scores": false,

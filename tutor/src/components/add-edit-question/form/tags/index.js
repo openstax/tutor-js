@@ -84,9 +84,9 @@ const dropDownTags = (
   selectedTag,
   onSelect
 ) => {
-  const tagItems = map(tags, t => 
+  const tagItems = map(tags, (t, i) =>
     <Dropdown.Item
-      key={t.value}
+      key={i}
       value={t.value}
       eventKey={t.value}
       onSelect={onSelect}>
@@ -106,7 +106,7 @@ const dropDownTags = (
 const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
   return (
     <ButtonGroup aria-label={ariaLabel}>
-      {map(tags, t => 
+      {map(tags, t =>
         <Button
           key={t}
           variant="secondary"
@@ -119,12 +119,12 @@ const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
     </ButtonGroup>
   );
 };
-  
+
 const TagForm = observer(({ ux }) => {
   return (
     <StyledTagForm>
       <span className="tag-info">
-          This information will help us to organize your question. Optional
+        This information will help us to organize your question. Optional
       </span>
       <div className="tag-form">
         <div className="tag-time">
@@ -134,7 +134,7 @@ const TagForm = observer(({ ux }) => {
         <div className="tag-bloom">
           <div className="label-info">
             <label>Bloom's taxonomy</label>
-            <QuestionInfo 
+            <QuestionInfo
               popoverInfo={
                 <>
                   <p>
@@ -143,7 +143,7 @@ const TagForm = observer(({ ux }) => {
                   </p>
                   <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
-              }/>
+              } />
           </div>
           {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
         </div>
@@ -164,7 +164,7 @@ const TagForm = observer(({ ux }) => {
                   </p>
                   <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
-              }/>
+              } />
           </div>
           {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}
         </div>
@@ -182,7 +182,7 @@ const Tag = observer(({ ux }) => {
       label="Tags"
       showGrayBackground={true}
       onFocus={partial(ux.checkValidityOfFields, [])}
-      formContentRenderer={() => <TagForm ux={ux}/>}
+      formContentRenderer={() => <TagForm ux={ux} />}
     />
   );
 });

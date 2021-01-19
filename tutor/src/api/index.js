@@ -84,6 +84,9 @@ const startAPI = function() {
   });
 
   // "User" is actually an instance, but connectModel works at the class level
+  connectModelRead(User.constructor, 'fetch',
+    { pattern: 'user' }
+  );
   connectModelUpdate(User.constructor, 'saveTourView',
     { pattern: 'user/tours/{id}' }
   );

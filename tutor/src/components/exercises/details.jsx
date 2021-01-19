@@ -4,6 +4,7 @@ import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { ExercisePreview } from 'shared';
+import ControlsOverlay from 'shared/components/exercise-preview/controls-overlay';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
 import ChapterSection from '../../models/chapter-section';
@@ -109,6 +110,9 @@ class ExerciseDetails extends React.Component {
           onForwardNavigation={this.onNext}
           onBackwardNavigation={this.onPrev}
           scrollOnNavigation={false}
+          controls={<ControlsOverlay
+            exercise={exercise.content}
+            actions={this.props.getExerciseActions(exercise)} />}
         >
           <a
             className="show-cards"
@@ -121,7 +125,6 @@ class ExerciseDetails extends React.Component {
               className="exercise-card"
               isVerticallyTruncated={false}
               isSelected={this.props.getExerciseIsSelected(exercise)}
-              overlayActions={this.props.getExerciseActions(exercise)}
               displayFeedback={this.props.displayFeedback}
               extractedInfo={exercise}
               exercise={exercise.content}

@@ -6,6 +6,7 @@ const moment = require('moment');
 
 Factory.define('CourseRosterStudent')
   .id(sequence)
+  .role_id(sequence)
   .is_active(true)
   .is_comped(false)
   .is_paid(false)

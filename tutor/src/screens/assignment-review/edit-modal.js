@@ -43,7 +43,7 @@ const EditModal = observer(({ ux, ux: {
       templateType={planScores.type}
     >
       <Modal.Header>
-        Edit {planScores.name} details
+        Edit {planScores.title} details
       </Modal.Header>
       <Modal.Body>
         <Formik

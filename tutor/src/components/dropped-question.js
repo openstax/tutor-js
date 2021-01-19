@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { colors } from 'theme';
 
-const CornerTriangle = ({ color, tooltip }) => {
+const CornerTriangle = ({ color, tooltip, ...attrs }) => {
   return (
     <OverlayTrigger
       placement="right"
@@ -13,7 +13,7 @@ const CornerTriangle = ({ color, tooltip }) => {
         </Tooltip>
       }
     >
-      <StyledTriangle color={color} />
+      <StyledTriangle color={color} {...attrs} />
     </OverlayTrigger>
   );
 };

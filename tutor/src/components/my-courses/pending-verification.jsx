@@ -1,15 +1,31 @@
 import React from 'react';
 import Chat from '../../models/chat';
-import TutorLink from '../link';
 import IconAdd from '../icons/add';
-
+import User from '../../models/user';
 import { Icon } from 'shared';
+
+// make poller be global so we'll only poll once even if multiple
+// components are mounted somehoww
+let POLLER = 0;
 
 export default class PendingVerification extends React.Component {
 
+
   componentDidMount() {
     Chat.setElementVisiblity(this.onlineChatButton);
+    if (!POLLER) {
+      User.fetch();
+      POLLER = setInterval(User.fetch, 3 * 60 * 1000); // poll every 3 minutes
+    }
   }
+
+  componentWillUnmount() {
+    if (POLLER) {
+      clearInterval(POLLER);
+      POLLER = 0;
+    }
+  }
+
 
   renderChat() {
     if (!Chat.isEnabled) { return null; }
@@ -21,7 +37,7 @@ export default class PendingVerification extends React.Component {
         style={{ display: 'none' }}
         onClick={Chat.start}
       >
-        <Icon type='comments' /><span>Verify now via chat</span>
+        <Icon type='comments' /><span>Chat with support</span>
       </button>
     );
   }
@@ -48,9 +64,9 @@ export default class PendingVerification extends React.Component {
             </div>
           </div>
           <div className="explain">
-            <h3>Almost done!</h3>
+            <h3>Almost ready!</h3>
             <p className="lead">
-              We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
+              If you received an email verifying your faculty status, we’re gathering resources for your account. Check back in a few minutes.
             </p>
             {this.renderChat()}
           </div>

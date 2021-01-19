@@ -4,7 +4,6 @@ import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import Router from '../../helpers/router';
 import { Icon } from 'shared';
 import Name from '../../components/name';
 import { AsyncButton } from 'shared';
@@ -26,7 +25,7 @@ class RemoveTeacherLink extends React.Component {
   }
 
   @action.bound goToDashboard() {
-    this.props.history.push(Router.makePathname('myCourses'));
+    this.props.history.push('/dashboard');
   }
 
   @action.bound performDeletion() {
@@ -51,6 +50,7 @@ class RemoveTeacherLink extends React.Component {
 
           <AsyncButton
             variant="danger"
+            data-test-id="remove-confirm-btn"
             onClick={this.performDeletion}
             isWaiting={teacher.api.isPending}
             waitingText="Removing..."
@@ -72,8 +72,9 @@ class RemoveTeacherLink extends React.Component {
         rootClose={true}
         trigger="click"
         placement="left"
-        overlay={this.confirmPopOver()}>
-        <a>
+        overlay={this.confirmPopOver()}
+      >
+        <a className="remove">
           <Icon type="ban" />
           {' Remove'}
         </a>

@@ -53,7 +53,7 @@ Factory.define('TaskPlanPeriodScore')
   }))
   .num_questions_dropped(0)
   .points_dropped(0)
-  .question_headings(({ task_plan, exercises }) => {
+  .question_headings(({ exercises }) => {
     return flatMap(exercises, (exercise, i) => (
       exercise.content.questions.map((question) => ({
         title: `Q${i+1}`,
@@ -61,7 +61,8 @@ Factory.define('TaskPlanPeriodScore')
         question_id: question.id,
         points: 1.0,
         points_without_dropping: 1.0,
-        type: task_plan.type.match(/wrm/) ? 'FR' : 'MCQ',
+        is_completed: true,
+        type: question.answers.length == 0 ? 'WRQ' : 'MCQ',
       }))
     ))
   })

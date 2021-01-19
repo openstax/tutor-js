@@ -3,6 +3,7 @@ const Factory = require('object-factory-bot');
 const BOOTSTRAP_DATA = require('./static-bootstra-data.json');
 require('../../../specs/factories/user');
 require('../../../specs/factories/course');
+const { TERMS } = require('./terms');
 const { now } = require('../time-now');
 const { fe_port, be_port } = require('../ports');
 
@@ -37,12 +38,12 @@ BOOTSTRAP_DATA.accounts_api_url = `http://localhost:${be_port}/api`;
 BOOTSTRAP_DATA.tutor_api_url = `http://localhost:${be_port}/api`;
 
 const student = clone(BOOTSTRAP_DATA);
-student.user = Factory.create('User', { is_teacher: false });
+student.user = Factory.create('User', { profile_id: 1, is_teacher: false, available_terms: TERMS });
 student.courses = [];
 addCourses(student.courses, { is_teacher: false });
 
 const teacher = clone(BOOTSTRAP_DATA);
-teacher.user = Factory.create('User', { is_teacher: true });
+teacher.user = Factory.create('User', { profile_id: 1, is_teacher: true, available_terms: TERMS });
 teacher.courses = [];
 addCourses(teacher.courses, { is_teacher: true });
 

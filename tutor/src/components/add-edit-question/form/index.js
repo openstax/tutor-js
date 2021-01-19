@@ -38,17 +38,17 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
 `;
 
 const FormButtons = observer(({ ux }) => {
-  const previewButton = 
+  const previewButton =
     <Button
       variant="default"
       className="preview"
       onClick={() => ux.showPreviewQuestionModal = true}
       disabled={!ux.isReadyToPublish}>
-        Preview
+      Preview
     </Button>;
 
   // if editing
-  if(ux.from_exercise_id) {
+  if (ux.from_exercise_id) {
     return (
       <>
         {previewButton}
@@ -56,13 +56,14 @@ const FormButtons = observer(({ ux }) => {
           variant="default"
           className="cancel"
           onClick={ux.doExitForm}>
-            Cancel
+          Cancel
         </Button>
         <Button
           variant="primary"
+          data-test-id="publish-btn"
           onClick={() => ux.publish(true)}
           disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
-            Publish changes
+          Publish changes
         </Button>
       </>
     );
@@ -76,14 +77,14 @@ const FormButtons = observer(({ ux }) => {
         className="publish"
         onClick={() => ux.publish(false)}
         disabled={!ux.isReadyToPublish}>
-          Publish question
+        Publish question
       </Button>
       <Button
         variant="primary"
         className="publish"
         onClick={() => ux.publish(true)}
         disabled={!ux.isReadyToPublish}>
-          Publish &amp; Exit
+        Publish &amp; Exit
       </Button>
     </>
   );
@@ -95,12 +96,14 @@ FormButtons.propTypes = {
 const AddEditQuestionForm = observer(({ ux }) => {
   return (
     <StyledAddEditQuestionModal
+      data-test-id="add-edit-question"
       show={true}
       backdrop="static"
       onHide={ux.doExitForm}
-      templateType="addEditQuestion">
+      templateType="addEditQuestion"
+    >
       <Modal.Header closeButton>
-        {ux.from_exercise_id ? 
+        {ux.from_exercise_id ?
           !ux.isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'
           : 'Create'} Question
       </Modal.Header>

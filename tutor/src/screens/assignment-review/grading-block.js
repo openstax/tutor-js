@@ -14,6 +14,7 @@ const StyledTutorLink = styled(TutorLink)`
 const GradeAnswersButton = observer(({ ux, regrade = false }) => {
   return (
     <StyledTutorLink
+      data-test-id="grade-answers-btn"
       className={cn('btn btn-standard btn-new-flag btn-inline', { 'btn-primary': !regrade })}
       to="gradeAssignment"
       params={{
