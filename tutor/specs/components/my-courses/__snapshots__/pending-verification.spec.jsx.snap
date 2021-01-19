@@ -64,12 +64,12 @@ exports[`My Courses Pending Verification Component renders and matches snapshot 
       className="explain"
     >
       <h3>
-        Almost done!
+        Almost ready!
       </h3>
       <p
         className="lead"
       >
-        We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
+        If you received an email verifying your faculty status, we’re gathering resources for your account. Check back in a few minutes.
       </p>
     </div>
   </div>
