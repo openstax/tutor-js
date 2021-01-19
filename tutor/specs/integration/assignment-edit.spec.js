@@ -261,10 +261,9 @@ context('Assignment Edit', () => {
     cy.getTestElement('save-draft-button').should('be.disabled');
   });
 
-
+  // When typing the date, it goes to the next valid date
   it('shows error if closes date is before due date', () => {
     typedClosesDate = moment(typedDueDate, 'MMM D [| 05:00 PM]').subtract(1, 'day').format('MMM D [| 05:00 PM]')
-
     cy.visit('/course/2/assignment/edit/homework/new')
     cy.disableTours()
     cy.get('input[name="title"]').type('test assignment #1')
