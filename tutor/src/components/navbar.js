@@ -1,6 +1,8 @@
 import {
   React, PropTypes, observer, cn,
 } from 'vendor';
+import { get } from 'lodash';
+import Router from '../helpers/router';
 import { NavbarContext } from './navbar/context';
 import { Nav, NavbarBottomShadow } from './navbar/nav';
 
@@ -14,6 +16,10 @@ class Navbar extends React.Component {
     context: PropTypes.instanceOf(NavbarContext).isRequired,
   };
 
+  getRouterName() {
+    return get(Router.currentMatch(), 'entry.name', '');
+  }
+
   render() {
     const {
       area, isDocked, context: {
@@ -24,12 +30,14 @@ class Navbar extends React.Component {
       return null;
     }
 
+    const navRouteClassName = `nav-${this.getRouterName()}`;
+
     return (
       <Nav
         area={area}
         shouldHideNavbar={this.shouldHideNavbar}
         isDocked={isDocked}
-        className={cn('tutor-navbar', className)}
+        className={cn('tutor-navbar', navRouteClassName, className)}
       >
         <div className="left-side-controls">
           {left.components}

@@ -85,6 +85,9 @@ const Content = styled.div`
   ${props => !props.hasNavbar && Theme.breakpoint.only.mobile`
     padding: 0;
   `}
+  &.viewQuestionsLibrary {
+    padding-top: 0;
+  }
 `;
 
 class CourseContext {
@@ -152,12 +155,11 @@ class TutorLayout extends React.Component {
             area="header"
             context={this.topNavbarContext}
             isDocked={Boolean(this.secondaryTopControls)}
+            className={this.getRouterName()}
           />
           {this.secondaryTopControls &&
             <SecondaryToolbar
               controls={this.secondaryTopControls}
-              // adding the router name as a class so we can override the nav css based on the screen
-              className={this.getRouterName()}
             />}
           {
           /**

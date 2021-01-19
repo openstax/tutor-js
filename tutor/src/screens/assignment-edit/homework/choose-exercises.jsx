@@ -209,6 +209,7 @@ class ChooseExercises extends React.Component {
       >
         <ExerciseControls
           ux={ux}
+          showingDetails={this.currentView === 'details'}
           sectionizerProps={{
             currentSection: this.currentSection,
             onSectionClick: this.setCurrentSection,

@@ -139,6 +139,7 @@ class ExerciseControls extends React.Component {
     sectionizerProps: PropTypes.object,
     hideSectionizer: PropTypes.bool,
     onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
+    showingDetails: PropTypes.bool,
   };
 
   renderSectionizer() {
@@ -233,7 +234,12 @@ class ExerciseControls extends React.Component {
   }
 
   render() {
-    const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections } } = this.props;
+    const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections }, showingDetails } = this.props;
+
+    if(showingDetails) {
+      return null;
+    }
+    
     return (
       <Wrapper>
         <Columns>

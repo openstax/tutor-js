@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled, cn,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -18,14 +18,21 @@ import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Course from '../../models/course';
 import User from '../../models/user';
 import sharedExercises, { ExercisesMap } from '../../models/exercises';
+import WindowScroll from '../../models/window-scroll';
 import Scroller from '../../helpers/scroll-to';
 import { colors } from 'theme';
 
 const StyledExerciseDisplay = styled.div`
   .controls-wrapper {
     position: sticky;
-    top: 5.9rem;
+    top: 0;
     z-index: 10;
+    border-top: 1px solid ${colors.neutral.pale};
+    border-bottom: 1px solid ${colors.neutral.pale};
+    &.is-sticky {
+      border-bottom: inherit;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 0px;
+    }
   }
   .question-type-info {
     background-color: white;
@@ -89,10 +96,6 @@ class ExercisesDisplay extends React.Component {
     exercises: sharedExercises,
   };
 
-  componentWillUnmount() {
-    this.props.exercises.clear();
-  }
-
   @observable exerciseTypeFilter = 'homework';
   @observable filteredExercises = this.props.exercises[this.exerciseTypeFilter];
   @observable selectedExercise;
@@ -105,6 +108,14 @@ class ExercisesDisplay extends React.Component {
   @observable showDeleteQuestionModal = false;
 
   scroller = new Scroller({ windowImpl: this.windowImpl });
+  windowScroll = new WindowScroll(this.windowImpl);
+
+  // Checking if the controls-bar is sticked to the top.
+  // If so, show box-shadow.
+  @computed get checkIsControlsSticky() {
+    const topOffset = this.showingDetails ? 160 : 250;
+    return this.windowScroll.y >= topOffset;
+  }
 
   onExerciseTypeFilterChange = (exerciseTypeFilter) => {
     this.exerciseTypeFilter = exerciseTypeFilter;
@@ -389,7 +400,7 @@ class ExercisesDisplay extends React.Component {
     return (
       <StyledExerciseDisplay>
         <StyledCourseBreadcrumb course={course} currentTitle="Question Library" />
-        <div className="controls-wrapper">
+        <div className={cn('controls-wrapper', { 'is-sticky': this.checkIsControlsSticky })}>
           <ExerciseControls
             course={course}
             onSelectSections={onSelectSections}
