@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
-import { filter, some, reduce, isEmpty, every } from 'lodash';
+import { filter, some, reduce, isEmpty } from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
