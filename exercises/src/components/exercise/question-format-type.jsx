@@ -44,10 +44,6 @@ class QuestionFormatType extends React.Component {
               before viewing the multiple-choice options.
               Our research shows that retrieval practice helps to improve knowledge retention.
               </p>
-              <p>
-              Students will be graded only on the multiple-choice step.
-              You can view student reponses in the ‘Submission overview’ tab.
-              </p>
             </>
           </StyledTwoStepInfo>
         }
