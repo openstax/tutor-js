@@ -2659,18 +2659,18 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
                               <div className=\\"exercise-body\\">
                                 <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} writtenResponse={[undefined]} questionType=\\"teacher-preview\\" />
-                                <Component className=\\"stimulus\\" block={true} html={[undefined]} />
+                                <Component block={true} className=\\"exercise stimulus\\" html={[undefined]} />
                                 <div>
-                                  <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type={[undefined]} displaySolution={true}>
+                                  <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type={[undefined]} displaySolution={true}>
                                     <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
-                                      <QuestionHtml type=\\"context\\" html=\\"\\" />
-                                      <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                                      <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
+                                      <QuestionHtml type=\\"context\\" html=\\"\\" hidden={false} />
+                                      <QuestionHtml type=\\"stimulus\\" html=\\"\\" hidden={false} />
+                                      <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" hidden={false} questionNumber={[undefined]}>
                                         <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
                                           <div dangerouslySetInnerHTML={{...}} />
                                         </Component>
                                       </QuestionHtml>
-                                      <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"student\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                      <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"student\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                         <div className=\\"answers-table\\">
                                           <Memo(wrappedComponent) project={[undefined]} hasFeedback={false} hasIncorrectAnswer={false} />
                                           <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>

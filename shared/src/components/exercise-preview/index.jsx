@@ -63,22 +63,23 @@ class ExercisePreview extends React.Component {
   };
 
   getCleanPreview = () => {
-    return trimEnd(last(this.exercise.questions).stem_html);
+    return this.props.extractedInfo.preview ? this.props.extractedInfo.preview : trimEnd(last(this.exercise.questions).stem_html);
   };
 
+  @computed get showPreview() {
+    return Boolean(
+      !this.props.isInteractive && this.props.extractedInfo.preview
+    );
+  }
+
   renderStimulus = () => {
-    if (this.props.isInteractive || !this.props.extractedInfo.preview) {
-      return (
-        <ArbitraryHtmlAndMath
-          className="stimulus"
-          block={true}
-          html={this.props.exercise.stimulus_html} />
-      );
-    } else {
-      return (
-        <ArbitraryHtmlAndMath className="stimulus" block={true} html={this.getCleanPreview()} />
-      );
-    }
+    return (
+      <ArbitraryHtmlAndMath
+        block
+        className="exercise stimulus"
+        html={this.showPreview ? this.getCleanPreview() : this.props.exercise.stimulus_html}
+      />
+    );
   };
 
   renderOverlayActions = () => {
@@ -152,6 +153,7 @@ class ExercisePreview extends React.Component {
                   className="openstax-question-preview"
                   question={question}
                   choicesEnabled={false}
+                  hidePreambles={this.showPreview}
                   displayFormats={this.props.displayFormats}
                   show_all_feedback={this.props.displayFeedback}
                   type={this.props.questionType}
