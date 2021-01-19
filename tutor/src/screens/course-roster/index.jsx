@@ -59,6 +59,9 @@ class CourseRoster extends React.Component {
   }
 
   renderEmpty() {
+    if (!this.course) {
+      return null;
+    }
     return (
       <NoPeriods
         courseId={this.course.id}
@@ -68,7 +71,13 @@ class CourseRoster extends React.Component {
   }
 
   render() {
-    const { course, course: { periods: { active: periods } } } = this;
+    const { course } = this;
+    let periods = [];
+    // course can be null when a teacher removes themselves and this
+    // re-renders before the redirect to dashboard occurs
+    if (course) {
+      periods = course.periods.active;
+    }
     if (0 === periods.length) { return this.renderEmpty(); }
     const activePeriod = periods[this.periodIndex] || periods[0];
 
