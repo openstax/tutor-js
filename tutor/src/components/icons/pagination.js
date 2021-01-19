@@ -7,7 +7,7 @@ const StyledIcon = styled(Icon).attrs({
 })`
   .arrow-wrapper &&&.icon {
     top: calc(55vh - 80px);
-    margin: 0 auto;
+    margin: 80px auto;
     path {
       fill: ${colors.neutral.grayblue};
     }

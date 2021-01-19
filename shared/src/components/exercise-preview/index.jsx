@@ -81,6 +81,19 @@ class ExercisePreview extends React.Component {
     }
   };
 
+  renderOverlayActions = () => {
+    if (this.props.disableMessage || !this.props.overlayActions) {
+      return null;
+    }
+
+    return (
+      <ControlsOverlay
+        exercise={this.props.exercise}
+        actions={this.props.overlayActions}
+        onClick={this.props.onOverlayClick} />
+    );
+  }
+
   @computed get tags() {
     const { displayAllTags, displayNickname, exercise } = this.props;
     let tags = exercise.tags.slice();
@@ -122,11 +135,7 @@ class ExercisePreview extends React.Component {
             <div className="disabled-message">
               <p>{this.props.disableMessage}</p>
             </div> )}
-          {!this.props.disableMessage && (
-            <ControlsOverlay
-              exercise={this.props.exercise}
-              actions={this.props.overlayActions}
-              onClick={this.props.onOverlayClick} /> )}
+          {this.renderOverlayActions()}
           <div className="exercise-body">
             <ExerciseBadges
               multiPart={info.isMultiPart}

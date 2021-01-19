@@ -21,6 +21,7 @@ const StyledExerciseControls = styled.div`
     }
   }
   .sections-control {
+    border-bottom: 1px solid ${colors.neutral.pale};
     justify-content: flex-start;
     overflow-x: auto;
     .sectionizer {
