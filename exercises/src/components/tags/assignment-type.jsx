@@ -7,7 +7,6 @@ import MultiSelect from './multi-select';
 const TYPES = [
   { value: 'reading', label: 'Reading' },
   { value: 'homework', label: 'Homework' },
-  { value: 'practice', label: 'Practice' },
 ];
 
 function QuestionTypeTag(props) {
