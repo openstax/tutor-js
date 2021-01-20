@@ -138,7 +138,7 @@ Factory.define('OpenEndedExerciseQuestion')
 
 Factory.define('Exercise')
   .tags([
-    'type:reading',
+    'assignment-type:reading',
     'requires-context:true',
     'filter-type:test-prep',
     'blooms:3',
@@ -165,7 +165,9 @@ Factory.define('Exercise')
 
 Factory.define('OpenEndedExercise')
   .tags([
-    'type:reading',
+    'assignment-type:reading',
+    'assignment-type:homework',
+    'assignment-type:practice',
     'requires-context:true',
     'filter-type:test-prep',
     'blooms:4',

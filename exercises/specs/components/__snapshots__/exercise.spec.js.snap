@@ -151,6 +151,21 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           >
             <div>
               <input
+                checked={false}
+                id="input-open-ended"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="open-ended"
+              />
+              <label
+                htmlFor="input-open-ended"
+              >
+                Open Ended
+              </label>
+            </div>
+            <div>
+              <input
                 checked={true}
                 id="input-multiple-choice"
                 name="0-formats"
@@ -786,9 +801,32 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className=" css-1hwfws3"
                     >
                       <div
-                        className=" css-1wa3eu0-placeholder"
+                        className="css-1rhbuit-multiValue"
                       >
-                        Select...
+                        <div
+                          className="css-12jo7m5"
+                        >
+                          Reading
+                        </div>
+                        <div
+                          className="css-1alnv5e"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="css-tj5bde-Svg"
+                            focusable="false"
+                            height={14}
+                            viewBox="0 0 20 20"
+                            width={14}
+                          >
+                            <path
+                              d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                            />
+                          </svg>
+                        </div>
                       </div>
                       <div
                         className="css-w8afj7-Input"
@@ -851,6 +889,25 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     <div
                       className=" css-1g48xl4-IndicatorsContainer"
                     >
+                      <div
+                        aria-hidden="true"
+                        className=" css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-tj5bde-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
                       <span
                         className=" css-1okebmr-indicatorSeparator"
                       />
@@ -1662,6 +1719,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="exercise-tag"
                 >
+                  assignment-type:reading
+                </span>
+                <span
+                  className="exercise-tag"
+                >
                   blooms:3
                 </span>
                 <span
@@ -1698,11 +1760,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="exercise-tag"
                 >
                   time:long
-                </span>
-                <span
-                  className="exercise-tag"
-                >
-                  type:reading
                 </span>
                 <span
                   className="exercise-tag"
@@ -1797,6 +1854,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                             <div className=\\"question\\">
                               <QuestionFormatType question={{...}}>
                                 <div className=\\"format-type\\">
+                                  <div>
+                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: res]} checked={false} />
+                                    <label htmlFor=\\"input-open-ended\\">
+                                      Open Ended
+                                    </label>
+                                  </div>
                                   <div>
                                     <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: res]} checked={true} />
                                     <label htmlFor=\\"input-multiple-choice\\">
@@ -2351,7 +2414,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </LoTags>
                                 <ApLoTags exercise={{...}} />
                                 <QuestionTypeTag exercise={{...}}>
-                                  <MultiSelect readonly={false} exercise={{...}} label=\\"Assignment Type\\" type=\\"type\\" options={{...}} icon={false}>
+                                  <MultiSelect exercise={{...}} readonly={false} tagType=\\"assignment-type\\" label=\\"Assignment Type\\" type=\\"type\\" options={{...}} icon={false}>
                                     <TagWrapper label=\\"Assignment Type\\">
                                       <div className=\\"tag-type assignmentType\\">
                                         <div className=\\"heading\\">
@@ -2364,22 +2427,41 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]}>
                                             <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
                                               <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
-                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
                                                   <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" id={[undefined]} onKeyDown={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
                                                     <div className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl css-2b097c-container\\" id={[undefined]} onKeyDown={[Function]}>
-                                                      <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                      <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
                                                         <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function]} onTouchEnd={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
                                                           <div className=\\" css-yk16xz-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
-                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
                                                               <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\">
                                                                 <div className=\\" css-1hwfws3\\">
-                                                                  <Placeholder cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
-                                                                    <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Placeholder\\">
-                                                                      <div className=\\" css-1wa3eu0-placeholder\\">
-                                                                        Select...
-                                                                      </div>
-                                                                    </EmotionCssPropInternal>
-                                                                  </Placeholder>
+                                                                  <MultiValue cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
+                                                                    <ForwardRef(render)>
+                                                                      <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                        <div className=\\"css-1rhbuit-multiValue\\">
+                                                                          <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                            <div className=\\"css-12jo7m5\\">
+                                                                              Reading
+                                                                            </div>
+                                                                          </MultiValueGeneric>
+                                                                          <MultiValueRemove data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                            <div className=\\"css-1alnv5e\\" onClick={[Function: onClick]} onTouchEnd={[Function: onTouchEnd]} onMouseDown={[Function: onMouseDown]}>
+                                                                              <CrossIcon size={14}>
+                                                                                <Svg size={14}>
+                                                                                  <EmotionCssPropInternal height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                                    <svg height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                      <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                                    </svg>
+                                                                                  </EmotionCssPropInternal>
+                                                                                </Svg>
+                                                                              </CrossIcon>
+                                                                            </div>
+                                                                          </MultiValueRemove>
+                                                                        </div>
+                                                                      </MultiValueGeneric>
+                                                                    </ForwardRef(render)>
+                                                                  </MultiValue>
                                                                   <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-6-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
                                                                     <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
                                                                       <div className=\\"css-w8afj7-Input\\">
@@ -2395,15 +2477,30 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                 </div>
                                                               </EmotionCssPropInternal>
                                                             </ValueContainer>
-                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
                                                               <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
                                                                 <div className=\\" css-1g48xl4-IndicatorsContainer\\">
-                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                  <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                        <CrossIcon>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-tj5bde-Svg\\">
+                                                                                <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </CrossIcon>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </ClearIndicator>
+                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
                                                                     <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
                                                                       <span className=\\" css-1okebmr-indicatorSeparator\\" />
                                                                     </EmotionCssPropInternal>
                                                                   </IndicatorSeparator>
-                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={false} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
                                                                     <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
                                                                       <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
                                                                         <DownChevron>
@@ -3015,6 +3112,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       lo:stax-phys:1-2-1
                                     </span>
                                     <span className=\\"exercise-tag\\">
+                                      assignment-type:reading
+                                    </span>
+                                    <span className=\\"exercise-tag\\">
                                       blooms:3
                                     </span>
                                     <span className=\\"exercise-tag\\">
@@ -3037,9 +3137,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                     </span>
                                     <span className=\\"exercise-tag\\">
                                       time:long
-                                    </span>
-                                    <span className=\\"exercise-tag\\">
-                                      type:reading
                                     </span>
                                     <span className=\\"exercise-tag\\">
                                       Nickname:desmond
