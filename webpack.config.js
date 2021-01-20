@@ -1,5 +1,6 @@
 const path    = require('path');
 const webpack = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-assets-manifest');
 
@@ -39,7 +40,14 @@ const config = {
   devtool: production ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
-      { test: /\.jsx?$/,   exclude: /node_modules/, loader: 'babel-loader'         },
+      {
+        test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/,
+        options: {
+          // disable type checker - we will use it in fork plugin
+          transpileOnly: true,
+        },
+      },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'         },
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
       { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
@@ -55,9 +63,10 @@ const config = {
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
     },
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['tsx', 'ts', '.js', '.jsx', '.json'],
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     // don't need locales and they're huge
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // use custom definitions containing only zones we support
