@@ -3,7 +3,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import Router from '../../helpers/router';
 import TutorLink from '../link';
 import IconAdd from '../icons/add';
 import TourAnchor from '../tours/anchor';
@@ -16,18 +15,28 @@ class CreateACourse extends React.Component {
   static propTypes = {
     isHovering: PropTypes.bool,
     history: PropTypes.object.isRequired,
-  }
-
-  onDrop(course) {
-    const url = Router.makePathname('createNewCourse', { sourceId: course.id });
-    this.props.history.push(url);
+    appearanceCode: PropTypes.string,
   }
 
   renderAddZone() {
+    let route;
+    if(this.props.appearanceCode) {
+      route = {
+        to: 'createNewCourseFromOffering',
+        params: {
+          appearanceCode: this.props.appearanceCode,
+        },
+      };
+    }
+    else {
+      route = {
+        to: 'createNewCourse',
+      };
+    }
     return (
       <div className="my-courses-add-zone">
         <TutorLink
-          to="createNewCourse"
+          {...route}
           className={classnames({ 'is-hovering': this.props.isHovering })}>
           <div>
             <IconAdd />

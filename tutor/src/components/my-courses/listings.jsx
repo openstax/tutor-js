@@ -24,7 +24,7 @@ const StyledContainer = styled(Container)`
   `}
 `;
 
-function wrapCourseItem(Item, course = {}) {
+function wrapCourse(Item, course = {}) {
   return (
     <Col key={course.id} lg={3} md={4} sm={6} xs={12}>
       <Item
@@ -46,7 +46,17 @@ function MyCoursesNone() {
   );
 }
 
-const MyCoursesCreate = () => wrapCourseItem(CreateACourse);
+//TODO: Adding a default 'intro_sociology' for now to skip selecting an offering when creating a new course.
+const MyCoursesCreate = () => {
+  return (
+    <Col lg={3} md={4} sm={6} xs={12}>
+      <CreateACourse
+        appearanceCode="intro_sociology"
+      />
+    </Col>
+  );
+};
+
 
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,
@@ -72,7 +82,7 @@ class MyCoursesBase extends React.Component {
   renderCourse(course) {
     const Item = course.is_preview ? CoursePreview :
       this.items[User.verifiedRoleForCourse(course)];
-    return Item ? wrapCourseItem(Item, course) : null;
+    return Item ? wrapCourse(Item, course) : null;
   }
 
   render() {

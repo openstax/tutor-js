@@ -53,7 +53,7 @@ Title.propTypes = {
   ux: PropTypes.object,
 };
 
-const Header = ux => {
+const Header = ({ ux }) => {
   if(ux.isBuilding) return null;
   return (
     <button type="button" className="close" onClick={ux.onCancel} disabled={!ux.canCancel}>
