@@ -65,7 +65,7 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     >
       College Physics
       <span
-        className="sc-fznZeY c2"
+        className="sc-fzokOt c2"
       >
         <svg
           aria-hidden="true"
@@ -88,7 +88,7 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     </a>
   </div>
   <h2
-    className="sc-fzplWN c4"
+    className="sc-fznyAO c4"
   >
     Current Task
   </h2>

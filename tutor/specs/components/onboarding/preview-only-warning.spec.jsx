@@ -30,7 +30,7 @@ describe('Preview Only Warning', () => {
     const wrapper = mount(<C><PreviewOnlyWarning ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('button.create').simulate('click');
-    expect(wrapper.instance().pathname).toEqual('/dashboard');
+    expect(wrapper.instance().pathname).toEqual('/courses');
   });
 
 });

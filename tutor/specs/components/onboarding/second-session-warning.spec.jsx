@@ -34,7 +34,7 @@ describe('Second Session Warning', () => {
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('button.create').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
-    expect(wrapper.instance().pathname).toEqual('/dashboard');
+    expect(wrapper.instance().pathname).toEqual('/courses');
   });
 
 });
