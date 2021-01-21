@@ -171,7 +171,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   <a
                     aria-label="dashboard"
                     className="brand"
-                    href="/courses"
+                    href="/dashboard"
                     onClick={[Function]}
                   >
                     <svg
@@ -422,7 +422,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   </p>
                   <a
                     className="home"
-                    href="/courses"
+                    href="/dashboard"
                     onClick={[Function]}
                   >
                     Return Home
