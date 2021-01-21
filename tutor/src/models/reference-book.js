@@ -24,9 +24,8 @@ function mapPages(page, pages) {
   return pages;
 }
 
-export default
 @identifiedBy('reference-book')
-class ReferenceBook extends BaseModel {
+export default class ReferenceBook extends BaseModel {
 
   @identifier id;
   @field archive_url;

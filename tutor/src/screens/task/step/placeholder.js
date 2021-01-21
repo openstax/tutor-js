@@ -4,9 +4,8 @@ import { StepCard } from './card';
 import ContinueBtn from './continue-btn';
 import Step from '../../../models/student-tasks/step';
 
-export default
 @observer
-class PlaceHolderTaskStep extends React.Component {
+export default class PlaceHolderTaskStep extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

@@ -105,9 +105,9 @@ const TaskWrapper = styled.div`
   }
 `;
 
-export default
+
 @observer
-class TaskGetter extends React.Component {
+export default class TaskGetter extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({

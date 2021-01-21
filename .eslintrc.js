@@ -6,7 +6,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
+    //  "plugin:react/recommended", // TODO: enable once
   ],
   "parserOptions": {
     "ecmaFeatures": {

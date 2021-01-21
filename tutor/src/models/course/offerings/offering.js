@@ -6,9 +6,8 @@ import { readonly } from 'core-decorators';
 import { computed } from 'mobx';
 import Term from './term';
 
-export default
 @identifiedBy('offerings/offering')
-class Offering extends BaseModel {
+export default class Offering extends BaseModel {
 
   @readonly static possibleTerms = [
     'spring', 'summer', 'fall', 'winter',

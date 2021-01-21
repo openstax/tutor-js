@@ -14,9 +14,9 @@ const Notice = styled.div`
   background-color: ${Theme.colors.neutral.bright};
 `;
 
-export default
+
 @observer
-class TeacherPendingLoad extends React.Component {
+export default class TeacherPendingLoad extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,

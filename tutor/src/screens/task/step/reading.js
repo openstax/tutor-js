@@ -9,9 +9,8 @@ const StyledReading = styled(TaskStepCard)`
 
 `;
 
-export default
 @observer
-class ReadingTaskStep extends React.Component {
+export default class ReadingTaskStep extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

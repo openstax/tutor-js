@@ -5,9 +5,9 @@ const Legend = styled.p`
   color: ${props => props.theme.colors.neutral.std};
 `;
 
-export default
+
 @observer
-class DroppedStudentsCaption extends React.Component {
+export default class DroppedStudentsCaption extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

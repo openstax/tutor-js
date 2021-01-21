@@ -7,9 +7,8 @@ import {
 } from 'shared/model';
 import Time from '../time';
 
-export default
 @identifiedBy('scores/heading')
-class Heading extends BaseModel {
+export default class Heading extends BaseModel {
   @field({ type: 'bignum' }) average_score;
   @field({ type: 'bignum' }) average_progress;
   @field({ type: 'date' }) due_at;

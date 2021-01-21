@@ -68,9 +68,8 @@ const NO_ADDITIONAL_CONTENT = [
   'external_url',
 ];
 
-export default
 @identifiedBy('student-tasks/task-step')
-class StudentTaskStep extends BaseModel {
+export default class StudentTaskStep extends BaseModel {
 
   @identifier id;
   @field uid;

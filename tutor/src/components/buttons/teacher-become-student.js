@@ -61,10 +61,9 @@ const PeriodSelector = styled(Dropdown)`
 }
 `;
 
-export default
 @withRouter
 @observer
-class TeacherBecomesStudent extends React.Component {
+export default class TeacherBecomesStudent extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
@@ -102,7 +101,7 @@ class TeacherBecomesStudent extends React.Component {
 
     if (!FeatureFlags.teacher_student_enabled ||
       !course ||
-        !course.currentRole.isTeacher
+      !course.currentRole.isTeacher
     ) { return null; }
 
     if (this.isCreating) {

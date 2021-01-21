@@ -3,9 +3,8 @@ import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 
-export default
 @identifiedBy('ecosystems/ecosystem')
-class EcosystemBook extends BaseModel {
+export default class EcosystemBook extends BaseModel {
 
   @identifier id;
   @field title;

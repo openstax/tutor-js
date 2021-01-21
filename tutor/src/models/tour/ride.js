@@ -4,9 +4,8 @@ import {
 import { action, observable } from 'mobx';
 import { find, filter, each } from 'lodash';
 
-export default
 @identifiedBy('tour/ride')
-class TourRide extends BaseModel {
+export default class TourRide extends BaseModel {
 
   @session({ type: 'object' }) tour;
   @session({ type: 'object' }) context;

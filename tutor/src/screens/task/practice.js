@@ -8,9 +8,9 @@ import { BulletList as PendingLoad } from 'react-content-loader';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { StepCard } from './step/card';
 
-export default
+
 @observer
-class TaskPractice extends React.Component {
+export default class TaskPractice extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({

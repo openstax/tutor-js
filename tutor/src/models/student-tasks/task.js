@@ -9,9 +9,8 @@ import S from '../../helpers/string';
 import Time from '../../models/time';
 export { StudentTaskStep };
 
-export default
 @identifiedBy('student-tasks/task')
-class StudentTask extends BaseModel {
+export default class StudentTask extends BaseModel {
 
   @identifier id;
   @field title;

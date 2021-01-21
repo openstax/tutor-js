@@ -7,9 +7,8 @@ import {
 
 import TaskResult from './task-result';
 
-export default
 @identifiedBy('scores/student')
-class Student extends BaseModel {
+export default class Student extends BaseModel {
   @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
   @field first_name;
   @field last_name;

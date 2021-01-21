@@ -11,8 +11,8 @@ import Tag from './exercise/tag';
 
 export { Attachment, Author, Question, Tag };
 
-export default
 @identifiedBy('exercise')
+export default
 class Exercise extends BaseModel {
 
   static build(attrs) {

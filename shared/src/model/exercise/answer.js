@@ -3,8 +3,8 @@ import {
   BaseModel, identifiedBy, identifier, field, computed, belongsTo,
 } from '../../model';
 
-export default
 @identifiedBy('exercise/answer')
+export default
 class ExerciseAnswer extends BaseModel {
   @identifier id;
   @field content_html;
