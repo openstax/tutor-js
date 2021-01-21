@@ -82,7 +82,6 @@
     "fast-sass-loader": "1.5.0",
     "fixed-data-table-2": "^0.8.26",
     "flux-react": "3.0.0",
-    "fork-ts-checker-webpack-plugin": "^6.1.0",
     "formik": "2.1.4",
     "fs-extra": "^8.1.0",
     "history": "4.9.0",

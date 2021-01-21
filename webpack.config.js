@@ -1,6 +1,5 @@
 const path    = require('path');
 const webpack = require('webpack');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-assets-manifest');
 
@@ -43,7 +42,6 @@ const config = {
       {
         test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/,
         options: {
-          // disable type checker - we will use it in fork plugin
           transpileOnly: true,
         },
       },
@@ -66,7 +64,6 @@ const config = {
     extensions: ['tsx', 'ts', '.js', '.jsx', '.json'],
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
     // don't need locales and they're huge
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // use custom definitions containing only zones we support
