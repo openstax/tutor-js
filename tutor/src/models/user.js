@@ -1,6 +1,7 @@
 import {
-  BaseModel, identifiedBy, field, hasMany,
+  BaseModel, identifiedBy, field, hasMany, session,
 } from 'shared/model';
+import moment from 'moment';
 import { find, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
@@ -9,6 +10,7 @@ import { UserTerms, Term } from './user/terms';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
+import Time from './time';
 
 @identifiedBy('user')
 class User extends BaseModel {
@@ -41,6 +43,7 @@ class User extends BaseModel {
   @hasMany({ model: Term  }) available_terms = [];
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
+  @session({ type: 'date' }) created_at;
 
   @computed get firstName() {
     return this.first_name || (this.name ? this.name.replace(/ .*/, '') : '');
@@ -87,6 +90,10 @@ class User extends BaseModel {
   
   @computed get canCreateCourses() {
     return Boolean(this.can_create_courses);
+  }
+
+  @computed get wasNewlyCreated() {
+    return moment(Time.now).subtract(1, 'day').isBefore(this.created_at);
   }
 
   @computed get isProbablyTeacher() {
