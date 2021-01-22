@@ -29,7 +29,8 @@
     "downlevelIteration": true,
     "noEmit": true
   },
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }
