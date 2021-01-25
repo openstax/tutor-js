@@ -5,12 +5,13 @@ import { observer } from 'mobx-react';
 import moment from 'moment-timezone';
 import styled from 'styled-components';
 import { Form, Row, Col } from 'react-bootstrap';
+import { Formik } from 'formik';
 import Courses from '../../models/courses-map';
 import CoursePage from '../../components/course-page';
 import Tabs from '../../components/tabs';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import StudentAccess from './student-access';
-import RenameCourseLink from './rename-course';
+import DeleteCourseModal from './delete-course-button';
 import Timezone from './timezone';
 import { colors, breakpoint } from 'theme';
 import './styles.scss';
@@ -66,6 +67,13 @@ const StyledCourseSettings = styled(CoursePage)`
         }
       }
     }
+    .disabled-delete-course {
+      color: #027EB5;
+      opacity: 40%;
+      width: fit-content;
+      font-weight: 500;
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -77,6 +85,13 @@ class CourseSettings extends React.Component {
     params: PropTypes.shape({
       courseId: PropTypes.string.isRequired,
     }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+  }
+
+  componentDidMount() {
+    this.course.roster.fetch();
   }
 
   @observable tabIndex;
@@ -84,6 +99,7 @@ class CourseSettings extends React.Component {
   @computed get course() {
     return Courses.get(this.props.params.courseId);
   }
+
 
   @action.bound onTabSelect(tabIndex) {
     this.tabIndex = tabIndex;
@@ -95,64 +111,101 @@ class CourseSettings extends React.Component {
     );
   }
 
-  renderCourseDetails() {
-    const { course } = this;
-    return (
-      <div className="course-details">
-        <Form>
-          <Form.Group as={Row} controlId="course-name">
-            <Form.Label column sm="2" md="1">
-              Course name
-            </Form.Label>
-            <Col sm="10" md="11">
-              <Form.Control defaultValue={course.name} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="course-code">
-            <Form.Label column sm="2" md="1">
-            Course code
-            </Form.Label>
-            <Col sm="10" md="11">
-              <Form.Control placeholder="SOC-101. Optional" />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="term">
-            <Form.Label column sm="2" md="1">
-            Term
-            </Form.Label>
-            <Col sm="10" md="11">
-              <Form.Control defaultValue={course.termFull}/>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="dates">
-            <Form.Label column sm="2" md="1">
-            Start date
-            </Form.Label>
-            <Col sm="4" md="5">
-              <Form.Control id="startDate" defaultValue={df(course.bounds.start)}/>
-            </Col>
-            <Form.Label column sm="2" md="1" className="end-date-label">
-            End date
-            </Form.Label>
-            <Col sm="4" md="5">
-              <Form.Control id="endDate" defaultValue={df(course.bounds.end)}/>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="time-zone">
-            <Form.Label column sm="2" md="1">
-            Time zone
-            </Form.Label>
-            <Col sm="10" md="11">
-              <Form.Control defaultValue={course.timezone} />
-            </Col>
-          </Form.Group>
-        </Form>
-      </div>
-    );
+  renderTitleBreadcrumbs() {
+    return <CourseBreadcrumb course={this.course} currentTitle="Course Settings" noBottomMargin />;
   }
 
-  titleBreadcrumbs(course) {
-    return <CourseBreadcrumb course={course} currentTitle="Course Settings" noBottomMargin />;
+  renderCourseDetails() {
+    const { course } = this;
+    const values = {
+      courseName: course.name,
+      courseCode: '',
+      term: course.termFull,
+      startDate: course.bounds.start,
+      endDate: course.bounds.end,
+      timezone: course.timezone,
+    };
+    return (
+      <div className="course-details">
+        <Formik initialValues={values}>
+          {({
+            values,
+            handleChange,
+          }) => (
+            <>
+              <Form.Group as={Row} controlId="course-name">
+                <Form.Label column sm="2" md="1">
+              Course name
+                </Form.Label>
+                <Col sm="10" md="11">
+                  <Form.Control
+                    value={values.courseName}
+                    type="text"
+                    name="courseName"
+                    placeholder="Course Name"
+                    onChange={handleChange} />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} controlId="course-code">
+                <Form.Label column sm="2" md="1">
+            Course code
+                </Form.Label>
+                <Col sm="10" md="11">
+                  <Form.Control
+                    value={values.courseCode}
+                    type="text"
+                    name="courseCode"
+                    placeholder="SOC-101. Optional"
+                    onChange={handleChange} />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} controlId="term">
+                <Form.Label column sm="2" md="1">
+            Term
+                </Form.Label>
+                <Col sm="10" md="11">
+                  <Form.Control value={course.termFull} type="text" name="term" readOnly/>
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="dates">
+                <Form.Label column sm="2" md="1">
+            Start date
+                </Form.Label>
+                <Col sm="4" md="5">
+                  <Form.Control
+                    id="startDate"
+                    value={df(course.bounds.start)}
+                    type="text"
+                    name="startDate"
+                    readOnly/>
+                </Col>
+                <Form.Label column sm="2" md="1" className="end-date-label">
+            End date
+                </Form.Label>
+                <Col sm="4" md="5">
+                  <Form.Control
+                    id="endDate"
+                    defaultValue={df(course.bounds.end)}
+                    type="text"
+                    name="endDate"
+                    readOnly/>
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} controlId="time-zone">
+                <Form.Label column sm="2" md="1">
+            Time zone
+                </Form.Label>
+                <Col sm="10" md="11">
+                  <Form.Control value={course.timezone} type="text" name="timezone" onChange={handleChange} />
+                </Col>
+              </Form.Group>
+              <hr />
+              <DeleteCourseModal course={course} history={this.props.history} />
+            </>
+          )}
+        </Formik>
+      </div>
+    );
   }
 
   render() {
@@ -162,7 +215,7 @@ class CourseSettings extends React.Component {
         className="settings"
         title=""
         course={course}
-        titleBreadcrumbs={this.titleBreadcrumbs(course)}
+        renderTitleBreadcrumbs={this.renderTitleBreadcrumbs()}
         titleAppearance="light"
         controlBackgroundColor='white'
       >

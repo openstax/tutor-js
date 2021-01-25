@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from 'shared/model';
 import {
-  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
+  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
 } from 'lodash';
 import { computed, action } from 'mobx';
 import lazyGetter from 'shared/helpers/lazy-getter';
@@ -302,8 +302,17 @@ class Course extends BaseModel {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
   }
 
-  @computed get getCurrentUser() {
+  @computed get currentUser() {
     return find(this.teacher_profiles, tp => tp.isCurrentUser);
+  }
+
+  @computed get currentCourseTeacher() {
+    const teacherRole = find(this.roles, r => r.type === 'teacher');
+    if(!this.roster || isEmpty(this.roster.teachers) || !teacherRole) {
+      return null;
+    }
+  
+    return find(this.roster.teachers, t => t.role_id === teacherRole.id);
   }
 
   // called by API

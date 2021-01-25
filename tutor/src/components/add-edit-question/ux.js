@@ -210,7 +210,7 @@ export default class AddEditQuestionUX {
       return [...this.course.teacher_profiles];
     }
     else 
-      return [this.course.getCurrentUser];
+      return [this.course.currentUser];
   }
 
   // Get the browe book link with the chapter or section selected
