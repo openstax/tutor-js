@@ -23,6 +23,10 @@ export default class CourseLMS extends BaseModel {
 
   @belongsTo({ model: 'course' }) course;
 
+  constructor(attrs) {
+    super(attrs)
+  }
+
   @computed get vendor() {
     return UiSettings.get(LMS_VENDOR, this.course.id) || 'blackboard';
   }

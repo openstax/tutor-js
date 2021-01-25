@@ -7,7 +7,7 @@ import {
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
 import Course from '../../models/course';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Offerings from '../../models/course/offerings';
 import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';

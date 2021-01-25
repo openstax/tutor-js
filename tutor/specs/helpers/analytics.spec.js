@@ -1,6 +1,6 @@
 import { isFunction } from 'lodash';
 import Analytics from '../../src/helpers/analytics';
-import Courses from '../../src/models/courses-map';
+import Courses from '../../src/models/courses';
 import { bootstrapCoursesList } from '../courses-test-data';
 import ReferenceBookNode from '../../src/models/reference-book/node';
 

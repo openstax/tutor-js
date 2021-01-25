@@ -13,7 +13,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import User from '../models/user';
 import { SpyMode } from 'shared';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import { TransitionActions } from '../flux/transition';
 import ModalManager from './modal-manager';
 import TourConductor from './tours/conductor';

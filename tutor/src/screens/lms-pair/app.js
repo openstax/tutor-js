@@ -1,6 +1,6 @@
 import { readBootstrapData } from '../../../src/helpers/dom';
 import User from '../../models/user';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Raven from '../../models/app/raven';
 import Api from '../../api';
 import UX from './ux';

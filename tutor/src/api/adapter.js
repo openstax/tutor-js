@@ -5,7 +5,7 @@ import { observe } from 'mobx';
 import { setNow } from '../models/time';
 import { AppActions } from '../flux/app';
 import User from '../models/user';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 
 let tutorAPIHandler = null;
 const baseUrl =

@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import TutorRouter from '../../helpers/router';
 
 export default

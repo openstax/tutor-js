@@ -7,7 +7,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { NotificationsBar, ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
-import Courses, { Course } from '../../models/courses-map';
+import Courses, { Course } from '../../models/courses';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import NotificationHelpers from '../../helpers/notifications';

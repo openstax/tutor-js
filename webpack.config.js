@@ -61,7 +61,7 @@ const config = {
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
     },
-    extensions: ['tsx', 'ts', '.js', '.jsx', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
   },
   plugins: [
     // don't need locales and they're huge

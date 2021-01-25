@@ -1,6 +1,6 @@
 import { bootstrapCoursesList } from '../courses-test-data';
 import DATA from '../../api/courses/1/performance.json';
-import Courses from '../../src/models/courses-map';
+import Courses from '../../src/models/courses';
 const COURSE_ID = 2;
 
 // Rabbit's completed all assignments on time

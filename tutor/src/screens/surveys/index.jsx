@@ -5,7 +5,7 @@ import { computed, action } from 'mobx';
 import { Card } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { observer } from 'mobx-react';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Course from '../../models/course';
 import { idType } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';

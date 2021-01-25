@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Course from '../../models/course';
 import { TutorInput } from '../../components/tutor-input';
 import { Icon } from 'shared';

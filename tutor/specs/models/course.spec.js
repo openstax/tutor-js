@@ -1,7 +1,6 @@
 import UiSettings from 'shared/model/ui-settings';
 import { map, cloneDeep, shuffle } from 'lodash';
-import Courses from '../../src/models/courses-map';
-import Course from '../../src/models/course';
+import Courses, { Course } from '../../src/models/courses';
 import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
 import { autorun } from 'mobx';

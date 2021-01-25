@@ -5,7 +5,7 @@ import {
 import { filter, includes, isEmpty } from 'lodash';
 
 import BaseOnboarding from './base';
-import Courses from '../../courses-map';
+import Courses from '../../courses';
 import UiSettings from 'shared/model/ui-settings';
 
 import Nags from '../../../components/onboarding/nags';

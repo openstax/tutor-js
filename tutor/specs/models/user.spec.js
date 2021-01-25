@@ -2,7 +2,7 @@ import { autorun } from 'mobx';
 import { TimeMock } from '../helpers';
 import User from '../../src/models/user';
 import { UserTerms } from '../../src/models/user/terms';
-import Courses from '../../src/models/courses-map';
+import Courses from '../../src/models/courses';
 import UiSettings from 'shared/model/ui-settings';
 
 import USER_DATA from '../../api/user.json';

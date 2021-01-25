@@ -7,9 +7,10 @@
   "coverageReporters": ["json", "lcov", "text-summary"],
   "testRegex": "specs\/((?!integration).)*\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
   "transform": {
-    "^.+\\.jsx?$": "babel7-jest"
+    "^.+\\.jsx?$": "babel7-jest",
+    "^.+\\.tsx?$": "ts-jest"
   },
-  "moduleFileExtensions": [ "js", "jsx", "json" ],
+  "moduleFileExtensions": [ "ts", "tsx", "js", "jsx", "json" ],
   "setupFilesAfterEnv": ["<rootDir>../configs/test/jest.setup.js"],
   "modulePaths": [
     "<rootDir>/src"
@@ -29,5 +30,9 @@
   },
   "testPathIgnorePatterns": [
     "node_modules"
+  ],
+  "typeRoots": [
+    "./types",
+    "./node_modules/@types"
   ]
 }

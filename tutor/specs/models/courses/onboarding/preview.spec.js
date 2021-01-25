@@ -15,7 +15,7 @@ Object.defineProperties(mockCourses, {
 });
 
 let mockActiveCoursePlans = observable.array();
-jest.mock('../../../../src/models/courses-map', () => ({
+jest.mock('../../../../src/models/courses', () => ({
   tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
 }));
 

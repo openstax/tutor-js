@@ -1,7 +1,7 @@
 import { partial, get } from 'lodash';
 
 import Router from '../helpers/router';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 
 // generate custom event data for routes
 const Events = {

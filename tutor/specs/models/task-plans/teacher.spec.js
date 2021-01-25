@@ -1,4 +1,4 @@
-import Courses from '../../../src/models/courses-map';
+import Courses from '../../../src/models/courses';
 import { autorun } from 'mobx';
 import { map } from 'lodash';
 

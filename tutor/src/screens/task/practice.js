@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
-import Courses, { Course } from '../../models/courses-map';
+import Courses, { Course } from '../../models/courses';
 import { BulletList as PendingLoad } from 'react-content-loader';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { StepCard } from './step/card';

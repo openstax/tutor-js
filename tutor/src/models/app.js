@@ -10,7 +10,7 @@ import { documentReady, readBootstrapData } from '../helpers/dom';
 import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
-import Courses from './courses-map';
+import Courses from './courses';
 import Payments from './payments';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';

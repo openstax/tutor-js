@@ -1,7 +1,7 @@
 import { Factory, FactoryBot, C } from '../../helpers';
 import planData from '../../../api/plans/1.json';
 import TaskTeacherReview from '../../../src/screens/teacher-review-metrics';
-import Courses from '../../../src/models/courses-map';
+import Courses from '../../../src/models/courses';
 
 describe('Task Teacher Review', () => {
   let plan;

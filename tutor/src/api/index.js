@@ -18,7 +18,7 @@ import User from '../models/user';
 import { UserTerms } from '../models/user/terms';
 import Course from '../models/course';
 import Period from '../models/course/period';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import Offerings from '../models/course/offerings';
 import CourseCreate from '../models/course/create';
 import { StudentTaskPlans } from '../models/task-plans/student';

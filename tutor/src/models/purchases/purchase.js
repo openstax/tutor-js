@@ -3,7 +3,7 @@ import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed,
 } from 'shared/model';
-import Courses from '../courses-map';
+import Courses from '../courses';
 import Time from '../time';
 import S from '../../helpers/string';
 import Payments from '../payments';

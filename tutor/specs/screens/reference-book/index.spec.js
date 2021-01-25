@@ -2,9 +2,9 @@ import { React, Factory, R, FakeWindow } from '../../helpers';
 import ReferenceBook from '../../../src/screens/reference-book/reference-book';
 import ReferenceBookUX from '../../../src/screens/reference-book/ux';
 import Router from '../../../src/helpers/router';
-import Courses from '../../../src/models/courses-map';
+import Courses from '../../../src/models/courses';
 
-jest.mock('../../../src/models/courses-map');
+jest.mock('../../../src/models/courses');
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null

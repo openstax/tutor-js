@@ -5,7 +5,7 @@ import { isEmpty, merge, map, take, last } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 import PreviewCourseOffering from '../../models/course/offerings/previews';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
 import CreateACourse from './create-a-course';

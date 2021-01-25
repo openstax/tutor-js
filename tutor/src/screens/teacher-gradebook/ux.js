@@ -3,7 +3,7 @@ import studentDataSorter from './student-data-sorter';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import {
   find, pick, pickBy, mapValues,
   groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,

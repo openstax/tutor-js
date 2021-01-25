@@ -1,6 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import { orderBy } from 'lodash';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Router from '../../helpers/router';
 
 export default class StudentGradeBookUX {

@@ -5,7 +5,7 @@ import { observable, action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
-import Courses from '../courses-map';
+import Courses from '../courses';
 import Term from './offerings/term';
 
 @identifiedBy('course/create')

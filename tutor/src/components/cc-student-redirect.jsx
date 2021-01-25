@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
 import User from '../models/course';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import LogoutLink from './navbar/logout';
 import CountdownRedirect from './countdown-redirect';
 

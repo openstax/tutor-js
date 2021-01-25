@@ -1,6 +1,6 @@
 import { React, PropTypes, idType, cn } from 'vendor';
 import { capitalize } from 'lodash';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 
 const CourseGroupingLabel = ({ course, courseId, plural, lowercase, className }) => {
 

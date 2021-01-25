@@ -4,7 +4,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import CourseUX from '../models/course/ux';
 
 export default

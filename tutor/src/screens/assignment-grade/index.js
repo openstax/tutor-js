@@ -5,7 +5,7 @@ import TutorLink from '../../components/link';
 import UX from './ux';
 import QuestionsBar from './questions-bar';
 import Question from './question';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper } from '../../helpers/background-wrapper';
 import CoursePeriodSelect from '../../components/course-period-select';

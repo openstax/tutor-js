@@ -5,7 +5,7 @@ import {
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
-import Courses, { Course } from '../courses-map';
+import Courses, { Course } from '../courses';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import Activity from 'shared/components/staxly-animation';

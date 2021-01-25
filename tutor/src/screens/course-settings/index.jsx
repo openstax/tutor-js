@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import CoursePage from '../../components/course-page';
 import Tabs from '../../components/tabs';
 import StudentAccess from './student-access';

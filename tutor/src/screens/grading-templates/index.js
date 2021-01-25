@@ -2,7 +2,7 @@ import {
   React, action, PropTypes, observable, observer, computed, styled,
 } from 'vendor';
 import { Col, Row, Container, Button } from 'react-bootstrap';
-import Courses, { Course } from '../../models/courses-map';
+import Courses, { Course } from '../../models/courses';
 import Theme from '../../theme';
 import Loading from 'shared/components/loading-animation';
 import { GradingTemplates } from '../../models/grading/templates';

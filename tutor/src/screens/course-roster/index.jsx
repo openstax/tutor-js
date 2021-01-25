@@ -4,7 +4,7 @@ import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import Tabs from '../../components/tabs';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import TeacherRoster from './teacher-roster';
 import StudentRoster from './student-roster';
 import ViewArchivedPeriods from './view-archived-periods';

@@ -1,5 +1,5 @@
 import CD from '../../src/helpers/course-data';
-import Courses from '../../src/models/courses-map';
+import Courses from '../../src/models/courses';
 import COURSE from '../../api/courses/1.json';
 
 const COURSE_ID = '1';

@@ -8,7 +8,7 @@ import { autobind } from 'core-decorators';
 import CopyOnFocusInput from './copy-on-focus-input';
 import { Icon } from 'shared';
 import { compact } from 'lodash';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import styled from 'styled-components';
 

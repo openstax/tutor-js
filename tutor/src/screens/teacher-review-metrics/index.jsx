@@ -4,7 +4,7 @@ import {
 import { ScrollToTop } from 'shared';
 import { Container, Row, Col } from 'react-bootstrap';
 import { first, find } from 'lodash';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../../components/plan-stats';
 import Review from './review';

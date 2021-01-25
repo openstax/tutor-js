@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled, action, observable } from 'vendor';
 import { ScrollToTop } from 'shared';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
 import { withRouter } from 'react-router';

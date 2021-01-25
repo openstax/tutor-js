@@ -4,7 +4,7 @@ import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import User from '../../models/user';
 import Router from '../../helpers/router';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import EmptyCourses from './empty';
 import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';

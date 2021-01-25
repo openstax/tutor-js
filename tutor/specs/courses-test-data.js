@@ -1,4 +1,4 @@
-import CoursesMap from '../src/models/courses-map';
+import CoursesMap from '../src/models/courses';
 import moment from 'moment';
 
 const STUDENT_COURSE_ONE_MODEL = {

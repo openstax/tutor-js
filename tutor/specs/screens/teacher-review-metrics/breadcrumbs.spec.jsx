@@ -1,6 +1,6 @@
 import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
-import Courses from '../../../src/models/courses-map';
+import Courses from '../../../src/models/courses';
 import Breadcrumbs from '../../../src/screens/teacher-review-metrics/breadcrumbs';
 import Router from '../../../src/helpers/router';
 

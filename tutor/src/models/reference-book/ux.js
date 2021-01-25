@@ -2,7 +2,7 @@ import { observable, computed, action, observe, when } from 'mobx';
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
 import Book from '../reference-book';
-import Courses from '../courses-map';
+import Courses from '../courses';
 import Router from '../../helpers/router';
 import Scroller from '../../helpers/scroll-to';
 

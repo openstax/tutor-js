@@ -3,7 +3,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import { OXMatchByRouter } from 'shared';
 
 

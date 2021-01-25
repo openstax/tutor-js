@@ -7,7 +7,7 @@ import Header from '../../components/header';
 import TeacherComponent from './teacher';
 import StudentComponent from './student';
 import TeacherStudentComponent from './teacher-student';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import './styles.scss';
 
 //eslint-disable-next-line react/prefer-stateless-function

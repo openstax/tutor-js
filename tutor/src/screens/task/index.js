@@ -4,7 +4,7 @@ import {
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { isNil } from 'lodash';
-import Courses, { Course } from '../../models/courses-map';
+import Courses, { Course } from '../../models/courses';
 import StudentTask from '../../models/student-tasks/task';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { BulletList as PendingLoad } from 'react-content-loader';

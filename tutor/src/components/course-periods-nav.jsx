@@ -7,7 +7,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { isNil, map } from 'lodash';
 import classnames from 'classnames';
 import Course from '../models/course';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import Tabs from './tabs';
 
 export default

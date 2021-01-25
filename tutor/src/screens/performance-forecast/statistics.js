@@ -3,7 +3,7 @@ import React from 'react';
 import { isArray } from 'lodash';
 import { SpyMode } from 'shared';
 
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 
 import ChapterSectionType from './chapter-section-type';
 

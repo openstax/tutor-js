@@ -1,7 +1,7 @@
 import { React, PropTypes, computed, observer, inject } from 'vendor';
 import { ScrollToTop } from 'shared';
 import StudentDashboard from './dashboard';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import User from '../../models/user';
 import LoadingScreen from 'shared/components/loading-animation';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';

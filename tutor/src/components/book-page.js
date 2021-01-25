@@ -10,7 +10,7 @@ import { ReferenceBookExerciseShell } from './book-page/exercise';
 import PageTitle from './page-title';
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
 import { MediaStore } from '../flux/media';

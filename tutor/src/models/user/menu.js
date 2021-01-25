@@ -1,7 +1,7 @@
 import { pickBy, extend, pick, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
 import User from '../user';
-import Courses from '../courses-map';
+import Courses from '../courses';
 import Payments from '../payments';
 
 const ROUTES = {

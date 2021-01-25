@@ -2,7 +2,7 @@ import { orderBy, sortBy, find } from 'lodash';
 import { action, observable, computed, decorate } from 'mobx';
 import { identifiedBy } from 'shared/model';
 import Course from '../../course';
-import Courses from '../../courses-map';
+import Courses from '../../courses';
 import Offerings from './index';
 import CourseCreate from '../create';
 

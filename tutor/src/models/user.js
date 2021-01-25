@@ -5,7 +5,7 @@ import moment from 'moment';
 import { find, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
-import Courses from './courses-map';
+import Courses from './courses';
 import { UserTerms, Term } from './user/terms';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';

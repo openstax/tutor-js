@@ -2,7 +2,7 @@ import _ from 'underscore';
 
 import policies from './policies';
 import { TaskStore } from '../../flux/task';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Router from '../router';
 const DEFAULT = 'default';
 

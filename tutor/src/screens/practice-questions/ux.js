@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'vendor';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Exercises from '../../models/exercises';
 import Router from '../../helpers/router';
 

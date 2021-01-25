@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { isEmpty } from 'lodash';
 import { Modal, Button, Form } from 'react-bootstrap';
-import Courses from '../models/courses-map';
+import Courses from '../models/courses';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';

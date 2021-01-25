@@ -1,6 +1,6 @@
 import { observable, action, computed, moment } from 'vendor';
 import { first, filter, isEmpty, findIndex } from 'lodash';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import ScrollTo from '../../helpers/scroll-to';
 import Grade from '../../models/task-plans/teacher/grade';
 import UiSettings from 'shared/model/ui-settings';

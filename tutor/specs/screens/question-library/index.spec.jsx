@@ -3,7 +3,7 @@ import QA from '../../../src/screens/question-library';
 import mockFactory from '../../factories';
 
 jest.mock('../../../src/models/exercises')
-jest.mock('../../../src/models/courses-map', () => ({
+jest.mock('../../../src/models/courses', () => ({
   get: () => mockFactory.course(),
 }))
 

@@ -1,6 +1,6 @@
 import { React, PropTypes, computed, observer } from 'vendor';
 import Exercises from '../../models/exercises';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
 import Loading from 'shared/components/loading-animation';

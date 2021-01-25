@@ -5,7 +5,7 @@ import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
 import NoPeriods from '../../components/no-periods';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import ScoresReportExportControls from './export-controls';
 import ScoresReportNav from './nav';
 import DroppedStudentsCaption from './dropped-students-caption';

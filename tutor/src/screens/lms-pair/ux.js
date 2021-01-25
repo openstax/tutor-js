@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import LMSPair from '../../models/course/pair-to-lms';
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import NewOrExising from './new-or-existing';
 import CreateCourse from './create-course';
 import CreateCourseUX from './create-course-ux';

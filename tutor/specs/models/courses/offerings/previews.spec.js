@@ -1,5 +1,5 @@
 import OfferingsMap from '../../../../src/models/course/offerings';
-import CoursesMap from '../../../../src/models/courses-map';
+import CoursesMap from '../../../../src/models/courses';
 import Previews from '../../../../src/models/course/offerings/previews';
 
 describe('Offering Previews Model', () => {

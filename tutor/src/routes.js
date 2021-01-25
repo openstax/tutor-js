@@ -10,7 +10,7 @@ const getRoutes = (router) => {
 
   return [
     { path: '/dashboard', name: 'myCourses',
-      renderer: r(() => import('./components/my-courses'), 'Courses Listing') },
+      renderer: r(() => import('./screens/my-courses'), 'Courses Listing') },
     { path: '/non-allowed-instructors', name: 'nonAllowedTeacher',
       renderer: () => NonAllowedTeacher },
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',

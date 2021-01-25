@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import TimeHelper from '../../src/helpers/time';
-import Courses from '../../src/models/courses-map';
+import Courses from '../../src/models/courses';
 
 const COURSE_ID = 'TEST_COURSE_ID';
 const TEST_TIMEZONE = 'US/Alaska';

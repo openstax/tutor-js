@@ -7,7 +7,7 @@ import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plans/teacher/stats';
 import { OfferingsMap, Offering } from '../../src/models/course/offerings';
-import { CoursesMap } from '../../src/models/courses-map';
+import { CoursesMap } from '../../src/models/courses';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';

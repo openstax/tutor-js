@@ -9,7 +9,7 @@ import Name from '../../components/name';
 import BindStoreMixin from '../../components/bind-store-mixin';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 
-import Courses from '../../models/courses-map';
+import Courses from '../../models/courses';
 import Guide from './guide';
 import InfoLink from './info-link';
 import ColorKey from './color-key';
