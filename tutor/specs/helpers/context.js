@@ -11,6 +11,7 @@ import TourConductor from '../../src/components/tours/conductor';
 import { SpyMode } from 'shared';
 import { observable, action } from 'mobx';
 import { observer, Provider } from 'mobx-react';
+import { SecondaryToolbar } from '../../src/components/navbar/secondary-toolbar'
 
 function wrapInDnDTestContext(DecoratedComponent) {
   return wrapInTestContext(DecoratedComponent);

@@ -6,9 +6,8 @@ import {
   BaseModel, identifiedBy, field, identifier, session,
 } from 'shared/model';
 
-export default
 @identifiedBy('notes/note')
-class Note extends BaseModel {
+export default class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
   @identifier id;

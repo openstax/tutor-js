@@ -2,8 +2,8 @@ import {
   BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from '../../model';
 
-export default
 @identifiedBy('exercise/solution')
+export default
 class ExerciseSolution extends BaseModel {
 
   @field content_html = '';

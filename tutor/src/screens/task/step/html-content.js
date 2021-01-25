@@ -20,9 +20,9 @@ const Loader = () => (
   </ContentLoader>
 );
 
-export default
+
 @observer
-class HtmlContentTaskStep extends React.Component {
+export default class HtmlContentTaskStep extends React.Component {
 
   static Loader = Loader;
 

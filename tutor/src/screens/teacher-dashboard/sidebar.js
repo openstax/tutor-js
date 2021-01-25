@@ -35,7 +35,7 @@ const IntroPopover = ({ show, onClose }) => (
   </Overlay>
 );
 
-const GradingTemplateLinkWrapper = styled.div `
+const GradingTemplateLinkWrapper = styled.div`
   margin-top: -0.75rem;
 
   a {
@@ -48,10 +48,9 @@ const Separator = styled.div`
   margin: 0.6rem 1rem 1.7rem;
 `;
 
-export default
 @observer
 @withRouter
-class AddAssignmentSidebar extends React.Component {
+export default class AddAssignmentSidebar extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,

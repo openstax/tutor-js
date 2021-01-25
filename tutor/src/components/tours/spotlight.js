@@ -18,9 +18,8 @@ const Hole = styled.div`
   position: absolute;
 `;
 
-export default
 @observer
-class TourSpotlight extends React.Component {
+export default class TourSpotlight extends React.Component {
 
   static propTypes = {
     step: PropTypes.object.isRequired,

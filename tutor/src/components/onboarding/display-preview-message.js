@@ -1,11 +1,10 @@
-import { React, PropTypes, withRouter, action, observer }  from 'vendor';
+import { React, PropTypes, withRouter, action, observer } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { OnboardingNag, GotItOnboardingNag, Body, Footer } from './onboarding-nag';
 
-export default
 @withRouter
 @observer
-class DisplayPreviewMessage extends React.Component {
+export default class DisplayPreviewMessage extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,

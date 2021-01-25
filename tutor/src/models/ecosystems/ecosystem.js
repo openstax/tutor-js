@@ -7,9 +7,9 @@ import ReferenceBook from '../reference-book';
 import Book from './book';
 import lazyGetter from 'shared/helpers/lazy-getter';
 
-export default
+
 @identifiedBy('ecosystems/ecosystem')
-class Ecosystem extends BaseModel {
+export default class Ecosystem extends BaseModel {
 
   @identifier id;
   @hasMany({ model: Book, inverseOf: 'ecosystem' }) books;

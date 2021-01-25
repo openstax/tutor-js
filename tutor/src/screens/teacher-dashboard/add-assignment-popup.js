@@ -26,10 +26,9 @@ CustomMenu.propTypes = {
   className: PropTypes.string,
 };
 
-export default
 @observer
 @withRouter
-class AddAssignmentPopUp extends React.Component {
+export default class AddAssignmentPopUp extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,

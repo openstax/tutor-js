@@ -3,9 +3,8 @@ import {
 } from 'shared/model';
 import User from '../user';
   
-export default
-  @identifiedBy('course/teacherProfiles')
-class CourseRole extends BaseModel {
+@identifiedBy('course/teacherProfiles')
+export default class CourseRole extends BaseModel {
   
   @identifier id;
   @field name;

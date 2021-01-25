@@ -53,9 +53,8 @@ class QuestionInfo {
 }
 
 
-export default
 @identifiedBy('task-plans/teacher/plan')
-class TeacherTaskPlan extends BaseModel {
+export default class TeacherTaskPlan extends BaseModel {
 
   @identifier id;
   @field title = '';

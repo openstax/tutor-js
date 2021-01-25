@@ -8,9 +8,8 @@ import Job from '../job';
 
 const CURRENT = new Map();
 
-export default
 @identifiedBy('jobs/task-plan-publish')
-class TaskPlanPublish extends Job {
+export default class TaskPlanPublish extends Job {
 
   static forPlan(plan) {
     let pub = CURRENT.get(plan.id);

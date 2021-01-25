@@ -7,9 +7,8 @@ import {
 import Heading from './heading';
 import Student from './student';
 
-export default
 @identifiedBy('scores/period')
-class CourseScoresPeriod extends BaseModel {
+export default class CourseScoresPeriod extends BaseModel {
 
   @field({ type: 'bignum' }) overall_course_average;
   @field({ type: 'bignum' }) overall_reading_score;

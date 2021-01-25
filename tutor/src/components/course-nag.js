@@ -12,10 +12,9 @@ import Onboarding from '../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
-export default
 @inject((context) => pick(context, 'modalManager', 'tourContext', 'spyMode'))
 @observer
-class CourseNagModal extends React.Component {
+export default class CourseNagModal extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),

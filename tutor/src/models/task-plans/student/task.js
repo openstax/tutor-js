@@ -9,9 +9,8 @@ import {
 } from 'shared/model';
 
 
-export default
 @identifiedBy('task-plans/student/task')
-class StudentTask extends BaseModel {
+export default class StudentTask extends BaseModel {
 
   @observable hidden = false;
 

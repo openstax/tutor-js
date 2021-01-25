@@ -16,17 +16,16 @@ import Sidebar from './sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
 
-export default
 @withRouter
 @observer
-class TeacherDashboard extends React.Component {
+export default class TeacherDashboard extends React.Component {
 
   static propTypes = {
-    date:       TimeHelper.PropTypes.moment,
-    className:  PropTypes.string,
+    date: TimeHelper.PropTypes.moment,
+    className: PropTypes.string,
     hasPeriods: PropTypes.bool.isRequired,
     dateFormat: PropTypes.string.isRequired,
-    course:     PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
     showingSideBar: PropTypes.bool.isRequired,
     history: PropTypes.object.isRequired,
     params: PropTypes.object,
@@ -120,7 +119,7 @@ class TeacherDashboard extends React.Component {
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
     );
-  
+
     return (
       <TourRegion
         className={calendarClassName}

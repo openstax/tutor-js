@@ -2,9 +2,8 @@ import { BaseModel, identifiedBy } from 'shared/model';
 import { isArray, reduceRight } from 'lodash';
 import { computed } from 'mobx';
 
-export default
 @identifiedBy('chapter-section')
-class ChapterSection extends BaseModel {
+export default class ChapterSection extends BaseModel {
 
   constructor(arg = []) {
     super();

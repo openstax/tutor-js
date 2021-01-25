@@ -4,9 +4,8 @@ import { observer } from 'mobx-react';
 import { Listing, Choice } from '../choices-listing';
 import { Modal, Button } from 'react-bootstrap';
 
-export default
 @observer
-class SelectPeriod extends React.Component {
+export default class SelectPeriod extends React.Component {
 
   static propTypes = {
     enrollment: PropTypes.object.isRequired,

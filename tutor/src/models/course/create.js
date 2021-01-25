@@ -8,9 +8,8 @@ import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
 
-export default
 @identifiedBy('course/create')
-class CourseCreate extends BaseModel {
+export default class CourseCreate extends BaseModel {
 
   @field name = '';
   @field offering_id = '';

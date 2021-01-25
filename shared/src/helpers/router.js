@@ -3,7 +3,7 @@ import {
   map, last, omit, pick, partial, remove, invoke, get,
   extend, memoize, compact, isEmpty, forEach, mapValues, cloneDeep,
 } from 'lodash';
-import  pathToRegexp from 'path-to-regexp';
+import pathToRegexp from 'path-to-regexp';
 import { matchPath } from 'react-router-dom';
 
 
@@ -26,7 +26,7 @@ class OXRouter {
     this.getRoutes = () => routeSettings;
     return this.getRoutesMap = () => mappedRoutes;
   }
-
+  // eslint-disable-next-line
   currentMatch(path = window.location.pathname) {
     return cloneDeep(findRoutePathMemoed(path, this.getRoutesMap()));
   }
@@ -43,7 +43,7 @@ class OXRouter {
   currentState(options = {}) {
     return {
       params: this.currentParams(options),
-      query:  this.currentQuery(options),
+      query: this.currentQuery(options),
     };
   }
 

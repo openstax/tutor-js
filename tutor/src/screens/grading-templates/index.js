@@ -39,9 +39,9 @@ const Templates = styled(CoursePage)`
   background-color: #fff;
 `;
 
-export default
+
 @observer
-class GradingTemplatesScreen extends React.Component {
+export default class GradingTemplatesScreen extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
@@ -74,7 +74,7 @@ class GradingTemplatesScreen extends React.Component {
   @action.bound clearEditError() {
     this.editError = null;
   }
-  
+
   @action.bound onEditTemplate(template) {
     if (template.has_open_task_plans) {
       this.editError = template;

@@ -39,9 +39,8 @@ const DeleteModal = observer(({ isVisible, show, onClose, isBusy, onDelete }) =>
   );
 });
 
-export default
 @observer
-class DeleteButton extends React.Component {
+export default class DeleteButton extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,

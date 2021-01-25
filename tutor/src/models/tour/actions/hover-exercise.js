@@ -1,8 +1,7 @@
 import { BaseAction, identifiedBy } from './base';
 
-export default
 @identifiedBy('tour/action/hover-exercise')
-class Reposition extends BaseAction {
+export default class Reposition extends BaseAction {
 
   beforeStep() {
     this.$('.card-body').classList.add('on-demo-hover');

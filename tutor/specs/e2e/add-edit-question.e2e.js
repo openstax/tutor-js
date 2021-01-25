@@ -34,6 +34,9 @@ describe('Add/Edit Questions', () => {
   });
 
   it('edits an existing exercise', async () => {
+    // make page larger so it doesn't scroll when hovering card controls
+    // scrolling will unfocus, making controls unclickable
+    await page.setViewportSize({ width: 1280, height: 1600 })
     await expect(page).toHaveSelector('.openstax-exercise-preview')
     const exId = await page.$eval('.openstax-exercise-preview' , ex => ex.dataset.exerciseId)
     const ex = `.openstax-exercise-preview[data-exercise-id="${exId}"]`

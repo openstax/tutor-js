@@ -53,9 +53,8 @@ class EditBox extends React.Component {
 }
 
 
-export default
 @observer
-class NoteCard extends React.Component {
+export default class NoteCard extends React.Component {
 
   static propTypes = {
     onDelete: PropTypes.func.isRequired,

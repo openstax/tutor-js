@@ -5,9 +5,8 @@ import {
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
 
-export default
 @identifiedBy('tour/region')
-class TourRegion extends BaseModel {
+export default class TourRegion extends BaseModel {
 
   @identifier id;
   @field courseId;

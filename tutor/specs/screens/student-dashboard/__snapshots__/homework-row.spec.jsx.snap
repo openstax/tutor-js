@@ -210,19 +210,19 @@ exports[`Homework Row renders in progress 1`] = `
     <div>
       <div
         aria-label="Work on homework: proactive engage web-readiness"
-        className="sc-fzokOt c0 task homework viewable"
+        className="sc-fzqBZW c0 task homework viewable"
         data-event-id={1}
         href="/course/1/task/1"
         onKeyDown={[Function]}
         tabIndex={0}
       >
         <a
-          className="sc-fzokOt c1"
+          className="sc-fzqBZW c1"
           href="/course/1/task/1"
           onClick={[Function]}
         >
           <div
-            className="sc-fznKkj c2"
+            className="sc-fznZeY c2"
           >
             <i
               className="c3 icon-homework"
@@ -233,7 +233,7 @@ exports[`Homework Row renders in progress 1`] = `
             </span>
           </div>
           <div
-            className="sc-fznKkj c4"
+            className="sc-fznZeY c4"
           >
             <time
               onBlur={[Function]}
@@ -245,7 +245,7 @@ exports[`Homework Row renders in progress 1`] = `
             </time>
           </div>
           <div
-            className="sc-fznKkj c5"
+            className="sc-fznZeY c5"
           >
             <div
               className="c6"
@@ -260,7 +260,7 @@ exports[`Homework Row renders in progress 1`] = `
           </div>
         </a>
         <div
-          className="sc-fznKkj c7"
+          className="sc-fznZeY c7"
         >
           <div
             className="c6"
@@ -527,19 +527,19 @@ exports[`Homework Row renders with completed count 1`] = `
     <div>
       <div
         aria-label="Work on homework: rich reintermediate e-business"
-        className="sc-fzokOt c0 task homework viewable"
+        className="sc-fzqBZW c0 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
         onKeyDown={[Function]}
         tabIndex={0}
       >
         <a
-          className="sc-fzokOt c1"
+          className="sc-fzqBZW c1"
           href="/course/2/task/2"
           onClick={[Function]}
         >
           <div
-            className="sc-fznKkj c2"
+            className="sc-fznZeY c2"
           >
             <i
               className="c3 icon-homework"
@@ -550,7 +550,7 @@ exports[`Homework Row renders with completed count 1`] = `
             </span>
           </div>
           <div
-            className="sc-fznKkj c4"
+            className="sc-fznZeY c4"
           >
             <time
               onBlur={[Function]}
@@ -562,7 +562,7 @@ exports[`Homework Row renders with completed count 1`] = `
             </time>
           </div>
           <div
-            className="sc-fznKkj c5"
+            className="sc-fznZeY c5"
           >
             <div
               className="c6"
@@ -577,7 +577,7 @@ exports[`Homework Row renders with completed count 1`] = `
           </div>
         </a>
         <div
-          className="sc-fznKkj c7"
+          className="sc-fznZeY c7"
         >
           <div
             className="c6"

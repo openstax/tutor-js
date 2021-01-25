@@ -28,7 +28,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/dashboard\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/dashboard\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
-                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fzplWN UJQZP\\">
+                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fznyAO djxuwb\\">
                                                         <defs>
                                                           <style />
                                                         </defs>

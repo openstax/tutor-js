@@ -2,9 +2,8 @@ import {
   BaseModel, belongsTo, identifiedBy,
 } from 'shared/model';
 
-export default
 @identifiedBy('task-plan/review')
-class TaskPlanReview extends BaseModel {
+export default class TaskPlanReview extends BaseModel {
 
   @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
 

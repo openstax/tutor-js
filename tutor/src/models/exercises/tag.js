@@ -10,9 +10,8 @@ const TAGS = {
   IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
-export default
 @identifiedBy('exercises/tag')
-class ExerciseTag extends BaseModel {
+export default class ExerciseTag extends BaseModel {
 
   @identifier id;
   @field data;
