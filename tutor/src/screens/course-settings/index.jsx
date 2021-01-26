@@ -67,9 +67,9 @@ const StyledCourseSettings = styled(CoursePage)`
           font-size: 1.6rem;
           width: 25%;
           &.error-input {
-            background: #fbe7ea;
+            background: ${colors.states.trouble};
             color: red;
-            border-color: #f4c0c5;
+            border-color: ${colors.states.border_trouble};
             border-width: 2px;
           }
           &#course-name {
@@ -100,7 +100,7 @@ const StyledCourseSettings = styled(CoursePage)`
       }
     }
     .disabled-delete-course {
-      color: #027EB5;
+      color: ${colors.link};
       opacity: 40%;
       width: fit-content;
       font-weight: 500;
