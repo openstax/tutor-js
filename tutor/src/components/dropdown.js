@@ -77,7 +77,7 @@ const TutorDropdown = ({
     }
   }, []);
   return (
-    <StyledDropdown data-test-id={dropdownTestId}>
+    <StyledDropdown data-test-id={dropdownTestId} name="test-dropdown">
       {
         toggleName &&
           <StyledToggle
