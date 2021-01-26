@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import DeleteCourseModal from './delete-course-button';
 import Timezone from './timezone';
 import { Course } from '../../models/courses-map';
+import Toasts from '../../models/toasts';
 import { AsyncButton } from 'shared';
 import { colors, breakpoint } from 'theme';
 
@@ -135,6 +136,7 @@ const CourseDetails = observer(({ course, history }) => {
     course.timezone = timezone;
     course.save().then(() => {
       setIsSaving(false);
+      Toasts.push({ handler: 'courseSettingsSaved', status: 'ok' });
     });
   };
 
@@ -187,7 +189,7 @@ const CourseDetails = observer(({ course, history }) => {
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="dates">
-              <Form.Label column sm="2" md="1" for="startDate">
+              <Form.Label column sm="2" md="1" htmlFor="startDate">
             Start date
               </Form.Label>
               <Col sm="4" md="5">
@@ -198,7 +200,7 @@ const CourseDetails = observer(({ course, history }) => {
                   name="startDate"
                   readOnly/>
               </Col>
-              <Form.Label column sm="2" md="1" className="end-date-label" for="endDate">
+              <Form.Label column sm="2" md="1" className="end-date-label" htmlFor="endDate">
             End date
               </Form.Label>
               <Col sm="4" md="5">
