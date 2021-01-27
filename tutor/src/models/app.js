@@ -20,6 +20,8 @@ import Toasts from './toasts';
 import Tutor from '../components/root';
 import ResponseValidation from './response_validation';
 import Exercises from './exercises';
+import store, { bootstrap } from '../store'
+
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -70,6 +72,7 @@ export default class TutorApp {
   @action.bound initializeApp() {
     window._MODELS.bootstrapData = this.data;
     window._MODELS.app = this;
+    store.dispatch(bootstrap(this.data))
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
