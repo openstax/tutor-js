@@ -35,7 +35,7 @@ const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
   'name', 'is_lms_enabled', 'timezone', 'default_open_time', 'default_due_time',
-  'homework_weight', 'reading_weight',
+  'homework_weight', 'reading_weight', 'code',
 ];
 
 export default
@@ -45,6 +45,7 @@ class Course extends BaseModel {
   @identifier id;
 
   @field name;
+  @field code;
   @field is_lms_enabled;
 
   @field appearance_code = '';

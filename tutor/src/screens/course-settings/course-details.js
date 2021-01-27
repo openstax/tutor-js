@@ -38,9 +38,15 @@ const StyledCourseDetails = styled.div`
           .dropdown-toggle {
             height: 45px;
             width: 25%;
+            ${breakpoint.tablet`
+                width: 100%;
+            `}
           }
           .dropdown-menu {
             min-width: 25%;
+            ${breakpoint.tablet`
+                width: 100%;
+            `}
           }
         }
         span.error-message {
@@ -91,6 +97,14 @@ const StyledCourseDetails = styled.div`
           }
         }
       }
+      hr {
+        width: 80%;
+        margin: 0;
+        margin-bottom: 1.5rem;
+        ${breakpoint.tablet`
+            width: 100%;
+        `}
+      }
     }
     .disabled-delete-course {
       color: ${colors.link};
@@ -109,7 +123,7 @@ const CourseDetails = observer(({ course, history }) => {
     
   const initialValues = {
     courseName: course.name,
-    courseCode: '',
+    courseCode: course.code,
     term: course.termFull,
     startDate: course.bounds.start,
     endDate: course.bounds.end,
@@ -133,6 +147,7 @@ const CourseDetails = observer(({ course, history }) => {
   const onSubmit = ({ courseName, courseCode, timezone }) => {
     setIsSaving(true);
     course.name = courseName;
+    course.code = courseCode;
     course.timezone = timezone;
     course.save().then(() => {
       setIsSaving(false);
