@@ -164,7 +164,7 @@ const CourseDetails = observer(({ course, history }) => {
           handleChange,
           errors,
         }) => (
-          <Form>
+          <Form className="course-detail-settings-form">
             <Form.Group as={Row} controlId="course-name">
               <Form.Label column sm="2" md="1">
               Course name
@@ -242,7 +242,7 @@ const CourseDetails = observer(({ course, history }) => {
             <div className="form-controls">
               <DeleteCourseModal course={course} history={history} />
               <AsyncButton
-                className={cn({ 'hidden': !hasChanges(values) })}
+                className={cn('save-changes-button', { 'hidden': !hasChanges(values) })}
                 disabled={!isEmpty(errors)}
                 onClick={() => onSubmit(values)}
                 isWaiting={isSaving}

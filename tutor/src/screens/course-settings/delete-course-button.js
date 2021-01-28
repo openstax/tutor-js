@@ -42,7 +42,7 @@ class DeleteCourseModal extends React.Component {
 
     if(hasAnyStudents) {
       const tooltip = (
-        <Tooltip>
+        <Tooltip className="disabled-delete-course-message">
           <p>This course has students enrolled in it and can not be deleted. To delete this course, drop all the students enrolled in it.</p>
         </Tooltip>
       );

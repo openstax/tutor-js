@@ -27,6 +27,7 @@ class Timezone extends React.Component {
     const { value, onChange, disabled } = this.props;
     return (
       <TutorDropdown
+        dropdownTestId='timezone-dropdown'
         toggleName={value}
         disabled={disabled}
         dropdownItems={timezones.map((tz, i) => (
