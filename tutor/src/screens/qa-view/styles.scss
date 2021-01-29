@@ -76,11 +76,12 @@
       }
       .is-ignored     { text-decoration: line-through;              }
       .practice       { background-color: $reading-color;           }
-      .conceptual     { background-color: $homework-color;          }
+      .reading        { background-color: $reading-color;           }
+      .homework       { background-color: $homework-color;          }
       .chapter-review { background-color: $qa-chapter-review-color; }
       .grasp-check    { background-color: $qa-grasp-check-color     }
       .test-prep      { background-color: $qa-test-prep-color       }
-      .conceptual-or-recall  {  background-color: lighten($homework-color, 15%) }
+      .reading-or-homework {  background-color: lighten($homework-color, 15%) }
     }
   }
   .navbar-nav {
