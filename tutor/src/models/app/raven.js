@@ -5,7 +5,7 @@ import { isProd } from '../../helpers/production';
 const isMathJaxUrl = /mathjax/;
 
 const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
-const IGNORED = /ChunkLoadError|button after page initialization/
+const IGNORED = /ResizeObserver|ChunkLoadError|button after page initialization/
 
 const sendWithXtras = (method, arg, xtra) => {
   if (isEmpty(xtra)) {
