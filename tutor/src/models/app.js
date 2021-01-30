@@ -73,6 +73,7 @@ export default class TutorApp {
     window._MODELS.bootstrapData = this.data;
     window._MODELS.app = this;
     store.dispatch(bootstrap(this.data))
+    window._MODELS.store = store
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
