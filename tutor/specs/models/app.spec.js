@@ -1,10 +1,10 @@
 import App from '../../src/models/app';
 import Toasts from '../../src/models/toasts';
-import { readBootstrapData, documentReady } from '../../src/helpers/dom';
+import { documentReady } from '../../src/helpers/dom';
 import Raven from '../../src/models/app/raven';
 
 jest.mock('../../src/helpers/dom', () => ({
-  readBootstrapData: jest.fn(() => ({ courses: [] })),
+  read_csrf: jest.fn(),
   documentReady: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../src/models/app/raven');
@@ -31,9 +31,17 @@ describe('Tutor App model', () => {
   });
 
   it('boots after document is ready, starts raven and reads data', async () => {
+    App.fetch = jest.fn(() => Promise.new())
+    const spy = jest.spyOn(App.prototype, 'fetch').mockImplementation(() => Promise.resolve({
+      data: {
+        courses: [] ,
+        user: { },
+      },
+    }))
     await App.boot();
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
     expect(documentReady).toHaveBeenCalled();
-    expect(readBootstrapData).toHaveBeenCalled();
     expect(Raven.boot).toHaveBeenCalled();
   });
 });
