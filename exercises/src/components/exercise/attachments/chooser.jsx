@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
+import { DirectUpload } from '@rails/activestorage';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Button, ProgressBar } from 'react-bootstrap';
-import { first, partial } from 'lodash';
+import { first } from 'lodash';
 import classnames from 'classnames';
+
+const STORAGE_PATH = '/rails/active_storage';
 
 @withRouter
 @observer
@@ -28,6 +31,7 @@ class AttachmentChooser extends React.Component {
   @observable progress;
   @observable file;
   @observable error;
+  @observable blob;
 
   @action.bound updateUploadStatus(status, redirect) {
     if (status.error) {
@@ -47,17 +51,32 @@ class AttachmentChooser extends React.Component {
     }
   }
 
+  processImage(file) {
+    return new Promise((resolve, reject) => {
+      const upload = new DirectUpload(file, `${STORAGE_PATH}/direct_uploads`);
+      upload.create((error, blob) => {
+        if (error) {
+          reject(error);
+        } else {
+          const src = `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
+          this.blob = blob;
+          resolve({
+            id: blob.id,
+            width: 0,
+            height: 0,
+            src,
+          });
+        }
+      });
+    });
+  }
+
   @action.bound uploadImage() {
     const { exercise } = this.props;
-
     if (exercise.isNew) {
-      this.props.exercises.saveDraft(exercise)
-        .then(() => {
-          exercise.uploadImage(this.file, partial(this.updateUploadStatus, partial.placeholder, true));
-        });
-      return;
+      this.props.exercises.saveDraft(exercise, this.blob);
     }
-    exercise.uploadImage(this.file, this.updateUploadStatus);
+    this.props.exercises.publish(exercise, this.blob);
   }
 
   renderUploadStatus() {
@@ -70,10 +89,11 @@ class AttachmentChooser extends React.Component {
     const file = first(ev.target.files);
     if (!file) { return; }
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = (async () => {
       this.file = file;
-      this.imageData = reader.result;
-    };
+      const image = await this.processImage(file);
+      this.imageData = image.src;
+    });
     reader.readAsDataURL(file);
   }
 

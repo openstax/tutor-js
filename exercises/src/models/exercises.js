@@ -68,13 +68,15 @@ export class ExercisesMap extends Map {
     return { uid: exercise.uid, data: exercise.serialize() };
   }
 
-  saveDraft(exercise) {
+  saveDraft(exercise, blob) {
     const req = { data: exercise.serialize() };
+    req.data.images = [blob.signed_id];
     if (exercise.isNew) {
       Object.assign(req, { url: 'exercises', method: 'POST' });
     } else {
       Object.assign(req, { number: exercise.number });
     }
+    console.log(req)
     return req;
   }
 
