@@ -23,7 +23,7 @@ const coursesSlice = createSlice({
             const course = state.entities[id]
             if (course) { course.name = name }
             console.log(current(state))
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(updateCourse.fulfilled, (state, { payload: course }) => {
@@ -32,11 +32,13 @@ const coursesSlice = createSlice({
         builder.addCase(bootstrap, (state, action) => {
             courseAdapter.setAll(state, action.payload.courses)
         })
-    }
+    },
 })
 
 // some hooks
 export const useHasAnyCourses = () => useSelector<CourseSlice>((state) => selectors.selectTotal(state) > 0)
+
+export const useCoursesByOffering = () => useSelector<CourseSlice>((state) => state.courses);
 
 export { updateCourse, selectors }
 export const coursesReducer = coursesSlice.reducer

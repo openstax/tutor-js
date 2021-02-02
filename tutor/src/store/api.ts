@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { template } from 'lodash'
-import { Course } from './types'
+import { Course, Offering } from './types'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestOptions = { params?: any, data?: any }
@@ -24,7 +24,7 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
     const url = template(urlPattern)(params || {})
     const resp = await fetch(`/api/${url}`, {
         method,
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
     if (resp.ok) {
         return await resp.json() as RetT
@@ -33,6 +33,7 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
 }
 
 const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string, reducer: RequestReducerFunc<ArgT>) => {
+    console.log('here')
     return createAsyncThunk<RetT, ArgT>(storePath, async (obj: ArgT) => request(method, urlPattern, reducer(obj)))
 }
 
@@ -40,8 +41,7 @@ const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string
 // URLS do not include /api/ prefix.  the request method below will add it
 
 export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/updateCourse', (c: Course) => ({
-    params: { id: c.id }, data: { name: c.name } // TODO include other updateable properties
+    params: { id: c.id }, data: { name: c.name }, // TODO include other updateable properties
 }))
 
-
-// TODO add more here as needed
+export const getOfferings = r<Offering, Offering>('GET', 'offerings', 'offerings/getOfferings')
