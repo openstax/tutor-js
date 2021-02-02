@@ -5,6 +5,7 @@ import { isProd } from '../../helpers/production';
 const isMathJaxUrl = /mathjax/;
 
 const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
+const IGNORED = /ResizeObserver|ChunkLoadError|button after page initialization/
 
 const sendWithXtras = (method, arg, xtra) => {
   if (isEmpty(xtra)) {
@@ -34,6 +35,13 @@ const RavenErrorLogging = {
       beforeBreadcrumb(breadcrumb) {
         if (isMathjax(breadcrumb)) { return null; }
         return breadcrumb;
+      },
+      beforeSend(event, hint){
+        const error = hint.originalException;
+        if (error?.message?.match(IGNORED)) {
+          return null
+        }
+        return event
       },
     });
   },
