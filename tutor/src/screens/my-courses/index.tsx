@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import Dashboard from './dashboard'
 import { useHasAnyCourses } from '../../store/courses'
-import store from '../../store'
 import { getOfferings } from '../../store/api'
 
 const MyCourses: React.FC = () => {
+    const d = useDispatch()
     useEffect(() => {
-        store.dispatch(getOfferings())
+        d(getOfferings())
     }, [])
     const hasCourses = useHasAnyCourses()
     if (hasCourses) {

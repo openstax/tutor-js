@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, PayloadAction, current } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import { Course } from './types'
 import { updateCourse } from './api'
@@ -13,16 +13,13 @@ interface CourseSlice { courses: typeof initialState }
 
 const selectors = courseAdapter.getSelectors<CourseSlice>(s => s.courses)
 
-
 const coursesSlice = createSlice({
     name: 'courses',
     initialState,
     reducers: {
         rename(state, { payload: { id, name } }: PayloadAction<{ id: string, name: string }>) {
-            console.log(current(state))
             const course = state.entities[id]
             if (course) { course.name = name }
-            console.log(current(state))
         },
     },
     extraReducers: (builder) => {
@@ -37,8 +34,6 @@ const coursesSlice = createSlice({
 
 // some hooks
 export const useHasAnyCourses = () => useSelector<CourseSlice>((state) => selectors.selectTotal(state) > 0)
-
-export const useCoursesByOffering = () => useSelector<CourseSlice>((state) => state.courses);
 
 export { updateCourse, selectors }
 export const coursesReducer = coursesSlice.reducer

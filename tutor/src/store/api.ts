@@ -6,6 +6,10 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestOptions = { params?: any, data?: any }
 type RequestReducerFunc<T> = (obj: T) => RequestOptions
 
+type Collection<T> = {
+    items: T[]
+}
+
 class ApiError extends Error {
     request: string
     requestOptions: RequestOptions
@@ -19,13 +23,13 @@ class ApiError extends Error {
     }
 }
 
-export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts: RequestOptions): Promise<any> => {
-    const { params, data } = opts
-    const url = template(urlPattern)(params || {})
-    const resp = await fetch(`/api/${url}`, {
-        method,
-        body: JSON.stringify(data),
-    })
+export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts: RequestOptions): Promise<RetT> => {
+    let req = { method }
+    if(opts?.data) {
+        req.body = JSON.stringify(opts.data)
+    }
+    const url = template(urlPattern)(opts?.params || {})
+    const resp = await fetch(`/api/${url}`, req)
     if (resp.ok) {
         return await resp.json() as RetT
     }
@@ -33,8 +37,7 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
 }
 
 const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string, reducer: RequestReducerFunc<ArgT>) => {
-    console.log('here')
-    return createAsyncThunk<RetT, ArgT>(storePath, async (obj: ArgT) => request(method, urlPattern, reducer(obj)))
+    return createAsyncThunk<RetT, ArgT>(storePath, async (obj: ArgT) => request(method, urlPattern, reducer ? reducer(obj) : undefined))
 }
 
 
@@ -44,4 +47,4 @@ export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/u
     params: { id: c.id }, data: { name: c.name }, // TODO include other updateable properties
 }))
 
-export const getOfferings = r<Offering, Offering>('GET', 'offerings', 'offerings/getOfferings')
+export const getOfferings = r<Offering, Collection<Offering>>('GET', 'offerings', 'offerings/getOfferings')
