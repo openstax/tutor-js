@@ -1,16 +1,18 @@
 import { action, computed } from 'mobx';
 import { find, isEmpty, isObject, map } from 'lodash';
 import { hasMany, identifiedBy, session } from 'shared/model';
+import Image from './image';
 import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
 import CurrentUser from '../user';
+
 
 @identifiedBy('exercises/exercise')
 export default
 class Exercise extends SharedExercise {
 
   @session error;
-
+  @hasMany({ model: Image }) images;
   @hasMany({ model: Delegation }) delegations;
 
   @action onError(message) {

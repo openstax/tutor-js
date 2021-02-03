@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
+import { DirectUpload } from '@rails/activestorage';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
+import Image from '../../../models/exercises/image';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Button, ProgressBar } from 'react-bootstrap';
-import { first, partial } from 'lodash';
+import { ProgressBar } from 'react-bootstrap';
+import { first } from 'lodash';
 import classnames from 'classnames';
+
+const STORAGE_PATH = '/rails/active_storage';
 
 @withRouter
 @observer
@@ -47,17 +51,23 @@ class AttachmentChooser extends React.Component {
     }
   }
 
-  @action.bound uploadImage() {
-    const { exercise } = this.props;
-
-    if (exercise.isNew) {
-      this.props.exercises.saveDraft(exercise)
-        .then(() => {
-          exercise.uploadImage(this.file, partial(this.updateUploadStatus, partial.placeholder, true));
-        });
-      return;
-    }
-    exercise.uploadImage(this.file, this.updateUploadStatus);
+  processImage(file) {
+    return new Promise((resolve, reject) => {
+      const upload = new DirectUpload(file, Image.directUploadURL);
+      upload.create((error, blob) => {
+        if (error) {
+          reject(error);
+        } else {
+          this.props.exercise.images.push({ signed_id: blob.signed_id })
+          resolve({
+            id: blob.id,
+            width: 0,
+            height: 0,
+            src: Image.urlFromBlob(blob),
+          });
+        }
+      });
+    });
   }
 
   renderUploadStatus() {
@@ -70,24 +80,12 @@ class AttachmentChooser extends React.Component {
     const file = first(ev.target.files);
     if (!file) { return; }
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = (async () => {
       this.file = file;
-      this.imageData = reader.result;
-    };
+      const image = await this.processImage(file);
+      this.imageData = image.src;
+    });
     reader.readAsDataURL(file);
-  }
-
-  renderUploadBtn() {
-    const { exercise } = this.props;
-    if (!this.imageData || !!this.progress) { return null; }
-    return (
-      <Button
-        onClick={this.uploadImage}
-        disabled={exercise.api.isPending || !this.file}
-      >
-        Upload
-      </Button>
-    );
   }
 
   renderErrors() {
@@ -115,7 +113,6 @@ class AttachmentChooser extends React.Component {
             {image ? 'Choose different image' : 'Add new image'}
             <input id="file" className="file" type="file" onChange={this.onImageChange} />
           </label>
-          {this.renderUploadBtn()}
         </div>
         {this.renderErrors()}
         {this.renderUploadStatus()}

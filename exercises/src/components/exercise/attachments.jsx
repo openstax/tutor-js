@@ -8,9 +8,9 @@ import AttachmentChooser from './attachments/chooser';
 function Attachments({ exercise }) {
   return (
     <div className="attachments">
-      {exercise.attachments.map((attachment) =>
+      {exercise.images.map((attachment) =>
         <Attachment
-          key={attachment.asset.url}
+          key={attachment.signed_id}
           attachment={attachment}
         />
       )}

@@ -65,11 +65,12 @@ export class ExercisesMap extends Map {
   }
 
   publish(exercise) {
-    return { uid: exercise.uid, data: exercise.serialize() };
+    const data = exercise.serialize()
+    return { uid: exercise.uid, data } ;
   }
 
   saveDraft(exercise) {
-    const req = { data: exercise.serialize() };
+    const req = { data: exercise.serialize() }
     if (exercise.isNew) {
       Object.assign(req, { url: 'exercises', method: 'POST' });
     } else {
