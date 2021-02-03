@@ -58,7 +58,7 @@ class AttachmentChooser extends React.Component {
           reject(error);
         } else {
           const src = `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
-          this.props.exercise.images.push(blob.signed_id)
+          this.props.exercise.images.push({ signed_id: blob.signed_id })
           resolve({
             id: blob.id,
             width: 0,

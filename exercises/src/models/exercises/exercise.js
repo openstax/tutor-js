@@ -5,12 +5,17 @@ import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
 import CurrentUser from '../user';
 
+@identifiedBy('exercises/image')
+class Image {
+  @field signed_id;
+}
+
 @identifiedBy('exercises/exercise')
 export default
 class Exercise extends SharedExercise {
 
   @session error;
-  @field({ type: 'array' }) images;
+  @hasMany({ model: Image }) images;
   @hasMany({ model: Delegation }) delegations;
 
   @action onError(message) {
