@@ -5,7 +5,7 @@ import { DirectUpload } from '@rails/activestorage';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import { first } from 'lodash';
 import classnames from 'classnames';
 
@@ -31,7 +31,6 @@ class AttachmentChooser extends React.Component {
   @observable progress;
   @observable file;
   @observable error;
-  @observable blob;
 
   @action.bound updateUploadStatus(status, redirect) {
     if (status.error) {
@@ -59,7 +58,7 @@ class AttachmentChooser extends React.Component {
           reject(error);
         } else {
           const src = `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
-          this.blob = blob;
+          this.props.exercise.images.push(blob.signed_id)
           resolve({
             id: blob.id,
             width: 0,
@@ -69,14 +68,6 @@ class AttachmentChooser extends React.Component {
         }
       });
     });
-  }
-
-  @action.bound uploadImage() {
-    const { exercise } = this.props;
-    if (exercise.isNew) {
-      this.props.exercises.saveDraft(exercise, this.blob);
-    }
-    this.props.exercises.publish(exercise, this.blob);
   }
 
   renderUploadStatus() {
@@ -95,19 +86,6 @@ class AttachmentChooser extends React.Component {
       this.imageData = image.src;
     });
     reader.readAsDataURL(file);
-  }
-
-  renderUploadBtn() {
-    const { exercise } = this.props;
-    if (!this.imageData || !!this.progress) { return null; }
-    return (
-      <Button
-        onClick={this.uploadImage}
-        disabled={exercise.api.isPending || !this.file}
-      >
-        Upload
-      </Button>
-    );
   }
 
   renderErrors() {
@@ -135,7 +113,6 @@ class AttachmentChooser extends React.Component {
             {image ? 'Choose different image' : 'Add new image'}
             <input id="file" className="file" type="file" onChange={this.onImageChange} />
           </label>
-          {this.renderUploadBtn()}
         </div>
         {this.renderErrors()}
         {this.renderUploadStatus()}

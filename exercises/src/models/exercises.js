@@ -65,18 +65,19 @@ export class ExercisesMap extends Map {
   }
 
   publish(exercise) {
-    return { uid: exercise.uid, data: exercise.serialize() };
+    const data = exercise.serialize()
+    //data.images.push(...blobs.map(blob => blob.signed_id))
+    return { uid: exercise.uid, data } ;
   }
 
-  saveDraft(exercise, blob) {
-    const req = { data: exercise.serialize() };
-    req.data.images = [blob.signed_id];
+  saveDraft(exercise) {
+    const req = { data: exercise.serialize() }
+    //req.data.images.push(...blobs.map(blob => blob.signed_id))
     if (exercise.isNew) {
       Object.assign(req, { url: 'exercises', method: 'POST' });
     } else {
       Object.assign(req, { number: exercise.number });
     }
-    console.log(req)
     return req;
   }
 
