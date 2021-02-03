@@ -1,14 +1,11 @@
 import { action, computed } from 'mobx';
 import { find, isEmpty, isObject, map } from 'lodash';
-import { hasMany, identifiedBy, session, field } from 'shared/model';
+import { hasMany, identifiedBy, session } from 'shared/model';
+import Image from './image';
 import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
 import CurrentUser from '../user';
 
-@identifiedBy('exercises/image')
-class Image {
-  @field signed_id;
-}
 
 @identifiedBy('exercises/exercise')
 export default

@@ -14,8 +14,8 @@ import { Loading, NotFound } from './exercise-state';
 
 const DEFAULT_TAB = 'question-0';
 
-export default
 @observer
+export default
 class Exercise extends React.Component {
 
   static propTypes = {

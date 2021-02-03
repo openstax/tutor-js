@@ -1454,32 +1454,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           className="attachments"
         >
           <div
-            className="attachment with-image"
-          >
-            <img
-              className="preview"
-              src="/attachments/1.png"
-            />
-            <textarea
-              className="copypaste"
-              readOnly={true}
-              value="<img src=\\"/attachments/large_1.png\\" alt=\\"\\">"
-            />
-          </div>
-          <div
-            className="attachment with-image"
-          >
-            <img
-              className="preview"
-              src="/attachments/2.png"
-            />
-            <textarea
-              className="copypaste"
-              readOnly={true}
-              value="<img src=\\"/attachments/large_2.png\\" alt=\\"\\">"
-            />
-          </div>
-          <div
             className="attachment"
           >
             <div
@@ -2875,18 +2849,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                         <div id=\\"exercise-parts-tabpane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"fade tab-pane\\">
                           <Attachments exercises={{...}} exercise={{...}}>
                             <div className=\\"attachments\\">
-                              <Attachment attachment={{...}}>
-                                <div className=\\"attachment with-image\\">
-                                  <img className=\\"preview\\" src=\\"/attachments/27.png\\" />
-                                  <textarea value=\\"<img src=\\"/attachments/large_27.png\\" alt=\\"\\">\\" readOnly={true} className=\\"copypaste\\" />
-                                </div>
-                              </Attachment>
-                              <Attachment attachment={{...}}>
-                                <div className=\\"attachment with-image\\">
-                                  <img className=\\"preview\\" src=\\"/attachments/28.png\\" />
-                                  <textarea value=\\"<img src=\\"/attachments/large_28.png\\" alt=\\"\\">\\" readOnly={true} className=\\"copypaste\\" />
-                                </div>
-                              </Attachment>
                               <withRouter(AttachmentChooser) exercise={{...}}>
                                 <AttachmentChooser exercise={{...}} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} exercises={{...}}>
                                   <div className=\\"attachment\\">

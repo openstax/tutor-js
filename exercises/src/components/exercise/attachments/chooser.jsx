@@ -3,6 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { DirectUpload } from '@rails/activestorage';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
+import Image from '../../../models/exercises/image';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { ProgressBar } from 'react-bootstrap';
@@ -52,18 +53,17 @@ class AttachmentChooser extends React.Component {
 
   processImage(file) {
     return new Promise((resolve, reject) => {
-      const upload = new DirectUpload(file, `${STORAGE_PATH}/direct_uploads`);
+      const upload = new DirectUpload(file, Image.directUploadURL);
       upload.create((error, blob) => {
         if (error) {
           reject(error);
         } else {
-          const src = `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
           this.props.exercise.images.push({ signed_id: blob.signed_id })
           resolve({
             id: blob.id,
             width: 0,
             height: 0,
-            src,
+            src: Image.urlFromBlob(blob),
           });
         }
       });
