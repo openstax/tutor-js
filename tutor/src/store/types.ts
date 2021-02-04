@@ -78,7 +78,7 @@ export interface ActiveTermYears {
     year: number
 }
 
-export interface Offering {
+export interface IOffering {
     id: ID
     title: string
     description: string

@@ -1,12 +1,23 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, ReactElement } from 'react'
 import { connect } from 'react-redux'
 import { isEmpty, map, compact, filter } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
 import Tabs from '../../../components/tabs'
-import CreateACourse from './create-a-course'
+import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
+import ViewCourse from './view-course'
+
+import { IOffering, Course } from '../../../store/types'
+
+export interface IOfferingWithCourses extends IOffering {
+    courses: Course[]
+}
+
+interface MyCoursesDashboardProps {
+    offeringsWithCourses: IOfferingWithCourses[]
+}
 
 const StyledMyCoursesDashboard = styled.div`
     .offering-container {
@@ -23,22 +34,22 @@ const StyledMyCoursesDashboard = styled.div`
     }
 `
 
-const isCourseCurrent = (course) => moment().isBetween(course.starts_at, course.ends_at)
-const isCoursePast = (course) => moment().isAfter(course.ends_at)
+const isCourseCurrent = (course: Course) => moment().isBetween(course.starts_at, course.ends_at)
+const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
 
-const Courses = ({ courses }) => {
+const MyCourses = ({ courses }: {courses: Course[]}) => {
     return (
         <>
         {
             map(courses, c => (
-                <p>{c.name}</p>
+                <div key={c.id}><ViewCourse course={c} /></div>
             ))
         }
         </>
     )
 }
 
-const OfferingBlock = ({ offeringWithCourses }) => {
+const OfferingBlock = ({ offeringWithCourses }: {offeringWithCourses: IOfferingWithCourses}): ReactElement => {
     const [tabIndex, setTabIndex] = useState(0);
 
     const currentCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCourseCurrent(c), offeringWithCourses))
@@ -50,7 +61,7 @@ const OfferingBlock = ({ offeringWithCourses }) => {
             <Tabs
               tabs={['CURRENT', 'PAST']}
               onSelect={(a) => setTabIndex(a)}/>
-            <Courses courses={tabIndex === 0 ? currentCourses : pastCourses}/>
+            <MyCourses courses={tabIndex === 0 ? currentCourses : pastCourses}/>
             { tabIndex === 0 &&
             <>
                 <CoursePreview offeringWithCourses={offeringWithCourses} />
@@ -61,8 +72,7 @@ const OfferingBlock = ({ offeringWithCourses }) => {
     )
 }
 
-
-export const MyCoursesDashboard = ({ offeringsWithCourses }) => {
+export const MyCoursesDashboard = ({ offeringsWithCourses }: MyCoursesDashboardProps): ReactElement => {
     return (
         <StyledMyCoursesDashboard>
             { map(offeringsWithCourses, o => <OfferingBlock key={o.id} offeringWithCourses={o} /> )}
@@ -71,7 +81,7 @@ export const MyCoursesDashboard = ({ offeringsWithCourses }) => {
 }
 
 const mapStateToProps = (state) => {
-    let offeringsWithCourses = []
+    let offeringsWithCourses: IOfferingWithCourses[] = []
     const courses = state.courses.entities
     const offerings = state.offerings.entities
 
