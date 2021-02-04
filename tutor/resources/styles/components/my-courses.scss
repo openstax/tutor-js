@@ -196,7 +196,6 @@ $my-courses-card-padding: 20px;
           flex-direction: column;
           justify-content: center;
           h4 {
-            color: $openstax-gold;
             text-transform: uppercase;
           }
           > * { margin: 0; }
@@ -267,6 +266,9 @@ $my-courses-card-padding: 20px;
           a {
             color: $fg;
           }
+        }
+        .preview-belt h4 {
+          color: $bg;
         }
         background-color: $bg;
       }
