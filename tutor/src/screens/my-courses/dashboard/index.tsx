@@ -46,9 +46,12 @@ const StyledMyCoursesDashboard = styled.div`
             flex-wrap: wrap;
             margin: calc(-1 * var(--gap)) 0 0 calc(-1 * var(--gap));
             width: calc(100% + var(--gap));
-            > * {
+            > div {
                 margin: var(--gap) 0 0 var(--gap);
                 width: 260px;
+                > div:hover {
+                    box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
+                }
             }
             .no-courses-message {
                 font-weight: 700;
