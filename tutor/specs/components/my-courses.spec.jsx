@@ -129,8 +129,19 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  describe('non-allowed instructors', () => {
-    it('locks them out and displays message when they hve no courses', () => {
+  describe('non-allowed users', () => {
+    it('shows empty courses for self reported students', () => {
+      Courses.clear();
+      User.can_create_courses = false;
+      User.self_reported_role = 'student';
+      const wrapper = mount(<C><CourseListing /></C>);
+      User.created_at = new Date('2021-01-15T12:00:00.000Z') // now
+      expect(wrapper).not.toHaveRendered('PendingVerification');
+      expect(wrapper).toHaveRendered('EmptyCourses');
+      wrapper.unmount();
+    });
+
+    it('locks instructors out and displays message when they hve no courses', () => {
       User.faculty_status = 'confirmed_faculty';
       User.can_create_courses = false;
       Courses.clear();
@@ -143,7 +154,7 @@ describe('My Courses Component', function() {
       wrapper.unmount();
     });
 
-    it('hides previews if they cannot create course', () => {
+    it('hides previews for self reported instructors who cannot create course', () => {
       User.can_create_courses = true;
       const wrapper = mount(<C><CourseListing /></C>);
       expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');

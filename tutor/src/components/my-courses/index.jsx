@@ -11,8 +11,8 @@ import PendingVerification from './pending-verification';
 import NonAllowedTeacher from './non-allowed-teacher';
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
-export default
 @observer
+export default
 class MyCourses extends React.Component {
 
   componentDidMount() {
@@ -34,6 +34,9 @@ class MyCourses extends React.Component {
 
   render() {
     if (Courses.isEmpty) {
+      if (!User.isProbablyTeacher) {
+        return <EmptyCourses />;
+      }
       if (User.wasNewlyCreated && !User.canCreateCourses) {
         return <PendingVerification />;
       } else if (User.isConfirmedFaculty) {
