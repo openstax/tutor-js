@@ -2,7 +2,7 @@ import { React, cn, styled } from 'vendor'
 import { last } from 'lodash'
 import Router from '../../../helpers/router'
 import OXFancyLoader from 'shared/components/staxly-animation'
-import { IOfferingWithCourses } from './index'
+import { OfferingWithCourses } from './index'
 import { colors } from 'theme'
 
 const StyledPreviewCourse = styled.div`
@@ -23,7 +23,7 @@ const StyledPreviewCourse = styled.div`
   }
 `
 
-const CoursePreview = ({ offeringWithCourses, className } : {offeringWithCourses: IOfferingWithCourses, className: string}) => {
+const CoursePreview = ({ offeringWithCourses, className } : {offeringWithCourses: OfferingWithCourses, className: string}) => {
     
   const aCourse = last(offeringWithCourses.courses)
 

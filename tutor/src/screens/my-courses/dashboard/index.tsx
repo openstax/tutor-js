@@ -11,14 +11,14 @@ import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 
-import { IOffering, Course } from '../../../store/types'
+import { Offering, Course } from '../../../store/types'
 
-export interface IOfferingWithCourses extends IOffering {
+export interface OfferingWithCourses extends Offering {
     courses: Course[]
 }
 
 interface MyCoursesDashboardProps {
-    offeringsWithCourses: IOfferingWithCourses[]
+    offeringsWithCourses: OfferingWithCourses[]
 }
 
 const StyledMyCoursesDashboard = styled.div`
@@ -73,7 +73,7 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
     return map(courses, c => (<ViewCourse course={c} key={c.id}/>))
 }
 
-const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], offeringWithCourses: IOfferingWithCourses}) => (
+const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], offeringWithCourses: OfferingWithCourses}) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
         <CoursePreview offeringWithCourses={offeringWithCourses} />
@@ -81,7 +81,7 @@ const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], of
     </>
 )
 
-const OfferingBlock = ({ offeringWithCourses }: {offeringWithCourses: IOfferingWithCourses}) => {
+const OfferingBlock = ({ offeringWithCourses }: {offeringWithCourses: OfferingWithCourses}) => {
     const [tabIndex, setTabIndex] = useState(0);
 
     const currentCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCourseCurrent(c), offeringWithCourses))
@@ -114,7 +114,7 @@ export const MyCoursesDashboard = ({ offeringsWithCourses }: MyCoursesDashboardP
 }
 
 const mapStateToProps = (state) => {
-    let offeringsWithCourses: IOfferingWithCourses[] = []
+    let offeringsWithCourses: OfferingWithCourses[] = []
     const courses = state.courses.entities
     const offerings = state.offerings.entities
 
