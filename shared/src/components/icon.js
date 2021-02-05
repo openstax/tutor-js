@@ -92,6 +92,7 @@ const Icons = {
   'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
   'user-plus':            require('@fortawesome/free-solid-svg-icons/faUserPlus'),
   'video':                require('@fortawesome/free-solid-svg-icons/faVideo'),
+  'play-circle':          require('@fortawesome/free-solid-svg-icons/faPlayCircle'),
 
   // custom definitions
   'glasses':              require('./icons/glasses'),

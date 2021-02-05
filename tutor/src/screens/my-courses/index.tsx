@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import Dashboard from './dashboard'
 import { useHasAnyCourses } from '../../store/courses'
 import { getOfferings } from '../../store/api'
+import NewUser from './new-user'
 
 const MyCourses: React.FC = () => {
     const d = useDispatch()
@@ -14,7 +15,7 @@ const MyCourses: React.FC = () => {
         return <Dashboard />
     }
     return (
-        <h1 data-test-id="new-teacher-screen">new user!</h1>
+      <NewUser />
     )
 }
 
