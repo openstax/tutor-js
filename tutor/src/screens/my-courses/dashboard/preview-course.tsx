@@ -1,4 +1,4 @@
-import { React, cn, styled } from 'vendor'
+import { React, cn, styled, useState } from 'vendor'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
@@ -33,36 +33,34 @@ interface CoursePreviewProps {
 
 const CoursePreview = ({ offering, className, history } : CoursePreviewProps) => {
   const dispatch = useDispatch()
-
-  const redirectToCourse = (courseId) => {
-
-    history.push(Router.makePathname(
-      'dashboard', { courseId },
-    ))
-  }
+  const [isCreating, setIsCreating] = useState(false)
 
   const onClick = () => {
+    setIsCreating(true)
     dispatch(createPreviewCourse(offering))
     .then((result) => {
-      if(!result.error) 
-        redirectToCourse(result.payload.id)
+      setIsCreating(false)
+      if(!result.error) {
+        history.push(Router.makePathname(
+          'dashboard', { courseId: result.payload.id },
+        ))
+      }
     })
   }
 
   const previewMessage = () => {
-    // if (aCourse.isBuilding) {
-    //   return <h4 key="title">Loading Preview Course</h4>
-    // }
+    if(isCreating) {
+      return <OXFancyLoader isLoading={true} />
+    }
     return [
       <h4 key="title">Preview Course</h4>,
       <p key="message">Create test assignments and view sample data</p>,
     ]
   }
 
-  // const itemClasses = cn('my-courses-item', 'preview', className, {
-  // 'is-building': aCourse.isBuilding,
-  // })
-  const itemClasses = cn('my-courses-item', 'preview', className)
+  const itemClasses = cn('my-courses-item', 'preview', className, {
+  'is-building': isCreating,
+  })
   return (
   <StyledPreviewCourse className="my-courses-item-wrapper preview">
       <div
@@ -78,9 +76,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
       >
           <h3 className="name">{offering.title}</h3>
           <div className="preview-belt">
-          {previewMessage()}
-          {/* <OXFancyLoader isLoading={aCourse.isBuilding} /> */}
-          <OXFancyLoader />
+            {previewMessage()}
           </div>
       </a>
       </div>
