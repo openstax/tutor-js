@@ -78,9 +78,13 @@ export const useNumberOfStudents = (courseId) => useSelector<CourseSlice>(state 
     return sumBy(course?.periods, p => p.num_enrolled_students)
 })
 
-export const useCoursesByOfferingId = (offeringId) => useSelector<CourseSlice>(state => {
+export const useCoursesByOfferingId = (offeringId, includePreview = false) => useSelector<CourseSlice>(state => {
     const courses = selectors.selectAll(state)
-    return filter(courses, c => c.offering_id === offeringId)
+    const coursesByOfferingId = filter(courses, c => c.offering_id === offeringId)
+    if(!includePreview) {
+        return filter(coursesByOfferingId, co => co.term !== 'preview')
+    }
+    return coursesByOfferingId
 })
 
 export { createPreviewCourse, updateCourse, selectors }
