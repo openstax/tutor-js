@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { isEmpty, map, compact, filter } from 'lodash'
@@ -7,9 +7,11 @@ import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared';
 import Tabs from '../../../components/tabs'
+import CourseInformation from '../../../models/course/information'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
+import Resource from './resource'
 
 import { Offering, Course } from '../../../store/types'
 
@@ -66,6 +68,36 @@ const StyledMyCoursesDashboard = styled.div`
 const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
 
+/**
+ * Component that displays the resources
+ */
+const ResourcesInfo = ({ appearanceCode, isFirstBlock } : {appearanceCode: string, isFirstBlock: boolean}) => {
+    const generalResources = 
+    <>
+        <Resource
+          title="Instructor Getting Started Guide"
+          info="Find information on OpenStax Tutor features and answers to common questions"
+          link={CourseInformation.gettingStartedGuide.teacher} />
+        <Resource
+          title={<span><Icon type="play-circle"/> Video Tutorials </span>}
+          info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
+          link={CourseInformation.videoTutorials} />
+    </>
+    return (
+    <>
+        {isFirstBlock && generalResources}
+        <Resource
+          appearanceCode={appearanceCode}
+          title="Instructor Resources"
+          info="Free resources integrated with your book. "
+          link={CourseInformation.gettingStartedGuide.teacher} />
+    </>
+    )
+}
+
+/**
+ * Component that displays the past courses
+ */
 const PastCourses = ({ courses }: {courses: Course[]}) => {
     if(courses.length === 0) {
         return <p className="no-courses-message">No past courses found.</p>
@@ -73,6 +105,9 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
     return map(courses, c => (<ViewCourse course={c} key={c.id} isPast={true} />))
 }
 
+/**
+ * Component that displays the current and future courses. Plus the Course Preview and the create course button
+ */
 const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], offeringWithCourses: OfferingWithCourses}) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
@@ -81,26 +116,48 @@ const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], of
     </>
 )
 
-const OfferingBlock = ({ offeringWithCourses }: {offeringWithCourses: OfferingWithCourses}) => {
+/**
+ * Component that holds the past, current and future courses. Also the resources for the course.
+ */
+const OfferingBlock = ({ offeringWithCourses, isFirstBlock }: {offeringWithCourses: OfferingWithCourses, isFirstBlock: boolean}) => {
     const [tabIndex, setTabIndex] = useState(0);
 
     const currentCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCourseCurrent(c), offeringWithCourses))
     const pastCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCoursePast(c), offeringWithCourses))
-    const isCurrent = tabIndex === 0
+
+    const showTabInfo = useCallback(() => {
+        switch(tabIndex) { 
+            case 0: { 
+                return <CurrentCourses courses={currentCourses} offeringWithCourses={offeringWithCourses} />
+            } 
+            case 1: { 
+                return <PastCourses courses={pastCourses} />
+            } 
+            case 2: { 
+                return <ResourcesInfo appearanceCode={offeringWithCourses.appearance_code} isFirstBlock={isFirstBlock} />
+            } 
+            default: { 
+               return <p>How did you get here?!</p>
+            } 
+         } 
+    }, [tabIndex])
 
     return (
         <div className="offering-container">    
             <h2>{offeringWithCourses.title}</h2>
             <Tabs
-              tabs={['CURRENT', 'PAST']}
+              tabs={['CURRENT', 'PAST', 'RESOURCES']}
               onSelect={(a) => setTabIndex(a)}/>
               <div className="course-cards">
-                { isCurrent ? <CurrentCourses courses={currentCourses} offeringWithCourses={offeringWithCourses} /> : <PastCourses courses={pastCourses} />}
+                {showTabInfo()}
               </div>
         </div>
     )
 }
 
+/**
+ * Main component
+ */
 export const MyCoursesDashboard = ({ offeringsWithCourses }: MyCoursesDashboardProps) => {
     return (
         <StyledMyCoursesDashboard>
@@ -108,7 +165,7 @@ export const MyCoursesDashboard = ({ offeringsWithCourses }: MyCoursesDashboardP
             <div className="controls">
                 <Button variant="link"><Icon type="cog" />Manage subjects</Button>
             </div>
-            { map(offeringsWithCourses, o => <OfferingBlock key={o.id} offeringWithCourses={o} /> )}
+            { map(offeringsWithCourses, (o, i) => <OfferingBlock key={o.id} offeringWithCourses={o} isFirstBlock={i === 0} /> )}
         </StyledMyCoursesDashboard>
     )
 }
@@ -128,6 +185,7 @@ const mapStateToProps = (state) => {
             return { ...o, courses: offeringCourses }
         });
     }
+
     return {
         offeringsWithCourses,
     }

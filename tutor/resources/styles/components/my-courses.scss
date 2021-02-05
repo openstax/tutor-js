@@ -166,7 +166,7 @@ $my-courses-card-padding: 20px;
       }
     }
 
-    &.preview {
+    &.preview, &.resource {
       box-shadow: 0;
       transition: box-shadow 0.3s ease-in-out;
       position: relative;
@@ -269,6 +269,9 @@ $my-courses-card-padding: 20px;
         }
         .preview-belt h4 {
           color: $bg;
+        }
+        svg[data-icon="external-link-square-alt"] {
+          color: $fg;
         }
         background-color: $bg;
       }
