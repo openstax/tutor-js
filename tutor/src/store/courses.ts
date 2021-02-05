@@ -67,9 +67,10 @@ export const useCurrentRole = (id) => useSelector<CourseSlice>(state => {
     return usePrimaryRole(id);
 })
 
-export const useTermFull = (id) => useSelector<CourseSlice>(state => {
+export const useTermFull = (id, doCapitalize = true) => useSelector<CourseSlice>(state => {
     const course = selectors.selectById(state, id)
-    return `${capitalize(course.term)} ${course.year}`
+    const term = doCapitalize ? capitalize(course.term) : course.term
+    return `${term} ${course.year}`
 })
 
 export { updateCourse, selectors }

@@ -1,12 +1,38 @@
-import { React, cn } from 'vendor';
+import { React, cn, styled } from 'vendor';
+import { Button } from 'react-bootstrap'
 import TutorLink from '../../../components/link';
-import CourseBranding from '../../../components/branding/course';
 import { useNameCleaned, useBookName, useTermFull, useCurrentRole } from '../../../store/courses'
 import { Course } from '../../../store/types'
+import { colors } from 'theme'
+
+const StyledViewCourse = styled.div`
+  &&& {
+    .my-courses-item {
+      .my-courses-item-details {
+        padding: 15px 20px;
+        a {padding: 0}
+        .my-courses-item-term {
+          font-size: 1.4rem;
+          line-height: 2rem;
+          font-weight: bold;
+        }
+        .student-info-link {
+          font-size: 1.2rem;
+          line-height: 2rem;
+          text-decoration: underline;
+          color: ${colors.link};
+          padding: 0;
+        }
+      }
+    }
+  }
+`
 
 const ViewCourse = ({ course, className } : {course: Course, className : string }) => {
+  // TODO: add API to get number of students in myCourses screen
+  const courseHasStudents = false;
   return (
-    <div className="my-courses-item-wrapper">
+    <StyledViewCourse className="my-courses-item-wrapper">
       <div
         data-test-id="course-card"
         data-title={useNameCleaned(course.id)}
@@ -24,21 +50,13 @@ const ViewCourse = ({ course, className } : {course: Course, className : string 
           </TutorLink>
         </div>
         <div className="my-courses-item-details">
-          <TutorLink to="dashboard" params={{ courseId: course.id }}>
-            <CourseBranding
-              tag="p"
-              className="my-courses-item-brand"
-              isConceptCoach={!!course.is_concept_coach}
-            />
-            <p className="my-courses-item-term">
-              {course.term}
-              {' '}
-              {course.year}
-            </p>
-          </TutorLink>
+            <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
+            <TutorLink to={courseHasStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
+            <Button variant="link" className="student-info-link">{courseHasStudents ? '24 students enrolled' : 'Invite students'}</Button>
+            </TutorLink>
         </div>
       </div>
-    </div>
+    </StyledViewCourse>
   );    
 }
   
