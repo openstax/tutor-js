@@ -15,6 +15,7 @@ export default {
     w.pi('identify', 'PI-16384954');
     w.pi('identify_client', app.user.account_uuid);
     w.pi('set_custom_data', app.user.metrics);
+    w.pi('pushBeforeGet', true);
     w.pi('get', 'surveys');
     return loadjs('//js.pulseinsights.com/surveys.js', {
       async: true,
