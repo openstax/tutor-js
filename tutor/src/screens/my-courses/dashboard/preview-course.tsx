@@ -1,12 +1,10 @@
 import { React, cn, styled } from 'vendor'
-import { last } from 'lodash'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { OfferingWithCourses } from './index'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
 import { createPreviewCourse } from '../../../store/courses'
-import store from '../../../store'
 import { colors } from 'theme'
 
 const StyledPreviewCourse = styled.div`
@@ -34,17 +32,17 @@ interface CoursePreviewProps {
 }
 
 const CoursePreview = ({ offeringWithCourses, className, history } : CoursePreviewProps) => {
-  const aCourse = last(offeringWithCourses.courses)
+  const dispatch = useDispatch()
 
   const redirectToCourse = (courseId) => {
-    if ( !aCourse.previewCourse ) { return }
+
     history.push(Router.makePathname(
       'dashboard', { courseId },
     ))
   }
 
   const onClick = () => {
-    store.dispatch(createPreviewCourse(offeringWithCourses))
+    dispatch(createPreviewCourse(offeringWithCourses))
     .then((result) => {
       if(!result.error) 
         redirectToCourse(result.payload.course.id)
@@ -52,18 +50,19 @@ const CoursePreview = ({ offeringWithCourses, className, history } : CoursePrevi
   }
 
   const previewMessage = () => {
-    if (aCourse.isBuilding) {
-      return <h4 key="title">Loading Preview Course</h4>
-    }
+    // if (aCourse.isBuilding) {
+    //   return <h4 key="title">Loading Preview Course</h4>
+    // }
     return [
       <h4 key="title">Preview Course</h4>,
       <p key="message">Create test assignments and view sample data</p>,
     ]
   }
 
-  const itemClasses = cn('my-courses-item', 'preview', className, {
-  'is-building': aCourse.isBuilding,
-  })
+  // const itemClasses = cn('my-courses-item', 'preview', className, {
+  // 'is-building': aCourse.isBuilding,
+  // })
+  const itemClasses = cn('my-courses-item', 'preview', className)
   return (
   <StyledPreviewCourse className="my-courses-item-wrapper preview">
       <div
@@ -80,7 +79,8 @@ const CoursePreview = ({ offeringWithCourses, className, history } : CoursePrevi
           <h3 className="name">{offeringWithCourses.title}</h3>
           <div className="preview-belt">
           {previewMessage()}
-          <OXFancyLoader isLoading={aCourse.isBuilding} />
+          {/* <OXFancyLoader isLoading={aCourse.isBuilding} /> */}
+          <OXFancyLoader />
           </div>
       </a>
       </div>

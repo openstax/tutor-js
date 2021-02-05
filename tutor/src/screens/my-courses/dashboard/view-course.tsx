@@ -8,31 +8,56 @@ import { colors } from 'theme'
 const StyledViewCourse = styled.div`
   &&& {
     .my-courses-item {
+      &.is-past {
+        opacity: 0.6;
+      }
       .my-courses-item-details {
         padding: 15px 20px;
         a {padding: 0}
         .my-courses-item-term {
-          font-size: 1.4rem;
+          font-size: 1.6rem;
           line-height: 2rem;
           font-weight: bold;
         }
         .student-info-link {
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           line-height: 2rem;
           text-decoration: underline;
           color: ${colors.link};
           padding: 0;
+        }
+        .course-ended-info {
+          color: ${colors.thin};
+          font-size: 1.4rem;
         }
       }
     }
   }
 `
 
-const ViewCourse = ({ course, className } : {course: Course, className : string }) => {
-  // TODO: add API to get number of students in myCourses screen
-  const courseHasStudents = false;
+interface ViewCourseProps {
+  course: Course
+  className: string
+  isPast?: boolean
+}
+
+const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
+    // TODO: add API to get number of students in myCourses screen
+    const courseHasStudents = false;
+    if(!isPast) {
+      return (
+        <TutorLink to={courseHasStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
+            <Button variant="link" className="student-info-link">{courseHasStudents ? '24 students enrolled' : 'Invite students'}</Button>
+        </TutorLink>
+      )
+    }
+
+    return <p className="course-ended-info">Course ended</p>
+}
+
+const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
   return (
-    <StyledViewCourse className="my-courses-item-wrapper">
+    <StyledViewCourse className='my-courses-item-wrapper'>
       <div
         data-test-id="course-card"
         data-title={useNameCleaned(course.id)}
@@ -42,7 +67,7 @@ const ViewCourse = ({ course, className } : {course: Course, className : string 
         data-term={useTermFull(course.id)}
         data-is-teacher={useCurrentRole(course.id) === 'teacher'}
         data-course-id={course.id}
-        className={cn('my-courses-item', className)}
+        className={cn('my-courses-item', className, { 'is-past': isPast })}
       >
         <div className="my-courses-item-title">
           <TutorLink to="dashboard" params={{ courseId: course.id }}>
@@ -51,9 +76,7 @@ const ViewCourse = ({ course, className } : {course: Course, className : string 
         </div>
         <div className="my-courses-item-details">
             <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
-            <TutorLink to={courseHasStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
-            <Button variant="link" className="student-info-link">{courseHasStudents ? '24 students enrolled' : 'Invite students'}</Button>
-            </TutorLink>
+            <ViewCourseStudentInfo isPast={isPast} course={course} />
         </div>
       </div>
     </StyledViewCourse>

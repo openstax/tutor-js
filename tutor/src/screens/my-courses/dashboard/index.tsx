@@ -70,7 +70,7 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
     if(courses.length === 0) {
         return <p className="no-courses-message">No past courses found.</p>
     }
-    return map(courses, c => (<ViewCourse course={c} key={c.id}/>))
+    return map(courses, c => (<ViewCourse course={c} key={c.id} isPast={true} />))
 }
 
 const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], offeringWithCourses: OfferingWithCourses}) => (
