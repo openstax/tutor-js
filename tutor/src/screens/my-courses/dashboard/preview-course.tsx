@@ -1,10 +1,10 @@
 import { React, cn, styled } from 'vendor'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { OfferingWithCourses } from './index'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
 import { createPreviewCourse } from '../../../store/courses'
+import { Offering } from '../../../store/types'
 import { colors } from 'theme'
 
 const StyledPreviewCourse = styled.div`
@@ -26,12 +26,12 @@ const StyledPreviewCourse = styled.div`
 `
 
 interface CoursePreviewProps {
-  offeringWithCourses: OfferingWithCourses
+  offering: Offering
   className: string
   history: RouteComponentProps
 }
 
-const CoursePreview = ({ offeringWithCourses, className, history } : CoursePreviewProps) => {
+const CoursePreview = ({ offering, className, history } : CoursePreviewProps) => {
   const dispatch = useDispatch()
 
   const redirectToCourse = (courseId) => {
@@ -42,7 +42,7 @@ const CoursePreview = ({ offeringWithCourses, className, history } : CoursePrevi
   }
 
   const onClick = () => {
-    dispatch(createPreviewCourse(offeringWithCourses))
+    dispatch(createPreviewCourse(offering))
     .then((result) => {
       if(!result.error) 
         redirectToCourse(result.payload.course.id)
@@ -66,17 +66,17 @@ const CoursePreview = ({ offeringWithCourses, className, history } : CoursePrevi
   return (
   <StyledPreviewCourse className="my-courses-item-wrapper preview">
       <div
-        data-appearance={offeringWithCourses.appearance_code}
+        data-appearance={offering.appearance_code}
         data-test-id="course-card"
         data-is-teacher={true}
-        data-offering-id={offeringWithCourses.id}
+        data-offering-id={offering.id}
         className={itemClasses}
       >
       <a
         className="my-courses-item-title"
         onClick={onClick}
       >
-          <h3 className="name">{offeringWithCourses.title}</h3>
+          <h3 className="name">{offering.title}</h3>
           <div className="preview-belt">
           {previewMessage()}
           {/* <OXFancyLoader isLoading={aCourse.isBuilding} /> */}

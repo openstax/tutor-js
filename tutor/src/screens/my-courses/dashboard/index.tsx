@@ -1,13 +1,14 @@
 import React, { useState, useMemo, useCallback } from 'react'
-import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { isEmpty, map, compact, filter } from 'lodash'
+import { map, filter } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared';
 import Tabs from '../../../components/tabs'
 import CourseInformation from '../../../models/course/information'
+import { useCoursesByOfferingId } from '../../../store/courses'
+import { useAllOfferings } from '../../../store/offering'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
@@ -17,10 +18,6 @@ import { Offering, Course } from '../../../store/types'
 
 export interface OfferingWithCourses extends Offering {
     courses: Course[]
-}
-
-interface MyCoursesDashboardProps {
-    offeringsWithCourses: OfferingWithCourses[]
 }
 
 const StyledMyCoursesDashboard = styled.div`
@@ -108,10 +105,10 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
 /**
  * Component that displays the current and future courses. Plus the Course Preview and the create course button
  */
-const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], offeringWithCourses: OfferingWithCourses}) => (
+const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Offering}) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        <CoursePreview offeringWithCourses={offeringWithCourses} />
+        <CoursePreview offering={offering} />
         <CreateACourse />
     </>
 )
@@ -119,22 +116,23 @@ const CurrentCourses = ({ courses, offeringWithCourses }: {courses: Course[], of
 /**
  * Component that holds the past, current and future courses. Also the resources for the course.
  */
-const OfferingBlock = ({ offeringWithCourses, isFirstBlock }: {offeringWithCourses: OfferingWithCourses, isFirstBlock: boolean}) => {
+const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstBlock: boolean}) => {
     const [tabIndex, setTabIndex] = useState(0);
 
-    const currentCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCourseCurrent(c), offeringWithCourses))
-    const pastCourses = useMemo(() => filter(offeringWithCourses.courses, c => isCoursePast(c), offeringWithCourses))
+    const courses = useCoursesByOfferingId(offering.id)
+    const currentCourses = useMemo(() => filter(courses, c => isCourseCurrent(c), offering))
+    const pastCourses = useMemo(() => filter(courses, c => isCoursePast(c), offering))
 
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
             case 0: { 
-                return <CurrentCourses courses={currentCourses} offeringWithCourses={offeringWithCourses} />
+                return <CurrentCourses courses={currentCourses} offering={offering} />
             } 
             case 1: { 
                 return <PastCourses courses={pastCourses} />
             } 
             case 2: { 
-                return <ResourcesInfo appearanceCode={offeringWithCourses.appearance_code} isFirstBlock={isFirstBlock} />
+                return <ResourcesInfo appearanceCode={offering.appearance_code} isFirstBlock={isFirstBlock} />
             } 
             default: { 
                return <p>How did you get here?!</p>
@@ -144,7 +142,7 @@ const OfferingBlock = ({ offeringWithCourses, isFirstBlock }: {offeringWithCours
 
     return (
         <div className="offering-container">    
-            <h2>{offeringWithCourses.title}</h2>
+            <h2>{offering.title}</h2>
             <Tabs
               tabs={['CURRENT', 'PAST', 'RESOURCES']}
               onSelect={(a) => setTabIndex(a)}/>
@@ -158,37 +156,17 @@ const OfferingBlock = ({ offeringWithCourses, isFirstBlock }: {offeringWithCours
 /**
  * Main component
  */
-export const MyCoursesDashboard = ({ offeringsWithCourses }: MyCoursesDashboardProps) => {
+export const MyCoursesDashboard = () => {
+    const offerings = useAllOfferings()
     return (
         <StyledMyCoursesDashboard>
             <h2>My Courses</h2>
             <div className="controls">
                 <Button variant="link"><Icon type="cog" />Manage subjects</Button>
             </div>
-            { map(offeringsWithCourses, (o, i) => <OfferingBlock key={o.id} offeringWithCourses={o} isFirstBlock={i === 0} /> )}
+            { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
         </StyledMyCoursesDashboard>
     )
 }
 
-const mapStateToProps = (state) => {
-    let offeringsWithCourses: OfferingWithCourses[] = []
-    const courses = state.courses.entities
-    const offerings = state.offerings.entities
-
-    if(!isEmpty(courses) && !isEmpty(offerings)) {
-        offeringsWithCourses = map(offerings, o => {
-            const offeringCourses = compact(
-                    map(courses, c => {
-                if(c.offering_id === o.id) return c;
-                return null
-            }));
-            return { ...o, courses: offeringCourses }
-        });
-    }
-
-    return {
-        offeringsWithCourses,
-    }
-}
-
-export default connect(mapStateToProps)(MyCoursesDashboard)
+export default MyCoursesDashboard

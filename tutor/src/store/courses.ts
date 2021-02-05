@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { endsWith, get, first, sortBy, find, capitalize, sumBy } from 'lodash'
+import { endsWith, get, first, sortBy, find, capitalize, sumBy, filter } from 'lodash'
 import { Course } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
@@ -39,8 +39,8 @@ const coursesSlice = createSlice({
 // some hooks
 export const useHasAnyCourses = () => useSelector<CourseSlice>((state) => selectors.selectTotal(state) > 0)
 
-export const useNameCleaned = (id) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const useNameCleaned = (courseId) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     const previewSuffix = ' Preview';
     if (course.is_preview && endsWith(course.name, previewSuffix)) {
       return course.name.slice(0, -previewSuffix.length);
@@ -49,33 +49,38 @@ export const useNameCleaned = (id) => useSelector<CourseSlice>(state => {
     }
 })
 
-export const useBookName = (id) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const useBookName = (courseId) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     get(CourseInformation.information(course.appearance_code), 'title', '');
 })
 
-export const usePrimaryRole = (id) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const usePrimaryRole = (courseId) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     return first(sortBy(course.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
 })
 
-export const useCurrentRole = (id) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const useCurrentRole = (courseId) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     if (course.current_role_id) {
       return find(course.roles, { id: course.current_role_id });
     }
-    return usePrimaryRole(id);
+    return usePrimaryRole(courseId);
 })
 
-export const useTermFull = (id, doCapitalize = true) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const useTermFull = (courseId, doCapitalize = true) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     const term = doCapitalize ? capitalize(course.term) : course.term
     return `${term} ${course.year}`
 })
 
-export const useNumberOfStudents = (id) => useSelector<CourseSlice>(state => {
-    const course = selectors.selectById(state, id)
+export const useNumberOfStudents = (courseId) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, courseId)
     return sumBy(course?.periods, p => p.num_enrolled_students)
+})
+
+export const useCoursesByOfferingId = (offeringId) => useSelector<CourseSlice>(state => {
+    const courses = selectors.selectAll(state)
+    return filter(courses, c => c.offering_id === offeringId)
 })
 
 export { createPreviewCourse, updateCourse, selectors }
