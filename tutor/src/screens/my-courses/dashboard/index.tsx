@@ -63,7 +63,7 @@ const StyledMyCoursesDashboard = styled.div`
     }
 `
 
-const isCourseCurrent = (course: Course) => moment().isBetween(course.starts_at, course.ends_at)
+const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
 
 const PastCourses = ({ courses }: {courses: Course[]}) => {

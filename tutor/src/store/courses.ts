@@ -2,7 +2,7 @@ import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolki
 import { useSelector } from 'react-redux'
 import { endsWith, get, first, sortBy, find, capitalize } from 'lodash'
 import { Course } from './types'
-import { updateCourse } from './api'
+import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
 import CourseInformation from '../models/course/information'
 
@@ -73,7 +73,7 @@ export const useTermFull = (id, doCapitalize = true) => useSelector<CourseSlice>
     return `${term} ${course.year}`
 })
 
-export { updateCourse, selectors }
+export { createPreviewCourse, updateCourse, selectors }
 export const coursesReducer = coursesSlice.reducer
 
 // exports must be named and you cannot export all actions at once

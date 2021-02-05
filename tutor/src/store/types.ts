@@ -90,5 +90,5 @@ export interface Offering {
     default_course_name: string
     does_cost: boolean
     subject: string
-    active_term_years: ActiveTermYears
+    active_term_years: ActiveTermYears[]
 }

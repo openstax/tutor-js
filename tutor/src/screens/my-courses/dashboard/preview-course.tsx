@@ -1,8 +1,12 @@
 import { React, cn, styled } from 'vendor'
 import { last } from 'lodash'
-import Router from '../../../helpers/router'
-import OXFancyLoader from 'shared/components/staxly-animation'
+import { useDispatch } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { OfferingWithCourses } from './index'
+import OXFancyLoader from 'shared/components/staxly-animation'
+import Router from '../../../helpers/router'
+import { createPreviewCourse } from '../../../store/courses'
+import store from '../../../store'
 import { colors } from 'theme'
 
 const StyledPreviewCourse = styled.div`
@@ -23,23 +27,28 @@ const StyledPreviewCourse = styled.div`
   }
 `
 
-const CoursePreview = ({ offeringWithCourses, className } : {offeringWithCourses: OfferingWithCourses, className: string}) => {
-    
+interface CoursePreviewProps {
+  offeringWithCourses: OfferingWithCourses
+  className: string
+  history: RouteComponentProps
+}
+
+const CoursePreview = ({ offeringWithCourses, className, history } : CoursePreviewProps) => {
   const aCourse = last(offeringWithCourses.courses)
 
-  const redirectToCourse = () => {
+  const redirectToCourse = (courseId) => {
     if ( !aCourse.previewCourse ) { return }
-    this.props.history.push(Router.makePathname(
-      'dashboard', { courseId: aCourse.previewCourse.id },
+    history.push(Router.makePathname(
+      'dashboard', { courseId },
     ))
   }
 
   const onClick = () => {
-    if (aCourse.isCreated) {
-      this.redirectToCourse()
-    } else {
-      aCourse.build().then(redirectToCourse())
-    }
+    store.dispatch(createPreviewCourse(offeringWithCourses))
+    .then((result) => {
+      if(!result.error) 
+        redirectToCourse(result.payload.course.id)
+    })
   }
 
   const previewMessage = () => {
@@ -79,4 +88,4 @@ const CoursePreview = ({ offeringWithCourses, className } : {offeringWithCourses
   )
 }
 
-export default CoursePreview
+export default withRouter(CoursePreview)
