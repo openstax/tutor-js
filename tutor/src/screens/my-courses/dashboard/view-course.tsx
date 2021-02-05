@@ -1,7 +1,7 @@
 import { React, cn, styled } from 'vendor';
 import { Button } from 'react-bootstrap'
 import TutorLink from '../../../components/link';
-import { useNameCleaned, useBookName, useTermFull, useCurrentRole } from '../../../store/courses'
+import { useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents } from '../../../store/courses'
 import { Course } from '../../../store/types'
 import { colors } from 'theme'
 
@@ -43,11 +43,11 @@ interface ViewCourseProps {
 
 const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
     // TODO: add API to get number of students in myCourses screen
-    const courseHasStudents = false;
+    const numberOfStudents = useNumberOfStudents(course.id)
     if(!isPast) {
       return (
-        <TutorLink to={courseHasStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
-            <Button variant="link" className="student-info-link">{courseHasStudents ? '24 students enrolled' : 'Invite students'}</Button>
+        <TutorLink to={numberOfStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
+            <Button variant="link" className="student-info-link">{numberOfStudents ? `${numberOfStudents} students enrolled` : 'Invite students'}</Button>
         </TutorLink>
       )
     }

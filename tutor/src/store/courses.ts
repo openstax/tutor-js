@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { endsWith, get, first, sortBy, find, capitalize } from 'lodash'
+import { endsWith, get, first, sortBy, find, capitalize, sumBy } from 'lodash'
 import { Course } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
@@ -71,6 +71,11 @@ export const useTermFull = (id, doCapitalize = true) => useSelector<CourseSlice>
     const course = selectors.selectById(state, id)
     const term = doCapitalize ? capitalize(course.term) : course.term
     return `${term} ${course.year}`
+})
+
+export const useNumberOfStudents = (id) => useSelector<CourseSlice>(state => {
+    const course = selectors.selectById(state, id)
+    return sumBy(course?.periods, p => p.num_enrolled_students)
 })
 
 export { createPreviewCourse, updateCourse, selectors }
