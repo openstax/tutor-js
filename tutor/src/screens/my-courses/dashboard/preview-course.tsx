@@ -45,7 +45,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
     dispatch(createPreviewCourse(offering))
     .then((result) => {
       if(!result.error) 
-        redirectToCourse(result.payload.course.id)
+        redirectToCourse(result.payload.id)
     })
   }
 
