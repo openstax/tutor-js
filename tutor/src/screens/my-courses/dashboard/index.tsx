@@ -7,7 +7,7 @@ import { colors } from 'theme'
 import { Icon } from 'shared';
 import Tabs from '../../../components/tabs'
 import CourseInformation from '../../../models/course/information'
-import { useCoursesByOfferingId } from '../../../store/courses'
+import { useCoursesByOfferingId, useNumberOfStudents } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
@@ -64,6 +64,16 @@ const StyledMyCoursesDashboard = styled.div`
 
 const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
+const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
+    // no students courses put them at the end of the list
+    if (useNumberOfStudents(a) === 0) { return -1 }
+    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
+    return 0
+})
+const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
+    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
+    return 0
+})  
 
 /**
  * Component that displays the resources
@@ -120,8 +130,8 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
     const [tabIndex, setTabIndex] = useState(0);
 
     const courses = useCoursesByOfferingId(offering.id)
-    const currentCourses = useMemo(() => filter(courses, c => isCourseCurrent(c), offering))
-    const pastCourses = useMemo(() => filter(courses, c => isCoursePast(c), offering))
+    const currentCourses = useMemo(() => sortCurrentCourses(filter(courses, c => isCourseCurrent(c)), offering))
+    const pastCourses = useMemo(() => sortPastCourses(filter(courses, c => isCoursePast(c)), offering))
 
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
