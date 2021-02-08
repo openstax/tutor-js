@@ -1,7 +1,8 @@
-import { React, cn, styled } from 'vendor';
+import { React, cn, styled } from 'vendor'
 import { Button } from 'react-bootstrap'
-import TutorLink from '../../../components/link';
-import { useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents } from '../../../store/courses'
+import { useDispatch } from 'react-redux'
+import TutorLink from '../../../components/link'
+import { setCurrentRole, useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents, usePrimaryRole } from '../../../store/courses'
 import { Course } from '../../../store/types'
 import { colors } from 'theme'
 
@@ -43,7 +44,6 @@ interface ViewCourseProps {
 }
 
 const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
-    // TODO: add API to get number of students in myCourses screen
     const numberOfStudents = useNumberOfStudents(course.id)
     if(!isPast) {
       return (
@@ -57,6 +57,8 @@ const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
 }
 
 const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
+  const dispatch = useDispatch()
+  const primaryRole = useCurrentRole(course.id)
   return (
     <StyledViewCourse className='my-courses-item-wrapper'>
       <div
@@ -70,7 +72,9 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
         data-course-id={course.id}
         className={cn('my-courses-item', className, { 'is-past': isPast })}
       >
-        <div className="my-courses-item-title">
+        {/* If we are gonna be using Redux, need to set the current_role_id inside the course dashboard component which is for now a class component.
+        Hooks can only be called inside of a function component. */}
+        <div className="my-courses-item-title" onClick={() => dispatch(setCurrentRole({ roleId: primaryRole.id, id: course.id }))}>
           <TutorLink to="dashboard" params={{ courseId: course.id }}>
             {course.name}
           </TutorLink>

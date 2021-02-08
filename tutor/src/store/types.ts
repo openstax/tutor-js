@@ -71,6 +71,7 @@ export interface Course {
     uuid: string
     webview_url: string
     year: number
+    current_role_id?: string
 }
 
 export interface ActiveTermYears {

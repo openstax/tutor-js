@@ -38,6 +38,14 @@ const StyledMyCoursesDashboard = styled.div`
             font-size: 2.4rem;
             line-height: 3rem;
             color: ${colors.neutral.std};
+            margin-bottom: 1rem;
+        }
+        .tutor-tabs {
+            .nav-tabs {
+                li a {
+                    padding: 1rem 3rem;
+                }
+            }
         }
         .course-cards {
             --gap: 3.2rem;

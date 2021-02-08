@@ -15,6 +15,7 @@ const selectors = offeringAdapter.getSelectors<OfferingSlice>(s => s.offerings)
 const offeringSlice = createSlice({
     name: 'offerings',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getOfferings.fulfilled, (state, action) => {
             offeringAdapter.setAll(state, action.payload.items)
@@ -22,7 +23,7 @@ const offeringSlice = createSlice({
     },
 })
 
-export const useAllOfferings : Offering[] = () => useSelector<OfferingSlice>(state => {
+export const useAllOfferings = () => useSelector<OfferingSlice, Offering[]>(state => {
     return selectors.selectAll(state)
 })
 

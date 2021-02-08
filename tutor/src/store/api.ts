@@ -3,8 +3,8 @@ import { first, template } from 'lodash'
 import { Course, Offering } from './types'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-type RequestOptions<T> = { params?: any, data?: T }
-type RequestReducerFunc<T> = (obj: T) => RequestOptions<T>
+type RequestOptions = { params?: any, data?: any }
+type RequestReducerFunc<T> = (obj: T) => RequestOptions
 
 type Collection<T> = {
     items: T[]
@@ -15,16 +15,16 @@ class ApiError extends Error {
     requestOptions: RequestOptions
     apiResponse: Response
 
-    constructor(request: string, opts: RequestOptions, resp: Response) {
+    constructor(request: string, resp: Response, opts?: RequestOptions) {
         super(resp.statusText)
         this.request = request
-        this.requestOptions = opts
+        this.requestOptions = opts || {}
         this.apiResponse = resp
     }
 }
 
-export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts: RequestOptions): Promise<RetT> => {
-    let req = { method }
+export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts?: RequestOptions): Promise<RetT> => {
+    let req: {method: HttpMethod, body?: any} = { method }
     if(opts?.data) {
         req.body = JSON.stringify(opts.data)
     }
@@ -33,11 +33,11 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
     if (resp.ok) {
         return await resp.json() as RetT
     }
-    throw new ApiError(`${method} ${url}`, opts, resp)
+    throw new ApiError(`${method} ${url}`, resp, opts)
 }
 
-const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string, reducer: RequestReducerFunc<ArgT>) => {
-    return createAsyncThunk<RetT, ArgT>(storePath, async (obj: ArgT) => request(method, urlPattern, reducer ? reducer(obj) : undefined))
+const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string, reducer?: RequestReducerFunc<ArgT>) => {
+    return createAsyncThunk<RetT, ArgT>(storePath, async (obj: ArgT) => request<RetT>(method, urlPattern, reducer ? reducer(obj) : undefined))
 }
 
 
@@ -59,7 +59,7 @@ export const createPreviewCourse = r<Offering, Course>('POST', 'courses', 'cours
             },
         } 
     }
-    throw new ApiError('Offering does not have a current active term')
+    throw new Error('Offering does not have a current active term')
 })
 
 export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/updateCourse', (c: Course) => ({
