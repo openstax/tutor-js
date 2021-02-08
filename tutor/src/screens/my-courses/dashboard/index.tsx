@@ -163,7 +163,8 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
             <h2>{offering.title}</h2>
             <Tabs
               tabs={['CURRENT', 'PAST', 'RESOURCES']}
-              onSelect={(a) => setTabIndex(a)}/>
+              onSelect={(a) => setTabIndex(a)}
+              pushToPath={false}/>
               <div className="course-cards">
                 {showTabInfo()}
               </div>

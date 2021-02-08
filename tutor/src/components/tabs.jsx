@@ -25,6 +25,7 @@ const Tabs = ({
   children, className, onSelect,
   selectedIndex = 0,
   windowImpl = window,
+  pushToPath = true,
 }) => {
   const history = useHistory();
 
@@ -37,10 +38,12 @@ const Tabs = ({
 
   const selectTabIndex = (tab) => {
     tab = Number(tab);
+    if(pushToPath) {
     const query = extend(Router.currentQuery(windowImpl), { tab });
     history.push(
       windowImpl.location.pathname + '?' + qs.stringify(query)
-    );
+      );
+    }
     setActiveIndex(tab);
   };
 
@@ -118,6 +121,7 @@ Tabs.propTypes = {
   ).isRequired,
   windowImpl: PropTypes.object,
   children: PropTypes.node,
+  pushToPath: PropTypes.bool,
 };
 
 export default Tabs;
