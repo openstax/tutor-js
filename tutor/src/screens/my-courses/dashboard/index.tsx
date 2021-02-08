@@ -78,7 +78,7 @@ const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
 /**
  * Component that displays the resources
  */
-const ResourcesInfo = ({ appearanceCode, isFirstBlock } : {appearanceCode: string, isFirstBlock: boolean}) => {
+const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanceCode: string, os_book_id: string, isFirstBlock: boolean}) => {
     const generalResources = 
     <>
         <Resource
@@ -97,7 +97,7 @@ const ResourcesInfo = ({ appearanceCode, isFirstBlock } : {appearanceCode: strin
           appearanceCode={appearanceCode}
           title="Instructor Resources"
           info="Free resources integrated with your book. "
-          link={CourseInformation.gettingStartedGuide.teacher} />
+          link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
     </>
     )
 }
@@ -142,7 +142,10 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
                 return <PastCourses courses={pastCourses} />
             } 
             case 2: { 
-                return <ResourcesInfo appearanceCode={offering.appearance_code} isFirstBlock={isFirstBlock} />
+                return <ResourcesInfo
+                  appearanceCode={offering.appearance_code}
+                  os_book_id={offering.os_book_id}
+                  isFirstBlock={isFirstBlock} />
             } 
             default: { 
                return <p>How did you get here?!</p>

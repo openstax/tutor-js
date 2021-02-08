@@ -91,4 +91,5 @@ export interface Offering {
     does_cost: boolean
     subject: string
     active_term_years: ActiveTermYears[]
+    os_book_id: string
 }
