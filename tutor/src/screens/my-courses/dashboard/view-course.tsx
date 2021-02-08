@@ -18,6 +18,7 @@ const StyledViewCourse = styled.div`
           font-size: 1.6rem;
           line-height: 2rem;
           font-weight: bold;
+          color: ${colors.neutral.thin};
         }
         .student-info-link {
           font-size: 1.4rem;

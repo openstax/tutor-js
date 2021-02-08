@@ -16,6 +16,7 @@ const StyledCreateCourse = styled.div`
       }
       .create-label {
         font-weight: bold;
+        color: ${colors.neutral.thin};
       }
     }
   }

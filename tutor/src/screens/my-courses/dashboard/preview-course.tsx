@@ -17,6 +17,7 @@ const StyledPreviewCourse = styled.div`
         font-size: 1.8rem;
         line-height: 2rem;
         font-weight: 600;
+        color: ${colors.neutral.thin};
       }
       p {
         color: ${colors.neutral.thin};

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Button } from 'react-bootstrap'
 import { map, filter } from 'lodash'
 import styled from 'styled-components'
