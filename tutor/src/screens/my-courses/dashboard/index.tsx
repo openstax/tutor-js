@@ -93,11 +93,13 @@ const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanc
     return (
     <>
         {isFirstBlock && generalResources}
+        {os_book_id && 
         <Resource
           appearanceCode={appearanceCode}
           title="Instructor Resources"
           info="Free resources integrated with your book. "
           link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
+        }
     </>
     )
 }
@@ -130,8 +132,8 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
     const [tabIndex, setTabIndex] = useState(0);
 
     const courses = useCoursesByOfferingId(offering.id)
-    const currentCourses = useMemo(() => sortCurrentCourses(filter(courses, c => isCourseCurrent(c)), offering))
-    const pastCourses = useMemo(() => sortPastCourses(filter(courses, c => isCoursePast(c)), offering))
+    const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
+    const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
 
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
