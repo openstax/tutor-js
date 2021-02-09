@@ -6,21 +6,33 @@ import Router from '../../../helpers/router'
 import { createPreviewCourse } from '../../../store/courses'
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
+import { Icon } from 'shared'
 
 const StyledPreviewCourse = styled.div`
   &&& {
-    a .preview-belt {
-      background: white;
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-      bottom: 40%;
-      h4 {
-        font-size: 1.8rem;
-        line-height: 2rem;
-        font-weight: 600;
-        color: ${colors.neutral.thin};
-      }
-      p {
-        color: ${colors.neutral.thin};
+    svg[data-icon="ellipsis-v"] {
+      float: right;
+      margin-right: 2rem;
+      margin-top: 2rem;
+    }
+    .my-courses-item-title {
+        h3 {
+          width: 20rem;
+          padding: 1.5rem;
+        }
+        .preview-belt {
+        background: white;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+        bottom: 40%;
+        h4 {
+          font-size: 1.8rem;
+          line-height: 2rem;
+          font-weight: 600;
+          color: ${colors.neutral.thin};
+        }
+        p {
+          color: ${colors.neutral.thin};
+        }
       }
     }
   }
@@ -69,17 +81,14 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         data-test-id="course-card"
         data-is-teacher={true}
         data-offering-id={offering.id}
-        className={itemClasses}
-      >
-      <a
-        className="my-courses-item-title"
-        onClick={onClick}
-      >
-          <h3 className="name">{offering.title}</h3>
-          <div className="preview-belt">
-            {previewMessage()}
-          </div>
-      </a>
+        className={itemClasses}>
+          <Icon type="ellipsis-v"/>
+          <a className="my-courses-item-title" onClick={onClick}>
+              <h3 className="name">{offering.title}</h3>
+              <div className="preview-belt">
+                {previewMessage()}
+              </div>
+          </a>
       </div>
   </StyledPreviewCourse>
   )

@@ -2,9 +2,10 @@ import { React, cn, styled } from 'vendor'
 import { Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import TutorLink from '../../../components/link'
-import { setCurrentRole, useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents, usePrimaryRole } from '../../../store/courses'
+import { setCurrentRole, useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents } from '../../../store/courses'
 import { Course } from '../../../store/types'
 import { colors } from 'theme'
+import { Icon } from 'shared'
 
 const StyledViewCourse = styled.div`
   &&& {
@@ -12,9 +13,19 @@ const StyledViewCourse = styled.div`
       &.is-past {
         opacity: 0.6;
       }
+      .my-courses-item-title {
+        a {
+            width: 20rem;
+            padding: 1.5rem;
+          }
+      }
       .my-courses-item-details {
-        padding: 15px 20px;
-        a {padding: 0}
+        padding: 1.5rem 1rem;
+        a {padding: 0; }
+        svg[data-icon="ellipsis-v"] {
+          float: right;
+          margin-top: 0.5rem;
+        }
         .my-courses-item-term {
           font-size: 1.6rem;
           line-height: 2rem;
@@ -80,6 +91,7 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
           </TutorLink>
         </div>
         <div className="my-courses-item-details">
+            <Icon type="ellipsis-v"/>
             <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
             <ViewCourseStudentInfo isPast={isPast} course={course} />
         </div>

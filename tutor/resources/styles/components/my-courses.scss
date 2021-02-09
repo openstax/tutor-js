@@ -39,7 +39,7 @@ $my-courses-card-padding: 20px;
     padding-bottom: $my-courses-buffer;
     border-bottom: 1px solid rgb(200, 200, 200);;
   }
-  .my-courses-title,{
+  .my-courses-title {
     color: $tutor-tertiary;
   }
   .course-teacher {
@@ -261,17 +261,18 @@ $my-courses-card-padding: 20px;
       $fg: openstax-book-color($book, primary);
       $bg: openstax-book-color($book, secondary);
       &[data-appearance=#{$book}] {
-        .my-courses-item-title {
+        .my-courses-item-title,
+        svg[data-icon="external-link-square-alt"] {
           color: $fg;
           a {
             color: $fg;
           }
         }
+        > svg[data-icon="ellipsis-v"] {
+          color: $fg;
+        }
         .preview-belt h4 {
           color: $bg;
-        }
-        svg[data-icon="external-link-square-alt"] {
-          color: $fg;
         }
         background-color: $bg;
       }
