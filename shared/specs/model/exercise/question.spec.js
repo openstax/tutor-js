@@ -76,4 +76,9 @@ describe('Exercise Question', () => {
     question.collaborator_solution_html = '';
     expect(question.collaborator_solutions).toHaveLength(0);
   });
+  it('uses answers for detecting multi-choice', () => {
+    expect(question.isMultipleChoice).toBe(true);
+    question.answers = [];
+    expect(question.isMultipleChoice).toBe(false);
+  });
 });
