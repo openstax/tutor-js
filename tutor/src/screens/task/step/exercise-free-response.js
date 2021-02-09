@@ -115,7 +115,10 @@ class FreeResponseReview extends React.Component {
     const { step } = this.props;
     if (!step.free_response) { return null; }
     return (
-      <div className="free-response">{step.free_response}</div>
+      <>
+        <div className="free-response">{step.free_response}</div>
+        <PointsAndFeedback step={step} />
+      </>
     );
   }
 }
