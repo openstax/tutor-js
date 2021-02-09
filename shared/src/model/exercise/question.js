@@ -20,8 +20,8 @@ class ReviewQuestion {
 }
 
 
-export default
 @identifiedBy('exercise/question')
+export default
 class ExerciseQuestion extends BaseModel {
 
   static FORMAT_TYPES = {
@@ -51,7 +51,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isMultipleChoice() {
-    return this.hasFormat('multiple-choice');
+    return this.answers.length > 0;
   }
 
   @computed get isOpenEnded() {
