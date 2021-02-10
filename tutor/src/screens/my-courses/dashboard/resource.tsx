@@ -29,7 +29,7 @@ const StyledResource = styled.div`
         }
       }
     }
-    svg[data-icon="external-link-square-alt"] {
+    svg[data-icon="external-link-square"] {
       position: absolute;
       bottom: 20px;
       left: 15px;
@@ -61,7 +61,7 @@ const Resources = ({ title, info, link, appearanceCode, className } : ResourcesP
               <p>{info}</p>
           </div>
       </a>
-      <Icon type="external-link-square-alt"/>
+      <Icon type="external-link-square"/>
     </div>
   </StyledResource>
   )
