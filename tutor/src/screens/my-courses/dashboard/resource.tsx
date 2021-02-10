@@ -38,11 +38,11 @@ const StyledResource = styled.div`
 `
 
 interface ResourcesProps {
-  title: string
+  title: string | React.Element
   info: string
   link: string
   appearanceCode?: string
-  className: string
+  className?: string
 }
 
 const Resources = ({ title, info, link, appearanceCode, className } : ResourcesProps) => {

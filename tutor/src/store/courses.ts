@@ -43,7 +43,7 @@ const coursesSlice = createSlice({
 // some hooks
 export const useHasAnyCourses = () => useSelector<CourseSlice, boolean>((state) => selectors.selectTotal(state) > 0)
 
-export const useNameCleaned = (courseId: string) => useSelector<CourseSlice, string | undefined>(state => {
+export const useNameCleaned = (courseId: string | number) => useSelector<CourseSlice, string | undefined>(state => {
     const course = selectors.selectById(state, courseId)
     const previewSuffix = ' Preview';
     if (course?.is_preview && endsWith(course?.name, previewSuffix)) {
@@ -53,17 +53,17 @@ export const useNameCleaned = (courseId: string) => useSelector<CourseSlice, str
     }
 })
 
-export const useBookName = (courseId: string) => useSelector<CourseSlice, string>(state => {
+export const useBookName = (courseId: string | number) => useSelector<CourseSlice, string>(state => {
     const course = selectors.selectById(state, courseId)
     return get(CourseInformation.information(course?.appearance_code), 'title', '');
 })
 
-export const usePrimaryRole = (courseId: string) => useSelector<CourseSlice, Role | undefined>(state => {
+export const usePrimaryRole = (courseId: string | number) => useSelector<CourseSlice, Role | undefined>(state => {
     const course = selectors.selectById(state, courseId)
     return first(sortBy(course?.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
 })
 
-export const useCurrentRole = (courseId: string) => useSelector<CourseSlice, Role | undefined>(state => {
+export const useCurrentRole = (courseId: string | number) => useSelector<CourseSlice, Role | undefined>(state => {
     const course = selectors.selectById(state, courseId)
     if (course?.current_role_id) {
       return find(course.roles, { id: course.current_role_id });
@@ -71,7 +71,7 @@ export const useCurrentRole = (courseId: string) => useSelector<CourseSlice, Rol
     return usePrimaryRole(courseId);
 })
 
-export const useTermFull = (courseId: string, doCapitalize = true) => useSelector<CourseSlice, string | null>(state => {
+export const useTermFull = (courseId: string | number, doCapitalize = true) => useSelector<CourseSlice, string | null>(state => {
     const course = selectors.selectById(state, courseId)
     if(course) {
         const term = doCapitalize ? capitalize(course.term) : course.term
@@ -80,12 +80,12 @@ export const useTermFull = (courseId: string, doCapitalize = true) => useSelecto
     return null
 })
 
-export const useNumberOfStudents = (courseId: string) => useSelector<CourseSlice, number>(state => {
+export const useNumberOfStudents = (courseId: string | number) => useSelector<CourseSlice, number>(state => {
     const course = selectors.selectById(state, courseId)
     return sumBy(course?.periods, p => p.num_enrolled_students)
 })
 
-export const useCoursesByOfferingId = (offeringId : string, includePreview = false) => useSelector<CourseSlice, Course[]>(state => {
+export const useCoursesByOfferingId = (offeringId : string | number, includePreview = false) => useSelector<CourseSlice, Course[]>(state => {
     const courses = selectors.selectAll(state)
     const coursesByOfferingId = filter(courses, c => c.offering_id === offeringId)
     if(!includePreview) {
