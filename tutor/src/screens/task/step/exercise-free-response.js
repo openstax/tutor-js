@@ -103,8 +103,9 @@ const RevertButton = observer(({ ux }) => {
       Cancel
     </StyledRevertButton>
   );
-  
+
 });
+
 
 @observer
 class FreeResponseReview extends React.Component {
@@ -170,9 +171,9 @@ class FreeResponseInput extends React.Component {
         />
         <InfoRow hasSubmitted={!!ux.lastSubmitted}>
           {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
-          
+
           <span>{ux.responseWords} words</span>
-          {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span> }
+          {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
 
         </InfoRow>
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
@@ -188,7 +189,7 @@ class FreeResponseInput extends React.Component {
               onClick={this.onSave}>
               {ux.submitBtnLabel}
             </AnswerButton>
-          </ControlButtons>  
+          </ControlButtons>
         </ControlsRow>
         <WRQStatus step={step} />
         <StepFooter

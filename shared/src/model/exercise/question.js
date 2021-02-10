@@ -110,7 +110,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isTwoStep() {
-    return Boolean(this.hasFormat('multiple-choice') && this.hasFormat('free-response'));
+    return Boolean(this.isMultipleChoice() && this.hasFormat('free-response'));
   }
 
   @action setExclusiveFormat(name) {
