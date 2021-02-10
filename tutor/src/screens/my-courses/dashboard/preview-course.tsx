@@ -69,9 +69,10 @@ interface CoursePreviewProps {
   offering: Offering
   className: string
   history: RouteComponentProps
+  isInResource: boolean
 }
 
-const CoursePreview = ({ offering, className, history } : CoursePreviewProps) => {
+const CoursePreview = ({ offering, className, history, isInResource = false } : CoursePreviewProps) => {
   const dispatch = useDispatch()
   const [isCreating, setIsCreating] = useState(false)
 
@@ -122,7 +123,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item>Course Settings</Dropdown.Item>
-            <Dropdown.Item>Move Preview to Resources</Dropdown.Item>
+            <Dropdown.Item>{`Move Preview to ${!isInResource ? 'resources' : 'current courses'}`}</Dropdown.Item>
           </Dropdown.Menu>
       </Dropdown>
   </StyledPreviewCourse>
