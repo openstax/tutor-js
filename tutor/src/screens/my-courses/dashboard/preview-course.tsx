@@ -69,17 +69,15 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         data-test-id="course-card"
         data-is-teacher={true}
         data-offering-id={offering.id}
-        className={itemClasses}
-      >
-      <a
-        className="my-courses-item-title"
-        onClick={onClick}
-      >
-          <h3 className="name">{offering.title}</h3>
-          <div className="preview-belt">
-            {previewMessage()}
-          </div>
-      </a>
+        className={itemClasses}>
+        <a
+          className="my-courses-item-title"
+          onClick={onClick}>
+            <h3 className="name">{offering.title}</h3>
+            <div className="preview-belt">
+              {previewMessage()}
+            </div>
+        </a>
       </div>
   </StyledPreviewCourse>
   )

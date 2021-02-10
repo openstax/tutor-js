@@ -75,16 +75,17 @@ const StyledMyCoursesDashboard = styled.div`
 
 const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
+
+const sortByCourseEndsAt = (courses: Course[]) => courses.sort((a, b) => {
+    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
+    if(moment(a.ends_at).isBefore(b.ends_at)) { return -1 }
+     return 0
+})  
 const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
     // no students courses put them at the end of the list
-    if (useNumberOfStudents(a) === 0) { return -1 }
-    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
-    return 0
+    if (useNumberOfStudents(a) === 0 && useNumberOfStudents(b) != 0) { return -1 }
+    return sortByCourseEndsAt(a, b);
 })
-const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
-    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
-    return 0
-})  
 
 /**
  * Component that displays the resources
@@ -144,7 +145,7 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
 
     const courses = useCoursesByOfferingId(offering.id)
     const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
-    const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
+    const pastCourses = sortByCourseEndsAt(filter(courses, c => isCoursePast(c)))
 
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
