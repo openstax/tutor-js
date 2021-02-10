@@ -55,7 +55,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isOpenEnded() {
-    return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
+    return this.hasFormat('free-response') && !this.isMultipleChoice;
   }
 
   //WRM is OpenEnded and have no answers
