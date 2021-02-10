@@ -268,17 +268,25 @@ $my-courses-card-padding: 20px;
             color: $fg;
           }
         }
-        > svg[data-icon="ellipsis-v"] {
-          color: $fg;
-        }
         .preview-belt h4 {
           color: $bg;
         }
         background-color: $bg;
       }
     }
-
   }
+
+  .my-courses-item-actions {
+    @each $book in map-keys($openstax-books) {
+      $fg: openstax-book-color($book, primary);
+      &[data-appearance=#{$book}] {
+        svg[data-icon="ellipsis-v"] {
+          color: $fg;
+        }
+      }
+    }
+  }
+  
 
   &.pending-faculty-verification {
     border-bottom: 1px solid $tutor-neutral-light;

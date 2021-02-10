@@ -1,5 +1,5 @@
 import { React, cn, styled } from 'vendor'
-import { Button } from 'react-bootstrap'
+import { Button, Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import TutorLink from '../../../components/link'
 import { setCurrentRole, useNameCleaned, useBookName, useTermFull, useCurrentRole, useNumberOfStudents } from '../../../store/courses'
@@ -42,6 +42,32 @@ const StyledViewCourse = styled.div`
         .course-ended-info {
           color: ${colors.thin};
           font-size: 1.4rem;
+        }
+      }
+    }
+    .my-courses-item-actions {
+      position: absolute;
+      right: 15px;
+      bottom: 30px;
+      .dropdown-toggle {
+        padding: 0;
+        &:after {
+          display: none;
+        }
+      }
+      .dropdown-menu {
+        border: 1px solid #d5d5d5;
+        box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
+        border-radius: 0;
+        a {
+          padding: 1rem 1.5rem;
+          color: #5e6062;
+          font-size: 1.6rem;
+          &:hover {
+            background: #f1f1f1;
+            color: #424242;
+            font-weight: 500;
+          }
         }
       }
     }
@@ -91,11 +117,19 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
           </TutorLink>
         </div>
         <div className="my-courses-item-details">
-            <Icon type="ellipsis-v"/>
             <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
             <ViewCourseStudentInfo isPast={isPast} course={course} />
         </div>
       </div>
+      <Dropdown className="my-courses-item-actions">
+        <Dropdown.Toggle variant="ox">
+        <Icon type="ellipsis-v"/>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>Course Settings</Dropdown.Item>
+            <Dropdown.Item>Copy Course</Dropdown.Item>
+          </Dropdown.Menu>
+      </Dropdown>
     </StyledViewCourse>
   );    
 }

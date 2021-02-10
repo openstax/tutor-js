@@ -1,4 +1,5 @@
 import { React, cn, styled, useState } from 'vendor'
+import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
@@ -32,6 +33,32 @@ const StyledPreviewCourse = styled.div`
         }
         p {
           color: ${colors.neutral.thin};
+        }
+      }
+    }
+    .my-courses-item-actions {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      .dropdown-toggle {
+        padding: 0;
+        &:after {
+          display: none;
+        }
+      }
+      .dropdown-menu {
+        border: 1px solid #d5d5d5;
+        box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
+        border-radius: 0;
+        a {
+          padding: 1rem 1.5rem;
+          color: #5e6062;
+          font-size: 1.6rem;
+          &:hover {
+            background: #f1f1f1;
+            color: #424242;
+            font-weight: 500;
+          }
         }
       }
     }
@@ -82,7 +109,6 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         data-is-teacher={true}
         data-offering-id={offering.id}
         className={itemClasses}>
-          <Icon type="ellipsis-v"/>
           <a className="my-courses-item-title" onClick={onClick}>
               <h3 className="name">{offering.title}</h3>
               <div className="preview-belt">
@@ -90,6 +116,15 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
               </div>
           </a>
       </div>
+      <Dropdown className="my-courses-item-actions" data-appearance={offering.appearance_code}>
+        <Dropdown.Toggle variant="ox">
+        <Icon type="ellipsis-v"/>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>Course Settings</Dropdown.Item>
+            <Dropdown.Item>Move Preview to Resources</Dropdown.Item>
+          </Dropdown.Menu>
+      </Dropdown>
   </StyledPreviewCourse>
   )
 }
