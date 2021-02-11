@@ -13,12 +13,9 @@ import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
+import { MyCoursesDashboardContext, useMyCoursesDashboardState } from './context'
 
 import { Offering, Course } from '../../../store/types'
-
-export interface OfferingWithCourses extends Offering {
-    courses: Course[]
-}
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -93,7 +90,7 @@ const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
 /**
  * Component that displays the resources
  */
-const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanceCode: string, os_book_id: string, isFirstBlock: boolean}) => {
+const ResourcesInfo = ({ offering, os_book_id, isFirstBlock } : {offering: Offering, os_book_id: string, isFirstBlock: boolean}) => {
     const generalResources = 
     <>
         <Resource
@@ -107,10 +104,11 @@ const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanc
     </>
     return (
     <>
+        {useMyCoursesDashboardState().isPreviewInResource[offering.appearance_code] && <CoursePreview offering={offering} />}
         {isFirstBlock && generalResources}
-        {os_book_id && 
+        {os_book_id &&
         <Resource
-          appearanceCode={appearanceCode}
+          appearanceCode={offering.appearance_code}
           title="Instructor Resources"
           info="Free resources integrated with your book. "
           link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
@@ -138,7 +136,7 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
 const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Offering}) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        <CoursePreview offering={offering} />
+        {!useMyCoursesDashboardState().isPreviewInResource[offering.appearance_code] && <CoursePreview offering={offering} />}
         <CreateACourse />
     </>
 )
@@ -147,7 +145,7 @@ const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Off
  * Component that holds the past, current and future courses. Also the resources for the course.
  */
 const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstBlock: boolean}) => {
-    const [tabIndex, setTabIndex] = useState(0);
+    const [tabIndex, setTabIndex] = useState(0)
 
     const courses = useCoursesByOfferingId(offering.id)
     const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
@@ -163,7 +161,7 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
             } 
             case 2: { 
                 return <ResourcesInfo
-                  appearanceCode={offering.appearance_code}
+                  offering={offering}
                   os_book_id={offering.os_book_id}
                   isFirstBlock={isFirstBlock} />
             } 
@@ -193,13 +191,15 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
 export const MyCoursesDashboard = () => {
     const offerings = useAllOfferings()
     return (
-        <StyledMyCoursesDashboard>
-            <h2 data-test-id="existing-teacher-screen">My Courses</h2>
-            <div className="controls">
-                <Button variant="link"><Icon type="cog" />Manage subjects</Button>
-            </div>
-            { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
-        </StyledMyCoursesDashboard>
+        <MyCoursesDashboardContext>
+            <StyledMyCoursesDashboard>
+                <h2 data-test-id="existing-teacher-screen">My Courses</h2>
+                <div className="controls">
+                    <Button variant="link"><Icon type="cog" />Manage subjects</Button>
+                </div>
+                { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
+            </StyledMyCoursesDashboard>
+        </MyCoursesDashboardContext>
     )
 }
 
