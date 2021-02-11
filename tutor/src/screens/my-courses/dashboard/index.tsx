@@ -194,7 +194,7 @@ export const MyCoursesDashboard = () => {
     const offerings = useAllOfferings()
     return (
         <StyledMyCoursesDashboard>
-            <h2>My Courses</h2>
+            <h2 data-test-id="existing-teacher-screen">My Courses</h2>
             <div className="controls">
                 <Button variant="link"><Icon type="cog" />Manage subjects</Button>
             </div>
