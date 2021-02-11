@@ -25,7 +25,7 @@ $my-courses-card-padding: 20px;
   }
 }
 
-.my-courses {
+.my-courses, .new-my-courses {
   @mixin card-title() {
     @include tutor-book-cover-font();
     font-weight: 800;

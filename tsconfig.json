@@ -27,7 +27,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": [
+      "@types/jest",
+      "jest-playwright-preset",
+      "expect-playwright"
+    ]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": [

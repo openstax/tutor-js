@@ -14,7 +14,7 @@ const MyCourses: React.FC = () => {
         return <Dashboard />
     }
     return (
-        <h1>new user!</h1>
+        <h1 data-test-id="new-teacher-screen">new user!</h1>
     )
 }
 
