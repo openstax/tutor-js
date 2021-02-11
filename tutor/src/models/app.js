@@ -1,4 +1,4 @@
-import { isEmpty, forIn, isNil } from 'lodash';
+import { forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
@@ -6,7 +6,7 @@ import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
-import { documentReady, readBootstrapData } from '../helpers/dom';
+import { documentReady } from '../helpers/dom';
 import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
@@ -54,11 +54,8 @@ export default class TutorApp {
     const app = new TutorApp();
     [Raven, Api].forEach(lib => lib.boot({ app }));
 
-    app.data = readBootstrapData();
-    if (isEmpty(app.data)) {
-      return app.fetch().then(app.initializeApp);
-    }
-    return app.initializeApp();
+    const { data } = await app.fetch();
+    await app.initializeApp(data);
   }
 
   static logError(error, info) {
@@ -69,8 +66,8 @@ export default class TutorApp {
     Raven.captureException(error, { extra: info });
   }
 
-  @action.bound initializeApp() {
-    window._MODELS.bootstrapData = this.data;
+  @action.bound initializeApp(data) {
+    window._MODELS.bootstrapData = this.data = data;
     window._MODELS.app = this;
     store.dispatch(bootstrap(this.data))
     window._MODELS.store = store
@@ -122,4 +119,4 @@ export default class TutorApp {
   }
 }
 
-adapters.connectModelRead(TutorApp, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });
+adapters.connectModelRead(TutorApp, 'fetch', { url: '/user/bootstrap', onSuccess: 'onLoaded' });
