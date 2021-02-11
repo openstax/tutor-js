@@ -105,7 +105,7 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
         data-appearance={course.appearance_code}
         data-is-preview={course.is_preview}
         data-term={useTermFull(course.id)}
-        data-is-teacher={useCurrentRole(course.id) === 'teacher'}
+        data-is-teacher={useCurrentRole(course.id)?.type === 'teacher'}
         data-course-id={course.id}
         className={cn('my-courses-item', className, { 'is-past': isPast })}
       >
@@ -126,8 +126,20 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
         <Icon type="ellipsis-v"/>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>Course Settings</Dropdown.Item>
-            <Dropdown.Item>Copy Course</Dropdown.Item>
+              <TutorLink
+                to='courseSettings'
+                params={{ courseId: course.id }}
+                role="button"
+                className="dropdown-item">
+                  Course Settings
+              </TutorLink>
+              <TutorLink
+                to="createNewCourse"
+                params={{ sourceId: course.id }}
+                role="button"
+                className="dropdown-item">
+                  Copy this course
+              </TutorLink>
           </Dropdown.Menu>
       </Dropdown>
     </StyledViewCourse>
