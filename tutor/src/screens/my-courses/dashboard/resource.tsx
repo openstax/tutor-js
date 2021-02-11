@@ -38,11 +38,11 @@ const StyledResource = styled.div`
 `
 
 interface ResourcesProps {
-  title: string
+  title: string | React.Element
   info: string
   link: string
   appearanceCode?: string
-  className: string
+  className?: string
 }
 
 const Resources = ({ title, info, link, appearanceCode, className } : ResourcesProps) => {
@@ -61,7 +61,7 @@ const Resources = ({ title, info, link, appearanceCode, className } : ResourcesP
               <p>{info}</p>
           </div>
       </a>
-      <Icon type="external-link-square-alt"/>
+      <Icon type="external-link-square"/>
     </div>
   </StyledResource>
   )

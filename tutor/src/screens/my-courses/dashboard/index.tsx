@@ -4,7 +4,7 @@ import { map, filter } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
-import { Icon } from 'shared';
+import { Icon } from 'shared'
 import Tabs from '../../../components/tabs'
 import CourseInformation from '../../../models/course/information'
 import { useCoursesByOfferingId, useNumberOfStudents } from '../../../store/courses'
@@ -75,16 +75,20 @@ const StyledMyCoursesDashboard = styled.div`
 
 const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
+
+const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
+    if(moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
+    if(moment(courseA.ends_at).isBefore(courseB.ends_at)) { return -1 }
+     return 0
+}
 const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
     // no students courses put them at the end of the list
-    if (useNumberOfStudents(a) === 0) { return -1 }
-    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
-    return 0
+    if (useNumberOfStudents(a.id) === 0) { return -1 }
+    return sortByCourseEndsAt(a, b);
 })
 const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
-    if(moment(a.ends_at).isAfter(b.ends_at)) { return 1 }
-    return 0
-})  
+    return sortByCourseEndsAt(a, b);
+})
 
 /**
  * Component that displays the resources
@@ -122,7 +126,10 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
     if(courses.length === 0) {
         return <p className="no-courses-message">No past courses found.</p>
     }
-    return map(courses, c => (<ViewCourse course={c} key={c.id} isPast={true} />))
+    return (
+        <> {map(courses, c => (<ViewCourse course={c} key={c.id} isPast={true} />))}</>
+    )
+
 }
 
 /**
@@ -187,7 +194,7 @@ export const MyCoursesDashboard = () => {
     const offerings = useAllOfferings()
     return (
         <StyledMyCoursesDashboard>
-            <h2>My Courses</h2>
+            <h2 data-test-id="existing-teacher-screen">My Courses</h2>
             <div className="controls">
                 <Button variant="link"><Icon type="cog" />Manage subjects</Button>
             </div>

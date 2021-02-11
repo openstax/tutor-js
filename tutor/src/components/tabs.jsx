@@ -39,9 +39,9 @@ const Tabs = ({
   const selectTabIndex = (tab) => {
     tab = Number(tab);
     if(pushToPath) {
-    const query = extend(Router.currentQuery(windowImpl), { tab });
-    history.push(
-      windowImpl.location.pathname + '?' + qs.stringify(query)
+      const query = extend(Router.currentQuery(windowImpl), { tab });
+      history.push(
+        windowImpl.location.pathname + '?' + qs.stringify(query)
       );
     }
     setActiveIndex(tab);

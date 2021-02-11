@@ -76,7 +76,7 @@ const StyledViewCourse = styled.div`
 
 interface ViewCourseProps {
   course: Course
-  className: string
+  className?: string
   isPast?: boolean
 }
 

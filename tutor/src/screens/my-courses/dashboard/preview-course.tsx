@@ -110,12 +110,14 @@ const CoursePreview = ({ offering, className, history, isInResource = false } : 
         data-is-teacher={true}
         data-offering-id={offering.id}
         className={itemClasses}>
-          <a className="my-courses-item-title" onClick={onClick}>
-              <h3 className="name">{offering.title}</h3>
-              <div className="preview-belt">
-                {previewMessage()}
-              </div>
-          </a>
+        <a
+          className="my-courses-item-title"
+          onClick={onClick}>
+            <h3 className="name">{offering.title}</h3>
+            <div className="preview-belt">
+              {previewMessage()}
+            </div>
+        </a>
       </div>
       <Dropdown className="my-courses-item-actions" data-appearance={offering.appearance_code}>
         <Dropdown.Toggle variant="ox">

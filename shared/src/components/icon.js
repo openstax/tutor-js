@@ -62,7 +62,7 @@ const Icons = {
   'exclamation-circle':   require('@fortawesome/free-solid-svg-icons/faExclamationCircle'),
   'exclamation-triangle': require('@fortawesome/free-solid-svg-icons/faExclamationTriangle'),
   'external-link-alt':    require('@fortawesome/free-solid-svg-icons/faExternalLinkAlt'),
-  'external-link-square-alt': require('@fortawesome/free-solid-svg-icons/faExternalLinkSquareAlt'),
+  'external-link-square': require('@fortawesome/free-solid-svg-icons/faExternalLinkSquareAlt'),
   'eye':                  require('@fortawesome/free-solid-svg-icons/faEye'),
   'eye-slash':            require('@fortawesome/free-solid-svg-icons/faEyeSlash'),
   'ghost':                require('@fortawesome/free-solid-svg-icons/faGhost'),
