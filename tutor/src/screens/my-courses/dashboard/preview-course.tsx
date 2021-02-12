@@ -70,7 +70,7 @@ interface CoursePreviewProps {
   className: string
   history: RouteComponentProps
   isPreviewInResource: boolean
-  setIsPreviewInResource: () => void
+  setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CoursePreview = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource } : CoursePreviewProps) => {
