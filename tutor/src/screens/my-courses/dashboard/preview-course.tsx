@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
-import { createPreviewCourse } from '../../../store/courses'
+import { createPreviewCourse, useLatestCoursePreview } from '../../../store/courses'
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
 import { Icon } from 'shared'
@@ -74,22 +74,30 @@ interface CoursePreviewProps {
 
 const CoursePreview = ({ offering, className, history } : CoursePreviewProps) => {
   const dispatch = useDispatch()
+  const previewCourse = useLatestCoursePreview(offering.id)
   const [isCreating, setIsCreating] = useState(false)
 
   const contextState = useMyCoursesDashboardState()
   const contextDispatch = useMyCoursesDashboardDispatch()
 
-  const onClick = () => {
-    setIsCreating(true)
-    dispatch(createPreviewCourse(offering))
-    .then((result) => {
-      setIsCreating(false)
-      if(!result.error) {
-        history.push(Router.makePathname(
-          'dashboard', { courseId: result.payload.id },
-        ))
-      }
-    })
+  const goToPreviewCourse = (toPreview = false) => {
+    if(previewCourse) {
+      history.push(Router.makePathname(
+        `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: previewCourse.id },
+      ))
+    }
+    else {
+      setIsCreating(true)
+      dispatch(createPreviewCourse(offering))
+      .then((result) => {
+        setIsCreating(false)
+        if(!result.error) {
+          history.push(Router.makePathname(
+            `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: result.payload.id },
+          ))
+        }
+      })
+    }
   }
 
   const previewMessage = () => {
@@ -116,7 +124,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         className={itemClasses}>
         <a
           className="my-courses-item-title"
-          onClick={onClick}>
+          onClick={() => goToPreviewCourse()}>
             <h3 className="name">{offering.title}</h3>
             <div className="preview-belt">
               {previewMessage()}
@@ -128,7 +136,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         <Icon type="ellipsis-v"/>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>Course Settings</Dropdown.Item>
+            <Dropdown.Item onClick={() => goToPreviewCourse(true)}>Course Settings</Dropdown.Item>
             <Dropdown.Item onClick={() => contextDispatch({ type: 'movePreviewResource', payload: offering.appearance_code })}>
               {`Move Preview to ${!contextState.isPreviewInResource[offering.appearance_code] ? 'resources' : 'current courses'}`}
             </Dropdown.Item>
