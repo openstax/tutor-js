@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect, ReactElement } from 'react'
 import { Button } from 'react-bootstrap'
 import { map, filter } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared'
+import UiSettings from 'shared/model/ui-settings'
 import Tabs from '../../../components/tabs'
 import CourseInformation from '../../../models/course/information'
 import { useCoursesByOfferingId, useNumberOfStudents } from '../../../store/courses'
@@ -13,7 +14,6 @@ import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
-import { MyCoursesDashboardContext, useMyCoursesDashboardState } from './context'
 
 import { Offering, Course } from '../../../store/types'
 
@@ -90,7 +90,8 @@ const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
 /**
  * Component that displays the resources
  */
-const ResourcesInfo = ({ offering, os_book_id, isFirstBlock } : {offering: Offering, os_book_id: string, isFirstBlock: boolean}) => {
+const ResourcesInfo = ({ offering, os_book_id, isFirstBlock, isPreviewInResource, renderCoursePreview }
+        : {offering: Offering, os_book_id: string, isFirstBlock: boolean, isPreviewInResource: boolean, renderCoursePreview: () => ReactElement }) => {
     const generalResources = 
     <>
         <Resource
@@ -104,7 +105,7 @@ const ResourcesInfo = ({ offering, os_book_id, isFirstBlock } : {offering: Offer
     </>
     return (
     <>
-        {useMyCoursesDashboardState().isPreviewInResource[offering.appearance_code] && <CoursePreview offering={offering} />}
+        {isPreviewInResource && renderCoursePreview()}
         {isFirstBlock && generalResources}
         {os_book_id &&
         <Resource
@@ -133,10 +134,11 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
 /**
  * Component that displays the current and future courses. Plus the Course Preview and the create course button
  */
-const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Offering}) => (
+const CurrentCourses = ({ courses, isPreviewInResource, renderCoursePreview }
+    : {courses: Course[], isPreviewInResource: boolean, renderCoursePreview: () => ReactElement }) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        {!useMyCoursesDashboardState().isPreviewInResource[offering.appearance_code] && <CoursePreview offering={offering} />}
+        {!isPreviewInResource && renderCoursePreview()}
         <CreateACourse />
     </>
 )
@@ -146,30 +148,58 @@ const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Off
  */
 const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstBlock: boolean}) => {
     const [tabIndex, setTabIndex] = useState(0)
+    const [isPreviewInResource, setIsPreviewInResource] = useState<boolean>(UiSettings.get('isPreviewInResource')?.[offering.appearance_code] || false)
 
     const courses = useCoursesByOfferingId(offering.id)
     const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
     const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
 
+    //Update the UI Settings for this offering
+    useEffect(() => {
+        const uiSettings = UiSettings.get('isPreviewInResource') || {}
+        UiSettings.set('isPreviewInResource', { ...uiSettings, [offering.appearance_code]: isPreviewInResource })
+    }, [isPreviewInResource])
+
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
             case 0: { 
-                return <CurrentCourses courses={currentCourses} offering={offering} />
+                return ( 
+                <CurrentCourses
+                  courses={currentCourses}
+                  isPreviewInResource={isPreviewInResource}
+                  renderCoursePreview={() => (
+                  <CoursePreview
+                    offering={offering}
+                    isPreviewInResource={isPreviewInResource}
+                    setIsPreviewInResource={setIsPreviewInResource} />
+                  )}
+                />
+                )
             } 
             case 1: { 
                 return <PastCourses courses={pastCourses} />
             } 
             case 2: { 
-                return <ResourcesInfo
+                return (
+                <ResourcesInfo
                   offering={offering}
                   os_book_id={offering.os_book_id}
-                  isFirstBlock={isFirstBlock} />
+                  isFirstBlock={isFirstBlock}
+                  isPreviewInResource={isPreviewInResource}
+                  renderCoursePreview={() => (
+                    <CoursePreview
+                      offering={offering}
+                      isPreviewInResource={isPreviewInResource}
+                      setIsPreviewInResource={setIsPreviewInResource} />
+                    )}
+                />
+                )
             } 
             default: { 
                return <p>How did you get here?!</p>
             } 
          } 
-    }, [tabIndex])
+    }, [tabIndex, isPreviewInResource])
 
     return (
         <div className="offering-container">    
@@ -191,15 +221,13 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
 export const MyCoursesDashboard = () => {
     const offerings = useAllOfferings()
     return (
-        <MyCoursesDashboardContext>
-            <StyledMyCoursesDashboard>
-                <h2 data-test-id="existing-teacher-screen">My Courses</h2>
-                <div className="controls">
-                    <Button variant="link"><Icon type="cog" />Manage subjects</Button>
-                </div>
-                { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
-            </StyledMyCoursesDashboard>
-        </MyCoursesDashboardContext>
+        <StyledMyCoursesDashboard>
+            <h2 data-test-id="existing-teacher-screen">My Courses</h2>
+            <div className="controls">
+                <Button variant="link"><Icon type="cog" />Manage subjects</Button>
+            </div>
+            { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
+        </StyledMyCoursesDashboard>
     )
 }
 

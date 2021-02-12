@@ -8,7 +8,6 @@ import { createPreviewCourse, useLatestCoursePreview } from '../../../store/cour
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
 import { Icon } from 'shared'
-import { useMyCoursesDashboardState, useMyCoursesDashboardDispatch } from './context'
 
 const StyledPreviewCourse = styled.div`
   &&& {
@@ -70,15 +69,14 @@ interface CoursePreviewProps {
   offering: Offering
   className: string
   history: RouteComponentProps
+  isPreviewInResource: boolean
+  setIsPreviewInResource: () => void
 }
 
-const CoursePreview = ({ offering, className, history } : CoursePreviewProps) => {
+const CoursePreview = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource } : CoursePreviewProps) => {
   const dispatch = useDispatch()
   const previewCourse = useLatestCoursePreview(offering.id)
   const [isCreating, setIsCreating] = useState(false)
-
-  const contextState = useMyCoursesDashboardState()
-  const contextDispatch = useMyCoursesDashboardDispatch()
 
   const goToPreviewCourse = (toPreview = false) => {
     if(previewCourse) {
@@ -137,8 +135,8 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => goToPreviewCourse(true)}>Course Settings</Dropdown.Item>
-            <Dropdown.Item onClick={() => contextDispatch({ type: 'movePreviewResource', payload: offering.appearance_code })}>
-              {`Move Preview to ${!contextState.isPreviewInResource[offering.appearance_code] ? 'resources' : 'current courses'}`}
+            <Dropdown.Item onClick={() => setIsPreviewInResource(!isPreviewInResource)}>
+              {`Move Preview to ${!isPreviewInResource ? 'resources' : 'current courses'}`}
             </Dropdown.Item>
           </Dropdown.Menu>
       </Dropdown>
