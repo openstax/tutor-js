@@ -95,4 +95,6 @@ export default {
 
   videoTutorials: 'https://www.youtube.com/channel/UCqiKFRsHA0GqnSNkURx_9Yg',
 
+  openstaxSubjects: 'https://openstax.org/subjects/view-all',
+
 };
