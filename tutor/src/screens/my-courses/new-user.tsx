@@ -88,7 +88,7 @@ const Sidebar = styled.div`
   min-height: 70vh;
   margin-right: 56px;
   background: #f6f7f8;
-  padding: 0.7rem 0.9rem 2.7rem;
+  padding: 0.7rem 0.9rem 10.7rem;
   color: ${colors.neutral.grayblue};
   font-size: 1.4rem;
   line-height: 2rem;

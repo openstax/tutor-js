@@ -11,9 +11,9 @@ const MyCourses: React.FC = (props) => {
     d(getOfferings())
   }, [])
   const hasCourses = useHasAnyCourses()
-  // if (hasCourses) {
-  //   return <Dashboard />
-  // }
+  if (hasCourses) {
+    return <Dashboard />
+  }
   return (
     <NewUser history={props.history} />
   )
