@@ -168,7 +168,7 @@ export default class StudentTaskStep extends BaseModel {
 
   @computed get isTwoStep() {
     return Boolean(
-      this.isExercise && this.formats.includes('multiple-choice') && this.formats.includes('free-response'),
+      this.isExercise && this.readContentProperty('isMultiChoice') && this.formats.includes('free-response'),
     );
   }
 

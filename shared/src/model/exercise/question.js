@@ -51,11 +51,11 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isMultipleChoice() {
-    return this.hasFormat('multiple-choice');
+    return this.answers.length > 0;
   }
 
   @computed get isOpenEnded() {
-    return Boolean(this.formats.length == 1 && this.hasFormat('free-response'));
+    return this.hasFormat('free-response') && !this.isMultipleChoice;
   }
 
   //WRM is OpenEnded and have no answers
@@ -110,7 +110,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isTwoStep() {
-    return Boolean(this.hasFormat('multiple-choice') && this.hasFormat('free-response'));
+    return Boolean(this.isMultipleChoice() && this.hasFormat('free-response'));
   }
 
   @action setExclusiveFormat(name) {
