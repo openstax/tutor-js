@@ -5,7 +5,6 @@ import { Alert } from 'react-bootstrap';
 import Books from '../tags/books';
 import Lo from '../tags/lo';
 import AssignmentType from '../tags/assignment-type';
-import FilterType from '../tags/filter-type';
 import CnxMod from '../tags/cnx-mod';
 import CnxFeature from '../tags/cnx-feature';
 import Dok from '../tags/dok';
@@ -33,7 +32,6 @@ function ExerciseTags({ exercise }) {
         <AssignmentType {...tagProps} />
         <HistoricalThinking {...tagProps} />
         <ReasoningProcess {...tagProps} />
-        <FilterType {...tagProps} />
         <RequiresContext {...tagProps} />
         <CnxMod {...tagProps} />
         <CnxFeature {...tagProps} />
