@@ -83,5 +83,11 @@ module.exports = {
         "mode": "minimum"
       }
     }],
+  },
+  "overrides": {
+    "files": "*.tsx",
+    "rules": {
+      "react/jsx-indent-props": [2, 4],
+    }
   }
 };

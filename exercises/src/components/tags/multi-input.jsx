@@ -3,7 +3,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
-import { computed, action, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
 import TagModel from 'shared/model/exercise/tag';
 import Wrapper from './wrapper';
@@ -17,6 +17,8 @@ class Input extends React.Component {
   static propTypes = {
     tag:           PropTypes.instanceOf(TagModel).isRequired,
     type:          PropTypes.string.isRequired,
+    inputType:     PropTypes.string,
+    placeholder:   PropTypes.string,
     exercise:      PropTypes.instanceOf(Exercise).isRequired,
     cleanInput:    PropTypes.func.isRequired,
     validateInput: PropTypes.func.isRequired,

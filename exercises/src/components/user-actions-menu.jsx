@@ -6,8 +6,8 @@ import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import classnames from 'classnames';
 
-export default
 @observer
+export default
 class UserActionsMenu extends React.Component {
 
   static propTypes = {
