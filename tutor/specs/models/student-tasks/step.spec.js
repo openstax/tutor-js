@@ -25,11 +25,14 @@ describe('Student Task Step', () => {
   it('calculates if free response is needed', () => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     step.formats = ['free-response'];
-    expect(step.isTwoStep).toBe(false);
-    step.formats = ['free-response', 'multiple-choice'];
+    expect(step.content.isMultiChoice).toBe(true)
     expect(step.isTwoStep).toBe(true);
+    step.formats = ['free-response', 'multiple-choice'];
+    step.content.content.questions.forEach(q => q.answers.clear())
+    expect(step.isTwoStep).toBe(false);
     expect(step.canEditFreeResponse).toBe(true);
     step.free_response = 'a question with answers';
+    step.can_be_updated = false;
     expect(step.canEditFreeResponse).toBe(false);
   });
 

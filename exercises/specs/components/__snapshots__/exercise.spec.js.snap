@@ -936,32 +936,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type requiresContext"
-            >
-              <div
-                className="heading"
-              >
-                <span
-                  className="label"
-                >
-                  Requires Context
-                </span>
-                <div
-                  className="controls"
-                />
-              </div>
-              <div
-                className="tag"
-              >
-                <input
-                  checked={true}
-                  label=""
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-              </div>
-            </div>
-            <div
               className="tag-type cnxModule has-single-tag"
             >
               <div
@@ -2343,21 +2317,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </QuestionTypeTag>
                                 <HistoricalThinkingTag exercise={{...}} />
                                 <ReasoningProcessTag exercise={{...}} />
-                                <RequiresContextTag exercise={{...}}>
-                                  <TagWrapper label=\\"Requires Context\\">
-                                    <div className=\\"tag-type requiresContext\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          Requires Context
-                                        </span>
-                                        <div className=\\"controls\\" />
-                                      </div>
-                                      <div className=\\"tag\\">
-                                        <input type=\\"checkbox\\" label=\\"\\" onChange={[Function: res]} checked={true} />
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </RequiresContextTag>
                                 <CnxModTag exercise={{...}}>
                                   <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\">
                                     <TagWrapper label=\\"CNX Module\\" onAdd={[Function: res]} singleTag={true}>

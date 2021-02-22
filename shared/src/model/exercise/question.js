@@ -110,7 +110,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isTwoStep() {
-    return Boolean(this.isMultipleChoice() && this.hasFormat('free-response'));
+    return Boolean(this.isMultipleChoice && this.hasFormat('free-response'));
   }
 
   @action setExclusiveFormat(name) {
@@ -149,7 +149,7 @@ class ExerciseQuestion extends BaseModel {
     if (isEmpty(this.stem_html)){
       return { valid: false, part: 'Question Stem' };
     }
-    if(!this.isOpenEnded) {
+    if(this.hasFormat('multiple-choice')) {
       if (isEmpty(this.answers)) { return { valid: false, part: 'Answer' }; }
       // make sure that one correct answer is selected
       if (every(this.answers, a => !a.isCorrect)) {return { valid: false, part: 'Correct Answer' }; }
