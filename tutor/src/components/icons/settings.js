@@ -76,16 +76,15 @@ const SettingsCheckbox = observer(({ ux, title, property }) => (
     <span className="check"></span>
   </StyledCheckbox>
 ));
-SettingsCheckbox.propTypes ={
+SettingsCheckbox.propTypes = {
   ux: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   property: PropTypes.string.isRequired,
 };
-  
-export default
+
 @observer
-class Settings extends React.Component {
-  static propTypes ={
+export default class Settings extends React.Component {
+  static propTypes = {
     ux: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     controls: PropTypes.object.isRequired,
@@ -101,15 +100,15 @@ class Settings extends React.Component {
     this.showPopoverSettings = true;
   }
 
-  @action.bound onMouseEnter(){
+  @action.bound onMouseEnter() {
     this.showPopoverInfo = true;
   }
 
   @action.bound onMouseLeave() {
     this.showPopoverInfo = false;
   }
-  
-  render () {
+
+  render() {
     const { ux, label, controls, moreInfo } = this.props;
     return (
       <>
@@ -130,7 +129,7 @@ class Settings extends React.Component {
           target={this.target.current}
           placement="bottom"
           show={this.showPopoverSettings}
-          onHide={() => this.showPopoverSettings = false }>
+          onHide={() => this.showPopoverSettings = false}>
           <Popover className="scores-popover" >
             <Toggles>
               {map(controls, (title, property) => <SettingsCheckbox key={property} ux={ux} property={property} title={title} />)}
@@ -143,7 +142,7 @@ class Settings extends React.Component {
           target={this.target.current}
           placement="bottom"
           show={this.showPopoverInfo && !this.showPopoverSettings}>
-          <Popover className="scores-popover" >  
+          <Popover className="scores-popover" >
             <p>{label}</p>
           </Popover>
         </Overlay>

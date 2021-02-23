@@ -4,9 +4,8 @@ import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
-export default
 @identifiedBy('student/task')
-class ResearchSurvey extends BaseModel {
+export default class ResearchSurvey extends BaseModel {
 
   @identifier id;
   @field title;

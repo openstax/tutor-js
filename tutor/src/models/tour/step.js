@@ -23,9 +23,8 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 // Can be linked to either an anchor or region
 // Has a title and rich text body.
 
-export default
 @identifiedBy('tour/step')
-class TourStep extends BaseModel {
+export default class TourStep extends BaseModel {
   @identifier id;
 
   @belongsTo tour;

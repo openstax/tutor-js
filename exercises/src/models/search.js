@@ -40,8 +40,8 @@ class Clause extends BaseModel {
   }
 }
 
-export default
 @identifiedBy('search')
+export default
 class Search extends BaseModel {
 
   @hasMany({ model: Clause, inverseOf: 'search' }) clauses;

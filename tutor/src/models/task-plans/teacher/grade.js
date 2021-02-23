@@ -4,9 +4,8 @@ import {
 import { pick } from 'lodash';
 import TeacherTaskPlan from './plan';
 
-export default
 @identifiedBy('task-plans/teacher/grade')
-class TeacherTaskGrade extends BaseModel {
+export default class TeacherTaskGrade extends BaseModel {
 
   @belongsTo({ model: TeacherTaskPlan }) taskPlan;
 

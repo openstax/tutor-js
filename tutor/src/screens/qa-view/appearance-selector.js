@@ -3,9 +3,8 @@ import { Dropdown } from 'react-bootstrap';
 import { map } from 'lodash';
 import { BookTitles, AppearanceCodes } from '../../models/appearance_codes';
 
-export default
 @observer
-class AppearanceSelector extends React.Component {
+export default class AppearanceSelector extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,

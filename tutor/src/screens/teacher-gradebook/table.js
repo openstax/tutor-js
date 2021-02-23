@@ -249,7 +249,7 @@ const StudentColumnHeader = observer(({ ux }) => {
           data-test-id="student-name-heading"
         >
           <HeadingTop
-            onClick={() =>ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
+            onClick={() => ux.changeRowSortingOrder(ux.isNameInverted ? 'last_name' : 'first_name', 'score')}
           >
             Student Name
             <SortIcon className="sort-name" sort={ux.sortForColumn(ux.isNameInverted ? 'last_name' : 'first_name', 'score')} />
@@ -390,15 +390,13 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
         <Heading first={true}>
           <FirstRowCell data-cell="student-name">
             {
-              !student.is_dropped
-                ? <TutorLink
-                  to="viewPerformanceGuide"
-                  className="name-cell"
-                  params={{ roleId: student.role, courseId: ux.course.id }}
-                >
-                  {ux.displayStudentName(student)}
-                </TutorLink>
-                : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></>
+              !student.is_dropped ? <TutorLink
+                to="viewPerformanceGuide"
+                className="name-cell"
+                params={{ roleId: student.role, courseId: ux.course.id }}
+              >
+                {ux.displayStudentName(student)}
+              </TutorLink> : <>{ux.displayStudentName(student)} <label><i>(dropped)</i></label></>
             }
           </FirstRowCell>
         </Heading>
@@ -443,7 +441,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom/>))}
+        {ux.headings.map((h, i) => (<AggregateResult key={i} data={h} ux={ux} drawBorderBottom />))}
       </Row>
       <Row>
         <Cell striped drawBorderBottom>
@@ -464,7 +462,7 @@ const AggregateData = observer(({ ux }) => {
             </Average>
           </CellContents>
         </Cell>
-        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MIN} drawBorderBottom/>))}
+        {ux.headings.map((h, i) => (<MinMaxResult key={i} key={i} data={h} ux={ux} type={MinMaxType.MIN} drawBorderBottom />))}
       </Row>
       <Row>
         <Cell striped>
@@ -497,9 +495,9 @@ const GradebookTable = observer(({ ux }) => {
       <StyledStickyTable leftStickyColumnCount={1} borderWidth={'0px'}>
         <Row>
           <StudentColumnHeader ux={ux} />
-          {ux.headings.map((h,i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
+          {ux.headings.map((h, i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
         </Row>
-        {ux.students.map((student,sIndex) => (
+        {ux.students.map((student, sIndex) => (
           <Row key={sIndex}>
             <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
             {/* Correlation on student data and assignment header happens in the BE */}

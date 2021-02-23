@@ -2,12 +2,6 @@ import { Factory, C } from '../../helpers';
 import LmsPair from '../../../src/screens/lms-pair';
 import UX from '../../../src/screens/lms-pair/ux';
 
-jest.mock('../../../src/helpers/dom', () => ({
-  readBootstrapData: jest.fn(() => ({
-
-  })),
-}));
-
 describe('pairing a course', () => {
 
   let props;

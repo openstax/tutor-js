@@ -7,9 +7,9 @@ import { Icon, AsyncButton } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
 
-export default
 @observer
-class LmsPush extends React.Component {
+export default
+  class LmsPush extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   }
@@ -25,9 +25,9 @@ class LmsPush extends React.Component {
   render() {
     const { course } = this.props;
     const { lastPushedAt } = this.lmsPush;
-    
+
     if (!course.is_lms_enabled) { return null; }
-    
+
     const popover = (
       <Popover className="scores-popover">
         <p>Export Course average to {course.name}</p>
@@ -46,7 +46,7 @@ class LmsPush extends React.Component {
             <Icon type="paper-plane" />
           </AsyncButton>
         </OverlayTrigger>
-        
+
       </>
     );
   }

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Alert } from 'react-bootstrap';
 import Books from '../tags/books';
 import Lo from '../tags/lo';
-import QuestionType from '../tags/question-type';
+import AssignmentType from '../tags/assignment-type';
 import FilterType from '../tags/filter-type';
 import CnxMod from '../tags/cnx-mod';
 import CnxFeature from '../tags/cnx-feature';
@@ -30,7 +30,7 @@ function ExerciseTags({ exercise }) {
         <SciencePractice {...tagProps} />
         <Lo {...tagProps} />
         <ApLo {...tagProps} />
-        <QuestionType {...tagProps} />
+        <AssignmentType {...tagProps} />
         <HistoricalThinking {...tagProps} />
         <ReasoningProcess {...tagProps} />
         <FilterType {...tagProps} />

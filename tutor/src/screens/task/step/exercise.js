@@ -45,9 +45,8 @@ Preamble.propTypes = {
 };
 
 
-export default
 @observer
-class ExerciseTaskStep extends React.Component {
+export default class ExerciseTaskStep extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

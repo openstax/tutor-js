@@ -4,9 +4,8 @@ import {
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
 
-export default
 @identifiedBy('student-tasks/step-group')
-class StudentTaskStepGroup extends BaseModel {
+export default class StudentTaskStepGroup extends BaseModel {
 
   @identifier uid;
   @hasMany({ model: StudentTaskStep }) steps;

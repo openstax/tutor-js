@@ -3,7 +3,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import { merge, extend } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
+import { action, observable, when, computed } from 'mobx';
 import loadjs from 'loadjs';
 import { readonly } from 'core-decorators';
 import invariant from 'invariant';
@@ -16,9 +16,8 @@ const REQUIRED_OPTIONS = [
   'course',
 ];
 
-export default
 @identifiedBy('payments')
-class Payments extends BaseModel {
+export default class Payments extends BaseModel {
 
   @readonly static config = observable({
     base_url: '',

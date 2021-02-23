@@ -1,4 +1,4 @@
-import { isEmpty, forIn, isNil } from 'lodash';
+import { forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
@@ -6,12 +6,13 @@ import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
-import { documentReady, readBootstrapData } from '../helpers/dom';
+import { documentReady } from '../helpers/dom';
 import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
+import Offerings from './course/offerings';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
@@ -20,6 +21,8 @@ import Toasts from './toasts';
 import Tutor from '../components/root';
 import ResponseValidation from './response_validation';
 import Exercises from './exercises';
+import store, { bootstrap } from '../store'
+
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -27,6 +30,7 @@ const BOOTSTRAPED_MODELS = {
   payments: Payments,
   feature_flags: FeatureFlagsApi,
   response_validation: ResponseValidation,
+  offerings: Offerings,
 };
 
 // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
@@ -52,11 +56,8 @@ export default class TutorApp {
     const app = new TutorApp();
     [Raven, Api].forEach(lib => lib.boot({ app }));
 
-    app.data = readBootstrapData();
-    if (isEmpty(app.data)) {
-      return app.fetch().then(app.initializeApp);
-    }
-    return app.initializeApp();
+    const { data } = await app.fetch();
+    await app.initializeApp(data);
   }
 
   static logError(error, info) {
@@ -67,9 +68,11 @@ export default class TutorApp {
     Raven.captureException(error, { extra: info });
   }
 
-  @action.bound initializeApp() {
-    window._MODELS.bootstrapData = this.data;
+  @action.bound initializeApp(data) {
+    window._MODELS.bootstrapData = this.data = data;
     window._MODELS.app = this;
+    store.dispatch(bootstrap(this.data))
+    window._MODELS.store = store
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
@@ -80,7 +83,7 @@ export default class TutorApp {
       // eslint-disable-next-line no-undef
       __webpack_public_path__ = this.data.assets_url;
     }
-    
+
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);
@@ -118,4 +121,4 @@ export default class TutorApp {
   }
 }
 
-adapters.connectModelRead(TutorApp, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });
+adapters.connectModelRead(TutorApp, 'fetch', { url: '/user/bootstrap', onSuccess: 'onLoaded' });

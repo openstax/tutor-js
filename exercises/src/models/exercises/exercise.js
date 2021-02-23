@@ -5,8 +5,8 @@ import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
 import CurrentUser from '../user';
 
-export default
 @identifiedBy('exercises/exercise')
+export default
 class Exercise extends SharedExercise {
 
   @session error;

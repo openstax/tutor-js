@@ -1,8 +1,8 @@
 import { BaseModel, identifiedBy, field } from 'shared/model';
 
 
-export default
 @identifiedBy('exercise/delegation')
+export default
 class ExerciseDelegation extends BaseModel {
   @field delegator_id;
 

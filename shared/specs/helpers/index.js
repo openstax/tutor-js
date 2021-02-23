@@ -4,10 +4,10 @@ import ReactTestUtils from 'react-dom/test-utils';
 import Renderer from 'react-test-renderer';
 import { Provider } from 'mobx-react';
 import Factory from '../factories';
-export FakeWindow from './fake-window';
+import FakeWindow from './fake-window';
 
 const ld = require('lodash');
 
 export {
-  ld, Factory, React, Router, ReactTestUtils, Renderer, Provider,
+    ld, Factory, React, Router, ReactTestUtils, Renderer, Provider, FakeWindow,
 };

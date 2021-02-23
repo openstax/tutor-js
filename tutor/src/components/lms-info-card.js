@@ -27,9 +27,8 @@ const BackLink = (props) => (
 );
 
 
-export default
 @observer
-class LmsInfoCard extends React.Component {
+export default class LmsInfoCard extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,

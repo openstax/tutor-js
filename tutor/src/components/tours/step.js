@@ -5,9 +5,8 @@ import Spotlight from './spotlight';
 import Floater from 'react-floater';
 import STEPS from './custom';
 
-export default
 @observer
-class TourStep extends React.Component {
+export default class TourStep extends React.Component {
 
   static propTypes = {
     step: PropTypes.object.isRequired,

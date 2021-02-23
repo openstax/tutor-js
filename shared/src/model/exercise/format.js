@@ -3,8 +3,8 @@ import {
 } from '../../model';
 
 
-export default
 @identifiedBy('exercise/format')
+export default
 class ExerciseFormat extends BaseModel {
 
   static serialize(format) {

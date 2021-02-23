@@ -166,9 +166,8 @@ class Stats extends BaseModel {
   }
 }
 
-export default
 @identifiedBy('task-plan/stats')
-class TaskPlanStats extends BaseModel {
+export default class TaskPlanStats extends BaseModel {
 
   @identifier id;
   @session title;

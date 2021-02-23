@@ -33,7 +33,7 @@ const GET_HANDLERS = {
     setRole() {  },
     handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
   },
-  bootstrap: require('./backend/bootstrap'),
+  'user/bootstrap': require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/performance': require('./backend/performance'),
@@ -49,6 +49,7 @@ const MULTI_HANDLERS = [
   require('./backend/terms'),
   require('./backend/exercises'),
   require('./backend/course-roster'),
+  require('./backend/suggest'),
 ];
 
 // routes that have custom logic

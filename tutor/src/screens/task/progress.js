@@ -43,9 +43,9 @@ const StyledModal = styled(Modal)`
   }
 `;
 
-export default
+
 @observer
-class ProgressCard extends React.Component {
+export default class ProgressCard extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

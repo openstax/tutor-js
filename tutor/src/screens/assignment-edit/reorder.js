@@ -86,9 +86,8 @@ class ReadingSection extends React.Component {
 }
 
 
-export default
 @observer
-class ReviewSelection extends React.Component {
+export default class ReviewSelection extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,

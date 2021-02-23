@@ -38,9 +38,8 @@ const SAVEABLE_ATTRS = [
   'homework_weight', 'reading_weight', 'code',
 ];
 
-export default
 @identifiedBy('course')
-class Course extends BaseModel {
+export default class Course extends BaseModel {
 
   @identifier id;
 

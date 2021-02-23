@@ -1,4 +1,4 @@
-import { C } from '../helpers';
+import { C, TimeMock } from '../helpers';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
 import Courses from '../../src/models/courses-map';
@@ -16,12 +16,15 @@ const loadTeacherUser = () => {
 
 describe('My Courses Component', function() {
 
+  const now = TimeMock.setTo('2021-01-15T12:00:00.000Z');
+
   beforeEach(bootstrapCoursesList);
 
   afterEach(() => {
     Courses.clear();
     User.fetch = jest.fn();
     User.faculty_status = '';
+    User.created_at = now;
     User.school_type = 'college';
     User.self_reported_role = '';
   });
@@ -132,7 +135,11 @@ describe('My Courses Component', function() {
       User.can_create_courses = false;
       Courses.clear();
       const wrapper = mount(<C><CourseListing /></C>);
+      User.created_at = new Date('2021-01-11T12:00:00.000Z')
       expect(wrapper).toHaveRendered('NonAllowedTeachers');
+      User.created_at = new Date('2021-01-15T12:00:00.000Z')
+      expect(wrapper).not.toHaveRendered('NonAllowedTeachers');
+      expect(wrapper).toHaveRendered('PendingVerification');
       wrapper.unmount();
     });
 

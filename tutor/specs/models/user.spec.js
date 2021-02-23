@@ -1,5 +1,5 @@
 import { autorun } from 'mobx';
-
+import { TimeMock } from '../helpers';
 import User from '../../src/models/user';
 import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
@@ -12,6 +12,8 @@ describe('User Model', () => {
   afterEach(() => {
     User.viewed_tour_stats.clear();
   });
+
+  TimeMock.setTo('2021-01-15T12:00:00.000Z');
 
   it('can be bootstrapped', () => {
     const spy = jest.fn();
@@ -107,4 +109,12 @@ describe('User Model', () => {
     expect(User.initials).toEqual('B S');
   });
 
+  it('calculates new users', () => {
+    // one hour ago
+    User.created_at = new Date('2021-01-15T11:00:00.000Z')
+    expect(User.wasNewlyCreated).toBe(true)
+    // a day + hour ago
+    User.created_at = new Date('202-0-0T14:11:00.000Z')
+    expect(User.wasNewlyCreated).toBe(false)
+  })
 });

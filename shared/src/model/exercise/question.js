@@ -20,8 +20,8 @@ class ReviewQuestion {
 }
 
 
-export default
 @identifiedBy('exercise/question')
+export default
 class ExerciseQuestion extends BaseModel {
 
   static FORMAT_TYPES = {

@@ -13,9 +13,9 @@ import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 
-export default
+
 @identifiedBy('course/builder-ux')
-class CourseBuilderUX extends BaseModel {
+export default class CourseBuilderUX extends BaseModel {
 
   @readonly course = new Course();
   @observable canCancel = true;

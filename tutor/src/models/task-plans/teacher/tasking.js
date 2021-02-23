@@ -6,9 +6,8 @@ import moment from 'moment';
 import Time from '../../time';
 import Toasts from '../../toasts';
 
-export default
 @identifiedBy('tasking-plan')
-class TaskingPlan extends BaseModel {
+export default class TaskingPlan extends BaseModel {
 
   @field id;
   @field target_id;

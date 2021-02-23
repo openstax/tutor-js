@@ -423,9 +423,9 @@ class TaskPlanScoresTasking extends BaseModel {
   }
 }
 
-export default
+
 @identifiedBy('task-plan/scores')
-class TaskPlanScores extends BaseModel {
+export default class TaskPlanScores extends BaseModel {
 
   @identifier id;
   @field title;

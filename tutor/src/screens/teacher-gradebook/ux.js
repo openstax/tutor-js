@@ -42,7 +42,7 @@ export default class GradeBookUX {
 
   async initialize({
     courseId,
-    course = Courses.get(courseId),
+    course = Courses.get(courseId), // eslint-disable-line
     tab = 0,
   }) {
     this.course = course;

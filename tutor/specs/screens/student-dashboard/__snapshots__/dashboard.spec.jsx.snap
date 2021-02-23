@@ -385,7 +385,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznZeY c2"
                     >
                       <span
                         className="c3 date-range"
@@ -412,17 +412,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznZeY c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c5"
+                      className="sc-fznZeY c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       Scores
                     </div>
@@ -555,7 +555,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznZeY c2"
                     >
                       <span
                         className="title"
@@ -564,17 +564,17 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznZeY c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c5"
+                      className="sc-fznZeY c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       Scores
                     </div>
@@ -592,7 +592,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-event"
@@ -603,7 +603,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -615,7 +615,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -630,7 +630,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -677,7 +677,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-external"
@@ -688,7 +688,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -700,7 +700,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -715,7 +715,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -762,7 +762,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-homework"
@@ -773,7 +773,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -785,7 +785,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -800,7 +800,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -847,7 +847,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-reading"
@@ -858,7 +858,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -870,7 +870,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -885,7 +885,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -1358,7 +1358,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznZeY c2"
                     >
                       <span
                         className="c3 date-range"
@@ -1385,17 +1385,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznZeY c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c5"
+                      className="sc-fznZeY c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       Scores
                     </div>
@@ -1528,7 +1528,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="c1"
                   >
                     <div
-                      className="sc-fznKkj c2"
+                      className="sc-fznZeY c2"
                     >
                       <span
                         className="title"
@@ -1537,17 +1537,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </span>
                     </div>
                     <div
-                      className="sc-fznKkj c4"
+                      className="sc-fznZeY c4"
                     >
                       Due on
                     </div>
                     <div
-                      className="sc-fznKkj c5"
+                      className="sc-fznZeY c5"
                     >
                       Status
                     </div>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       Scores
                     </div>
@@ -1565,7 +1565,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-event"
@@ -1576,7 +1576,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -1588,7 +1588,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -1603,7 +1603,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -1650,7 +1650,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-external"
@@ -1661,7 +1661,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -1673,7 +1673,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -1688,7 +1688,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -1735,7 +1735,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-homework"
@@ -1746,7 +1746,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -1758,7 +1758,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -1773,7 +1773,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
@@ -1820,7 +1820,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       onClick={[Function]}
                     >
                       <div
-                        className="sc-fznKkj c2"
+                        className="sc-fznZeY c2"
                       >
                         <i
                           className="c14 icon-reading"
@@ -1831,7 +1831,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </span>
                       </div>
                       <div
-                        className="sc-fznKkj c4"
+                        className="sc-fznZeY c4"
                       >
                         <time
                           onBlur={[Function]}
@@ -1843,7 +1843,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                         </time>
                       </div>
                       <div
-                        className="sc-fznKkj c5"
+                        className="sc-fznZeY c5"
                       >
                         <div
                           className="c15"
@@ -1858,7 +1858,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                       </div>
                     </a>
                     <div
-                      className="sc-fznKkj c6"
+                      className="sc-fznZeY c6"
                     >
                       <div
                         className="c15"
