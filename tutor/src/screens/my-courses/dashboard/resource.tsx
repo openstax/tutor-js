@@ -29,7 +29,7 @@ const StyledResource = styled.div`
         }
       }
     }
-    svg[data-icon="external-link-square"] {
+    svg[data-icon="external-link-square-alt"] {
       position: absolute;
       bottom: 20px;
       left: 15px;

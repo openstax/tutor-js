@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect, ReactElement } from 'react'
 import { Button } from 'react-bootstrap'
 import { map, filter } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared'
+import UiSettings from 'shared/model/ui-settings'
 import Tabs from '../../../components/tabs'
 import CourseInformation from '../../../models/course/information'
 import { useCoursesByOfferingId, useNumberOfStudents } from '../../../store/courses'
@@ -15,10 +16,6 @@ import ViewCourse from './view-course'
 import Resource from './resource'
 
 import { Offering, Course } from '../../../store/types'
-
-export interface OfferingWithCourses extends Offering {
-    courses: Course[]
-}
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -93,7 +90,8 @@ const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
 /**
  * Component that displays the resources
  */
-const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanceCode: string, os_book_id: string, isFirstBlock: boolean}) => {
+const ResourcesInfo = ({ offering, os_book_id, isFirstBlock, isPreviewInResource, renderCoursePreview }
+        : {offering: Offering, os_book_id: string, isFirstBlock: boolean, isPreviewInResource: boolean, renderCoursePreview: () => ReactElement }) => {
     const generalResources = 
     <>
         <Resource
@@ -107,10 +105,11 @@ const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanc
     </>
     return (
     <>
+        {isPreviewInResource && renderCoursePreview()}
         {isFirstBlock && generalResources}
-        {os_book_id && 
+        {os_book_id &&
         <Resource
-          appearanceCode={appearanceCode}
+          appearanceCode={offering.appearance_code}
           title="Instructor Resources"
           info="Free resources integrated with your book. "
           link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
@@ -135,10 +134,11 @@ const PastCourses = ({ courses }: {courses: Course[]}) => {
 /**
  * Component that displays the current and future courses. Plus the Course Preview and the create course button
  */
-const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Offering}) => (
+const CurrentCourses = ({ courses, isPreviewInResource, renderCoursePreview }
+    : {courses: Course[], isPreviewInResource: boolean, renderCoursePreview: () => ReactElement }) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        <CoursePreview offering={offering} />
+        {!isPreviewInResource && renderCoursePreview()}
         <CreateACourse />
     </>
 )
@@ -147,31 +147,59 @@ const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Off
  * Component that holds the past, current and future courses. Also the resources for the course.
  */
 const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstBlock: boolean}) => {
-    const [tabIndex, setTabIndex] = useState(0);
+    const [tabIndex, setTabIndex] = useState(0)
+    const [isPreviewInResource, setIsPreviewInResource] = useState<boolean>(UiSettings.get('isPreviewInResource')?.[offering.appearance_code] || false)
 
     const courses = useCoursesByOfferingId(offering.id)
     const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
     const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
 
+    //Update the UI Settings for this offering
+    useEffect(() => {
+        const uiSettings = UiSettings.get('isPreviewInResource') || {}
+        UiSettings.set('isPreviewInResource', { ...uiSettings, [offering.appearance_code]: isPreviewInResource })
+    }, [isPreviewInResource])
+
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
             case 0: { 
-                return <CurrentCourses courses={currentCourses} offering={offering} />
+                return ( 
+                <CurrentCourses
+                  courses={currentCourses}
+                  isPreviewInResource={isPreviewInResource}
+                  renderCoursePreview={() => (
+                  <CoursePreview
+                    offering={offering}
+                    isPreviewInResource={isPreviewInResource}
+                    setIsPreviewInResource={setIsPreviewInResource} />
+                  )}
+                />
+                )
             } 
             case 1: { 
                 return <PastCourses courses={pastCourses} />
             } 
             case 2: { 
-                return <ResourcesInfo
-                  appearanceCode={offering.appearance_code}
+                return (
+                <ResourcesInfo
+                  offering={offering}
                   os_book_id={offering.os_book_id}
-                  isFirstBlock={isFirstBlock} />
+                  isFirstBlock={isFirstBlock}
+                  isPreviewInResource={isPreviewInResource}
+                  renderCoursePreview={() => (
+                    <CoursePreview
+                      offering={offering}
+                      isPreviewInResource={isPreviewInResource}
+                      setIsPreviewInResource={setIsPreviewInResource} />
+                    )}
+                />
+                )
             } 
             default: { 
                return <p>How did you get here?!</p>
             } 
          } 
-    }, [tabIndex])
+    }, [tabIndex, isPreviewInResource])
 
     return (
         <div className="offering-container">    

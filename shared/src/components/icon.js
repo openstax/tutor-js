@@ -57,6 +57,7 @@ const Icons = {
   'comments-solid':       require('@fortawesome/free-solid-svg-icons/faComments'),
   'download':             require('@fortawesome/free-solid-svg-icons/faDownload'),
   'edit':                 require('@fortawesome/free-solid-svg-icons/faEdit'),
+  'ellipsis-v':           require('@fortawesome/free-solid-svg-icons/faEllipsisV'),
   'exchange-alt':         require('@fortawesome/free-solid-svg-icons/faExchangeAlt'),
   'exclamation-circle':   require('@fortawesome/free-solid-svg-icons/faExclamationCircle'),
   'exclamation-triangle': require('@fortawesome/free-solid-svg-icons/faExclamationTriangle'),
