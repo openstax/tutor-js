@@ -1,21 +1,17 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { Button, Dropdown } from 'react-bootstrap'
-import { map, filter, some, groupBy } from 'lodash'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Button } from 'react-bootstrap'
+import { map, filter, some, includes, indexOf, findIndex } from 'lodash'
 import styled from 'styled-components'
-import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared'
-import Tabs from '../../../components/tabs'
-import TutorDropdown from '../../../components/dropdown';
-import CourseInformation from '../../../models/course/information'
-import { useAllCourses, useNumberOfStudents } from '../../../store/courses'
+import UiSettings from 'shared/model/ui-settings'
+import { useAllCourses } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
-import CreateACourse from './create-course'
-import CoursePreview from './preview-course'
-import ViewCourse from './view-course'
-import Resource from './resource'
+import OfferingBlock from './offering-block'
+import AddSubjectDropdown from './add-subject-dropdown'
+import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
 
-import { Offering, Course } from '../../../store/types'
+import { ID } from '../../../store/types'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -40,6 +36,9 @@ const StyledMyCoursesDashboard = styled.div`
         padding-top: 2.4rem;
         padding: 2.4rem 3.2rem 6.4rem;
         min-height: 40rem;
+        .edit-mode-icons {
+            float: right;
+        }
         .tutor-tabs {
             .nav-tabs {
                 li a {
@@ -100,165 +99,6 @@ const StyledMyCoursesDashboard = styled.div`
     }
 `
 
-const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
-const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
-
-const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
-    if(moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
-    if(moment(courseA.ends_at).isBefore(courseB.ends_at)) { return -1 }
-     return 0
-}
-const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
-    // no students courses put them at the end of the list
-    if (useNumberOfStudents(a.id) === 0) { return -1 }
-    return sortByCourseEndsAt(a, b);
-})
-const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
-    return sortByCourseEndsAt(a, b);
-})
-
-/**
- * Component that displays the resources
- */
-const ResourcesInfo = ({ appearanceCode, os_book_id, isFirstBlock } : {appearanceCode: string, os_book_id: string, isFirstBlock: boolean}) => {
-    const generalResources = 
-    <>
-        <Resource
-          title="Instructor Getting Started Guide"
-          info="Find information on OpenStax Tutor features and answers to common questions"
-          link={CourseInformation.gettingStartedGuide.teacher} />
-        <Resource
-          title={<span><Icon type="play-circle"/> Video Tutorials </span>}
-          info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
-          link={CourseInformation.videoTutorials} />
-    </>
-    return (
-    <>
-        {isFirstBlock && generalResources}
-        {os_book_id && 
-        <Resource
-          appearanceCode={appearanceCode}
-          title="Instructor Resources"
-          info="Free resources integrated with your book. "
-          link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
-        }
-    </>
-    )
-}
-
-/**
- * Component that displays the past courses
- */
-const PastCourses = ({ courses }: {courses: Course[]}) => {
-    if(courses.length === 0) {
-        return <p className="no-courses-message">No past courses found.</p>
-    }
-    return (
-        <> {map(courses, c => (<ViewCourse course={c} key={c.id} isPast={true} />))}</>
-    )
-
-}
-
-/**
- * Component that displays the current and future courses. Plus the Course Preview and the create course button
- */
-const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Offering}) => (
-    <>
-        {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        <CoursePreview offering={offering} />
-        <CreateACourse />
-    </>
-)
-
-/**
- * Component that holds the past, current and future courses. Also the resources for the course.
- */
-const OfferingBlock = ({ offering, isFirstBlock, courses }: {offering: Offering, courses: Course[], isFirstBlock: boolean}) => {
-    const [tabIndex, setTabIndex] = useState(0);
-
-    const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
-    const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
-
-    const showTabInfo = useCallback(() => {
-        switch(tabIndex) { 
-            case 0: { 
-                return <CurrentCourses courses={currentCourses} offering={offering} />
-            } 
-            case 1: { 
-                return <PastCourses courses={pastCourses} />
-            } 
-            case 2: { 
-                return <ResourcesInfo
-                  appearanceCode={offering.appearance_code}
-                  os_book_id={offering.os_book_id}
-                  isFirstBlock={isFirstBlock} />
-            } 
-            default: { 
-               return <p>How did you get here?!</p>
-            } 
-         } 
-    }, [tabIndex])
-
-    return (
-        <div className="offering-container">    
-            <h3>{offering.title}</h3>
-            <Tabs
-              tabs={['CURRENT', 'PAST', 'RESOURCES']}
-              onSelect={(a) => setTabIndex(a)}
-              pushToPath={false}/>
-              <div className="course-cards">
-                {showTabInfo()}
-              </div>
-        </div>
-    )
-}
-
-interface AddSubjectsDropdownProps {
-    allOfferings: Offering[]
-    displayedOfferings: Offering[]
-    setDisplayedOfferings: React.Dispatch<React.SetStateAction<Offering[]>>
-}
-
-const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings, displayedOfferings, setDisplayedOfferings }) => {
-    const offeringsBySubject = groupBy(allOfferings, o => o.subject)
-    const subjects = map(offeringsBySubject, (offerings, subject) => {
-        return (
-        <div key={subject} className="subject-offering-items-container">
-            <Dropdown.Item
-              className="subject-item"
-              eventKey={subject}
-              disabled>
-                {subject}
-            </Dropdown.Item>
-
-            {map(offerings, offering => {
-            const isDisplayed = some(displayedOfferings, dio => dio.id === offering.id)
-            return (
-                <Dropdown.Item
-                  className="offering-item"
-                  key={offering.id}
-                  eventKey={offering.title}
-                  onSelect={() => setDisplayedOfferings(prevState => [...prevState, offering])}
-                  disabled={isDisplayed}>
-                    {offering.title}
-                </Dropdown.Item>
-            )}
-        )}
-        </div>
-        )
-    });
-
-    return (
-        <div className="add-subject-dropdown">
-            <h3>Add subject</h3>
-            <TutorDropdown
-              toggleName="Select a subject you will be teaching"
-              dropdownItems={subjects}
-        />
-        </div>
-    )
-}
-
 /**
  * Main component
  */
@@ -267,15 +107,74 @@ export const MyCoursesDashboard = () => {
     const offerings = useAllOfferings()
     const courses = useAllCourses()
 
-    const [displayedOfferings, setDisplayedOfferings] = useState<Offering[]>([])
+    const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(UiSettings.get('displayedOfferingIds') || [])
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
 
-    // onLoad, display offerings who has at least 1 course
+    // First time setting the `displayedOfferingIds`
     useEffect(() => {
         if(offerings.length > 0 && courses.length > 0) {
-            setDisplayedOfferings(filter(offerings, o => some(courses, c => c.offering_id === o.id)))
+            const uiDisplayedOfferingIds = UiSettings.get('displayedOfferingIds')
+            if(!uiDisplayedOfferingIds) {
+                const offeringIds = map(filter(offerings, o => some(courses, c => c.offering_id === o.id)), m => m.id)
+                UiSettings.set('displayedOfferingIds', offeringIds)
+                setDisplayedOfferingIds(offeringIds)
+            }
         }
     }, [offerings, courses])
+
+    // update the `displayedOfferingIds` if users adds/delete offerings
+    useEffect(() => {
+        UiSettings.set('displayedOfferingIds', [...displayedOfferingIds])
+    }, [displayedOfferingIds])
+
+    // re-compute the `displayedOfferings` if `displayedOfferingIds` is modified
+    const displayedOfferings = useMemo(() => {
+        const filteredOfferings = filter(offerings, o => includes(displayedOfferingIds, o.id))
+        return filteredOfferings.sort((a, b) => {
+            return indexOf(displayedOfferingIds, a.id) - indexOf(displayedOfferingIds, b.id)
+        })
+    }, [displayedOfferingIds, offerings])
+
+    // move offerings block around
+    const swapOffering = (offeringId : ID, flow = 'up') => {
+        const tempDisplayedOfferingIds = [...displayedOfferingIds]
+        const index = findIndex(tempDisplayedOfferingIds, id => id === offeringId)
+        if(index >= 0) {
+            const swapIndex = flow === 'up' ? index - 1 : index + 1;
+            [tempDisplayedOfferingIds[index], tempDisplayedOfferingIds[swapIndex]] = [tempDisplayedOfferingIds[swapIndex], tempDisplayedOfferingIds[index]];
+        }
+        setDisplayedOfferingIds(tempDisplayedOfferingIds)
+    }
+
+    // delete offering
+    const deleteOffering = () => {
+        const tempDisplayedOfferingIds = [...displayedOfferingIds]
+        const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
+        if(index >= 0) {
+            tempDisplayedOfferingIds.splice(index, 1)
+            setDisplayedOfferingIds(tempDisplayedOfferingIds)
+            setDeleteOfferingIdModal(null)
+        }
+    }
+
+    const renderDeleteModal = () => {
+        const offeringHasCourses = some(courses, c => c.offering_id === deleteOfferingIdModal)
+        if(!offeringHasCourses) {
+            return (
+                <DeleteOfferingModal 
+                  show={Boolean(deleteOfferingIdModal)}
+                  onHide={() => setDeleteOfferingIdModal(null)}
+                  onDelete={() => deleteOffering()}
+              />
+            )
+        }
+        return (
+            <DeleteOfferingWarningModal
+              show={Boolean(deleteOfferingIdModal)}
+              onHide={() => setDeleteOfferingIdModal(null)} />
+        )
+    }
 
     const settingsButton =
     <Button
@@ -294,20 +193,25 @@ export const MyCoursesDashboard = () => {
                 <OfferingBlock
                   key={o.id}
                   offering={o}
-                  courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')} 
-                  isFirstBlock={i === 0} />) 
+                  courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')}
+                  swapOffering={swapOffering}
+                  tryDeleteOffering={setDeleteOfferingIdModal}
+                  isEditMode={isEditMode}
+                  isFirstBlock={i === 0}
+                  isLastBlock={i === displayedOfferings.length - 1} />) 
             }
             { isEditMode && 
                 <>
-                    <AddSubjectsDropdown
+                    <AddSubjectDropdown
                       allOfferings={offerings}
                       displayedOfferings={displayedOfferings}
-                      setDisplayedOfferings={setDisplayedOfferings} /> 
+                      setDisplayedOfferingIds={setDisplayedOfferingIds} /> 
                     <div className="controls bottom-controls">
                         {settingsButton}
                     </div>
                 </>
             }
+            {renderDeleteModal()}
         </StyledMyCoursesDashboard>
     )
 }

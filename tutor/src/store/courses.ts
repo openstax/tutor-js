@@ -98,6 +98,11 @@ export const useCoursesByOfferingId = (offeringId : string | number, includePrev
     return coursesByOfferingId
 })
 
+export const useLatestCoursePreview = (offeringId: string | number) => useSelector<CourseSlice, Course | undefined>(state => {
+    const courses = selectors.selectAll(state)
+    return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview') 
+})
+
 export { createPreviewCourse, updateCourse, selectors }
 export const coursesReducer = coursesSlice.reducer
 
