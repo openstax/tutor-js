@@ -629,7 +629,8 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
                     <p>Creating a course is the first step towards managing your class assignments.</p>
                     <TutorLink
                         className="btn btn-light"
-                        to="createNewCourse"
+                        to="createNewCourseFromOffering"
+                        params={{ appearanceCode: offering.appearance_code }}
                         data-test-id="create-course"
                     >
                         Create a course
