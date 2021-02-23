@@ -15,16 +15,9 @@ const Footer = observer(({ ux }) => {
   if (Component.Footer) {
     return <Component.Footer ux={ux} />;
   }
+  if(ux.isBuilding) return null;
   return (
     <div className="controls">
-      <Button
-        variant="default"
-        hidden={!ux.canCancel}
-        onClick={ux.onCancel}
-        className="cancel"
-      >
-        Cancel
-      </Button>
       <BackButton ux={ux} />
       <Button
         onClick={ux.goForward}
@@ -32,7 +25,7 @@ const Footer = observer(({ ux }) => {
         className="next"
         disabled={!ux.canGoForward}
       >
-        Continue
+        {ux.isLastStage ? 'Finish' : 'Next'}
       </Button>
     </div>
   );
@@ -56,8 +49,19 @@ const Title = observer(({ ux }) => {
     <div>{title}</div>
   );
 });
-
 Title.propTypes = {
+  ux: PropTypes.object,
+};
+
+const Header = ({ ux }) => {
+  if(ux.isBuilding) return null;
+  return (
+    <button type="button" className="close" onClick={ux.onCancel} disabled={!ux.canCancel}>
+      <span aria-hidden="true">×</span><span className="sr-only">Close</span>
+    </button>
+  );
+};
+Header.propTypes = {
   ux: PropTypes.object,
 };
 
@@ -87,9 +91,12 @@ class NewCourseWizard extends React.Component {
         className={wizardClasses}
       >
         <Card.Header>
-          <Title ux={this.ux} />
+          <Header ux={this.ux}/>
         </Card.Header>
         <Card.Body>
+          <div className="title-wrapper">
+            <Title ux={this.ux} />
+          </div>
           <OXFancyLoader
             isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}

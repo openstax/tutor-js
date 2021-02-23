@@ -32,52 +32,63 @@
 
     .card-header,
     .card-footer {
-      padding: 40px;
       color: inherit;
       background: $tutor-white;
       border: 0;
+    }
+
+    .card-header {
+      button span {
+        font-size: 2.5rem;
+        margin-right: 0.5rem;
+      }
     }
 
     .card-body {
       min-height: $card-body-height;
       padding: 20px 40px;
       background: $tutor-white;
+      .title-wrapper {
+        font-size: 1.6rem;
+        line-height: 2rem;
+        padding-bottom: 0;
+        margin-bottom: 40px;
+        .course-offering-title {
+          display: flex;
+          .contents {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            &::before {
+              @include book-icon-style();
+            }
+            .title {
+              font-size: 1.6rem;
+              font-weight: 800;
+            }
+          }
+        }
+      }
     }
     .card-footer {
-      .controls { text-align: right; }
+      padding: 40px;
+      .controls { 
+        display: flex;
+        justify-content: space-between;
+       }
       .btn {
-        font-weight: 600;
-        &.btn-default {
-          color: $tutor-neutral;
-          &.back {
-            background: $tutor-neutral;
-            color: $tutor-white;
+        font-weight: 700;
+        &.next {
+          padding: 1rem 4rem;
+          border-radius: 2px;
+          &:only-child {
+            margin-left: auto;
           }
         }
       }
     }
 
-    .card-header {
-      font-size: 1.6rem;
-      line-height: 2rem;
-      padding-bottom: 0;
-      .course-offering-title {
-        display: flex;
-        .contents {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          &::before {
-            @include book-icon-style();
-          }
-          .title {
-            font-size: 1.6rem;
-            font-weight: 800;
-          }
-        }
-      }
-    }
     .card-body .ox-loader {
       background-color: white;
       z-index: 1;
@@ -153,7 +164,7 @@
     &.course_type,
     &.offering_id,
     &.offering {
-      .card-header {
+      .title-wrapper {
         font-weight: 800;
         text-align: center;
         min-height: 6rem;

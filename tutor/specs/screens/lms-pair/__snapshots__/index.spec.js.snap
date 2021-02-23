@@ -17,13 +17,34 @@ exports[`pairing a course displays create course 1`] = `
           <div
             className="card-header"
           >
-            <div>
-              Which course are you teaching?
-            </div>
+            <button
+              className="close"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+              >
+                ×
+              </span>
+              <span
+                className="sr-only"
+              >
+                Close
+              </span>
+            </button>
           </div>
           <div
             className="card-body"
           >
+            <div
+              className="title-wrapper"
+            >
+              <div>
+                Which course are you teaching?
+              </div>
+            </div>
             <div
               className="choices-listing list-group"
               onKeyDown={[Function]}
@@ -36,16 +57,7 @@ exports[`pairing a course displays create course 1`] = `
               className="controls"
             >
               <button
-                className="cancel btn btn-default"
-                disabled={false}
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                Cancel
-              </button>
-              <button
-                className="back btn btn-primary"
+                className="back btn btn-link"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
@@ -58,7 +70,7 @@ exports[`pairing a course displays create course 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Continue
+                Next
               </button>
             </div>
           </div>
