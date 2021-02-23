@@ -46,13 +46,10 @@ function MyCoursesNone() {
   );
 }
 
-//TODO: Adding a default 'intro_sociology' for now to skip selecting an offering when creating a new course.
 const MyCoursesCreate = () => {
   return (
     <Col lg={3} md={4} sm={6} xs={12}>
-      <CreateACourse
-        appearanceCode="intro_sociology"
-      />
+      <CreateACourse />
     </Col>
   );
 };
