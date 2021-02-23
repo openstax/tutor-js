@@ -83,7 +83,7 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  it('renders past courses in past courses listing', function() {
+  it.skip('renders past courses in past courses listing', function() {
     loadTeacherUser();
     Courses.bootstrap([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE], { clear: true });
     const wrapper = mount(<C><CourseListing /></C>);
