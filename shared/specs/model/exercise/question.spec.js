@@ -57,7 +57,9 @@ describe('Exercise Question', () => {
   });
 
   it('validates', () => {
+    question.formats = ['free-response'];
     expect(question.validity.valid).toBe(true);
+    question.formats = ['free-response', 'multiple-choice'];
     question.answers.clear();
     expect(question.validity.valid).toBe(false);
     question.formats = ['free-response'];

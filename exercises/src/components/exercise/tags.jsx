@@ -13,7 +13,6 @@ import Time from '../tags/time';
 import HistoricalThinking from '../tags/historical-thinking';
 import ReasoningProcess from '../tags/reasoning-process';
 import ApLo from '../tags/aplo';
-import RequiresContext from '../tags/requires-context';
 import SciencePractice from '../tags/science-practice';
 import Exercise from '../../models/exercises/exercise';
 
@@ -32,7 +31,6 @@ function ExerciseTags({ exercise }) {
         <AssignmentType {...tagProps} />
         <HistoricalThinking {...tagProps} />
         <ReasoningProcess {...tagProps} />
-        <RequiresContext {...tagProps} />
         <CnxMod {...tagProps} />
         <CnxFeature {...tagProps} />
         <Dok {...tagProps} />
