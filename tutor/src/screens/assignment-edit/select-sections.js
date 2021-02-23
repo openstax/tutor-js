@@ -9,7 +9,7 @@ import ChapterSection from '../../components/chapter-section';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import TriStateCheckbox from '../../components/tri-state-checkbox';
 import cn from 'classnames';
-import Loading from  'shared/components/loading-animation';
+import Loading from 'shared/components/loading-animation';
 import BookModel from '../../models/reference-book';
 import CourseModel from '../../models/course';
 import Node from '../../models/reference-book/node';
@@ -162,9 +162,8 @@ const SectionChooserWrapper = styled.div`
   border-radius: 4px;
 `;
 
-export default
 @observer
-class SectionsChooser extends React.Component {
+export default class SectionsChooser extends React.Component {
 
   static propTypes = {
     book: PropTypes.instanceOf(BookModel).isRequired,

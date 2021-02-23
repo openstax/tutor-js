@@ -1,4 +1,4 @@
-import DOM, { readBootstrapData } from '../../src/helpers/dom';
+import DOM from '../../src/helpers/dom';
 
 const HTML = `\
 <div class="dc">
@@ -8,9 +8,6 @@ const HTML = `\
   </p>
   <div class="wfig">
     <figure>a figure</figure>
-  </div>
-  <div id="tutor-boostrap-data">
-    {"user":{"name":"Atticus Finch"}}
   </div>
 </div>\
 `;
@@ -43,7 +40,4 @@ describe('DOM Helpers', function() {
     expect( DOM(p).closest( '.wfig' ) ).toBeNull();
   });
 
-  it('can read bootstrap data', function() {
-    expect(readBootstrapData(root)).toEqual({ 'user': { 'name': 'Atticus Finch' } });
-  });
 });

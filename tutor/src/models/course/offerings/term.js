@@ -2,9 +2,8 @@ import {
   BaseModel, field, identifiedBy,
 } from 'shared/model';
 
-export default
 @identifiedBy('offerings/term')
-class Term extends BaseModel {
+export default class Term extends BaseModel {
 
   @field term;
   @field year;

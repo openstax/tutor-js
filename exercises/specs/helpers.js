@@ -2,13 +2,14 @@ export * from 'shared/specs/helpers';
 import { MemoryRouter as Router } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
-export { Router };
-export Factory from './factories';
+import Factory from './factories'
+
+export { Router, Factory };
 
 function C({ children }) {
-  return <Router>{children}</Router>;
+    return <Router>{children}</Router>;
 }
 C.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };
 export { C };

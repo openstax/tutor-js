@@ -14,9 +14,8 @@ import Job from '../job';
 const CURRENT = new Map();
 const LAST_PUSH = 'sclp';
 
-export default
 @identifiedBy('jobs/lms-score-push')
-class LmsScorePush extends Job {
+export default class LmsScorePush extends Job {
 
   static forCourse(course) {
     let exp = CURRENT.get(course.id);

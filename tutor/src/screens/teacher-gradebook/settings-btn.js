@@ -2,8 +2,8 @@ import { React, PropTypes, observer } from 'vendor';
 import SettingsPopover from '../../components/icons/settings';
 import UX from './ux';
 
-export default
 @observer
+export default
 class Settings extends React.Component {
   static propTypes ={
     ux: PropTypes.instanceOf(UX).isRequired,

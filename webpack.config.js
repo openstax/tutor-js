@@ -39,7 +39,13 @@ const config = {
   devtool: production ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
-      { test: /\.jsx?$/,   exclude: /node_modules/, loader: 'babel-loader'         },
+      {
+        test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/,
+        options: {
+          transpileOnly: true,
+        },
+      },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'         },
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
       { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
@@ -55,7 +61,7 @@ const config = {
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
     },
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
   },
   plugins: [
     // don't need locales and they're huge

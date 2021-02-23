@@ -8,6 +8,10 @@ class OfferingsMap extends Map {
     items.forEach(offering => this.set(offering.id, new Offering(offering)));
   }
 
+  bootstrap(data) {
+    this.onLoaded({ data: { items: data } });
+  }
+
   get fetched() {
     if (!this.isFetched && this.fetch){
       this.fetch();

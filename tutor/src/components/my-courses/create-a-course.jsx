@@ -11,13 +11,6 @@ export default
 @withRouter
 @observer
 class CreateACourse extends React.Component {
-
-  static propTypes = {
-    isHovering: PropTypes.bool,
-    history: PropTypes.object.isRequired,
-    appearanceCode: PropTypes.string,
-  }
-
   renderAddZone() {
     let route;
     if(this.props.appearanceCode) {
@@ -35,9 +28,7 @@ class CreateACourse extends React.Component {
     }
     return (
       <div className="my-courses-add-zone">
-        <TutorLink
-          {...route}
-          className={classnames({ 'is-hovering': this.props.isHovering })}>
+        <TutorLink to="createNewCourse">
           <div>
             <IconAdd />
             <span>

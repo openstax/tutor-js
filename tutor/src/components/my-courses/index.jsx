@@ -34,12 +34,16 @@ class MyCourses extends React.Component {
 
   render() {
     if (Courses.isEmpty) {
-      if (User.isConfirmedFaculty) {
+      if (User.wasNewlyCreated && !User.canCreateCourses) {
+        return <PendingVerification />;
+      } else if (User.isConfirmedFaculty) {
         if (!User.canCreateCourses) {
           return <NonAllowedTeacher />;
         }
+      } else if (User.isUnverifiedInstructor) {
+        return <PendingVerification />;
       } else {
-        return User.isUnverifiedInstructor? <PendingVerification /> : <EmptyCourses />;
+        return <EmptyCourses />;
       }
     }
 

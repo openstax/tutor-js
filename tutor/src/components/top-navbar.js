@@ -1,9 +1,8 @@
 import { React, PropTypes, observer, cn } from 'vendor';
 import { NavbarContext } from './navbar/context';
 
-export default
 @observer
-class TopNavbar extends React.Component {
+export default class TopNavbar extends React.Component {
 
   static propTypes = {
     context: PropTypes.instanceOf(NavbarContext).isRequired,

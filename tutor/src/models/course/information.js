@@ -93,4 +93,8 @@ export default {
     student: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf',
   },
 
+  videoTutorials: 'https://www.youtube.com/channel/UCqiKFRsHA0GqnSNkURx_9Yg',
+
+  openstaxSubjects: 'https://openstax.org/subjects/view-all',
+
 };

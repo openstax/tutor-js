@@ -12,9 +12,8 @@ import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
 import User from '../user';
 
-export default
 @identifiedBy('course/student')
-class CourseEnrollment extends BaseModel {
+export default class CourseEnrollment extends BaseModel {
 
   @identifier id;
   @field enrollment_code;
@@ -42,7 +41,7 @@ class CourseEnrollment extends BaseModel {
 
   @computed get bodyContents() {
     if (User.shouldSignTerms) {
-      return  null;
+      return null;
     }
 
     if (this.isLoading) {

@@ -153,9 +153,8 @@ class SectionsExercises extends React.Component {
 }
 
 
-export default
 @observer
-class ExerciseCards extends React.Component {
+export default class ExerciseCards extends React.Component {
 
   static propTypes = {
     pageIds:                ArrayOrMobxType.isRequired,

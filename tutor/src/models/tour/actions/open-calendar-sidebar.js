@@ -2,9 +2,8 @@ import { BaseAction, identifiedBy } from './base';
 import { delay } from 'lodash';
 import { action, computed } from 'mobx';
 
-export default
 @identifiedBy('tour/action/open-calendar-sidebar')
-class OpenCalendarSidebar extends BaseAction {
+export default class OpenCalendarSidebar extends BaseAction {
 
   beforeStep() {
     this.wasOpen = this.toggle.classList.contains('open');

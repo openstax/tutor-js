@@ -55,7 +55,7 @@ class TimezonePreview extends React.Component {
   update() {
     const { interval } = this.props;
 
-    this.timeout = setTimeout( () => {
+    this.timeout = setTimeout(() => {
       this.updateTime();
       this.update();
     }, interval);
@@ -135,9 +135,8 @@ class SetTimezoneField extends React.Component {
   }
 }
 
-export default
 @observer
-class TimezoneModal extends React.Component {
+export default class TimezoneModal extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,

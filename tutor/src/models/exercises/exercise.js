@@ -10,9 +10,8 @@ import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
 
-export default
 @identifiedBy('exercises/exercise')
-class TutorExercise extends BaseModel {
+export default class TutorExercise extends BaseModel {
 
   constructor(attrs = {}) {
     super(attrs);

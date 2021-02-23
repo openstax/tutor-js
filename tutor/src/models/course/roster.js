@@ -7,9 +7,8 @@ import Teacher from './teacher';
 import Student from './student';
 import { getters } from '../../helpers/computed-property';
 
-export default
 @identifiedBy('course/roster')
-class CourseRoster extends BaseModel {
+export default class CourseRoster extends BaseModel {
 
   @field teach_url;
 

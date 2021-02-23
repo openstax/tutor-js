@@ -952,6 +952,11 @@ exports[`Exercise Preview Component limits tags 1`] = `
           <span
             className="exercise-tag"
           >
+            assignment-type:reading
+          </span>
+          <span
+            className="exercise-tag"
+          >
             blooms:3
           </span>
           <span
@@ -988,11 +993,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="exercise-tag"
           >
             time:long
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            type:conceptual
           </span>
           <span
             className="exercise-tag"

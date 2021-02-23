@@ -8,9 +8,8 @@ import {
 
 import ScoresForPeriod from './scores/period';
 
-export default
 @identifiedBy('scores')
-class Scores extends BaseModel {
+export default class Scores extends BaseModel {
 
   @belongsTo({ model: 'course' }) course;
 

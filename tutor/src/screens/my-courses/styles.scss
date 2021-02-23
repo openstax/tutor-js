@@ -1,0 +1,17 @@
+@mixin tutor-background-image($img) { background-image:url("../../../resources/images/#{$img}"), }
+
+@import '../../../resources/styles/variables';
+
+@each $book in map-keys($openstax-book-thumbnails) {
+  &[data-appearance=#{$book}] {
+    &::before {
+      content: "";
+      min-width: 48px;
+      height: 100%;
+      display: block;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      @include book-content-thumbnail($book);
+    }
+  }
+}

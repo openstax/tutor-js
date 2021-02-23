@@ -8,9 +8,8 @@ import moment from 'moment';
 import { pick } from 'lodash';
 import Payments from '../payments';
 
-export default
 @identifiedBy('course/student')
-class CourseStudent extends BaseModel {
+export default class CourseStudent extends BaseModel {
   @identifier id;
 
   @readonly static TEACHER_AS_STUDENT_ID = -9;

@@ -34,9 +34,8 @@ const NOT_FOUND_CONTENT = {
   `,
 };
 
-export default
 @identifiedBy('reference-book/node')
-class ReferenceBookNode extends BaseModel {
+export default class ReferenceBookNode extends BaseModel {
   @identifier id;
   @field title;
   @field type;

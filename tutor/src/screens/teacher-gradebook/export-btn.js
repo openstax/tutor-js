@@ -7,9 +7,9 @@ import { Icon, AsyncButton } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 
-export default
 @observer
-class ScoresExport extends React.Component {
+export default
+  class ScoresExport extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   }

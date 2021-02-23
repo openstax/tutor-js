@@ -7,9 +7,8 @@ import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
 
-export default
 @identifiedBy('scores/task-result')
-class TaskResult extends BaseModel {
+export default class TaskResult extends BaseModel {
   @identifier id;
   @field({ type: 'bignum' }) score;
   @field points;

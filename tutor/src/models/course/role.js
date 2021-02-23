@@ -5,9 +5,8 @@ import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
 
-export default
 @identifiedBy('course/role')
-class CourseRole extends BaseModel {
+export default class CourseRole extends BaseModel {
 
   @identifier id;
   @field({ type: 'date' }) joined_at;

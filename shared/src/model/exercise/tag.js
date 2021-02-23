@@ -19,8 +19,8 @@ const TITLE_SUBSTITUTIONS = [
   [/aplo:.*:(.*)$/, 'aplo:$1'],
 ];
 
-export default
 @identifiedBy('exercise/tag')
+export default
 class ExerciseTag extends BaseModel {
 
   @observable raw;

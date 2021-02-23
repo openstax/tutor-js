@@ -3,8 +3,11 @@ module.exports = {
     "browser": true,
     "es6": true
   },
-  'parser': '@babel/eslint-parser',
-  "extends": "eslint:recommended",
+  parser: '@typescript-eslint/parser',
+  "extends": [
+    "eslint:recommended",
+    //  "plugin:react/recommended", // TODO: enable once
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -31,7 +34,6 @@ module.exports = {
     "comma-dangle": ["error", "always-multiline"],
     "no-console":  "error",
     "no-debugger": "error",
-    "indent": [ "error", 2, {"SwitchCase": 1} ],
     "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
     "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
@@ -62,14 +64,13 @@ module.exports = {
       "error",
       "single"
     ],
-    semi: ["error", "always"],
-    "react/prefer-stateless-function": [2, {
+    "semi": [0, "always"],
+     "react/prefer-stateless-function": [2, {
       "ignorePureComponents": true
     }],
     "react/prop-types": 2,
     "react/jsx-uses-vars": ["error"],
     "react/jsx-uses-react":  ["error"],
-    "react/jsx-indent": [2, 2],
     "react/jsx-indent-props": [2, 2],
     "key-spacing": [2, {
       "singleLine": {

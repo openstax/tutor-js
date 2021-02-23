@@ -13,9 +13,8 @@ import User from './user';
 
 const TourInstances = new Map();
 
-export default
 @identifiedBy('tour')
-class Tour extends BaseModel {
+export default class Tour extends BaseModel {
 
   static forIdentifier(id, options = {}) {
     const tourSettings = TourData[id];

@@ -72,6 +72,8 @@ export class ExercisesMap extends Map {
     const req = { data: exercise.serialize() };
     if (exercise.isNew) {
       Object.assign(req, { url: 'exercises', method: 'POST' });
+    } else {
+      Object.assign(req, { number: exercise.number });
     }
     return req;
   }

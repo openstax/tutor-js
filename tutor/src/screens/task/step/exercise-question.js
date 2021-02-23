@@ -50,9 +50,9 @@ const StyledExerciseQuestion = styled.div`
   }
 `;
 
-export default
+
 @observer
-class ExerciseQuestion extends React.Component {
+export default class ExerciseQuestion extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
@@ -66,7 +66,7 @@ class ExerciseQuestion extends React.Component {
     const { step } = this.props;
     return (
       !step.is_completed || step.api.isPending ||
-        (this.answerId != step.answer_id)
+      (this.answerId != step.answer_id)
     );
 
   }
@@ -105,7 +105,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   @action.bound async addOrRemovePracticeQuestion() {
-    if(this.practiceQuestion) {
+    if (this.practiceQuestion) {
       this.practiceQuestion.destroy();
     }
     else {
@@ -182,7 +182,7 @@ class ExerciseQuestion extends React.Component {
         <Controls>
           {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
-          { ux.canSaveToPractice && (
+          {ux.canSaveToPractice && (
             <SavePracticeButton
               practiceQuestions={ux.course.practiceQuestions}
               taskStep={step}

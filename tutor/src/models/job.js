@@ -8,9 +8,8 @@ import invariant from 'invariant';
 
 const MAX_ATTEMPTS = 50;
 
-export default
 @identifiedBy('job')
-class Job extends BaseModel {
+export default class Job extends BaseModel {
 
   @identifier jobId;
 

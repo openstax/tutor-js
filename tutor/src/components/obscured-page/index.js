@@ -26,9 +26,8 @@ const Page = styled.div`
   ${props => props.isHidden && 'display: none'};
 `;
 
-export default
 @observer
-class ObscuredPage extends React.Component {
+export default class ObscuredPage extends React.Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
