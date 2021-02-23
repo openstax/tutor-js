@@ -4,9 +4,9 @@ import { OnboardingNag, GotItOnboardingNag, Body, Footer } from './onboarding-na
 import User from '../../models/user';
 import CourseUX from '../../models/course/ux';
 
-export default
 @withRouter
 @observer
+export default
 class SecondSessionWarning extends React.Component {
 
   @action.bound

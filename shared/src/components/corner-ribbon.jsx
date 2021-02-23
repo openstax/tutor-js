@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
 import styled, { css } from 'styled-components';
 
 const Ribbon = styled.div`

@@ -10,8 +10,8 @@ import Course from '../models/course';
 import Courses from '../models/courses-map';
 import Tabs from './tabs';
 
-export default
 @observer
+export default
 class CoursePeriodsNav extends React.Component {
 
   static propTypes = {

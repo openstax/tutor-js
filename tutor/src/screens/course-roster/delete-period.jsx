@@ -60,8 +60,8 @@ DeletePeriodModal.propTypes = {
   period: PropTypes.instanceOf(Period),
 };
 
-export default
 @observer
+export default
 class DeletePeriodLink extends React.Component {
 
   static propTypes = {

@@ -4,8 +4,8 @@ import Course from '../../models/course';
 import Router from '../../helpers/router';
 import ChapterSection from '../../models/chapter-section';
 
-export default
 @observer
+export default
 class extends React.Component {
   static displayName = 'BrowseTheBook';
 

@@ -2,8 +2,8 @@ import { React, observer, PropTypes } from 'vendor';
 import Switch from 'react-bootstrap-switch';
 
 
-export default
 @observer
+export default
 class ViewToggle extends React.Component {
 
   static propTypes = {

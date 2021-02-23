@@ -1,4 +1,4 @@
-import { React, styled } from 'vendor';
+import { React } from 'vendor';
 import Router from '../helpers/router';
 import { Table } from 'react-bootstrap';
 import ContentPage from './content-page';

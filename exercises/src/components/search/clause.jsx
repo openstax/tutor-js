@@ -6,8 +6,8 @@ import {
 import AsyncButton from 'shared/components/buttons/async-button';
 import { observer } from 'mobx-react';
 
-export default
 @observer
+export default
 class Clause extends React.Component {
 
   static propTypes = {

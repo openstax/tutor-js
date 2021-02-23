@@ -6,8 +6,8 @@ import { omit, keys } from 'lodash';
 
 const BRAND = 'OpenStax';
 
-export default
 @observer
+export default
 class CourseBranding extends React.Component {
 
   static propTypes = {
@@ -48,4 +48,4 @@ class CourseBranding extends React.Component {
       </Tag>
     );
   }
-};
+}

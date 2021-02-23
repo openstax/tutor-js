@@ -3,8 +3,8 @@ import { Icon } from 'shared';
 import Course from '../../models/course';
 import TimezoneModal from '../../components/timezone-modal';
 
-export default
 @observer
+export default
 class SetTimezone extends React.Component {
 
   static propTypes = {

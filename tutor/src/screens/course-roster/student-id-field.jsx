@@ -7,8 +7,8 @@ import { observable, action, computed } from 'mobx';
 import { Icon } from 'shared';
 import Student from '../../models/course/student';
 
-export default
 @observer
+export default
 class StudentIdField extends React.Component {
 
   static propTypes = {
@@ -116,4 +116,4 @@ class StudentIdField extends React.Component {
       </div>
     );
   }
-};
+}

@@ -20,6 +20,10 @@ function Success({ toast: { info: { url } } }) {
   );
 }
 
+Success.propTypes = {
+  toast: PropTypes.any,
+}
+
 @observer
 class Failure extends React.Component {
 

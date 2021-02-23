@@ -34,10 +34,10 @@ const PageTips = observer(({ onPlayClick, tourContext, staticContext, ...props }
 });
 
 
-export default
 @withRouter
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
+export default
 class SupportMenu extends React.Component {
 
   static propTypes = {
@@ -125,7 +125,6 @@ class SupportMenu extends React.Component {
   }
 
   renderDesktop() {
-    const { course } = this.props;
     return (
       <Dropdown show={this.show} onToggle={this.onToggle}>
         <Dropdown.Toggle

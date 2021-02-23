@@ -7,8 +7,8 @@ import { Icon } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
 
-export default
 @observer
+export default
 class LmsPush extends React.Component {
 
   static propTypes = {
@@ -46,4 +46,4 @@ class LmsPush extends React.Component {
     );
   }
 
-};
+}

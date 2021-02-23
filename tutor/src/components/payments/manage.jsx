@@ -141,8 +141,8 @@ function openWindow(url, options = {}) {
 }
 
 
-export default
 @observer
+export default
 class ManagePayments extends React.Component {
 
   static propTypes = {

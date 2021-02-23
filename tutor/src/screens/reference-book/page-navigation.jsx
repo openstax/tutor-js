@@ -5,8 +5,8 @@ import PagingNavigation from '../../components/paging-navigation';
 import UX from './ux';
 
 
-export default
 @observer
+export default
 class ReferenceViewPageNavigation extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

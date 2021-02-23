@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Alert } from 'react-bootstrap';
 
-export default function invalidCode({ enrollment }) {
+export default function invalidCode() {
   return (
     <Modal.Body>
       <Alert variant="danger">

@@ -13,9 +13,9 @@ const WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be 
 import Course from '../../models/course';
 import Teacher from '../../models/course/teacher';
 
-export default
 @withRouter
 @observer
+export default
 class RemoveTeacherLink extends React.Component {
 
   static propTypes = {

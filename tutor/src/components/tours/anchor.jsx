@@ -4,11 +4,11 @@ import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 import { ReactHelpers } from 'shared';
 
-export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
+export default
 class TourAnchor extends React.Component {
 
   static defaultProps = {

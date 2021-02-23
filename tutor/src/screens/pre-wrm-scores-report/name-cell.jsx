@@ -3,8 +3,8 @@ import Name from '../../components/name';
 import UX from './ux';
 import TutorLink from '../../components/link';
 
-export default
 @observer
+export default
 class NameCell extends React.Component {
 
   static propTypes = {

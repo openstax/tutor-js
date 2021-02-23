@@ -13,8 +13,8 @@ import './styles.scss';
 
 const df = (d) => moment(d).format('MM/DD/YYYY');
 
-export default
 @observer
+export default
 class CourseSettings extends React.Component {
 
   static propTypes = {
@@ -80,4 +80,4 @@ class CourseSettings extends React.Component {
       </CoursePage>
     );
   }
-};
+}

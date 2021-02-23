@@ -12,12 +12,12 @@ class CnxFeature extends React.Component {
 
   validateInput = (value) => {
     if (!value.match(
-      /^[\w\-]+$/i
+      /^[\w-]+$/i
     )) { return 'Must match feature ID'; }
   };
 
   cleanInput = (val) => {
-    return val.replace(/[^\w\-]/g, '');
+    return val.replace(/[^\w-]/g, '');
   };
 
   render() {

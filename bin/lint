@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+EXT=.js,.ts,.jsx,.tsx
 
 if [ $# -ne 0 ]; then
   if [ "$1" == "staged" ]; then
@@ -9,14 +10,14 @@ if [ $# -ne 0 ]; then
       $(npm bin)/eslint $2 $files
     fi
   else
-    $(npm bin)/eslint $1/{src,specs}
+    $(npm bin)/eslint --ext $EXT $1/{src,specs}
   fi
   exit $?
 fi
 
 if [[ ! -z "${OX_PROJECT}" ]]; then
-   $(npm bin)/eslint $OX_PROJECT/{src,specs}
+   $(npm bin)/eslint --ext $EXT $OX_PROJECT/{src,specs}
    exit $?
 fi
 
-$(npm bin)/eslint --ext .js,.ts,.jsx,.tsx  {tutor,shared,exercises}/{src,specs} 
+$(npm bin)/eslint --ext $EXT  {tutor,shared,exercises}/{src,specs}

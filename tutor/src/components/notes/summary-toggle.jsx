@@ -10,8 +10,8 @@ import MyHighlightsIcon from './my-highlights-icon';
 import NotesUX from '../../models/notes/ux';
 import SecondaryToolbarButton from '../navbar/secondary-toolbar-button';
 
-export default
 @observer
+export default
 class NoteSummaryToggle extends React.Component {
 
   static propTypes = {

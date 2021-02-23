@@ -70,8 +70,8 @@ const StyledHeaderInfo = styled.p`
   margin-bottom: 0;
 `;
 
-export default
 @observer
+export default
 class QLSectionsChooser extends React.Component {
 
   static propTypes = {

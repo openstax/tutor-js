@@ -9,10 +9,10 @@ import { NavbarContext } from '../../components/navbar/context';
 import Loading from 'shared/components/loading-animation';
 import QAView from './view';
 
-export default
 @withRouter
 @inject('topNavbar')
 @observer
+export default
 class QAViewWrapper extends React.Component {
 
   static propTypes = {

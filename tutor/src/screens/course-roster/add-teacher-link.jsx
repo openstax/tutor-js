@@ -7,8 +7,8 @@ import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import Course from '../../models/course';
 import { Icon } from 'shared';
 
-export default
 @observer
+export default
 class AddTeacherLink extends React.Component {
 
   static propTypes = {
@@ -61,4 +61,4 @@ class AddTeacherLink extends React.Component {
     );
   }
 
-};
+}

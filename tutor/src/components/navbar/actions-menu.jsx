@@ -7,7 +7,6 @@ import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
 import Course from '../../models/course';
-import { breakpoint } from 'theme';
 import Responsive from '../../components/responsive';
 
 const RoutedDropdownItem = (props) => {
@@ -88,8 +87,8 @@ const CustomComponents = {
   browseBook: BrowseBookDropdownItem,
 };
 
-export default
 @observer
+export default
 class ActionsMenu extends React.Component {
 
   static propTypes = {

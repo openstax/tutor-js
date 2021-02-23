@@ -4,8 +4,8 @@ import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { OnboardingNag, Body } from './onboarding-nag';
 
-export default
 @observer
+export default
 class PaymentsDisabled extends React.Component {
 
   static propTypes = {
@@ -39,4 +39,4 @@ class PaymentsDisabled extends React.Component {
     );
   }
 
-};
+}

@@ -4,9 +4,9 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import Router from '../../helpers/router';
 
-export default
 @withRouter
 @observer
+export default
 class BuildCourse extends React.Component {
 
   static title = 'Creating your new course';

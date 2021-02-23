@@ -6,8 +6,8 @@ import { Modal } from 'react-bootstrap';
 import classnames from 'classnames';
 import { Icon } from 'shared';
 
-export default
 @observer
+export default
 class WarningModal extends React.Component {
 
   static propTypes = {
@@ -62,4 +62,4 @@ class WarningModal extends React.Component {
     );
   }
 
-};
+}

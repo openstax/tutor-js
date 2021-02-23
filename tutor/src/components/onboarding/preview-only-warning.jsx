@@ -3,9 +3,9 @@ import { Button } from 'react-bootstrap';
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 
-export default
 @withRouter
 @observer
+export default
 class PreviewOnlyWarning extends React.Component {
 
   static propTypes = {

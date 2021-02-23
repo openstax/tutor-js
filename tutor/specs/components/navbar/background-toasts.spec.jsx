@@ -1,4 +1,3 @@
-import SnapShot from 'react-test-renderer';
 import Toasts from 'shared/components/toasts';
 import { Toast } from '../../../src/models/toasts';
 import { createCollection } from 'mobx-decorated-models';

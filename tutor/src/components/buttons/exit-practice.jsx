@@ -11,9 +11,9 @@ const StyledExitPracticeButton = styled(Button)`
 `;
 
 
-export default
 @withRouter
 @observer
+export default
 class ExitPractice extends React.Component {
 
   static propTypes = {

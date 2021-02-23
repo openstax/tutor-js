@@ -24,8 +24,8 @@ const StatsWrapper = styled.div`
   }
 `;
 
-export default
 @observer
+export default
 class Stats extends React.Component {
 
   static propTypes = {

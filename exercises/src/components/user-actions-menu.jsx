@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Nav, Dropdown, NavDropdown } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import { get } from 'lodash';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
-import classnames from 'classnames';
 
 @observer
 export default
@@ -51,4 +49,4 @@ class UserActionsMenu extends React.Component {
       </Nav>
     );
   }
-};
+}

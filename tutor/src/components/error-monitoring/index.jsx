@@ -4,10 +4,10 @@ import Course  from '../../models/course';
 import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 
-export default
 @withRouter
 @inject('courseContext')
 @observer
+export default
 class ServerErrorMonitoring extends React.Component {
 
   static propTypes = {

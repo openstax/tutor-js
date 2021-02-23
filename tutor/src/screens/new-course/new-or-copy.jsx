@@ -5,8 +5,8 @@ import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
 
-export default
 @observer
+export default
 class NewOrCopy extends React.Component {
 
   static title = 'Do you want to create a new course or copy a previous course?';

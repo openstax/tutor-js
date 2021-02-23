@@ -3,10 +3,9 @@ import { React, observer } from 'vendor';
 import './styles.scss';
 import UX from './ux';
 
-export default
 @observer
+export default
 class LmsPairWrapper extends React.Component {
-
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
   }

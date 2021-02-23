@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
 import { map, partial } from 'lodash';
 import { ProgressBar } from 'react-bootstrap';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { Page } from '../../models/task-plans/teacher/stats';
 
-export default
 @observer
+export default
 class Progress extends React.Component {
 
   static propTypes = {
+    index: PropTypes.number,
+    previous: PropTypes.any,
     data: PropTypes.instanceOf(Page).isRequired,
     type: PropTypes.string.isRequired,
     activeSection: PropTypes.string,
@@ -91,4 +92,4 @@ class Progress extends React.Component {
       </div>
     );
   }
-};
+}

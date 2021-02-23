@@ -10,9 +10,9 @@ import { map } from 'lodash';
 import String from '../helpers/string';
 import ModalManager from './modal-manager';
 
-export default
 @inject('modalManager')
 @observer
+export default
 class TermsModal extends React.Component {
     
   static propTypes = {

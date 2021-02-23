@@ -47,8 +47,8 @@ class QuestionHtml extends React.Component {
 }
 
 
-export default
 @observer
+export default
 class Question extends React.Component {
 
   static propTypes = {

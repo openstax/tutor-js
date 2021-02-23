@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { Modal, Button } from 'react-bootstrap';
 
-export default
 @observer
+export default
 class SetWeightsModal extends React.Component {
 
   static propTypes = {

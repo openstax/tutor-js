@@ -29,8 +29,8 @@ RouteChange.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
-export default
 @observer
+export default
 class App extends React.Component {
 
   static propTypes = {

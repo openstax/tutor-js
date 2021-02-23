@@ -61,11 +61,11 @@ const StyledTemplateModal = styled(TemplateModal)`
 `;
 
 
-export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
+export default
 class CoursePlanDetails extends React.Component {
 
   static defaultProps = {

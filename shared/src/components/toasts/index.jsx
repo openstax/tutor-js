@@ -7,8 +7,8 @@ import Toasts from '../../models/toasts';
 
 const REMOVE_AFTER = 1000 * 7;
 
-export default
 @observer
+export default
 class BackgroundToasts extends React.Component {
 
   static propTypes = {
@@ -54,4 +54,4 @@ class BackgroundToasts extends React.Component {
     );
   }
 
-};
+}

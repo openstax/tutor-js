@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, PayloadAction, current } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import { Course } from './types'
 import { updateCourse } from './api'
@@ -19,11 +19,9 @@ const coursesSlice = createSlice({
     initialState,
     reducers: {
         rename(state, { payload: { id, name } }: PayloadAction<{ id: string, name: string }>) {
-            console.log(current(state))
             const course = state.entities[id]
             if (course) { course.name = name }
-            console.log(current(state))
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(updateCourse.fulfilled, (state, { payload: course }) => {
@@ -32,7 +30,7 @@ const coursesSlice = createSlice({
         builder.addCase(bootstrap, (state, action) => {
             courseAdapter.setAll(state, action.payload.courses)
         })
-    }
+    },
 })
 
 // some hooks

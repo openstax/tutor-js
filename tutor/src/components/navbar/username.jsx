@@ -4,8 +4,8 @@ import User from '../../models/user';
 
 import { observer } from 'mobx-react';
 
-export default
 @observer
+export default
 class UserName extends React.Component {
 
   render() {
@@ -15,4 +15,4 @@ class UserName extends React.Component {
       </span>
     );
   }
-};
+}

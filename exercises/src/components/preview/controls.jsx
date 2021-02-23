@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { withRouter } from 'react-router';
-import { sortBy, partial, find } from 'lodash';
+import { partial, find } from 'lodash';
 import Exercises, { ExercisesMap } from '../../models/exercises';
 import { idType } from 'shared';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed, action } from 'mobx';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import keymaster from 'keymaster';
 

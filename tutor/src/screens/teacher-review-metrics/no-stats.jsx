@@ -1,8 +1,8 @@
 import React from 'react';
 import NoStudents from '../../components/plan-stats/no-students';
+import PropTypes from 'prop-types';
 import CGL from '../../components/course-grouping-label';
 
-// eslint-disable-next-line
 const NoStats = ({ header, course, period }) => {
 
   const body = period.hasEnrollments ? (
@@ -22,5 +22,10 @@ const NoStats = ({ header, course, period }) => {
   );
 };
 
+NoStats.propTypes = {
+  course: PropTypes.any,
+  period: PropTypes.any,
+  header: PropTypes.any,
+}
 
 export default NoStats;

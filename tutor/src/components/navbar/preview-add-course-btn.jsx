@@ -13,12 +13,12 @@ import Course from '../../models/course.js';
 
 import onboardingForCourse from '../../models/course/onboarding';
 
-export default
 @withRouter
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
+export default
 class PreviewAddCourseBtn extends React.Component {
 
   static propTypes = {

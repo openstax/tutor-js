@@ -9,8 +9,8 @@ import QuestionModel  from 'shared/model/exercise/question';
 import QuestionFormatType from './question-format-type';
 import Answer from './answer';
 
-export default
 @observer
+export default
 class Question extends React.Component {
 
   static propTypes = {

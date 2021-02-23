@@ -55,8 +55,8 @@ class NoteButton extends React.Component {
   }
 }
 
-export default
 @observer
+export default
 class SidebarButtons extends React.Component {
   static propTypes = {
     notes: PropTypes.instanceOf(PageNotes).isRequired,

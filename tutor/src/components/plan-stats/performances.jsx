@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, map } from 'lodash';
 import { observer } from 'mobx-react';
-import { observable, computed } from 'mobx';
-
 import Progress from './progress';
 
 export function ChaptersPerformance(props) {

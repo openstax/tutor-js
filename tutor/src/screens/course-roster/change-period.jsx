@@ -10,8 +10,8 @@ import CGL from '../../components/course-grouping-label';
 import Student from '../../models/course/student';
 import Period from '../../models/course/period';
 
-export default
 @observer
+export default
 class ChangePeriodLink extends React.Component {
 
   static propTypes = {

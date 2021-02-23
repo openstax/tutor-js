@@ -10,8 +10,8 @@ import { TutorInput } from '../../components/tutor-input';
 import { Icon } from 'shared';
 
 
-export default
 @observer
+export default
 class RenameCourse extends React.Component {
 
   static propTypes = {

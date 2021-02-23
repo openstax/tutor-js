@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { computed } from 'mobx';
 
 import Courses from '../models/courses-map';
 import CourseUX from '../models/course/ux';
 
-export default
 @observer
+export default
 class CourseTitleBanner extends React.Component {
 
   static propTypes = {
@@ -41,4 +41,4 @@ class CourseTitleBanner extends React.Component {
       </div>
     );
   }
-};
+}

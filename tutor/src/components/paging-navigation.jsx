@@ -67,8 +67,8 @@ const IconWrapper = styled.div.attrs({
   }
 `;
 
-export default
 @observer
+export default
 class PagingNavigation extends React.Component {
 
   static propTypes = {
@@ -93,6 +93,7 @@ class PagingNavigation extends React.Component {
       title: PropTypes.string,
     }),
     renderMobileFooter: PropTypes.bool,
+    controls: PropTypes.any,
   }
 
   static defaultProps = {

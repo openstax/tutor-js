@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { ArrayOrMobxType } from '../../helpers/react';
 
-export default
 @observer
+export default
 class FormatsListing extends React.Component {
   static propTypes = {
     formats: ArrayOrMobxType.isRequired,
@@ -21,4 +21,4 @@ class FormatsListing extends React.Component {
       </div>
     );
   }
-};
+}

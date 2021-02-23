@@ -9,8 +9,8 @@ import LogoutLink from './navbar/logout';
 import CountdownRedirect from './countdown-redirect';
 
 
-export default
 @observer
+export default
 class CCStudentRedirect extends React.Component {
 
   static propTypes = {
@@ -43,4 +43,4 @@ class CCStudentRedirect extends React.Component {
       </Card>
     );
   }
-};
+}

@@ -1,4 +1,4 @@
-import { ld, React } from 'shared/specs/helpers';
+import { React } from 'shared/specs/helpers';
 
 import { inject, observer } from 'mobx-react';
 import { SpyModeContent as Content, SpyModeWrapper as Wrapper } from '../../src/components/spy-mode';

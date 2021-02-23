@@ -8,8 +8,8 @@ import User from '../../models/user';
 const LOGOUT_URL = '/accounts/logout';
 const LOGOUT_URL_CC = '/accounts/logout?cc=true';
 
-export default
 @observer
+export default
 class LogoutLink extends React.Component {
 
   static propTypes = {
@@ -41,4 +41,4 @@ class LogoutLink extends React.Component {
       </Dropdown.Item>
     );
   }
-};
+}

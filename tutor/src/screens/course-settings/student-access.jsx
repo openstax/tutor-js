@@ -3,7 +3,7 @@ import React from 'react';
 import { partial } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { Button, Modal, CardGroup, Card } from 'react-bootstrap';
+import { Button, Modal, Card } from 'react-bootstrap';
 import Course from '../../models/course';
 import { Icon } from 'shared';
 import cn from 'classnames';
@@ -17,12 +17,13 @@ const SelectedIcon = ({ checked }) => (
     color={Theme.colors.controls[checked ? 'selected' : 'muted']}
   />
 );
+SelectedIcon.propTypes = {
+  checked: PropTypes.bool,
+}
 
-
-export default
 @observer
+export default
 class StudentAccess extends React.Component {
-
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
   };
@@ -211,4 +212,4 @@ class StudentAccess extends React.Component {
       </div>
     );
   }
-};
+}

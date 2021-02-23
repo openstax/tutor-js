@@ -1,8 +1,8 @@
 import { React, PropTypes, observer } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 
-export default
 @observer
+export default
 class EcosystemSelector extends React.Component {
 
   static propTypes = {

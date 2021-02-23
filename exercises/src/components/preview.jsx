@@ -9,8 +9,8 @@ import { Loading, NotFound } from './exercise-state';
 import Controls from './preview/controls';
 import { ExercisePreview } from 'shared';
 
-export default
 @observer
+export default
 class Preview extends React.Component {
 
   static propTypes = {

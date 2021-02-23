@@ -24,8 +24,8 @@ PastAssignmentsLoading.propTypes = {
   className: PropTypes.string,
 };
 
-export default
 @observer
+export default
 class PastAssignments extends React.Component {
 
   static propTypes = {

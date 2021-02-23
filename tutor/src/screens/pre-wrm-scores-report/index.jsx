@@ -15,8 +15,8 @@ import LoadingScreen from 'shared/components/loading-animation';
 import './styles.scss';
 import UX from './ux';
 
-export default
 @observer
+export default
 class StudentScores extends React.Component {
 
   static propTypes = {

@@ -38,8 +38,8 @@ class RenamePeriodField extends React.Component {
 }
 
 
-export default
 @observer
+export default
 class RenamePeriod extends React.Component {
 
   static propTypes = {

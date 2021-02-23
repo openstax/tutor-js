@@ -8,9 +8,9 @@ import TutorLink from '../link';
 import IconAdd from '../icons/add';
 import TourAnchor from '../tours/anchor';
 
-export default
 @withRouter
 @observer
+export default
 class CreateACourse extends React.Component {
 
   static propTypes = {

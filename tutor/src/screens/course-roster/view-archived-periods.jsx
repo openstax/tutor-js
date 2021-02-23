@@ -52,8 +52,8 @@ class ArchivedPeriodRow extends React.Component {
 }
 
 
-export default
 @observer
+export default
 class ViewArchivedPeriods extends React.Component {
 
   static propTypes = {
@@ -125,4 +125,4 @@ class ViewArchivedPeriods extends React.Component {
       </SpyMode.Content>
     );
   }
-};
+}

@@ -10,8 +10,8 @@ import StudentIdField from './student-id-field';
 import Course from '../../models/course';
 
 
-export default
 @observer
+export default
 class DroppedRoster extends React.Component {
 
   static propTypes = {
@@ -79,4 +79,4 @@ class DroppedRoster extends React.Component {
       </div>
     );
   }
-};
+}

@@ -6,10 +6,10 @@ import { NavbarContext } from '../../components/navbar/context';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import './styles.scss';
 
-export default
 @withRouter
 @inject('topNavbar', 'tourContext')
 @observer
+export default
 class ReferenceBookShell extends React.Component {
 
   static propTypes = {

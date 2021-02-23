@@ -32,8 +32,8 @@ const isAnswerChecked = function(answer, chosenAnswer) {
   return chosenAnswer.includes(answer.id);
 };
 
-export default
 @observer
+export default
 class AnswersTable extends React.Component {
 
   static propTypes = {

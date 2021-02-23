@@ -6,9 +6,9 @@ import { Button } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { withRouter } from 'react-router-dom';
 
-export default
 @withRouter
 @observer
+export default
 class Surveys extends React.Component {
 
   static propTypes = {

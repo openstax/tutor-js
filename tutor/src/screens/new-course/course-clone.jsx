@@ -4,8 +4,8 @@ import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
 
-export default
 @observer
+export default
 class CourseClone extends React.Component {
 
   static title = 'Which course do you want to copy?';

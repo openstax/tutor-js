@@ -47,6 +47,7 @@ class SpyModeWrapper extends React.Component {
   }
 }
 
+// eslint-disable-next-line
 class SpyModeContent extends React.Component {
 
   static propTypes = {

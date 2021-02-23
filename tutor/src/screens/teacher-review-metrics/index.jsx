@@ -13,8 +13,8 @@ import LoadingScreen from 'shared/components/loading-animation';
 
 import './styles.scss';
 
-export default
 @observer
+export default
 class TeacherReviewMetrics extends React.Component {
   static propTypes = {
     id: PropTypes.string,

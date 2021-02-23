@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
+import PropTypes from 'prop-types';
 
 export default function InvalidTeacher({ enrollment }) {
 
@@ -22,4 +23,11 @@ export default function InvalidTeacher({ enrollment }) {
       </Modal.Footer>
     </div>
   );
+}
+
+InvalidTeacher.propTypes = {
+  enrollment: PropTypes.shape({
+    courseName: PropTypes.string,
+    onCancel: PropTypes.func,
+  }),
 }

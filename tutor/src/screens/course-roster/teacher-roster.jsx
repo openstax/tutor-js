@@ -7,8 +7,8 @@ import RemoveTeacherLink from './remove-teacher';
 import AddTeacherLink from './add-teacher-link';
 import Course from '../../models/course';
 
-export default
 @observer
+export default
 class TeacherRoster extends React.Component {
 
   static propTypes = {

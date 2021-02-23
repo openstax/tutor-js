@@ -49,8 +49,8 @@ const NotesForPage = observer(({
 });
 NotesForPage.displayName = 'NotesForPage';
 
-export default
 @observer
+export default
 class SummaryPopup extends React.Component {
 
   static propTypes = {

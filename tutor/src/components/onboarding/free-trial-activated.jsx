@@ -5,8 +5,8 @@ import { observer } from 'mobx-react';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 
-export default
 @observer
+export default
 class FreeTrialActivated extends React.Component {
 
   static propTypes = {

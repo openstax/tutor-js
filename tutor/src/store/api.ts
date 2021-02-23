@@ -4,7 +4,7 @@ import { Course } from './types'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestOptions = { params?: any, data?: any }
-type RequestReducerFunc<T> = (obj: T) => RequestOptions
+type RequestReducerFunc<T> = (obj: T) => RequestOptions // eslint-disable-line no-unused-vars
 
 class ApiError extends Error {
     request: string
@@ -24,7 +24,7 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
     const url = template(urlPattern)(params || {})
     const resp = await fetch(`/api/${url}`, {
         method,
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
     if (resp.ok) {
         return await resp.json() as RetT
@@ -40,7 +40,7 @@ const r = <ArgT, RetT>(method: HttpMethod, urlPattern: string, storePath: string
 // URLS do not include /api/ prefix.  the request method below will add it
 
 export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/updateCourse', (c: Course) => ({
-    params: { id: c.id }, data: { name: c.name } // TODO include other updateable properties
+    params: { id: c.id }, data: { name: c.name }, // TODO include other updateable properties
 }))
 
 

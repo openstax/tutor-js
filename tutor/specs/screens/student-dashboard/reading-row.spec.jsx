@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { React, TimeMock, C } from '../../helpers';
 import Factory from '../../factories';
 import Row from '../../../src/screens/student-dashboard/event-row';

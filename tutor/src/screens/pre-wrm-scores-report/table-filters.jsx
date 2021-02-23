@@ -11,8 +11,8 @@ const FILTERS = {
   '#': 'number',
 };
 
-export default
 @observer
+export default
 class TableFilters extends React.Component {
 
   static propTypes = {
@@ -47,4 +47,4 @@ class TableFilters extends React.Component {
       </div>
     );
   }
-};
+}

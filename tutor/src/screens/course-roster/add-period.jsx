@@ -39,8 +39,8 @@ class AddPeriodField extends React.Component {
 }
 
 
-export default
 @observer
+export default
 class AddPeriodLink extends React.Component {
 
   static propTypes = {

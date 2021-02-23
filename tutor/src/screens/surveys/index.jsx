@@ -30,8 +30,8 @@ const ThankYou = () => {
 };
 
 
-export default
 @observer
+export default
 class Surveys extends React.Component {
 
   static propTypes = {

@@ -67,8 +67,8 @@ const sakai = ({ lms }) => (
 
 const VENDORS = { blackboard, canvas, moodle, d2l, sakai };
 
-export default
 @observer
+export default
 class LMSAccessCard extends React.Component {
 
   static propTypes = {

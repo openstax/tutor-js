@@ -6,8 +6,8 @@ import { observer } from 'mobx-react';
 import Offering from '../../models/course/offerings/offering';
 import CourseInformation from '../../models/course/information';
 
-export default
 @observer
+export default
 class CourseOfferingTitle extends React.Component {
   static propTypes = {
     offering: PropTypes.instanceOf(Offering).isRequired,

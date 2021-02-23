@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-
+import PropTypes from 'prop-types';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../../flux/reference-book-exercise';
 import { get } from 'lodash';
 import LoadableItem from '../loadable-item';
@@ -20,7 +20,9 @@ function ReferenceBookMissingExercise(props) {
     </small>
   );
 }
-
+ReferenceBookMissingExercise.propTypes = {
+  exerciseAPIUrl: PropTypes.string,
+}
 ReferenceBookMissingExercise.displayName = 'ReferenceBookMissingExercise';
 
 export function ReferenceBookExercise(props) {
@@ -31,6 +33,7 @@ export function ReferenceBookExercise(props) {
   if (!question) {
     // warning about missing exercise --
     // is there a need to show the reader anything?
+    // eslint-disable-next-line
     console.warn(`WARNING: ${exerciseAPIUrl} appears to be missing.`);
     return (
       <ReferenceBookMissingExercise exerciseAPIUrl={exerciseAPIUrl} />
@@ -41,12 +44,16 @@ export function ReferenceBookExercise(props) {
     <Question question={question} />
   );
 }
-
+ReferenceBookExercise.propTypes = {
+  exerciseAPIUrl: PropTypes.string,
+}
 ReferenceBookExercise.displayName = 'ReferenceBookExercise';
 
 export class ReferenceBookExerciseShell extends React.Component {
   static displayName = 'ReferenceBookExerciseShell';
-
+  static propTypes = {
+    exerciseAPIUrl: PropTypes.string,
+  }
   isLoading = () => {
     const { exerciseAPIUrl } = this.props;
     return (

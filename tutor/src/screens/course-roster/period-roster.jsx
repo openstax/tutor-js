@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
-import { isEmpty, sortBy, map } from 'lodash';
+import { isEmpty, sortBy } from 'lodash';
 import { Table } from 'react-bootstrap';
-
 import { autobind } from 'core-decorators';
 import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
@@ -12,8 +10,8 @@ import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 
-export default
 @observer
+export default
 class PeriodRoster extends React.Component {
 
   static propTypes = {
@@ -91,4 +89,4 @@ class PeriodRoster extends React.Component {
       </Table>
     );
   }
-};
+}

@@ -6,8 +6,8 @@ import { observer } from 'mobx-react';
 import { OnboardingNag, Body, Heading, Footer } from './onboarding-nag';
 import TutorLink from '../link';
 
-export default
 @observer
+export default
 class CourseUseTips extends React.Component {
 
   static propTypes = {
@@ -46,4 +46,4 @@ class CourseUseTips extends React.Component {
   }
 
 
-};
+}

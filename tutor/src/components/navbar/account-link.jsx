@@ -4,8 +4,8 @@ import { Dropdown } from 'react-bootstrap';
 import User from '../../models/user';
 import { observer } from 'mobx-react';
 
-export default
 @observer
+export default
 class AccountLink extends React.Component {
 
   static propTypes = {
@@ -21,4 +21,4 @@ class AccountLink extends React.Component {
       </Dropdown.Item>
     );
   }
-};
+}

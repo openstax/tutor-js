@@ -40,8 +40,8 @@ class BookTagSelect extends React.Component {
   }
 }
 
-export default
 @observer
+export default
 class BookTags extends React.Component {
   static propTypes = {
     exercise: PropTypes.instanceOf(Exercise).isRequired,

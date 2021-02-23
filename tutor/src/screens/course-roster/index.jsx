@@ -16,8 +16,8 @@ import CoursePage from '../../components/course-page';
 import NoPeriods from '../../components/no-periods';
 import './styles.scss';
 
-export default
 @observer
+export default
 class CourseRoster extends React.Component {
 
   static propTypes = {

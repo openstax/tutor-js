@@ -6,8 +6,8 @@ import { map } from 'lodash';
 import TimeHelper from '../../helpers/time';
 import BuilderUX from './ux';
 
-export default
 @observer
+export default
 class CourseName extends React.Component {
 
   static title = 'Choose a name for your course …';

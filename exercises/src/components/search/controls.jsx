@@ -1,6 +1,4 @@
-import React from 'react';
-
 // nothing for now
-export default function SearchControls(props) {
+export default function SearchControls() {
   return null;
 }

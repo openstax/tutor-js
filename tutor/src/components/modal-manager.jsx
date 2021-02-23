@@ -4,8 +4,8 @@ import { action, observable, observe } from 'mobx';
 import { Provider, observer } from 'mobx-react';
 import { createTransformer } from 'mobx-utils';
 
-export default
 @observer
+export default
 class ModalManager extends React.Component {
 
   static propTypes = {

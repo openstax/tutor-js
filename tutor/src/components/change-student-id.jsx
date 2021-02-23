@@ -11,9 +11,9 @@ import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
 import Header from './header';
 
-export default
 @withRouter
 @observer
+export default
 class ChangeStudentId extends React.Component {
 
   static propTypes = {

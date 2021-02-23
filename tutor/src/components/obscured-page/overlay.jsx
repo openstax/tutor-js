@@ -3,8 +3,8 @@ import { React, observer } from 'vendor';
 import { pick } from 'lodash';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 
-export default
 @observer
+export default
 class Overlay extends React.Component {
 
   static propTypes = {

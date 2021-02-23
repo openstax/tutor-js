@@ -4,8 +4,8 @@ import NotesSummaryToggle from '../notes/summary-toggle';
 import Course from '../../models/course';
 import MilestonesToggle from '../../screens/task/reading-milestones-toggle';
 
-export default
 @observer
+export default
 class CenterControls extends React.Component {
 
   static propTypes = {

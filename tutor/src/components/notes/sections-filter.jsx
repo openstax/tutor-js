@@ -13,8 +13,8 @@ const SectionTitle = styled(BookPartTitle)`
   display: inline;
 `;
 
-export default
 @observer
+export default
 class SectionsFilter extends React.Component {
 
   static propTypes = {

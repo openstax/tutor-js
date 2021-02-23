@@ -14,8 +14,8 @@ const CellTypes = {
   default: AbsentCell,
 };
 
-export default
 @observer
+export default
 class AssignmentCell extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

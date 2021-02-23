@@ -3,9 +3,9 @@ import { Button } from 'react-bootstrap';
 
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 
-export default
 @withRouter
 @observer
+export default
 class ExpiredPreviewWarning extends React.Component {
 
   static propTypes = {

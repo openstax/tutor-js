@@ -8,8 +8,8 @@ import CalendarHelper from './helper';
 const OPEN_ICON = 'close';
 const CLOSED_ICON = 'bars';
 
-export default
 @observer
+export default
 class CalendarSidebarToggle extends React.Component {
 
   static propTypes = {

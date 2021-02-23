@@ -8,9 +8,9 @@ import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
 import ModalManager from '../modal-manager';
 import Step from './step';
 
-export default
 @inject('modalManager', 'spyMode')
 @observer
+export default
 class TourConductor extends React.Component {
 
   @observable tourContext;

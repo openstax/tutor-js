@@ -3,10 +3,10 @@ import React from 'react';
 
 import { observer } from 'mobx-react';
 import PaymentsCard from '../payments/panel';
-import { OnboardingNag, Body } from './onboarding-nag';
+import { OnboardingNag } from './onboarding-nag';
 
-export default
 @observer
+export default
 class MakePayment extends React.Component {
 
   static propTypes = {
@@ -26,4 +26,4 @@ class MakePayment extends React.Component {
     );
   }
 
-};
+}

@@ -7,8 +7,8 @@ import AccountLink from './account-link';
 import LogOut from './logout';
 import Responsive from '../../components/responsive';
 
-export default
 @observer
+export default
 class UserMenu extends React.Component {
 
   renderItems() {
@@ -50,4 +50,4 @@ class UserMenu extends React.Component {
     );
   }
 
-};
+}

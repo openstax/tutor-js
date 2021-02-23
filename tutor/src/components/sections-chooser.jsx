@@ -174,8 +174,8 @@ class ChapterAccordion extends React.Component {
   }
 }
 
-export default
 @observer
+export default
 class SectionsChooser extends React.Component {
 
   static propTypes = {

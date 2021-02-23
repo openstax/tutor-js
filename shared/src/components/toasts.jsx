@@ -7,8 +7,8 @@ import { Store } from '../model/toasts';
 
 const REMOVE_AFTER = 1000 * 7;
 
-export default
 @observer
+export default
 class Toasts extends React.Component {
 
   static propTypes = {
@@ -53,4 +53,4 @@ class Toasts extends React.Component {
     );
   }
 
-};
+}

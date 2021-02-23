@@ -7,8 +7,8 @@ import { Icon } from 'shared';
 import AnswerModel  from 'shared/model/exercise/answer';
 import cn from 'classnames';
 
-export default
 @observer
+export default
 class Answer extends React.Component {
 
   static propTypes = {
@@ -71,4 +71,4 @@ class Answer extends React.Component {
       </li>
     );
   }
-};
+}

@@ -6,8 +6,8 @@ import { observer } from 'mobx-react';
 import { map, partial } from 'lodash';
 import { OnboardingNag, Body, Footer } from './onboarding-nag';
 
-export default
 @observer
+export default
 class FreshlyCreatedCourse extends React.Component {
 
   static propTypes = {
@@ -64,4 +64,4 @@ class FreshlyCreatedCourse extends React.Component {
       </OnboardingNag>
     );
   }
-};
+}

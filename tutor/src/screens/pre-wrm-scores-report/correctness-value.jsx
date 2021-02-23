@@ -40,8 +40,8 @@ const Percent = observer(({ task: { published_score } }) => {
 });
 
 
-export default
 @observer
+export default
 class CorrectnessValue extends React.Component {
 
   static propTypes = {

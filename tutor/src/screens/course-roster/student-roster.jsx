@@ -11,8 +11,8 @@ import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 import LoadingScreen from 'shared/components/loading-animation';
 
-export default
 @observer
+export default
 class StudentsRoster extends React.Component {
 
   static propTypes = {

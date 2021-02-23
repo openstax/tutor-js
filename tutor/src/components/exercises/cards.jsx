@@ -65,8 +65,8 @@ class SectionsExercises extends React.Component {
 }
 
 
-export default
 @observer
+export default
 class ExerciseCards extends React.Component {
 
   static propTypes = {

@@ -7,8 +7,8 @@ import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
 import BestPracticesTip from '../../components/best-practices-tip';
 
-export default
 @observer
+export default
 class CourseNumbers extends React.Component {
 
   static title = 'Estimate your course size';

@@ -4,7 +4,7 @@ import TutorLink from '../link';
 import { PRACTICE } from '../../models/student-tasks';
 
 export default
-class PracticeWeakestButton extends React.Component {
+class PracticeWeakestButton extends React.Component { // eslint-disable-line
 
   static defaultProps = {
     title: 'Practice my weakest topics',

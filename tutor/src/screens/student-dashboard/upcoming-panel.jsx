@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import EventsCard from './events-panel';
 import Course from '../../models/course';
 
-export default
 @observer
+export default
 class UpcomingCard extends React.Component {
 
   static propTypes = {

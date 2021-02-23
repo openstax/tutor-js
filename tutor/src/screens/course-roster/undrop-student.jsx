@@ -8,8 +8,8 @@ import Name from '../../components/name';
 import Student from '../../models/course/student';
 
 
-export default
 @observer
+export default
 class UnDropStudentLink extends React.Component {
 
   static propTypes = {

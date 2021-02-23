@@ -192,8 +192,8 @@ const StyledMenu = styled.div`
   }
 `;
 
-export default
 @observer
+export default
 class BookMenu extends React.Component {
 
   static propTypes = {

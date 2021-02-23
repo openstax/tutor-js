@@ -32,8 +32,8 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
 
 const isAnswerChecked = (answer, chosenAnswer) => Boolean((chosenAnswer || []).find( a => a == answer.id));
 
-export default
 @observer
+export default
 class Answer extends React.Component {
 
   static propTypes = {

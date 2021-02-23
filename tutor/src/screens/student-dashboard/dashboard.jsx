@@ -20,9 +20,9 @@ const DashboardSectionRow = styled(Row)`
   }
 `;
 
-export default
 @withRouter
 @observer
+export default
 class StudentDashboard extends React.Component {
 
   static propTypes = {

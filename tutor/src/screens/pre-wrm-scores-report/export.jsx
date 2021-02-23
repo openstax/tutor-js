@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
@@ -8,8 +7,8 @@ import { Icon } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 
-export default
 @observer
+export default
 class ScoresExport extends React.Component {
 
   static propTypes = {
@@ -48,4 +47,4 @@ class ScoresExport extends React.Component {
     );
   }
 
-};
+}

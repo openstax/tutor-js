@@ -7,8 +7,8 @@ import { Listing, Choice } from '../../components/choices-listing';
 import OfferingUnavailable from './offering-unavail';
 import BuilderUX from './ux';
 
-export default
 @observer
+export default
 class SelectDates extends React.Component {
 
   static title = 'When will you teach this course?';

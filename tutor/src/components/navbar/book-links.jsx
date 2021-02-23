@@ -6,6 +6,7 @@ import { get } from 'lodash';
 import Course from '../../models/course';
 import { Icon } from 'shared';
 
+// eslint-disable-next-line
 export default class BookLinks extends React.Component {
 
   static propTypes = {
@@ -40,7 +41,7 @@ export default class BookLinks extends React.Component {
           key="assignment"
           to="viewAssignmentLinks"
           activeClassName="active"
-          params={{ courseId: this.props.courseId }}
+          params={{ courseId: this.props.course.id }}
         >
           Assignment Links
         </TutorLink>

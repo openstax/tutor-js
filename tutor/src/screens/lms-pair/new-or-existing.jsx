@@ -19,8 +19,8 @@ const Footer = observer(({ ux }) => {
 });
 
 
-export default
 @observer
+export default
 class NewOrExisting extends React.Component {
 
   static propTypes = {

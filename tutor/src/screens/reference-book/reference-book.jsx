@@ -25,8 +25,8 @@ const BookPage = observer(({ ux }) => {
   }
 });
 
-export default
 @observer
+export default
 class ReferenceBook extends React.Component {
 
   static propTypes = {

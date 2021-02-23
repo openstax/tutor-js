@@ -6,8 +6,8 @@ import Payments from '../../models/payments';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
-export default
 @observer
+export default
 class PaymentsCard extends React.Component {
 
   static propTypes = {
@@ -58,4 +58,4 @@ class PaymentsCard extends React.Component {
     );
   }
 
-};
+}

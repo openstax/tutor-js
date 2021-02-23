@@ -36,8 +36,8 @@ const NotesForPage = observer(({
 
 NotesForPage.displayName = 'NotesForPage';
 
-export default
 @observer
+export default
 class NoteSummaryPage extends React.Component {
 
   static propTypes = {

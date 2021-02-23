@@ -6,8 +6,8 @@ import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import Clipboard from '../helpers/clipboard';
 
-export default
 @observer
+export default
 class CopyOnFocusInput extends React.Component {
 
   static propTypes = {
@@ -64,4 +64,4 @@ class CopyOnFocusInput extends React.Component {
 
     return input;
   }
-};
+}

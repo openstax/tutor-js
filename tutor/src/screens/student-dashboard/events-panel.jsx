@@ -14,8 +14,8 @@ const StyledTitle = styled.span`
   font-weight: 600;
 `;
 
-export default
 @observer
+export default
 class EventsCard extends React.Component {
   static propTypes = {
     events:         PropTypes.array.isRequired,

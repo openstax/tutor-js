@@ -9,8 +9,8 @@ import EventsCard from './events-panel';
 import { map } from 'lodash';
 import StatusLegend from './status-legend';
 
-export default
 @observer
+export default
 class AllEventsByWeek extends React.Component {
 
   static propTypes = {

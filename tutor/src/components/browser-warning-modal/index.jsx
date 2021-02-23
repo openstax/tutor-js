@@ -47,7 +47,7 @@ const getConnector = (browserIndex) => {
   return connector;
 };
 
-const BrowserWarning = (props) => {
+const BrowserWarning = () => {
   return (
     <WarningModal
       title="We're sorry, your browser isn't supported."

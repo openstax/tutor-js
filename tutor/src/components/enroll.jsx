@@ -15,9 +15,9 @@ import droppedStudent from './enroll/dropped-student';
 import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
 
-export default
 @withRouter
 @observer
+export default
 class CourseEnroll extends React.Component {
 
   static propTypes = {

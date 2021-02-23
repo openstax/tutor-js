@@ -9,8 +9,8 @@ import PieProgress from './pie-progress';
 import { LateWork } from './late-work';
 import UX from './ux';
 
-export default
 @observer
+export default
 class ReadingCell extends React.Component {
 
   static propTypes = {

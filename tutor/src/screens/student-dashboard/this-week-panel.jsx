@@ -7,8 +7,8 @@ import StatusLegend from './status-legend';
 import TeacherPendingLoad from './teacher-pending-load';
 
 
-export default
 @observer
+export default
 class ThisWeekCard extends React.Component {
 
   static propTypes = {

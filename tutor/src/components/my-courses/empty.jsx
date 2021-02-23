@@ -17,7 +17,7 @@ export default function EmptyCourses() {
           </p>
           <Card.Text>
             <a target="_blank" href="https://openstax.secure.force.com/help">
-              Get help >
+              Get help &gt;
             </a>
           </Card.Text>
         </Card.Body>

@@ -83,9 +83,9 @@ EventTime.propTypes = {
   event: PropTypes.object.isRequired,
 };
 
-export default
 @withRouter
 @observer
+export default
 class EventRow extends React.Component {
 
   static propTypes = {

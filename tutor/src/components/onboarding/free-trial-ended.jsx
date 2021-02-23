@@ -9,9 +9,9 @@ import CourseUX from '../../models/course/ux';
 import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
 
-export default
 @withRouter
 @observer
+export default
 class FreeTrialEnded extends React.Component {
 
   static propTypes = {

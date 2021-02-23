@@ -1,6 +1,7 @@
 import React from 'react';
 import CourseGroupingLabel from '../course-grouping-label';
 import TutorLink from '../link';
+import PropTypes from 'prop-types';
 
 const NoStudents = ({ courseId }) =>
   <div className="no-students">
@@ -14,4 +15,7 @@ const NoStudents = ({ courseId }) =>
 ;
 
 NoStudents.displayName = 'NoStudents';
+NoStudents.propTypes = {
+  courseId: PropTypes.any,
+}
 export default NoStudents;

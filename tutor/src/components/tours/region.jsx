@@ -7,11 +7,11 @@ import TourContext from '../../models/tour/context';
 
 import { delay } from 'lodash';
 
-export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
+export default
 class TourRegion extends React.Component {
 
   static defaultProps = {

@@ -5,7 +5,6 @@ import Course from '../../../src/models/course';
 import Student from '../../../src/models/course/onboarding/student-course';
 
 describe('pay now or later modal', () => {
-  let ux;
   let props;
   beforeEach(() => {
     props = {

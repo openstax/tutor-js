@@ -135,8 +135,8 @@ const Q4 = (
   </g>
 );
 
-export default
 @observer
+export default
 class PieProgress extends React.Component {
 
   static propTypes = {

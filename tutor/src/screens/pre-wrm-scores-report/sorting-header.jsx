@@ -7,8 +7,8 @@ import Theme from '../../../src/theme';
 import { Icon } from 'shared';
 import UX from './ux';
 
-export default
 @observer
+export default
 class SortingHeader extends React.Component {
 
   static propTypes = {

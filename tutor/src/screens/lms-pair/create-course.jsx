@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { React, observer } from 'vendor';
 import Wizard from '../new-course/wizard';
 
-export default
 @observer
+export default
 class CreateNewCourse extends React.Component {
 
   static propTypes = {

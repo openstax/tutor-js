@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
-import { Button, Card, Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
@@ -25,6 +25,7 @@ class LMSErrors extends React.Component {
   static propTypes = {
     toast: PropTypes.object.isRequired,
     footer: PropTypes.node.isRequired,
+    dismiss: PropTypes.any,
   }
 
   @observable displayInfo = false;

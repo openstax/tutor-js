@@ -38,8 +38,8 @@ NameHeader.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
 };
 
-export default
 @observer
+export default
 class ScoresTable extends React.Component {
 
   static propTypes = {

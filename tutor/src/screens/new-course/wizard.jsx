@@ -62,9 +62,9 @@ Title.propTypes = {
 };
 
 
-export default
 @withRouter
 @observer
+export default
 class NewCourseWizard extends React.Component {
 
   static propTypes = {

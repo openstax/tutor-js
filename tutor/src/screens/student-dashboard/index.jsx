@@ -7,9 +7,9 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import './styles.scss';
 
-export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
+export default
 class StudentDashboardShell extends React.Component {
 
   static propTypes = {

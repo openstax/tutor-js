@@ -9,8 +9,8 @@ import Loading from 'shared/components/loading-animation';
 import Exercises from './exercises';
 import UX from './ux';
 
-export default
 @observer
+export default
 class QAView extends React.Component {
 
   static propTypes = {

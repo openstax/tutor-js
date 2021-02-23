@@ -3,7 +3,6 @@ import MakePayment from '../../../src/components/onboarding/make-payment';
 import { STUDENT_COURSE_ONE_MODEL } from '../../courses-test-data';
 import Course from '../../../src/models/course';
 import Student from '../../../src/models/course/onboarding/student-course';
-import { isFunction } from 'lodash';
 import Payments from '../../../src/models/payments';
 
 describe('make payment modal', () => {

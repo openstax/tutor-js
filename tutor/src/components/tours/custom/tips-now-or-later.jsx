@@ -4,9 +4,9 @@ import {
 import Standard from './standard';
 import { Primary, TextAction } from './buttons';
 
-export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
+export default
 class TipsNowOrLater extends React.Component {
 
   static propTypes = {

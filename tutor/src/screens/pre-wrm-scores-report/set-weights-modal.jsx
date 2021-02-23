@@ -12,8 +12,8 @@ const WEIGHTS = [
   'Reading progress',
 ];
 
-export default
 @observer
+export default
 class SetWeightsModal extends React.Component {
 
   static propTypes = {
@@ -73,4 +73,4 @@ class SetWeightsModal extends React.Component {
       </Modal>
     );
   }
-};
+}

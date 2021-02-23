@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { ExercisesMap } from '../../models/exercises';
 import { Icon } from 'shared';
 
-export default
 @observer
+export default
 class LoadingDisplay extends React.Component {
 
   static propTypes = {
@@ -21,4 +21,4 @@ class LoadingDisplay extends React.Component {
       </div>
     );
   }
-};
+}

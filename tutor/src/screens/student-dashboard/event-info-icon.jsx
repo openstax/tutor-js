@@ -3,8 +3,8 @@ import { Icon } from 'shared';
 import Theme from '../../theme';
 import TourAnchor from '../../components/tours/anchor';
 
-export default
 @observer
+export default
 class EventInfoIcon extends React.Component {
   static propTypes = {
     event: PropTypes.object.isRequired,

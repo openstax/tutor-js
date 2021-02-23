@@ -4,8 +4,8 @@ import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import Course from '../../models/course';
 
-export default
 @observer
+export default
 class BestPracticesGuide extends React.Component {
 
   static propTypes = {

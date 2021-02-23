@@ -10,8 +10,8 @@ const Preview = styled.div`
   margin-top: 1.5rem;
 `;
 
-export default
 @observer
+export default
 class ExerciseEditingPreview extends React.Component {
 
   static propTypes = {

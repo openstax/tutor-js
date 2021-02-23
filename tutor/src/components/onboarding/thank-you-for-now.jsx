@@ -4,8 +4,8 @@ import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { OnboardingNag, Body, Heading } from './onboarding-nag';
 
-export default
 @observer
+export default
 class ThankYouForNow extends React.Component {
 
   static propTypes = {
@@ -27,4 +27,4 @@ class ThankYouForNow extends React.Component {
     );
   }
 
-};
+}

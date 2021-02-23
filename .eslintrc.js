@@ -35,7 +35,7 @@ module.exports = {
     "no-console":  "error",
     "no-debugger": "error",
     "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
-    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
+    "consistent-return": [0, { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
     "quotes": ["error", "double"],
     "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],

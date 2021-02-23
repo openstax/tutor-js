@@ -7,8 +7,8 @@ import CoursePlanLabel from './plan-label';
 import { CoursePlanDisplayEdit, CoursePlanDisplayQuickLook } from './plan-display';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
-export default
 @observer
+export default
 class CoursePlan extends React.Component {
 
   static propTypes = {

@@ -7,8 +7,8 @@ import Loading from 'shared/components/loading-animation';
 
 import './styles.scss';
 
-export default
 @observer
+export default
 class QuestionsDashboardShell extends React.Component {
   static propTypes = {
     exercises: PropTypes.object,

@@ -10,8 +10,8 @@ import Correctness from './correctness-value';
 import TaskResult from '../../models/scores/task-result';
 import UX from './ux';
 
-export default
 @observer
+export default
 class HomeworkCell extends React.Component {
 
   static propTypes = {

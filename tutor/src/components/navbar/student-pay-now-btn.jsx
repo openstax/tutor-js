@@ -28,8 +28,8 @@ const willDisplayPayment = (course) => {
 };
 
 
-export default
 @observer
+export default
 class StudentPayNowBtn extends React.Component {
 
   static propTypes = {

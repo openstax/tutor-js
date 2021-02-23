@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
 import Card from './panel';
 
-export default
 @observer
+export default
 class PaymentsModal extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired,
@@ -23,4 +23,4 @@ class PaymentsModal extends React.Component {
   }
 
 
-};
+}

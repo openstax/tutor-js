@@ -7,8 +7,8 @@ import ExerciseCard from './exercise-card';
 import Loading from 'shared/components/loading-animation';
 import UX from './ux';
 
-export default
 @observer
+export default
 class Exercises extends React.Component {
 
   static propTypes = {

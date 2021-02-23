@@ -4,8 +4,8 @@ import {
 import StepPanel from './standard';
 import Router from '../../../helpers/router';
 
-export default
 @withRouter
+export default
 class NewEnrollmentLink extends React.Component {
 
   className = 'new-enrollment-link-wheel'
