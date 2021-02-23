@@ -12,6 +12,7 @@ import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
+import Offerings from './course/offerings';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
@@ -29,6 +30,7 @@ const BOOTSTRAPED_MODELS = {
   payments: Payments,
   feature_flags: FeatureFlagsApi,
   response_validation: ResponseValidation,
+  offerings: Offerings,
 };
 
 // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
@@ -81,7 +83,7 @@ export default class TutorApp {
       // eslint-disable-next-line no-undef
       __webpack_public_path__ = this.data.assets_url;
     }
-    
+
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);
