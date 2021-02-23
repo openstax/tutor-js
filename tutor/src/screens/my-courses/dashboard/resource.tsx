@@ -56,7 +56,7 @@ const Resources = ({ title, info, link, appearanceCode, className } : ResourcesP
         className={itemClasses}
       >
       <a className="my-courses-item-title" href={link} target="_blank">
-          <h3 className="name">{title}</h3>
+          <h4 className="name">{title}</h4>
           <div className="preview-belt">
               <p>{info}</p>
           </div>

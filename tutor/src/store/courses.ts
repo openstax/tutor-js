@@ -41,6 +41,10 @@ const coursesSlice = createSlice({
 })
 
 // some hooks
+export const useAllCourses = () => useSelector<CourseSlice, Course[]>(state => {
+    return selectors.selectAll(state)
+})
+
 export const useHasAnyCourses = () => useSelector<CourseSlice, boolean>((state) => selectors.selectTotal(state) > 0)
 
 export const useNameCleaned = (courseId: string | number) => useSelector<CourseSlice, string | undefined>(state => {

@@ -13,7 +13,7 @@ const StyledPreviewCourse = styled.div`
       background: white;
       box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
       bottom: 40%;
-      h4 {
+      h5 {
         font-size: 1.8rem;
         line-height: 2rem;
         font-weight: 600;
@@ -54,7 +54,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
       return <OXFancyLoader isLoading={true} />
     }
     return [
-      <h4 key="title">Preview Course</h4>,
+      <h5 key="title">Preview Course</h5>,
       <p key="message">Create test assignments and view sample data</p>,
     ]
   }
@@ -73,7 +73,7 @@ const CoursePreview = ({ offering, className, history } : CoursePreviewProps) =>
         <a
           className="my-courses-item-title"
           onClick={onClick}>
-            <h3 className="name">{offering.title}</h3>
+            <h4 className="name">{offering.title}</h4>
             <div className="preview-belt">
               {previewMessage()}
             </div>

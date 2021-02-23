@@ -1,13 +1,14 @@
-import React, { useState, useCallback } from 'react'
-import { Button } from 'react-bootstrap'
-import { map, filter } from 'lodash'
+import React, { useState, useCallback, useEffect } from 'react'
+import { Button, Dropdown } from 'react-bootstrap'
+import { map, filter, some, groupBy } from 'lodash'
 import styled from 'styled-components'
 import moment from 'moment'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 import Tabs from '../../../components/tabs'
+import TutorDropdown from '../../../components/dropdown';
 import CourseInformation from '../../../models/course/information'
-import { useCoursesByOfferingId, useNumberOfStudents } from '../../../store/courses'
+import { useAllCourses, useNumberOfStudents } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
@@ -16,16 +17,22 @@ import Resource from './resource'
 
 import { Offering, Course } from '../../../store/types'
 
-export interface OfferingWithCourses extends Offering {
-    courses: Course[]
-}
-
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
     padding: 3.8rem 1.6rem;
+    h3 {
+        font-weight: 700;
+        font-size: 2.4rem;
+        line-height: 3rem;
+        color: ${colors.neutral.darker};
+        margin-bottom: 1rem;
+    }
     .controls {
         display: flex;
         justify-content: flex-end;
+        &.bottom-controls {
+            margin-top: 1.2rem;
+        }
     }
     .offering-container {
         margin: 1.6rem 0 1.6rem 0;
@@ -33,13 +40,6 @@ const StyledMyCoursesDashboard = styled.div`
         padding-top: 2.4rem;
         padding: 2.4rem 3.2rem 6.4rem;
         min-height: 40rem;
-        h2 {
-            font-weight: 700;
-            font-size: 2.4rem;
-            line-height: 3rem;
-            color: ${colors.neutral.std};
-            margin-bottom: 1rem;
-        }
         .tutor-tabs {
             .nav-tabs {
                 li a {
@@ -68,6 +68,33 @@ const StyledMyCoursesDashboard = styled.div`
                 font-size: 1.8rem;
                 color: ${colors.neutral.darker};
                 margin: 7rem auto;
+            }
+        }
+    }
+    .add-subject-dropdown {
+        margin-top: 3.2rem;
+        padding-bottom: 8rem;
+        border-bottom: 1px solid ${colors.neutral.pale};
+        .dropdown-toggle {
+            width: 35rem;
+            font-size: 1.4rem;
+            color: ${colors.neutral.thin};
+        }
+        .dropdown-menu {
+            .subject-offering-items-container {
+                &:not(:last-child) {
+                    border-bottom: 1px solid ${colors.neutral.pale};
+                }
+                .subject-item {
+                    color: ${colors.neutral.thin};
+                    font-weight: 400;
+                }
+                .offering-item {
+                    padding-left: 2rem;
+                    &.disabled {
+                        opacity: 0.4;
+                    }
+                }
             }
         }
     }
@@ -146,10 +173,9 @@ const CurrentCourses = ({ courses, offering }: {courses: Course[], offering: Off
 /**
  * Component that holds the past, current and future courses. Also the resources for the course.
  */
-const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstBlock: boolean}) => {
+const OfferingBlock = ({ offering, isFirstBlock, courses }: {offering: Offering, courses: Course[], isFirstBlock: boolean}) => {
     const [tabIndex, setTabIndex] = useState(0);
 
-    const courses = useCoursesByOfferingId(offering.id)
     const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
     const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
 
@@ -175,7 +201,7 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
 
     return (
         <div className="offering-container">    
-            <h2>{offering.title}</h2>
+            <h3>{offering.title}</h3>
             <Tabs
               tabs={['CURRENT', 'PAST', 'RESOURCES']}
               onSelect={(a) => setTabIndex(a)}
@@ -187,18 +213,101 @@ const OfferingBlock = ({ offering, isFirstBlock }: {offering: Offering, isFirstB
     )
 }
 
+interface AddSubjectsDropdownProps {
+    allOfferings: Offering[]
+    displayedOfferings: Offering[]
+    setDisplayedOfferings: React.Dispatch<React.SetStateAction<Offering[]>>
+}
+
+const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings, displayedOfferings, setDisplayedOfferings }) => {
+    const offeringsBySubject = groupBy(allOfferings, o => o.subject)
+    const subjects = map(offeringsBySubject, (offerings, subject) => {
+        return (
+        <div key={subject} className="subject-offering-items-container">
+            <Dropdown.Item
+              className="subject-item"
+              eventKey={subject}
+              disabled>
+                {subject}
+            </Dropdown.Item>
+
+            {map(offerings, offering => {
+            const isDisplayed = some(displayedOfferings, dio => dio.id === offering.id)
+            return (
+                <Dropdown.Item
+                  className="offering-item"
+                  key={offering.id}
+                  eventKey={offering.title}
+                  onSelect={() => setDisplayedOfferings(prevState => [...prevState, offering])}
+                  disabled={isDisplayed}>
+                    {offering.title}
+                </Dropdown.Item>
+            )}
+        )}
+        </div>
+        )
+    });
+
+    return (
+        <div className="add-subject-dropdown">
+            <h3>Add subject</h3>
+            <TutorDropdown
+              toggleName="Select a subject you will be teaching"
+              dropdownItems={subjects}
+        />
+        </div>
+    )
+}
+
 /**
  * Main component
  */
 export const MyCoursesDashboard = () => {
+    // getting all the data: offerings and courses
     const offerings = useAllOfferings()
+    const courses = useAllCourses()
+
+    const [displayedOfferings, setDisplayedOfferings] = useState<Offering[]>([])
+    const [isEditMode, setIsEditMode] = useState<boolean>(false)
+
+    // onLoad, display offerings who has at least 1 course
+    useEffect(() => {
+        if(offerings.length > 0 && courses.length > 0) {
+            setDisplayedOfferings(filter(offerings, o => some(courses, c => c.offering_id === o.id)))
+        }
+    }, [offerings, courses])
+
+    const settingsButton =
+    <Button
+      variant="link"
+      onClick={() => setIsEditMode(prevState => !prevState)}>
+      <Icon type="cog" />{isEditMode ? 'Exit settings' : 'Manage subjects'}
+    </Button>
+
     return (
         <StyledMyCoursesDashboard>
             <h2 data-test-id="existing-teacher-screen">My Courses</h2>
             <div className="controls">
-                <Button variant="link"><Icon type="cog" />Manage subjects</Button>
+                {settingsButton}
             </div>
-            { map(offerings, (o, i) => <OfferingBlock key={o.id} offering={o} isFirstBlock={i === 0} /> )}
+            { map(displayedOfferings, (o, i) =>
+                <OfferingBlock
+                  key={o.id}
+                  offering={o}
+                  courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')} 
+                  isFirstBlock={i === 0} />) 
+            }
+            { isEditMode && 
+                <>
+                    <AddSubjectsDropdown
+                      allOfferings={offerings}
+                      displayedOfferings={displayedOfferings}
+                      setDisplayedOfferings={setDisplayedOfferings} /> 
+                    <div className="controls bottom-controls">
+                        {settingsButton}
+                    </div>
+                </>
+            }
         </StyledMyCoursesDashboard>
     )
 }
