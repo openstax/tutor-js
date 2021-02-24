@@ -7,7 +7,6 @@ import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import Course from '../../models/course';
 
-export default
 @observer
 class DeleteCourseModal extends React.Component {
 
@@ -94,5 +93,6 @@ class DeleteCourseModal extends React.Component {
       </>
     );
   }
-
 }
+
+export default DeleteCourseModal
