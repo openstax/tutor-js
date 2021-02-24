@@ -401,7 +401,7 @@ const OfferingList: React.FC<OfferingListProps> = ({ subject, offerings }) => {
 
     return (
         <div>
-            <button aria-expanded="true" onClick={toggleShow}>
+            <button aria-expanded={showList} onClick={toggleShow}>
                 <Icon type={showList ? 'caret-down' : 'caret-right'} /> {subject}
             </button>
             {showList &&
