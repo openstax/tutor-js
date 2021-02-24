@@ -258,6 +258,7 @@ const TutorTheme = {
         footer: 5,
         goToTop: 1031,
         modal: 1050,
+        sidePanel: 1029,
     },
 };
 
