@@ -115,7 +115,7 @@
     "path-to-regexp": "3.0.0",
     "pattern-library": "github:openstax/pattern-library#v1.1.0",
     "perry-white": "0.4.0",
-    "playwright": "^1.6.2",
+    "playwright": "^1.8.1",
     "pluralize": "8.0.0",
     "popper.js": "1.15.0",
     "prop-types": "^15.7.2",
