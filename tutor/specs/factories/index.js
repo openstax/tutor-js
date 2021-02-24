@@ -35,143 +35,143 @@ import './note';
 import './grading-template';
 
 const Factories = {
-  studentTask,
-  studentTasks,
-  bot: FactoryBot,
-  setSeed(seed) {
-    return faker.seed(seed);
-  },
+    studentTask,
+    studentTasks,
+    bot: FactoryBot,
+    setSeed(seed) {
+        return faker.seed(seed);
+    },
 };
 
 each({
-  Note,
-  Stat,
-  Book,
-  Page,
-  Course,
-  Offering,
-  Ecosystem,
-  TaskPlanStat,
-  TutorExercise,
-  ResearchSurvey,
-  TeacherTaskPlan,
-  GradingTemplate,
-  StudentDashboardTask,
+    Note,
+    Stat,
+    Book,
+    Page,
+    Course,
+    Offering,
+    Ecosystem,
+    TaskPlanStat,
+    TutorExercise,
+    ResearchSurvey,
+    TeacherTaskPlan,
+    GradingTemplate,
+    StudentDashboardTask,
 }, (Model, name) => {
-  Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
-    const o = FactoryBot.create(name, attrs);
-    return new Model(o, modelArgs);
-  };
+    Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
+        const o = FactoryBot.create(name, attrs);
+        return new Model(o, modelArgs);
+    };
 });
 
 
 Factories.coursesMap = ({ count = 2, ...attrs } = {}) => {
-  const map = new CoursesMap();
-  map.onLoaded({ data: range(count).map(() => FactoryBot.create('Course', attrs)) });
-  return map;
+    const map = new CoursesMap();
+    map.onLoaded({ data: range(count).map(() => FactoryBot.create('Course', attrs)) });
+    return map;
 };
 
 Factories.ecosystemsMap = ({ count = 4 } = {}) => {
-  const map = new EcosystemsMap();
-  map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });
-  return map;
+    const map = new EcosystemsMap();
+    map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });
+    return map;
 };
 
 Factories.pastTaskPlans = ({ course, count = 4 }) => {
-  course.pastTaskPlans.onLoaded({
-    data: {
-      items: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
-    },
-  });
-  return course.pastTaskPlans;
+    course.pastTaskPlans.onLoaded({
+        data: {
+            items: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
+        },
+    });
+    return course.pastTaskPlans;
 };
 
 Factories.teacherTaskPlans = ({ course, count = 4 }) => {
-  course.teacherTaskPlans.onLoaded({
-    data: {
-      plans: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
-    },
-  });
-  return course.teacherTaskPlans;
+    course.teacherTaskPlans.onLoaded({
+        data: {
+            plans: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
+        },
+    });
+    return course.teacherTaskPlans;
 };
 
 Factories.studentTaskPlans = ({ course, count = 4, attributes = {} }) => {
-  course.studentTaskPlans.onLoaded({
-    data: {
-      tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
-        Object.assign({ course }, attributes)
-      )),
-    },
-  });
+    course.studentTaskPlans.onLoaded({
+        data: {
+            tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
+                Object.assign({ course }, attributes)
+            )),
+        },
+    });
 };
 
 
 Factories.courseRoster = ({ course }) => {
-  course.roster.onApiRequestComplete({
-    data: FactoryBot.create('CourseRoster', { course }),
-  });
+    course.roster.onApiRequestComplete({
+        data: FactoryBot.create('CourseRoster', { course }),
+    });
 };
 
 Factories.scores = ({ course }) => {
-  course.scores.onFetchComplete({
-    data: course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period })),
-  });
-  return course.scores;
+    course.scores.onFetchComplete({
+        data: course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period })),
+    });
+    return course.scores;
 };
 
 Factories.notesPageMap = ({ course, page, count = 4 }) => {
-  const notes = course.notes.ensurePageExists(page);
-  range(count).forEach(() => {
-    const note = new Note(FactoryBot.create('Note', { page }), page)
-    notes.set(note.id, note);
-  })
-  return notes;
+    const notes = course.notes.ensurePageExists(page);
+    range(count).forEach(() => {
+        const note = new Note(FactoryBot.create('Note', { page }), page)
+        notes.set(note.id, note);
+    })
+    return notes;
 }
 
 Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
-  const map = new ExercisesMap();
-  if (!book) { return map; }
-  if (book.children.length == 0) {
-    book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
-  }
-  if (pageIds.length == 0) {
-    pageIds = book.children[1].children.map(pg => pg.id);
-  }
+    const map = new ExercisesMap();
+    if (!book) { return map; }
+    if (book.children.length == 0) {
+        book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+    }
+    if (pageIds.length == 0) {
+        pageIds = book.children[1].children.map(pg => pg.id);
+    }
 
-  pageIds.forEach(pgId => {
-    map.onLoaded({
-      data: {
-        items: range(count).map(() => FactoryBot.create('TutorExercise', {
-          now,
+    pageIds.forEach(pgId => {
+        map.onLoaded({
+            data: {
+                items: range(count).map(() => FactoryBot.create('TutorExercise', {
+                    now,
 
-          page_uuid: book.pages.byId.get(pgId).uuid,
-        })),
-      },
-    }, [{ book, page_ids: [ pgId ] }]);
-  });
-  return map;
+                    page_uuid: book.pages.byId.get(pgId).uuid,
+                })),
+            },
+        }, [{ book, page_ids: [ pgId ] }]);
+    });
+    return map;
 };
 
 Factories.offeringsMap = ({ count = 4 } = {}) => {
-  const map = new OfferingsMap();
-  map.onLoaded({
-    data: {
-      items: range(count).map(() => FactoryBot.create('Offering', {})),
-    },
-  });
-  return map;
+    const map = new OfferingsMap();
+    map.onLoaded({
+        data: {
+            items: range(count).map(() => FactoryBot.create('Offering', {})),
+        },
+    });
+    return map;
 };
 
 Factories.gradingTemplates = ({ course, count = 2 } = {}) => {
-  const map = course.gradingTemplates;
-  map.onLoaded({
-    data: {
-      items: range(count).map(() =>
-        FactoryBot.create('GradingTemplate', { course })
-      ),
-    },
-  });
-  return map;
+    const map = course.gradingTemplates;
+    map.onLoaded({
+        data: {
+            items: range(count).map(() =>
+                FactoryBot.create('GradingTemplate', { course })
+            ),
+        },
+    });
+    return map;
 };
 
 export { FactoryBot, faker };

@@ -8,67 +8,67 @@ import { Stats } from '../../models/task-plans/teacher/stats';
 import NoStats from './no-stats';
 
 function ReviewHeading(props) {
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   const { sectionLabel, title } = props;
 
-  return (
-    <h2 data-section={sectionLabel}>
-      <span className="text-success">{sectionLabel}</span>
-      {' '}
-      {title}
-    </h2>
-  );
+    return (
+        <h2 data-section={sectionLabel}>
+            <span className="text-success">{sectionLabel}</span>
+            {' '}
+            {title}
+        </h2>
+    );
 
 }
 
 const NotFound = () => (
-  <Alert variant="info">
+    <Alert variant="info">
     This assignment does‘t have any activity to display
-  </Alert>
+    </Alert>
 );
 
 ReviewHeading.displayName = 'ReviewHeadingTracker';
 
 export default function Review({ stats, course, period }) {
 
-  if (!stats || isEmpty(stats.exercisesBySection)) {
+    if (!stats || isEmpty(stats.exercisesBySection)) {
+        return (
+            <NoStats course={course} period={period} />
+        );
+    }
+
+    const stepsList = flatMap(stats.exercisesBySection, (exercises, section) => {
+        const steps = [
+            <ReviewHeading
+                sectionLabel={section}
+                key={`${section}-heading`}
+                title={exercises[0].page.title}
+            />,
+        ];
+        return steps.concat(compact(map(exercises, (exercise, i) => {
+            if (!exercise.content) { return null; }
+            return (
+                <ReviewExercise
+                    course={course}
+                    key={`${section}-${i}`}
+                    exercise={exercise}
+                />
+            );
+        })));
+    });
+
     return (
-      <NoStats course={course} period={period} />
+        <TourRegion id="review-metrics">
+            {isEmpty(stepsList) ? <NotFound /> : stepsList}
+        </TourRegion>
     );
-  }
-
-  const stepsList = flatMap(stats.exercisesBySection, (exercises, section) => {
-    const steps = [
-      <ReviewHeading
-        sectionLabel={section}
-        key={`${section}-heading`}
-        title={exercises[0].page.title}
-      />,
-    ];
-    return steps.concat(compact(map(exercises, (exercise, i) => {
-      if (!exercise.content) { return null; }
-      return (
-        <ReviewExercise
-          course={course}
-          key={`${section}-${i}`}
-          exercise={exercise}
-        />
-      );
-    })));
-  });
-
-  return (
-    <TourRegion id="review-metrics">
-      {isEmpty(stepsList) ? <NotFound /> : stepsList}
-    </TourRegion>
-  );
 }
 
 Review.displayName = 'Review';
 
 Review.propTypes = {
-  currentStep: PropTypes.number,
-  course: PropTypes.object.isRequired,
-  period: PropTypes.object.isRequired,
-  stats: PropTypes.instanceOf(Stats).isRequired,
+    currentStep: PropTypes.number,
+    course: PropTypes.object.isRequired,
+    period: PropTypes.object.isRequired,
+    stats: PropTypes.instanceOf(Stats).isRequired,
 };

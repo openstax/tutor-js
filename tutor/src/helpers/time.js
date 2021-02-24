@@ -4,15 +4,15 @@ import { isEmpty, clone, first } from 'lodash';
 
 // List of allowed http://www.iana.org/time-zones
 const TIMEZONES = [
-  'US/Hawaii',
-  'US/Alaska',
-  'US/Pacific',
-  'US/Arizona',
-  'US/Mountain',
-  'US/Central',
-  'US/Eastern',
-  'US/East-Indiana',
-  'Canada/Atlantic',
+    'US/Hawaii',
+    'US/Alaska',
+    'US/Pacific',
+    'US/Arizona',
+    'US/Mountain',
+    'US/Central',
+    'US/Eastern',
+    'US/East-Indiana',
+    'Canada/Atlantic',
 ];
 
 // eslint-disable-next-line
@@ -28,153 +28,153 @@ const ISO_DATETIME_REGEX = new RegExp(START + ISO_DATE_REGEX.source + SEPARATOR 
 const ISO_TIME_ONLY_REGEX = new RegExp(START + ISO_TIME_REGEX.source + END);
 
 const TimeHelper = {
-  ISO_DATE_FORMAT: 'YYYY-MM-DD',
-  ISO_TIME_FORMAT: 'HH:mm',
-  HUMAN_TIME_FORMAT: 'h:mm a',
-  HUMAN_DATE_FORMAT: 'MM/DD/YYYY',
-  HUMAN_DATE_TIME_TZ_FORMAT: 'ddd, MMM D, h:mma z',
+    ISO_DATE_FORMAT: 'YYYY-MM-DD',
+    ISO_TIME_FORMAT: 'HH:mm',
+    HUMAN_TIME_FORMAT: 'h:mm a',
+    HUMAN_DATE_FORMAT: 'MM/DD/YYYY',
+    HUMAN_DATE_TIME_TZ_FORMAT: 'ddd, MMM D, h:mma z',
 
-  toHumanDate(datething) {
-    return moment(datething).format(this.HUMAN_DATE_FORMAT);
-  },
-
-  toShortHumanDateTime(datething) {
-    return moment(datething).format('llll');
-  },
-
-  toShortHumanDateTimeTz(datething) {
-    return this.momentInLocal(datething).format('llll z');
-  },
-
-  toISO(datething) {
-    return moment(datething).format(this.ISO_DATE_FORMAT);
-  },
-
-  ISODateToMoment(datething) {
-    return moment(datething, this.ISO_DATE_FORMAT);
-  },
-
-  toDateTimeISO(datething) {
-    return moment(datething).format(`${this.ISO_DATE_FORMAT} ${this.ISO_TIME_FORMAT}`);
-  },
-
-  isDateStringOnly(stringToCheck) {
-    return ISO_DATE_ONLY_REGEX.test(stringToCheck);
-  },
-
-  isDateTimeString(stringToCheck) {
-    return ISO_DATETIME_REGEX.test(stringToCheck);
-  },
-
-  isTimeStringOnly(stringToCheck) {
-    return ISO_TIME_ONLY_REGEX.test(stringToCheck);
-  },
-
-  hasTimeString(stringToCheck) {
-    return ISO_TIME_REGEX.test(stringToCheck);
-  },
-
-  hasDateString(stringToCheck) {
-    return ISO_DATE_REGEX.test(stringToCheck);
-  },
-
-  getTimeOnly(stringToCheck) {
-    return first(stringToCheck.match(ISO_TIME_REGEX));
-  },
-
-  getDateOnly(stringToCheck) {
-    return first(stringToCheck.match(ISO_DATE_REGEX));
-  },
-
-  PropTypes: {
-    moment(props, propName, componentName) {
-      if (!moment.isMoment(props[propName])) {
-        return new Error(`${propName} should be a moment for ${componentName}`);
-      }
-      return null;
+    toHumanDate(datething) {
+        return moment(datething).format(this.HUMAN_DATE_FORMAT);
     },
-  },
 
-  getCurrentLocales() {
-    const currentLocale = moment.localeData();
+    toShortHumanDateTime(datething) {
+        return moment(datething).format('llll');
+    },
 
-    return {
-      abbr: currentLocale._abbr,
-      week: currentLocale._week,
-      weekdaysMin: currentLocale._weekdaysMin,
-    };
-  },
+    toShortHumanDateTimeTz(datething) {
+        return this.momentInLocal(datething).format('llll z');
+    },
 
-  syncCourseTimezone(courseTimezone) {
-    if (this.isCourseTimezone(courseTimezone)) { return null; }
-    if (this._local == null) { this._local = this.getLocalTimezone(); }
-    const zonedMoment = moment.tz.setDefault(courseTimezone);
-    return zonedMoment;
-  },
+    toISO(datething) {
+        return moment(datething).format(this.ISO_DATE_FORMAT);
+    },
 
-  unsyncCourseTimezone() {
-    if (this._local == null) { return null; }
-    const unzonedMoment = moment.tz.setDefault(this._local);
-    this.unsetLocal();
-    return unzonedMoment;
-  },
+    ISODateToMoment(datething) {
+        return moment(datething, this.ISO_DATE_FORMAT);
+    },
 
-  momentInLocal(date) {
-    return moment.tz(date, this.getLocalTimezone());
-  },
+    toDateTimeISO(datething) {
+        return moment(datething).format(`${this.ISO_DATE_FORMAT} ${this.ISO_TIME_FORMAT}`);
+    },
 
-  makeMoment(value, ...args) {
-    if (moment.isMoment(value)) {
-      if (value instanceof moment) {
-        return value.clone();
-      } else {
-        return moment(value._d, ...Array.from(args));
-      }
-    } else {
-      return moment(value, ...Array.from(args));
-    }
-  },
+    isDateStringOnly(stringToCheck) {
+        return ISO_DATE_ONLY_REGEX.test(stringToCheck);
+    },
 
-  getLocalTimezone() {
-    return moment.tz.guess();
-  },
+    isDateTimeString(stringToCheck) {
+        return ISO_DATETIME_REGEX.test(stringToCheck);
+    },
 
-  browserTzName() {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
-  },
+    isTimeStringOnly(stringToCheck) {
+        return ISO_TIME_ONLY_REGEX.test(stringToCheck);
+    },
 
-  getMomentPreserveDate(value, ...args) {
-    const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
-    return preserve.hour(12).locale(moment.locale());
-  },
+    hasTimeString(stringToCheck) {
+        return ISO_TIME_REGEX.test(stringToCheck);
+    },
 
-  getZonedMoment(value, ...args) {
-    const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
-    if (this._local) { preserve.tz(this._local); }
-    return preserve.hour(12).locale(moment.locale());
-  },
+    hasDateString(stringToCheck) {
+        return ISO_DATE_REGEX.test(stringToCheck);
+    },
 
-  getLocal() {
-    return this._local;
-  },
+    getTimeOnly(stringToCheck) {
+        return first(stringToCheck.match(ISO_TIME_REGEX));
+    },
 
-  unsetLocal() {
-    return this._local = null;
-  },
+    getDateOnly(stringToCheck) {
+        return first(stringToCheck.match(ISO_DATE_REGEX));
+    },
 
-  getTimezones() {
-    return clone(TIMEZONES);
-  },
+    PropTypes: {
+        moment(props, propName, componentName) {
+            if (!moment.isMoment(props[propName])) {
+                return new Error(`${propName} should be a moment for ${componentName}`);
+            }
+            return null;
+        },
+    },
 
-  isTimezoneValid(timezone) {
-    let needle;
-    return (needle = timezone, TimeHelper.getTimezones().includes(needle));
-  },
+    getCurrentLocales() {
+        const currentLocale = moment.localeData();
 
-  isCourseTimezone(courseTimezone) {
-    if (isEmpty(courseTimezone)) { return false; }
-    return moment().utcOffset() === moment.tz(courseTimezone).utcOffset();
-  },
+        return {
+            abbr: currentLocale._abbr,
+            week: currentLocale._week,
+            weekdaysMin: currentLocale._weekdaysMin,
+        };
+    },
+
+    syncCourseTimezone(courseTimezone) {
+        if (this.isCourseTimezone(courseTimezone)) { return null; }
+        if (this._local == null) { this._local = this.getLocalTimezone(); }
+        const zonedMoment = moment.tz.setDefault(courseTimezone);
+        return zonedMoment;
+    },
+
+    unsyncCourseTimezone() {
+        if (this._local == null) { return null; }
+        const unzonedMoment = moment.tz.setDefault(this._local);
+        this.unsetLocal();
+        return unzonedMoment;
+    },
+
+    momentInLocal(date) {
+        return moment.tz(date, this.getLocalTimezone());
+    },
+
+    makeMoment(value, ...args) {
+        if (moment.isMoment(value)) {
+            if (value instanceof moment) {
+                return value.clone();
+            } else {
+                return moment(value._d, ...Array.from(args));
+            }
+        } else {
+            return moment(value, ...Array.from(args));
+        }
+    },
+
+    getLocalTimezone() {
+        return moment.tz.guess();
+    },
+
+    browserTzName() {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    },
+
+    getMomentPreserveDate(value, ...args) {
+        const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
+        return preserve.hour(12).locale(moment.locale());
+    },
+
+    getZonedMoment(value, ...args) {
+        const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
+        if (this._local) { preserve.tz(this._local); }
+        return preserve.hour(12).locale(moment.locale());
+    },
+
+    getLocal() {
+        return this._local;
+    },
+
+    unsetLocal() {
+        return this._local = null;
+    },
+
+    getTimezones() {
+        return clone(TIMEZONES);
+    },
+
+    isTimezoneValid(timezone) {
+        let needle;
+        return (needle = timezone, TimeHelper.getTimezones().includes(needle));
+    },
+
+    isCourseTimezone(courseTimezone) {
+        if (isEmpty(courseTimezone)) { return false; }
+        return moment().utcOffset() === moment.tz(courseTimezone).utcOffset();
+    },
 };
 
 export default TimeHelper;

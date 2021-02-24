@@ -17,55 +17,55 @@ export default class App extends React.Component {
   ux = new UX();
 
   static propTypes = {
-    data: PropTypes.object,
+      data: PropTypes.object,
   }
   
   @action.bound onNav(ev) {
-    ev.preventDefault();
-    this.router.history.push(ev.currentTarget.pathname);
+      ev.preventDefault();
+      this.router.history.push(ev.currentTarget.pathname);
   }
 
   @action.bound onNew(ev) {
-    ev.preventDefault();
-    ExerciseMap.createNewRecord();
-    this.router.history.push(ev.currentTarget.pathname);
+      ev.preventDefault();
+      ExerciseMap.createNewRecord();
+      this.router.history.push(ev.currentTarget.pathname);
   }
 
   render() {
-    const { ux, props: { data: { user } } } = this;
+      const { ux, props: { data: { user } } } = this;
 
-    return (
-      <Provider ux={ux}>
-        <BrowserRouter ref={br => this.router = br}>
-          <div>
-            <Navbar bg="light" expand="lg" className="justify-content-between">
-              <Navbar.Brand onClick={this.onNav} href="/">OX Exercises</Navbar.Brand>
+      return (
+          <Provider ux={ux}>
+              <BrowserRouter ref={br => this.router = br}>
+                  <div>
+                      <Navbar bg="light" expand="lg" className="justify-content-between">
+                          <Navbar.Brand onClick={this.onNav} href="/">OX Exercises</Navbar.Brand>
 
-              <Nav className="exercise-navbar-controls" >
-                <Nav.Link onClick={this.onNav} href="/search">
+                          <Nav className="exercise-navbar-controls" >
+                              <Nav.Link onClick={this.onNav} href="/search">
                   Search
-                </Nav.Link>
-                <Nav.Link onClick={this.onNew} href="/exercise/new">
+                              </Nav.Link>
+                              <Nav.Link onClick={this.onNew} href="/exercise/new">
                   New
-                </Nav.Link>
-                <Route path="/search" component={Search.Controls} />
-                <Route path="/exercise/:uid" component={Exercise.Controls} />
-                <Route path="/preview/:uid" component={Preview.Controls} />
-                <UserActionsMenu user={user} />
-              </Nav>
-            </Navbar>
-            <Container fluid className="openstax exercises">
-              <Toasts />
-              <div className="exercises-body">
-                <Route path="/search" component={Search} />
-                <Route path="/exercise/:uid" component={Exercise} />
-                <Route path="/preview/:uid" component={Preview} />
-              </div>
-            </Container>
-          </div>
-        </BrowserRouter>
-      </Provider>
-    );
+                              </Nav.Link>
+                              <Route path="/search" component={Search.Controls} />
+                              <Route path="/exercise/:uid" component={Exercise.Controls} />
+                              <Route path="/preview/:uid" component={Preview.Controls} />
+                              <UserActionsMenu user={user} />
+                          </Nav>
+                      </Navbar>
+                      <Container fluid className="openstax exercises">
+                          <Toasts />
+                          <div className="exercises-body">
+                              <Route path="/search" component={Search} />
+                              <Route path="/exercise/:uid" component={Exercise} />
+                              <Route path="/preview/:uid" component={Preview} />
+                          </div>
+                      </Container>
+                  </div>
+              </BrowserRouter>
+          </Provider>
+      );
   }
 
 }

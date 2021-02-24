@@ -48,44 +48,44 @@ const StyledModal = styled(Modal)`
 export default class ProgressCard extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   @action.bound closeMilestones() {
-    MilestonesToggle.isActive = false;
+      MilestonesToggle.isActive = false;
   }
 
   @action.bound renderMilestones() {
-    const { ux } = this.props;
+      const { ux } = this.props;
 
-    return (
-      <Milestones
-        ux={ux}
-        id={ux.task.id}
-        onHide={this.closeMilestones}
-      />
-    );
+      return (
+          <Milestones
+              ux={ux}
+              id={ux.task.id}
+              onHide={this.closeMilestones}
+          />
+      );
   }
 
   render() {
-    return (
-      <StyledModal
-        dialogClassName={cn('task-milestones', 'openstax-wrapper')}
-        show={MilestonesToggle.isActive}
-        onHide={this.closeMilestones}
-        scrollable={true}
-      >
-        <Modal.Header
-          closeButton={true}
-          closeLabel={'Close'}
-        >
-          <Modal.Title>Assignment Overview</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {this.renderMilestones()}
-        </Modal.Body>
-      </StyledModal>
+      return (
+          <StyledModal
+              dialogClassName={cn('task-milestones', 'openstax-wrapper')}
+              show={MilestonesToggle.isActive}
+              onHide={this.closeMilestones}
+              scrollable={true}
+          >
+              <Modal.Header
+                  closeButton={true}
+                  closeLabel={'Close'}
+              >
+                  <Modal.Title>Assignment Overview</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  {this.renderMilestones()}
+              </Modal.Body>
+          </StyledModal>
 
-    );
+      );
   }
 }

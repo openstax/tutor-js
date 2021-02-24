@@ -10,24 +10,24 @@ const WRM_START_DATE = new Date('2020-06-18');
 export { WRM_START_DATE };
 
 export function setNow(now) {
-  if (!isDate(now)) {
-    now = new Date(now);
-  }
-  shiftMs = now.getTime() - (new Date()).getTime();
+    if (!isDate(now)) {
+        now = new Date(now);
+    }
+    shiftMs = now.getTime() - (new Date()).getTime();
 }
 
 export function setResolution(r = defaultResolution) {
-  timeResolution = r;
+    timeResolution = r;
 }
 
 const Store = {
 
-  DATE_FORMAT: 'MM/DD/YYYY',
+    DATE_FORMAT: 'MM/DD/YYYY',
 
-  get now() {
-    const now = getNow(timeResolution);
-    return new Date(now + shiftMs);
-  },
+    get now() {
+        const now = getNow(timeResolution);
+        return new Date(now + shiftMs);
+    },
 
 };
 

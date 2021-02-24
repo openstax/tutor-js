@@ -63,47 +63,47 @@ const StyledMenu = styled(Dropdown.Menu)`
 `;
 
 const TutorDropdown = ({
-  toggleName,
-  dropdownItems,
-  dropdownTestId = '',
-  toggleDataTestId = '',
-  disabled = false,
-  shouldBeFocus = false,
-  hasError = false }) => {
-  const dropdownRef = useRef();
-  useEffect(() => {
-    if(dropdownRef && dropdownRef.current) {
-      dropdownRef.current.focus();
-    }
-  }, []);
-  return (
-    <StyledDropdown data-test-id={dropdownTestId}>
-      {
-        toggleName &&
+    toggleName,
+    dropdownItems,
+    dropdownTestId = '',
+    toggleDataTestId = '',
+    disabled = false,
+    shouldBeFocus = false,
+    hasError = false }) => {
+    const dropdownRef = useRef();
+    useEffect(() => {
+        if(dropdownRef && dropdownRef.current) {
+            dropdownRef.current.focus();
+        }
+    }, []);
+    return (
+        <StyledDropdown data-test-id={dropdownTestId}>
+            {
+                toggleName &&
           <StyledToggle
-            type="button"
-            variant="outline"
-            className={cn({ 'has-error': hasError })}
-            data-test-id={toggleDataTestId}
-            disabled={disabled}
-            ref={shouldBeFocus ? dropdownRef : null}>
-            <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
+              type="button"
+              variant="outline"
+              className={cn({ 'has-error': hasError })}
+              data-test-id={toggleDataTestId}
+              disabled={disabled}
+              ref={shouldBeFocus ? dropdownRef : null}>
+              <TruncatedText maxWidth="25rem">{toggleName}</TruncatedText>
           </StyledToggle>
-      }
-      <StyledMenu>
-        {dropdownItems}
-      </StyledMenu>
-    </StyledDropdown>
-  );
+            }
+            <StyledMenu>
+                {dropdownItems}
+            </StyledMenu>
+        </StyledDropdown>
+    );
 };
 TutorDropdown.propTypes = {
-  toggleName: PropTypes.string,
-  dropdownTestId: PropTypes.string,
-  toggleDataTestId: PropTypes.string,
-  disabled: PropTypes.bool,
-  dropdownItems: PropTypes.node.isRequired,
-  shouldBeFocus: PropTypes.bool,
-  hasError: PropTypes.bool,
+    toggleName: PropTypes.string,
+    dropdownTestId: PropTypes.string,
+    toggleDataTestId: PropTypes.string,
+    disabled: PropTypes.bool,
+    dropdownItems: PropTypes.node.isRequired,
+    shouldBeFocus: PropTypes.bool,
+    hasError: PropTypes.bool,
 };
 
 export default TutorDropdown;

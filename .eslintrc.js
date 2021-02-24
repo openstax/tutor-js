@@ -35,7 +35,7 @@ module.exports = {
     "no-console":  "error",
     "no-debugger": "error",
     "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
-    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
+    "consistent-return": [0, { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
     "quotes": ["error", "double"],
     "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],
@@ -71,7 +71,8 @@ module.exports = {
     "react/prop-types": 2,
     "react/jsx-uses-vars": ["error"],
     "react/jsx-uses-react":  ["error"],
-    "react/jsx-indent-props": [2, 2],
+    "indent": ["error", 4],
+    "react/jsx-indent-props": [2, 4],
     "key-spacing": [2, {
       "singleLine": {
         "beforeColon": false,

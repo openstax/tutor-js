@@ -2,15 +2,15 @@ import Select from '../../src/components/select';
 import { Formik as F } from 'formik';
 
 describe('Select', () => {
-  let props;
+    let props;
 
-  beforeEach(() => {
-    props = {
-      name: 'select1',
-    };
-  });
+    beforeEach(() => {
+        props = {
+            name: 'select1',
+        };
+    });
 
-  it('matches snapshot', () => {
-    expect.snapshot(<F><Select {...props} /></F>).toMatchSnapshot();
-  });
+    it('matches snapshot', () => {
+        expect.snapshot(<F><Select {...props} /></F>).toMatchSnapshot();
+    });
 });

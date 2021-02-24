@@ -1,85 +1,85 @@
 const freeResponse = {
-  name: 'free-response',
-  optional: 'checkQuestionFormat',
-  passCheck: ['free_response'],
+    name: 'free-response',
+    optional: 'checkQuestionFormat',
+    passCheck: ['free_response'],
 
-  actions: [
-    'fillFreeResponse',
-    'saveFreeResponse',
-  ],
+    actions: [
+        'fillFreeResponse',
+        'saveFreeResponse',
+    ],
 };
 
 const multipleChoice = {
-  name: 'multiple-choice',
-  aliases: ['true-false', 'fill-in-the-blank'],
-  optional: 'checkQuestionFormat',
-  passCheck: ['answer_id', 'is_completed'],
+    name: 'multiple-choice',
+    aliases: ['true-false', 'fill-in-the-blank'],
+    optional: 'checkQuestionFormat',
+    passCheck: ['answer_id', 'is_completed'],
 
-  actions: [
-    'pickMultipleChoice',
-    'saveMultipleChoice',
-  ],
+    actions: [
+        'pickMultipleChoice',
+        'saveMultipleChoice',
+    ],
 };
 
 const review = {
-  name: 'review',
-  canReview: true,
-  canWrite: true,
+    name: 'review',
+    canReview: true,
+    canWrite: true,
 
-  actions: [
-    'clickContinue',
-  ],
+    actions: [
+        'clickContinue',
+    ],
 };
 
 const teacherReadOnly = {
-  name: 'teacher-read-only',
-  canWrite: false,
+    name: 'teacher-read-only',
+    canWrite: false,
 
-  actions: [
-    'clickContinue',
-  ],
+    actions: [
+        'clickContinue',
+    ],
 };
 
 const teacherReview = {
-  name: 'teacher-read-only',
-  canReview: true,
-  canWrite: false,
+    name: 'teacher-read-only',
+    canReview: true,
+    canWrite: false,
 
-  actions: [
-    'clickContinue',
-  ],
+    actions: [
+        'clickContinue',
+    ],
 };
 
 const view = {
-  name: 'view',
-  canReview: true,
+    name: 'view',
+    canReview: true,
 
-  actions: [
-    'clickContinue',
-  ],
+    actions: [
+        'clickContinue',
+    ],
 };
 
 const stepNoFeedback = [
-  freeResponse,
-  multipleChoice,
+    freeResponse,
+    multipleChoice,
 ];
 
 const stepFeedbackImmediate = [
-  freeResponse,
-  multipleChoice,
-  review,
+    freeResponse,
+    multipleChoice,
+    review,
 ];
 
 const stepViewOnly = [
-  view,
+    view,
 ];
 
 const stepTeacherReview = [
-  teacherReview,
+    teacherReview,
 ];
 
 const stepTeacherReadOnly = [
-  teacherReadOnly,
+    teacherReadOnly,
 ];
 
 // Policy Shape
@@ -93,183 +93,183 @@ const stepTeacherReadOnly = [
 //           #{state}: #{info}
 
 const defaultPolicies = {
-  exercise: {
-    panels: {
-      default: stepFeedbackImmediate,
-      check: 'role',
-
-      states: {
-        teacher: stepTeacherReview,
-      },
-    },
-  },
-
-  reading: {
-    panels: {
-      default: stepViewOnly,
-      check: 'role',
-
-      states: {
-        teacher: stepTeacherReview,
-      },
-    },
-  },
-
-  video: {
-    panels: {
-      default: stepViewOnly,
-      check: 'role',
-
-      states: {
-        teacher: stepTeacherReview,
-      },
-    },
-  },
-
-  interactive: {
-    panels: {
-      default: stepViewOnly,
-      check: 'role',
-
-      states: {
-        teacher: stepTeacherReview,
-      },
-    },
-  },
-
-  placeholder: {
-    panels: {
-      default: stepViewOnly,
-      check: 'role',
-
-      states: {
-        teacher: stepTeacherReview,
-      },
-    },
-  },
-};
-
-const policies = {
-  homework: {
     exercise: {
-      panels: {
-        default: {
-          check: 'dueState',
-
-          states: {
-            before: stepNoFeedback,
-            after: stepFeedbackImmediate,
-          },
-        },
-
-        check: 'role',
-
-        states: {
-          teacher: {
-            check: 'dueState',
+        panels: {
+            default: stepFeedbackImmediate,
+            check: 'role',
 
             states: {
-              before: stepTeacherReadOnly,
-              after: stepTeacherReview,
+                teacher: stepTeacherReview,
             },
-          },
         },
-      },
+    },
+
+    reading: {
+        panels: {
+            default: stepViewOnly,
+            check: 'role',
+
+            states: {
+                teacher: stepTeacherReview,
+            },
+        },
+    },
+
+    video: {
+        panels: {
+            default: stepViewOnly,
+            check: 'role',
+
+            states: {
+                teacher: stepTeacherReview,
+            },
+        },
+    },
+
+    interactive: {
+        panels: {
+            default: stepViewOnly,
+            check: 'role',
+
+            states: {
+                teacher: stepTeacherReview,
+            },
+        },
     },
 
     placeholder: {
-      panels: {
-        default: stepViewOnly,
-        check: 'role',
+        panels: {
+            default: stepViewOnly,
+            check: 'role',
 
-        states: {
-          teacher: stepTeacherReview,
+            states: {
+                teacher: stepTeacherReview,
+            },
         },
-      },
     },
-  },
+};
 
-  practice: {
-    exercise: {
-      panels: {
-        default: stepFeedbackImmediate,
-        check: 'role',
+const policies = {
+    homework: {
+        exercise: {
+            panels: {
+                default: {
+                    check: 'dueState',
 
-        states: {
-          teacher: stepTeacherReview,
+                    states: {
+                        before: stepNoFeedback,
+                        after: stepFeedbackImmediate,
+                    },
+                },
+
+                check: 'role',
+
+                states: {
+                    teacher: {
+                        check: 'dueState',
+
+                        states: {
+                            before: stepTeacherReadOnly,
+                            after: stepTeacherReview,
+                        },
+                    },
+                },
+            },
         },
-      },
-    },
-  },
 
-  chapter_practice: {
-    exercise: {
-      panels: {
-        default: stepFeedbackImmediate,
-        check: 'role',
+        placeholder: {
+            panels: {
+                default: stepViewOnly,
+                check: 'role',
 
-        states: {
-          teacher: stepTeacherReview,
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
         },
-      },
     },
-  },
 
-  page_practice: {
-    exercise: {
-      panels: {
-        default: stepFeedbackImmediate,
-        check: 'role',
+    practice: {
+        exercise: {
+            panels: {
+                default: stepFeedbackImmediate,
+                check: 'role',
 
-        states: {
-          teacher: stepTeacherReview,
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
         },
-      },
     },
-  },
 
-  practice_worst_topics: {
-    exercise: {
-      panels: {
-        default: stepFeedbackImmediate,
-        check: 'role',
+    chapter_practice: {
+        exercise: {
+            panels: {
+                default: stepFeedbackImmediate,
+                check: 'role',
 
-        states: {
-          teacher: stepTeacherReview,
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
         },
-      },
     },
-  },
 
-  concept_coach: {
-    exercise: {
-      panels: {
-        default: stepFeedbackImmediate,
-        check: 'role',
+    page_practice: {
+        exercise: {
+            panels: {
+                default: stepFeedbackImmediate,
+                check: 'role',
 
-        states: {
-          teacher: stepTeacherReview,
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
         },
-      },
     },
-  },
 
-  reading: defaultPolicies,
+    practice_worst_topics: {
+        exercise: {
+            panels: {
+                default: stepFeedbackImmediate,
+                check: 'role',
 
-  external: {
-    external_url: {
-      panels: {
-        default: stepViewOnly,
-        check: 'role',
-
-        states: {
-          teacher: stepTeacherReview,
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
         },
-      },
     },
-  },
 
-  default: defaultPolicies,
+    concept_coach: {
+        exercise: {
+            panels: {
+                default: stepFeedbackImmediate,
+                check: 'role',
+
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
+        },
+    },
+
+    reading: defaultPolicies,
+
+    external: {
+        external_url: {
+            panels: {
+                default: stepViewOnly,
+                check: 'role',
+
+                states: {
+                    teacher: stepTeacherReview,
+                },
+            },
+        },
+    },
+
+    default: defaultPolicies,
 };
 
 export default policies;

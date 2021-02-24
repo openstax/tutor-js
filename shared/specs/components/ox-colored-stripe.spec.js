@@ -5,8 +5,8 @@ import OXColoredStripe from '../../src/components/ox-colored-stripe';
 
 describe('OX Colored Stripe', () => {
 
-  it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<OXColoredStripe />).toJSON()).toMatchSnapshot();
-  });
+    it('renders and matches snapshot', () => {
+        expect(SnapShot.create(<OXColoredStripe />).toJSON()).toMatchSnapshot();
+    });
 
 });

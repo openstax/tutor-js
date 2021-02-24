@@ -1,19 +1,19 @@
 import {
-  BaseModel, identifiedBy, action, field,
+    BaseModel, identifiedBy, action, field,
 } from 'shared/model';
 
 const Config = {
-  url: '',
-  is_enabled: false,
-  is_ui_enabled: false,
+    url: '',
+    is_enabled: false,
+    is_ui_enabled: false,
 };
 
 @identifiedBy('response_validation')
 class ResponseValidation extends BaseModel {
 
-  static bootstrap(config) {
-    Object.assign(Config, config);
-  }
+    static bootstrap(config) {
+        Object.assign(Config, config);
+    }
 
   @field bad_word_count;
   @field common_word_count;
@@ -35,38 +35,38 @@ class ResponseValidation extends BaseModel {
   @field valid;
 
   constructor() {
-    super();
-    this.config = Object.assign({}, Config);
+      super();
+      this.config = Object.assign({}, Config);
   }
 
   get isEnabled() {
-    return Boolean(this.config.url && this.config.is_enabled);
+      return Boolean(this.config.url && this.config.is_enabled);
   }
 
   get isUIEnabled() {
-    return Boolean(this.config.is_ui_enabled);
+      return Boolean(this.config.is_ui_enabled);
   }
 
   validate({ response, uid = '' }) {
-    if (!this.isEnabled) { return 'ABORT'; }
+      if (!this.isEnabled) { return 'ABORT'; }
 
-    return {
-      url: this.config.url,
-      query: {
-        uid,
-        response,
-      },
-    };
+      return {
+          url: this.config.url,
+          query: {
+              uid,
+              response,
+          },
+      };
   }
 
   onFailure(error) {
-    console.warn(error); // eslint-disable-line no-console
-    // signal not to display error modal
-    error.isRecorded = true;
+      console.warn(error); // eslint-disable-line no-console
+      // signal not to display error modal
+      error.isRecorded = true;
   }
 
   @action onValidationComplete({ data }) {
-    this.update(data);
+      this.update(data);
   }
 
 }

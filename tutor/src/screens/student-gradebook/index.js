@@ -24,41 +24,41 @@ class StudentGradebook extends React.Component {
   static displayName = 'StudentGradebook';
 
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string,
-      courseId: PropTypes.string.isRequired,
-    }),
+      params: PropTypes.shape({
+          id: PropTypes.string,
+          courseId: PropTypes.string.isRequired,
+      }),
   }
 
   ux = new UX({
-    ...this.props.params,
+      ...this.props.params,
   });
 
   render() {
-    const { ux } = this;
+      const { ux } = this;
 
-    if (!ux.isReady) {
-      return <LoadingScreen message="Loading Grades…" />;
-    }
+      if (!ux.isReady) {
+          return <LoadingScreen message="Loading Grades…" />;
+      }
 
-    return (
+      return (
       <>
         <Header
-          backTo="dashboard"
-          backToParams={{ courseId: ux.course.id }}
-          backToText="Dashboard"
-          title="Scores"
+            backTo="dashboard"
+            backToParams={{ courseId: ux.course.id }}
+            backToText="Dashboard"
+            title="Scores"
         />
         <StyledTourRegion
-          id="gradebook"
-          className="gradebook-table"
-          courseId={this.ux.course.id}
-          otherTours={['preview-gradebook']}
+            id="gradebook"
+            className="gradebook-table"
+            courseId={this.ux.course.id}
+            otherTours={['preview-gradebook']}
         >
-          <Table ux={ux} />
+            <Table ux={ux} />
         </StyledTourRegion>
       </>
-    );
+      );
   }
 }
 

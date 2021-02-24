@@ -26,58 +26,58 @@ const Value = styled.div`
 `;
 
 const Indicator = ({ title, value, testId }) => {
-  return (
-    <Item>
-      <span>{title}</span>
-      <Value data-test-id={testId}>{value}</Value>
-    </Item>
-  );
+    return (
+        <Item>
+            <span>{title}</span>
+            <Value data-test-id={testId}>{value}</Value>
+        </Item>
+    );
 };
 
 Indicator.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  testId: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    testId: PropTypes.string,
 };
 
 const Indicators = observer(({ ux }) => {
-  return (
-    <Wrapper>
-      <Indicator
-        title="My selections"
-        value={ux.numExerciseSteps}
-        testId="selection-count-footer"
-      />
-      <Indicator
-        title="Personalized questions"
-        value={ux.numTutorSelections}
-        testId="tutor-count-footer"
-      />
-      <Indicator
-        title="Total"
-        value={ux.totalSelections}
-        testId="total-count-footer"
-      />
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <Indicator
+                title="My selections"
+                value={ux.numExerciseSteps}
+                testId="selection-count-footer"
+            />
+            <Indicator
+                title="Personalized questions"
+                value={ux.numTutorSelections}
+                testId="tutor-count-footer"
+            />
+            <Indicator
+                title="Total"
+                value={ux.totalSelections}
+                testId="total-count-footer"
+            />
+        </Wrapper>
+    );
 });
 
 const Questions = observer(({ ux }) => {
 
-  return (
-    <AssignmentBuilder
-      title="Select Questions"
-      ux={ux}
-      middleControls={<Indicators ux={ux} />}
-    >
-      <ChooseExercises ux={ux} />
-    </AssignmentBuilder>
-  );
+    return (
+        <AssignmentBuilder
+            title="Select Questions"
+            ux={ux}
+            middleControls={<Indicators ux={ux} />}
+        >
+            <ChooseExercises ux={ux} />
+        </AssignmentBuilder>
+    );
 
 });
 
 Questions.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default Questions;

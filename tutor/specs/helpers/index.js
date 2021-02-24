@@ -11,21 +11,21 @@ import Theme from '../../src/theme';
 import { R, C, wrapInDnDTestContext } from './context';
 
 export function getPortalNode(modal) {
-  return modal.find('Portal').first().getDOMNode();
+    return modal.find('Portal').first().getDOMNode();
 }
 
 const delay = (timeout = 3) =>
-  new Promise(done => {
-    jest.useRealTimers();
-    setTimeout(() => {
-      done();
-    }, timeout);
-  });
+    new Promise(done => {
+        jest.useRealTimers();
+        setTimeout(() => {
+            done();
+        }, timeout);
+    });
 
 const deferred = (fn, timeout = 3) => delay(timeout).then(fn);
 
 export {
-  Router, TimeMock, TestRouter, TutorRouter, delay, moment,
-  Factory, FactoryBot, deferred, C, R, ReactTestUtils,
-  wrapInDnDTestContext, Theme, PropTypes,
+    Router, TimeMock, TestRouter, TutorRouter, delay, moment,
+    Factory, FactoryBot, deferred, C, R, ReactTestUtils,
+    wrapInDnDTestContext, Theme, PropTypes,
 };

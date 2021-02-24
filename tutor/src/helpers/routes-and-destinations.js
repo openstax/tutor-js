@@ -15,99 +15,99 @@ const PLAN_STATS = 'Plan Stats';
 const READING_BUILDER = 'Reading Builder';
 
 const REMEMBERED_ROUTES = {
-  dashboard: {
-    label: DASHBOARD,
-  },
-
-  viewStudentDashboard: {
-    label: DASHBOARD,
-  },
-
-  viewPerformanceGuide: {
-    label: PERFORMANCE_FORECAST,
-
-    condition(match) {
-      return isNil(match.params.roleId);
+    dashboard: {
+        label: DASHBOARD,
     },
-  },
 
-  viewTeacherDashboard: {
-    label: DASHBOARD,
-  },
+    viewStudentDashboard: {
+        label: DASHBOARD,
+    },
 
-  viewGradebook: {
-    label: SCORES,
-  },
+    viewPerformanceGuide: {
+        label: PERFORMANCE_FORECAST,
 
-  viewQuestionsLibrary: {
-    label: QUESTION_LIBRARY,
-  },
+        condition(match) {
+            return isNil(match.params.roleId);
+        },
+    },
 
-  taskplans: {
-    label: DASHBOARD,
-  },
+    viewTeacherDashboard: {
+        label: DASHBOARD,
+    },
 
-  calendarByDate: {
-    label: DASHBOARD,
-  },
+    viewGradebook: {
+        label: SCORES,
+    },
 
-  calendarViewPlanStats: {
-    label: DASHBOARD,
-  },
+    viewQuestionsLibrary: {
+        label: QUESTION_LIBRARY,
+    },
 
-  courseRoster: {
-    label: COURSE_ROSTER,
-  },
+    taskplans: {
+        label: DASHBOARD,
+    },
 
-  courseSettings: {
-    label: COURSE_SETTINGS,
-  },
+    calendarByDate: {
+        label: DASHBOARD,
+    },
 
-  viewStats: {
-    label: PLAN_STATS,
-  },
+    calendarViewPlanStats: {
+        label: DASHBOARD,
+    },
 
-  reviewTask: {
-    label: PLAN_REVIEW,
-  },
+    courseRoster: {
+        label: COURSE_ROSTER,
+    },
 
-  reviewTaskPeriod: {
-    label: PLAN_REVIEW,
-  },
+    courseSettings: {
+        label: COURSE_SETTINGS,
+    },
 
-  reviewTaskStep: {
-    label: PLAN_REVIEW,
-  },
+    viewStats: {
+        label: PLAN_STATS,
+    },
+
+    reviewTask: {
+        label: PLAN_REVIEW,
+    },
+
+    reviewTaskPeriod: {
+        label: PLAN_REVIEW,
+    },
+
+    reviewTaskStep: {
+        label: PLAN_REVIEW,
+    },
 };
 
 const destinationHelpers = {
-  getDestinationName(routeName) {
-    return REMEMBERED_ROUTES[routeName].label;
-  },
+    getDestinationName(routeName) {
+        return REMEMBERED_ROUTES[routeName].label;
+    },
 
-  routeFromPath(path) {
-    const match = Router.currentMatch(path);
-    return _.find(match != null ? match.entry.paths : undefined, pathName => REMEMBERED_ROUTES[pathName].label);
-  },
+    routeFromPath(path) {
+        const match = Router.currentMatch(path);
+        return _.find(match != null ? match.entry.paths : undefined, pathName => REMEMBERED_ROUTES[pathName].label);
+    },
 
-  destinationFromPath(path) {
-    const route = Router.currentMatch(path);
-    return this.getDestinationName(route.entry.name);
-  },
+    destinationFromPath(path) {
+        const route = Router.currentMatch(path);
+        return this.getDestinationName(route.entry.name);
+    },
 
-  shouldRememberRoute(path) {
-    const match = Router.currentMatch(path);
+    shouldRememberRoute(path) {
+        const match = Router.currentMatch(path);
 
-    return (
-      !!REMEMBERED_ROUTES[match != null ? match.entry.name : undefined]
-    ) && (
-      (
-        (REMEMBERED_ROUTES[match != null ? match.entry.name : undefined].condition != null) &&
+        return (
+            !!REMEMBERED_ROUTES[match != null ? match.entry.name : undefined]
+        ) && (
+            (
+                (REMEMBERED_ROUTES[match != null ? match.entry.name : undefined].condition != null) &&
         REMEMBERED_ROUTES[match != null ? match.entry.name : undefined].condition(match)
-      ) ||
+            ) ||
         (REMEMBERED_ROUTES[match != null ? match.entry.name : undefined].condition == null)
-    );
-  },
+        );
+    },
 };
 
 

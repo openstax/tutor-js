@@ -92,10 +92,10 @@ const Title = styled.div`
 `;
 
 const Item = ({ children }) => (
-  <div><TruncatedText maxWidth="40rem">{children}</TruncatedText></div>
+    <div><TruncatedText maxWidth="40rem">{children}</TruncatedText></div>
 );
 Item.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 const TaskingDefinitionList = styled.div`
@@ -175,98 +175,98 @@ const StyledReadingNotice = styled.p`
 `;
 
 const QuestionHeader = observer(({ styleVariant, label, info }) => {
-  return (
+    return (
     <>
       <StyledExerciseNumber variant={styleVariant}>
-        {label}
+          {label}
       </StyledExerciseNumber>
       <strong>{ScoresHelper.formatPoints(info.availablePoints)} Points</strong>
     </>
-  );
+    );
 });
 
 QuestionHeader.propTypes = {
-  styleVariant: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  info:  PropTypes.object.isRequired,
+    styleVariant: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    info:  PropTypes.object.isRequired,
 };
 
 const SectionInfo = observer((props) => {
-  const { dok, blooms, aplo } = props.info.exercise.tags.important;
-  return (
-    <div className="section-link-wrapper">
-      <div className="exercise-tags">
-        {map(compact([dok, blooms, aplo]), (tag, index) => (
-          <span key={index} className="exercise-tag">
-            {tag.asString}
-          </span>
-        ))}
-      </div>
-      <SectionLink {...props} />
-    </div>
-  );
+    const { dok, blooms, aplo } = props.info.exercise.tags.important;
+    return (
+        <div className="section-link-wrapper">
+            <div className="exercise-tags">
+                {map(compact([dok, blooms, aplo]), (tag, index) => (
+                    <span key={index} className="exercise-tag">
+                        {tag.asString}
+                    </span>
+                ))}
+            </div>
+            <SectionLink {...props} />
+        </div>
+    );
 });
 
 const Questions = observer(({ ux, questionsInfo }) => {
-  if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
-  let Content;
-  if(ux.planScores.isReading) {
-    Content = (
+    if (ux.isExercisesReady && isEmpty(questionsInfo)) { return null; }
+    let Content;
+    if(ux.planScores.isReading) {
+        Content = (
       <>
         <Header><h6>Questions Assigned</h6></Header>
         <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Tutor Beta</StyledReadingNotice>
       </>
-    );
-  }
-  else {
-    Content = (
+        );
+    }
+    else {
+        Content = (
       <>
         <Header>
-          <h6>Questions Assigned</h6>
+            <h6>Questions Assigned</h6>
         </Header>
 
         {ux.isExercisesReady ? (
-          <StyledHomeworkQuestions
-            questionsInfo={questionsInfo}
-            sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
-            headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-            styleVariant="submission"
-          />) : <Loading message="Loading Questions…"/>}
+            <StyledHomeworkQuestions
+                questionsInfo={questionsInfo}
+                sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
+                headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+                styleVariant="submission"
+            />) : <Loading message="Loading Questions…"/>}
       </>
+        );
+    }
+    return (
+        <Section data-test-id="questions-block">
+            {Content}
+        </Section>
     );
-  }
-  return (
-    <Section data-test-id="questions-block">
-      {Content}
-    </Section>
-  );
 });
 
 const AssignedSections = observer(({ assignedSections = [], courseId }) => {
-  if(!assignedSections) return null;
+    if(!assignedSections) return null;
 
-  return (
-    <Section>
-      <StyledSectionsAssigned>
-        <h6>Sections Assigned</h6>
-        <ul>
-          {assignedSections.map((section) =>
-            <a key={section.pathId} target="_blank" href={`/book/${courseId}/page/${section.id}`}><li><BookPartTitle part={section} displayChapterSection /></li></a>
-          )}
-        </ul>
-      </StyledSectionsAssigned>
-    </Section>
-  );
+    return (
+        <Section>
+            <StyledSectionsAssigned>
+                <h6>Sections Assigned</h6>
+                <ul>
+                    {assignedSections.map((section) =>
+                        <a key={section.pathId} target="_blank" href={`/book/${courseId}/page/${section.id}`}><li><BookPartTitle part={section} displayChapterSection /></li></a>
+                    )}
+                </ul>
+            </StyledSectionsAssigned>
+        </Section>
+    );
 });
 
 const TemplateInfo = observer(({ template, ...props }) => {
-  if (!template) { return null; }
-  return (
-    <TemplateInfoWrapper {...props}>
-      {template.name}
-      <PreviewTooltip template={template} variant="primary" />
-    </TemplateInfoWrapper>
-  );
+    if (!template) { return null; }
+    return (
+        <TemplateInfoWrapper {...props}>
+            {template.name}
+            <PreviewTooltip template={template} variant="primary" />
+        </TemplateInfoWrapper>
+    );
 });
 
 const dateFormat = 'ddd, MMM D';
@@ -274,128 +274,128 @@ const timeFormat = 'h:mma z';
 
 const TaskingDates = observer(({ tasking, title }) => {
 
-  return (
-    <TaskingDefinitionList>
-      <div>{title}</div>
-      <dl>
-        <div>
-          <dt>Open date</dt>
-          <dd>
-            <div>{tasking.opensAtMoment.format(dateFormat)}</div>
-            <div>{tasking.opensAtMoment.format(timeFormat)}</div>
-          </dd>
-        </div>
-        <div>
-          <dt>Due date</dt>
-          <dd>
-            <div>{tasking.dueAtMoment.format(dateFormat)}</div>
-            <div>{tasking.dueAtMoment.format(timeFormat)}</div>
-          </dd>
-        </div>
-        {!tasking.plan.isEvent && (
-          <div>
-            <dt>Close date</dt>
-            <dd>
-              <div>{tasking.closesAtMoment.format(dateFormat)}</div>
-              <div>{tasking.closesAtMoment.format(timeFormat)}</div>
-            </dd>
-          </div>)}
-      </dl>
-    </TaskingDefinitionList>
-  );
+    return (
+        <TaskingDefinitionList>
+            <div>{title}</div>
+            <dl>
+                <div>
+                    <dt>Open date</dt>
+                    <dd>
+                        <div>{tasking.opensAtMoment.format(dateFormat)}</div>
+                        <div>{tasking.opensAtMoment.format(timeFormat)}</div>
+                    </dd>
+                </div>
+                <div>
+                    <dt>Due date</dt>
+                    <dd>
+                        <div>{tasking.dueAtMoment.format(dateFormat)}</div>
+                        <div>{tasking.dueAtMoment.format(timeFormat)}</div>
+                    </dd>
+                </div>
+                {!tasking.plan.isEvent && (
+                    <div>
+                        <dt>Close date</dt>
+                        <dd>
+                            <div>{tasking.closesAtMoment.format(dateFormat)}</div>
+                            <div>{tasking.closesAtMoment.format(timeFormat)}</div>
+                        </dd>
+                    </div>)}
+            </dl>
+        </TaskingDefinitionList>
+    );
 });
 
 
 const Details = observer(({ ux }) => {
-  if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
-  if (ux.isDeleting) { return null; }
-  const {
-    planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
-  } = ux;
+    if (!ux.exercisesHaveBeenFetched) { return <Loading />; }
+    if (ux.isDeleting) { return null; }
+    const {
+        planScores, taskPlan, isDisplayingConfirmDelete, isDisplayingEditAssignment, taskingPlanDetails,
+    } = ux;
 
-  return (
-    <DetailsWrapper>
-      <Top>
-        <Section>
-          <Header>
-            <h6>Details</h6>
-            <Controls>
-              <Icon
-                asButton type="edit"
-                busy={ux.taskPlan.api.isPending}
-                onClick={ux.onEditPlan}
-                data-test-id="edit-assignment"
-              />
-              <Icon
-                asButton type="trash"
-                onClick={ux.onDelete}
-                data-test-id="delete-assignment"
-              />
-            </Controls>
-          </Header>
-          <Table>
-            <Row>
-              <Title>Assignment name</Title>
-              <Item>
-                <strong data-test-id="assignment-name">{planScores.title}</strong>
-              </Item>
-            </Row>
-            <Row>
-              <Title>Additional note</Title>
-              <Item>
-                {planScores.description}
-              </Item>
-            </Row>
-            {planScores.isExternal && (
+    return (
+        <DetailsWrapper>
+            <Top>
+                <Section>
+                    <Header>
+                        <h6>Details</h6>
+                        <Controls>
+                            <Icon
+                                asButton type="edit"
+                                busy={ux.taskPlan.api.isPending}
+                                onClick={ux.onEditPlan}
+                                data-test-id="edit-assignment"
+                            />
+                            <Icon
+                                asButton type="trash"
+                                onClick={ux.onDelete}
+                                data-test-id="delete-assignment"
+                            />
+                        </Controls>
+                    </Header>
+                    <Table>
+                        <Row>
+                            <Title>Assignment name</Title>
+                            <Item>
+                                <strong data-test-id="assignment-name">{planScores.title}</strong>
+                            </Item>
+                        </Row>
+                        <Row>
+                            <Title>Additional note</Title>
+                            <Item>
+                                {planScores.description}
+                            </Item>
+                        </Row>
+                        {planScores.isExternal && (
+                            <Row>
+                                <Title>Assignment URL</Title>
+                                <Item>
+                                    <ExternalLink href={taskPlan.settings.external_url}>
+                                        {taskPlan.settings.external_url}
+                                    </ExternalLink>
+                                </Item>
+                            </Row>)}
+                        {(planScores.isHomework || planScores.isReading) &&
               <Row>
-                <Title>Assignment URL</Title>
-                <Item>
-                  <ExternalLink href={taskPlan.settings.external_url}>
-                    {taskPlan.settings.external_url}
-                  </ExternalLink>
-                </Item>
-              </Row>)}
-            {(planScores.isHomework || planScores.isReading) &&
-              <Row>
-                <Title>Grading template</Title>
-                <Item>
-                  <TemplateInfo data-test-id="grading-template-name" template={planScores.grading_template} />
-                </Item>
+                  <Title>Grading template</Title>
+                  <Item>
+                      <TemplateInfo data-test-id="grading-template-name" template={planScores.grading_template} />
+                  </Item>
               </Row>
-            }
-            <Row>
-              <Title>Assigned to</Title>
-              <div>
-                {taskingPlanDetails.map(tasking => (
-                  <TaskingDates
-                    tasking={tasking}
-                    title={ux.areTaskingDatesSame ? 'All sections' : tasking.period.name}
-                    key={tasking.period.id}
-                    ux={ux}
-                  />))}
-              </div>
-            </Row>
-          </Table>
-        </Section>
-        {ux.canDisplayGradingBlock &&
+                        }
+                        <Row>
+                            <Title>Assigned to</Title>
+                            <div>
+                                {taskingPlanDetails.map(tasking => (
+                                    <TaskingDates
+                                        tasking={tasking}
+                                        title={ux.areTaskingDatesSame ? 'All sections' : tasking.period.name}
+                                        key={tasking.period.id}
+                                        ux={ux}
+                                    />))}
+                            </div>
+                        </Row>
+                    </Table>
+                </Section>
+                {ux.canDisplayGradingBlock &&
           <Section data-test-id="grading-block">
-            <GradingBlock ux={ux} />
+              <GradingBlock ux={ux} />
           </Section>
-        }
-      </Top>
-      <Questions ux={ux} questionsInfo={taskPlan.questionsInfo} />
-      {taskPlan.isReading && <AssignedSections assignedSections={taskPlan.assignedSections} courseId={ux.course.id} />}
-      {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
-      {isDisplayingEditAssignment && <EditModal ux={ux} />}
-    </DetailsWrapper>
-  );
+                }
+            </Top>
+            <Questions ux={ux} questionsInfo={taskPlan.questionsInfo} />
+            {taskPlan.isReading && <AssignedSections assignedSections={taskPlan.assignedSections} courseId={ux.course.id} />}
+            {isDisplayingConfirmDelete && <DeleteModal ux={ux} />}
+            {isDisplayingEditAssignment && <EditModal ux={ux} />}
+        </DetailsWrapper>
+    );
 
 });
 
 Details.title = 'Assignment Details';
 
 Details.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default Details;

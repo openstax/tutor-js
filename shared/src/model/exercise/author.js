@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, field,
+    BaseModel, identifiedBy, identifier, field,
 } from '../../model';
 
 

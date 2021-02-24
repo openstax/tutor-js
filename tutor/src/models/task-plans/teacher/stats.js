@@ -1,8 +1,8 @@
 import {
-  BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
+    BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
 } from 'shared/model';
 import {
-  get, flatMap, groupBy, find, isEmpty, keys,
+    get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
 import { computed } from 'mobx';
 import { getters } from '../../../helpers/computed-property';
@@ -20,20 +20,20 @@ class AnswerStat extends BaseModel {
   @belongsTo({ model: 'task-plan/stats/question' }) question;
 
   @computed get isCorrect() {
-    return this.correctness > 0;
+      return this.correctness > 0;
   }
 
   @computed get content() {
-    return find(get(this.question.content, 'answers'), a => a.id == this.answer_id) || {};
+      return find(get(this.question.content, 'answers'), a => a.id == this.answer_id) || {};
   }
 
   @computed get id() { return this.answer_id; }
 
   @computed get correctness() {
-    return this.content.correctness;
+      return this.content.correctness;
   }
   @computed get content_html() {
-    return this.content.content_html;
+      return this.content.content_html;
   }
 }
 
@@ -55,23 +55,23 @@ class Answer extends BaseModel {
   @belongsTo({ model: 'task-plan/stats/question' }) question;
 
   @computed get selected_count() {
-    return find(this.question.answer_stats, anst => anst.answer_id == this.answer_id).selected_count || 0;
+      return find(this.question.answer_stats, anst => anst.answer_id == this.answer_id).selected_count || 0;
   }
 
   @computed get exerciseAnswer() {
-    return this.question.content.answers.find(ea => ea.id == this.answer_id);
+      return this.question.content.answers.find(ea => ea.id == this.answer_id);
   }
 
   @computed get isCorrect() {
-    return Boolean(this.exerciseAnswer && this.exerciseAnswer.isCorrect);
+      return Boolean(this.exerciseAnswer && this.exerciseAnswer.isCorrect);
   }
 }
 
 
 const AnswersAssociation = {
-  withFreeResponse() {
-    return this.filter(ans => !isEmpty(ans.free_response));
-  },
+    withFreeResponse() {
+        return this.filter(ans => !isEmpty(ans.free_response));
+    },
 };
 
 @identifiedBy('task-plan/stats/question')
@@ -83,31 +83,31 @@ class QuestionStats extends BaseModel {
 
   @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
   @hasMany({ model: AnswerStat, inverseOf: 'question', extend: getters({
-    correct() { return find(this, { isCorrect: true }); },
+      correct() { return find(this, { isCorrect: true }); },
   }) } ) answer_stats;
 
   @lazyInitialize forReview = new ReviewQuestion(this);
 
 
   @computed get hasFreeResponse() {
-    return find(this.answers, a => !isEmpty(a.free_response));
+      return find(this.answers, a => !isEmpty(a.free_response));
   }
 
   @computed get content() {
-    return find(this.exercise.content.questions, q =>
-      q.id == this.question_id
-    ) || {};
+      return find(this.exercise.content.questions, q =>
+          q.id == this.question_id
+      ) || {};
   }
 
   answerForStudent(student) {
-    for (let i in this.answers) {
-      const answer = this.answers[i];
-      const st = answer.students.find(s => s.id == student.id);
-      if (st) {
-        return answer;
+      for (let i in this.answers) {
+          const answer = this.answers[i];
+          const st = answer.students.find(s => s.id == student.id);
+          if (st) {
+              return answer;
+          }
       }
-    }
-    return null;
+      return null;
   }
 }
 
@@ -140,29 +140,29 @@ class Stats extends BaseModel {
   @hasMany({ model: Page }) spaced_pages;
 
   @computed get exercises() {
-    return flatMap(['current_pages', 'spaced_pages'], pageType => {
-      return flatMap(this[pageType], pg => pg.exercises);
-    });
+      return flatMap(['current_pages', 'spaced_pages'], pageType => {
+          return flatMap(this[pageType], pg => pg.exercises);
+      });
   }
 
   @computed get questions() {
-    return flatMap(this.exercises, 'content.questions');
+      return flatMap(this.exercises, 'content.questions');
   }
 
   statsForQuestion(question) {
-    for (const ex of this.exercises) {
-      const q = ex.question_stats.find(qs => qs.question_id == question.id);
-      if (q) { return q; }
-    }
-    return null;
+      for (const ex of this.exercises) {
+          const q = ex.question_stats.find(qs => qs.question_id == question.id);
+          if (q) { return q; }
+      }
+      return null;
   }
 
   @computed get exercisesBySection() {
-    return groupBy(this.exercises, ex => ex.page.chapter_section.asString);
+      return groupBy(this.exercises, ex => ex.page.chapter_section.asString);
   }
 
   @computed get sections() {
-    return keys(this.exercisesBySection);
+      return keys(this.exercisesBySection);
   }
 }
 

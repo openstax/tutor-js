@@ -4,22 +4,22 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 
 const CornerTriangle = ({ color, tooltip, ...attrs }) => {
-  return (
-    <OverlayTrigger
-      placement="right"
-      overlay={
-        <Tooltip>
-          {tooltip}
-        </Tooltip>
-      }
-    >
-      <StyledTriangle color={color} {...attrs} />
-    </OverlayTrigger>
-  );
+    return (
+        <OverlayTrigger
+            placement="right"
+            overlay={
+                <Tooltip>
+                    {tooltip}
+                </Tooltip>
+            }
+        >
+            <StyledTriangle color={color} {...attrs} />
+        </OverlayTrigger>
+    );
 };
 CornerTriangle.propTypes = {
-  color: PropTypes.string.isRequired,
-  tooltip: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    tooltip: PropTypes.string.isRequired,
 };
 
 const TriangleCSS = css`

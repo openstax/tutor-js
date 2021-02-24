@@ -5,18 +5,18 @@ import PreviewOnboarding from '../../../../src/models/course/onboarding/preview'
 
 describe('Basic Course UX Model', () => {
 
-  it('returns either student or preview', () => {
-    expect(
-      onboardingForCourse({ currentRole: { isStudentLike: true }, is_preview: true })
-    ).toBeInstanceOf(StudentCourseOnboarding);
+    it('returns either student or preview', () => {
+        expect(
+            onboardingForCourse({ currentRole: { isStudentLike: true }, is_preview: true })
+        ).toBeInstanceOf(StudentCourseOnboarding);
 
-    expect(
-      onboardingForCourse({ currentRole: { isStudentLike: false }, is_preview: true })
-    ).toBeInstanceOf(PreviewOnboarding);
+        expect(
+            onboardingForCourse({ currentRole: { isStudentLike: false }, is_preview: true })
+        ).toBeInstanceOf(PreviewOnboarding);
 
-    expect(
-      onboardingForCourse({ currentRole: { isStudentLike: false }, is_preview: false })
-    ).toBeNull();
-  });
+        expect(
+            onboardingForCourse({ currentRole: { isStudentLike: false }, is_preview: false })
+        ).toBeNull();
+    });
 
 });

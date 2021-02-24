@@ -1,5 +1,5 @@
 import {
-  React, action, observer, PropTypes, styled, css,
+    React, action, observer, PropTypes, styled, css,
 } from 'vendor';
 import keymaster from 'keymaster';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
@@ -30,46 +30,46 @@ const Page = styled.div`
 export default class ObscuredPage extends React.Component {
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    registry: PropTypes.instanceOf(OverlayRegistry),
+      children: PropTypes.node.isRequired,
+      registry: PropTypes.instanceOf(OverlayRegistry),
   }
 
   static defaultProps = {
-    registry: DefaultRegistry,
+      registry: DefaultRegistry,
   }
 
   @action.bound setPage(el) {
-    this.props.registry.page = el;
+      this.props.registry.page = el;
   }
 
 
   componentDidMount() {
-    keymaster('esc', this.props.registry.onEscKey);
+      keymaster('esc', this.props.registry.onEscKey);
   }
 
   componentWillUnmount() {
-    keymaster.unbind('esc', this.props.registry.onEscKey);
+      keymaster.unbind('esc', this.props.registry.onEscKey);
   }
 
   render() {
-    const { registry, children } = this.props;
+      const { registry, children } = this.props;
 
-    return (
-      <div className="obscured-page">
-        <Page
-          isHidden={registry.isPageHidden}
-          className={registry.pageClassName}
-        >{children}</Page>
-        <Overlay
-          isExpanded={registry.isOverlayExpanded}
-          isHidden={registry.isOverlayHidden}
-          onTransitionEnd={registry.onOverlayAnimated}
-          className={registry.overlayClassName}
-        >
-          {registry.overlay}
-        </Overlay>
-      </div>
-    );
+      return (
+          <div className="obscured-page">
+              <Page
+                  isHidden={registry.isPageHidden}
+                  className={registry.pageClassName}
+              >{children}</Page>
+              <Overlay
+                  isExpanded={registry.isOverlayExpanded}
+                  isHidden={registry.isOverlayHidden}
+                  onTransitionEnd={registry.onOverlayAnimated}
+                  className={registry.overlayClassName}
+              >
+                  {registry.overlay}
+              </Overlay>
+          </div>
+      );
   }
 
 }

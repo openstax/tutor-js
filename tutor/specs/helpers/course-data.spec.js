@@ -6,12 +6,12 @@ const COURSE_ID = '1';
 
 describe('Course Data helpers', function() {
 
-  it('getCourseDataProps', function() {
-    const cd = Courses.bootstrap([COURSE], { clear: true });
-    expect(cd.get(COURSE_ID)).not.toBeUndefined();
-    return expect(CD.getCourseDataProps(COURSE_ID)).toEqual(
-      { 'data-appearance': 'biology', 'data-book-title': 'Biology', 'data-title': 'Local Test Course' }
-    );
-  });
+    it('getCourseDataProps', function() {
+        const cd = Courses.bootstrap([COURSE], { clear: true });
+        expect(cd.get(COURSE_ID)).not.toBeUndefined();
+        return expect(CD.getCourseDataProps(COURSE_ID)).toEqual(
+            { 'data-appearance': 'biology', 'data-book-title': 'Biology', 'data-title': 'Local Test Course' }
+        );
+    });
 
 });

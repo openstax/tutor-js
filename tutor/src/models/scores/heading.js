@@ -3,7 +3,7 @@ import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
 import {
-  BaseModel, identifiedBy, field, belongsTo,
+    BaseModel, identifiedBy, field, belongsTo,
 } from 'shared/model';
 import Time from '../time';
 
@@ -19,40 +19,40 @@ export default class Heading extends BaseModel {
   @belongsTo({ model: 'scores/period' }) period;
 
   @computed get columnIndex() {
-    return findIndex(this.period.data_headings, this);
+      return findIndex(this.period.data_headings, this);
   }
 
   @computed get isExternal() {
-    return this.type === 'external';
+      return this.type === 'external';
   }
   
   @computed get canReview() {
-    return Boolean(
-      this.type === 'reading' || this.type == 'homework'
-    );
+      return Boolean(
+          this.type === 'reading' || this.type == 'homework'
+      );
   }
   
   @computed get isDue() {
-    return moment(this.due_at).isBefore(Time.now);
+      return moment(this.due_at).isBefore(Time.now);
   }
 
   @computed get tasks() {
-    return map(this.period.students, (s) => s.data[this.columnIndex]);
+      return map(this.period.students, (s) => s.data[this.columnIndex]);
   }
 
   @action adjustScores() {
-    this.average_score = this.averageForType('score');
-    this.average_progress = this.averageForType('progress');
+      this.average_score = this.averageForType('score');
+      this.average_progress = this.averageForType('progress');
   }
 
   averageForType(attr) {
-    const tasks = filter(this.tasks, 'student.isActive');
-    if (isEmpty(tasks)) { return null; }
+      const tasks = filter(this.tasks, 'student.isActive');
+      if (isEmpty(tasks)) { return null; }
 
-    return reduce(tasks,
-      (acc, s) => acc.plus(s[attr] || 0),
-      new Big(0)
-    ).div(tasks.length);
+      return reduce(tasks,
+          (acc, s) => acc.plus(s[attr] || 0),
+          new Big(0)
+      ).div(tasks.length);
   }
 
 }

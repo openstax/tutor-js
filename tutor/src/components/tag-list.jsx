@@ -39,68 +39,68 @@ const ClearAllButton = styled.a`
 class TagList extends React.Component {
 
   static propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string, PropTypes.number,
-        ]),
-        uuid: PropTypes.string,
-        title: PropTypes.oneOfType([
-          PropTypes.string, PropTypes.element,
-        ]),
-      })
-    ).isRequired,
+      items: PropTypes.arrayOf(
+          PropTypes.shape({
+              id: PropTypes.oneOfType([
+                  PropTypes.string, PropTypes.number,
+              ]),
+              uuid: PropTypes.string,
+              title: PropTypes.oneOfType([
+                  PropTypes.string, PropTypes.element,
+              ]),
+          })
+      ).isRequired,
 
-    onRemove: PropTypes.func,
-    onClearAll: PropTypes.func,
+      onRemove: PropTypes.func,
+      onClearAll: PropTypes.func,
   };
 
   @action.bound onRemove(item) {
-    if (this.props.onRemove) {
-      this.props.onRemove(item);
-    }
+      if (this.props.onRemove) {
+          this.props.onRemove(item);
+      }
   }
 
   @action.bound onClearAll() {
-    if (this.props.onClearAll) {
-      this.props.onClearAll();
-    }
+      if (this.props.onClearAll) {
+          this.props.onClearAll();
+      }
   }
 
   renderItem = (item) => {
-    return (
-      <TagListItem
-        key={item.id}
-      >
-        <IconWrapper
-          onClick={() => this.onRemove(item)}
-          className="remove-tag"
-          aria-label="Remove"
-        >
-          <Icon type="close" />
-        </IconWrapper>
-        {item.title}
-      </TagListItem>
-    );
+      return (
+          <TagListItem
+              key={item.id}
+          >
+              <IconWrapper
+                  onClick={() => this.onRemove(item)}
+                  className="remove-tag"
+                  aria-label="Remove"
+              >
+                  <Icon type="close" />
+              </IconWrapper>
+              {item.title}
+          </TagListItem>
+      );
   };
 
   renderClearAllButton = () => {
-    if (isEmpty(this.props.items)) { return null; }
+      if (isEmpty(this.props.items)) { return null; }
 
-    return (
-      <ClearAllButton href="#" onClick={this.onClearAll}>Clear All</ClearAllButton>
-    );
+      return (
+          <ClearAllButton href="#" onClick={this.onClearAll}>Clear All</ClearAllButton>
+      );
   }
 
   render() {
-    if (!this.props.items) { return null; }
+      if (!this.props.items) { return null; }
 
-    return (
-      <TagListWrapper>
-        {Array.from(this.props.items).map((item) => this.renderItem(item))}
-        {this.renderClearAllButton()}
-      </TagListWrapper>
-    );
+      return (
+          <TagListWrapper>
+              {Array.from(this.props.items).map((item) => this.renderItem(item))}
+              {this.renderClearAllButton()}
+          </TagListWrapper>
+      );
   }
 }
 

@@ -12,12 +12,12 @@ import ExercisesDisplay from './exercises-display';
 @observer
 class QuestionsDashboard extends React.Component {
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    exercises: PropTypes.instanceOf(ExercisesMap),
+      course: PropTypes.instanceOf(Course).isRequired,
+      exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
-    exercises: Exercises,
+      exercises: Exercises,
   }
 
   @observable isShowingExercises = false;
@@ -27,45 +27,45 @@ class QuestionsDashboard extends React.Component {
   @observable pageIds = [];
 
   @action.bound onShowDetailsViewClick() {
-    this.showingDetails = true;
+      this.showingDetails = true;
   }
 
   @action.bound onShowCardViewClick() {
-    this.showingDetails = false;
+      this.showingDetails = false;
   }
 
   @action.bound onSelectionsChange(pageIds) {
-    this.pageIds = pageIds;
-    this.isShowingExercises = !isEmpty(pageIds);
+      this.pageIds = pageIds;
+      this.isShowingExercises = !isEmpty(pageIds);
   }
 
   @action.bound onSelectSections() {
-    this.showingDetails = false;
-    this.isShowingExercises = false;
+      this.showingDetails = false;
+      this.isShowingExercises = false;
   }
 
   render() {
-    const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
-    return (
-      <div className={classes}>
-        {!this.isShowingExercises && (
-          <SectionsChooser
-            {...this.props}
-            pageIds={this.pageIds}
-            onSelectionsChange={this.onSelectionsChange}
-          />
-        )}
-        {this.isShowingExercises && (
-          <ExercisesDisplay
-            {...this.props}
-            onSelectSections={this.onSelectSections}
-            showingDetails={this.showingDetails}
-            onShowCardViewClick={this.onShowCardViewClick}
-            onShowDetailsViewClick={this.onShowDetailsViewClick}
-            pageIds={this.pageIds} />
-        )}
-      </div>
-    );
+      const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
+      return (
+          <div className={classes}>
+              {!this.isShowingExercises && (
+                  <SectionsChooser
+                      {...this.props}
+                      pageIds={this.pageIds}
+                      onSelectionsChange={this.onSelectionsChange}
+                  />
+              )}
+              {this.isShowingExercises && (
+                  <ExercisesDisplay
+                      {...this.props}
+                      onSelectSections={this.onSelectSections}
+                      showingDetails={this.showingDetails}
+                      onShowCardViewClick={this.onShowCardViewClick}
+                      onShowDetailsViewClick={this.onShowDetailsViewClick}
+                      pageIds={this.pageIds} />
+              )}
+          </div>
+      );
   }
 }
 

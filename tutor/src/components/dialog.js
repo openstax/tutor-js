@@ -27,58 +27,58 @@ class Dialog extends React.Component {
 
 
   static propTypes = {
-    header: PropTypes.node.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    isChanged: PropTypes.func,
-    confirmMsg: PropTypes.string,
-    footer: PropTypes.node,
-    cancel: PropTypes.any,
-    primary: PropTypes.node,
-    onPrimary: PropTypes.func,
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
+      header: PropTypes.node.isRequired,
+      onCancel: PropTypes.func.isRequired,
+      isChanged: PropTypes.func,
+      confirmMsg: PropTypes.string,
+      footer: PropTypes.node,
+      cancel: PropTypes.any,
+      primary: PropTypes.node,
+      onPrimary: PropTypes.func,
+      children: PropTypes.node.isRequired,
+      className: PropTypes.string,
   };
 
   onCancel = () => {
-    const { isChanged, confirmMsg, onCancel } = this.props;
-    if ((typeof isChanged === 'function' ? isChanged() : undefined) && confirmMsg) {
-      return TutorDialog.show({
-        title: 'Unsaved Changes',
-        body: confirmMsg,
-      }).then( () => onCancel());
-    } else {
-      return onCancel();
-    }
+      const { isChanged, confirmMsg, onCancel } = this.props;
+      if ((typeof isChanged === 'function' ? isChanged() : undefined) && confirmMsg) {
+          return TutorDialog.show({
+              title: 'Unsaved Changes',
+              body: confirmMsg,
+          }).then( () => onCancel());
+      } else {
+          return onCancel();
+      }
   };
 
   render() {
-    let cancelBtn;
-    let { className, header, footer, primary, cancel, isChanged } = this.props;
+      let cancelBtn;
+      let { className, header, footer, primary, cancel, isChanged } = this.props;
 
-    if (cancel) {
-      cancelBtn = <Button variant="default" key="cancel" onClick={this.onCancel}>
-        {cancel}
-      </Button>;
-    }
+      if (cancel) {
+          cancelBtn = <Button variant="default" key="cancel" onClick={this.onCancel}>
+              {cancel}
+          </Button>;
+      }
 
-    if (footer || primary || cancelBtn) { footer = [primary, cancelBtn, footer]; }
+      if (footer || primary || cancelBtn) { footer = [primary, cancelBtn, footer]; }
 
-    const classes = ['dialog default-dialog'];
+      const classes = ['dialog default-dialog'];
 
-    if (typeof isChanged === 'function' ? isChanged() : undefined) { classes.push('is-changed'); }
-    if (className) { classes.push(className); }
-    className = classes.join(' ');
+      if (typeof isChanged === 'function' ? isChanged() : undefined) { classes.push('is-changed'); }
+      if (className) { classes.push(className); }
+      className = classes.join(' ');
 
-    return (
-      <DialogContainer className={className}>
-        <Card.Header>
-          {header}
-          <CloseButton onClick={this.onCancel} />
+      return (
+          <DialogContainer className={className}>
+              <Card.Header>
+                  {header}
+                  <CloseButton onClick={this.onCancel} />
 
-        </Card.Header>
-        {this.props.children}
-        <Card.Footer>{footer}</Card.Footer>
-      </DialogContainer>
-    );
+              </Card.Header>
+              {this.props.children}
+              <Card.Footer>{footer}</Card.Footer>
+          </DialogContainer>
+      );
   }
 }

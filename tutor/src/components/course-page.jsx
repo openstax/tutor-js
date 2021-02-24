@@ -21,7 +21,7 @@ const TitleInner = styled.div`
   flex-wrap: wrap;
 
   ${
-  props => props.appearance === 'light' && props.shouldShowDivider && css`
+    props => props.appearance === 'light' && props.shouldShowDivider && css`
     padding: 0 0 1.5rem;
     border-bottom: 1px solid ${Theme.colors.neutral.pale};`
 }
@@ -62,76 +62,76 @@ const Subtitle = styled.h3`
 export default class CoursePage extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    children: PropTypes.node.isRequired,
-    titleControls: PropTypes.node,
-    titleBreadcrumbs: PropTypes.node,
-    controls: PropTypes.node,
-    controlBackgroundColor: PropTypes.string,
-    title: PropTypes.node,
-    notices: PropTypes.node,
-    subtitle: PropTypes.node,
-    className: PropTypes.string,
-    fullWidthChildren: PropTypes.node,
-    titleAppearance: PropTypes.string,
-    shouldShowDivider: PropTypes.bool,
+      course: PropTypes.instanceOf(Course).isRequired,
+      children: PropTypes.node.isRequired,
+      titleControls: PropTypes.node,
+      titleBreadcrumbs: PropTypes.node,
+      controls: PropTypes.node,
+      controlBackgroundColor: PropTypes.string,
+      title: PropTypes.node,
+      notices: PropTypes.node,
+      subtitle: PropTypes.node,
+      className: PropTypes.string,
+      fullWidthChildren: PropTypes.node,
+      titleAppearance: PropTypes.string,
+      shouldShowDivider: PropTypes.bool,
   }
 
   @computed get ux () {
-    return new CourseUX(this.props.course);
+      return new CourseUX(this.props.course);
   }
 
   renderTitle() {
-    const { title, subtitle, titleControls, titleAppearance, shouldShowDivider } = this.props;
-    if (isNil(title)) { return null; }
+      const { title, subtitle, titleControls, titleAppearance, shouldShowDivider } = this.props;
+      if (isNil(title)) { return null; }
 
-    return (
-      <TitleWrapper data-test-id="page-title" className={cn({ 'title-wrapper': !titleAppearance })}>
-        <TitleInner appearance={titleAppearance} shouldShowDivider={shouldShowDivider}>
-          {this.renderBreadcrumbs()}
-          <LeftSideWrapper>
-            <Title appearance={titleAppearance}>{title}</Title>
-            {subtitle && <Subtitle>{subtitle}</Subtitle>}
-          </LeftSideWrapper>
-          {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
-        </TitleInner>
-      </TitleWrapper>
-    );
+      return (
+          <TitleWrapper data-test-id="page-title" className={cn({ 'title-wrapper': !titleAppearance })}>
+              <TitleInner appearance={titleAppearance} shouldShowDivider={shouldShowDivider}>
+                  {this.renderBreadcrumbs()}
+                  <LeftSideWrapper>
+                      <Title appearance={titleAppearance}>{title}</Title>
+                      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+                  </LeftSideWrapper>
+                  {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
+              </TitleInner>
+          </TitleWrapper>
+      );
   }
 
   renderControls() {
-    const { controls, controlBackgroundColor } = this.props;
-    return isNil(controls) ? null : <ControlWrapper backgroundColor={controlBackgroundColor} className="controls-wrapper">{controls}</ControlWrapper>;
+      const { controls, controlBackgroundColor } = this.props;
+      return isNil(controls) ? null : <ControlWrapper backgroundColor={controlBackgroundColor} className="controls-wrapper">{controls}</ControlWrapper>;
   }
 
   renderBreadcrumbs() {
-    if (isNil(this.props.titleBreadcrumbs)) { return null; }
+      if (isNil(this.props.titleBreadcrumbs)) { return null; }
 
-    return (
-      <BreadcrumbsWrapper>{this.props.titleBreadcrumbs}</BreadcrumbsWrapper>
-    );
+      return (
+          <BreadcrumbsWrapper>{this.props.titleBreadcrumbs}</BreadcrumbsWrapper>
+      );
   }
 
   render() {
-    return (
-      <ScrollToTop>
-        <div
-          className={cn('course-page', this.props.className)}
-          {...this.ux.dataProps}
-        >
-          <header>
-            {this.renderTitle()}
-            {this.props.notices}
-            {this.renderControls()}
-          </header>
-          <div className="body-wrapper">
-            <div className="body">
-              {this.props.children}
-            </div>
-            {this.props.fullWidthChildren}
-          </div>
-        </div>
-      </ScrollToTop>
-    );
+      return (
+          <ScrollToTop>
+              <div
+                  className={cn('course-page', this.props.className)}
+                  {...this.ux.dataProps}
+              >
+                  <header>
+                      {this.renderTitle()}
+                      {this.props.notices}
+                      {this.renderControls()}
+                  </header>
+                  <div className="body-wrapper">
+                      <div className="body">
+                          {this.props.children}
+                      </div>
+                      {this.props.fullWidthChildren}
+                  </div>
+              </div>
+          </ScrollToTop>
+      );
   }
 }

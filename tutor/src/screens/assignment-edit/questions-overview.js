@@ -84,123 +84,123 @@ const StyledOverview = styled.div`
 @observer
 class QuestionsOverview extends React.Component {
   static propTypes = {
-    ux: PropTypes.object.isRequired,
+      ux: PropTypes.object.isRequired,
   };
 
   renderExercise = (rows, exercise) => {
-    return rows.concat(
-      exercise.content.questions.map((question, qIndex) => {
-        return this.renderExerciseQuestion({
-          exercise, question,
-          questionIndex: qIndex,
-          number: rows.length + qIndex,
-        });
-      })
-    );
+      return rows.concat(
+          exercise.content.questions.map((question, qIndex) => {
+              return this.renderExerciseQuestion({
+                  exercise, question,
+                  questionIndex: qIndex,
+                  number: rows.length + qIndex,
+              });
+          })
+      );
   }
 
   renderExerciseQuestion = ({ exercise, number, questionIndex }) => {
-    const { chapterSection, dok, blooms, lo } = exercise.tags.important;
-    const exSettings = this.props.ux.plan.settings.exercises.find(ex => ex.id == exercise.id);
+      const { chapterSection, dok, blooms, lo } = exercise.tags.important;
+      const exSettings = this.props.ux.plan.settings.exercises.find(ex => ex.id == exercise.id);
     
-    const points = get(exSettings, `points[${questionIndex}]`, 0);
+      const points = get(exSettings, `points[${questionIndex}]`, 0);
 
-    return (
-      <tr key={`exercise-row-${number}`} data-ex-id={exercise.id}>
-        <td className="exercise-number">
-          {number + 1}
-        </td>
-        <td>
-          {exercise.typeAbbreviation}
-        </td>
-        <td>
-          {chapterSection && <ChapterSection chapterSection={chapterSection} />}
-        </td>
-        <td>
-          {lo && lo.value}
-        </td>
-        <td>
-          {dok && dok.value}
-        </td>
-        <td>
-          {blooms && blooms.value}
-        </td>
-        <td>
-          {S.numberWithOneDecimalPlace(points)}
-        </td>
-      </tr>
-    );
+      return (
+          <tr key={`exercise-row-${number}`} data-ex-id={exercise.id}>
+              <td className="exercise-number">
+                  {number + 1}
+              </td>
+              <td>
+                  {exercise.typeAbbreviation}
+              </td>
+              <td>
+                  {chapterSection && <ChapterSection chapterSection={chapterSection} />}
+              </td>
+              <td>
+                  {lo && lo.value}
+              </td>
+              <td>
+                  {dok && dok.value}
+              </td>
+              <td>
+                  {blooms && blooms.value}
+              </td>
+              <td>
+                  {S.numberWithOneDecimalPlace(points)}
+              </td>
+          </tr>
+      );
   };
 
   renderTutorRow(exercises, index) {
-    return (
-      <tr key={`exercise-row-tutor-${index}`}>
-        <td className="exercise-number">
-          {exercises.length + index + 1}
-        </td>
-        <td>
+      return (
+          <tr key={`exercise-row-tutor-${index}`}>
+              <td className="exercise-number">
+                  {exercises.length + index + 1}
+              </td>
+              <td>
           Tutor
-        </td>
-        <td>
+              </td>
+              <td>
           NA
-        </td>
-        <td>
+              </td>
+              <td>
           Personalized question assigned by Tutor based on student performance
-        </td>
-        <td>
+              </td>
+              <td>
           NA
-        </td>
-        <td>
+              </td>
+              <td>
           NA
-        </td>
-        <td>
+              </td>
+              <td>
           1.0
-        </td>
-      </tr>
-    );
+              </td>
+          </tr>
+      );
   }
 
   render() {
-    const { ux: { selectedExercises, numTutorSelections } } = this.props;
+      const { ux: { selectedExercises, numTutorSelections } } = this.props;
 
-    return (
-      <StyledOverview
-        data-test-id="questions-overview-table"
-      >
-        <table>
-          <thead>
-            <tr>
-              <td>
+      return (
+          <StyledOverview
+              data-test-id="questions-overview-table"
+          >
+              <table>
+                  <thead>
+                      <tr>
+                          <td>
                 Question No.
-              </td>
-              <td>
+                          </td>
+                          <td>
                 Type
-              </td>
-              <td>
+                          </td>
+                          <td>
                 Section
-              </td>
-              <td>
+                          </td>
+                          <td>
                 Learning Objective
-              </td>
-              <td>
+                          </td>
+                          <td>
                 DoK level
-              </td>
-              <td>
+                          </td>
+                          <td>
                 Bloom‘s Level
-              </td>
-              <td>
+                          </td>
+                          <td>
                 Points
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedExercises.reduce(this.renderExercise, [])}
-            {times(numTutorSelections, index =>
-              this.renderTutorRow(selectedExercises, index))}
-          </tbody>
-        </table>
-      </StyledOverview>
-    );
+                          </td>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {selectedExercises.reduce(this.renderExercise, [])}
+                      {times(numTutorSelections, index =>
+                          this.renderTutorRow(selectedExercises, index))}
+                  </tbody>
+              </table>
+          </StyledOverview>
+      );
   }
 }
 

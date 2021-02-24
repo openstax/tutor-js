@@ -64,50 +64,50 @@ const StyledPublishScores = styled(PublishScores)`
 `;
 
 const Question = observer(({ heading, ux, index }) => {
-  const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
-  const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
-  const droppedQuestion = heading.dropped;
+    const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
+    const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
+    const droppedQuestion = heading.dropped;
 
-  return (
-    <StyledQuestionWrapper>
-      <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
-        <h6>{heading.title}</h6>
-        {Boolean(droppedQuestion) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
+    return (
+        <StyledQuestionWrapper>
+            <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
+                <h6>{heading.title}</h6>
+                {Boolean(droppedQuestion) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
       
-      </StyledButton>
-      {
-        Boolean(droppedQuestion) &&
+            </StyledButton>
+            {
+                Boolean(droppedQuestion) &&
         <CornerTriangle color="blue"
-          tooltip={droppedQuestion.drop_method == 'zeroed' ?
-            'Question dropped: question is worth 0 points' : 'Question dropped: full credit assigned for this question'}
+            tooltip={droppedQuestion.drop_method == 'zeroed' ?
+                'Question dropped: question is worth 0 points' : 'Question dropped: full credit assigned for this question'}
         />
-      }
-    </StyledQuestionWrapper>
-  );
+            }
+        </StyledQuestionWrapper>
+    );
 });
 
 
 const QuestionsBar = observer(({ ux }) => {
-  return (
-    <Bar data-test-id="questions-bar" className="questions-bar">
-      <QuestionsWrapper>
-        {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} index={index} />)}
-      </QuestionsWrapper>
-      <Controls>
-        <StyledPublishScores ux={ux} variant="default" />
-        <StyledSettingsIcon
-          ux={ux}
-          label="Adjust display settings"
-          controls={{
-            hideStudentNames: 'Hide student names',
-            alphabetizeResponses: 'Show responses in alphabetical order',
-            showOnlyAttempted: 'Show only attempted responses',
-          }}
-          moreInfo="Unattempted responses are assigned a zero after the due date. Students can submit late responses until the close date"
-        />
-      </Controls>
-    </Bar>
-  );
+    return (
+        <Bar data-test-id="questions-bar" className="questions-bar">
+            <QuestionsWrapper>
+                {ux.headings.map((heading, index) => <Question key={index} heading={heading} ux={ux} index={index} />)}
+            </QuestionsWrapper>
+            <Controls>
+                <StyledPublishScores ux={ux} variant="default" />
+                <StyledSettingsIcon
+                    ux={ux}
+                    label="Adjust display settings"
+                    controls={{
+                        hideStudentNames: 'Hide student names',
+                        alphabetizeResponses: 'Show responses in alphabetical order',
+                        showOnlyAttempted: 'Show only attempted responses',
+                    }}
+                    moreInfo="Unattempted responses are assigned a zero after the due date. Students can submit late responses until the close date"
+                />
+            </Controls>
+        </Bar>
+    );
 });
 
 

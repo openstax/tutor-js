@@ -83,84 +83,84 @@ const StyleTable = styled(Table)`
 `;
 
 const AverageInfoModal = ({ ux }) => {
-  return useObserver(() =>
-    <StyledModal
-      show={ux.showAverageInfoModal}
-      onHide={() => ux.hideAverageInfo()}
-    >
-      <Modal.Header closeButton>
+    return useObserver(() =>
+        <StyledModal
+            show={ux.showAverageInfoModal}
+            onHide={() => ux.hideAverageInfo()}
+        >
+            <Modal.Header closeButton>
           How OpenStax Tutor calculates averages
-      </Modal.Header>
-      <Modal.Body>
-        <List>
-          <li>
-            <p>Homework assignment average is based on equally weighted homework assignments that are past due.</p>
-            <p>
+            </Modal.Header>
+            <Modal.Body>
+                <List>
+                    <li>
+                        <p>Homework assignment average is based on equally weighted homework assignments that are past due.</p>
+                        <p>
                 The point value of each assignment is averaged so that all homework assignments have equal weight.
-            </p>
-            <p>
+                        </p>
+                        <p>
                 Example:
-            </p>
-            <StyleTable variant="homework">
-              <thead>
-                <tr>
-                  <th>HW1</th>
-                  <th>HW2</th>
-                  <th>HW3</th>
-                  <th>Homework assignment average</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>12/15</td>
-                  <td>24/30</td>
-                  <td>48/60</td>
-                  <td>
-                    <div>
-                      <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </StyleTable>
-          </li>
-          <li>
-            <p>Reading assignment average is based on equally weighted reading assignments that are past due.</p>
-            <p>
+                        </p>
+                        <StyleTable variant="homework">
+                            <thead>
+                                <tr>
+                                    <th>HW1</th>
+                                    <th>HW2</th>
+                                    <th>HW3</th>
+                                    <th>Homework assignment average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12/15</td>
+                                    <td>24/30</td>
+                                    <td>48/60</td>
+                                    <td>
+                                        <div>
+                                            <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </StyleTable>
+                    </li>
+                    <li>
+                        <p>Reading assignment average is based on equally weighted reading assignments that are past due.</p>
+                        <p>
                 The point value of each assignment is averaged so that all reading assignments have equal weight.
-            </p>
-            <p>
+                        </p>
+                        <p>
                 Example:
-            </p>
-            <StyleTable>
-              <thead>
-                <tr>
-                  <th>RD1</th>
-                  <th>RD2</th>
-                  <th>RD3</th>
-                  <th>Reading assignment average</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>12/15</td>
-                  <td>24/30</td>
-                  <td>48/60</td>
-                  <td>
-                    <div>
-                      <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </StyleTable>
-          </li>
-        </List>
-      </Modal.Body>
-    </StyledModal>);
+                        </p>
+                        <StyleTable>
+                            <thead>
+                                <tr>
+                                    <th>RD1</th>
+                                    <th>RD2</th>
+                                    <th>RD3</th>
+                                    <th>Reading assignment average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12/15</td>
+                                    <td>24/30</td>
+                                    <td>48/60</td>
+                                    <td>
+                                        <div>
+                                            <ArbitraryHtmlAndMath html={'<span data-math="{{12 \\over 15} + {24 \\over 30} + {48 \\over 60} \\over 3} * 100 = 80\\%"></span>'}/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </StyleTable>
+                    </li>
+                </List>
+            </Modal.Body>
+        </StyledModal>);
 };
 AverageInfoModal.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default AverageInfoModal;

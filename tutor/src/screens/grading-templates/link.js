@@ -4,22 +4,22 @@ import TutorLink from '../../components/link';
 
 const GradingTemplateLink = ({ course }) => {
 
-  return (
-    <TutorLink
-      to="gradingTemplates"
-      data-test-id="grading-template-link"
-      variant="link"
-      params={{ courseId: course.id }}
-    >
+    return (
+        <TutorLink
+            to="gradingTemplates"
+            data-test-id="grading-template-link"
+            variant="link"
+            params={{ courseId: course.id }}
+        >
       Grading Templates
-    </TutorLink>
-  );
+        </TutorLink>
+    );
 };
 
 GradingTemplateLink.displayName = 'GradingTemplateLink';
 
 GradingTemplateLink.propTypes = {
-  course: PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
 };
 
 export default GradingTemplateLink;

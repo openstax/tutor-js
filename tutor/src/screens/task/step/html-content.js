@@ -14,10 +14,10 @@ iframe {
 `;
 
 const Loader = () => (
-  <ContentLoader>
-    <rect x="0" y="0" rx="3" ry="3" width="250" height="10" />
-    <rect x="0" y="70" rx="5" ry="5" width="400" height="400" />
-  </ContentLoader>
+    <ContentLoader>
+        <rect x="0" y="0" rx="3" ry="3" width="250" height="10" />
+        <rect x="0" y="70" rx="5" ry="5" width="400" height="400" />
+    </ContentLoader>
 );
 
 
@@ -27,24 +27,24 @@ export default class HtmlContentTaskStep extends React.Component {
   static Loader = Loader;
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    step: PropTypes.instanceOf(Step).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      step: PropTypes.instanceOf(Step).isRequired,
   }
 
   render() {
-    const { ux, step } = this.props;
+      const { ux, step } = this.props;
 
-    return (
-      <HtmlContent
-        data-appearance={ux.course.appearance_code}
-        unpadded className={`${step.type}-step`}>
-        <Badges
-          video={step.isVideo}
-          interactive={step.isInteractive}
-        />
-        <ArbitraryHtmlAndMath html={step.content.html} />
-        <ContinueBtn ux={ux} />
-      </HtmlContent>
-    );
+      return (
+          <HtmlContent
+              data-appearance={ux.course.appearance_code}
+              unpadded className={`${step.type}-step`}>
+              <Badges
+                  video={step.isVideo}
+                  interactive={step.isInteractive}
+              />
+              <ArbitraryHtmlAndMath html={step.content.html} />
+              <ContinueBtn ux={ux} />
+          </HtmlContent>
+      );
   }
 }

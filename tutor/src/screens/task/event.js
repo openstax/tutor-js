@@ -9,23 +9,23 @@ import Router from '../../helpers/router';
 class EventTask extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   render() {
-    const { ux } = this.props;
+      const { ux } = this.props;
 
-    return (
+      return (
       <>
         <Header
-          unDocked={true}
-          title={ux.task.title}
-          backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-          backToText='Dashboard'
+            unDocked={true}
+            title={ux.task.title}
+            backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+            backToText='Dashboard'
         />
         <Instructions ux={ux} />
       </>
-    );
+      );
   }
 
 }

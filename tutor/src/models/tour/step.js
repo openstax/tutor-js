@@ -1,9 +1,9 @@
 import {
-  BaseModel, identifiedBy, identifier, belongsTo, field,
+    BaseModel, identifiedBy, identifier, belongsTo, field,
 } from 'shared/model';
 
 import {
-  computed, action,
+    computed, action,
 } from 'mobx';
 
 import { isEmpty, intersection } from 'lodash';
@@ -48,63 +48,63 @@ export default class TourStep extends BaseModel {
   windowSize = new WindowSize();
 
   @computed get target() {
-    return this.anchor_id ? `[data-tour-anchor-id="${this.anchor_id}"]` : null;
+      return this.anchor_id ? `[data-tour-anchor-id="${this.anchor_id}"]` : null;
   }
 
   get element() {
-    return this.target ? document.querySelector(this.target) : null;
+      return this.target ? document.querySelector(this.target) : null;
   }
 
   @computed get placement() {
-    if (!this.element) { return 'center'; }
-    return (this.anchor_id && this.position) ? this.position : 'auto';
+      if (!this.element) { return 'center'; }
+      return (this.anchor_id && this.position) ? this.position : 'auto';
   }
 
   @computed get isCentered() {
-    return this.position == 'center';
+      return this.position == 'center';
   }
 
   @computed get actionClass() {
-    if (!this.action) { return null; }
-    return Actions.forIdentifier(this.action.id);
+      if (!this.action) { return null; }
+      return Actions.forIdentifier(this.action.id);
   }
 
   @computed get actionInstance() {
-    return this.actionClass && new this.actionClass({
-      step: this,
-      ...this.action,
-    });
+      return this.actionClass && new this.actionClass({
+          step: this,
+          ...this.action,
+      });
   }
 
   @computed get shouldShowSpotlight() {
-    return Boolean((this.anchor_id || this.isCentered) && this.spotlight);
+      return Boolean((this.anchor_id || this.isCentered) && this.spotlight);
   }
 
   @action preValidate() {
-    this.actionInstance && this.actionInstance.preValidate();
+      this.actionInstance && this.actionInstance.preValidate();
   }
 
   @action prepare(options) {
-    return (this.actionInstance && this.actionInstance.beforeStep(options)) || Promise.resolve();
+      return (this.actionInstance && this.actionInstance.beforeStep(options)) || Promise.resolve();
   }
 
   @action complete(options) {
-    return (this.actionInstance && this.actionInstance.afterStep(options) ) || Promise.resolve();
+      return (this.actionInstance && this.actionInstance.afterStep(options) ) || Promise.resolve();
   }
 
   get isViewable() {
-    if (!isEmpty(intersection(this.disabledBreakpoints, [this.windowSize.currentBreakpoint]))) {
-      return false;
-    }
-    return Boolean(!this.target || this.element);
+      if (!isEmpty(intersection(this.disabledBreakpoints, [this.windowSize.currentBreakpoint]))) {
+          return false;
+      }
+      return Boolean(!this.target || this.element);
   }
 
   @computed get HTML() {
-    return this.body ? MD.render(this.body) : '';
+      return this.body ? MD.render(this.body) : '';
   }
 
   @computed get shouldReplay() {
-    return this.requiredViewsCount > this.tour.viewCounts;
+      return this.requiredViewsCount > this.tour.viewCounts;
   }
 
 }

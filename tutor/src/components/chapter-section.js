@@ -7,20 +7,20 @@ const StyledChapterSection = styled.span`
 `;
 
 const ChapterSection = observer(({ chapterSection, className }) => {
-  if (!chapterSection || chapterSection.isEmpty) { return null; }
-  return (
-    <StyledChapterSection
-      className={cn('chapter-section', className)}
-      data-chapter-section={chapterSection.key}
-    >
-      {chapterSection.asString}
-    </StyledChapterSection>
-  );
+    if (!chapterSection || chapterSection.isEmpty) { return null; }
+    return (
+        <StyledChapterSection
+            className={cn('chapter-section', className)}
+            data-chapter-section={chapterSection.key}
+        >
+            {chapterSection.asString}
+        </StyledChapterSection>
+    );
 });
 
 ChapterSection.displayName = 'ChapterSection';
 ChapterSection.propTypes = {
-  chapterSection: PropTypes.instanceOf(ChapterSectionModel).isRequired,
-  className: PropTypes.string,
+    chapterSection: PropTypes.instanceOf(ChapterSectionModel).isRequired,
+    className: PropTypes.string,
 };
 export default ChapterSection;

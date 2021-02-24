@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, computed, observer, observable, styled,
+    React, PropTypes, computed, observer, observable, styled,
 } from 'vendor';
 import { isEmpty, merge, map, take, last } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
@@ -25,32 +25,32 @@ const StyledContainer = styled(Container)`
 `;
 
 function wrapCourseItem(Item, course = {}) {
-  return (
-    <Col key={course.id} lg={3} md={4} sm={6} xs={12}>
-      <Item
-        course={course}
-      />
-    </Col>
-  );
+    return (
+        <Col key={course.id} lg={3} md={4} sm={6} xs={12}>
+            <Item
+                course={course}
+            />
+        </Col>
+    );
 }
 
 function MyCoursesNone() {
-  return (
-    <Row className="my-courses-none">
-      <Col xs={12}>
-        <p>
+    return (
+        <Row className="my-courses-none">
+            <Col xs={12}>
+                <p>
           There are no current courses.
-        </p>
-      </Col>
-    </Row>
-  );
+                </p>
+            </Col>
+        </Row>
+    );
 }
 
 const MyCoursesCreate = () => wrapCourseItem(CreateACourse);
 
 const DEFAULT_COURSE_ITEMS = {
-  teacher: CourseTeacher,
-  student: Course,
+    teacher: CourseTeacher,
+    student: Course,
 };
 
 
@@ -58,58 +58,58 @@ const DEFAULT_COURSE_ITEMS = {
 class MyCoursesBase extends React.Component {
 
   static propTypes = {
-    courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
-    items:      PropTypes.objectOf(PropTypes.element),
-    className:  PropTypes.string,
-    before:     PropTypes.element,
-    after:      PropTypes.element,
+      courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+      items:      PropTypes.objectOf(PropTypes.element),
+      className:  PropTypes.string,
+      before:     PropTypes.element,
+      after:      PropTypes.element,
   }
 
   @computed get items() {
-    return merge({}, DEFAULT_COURSE_ITEMS, this.props.items);
+      return merge({}, DEFAULT_COURSE_ITEMS, this.props.items);
   }
 
   renderCourse(course) {
-    const Item = course.is_preview ? CoursePreview :
-      this.items[User.verifiedRoleForCourse(course)];
-    return Item ? wrapCourseItem(Item, course) : null;
+      const Item = course.is_preview ? CoursePreview :
+          this.items[User.verifiedRoleForCourse(course)];
+      return Item ? wrapCourseItem(Item, course) : null;
   }
 
   render() {
-    const { courses, className, before, after } = this.props;
+      const { courses, className, before, after } = this.props;
 
-    const sectionClasses = classnames('my-courses-section', className);
+      const sectionClasses = classnames('my-courses-section', className);
 
-    return (
-      <Row className={sectionClasses}>
-        {before}
-        {map(courses, (course) => this.renderCourse(course))}
-        {after}
-      </Row>
-    );
+      return (
+          <Row className={sectionClasses}>
+              {before}
+              {map(courses, (course) => this.renderCourse(course))}
+              {after}
+          </Row>
+      );
   }
 }
 
 @observer
 class MyCoursesTitle extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    main: PropTypes.bool,
+      title: PropTypes.string.isRequired,
+      main: PropTypes.bool,
   }
 
   static defaultProps = {
-    main: false,
+      main: false,
   }
 
   render() {
-    const { title } = this.props;
-    return (
-      <Row className="my-courses-title">
-        <Col xs={12}>
-          <h1>{title}</h1>
-        </Col>
-      </Row>
-    );
+      const { title } = this.props;
+      return (
+          <Row className="my-courses-title">
+              <Col xs={12}>
+                  <h1>{title}</h1>
+              </Col>
+          </Row>
+      );
   }
 }
 
@@ -117,98 +117,98 @@ class MyCoursesTitle extends React.Component {
 @observer
 class MyCoursesCurrent extends React.Component {
 
-  render () {
-    const baseName = 'my-courses-current';
-    const courses = Courses.tutor.nonPreview.currentAndFuture.array;
-    return (
-      <div data-test-id="current-courses" className={baseName}>
-        <StyledContainer>
-          <MyCoursesTitle title="Current Courses" main={true} />
-          {isEmpty(courses) ? <MyCoursesNone /> : undefined}
-          <MyCoursesBase
-            className={`${baseName}-section`}
-            courses={courses}
-            after={User.canCreateCourses ? <MyCoursesCreate /> : undefined} />
-        </StyledContainer>
-      </div>
-    );
-  }
+    render () {
+        const baseName = 'my-courses-current';
+        const courses = Courses.tutor.nonPreview.currentAndFuture.array;
+        return (
+            <div data-test-id="current-courses" className={baseName}>
+                <StyledContainer>
+                    <MyCoursesTitle title="Current Courses" main={true} />
+                    {isEmpty(courses) ? <MyCoursesNone /> : undefined}
+                    <MyCoursesBase
+                        className={`${baseName}-section`}
+                        courses={courses}
+                        after={User.canCreateCourses ? <MyCoursesCreate /> : undefined} />
+                </StyledContainer>
+            </div>
+        );
+    }
 }
 
 @observer
 class MyCoursesBasic extends React.Component {
   static propTypes = {
-    title:    PropTypes.string.isRequired,
-    baseName: PropTypes.string.isRequired,
-    courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
-    before:   PropTypes.element,
-    after:    PropTypes.element,
+      title:    PropTypes.string.isRequired,
+      baseName: PropTypes.string.isRequired,
+      courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+      before:   PropTypes.element,
+      after:    PropTypes.element,
   }
 
   render() {
-    const { courses, baseName, title, before, after } = this.props;
-    if (isEmpty(courses)) { return null; }
+      const { courses, baseName, title, before, after } = this.props;
+      if (isEmpty(courses)) { return null; }
 
-    return (
-      (
-        <div className={baseName}>
-          <StyledContainer>
-            <MyCoursesTitle title={title} />
-            <MyCoursesBase
-              className={`${baseName}-section`}
-              courses={courses}
-              before={before}
-              after={after}
-            />
-          </StyledContainer>
-        </div>
-      )
-    );
+      return (
+          (
+              <div className={baseName}>
+                  <StyledContainer>
+                      <MyCoursesTitle title={title} />
+                      <MyCoursesBase
+                          className={`${baseName}-section`}
+                          courses={courses}
+                          before={before}
+                          after={after}
+                      />
+                  </StyledContainer>
+              </div>
+          )
+      );
   }
 }
 
 
 @observer
 class MyCoursesPast extends React.Component {
-  render() {
-    return (
-      <MyCoursesBasic
-        courses={Courses.tutor.nonPreview.completed.array}
-        baseName={'my-courses-past'}
-        title="Past Courses"
-      />
-    );
-  }
+    render() {
+        return (
+            <MyCoursesBasic
+                courses={Courses.tutor.nonPreview.completed.array}
+                baseName={'my-courses-past'}
+                title="Past Courses"
+            />
+        );
+    }
 }
 
 
 @observer
 class MyCoursesFuture extends React.Component {
-  render() {
-    return (
-      <MyCoursesBasic
-        courses={Courses.tutor.nonPreview.future.array}
-        baseName={'my-courses-future'}
-        title="Future Courses"
-      />
-    );
-  }
+    render() {
+        return (
+            <MyCoursesBasic
+                courses={Courses.tutor.nonPreview.future.array}
+                baseName={'my-courses-future'}
+                title="Future Courses"
+            />
+        );
+    }
 }
 
 function ExploreAPreview({ course }) {
-  return (
-    <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
-      <TourAnchor id='explore-a-preview-zone'>
-        <CoursePreview
-          course={course}
-        />
-      </TourAnchor>
-    </Col>
-  );
+    return (
+        <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
+            <TourAnchor id='explore-a-preview-zone'>
+                <CoursePreview
+                    course={course}
+                />
+            </TourAnchor>
+        </Col>
+    );
 }
 
 ExploreAPreview.propTypes = {
-  course: PropTypes.object,
+    course: PropTypes.object,
 };
 
 @observer
@@ -217,24 +217,24 @@ class MyCoursesPreview extends React.Component {
   @observable previews;
 
   componentDidMount() {
-    if (User.canViewPreviewCourses) {
-      PreviewCourseOffering.fetch();
-    }
+      if (User.canViewPreviewCourses) {
+          PreviewCourseOffering.fetch();
+      }
   }
 
   render() {
-    if (!User.canViewPreviewCourses) { return null; }
+      if (!User.canViewPreviewCourses) { return null; }
 
-    const courses = PreviewCourseOffering.all;
+      const courses = PreviewCourseOffering.all;
 
-    return (
-      <MyCoursesBasic
-        courses={take(courses, courses.length - 1)}
-        baseName={'my-courses-preview'}
-        title="Preview Courses"
-        after={<ExploreAPreview course={last(courses)} />}
-      />
-    );
+      return (
+          <MyCoursesBasic
+              courses={take(courses, courses.length - 1)}
+              baseName={'my-courses-preview'}
+              title="Preview Courses"
+              after={<ExploreAPreview course={last(courses)} />}
+          />
+      );
   }
 }
 

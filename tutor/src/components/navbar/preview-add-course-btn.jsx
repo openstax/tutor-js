@@ -13,48 +13,48 @@ import Course from '../../models/course.js';
 
 import onboardingForCourse from '../../models/course/onboarding';
 
-export default
 @withRouter
 @inject((allStores, props) => ({
-  tourContext: ( props.tourContext || allStores.tourContext ),
+    tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
+export default
 class PreviewAddCourseBtn extends React.Component {
 
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    course: PropTypes.instanceOf(Course),
-    tourContext: PropTypes.instanceOf(TourContext),
+      history: PropTypes.object.isRequired,
+      course: PropTypes.instanceOf(Course),
+      tourContext: PropTypes.instanceOf(TourContext),
   }
 
   @computed get ux() {
-    return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
+      return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
   }
 
   componentWillUnmount() {
-    if (this.ux) { this.ux.close(); }
+      if (this.ux) { this.ux.close(); }
   }
 
   @action.bound
   onAddCourse() {
-    this.props.history.push(
-      Router.makePathname('myCourses')
-    );
+      this.props.history.push(
+          Router.makePathname('myCourses')
+      );
   }
 
   render() {
-    if (!get(this, 'ux.showCreateCourseAction')) { return null; }
+      if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
-    return (
-      <TourAnchor
-        className="preview-add-course-nav-button"
-        id="preview-add-course-nav-button"
-      >
-        <Button onClick={this.onAddCourse}>
-          <Icon type="plus-square" />
+      return (
+          <TourAnchor
+              className="preview-add-course-nav-button"
+              id="preview-add-course-nav-button"
+          >
+              <Button onClick={this.onAddCourse}>
+                  <Icon type="plus-square" />
           Create a course
-        </Button>
-      </TourAnchor>
-    );
+              </Button>
+          </TourAnchor>
+      );
   }
 }

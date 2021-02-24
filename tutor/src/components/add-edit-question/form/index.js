@@ -38,91 +38,91 @@ const StyledAddEditQuestionModal = styled(AddEditQuestionModal)`
 `;
 
 const FormButtons = observer(({ ux }) => {
-  const previewButton =
+    const previewButton =
     <Button
-      variant="default"
-      className="preview"
-      onClick={() => ux.showPreviewQuestionModal = true}
-      disabled={!ux.isReadyToPublish}>
+        variant="default"
+        className="preview"
+        onClick={() => ux.showPreviewQuestionModal = true}
+        disabled={!ux.isReadyToPublish}>
       Preview
     </Button>;
 
-  // if editing
-  if (ux.from_exercise_id) {
-    return (
+    // if editing
+    if (ux.from_exercise_id) {
+        return (
       <>
         {previewButton}
         <Button
-          variant="default"
-          className="cancel"
-          onClick={ux.doExitForm}>
+            variant="default"
+            className="cancel"
+            onClick={ux.doExitForm}>
           Cancel
         </Button>
         <Button
-          variant="primary"
-          data-test-id="publish-btn"
-          onClick={() => ux.publish(true)}
-          disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
+            variant="primary"
+            data-test-id="publish-btn"
+            onClick={() => ux.publish(true)}
+            disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
           Publish changes
         </Button>
       </>
-    );
-  }
-  // otherwise it is creating
-  return (
+        );
+    }
+    // otherwise it is creating
+    return (
     <>
       {previewButton}
       <Button
-        variant="default"
-        className="publish"
-        onClick={() => ux.publish(false)}
-        disabled={!ux.isReadyToPublish}>
+          variant="default"
+          className="publish"
+          onClick={() => ux.publish(false)}
+          disabled={!ux.isReadyToPublish}>
         Publish question
       </Button>
       <Button
-        variant="primary"
-        className="publish"
-        onClick={() => ux.publish(true)}
-        disabled={!ux.isReadyToPublish}>
+          variant="primary"
+          className="publish"
+          onClick={() => ux.publish(true)}
+          disabled={!ux.isReadyToPublish}>
         Publish &amp; Exit
       </Button>
     </>
-  );
+    );
 });
 FormButtons.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 const AddEditQuestionForm = observer(({ ux }) => {
-  return (
-    <StyledAddEditQuestionModal
-      data-test-id="add-edit-question"
-      show={true}
-      backdrop="static"
-      onHide={ux.doExitForm}
-      templateType="addEditQuestion"
-    >
-      <Modal.Header closeButton>
-        {ux.from_exercise_id ?
-          !ux.isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'
-          : 'Create'} Question
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <AddEditQuestionFormTopic ux={ux} />
-          <AddEditQuestionFormQuestion ux={ux} />
-          <AddEditQuestionFormTags ux={ux} />
-          <AddEditQuestionFormGeneral ux={ux} />
-          <div className="buttons-wrapper">
-            <FormButtons ux={ux} />
-          </div>
-        </Form>
-      </Modal.Body>
-    </StyledAddEditQuestionModal>
-  );
+    return (
+        <StyledAddEditQuestionModal
+            data-test-id="add-edit-question"
+            show={true}
+            backdrop="static"
+            onHide={ux.doExitForm}
+            templateType="addEditQuestion"
+        >
+            <Modal.Header closeButton>
+                {ux.from_exercise_id ?
+                    !ux.isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'
+                    : 'Create'} Question
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <AddEditQuestionFormTopic ux={ux} />
+                    <AddEditQuestionFormQuestion ux={ux} />
+                    <AddEditQuestionFormTags ux={ux} />
+                    <AddEditQuestionFormGeneral ux={ux} />
+                    <div className="buttons-wrapper">
+                        <FormButtons ux={ux} />
+                    </div>
+                </Form>
+            </Modal.Body>
+        </StyledAddEditQuestionModal>
+    );
 });
 AddEditQuestionForm.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 export default AddEditQuestionForm;

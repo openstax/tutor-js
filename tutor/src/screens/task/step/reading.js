@@ -13,24 +13,24 @@ const StyledReading = styled(TaskStepCard)`
 export default class ReadingTaskStep extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    step: PropTypes.instanceOf(Step).isRequired,
-    windowImpl: PropTypes.object,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      step: PropTypes.instanceOf(Step).isRequired,
+      windowImpl: PropTypes.object,
   }
 
   render() {
-    const { content } = this.props.step;
+      const { content } = this.props.step;
 
-    return (
-      <StyledReading unpadded step={this.props.step}>
-        <BookPage
-          ux={this.props.ux.pageContentUX}
-          chapter_section={content.chapterSection}
-          title={content.pageTitle}
-        />
-        <ContinueBtn ux={this.props.ux} />
-      </StyledReading>
-    );
+      return (
+          <StyledReading unpadded step={this.props.step}>
+              <BookPage
+                  ux={this.props.ux.pageContentUX}
+                  chapter_section={content.chapterSection}
+                  title={content.pageTitle}
+              />
+              <ContinueBtn ux={this.props.ux} />
+          </StyledReading>
+      );
   }
 
 }

@@ -43,7 +43,7 @@ const fitContentHeight = `
 `;
 
 const ClickableInfoRow = styled(Row).attrs({
-  as: 'a',
+    as: 'a',
 })`
   display: contents;
   color: #424242;
@@ -59,150 +59,150 @@ const StyledEIcon = styled(EIcon)`
 const timeFormat = TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT;
 
 const NotOpenNotice = ({ task, course }) => {
-  if (!task.isTeacherStudent || task.isOpen) {
-    return null;
-  }
+    if (!task.isTeacherStudent || task.isOpen) {
+        return null;
+    }
 
-  return (
-    <NotOpenNoticeWrapper className="not-open-notice">
-      <Icon type="eye" /> This assignment is only visible to instructors.
+    return (
+        <NotOpenNoticeWrapper className="not-open-notice">
+            <Icon type="eye" /> This assignment is only visible to instructors.
       Open date for students is {course.momentInZone(task.opens_at).format(timeFormat)}
-    </NotOpenNoticeWrapper>
-  );
+        </NotOpenNoticeWrapper>
+    );
 };
 NotOpenNotice.propTypes = {
-  task: PropTypes.object.isRequired,
-  course: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
 };
 
 const EventTime = ({ event }) => {
-  if (event.is_deleted) { return null; }
-  return <Time date={event.due_at} format="concise" />;
+    if (event.is_deleted) { return null; }
+    return <Time date={event.due_at} format="concise" />;
 };
 EventTime.propTypes = {
-  event: PropTypes.object.isRequired,
+    event: PropTypes.object.isRequired,
 };
 
-export default
 @withRouter
 @observer
+export default
 class EventRow extends React.Component {
 
   static propTypes = {
-    event:   PropTypes.object.isRequired,
-    course:  PropTypes.instanceOf(Course).isRequired,
-    history: PropTypes.object.isRequired,
+      event:   PropTypes.object.isRequired,
+      course:  PropTypes.instanceOf(Course).isRequired,
+      history: PropTypes.object.isRequired,
   }
 
   @action.bound onClick(ev) {
-    ev.preventDefault();
-    if (this.isViewable) {
-      this.props.history.push(
-        ev.currentTarget.getAttribute('href')
-      );
-    }
+      ev.preventDefault();
+      if (this.isViewable) {
+          this.props.history.push(
+              ev.currentTarget.getAttribute('href')
+          );
+      }
   }
 
   @action.bound onHitEnter(ev) {
-    if(ev.key === 'Enter')
-      this.onClick(ev);
+      if(ev.key === 'Enter')
+          this.onClick(ev);
   }
 
   @computed get isViewable() {
-    return get(this.props, 'viewable', this.props.event.isViewable);
+      return get(this.props, 'viewable', this.props.event.isViewable);
   }
 
   renderDesktop() {
-    const { event, course } = this.props;
-    return (
+      const { event, course } = this.props;
+      return (
       <>
         <ClickableInfoRow
-          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-          onClick={this.onClick}
+            href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+            onClick={this.onClick}
         >
-          <TitleCell>
-            <EventTypeIcon event={event} />
-            <span>{event.title}</span>
-          </TitleCell>
-          <DueCell>
-            <EventTime event={event} />
-            {event.is_extended && <StyledEIcon />}
-            <HideButton event={event} />
-          </DueCell>
-          <StatusCell>
-            <TaskStatus event={event} course={course} />
-          </StatusCell>
+            <TitleCell>
+                <EventTypeIcon event={event} />
+                <span>{event.title}</span>
+            </TitleCell>
+            <DueCell>
+                <EventTime event={event} />
+                {event.is_extended && <StyledEIcon />}
+                <HideButton event={event} />
+            </DueCell>
+            <StatusCell>
+                <TaskStatus event={event} course={course} />
+            </StatusCell>
         </ClickableInfoRow>
         <ScoreCell>
-          <TaskScore event={event} course={course} />
+            <TaskScore event={event} course={course} />
         </ScoreCell>
       </>
-    );
+      );
   }
 
   renderMobile() {
-    const { event, course } = this.props;
-    return (
-      <MobileRow>
-        <a
-          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-          onClick={this.onClick}
-        >
-          <div className="assignment-title-icon">
-            <EventTypeIcon event={event} />
-            <span className="assignment-title">{event.title}</span>
-          </div>
-          <div className="mobile-event-info-container">
-            <div className="mobile-event-info">
-              <span>Due on</span> 
-              <span>
-                <EventTime event={event} />
-                {event.is_extended && <StyledEIcon />}
-              </span>
-            </div>
-            <div className="mobile-event-info">
-              <span>Status</span> 
-              <span>
-                <TaskStatus event={event} course={course} />
-              </span>
-            </div>
-          </div>
-        </a>
-        <div className="mobile-event-info-container">
-          <div className="mobile-event-info">
-            <span>Score</span>
-            <TaskScore event={event} course={course} />
-          </div>
-        </div>
-      </MobileRow>
-    );
+      const { event, course } = this.props;
+      return (
+          <MobileRow>
+              <a
+                  href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+                  onClick={this.onClick}
+              >
+                  <div className="assignment-title-icon">
+                      <EventTypeIcon event={event} />
+                      <span className="assignment-title">{event.title}</span>
+                  </div>
+                  <div className="mobile-event-info-container">
+                      <div className="mobile-event-info">
+                          <span>Due on</span> 
+                          <span>
+                              <EventTime event={event} />
+                              {event.is_extended && <StyledEIcon />}
+                          </span>
+                      </div>
+                      <div className="mobile-event-info">
+                          <span>Status</span> 
+                          <span>
+                              <TaskStatus event={event} course={course} />
+                          </span>
+                      </div>
+                  </div>
+              </a>
+              <div className="mobile-event-info-container">
+                  <div className="mobile-event-info">
+                      <span>Score</span>
+                      <TaskScore event={event} course={course} />
+                  </div>
+              </div>
+          </MobileRow>
+      );
   }
 
   render() {
-    const { event, course } = this.props;
-    if (event.isHidden) { return null; }
+      const { event, course } = this.props;
+      if (event.isHidden) { return null; }
 
-    return (
+      return (
       <>
         <NotOpenNotice task={event} course={course} />
         <TaskRow
-          className={cn(`task ${event.type}`, {
-            viewable: this.isViewable,
-            deleted: event.is_deleted,
-          })}
-          aria-label={`Work on ${event.type}: ${this.props.event.title}`}
-          tabIndex={this.isViewable ? 0 : -1}
-          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-          onKeyDown={this.isViewable ? this.onHitEnter : undefined}
-          data-event-id={this.props.event.id}
+            className={cn(`task ${event.type}`, {
+                viewable: this.isViewable,
+                deleted: event.is_deleted,
+            })}
+            aria-label={`Work on ${event.type}: ${this.props.event.title}`}
+            tabIndex={this.isViewable ? 0 : -1}
+            href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+            onKeyDown={this.isViewable ? this.onHitEnter : undefined}
+            data-event-id={this.props.event.id}
         >
-          <Responsive
-            desktop={this.renderDesktop()}
-            mobile={this.renderMobile()}
-          />
+            <Responsive
+                desktop={this.renderDesktop()}
+                mobile={this.renderMobile()}
+            />
           
         </TaskRow>
       </>
-    );
+      );
   }
 }

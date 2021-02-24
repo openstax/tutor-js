@@ -10,63 +10,63 @@ import { map } from 'lodash';
 import String from '../helpers/string';
 import ModalManager from './modal-manager';
 
-export default
 @inject('modalManager')
 @observer
+export default
 class TermsModal extends React.Component {
     
   static propTypes = {
-    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
+      modalManager: PropTypes.instanceOf(ModalManager).isRequired,
   }
 
   @computed get terms() {
-    return User.terms.requiredAndUnsigned;
+      return User.terms.requiredAndUnsigned;
   }
 
   @computed get title() {
-    return String.toSentence(map(this.terms, 'title'));
+      return String.toSentence(map(this.terms, 'title'));
   }
 
   @action.bound onAgreement() {
-    User.terms.sign(map(this.terms, 'id'));
+      User.terms.sign(map(this.terms, 'id'));
   }
 
   componentDidMount() {
-    this.props.modalManager.queue(this, 1);
-    User.terms.fetchIfNeeded();
+      this.props.modalManager.queue(this, 1);
+      User.terms.fetchIfNeeded();
   }
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return User.terms.areSignaturesNeeded;
+      return User.terms.areSignaturesNeeded;
   }
 
   render() {
-    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
+      if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
-    const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
+      const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 
-    return (
-      <Modal
-        show={true}
-        backdrop="static"
-        backdropClassName={className}
-        className={className}
-      >
-        <Modal.Header>
-          <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
-        </Modal.Header>
-        <Modal.Body>
-          {map(this.terms, (t) =>
-            <div key={t.id}>
-              <h1 className="title">{t.title}</h1>
-              <div dangerouslySetInnerHTML={{ __html: t.content }} />
-            </div>)}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={this.onAgreement}>I agree</Button>
-        </Modal.Footer>
-      </Modal>
-    );
+      return (
+          <Modal
+              show={true}
+              backdrop="static"
+              backdropClassName={className}
+              className={className}
+          >
+              <Modal.Header>
+                  <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
+              </Modal.Header>
+              <Modal.Body>
+                  {map(this.terms, (t) =>
+                      <div key={t.id}>
+                          <h1 className="title">{t.title}</h1>
+                          <div dangerouslySetInnerHTML={{ __html: t.content }} />
+                      </div>)}
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button variant="primary" onClick={this.onAgreement}>I agree</Button>
+              </Modal.Footer>
+          </Modal>
+      );
   }
 }

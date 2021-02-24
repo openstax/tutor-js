@@ -3,7 +3,7 @@ import { colors } from 'theme';
 import { Icon } from 'shared';
 
 const StyledIcon = styled(Icon).attrs({
-  className: 'icon',
+    className: 'icon',
 })`
   .arrow-wrapper &&&.icon {
     top: calc(55vh - 80px);

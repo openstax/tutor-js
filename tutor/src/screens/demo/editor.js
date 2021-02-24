@@ -60,9 +60,9 @@ The speed limit on some interstate highways is roughly <span data-math="100,\\te
 `;
 
 const EditorDemo = () => (
-  <div className="openstax-question">
-    <EditableHTML html={fakeExercise} />
-  </div>
+    <div className="openstax-question">
+        <EditableHTML html={fakeExercise} />
+    </div>
 );
 
 export default EditorDemo;

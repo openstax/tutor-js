@@ -138,106 +138,106 @@ const StepCardQuestion = styled.div`
 LoadingCard.displayName = 'LoadingCard';
 
 const StepCard = ({
-  questionNumber,
-  numberOfQuestions,
-  stepType,
-  isHomework,
-  availablePoints,
-  unpadded,
-  className,
-  children,
-  goBackward,
-  canGoBackward,
-  goForward,
-  canGoForward,
-  ...otherProps }) =>
-  (
-    <OuterStepCard {...otherProps}>
-      <InnerStepCard className={className}>
-        {questionNumber && isHomework && stepType === 'exercise' &&
+    questionNumber,
+    numberOfQuestions,
+    stepType,
+    isHomework,
+    availablePoints,
+    unpadded,
+    className,
+    children,
+    goBackward,
+    canGoBackward,
+    goForward,
+    canGoForward,
+    ...otherProps }) =>
+    (
+        <OuterStepCard {...otherProps}>
+            <InnerStepCard className={className}>
+                {questionNumber && isHomework && stepType === 'exercise' &&
         <StepCardHeader>
-          <div>
-            {
-              canGoBackward && goBackward &&
+            <div>
+                {
+                    canGoBackward && goBackward &&
               <Icon
-                size="lg"
-                type="angle-left"
-                onClick={goBackward}
+                  size="lg"
+                  type="angle-left"
+                  onClick={goBackward}
               />
-            }
-            <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
-          </div>
-          <div>
-            <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
-            {
-              canGoForward && goForward &&
+                }
+                <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+            </div>
+            <div>
+                <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                {
+                    canGoForward && goForward &&
               <Icon
-                size="lg"
-                type="angle-right"
-                onClick={goForward}
+                  size="lg"
+                  type="angle-right"
+                  onClick={goForward}
               />
-            }
-          </div>
+                }
+            </div>
 
 
         </StepCardHeader>
-        }
-        <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
-      </InnerStepCard>
-    </OuterStepCard>
-  );
+                }
+                <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
+            </InnerStepCard>
+        </OuterStepCard>
+    );
 StepCard.propTypes = {
-  unpadded: PropTypes.bool,
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  questionNumber: PropTypes.number,
-  numberOfQuestions: PropTypes.number,
-  goBackward: PropTypes.func,
-  canGoBackward: PropTypes.bool,
-  goForward: PropTypes.func,
-  canGoForward: PropTypes.bool,
-  stepType: PropTypes.string,
-  isHomework: PropTypes.string,
-  availablePoints: PropTypes.number,
+    unpadded: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    questionNumber: PropTypes.number,
+    numberOfQuestions: PropTypes.number,
+    goBackward: PropTypes.func,
+    canGoBackward: PropTypes.bool,
+    goForward: PropTypes.func,
+    canGoForward: PropTypes.bool,
+    stepType: PropTypes.string,
+    isHomework: PropTypes.string,
+    availablePoints: PropTypes.number,
 };
 
 
 const TaskStepCard = observer(({
-  step,
-  questionNumber,
-  numberOfQuestions,
-  children,
-  className,
-  goBackward,
-  canGoBackward,
-  goForward,
-  canGoForward,
-  ...otherProps }) =>
-  (
-    <StepCard
-      {...otherProps}
-      questionNumber={questionNumber}
-      numberOfQuestions={numberOfQuestions}
-      goBackward={goBackward}
-      canGoBackward={canGoBackward}
-      goForward={goForward}
-      canGoForward={canGoForward}
-      stepType={step.type}
-      isHomework={step.task.type}
-      data-task-step-id={step.id}
-      availablePoints={step.available_points}
-      className={cn(`${step.type}-step`, className)}
-    >
-      {children}
-      <SpyInfo model={step} />
-    </StepCard>
-  ));
+    step,
+    questionNumber,
+    numberOfQuestions,
+    children,
+    className,
+    goBackward,
+    canGoBackward,
+    goForward,
+    canGoForward,
+    ...otherProps }) =>
+    (
+        <StepCard
+            {...otherProps}
+            questionNumber={questionNumber}
+            numberOfQuestions={numberOfQuestions}
+            goBackward={goBackward}
+            canGoBackward={canGoBackward}
+            goForward={goForward}
+            canGoForward={canGoForward}
+            stepType={step.type}
+            isHomework={step.task.type}
+            data-task-step-id={step.id}
+            availablePoints={step.available_points}
+            className={cn(`${step.type}-step`, className)}
+        >
+            {children}
+            <SpyInfo model={step} />
+        </StepCard>
+    ));
 TaskStepCard.displayName = 'TaskStepCard';
 TaskStepCard.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  step: PropTypes.instanceOf(Step).isRequired,
-  questionNumber: PropTypes.number,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    step: PropTypes.instanceOf(Step).isRequired,
+    questionNumber: PropTypes.number,
 };
 
 

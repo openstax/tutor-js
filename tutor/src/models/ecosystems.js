@@ -9,7 +9,7 @@ class EcosystemsMap extends Map {
   fetch() { }
 
   @action onLoaded({ data }) {
-    this.mergeModelData(data);
+      this.mergeModelData(data);
   }
 
 }

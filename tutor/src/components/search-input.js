@@ -35,22 +35,22 @@ const StyledInputGroup = styled(InputGroup)`
 
 const SearchInput = observer(({ onChange }) => {
 
-  return (
-    <StyledInputGroup>
-      <FormControl
-        placeholder="Search by student name"
-        onChange={onChange}
-        data-test-id="search-by-name-input"
-      />
-      <InputGroup.Append>
-        <Button variant="icon"><Icon type="search" /></Button>
-      </InputGroup.Append>
-    </StyledInputGroup>
-  );
+    return (
+        <StyledInputGroup>
+            <FormControl
+                placeholder="Search by student name"
+                onChange={onChange}
+                data-test-id="search-by-name-input"
+            />
+            <InputGroup.Append>
+                <Button variant="icon"><Icon type="search" /></Button>
+            </InputGroup.Append>
+        </StyledInputGroup>
+    );
 });
 
 SearchInput.propTypes = {
-  onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

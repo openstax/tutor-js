@@ -1,5 +1,5 @@
 import {
-  styled, css,
+    styled, css,
 } from 'vendor';
 import Theme from 'theme';
 

@@ -20,12 +20,12 @@ const Text = styled.span`
 `;
 
 const GradeBanner = observer(({ plan }) => {
-  if (!plan.isGradeable || !plan.ungraded_step_count) { return null; }
-  return (
-    <Ribbon>
-      <Text>{plan.ungraded_step_count} NEW</Text>
-    </Ribbon>
-  );
+    if (!plan.isGradeable || !plan.ungraded_step_count) { return null; }
+    return (
+        <Ribbon>
+            <Text>{plan.ungraded_step_count} NEW</Text>
+        </Ribbon>
+    );
 });
 
 const Label = styled.label`
@@ -46,28 +46,28 @@ const Title = styled.span`
 class CoursePlanLabel extends React.Component {
 
   static propTypes = {
-    plan: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      opensAt: PropTypes.string,
-      opensAtString: PropTypes.string,
-    }).isRequired,
+      plan: PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          opensAt: PropTypes.string,
+          opensAtString: PropTypes.string,
+      }).isRequired,
   };
 
 
   render() {
-    const { plan } = this.props;
+      const { plan } = this.props;
 
-    return (
-      <TourAnchor id="calendar-task-plan">
-        <Label
-          data-opens-at={plan.opensAtString}
-          data-title={plan.title}
-        >
-          <GradeBanner plan={plan} />
-          <Title className="text" title={plan.title}>{plan.title}</Title>
-        </Label>
-      </TourAnchor>
-    );
+      return (
+          <TourAnchor id="calendar-task-plan">
+              <Label
+                  data-opens-at={plan.opensAtString}
+                  data-title={plan.title}
+              >
+                  <GradeBanner plan={plan} />
+                  <Title className="text" title={plan.title}>{plan.title}</Title>
+              </Label>
+          </TourAnchor>
+      );
   }
 }
 

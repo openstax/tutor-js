@@ -8,7 +8,7 @@ const STORAGE_PATH = '/rails/active_storage';
 class Image extends BaseModel {
   static directUploadURL = `${STORAGE_PATH}/direct_uploads`
   static urlFromBlob(blob) {
-    return `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
+      return `${STORAGE_PATH}/blobs/${blob.signed_id}/${blob.filename}`;
   }
 
   @field signed_id;

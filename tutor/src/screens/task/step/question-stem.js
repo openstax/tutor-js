@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, styled,
+    React, PropTypes, observer, styled,
 } from 'vendor';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Question from 'shared/model/exercise/question';
@@ -11,19 +11,19 @@ const SyledQuestionStem = styled.div`
 `;
 
 const QuestionStem = observer(({ question, questionNumber }) => {
-  const props = {};
-  if (questionNumber) { props['data-question-number'] = questionNumber; }
-  return (
-    <SyledQuestionStem {...props}>
-      {question.stem_html &&
+    const props = {};
+    if (questionNumber) { props['data-question-number'] = questionNumber; }
+    return (
+        <SyledQuestionStem {...props}>
+            {question.stem_html &&
         <ArbitraryHtmlAndMath html={question.stem_html} />}
-    </SyledQuestionStem>
-  );
+        </SyledQuestionStem>
+    );
 });
 QuestionStem.displayName = 'QuestionStem';
 QuestionStem.propTypes = {
-  questionNumber: PropTypes.number,
-  question: PropTypes.instanceOf(Question).isRequired,
+    questionNumber: PropTypes.number,
+    question: PropTypes.instanceOf(Question).isRequired,
 };
 
 export default QuestionStem;

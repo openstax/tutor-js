@@ -21,41 +21,41 @@ const DesktopMenus = observer(({ course }) => (
 ));
 
 const MobileMenus = observer(({ course }) => (
-  <Dropdown
-    className="mobile-menu"
-    onToggle={v => dom(document.body).hideOverflow(v) }
-  >
-    <Dropdown.Toggle
-      id="mobile-menu"
-      aria-label="Menu and settings"
-      variant="ox"
+    <Dropdown
+        className="mobile-menu"
+        onToggle={v => dom(document.body).hideOverflow(v) }
     >
-      <Icon type="bars" className="open-icon" size="lg" />
-      <Icon type="close" className="close-icon" size="lg" />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <ActionsMenu course={course} />
-      <SupportMenu course={course} />
-      <UserMenu />
-    </Dropdown.Menu>
-  </Dropdown>
+        <Dropdown.Toggle
+            id="mobile-menu"
+            aria-label="Menu and settings"
+            variant="ox"
+        >
+            <Icon type="bars" className="open-icon" size="lg" />
+            <Icon type="close" className="close-icon" size="lg" />
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+            <ActionsMenu course={course} />
+            <SupportMenu course={course} />
+            <UserMenu />
+        </Dropdown.Menu>
+    </Dropdown>
 ));
 
 const Menus = inject('courseContext')(
-  observer(
-    ({ courseContext: { course } }) => (
-      <Responsive
-        desktop={<DesktopMenus course={course} />}
-        mobile={<MobileMenus course={course} />}
-      />
+    observer(
+        ({ courseContext: { course } }) => (
+            <Responsive
+                desktop={<DesktopMenus course={course} />}
+                mobile={<MobileMenus course={course} />}
+            />
+        )
     )
-  )
 );
 
 Menus.displayName = 'Menus';
 
 Menus.propTypes = {
-  course: PropTypes.instanceOf(Course),
+    course: PropTypes.instanceOf(Course),
 };
 
 export { Menus };

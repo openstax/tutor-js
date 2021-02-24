@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, belongsTo,
+    BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 import { computed, action } from 'mobx';
 import moment from 'moment';
@@ -16,29 +16,29 @@ export default class CourseRole extends BaseModel {
   @belongsTo({ model: 'course' }) course;
 
   @computed get isStudentLike() {
-    return Boolean(this.isStudent || this.isTeacherStudent);
+      return Boolean(this.isStudent || this.isTeacherStudent);
   }
 
   @computed get isStudent() {
-    return this.type == 'student';
+      return this.type == 'student';
   }
 
   @computed get isTeacherStudent() {
-    return this.type == 'teacher_student';
+      return this.type == 'teacher_student';
   }
 
   @computed get isTeacher() {
-    return this.type == 'teacher';
+      return this.type == 'teacher';
   }
 
   joinedAgo(terms = 'days') {
-    return moment(Time.now).diff(this.joined_at, terms);
+      return moment(Time.now).diff(this.joined_at, terms);
   }
 
   @action async become({ reset = true } = {}) {
-    if (reset) {
-      this.course.clearCachedStudentData();
-    }
-    this.course.current_role_id = this.id;
+      if (reset) {
+          this.course.clearCachedStudentData();
+      }
+      this.course.current_role_id = this.id;
   }
 }
