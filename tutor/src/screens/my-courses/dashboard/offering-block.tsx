@@ -34,14 +34,13 @@ interface ResourcesInfoProps {
     offering: Offering
     os_book_id: string
     isFirstBlock: boolean
-    isPreviewInResource: boolean
-    renderCoursePreview: () => ReactElement
+    renderCoursePreview: () => ReactElement | null
 }
 
 /**
  * Component that displays the resources
  */
-const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isFirstBlock, isPreviewInResource, renderCoursePreview }) => {
+const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isFirstBlock, renderCoursePreview }) => {
     const generalResources = 
     <>
         <Resource
@@ -55,7 +54,7 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
     </>
     return (
     <>
-        {isPreviewInResource && renderCoursePreview()}
+        {renderCoursePreview()}
         {isFirstBlock && generalResources}
         {os_book_id &&
         <Resource
@@ -87,18 +86,17 @@ const PastCourses: React.FC<PastCoursesProps> = ({ courses }) => {
 
 interface CurrentCoursesProps {
     courses: Course[]
-    isPreviewInResource: boolean
     renderCreateCourse: () => ReactElement
-    renderCoursePreview: () => ReactElement 
+    renderCoursePreview: () => ReactElement | null
 }
 
 /**
  * Component that displays the current and future courses. Plus the Course Preview and the create course button
  */
-const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, renderCreateCourse, isPreviewInResource, renderCoursePreview }) => (
+const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, renderCreateCourse, renderCoursePreview }) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
-        {!isPreviewInResource && renderCoursePreview()}
+        {renderCoursePreview()}
         {renderCreateCourse()}
     </>
 )
@@ -129,22 +127,28 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
         UiSettings.set('isPreviewInResource', { ...uiSettings, [offering.appearance_code]: isPreviewInResource })
     }, [isPreviewInResource])
 
+    const renderCoursePreview = (isResourcesTab: boolean) => {
+        if((isPreviewInResource && isResourcesTab) || (!isPreviewInResource && !isResourcesTab)) {
+            return (
+            <CoursePreview
+                offering={offering}
+                isPreviewInResource={isPreviewInResource}
+                setIsPreviewInResource={setIsPreviewInResource} />
+            )
+        } 
+        return null;
+    }
+
     const showTabInfo = useCallback(() => {
         switch(tabIndex) { 
             case 0: { 
                 return ( 
                 <CurrentCourses
                   courses={currentCourses}
-                  isPreviewInResource={isPreviewInResource}
                   renderCreateCourse={() => (
                       <CreateACourse appearanceCode={offering.appearance_code} />
                   )}
-                  renderCoursePreview={() => (
-                  <CoursePreview
-                    offering={offering}
-                    isPreviewInResource={isPreviewInResource}
-                    setIsPreviewInResource={setIsPreviewInResource} />
-                  )}
+                  renderCoursePreview={() => renderCoursePreview(false)}
                 />
                 )
             } 
@@ -157,13 +161,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
                   offering={offering}
                   os_book_id={offering.os_book_id}
                   isFirstBlock={isFirstBlock}
-                  isPreviewInResource={isPreviewInResource}
-                  renderCoursePreview={() => (
-                    <CoursePreview
-                      offering={offering}
-                      isPreviewInResource={isPreviewInResource}
-                      setIsPreviewInResource={setIsPreviewInResource} />
-                    )}
+                  renderCoursePreview={() => renderCoursePreview(true)}
                 />
                 )
             } 

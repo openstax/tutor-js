@@ -15,10 +15,6 @@ const StyledViewCourse = styled.div`
       &.is-past {
         opacity: 0.6;
       }
-      // Set to 0 so it does not show the entire logo of the book.
-      &:before {
-        height: 0;
-      }
       .my-courses-item-title {
         a {
             width: 20rem;

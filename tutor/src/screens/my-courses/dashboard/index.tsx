@@ -44,6 +44,12 @@ const StyledMyCoursesDashboard = styled.div`
                 }
             }
         }
+        .my-courses-item {
+            // Set to 0 so it does not show the entire logo of the book.
+            &:before {
+                height: 0;
+            }
+        }
         .course-cards {
             --gap: 3.2rem;
             display: inline-flex;
