@@ -14,15 +14,15 @@ const Message = styled.h3`
 `;
 
 export default function LoadingAnimation({ className, message = 'Loading…' }) {
-  return (
-    <div className={cn('loading-animation', className)}>
-      <Staxly isLoading={true} />
-      <Message>{message}</Message>
-    </div>
-  );
+    return (
+        <div className={cn('loading-animation', className)}>
+            <Staxly isLoading={true} />
+            <Message>{message}</Message>
+        </div>
+    );
 }
 
 LoadingAnimation.propTypes = {
-  className: PropTypes.string,
-  message: PropTypes.string,
+    className: PropTypes.string,
+    message: PropTypes.string,
 };

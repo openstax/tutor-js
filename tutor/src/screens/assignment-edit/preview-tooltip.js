@@ -18,30 +18,30 @@ const StyledContent = styled(Popover.Content)`
 `;
 
 const PreviewTooltip = observer(({ template, variant }) => {
-  if (!template) { return null; }
+    if (!template) { return null; }
 
-  return (
-    <OverlayTrigger
-      trigger="click"
-      placement="right"
-      overlay={
-        <Popover id="preview-card-popover">
-          <StyledContent>
-            <TemplateBody template={template} />
-          </StyledContent>
-        </Popover>
-      }
-      rootClose={true}
-    >
-      <StyledButton variant={variant || 'link'} data-test-id="preview-card-trigger">
+    return (
+        <OverlayTrigger
+            trigger="click"
+            placement="right"
+            overlay={
+                <Popover id="preview-card-popover">
+                    <StyledContent>
+                        <TemplateBody template={template} />
+                    </StyledContent>
+                </Popover>
+            }
+            rootClose={true}
+        >
+            <StyledButton variant={variant || 'link'} data-test-id="preview-card-trigger">
         Preview
-      </StyledButton>
-    </OverlayTrigger>
-  );
+            </StyledButton>
+        </OverlayTrigger>
+    );
 });
 
 PreviewTooltip.propTypes = {
-  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+    template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
 export default PreviewTooltip;

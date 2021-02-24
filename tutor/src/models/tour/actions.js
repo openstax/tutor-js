@@ -13,8 +13,8 @@ import './actions/hover-exercise';
 
 export default {
 
-  forIdentifier(id) {
-    return findModel(`tour/action/${id}`);
-  },
+    forIdentifier(id) {
+        return findModel(`tour/action/${id}`);
+    },
 
 };

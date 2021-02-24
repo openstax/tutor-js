@@ -108,45 +108,45 @@ const Blue = styled.path`
 
 export default
 function StaxlyAnimation({ isLoading }) {
-  if (!isLoading) { return null; }
+    if (!isLoading) { return null; }
 
-  return (
-    <div className="staxly-animation">
-      <div className="overlay" />
-      <Inner className="inner">
-        <Animation
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 -25 57.6 66"
-          enableBackground="new 0 -25 57.6 66">
-          <Blue
-            className="blue"
-            d={'M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2 \
+    return (
+        <div className="staxly-animation">
+            <div className="overlay" />
+            <Inner className="inner">
+                <Animation
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 -25 57.6 66"
+                    enableBackground="new 0 -25 57.6 66">
+                    <Blue
+                        className="blue"
+                        d={'M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2 \
     c0.4,0,0.7,0.3,0.7,0.7V22z'} />
-          <Yellow
-            className="yellow"
-            d={'M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1 \
+                    <Yellow
+                        className="yellow"
+                        d={'M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1 \
     c0-0.4,0.3-0.7,0.7-0.7L41,15c0.4,0,0.7,0.3,0.7,0.7L41.8,17.8z'} />
-          <Gray
-            className="gray"
-            d={'M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5 \
+                    <Gray
+                        className="gray"
+                        d={'M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5 \
     c0.4,0,0.7,0.3,0.7,0.7V14z'} />
-          <Orange
-            className="orange"
-            d={'M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38 \
+                    <Orange
+                        className="orange"
+                        d={'M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38 \
     c0.5,0,1,0.2,1,0.5V8.1z'} />
-          <Green
-            className="green"
-            d={'M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1 \
+                    <Green
+                        className="green"
+                        d={'M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1 \
     l27.7,1.3c0.7,0,1.2,0.6,1.1,1.2L43.9,5z'} />
-          <path
-            id="ox-type"
-            className="st2"
-            fill="#5E6062"
-            d={'M3.1,30.2c-1.8,0-3.1,1.3-3.1,3.1c0,1.8,1.3,3.1,3.1,3.1c1.8,0,3.1-1.3,3.1-3.1 \
+                    <path
+                        id="ox-type"
+                        className="st2"
+                        fill="#5E6062"
+                        d={'M3.1,30.2c-1.8,0-3.1,1.3-3.1,3.1c0,1.8,1.3,3.1,3.1,3.1c1.8,0,3.1-1.3,3.1-3.1 \
     C6.2,31.5,4.9,30.2,3.1,30.2z M3.1,35.7c-1.4,0-2.3-1.1-2.3-2.4c0-1.3,0.9-2.4,2.3-2.4c1.4,0,2.3,1.1,2.3,2.4 \
     C5.4,34.6,4.5,35.7,3.1,35.7z M10.9,30.2c-0.9,0-1.9,0.4-2.4,1.2h0v-1H7.7v8.8h0.8v-3.9h0C9,36,10,36.4,10.9,36.4 \
     c1.8,0,3.1-1.3,3.1-3.1C14,31.5,12.7,30.2,10.9,30.2z M10.9,35.7c-1.4,0-2.5-1.1-2.5-2.4c0-1.3,1.1-2.4,2.5-2.4 \
@@ -162,13 +162,13 @@ function StaxlyAnimation({ isLoading }) {
     c0-0.9,1.5-0.9,2.3-0.9h0.3V33.8z M50.8,32.9l2.5,3.3h-1.9L49.8,34l-1.6,2.2h-1.8l2.5-3.3l-2.1-2.8h1.9l1.2,1.8l1.3-1.8h1.7 \
     L50.8,32.9z M57.6,30.1v1.7h-0.3v-1.5h0l-0.6,1.5h-0.2l-0.6-1.5h0v1.5h-0.3v-1.7h0.4l0.5,1.3l0.5-1.3H57.6z M53.9,30.1h1.4v0.3h-0.5 \
     v1.5h-0.3v-1.5h-0.5V30.1z'} />
-        </Animation>
-      </Inner>
-    </div>
-  );
+                </Animation>
+            </Inner>
+        </div>
+    );
 }
 
 
 StaxlyAnimation.propTypes = {
-  isLoading: PropTypes.bool,
+    isLoading: PropTypes.bool,
 };

@@ -1,5 +1,5 @@
 import {
-  BaseModel, field, identifier, hasMany, identifiedBy,
+    BaseModel, field, identifier, hasMany, identifiedBy,
 } from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
@@ -10,7 +10,7 @@ import Term from './term';
 export default class Offering extends BaseModel {
 
   @readonly static possibleTerms = [
-    'spring', 'summer', 'fall', 'winter',
+      'spring', 'summer', 'fall', 'winter',
   ];
 
   @identifier id;
@@ -26,14 +26,14 @@ export default class Offering extends BaseModel {
   @hasMany({ model: Term }) active_term_years;
 
   @computed get validTerms() {
-    if (this.is_concept_coach){
-      return filter(this.active_term_years, (t) => t.year == 2017 && includes(['spring', 'summer'], t.term));
-    }
-    return this.active_term_years;
+      if (this.is_concept_coach){
+          return filter(this.active_term_years, (t) => t.year == 2017 && includes(['spring', 'summer'], t.term));
+      }
+      return this.active_term_years;
   }
 
   @computed get currentTerm() {
-    return first(this.validTerms);
+      return first(this.validTerms);
   }
 
 }

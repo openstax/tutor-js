@@ -15,24 +15,24 @@ const Ribbon = styled.div`
 class CoursePlanDisplay extends React.Component {
 
   static propTypes = {
-    plan: PropTypes.instanceOf(TaskPlan).isRequired,
-    label: PropTypes.node.isRequired,
-    course: PropTypes.instanceOf(Course).isRequired,
-    className: PropTypes.string.isRequired,
-    hasReview: PropTypes.bool,
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
-    setIsViewing: PropTypes.func,
-    spacingMargin: PropTypes.number,
+      plan: PropTypes.instanceOf(TaskPlan).isRequired,
+      label: PropTypes.node.isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
+      className: PropTypes.string.isRequired,
+      hasReview: PropTypes.bool,
+      isFirst: PropTypes.bool,
+      isLast: PropTypes.bool,
+      setIsViewing: PropTypes.func,
+      spacingMargin: PropTypes.number,
   };
 
   static defaultProps = {
-    hasReview: false,
-    isFirst: false,
-    isLast: false,
-    spacingMargin: 2,
-    rangeLength: 7,
-    defaultPlansCount: 3,
+      hasReview: false,
+      isFirst: false,
+      isLast: false,
+      spacingMargin: 2,
+      rangeLength: 7,
+      defaultPlansCount: 3,
   };
 
 }
@@ -40,25 +40,25 @@ class CoursePlanDisplay extends React.Component {
 @observer
 class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
-  render() {
-    const { course, plan, className, label } = this.props;
+    render() {
+        const { course, plan, className, label } = this.props;
 
-    return (
-      <Ribbon
-        className={className}
-        data-plan-id={`${plan.id}`}
-        data-assignment-type={plan.type}
-        ref="plan"
-      >
-        <TutorLink
-          to="editAssignment"
-          params={{ type: plan.type, id: plan.id, courseId: course.id }}
-        >
-          {label}
-        </TutorLink>
-      </Ribbon>
-    );
-  }
+        return (
+            <Ribbon
+                className={className}
+                data-plan-id={`${plan.id}`}
+                data-assignment-type={plan.type}
+                ref="plan"
+            >
+                <TutorLink
+                    to="editAssignment"
+                    params={{ type: plan.type, id: plan.id, courseId: course.id }}
+                >
+                    {label}
+                </TutorLink>
+            </Ribbon>
+        );
+    }
 
 }
 
@@ -66,22 +66,22 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
 @observer
 class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
-  render() {
-    const { className, label, setIsViewing, plan, hasReview } = this.props;
+    render() {
+        const { className, label, setIsViewing, plan, hasReview } = this.props;
 
-    return (
-      <Ribbon
-        className={className}
-        data-plan-id={`${plan.id}`}
-        data-assignment-type={plan.type}
-        data-has-review={hasReview}
-        onClick={partial(setIsViewing, true)}
-        ref="plan"
-      >
-        {label}
-      </Ribbon>
-    );
-  }
+        return (
+            <Ribbon
+                className={className}
+                data-plan-id={`${plan.id}`}
+                data-assignment-type={plan.type}
+                data-has-review={hasReview}
+                onClick={partial(setIsViewing, true)}
+                ref="plan"
+            >
+                {label}
+            </Ribbon>
+        );
+    }
 }
 
 export { CoursePlanDisplayQuickLook, CoursePlanDisplayEdit };

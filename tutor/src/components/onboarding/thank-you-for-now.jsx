@@ -9,22 +9,22 @@ export default
 class ThankYouForNow extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.object.isRequired,
-    onDismiss: PropTypes.func.isRequired,
+      ux: PropTypes.object.isRequired,
+      onDismiss: PropTypes.func.isRequired,
   }
 
   render() {
-    return (
-      <OnboardingNag className="thanks">
-        <Heading>
+      return (
+          <OnboardingNag className="thanks">
+              <Heading>
           Thank you!
-        </Heading>
-        <Body>
+              </Heading>
+              <Body>
           Thanks for letting us know!
-          <Button variant="link" onClick={this.props.onDismiss}>Back to dashboard</Button>
-        </Body>
-      </OnboardingNag>
-    );
+                  <Button variant="link" onClick={this.props.onDismiss}>Back to dashboard</Button>
+              </Body>
+          </OnboardingNag>
+      );
   }
 
 }

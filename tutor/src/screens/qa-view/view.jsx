@@ -14,34 +14,34 @@ export default
 class QAView extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   render() {
-    const { ux } = this.props;
-    if (!ux.page) {
-      return <Loading message="Fetching Page…" />;
-    }
-    const className = cn('qa-view', {
-      'menu-open': ux.isMenuVisible,
-      'menu-on-top': ux.isMenuOnTop,
-    });
+      const { ux } = this.props;
+      if (!ux.page) {
+          return <Loading message="Fetching Page…" />;
+      }
+      const className = cn('qa-view', {
+          'menu-open': ux.isMenuVisible,
+          'menu-on-top': ux.isMenuOnTop,
+      });
 
-    const Content = ux.isDisplayingExercises ? Exercises : BookPage;
+      const Content = ux.isDisplayingExercises ? Exercises : BookPage;
 
-    return (
-      <div className={className}>
-        <BookMenu {...ux.bookMenuProps} />
-        <div className="content">
-          <PagingNavigation
-            className="book-page-wrapper"
-            {...ux.pagingProps}
-          >
-            <Content ux={ux} />
-          </PagingNavigation>
-        </div>
-      </div>
-    );
+      return (
+          <div className={className}>
+              <BookMenu {...ux.bookMenuProps} />
+              <div className="content">
+                  <PagingNavigation
+                      className="book-page-wrapper"
+                      {...ux.pagingProps}
+                  >
+                      <Content ux={ux} />
+                  </PagingNavigation>
+              </div>
+          </div>
+      );
   }
 
 }

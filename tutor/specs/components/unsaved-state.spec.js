@@ -4,40 +4,40 @@ import { UnsavedStateMixin, TransitionAssistant } from '../../src/components/uns
 
 
 describe('Unsaved State Mixin', function() {
-  let checks = null;
-  let DirtyComponent = null;
-  let CleanComponent = null;
-  const Definition = {
-    mixins: [UnsavedStateMixin],
-    render() { return null; },
-  };
-
-  beforeEach(function() {
-    checks = {
-      dirty: jest.fn().mockReturnValue(true),
-      clean: jest.fn().mockReturnValue(false),
+    let checks = null;
+    let DirtyComponent = null;
+    let CleanComponent = null;
+    const Definition = {
+        mixins: [UnsavedStateMixin],
+        render() { return null; },
     };
 
-    DirtyComponent = createReactClass(ld.extend(Definition,
-      { displayName: 'DirtyComponent', hasUnsavedState: checks.dirty }));
-    CleanComponent = createReactClass(ld.extend(Definition,
-      { displayName: 'CleanComponent', hasUnsavedState: checks.clean }));
-  });
+    beforeEach(function() {
+        checks = {
+            dirty: jest.fn().mockReturnValue(true),
+            clean: jest.fn().mockReturnValue(false),
+        };
 
-  it('checks component to see if it has unsaved data', function() {
-    expect(TransitionAssistant.canTransition()).toBe(true);
-    const c = mount(<DirtyComponent />);
-    expect(checks.dirty).not.toHaveBeenCalled();
-    expect(TransitionAssistant.canTransition()).toEqual(false);
-    expect(checks.dirty).toHaveBeenCalled();
-    c.unmount();
-  });
+        DirtyComponent = createReactClass(ld.extend(Definition,
+            { displayName: 'DirtyComponent', hasUnsavedState: checks.dirty }));
+        CleanComponent = createReactClass(ld.extend(Definition,
+            { displayName: 'CleanComponent', hasUnsavedState: checks.clean }));
+    });
 
-  it('checks that a clean component transistions', () => {
-    const c = mount(<CleanComponent />);
-    expect(TransitionAssistant.canTransition()).toEqual(true);
-    expect(checks.clean).toHaveBeenCalled();
-    c.unmount();
-  });
+    it('checks component to see if it has unsaved data', function() {
+        expect(TransitionAssistant.canTransition()).toBe(true);
+        const c = mount(<DirtyComponent />);
+        expect(checks.dirty).not.toHaveBeenCalled();
+        expect(TransitionAssistant.canTransition()).toEqual(false);
+        expect(checks.dirty).toHaveBeenCalled();
+        c.unmount();
+    });
+
+    it('checks that a clean component transistions', () => {
+        const c = mount(<CleanComponent />);
+        expect(TransitionAssistant.canTransition()).toEqual(true);
+        expect(checks.clean).toHaveBeenCalled();
+        c.unmount();
+    });
 
 });

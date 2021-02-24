@@ -15,15 +15,15 @@ class Student extends React.Component {
   static displayName = 'PerformanceForecastStudentShell';
 
   render() {
-    const { courseId } = Router.currentParams();
+      const { courseId } = Router.currentParams();
 
-    return (
-      <LoadableItem
-        id={courseId}
-        store={PerformanceForecast.Student.store}
-        actions={PerformanceForecast.Student.actions}
-        renderItem={function() { return <StudentComponent courseId={courseId} />; }} />
-    );
+      return (
+          <LoadableItem
+              id={courseId}
+              store={PerformanceForecast.Student.store}
+              actions={PerformanceForecast.Student.actions}
+              renderItem={function() { return <StudentComponent courseId={courseId} />; }} />
+      );
   }
 }
 
@@ -34,8 +34,8 @@ class TeacherStudent extends React.Component {
   static displayName = 'PerformanceForecastTeacherStudentShell';
 
   render() {
-    const { courseId, roleId } = Router.currentParams();
-    return <TeacherStudentComponent courseId={courseId} roleId={roleId} />;
+      const { courseId, roleId } = Router.currentParams();
+      return <TeacherStudentComponent courseId={courseId} roleId={roleId} />;
   }
 }
 
@@ -44,14 +44,14 @@ class Teacher extends React.Component {
   static displayName = 'PerformanceForecastTeacherShell';
 
   render() {
-    const { courseId } = Router.currentParams();
-    return (
-      <LoadableItem
-        id={courseId}
-        store={PerformanceForecast.Teacher.store}
-        actions={PerformanceForecast.Teacher.actions}
-        renderItem={function() { return <TeacherComponent courseId={courseId} />; }} />
-    );
+      const { courseId } = Router.currentParams();
+      return (
+          <LoadableItem
+              id={courseId}
+              store={PerformanceForecast.Teacher.store}
+              actions={PerformanceForecast.Teacher.actions}
+              renderItem={function() { return <TeacherComponent courseId={courseId} />; }} />
+      );
   }
 }
 
@@ -60,28 +60,28 @@ class Guide extends React.Component {
   static displayName = 'PerformanceForecastGuide';
 
   render() {
-    const { courseId, roleId } = Router.currentParams();
-    const { isTeacher } = Courses.get(courseId).currentRole;
+      const { courseId, roleId } = Router.currentParams();
+      const { isTeacher } = Courses.get(courseId).currentRole;
 
-    let body;
-    if ((roleId != null) && isTeacher) {
-      body = <TeacherStudent />;
-    } else if (isTeacher) {
-      body = <Teacher />;
-    } else {
-      body = <Student />;
-    }
-    return (
-      <ScrollToTop>
-        <Header 
-          unDocked={true}
-          title="Performance Forecast"
-          backTo={Router.makePathname('dashboard', { courseId })}
-          backToText='Dashboard'
-        />
-        {body}
-      </ScrollToTop>
-    );
+      let body;
+      if ((roleId != null) && isTeacher) {
+          body = <TeacherStudent />;
+      } else if (isTeacher) {
+          body = <Teacher />;
+      } else {
+          body = <Student />;
+      }
+      return (
+          <ScrollToTop>
+              <Header 
+                  unDocked={true}
+                  title="Performance Forecast"
+                  backTo={Router.makePathname('dashboard', { courseId })}
+                  backToText='Dashboard'
+              />
+              {body}
+          </ScrollToTop>
+      );
   }
 }
 

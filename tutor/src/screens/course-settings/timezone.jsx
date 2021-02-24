@@ -8,28 +8,28 @@ export default
 class SetTimezone extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable showModal = false
 
   @action.bound onOpen() {
-    this.showModal = true;
+      this.showModal = true;
   }
   @action.bound onClose() {
-    this.showModal = false;
+      this.showModal = false;
   }
 
   render() {
-    return (
+      return (
       <>
         <Icon type="pencil-alt" onClick={this.onOpen} className="control edit-course" />
         <TimezoneModal
-          onClose={this.onClose}
-          show={this.showModal}
-          course={this.props.course}
+            onClose={this.onClose}
+            show={this.showModal}
+            course={this.props.course}
         />
       </>
-    );
+      );
   }
 }

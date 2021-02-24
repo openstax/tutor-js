@@ -11,30 +11,30 @@ import './styles.scss';
 export default
 class QuestionsDashboardShell extends React.Component {
   static propTypes = {
-    exercises: PropTypes.object,
+      exercises: PropTypes.object,
   }
 
   static defaultProps = {
-    exercises: Exercises,
+      exercises: Exercises,
   }
 
   @computed get course() {
-    const { courseId } = Router.currentParams();
-    return Courses.get(courseId);
+      const { courseId } = Router.currentParams();
+      return Courses.get(courseId);
   }
 
   componentDidMount() {
-    this.props.exercises.clear();
-    this.course.referenceBook.ensureLoaded();
+      this.props.exercises.clear();
+      this.course.referenceBook.ensureLoaded();
   }
 
   componentWillUnmount() {
-    Exercises.clear();
+      Exercises.clear();
   }
 
   render() {
-    if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
-    return <Dashboard exercises={this.props.exercises} course={this.course} />;
+      if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
+      return <Dashboard exercises={this.props.exercises} course={this.course} />;
   }
 
 }

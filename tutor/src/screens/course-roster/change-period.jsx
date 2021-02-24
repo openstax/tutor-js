@@ -15,73 +15,73 @@ export default
 class ChangePeriodLink extends React.Component {
 
   static propTypes = {
-    period: PropTypes.instanceOf(Period).isRequired,
-    student: PropTypes.instanceOf(Student).isRequired,
+      period: PropTypes.instanceOf(Period).isRequired,
+      student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound
   updatePeriod(periodId) {
-    const period = find(this.props.period.course.periods, { id: periodId });
-    this.props.student.changePeriod(period);
+      const period = find(this.props.period.course.periods, { id: periodId });
+      this.props.student.changePeriod(period);
   }
 
   @autobind
   renderPeriod(period) {
-    return (
-      <Nav.Link key={period.id} eventKey={period.id}>
-        {period.name}
-      </Nav.Link>
-    );
+      return (
+          <Nav.Link key={period.id} eventKey={period.id}>
+              {period.name}
+          </Nav.Link>
+      );
   }
 
   popOverTitle() {
-    if (this.props.student.api.isPending) {
+      if (this.props.student.api.isPending) {
+          return (
+              <span><Icon type="spinner" spin /> Saving…</span>
+          );
+      }
       return (
-        <span><Icon type="spinner" spin /> Saving…</span>
-      );
-    }
-    return (
-      <span>
+          <span>
         Move to <CGL courseId={this.props.period.course.id} lowercase={true} />:
-      </span>
-    );
+          </span>
+      );
   }
 
   @computed get course() {
-    return this.props.period.course;
+      return this.props.period.course;
   }
 
   @computed get otherPeriods() {
-    return without(this.course.periods.active, this.props.period);
+      return without(this.course.periods.active, this.props.period);
   }
 
   selectNewPeriod() {
-    return (
-      <Popover id="change-period" className="change-period" title={this.popOverTitle()}>
-        <Popover.Content>
-          <Nav stacked={true} className="flex-column" onSelect={this.updatePeriod}>
-            {this.otherPeriods.map(this.renderPeriod)}
-          </Nav>
-        </Popover.Content>
-      </Popover>
-    );
+      return (
+          <Popover id="change-period" className="change-period" title={this.popOverTitle()}>
+              <Popover.Content>
+                  <Nav stacked={true} className="flex-column" onSelect={this.updatePeriod}>
+                      {this.otherPeriods.map(this.renderPeriod)}
+                  </Nav>
+              </Popover.Content>
+          </Popover>
+      );
   }
 
   render() {
-    // if we have only 1 period, it's imposible to move a student
-    if (!this.otherPeriods.length) { return null; }
+      // if we have only 1 period, it's imposible to move a student
+      if (!this.otherPeriods.length) { return null; }
 
-    return (
-      <OverlayTrigger
-        rootClose={true}
-        trigger="click"
-        placement="left"
-        overlay={this.selectNewPeriod()}
-      >
-        <a>
-          <Icon type="clock" /> Change <CGL courseId={this.course.id} />
-        </a>
-      </OverlayTrigger>
-    );
+      return (
+          <OverlayTrigger
+              rootClose={true}
+              trigger="click"
+              placement="left"
+              overlay={this.selectNewPeriod()}
+          >
+              <a>
+                  <Icon type="clock" /> Change <CGL courseId={this.course.id} />
+              </a>
+          </OverlayTrigger>
+      );
   }
 }

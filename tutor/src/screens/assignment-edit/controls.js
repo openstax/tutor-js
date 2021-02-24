@@ -36,7 +36,7 @@ const Middle = styled.div`
 `;
 
 const LeftButton = styled(Button).attrs({
-  variant: 'plain',
+    variant: 'plain',
 })`
   &.btn.btn-plain {
     min-width: 10rem;
@@ -48,41 +48,41 @@ const RightButton = styled(Button)`
 
 
 const Controls = observer(({ middleControls, ux, ux: {
-  canSaveAsDraft, onPublishClick, onSaveAsDraftClick, onCancel, steps: {
-    isFirst, isLast, goForward, goBackward, canGoForward, canSubmit,
-  } } }) => {
+    canSaveAsDraft, onPublishClick, onSaveAsDraftClick, onCancel, steps: {
+        isFirst, isLast, goForward, goBackward, canGoForward, canSubmit,
+    } } }) => {
 
-  let rightButtons = [];
+    let rightButtons = [];
 
-  if (isLast) {
-    rightButtons = [
-      <RightButton data-test-id="save-draft-button" key="draft" variant="secondary" onClick={onSaveAsDraftClick} disabled={!canSaveAsDraft}>Save as Draft</RightButton>,
-      <RightButton key="publish" variant="primary" disabled={!canSubmit} onClick={onPublishClick}>Publish</RightButton>,
-    ];
-  } else {
-    rightButtons = [
-      <RightButton key="forward" variant="primary" disabled={!canGoForward} onClick={goForward}>Save & Continue</RightButton>,
-    ];
-  }
+    if (isLast) {
+        rightButtons = [
+            <RightButton data-test-id="save-draft-button" key="draft" variant="secondary" onClick={onSaveAsDraftClick} disabled={!canSaveAsDraft}>Save as Draft</RightButton>,
+            <RightButton key="publish" variant="primary" disabled={!canSubmit} onClick={onPublishClick}>Publish</RightButton>,
+        ];
+    } else {
+        rightButtons = [
+            <RightButton key="forward" variant="primary" disabled={!canGoForward} onClick={goForward}>Save & Continue</RightButton>,
+        ];
+    }
 
-  return (
-    <Footer className="controls">
-      <FooterInner>
-        <LeftButton onClick={isFirst ? onCancel : goBackward}>
-          {isFirst ? 'Cancel' : 'Back'}
-        </LeftButton>
-        <DeleteBtn ux={ux} />
-        <Middle>
-          {middleControls}
-        </Middle>
-        {rightButtons}
-      </FooterInner>
-    </Footer>
-  );
+    return (
+        <Footer className="controls">
+            <FooterInner>
+                <LeftButton onClick={isFirst ? onCancel : goBackward}>
+                    {isFirst ? 'Cancel' : 'Back'}
+                </LeftButton>
+                <DeleteBtn ux={ux} />
+                <Middle>
+                    {middleControls}
+                </Middle>
+                {rightButtons}
+            </FooterInner>
+        </Footer>
+    );
 });
 
 Controls.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default Controls;

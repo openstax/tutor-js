@@ -60,82 +60,82 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
 `;
 
 const agreeTermsOfUse = () => {
-  const term = User.terms.get(TERMS_NAME);
-  if (term) {
-    User.terms.sign([term.id]);
-  }
+    const term = User.terms.get(TERMS_NAME);
+    if (term) {
+        User.terms.sign([term.id]);
+    }
 };
 
 const TermAgreement = ({ onClose }) => {
-  const [agree, setAgree] = useState(false);
-  return (
+    const [agree, setAgree] = useState(false);
+    return (
     <>
       <CheckboxInput
-        className="i-agree"
-        onChange={() => setAgree(prevState => !prevState)}
-        label="I have read and agree to these terms of use."
-        checked={agree}
-        standalone
+          className="i-agree"
+          onChange={() => setAgree(prevState => !prevState)}
+          label="I have read and agree to these terms of use."
+          checked={agree}
+          standalone
       />
       <div className="buttons-wrapper">
-        <Button
-          variant="default"
-          className="cancel"
-          onClick={onClose}>
+          <Button
+              variant="default"
+              className="cancel"
+              onClick={onClose}>
           Cancel
-        </Button>
-        <Button
-          data-test-id="agree-to-terms"
-          variant="primary"
-          disabled={!agree}
-          onClick={agreeTermsOfUse}>
+          </Button>
+          <Button
+              data-test-id="agree-to-terms"
+              variant="primary"
+              disabled={!agree}
+              onClick={agreeTermsOfUse}>
           Accept and continue
-        </Button>
+          </Button>
       </div>
     </>
-  );
+    );
 };
 TermAgreement.propTypes = {
-  onClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
 const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
-  const [termContent, setTermContent] = useState(null);
+    const [termContent, setTermContent] = useState(null);
 
-  const term = useMemo(() => User.terms.get(TERMS_NAME),
-    [User.terms.get(TERMS_NAME).content]);
+    const term = useMemo(() => User.terms.get(TERMS_NAME),
+        [User.terms.get(TERMS_NAME).content]);
 
-  useEffect(() => {
-    if (show) {
-      User.terms.fetch();
-    }
-  }, [show]);
-  useEffect(() => {
-    setTermContent(term ? term.content : '');
-  }, [term.content]);
+    useEffect(() => {
+        if (show) {
+            User.terms.fetch();
+        }
+    }, [show]);
+    useEffect(() => {
+        setTermContent(term ? term.content : '');
+    }, [term.content]);
 
-  return (
-    <StyledAddEditQuestionTermsOfUseModal
-      show={show}
-      backdrop="static"
-      onHide={onClose}
-      data-test-id="terms-modal"
-      templateType="addEditQuestion"
-    >
-      <Modal.Header closeButton>
+    return (
+        <StyledAddEditQuestionTermsOfUseModal
+            show={show}
+            backdrop="static"
+            onHide={onClose}
+            data-test-id="terms-modal"
+            templateType="addEditQuestion"
+        >
+            <Modal.Header closeButton>
         Terms of use
-      </Modal.Header>
-      <Modal.Body>
-        <div data-is-loaded={!!termContent} dangerouslySetInnerHTML={{ __html: termContent }} />
-        {!displayOnly && <TermAgreement onClose={onClose} />}
-      </Modal.Body>
-    </StyledAddEditQuestionTermsOfUseModal>
-  );
+            </Modal.Header>
+            <Modal.Body>
+                <div data-is-loaded={!!termContent} dangerouslySetInnerHTML={{ __html: termContent }} />
+                {!displayOnly && <TermAgreement onClose={onClose} />}
+            </Modal.Body>
+        </StyledAddEditQuestionTermsOfUseModal>
+    );
 });
 AddEditQuestionTermsOfUse.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  displayOnly: PropTypes.bool,
+    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    displayOnly: PropTypes.bool,
 };
 
 export default AddEditQuestionTermsOfUse;

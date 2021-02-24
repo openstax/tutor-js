@@ -8,58 +8,58 @@ import { filterProps as filterPropsBase } from '../helpers/react';
 import classnames from 'classnames';
 
 const LINK_PROPS = [
-  'alt',
-  'title',
-  'activeOnlyWhenExact',
-  'activeStyle',
-  'isActive',
-  'location',
-  'disabled',
+    'alt',
+    'title',
+    'activeOnlyWhenExact',
+    'activeStyle',
+    'isActive',
+    'location',
+    'disabled',
 ];
 
 const filterProps = function(props, options = {}) {
-  options.props = concat(LINK_PROPS, options.props || []);
-  return filterPropsBase(props, options);
+    options.props = concat(LINK_PROPS, options.props || []);
+    return filterPropsBase(props, options);
 };
 
 const make = function(router, name = 'OpenStax') {
-  const Link = (props) => {
+    const Link = (props) => {
 
-    let { to, params, query, primaryBtn, className } = props;
+        let { to, params, query, primaryBtn, className } = props;
 
-    if (primaryBtn) {
-      className = classnames(className, 'btn', 'btn-default', 'btn-primary');
-    }
-    if (!router.makePathname) {
-      return (
-        <p>
+        if (primaryBtn) {
+            className = classnames(className, 'btn', 'btn-default', 'btn-primary');
+        }
+        if (!router.makePathname) {
+            return (
+                <p>
           no router?
-        </p>
-      );
-    }
+                </p>
+            );
+        }
 
-    const pathname = router.makePathname(to, params);
+        const pathname = router.makePathname(to, params);
 
-    to =
+        to =
       { pathname: pathname || to };
-    if (query) {
-      to.search = qs.stringify(query);
-    }
+        if (query) {
+            to.search = qs.stringify(query);
+        }
 
-    // TODO see about isActive
-    return <RouterLink to={to} {...filterProps(props)} className={className} />;
-  };
+        // TODO see about isActive
+        return <RouterLink to={to} {...filterProps(props)} className={className} />;
+    };
 
-  Link.displayName = `${name}Link`;
-  Link.propTypes = {
-    to:     PropTypes.string.isRequired,
-    params: PropTypes.object,
-    query:  PropTypes.object,
-    className: PropTypes.string,
-    primaryBtn:  PropTypes.bool,
-  };
+    Link.displayName = `${name}Link`;
+    Link.propTypes = {
+        to:     PropTypes.string.isRequired,
+        params: PropTypes.object,
+        query:  PropTypes.object,
+        className: PropTypes.string,
+        primaryBtn:  PropTypes.bool,
+    };
 
-  return Link;
+    return Link;
 };
 
 export { make, filterProps };

@@ -7,15 +7,15 @@ export default
 class CreateNewCourse extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.object.isRequired,
+      ux: PropTypes.object.isRequired,
   }
 
   render() {
-    const { ux } = this.props;
+      const { ux } = this.props;
 
-    return (
-      <Wizard ux={ux.createCourseUX} />
-    );
+      return (
+          <Wizard ux={ux.createCourseUX} />
+      );
 
   }
 }

@@ -12,53 +12,53 @@ export default
 class DropStudentLink extends React.Component {
 
   static propTypes = {
-    student: PropTypes.instanceOf(Student).isRequired,
+      student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound performDeletion() {
-    this.props.student.drop();
+      this.props.student.drop();
   }
 
   popOverTitle() {
-    if (this.props.student.api.isPending) {
+      if (this.props.student.api.isPending) {
+          return (
+              <span><Icon type="spinner" spin />Dropping…</span>
+          );
+      }
       return (
-        <span><Icon type="spinner" spin />Dropping…</span>
-      );
-    }
-    return (
-      <span>
+          <span>
         Drop <Name {...this.props.student} />
-      </span>
-    );
+          </span>
+      );
   }
 
   confirmPopOver() {
-    return (
-      <Popover id="drop-student">
-        <Popover.Title>
-          {this.popOverTitle()}
-        </Popover.Title>
-        <Popover.Content>
-          <Button className="-drop-student" onClick={this.performDeletion} variant="danger">
-            <Icon type="ban" /> Drop
-          </Button>
-        </Popover.Content>
-      </Popover>
-    );
+      return (
+          <Popover id="drop-student">
+              <Popover.Title>
+                  {this.popOverTitle()}
+              </Popover.Title>
+              <Popover.Content>
+                  <Button className="-drop-student" onClick={this.performDeletion} variant="danger">
+                      <Icon type="ban" /> Drop
+                  </Button>
+              </Popover.Content>
+          </Popover>
+      );
   }
 
   render() {
-    return (
-      <OverlayTrigger
-        rootClose={true}
-        trigger="click"
-        placement="left"
-        overlay={this.confirmPopOver()}
-      >
-        <a>
-          <Icon type="ban" /> Drop
-        </a>
-      </OverlayTrigger>
-    );
+      return (
+          <OverlayTrigger
+              rootClose={true}
+              trigger="click"
+              placement="left"
+              overlay={this.confirmPopOver()}
+          >
+              <a>
+                  <Icon type="ban" /> Drop
+              </a>
+          </OverlayTrigger>
+      );
   }
 }

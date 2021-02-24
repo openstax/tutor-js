@@ -20,19 +20,19 @@ const DueDate = styled.div`
 class TaskInfo extends React.Component {
   static displayName = 'TaskInfo'
   static propTypes = {
-    task: PropTypes.instanceOf(Task).isRequired,
+      task: PropTypes.instanceOf(Task).isRequired,
   }
 
   render() {
-    const { task } = this.props;
+      const { task } = this.props;
 
-    return (
-      <StyledTaskInfo>
-        <Title>{task.title}</Title>
-        {task.due_at &&
+      return (
+          <StyledTaskInfo>
+              <Title>{task.title}</Title>
+              {task.due_at &&
           <DueDate>Due {<Time date={task.due_at} format="concise" />}</DueDate>}
-      </StyledTaskInfo>
-    );
+          </StyledTaskInfo>
+      );
   }
 
 }

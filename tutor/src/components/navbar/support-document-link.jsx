@@ -10,34 +10,34 @@ export default
 class SupportDocumentLink extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course),
+      course: PropTypes.instanceOf(Course),
   }
 
   get role() {
-    const { course } = this.props;
-    if (course) {
-      if (course.currentRole.isTeacherStudent) {
-        return 'student';
+      const { course } = this.props;
+      if (course) {
+          if (course.currentRole.isTeacherStudent) {
+              return 'student';
+          }
+          return course.currentRole.type;
       }
-      return course.currentRole.type;
-    }
-    return User.isProbablyTeacher ? 'teacher' : 'student';
+      return User.isProbablyTeacher ? 'teacher' : 'student';
   }
 
   render() {
-    const url = CourseInformation.gettingStartedGuide[this.role];
+      const url = CourseInformation.gettingStartedGuide[this.role];
 
-    return (
-      <Dropdown.Item
-        className="support-document-link"
-        target="_blank"
-        href={url}
-      >
-        <TourAnchor id="menu-support-document">
+      return (
+          <Dropdown.Item
+              className="support-document-link"
+              target="_blank"
+              href={url}
+          >
+              <TourAnchor id="menu-support-document">
           Getting Started Guide
-        </TourAnchor>
-      </Dropdown.Item>
-    );
+              </TourAnchor>
+          </Dropdown.Item>
+      );
   }
 
 }

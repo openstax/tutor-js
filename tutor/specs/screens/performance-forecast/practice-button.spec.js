@@ -5,13 +5,13 @@ const COURSE_ID  = '1';
 
 describe('Learning Guide Practice Button', function() {
 
-  beforeEach(() => {
-    bootstrapCoursesList();
-  });
+    beforeEach(() => {
+        bootstrapCoursesList();
+    });
 
-  it('can be rendered and sets the name', () => {
-    const button = mount(<R><Button courseId={COURSE_ID} title="Practice moar" /></R>);
-    expect(button.text()).toEqual('Practice moar');
-  });
+    it('can be rendered and sets the name', () => {
+        const button = mount(<R><Button courseId={COURSE_ID} title="Practice moar" /></R>);
+        expect(button.text()).toEqual('Practice moar');
+    });
 
 });

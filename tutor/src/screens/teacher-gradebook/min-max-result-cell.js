@@ -7,59 +7,59 @@ import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 const Cell = getCell('0 10px');
 
 export const TYPE = {
-  MIN: 'min',
-  MAX: 'max',
+    MIN: 'min',
+    MAX: 'max',
 };
 
 const getMinOrMaxResultPoints = (tasks, type) => {
-  switch(type) {
+    switch(type) {
     case TYPE.MIN:
-      return minBy(tasks, 'published_points');
+        return minBy(tasks, 'published_points');
     case TYPE.MAX:
-      return maxBy(tasks, 'published_points');
+        return maxBy(tasks, 'published_points');
     default:
-      return 0;
-  }
+        return 0;
+    }
 };
 
 const getMinOrMaxResultAverage = (tasks, type) => {
-  switch(type) {
+    switch(type) {
     case TYPE.MIN:
-      return minBy(tasks, 'published_score');
+        return minBy(tasks, 'published_score');
     case TYPE.MAX:
-      return maxBy(tasks, 'published_score');
+        return maxBy(tasks, 'published_score');
     default:
-      return 0;
-  }
+        return 0;
+    }
 };
 
 const MinMaxResult = observer(({ data, ux, type, drawBorderBottom }) => {
-  if(data.type === 'external') {
-    return (
-      <Cell striped drawBorderBottom={drawBorderBottom}>
+    if(data.type === 'external') {
+        return (
+            <Cell striped drawBorderBottom={drawBorderBottom}>
       n/a
-      </Cell>
+            </Cell>
+        );
+    }
+    const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
+    let taskResult;
+    let averageOrPoints;
+    if(ux.displayScoresAsPoints) {
+        taskResult = getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type);
+        averageOrPoints = taskResult ? ScoresHelper.formatPoints(taskResult.published_points) : UNWORKED;
+    } else {
+        taskResult = getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
+        averageOrPoints = taskResult ? `${ScoresHelper.asPercent(taskResult.published_score)}%` : UNWORKED;
+    }
+    return (
+        <Cell striped drawBorderBottom={drawBorderBottom}>
+            {averageOrPoints}
+        </Cell>
     );
-  }
-  const tasksWithoutDroppedStudents = filter(data.tasks, (t) => !t.student.is_dropped);
-  let taskResult;
-  let averageOrPoints;
-  if(ux.displayScoresAsPoints) {
-    taskResult = getMinOrMaxResultPoints(tasksWithoutDroppedStudents, type);
-    averageOrPoints = taskResult ? ScoresHelper.formatPoints(taskResult.published_points) : UNWORKED;
-  } else {
-    taskResult = getMinOrMaxResultAverage(tasksWithoutDroppedStudents, type);
-    averageOrPoints = taskResult ? `${ScoresHelper.asPercent(taskResult.published_score)}%` : UNWORKED;
-  }
-  return (
-    <Cell striped drawBorderBottom={drawBorderBottom}>
-      {averageOrPoints}
-    </Cell>
-  );
 });
 
 MinMaxResult.propTypes = {
-  drawBorderBottom: PropTypes.bool,
+    drawBorderBottom: PropTypes.bool,
 };
 
 export default MinMaxResult;

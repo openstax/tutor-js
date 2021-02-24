@@ -8,12 +8,12 @@ import StudentWelcomeToTutor        from './student-welcome-to-tutor';
 import Standard from './standard';
 
 export default {
-  HowToUseQL,
-  HowToUsePreview,
-  HowToBuildYourReading,
-  TipsNowOrLater,
-  NewEnrollmentLink,
-  InstructorWelcomeToTutor,
-  StudentWelcomeToTutor,
-  Standard,
+    HowToUseQL,
+    HowToUsePreview,
+    HowToBuildYourReading,
+    TipsNowOrLater,
+    NewEnrollmentLink,
+    InstructorWelcomeToTutor,
+    StudentWelcomeToTutor,
+    Standard,
 };

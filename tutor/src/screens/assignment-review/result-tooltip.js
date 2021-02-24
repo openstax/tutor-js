@@ -40,43 +40,43 @@ const BodyContent = styled.div`
 `;
 
 const ResultsTooltip = observer(({ result, children }) => (
-  <OverlayTrigger
-    trigger="hover"
-    placement="bottom"
-    popperConfig={{
-      modifiers: {
-        preventOverflow: { enabled: false },
-      },
-    }}
-    overlay={
-      <StyledPopover>
-        <PopoverContent>
-          <div>
-            <div>Points earned:</div>
-            <div>{result.displayValue}</div>
-          </div>
-          <div>
-            <div>Late penalty:</div>
-            <div>{result.latePenalty}</div>
-          </div>
-          <div>
-            <div>Final points:</div>
-            <div>{result.finalPoints}</div>
-          </div>
-        </PopoverContent>
-      </StyledPopover>
-    }
-  >
-    <BodyContent>{children}</BodyContent>
-  </OverlayTrigger>
+    <OverlayTrigger
+        trigger="hover"
+        placement="bottom"
+        popperConfig={{
+            modifiers: {
+                preventOverflow: { enabled: false },
+            },
+        }}
+        overlay={
+            <StyledPopover>
+                <PopoverContent>
+                    <div>
+                        <div>Points earned:</div>
+                        <div>{result.displayValue}</div>
+                    </div>
+                    <div>
+                        <div>Late penalty:</div>
+                        <div>{result.latePenalty}</div>
+                    </div>
+                    <div>
+                        <div>Final points:</div>
+                        <div>{result.finalPoints}</div>
+                    </div>
+                </PopoverContent>
+            </StyledPopover>
+        }
+    >
+        <BodyContent>{children}</BodyContent>
+    </OverlayTrigger>
 ));
 
 ResultsTooltip.propTypes = {
-  result: PropTypes.shape({
-    displayValue: PropTypes.string,
-    latePenalty: PropTypes.string,
-    finalPoints: PropTypes.string,
-  }),
+    result: PropTypes.shape({
+        displayValue: PropTypes.string,
+        latePenalty: PropTypes.string,
+        finalPoints: PropTypes.string,
+    }),
 };
 
 export default ResultsTooltip;

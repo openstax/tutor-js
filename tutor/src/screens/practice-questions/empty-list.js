@@ -20,13 +20,13 @@ const StyledWrapper = styled.div`
 `;
 
 const PracticeQuestionsEmptyList = () => {
-  return <StyledWrapper>
-    <div className="empty-practice-questions-content">
-      <p className="empty-practice-questions-header">No questions have been saved for practice.</p>
-      <p>During an assignment, mark important questions to practice later.</p>
-      <p>Click <SavePracticeButton disabled={true} /> from your assignment.</p>
-    </div>
-  </StyledWrapper>;
+    return <StyledWrapper>
+        <div className="empty-practice-questions-content">
+            <p className="empty-practice-questions-header">No questions have been saved for practice.</p>
+            <p>During an assignment, mark important questions to practice later.</p>
+            <p>Click <SavePracticeButton disabled={true} /> from your assignment.</p>
+        </div>
+    </StyledWrapper>;
 };
 
 export default PracticeQuestionsEmptyList;

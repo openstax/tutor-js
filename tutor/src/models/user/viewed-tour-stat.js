@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier,
+    BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
 @identifiedBy('user/viewed-tour-stat')

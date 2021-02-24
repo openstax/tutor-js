@@ -80,62 +80,62 @@ const StyledTagForm = styled.div`
 
 // dropdown for bloom and dok tags
 const dropDownTags = (
-  tags,
-  selectedTag,
-  onSelect
+    tags,
+    selectedTag,
+    onSelect
 ) => {
-  const tagItems = map(tags, (t, i) =>
-    <Dropdown.Item
-      key={i}
-      value={t.value}
-      eventKey={t.value}
-      onSelect={onSelect}>
-      {t.text}
-    </Dropdown.Item>
-  );
-  return (
-    <TutorDropdown
-      toggleName={selectedTag
-        ? selectedTag.text : 'Select level'}
-      dropdownItems={tagItems}
-    />
-  );
+    const tagItems = map(tags, (t, i) =>
+        <Dropdown.Item
+            key={i}
+            value={t.value}
+            eventKey={t.value}
+            onSelect={onSelect}>
+            {t.text}
+        </Dropdown.Item>
+    );
+    return (
+        <TutorDropdown
+            toggleName={selectedTag
+                ? selectedTag.text : 'Select level'}
+            dropdownItems={tagItems}
+        />
+    );
 };
 
 // buttons for time and difficulty tags
 const buttonTags = (tags, selectedTag, onClick, ariaLabel) => {
-  return (
-    <ButtonGroup aria-label={ariaLabel}>
-      {map(tags, t =>
-        <Button
-          key={t}
-          variant="secondary"
-          className={cn({ 'selected': selectedTag === t })}
-          value={t}
-          onClick={onClick}>
-          {startCase(t)}
-        </Button>
-      )}
-    </ButtonGroup>
-  );
+    return (
+        <ButtonGroup aria-label={ariaLabel}>
+            {map(tags, t =>
+                <Button
+                    key={t}
+                    variant="secondary"
+                    className={cn({ 'selected': selectedTag === t })}
+                    value={t}
+                    onClick={onClick}>
+                    {startCase(t)}
+                </Button>
+            )}
+        </ButtonGroup>
+    );
 };
 
 const TagForm = observer(({ ux }) => {
-  return (
-    <StyledTagForm>
-      <span className="tag-info">
+    return (
+        <StyledTagForm>
+            <span className="tag-info">
         This information will help us to organize your question. Optional
-      </span>
-      <div className="tag-form">
-        <div className="tag-time">
-          <label>Time</label>
-          {buttonTags(TAG_TIMES, ux.tagTime, ux.changeTimeTag, 'Tag times')}
-        </div>
-        <div className="tag-bloom">
-          <div className="label-info">
-            <label>Bloom's taxonomy</label>
-            <QuestionInfo
-              popoverInfo={
+            </span>
+            <div className="tag-form">
+                <div className="tag-time">
+                    <label>Time</label>
+                    {buttonTags(TAG_TIMES, ux.tagTime, ux.changeTimeTag, 'Tag times')}
+                </div>
+                <div className="tag-bloom">
+                    <div className="label-info">
+                        <label>Bloom's taxonomy</label>
+                        <QuestionInfo
+                            popoverInfo={
                 <>
                   <p>
                     Bloom’s taxonomy is designed to make it easier for
@@ -143,20 +143,20 @@ const TagForm = observer(({ ux }) => {
                   </p>
                   <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
-              } />
-          </div>
-          {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
-        </div>
-        <div className="tag-difficulty">
-          <label>Difficulty</label>
-          {buttonTags(TAG_DIFFICULTIES, ux.tagDifficulty, ux.changeDifficultyTag, 'Tag difficulties')}
-        </div>
-        <div className="tag-dok">
-          <div className="label-info">
-            <label>Depth of knowledge</label>
-            <QuestionInfo
-              placement="bottom"
-              popoverInfo={
+                            } />
+                    </div>
+                    {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
+                </div>
+                <div className="tag-difficulty">
+                    <label>Difficulty</label>
+                    {buttonTags(TAG_DIFFICULTIES, ux.tagDifficulty, ux.changeDifficultyTag, 'Tag difficulties')}
+                </div>
+                <div className="tag-dok">
+                    <div className="label-info">
+                        <label>Depth of knowledge</label>
+                        <QuestionInfo
+                            placement="bottom"
+                            popoverInfo={
                 <>
                   <p>
                     Depth of Knowledge or DoK is used to identify the level of rigor for
@@ -164,30 +164,30 @@ const TagForm = observer(({ ux }) => {
                   </p>
                   <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
                 </>
-              } />
-          </div>
-          {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}
-        </div>
-      </div>
-    </StyledTagForm>
-  );
+                            } />
+                    </div>
+                    {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}
+                </div>
+            </div>
+        </StyledTagForm>
+    );
 });
 TagForm.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 const Tag = observer(({ ux }) => {
-  return (
-    <AddEditQuestionFormBlock
-      label="Tags"
-      showGrayBackground={true}
-      onFocus={partial(ux.checkValidityOfFields, [])}
-      formContentRenderer={() => <TagForm ux={ux} />}
-    />
-  );
+    return (
+        <AddEditQuestionFormBlock
+            label="Tags"
+            showGrayBackground={true}
+            onFocus={partial(ux.checkValidityOfFields, [])}
+            formContentRenderer={() => <TagForm ux={ux} />}
+        />
+    );
 });
 Tag.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 export default Tag;

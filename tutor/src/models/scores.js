@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import Map from 'shared/model/map';
 
 import {
-  BaseModel, identifiedBy, belongsTo,
+    BaseModel, identifiedBy, belongsTo,
 } from 'shared/model';
 
 import ScoresForPeriod from './scores/period';
@@ -16,24 +16,24 @@ export default class Scores extends BaseModel {
   @observable periods = new Map();
 
   fetch() {
-    return { courseId: this.course.id };
+      return { courseId: this.course.id };
   }
 
   @action onFetchComplete({ data }) {
-    data.forEach(s => this.periods.set(s.period_id, new ScoresForPeriod(s, this.course)));
+      data.forEach(s => this.periods.set(s.period_id, new ScoresForPeriod(s, this.course)));
   }
 
   getTask(taskId) {
-    const id = Number(taskId);
-    const periods = this.periods.values();
-    for(let p=0; p < periods.length; p+=1) {
-      const period = periods[p];
-      for(let i=0; i < period.students.length; i +=1 ){
-        const task = find(period.students[i].data, { id });
-        if (task) return task;
+      const id = Number(taskId);
+      const periods = this.periods.values();
+      for(let p=0; p < periods.length; p+=1) {
+          const period = periods[p];
+          for(let i=0; i < period.students.length; i +=1 ){
+              const task = find(period.students[i].data, { id });
+              if (task) return task;
+          }
       }
-    }
-    return null;
+      return null;
   }
 
 }

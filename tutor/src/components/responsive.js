@@ -3,8 +3,8 @@ import { defaults } from 'lodash';
 import WindowSize from '../models/window-size';
 
 const DEFAULT_BREAKPOINTS = {
-  tablet: 600,
-  desktop: 999,
+    tablet: 600,
+    desktop: 999,
 };
 
 
@@ -12,29 +12,29 @@ const DEFAULT_BREAKPOINTS = {
 class Responsive extends React.Component {
 
   static propTypes = {
-    windowImpl: PropTypes.object,
-    breakpoints: PropTypes.object,
-    mobile: PropTypes.node,
-    tablet: PropTypes.node,
-    desktop: PropTypes.node,
+      windowImpl: PropTypes.object,
+      breakpoints: PropTypes.object,
+      mobile: PropTypes.node,
+      tablet: PropTypes.node,
+      desktop: PropTypes.node,
   }
 
   windowSize = new WindowSize({ windowImpl: this.props.windowImpl });
 
   @computed get breakpoints() {
-    return defaults({}, this.props.breakpoints, DEFAULT_BREAKPOINTS);
+      return defaults({}, this.props.breakpoints, DEFAULT_BREAKPOINTS);
   }
 
   render() {
-    const { desktop, tablet, mobile } = this.props;
+      const { desktop, tablet, mobile } = this.props;
 
-    if (this.windowSize.width > this.breakpoints.desktop) {
-      return desktop;
-    }
-    if (this.windowSize.width > this.breakpoints.tablet) {
-      return tablet || desktop;
-    }
-    return mobile;
+      if (this.windowSize.width > this.breakpoints.desktop) {
+          return desktop;
+      }
+      if (this.windowSize.width > this.breakpoints.tablet) {
+          return tablet || desktop;
+      }
+      return mobile;
   }
 
 }

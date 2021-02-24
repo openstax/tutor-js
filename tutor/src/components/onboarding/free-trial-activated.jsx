@@ -10,38 +10,38 @@ export default
 class FreeTrialActivated extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.object.isRequired,
-    onDismiss: PropTypes.func.isRequired,
+      ux: PropTypes.object.isRequired,
+      onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'free-trial-activated';
 
   render() {
-    const { ux } = this.props;
-    // we do not check CourseUX.displayCourseCost here because if they're on
-    // a free trial we already know the course is not comped
-    return (
-      <OnboardingNag className={this.constructor.className}>
-        <Heading>
+      const { ux } = this.props;
+      // we do not check CourseUX.displayCourseCost here because if they're on
+      // a free trial we already know the course is not comped
+      return (
+          <OnboardingNag className={this.constructor.className}>
+              <Heading>
           Your free trial is activated!
-        </Heading>
+              </Heading>
 
-        <Body>
-          <p>You will have access to {ux.course.name} for 14 days.</p>
-          <p>
+              <Body>
+                  <p>You will have access to {ux.course.name} for 14 days.</p>
+                  <p>
             To continue accessing your course beyond your trial period, click
             the Pay Now button on your OpenStax Tutor Beta dashboard and
             enter your one-time {CourseUX.formattedStudentCost} payment for the semester
-          </p>
-        </Body>
+                  </p>
+              </Body>
 
-        <Footer>
-          <Button variant="primary" className="now" onClick={ux.onAccessCourse}>
+              <Footer>
+                  <Button variant="primary" className="now" onClick={ux.onAccessCourse}>
             Access your course
-          </Button>
-        </Footer>
+                  </Button>
+              </Footer>
 
-      </OnboardingNag>
-    );
+          </OnboardingNag>
+      );
   }
 }

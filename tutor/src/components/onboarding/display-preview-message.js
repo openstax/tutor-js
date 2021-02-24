@@ -7,31 +7,31 @@ import { OnboardingNag, GotItOnboardingNag, Body, Footer } from './onboarding-na
 export default class DisplayPreviewMessage extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
+      ux: PropTypes.object.isRequired,
+      history: PropTypes.object.isRequired,
   }
 
   @action.bound onContinue(cb) {
-    this.props.ux.hasViewedDisplayPreviewMessage();
-    cb();
+      this.props.ux.hasViewedDisplayPreviewMessage();
+      cb();
   }
 
   render() {
-    return (
-      <GotItOnboardingNag {...this.props} promptRenderer={this.renderPrompt} />
-    );
+      return (
+          <GotItOnboardingNag {...this.props} promptRenderer={this.renderPrompt} />
+      );
   }
 
   renderPrompt = (onAddCourse, onContinue) => {
-    return (
-      <OnboardingNag className="only-preview">
-        <Body>
-          <p dangerouslySetInnerHTML={{ __html: this.props.ux.course.offering.preview_message }} />
-        </Body>
-        <Footer>
-          <Button onClick={() => this.onContinue(onContinue)} className="continue">Ok</Button>
-        </Footer>
-      </OnboardingNag>
-    );
+      return (
+          <OnboardingNag className="only-preview">
+              <Body>
+                  <p dangerouslySetInnerHTML={{ __html: this.props.ux.course.offering.preview_message }} />
+              </Body>
+              <Footer>
+                  <Button onClick={() => this.onContinue(onContinue)} className="continue">Ok</Button>
+              </Footer>
+          </OnboardingNag>
+      );
   }
 }

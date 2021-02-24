@@ -9,15 +9,15 @@ import CheckBoxInput from '../../components/checkbox-input';
 import SearchInput from '../../components/search-input';
 
 const StudentExtensionInfo = observer(({ ux, student }) => {
-  if (!student.extension) { return null; }
+    if (!student.extension) { return null; }
 
-  return (
-    <ExtensionIcon
-      extension={student.extension}
-      timezone={ux.course.timezone}
-      inline={true}
-    />
-  );
+    return (
+        <ExtensionIcon
+            extension={student.extension}
+            timezone={ux.course.timezone}
+            inline={true}
+        />
+    );
 });
 
 const StudentWrapper = styled.div`
@@ -145,131 +145,131 @@ const SelectAll = styled.div`
 `;
 
 const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
-  return (
-    <StyledModal
-      show={ux.isDisplayingGrantExtension}
-      backdrop="static"
-      onHide={ux.cancelDisplayingGrantExtension}
-    >
-      <Form>
-        <Modal.Header closeButton={true}>
+    return (
+        <StyledModal
+            show={ux.isDisplayingGrantExtension}
+            backdrop="static"
+            onHide={ux.cancelDisplayingGrantExtension}
+        >
+            <Form>
+                <Modal.Header closeButton={true}>
           Grant extension for {ux.selectedPeriod.name}
-        </Modal.Header>
-        <Modal.Body>
-          <Toolbar>
-            <SelectTitle>Select student(s):</SelectTitle>
-            <SearchInput onChange={ux.onSearchExtensionStudentChange} />
-          </Toolbar>
-          <SelectAll hide={ux.hideToggleGrantExtensionAllStudents}>
-            <CheckBoxInput
-              onChange={ux.toggleGrantExtensionAllStudents}
-              label="Select all"
-              labelSize="lg"
-              standalone={true}
-              checked={ux.allExtensionStudentsSelected}
-            />
-          </SelectAll>
-          <StudentsList>
-            {ux.extensionStudents.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
-          </StudentsList>
-          <DateTimes>
-            <DateTimeInput
-              label="New due date:"
-              name="extension_due_date"
-              disabledDate={ux.course.isInvalidAssignmentDate}
-              timezone={ux.course.timezone}
-              validate={(d) => { // eslint-disable-line consistent-return
-                if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
-                if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
-              }}
-            />
-            <DateTimeInput
-              label="New close date:"
-              name="extension_close_date"
-              timezone={ux.course.timezone}
-              disabledDate={ux.course.isInvalidAssignmentDate}
-              validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
-            />
-          </DateTimes>
-          <LegendBar>
-            <EIcon />
-            <ExtensionText>
+                </Modal.Header>
+                <Modal.Body>
+                    <Toolbar>
+                        <SelectTitle>Select student(s):</SelectTitle>
+                        <SearchInput onChange={ux.onSearchExtensionStudentChange} />
+                    </Toolbar>
+                    <SelectAll hide={ux.hideToggleGrantExtensionAllStudents}>
+                        <CheckBoxInput
+                            onChange={ux.toggleGrantExtensionAllStudents}
+                            label="Select all"
+                            labelSize="lg"
+                            standalone={true}
+                            checked={ux.allExtensionStudentsSelected}
+                        />
+                    </SelectAll>
+                    <StudentsList>
+                        {ux.extensionStudents.map(student => <Student key={student.role_id} ux={ux} student={student} />)}
+                    </StudentsList>
+                    <DateTimes>
+                        <DateTimeInput
+                            label="New due date:"
+                            name="extension_due_date"
+                            disabledDate={ux.course.isInvalidAssignmentDate}
+                            timezone={ux.course.timezone}
+                            validate={(d) => { // eslint-disable-line consistent-return
+                                if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
+                                if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
+                            }}
+                        />
+                        <DateTimeInput
+                            label="New close date:"
+                            name="extension_close_date"
+                            timezone={ux.course.timezone}
+                            disabledDate={ux.course.isInvalidAssignmentDate}
+                            validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
+                        />
+                    </DateTimes>
+                    <LegendBar>
+                        <EIcon />
+                        <ExtensionText>
               Students who’ve been granted an extension are denoted with a green circle with E.
               Hover over the icon to see the new due date for that student.
-            </ExtensionText>
-          </LegendBar>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            size="lg"
-            variant="default"
-            className="btn-standard"
-            onClick={ux.cancelDisplayingGrantExtension}
-          >Cancel</Button>
-          <Button
-            size="lg"
-            variant="primary"
-            className="btn-standard"
-            type="submit"
-            disabled={isValid == false || (!ux.isPendingExtensions)}
-          >Save</Button>
-        </Modal.Footer>
-      </Form>
-    </StyledModal>
-  );
+                        </ExtensionText>
+                    </LegendBar>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        size="lg"
+                        variant="default"
+                        className="btn-standard"
+                        onClick={ux.cancelDisplayingGrantExtension}
+                    >Cancel</Button>
+                    <Button
+                        size="lg"
+                        variant="primary"
+                        className="btn-standard"
+                        type="submit"
+                        disabled={isValid == false || (!ux.isPendingExtensions)}
+                    >Save</Button>
+                </Modal.Footer>
+            </Form>
+        </StyledModal>
+    );
 });
 
 const Student = observer(({ student, ux }) => {
-  const checked = !!ux.pendingExtensions.get(student.role_id.toString(10));
-  return (
-    <StudentWrapper>
-      <CheckBoxInput
-        onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked)}
-        checked={checked}
-        standalone={true}
-        label={`${student.first_name} ${student.last_name}`}
-        labelSize="lg"
-      />
-      <StudentExtensionInfo ux={ux} student={student} />
-    </StudentWrapper>
-  );
+    const checked = !!ux.pendingExtensions.get(student.role_id.toString(10));
+    return (
+        <StudentWrapper>
+            <CheckBoxInput
+                onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked)}
+                checked={checked}
+                standalone={true}
+                label={`${student.first_name} ${student.last_name}`}
+                labelSize="lg"
+            />
+            <StudentExtensionInfo ux={ux} student={student} />
+        </StudentWrapper>
+    );
 });
 
 const GrantExtension = observer(({ ux }) => {
-  if (!ux.taskPlan.canGrantExtension) {
-    return null;
-  }
+    if (!ux.taskPlan.canGrantExtension) {
+        return null;
+    }
 
-  return (
+    return (
     <>
       <OverlayTrigger
-        placement="bottom"
-        overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
+          placement="bottom"
+          overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
       >
-        <Button
-          variant="light"
-          className="btn-standard"
-          onClick={() => ux.isDisplayingGrantExtension=true}
-        >
+          <Button
+              variant="light"
+              className="btn-standard"
+              onClick={() => ux.isDisplayingGrantExtension=true}
+          >
           Grant Extension
-        </Button>
+          </Button>
       </OverlayTrigger>
       {ux.isDisplayingGrantExtension && (
-        <Formik
-          onSubmit={ux.saveDisplayingGrantExtension}
-          initialValues={{
-            extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
-            extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
-          }}
-        >
-          {(form) => <ExtendModal ux={ux} form={form} />}
-        </Formik>)}
+          <Formik
+              onSubmit={ux.saveDisplayingGrantExtension}
+              initialValues={{
+                  extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
+                  extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
+              }}
+          >
+              {(form) => <ExtendModal ux={ux} form={form} />}
+          </Formik>)}
     </>
-  );
+    );
 });
 
 GrantExtension.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 

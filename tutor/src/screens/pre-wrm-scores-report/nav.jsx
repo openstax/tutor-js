@@ -7,20 +7,20 @@ import { keys, pick } from 'lodash';
 const COURSE_PERIODS_NAV_PROPS = keys(CoursePeriodsNav.propTypes);
 
 const ScoresReportNav = (props) => {
-  if (!props.course.currentRole.isTeacher) {
-    return null;
-  }
+    if (!props.course.currentRole.isTeacher) {
+        return null;
+    }
 
-  return (
-    <CoursePeriodsNav
-      {...pick(props, COURSE_PERIODS_NAV_PROPS)}
-      courseId={props.course.id}
-    />
-  );
+    return (
+        <CoursePeriodsNav
+            {...pick(props, COURSE_PERIODS_NAV_PROPS)}
+            courseId={props.course.id}
+        />
+    );
 };
 
 ScoresReportNav.propTypes = {
-  course: PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
 };
 
 export default ScoresReportNav;

@@ -7,37 +7,37 @@ import { Button } from 'react-bootstrap';
 class PublishedToast extends React.Component {
 
   static propTypes = {
-    dismiss: PropTypes.func.isRequired,
-    toast: PropTypes.object.isRequired,
+      dismiss: PropTypes.func.isRequired,
+      toast: PropTypes.object.isRequired,
   }
 
   render() {
-    const { dismiss, toast: { info: { isDraft, exercise } } }= this.props;
+      const { dismiss, toast: { info: { isDraft, exercise } } }= this.props;
 
-    const message = isDraft ?
-      `Your changes to ${exercise.uid} were saved` :
-      `Exercise ${exercise.uid} was published successfully`;
+      const message = isDraft ?
+          `Your changes to ${exercise.uid} were saved` :
+          `Exercise ${exercise.uid} was published successfully`;
 
-    return (
-      <div className="toast success">
-        <div className="title">
-          <span>Save Complete</span>
-        </div>
-        <div className="body">
-          <p>
-            {message}
-          </p>
-          <Button
-            variant="primary"
-            size="small"
-            onClick={dismiss}
-          >
+      return (
+          <div className="toast success">
+              <div className="title">
+                  <span>Save Complete</span>
+              </div>
+              <div className="body">
+                  <p>
+                      {message}
+                  </p>
+                  <Button
+                      variant="primary"
+                      size="small"
+                      onClick={dismiss}
+                  >
             OK
-          </Button>
-        </div>
+                  </Button>
+              </div>
 
-      </div>
-    );
+          </div>
+      );
   }
 
 }

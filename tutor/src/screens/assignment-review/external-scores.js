@@ -121,107 +121,107 @@ const ControlsWrapper = styled.div`
 `;
 
 const StudentColumnHeader = observer(({ ux }) => (
-  <Cell leftBorder={true}>
-    <CellContents>
-      <ColumnHeading first={true}>
-        <HeadingTop
-          onClick={() => ux.changeRowSortingOrder(0, ux.reverseNameOrder ? 'first_name' : 'name')}
-          aria-label="Sort by student name"
-          role="button"
-        >
+    <Cell leftBorder={true}>
+        <CellContents>
+            <ColumnHeading first={true}>
+                <HeadingTop
+                    onClick={() => ux.changeRowSortingOrder(0, ux.reverseNameOrder ? 'first_name' : 'name')}
+                    aria-label="Sort by student name"
+                    role="button"
+                >
           Student Name
-          <SortIcon sort={ux.sortForColumn(0, ux.reverseNameOrder ? 'first_name' : 'name')} />
-        </HeadingTop>
-        <HeadingMiddle>
-          {ux.nameOrderHeader}
-          <OrderIcon
-            variant="toggleOrder"
-            onClick={ux.toggleNameOrder}
-            aria-label="Toggle firstname lastname order"
-          />
-        </HeadingMiddle>
-      </ColumnHeading>
-    </CellContents>
-  </Cell>
+                    <SortIcon sort={ux.sortForColumn(0, ux.reverseNameOrder ? 'first_name' : 'name')} />
+                </HeadingTop>
+                <HeadingMiddle>
+                    {ux.nameOrderHeader}
+                    <OrderIcon
+                        variant="toggleOrder"
+                        onClick={ux.toggleNameOrder}
+                        aria-label="Toggle firstname lastname order"
+                    />
+                </HeadingMiddle>
+            </ColumnHeading>
+        </CellContents>
+    </Cell>
 ));
 
 
 const StudentCell = observer(({ ux, student, striped }) => (
-  <Cell striped={striped}>
-    <CellContents>
-      <Heading first={true}>
-        <TutorLink
-          to="viewTask"
-          params={{
-            courseId: ux.course.id,
-            id: student.task_id,
-          }}
-        >
-          {ux.reverseNameOrder ? student.reversedName : student.name}
-        </TutorLink>
-      </Heading>
-    </CellContents>
-  </Cell>
+    <Cell striped={striped}>
+        <CellContents>
+            <Heading first={true}>
+                <TutorLink
+                    to="viewTask"
+                    params={{
+                        courseId: ux.course.id,
+                        id: student.task_id,
+                    }}
+                >
+                    {ux.reverseNameOrder ? student.reversedName : student.name}
+                </TutorLink>
+            </Heading>
+        </CellContents>
+    </Cell>
 ));
 
 
 const AssignmentHeading = observer(({ ux, heading }) => (
-  <Cell onClick={() => ux.changeRowSortingOrder(heading.index, 'clicked')}>
-    <ColumnHeading variant="q">
-      <HeadingTop>
-        {heading.title}
-        <SortIcon sort={ux.sortForColumn(heading.index, 'clicked')} />
-      </HeadingTop>
-      <HeadingMiddle>
-        <div className="external-fill">External Assignment</div>
-      </HeadingMiddle>
-    </ColumnHeading>
-  </Cell>
+    <Cell onClick={() => ux.changeRowSortingOrder(heading.index, 'clicked')}>
+        <ColumnHeading variant="q">
+            <HeadingTop>
+                {heading.title}
+                <SortIcon sort={ux.sortForColumn(heading.index, 'clicked')} />
+            </HeadingTop>
+            <HeadingMiddle>
+                <div className="external-fill">External Assignment</div>
+            </HeadingMiddle>
+        </ColumnHeading>
+    </Cell>
 ));
 
 const TaskResult = observer(({ result, striped }) => {
-  return (
-    <Cell striped={striped}>
-      <Result>
-        {result && result.is_completed ? 'clicked' : UNWORKED}
-      </Result>
-    </Cell>
-  );
+    return (
+        <Cell striped={striped}>
+            <Result>
+                {result && result.is_completed ? 'clicked' : UNWORKED}
+            </Result>
+        </Cell>
+    );
 });
 
 
 const ExternalScores = observer(({ ux }) => {
-  const { scores } = ux;
+    const { scores } = ux;
 
-  if (!ux.isExercisesReady) {
-    return <LoadingScreen message="Loading Assignment…" />;
-  }
+    if (!ux.isExercisesReady) {
+        return <LoadingScreen message="Loading Assignment…" />;
+    }
 
-  return (
+    return (
     <>
       <ControlsWrapper>
-        <SearchInput onChange={ux.onSearchStudentChange} />
+          <SearchInput onChange={ux.onSearchStudentChange} />
       </ControlsWrapper>
       <StyledStickyTable data-test-id="scores">
-        <Row>
-          <StudentColumnHeader scores={scores} ux={ux} />
-          {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
-        </Row>
-        {ux.sortedStudents.map((student,sIndex) => (
-          <Row key={sIndex}>
-            <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
-            {scores.question_headings.map((heading, i) => (
-              <TaskResult
-                key={i}
-                ux={ux}
-                result={student.resultForHeading(heading)}
-                striped={0 === sIndex % 2}
-              />
-            ))}
-          </Row>))}
+          <Row>
+              <StudentColumnHeader scores={scores} ux={ux} />
+              {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
+          </Row>
+          {ux.sortedStudents.map((student,sIndex) => (
+              <Row key={sIndex}>
+                  <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
+                  {scores.question_headings.map((heading, i) => (
+                      <TaskResult
+                          key={i}
+                          ux={ux}
+                          result={student.resultForHeading(heading)}
+                          striped={0 === sIndex % 2}
+                      />
+                  ))}
+              </Row>))}
       </StyledStickyTable>
     </>
-  );
+    );
 });
 ExternalScores.title = 'Assignment Scores';
 

@@ -10,9 +10,9 @@ const Icon = styled.i`
 `;
 
 const EventTypeIcon = observer(({ event }) => {
-  return (
-    <Icon type={event.type} className={`icon-${event.type}`} />
-  );
+    return (
+        <Icon type={event.type} className={`icon-${event.type}`} />
+    );
 });
 
 export default EventTypeIcon;

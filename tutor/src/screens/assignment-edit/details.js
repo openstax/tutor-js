@@ -7,18 +7,18 @@ const StyledDetailsBody = styled(DetailsBody)`
 `;
 
 const Details = observer(({ ux }) => {
-  return (
-    <AssignmentBuilder
-      title="Add Details"
-      ux={ux}
-    >
-      <StyledDetailsBody ux={ux} />
-    </AssignmentBuilder>
-  );
+    return (
+        <AssignmentBuilder
+            title="Add Details"
+            ux={ux}
+        >
+            <StyledDetailsBody ux={ux} />
+        </AssignmentBuilder>
+    );
 });
 
 Details.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default Details;

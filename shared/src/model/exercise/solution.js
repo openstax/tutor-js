@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, hasMany, belongsTo,
+    BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from '../../model';
 
 @identifiedBy('exercise/solution')

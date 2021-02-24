@@ -17,33 +17,32 @@ import SciencePractice from '../tags/science-practice';
 import Exercise from '../../models/exercises/exercise';
 
 function ExerciseTags({ exercise }) {
-  const { validity } = exercise;
-  const tagProps = { exercise };
+    const { validity } = exercise;
+    const tagProps = { exercise };
 
-  return (
-    <div className="tags-panel">
-      {!validity.valid && <Alert variant="warning">{validity.part}</Alert>}
-      <div className="tags">
-        <Books {...tagProps} />
-        <SciencePractice {...tagProps} />
-        <Lo {...tagProps} />
-        <ApLo {...tagProps} />
-        <AssignmentType {...tagProps} />
-        <HistoricalThinking {...tagProps} />
-        <ReasoningProcess {...tagProps} />
-        <CnxMod {...tagProps} />
-        <CnxFeature {...tagProps} />
-        <Dok {...tagProps} />
-        <Blooms {...tagProps} />
-        <Time {...tagProps} />
-      </div>
-    </div>
-  );
-
+    return (
+        <div className="tags-panel">
+            {!validity.valid && <Alert variant="warning">{validity.part}</Alert>}
+            <div className="tags">
+                <Books {...tagProps} />
+                <SciencePractice {...tagProps} />
+                <Lo {...tagProps} />
+                <ApLo {...tagProps} />
+                <AssignmentType {...tagProps} />
+                <HistoricalThinking {...tagProps} />
+                <ReasoningProcess {...tagProps} />
+                <CnxMod {...tagProps} />
+                <CnxFeature {...tagProps} />
+                <Dok {...tagProps} />
+                <Blooms {...tagProps} />
+                <Time {...tagProps} />
+            </div>
+        </div>
+    );
 }
 
 ExerciseTags.propTypes = {
-  exercise: PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 

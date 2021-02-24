@@ -8,18 +8,18 @@ import Card from './panel';
 export default
 class PaymentsModal extends React.Component {
   static propTypes = {
-    course: PropTypes.object.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onPaymentComplete: PropTypes.func.isRequired,
+      course: PropTypes.object.isRequired,
+      onCancel: PropTypes.func.isRequired,
+      onPaymentComplete: PropTypes.func.isRequired,
   }
 
   render() {
 
-    return (
-      <Modal show className="make-payment">
-        <Card {...this.props} />
-      </Modal>
-    );
+      return (
+          <Modal show className="make-payment">
+              <Card {...this.props} />
+          </Modal>
+      );
   }
 
 

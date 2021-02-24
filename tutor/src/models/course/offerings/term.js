@@ -1,5 +1,5 @@
 import {
-  BaseModel, field, identifiedBy,
+    BaseModel, field, identifiedBy,
 } from 'shared/model';
 
 @identifiedBy('offerings/term')
@@ -9,10 +9,10 @@ export default class Term extends BaseModel {
   @field year;
 
   is(term, year) {
-    return this.term == term && this.year === year;
+      return this.term == term && this.year === year;
   }
 
   isEqual(other) {
-    return Boolean(other && this.is(other.term, other.year));
+      return Boolean(other && this.is(other.term, other.year));
   }
 }

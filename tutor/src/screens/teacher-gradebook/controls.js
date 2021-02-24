@@ -37,19 +37,19 @@ const RightSide = styled.div`
 `;
 
 const Controls = ({ ux }) => {
-  return (
-    <Wrapper>
-      {ux.isTeacher && <SearchInput onChange={ux.onSearchStudentChange} />}
-      <RightSide>
-        <LMSPushBtn course={ux.course} />
-        <ExportBtn course={ux.course} />
-        <SettingBtn ux={ux} />
-      </RightSide>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            {ux.isTeacher && <SearchInput onChange={ux.onSearchStudentChange} />}
+            <RightSide>
+                <LMSPushBtn course={ux.course} />
+                <ExportBtn course={ux.course} />
+                <SettingBtn ux={ux} />
+            </RightSide>
+        </Wrapper>
+    );
 };
 Controls.propTypes = {
-  ux: PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
 };
 
 export default Controls;

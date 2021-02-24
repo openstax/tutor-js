@@ -14,11 +14,11 @@ import UX from './ux';
 import './styles.scss';
 
 const titleBreadcrumbs = (course) => {
-  return <CourseBreadcrumb course={course} currentTitle="Gradebook" noBottomMargin />;
+    return <CourseBreadcrumb course={course} currentTitle="Gradebook" noBottomMargin />;
 };
 
 const titleControls = (ux) => {
-  return <ScoresReportNav ux={ux} />;
+    return <ScoresReportNav ux={ux} />;
 };
 
 const StyledTourRegion = styled(TourRegion)`
@@ -30,65 +30,65 @@ const StyledTourRegion = styled(TourRegion)`
 class TeacherGradeBook extends React.Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-    }).isRequired,
-    ux: PropTypes.instanceOf(UX),
+      params: PropTypes.shape({
+          courseId: PropTypes.string.isRequired,
+      }).isRequired,
+      ux: PropTypes.instanceOf(UX),
   };
   
   ux = new UX({ ...this.props.params, ...Router.currentQuery() })
 
   componentDidUpdate() {
-    this.ux.updateProps(this.props);
+      this.ux.updateProps(this.props);
   }
 
   renderTableData(ux) {
-    if (!ux.isReady) {
-      return <LoadingScreen message="Loading Gradebook…" />;
-    }
+      if (!ux.isReady) {
+          return <LoadingScreen message="Loading Gradebook…" />;
+      }
 
-    if (!ux.hasAnyStudents) {
-      return <NoStudentsMessage courseId={ux.course.id} />;
-    }
+      if (!ux.hasAnyStudents) {
+          return <NoStudentsMessage courseId={ux.course.id} />;
+      }
 
-    let body = null;
+      let body = null;
 
-    if (!ux.course.periods.active.length) {
-      body = <NoPeriods courseId={ux.course.id} />;
-    }
+      if (!ux.course.periods.active.length) {
+          body = <NoPeriods courseId={ux.course.id} />;
+      }
 
-    return (
+      return (
       <>
         <Controls ux={ux} />
         <StyledTourRegion
-          id="gradebook"
-          className="gradebook-table"
-          courseId={ux.course.id}
-          otherTours={['preview-gradebook']}
+            id="gradebook"
+            className="gradebook-table"
+            courseId={ux.course.id}
+            otherTours={['preview-gradebook']}
         >
-          {body || <Table ux={ux} />}
+            {body || <Table ux={ux} />}
         </StyledTourRegion>
       </>
-    );
+      );
   }
 
   render() {
-    const { ux } = this;
-    return (
-      <BackgroundWrapper>
-        <CoursePage
-          course={ux.course}
-          title=""
-          className="course-scores-report"
-          titleBreadcrumbs={titleBreadcrumbs(ux.course)}
-          titleAppearance="light"
-          controls={titleControls(ux)}
-          controlBackgroundColor='white'
-        >
-          {this.renderTableData(ux)}
-        </CoursePage>
-      </BackgroundWrapper>
-    );
+      const { ux } = this;
+      return (
+          <BackgroundWrapper>
+              <CoursePage
+                  course={ux.course}
+                  title=""
+                  className="course-scores-report"
+                  titleBreadcrumbs={titleBreadcrumbs(ux.course)}
+                  titleAppearance="light"
+                  controls={titleControls(ux)}
+                  controlBackgroundColor='white'
+              >
+                  {this.renderTableData(ux)}
+              </CoursePage>
+          </BackgroundWrapper>
+      );
   }
 }
 

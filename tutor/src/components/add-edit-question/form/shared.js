@@ -104,126 +104,126 @@ const StyledQuestionInfoIcon = styled(Icon)`
 `;
 
 export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
-  const [show, setShow] = useState(false);
-  const [target, setTarget] = useState(null);
+    const [show, setShow] = useState(false);
+    const [target, setTarget] = useState(null);
 
-  const handleClick = (event) => {
-    setShow(!show);
-    if(!show) {
-      setTarget(event.target);
-    }
-    else {
-      setTarget(null);
-    }
-  };
-  const popover = <StyledPopover>
-    {popoverInfo}
-  </StyledPopover>;
+    const handleClick = (event) => {
+        setShow(!show);
+        if(!show) {
+            setTarget(event.target);
+        }
+        else {
+            setTarget(null);
+        }
+    };
+    const popover = <StyledPopover>
+        {popoverInfo}
+    </StyledPopover>;
 
-  return (
+    return (
     <>
       <StyledQuestionInfoIcon
-        type="question-circle"
-        className="question-info-icon"
-        onClick={handleClick}
+          type="question-circle"
+          className="question-info-icon"
+          onClick={handleClick}
       />
       <Overlay
-        rootClose
-        show={show}
-        target={target}
-        placement={placement}
-        onHide={() => setShow(false)}
+          rootClose
+          show={show}
+          target={target}
+          placement={placement}
+          onHide={() => setShow(false)}
       >
-        {popover}
+          {popover}
       </Overlay>
     </>
   
-  );
+    );
 };
 QuestionInfo.propTypes = {
-  popoverInfo: PropTypes.node.isRequired,
-  placement: PropTypes.string,
+    popoverInfo: PropTypes.node.isRequired,
+    placement: PropTypes.string,
 };
 
 
 const EditableHTMLPanel = styled(EditableHTML)({
-  flex: 1,
-  '.ProseMirror.pw-prosemirror-editor': {
-    padding: '2rem',
-  },
+    flex: 1,
+    '.ProseMirror.pw-prosemirror-editor': {
+        padding: '2rem',
+    },
 });
 
 
 export const TextInputHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
-  <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
-    {label && <Form.Label>{label}</Form.Label>}
-    <div className="editor limited">
-      <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
-      {errorInfo && <p className="error-info">{errorInfo}</p>}
-    </div>
-  </StyledRowContent>
+    <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
+        {label && <Form.Label>{label}</Form.Label>}
+        <div className="editor limited">
+            <EditableHTMLPanel {...props} limitedEditing={true} html={html || ''}/>
+            {errorInfo && <p className="error-info">{errorInfo}</p>}
+        </div>
+    </StyledRowContent>
 );
 TextInputHTMLEditor.propTypes = {
-  html: PropTypes.string,
-  label: PropTypes.string,
-  className: PropTypes.string,
-  errorInfo: PropTypes.string,
+    html: PropTypes.string,
+    label: PropTypes.string,
+    className: PropTypes.string,
+    errorInfo: PropTypes.string,
 };
 
 export const AnswerHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
-  <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
-    {label && <Form.Label>{label}</Form.Label>}
-    <div className="editor">
-      <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
-      {errorInfo && <p className="error-info">{errorInfo}</p>}
-    </div>
-  </StyledRowContent>
+    <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
+        {label && <Form.Label>{label}</Form.Label>}
+        <div className="editor">
+            <EditableHTMLPanel {...props} limitedEditing={false} html={html || ''}/>
+            {errorInfo && <p className="error-info">{errorInfo}</p>}
+        </div>
+    </StyledRowContent>
 );
 AnswerHTMLEditor.propTypes = {
-  html: PropTypes.string,
-  label: PropTypes.string,
-  className: PropTypes.string,
-  errorInfo: PropTypes.string,
+    html: PropTypes.string,
+    label: PropTypes.string,
+    className: PropTypes.string,
+    errorInfo: PropTypes.string,
 };
 
 export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className, errorInfo }) => {
-  const input = plainText ?
-    <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
-    <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} errorInfo={errorInfo} />;
-  return (
-    <StyledAddEditFormTextInput controlId={className} className={className}>
-      {label && <Form.Label>{label}</Form.Label>}
-      {input}
-    </StyledAddEditFormTextInput>
-  );
+    const input = plainText ?
+        <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
+        <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} errorInfo={errorInfo} />;
+    return (
+        <StyledAddEditFormTextInput controlId={className} className={className}>
+            {label && <Form.Label>{label}</Form.Label>}
+            {input}
+        </StyledAddEditFormTextInput>
+    );
 });
 
 export const AddEditQuestionFormBlock = ({
-  label,
-  formContentRenderer: FormContent,
-  className,
-  showGrayBackground = false,
-  addPadding = true,
-  onFocus,
+    label,
+    formContentRenderer: FormContent,
+    className,
+    showGrayBackground = false,
+    addPadding = true,
+    onFocus,
 }) => {
-  return (
-    <StyledRowContent className={className} onFocus={onFocus ? onFocus : null}>
-      <div
-        className={cn('label-wrapper', { 'gray-background': showGrayBackground })}>
-        <span>{label}</span>
-      </div>
-      <div
-        className={cn('content-form', { 'gray-background': showGrayBackground, 'padding': addPadding })}>
-        <FormContent />
-      </div>
-    </StyledRowContent>
-  );
+    return (
+        <StyledRowContent className={className} onFocus={onFocus ? onFocus : null}>
+            <div
+                className={cn('label-wrapper', { 'gray-background': showGrayBackground })}>
+                <span>{label}</span>
+            </div>
+            <div
+                className={cn('content-form', { 'gray-background': showGrayBackground, 'padding': addPadding })}>
+                <FormContent />
+            </div>
+        </StyledRowContent>
+    );
 };
 AddEditQuestionFormBlock.propTypes = {
-  label: PropTypes.string.isRequired,
-  formContentRenderer: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  showGrayBackground: PropTypes.bool,
-  addPadding: PropTypes.bool,
-  onFocus: PropTypes.func,
+    label: PropTypes.string.isRequired,
+    formContentRenderer: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    showGrayBackground: PropTypes.bool,
+    addPadding: PropTypes.bool,
+    onFocus: PropTypes.func,
 };

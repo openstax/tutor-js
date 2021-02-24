@@ -16,17 +16,17 @@ const StyledNoExercisesFound = styled.div`
 `;
 
 const backToSelectionSections = (onSelectSections) => {
-  return (
-    <Button className="back-to-section" variant="link" onClick={onSelectSections}>
+    return (
+        <Button className="back-to-section" variant="link" onClick={onSelectSections}>
       chapter/section
-    </Button>
-  );
+        </Button>
+    );
 };
 
 const noResultsInFiltering = () => 
-  <p className="lead">
-    <strong>No Results.</strong> Try selecting a different combination of filters.
-  </p>;
+    <p className="lead">
+        <strong>No Results.</strong> Try selecting a different combination of filters.
+    </p>;
 
 const noQuestionsInSection = (isHomework, onSelectSections) =>
   <>
@@ -35,25 +35,25 @@ const noQuestionsInSection = (isHomework, onSelectSections) =>
     </h3>
     <p className="lead">
       Select a different {backToSelectionSections(onSelectSections)}
-      {isHomework && ' or add your own questions'}.
+        {isHomework && ' or add your own questions'}.
     </p>
   </>;
 
 const NoExercisesFound = (props) => {
-  return (
-    <StyledNoExercisesFound>
-      {
-        props.sectionHasExercises
-          ? noResultsInFiltering()
-          : noQuestionsInSection(props.isHomework, props.onSelectSections)
-      }
-    </StyledNoExercisesFound>
-  );
+    return (
+        <StyledNoExercisesFound>
+            {
+                props.sectionHasExercises
+                    ? noResultsInFiltering()
+                    : noQuestionsInSection(props.isHomework, props.onSelectSections)
+            }
+        </StyledNoExercisesFound>
+    );
 };
 NoExercisesFound.propTypes = {
-  isHomework: PropTypes.bool,
-  sectionHasExercises: PropTypes.bool,
-  onSelectSections: PropTypes.func.isRequired,
+    isHomework: PropTypes.bool,
+    sectionHasExercises: PropTypes.bool,
+    onSelectSections: PropTypes.func.isRequired,
 };
 
 export default NoExercisesFound;

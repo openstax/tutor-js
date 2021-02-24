@@ -15,17 +15,17 @@ const Best = styled.span`
 
 export default
 function BestPracticesTip({ children }) {
-  return (
-    <div>
-      <Wrapper>
-        <Icon type="thumbs-up" />
-        <Best>BEST</Best> PRACTICE
-      </Wrapper>
-      <p>{children}</p>
-    </div>
-  );
+    return (
+        <div>
+            <Wrapper>
+                <Icon type="thumbs-up" />
+                <Best>BEST</Best> PRACTICE
+            </Wrapper>
+            <p>{children}</p>
+        </div>
+    );
 }
 
 BestPracticesTip.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };

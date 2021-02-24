@@ -111,97 +111,97 @@ const LeftCell = styled(Cell)`
 `;
 
 const Question = observer(({ heading, ...props }) => {
-  const RowType = heading.isCore ? CoreQuestion : TutorQuestion;
-  return <RowType heading={heading} {...props} />;
+    const RowType = heading.isCore ? CoreQuestion : TutorQuestion;
+    return <RowType heading={heading} {...props} />;
 });
 
 const TutorQuestion = observer(({ heading }) => {
-  return (
-    <QuestionRowWrapper disabled>
-      <Cell>
-        <CheckboxInput type="checkbox" standalone={true} disabled />
-      </Cell>
-      <Cell>
-        {heading.title}
-      </Cell>
-      <DetailsCell>
+    return (
+        <QuestionRowWrapper disabled>
+            <Cell>
+                <CheckboxInput type="checkbox" standalone={true} disabled />
+            </Cell>
+            <Cell>
+                {heading.title}
+            </Cell>
+            <DetailsCell>
         OpenStax Tutor Beta selection
-      </DetailsCell>
-      <Cell>
-        {S.numberWithOneDecimalPlace(heading.points)}
-      </Cell>
-      <Cell>
-        <Reallocate>
-          <div><input type="radio" disabled /></div>
-          <div><input type="radio" disabled /></div>
-        </Reallocate>
-      </Cell>
-      <Cell>
+            </DetailsCell>
+            <Cell>
+                {S.numberWithOneDecimalPlace(heading.points)}
+            </Cell>
+            <Cell>
+                <Reallocate>
+                    <div><input type="radio" disabled /></div>
+                    <div><input type="radio" disabled /></div>
+                </Reallocate>
+            </Cell>
+            <Cell>
         1.0
-      </Cell>
-    </QuestionRowWrapper>
-  );
+            </Cell>
+        </QuestionRowWrapper>
+    );
 });
 
 const CoreQuestion = observer(({ ux, heading }) => {
-  const drop = ux.droppedQuestionRecord(heading);
+    const drop = ux.droppedQuestionRecord(heading);
 
-  return (
-    <QuestionRowWrapper
-      disabled={!!heading.dropped}
-      data-test-id="drop-question-row"
-      data-exercise-id={heading.exercise_id}
-      data-question-id={heading.question_id}
-    >
-      <Cell>
-        <CheckboxInput
-          type="checkbox"
-          name={heading.title}
-          checked={!!drop}
-          onChange={({ target: { checked } }) => ux.toggleDropQuestion(checked, heading)}
-          standalone={true}
-        />
-      </Cell>
-      <Cell>
-        {heading.title}
-      </Cell>
-      <DetailsCell>
-        <QuestionPreview question={heading.question} />
-      </DetailsCell>
-      <Cell>
-        {S.numberWithOneDecimalPlace(heading.points_without_dropping)}
-      </Cell>
-      <Cell>
-        <Reallocate>
-          <label>
-            <RadioInput
-              type="radio"
-              name={`${heading.question_id}`}
-              value="full_credit"
-              disabled={!drop}
-              onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('full_credit')); }}
-              checked={Boolean(drop && drop.drop_method == 'full_credit')}
-              standalone={true}
-            /></label>
-          <label>
-            <RadioInput
-              type="radio"
-              name={`${heading.question_id}`}
-              value="zeroed"
-              disabled={!drop}
-              onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('zeroed')); }}
-              checked={Boolean(drop && drop.drop_method == 'zeroed')}
-              standalone={true}
-            />
-          </label>
-        </Reallocate>
-      </Cell>
-      <Cell>
-        {drop && drop.drop_method == 'zeroed' ?
-          '0.0' : S.numberWithOneDecimalPlace(heading.points_without_dropping)}
-      </Cell>
-    </QuestionRowWrapper>
-  );
+    return (
+        <QuestionRowWrapper
+            disabled={!!heading.dropped}
+            data-test-id="drop-question-row"
+            data-exercise-id={heading.exercise_id}
+            data-question-id={heading.question_id}
+        >
+            <Cell>
+                <CheckboxInput
+                    type="checkbox"
+                    name={heading.title}
+                    checked={!!drop}
+                    onChange={({ target: { checked } }) => ux.toggleDropQuestion(checked, heading)}
+                    standalone={true}
+                />
+            </Cell>
+            <Cell>
+                {heading.title}
+            </Cell>
+            <DetailsCell>
+                <QuestionPreview question={heading.question} />
+            </DetailsCell>
+            <Cell>
+                {S.numberWithOneDecimalPlace(heading.points_without_dropping)}
+            </Cell>
+            <Cell>
+                <Reallocate>
+                    <label>
+                        <RadioInput
+                            type="radio"
+                            name={`${heading.question_id}`}
+                            value="full_credit"
+                            disabled={!drop}
+                            onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('full_credit')); }}
+                            checked={Boolean(drop && drop.drop_method == 'full_credit')}
+                            standalone={true}
+                        /></label>
+                    <label>
+                        <RadioInput
+                            type="radio"
+                            name={`${heading.question_id}`}
+                            value="zeroed"
+                            disabled={!drop}
+                            onChange={({ target: { checked } }) => { checked && (drop.setDropMethod('zeroed')); }}
+                            checked={Boolean(drop && drop.drop_method == 'zeroed')}
+                            standalone={true}
+                        />
+                    </label>
+                </Reallocate>
+            </Cell>
+            <Cell>
+                {drop && drop.drop_method == 'zeroed' ?
+                    '0.0' : S.numberWithOneDecimalPlace(heading.points_without_dropping)}
+            </Cell>
+        </QuestionRowWrapper>
+    );
 });
 
 
@@ -239,31 +239,31 @@ const TableHeaderWrapper = styled(Row)`
 `;
 
 const TableHeader = () => (
-  <TableHeaderWrapper>
-    <Cell>Select</Cell>
-    <Cell>
-      <div>Question</div>
-      <div>number</div>
-    </Cell>
-    <LeftCell>Question details</LeftCell>
-    <Cell>
-      <div>Available</div>
-      <div>points</div>
-    </Cell>
-    <ReallocateHeader>
-      <div>
-        <div>Reallocate points</div>
-        <div>
-          <div>Give full credit</div>
-          <div>Assign '0' points</div>
-        </div>
-      </div>
-    </ReallocateHeader>
-    <Cell>
-      <div>Updated</div>
-      <div>Points</div>
-    </Cell>
-  </TableHeaderWrapper>
+    <TableHeaderWrapper>
+        <Cell>Select</Cell>
+        <Cell>
+            <div>Question</div>
+            <div>number</div>
+        </Cell>
+        <LeftCell>Question details</LeftCell>
+        <Cell>
+            <div>Available</div>
+            <div>points</div>
+        </Cell>
+        <ReallocateHeader>
+            <div>
+                <div>Reallocate points</div>
+                <div>
+                    <div>Give full credit</div>
+                    <div>Assign '0' points</div>
+                </div>
+            </div>
+        </ReallocateHeader>
+        <Cell>
+            <div>Updated</div>
+            <div>Points</div>
+        </Cell>
+    </TableHeaderWrapper>
 );
 
 const LegendBar = styled.div`
@@ -273,67 +273,67 @@ const LegendBar = styled.div`
 `;
 
 const DropQuestion = observer(({ ux }) => {
-  if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
-    return null;
-  }
+    if (!ux.planScores.isHomework || !ux.exercisesHaveBeenFetched) {
+        return null;
+    }
 
-  return (
+    return (
     <>
       <OverlayTrigger
-        placement="bottom"
-        overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
+          placement="bottom"
+          overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
       >
-        <Button
-          variant="light"
-          className="btn-standard"
-          data-test-id="drop-questions-btn"
-          onClick={() => ux.isDisplayingDropQuestions=true}
-        >
+          <Button
+              variant="light"
+              className="btn-standard"
+              data-test-id="drop-questions-btn"
+              onClick={() => ux.isDisplayingDropQuestions=true}
+          >
           Drop questions
-        </Button>
+          </Button>
       </OverlayTrigger>
       <DropQuestionsModal
-        show={ux.isDisplayingDropQuestions}
-        data-test-id="drop-questions-modal"
-        backdrop="static"
-        onHide={ux.cancelDisplayingDropQuestions}
+          show={ux.isDisplayingDropQuestions}
+          data-test-id="drop-questions-modal"
+          backdrop="static"
+          onHide={ux.cancelDisplayingDropQuestions}
       >
-        <Modal.Header closeButton>
+          <Modal.Header closeButton>
           Drop question for all sections
-        </Modal.Header>
-        <Modal.Body>
-          <Instructions>Select question(s) to drop:</Instructions>
-          <Table>
-            <TableHeader />
-            {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
-          </Table>
-          <LegendBar>
+          </Modal.Header>
+          <Modal.Body>
+              <Instructions>Select question(s) to drop:</Instructions>
+              <Table>
+                  <TableHeader />
+                  {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
+              </Table>
+              <LegendBar>
             Note: Selected questions will be dropped for all sections.
-          </LegendBar>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="default"
-            className="btn-standard"
-            data-test-id="cancel-btn"
-            onClick={ux.cancelDisplayingDropQuestions}
-          >Cancel</Button>
-          <AsyncButton
-            variant="primary"
-            className="btn-standard"
-            data-test-id="save-btn"
-            disabled={!ux.canSubmitDroppedQuestions || ux.isDroppedQuestionsSaving}
-            isWaiting={ux.isDroppedQuestionsSaving}
-            waitingText="Dropping…"
-            onClick={ux.saveDropQuestions}
-          >Save</AsyncButton>
-        </Modal.Footer>
+              </LegendBar>
+          </Modal.Body>
+          <Modal.Footer>
+              <Button
+                  variant="default"
+                  className="btn-standard"
+                  data-test-id="cancel-btn"
+                  onClick={ux.cancelDisplayingDropQuestions}
+              >Cancel</Button>
+              <AsyncButton
+                  variant="primary"
+                  className="btn-standard"
+                  data-test-id="save-btn"
+                  disabled={!ux.canSubmitDroppedQuestions || ux.isDroppedQuestionsSaving}
+                  isWaiting={ux.isDroppedQuestionsSaving}
+                  waitingText="Dropping…"
+                  onClick={ux.saveDropQuestions}
+              >Save</AsyncButton>
+          </Modal.Footer>
       </DropQuestionsModal>
     </>
-  );
+    );
 });
 DropQuestion.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default DropQuestion;

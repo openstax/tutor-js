@@ -11,51 +11,51 @@ export default
 class PaymentsCard extends React.Component {
 
   static propTypes = {
-    course: PropTypes.object.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onPaymentComplete: PropTypes.func.isRequired,
+      course: PropTypes.object.isRequired,
+      onCancel: PropTypes.func.isRequired,
+      onPaymentComplete: PropTypes.func.isRequired,
   }
 
   payments = new Payments({
-    course: this.props.course,
-    messageHandlers: {
-      cancel: this.props.onCancel,
-      payment: this.props.onPaymentComplete,
-    },
+      course: this.props.course,
+      messageHandlers: {
+          cancel: this.props.onCancel,
+          payment: this.props.onPaymentComplete,
+      },
   })
 
   componentWillUnmount() {
-    this.payments.close();
+      this.payments.close();
   }
 
   renderErrors(payments) {
-    if (payments.hasError) {
-      return (
-        <div className="error-message">
-          <p>{payments.errorMessage}</p>
-          <Button variant="primary" onClick={this.props.onCancel}>
+      if (payments.hasError) {
+          return (
+              <div className="error-message">
+                  <p>{payments.errorMessage}</p>
+                  <Button variant="primary" onClick={this.props.onCancel}>
             Close
-          </Button>
-        </div>
-      );
-    }
-    return null;
+                  </Button>
+              </div>
+          );
+      }
+      return null;
   }
 
   render() {
-    const { payments } = this;
+      const { payments } = this;
 
-    if (isBrowserExcluded()) {
-      return (<BrowserWarning />);
-    }
+      if (isBrowserExcluded()) {
+          return (<BrowserWarning />);
+      }
 
-    return (
-      <div className="payments-panel">
-        <OXFancyLoader isLoading={payments.isBusy} />
-        {this.renderErrors(payments)}
-        <div className="payments-wrapper" ref={el => payments.element=el} />
-      </div>
-    );
+      return (
+          <div className="payments-panel">
+              <OXFancyLoader isLoading={payments.isBusy} />
+              {this.renderErrors(payments)}
+              <div className="payments-wrapper" ref={el => payments.element=el} />
+          </div>
+      );
   }
 
 }

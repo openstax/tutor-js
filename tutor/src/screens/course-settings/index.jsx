@@ -18,66 +18,66 @@ export default
 class CourseSettings extends React.Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-    }).isRequired,
+      params: PropTypes.shape({
+          courseId: PropTypes.string.isRequired,
+      }).isRequired,
   }
 
   @observable tabIndex;
 
   @computed get course() {
-    return Courses.get(this.props.params.courseId);
+      return Courses.get(this.props.params.courseId);
   }
 
   @action.bound onTabSelect(tabIndex) {
-    this.tabIndex = tabIndex;
+      this.tabIndex = tabIndex;
   }
 
   renderAccess() {
-    return (
-      <StudentAccess course={this.course} />
-    );
+      return (
+          <StudentAccess course={this.course} />
+      );
   }
 
   renderDates() {
-    const { course } = this;
-    return (
-      <div className="dates-and-times">
-        <div>
+      const { course } = this;
+      return (
+          <div className="dates-and-times">
+              <div>
           Term: {course.termFull}
-        </div>
-        <div>
+              </div>
+              <div>
           Starts: {df(course.bounds.start)} Ends: {df(course.bounds.end)}
-        </div>
-        <div>
-          {course.timezone}
-          <Timezone course={course} />
-        </div>
-      </div>
-    );
+              </div>
+              <div>
+                  {course.timezone}
+                  <Timezone course={course} />
+              </div>
+          </div>
+      );
   }
 
   render() {
-    const { course, tabIndex } = this;
-    return (
-      <CoursePage
-        className="settings"
-        title="Course settings"
-        course={course}
-      >
-        <div className="course-settings-title">
-          {course.name}
-          <RenameCourseLink course={this.course} />
-        </div>
-        <h4 className="course-settings-term">
-          {course.termFull}
-        </h4>
-        <Tabs
-          tabs={['STUDENT ACCESS', 'DATES AND TIME']}
-          onSelect={this.onTabSelect}
-        />
-        {tabIndex ? this.renderDates() : this.renderAccess()}
-      </CoursePage>
-    );
+      const { course, tabIndex } = this;
+      return (
+          <CoursePage
+              className="settings"
+              title="Course settings"
+              course={course}
+          >
+              <div className="course-settings-title">
+                  {course.name}
+                  <RenameCourseLink course={this.course} />
+              </div>
+              <h4 className="course-settings-term">
+                  {course.termFull}
+              </h4>
+              <Tabs
+                  tabs={['STUDENT ACCESS', 'DATES AND TIME']}
+                  onSelect={this.onTabSelect}
+              />
+              {tabIndex ? this.renderDates() : this.renderAccess()}
+          </CoursePage>
+      );
   }
 }

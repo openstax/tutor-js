@@ -28,45 +28,45 @@ const Controls = styled.div`
 `;
 
 const DeleteModal = observer(({ ux: { onConfirmDelete, onCancelDelete } }) => {
-  return (
-    <Modal
-      show={true}
-      onHide={onCancelDelete}
-      backdrop="static"
-    >
-      <StyledHeader closeButton>
+    return (
+        <Modal
+            show={true}
+            onHide={onCancelDelete}
+            backdrop="static"
+        >
+            <StyledHeader closeButton>
         Delete assignment?
-      </StyledHeader>
-      <StyledBody>
-        <p>Some students may have started work on this assignment. Are you sure you want to permanently
+            </StyledHeader>
+            <StyledBody>
+                <p>Some students may have started work on this assignment. Are you sure you want to permanently
         delete this assignment?</p>
-        <p>You can't undo this action.</p>
-        <ControlsWrapper>
-          <Controls>
-            <Button
-              data-test-id="confirm-delete-assignment"
-              variant="default"
-              className="btn-standard btn-inline"
-              onClick={onConfirmDelete}
-            >
+                <p>You can't undo this action.</p>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button
+                            data-test-id="confirm-delete-assignment"
+                            variant="default"
+                            className="btn-standard btn-inline"
+                            onClick={onConfirmDelete}
+                        >
               Delete
-            </Button>
-            <Button
-              data-test-id="cancel-delete-assignment"
-              className="btn-standard btn-inline"
-              onClick={onCancelDelete}
-            >
+                        </Button>
+                        <Button
+                            data-test-id="cancel-delete-assignment"
+                            className="btn-standard btn-inline"
+                            onClick={onCancelDelete}
+                        >
               Cancel
-            </Button>
-          </Controls>
-        </ControlsWrapper>
-      </StyledBody>
-    </Modal>
-  );
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
+    );
 });
 
 DeleteModal.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default DeleteModal;

@@ -4,13 +4,13 @@ import keymaster from 'keymaster';
 const keysHelper = {};
 
 const handleKeys = function(keyFN, keys, ...keymasterArgs) {
-  if (!keys) { return (keys != null); }
-  // cover for some annoying keymaster bugs
-  if (_.isArray(keys)) {
-    return _.each(keys, key => keyFN(key.toString(), ...Array.from(keymasterArgs)));
-  } else {
-    return keyFN(keys, ...Array.from(keymasterArgs));
-  }
+    if (!keys) { return (keys != null); }
+    // cover for some annoying keymaster bugs
+    if (_.isArray(keys)) {
+        return _.each(keys, key => keyFN(key.toString(), ...Array.from(keymasterArgs)));
+    } else {
+        return keyFN(keys, ...Array.from(keymasterArgs));
+    }
 };
 
 keysHelper.on = _.partial(handleKeys, keymaster);

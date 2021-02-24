@@ -2,22 +2,22 @@ import React from 'react';
 import SmartOverflow from '../../src/components/smart-overflow';
 
 const TestChildComponent = () => (
-  <span>
+    <span>
     i am a test
-  </span>
+    </span>
 );
 
 describe('SmartOverflow Component', function() {
-  let props = null;
+    let props = null;
 
-  beforeEach(() =>
-    props = {
-      className: 'testing',
-      children: <TestChildComponent />,
-    }
-  );
+    beforeEach(() =>
+        props = {
+            className: 'testing',
+            children: <TestChildComponent />,
+        }
+    );
 
-  it('renders with className', () => {
-    expect.snapshot(<SmartOverflow {...props} />).toMatchSnapshot();
-  });
+    it('renders with className', () => {
+        expect.snapshot(<SmartOverflow {...props} />).toMatchSnapshot();
+    });
 });

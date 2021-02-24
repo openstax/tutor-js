@@ -17,8 +17,8 @@ const KEYS =
 
 // a - i
 KEYS['multiple-choice-alpha'] = map(
-  KEYS['multiple-choice-numbers'],
-  (k) => keysHelper.getCharFromNumKey(k, 1)
+    KEYS['multiple-choice-numbers'],
+    (k) => keysHelper.getCharFromNumKey(k, 1)
 );
 
 KEYS['multiple-choice'] = zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
@@ -29,7 +29,7 @@ KEYSETS_PROPS.push(null); // keySet could be null for disabling keyControling
 let idCounter = 0;
 
 const isAnswerChecked = function(answer, chosenAnswer) {
-  return chosenAnswer.includes(answer.id);
+    return chosenAnswer.includes(answer.id);
 };
 
 @observer
@@ -37,157 +37,157 @@ export default
 class AnswersTable extends React.Component {
 
   static propTypes = {
-    question: PropTypes.oneOfType([
-      PropTypes.instanceOf(QuestionModel),
-      PropTypes.instanceOf(ReviewQuestion),
-    ]).isRequired,
-    type: PropTypes.string.isRequired,
-    answer_id: idType,
-    correct_answer_id: idType,
-    feedback_html: PropTypes.string,
-    answered_count: PropTypes.number,
-    show_all_feedback: PropTypes.bool,
-    onChange: PropTypes.func,
-    hideAnswers: PropTypes.bool,
-    hasCorrectAnswer: PropTypes.bool,
-    onChangeAttempt: PropTypes.func,
-    keySet: PropTypes.oneOf(KEYSETS_PROPS),
-    focus: PropTypes.bool,
-    project: PropTypes.string,
-    choicesEnabled: PropTypes.bool,
+      question: PropTypes.oneOfType([
+          PropTypes.instanceOf(QuestionModel),
+          PropTypes.instanceOf(ReviewQuestion),
+      ]).isRequired,
+      type: PropTypes.string.isRequired,
+      answer_id: idType,
+      correct_answer_id: idType,
+      feedback_html: PropTypes.string,
+      answered_count: PropTypes.number,
+      show_all_feedback: PropTypes.bool,
+      onChange: PropTypes.func,
+      hideAnswers: PropTypes.bool,
+      hasCorrectAnswer: PropTypes.bool,
+      onChangeAttempt: PropTypes.func,
+      keySet: PropTypes.oneOf(KEYSETS_PROPS),
+      focus: PropTypes.bool,
+      project: PropTypes.string,
+      choicesEnabled: PropTypes.bool,
   };
 
   static defaultProps = {
-    type: 'student',
-    show_all_feedback: false,
-    keySet: 'multiple-choice',
+      type: 'student',
+      show_all_feedback: false,
+      keySet: 'multiple-choice',
   };
 
   constructor(props, context) {
-    super(props, context);
-    const originalKeyScope = this.getOriginalKeyScope();
+      super(props, context);
+      const originalKeyScope = this.getOriginalKeyScope();
 
-    this.state = {
-      answer_id: null,
-      originalKeyScope,
-    };
+      this.state = {
+          answer_id: null,
+          originalKeyScope,
+      };
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const originalKeyScope = this.getOriginalKeyScope(nextProps);
-    if (originalKeyScope != null) { this.setState({ originalKeyScope }); }
-    if (nextProps.answer_id !== this.state.answer_id) { this.setState({ answer_id: null }); }
+      const originalKeyScope = this.getOriginalKeyScope(nextProps);
+      if (originalKeyScope != null) { this.setState({ originalKeyScope }); }
+      if (nextProps.answer_id !== this.state.answer_id) { this.setState({ answer_id: null }); }
 
-    if (!isNil(this.props.keySet) && isNil(nextProps.keySet)) { this.resetToOriginalKeyScope(); }
+      if (!isNil(this.props.keySet) && isNil(nextProps.keySet)) { this.resetToOriginalKeyScope(); }
   }
 
   componentWillUnmount() {
-    this.resetToOriginalKeyScope();
+      this.resetToOriginalKeyScope();
   }
 
   getOriginalKeyScope = (props) => {
-    if (props == null) { ({ props } = this); }
+      if (props == null) { ({ props } = this); }
 
-    const originalKeyScope = keymaster.getScope();
-    if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) {
-      originalKeyScope;
-    }
+      const originalKeyScope = keymaster.getScope();
+      if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) {
+          originalKeyScope;
+      }
   };
 
   resetToOriginalKeyScope = () => {
-    const { originalKeyScope } = this.state;
-    if (originalKeyScope != null) { keymaster.setScope(originalKeyScope); }
-    this.setState({ originalKeyScope: undefined });
+      const { originalKeyScope } = this.state;
+      if (originalKeyScope != null) { keymaster.setScope(originalKeyScope); }
+      this.setState({ originalKeyScope: undefined });
   };
 
   @action.bound onChangeAnswer(answer, changeEvent) {
-    if (this.props.onChange) {
-      this.setState({ answer_id: answer.id });
-      return (
-        this.props.onChange(answer)
-      );
-    } else {
-      if (changeEvent != null) {
-        changeEvent.preventDefault();
+      if (this.props.onChange) {
+          this.setState({ answer_id: answer.id });
+          return (
+              this.props.onChange(answer)
+          );
+      } else {
+          if (changeEvent != null) {
+              changeEvent.preventDefault();
+          }
+          return (
+              (typeof this.props.onChangeAttempt === 'function' ? this.props.onChangeAttempt(answer) : undefined)
+          );
       }
-      return (
-        (typeof this.props.onChangeAttempt === 'function' ? this.props.onChangeAttempt(answer) : undefined)
-      );
-    }
   }
 
   shouldInstructionsShow = () => {
-    const { type, question, answer_id } = this.props;
-    return (
-      (question.formats.length > 1) &&
+      const { type, question, answer_id } = this.props;
+      return (
+          (question.formats.length > 1) &&
         !['teacher-preview', 'teacher-review', 'student-mpp'].includes(type)
-    );
+      );
   };
 
   hasIncorrectAnswer = () => {
-    const { answer_id, correct_answer_id, choicesEnabled } = this.props;
-    return (
-      !!(answer_id && !choicesEnabled && (answer_id !== correct_answer_id))
-    );
+      const { answer_id, correct_answer_id, choicesEnabled } = this.props;
+      return (
+          !!(answer_id && !choicesEnabled && (answer_id !== correct_answer_id))
+      );
   };
 
   render() {
-    let feedback, instructions;
-    const {
-      question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
-      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer, focus,
-    } = this.props;
-    if (hideAnswers) { return null; }
+      let feedback, instructions;
+      const {
+          question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
+          answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer, focus,
+      } = this.props;
+      if (hideAnswers) { return null; }
 
-    const { answers, id } = question;
+      const { answers, id } = question;
 
-    const chosenAnswer = [answer_id, this.state.answer_id];
-    let checkedAnswerIndex = null;
+      const chosenAnswer = [answer_id, this.state.answer_id];
+      let checkedAnswerIndex = null;
     
-    const questionAnswerProps = {
-      qid: id || `auto-${idCounter++}`,
-      correctAnswerId: correct_answer_id,
-      hasCorrectAnswer,
-      chosenAnswer,
-      onChangeAnswer: this.onChangeAnswer,
-      type,
-      answered_count,
-      disabled: !choicesEnabled,
-      show_all_feedback,
-    };
+      const questionAnswerProps = {
+          qid: id || `auto-${idCounter++}`,
+          correctAnswerId: correct_answer_id,
+          hasCorrectAnswer,
+          chosenAnswer,
+          onChangeAnswer: this.onChangeAnswer,
+          type,
+          answered_count,
+          disabled: !choicesEnabled,
+          show_all_feedback,
+      };
 
-    const answersHtml = map(answers, function(answer, i) {
-      const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
-      if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
-      const answerProps = extend({}, additionalProps, questionAnswerProps);
-      if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
+      const answersHtml = map(answers, function(answer, i) {
+          const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
+          if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
+          const answerProps = extend({}, additionalProps, questionAnswerProps);
+          if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
+
+          return (
+              <Answer {...answerProps} />
+          );
+      });
+
+      if (feedback_html) {
+          feedback = (
+              <Feedback key="question-mc-feedback">
+                  {feedback_html}
+              </Feedback>
+          );
+      }
+      if ((feedback != null) && (checkedAnswerIndex != null)) { answersHtml.splice(checkedAnswerIndex + 1, 0, feedback); }
+
+      if (this.shouldInstructionsShow()) {
+          instructions = <Instructions
+              project={project}
+              hasFeedback={feedback_html != null}
+              hasIncorrectAnswer={this.hasIncorrectAnswer()} />;
+      }
 
       return (
-        <Answer {...answerProps} />
+          <div className="answers-table">
+              {instructions}
+              {answersHtml}
+          </div>
       );
-    });
-
-    if (feedback_html) {
-      feedback = (
-        <Feedback key="question-mc-feedback">
-          {feedback_html}
-        </Feedback>
-      );
-    }
-    if ((feedback != null) && (checkedAnswerIndex != null)) { answersHtml.splice(checkedAnswerIndex + 1, 0, feedback); }
-
-    if (this.shouldInstructionsShow()) {
-      instructions = <Instructions
-        project={project}
-        hasFeedback={feedback_html != null}
-        hasIncorrectAnswer={this.hasIncorrectAnswer()} />;
-    }
-
-    return (
-      <div className="answers-table">
-        {instructions}
-        {answersHtml}
-      </div>
-    );
   }
 }

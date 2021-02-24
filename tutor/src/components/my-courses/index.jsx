@@ -15,64 +15,64 @@ import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 export default
 class MyCourses extends React.Component {
 
-  componentDidMount() {
-    User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
-  }
+    componentDidMount() {
+        User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
+    }
 
   @computed get firstCourse() {
-    return Courses.array[0];
-  }
+        return Courses.array[0];
+    }
 
   @computed get shouldRedirect() {
-    if (Courses.size !== 1){
-      return false;
-    }
-    return (
-      !User.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
-    );
+      if (Courses.size !== 1){
+          return false;
+      }
+      return (
+          !User.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
+      );
   }
 
   render() {
-    if (Courses.isEmpty) {
-      if (!User.isProbablyTeacher) {
-        return <EmptyCourses />;
+      if (Courses.isEmpty) {
+          if (!User.isProbablyTeacher) {
+              return <EmptyCourses />;
+          }
+          if (User.wasNewlyCreated && !User.canCreateCourses) {
+              return <PendingVerification />;
+          } else if (User.isConfirmedFaculty) {
+              if (!User.canCreateCourses) {
+                  return <NonAllowedTeacher />;
+              }
+          } else if (User.isUnverifiedInstructor) {
+              return <PendingVerification />;
+          } else {
+              return <EmptyCourses />;
+          }
       }
-      if (User.wasNewlyCreated && !User.canCreateCourses) {
-        return <PendingVerification />;
-      } else if (User.isConfirmedFaculty) {
-        if (!User.canCreateCourses) {
-          return <NonAllowedTeacher />;
-        }
-      } else if (User.isUnverifiedInstructor) {
-        return <PendingVerification />;
-      } else {
-        return <EmptyCourses />;
-      }
-    }
 
-    if (this.shouldRedirect) {
+      if (this.shouldRedirect) {
+          return (
+              <Redirect to={Router.makePathname('dashboard', { courseId: this.firstCourse.id })} />
+          );
+      }
+
       return (
-        <Redirect to={Router.makePathname('dashboard', { courseId: this.firstCourse.id })} />
+          <TourRegion
+              id="my-courses"
+              otherTours={[
+                  'my-courses-coach-migrate',
+                  'create-a-course',
+                  'my-courses-coach-no-migrate',
+                  'explore-a-preview', // this must come last, there's no dismiss btn
+              ]}
+              data-test-id="my-courses"
+              className="my-courses"
+          >
+              <MyCoursesCurrent />
+              <MyCoursesPreview />
+              <MyCoursesPast    />
+          </TourRegion>
       );
-    }
-
-    return (
-      <TourRegion
-        id="my-courses"
-        otherTours={[
-          'my-courses-coach-migrate',
-          'create-a-course',
-          'my-courses-coach-no-migrate',
-          'explore-a-preview', // this must come last, there's no dismiss btn
-        ]}
-        data-test-id="my-courses"
-        className="my-courses"
-      >
-        <MyCoursesCurrent />
-        <MyCoursesPreview />
-        <MyCoursesPast    />
-      </TourRegion>
-    );
   }
 
 }

@@ -16,24 +16,24 @@ import CourseGroupingLabel from '../../components/course-grouping-label';
 class RenamePeriodField extends React.Component {
 
   static propTypes = {
-    label: PropTypes.object.isRequired,
-    name:  PropTypes.string.isRequired,
-    default: PropTypes.string.isRequired,
-    onChange:  PropTypes.func.isRequired,
-    validate: PropTypes.func.isRequired,
+      label: PropTypes.object.isRequired,
+      name:  PropTypes.string.isRequired,
+      default: PropTypes.string.isRequired,
+      onChange:  PropTypes.func.isRequired,
+      validate: PropTypes.func.isRequired,
   }
 
   render() {
-    return (
-      <TutorInput
-        ref="input"
-        autoFocus
-        label={this.props.label}
-        default={this.props.default}
-        required={true}
-        onChange={this.props.onChange}
-        validate={this.props.validate} />
-    );
+      return (
+          <TutorInput
+              ref="input"
+              autoFocus
+              label={this.props.label}
+              default={this.props.default}
+              required={true}
+              onChange={this.props.onChange}
+              validate={this.props.validate} />
+      );
   }
 }
 
@@ -43,7 +43,7 @@ export default
 class RenamePeriod extends React.Component {
 
   static propTypes = {
-    period: PropTypes.instanceOf(Period).isRequired,
+      period: PropTypes.instanceOf(Period).isRequired,
   }
 
 
@@ -52,80 +52,80 @@ class RenamePeriod extends React.Component {
   @observable newName = '';
 
   @action.bound close() {
-    this.showModal = false;
+      this.showModal = false;
   }
 
   @action.bound open() {
-    this.showModal = true;
+      this.showModal = true;
   }
 
   @action.bound validate(name) {
-    this.isValid = this.props.period.isNameValid(name);
+      this.isValid = this.props.period.isNameValid(name);
   }
 
   @action.bound onChange(name) {
-    this.newName = name;
+      this.newName = name;
   }
 
   @action.bound performUpdate() {
-    if (this.isValid) {
-      this.props.period.name = this.newName;
-      this.props.period.save().then(this.close);
-    }
+      if (this.isValid) {
+          this.props.period.name = this.newName;
+          this.props.period.save().then(this.close);
+      }
   }
 
   @computed get course() {
-    return this.props.period.course;
+      return this.props.period.course;
   }
 
   renderForm() {
-    const { period } = this.props;
+      const { period } = this.props;
 
-    return (
-      <Modal
-        show={this.showModal}
-        onHide={this.close}
-        className="settings-edit-period-modal">
-        <Modal.Header closeButton={true}>
-          <Modal.Title>
+      return (
+          <Modal
+              show={this.showModal}
+              onHide={this.close}
+              className="settings-edit-period-modal">
+              <Modal.Header closeButton={true}>
+                  <Modal.Title>
             Rename <CourseGroupingLabel courseId={this.course.id} />
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={classnames({ 'is-invalid-form': !this.isValid })}>
-          <RenamePeriodField
-            label={
-              <span><CourseGroupingLabel courseId={this.course.id} /> Name</span>
-            }
-            name="period-name"
-            default={this.props.period.name}
-            onChange={this.onChange}
-            validate={this.validate}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <AsyncButton
-            className="-edit-period-confirm"
-            onClick={this.performUpdate}
-            isWaiting={period.api.isPending}
-            waitingText="Saving..."
-            disabled={!this.isValid}
-          >
+                  </Modal.Title>
+              </Modal.Header>
+              <Modal.Body className={classnames({ 'is-invalid-form': !this.isValid })}>
+                  <RenamePeriodField
+                      label={
+                          <span><CourseGroupingLabel courseId={this.course.id} /> Name</span>
+                      }
+                      name="period-name"
+                      default={this.props.period.name}
+                      onChange={this.onChange}
+                      validate={this.validate}
+                  />
+              </Modal.Body>
+              <Modal.Footer>
+                  <AsyncButton
+                      className="-edit-period-confirm"
+                      onClick={this.performUpdate}
+                      isWaiting={period.api.isPending}
+                      waitingText="Saving..."
+                      disabled={!this.isValid}
+                  >
             Rename
-          </AsyncButton>
-        </Modal.Footer>
-      </Modal>
-    );
+                  </AsyncButton>
+              </Modal.Footer>
+          </Modal>
+      );
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <Button onClick={this.open} variant="link" className="control rename-period">
-          <Icon type="pencil-alt" /> Rename
-        </Button>
-        {this.renderForm()}
-      </React.Fragment>
-    );
+      return (
+          <React.Fragment>
+              <Button onClick={this.open} variant="link" className="control rename-period">
+                  <Icon type="pencil-alt" /> Rename
+              </Button>
+              {this.renderForm()}
+          </React.Fragment>
+      );
   }
 
 }

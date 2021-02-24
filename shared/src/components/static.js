@@ -4,8 +4,8 @@ import React from 'react';
 // like SVG Icons that should never re-render.
 export default class StaticComponent extends React.Component {
 
-  shouldComponentUpdate() {
-    return false;
-  }
+    shouldComponentUpdate() {
+        return false;
+    }
 
 }

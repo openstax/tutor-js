@@ -17,65 +17,65 @@ class TourConductor extends React.Component {
   @observable menuOpen = false;
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
-    spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
-    tourContext: PropTypes.instanceOf(TourContext),
+      children: PropTypes.node.isRequired,
+      modalManager: PropTypes.instanceOf(ModalManager).isRequired,
+      spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
+      tourContext: PropTypes.instanceOf(TourContext),
   }
 
   constructor(props) {
-    super(props);
-    this.tourContext = props.tourContext || new TourContext();
+      super(props);
+      this.tourContext = props.tourContext || new TourContext();
 
-    this.props.modalManager.queue(this, 2);
-    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
+      this.props.modalManager.queue(this, 2);
+      this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
 
   componentWillUnmount() {
-    this.spyModeObserverDispose();
+      this.spyModeObserverDispose();
   }
 
   @autobind
   onSpyModelChange({ newValue: isEnabled }) {
-    if (isEnabled) {
-      User.resetTours();
-    }
+      if (isEnabled) {
+          User.resetTours();
+      }
   }
 
   @computed get isReady() {
-    return Boolean(
-      this.tourContext.isReady &&
+      return Boolean(
+          this.tourContext.isReady &&
         this.tourContext.tourRide &&
         this.tourContext.tourRide.isReady
-    );
+      );
   }
 
   renderTour() {
-    if (this.props.modalManager.canDisplay(this)) {
-      const { tourRide } = this.tourContext;
-      return <Step {...tourRide.props} />;
-    }
-    return null;
+      if (this.props.modalManager.canDisplay(this)) {
+          const { tourRide } = this.tourContext;
+          return <Step {...tourRide.props} />;
+      }
+      return null;
   }
 
   renderSpyModeInfo() {
-    return (
-      <SpyModeContent>
-        <div className="tour-spy-info">{this.tourContext.debugStatus}</div>
-      </SpyModeContent>
-    );
+      return (
+          <SpyModeContent>
+              <div className="tour-spy-info">{this.tourContext.debugStatus}</div>
+          </SpyModeContent>
+      );
   }
 
   render() {
-    return (
-      <Provider tourContext={this.tourContext}>
-        <div data-purpose="tour-conductor-wrapper">
-          {this.renderTour()}
-          {this.props.children}
-          {this.renderSpyModeInfo()}
-        </div>
-      </Provider>
-    );
+      return (
+          <Provider tourContext={this.tourContext}>
+              <div data-purpose="tour-conductor-wrapper">
+                  {this.renderTour()}
+                  {this.props.children}
+                  {this.renderSpyModeInfo()}
+              </div>
+          </Provider>
+      );
   }
 
 

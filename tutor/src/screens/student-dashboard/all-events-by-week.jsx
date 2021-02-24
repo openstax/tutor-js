@@ -14,33 +14,33 @@ export default
 class AllEventsByWeek extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @autobind
   renderWeek(tasks, week) {
-    const startAt = moment(week, 'YYYYww');
-    return (
-      <EventsCard
-        key={week}
-        className="-weeks-events"
-        course={this.props.course}
-        events={tasks}
-        startAt={startAt}
-        endAt={startAt.clone().add(1, 'week')} />
-    );
+      const startAt = moment(week, 'YYYYww');
+      return (
+          <EventsCard
+              key={week}
+              className="-weeks-events"
+              course={this.props.course}
+              events={tasks}
+              startAt={startAt}
+              endAt={startAt.clone().add(1, 'week')} />
+      );
   }
 
   render() {
-    const { course, course: { studentTaskPlans } } = this.props;
-    const weeks = studentTaskPlans.pastTasksByWeek;
+      const { course, course: { studentTaskPlans } } = this.props;
+      const weeks = studentTaskPlans.pastTasksByWeek;
 
-    return (
-      <div>
-        <EmptyCard course={course} message="No past assignments" tasks={weeks} />
-        {map(weeks, this.renderWeek)}
-        <StatusLegend tasks={weeks} />
-      </div>
-    );
+      return (
+          <div>
+              <EmptyCard course={course} message="No past assignments" tasks={weeks} />
+              {map(weeks, this.renderWeek)}
+              <StatusLegend tasks={weeks} />
+          </div>
+      );
   }
 }

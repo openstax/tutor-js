@@ -12,39 +12,39 @@ export default
 class ScoresExport extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get scoresExport() {
-    return Export.forCourse(this.props.course);
+      return Export.forCourse(this.props.course);
   }
 
   @action.bound startExport() {
-    this.scoresExport.create();
+      this.scoresExport.create();
   }
 
   @computed get message() {
-    if (this.scoresExport.isPending) {
-      return <span className="busy">Exporting spreadsheet…</span>;
-    }
-    const { lastExportedAt } = this.scoresExport;
-    if (lastExportedAt) {
-      return <span>Last exported: {lastExportedAt}</span>;
-    }
-    return <span>Export all scores as spreadsheet</span>;
+      if (this.scoresExport.isPending) {
+          return <span className="busy">Exporting spreadsheet…</span>;
+      }
+      const { lastExportedAt } = this.scoresExport;
+      if (lastExportedAt) {
+          return <span>Last exported: {lastExportedAt}</span>;
+      }
+      return <span>Export all scores as spreadsheet</span>;
   }
 
   render() {
-    return (
-      <TourAnchor className="job scores-export" id="scores-export-button">
-        <Icon
-          type="download"
-          disabled={this.scoresExport.isPending}
-          onClick={this.startExport}
-        />
-        {this.message}
-      </TourAnchor>
-    );
+      return (
+          <TourAnchor className="job scores-export" id="scores-export-button">
+              <Icon
+                  type="download"
+                  disabled={this.scoresExport.isPending}
+                  onClick={this.startExport}
+              />
+              {this.message}
+          </TourAnchor>
+      );
   }
 
 }

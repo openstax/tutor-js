@@ -14,36 +14,36 @@ export default
 class CreateACourse extends React.Component {
 
   static propTypes = {
-    isHovering: PropTypes.bool,
-    history: PropTypes.object.isRequired,
+      isHovering: PropTypes.bool,
+      history: PropTypes.object.isRequired,
   }
 
   onDrop(course) {
-    const url = Router.makePathname('createNewCourse', { sourceId: course.id });
-    this.props.history.push(url);
+      const url = Router.makePathname('createNewCourse', { sourceId: course.id });
+      this.props.history.push(url);
   }
 
   renderAddZone() {
-    return (
-      <div className="my-courses-add-zone">
-        <TutorLink
-          to="createNewCourse"
-          className={classnames({ 'is-hovering': this.props.isHovering })}>
-          <div>
-            <IconAdd />
-            <span>
+      return (
+          <div className="my-courses-add-zone">
+              <TutorLink
+                  to="createNewCourse"
+                  className={classnames({ 'is-hovering': this.props.isHovering })}>
+                  <div>
+                      <IconAdd />
+                      <span>
               CREATE A COURSE
-            </span>
+                      </span>
+                  </div>
+              </TutorLink>
           </div>
-        </TutorLink>
-      </div>
-    );
+      );
   }
 
   render() {
-    return (
-      <TourAnchor id="create-course-zone">
-        {this.renderAddZone()}
-      </TourAnchor>);
+      return (
+          <TourAnchor id="create-course-zone">
+              {this.renderAddZone()}
+          </TourAnchor>);
   }
 }

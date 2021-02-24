@@ -5,19 +5,19 @@ import Course from '../../../src/models/course';
 import Student from '../../../src/models/course/onboarding/student-course';
 
 describe('Free trial ended modal', () => {
-  let ux;
-  beforeEach(() => {
-    ux = new Student(new Course(STUDENT_COURSE_ONE_MODEL));
-  });
+    let ux;
+    beforeEach(() => {
+        ux = new Student(new Course(STUDENT_COURSE_ONE_MODEL));
+    });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(
-      <C>
-        <FreeTrialActivated
-          onDismiss={jest.fn()}
-          ux={ux} />
-      </C>
-    ).toMatchSnapshot();
-  });
+    it('renders and matches snapshot', () => {
+        expect.snapshot(
+            <C>
+                <FreeTrialActivated
+                    onDismiss={jest.fn()}
+                    ux={ux} />
+            </C>
+        ).toMatchSnapshot();
+    });
 
 });

@@ -80,145 +80,145 @@ const StyledPopover = styled(Popover)`
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
-    onSelectSections: PropTypes.func.isRequired,
-    exerciseTypeFilter: PropTypes.string.isRequired,
-    onExerciseTypeFilterChange: PropTypes.func.isRequired,
-    onFilterHomeworkExercises: PropTypes.func.isRequired,
-    displayedChapterSections: PropTypes.array,
-    showingDetails: PropTypes.bool,
-    topScrollOffset: PropTypes.number,
-    onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
-    setSecondaryTopControls: PropTypes.func.isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
+      exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+      onSelectSections: PropTypes.func.isRequired,
+      exerciseTypeFilter: PropTypes.string.isRequired,
+      onExerciseTypeFilterChange: PropTypes.func.isRequired,
+      onFilterHomeworkExercises: PropTypes.func.isRequired,
+      displayedChapterSections: PropTypes.array,
+      showingDetails: PropTypes.bool,
+      topScrollOffset: PropTypes.number,
+      onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
+      setSecondaryTopControls: PropTypes.func.isRequired,
   };
 
   onExerciseTypeFilterClick = (ev) => {
-    let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
-    if (exerciseTypeFilter === this.props.exerciseTypeFilter) { exerciseTypeFilter = ''; }
-    return (
-      this.props.onExerciseTypeFilterChange( exerciseTypeFilter )
-    );
+      let exerciseTypeFilter = ev.currentTarget.getAttribute('data-exercise-filter');
+      if (exerciseTypeFilter === this.props.exerciseTypeFilter) { exerciseTypeFilter = ''; }
+      return (
+          this.props.onExerciseTypeFilterChange( exerciseTypeFilter )
+      );
   };
 
   @autobind renderControls() {
-    const {
-      exercises,
-      displayedChapterSections,
-      showingDetails,
-      exerciseTypeFilter,
-      topScrollOffset,
-      onFilterHomeworkExercises,
-      onDisplayAddEditQuestionModal } = this.props;
+      const {
+          exercises,
+          displayedChapterSections,
+          showingDetails,
+          exerciseTypeFilter,
+          topScrollOffset,
+          onFilterHomeworkExercises,
+          onDisplayAddEditQuestionModal } = this.props;
 
-    let sectionizerProps;
+      let sectionizerProps;
 
-    if (showingDetails) {
-      sectionizerProps = {
-        currentSection: this.currentSection,
-        onSectionClick: this.setCurrentSection,
-      };
-    }
+      if (showingDetails) {
+          sectionizerProps = {
+              currentSection: this.currentSection,
+              onSectionClick: this.setCurrentSection,
+          };
+      }
 
-    const libraryPopover =
+      const libraryPopover =
       <StyledPopover>
         OpenStax Tutor has two main assignment types: Reading and Homework,
         and offers different question libraries for each type.
       </StyledPopover>;
 
-    const sections =
+      const sections =
       <div className={cn('exercise-controls-bar sections-control', { 'is-details': showingDetails })}>
-        <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
-          <Icon
-            size="lg"
-            type="angle-left"
-          />
+          <Button className="back-to-section" variant="link" onClick={this.props.onSelectSections}>
+              <Icon
+                  size="lg"
+                  type="angle-left"
+              />
         Sections
-        </Button>
-        {
-          displayedChapterSections.length > 0 && 
+          </Button>
+          {
+              displayedChapterSections.length > 0 && 
           <ScrollSpy dataSelector="data-section">
-            <Sectionizer
-              ref="sectionizer"
-              {...sectionizerProps}
-              fullWidth
-              onScreenElements={[]}
-              chapter_sections={displayedChapterSections}
-              topScrollOffset={topScrollOffset}
-            />
+              <Sectionizer
+                  ref="sectionizer"
+                  {...sectionizerProps}
+                  fullWidth
+                  onScreenElements={[]}
+                  chapter_sections={displayedChapterSections}
+                  topScrollOffset={topScrollOffset}
+              />
           </ScrollSpy>
-        }
+          }
       </div>;
 
-    const homeworkFiltersAndCreateButton = () => {
-      if(exerciseTypeFilter !== 'homework') {
-        return null;
-      }
-      // need to pass the `exercises.homework` so the useEffect can be triggered
-      // useEffect treats an Observable map as an array so it won't listen to changes
-      // if we add or delete an element.
-      return (
-        <div className="questions-controls-wrapper">
-          <HomeExerciseFilters
-            className="question-filters"
-            exercises={exercises.homework}
-            returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}
-          />
-          <Button
-            variant="primary"
-            data-test-id="create-question"
-            onClick={partial(onDisplayAddEditQuestionModal, true)}>
+      const homeworkFiltersAndCreateButton = () => {
+          if(exerciseTypeFilter !== 'homework') {
+              return null;
+          }
+          // need to pass the `exercises.homework` so the useEffect can be triggered
+          // useEffect treats an Observable map as an array so it won't listen to changes
+          // if we add or delete an element.
+          return (
+              <div className="questions-controls-wrapper">
+                  <HomeExerciseFilters
+                      className="question-filters"
+                      exercises={exercises.homework}
+                      returnFilteredExercises={(ex) => onFilterHomeworkExercises(ex)}
+                  />
+                  <Button
+                      variant="primary"
+                      data-test-id="create-question"
+                      onClick={partial(onDisplayAddEditQuestionModal, true)}>
             Create question
-          </Button>
-        </div>    
-      );
-    };
+                  </Button>
+              </div>    
+          );
+      };
 
-    if (showingDetails) {
+      if (showingDetails) {
+          return (
+              <StyledExerciseControls>
+                  {sections}
+              </StyledExerciseControls>
+          );
+      }
+
       return (
-        <StyledExerciseControls>
-          {sections}
-        </StyledExerciseControls>
+          <StyledExerciseControls>
+              {sections}
+              <div className="exercise-controls-bar filters-control">
+                  <div className="exercise-controls-wrapper">
+                      <OverlayTrigger placement="bottom" overlay={libraryPopover}>
+                          <span className="library-label">Library</span>
+                      </OverlayTrigger>
+                      <div className="exercise-filters">
+                          <TourAnchor id="exercise-type-toggle">
+                              <RadioInput
+                                  name="filter-assignment-type"
+                                  value="homework"
+                                  label="Homework questions"
+                                  labelSize="lg"
+                                  data-exercise-filter="homework"
+                                  checked={exerciseTypeFilter === 'homework'}
+                                  onChange={this.onExerciseTypeFilterClick}
+                                  standalone
+                              />
+                              <RadioInput
+                                  name="filter-assignment-type"
+                                  value="reading"
+                                  label="Reading questions"
+                                  labelSize="lg"
+                                  data-exercise-filter="reading"
+                                  checked={exerciseTypeFilter === 'reading'}
+                                  onChange={this.onExerciseTypeFilterClick}
+                                  standalone
+                              />
+                          </TourAnchor>
+                      </div>
+                  </div>
+                  {homeworkFiltersAndCreateButton()}
+              </div>
+          </StyledExerciseControls>
       );
-    }
-
-    return (
-      <StyledExerciseControls>
-        {sections}
-        <div className="exercise-controls-bar filters-control">
-          <div className="exercise-controls-wrapper">
-            <OverlayTrigger placement="bottom" overlay={libraryPopover}>
-              <span className="library-label">Library</span>
-            </OverlayTrigger>
-            <div className="exercise-filters">
-              <TourAnchor id="exercise-type-toggle">
-                <RadioInput
-                  name="filter-assignment-type"
-                  value="homework"
-                  label="Homework questions"
-                  labelSize="lg"
-                  data-exercise-filter="homework"
-                  checked={exerciseTypeFilter === 'homework'}
-                  onChange={this.onExerciseTypeFilterClick}
-                  standalone
-                />
-                <RadioInput
-                  name="filter-assignment-type"
-                  value="reading"
-                  label="Reading questions"
-                  labelSize="lg"
-                  data-exercise-filter="reading"
-                  checked={exerciseTypeFilter === 'reading'}
-                  onChange={this.onExerciseTypeFilterClick}
-                  standalone
-                />
-              </TourAnchor>
-            </div>
-          </div>
-          {homeworkFiltersAndCreateButton()}
-        </div>
-      </StyledExerciseControls>
-    );
   }
 
   render() { return this.renderControls(); }

@@ -17,24 +17,24 @@ import classnames from 'classnames';
 class AddPeriodField extends React.Component {
 
   static propTypes = {
-    label: PropTypes.object.isRequired,
-    name:  PropTypes.string.isRequired,
-    onChange:  PropTypes.func.isRequired,
-    validate: PropTypes.func.isRequired,
+      label: PropTypes.object.isRequired,
+      name:  PropTypes.string.isRequired,
+      onChange:  PropTypes.func.isRequired,
+      validate: PropTypes.func.isRequired,
   }
 
   render() {
-    return (
-      <TutorInput
-        ref="input"
-        label={this.props.label}
-        autoFocus
-        default={''}
-        hasValue
-        required={true}
-        onChange={this.props.onChange}
-        validate={this.props.validate} />
-    );
+      return (
+          <TutorInput
+              ref="input"
+              label={this.props.label}
+              autoFocus
+              default={''}
+              hasValue
+              required={true}
+              onChange={this.props.onChange}
+              validate={this.props.validate} />
+      );
   }
 }
 
@@ -44,7 +44,7 @@ export default
 class AddPeriodLink extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable showModal = Router.currentQuery().add;
@@ -53,70 +53,70 @@ class AddPeriodLink extends React.Component {
   @observable isWaiting = false;
 
   @action.bound close() {
-    this.showModal = false;
+      this.showModal = false;
   }
 
   @action.bound open() {
-    this.showModal = true;
+      this.showModal = true;
   }
 
   @action.bound onPeriodChange(name) {
-    this.period_name = name;
+      this.period_name = name;
   }
 
   @action.bound validate(name) {
-    this.isValid = !find(this.props.course.periods, { name });
+      this.isValid = !find(this.props.course.periods, { name });
   }
 
   @action.bound performUpdate() {
-    this.isWaiting = true;
-    const period = new Period({ course: this.props.course, name: this.period_name });
-    period.create().then(() => {
-      this.isWaiting = false;
-      this.close();
-    });
+      this.isWaiting = true;
+      const period = new Period({ course: this.props.course, name: this.period_name });
+      period.create().then(() => {
+          this.isWaiting = false;
+          this.close();
+      });
   }
 
   render() {
-    const { course } = this.props;
+      const { course } = this.props;
 
-    return (
-      <React.Fragment>
-        <Button onClick={this.open} variant="link" className="control add-period">
-          <Icon type="plus-square" />
+      return (
+          <React.Fragment>
+              <Button onClick={this.open} variant="link" className="control add-period">
+                  <Icon type="plus-square" />
           Add <CourseGroupingLabel courseId={this.props.course.id} />
-        </Button>
-        <Modal
-          show={this.showModal}
-          onHide={this.close}
-          className="settings-edit-period-modal">
-          <Modal.Header closeButton={true}>
-            <Modal.Title>
+              </Button>
+              <Modal
+                  show={this.showModal}
+                  onHide={this.close}
+                  className="settings-edit-period-modal">
+                  <Modal.Header closeButton={true}>
+                      <Modal.Title>
               Add <CourseGroupingLabel courseId={this.props.course.id} />
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body className={classnames({ 'is-invalid-form': !this.isValid })}>
-            <AddPeriodField
-              label={<span><CourseGroupingLabel courseId={course.id} /> Name</span>}
-              name="period-name"
-              onChange={this.onPeriodChange}
-              validate={this.validate}
-              autofocus={true} />
-          </Modal.Body>
-          <Modal.Footer>
-            <AsyncButton
-              className="-edit-period-confirm"
-              onClick={this.performUpdate}
-              isWaiting={this.isWaiting}
-              waitingText="Adding..."
-              disabled={!this.isValid}
-            >
+                      </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body className={classnames({ 'is-invalid-form': !this.isValid })}>
+                      <AddPeriodField
+                          label={<span><CourseGroupingLabel courseId={course.id} /> Name</span>}
+                          name="period-name"
+                          onChange={this.onPeriodChange}
+                          validate={this.validate}
+                          autofocus={true} />
+                  </Modal.Body>
+                  <Modal.Footer>
+                      <AsyncButton
+                          className="-edit-period-confirm"
+                          onClick={this.performUpdate}
+                          isWaiting={this.isWaiting}
+                          waitingText="Adding..."
+                          disabled={!this.isValid}
+                      >
               Add
-            </AsyncButton>
-          </Modal.Footer>
-        </Modal>
-      </React.Fragment>
-    );
+                      </AsyncButton>
+                  </Modal.Footer>
+              </Modal>
+          </React.Fragment>
+      );
   }
 
 }

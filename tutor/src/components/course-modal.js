@@ -35,24 +35,24 @@ const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitPro
 `;
 
 StyledModal.OmitProps = [
-  'templateType',
-  'templateColors',
-  'template',
+    'templateType',
+    'templateColors',
+    'template',
 ];
 
 const CourseModal = observer((props) => {
-  return (
-    <StyledModal
-      {...props}
-      templateColors={colors.templates[props.templateType]}
-    >
-      {props.children}
-    </StyledModal>
-  );
+    return (
+        <StyledModal
+            {...props}
+            templateColors={colors.templates[props.templateType]}
+        >
+            {props.children}
+        </StyledModal>
+    );
 });
 
 CourseModal.propTypes = {
-  templateType: PropTypes.string.isRequired,
+    templateType: PropTypes.string.isRequired,
 };
 
 export default CourseModal;

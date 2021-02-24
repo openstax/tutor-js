@@ -12,7 +12,7 @@ class User {
   @observable support_identifier;
 
   bootstrap(data) {
-    Object.assign(this, data);
+      Object.assign(this, data);
   }
 
 }

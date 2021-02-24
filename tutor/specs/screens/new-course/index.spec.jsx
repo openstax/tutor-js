@@ -3,14 +3,14 @@ import NewCourse from '../../../src/screens/new-course';
 
 jest.mock('../../../src/models/loader');
 jest.mock('../../../src/models/user', () => ({
-  terms_signatures_needed: false,
-  canCreateCourses: true,
+    terms_signatures_needed: false,
+    canCreateCourses: true,
 }));
 
 describe('NewCourse wrapper', function() {
 
-  it('renders and matches snapshot', () => {
-    expect(<C><NewCourse /></C>).toMatchSnapshot();
-  });
+    it('renders and matches snapshot', () => {
+        expect(<C><NewCourse /></C>).toMatchSnapshot();
+    });
 
 });

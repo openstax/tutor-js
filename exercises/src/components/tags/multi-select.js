@@ -16,41 +16,41 @@ const StyledSelect = styled(SelectWidget)`
 @observer
 class MultiSelect extends React.Component {
   static propTypes = {
-    exercise: PropTypes.instanceOf(Exercise).isRequired,
-    label: PropTypes.string.isRequired,
-    tagType: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.string,
-        label: PropTypes.string,
-      })
-    ).isRequired,
+      exercise: PropTypes.instanceOf(Exercise).isRequired,
+      label: PropTypes.string.isRequired,
+      tagType: PropTypes.string.isRequired,
+      options: PropTypes.arrayOf(
+          PropTypes.shape({
+              value: PropTypes.string,
+              label: PropTypes.string,
+          })
+      ).isRequired,
   }
 
   @action.bound updateTags(tags) {
-    const { tagType, exercise } = this.props;
-    exercise.tags.replaceType(tagType, tags);
+      const { tagType, exercise } = this.props;
+      exercise.tags.replaceType(tagType, tags);
   }
 
   render() {
-    const { tagType, label, exercise, options } = this.props;
+      const { tagType, label, exercise, options } = this.props;
 
-    const selected = filter(options,
-      t => exercise.tags.includes({ type: tagType, value: t.value })
-    );
+      const selected = filter(options,
+          t => exercise.tags.includes({ type: tagType, value: t.value })
+      );
 
-    return (
-      <Wrapper label={label}>
-        <div className="tag">
-          <StyledSelect
-            isMulti
-            options={options}
-            defaultValue={selected}
-            onChange={this.updateTags}
-          />
-        </div>
-      </Wrapper>
-    );
+      return (
+          <Wrapper label={label}>
+              <div className="tag">
+                  <StyledSelect
+                      isMulti
+                      options={options}
+                      defaultValue={selected}
+                      onChange={this.updateTags}
+                  />
+              </div>
+          </Wrapper>
+      );
   }
 }
 

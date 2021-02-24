@@ -7,21 +7,21 @@ const COURSE_ID = '1'; // needs to be a string, that's what LoadableItem expects
 
 
 describe('Learning Guide', function() {
-  let props;
+    let props;
 
-  beforeEach(function() {
-    PerformanceForecast.Student.actions.loaded(GUIDE_DATA, COURSE_ID);
-    bootstrapCoursesList();
-    props = {
-      courseId: COURSE_ID,
-      allSections: [],
-      weakerTitle: 'weaker',
-    };
-  });
+    beforeEach(function() {
+        PerformanceForecast.Student.actions.loaded(GUIDE_DATA, COURSE_ID);
+        bootstrapCoursesList();
+        props = {
+            courseId: COURSE_ID,
+            allSections: [],
+            weakerTitle: 'weaker',
+        };
+    });
 
 
-  it('renders panel for each chapter', function() {
-    expect.snapshot(<Guide {...props} />).toMatchSnapshot();
-  });
+    it('renders panel for each chapter', function() {
+        expect.snapshot(<Guide {...props} />).toMatchSnapshot();
+    });
 
 });

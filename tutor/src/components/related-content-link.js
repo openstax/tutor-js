@@ -18,38 +18,38 @@ const Preamble = styled.span.attrs({ className: 'preamble' })`
 
 const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }) => {
 
-  if (isEmpty(content)) { return null; }
+    if (isEmpty(content)) { return null; }
 
-  return (
-    <StyledRelatedContentLink className={cn('related-content-link', className)}>
-      {preamble && <Preamble>{preamble}</Preamble>}
-      {content.map((rl, i) => (
-        <BrowseTheBook
-          key={i}
-          unstyled={true}
-          chapterSection={rl.chapter_section}
-          course={course}
-          tabIndex={-1}
-        >
-          {linkPrefix}
-          <BookPartTitle displayChapterSection part={rl} />
-        </BrowseTheBook>))}
-    </StyledRelatedContentLink>
-  );
+    return (
+        <StyledRelatedContentLink className={cn('related-content-link', className)}>
+            {preamble && <Preamble>{preamble}</Preamble>}
+            {content.map((rl, i) => (
+                <BrowseTheBook
+                    key={i}
+                    unstyled={true}
+                    chapterSection={rl.chapter_section}
+                    course={course}
+                    tabIndex={-1}
+                >
+                    {linkPrefix}
+                    <BookPartTitle displayChapterSection part={rl} />
+                </BrowseTheBook>))}
+        </StyledRelatedContentLink>
+    );
 };
 
 RelatedContentLink.propTypes = {
-  course: PropTypes.instanceOf(Course).isRequired,
-  content: PropTypes.arrayOf(
-    PropTypes.instanceOf(RelatedContent).isRequired,
-  ).isRequired,
-  preamble: PropTypes.string,
-  className: PropTypes.string,
-  linkPrefix: PropTypes.node,
+    course: PropTypes.instanceOf(Course).isRequired,
+    content: PropTypes.arrayOf(
+        PropTypes.instanceOf(RelatedContent).isRequired,
+    ).isRequired,
+    preamble: PropTypes.string,
+    className: PropTypes.string,
+    linkPrefix: PropTypes.node,
 };
 
 RelatedContentLink.defaultProps = {
-  preamble: 'Comes from',
+    preamble: 'Comes from',
 };
 
 

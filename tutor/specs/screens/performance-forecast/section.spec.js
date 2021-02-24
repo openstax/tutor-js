@@ -7,25 +7,25 @@ import pluralize from 'pluralize';
 
 describe('Learning Guide Section Panel', function() {
 
-  let props;
+    let props;
 
-  beforeEach(function() {
-    bootstrapCoursesList();
-    props = {
-      section: GUIDE.children[0].children[0],
-      courseId: '1',
-    };});
+    beforeEach(function() {
+        bootstrapCoursesList();
+        props = {
+            section: GUIDE.children[0].children[0],
+            courseId: '1',
+        };});
 
-  it('is accessible', async () => {
-    const section = mount(<Section {...props} />);
-    expect(await axe(section.html())).toHaveNoViolations();
-  });
+    it('is accessible', async () => {
+        const section = mount(<Section {...props} />);
+        expect(await axe(section.html())).toHaveNoViolations();
+    });
 
-  it('reports how many problems were worked', function() {
-    const total = props.section.questions_answered_count;
-    const section = mount(<Section {...props} />);
-    expect(section.text())
-      .toContain(`${pluralize(' problems', total, true)} worked in this section`);
+    it('reports how many problems were worked', function() {
+        const total = props.section.questions_answered_count;
+        const section = mount(<Section {...props} />);
+        expect(section.text())
+            .toContain(`${pluralize(' problems', total, true)} worked in this section`);
 
-  });
+    });
 });

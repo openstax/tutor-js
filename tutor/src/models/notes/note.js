@@ -3,7 +3,7 @@ import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
 import {
-  BaseModel, identifiedBy, field, identifier, session,
+    BaseModel, identifiedBy, field, identifier, session,
 } from 'shared/model';
 
 @identifiedBy('notes/note')
@@ -21,66 +21,66 @@ export default class Note extends BaseModel {
   @session({ type: 'date' }) updated_at;
 
   constructor(attrs = {}, page) {
-    super(attrs);
-    this.page = page;
-    intercept(this, 'annotation', this.validateTextLength);
+      super(attrs);
+      this.page = page;
+      intercept(this, 'annotation', this.validateTextLength);
   }
 
   @computed get highlight() {
-    return new SerializedHighlight(
-      extend(toJS(this.contents), pick(this, 'id')),
-    );
+      return new SerializedHighlight(
+          extend(toJS(this.contents), pick(this, 'id')),
+      );
   }
 
   get course() {
-    return this.page.notes.course;
+      return this.page.notes.course;
   }
 
   get siblings() {
-    return this.page.notes.forPageId(this.page_id);
+      return this.page.notes.forPageId(this.page_id);
   }
 
   get pageTopPosition() {
-    return get(this, 'contents.rect.top', 0);
+      return get(this, 'contents.rect.top', 0);
   }
 
   validateTextLength(change) {
-    if (isString(change.newValue) && change.newValue.length > Note.MAX_TEXT_LEN) {
-      change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
-    }
-    return change;
+      if (isString(change.newValue) && change.newValue.length > Note.MAX_TEXT_LEN) {
+          change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
+      }
+      return change;
   }
 
   @computed get content() {
-    return this.contents.content;
+      return this.contents.content;
   }
 
   @action save() {
-    return extend(this.urlParams, {
-      data: {
-        course_id: this.course.id,
-        ...pick(this, 'id', 'anchor', 'contents', 'annotation'),
-      },
-    });
+      return extend(this.urlParams, {
+          data: {
+              course_id: this.course.id,
+              ...pick(this, 'id', 'anchor', 'contents', 'annotation'),
+          },
+      });
   }
 
   @action destroy() {
-    return this.urlParams;
+      return this.urlParams;
   }
 
   onUpdated({ data }) {
-    this.update(data);
-    this.page.set(this.id, this);
+      this.update(data);
+      this.page.set(this.id, this);
   }
 
   onDeleted() {
-    this.page.onNoteDeleted(this);
+      this.page.onNoteDeleted(this);
   }
 
   @computed get urlParams() {
-    return {
-      pageUuid: this.page.uuid,
-    };
+      return {
+          pageUuid: this.page.uuid,
+      };
   }
 
 }

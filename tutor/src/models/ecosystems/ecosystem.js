@@ -1,6 +1,6 @@
 import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, identifier, hasMany,
+    BaseModel, identifiedBy, identifier, hasMany,
 } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
@@ -16,7 +16,7 @@ export default class Ecosystem extends BaseModel {
 
   // shortcut since we only have a single book per ecosystem currently
   @computed get book() {
-    return this.books.length ? this.books[0] : null;
+      return this.books.length ? this.books[0] : null;
   }
 
   @lazyGetter referenceBook = new ReferenceBook({ id: this.id });

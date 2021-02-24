@@ -177,80 +177,80 @@ const ExerciseNumber = styled.div`
 export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
 const ReviewExerciseCard = observer(({
-  index, info,
-  sectionLinkRenderer: SectionLink,
-  questionInfoRenderer: QuestionInfo,
-  headerContentRenderer: HeaderContent,
-  footerContentRenderer: FooterContent,
-  questionType = 'teacher-preview',
-  styleVariant = 'points',
+    index, info,
+    sectionLinkRenderer: SectionLink,
+    questionInfoRenderer: QuestionInfo,
+    headerContentRenderer: HeaderContent,
+    footerContentRenderer: FooterContent,
+    questionType = 'teacher-preview',
+    styleVariant = 'points',
 }) => {
-  return (
-    <QuestionPreview className="openstax-exercise-preview">
-      <QuestionHeader variant={styleVariant} className="question-header">
-        <HeaderContent
-          styleVariant={styleVariant}
-          info={info}
-          label={`Question ${index + 1}`}
-        />
-      </QuestionHeader>
-      <Body className="card-body" variant={styleVariant}>
-        <Question
-          className="openstax-question-preview"
-          question={info.question}
-          hideAnswers={false}
-          choicesEnabled={false}
-          displayFormats={false}
-          type={questionType}
-        />
-        {SectionLink && <SectionLink info={info} /> }
-        {QuestionInfo && <QuestionInfo info={info} />}
-        {FooterContent && <FooterContent info={info} />}
-      </Body>
-    </QuestionPreview>
-  );
+    return (
+        <QuestionPreview className="openstax-exercise-preview">
+            <QuestionHeader variant={styleVariant} className="question-header">
+                <HeaderContent
+                    styleVariant={styleVariant}
+                    info={info}
+                    label={`Question ${index + 1}`}
+                />
+            </QuestionHeader>
+            <Body className="card-body" variant={styleVariant}>
+                <Question
+                    className="openstax-question-preview"
+                    question={info.question}
+                    hideAnswers={false}
+                    choicesEnabled={false}
+                    displayFormats={false}
+                    type={questionType}
+                />
+                {SectionLink && <SectionLink info={info} /> }
+                {QuestionInfo && <QuestionInfo info={info} />}
+                {FooterContent && <FooterContent info={info} />}
+            </Body>
+        </QuestionPreview>
+    );
 });
 ReviewExerciseCard.dislayName = 'ReviewExerciseCard';
 ReviewExerciseCard.propTypes = {
-  headerContentRenderer: PropTypes.func.isRequired,
-  questionInfoRenderer: PropTypes.func,
-  footerContentRenderer: PropTypes.func,
+    headerContentRenderer: PropTypes.func.isRequired,
+    questionInfoRenderer: PropTypes.func,
+    footerContentRenderer: PropTypes.func,
 };
 
 const HomeworkQuestions = observer(({
-  questionsInfo,
-  questionType,
-  className,
-  sectionLinkRenderer,
-  headerContentRenderer,
-  questionInfoRenderer,
-  footerContentRenderer,
-  styleVariant,
+    questionsInfo,
+    questionType,
+    className,
+    sectionLinkRenderer,
+    headerContentRenderer,
+    questionInfoRenderer,
+    footerContentRenderer,
+    styleVariant,
 }) => (
-  <HomeworkQuestionsWrapper className={cn('homework-questions', className)}>
-    {questionsInfo.map((info, index) => (
-      <ReviewExerciseCard
-        info={info}
-        index={index}
-        questionType={questionType}
-        key={info.key}
-        sectionLinkRenderer={sectionLinkRenderer}
-        headerContentRenderer={headerContentRenderer}
-        questionInfoRenderer={questionInfoRenderer}
-        footerContentRenderer={footerContentRenderer}
-        styleVariant={styleVariant}
-      />
-    ))}
-  </HomeworkQuestionsWrapper>
+    <HomeworkQuestionsWrapper className={cn('homework-questions', className)}>
+        {questionsInfo.map((info, index) => (
+            <ReviewExerciseCard
+                info={info}
+                index={index}
+                questionType={questionType}
+                key={info.key}
+                sectionLinkRenderer={sectionLinkRenderer}
+                headerContentRenderer={headerContentRenderer}
+                questionInfoRenderer={questionInfoRenderer}
+                footerContentRenderer={footerContentRenderer}
+                styleVariant={styleVariant}
+            />
+        ))}
+    </HomeworkQuestionsWrapper>
 ));
 
 HomeworkQuestions.displayName = 'HomeworkQuestions';
 HomeworkQuestions.propTypes = {
-  headerContentRenderer: PropTypes.func.isRequired,
-  questionInfoRenderer: PropTypes.func,
-  footerContentRenderer: PropTypes.func,
-  questionType: PropTypes.string,
-  questionsInfo: PropTypes.array.isRequired,
-  styleVariant: PropTypes.string,
+    headerContentRenderer: PropTypes.func.isRequired,
+    questionInfoRenderer: PropTypes.func,
+    footerContentRenderer: PropTypes.func,
+    questionType: PropTypes.string,
+    questionsInfo: PropTypes.array.isRequired,
+    styleVariant: PropTypes.string,
 };
 export default HomeworkQuestions;

@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, styled,
+    React, PropTypes, observer, styled,
 } from 'vendor';
 import Theme from '../../../theme';
 import Course from '../../../models/course';
@@ -29,26 +29,26 @@ color: ${Theme.colors.neutral.lite};
 
 
 const StepFooter = observer(({ course, step, hideContentLink }) => {
-  return (
-    <StyledExerciseFooter>
-      {!hideContentLink &&
+    return (
+        <StyledExerciseFooter>
+            {!hideContentLink &&
         <RelatedContentLink
-          course={course}
-          content={step.content.related_content}
+            course={course}
+            content={step.content.related_content}
         />}
-      <StyledExerciseIdentifierLink
-        exerciseId={step.uid}
-        bookUUID={course.ecosystem_book_uuid}
-        related_content={step.content.related_content}
-      />
-    </StyledExerciseFooter>
-  );
+            <StyledExerciseIdentifierLink
+                exerciseId={step.uid}
+                bookUUID={course.ecosystem_book_uuid}
+                related_content={step.content.related_content}
+            />
+        </StyledExerciseFooter>
+    );
 });
 
 StepFooter.propTypes = {
-  course: PropTypes.instanceOf(Course).isRequired,
-  step: PropTypes.instanceOf(TaskStep).isRequired,
-  hideContentLink: PropTypes.bool,
+    course: PropTypes.instanceOf(Course).isRequired,
+    step: PropTypes.instanceOf(TaskStep).isRequired,
+    hideContentLink: PropTypes.bool,
 };
 StepFooter.displayName = 'StepFooter';
 

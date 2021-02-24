@@ -8,35 +8,35 @@ import { BOOK_UID_XREF } from './book-uuid-xrefs';
 
 const Exercises = {
 
-  troubleUrl({ bookUUID, project, exerciseId, chapter_section, title }) {
-    const location = [];
-    if (exerciseId) { location.push(exerciseId); }
-    if (chapter_section) {
-      location.push(chapter_section.toString());
-    }
+    troubleUrl({ bookUUID, project, exerciseId, chapter_section, title }) {
+        const location = [];
+        if (exerciseId) { location.push(exerciseId); }
+        if (chapter_section) {
+            location.push(chapter_section.toString());
+        }
 
-    if (title) { location.push(title); }
+        if (title) { location.push(title); }
 
-    const locationString = location.join(' ');
+        const locationString = location.join(' ');
 
-    const urlParams = {
-      source: project, // either tutor or CC
-      location: locationString,
-      book: BOOK_UID_XREF[bookUUID],
-    };
+        const urlParams = {
+            source: project, // either tutor or CC
+            location: locationString,
+            book: BOOK_UID_XREF[bookUUID],
+        };
 
-    return Exercises.ERRATA_FORM_URL + '?' + qs.stringify(omitBy(urlParams, isUndefined));
-  },
+        return Exercises.ERRATA_FORM_URL + '?' + qs.stringify(omitBy(urlParams, isUndefined));
+    },
 
-  getParts(exercise) {
-    return (exercise.content != null ? exercise.content.questions : undefined) || [];
-  },
+    getParts(exercise) {
+        return (exercise.content != null ? exercise.content.questions : undefined) || [];
+    },
 };
 
 
 Exercises.ERRATA_FORM_URL = 'https://openstax.org/errata/form';
 Exercises.setOSWebURL = (url) => {
-  if (url) { Exercises.ERRATA_FORM_URL = `${url}/errata/form`; }
+    if (url) { Exercises.ERRATA_FORM_URL = `${url}/errata/form`; }
 };
 
 export default Exercises;

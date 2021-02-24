@@ -30,67 +30,67 @@ const Controls = styled.div`
 
 
 const DeleteModal = ({ onDelete, onCancel, template }) => {
-  return (
-    <Modal
-      show={true}
-      onHide={onCancel}
-      backdrop="static"
-    >
-      <StyledHeader closeButton>
+    return (
+        <Modal
+            show={true}
+            onHide={onCancel}
+            backdrop="static"
+        >
+            <StyledHeader closeButton>
         Delete template?
-      </StyledHeader>
-      <StyledBody>
+            </StyledHeader>
+            <StyledBody>
         Are you sure you want to permanently
         delete <strong>{template.name}</strong> template?
         You can't undo this action.
-        <ControlsWrapper>
-          <Controls>
-            <Button className="delete" variant="default" size="lg" onClick={() => onDelete(template)}>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button className="delete" variant="default" size="lg" onClick={() => onDelete(template)}>
               Delete
-            </Button>
-            <Button className="cancel" variant="primary" size="lg" onClick={onCancel}>
+                        </Button>
+                        <Button className="cancel" variant="primary" size="lg" onClick={onCancel}>
               Cancel
-            </Button>
-          </Controls>
-        </ControlsWrapper>
-      </StyledBody>
-    </Modal>
-  );
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
+    );
 };
 DeleteModal.propTypes = {
-  onDelete: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
 
 const NoEditModal = ({ onOk, template }) => {
-  return (
-    <Modal
-      show={true}
-      onHide={onOk}
-      backdrop="static"
-    >
-      <StyledHeader className="warning" closeButton>
+    return (
+        <Modal
+            show={true}
+            onHide={onOk}
+            backdrop="static"
+        >
+            <StyledHeader className="warning" closeButton>
         Template cannot be edited
-      </StyledHeader>
-      <StyledBody>
-        {template.name} template cannot be edited since
+            </StyledHeader>
+            <StyledBody>
+                {template.name} template cannot be edited since
         it is currently in use by assignments
-        <ControlsWrapper>
-          <Controls>
-            <Button variant="default" size="lg" onClick={onOk}>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button variant="default" size="lg" onClick={onOk}>
               Okay
-            </Button>
-          </Controls>
-        </ControlsWrapper>
-      </StyledBody>
-    </Modal>
-  );
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
+    );
 };
 NoEditModal.propTypes = {
-  onOk: PropTypes.func.isRequired,
-  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+    onOk: PropTypes.func.isRequired,
+    template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
 
