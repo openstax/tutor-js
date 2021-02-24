@@ -317,16 +317,16 @@ const startAPI = function() {
         onSuccess: 'onRemoved',
     });
 
-  connectModelCreate(
-    User.constructor,
-    'suggestSubject',
-    {
-      onSuccess: 'onSaved',
-      method: 'POST',
-      pattern: 'user/suggest',
-      data({ data }) { return { data }; },
-    },
-  );
+    connectModelCreate(
+        User.constructor,
+        'suggestSubject',
+        {
+            onSuccess: 'onSaved',
+            method: 'POST',
+            pattern: 'user/suggest',
+            data({ data }) { return { data }; },
+        },
+    );
 
 };
 

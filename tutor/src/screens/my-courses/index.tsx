@@ -6,17 +6,17 @@ import { getOfferings } from '../../store/api'
 import NewTeacher from './new-teacher'
 
 const MyCourses: React.FC = (props) => {
-  const d = useDispatch()
-  useEffect(() => {
-    d(getOfferings())
-  }, [])
-  const hasCourses = useHasAnyCourses()
-  if (hasCourses) {
-    return <Dashboard />
-  }
-  return (
-    <NewTeacher history={props.history} data-test-id="new-teacher-screen" />
-  )
+    const d = useDispatch()
+    useEffect(() => {
+        d(getOfferings())
+    }, [])
+    const hasCourses = useHasAnyCourses()
+    if (hasCourses) {
+        return <Dashboard />
+    }
+    return (
+        <NewTeacher history={props.history} data-test-id="new-teacher-screen" />
+    )
 }
 
 export default MyCourses

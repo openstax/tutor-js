@@ -83,67 +83,67 @@ interface ViewCourseProps {
 const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
     const numberOfStudents = useNumberOfStudents(course.id)
     if(!isPast) {
-      return (
-        <TutorLink to={numberOfStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
-            <Button variant="link" className="student-info-link">{numberOfStudents ? `${numberOfStudents} students enrolled` : 'Invite students'}</Button>
-        </TutorLink>
-      )
+        return (
+            <TutorLink to={numberOfStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
+                <Button variant="link" className="student-info-link">{numberOfStudents ? `${numberOfStudents} students enrolled` : 'Invite students'}</Button>
+            </TutorLink>
+        )
     }
 
     return <p className="course-ended-info">Course ended</p>
 }
 
 const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
-  const dispatch = useDispatch()
-  const primaryRole = useCurrentRole(course.id)
-  return (
-    <StyledViewCourse className='my-courses-item-wrapper'>
-      <div
-        data-test-id="course-card"
-        data-title={useNameCleaned(course.id)}
-        data-book-title={useBookName(course.id)}
-        data-appearance={course.appearance_code}
-        data-is-preview={course.is_preview}
-        data-term={useTermFull(course.id)}
-        data-is-teacher={useCurrentRole(course.id)?.type === 'teacher'}
-        data-course-id={course.id}
-        className={cn('my-courses-item', className, { 'is-past': isPast })}
-      >
-        {/* If we are gonna be using Redux, need to set the current_role_id inside the course dashboard component which is for now a class component.
+    const dispatch = useDispatch()
+    const primaryRole = useCurrentRole(course.id)
+    return (
+        <StyledViewCourse className='my-courses-item-wrapper'>
+            <div
+                data-test-id="course-card"
+                data-title={useNameCleaned(course.id)}
+                data-book-title={useBookName(course.id)}
+                data-appearance={course.appearance_code}
+                data-is-preview={course.is_preview}
+                data-term={useTermFull(course.id)}
+                data-is-teacher={useCurrentRole(course.id)?.type === 'teacher'}
+                data-course-id={course.id}
+                className={cn('my-courses-item', className, { 'is-past': isPast })}
+            >
+                {/* If we are gonna be using Redux, need to set the current_role_id inside the course dashboard component which is for now a class component.
         Hooks can only be called inside of a function component. */}
-        <div className="my-courses-item-title" onClick={() => dispatch(setCurrentRole({ roleId: primaryRole.id, id: course.id }))}>
-          <TutorLink to="dashboard" params={{ courseId: course.id }}>
-            {course.name}
-          </TutorLink>
-        </div>
-        <div className="my-courses-item-details">
-            <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
-            <ViewCourseStudentInfo isPast={isPast} course={course} />
-        </div>
-      </div>
-      <Dropdown className="my-courses-item-actions">
-        <Dropdown.Toggle variant="ox">
-        <Icon type="ellipsis-v"/>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-              <TutorLink
-                to='courseSettings'
-                params={{ courseId: course.id }}
-                role="button"
-                className="dropdown-item">
+                <div className="my-courses-item-title" onClick={() => dispatch(setCurrentRole({ roleId: primaryRole.id, id: course.id }))}>
+                    <TutorLink to="dashboard" params={{ courseId: course.id }}>
+                        {course.name}
+                    </TutorLink>
+                </div>
+                <div className="my-courses-item-details">
+                    <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
+                    <ViewCourseStudentInfo isPast={isPast} course={course} />
+                </div>
+            </div>
+            <Dropdown className="my-courses-item-actions">
+                <Dropdown.Toggle variant="ox">
+                    <Icon type="ellipsis-v"/>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <TutorLink
+                        to='courseSettings'
+                        params={{ courseId: course.id }}
+                        role="button"
+                        className="dropdown-item">
                   Course Settings
-              </TutorLink>
-              <TutorLink
-                to="createNewCourse"
-                params={{ sourceId: course.id }}
-                role="button"
-                className="dropdown-item">
+                    </TutorLink>
+                    <TutorLink
+                        to="createNewCourse"
+                        params={{ sourceId: course.id }}
+                        role="button"
+                        className="dropdown-item">
                   Copy this course
-              </TutorLink>
-          </Dropdown.Menu>
-      </Dropdown>
-    </StyledViewCourse>
-  );    
+                    </TutorLink>
+                </Dropdown.Menu>
+            </Dropdown>
+        </StyledViewCourse>
+    );    
 }
   
 export default ViewCourse;

@@ -24,20 +24,20 @@ const StyledCreateCourse = styled.div`
 
 const CreateCourse = () => {
     return (
-      <StyledCreateCourse>
-        <TourAnchor id="create-course-zone">
-          <div className="my-courses-add-zone">
-          <TutorLink to="createNewCourse">
-            <div>
-              <IconAdd />
-              <span className="create-label">
+        <StyledCreateCourse>
+            <TourAnchor id="create-course-zone">
+                <div className="my-courses-add-zone">
+                    <TutorLink to="createNewCourse">
+                        <div>
+                            <IconAdd />
+                            <span className="create-label">
                 CREATE A COURSE
-              </span>
-            </div>
-          </TutorLink>
-        </div>
-        </TourAnchor>
-      </StyledCreateCourse>)
+                            </span>
+                        </div>
+                    </TutorLink>
+                </div>
+            </TourAnchor>
+        </StyledCreateCourse>)
 }
 
 export default CreateCourse

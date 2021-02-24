@@ -66,82 +66,82 @@ const StyledPreviewCourse = styled.div`
 `
 
 interface CoursePreviewProps {
-  offering: Offering
-  className: string
-  history: RouteComponentProps
-  isPreviewInResource: boolean
-  setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
+    offering: Offering
+    className: string
+    history: RouteComponentProps
+    isPreviewInResource: boolean
+    setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CoursePreview = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource } : CoursePreviewProps) => {
-  const dispatch = useDispatch()
-  const previewCourse = useLatestCoursePreview(offering.id)
-  const [isCreating, setIsCreating] = useState(false)
+const CoursePreview = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource }: CoursePreviewProps) => {
+    const dispatch = useDispatch()
+    const previewCourse = useLatestCoursePreview(offering.id)
+    const [isCreating, setIsCreating] = useState(false)
 
-  const goToPreviewCourse = (toPreview = false) => {
-    if(previewCourse) {
-      history.push(Router.makePathname(
-        `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: previewCourse.id },
-      ))
-    }
-    else {
-      setIsCreating(true)
-      dispatch(createPreviewCourse(offering))
-      .then((result) => {
-        setIsCreating(false)
-        if(!result.error) {
-          history.push(Router.makePathname(
-            `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: result.payload.id },
-          ))
+    const goToPreviewCourse = (toPreview = false) => {
+        if (previewCourse) {
+            history.push(Router.makePathname(
+                `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: previewCourse.id },
+            ))
         }
-      })
+        else {
+            setIsCreating(true)
+            dispatch(createPreviewCourse(offering))
+                .then((result) => {
+                    setIsCreating(false)
+                    if (!result.error) {
+                        history.push(Router.makePathname(
+                            `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: result.payload.id },
+                        ))
+                    }
+                })
+        }
     }
-  }
 
-  const previewMessage = () => {
-    if(isCreating) {
-      return <OXFancyLoader isLoading={true} />
+    const previewMessage = () => {
+        if (isCreating) {
+            return <OXFancyLoader isLoading={true} />
+        }
+        return [
+            <h4 key="title">Preview Course</h4>,
+            <p key="message">Create test assignments and view sample data</p>,
+        ]
     }
-    return [
-      <h4 key="title">Preview Course</h4>,
-      <p key="message">Create test assignments and view sample data</p>,
-    ]
-  }
 
-  const itemClasses = cn('my-courses-item', 'preview', className, {
-  'is-building': isCreating,
-  })
+    const itemClasses = cn('my-courses-item', 'preview', className, {
+        'is-building': isCreating,
+    })
 
-  return (
-  <StyledPreviewCourse className="my-courses-item-wrapper preview">
-      <div
-        data-appearance={offering.appearance_code}
-        data-test-id="course-card"
-        data-is-teacher={true}
-        data-offering-id={offering.id}
-        className={itemClasses}>
-        <a
-          className="my-courses-item-title"
-          onClick={() => goToPreviewCourse()}>
-            <h3 className="name">{offering.title}</h3>
-            <div className="preview-belt">
-              {previewMessage()}
+    return (
+        <StyledPreviewCourse className="my-courses-item-wrapper preview">
+            <div
+                data-appearance={offering.appearance_code}
+                data-test-id="course-card"
+                data-is-teacher={true}
+                data-offering-id={offering.id}
+                className={itemClasses}>
+                <a
+                    className="my-courses-item-title"
+                    onClick={() => goToPreviewCourse()}>
+                    <h3 className="name">{offering.title}</h3>
+                    <div className="preview-belt">
+                        {previewMessage()}
+                    </div>
+                </a>
             </div>
-        </a>
-      </div>
-      <Dropdown className="my-courses-item-actions" data-appearance={offering.appearance_code}>
-        <Dropdown.Toggle variant="ox">
-        <Icon type="ellipsis-v"/>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => goToPreviewCourse(true)}>Course Settings</Dropdown.Item>
-            <Dropdown.Item onClick={() => setIsPreviewInResource(!isPreviewInResource)}>
-              {`Move Preview to ${!isPreviewInResource ? 'resources' : 'current courses'}`}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-      </Dropdown>
-  </StyledPreviewCourse>
-  )
+            <Dropdown className="my-courses-item-actions" data-appearance={offering.appearance_code}>
+                <Dropdown.Toggle variant="ox">
+                    <Icon type="ellipsis-v" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => goToPreviewCourse(true)}>Course Settings</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setIsPreviewInResource(!isPreviewInResource)}>
+                        {`Move Preview to ${!isPreviewInResource ? 'resources' : 'current courses'}`}
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </StyledPreviewCourse>
+    )
 }
 
 export default withRouter(CoursePreview)

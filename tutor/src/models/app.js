@@ -25,20 +25,12 @@ import store, { bootstrap } from '../store'
 
 
 const BOOTSTRAPED_MODELS = {
-<<<<<<< HEAD
-  user:     User,
-  courses:  Courses,
-  payments: Payments,
-  feature_flags: FeatureFlagsApi,
-  response_validation: ResponseValidation,
-  offerings: Offerings,
-=======
     user:     User,
     courses:  Courses,
     payments: Payments,
     feature_flags: FeatureFlagsApi,
     response_validation: ResponseValidation,
->>>>>>> main
+    offerings: Offerings,
 };
 
 // _MODELS is for adhoc console debugging ONLY, no code should rely on this!

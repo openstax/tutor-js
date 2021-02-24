@@ -178,9 +178,9 @@ class User extends BaseModel {
   }
 
   suggestSubject({ subject }) {
-    // students do not submit suggestions
-    if (this.self_reported_role === 'student') { return 'ABORT'; }
-    return { subject };
+      // students do not submit suggestions
+      if (this.self_reported_role === 'student') { return 'ABORT'; }
+      return { subject };
   }
 
   @computed get metrics() {
