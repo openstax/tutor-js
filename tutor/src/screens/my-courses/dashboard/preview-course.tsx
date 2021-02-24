@@ -1,4 +1,6 @@
-import { React, cn, styled, useState } from 'vendor'
+import React, { useState } from 'react'
+import cn from 'classnames'
+import styled from 'styled-components'
 import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
@@ -25,7 +27,7 @@ const StyledPreviewCourse = styled.div`
         background: white;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
         bottom: 40%;
-        h4 {
+        h5 {
           font-size: 1.8rem;
           line-height: 2rem;
           font-weight: 600;
@@ -73,7 +75,7 @@ interface CoursePreviewProps {
     setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CoursePreview = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource }: CoursePreviewProps) => {
+const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource }) => {
     const dispatch = useDispatch()
     const previewCourse = useLatestCoursePreview(offering.id)
     const [isCreating, setIsCreating] = useState(false)
@@ -122,8 +124,9 @@ const CoursePreview = ({ offering, className, history, isPreviewInResource, setI
                 className={itemClasses}>
                 <a
                     className="my-courses-item-title"
-                    onClick={() => goToPreviewCourse()}>
-                    <h3 className="name">{offering.title}</h3>
+                    onClick={() => goToPreviewCourse()}
+                >
+                    <h4 className="name">{offering.title}</h4>
                     <div className="preview-belt">
                         {previewMessage()}
                     </div>

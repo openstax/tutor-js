@@ -22,16 +22,20 @@ const StyledCreateCourse = styled.div`
   }
 `
 
-const CreateCourse = () => {
+interface CreateCourseProps {
+  appearanceCode: string
+}
+
+const CreateCourse: React.FC<CreateCourseProps> = ({ appearanceCode }) => {
     return (
         <StyledCreateCourse>
             <TourAnchor id="create-course-zone">
                 <div className="my-courses-add-zone">
-                    <TutorLink to="createNewCourse">
+                    <TutorLink to="createNewCourseFromOffering" params={{ appearanceCode }}>
                         <div>
                             <IconAdd />
                             <span className="create-label">
-                CREATE A COURSE
+                                CREATE A COURSE
                             </span>
                         </div>
                     </TutorLink>

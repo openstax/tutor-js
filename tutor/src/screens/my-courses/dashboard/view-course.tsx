@@ -1,4 +1,6 @@
-import { React, cn, styled } from 'vendor'
+import React from 'react'
+import cn from 'classnames'
+import styled from 'styled-components'
 import { Button, Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import TutorLink from '../../../components/link'
@@ -75,14 +77,14 @@ const StyledViewCourse = styled.div`
 `
 
 interface ViewCourseProps {
-  course: Course
-  className?: string
-  isPast?: boolean
+    course: Course
+    className?: string
+    isPast?: boolean
 }
 
-const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
+const ViewCourseStudentInfo: React.FC<ViewCourseProps> = ({ isPast, course }) => {
     const numberOfStudents = useNumberOfStudents(course.id)
-    if(!isPast) {
+    if (!isPast) {
         return (
             <TutorLink to={numberOfStudents ? 'courseRoster' : 'courseSettings'} params={{ courseId: course.id }}>
                 <Button variant="link" className="student-info-link">{numberOfStudents ? `${numberOfStudents} students enrolled` : 'Invite students'}</Button>
@@ -93,7 +95,7 @@ const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
     return <p className="course-ended-info">Course ended</p>
 }
 
-const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
+const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) => {
     const dispatch = useDispatch()
     const primaryRole = useCurrentRole(course.id)
     return (
@@ -110,11 +112,13 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
                 className={cn('my-courses-item', className, { 'is-past': isPast })}
             >
                 {/* If we are gonna be using Redux, need to set the current_role_id inside the course dashboard component which is for now a class component.
-        Hooks can only be called inside of a function component. */}
+                    Hooks can only be called inside of a function component. */}
                 <div className="my-courses-item-title" onClick={() => dispatch(setCurrentRole({ roleId: primaryRole.id, id: course.id }))}>
-                    <TutorLink to="dashboard" params={{ courseId: course.id }}>
-                        {course.name}
-                    </TutorLink>
+                    <h4>
+                        <TutorLink to="dashboard" params={{ courseId: course.id }}>
+                            {course.name}
+                        </TutorLink>
+                    </h4>
                 </div>
                 <div className="my-courses-item-details">
                     <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
@@ -123,7 +127,7 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
             </div>
             <Dropdown className="my-courses-item-actions">
                 <Dropdown.Toggle variant="ox">
-                    <Icon type="ellipsis-v"/>
+                    <Icon type="ellipsis-v" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <TutorLink
@@ -131,19 +135,19 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
                         params={{ courseId: course.id }}
                         role="button"
                         className="dropdown-item">
-                  Course Settings
+                        Course Settings
                     </TutorLink>
                     <TutorLink
                         to="createNewCourse"
                         params={{ sourceId: course.id }}
                         role="button"
                         className="dropdown-item">
-                  Copy this course
+                        Copy this course
                     </TutorLink>
                 </Dropdown.Menu>
             </Dropdown>
         </StyledViewCourse>
-    );    
+    );
 }
-  
+
 export default ViewCourse;

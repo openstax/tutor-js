@@ -1,4 +1,4 @@
-type ID = string | number
+export type ID = string | number
 
 type Term = 'spring' | 'summer' | 'fall' | 'winter'
 
