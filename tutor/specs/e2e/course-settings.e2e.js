@@ -8,7 +8,7 @@ describe('Course Settings', () => {
 
   })
 
-  it.skip('shows the course settings from with term and dates as ready only', async () => {
+  it('shows the course settings from with term and dates as ready only', async () => {
     await expect(page).toHaveSelector('.course-detail-settings-form')
     const isTermReadOnly = await page.$eval('#term', el => el.readOnly)
     const isStartDateReadOnly = await page.$eval('#startDate', el => el.readOnly)
@@ -18,19 +18,19 @@ describe('Course Settings', () => {
     expect(isEndDateReadOnly).toBeTruthy()
   });
 
-  it.skip('shows the save button when course name is changed', async () => {
+  it('shows the save button when course name is changed', async () => {
     await expect(page).toHaveSelector('.course-detail-settings-form')
     await page.fill('#course-name', 'New name')
     await expect(page).toHaveSelector('.save-changes-button')
   });
 
-  it.skip('shows the save button when course code is changed', async () => {
+  it('shows the save button when course code is changed', async () => {
     await expect(page).toHaveSelector('.course-detail-settings-form')
     await page.fill('#course-code', 'NEW-COURSE-CODE')
     await expect(page).toHaveSelector('.save-changes-button')
   });
 
-  it.skip('shows the save button when timezone is changed', async () => {
+  it('shows the save button when timezone is changed', async () => {
     await expect(page).toHaveSelector('.course-detail-settings-form')
     const timezoneDropdownTestId = '[data-test-id="timezone-dropdown"]'
     await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
@@ -40,7 +40,7 @@ describe('Course Settings', () => {
     await expect(page).toHaveSelector('.save-changes-button')
   });
 
-  it.skip('shows the "Delete this Course" button disabled if there are students in the course', async () => {
+  it('shows the "Delete this Course" button disabled if there are students in the course', async () => {
     await expect(page).toHaveSelector('.course-detail-settings-form')
     await expect(page).toHaveSelector('.disabled-delete-course')
     await page.hover('.disabled-delete-course')
