@@ -15,28 +15,28 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
     const offeringsBySubject = groupBy(allOfferings, o => o.subject)
     const subjects = map(offeringsBySubject, (offerings, subject) => {
         return (
-        <div key={subject} className="subject-offering-items-container">
-            <Dropdown.Item
-              className="subject-item"
-              eventKey={subject}
-              disabled>
-                {subject}
-            </Dropdown.Item>
-
-            {map(offerings, offering => {
-            const isDisplayed = some(displayedOfferings, dio => dio.id === offering.id)
-            return (
+            <div key={subject} className="subject-offering-items-container">
                 <Dropdown.Item
-                  className="offering-item"
-                  key={offering.id}
-                  eventKey={offering.title}
-                  onSelect={() => setDisplayedOfferingIds(prevState => [...prevState, offering.id])}
-                  disabled={isDisplayed}>
-                    {offering.title}
+                    className="subject-item"
+                    eventKey={subject}
+                    disabled>
+                    {subject}
                 </Dropdown.Item>
-            )}
-        )}
-        </div>
+
+                {map(offerings, offering => {
+                    const isDisplayed = some(displayedOfferings, dio => dio.id === offering.id)
+                    return (
+                        <Dropdown.Item
+                            className="offering-item"
+                            key={offering.id}
+                            eventKey={offering.title}
+                            onSelect={() => setDisplayedOfferingIds(prevState => [...prevState, offering.id])}
+                            disabled={isDisplayed}>
+                            {offering.title}
+                        </Dropdown.Item>
+                    )}
+                )}
+            </div>
         )
     });
 
@@ -44,9 +44,9 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
         <div className="add-subject-dropdown">
             <h3>Add subject</h3>
             <TutorDropdown
-              toggleName="Select a subject you will be teaching"
-              dropdownItems={subjects}
-        />
+                toggleName="Select a subject you will be teaching"
+                dropdownItems={subjects}
+            />
         </div>
     )
 }
