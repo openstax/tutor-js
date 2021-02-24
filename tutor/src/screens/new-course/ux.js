@@ -97,6 +97,11 @@ export default class CourseBuilderUX extends BaseModel {
     }
   }
 
+  @computed get isLastStage() {
+    // last stage is the openStax loader
+    return this.currentStageIndex === this.stages.length - 2;
+  }
+
   @computed get canNavigate() {
     return this.currentStageIndex !== this.stages.length - 1;
   }

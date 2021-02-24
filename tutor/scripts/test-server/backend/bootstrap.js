@@ -3,6 +3,7 @@ const Factory = require('object-factory-bot');
 const BOOTSTRAP_DATA = require('./static-bootstra-data.json');
 require('../../../specs/factories/user');
 require('../../../specs/factories/course');
+require('../../../specs/factories/offering');
 const { TERMS } = require('./terms');
 const { now } = require('../time-now');
 const { fe_port, be_port } = require('../ports');
@@ -46,6 +47,10 @@ const teacher = clone(BOOTSTRAP_DATA);
 teacher.user = Factory.create('User', { profile_id: 1, is_teacher: true, available_terms: TERMS });
 teacher.courses = [];
 addCourses(teacher.courses, { is_teacher: true });
+teacher.offerings = [
+  'biology', 'physics', 'sociology', 'apush',
+].map((type) => Factory.create('Offering', { type }))
+
 
 const PAYLOADS = {
   student, teacher,
