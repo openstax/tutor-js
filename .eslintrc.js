@@ -84,5 +84,11 @@ module.exports = {
         "mode": "minimum"
       }
     }],
+  },
+  "overrides": {
+    "files": "*.tsx",
+    "rules": {
+      'react/prop-types': 0,
+    }
   }
 };
