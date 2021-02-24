@@ -1,4 +1,6 @@
-import { React, cn, styled } from 'vendor'
+import React, { ReactElement } from 'react'
+import cn from 'classnames'
+import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 
@@ -38,14 +40,14 @@ const StyledResource = styled.div`
 `
 
 interface ResourcesProps {
-  title: string | React.Element
+  title: string | ReactElement
   info: string
   link: string
   appearanceCode?: string
   className?: string
 }
 
-const Resources = ({ title, info, link, appearanceCode, className } : ResourcesProps) => {
+const Resources: React.FC<ResourcesProps> = ({ title, info, link, appearanceCode, className }) => {
   const itemClasses = cn('my-courses-item', 'resource', className, { 'has-not-appearance': !appearanceCode })
   return (
   <StyledResource className="my-courses-item-wrapper">
@@ -56,7 +58,7 @@ const Resources = ({ title, info, link, appearanceCode, className } : ResourcesP
         className={itemClasses}
       >
       <a className="my-courses-item-title" href={link} target="_blank">
-          <h3 className="name">{title}</h3>
+          <h4 className="name">{title}</h4>
           <div className="preview-belt">
               <p>{info}</p>
           </div>

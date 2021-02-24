@@ -1,4 +1,6 @@
-import { React, cn, styled } from 'vendor'
+import React from 'react'
+import cn from 'classnames'
+import styled from 'styled-components'
 import { Button, Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import TutorLink from '../../../components/link'
@@ -80,7 +82,7 @@ interface ViewCourseProps {
   isPast?: boolean
 }
 
-const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
+const ViewCourseStudentInfo: React.FC<ViewCourseProps> = ({ isPast, course }) => {
     const numberOfStudents = useNumberOfStudents(course.id)
     if(!isPast) {
       return (
@@ -93,7 +95,7 @@ const ViewCourseStudentInfo = ({ isPast, course } : ViewCourseProps) => {
     return <p className="course-ended-info">Course ended</p>
 }
 
-const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
+const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) => {
   const dispatch = useDispatch()
   const primaryRole = useCurrentRole(course.id)
   return (
@@ -112,9 +114,11 @@ const ViewCourse = ({ course, className, isPast } : ViewCourseProps) => {
         {/* If we are gonna be using Redux, need to set the current_role_id inside the course dashboard component which is for now a class component.
         Hooks can only be called inside of a function component. */}
         <div className="my-courses-item-title" onClick={() => dispatch(setCurrentRole({ roleId: primaryRole.id, id: course.id }))}>
-          <TutorLink to="dashboard" params={{ courseId: course.id }}>
-            {course.name}
-          </TutorLink>
+          <h4>
+            <TutorLink to="dashboard" params={{ courseId: course.id }}>
+              {course.name}
+            </TutorLink>
+          </h4>
         </div>
         <div className="my-courses-item-details">
             <p className="my-courses-item-term">{useTermFull(course.id, false)}</p>
