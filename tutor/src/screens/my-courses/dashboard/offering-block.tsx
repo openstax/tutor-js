@@ -41,21 +41,22 @@ interface ResourcesInfoProps {
  * Component that displays the resources
  */
 const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isFirstBlock, renderCoursePreview }) => {
-    const generalResources = 
-    <>
-        <Resource
-          title="Instructor Getting Started Guide"
-          info="Find information on OpenStax Tutor features and answers to common questions"
-          link={CourseInformation.gettingStartedGuide.teacher} />
-        <Resource
-          title={<span><Icon type="play-circle"/> Video Tutorials </span>}
-          info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
-          link={CourseInformation.videoTutorials} />
-    </>
+    const generalResources = isFirstBlock && (
+        <>
+            <Resource
+            title="Instructor Getting Started Guide"
+            info="Find information on OpenStax Tutor features and answers to common questions"
+            link={CourseInformation.gettingStartedGuide.teacher} />
+            <Resource
+            title={<span><Icon type="play-circle"/> Video Tutorials </span>}
+            info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
+            link={CourseInformation.videoTutorials} />
+        </>
+    )
     return (
     <>
         {renderCoursePreview()}
-        {isFirstBlock && generalResources}
+        {generalResources}
         {os_book_id &&
         <Resource
           appearanceCode={offering.appearance_code}
