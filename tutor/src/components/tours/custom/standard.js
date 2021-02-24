@@ -40,55 +40,55 @@ const CancelIcon = styled(Icon)`
 `;
 
 const CancelButton = ({ ride }) => {
-  return <CancelIcon type="close" onClick={ride.onCancel} />;
+    return <CancelIcon type="close" onClick={ride.onCancel} />;
 };
 CancelButton.propTypes = {
-  ride: PropTypes.object.isRequired,
+    ride: PropTypes.object.isRequired,
 };
 
 export default
 function StandardTourStep({ step, ride, buttons }) {
 
-  if (step.displayWithButtons && !buttons) {
-    buttons = [];
-    if (ride.canGoBackward) {
-      buttons.push(
-        <TextAction key="l" onClick={ride.onPrevStep}>
-          <Icon type="chevron-left"/> Back
-        </TextAction>
-      );
+    if (step.displayWithButtons && !buttons) {
+        buttons = [];
+        if (ride.canGoBackward) {
+            buttons.push(
+                <TextAction key="l" onClick={ride.onPrevStep}>
+                    <Icon type="chevron-left"/> Back
+                </TextAction>
+            );
+        }
+        buttons.push(
+            <Primary key="p" data-test-id="primary-button" onClick={ride.onNextStep}>
+                {ride.nextLabel}
+            </Primary>
+        );
+
     }
-    buttons.push(
-      <Primary key="p" data-test-id="primary-button" onClick={ride.onNextStep}>
-        {ride.nextLabel}
-      </Primary>
+
+    return (
+        <Wrapper
+            data-test-id="tour-step"
+            className={cn('tour-step', step.id)}
+        >
+            {step.isCancelable && <CancelButton ride={ride} />}
+            {step.title && (
+                <Header>
+                    {step.title}
+                </Header>
+            )}
+            <Body dangerouslySetInnerHTML={{ __html: step.HTML }} />
+            {buttons && (
+                <Footer manyButtons={buttons.length > 1}>
+                    {buttons}
+                </Footer>)}
+        </Wrapper>
     );
-
-  }
-
-  return (
-    <Wrapper
-      data-test-id="tour-step"
-      className={cn('tour-step', step.id)}
-    >
-      {step.isCancelable && <CancelButton ride={ride} />}
-      {step.title && (
-        <Header>
-          {step.title}
-        </Header>
-      )}
-      <Body dangerouslySetInnerHTML={{ __html: step.HTML }} />
-      {buttons && (
-        <Footer manyButtons={buttons.length > 1}>
-          {buttons}
-        </Footer>)}
-    </Wrapper>
-  );
 
 }
 
 StandardTourStep.propTypes = {
-  step: PropTypes.object.isRequired,
-  ride: PropTypes.object.isRequired,
-  buttons: PropTypes.array,
+    step: PropTypes.object.isRequired,
+    ride: PropTypes.object.isRequired,
+    buttons: PropTypes.array,
 };

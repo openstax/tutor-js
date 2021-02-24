@@ -28,20 +28,20 @@ interface CreateCourseProps {
 
 const CreateCourse: React.FC<CreateCourseProps> = ({ appearanceCode }) => {
     return (
-      <StyledCreateCourse>
-        <TourAnchor id="create-course-zone">
-          <div className="my-courses-add-zone">
-          <TutorLink to="createNewCourseFromOffering" params={{ appearanceCode }}>
-            <div>
-              <IconAdd />
-              <span className="create-label">
-                CREATE A COURSE
-              </span>
-            </div>
-          </TutorLink>
-        </div>
-        </TourAnchor>
-      </StyledCreateCourse>)
+        <StyledCreateCourse>
+            <TourAnchor id="create-course-zone">
+                <div className="my-courses-add-zone">
+                    <TutorLink to="createNewCourseFromOffering" params={{ appearanceCode }}>
+                        <div>
+                            <IconAdd />
+                            <span className="create-label">
+                                CREATE A COURSE
+                            </span>
+                        </div>
+                    </TutorLink>
+                </div>
+            </TourAnchor>
+        </StyledCreateCourse>)
 }
 
 export default CreateCourse

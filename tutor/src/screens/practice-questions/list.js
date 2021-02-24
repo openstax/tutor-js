@@ -140,129 +140,129 @@ const StyledFooterControls = styled.div`
 `;
 
 const PracticeQuestionsList = ({ ux, history }) => {
-  const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
-  const [exerciseToBeDeleted, setExerciseToBeDeleted] = useState(null);
+    const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
+    const [exerciseToBeDeleted, setExerciseToBeDeleted] = useState(null);
 
-  const getExerciseActions = (exercise) => {
-    let actions = {};
+    const getExerciseActions = (exercise) => {
+        let actions = {};
 
-    // if exercise is included, show the exclude button
-    if (getExerciseIsSelected(exercise)) {
-      actions.exclude = {
-        message: 'Exclude question',
-        handler: () => {
-          // need to make new copy to remove
-          const copyExerciseIds = selectedExerciseIds.slice();
-          remove(copyExerciseIds, se => se === exercise.id);
-          setSelectedExerciseIds(copyExerciseIds);
-        },
-      };
-    }
-    else {
-      actions.include = {
-        message: 'Include question',
-        handler: () => {
-          setSelectedExerciseIds([...selectedExerciseIds, exercise.id]);
-        },
-      };
-    }
-    actions.delete = {
-      message: 'Delete',
-      handler: () => setExerciseToBeDeleted(exercise),
-    };
-    return actions;
-  };
-
-  const getExerciseIsSelected = (exercise) => {
-    return some(selectedExerciseIds, se => se === exercise.id);
-  };
-
-  const getExerciseDisableMessage = (exercise) => {
-    const practiceQuestion = ux.practiceQuestions.findByExerciseId(exercise.id);
-    
-    if(practiceQuestion && !practiceQuestion.available) {
-      return 'This question can be practiced after it has been graded';
-    }
-    return null;
-  };
-
-  const clearSelection = () => {
-    setSelectedExerciseIds([]);
-  };
-
-  const startPractice = () => {
-    const practiceQuestionIds = compact(
-      uniq(map(selectedExerciseIds, eid => {
-        const pq = ux.practiceQuestions.findByExerciseId(eid);
-        return pq ? pq.id : null;
-      })));
-
-    return history.push(
-      Router.makePathname(
-        'practiceTopics',
-        { courseId: ux.course.id },
-        { 
-          query: { 
-            type: PRACTICE.SAVED,
-            practice_question_ids: practiceQuestionIds,
-          },
+        // if exercise is included, show the exclude button
+        if (getExerciseIsSelected(exercise)) {
+            actions.exclude = {
+                message: 'Exclude question',
+                handler: () => {
+                    // need to make new copy to remove
+                    const copyExerciseIds = selectedExerciseIds.slice();
+                    remove(copyExerciseIds, se => se === exercise.id);
+                    setSelectedExerciseIds(copyExerciseIds);
+                },
+            };
         }
-      ));
-  };
+        else {
+            actions.include = {
+                message: 'Include question',
+                handler: () => {
+                    setSelectedExerciseIds([...selectedExerciseIds, exercise.id]);
+                },
+            };
+        }
+        actions.delete = {
+            message: 'Delete',
+            handler: () => setExerciseToBeDeleted(exercise),
+        };
+        return actions;
+    };
 
-  const deletePracticeQuestion = async (exerciseId) => {
-    const practiceQuestion = ux.practiceQuestions.findByExerciseId(exerciseId);
-    await practiceQuestion.destroy();
-    // after the practice question was deleted from the api, delete it from exercises also.
-    ux.exercises.deleteByExerciseId(exerciseId);
-  };
+    const getExerciseIsSelected = (exercise) => {
+        return some(selectedExerciseIds, se => se === exercise.id);
+    };
 
-  const exerciseCardProps = {
-    questionType: 'student-mpp',
-    exercises: ux.exercises,
-    course: ux.course,
-    book: ux.course.referenceBook,
-    pageIds: ux.exercises.uniqPageIds,
-    getExerciseActions,
-    getExerciseIsSelected,
-    getExerciseDisableMessage,
-    topScrollOffset: 100,
-  };
+    const getExerciseDisableMessage = (exercise) => {
+        const practiceQuestion = ux.practiceQuestions.findByExerciseId(exercise.id);
+    
+        if(practiceQuestion && !practiceQuestion.available) {
+            return 'This question can be practiced after it has been graded';
+        }
+        return null;
+    };
 
-  return (
+    const clearSelection = () => {
+        setSelectedExerciseIds([]);
+    };
+
+    const startPractice = () => {
+        const practiceQuestionIds = compact(
+            uniq(map(selectedExerciseIds, eid => {
+                const pq = ux.practiceQuestions.findByExerciseId(eid);
+                return pq ? pq.id : null;
+            })));
+
+        return history.push(
+            Router.makePathname(
+                'practiceTopics',
+                { courseId: ux.course.id },
+                { 
+                    query: { 
+                        type: PRACTICE.SAVED,
+                        practice_question_ids: practiceQuestionIds,
+                    },
+                }
+            ));
+    };
+
+    const deletePracticeQuestion = async (exerciseId) => {
+        const practiceQuestion = ux.practiceQuestions.findByExerciseId(exerciseId);
+        await practiceQuestion.destroy();
+        // after the practice question was deleted from the api, delete it from exercises also.
+        ux.exercises.deleteByExerciseId(exerciseId);
+    };
+
+    const exerciseCardProps = {
+        questionType: 'student-mpp',
+        exercises: ux.exercises,
+        course: ux.course,
+        book: ux.course.referenceBook,
+        pageIds: ux.exercises.uniqPageIds,
+        getExerciseActions,
+        getExerciseIsSelected,
+        getExerciseDisableMessage,
+        topScrollOffset: 100,
+    };
+
+    return (
     <>
       <StyledExerciseCardsWrapper className="practice-questions-list">
-        <ExerciseCards {...exerciseCardProps}/>
+          <ExerciseCards {...exerciseCardProps}/>
       </StyledExerciseCardsWrapper>
       <StyledFooterControls>
-        <Button
-          data-test-id="clear-practice-selection"
-          variant="default"
-          disabled={isEmpty(selectedExerciseIds)}
-          onClick={clearSelection}>
+          <Button
+              data-test-id="clear-practice-selection"
+              variant="default"
+              disabled={isEmpty(selectedExerciseIds)}
+              onClick={clearSelection}>
               Clear Selection
-        </Button>
-        <Button
-          data-test-id="start-practice"
-          variant="primary"
-          disabled={isEmpty(selectedExerciseIds)}
-          onClick={startPractice}>
+          </Button>
+          <Button
+              data-test-id="start-practice"
+              variant="primary"
+              disabled={isEmpty(selectedExerciseIds)}
+              onClick={startPractice}>
             Start Practice
-        </Button>
+          </Button>
       </StyledFooterControls>
       {exerciseToBeDeleted && 
         <DeleteQuestionModal
-          onDelete={() => {
-            deletePracticeQuestion(exerciseToBeDeleted.id);
-            setExerciseToBeDeleted(null);
-          }}
-          onCancel={() => setExerciseToBeDeleted(null)}/> }
+            onDelete={() => {
+                deletePracticeQuestion(exerciseToBeDeleted.id);
+                setExerciseToBeDeleted(null);
+            }}
+            onCancel={() => setExerciseToBeDeleted(null)}/> }
     </>
-  );
+    );
 };
 PracticeQuestionsList.propTypes = {
-  ux: PropTypes.instanceOf(UX),
-  history: PropTypes.object.isRequired,
+    ux: PropTypes.instanceOf(UX),
+    history: PropTypes.object.isRequired,
 };
 
 export default PracticeQuestionsList;

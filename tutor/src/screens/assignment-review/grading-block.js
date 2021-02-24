@@ -12,36 +12,36 @@ const StyledTutorLink = styled(TutorLink)`
 `;
 
 const GradeAnswersButton = observer(({ ux, regrade = false }) => {
-  return (
-    <StyledTutorLink
-      data-test-id="grade-answers-btn"
-      className={cn('btn btn-standard btn-new-flag btn-inline', { 'btn-primary': !regrade })}
-      to="gradeAssignment"
-      params={{
-        id: ux.planId,
-        periodId: ux.selectedPeriod.id,
-        courseId: ux.course.id,
-      }}
-    >
-      {!regrade && <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
-      <span>{`${regrade ? 'Regrade' : 'Grade'} answers`}</span>
-    </StyledTutorLink>
-  );
+    return (
+        <StyledTutorLink
+            data-test-id="grade-answers-btn"
+            className={cn('btn btn-standard btn-new-flag btn-inline', { 'btn-primary': !regrade })}
+            to="gradeAssignment"
+            params={{
+                id: ux.planId,
+                periodId: ux.selectedPeriod.id,
+                courseId: ux.course.id,
+            }}
+        >
+            {!regrade && <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
+            <span>{`${regrade ? 'Regrade' : 'Grade'} answers`}</span>
+        </StyledTutorLink>
+    );
 });
 
 const ViewScores = observer(({ ux }) => {
-  if (ux.course.uses_pre_wrm_scores) { return null; }
-  return (
-    <div>
-      <p>View scores for auto-graded questions</p>
-      <button
-        className="btn btn-standard btn-inline"
-        onClick={() => ux.onTabSelection(2)}
-      >
+    if (ux.course.uses_pre_wrm_scores) { return null; }
+    return (
+        <div>
+            <p>View scores for auto-graded questions</p>
+            <button
+                className="btn btn-standard btn-inline"
+                onClick={() => ux.onTabSelection(2)}
+            >
         View scores
-      </button>
-    </div>
-  );
+            </button>
+        </div>
+    );
 });
 
 const Centered = styled.div`
@@ -150,145 +150,145 @@ const Body = styled.div`
 `;
 
 const StackedBarChart = observer(({ stats, isReading = false }) => {
-  return (
-    <ChartWrapper>
-      <Chart>
-        {stats.filter(s => s.value > 0).map((stat, i) =>
-          <ChartItem
-            width={stat.percent * 100}
-            value={stat.value}
-            variant={stat.label}
-            aria-label={`${stat.label}: ${stat.value}`}
-            key={`chart-item-${i}`}
-            isReading={isReading}
-          >
-            {stat.value}
-          </ChartItem>
-        )}
-      </Chart>
-      <DefinitionsWrapper>
-        {stats.map((stat, i) =>
-          <React.Fragment key={`term-${i}`}>
-            <Term variant={stat.label} aria-label={stat.label} isReading={isReading} />
-            <Definition>{stat.label}</Definition>
-          </React.Fragment>
-        )}
-      </DefinitionsWrapper>
-    </ChartWrapper>
-  );
+    return (
+        <ChartWrapper>
+            <Chart>
+                {stats.filter(s => s.value > 0).map((stat, i) =>
+                    <ChartItem
+                        width={stat.percent * 100}
+                        value={stat.value}
+                        variant={stat.label}
+                        aria-label={`${stat.label}: ${stat.value}`}
+                        key={`chart-item-${i}`}
+                        isReading={isReading}
+                    >
+                        {stat.value}
+                    </ChartItem>
+                )}
+            </Chart>
+            <DefinitionsWrapper>
+                {stats.map((stat, i) =>
+                    <React.Fragment key={`term-${i}`}>
+                        <Term variant={stat.label} aria-label={stat.label} isReading={isReading} />
+                        <Definition>{stat.label}</Definition>
+                    </React.Fragment>
+                )}
+            </DefinitionsWrapper>
+        </ChartWrapper>
+    );
 });
 
 const ViewSubmissions = observer(({ ux }) => {
-  return (
+    return (
     <>
       <p>View student submissions for this assignment</p>
       <button
-        className="btn btn-standard btn-inline"
-        onClick={() => ux.onTabSelection(1)}
+          className="btn btn-standard btn-inline"
+          onClick={() => ux.onTabSelection(1)}
       >
         View submissions
       </button>
     </>
-  );
+    );
 });
 
 const UnpublishedScores = observer(({ ux }) => {
-  return (
+    return (
     <>
       <p>This assignment has unpublished scores</p>
       <PublishScores ux={ux} />
     </>
-  );
+    );
 });
 
 const GradeableAnswers = observer(({ ux }) => {
-  return (
+    return (
     <>
       <p>This assignment is now open for grading</p>
       <GradeAnswersButton ux={ux} />
     </>
-  );
+    );
 });
 
 const RegradableAnswers = observer(({ ux }) => {
-  return (
+    return (
     <>
       <p>This assignment can be regraded.</p>
       <GradeAnswersButton ux={ux} regrade={true} />
     </>
-  );
+    );
 });
 
 const BlockWrapper = observer(({ header, children }) => {
-  return (
+    return (
     <>
       <Header>
-        <h6>{header}</h6>
+          <h6>{header}</h6>
       </Header>
       <Body>
-        {children}
+          {children}
       </Body>
     </>
-  );
+    );
 });
 
 const BeforeDueWRQ = () => {
-  return (
-    <BlockWrapper header="Grading">
-      <Centered>
-        <p>This assignment is not open for grading yet.</p>
-        <SmallText>(You can start grading after the due date)</SmallText>
-      </Centered>
-    </BlockWrapper>
-  );
+    return (
+        <BlockWrapper header="Grading">
+            <Centered>
+                <p>This assignment is not open for grading yet.</p>
+                <SmallText>(You can start grading after the due date)</SmallText>
+            </Centered>
+        </BlockWrapper>
+    );
 };
 
 const AfterDueWRQ = observer(({ ux }) => {
-  return (
-    <BlockWrapper header={ux.hasGradeableAnswers ? 'Grading' : 'Scores'}>
-      {ux.scores.hasUngradedQuestions
-        ? <GradeableAnswers ux={ux} />
-        : ux.scores.hasUnPublishedScores
-          ? <UnpublishedScores ux={ux} />
-          : ux.scores.hasFinishedGrading
-            ? <RegradableAnswers ux={ux} />
-            : <ViewSubmissions ux={ux} />}
-      <ViewScores ux={ux} />
-    </BlockWrapper>
-  );
+    return (
+        <BlockWrapper header={ux.hasGradeableAnswers ? 'Grading' : 'Scores'}>
+            {ux.scores.hasUngradedQuestions
+                ? <GradeableAnswers ux={ux} />
+                : ux.scores.hasUnPublishedScores
+                    ? <UnpublishedScores ux={ux} />
+                    : ux.scores.hasFinishedGrading
+                        ? <RegradableAnswers ux={ux} />
+                        : <ViewSubmissions ux={ux} />}
+            <ViewScores ux={ux} />
+        </BlockWrapper>
+    );
 });
 
 const BeforeDueMCQ = observer(({ ux, ux: { progressStatsForPeriod } }) => {
-  return (
-    <BlockWrapper header="Progress">
-      <Centered>
-        <p>This assignment is still in progress</p>
-        <StackedBarChart stats={progressStatsForPeriod} isReading={ux.planScores.isReading} />
-      </Centered>
-    </BlockWrapper>
-  );
+    return (
+        <BlockWrapper header="Progress">
+            <Centered>
+                <p>This assignment is still in progress</p>
+                <StackedBarChart stats={progressStatsForPeriod} isReading={ux.planScores.isReading} />
+            </Centered>
+        </BlockWrapper>
+    );
 });
 
 const AfterDueMCQ = observer(({ ux }) => {
-  return (
-    <BlockWrapper header="Scores">
-      {ux.hasUnPublishedScores ? <PublishScores ux={ux} /> : <ViewSubmissions ux={ux} />}
-      <ViewScores ux={ux} />
-    </BlockWrapper>
-  );
+    return (
+        <BlockWrapper header="Scores">
+            {ux.hasUnPublishedScores ? <PublishScores ux={ux} /> : <ViewSubmissions ux={ux} />}
+            <ViewScores ux={ux} />
+        </BlockWrapper>
+    );
 });
 
 const GradingBlock = observer(({ ux }) => {
-  const { isEveryExerciseMultiChoice, isPastDue } = ux.planScores.taskPlan;
-  const Blocks = isEveryExerciseMultiChoice ?
-    [BeforeDueMCQ, AfterDueMCQ] : [BeforeDueWRQ, AfterDueWRQ];
-  const Block = Blocks[+ isPastDue];
+    const { isEveryExerciseMultiChoice, isPastDue } = ux.planScores.taskPlan;
+    const Blocks = isEveryExerciseMultiChoice ?
+        [BeforeDueMCQ, AfterDueMCQ] : [BeforeDueWRQ, AfterDueWRQ];
+    const Block = Blocks[+ isPastDue];
 
-  return <Block ux={ux} />;
+    return <Block ux={ux} />;
 });
 
 GradingBlock.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default GradingBlock;

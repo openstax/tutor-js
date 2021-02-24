@@ -13,38 +13,38 @@ class PracticeButton extends React.Component {
   static displayName = 'PracticeButton';
 
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
-    practiceType: PropTypes.string,
-    title:    PropTypes.string.isRequired,
-    sections: PropTypes.arrayOf(ChapterSectionType),
+      courseId: PropTypes.string.isRequired,
+      practiceType: PropTypes.string,
+      title:    PropTypes.string.isRequired,
+      sections: PropTypes.arrayOf(ChapterSectionType),
   };
 
   id = uniqueId('practice-button-tooltip-');
 
   getTip = (props) => {
-    if (props.isDisabled) {
-      return 'No problems are available for practicing';
-    }
-    return '';
+      if (props.isDisabled) {
+          return 'No problems are available for practicing';
+      }
+      return '';
   };
 
   render() {
-    const { sections, courseId } = this.props;
-    const page_ids = PerformanceForecast.Helpers.pagesForSections(sections);
-    const classes = classnames('practice', this.props.practiceType);
+      const { sections, courseId } = this.props;
+      const page_ids = PerformanceForecast.Helpers.pagesForSections(sections);
+      const classes = classnames('practice', this.props.practiceType);
 
-    return (
-      <Practice courseId={courseId} page_ids={page_ids}>
-        <ButtonWithTip
-          id={this.id}
-          variant="light"
-          className={classes}
-          getTip={this.getTip}
-          placement="top"
-        >
-          {this.props.title}
-        </ButtonWithTip>
-      </Practice>
-    );
+      return (
+          <Practice courseId={courseId} page_ids={page_ids}>
+              <ButtonWithTip
+                  id={this.id}
+                  variant="light"
+                  className={classes}
+                  getTip={this.getTip}
+                  placement="top"
+              >
+                  {this.props.title}
+              </ButtonWithTip>
+          </Practice>
+      );
   }
 }

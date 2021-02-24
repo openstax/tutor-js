@@ -19,72 +19,72 @@ export default class ReferenceBookUX extends BookUX {
   @observable navBar;
 
   @action.bound toggleTeacherContent() {
-    this.isShowingTeacherContent = !this.isShowingTeacherContent;
+      this.isShowingTeacherContent = !this.isShowingTeacherContent;
   }
 
   @action checkForTeacherContent() {
-    this.hasTeacherContent = Boolean(
-      document.querySelector(TEACHER_CONTENT_SELECTOR)
-    );
-    this.pendingCheck = null;
+      this.hasTeacherContent = Boolean(
+          document.querySelector(TEACHER_CONTENT_SELECTOR)
+      );
+      this.pendingCheck = null;
   }
 
   constructor(history, tours, options = {}) {
-    super(options);
-    this.tours = tours;
-    this.history = history;
+      super(options);
+      this.tours = tours;
+      this.history = history;
   }
 
   @computed get allowsAnnotating() {
-    return User.canAnnotate;
+      return User.canAnnotate;
   }
 
   @action setNavBar(nav) {
-    nav.className='reference-book';
-    nav.childProps.set('ux', this);
-    nav.left.replace({
-      'slide-out-menu-toggle': MenuToggle,
-      'book-title': BookTitle,
-      'section-title': SectionTitle,
-    });
-    nav.right.clear();
-    nav.right.merge({
-      'note-toggle': () => <NotesSummaryToggle course={this.course} />,
-    });
-    if (this.course && this.course.currentRole.isTeacher) {
-      nav.right.merge({
-        'teacher-content-toggle': TeacherContentToggle,
+      nav.className='reference-book';
+      nav.childProps.set('ux', this);
+      nav.left.replace({
+          'slide-out-menu-toggle': MenuToggle,
+          'book-title': BookTitle,
+          'section-title': SectionTitle,
       });
-    }
-    this.navBar = nav;
+      nav.right.clear();
+      nav.right.merge({
+          'note-toggle': () => <NotesSummaryToggle course={this.course} />,
+      });
+      if (this.course && this.course.currentRole.isTeacher) {
+          nav.right.merge({
+              'teacher-content-toggle': TeacherContentToggle,
+          });
+      }
+      this.navBar = nav;
   }
 
   @action clearNavBar(nav) {
-    nav.resetToDefault();
+      nav.resetToDefault();
   }
 
   sectionHref(section) {
-    if (!section || !this.courseId) { return null; }
-    return Router.makePathname('viewReferenceBookPage', {
-      courseId: this.courseId,
-      pageId: section.id,
-    }, { query: Router.currentQuery() });
+      if (!section || !this.courseId) { return null; }
+      return Router.makePathname('viewReferenceBookPage', {
+          courseId: this.courseId,
+          pageId: section.id,
+      }, { query: Router.currentQuery() });
   }
 
   sectionLinkProps(section) {
-    return {
-      to: 'viewReferenceBookPage',
-      params: extend(Router.currentParams(), { pageId: section.id }),
-      query: Router.currentQuery(),
-    };
+      return {
+          to: 'viewReferenceBookPage',
+          params: extend(Router.currentParams(), { pageId: section.id }),
+          query: Router.currentQuery(),
+      };
   }
 
   @action.bound onNavSetSection(path) {
-    this.history.push(path);
+      this.history.push(path);
   }
 
   @computed get pageProps() {
-    return { ux: this, title: this.page.title };
+      return { ux: this, title: this.page.title };
   }
 
 }

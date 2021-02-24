@@ -43,98 +43,98 @@ const StyledTopicForm = styled.div`
  * Reference nodes are chapter/sections in a book
 */
 const dropDownReferenceNode = ({
-  preSelectedNodes,
-  selectedNode,
-  onSelect,
-  label,
-  disabled,
-  shouldBeFocus,
-  onFocus,
-  showIsEmpty,
+    preSelectedNodes,
+    selectedNode,
+    onSelect,
+    label,
+    disabled,
+    shouldBeFocus,
+    onFocus,
+    showIsEmpty,
 }) => {
-  const nodes = map(preSelectedNodes, psc => 
-    <Dropdown.Item
-      key={psc.uuid}
-      value={psc.uuid}
-      eventKey={psc.uuid}
-      onSelect={onSelect}>
-      {psc.titleWithSection}
-    </Dropdown.Item>
-  );
-  return (
-    <div className="dropdown-wrapper">
-      <div><label>{startCase(label)}</label></div>
-      <div className="dropdown-button-wrapper" onFocus={onFocus}>
-        <TutorDropdown
-          toggleName={selectedNode
-            ? selectedNode.titleWithSection: `Select ${label}`}
-          dropdownItems={nodes}
-          disabled={disabled}
-          shouldBeFocus={shouldBeFocus}
-          hasError={showIsEmpty}
-        />
-        {showIsEmpty && <p>Link question to a {label} in the book</p>}
-      </div>
-    </div>
-  );
+    const nodes = map(preSelectedNodes, psc => 
+        <Dropdown.Item
+            key={psc.uuid}
+            value={psc.uuid}
+            eventKey={psc.uuid}
+            onSelect={onSelect}>
+            {psc.titleWithSection}
+        </Dropdown.Item>
+    );
+    return (
+        <div className="dropdown-wrapper">
+            <div><label>{startCase(label)}</label></div>
+            <div className="dropdown-button-wrapper" onFocus={onFocus}>
+                <TutorDropdown
+                    toggleName={selectedNode
+                        ? selectedNode.titleWithSection: `Select ${label}`}
+                    dropdownItems={nodes}
+                    disabled={disabled}
+                    shouldBeFocus={shouldBeFocus}
+                    hasError={showIsEmpty}
+                />
+                {showIsEmpty && <p>Link question to a {label} in the book</p>}
+            </div>
+        </div>
+    );
 };
 dropDownReferenceNode.propTypes = {
-  preSelectedNodes: PropTypes.array.isRequired,
-  selectedNode: PropTypes.object,
-  onSelect: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  shouldBeFocus: PropTypes.bool.isRequired,
-  onFocus: PropTypes.func,
-  showIsEmpty: PropTypes.bool,
+    preSelectedNodes: PropTypes.array.isRequired,
+    selectedNode: PropTypes.object,
+    onSelect: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    shouldBeFocus: PropTypes.bool.isRequired,
+    onFocus: PropTypes.func,
+    showIsEmpty: PropTypes.bool,
 };
 
 const TopicForm = observer(({ ux }) => {
-  return (
-    <StyledTopicForm>
-      { dropDownReferenceNode({
-        preSelectedNodes: ux.preSelectedChapters,
-        selectedNode: ux.selectedChapter,
-        onSelect: ux.setSelectedChapterByUUID,
-        label: 'chapter',
-        shouldBeFocus: !ux.selectedChapter,
-        showIsEmpty: ux.isEmpty.selectedChapter,
-      })}
-      { dropDownReferenceNode({
-        preSelectedNodes: ux.preSelectedChapterSections,
-        selectedNode: ux.selectedChapterSection,
-        onSelect: ux.setSelectedChapterSectionByUUID,
-        label: 'section',
-        disabled: !ux.selectedChapter,
-        shouldBeFocus: ux.selectedChapter && !ux.selectedChapterSection,
-        showIsEmpty: ux.isEmpty.selectedChapterSection,
-      })}
-      <div className="book-link">
-        <a
-          aria-label="Browse the book"
-          href={ux.browseBookLink}
-          target="_blank">
+    return (
+        <StyledTopicForm>
+            { dropDownReferenceNode({
+                preSelectedNodes: ux.preSelectedChapters,
+                selectedNode: ux.selectedChapter,
+                onSelect: ux.setSelectedChapterByUUID,
+                label: 'chapter',
+                shouldBeFocus: !ux.selectedChapter,
+                showIsEmpty: ux.isEmpty.selectedChapter,
+            })}
+            { dropDownReferenceNode({
+                preSelectedNodes: ux.preSelectedChapterSections,
+                selectedNode: ux.selectedChapterSection,
+                onSelect: ux.setSelectedChapterSectionByUUID,
+                label: 'section',
+                disabled: !ux.selectedChapter,
+                shouldBeFocus: ux.selectedChapter && !ux.selectedChapterSection,
+                showIsEmpty: ux.isEmpty.selectedChapterSection,
+            })}
+            <div className="book-link">
+                <a
+                    aria-label="Browse the book"
+                    href={ux.browseBookLink}
+                    target="_blank">
             Browse the book
-        </a>
-      </div>
-    </StyledTopicForm>
-  );
+                </a>
+            </div>
+        </StyledTopicForm>
+    );
 });
 TopicForm.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 const Topic = observer(({ ux }) => {
-  return (
-    <StyledAddEditQuestionFormBlock
-      label="Topic"
-      addPadding={false}
-      formContentRenderer={() => <TopicForm ux={ux}/>}
-    />
-  );
+    return (
+        <StyledAddEditQuestionFormBlock
+            label="Topic"
+            addPadding={false}
+            formContentRenderer={() => <TopicForm ux={ux}/>}
+        />
+    );
 });
 Topic.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 export default Topic;

@@ -6,7 +6,7 @@ import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
 import CourseInformation from '../models/course/information'
 
-const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
+const ROLE_PRIORITY = ['guest', 'student', 'teacher', 'admin'];
 
 const courseAdapter = createEntityAdapter<Course>({
     sortComparer: (a, b) => a.name.localeCompare(b.name),
@@ -25,6 +25,7 @@ const coursesSlice = createSlice({
             const course = state.entities[id]
             if (course) { course.name = name }
         },
+
         setCurrentRole(state, { payload: { id, roleId } }: PayloadAction<{ id: string, roleId: string }>) {
             const course = state.entities[id]
             if (course) { course.current_role_id = roleId }
@@ -51,9 +52,9 @@ export const useNameCleaned = (courseId: string | number) => useSelector<CourseS
     const course = selectors.selectById(state, courseId)
     const previewSuffix = ' Preview';
     if (course?.is_preview && endsWith(course?.name, previewSuffix)) {
-      return course.name.slice(0, -previewSuffix.length);
+        return course.name.slice(0, -previewSuffix.length);
     } else {
-      return course?.name;
+        return course?.name;
     }
 })
 
@@ -70,14 +71,14 @@ export const usePrimaryRole = (courseId: string | number) => useSelector<CourseS
 export const useCurrentRole = (courseId: string | number) => useSelector<CourseSlice, Role | undefined>(state => {
     const course = selectors.selectById(state, courseId)
     if (course?.current_role_id) {
-      return find(course.roles, { id: course.current_role_id });
+        return find(course.roles, { id: course.current_role_id });
     }
     return usePrimaryRole(courseId);
 })
 
 export const useTermFull = (courseId: string | number, doCapitalize = true) => useSelector<CourseSlice, string | null>(state => {
     const course = selectors.selectById(state, courseId)
-    if(course) {
+    if (course) {
         const term = doCapitalize ? capitalize(course.term) : course.term
         return `${term} ${course.year}`
     }
@@ -89,10 +90,10 @@ export const useNumberOfStudents = (courseId: string | number) => useSelector<Co
     return sumBy(course?.periods, p => p.num_enrolled_students)
 })
 
-export const useCoursesByOfferingId = (offeringId : string | number, includePreview = false) => useSelector<CourseSlice, Course[]>(state => {
+export const useCoursesByOfferingId = (offeringId: string | number, includePreview = false) => useSelector<CourseSlice, Course[]>(state => {
     const courses = selectors.selectAll(state)
     const coursesByOfferingId = filter(courses, c => c.offering_id === offeringId)
-    if(!includePreview) {
+    if (!includePreview) {
         return filter(coursesByOfferingId, co => String(co.term) != 'preview')
     }
     return coursesByOfferingId
@@ -100,7 +101,7 @@ export const useCoursesByOfferingId = (offeringId : string | number, includePrev
 
 export const useLatestCoursePreview = (offeringId: string | number) => useSelector<CourseSlice, Course | undefined>(state => {
     const courses = selectors.selectAll(state)
-    return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview') 
+    return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview')
 })
 
 export { createPreviewCourse, updateCourse, selectors }

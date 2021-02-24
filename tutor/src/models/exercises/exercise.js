@@ -1,7 +1,7 @@
 import { last, map, filter, reduce } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+    BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -13,9 +13,9 @@ import RelatedContent from '../related-content';
 @identifiedBy('exercises/exercise')
 export default class TutorExercise extends BaseModel {
 
-  constructor(attrs = {}) {
-    super(attrs);
-  }
+    constructor(attrs = {}) {
+        super(attrs);
+    }
 
   @identifier id;
   @field ecosystem_id;
@@ -37,28 +37,28 @@ export default class TutorExercise extends BaseModel {
   @hasMany({ model: RelatedContent }) related_content;
 
   @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
-    foo() { return 1234; },
-    important() {
-      return reduce(this, (o, t) => t.recordInfo(o), {});
-    },
-    chapterSection() {
-      return new ChapterSection(this.important.chapterSection);
-    },
+      foo() { return 1234; },
+      important() {
+          return reduce(this, (o, t) => t.recordInfo(o), {});
+      },
+      chapterSection() {
+          return new ChapterSection(this.important.chapterSection);
+      },
   }) }) tags;
 
   @session isSelected = false;
 
   @observable _page;
   @computed get page() {
-    if (this._page) { return this._page; }
-    if (!this.book && !this.course) { return ReferenceBookNode.UNKNOWN; }
-    const book = this.book || this.course.referenceBook;
-    return book.pages.byUUID.get(this.page_uuid) || ReferenceBookNode.UNKNOWN;
+      if (this._page) { return this._page; }
+      if (!this.book && !this.course) { return ReferenceBookNode.UNKNOWN; }
+      const book = this.book || this.course.referenceBook;
+      return book.pages.byUUID.get(this.page_uuid) || ReferenceBookNode.UNKNOWN;
   }
 
   // below fields are set if read from stats
   set page(pg) {
-    this._page = pg;
+      this._page = pg;
   }
   @hasMany({ model: 'task-plan/stats/question', inverseOf: 'exercise' }) question_stats;
   @session average_step_number;
@@ -71,42 +71,42 @@ export default class TutorExercise extends BaseModel {
   @computed get isWrittenResponse() { return this.content.isWrittenResponse; }
 
   @computed get types() {
-    return map(
-      filter(this.tags, tag =>
-        tag.id.startsWith('filter-type:') || tag.id.startsWith('type:')
-      ),
-      tag => last(tag.id.split(':'))
-    );
+      return map(
+          filter(this.tags, tag =>
+              tag.id.startsWith('filter-type:') || tag.id.startsWith('type:')
+          ),
+          tag => last(tag.id.split(':'))
+      );
   }
 
   @computed get typeAbbreviation() {
-    if (this.isMultiChoice) {
-      return 'MCQ';
-    } else if (this.isOpenEnded) {
-      return 'WRQ';
-    }
-    return 'UNK';
+      if (this.isMultiChoice) {
+          return 'MCQ';
+      } else if (this.isOpenEnded) {
+          return 'WRQ';
+      }
+      return 'UNK';
   }
 
   // called from api
   @action saveExclusion(course, is_excluded) {
-    this.is_excluded = is_excluded;
-    return { id: course.id, data: {} };
+      this.is_excluded = is_excluded;
+      return { id: course.id, data: {} };
   }
 
   @computed get isMultiPart() {
-    return this.content.isMultiPart;
+      return this.content.isMultiPart;
   }
 
   @computed get canCopy() {
-    return Boolean(this.is_copyable && !this.isMultiPart && this.isHomework);
+      return Boolean(this.is_copyable && !this.isMultiPart && this.isHomework);
   }
 
   @computed get hasInteractive() {
-    return this.has_interactive;
+      return this.has_interactive;
   }
   @computed get hasVideo() {
-    return this.has_video;
+      return this.has_video;
   }
 
   // Openstax exercises returns an id of 0;

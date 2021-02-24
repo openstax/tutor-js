@@ -10,14 +10,14 @@ const Bar = styled.div`
 
 
 const ImpersonationWarning = observer(({ app }) => {
-  if (app && app.is_impersonating) {
-    return <Bar className="impersonation-warning-bar"/>;
-  }
-  return null;
+    if (app && app.is_impersonating) {
+        return <Bar className="impersonation-warning-bar"/>;
+    }
+    return null;
 });
 
 ImpersonationWarning.propTypes = {
-  app: PropTypes.object,
+    app: PropTypes.object,
 };
 
 export default ImpersonationWarning;

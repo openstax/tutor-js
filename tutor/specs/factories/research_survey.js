@@ -1,12 +1,12 @@
 const {
-  Factory, sequence, fake, APPEARANCE_CODES,
+    Factory, sequence, fake, APPEARANCE_CODES,
 } = require('./helpers');
 
 Factory.define('ResearchSurvey')
-  .id(sequence)
-  .title(() => `Do you like ${fake.commerce.productName()}`)
-  .model(
-    `{
+    .id(sequence)
+    .title(() => `Do you like ${fake.commerce.productName()}`)
+    .model(
+        `{
         pages: [
           {
             name: "page1",
@@ -61,4 +61,4 @@ Factory.define('ResearchSurvey')
 }
 ]
 }`
-  );
+    );

@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css } from 'vendor'
+import { React, styled, css } from 'vendor'
 import { Icon, ScrollToTop } from 'shared'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,6 +6,7 @@ import scrollIntoView from 'scroll-into-view'
 import { createPreviewCourse } from '../../store/courses'
 import { useAllOfferings } from '../../store/offering'
 import User from '../../models/user'
+import { Offering } from '../../store/types'
 import CourseInformation from '../../models/course/information'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
@@ -166,7 +167,7 @@ const Content = styled.div`
     }
 `
 
-const Offering = styled.label`
+const OfferingLabel = styled.label`
     .control {
         display: flex;
         align-items: center;
@@ -386,7 +387,7 @@ const OfferingList: React.FC<OfferingListProps> = ({ subject, offerings }) => {
     const [showList, setListState] = useState(true)
 
     const toggleShow = () => {
-      setListState(!showList);
+        setListState(!showList);
     }
 
     const scrollToBook = (event, id) => {
@@ -428,17 +429,17 @@ interface SubjectSelectProps {
 }
 
 const SubjectSelect: React.FC<SubjectSelectProps> = ({
-    selectedSubject, setSelectedSubject, setActiveScreen, offerings
+    selectedSubject, setSelectedSubject, setActiveScreen, offerings,
 }) => {
     const [showSuggestSubmitButton, setShowSuggestSubmitButton] = useState(false)
-    const [suggestedSubject, setSuggestedSubject] = useState("")
+    const [suggestedSubject, setSuggestedSubject] = useState('')
     const [submittingSuggestion, setSubmittingSuggestion] = useState(false)
 
     const onSubmitSuggestion = (e) => {
         e.preventDefault()
         setSubmittingSuggestion(true)
         Promise.resolve(User.suggestSubject({ data: suggestedSubject }))
-               .then(() => setActiveScreen(Screens.AfterSuggest))
+            .then(() => setActiveScreen(Screens.AfterSuggest))
     }
 
     const onChangeSuggestion = (value) => {
@@ -457,10 +458,10 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
             </Header>
             <Wrapper>
                 <Sidebar>
-                {map(Object.keys(offerings), (key, i) => {
-                    const subjectTitle = key === 'undefined' ? 'Subjects' : key
-                    return(<OfferingList subject={subjectTitle} offerings={offerings[key]} key={i} />)
-                })}
+                    {map(Object.keys(offerings), (key, i) => {
+                        const subjectTitle = key === 'undefined' ? 'Subjects' : key
+                        return (<OfferingList subject={subjectTitle} offerings={offerings[key]} key={i} />)
+                    })}
                 </Sidebar>
                 <Content>
                     <form id="offering-form" aria-labelledby="instructions">
@@ -469,7 +470,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 <h3>{key === 'undefined' ? 'Subjects' : key}</h3>
                                 <div className="offering-wrapper">
                                     {map(offerings[key], (book, i) => (
-                                        <Offering key={i} id={book.id}>
+                                        <OfferingLabel key={i} id={book.id}>
                                             <input
                                                 type="radio"
                                                 name="offering"
@@ -481,7 +482,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                                 <div className="image" data-appearance={book['appearance_code']}></div>
                                                 <div className="title">{book['title']}</div>
                                             </div>
-                                        </Offering>
+                                        </OfferingLabel>
                                     ))}
                                 </div>
                             </div>
@@ -540,11 +541,10 @@ interface SubjectDetailProps {
     offerings: Offering[]
     selectedSubject: number
     history: History
-    setActiveScreen: void
 }
 
 const SubjectDetail: React.FC<SubjectDetailProps> = ({
-    offerings, selectedSubject, history, setActiveScreen
+    offerings, selectedSubject, history,
 }) => {
     const [creatingPreview, setCreatingPreview] = useState(false)
     const dispatch = useDispatch()
@@ -557,17 +557,17 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
 
         setCreatingPreview(true)
         dispatch(createPreviewCourse(offering))
-        .then((result) => {
-            setCreatingPreview(false)
-            if(!result.error) {
-                history.push(Router.makePathname(
-                    'dashboard', { courseId: result.payload.id },
-                ))
-            }
-        })
+            .then((result) => {
+                setCreatingPreview(false)
+                if (!result.error) {
+                    history.push(Router.makePathname(
+                        'dashboard', { courseId: result.payload.id },
+                    ))
+                }
+            })
     }
 
-    return(
+    return (
         <StyledPage>
             <Header>
                 <h2>Let’s get you started!</h2>
@@ -645,7 +645,7 @@ interface SubjectSuggestedProps {
     setActiveScreen: void
 }
 
-const SubjectSuggested: React.FC<SubjectSelectProps> = ({ setActiveScreen }) => {
+const SubjectSuggested: React.FC<SubjectSuggestedProps> = ({ setActiveScreen }) => {
     return (
         <StyledPage>
             <Header className="suggested">
@@ -654,7 +654,7 @@ const SubjectSuggested: React.FC<SubjectSelectProps> = ({ setActiveScreen }) => 
             <Wrapper>
                 <TwoCol className="narrow">
                     <Block variant="light" className="text action-card">
-                        <h4>Personalized homework.<br/> Pre-loaded Question Libary.</h4>
+                        <h4>Personalized homework.<br /> Pre-loaded Question Libary.</h4>
                         <p>Explore OpenStax Tutor and features that enable better learning for your students and easy course creation for you.</p>
                         <Button
                             variant="primary"
@@ -665,7 +665,8 @@ const SubjectSuggested: React.FC<SubjectSelectProps> = ({ setActiveScreen }) => 
                         </Button>
                     </Block>
                     <Block variant="light" className="text action-card">
-                        <h4>Peer-reviewed. <br/> Openly licensed. 100% free.</h4>
+                        <h4>Peer-reviewed. <br />
+                            Openly licensed. 100% free.</h4>
                         <p>Review our OpenStax textbooks, additional resources and technology partners.</p>
                         <a
                             className="btn btn-light"
@@ -728,7 +729,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
                 <ContentWrapper>
                     {screens[activeScreen]}
                 </ContentWrapper>
-             </ScrollToTop>
+            </ScrollToTop>
         </StyledBackgroundWrapper>
     )
 }

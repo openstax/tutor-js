@@ -5,28 +5,28 @@ import PreviewUX from '../../../src/models/course/onboarding/preview';
 
 describe('Freshly Created Course prompt', () => {
 
-  let ux;
+    let ux;
 
-  describe('student', () => {
-    beforeEach(() => {
-      ux = new StudentUX({}, {});
-      ux.dismissNag = jest.fn();
+    describe('student', () => {
+        beforeEach(() => {
+            ux = new StudentUX({}, {});
+            ux.dismissNag = jest.fn();
+        });
+
+        it('renders and matches snapshot', () => {
+            expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
+        });
     });
 
-    it('renders and matches snapshot', () => {
-      expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
-    });
-  });
+    describe('preview', () => {
+        beforeEach(() => {
+            ux = new PreviewUX({}, {});
+            ux.dismissNag = jest.fn();
+        });
 
-  describe('preview', () => {
-    beforeEach(() => {
-      ux = new PreviewUX({}, {});
-      ux.dismissNag = jest.fn();
+        it('renders and matches snapshot', () => {
+            expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
+        });
     });
-
-    it('renders and matches snapshot', () => {
-      expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
-    });
-  });
 
 });

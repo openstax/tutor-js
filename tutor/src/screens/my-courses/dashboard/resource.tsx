@@ -40,33 +40,33 @@ const StyledResource = styled.div`
 `
 
 interface ResourcesProps {
-  title: string | ReactElement
-  info: string
-  link: string
-  appearanceCode?: string
-  className?: string
+    title: string | ReactElement
+    info: string
+    link: string
+    appearanceCode?: string
+    className?: string
 }
 
 const Resources: React.FC<ResourcesProps> = ({ title, info, link, appearanceCode, className }) => {
-  const itemClasses = cn('my-courses-item', 'resource', className, { 'has-not-appearance': !appearanceCode })
-  return (
-  <StyledResource className="my-courses-item-wrapper">
-      <div
-        data-appearance={appearanceCode}
-        data-test-id="course-card"
-        data-is-teacher={true}
-        className={itemClasses}
-      >
-      <a className="my-courses-item-title" href={link} target="_blank">
-          <h4 className="name">{title}</h4>
-          <div className="preview-belt">
-              <p>{info}</p>
-          </div>
-      </a>
-      <Icon type="external-link-square"/>
-    </div>
-  </StyledResource>
-  )
+    const itemClasses = cn('my-courses-item', 'resource', className, { 'has-not-appearance': !appearanceCode })
+    return (
+        <StyledResource className="my-courses-item-wrapper">
+            <div
+                data-appearance={appearanceCode}
+                data-test-id="course-card"
+                data-is-teacher={true}
+                className={itemClasses}
+            >
+                <a className="my-courses-item-title" href={link} target="_blank">
+                    <h4 className="name">{title}</h4>
+                    <div className="preview-belt">
+                        <p>{info}</p>
+                    </div>
+                </a>
+                <Icon type="external-link-square" />
+            </div>
+        </StyledResource>
+    )
 }
 
 export default Resources

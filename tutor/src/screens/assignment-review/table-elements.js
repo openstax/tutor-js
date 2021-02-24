@@ -304,11 +304,11 @@ const NameWrapper = styled(Heading)`
 
 
 export {
-  StyledStickyTable, Cell, centeredCSS, paddingCSS, CellContents,
-  Heading, HeadingTop, HeadingMiddle, HeadingBottom,
-  ColumnHeading, ColumnFooter,
-  SplitCell, LateWork, Total, isTroubleCSS,
-  TableBottom, Definitions, Entry, Term, Definition,
-  ControlsWrapper, ControlGroup,
-  OrderIcon, NameWrapper,
+    StyledStickyTable, Cell, centeredCSS, paddingCSS, CellContents,
+    Heading, HeadingTop, HeadingMiddle, HeadingBottom,
+    ColumnHeading, ColumnFooter,
+    SplitCell, LateWork, Total, isTroubleCSS,
+    TableBottom, Definitions, Entry, Term, Definition,
+    ControlsWrapper, ControlGroup,
+    OrderIcon, NameWrapper,
 };

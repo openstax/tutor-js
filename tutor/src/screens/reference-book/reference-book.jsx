@@ -10,50 +10,50 @@ import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
 
 const BookPage = observer(({ ux }) => {
-  if (ux.page) {
-    return (
-      <ReferenceViewPageNavigation ux={ux}>
-        <Page {...ux.pageProps} />
-      </ReferenceViewPageNavigation>
-    );
-  } else {
-    return (
-      <div className="book-page-wrapper not-found">
-        <h1>Section {ux.chapterSection} was not found</h1>
-      </div>
-    );
-  }
+    if (ux.page) {
+        return (
+            <ReferenceViewPageNavigation ux={ux}>
+                <Page {...ux.pageProps} />
+            </ReferenceViewPageNavigation>
+        );
+    } else {
+        return (
+            <div className="book-page-wrapper not-found">
+                <h1>Section {ux.chapterSection} was not found</h1>
+            </div>
+        );
+    }
 });
 
-export default
 @observer
+export default
 class ReferenceBook extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    className: PropTypes.string,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      className: PropTypes.string,
   };
 
   render() {
-    const { ux } = this.props;
-    const Content = ux.isFetching ? LoadingScreen : BookPage;
+      const { ux } = this.props;
+      const Content = ux.isFetching ? LoadingScreen : BookPage;
 
-    const className = cn('reference-book', this.props.className, {
-      'menu-open': ux.isMenuVisible,
-      'menu-on-top': ux.isMenuOnTop,
-    });
+      const className = cn('reference-book', this.props.className, {
+          'menu-open': ux.isMenuVisible,
+          'menu-on-top': ux.isMenuOnTop,
+      });
 
-    return (
-      <div {...ux.dataProps} className={className}>
-        <SpyMode.Wrapper>
-          <ObscuredPage>
-            <div className="content">
-              <Menu {...ux.bookMenuProps} />
-              <Content ux={ux} />
-            </div>
-          </ObscuredPage>
-        </SpyMode.Wrapper>
-      </div>
-    );
+      return (
+          <div {...ux.dataProps} className={className}>
+              <SpyMode.Wrapper>
+                  <ObscuredPage>
+                      <div className="content">
+                          <Menu {...ux.bookMenuProps} />
+                          <Content ux={ux} />
+                      </div>
+                  </ObscuredPage>
+              </SpyMode.Wrapper>
+          </div>
+      );
   }
 }

@@ -1,5 +1,5 @@
 import {
-  extend, bindAll, difference, without, keys, isEmpty, values,
+    extend, bindAll, difference, without, keys, isEmpty, values,
 } from 'lodash';
 import moment from 'moment';
 import axios from 'axios';
@@ -10,146 +10,146 @@ const STORAGE_KEY = 'ox-notifications';
 
 class Poller {
 
-  static forType(notices, type) {
-    return new (POLLER_TYPES[type])(type, notices);
-  }
+    static forType(notices, type) {
+        return new (POLLER_TYPES[type])(type, notices);
+    }
 
-  constructor(type, notices, interval) {
-    this.type = type;
-    this.notices = notices;
-    this.interval = interval;
-    this.lastPoll = moment.unix(0);
-    this.prefsStorageKey = `${STORAGE_KEY}-${this.type}`;
-    bindAll(this, 'poll', 'onReply', 'onError');
-    document.addEventListener('visibilitychange', this.onVisiblityChange);
-  }
+    constructor(type, notices, interval) {
+        this.type = type;
+        this.notices = notices;
+        this.interval = interval;
+        this.lastPoll = moment.unix(0);
+        this.prefsStorageKey = `${STORAGE_KEY}-${this.type}`;
+        bindAll(this, 'poll', 'onReply', 'onError');
+        document.addEventListener('visibilitychange', this.onVisiblityChange);
+    }
 
   onVisiblityChange = () => {
-    if (this.shouldPoll) {
-      this.poll();
-    }
+      if (this.shouldPoll) {
+          this.poll();
+      }
   }
 
   setUrl(url) {
-    this.url = url;
-    if (!this.polling) { this.startPolling(); }
+      this.url = url;
+      if (!this.polling) { this.startPolling(); }
   }
 
   destroy() {
-    if (this.polling) { this.notices.windowImpl.clearInterval(this.polling); }
-    document.removeEventListener('visibilitychange', this.onVisiblityChange);
-    return delete this.polling;
+      if (this.polling) { this.notices.windowImpl.clearInterval(this.polling); }
+      document.removeEventListener('visibilitychange', this.onVisiblityChange);
+      return delete this.polling;
   }
 
   startPolling() {
-    this.polling = this.notices.windowImpl.setInterval(this.poll, this.interval.asMilliseconds());
+      this.polling = this.notices.windowImpl.setInterval(this.poll, this.interval.asMilliseconds());
 
-    return this.poll();
+      return this.poll();
 
   }
 
   get shouldPoll() {
-    // we poll if the document is visible and a poll is due
-    return this.notices.windowImpl.document.hidden !== true &&
+      // we poll if the document is visible and a poll is due
+      return this.notices.windowImpl.document.hidden !== true &&
       moment().isSameOrAfter(this.lastPoll.clone().add(this.interval));
   }
 
   poll() {
-    if (this.shouldPoll) {
-      this.lastPoll = moment();
-      return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
-    }
-    return Promise.resolve();
+      if (this.shouldPoll) {
+          this.lastPoll = moment();
+          return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
+      }
+      return Promise.resolve();
   }
 
   onReply() {
-    // eslint-disable-next-line no-console
-    console.warn('base onReply method called unnecessarily');
+      // eslint-disable-next-line no-console
+      console.warn('base onReply method called unnecessarily');
   }
 
   onError(resp) {
-    // eslint-disable-next-line no-console
-    console.warn(resp);
+      // eslint-disable-next-line no-console
+      console.warn(resp);
   }
 
   getActiveNotifications() {
-    return values(this._activeNotices);
+      return values(this._activeNotices);
   }
 
   acknowledge(notice) {
-    this._setObservedNoticeIds(
-      this._getObservedNoticeIds().concat(notice.id)
-    );
-    delete this._activeNotices[notice.id];
-    return this.notices.emit('change');
+      this._setObservedNoticeIds(
+          this._getObservedNoticeIds().concat(notice.id)
+      );
+      delete this._activeNotices[notice.id];
+      return this.notices.emit('change');
   }
 
   _setObservedNoticeIds(newIds) {
-    return UiSettings.set(this.prefsStorageKey, newIds);
+      return UiSettings.set(this.prefsStorageKey, newIds);
   }
 
   _getObservedNoticeIds() {
-    return UiSettings.get(this.prefsStorageKey) || [];
+      return UiSettings.get(this.prefsStorageKey) || [];
   }
 
   _setActiveNotices(newActiveNotices, currentIds) {
-    this._activeNotices = newActiveNotices;
-    this.notices.emit('change');
-    const observedIds = this._getObservedNoticeIds();
+      this._activeNotices = newActiveNotices;
+      this.notices.emit('change');
+      const observedIds = this._getObservedNoticeIds();
 
-    // Prune the list of observed notice ids so it doesn't continue to fill up with old notices
-    const outdatedIds = difference(observedIds, without(currentIds, ...Array.from(keys(newActiveNotices))));
-    if (!isEmpty(outdatedIds)) {
-      this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
-    }
+      // Prune the list of observed notice ids so it doesn't continue to fill up with old notices
+      const outdatedIds = difference(observedIds, without(currentIds, ...Array.from(keys(newActiveNotices))));
+      if (!isEmpty(outdatedIds)) {
+          this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
+      }
   }
 }
 
 
 class TutorUpdates extends Poller {
-  constructor(type, notices) {
-    super(type, notices, moment.duration(5, 'minutes'));
-    this.active = {};
-  }
-
-  onReply({ data }) {
-    const observedIds = this._getObservedNoticeIds();
-    const notices = {};
-    const currentIds = [];
-    for (let notice of data.notifications) {
-      currentIds.push(notice.id);
-
-      if (observedIds.indexOf(notice.id) !== -1) { continue; }
-      notices[notice.id] = extend(notice, { type: this.type });
+    constructor(type, notices) {
+        super(type, notices, moment.duration(5, 'minutes'));
+        this.active = {};
     }
 
-    this._setActiveNotices(notices, currentIds);
-    return this.notices.emit('tutor-update', data);
-  }
+    onReply({ data }) {
+        const observedIds = this._getObservedNoticeIds();
+        const notices = {};
+        const currentIds = [];
+        for (let notice of data.notifications) {
+            currentIds.push(notice.id);
+
+            if (observedIds.indexOf(notice.id) !== -1) { continue; }
+            notices[notice.id] = extend(notice, { type: this.type });
+        }
+
+        this._setActiveNotices(notices, currentIds);
+        return this.notices.emit('tutor-update', data);
+    }
 }
 
 
 class AccountsNagger extends Poller {
-  constructor(type, notices) {
-    super(type, notices, moment.duration(1, 'day'));
+    constructor(type, notices) {
+        super(type, notices, moment.duration(1, 'day'));
     // uncomment FOR DEBUGGING to get notification bar to show up
     // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
-  }
-
-  onReply({ data }) {
-    User.setCurrent(data);
-    const emails = {};
-    for (let email of User.current().unVerfiedEmails()) {
-      emails[email.id] = extend(email, { type: this.type });
     }
-    return this._setActiveNotices(emails, keys(emails));
-  }
+
+    onReply({ data }) {
+        User.setCurrent(data);
+        const emails = {};
+        for (let email of User.current().unVerfiedEmails()) {
+            emails[email.id] = extend(email, { type: this.type });
+        }
+        return this._setActiveNotices(emails, keys(emails));
+    }
 }
 
 
 var POLLER_TYPES = {
-  tutor: TutorUpdates,
-  accounts: AccountsNagger,
+    tutor: TutorUpdates,
+    accounts: AccountsNagger,
 };
 
 export default Poller;

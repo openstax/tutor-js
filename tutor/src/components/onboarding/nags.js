@@ -13,18 +13,18 @@ import freeTrialEnded     from './free-trial-ended';
 import freeTrialActivated from './free-trial-activated';
 
 export default {
-  previewOnlyWarning,
-  secondSessionWarning,
-  expiredPreviewWarning,
-  displayPreviewMessage,
+    previewOnlyWarning,
+    secondSessionWarning,
+    expiredPreviewWarning,
+    displayPreviewMessage,
 
-  freshlyCreatedCourse,
-  courseUseTips,
-  thanksForNow,
+    freshlyCreatedCourse,
+    courseUseTips,
+    thanksForNow,
 
-  payNowOrLater,
-  payDisabled,
-  makePayment,
-  freeTrialEnded,
-  freeTrialActivated,
+    payNowOrLater,
+    payDisabled,
+    makePayment,
+    freeTrialEnded,
+    freeTrialActivated,
 };

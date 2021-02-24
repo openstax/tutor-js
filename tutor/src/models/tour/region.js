@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, computed,
+    BaseModel, identifiedBy, field, identifier, computed,
 } from 'shared/model';
 
 // TourRegion
@@ -14,18 +14,18 @@ export default class TourRegion extends BaseModel {
   @field({ type: 'array' }) otherTours;
 
   @computed get tour_ids() {
-    // this seems convoluted, but this makes it so that `tour_ids` will react
-    // to `otherTours` updates.  see https://github.com/openstax/tutor-js/pull/1726#discussion_r122459935
-    // for more details.
-    return this.otherTours.slice().reverse().concat( [this.id] ).reverse();
+      // this seems convoluted, but this makes it so that `tour_ids` will react
+      // to `otherTours` updates.  see https://github.com/openstax/tutor-js/pull/1726#discussion_r122459935
+      // for more details.
+      return this.otherTours.slice().reverse().concat( [this.id] ).reverse();
   }
 
   @computed get target() {
-    return `[data-tour-region-id="${this.id}"]`;
+      return `[data-tour-region-id="${this.id}"]`;
   }
 
   get element() {
-    return document.querySelector(this.target);
+      return document.querySelector(this.target);
   }
 
 

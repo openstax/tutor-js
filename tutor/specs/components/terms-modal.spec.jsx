@@ -4,92 +4,92 @@ import User from '../../src/models/user';
 import { Term, UserTerms } from '../../src/models/user/terms';
 
 jest.mock('../../src/models/user', () => ({
-  available_terms: [],
+    available_terms: [],
 }));
 
 describe('Terms agreement modal', () => {
 
-  let modalManager;
-  let terms;
+    let modalManager;
+    let terms;
 
-  beforeEach(() => {
-    terms = new UserTerms({ user: User });
-    User.terms = terms
-    modalManager = new ModalManager();
-    modalManager.canDisplay = () => true;
-  });
-
-  describe('when there are no courses and no terms', () => {
-    it('does not render', () => {
-      const modal = shallow(<TermsModal modalManager={modalManager} />).dive();
-      expect(modal.is('Modal')).toBe(false);
-      expect(modal.text()).toBe('');
-    });
-  });
-
-  describe('when there are courses and', () => {
     beforeEach(() => {
-      User.terms_signatures_needed = true;
+        terms = new UserTerms({ user: User });
+        User.terms = terms
+        modalManager = new ModalManager();
+        modalManager.canDisplay = () => true;
     });
 
-    describe('only signed terms', () => {
-      beforeEach(() => {
-        User.terms.available_terms = [
-          {
-            id: 42,
-            name: 'general_terms_of_use',
-            title: 'Terms of Use',
-            content: 'bunch of HTML',
-            version: 2,
-            is_signed: true,
-            has_signed_before: true,
-            is_proxy_signed: true,
-          },
-        ];
-      });
-
-      it('does not render', () => {
-        const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
-        expect(modal.text()).toBe('');
-      });
+    describe('when there are no courses and no terms', () => {
+        it('does not render', () => {
+            const modal = shallow(<TermsModal modalManager={modalManager} />).dive();
+            expect(modal.is('Modal')).toBe(false);
+            expect(modal.text()).toBe('');
+        });
     });
 
-    describe('some unsigned terms', () => {
-      beforeEach(() => {
-        terms.user.available_terms = [
-          new Term({
-            id: 42,
-            name: 'general_terms_of_use',
-            title: 'Terms of Use',
-            content: 'bunch of HTML',
-            version: 2,
-            is_signed: false,
-            has_signed_before: true,
-            is_proxy_signed: false,
-          }),
-        ];
-      });
+    describe('when there are courses and', () => {
+        beforeEach(() => {
+            User.terms_signatures_needed = true;
+        });
 
-      it('renders', () => {
-        const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
-        expect(terms.user.available_terms[0].isRequired).toBe(true)
-        expect(modal.text()).toContain('I agree');
-      });
+        describe('only signed terms', () => {
+            beforeEach(() => {
+                User.terms.available_terms = [
+                    {
+                        id: 42,
+                        name: 'general_terms_of_use',
+                        title: 'Terms of Use',
+                        content: 'bunch of HTML',
+                        version: 2,
+                        is_signed: true,
+                        has_signed_before: true,
+                        is_proxy_signed: true,
+                    },
+                ];
+            });
+
+            it('does not render', () => {
+                const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
+                expect(modal.text()).toBe('');
+            });
+        });
+
+        describe('some unsigned terms', () => {
+            beforeEach(() => {
+                terms.user.available_terms = [
+                    new Term({
+                        id: 42,
+                        name: 'general_terms_of_use',
+                        title: 'Terms of Use',
+                        content: 'bunch of HTML',
+                        version: 2,
+                        is_signed: false,
+                        has_signed_before: true,
+                        is_proxy_signed: false,
+                    }),
+                ];
+            });
+
+            it('renders', () => {
+                const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
+                expect(terms.user.available_terms[0].isRequired).toBe(true)
+                expect(modal.text()).toContain('I agree');
+            });
+        });
     });
-  });
 
-  it('signs term when agreed', () => {
-    const term = new Term({
-      id: 1, is_signed: false, name: 'privacy_policy', content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
+    it('signs term when agreed', () => {
+        const term = new Term({
+            id: 1, is_signed: false, name: 'privacy_policy', content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
+        });
+        term.sign = jest.fn();
+        expect(term.isRequired).toBe(true)
+        terms.user.available_terms = [term];
+        terms.sign = jest.fn();
+
+        const modal = mount(<TermsModal canBeDisplayed modalManager={modalManager} />);
+
+        modal.find('Button').simulate('click');
+        expect(terms.sign).toHaveBeenCalled();
     });
-    term.sign = jest.fn();
-    expect(term.isRequired).toBe(true)
-    terms.user.available_terms = [term];
-    terms.sign = jest.fn();
-
-    const modal = mount(<TermsModal canBeDisplayed modalManager={modalManager} />);
-
-    modal.find('Button').simulate('click');
-    expect(terms.sign).toHaveBeenCalled();
-  });
 });

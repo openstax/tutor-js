@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, styled,
+    React, PropTypes, observer, styled,
 } from 'vendor';
 import UX from '../ux';
 import { ArbitraryHtmlAndMath as H } from 'shared';
@@ -18,30 +18,30 @@ const StyledExercise = styled(TaskStepCard)`
 `;
 
 const Preamble = ({ isHidden, content }) => {
-  if (isHidden) { return null; }
+    if (isHidden) { return null; }
 
-  return (
-    <React.Fragment>
+    return (
+        <React.Fragment>
 
-      {content.context &&
+            {content.context &&
         <H className="exercise-context"
-          block html={content.context} />}
+            block html={content.context} />}
 
-      {content.stimulus_html &&
+            {content.stimulus_html &&
         <H className="exercise-stimulus"
-          block html={content.stimulus_html} />}
+            block html={content.stimulus_html} />}
 
-      {content.stem_html &&
+            {content.stem_html &&
         <H className="exercise-stem"
-          block html={content.stem_html} />}
+            block html={content.stem_html} />}
 
-    </React.Fragment>
-  );
+        </React.Fragment>
+    );
 };
 
 Preamble.propTypes = {
-  isHidden: PropTypes.bool,
-  content: PropTypes.object,
+    isHidden: PropTypes.bool,
+    content: PropTypes.object,
 };
 
 
@@ -49,72 +49,72 @@ Preamble.propTypes = {
 export default class ExerciseTaskStep extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    step: PropTypes.instanceOf(Step).isRequired,
-    isFollowupMPQ: PropTypes.bool,
-    isMultiPart: PropTypes.bool,
-    windowImpl: PropTypes.object,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      step: PropTypes.instanceOf(Step).isRequired,
+      isFollowupMPQ: PropTypes.bool,
+      isMultiPart: PropTypes.bool,
+      windowImpl: PropTypes.object,
   }
 
   constructor(props) {
-    super(props);
-    const { step } = props;
-    if (!step.content || !step.content.questions) {
-      this.logAndRetryFetch();
-    }
+      super(props);
+      const { step } = props;
+      if (!step.content || !step.content.questions) {
+          this.logAndRetryFetch();
+      }
   }
 
   // TODO: remove this code when we no longer see it's messages logged
   logAndRetryFetch() {
-    const { step } = this.props;
+      const { step } = this.props;
 
-    step.fetch().then(() => {
-      Raven.log('No questions found on step', {
-        stepId: step.id,
-        type: step.type,
-        foundAfterReFetch: !!(step.content && step.content.questions),
+      step.fetch().then(() => {
+          Raven.log('No questions found on step', {
+              stepId: step.id,
+              type: step.type,
+              foundAfterReFetch: !!(step.content && step.content.questions),
+          });
       });
-    });
   }
 
   render() {
-    const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
-    const { content } = step;
+      const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
+      const { content } = step;
 
-    return (
+      return (
       <>
         <StyledExercise
-          step={step}
-          questionNumber={ux.questionNumberForStep(step)}
-          numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
-          goBackward={() => ux.goToStep(ux.previousStep)}
-          canGoBackward={Boolean(ux.previousStep)}
-          goForward={() => ux.goToStep(ux.nextStep)}
-          canGoForward={Boolean(ux.nextStep)}
+            step={step}
+            questionNumber={ux.questionNumberForStep(step)}
+            numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
+            goBackward={() => ux.goToStep(ux.previousStep)}
+            canGoBackward={Boolean(ux.previousStep)}
+            goForward={() => ux.goToStep(ux.nextStep)}
+            canGoForward={Boolean(ux.nextStep)}
 
         >
-          <Badges
-            spacedPractice={step.isSpacedPractice}
-            personalized={!isFollowupMPQ && step.isPersonalized}
-            multiPart={isMultiPart && !isFollowupMPQ}
-            writtenResponse={step.isWrittenResponseExercise}
-          />
+            <Badges
+                spacedPractice={step.isSpacedPractice}
+                personalized={!isFollowupMPQ && step.isPersonalized}
+                multiPart={isMultiPart && !isFollowupMPQ}
+                writtenResponse={step.isWrittenResponseExercise}
+            />
 
-          <Preamble
-            content={content}
-            isHidden={isFollowupMPQ} />
+            <Preamble
+                content={content}
+                isHidden={isFollowupMPQ} />
 
-          {(content.questions || []).map((q, i) =>
-            <ExerciseQuestion
-              ux={ux}
-              index={i}
-              key={q.id}
-              step={step}
-              question={q}
-            />)}
+            {(content.questions || []).map((q, i) =>
+                <ExerciseQuestion
+                    ux={ux}
+                    index={i}
+                    key={q.id}
+                    step={step}
+                    question={q}
+                />)}
         </StyledExercise>
       </>
-    );
+      );
   }
 
 }

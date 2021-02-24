@@ -9,13 +9,13 @@ const CHOICES = {};
 for (let i of Array.from(range(1, 5))) { CHOICES[i] = i; }
 
 function DokTag(props) {
-  return (
-    <SingleDropdown {...props} label="DOK" type="dok" choices={CHOICES} />
-  );
+    return (
+        <SingleDropdown {...props} label="DOK" type="dok" choices={CHOICES} />
+    );
 }
 
 DokTag.propTypes = {
-  exercise: PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 export default observer(DokTag);

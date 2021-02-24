@@ -37,26 +37,26 @@ const StyledEIcon = styled(EIcon)`
 `;
 
 const StatusIconLegend = () => (
-  <Wrapper>
-    <div>
-      <div><Icon color={colors.warning} type="exclamation-circle" /></div> <span>Due soon</span>
-    </div>
-    <div>
-      <div><Icon color={colors.danger} type="clock" /></div> <span>Late work</span>
-    </div>
-    <div>
-      <div><StyledEIcon /></div> <span>Extension</span>
-    </div>
-    <div>
-      <div><Icon variant="circledStar" /></div> <span>Provisional score. Final scores will be available when published by your instructor.</span>
-    </div>
-  </Wrapper>
+    <Wrapper>
+        <div>
+            <div><Icon color={colors.warning} type="exclamation-circle" /></div> <span>Due soon</span>
+        </div>
+        <div>
+            <div><Icon color={colors.danger} type="clock" /></div> <span>Late work</span>
+        </div>
+        <div>
+            <div><StyledEIcon /></div> <span>Extension</span>
+        </div>
+        <div>
+            <div><Icon variant="circledStar" /></div> <span>Provisional score. Final scores will be available when published by your instructor.</span>
+        </div>
+    </Wrapper>
 );
 
 StatusIconLegend.propTypes = {
-  tasks: PropTypes.oneOfType([
-    PropTypes.object, PropTypes.array,
-  ]).isRequired,
+    tasks: PropTypes.oneOfType([
+        PropTypes.object, PropTypes.array,
+    ]).isRequired,
 };
 
 export default StatusIconLegend;

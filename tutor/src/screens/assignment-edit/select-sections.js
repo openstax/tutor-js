@@ -30,32 +30,32 @@ const SectionWrapper = styled.div`
 @observer
 class Section extends React.Component {
   static propTypes = {
-    section: PropTypes.instanceOf(Node).isRequired,
-    selections: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
+      section: PropTypes.instanceOf(Node).isRequired,
+      selections: PropTypes.object.isRequired,
+      onChange: PropTypes.func.isRequired,
   };
 
   isSelected = () => { return !!this.props.selections[this.props.section.id]; };
 
   @action.bound toggleSection() {
-    this.props.onChange({ [this.props.section.id]: !this.isSelected() });
+      this.props.onChange({ [this.props.section.id]: !this.isSelected() });
   }
 
   render() {
-    const { section } = this.props;
-    const classNames = cn('section', { selected: this.isSelected() });
-    return (
-      <SectionWrapper
-        className={classNames}
-        data-section-id={section.id}
-        onClick={this.toggleSection}
-      >
-        <span className="section-checkbox">
-          <input type="checkbox" readOnly={true} checked={this.isSelected()} />
-        </span>
-        <BookPartTitle className="section-title" part={section} displayChapterSection={section.isChapterSectionDisplayed} />
-      </SectionWrapper>
-    );
+      const { section } = this.props;
+      const classNames = cn('section', { selected: this.isSelected() });
+      return (
+          <SectionWrapper
+              className={classNames}
+              data-section-id={section.id}
+              onClick={this.toggleSection}
+          >
+              <span className="section-checkbox">
+                  <input type="checkbox" readOnly={true} checked={this.isSelected()} />
+              </span>
+              <BookPartTitle className="section-title" part={section} displayChapterSection={section.isChapterSectionDisplayed} />
+          </SectionWrapper>
+      );
   }
 }
 
@@ -84,15 +84,15 @@ const ChapterWrapper = styled.div`
 @observer
 class ChapterAccordion extends React.Component {
   static propTypes = {
-    book: PropTypes.instanceOf(BookModel).isRequired,
-    chapter: PropTypes.instanceOf(Node).isRequired,
-    course: PropTypes.instanceOf(CourseModel),
-    onChange: PropTypes.func.isRequired,
-    selections: PropTypes.object.isRequired,
+      book: PropTypes.instanceOf(BookModel).isRequired,
+      chapter: PropTypes.instanceOf(Node).isRequired,
+      course: PropTypes.instanceOf(CourseModel),
+      onChange: PropTypes.func.isRequired,
+      selections: PropTypes.object.isRequired,
   };
 
   @computed get isAnySelected() {
-    return !!find(this.props.chapter.children, this.isSectionSelected);
+      return !!find(this.props.chapter.children, this.isSectionSelected);
   }
 
   @observable expanded = this.isAnySelected || '1' === this.props.chapter.chapter_section.asString;
@@ -102,58 +102,58 @@ class ChapterAccordion extends React.Component {
   isSectionSelected = (section) => { return this.props.selections[section.id]; };
 
   toggleSectionSelections = (ev) => {
-    ev.stopPropagation();
-    ev.preventDefault();
-    const selected = !this.isAnySelected;
-    const newSelections = {};
-    this.props.chapter.children.assignable.forEach(pg => newSelections[pg.id] = selected);
-    this.expanded = true;
-    this.props.onChange(newSelections);
+      ev.stopPropagation();
+      ev.preventDefault();
+      const selected = !this.isAnySelected;
+      const newSelections = {};
+      this.props.chapter.children.assignable.forEach(pg => newSelections[pg.id] = selected);
+      this.expanded = true;
+      this.props.onChange(newSelections);
   };
 
   @action.bound onAccordianToggle() {
-    this.expanded = !this.expanded;
+      this.expanded = !this.expanded;
   }
 
   render() {
-    const { chapter, course } = this.props;
-    const selected = filter(chapter.children, this.isSectionSelected);
+      const { chapter, course } = this.props;
+      const selected = filter(chapter.children, this.isSectionSelected);
 
-    const checkBoxType = selected.length === chapter.children.assignable.length ? 'checked'
-      : selected.length ? 'partial' : 'unchecked';
+      const checkBoxType = selected.length === chapter.children.assignable.length ? 'checked'
+          : selected.length ? 'partial' : 'unchecked';
 
-    return (
-      <ChapterWrapper className="chapter"
-        data-is-expanded={this.expanded}
-      >
-        <ChapterHeading
-          role="button"
-          data-chapter-section={chapter.chapter_section.chapter}
-          onClick={this.onAccordianToggle}
-        >
-          <span className="chapter-checkbox">
-            <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
-          </span>
-          <span className="chapter-number">Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
-          <BookPartTitle className="chapter-title" title={chapter.title} />
-          {course &&
+      return (
+          <ChapterWrapper className="chapter"
+              data-is-expanded={this.expanded}
+          >
+              <ChapterHeading
+                  role="button"
+                  data-chapter-section={chapter.chapter_section.chapter}
+                  onClick={this.onAccordianToggle}
+              >
+                  <span className="chapter-checkbox">
+                      <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
+                  </span>
+                  <span className="chapter-number">Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
+                  <BookPartTitle className="chapter-title" title={chapter.title} />
+                  {course &&
             <BrowseTheBook
-              unstyled
-              onClick={this.browseBook}
-              page={chapter.children.first}
-              course={course}
+                unstyled
+                onClick={this.browseBook}
+                page={chapter.children.first}
+                course={course}
             >
               Browse this Chapter
             </BrowseTheBook>}
-        </ChapterHeading>
-        <Collapse in={this.expanded}>
-          <div className="sections">
-            {chapter.children.assignable.map((section) =>
-              <Section key={section.cnx_id} {...this.props} section={section} />)}
-          </div>
-        </Collapse>
-      </ChapterWrapper>
-    );
+              </ChapterHeading>
+              <Collapse in={this.expanded}>
+                  <div className="sections">
+                      {chapter.children.assignable.map((section) =>
+                          <Section key={section.cnx_id} {...this.props} section={section} />)}
+                  </div>
+              </Collapse>
+          </ChapterWrapper>
+      );
   }
 }
 
@@ -166,69 +166,69 @@ const SectionChooserWrapper = styled.div`
 export default class SectionsChooser extends React.Component {
 
   static propTypes = {
-    book: PropTypes.instanceOf(BookModel).isRequired,
-    course: PropTypes.instanceOf(CourseModel),
-    onSelectionChange: PropTypes.func,
-    selectedPageIds: PropTypes.arrayOf(
-      PropTypes.string
-    ),
+      book: PropTypes.instanceOf(BookModel).isRequired,
+      course: PropTypes.instanceOf(CourseModel),
+      onSelectionChange: PropTypes.func,
+      selectedPageIds: PropTypes.arrayOf(
+          PropTypes.string
+      ),
   };
 
   @observable selections = {};
 
   UNSAFE_componentWillMount() {
-    this.props.book.ensureLoaded();
+      this.props.book.ensureLoaded();
 
-    this.copySelectionStateFrom(
-      this.props.selectedPageIds ? this.props.selectedPageIds : []
-    );
+      this.copySelectionStateFrom(
+          this.props.selectedPageIds ? this.props.selectedPageIds : []
+      );
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedPageIds) {
-      this.copySelectionStateFrom(nextProps.selectedPageIds);
-    }
+      if (nextProps.selectedPageIds) {
+          this.copySelectionStateFrom(nextProps.selectedPageIds);
+      }
   }
 
   @action.bound copySelectionStateFrom = (pageIds) => {
-    const selections = {};
-    pageIds.forEach(pgId => selections[pgId] = true);
-    this.selections = selections;
+      const selections = {};
+      pageIds.forEach(pgId => selections[pgId] = true);
+      this.selections = selections;
   }
 
   getSelectedSectionIds = (selections = this.selections) => {
-    const ids = [];
-    forEach(selections, (isSelected, id) => {
-      if (isSelected) { ids.push(id); }
-    });
-    return ids;
+      const ids = [];
+      forEach(selections, (isSelected, id) => {
+          if (isSelected) { ids.push(id); }
+      });
+      return ids;
   }
 
   @action.bound onSectionSelectionChange(update) {
-    this.selections = extend({}, this.selections, update);
-    if (this.props.onSelectionChange) {
-      this.props.onSelectionChange(this.getSelectedSectionIds(this.selections));
-    }
+      this.selections = extend({}, this.selections, update);
+      if (this.props.onSelectionChange) {
+          this.props.onSelectionChange(this.getSelectedSectionIds(this.selections));
+      }
   }
 
   render() {
-    const { book } = this.props;
+      const { book } = this.props;
 
-    if (book.api.isPending) {
-      return <Loading />;
-    }
+      if (book.api.isPending) {
+          return <Loading />;
+      }
 
-    return (
-      <SectionChooserWrapper>
-        {book.chapters.map((chapter) =>
-          <ChapterAccordion
-            key={chapter.id}
-            {...this.props}
-            onChange={this.onSectionSelectionChange}
-            selections={this.selections}
-            chapter={chapter}
-          />)}
-      </SectionChooserWrapper>
-    );
+      return (
+          <SectionChooserWrapper>
+              {book.chapters.map((chapter) =>
+                  <ChapterAccordion
+                      key={chapter.id}
+                      {...this.props}
+                      onChange={this.onSectionSelectionChange}
+                      selections={this.selections}
+                      chapter={chapter}
+                  />)}
+          </SectionChooserWrapper>
+      );
   }
 }

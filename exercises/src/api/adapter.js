@@ -8,22 +8,22 @@ const CSRF_Token = get(document.head.querySelector('meta[name=csrf-token]'), 'co
 const IS_LOCAL = (window.location.port === '8001') || window.__karma__;
 
 const OPTIONS = {
-  xhr: {
-    baseURL: `${window.location.origin}/api`,
-    headers: {
-      'X-CSRF-Token': CSRF_Token,
+    xhr: {
+        baseURL: `${window.location.origin}/api`,
+        headers: {
+            'X-CSRF-Token': CSRF_Token,
+        },
     },
-  },
-  handlers: {
-    onFail(error) {
-      const { response } = error;
-      const { status, data, config } = response;
-      const opts = config;
+    handlers: {
+        onFail(error) {
+            const { response } = error;
+            const { status, data, config } = response;
+            const opts = config;
 
-      return Errors.setServerError(status, data, { url: (config != null ? config.url : undefined), opts });
+            return Errors.setServerError(status, data, { url: (config != null ? config.url : undefined), opts });
+        },
     },
-  },
-  isLocal: IS_LOCAL,
+    isLocal: IS_LOCAL,
 };
 
 const exerciseAPIHandler = new APIHandler(OPTIONS);

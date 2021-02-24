@@ -21,72 +21,72 @@ import ErrorBoundary from './error-monitoring/boundary';
 import { TutorLayout } from './tutor-layout';
 
 const RouteChange = function(props) {
-  TransitionActions.load(props.pathname);
-  return <span />;
+    TransitionActions.load(props.pathname);
+    return <span />;
 };
 
 RouteChange.propTypes = {
-  pathname: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired,
 };
 
-export default
 @observer
+export default
 class App extends React.Component {
 
-  static propTypes = {
-    app: PropTypes.object.isRequired, // can't use instanceOf (circular dep)
-    location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }).isRequired,
-  }
+    static propTypes = {
+        app: PropTypes.object.isRequired, // can't use instanceOf (circular dep)
+        location: PropTypes.shape({
+            pathname: PropTypes.string,
+        }).isRequired,
+    }
 
-  componentDidMount() {
-    Analytics.setGa(window.ga);
-    User.recordSessionStart();
-    this.storeHistory();
-  }
+    componentDidMount() {
+        Analytics.setGa(window.ga);
+        User.recordSessionStart();
+        this.storeHistory();
+    }
 
-  componentDidUpdate() {
-    this.storeHistory();
-  }
+    componentDidUpdate() {
+        this.storeHistory();
+    }
 
-  storeHistory() {
-    Analytics.onNavigation(this.props.location.pathname);
-    TransitionActions.load(this.props.location.pathname);
-  }
+    storeHistory() {
+        Analytics.onNavigation(this.props.location.pathname);
+        TransitionActions.load(this.props.location.pathname);
+    }
 
-  render() {
-    const { courseId } = Router.currentParams();
-    const course = courseId ? Courses.get(courseId) : null;
-    const routeName = S.dasherize(
-      get(Router.currentMatch(), 'entry.name', '')
-    );
-    const classNames = classnames(
-      'tutor-app', 'openstax-wrapper', routeName, {
-        'is-college':     course && course.is_college,
-        'is-high-school': course && !course.is_college,
-      }
-    );
+    render() {
+        const { courseId } = Router.currentParams();
+        const course = courseId ? Courses.get(courseId) : null;
+        const routeName = S.dasherize(
+            get(Router.currentMatch(), 'entry.name', '')
+        );
+        const classNames = classnames(
+            'tutor-app', 'openstax-wrapper', routeName, {
+                'is-college':     course && course.is_college,
+                'is-high-school': course && !course.is_college,
+            }
+        );
 
-    return (
-      <div className={classNames}>
-        <DndProvider backend={HTML5Backend}>
-          <ErrorBoundary app={this.props.app}>
-            <TeacherAsStudentFrame course={course} routeName={routeName}>
-              <SpyMode.Wrapper>
-                <ModalManager>
-                  <TourConductor>
-                    <TutorLayout app={this.props.app} course={course}>
-                      <MatchForTutor routes={Router.getRenderableRoutes()} />
-                    </TutorLayout>
-                  </TourConductor>
-                </ModalManager>
-              </SpyMode.Wrapper>
-            </TeacherAsStudentFrame>
-          </ErrorBoundary>
-        </DndProvider>
-      </div>
-    );
-  }
+        return (
+            <div className={classNames}>
+                <DndProvider backend={HTML5Backend}>
+                    <ErrorBoundary app={this.props.app}>
+                        <TeacherAsStudentFrame course={course} routeName={routeName}>
+                            <SpyMode.Wrapper>
+                                <ModalManager>
+                                    <TourConductor>
+                                        <TutorLayout app={this.props.app} course={course}>
+                                            <MatchForTutor routes={Router.getRenderableRoutes()} />
+                                        </TutorLayout>
+                                    </TourConductor>
+                                </ModalManager>
+                            </SpyMode.Wrapper>
+                        </TeacherAsStudentFrame>
+                    </ErrorBoundary>
+                </DndProvider>
+            </div>
+        );
+    }
 
 }

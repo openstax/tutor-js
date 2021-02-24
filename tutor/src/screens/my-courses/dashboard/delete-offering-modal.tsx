@@ -57,56 +57,56 @@ interface DeleteOfferingModalProps {
 }
 
 const DeleteOfferingModal: React.FC<DeleteOfferingModalProps> = ({ show, onHide, onDelete }) => {
-  return (
-    <Modal
-      show={show}
-      backdrop="static"
-      onHide={onHide}
-    >
-      <StyledHeader closeButton>
+    return (
+        <Modal
+            show={show}
+            backdrop="static"
+            onHide={onHide}
+        >
+            <StyledHeader closeButton>
           Delete subject?
-      </StyledHeader>
-      <StyledBody>
-        <p>Are you sure you want to permanently delete this subject? Once deleted, all data within this subject will be lost.</p>
-        <p>You can’t undo this action.</p>
-        <ControlsWrapper>
-          <Controls>
-            <Button variant="default" size="lg" onClick={onDelete}>
+            </StyledHeader>
+            <StyledBody>
+                <p>Are you sure you want to permanently delete this subject? Once deleted, all data within this subject will be lost.</p>
+                <p>You can’t undo this action.</p>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button variant="default" size="lg" onClick={onDelete}>
                   Yes, delete
-            </Button>
-            <Button variant="primary" size="lg" onClick={onHide}>
+                        </Button>
+                        <Button variant="primary" size="lg" onClick={onHide}>
                   Cancel
-            </Button>
-          </Controls>
-        </ControlsWrapper>
-      </StyledBody>
-    </Modal>
-  )
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
+    )
 }
 
 const DeleteOfferingWarningModal: React.FC<DeleteOfferingModalProps> = ({ show, onHide }) => {
     return (
-      <Modal
-        show={show}
-        backdrop="static"
-        onHide={onHide}
-      >
-        <StyledHeader closeButton className="warning">
-            <Icon type="exclamation-triangle" />Subject cannot be deleted
-        </StyledHeader>
-        <StyledBody>
-          <p>This subject cannot be removed since there are students enrolled in one or more courses.</p>
-          <p className="note">Tip: Within this subject, you can still delete individual courses that have no students enrolled in them.</p>
-          <ControlsWrapper>
-            <Controls>
-              <Button variant="default" size="lg" onClick={onHide}>
+        <Modal
+            show={show}
+            backdrop="static"
+            onHide={onHide}
+        >
+            <StyledHeader closeButton className="warning">
+                <Icon type="exclamation-triangle" />Subject cannot be deleted
+            </StyledHeader>
+            <StyledBody>
+                <p>This subject cannot be removed since there are students enrolled in one or more courses.</p>
+                <p className="note">Tip: Within this subject, you can still delete individual courses that have no students enrolled in them.</p>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button variant="default" size="lg" onClick={onHide}>
                     Okay
-              </Button>
-            </Controls>
-          </ControlsWrapper>
-        </StyledBody>
-      </Modal>
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
     )
-  }
+}
 
 export { DeleteOfferingModal, DeleteOfferingWarningModal }

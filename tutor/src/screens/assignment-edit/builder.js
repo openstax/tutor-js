@@ -69,7 +69,7 @@ const TextInputWrapper = styled.div`
 `;
 
 const TextInputError = styled.div.attrs({
-  'aria-invalid': true,
+    'aria-invalid': true,
 })`
   color: red;
   margin: 1rem 0;
@@ -85,7 +85,7 @@ const GreyPopover = styled(Popover)`
 // don't pass hasError onto Field, it'll set it on the DOM
 // eslint-disable-next-line no-unused-vars
 const StyledTextInput = styled(Field).withConfig({
-  shouldForwardProp: (prop) => prop != 'hasError',
+    shouldForwardProp: (prop) => prop != 'hasError',
 })`
   padding: 0.8rem 1rem;
   border-radius: 4px;
@@ -109,52 +109,52 @@ const StyledTextInput = styled(Field).withConfig({
 `;
 
 const TextInput = (props) => (
-  <TextInputWrapper>
-    <StyledTextInput {...props} />
-    <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
-  </TextInputWrapper>
+    <TextInputWrapper>
+        <StyledTextInput {...props} />
+        <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
+    </TextInputWrapper>
 );
 TextInput.propTypes = {
-  name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 const TextArea = (props) => (
-  <TextInputWrapper>
-    <StyledTextInput {...props}  component="textarea" rows="4" />
-    <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
-  </TextInputWrapper>
+    <TextInputWrapper>
+        <StyledTextInput {...props}  component="textarea" rows="4" />
+        <ErrorMessage name={props.name} render={msg => <TextInputError data-target={props.name}>{msg}</TextInputError>} />
+    </TextInputWrapper>
 );
 TextArea.propTypes = {
-  name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => {
-  return (
-    <ScrollToTop>
-      <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
-        {Boolean(ux.steps && ux.steps.headerText) &&
+    return (
+        <ScrollToTop>
+            <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
+                {Boolean(ux.steps && ux.steps.headerText) &&
         <HeaderStep>
-          {ux.steps.headerText}
+            {ux.steps.headerText}
         </HeaderStep> 
-        }
-        {title}
-      </Header>
-      <BodyWrapper>
-        {children}
-      </BodyWrapper>
-      <Controls ux={ux} middleControls={middleControls} />
-    </ScrollToTop>
-  );
+                }
+                {title}
+            </Header>
+            <BodyWrapper>
+                {children}
+            </BodyWrapper>
+            <Controls ux={ux} middleControls={middleControls} />
+        </ScrollToTop>
+    );
 });
 
 AssignmentBuilder.propTypes = {
-  ux: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  middleControls: PropTypes.node,
+    ux: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+    middleControls: PropTypes.node,
 };
 
 export {
-  AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, TextArea,
-  Setting, Body, GreyPopover,
+    AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, TextArea,
+    Setting, Body, GreyPopover,
 };

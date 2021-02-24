@@ -16,65 +16,65 @@ const StyledCourseSettings = styled(CoursePage)`
   }
 `;
 
-export default
 @observer
+export default
 class CourseSettings extends React.Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-    }).isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }).isRequired,
+      params: PropTypes.shape({
+          courseId: PropTypes.string.isRequired,
+      }).isRequired,
+      history: PropTypes.shape({
+          push: PropTypes.func,
+      }).isRequired,
   }
 
   componentDidMount() {
-    this.course.roster.fetch();
+      this.course.roster.fetch();
   }
 
   @observable tabIndex;
 
   @computed get course() {
-    return Courses.get(this.props.params.courseId);
+      return Courses.get(this.props.params.courseId);
   }
 
   @action.bound onTabSelect(tabIndex) {
-    this.tabIndex = tabIndex;
+      this.tabIndex = tabIndex;
   }
 
   renderAccess() {
-    return (
-      <StudentAccess course={this.course} />
-    );
+      return (
+          <StudentAccess course={this.course} />
+      );
   }
 
   renderCourseDetails() {
-    return (
-      <CourseDetails course={this.course} history={this.props.history} />
-    );
+      return (
+          <CourseDetails course={this.course} history={this.props.history} />
+      );
   }
 
   renderTitleBreadcrumbs() {
-    return <CourseBreadcrumb course={this.course} currentTitle="Course Settings" noBottomMargin />;
+      return <CourseBreadcrumb course={this.course} currentTitle="Course Settings" noBottomMargin />;
   }
 
   render() {
-    const { course, tabIndex } = this;
-    return (
-      <StyledCourseSettings
-        className="settings"
-        course={course}
-        titleBreadcrumbs={this.renderTitleBreadcrumbs()}
-        titleAppearance="light"
-        controlBackgroundColor='white'
-      >
-        <Tabs
-          tabs={['STUDENT ACCESS', 'COURSE DETAILS']}
-          onSelect={this.onTabSelect}
-        />
-        {tabIndex ? this.renderCourseDetails() : this.renderAccess()}
-      </StyledCourseSettings>
-    );
+      const { course, tabIndex } = this;
+      return (
+          <StyledCourseSettings
+              className="settings"
+              course={course}
+              titleBreadcrumbs={this.renderTitleBreadcrumbs()}
+              titleAppearance="light"
+              controlBackgroundColor='white'
+          >
+              <Tabs
+                  tabs={['STUDENT ACCESS', 'COURSE DETAILS']}
+                  onSelect={this.onTabSelect}
+              />
+              {tabIndex ? this.renderCourseDetails() : this.renderAccess()}
+          </StyledCourseSettings>
+      );
   }
 }

@@ -201,187 +201,187 @@ const StyledPopover = styled(Popover)`
 
 const percentOrDash = (score) => isNil(score) ? UNWORKED : `${ScoresHelper.asPercent(score)}%`;
 const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
-  const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
-  return studentTaskPlan ? studentTaskPlan.is_extended : false;
+    const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
+    return studentTaskPlan ? studentTaskPlan.is_extended : false;
 };
 
 const DueInfo = ({ sd, course }) => (
-  <div className="icon-wrapper">
-    {moment(sd.due_at).format('MMM D')}
-    {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
-  </div>
+    <div className="icon-wrapper">
+        {moment(sd.due_at).format('MMM D')}
+        {hasExtension(course.studentTaskPlans, sd.id) && <EIcon inline />}
+    </div>
 );
 DueInfo.propTypes = {
-  sd: PropTypes.object.isRequired,
-  course: PropTypes.object.isRequired,
+    sd: PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
 };
 
 const PointsInfo = ({ sd }) => (
-  <div className="icon-wrapper">
-    {sd.humanPoints}
-    {sd.isLate && <Icon color={colors.danger} type="clock" />}
-  </div>
+    <div className="icon-wrapper">
+        {sd.humanPoints}
+        {sd.isLate && <Icon color={colors.danger} type="clock" />}
+    </div>
 );
 PointsInfo.propTypes = {
-  sd: PropTypes.object.isRequired,
+    sd: PropTypes.object.isRequired,
 };
 
 const PercentageInfo = ({ sd }) => (
-  <div className="icon-wrapper">
-    <strong>{sd.humanScore}</strong>
-    {sd.is_provisional_score && <Icon variant="circledStar" />}
-  </div>
+    <div className="icon-wrapper">
+        <strong>{sd.humanScore}</strong>
+        {sd.is_provisional_score && <Icon variant="circledStar" />}
+    </div>
 );
 PercentageInfo.propTypes = {
-  sd: PropTypes.object.isRequired,
+    sd: PropTypes.object.isRequired,
 };
 
 const MobileStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
-  <tr>
-    <td
-      className={`border-${sd.reportHeading.type}`}
-      onClick={() => goToAssignment(history, course.id, sd.id)}>
-      <div className="mobile-title">
-        {sd.reportHeading.title}
-      </div>
-      <InfoItem>
-        <div>Due date</div>
-        <DueInfo sd={sd} course={course} />
-      </InfoItem>
-      <InfoItem>
-        <div>Points scored</div>
-        <PointsInfo sd={sd} />
-      </InfoItem>
-      <InfoItem>
-        <div>Percentage</div>
-        <PercentageInfo sd={sd} />
-      </InfoItem>
-    </td>
-  </tr>
+    <tr>
+        <td
+            className={`border-${sd.reportHeading.type}`}
+            onClick={() => goToAssignment(history, course.id, sd.id)}>
+            <div className="mobile-title">
+                {sd.reportHeading.title}
+            </div>
+            <InfoItem>
+                <div>Due date</div>
+                <DueInfo sd={sd} course={course} />
+            </InfoItem>
+            <InfoItem>
+                <div>Points scored</div>
+                <PointsInfo sd={sd} />
+            </InfoItem>
+            <InfoItem>
+                <div>Percentage</div>
+                <PercentageInfo sd={sd} />
+            </InfoItem>
+        </td>
+    </tr>
 );
 MobileStudentDataRow.propTypes = {
-  sd: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  ux: PropTypes.object.isRequired,
+    sd: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 const DesktopStudentDataRow = ({ sd, history, ux: { course, goToAssignment } }) => (
-  <tr>
-    <td
-      className={`border-${sd.reportHeading.type}`}
-      onClick={() => goToAssignment(history, course.id, sd.id)}>
-      {sd.reportHeading.title}
-    </td>
-    <td>
-      <DueInfo sd={sd} course={course} />
-    </td>
-    <td>
-      <PointsInfo sd={sd} />
-    </td>
-    <td>
-      <PercentageInfo sd={sd} />
-    </td>
-  </tr>
+    <tr>
+        <td
+            className={`border-${sd.reportHeading.type}`}
+            onClick={() => goToAssignment(history, course.id, sd.id)}>
+            {sd.reportHeading.title}
+        </td>
+        <td>
+            <DueInfo sd={sd} course={course} />
+        </td>
+        <td>
+            <PointsInfo sd={sd} />
+        </td>
+        <td>
+            <PercentageInfo sd={sd} />
+        </td>
+    </tr>
 );
 DesktopStudentDataRow.propTypes = {
-  sd: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  ux: PropTypes.object.isRequired,
+    sd: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 const GradebookTable = observer((
-  {
-    history, ux,
-    ux: { student, studentData, course, sort, displaySort, sortFieldConstants },
-  }) => {
-  return (
-    <TableWrapper>
-      <Header>
-        <h3>
-          <span>
-            <strong>Course Average:</strong> {percentOrDash(student.course_average)}
-          </span>
-          <OverlayTrigger
-            placement="right"
-            trigger={['hover', 'click']}
-            rootClose
-            delay={{ show: 150, hide: 300 }}
-            overlay={
-              <StyledPopover className="scores-popover">
-                <p>
-                  <strong>Course Average = </strong><br/>
-                  {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
-                </p>
-              </StyledPopover>
-            }
-          >
-            <Icon
-              type="info-circle"
-              className="info-circle-icon-button"
-            />
-          </OverlayTrigger>
-        </h3>
-        <div className="average-score">
-          <div>
-            <AssignmentBlock assignmentColor={colors.templates.homework.border}/>
+    {
+        history, ux,
+        ux: { student, studentData, course, sort, displaySort, sortFieldConstants },
+    }) => {
+    return (
+        <TableWrapper>
+            <Header>
+                <h3>
+                    <span>
+                        <strong>Course Average:</strong> {percentOrDash(student.course_average)}
+                    </span>
+                    <OverlayTrigger
+                        placement="right"
+                        trigger={['hover', 'click']}
+                        rootClose
+                        delay={{ show: 150, hide: 300 }}
+                        overlay={
+                            <StyledPopover className="scores-popover">
+                                <p>
+                                    <strong>Course Average = </strong><br/>
+                                    {ScoresHelper.asPercent(course.homework_weight)}% Homework average + {ScoresHelper.asPercent(course.reading_weight)}% Reading average
+                                </p>
+                            </StyledPopover>
+                        }
+                    >
+                        <Icon
+                            type="info-circle"
+                            className="info-circle-icon-button"
+                        />
+                    </OverlayTrigger>
+                </h3>
+                <div className="average-score">
+                    <div>
+                        <AssignmentBlock assignmentColor={colors.templates.homework.border}/>
             Homework Average: <strong>{percentOrDash(student.homework_score)}</strong>
-          </div>
-          <div>
-            <AssignmentBlock assignmentColor={colors.templates.reading.border}/>
+                    </div>
+                    <div>
+                        <AssignmentBlock assignmentColor={colors.templates.reading.border}/>
             Reading Average: <strong>{percentOrDash(student.reading_score)}</strong>
-          </div>
-        </div>
-      </Header>
-      <StyledTable striped borderless hover responsive>
-        <thead>
-          <tr>
-            <th onClick={() => sort(sortFieldConstants.title)}>
+                    </div>
+                </div>
+            </Header>
+            <StyledTable striped borderless hover responsive>
+                <thead>
+                    <tr>
+                        <th onClick={() => sort(sortFieldConstants.title)}>
               Assignment Name
-              <SortIcon sort={displaySort(sortFieldConstants.title)}/>
-            </th>
-            <th onClick={() => sort(sortFieldConstants.dueAt)}>
+                            <SortIcon sort={displaySort(sortFieldConstants.title)}/>
+                        </th>
+                        <th onClick={() => sort(sortFieldConstants.dueAt)}>
               Due date
-              <SortIcon sort={displaySort(sortFieldConstants.dueAt)}/>
-            </th>
-            <th onClick={() => sort(sortFieldConstants.points)}>
+                            <SortIcon sort={displaySort(sortFieldConstants.dueAt)}/>
+                        </th>
+                        <th onClick={() => sort(sortFieldConstants.points)}>
               Points scored
-              <SortIcon sort={displaySort(sortFieldConstants.points)}/>
-            </th>
-            <th onClick={() => sort(sortFieldConstants.score)}>
+                            <SortIcon sort={displaySort(sortFieldConstants.points)}/>
+                        </th>
+                        <th onClick={() => sort(sortFieldConstants.score)}>
               Percentage
-              <SortIcon sort={displaySort(sortFieldConstants.score)}/>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {studentData.map((sd, i) => (
-            <Responsive
-              desktop={<DesktopStudentDataRow sd={sd} ux={ux} history={history} />}
-              tablet={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
-              mobile={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
-              key={i}
-            />
-          ))}
-        </tbody>
-      </StyledTable>
-      <Legend>
-        <span className="extension">
-          <EIcon/>
-          <label>Extension</label>
-        </span>
-        <span>
-          <Icon color={colors.danger} type="clock" />
-          <label>Late work</label>
-        </span>
-        <span>
-          <Icon variant="circledStar" />
-          <label>Provisional score. Final scores will be available when published by your instructor.</label>
-        </span>
-      </Legend>
-    </TableWrapper>
-  );
+                            <SortIcon sort={displaySort(sortFieldConstants.score)}/>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {studentData.map((sd, i) => (
+                        <Responsive
+                            desktop={<DesktopStudentDataRow sd={sd} ux={ux} history={history} />}
+                            tablet={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
+                            mobile={<MobileStudentDataRow sd={sd} ux={ux} history={history} />}
+                            key={i}
+                        />
+                    ))}
+                </tbody>
+            </StyledTable>
+            <Legend>
+                <span className="extension">
+                    <EIcon/>
+                    <label>Extension</label>
+                </span>
+                <span>
+                    <Icon color={colors.danger} type="clock" />
+                    <label>Late work</label>
+                </span>
+                <span>
+                    <Icon variant="circledStar" />
+                    <label>Provisional score. Final scores will be available when published by your instructor.</label>
+                </span>
+            </Legend>
+        </TableWrapper>
+    );
 });
 GradebookTable.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 export default withRouter(GradebookTable);

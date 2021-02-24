@@ -45,17 +45,17 @@ const StyledPoints = styled.span`
 `;
 
 const Points = ({ task }) => {
-  if (task.isExternal || task.isEvent) {
-    return null;
-  }
-  return (
-    <StyledPoints>
-      {ScoresHelper.formatPoints(task.availablePoints)} points
-    </StyledPoints>
-  );
+    if (task.isExternal || task.isEvent) {
+        return null;
+    }
+    return (
+        <StyledPoints>
+            {ScoresHelper.formatPoints(task.availablePoints)} points
+        </StyledPoints>
+    );
 };
 Points.propTypes = {
-  task: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
 };
 
 const Body = styled.div`
@@ -121,120 +121,120 @@ const Heading = styled.div`
 `;
 
 const ReadingWeights = observer(({ task }) => {
-  if (!task.isReading) { return null; }
-  return (
+    if (!task.isReading) { return null; }
+    return (
     <>
       <Heading>Score for reading questions</Heading>
       <ul>
-        <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</li>
-        <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</li>
+          <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</li>
+          <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</li>
       </ul>
     </>
-  );
+    );
 });
 
 const format = (date) => <Time date={date} format="concise" />;
 
 const LateWorkPolicy = observer(({ task }) => {
-  if (!task.hasLateWorkPolicy) { return null; }
+    if (!task.hasLateWorkPolicy) { return null; }
 
-  return (
+    return (
     <>
       <Heading>Late work policy</Heading>
       <ul>
-        <li>After the due date, the late work policy will be in effect.</li>
-        <li>
-          {task.humanLateWorkPenalty} of point value earned after the due date will be deducted
+          <li>After the due date, the late work policy will be in effect.</li>
+          <li>
+              {task.humanLateWorkPenalty} of point value earned after the due date will be deducted
           for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
-        </li>
+          </li>
       </ul>
     </>
-  );
+    );
 });
 
 const ExternalLink = observer(({ step, children, ...props }) => {
-  let { external_url } = step;
-  if (!/^https?:\/\//.test(external_url)) {
-    external_url = `http://${external_url}`;
-  }
+    let { external_url } = step;
+    if (!/^https?:\/\//.test(external_url)) {
+        external_url = `http://${external_url}`;
+    }
 
-  const onContinue = () => {
-    step.is_completed = true;
-    step.save();
-  };
+    const onContinue = () => {
+        step.is_completed = true;
+        step.save();
+    };
 
-  return (
-    <a
-      href={external_url}
-      target="_blank"
-      onContextMenu={(ev) => ev.preventDefault()}
-      onClick={onContinue}
-      {...props}
-    >
-      {children}
-    </a>
-  );
+    return (
+        <a
+            href={external_url}
+            target="_blank"
+            onContextMenu={(ev) => ev.preventDefault()}
+            onClick={onContinue}
+            {...props}
+        >
+            {children}
+        </a>
+    );
 });
 
 const Description = observer(({ task }) => {
-  if (!task.description) { return null; }
-  return (
+    if (!task.description) { return null; }
+    return (
     <>
       <Heading>Instructor notes</Heading>
       <p>{task.description}</p>
     </>
-  );
+    );
 });
 
 const ExternalTaskInfo = observer(({ task }) => {
-  if (!task.isExternal) { return null; }
-  const [step] = task.steps;
+    if (!task.isExternal) { return null; }
+    const [step] = task.steps;
 
-  return (
+    return (
     <>
       <Heading>Assignment URL</Heading>
       <p>
-        <ExternalLink step={step}>{step.external_url}</ExternalLink>
+          <ExternalLink step={step}>{step.external_url}</ExternalLink>
       </p>
     </>
-  );
+    );
 });
 
 const ContinueBtn = observer(({ ux }) => {
-  if (ux.task.isExternal) {
-    return (
-      <ExternalLink step={ux.task.steps[0]} className="btn btn-primary">
+    if (ux.task.isExternal) {
+        return (
+            <ExternalLink step={ux.task.steps[0]} className="btn btn-primary">
         Open assignment URL
-      </ExternalLink>
-    );
-  }
+            </ExternalLink>
+        );
+    }
 
-  if (ux.task.isEvent) {
+    if (ux.task.isEvent) {
+        return (
+            <TutorLink className="btn btn-primary" to="dashboard" params={{ courseId: ux.course.id }}>Close</TutorLink>
+        );
+    }
+
+    let buttonLabel = 'Start';
+    if (ux.task.completed || ux.task.isAssignmentClosed) {
+        buttonLabel = 'Review';
+    }
+    else if (ux.task.started) {
+        buttonLabel = 'Continue';
+    }
+
     return (
-      <TutorLink className="btn btn-primary" to="dashboard" params={{ courseId: ux.course.id }}>Close</TutorLink>
+        <StepContinueBtn
+            label={buttonLabel}
+            data-test-id="value-prop-continue-btn"
+            variant="primary" ux={ux}
+        />
     );
-  }
-
-  let buttonLabel = 'Start';
-  if (ux.task.completed || ux.task.isAssignmentClosed) {
-    buttonLabel = 'Review';
-  }
-  else if (ux.task.started) {
-    buttonLabel = 'Continue';
-  }
-
-  return (
-    <StepContinueBtn
-      label={buttonLabel}
-      data-test-id="value-prop-continue-btn"
-      variant="primary" ux={ux}
-    />
-  );
 });
 
 const Dates = observer(({ task }) => {
-  if (task.isPractice) return null;
-  return (
+    if (task.isPractice) return null;
+    return (
     <>
       <Heading>Due date</Heading>
       <p>{format(task.due_at)}</p>
@@ -246,13 +246,13 @@ const Dates = observer(({ task }) => {
         </>
       )}
     </>
-  );
+    );
 });
 
 const PracticeInstructions = observer(({ task }) => {
-  if (!task.isPractice) return null;
+    if (!task.isPractice) return null;
 
-  return (
+    return (
     <>
       <p>
         This is a practice assignment. It will not be graded, and it won’t
@@ -267,38 +267,38 @@ const PracticeInstructions = observer(({ task }) => {
         where you’ll find more information on the topic. Good luck!
       </p>
     </>
-  );
+    );
 });
 
 const Instructions = observer((props) => {
-  const { ux, ux: { task } } = props;
+    const { ux, ux: { task } } = props;
 
-  return (
-    <OuterStepCard>
-      <CardBody
-        data-test-id={`${task.type}-instructions`}
-        taskType={task.type}
-      >
-        <Header className="heading" templateColors={colors.templates[task.type]}>
-          {/* On tablet and mobile screen, do not display the `and instructions` text */}
-          <span>Assignment details <span className="instructions-text">and instructions</span></span>
-          <Points task={task} />
-        </Header>
-        <Body>
-          <Description task={task} />
+    return (
+        <OuterStepCard>
+            <CardBody
+                data-test-id={`${task.type}-instructions`}
+                taskType={task.type}
+            >
+                <Header className="heading" templateColors={colors.templates[task.type]}>
+                    {/* On tablet and mobile screen, do not display the `and instructions` text */}
+                    <span>Assignment details <span className="instructions-text">and instructions</span></span>
+                    <Points task={task} />
+                </Header>
+                <Body>
+                    <Description task={task} />
 
-          <Dates ux={ux} task={task} />
-          <PracticeInstructions task={task} />
-          <LateWorkPolicy task={task} />
-          <ReadingWeights task={task} />
-          <ExternalTaskInfo task={task} />
-        </Body>
-        <Footer taskType={task.type}>
-          <ContinueBtn ux={ux} />
-        </Footer>
-      </CardBody>
-    </OuterStepCard>
-  );
+                    <Dates ux={ux} task={task} />
+                    <PracticeInstructions task={task} />
+                    <LateWorkPolicy task={task} />
+                    <ReadingWeights task={task} />
+                    <ExternalTaskInfo task={task} />
+                </Body>
+                <Footer taskType={task.type}>
+                    <ContinueBtn ux={ux} />
+                </Footer>
+            </CardBody>
+        </OuterStepCard>
+    );
 });
 Instructions.displayName = 'Instructions';
 

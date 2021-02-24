@@ -11,79 +11,79 @@ import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 import LoadingScreen from 'shared/components/loading-animation';
 
-export default
 @observer
+export default
 class StudentsRoster extends React.Component {
 
   static propTypes = {
-    period: PropTypes.instanceOf(Period).isRequired,
+      period: PropTypes.instanceOf(Period).isRequired,
   }
 
   @autobind
   renderStudentRow(student) {
-    const course = this.props.period.course;
+      const course = this.props.period.course;
 
-    return (
-      <tr key={student.id}>
-        <td>
-          {student.first_name}
-        </td>
-        <td>
-          {student.last_name}
-        </td>
-        <td className="student-id-column">
-          <StudentIdField student={student} course={course} />
-        </td>
-        <td className="actions">
-          <ChangePeriodLink period={this.props.period} student={student} />
-          <DropStudentLink student={student} />
-        </td>
-      </tr>
-    );
+      return (
+          <tr key={student.id}>
+              <td>
+                  {student.first_name}
+              </td>
+              <td>
+                  {student.last_name}
+              </td>
+              <td className="student-id-column">
+                  <StudentIdField student={student} course={course} />
+              </td>
+              <td className="actions">
+                  <ChangePeriodLink period={this.props.period} student={student} />
+                  <DropStudentLink student={student} />
+              </td>
+          </tr>
+      );
   }
 
   render() {
-    const course = this.props.period.course;
-    const students = course.roster.students.activeByPeriod[this.props.period.id];
+      const course = this.props.period.course;
+      const students = course.roster.students.activeByPeriod[this.props.period.id];
 
-    if (!course.roster.api.hasBeenFetched){
-      return <LoadingScreen message="Loading Roster…" />;
-    }
-    if (isEmpty(students)) {
+      if (!course.roster.api.hasBeenFetched){
+          return <LoadingScreen message="Loading Roster…" />;
+      }
+      if (isEmpty(students)) {
+          return (
+              <div className="roster-empty-info">
+                  <NoStudentsMessage courseId={course.id}/>
+              </div>
+          ); 
+      }
+
       return (
-        <div className="roster-empty-info">
-          <NoStudentsMessage courseId={course.id}/>
-        </div>
-      ); 
-    }
-
-    return (
-      <Table
-        striped={true}
-        bordered={true}
-        hover={true}
-        className="roster students"
-      >
-        <thead>
-          <tr>
-            <th>
+          <Table
+              striped={true}
+              bordered={true}
+              hover={true}
+              className="roster students"
+          >
+              <thead>
+                  <tr>
+                      <th>
               First Name
-            </th>
-            <th>
+                      </th>
+                      <th>
               Last Name
-            </th>
-            <th className="student-id">
+                      </th>
+                      <th className="student-id">
               Student ID
-            </th>
-            <th>
+                      </th>
+                      <th>
               Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortBy(students, s => s.last_name.toLowerCase()).map(this.renderStudentRow)}
-        </tbody>
-      </Table>
-    );
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {sortBy(students, s => s.last_name.toLowerCase()).map(this.renderStudentRow)}
+              </tbody>
+          </Table>
+      );
   }
 }

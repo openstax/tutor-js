@@ -7,32 +7,32 @@ import ExerciseCard from './exercise-card';
 import Loading from 'shared/components/loading-animation';
 import UX from './ux';
 
-export default
 @observer
+export default
 class Exercises extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   @autobind renderExercise(exercise) {
-    return (
-      <ExerciseCard key={exercise.id} exercise={exercise} ux={this.props.ux} />
-    );
+      return (
+          <ExerciseCard key={exercise.id} exercise={exercise} ux={this.props.ux} />
+      );
   }
 
   render() {
-    const { ux } = this.props;
-    if (ux.isFetchingExercises) {
-      return <Loading message="Fetching Exercises…" />;
-    }
+      const { ux } = this.props;
+      if (ux.isFetchingExercises) {
+          return <Loading message="Fetching Exercises…" />;
+      }
 
-    if (isEmpty(ux.exercises)) { return <h1>No exercises found</h1>; }
+      if (isEmpty(ux.exercises)) { return <h1>No exercises found</h1>; }
 
-    return (
-      <div className="exercises">
-        {ux.exercises.map(this.renderExercise)}
-      </div>
-    );
+      return (
+          <div className="exercises">
+              {ux.exercises.map(this.renderExercise)}
+          </div>
+      );
   }
 }

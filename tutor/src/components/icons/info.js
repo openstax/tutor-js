@@ -3,9 +3,9 @@ import { Icon } from 'shared';
 
 export default
 function InfoIcon({ color = '2d6f9d', ...props }) {
-  return <Icon color={color} type="info-circle" {...props} />;
+    return <Icon color={color} type="info-circle" {...props} />;
 }
 
 InfoIcon.propTypes = {
-  color: PropTypes.string,
+    color: PropTypes.string,
 };

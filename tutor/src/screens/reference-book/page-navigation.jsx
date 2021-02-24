@@ -5,24 +5,24 @@ import PagingNavigation from '../../components/paging-navigation';
 import UX from './ux';
 
 
-export default
 @observer
+export default
 class ReferenceViewPageNavigation extends React.Component {
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    children: PropTypes.node,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      children: PropTypes.node,
   };
 
   render() {
-    const { ux } = this.props;
-    return (
-      <PagingNavigation
-        className="book-page-wrapper"
-        renderMobileFooter={true}
-        {...ux.pagingProps}
-      >
-        {this.props.children}
-      </PagingNavigation>
-    );
+      const { ux } = this.props;
+      return (
+          <PagingNavigation
+              className="book-page-wrapper"
+              renderMobileFooter={true}
+              {...ux.pagingProps}
+          >
+              {this.props.children}
+          </PagingNavigation>
+      );
   }
 }

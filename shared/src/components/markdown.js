@@ -8,14 +8,14 @@ import ArbitraryHtmlAndMath from './html';
 const md = new Markdown();
 
 const MarkDown = ({ text, ...props }) => {
-  const htmlProps = pick(props, 'block', 'className');
+    const htmlProps = pick(props, 'block', 'className');
 
-  const html = md.render(text);
-  htmlProps.html = html;
+    const html = md.render(text);
+    htmlProps.html = html;
 
-  return <ArbitraryHtmlAndMath {...htmlProps} />;
+    return <ArbitraryHtmlAndMath {...htmlProps} />;
 };
 MarkDown.propTypes = {
-  text: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 };
 export default MarkDown;

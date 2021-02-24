@@ -30,34 +30,34 @@ const hasChapterSection = /os-number/;
 
 const BookPartTitle = ({ part, style, label, className, boldChapterSection, displayChapterSection }) => {
 
-  return (
-    <StyledBookPartTitle
-      boldChapterSection={boldChapterSection}
-      hideChapterSection={!displayChapterSection}
-      className={cn('book-part-title', className)}
-      style={style}
-    >
-      {label && !part.title.includes(label) && (
-        <span className="label">{label}</span>
-      )}
-      {displayChapterSection && !part.title.match(hasChapterSection) && (
-        <ChapterSection chapterSection={part.chapter_section} />
-      )}
-      <span dangerouslySetInnerHTML={{ __html: part.title }} />
-    </StyledBookPartTitle>
-  );
+    return (
+        <StyledBookPartTitle
+            boldChapterSection={boldChapterSection}
+            hideChapterSection={!displayChapterSection}
+            className={cn('book-part-title', className)}
+            style={style}
+        >
+            {label && !part.title.includes(label) && (
+                <span className="label">{label}</span>
+            )}
+            {displayChapterSection && !part.title.match(hasChapterSection) && (
+                <ChapterSection chapterSection={part.chapter_section} />
+            )}
+            <span dangerouslySetInnerHTML={{ __html: part.title }} />
+        </StyledBookPartTitle>
+    );
 };
 
 BookPartTitle.propTypes = {
-  part: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    chapter_section: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
-  }).isRequired,
-  label: PropTypes.node,
-  className: PropTypes.string,
-  boldChapterSection: PropTypes.bool,
-  style: PropTypes.object,
-  displayChapterSection: PropTypes.bool,
+    part: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        chapter_section: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+    }).isRequired,
+    label: PropTypes.node,
+    className: PropTypes.string,
+    boldChapterSection: PropTypes.bool,
+    style: PropTypes.object,
+    displayChapterSection: PropTypes.bool,
 };
 
 export default BookPartTitle;

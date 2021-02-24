@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, session,
+    BaseModel, identifiedBy, identifier, session,
 } from 'shared/model';
 import { last } from 'lodash';
 import { action, observable, computed } from 'mobx';
@@ -22,21 +22,21 @@ export default class Job extends BaseModel {
 
   @action.bound
   checkForUpdate() {
-    if (this.attempts < this.maxAttempts) {
-      this.attempts += 1;
-      this.requestJobStatus();
-    } else {
-      this.stopPolling();
-      this.onPollTimeout();
-    }
+      if (this.attempts < this.maxAttempts) {
+          this.attempts += 1;
+          this.requestJobStatus();
+      } else {
+          this.stopPolling();
+          this.onPollTimeout();
+      }
   }
 
   @computed get isComplete() {
-    return 'succeeded' === this.status || 'failed' === this.status;
+      return 'succeeded' === this.status || 'failed' === this.status;
   }
 
   @computed get hasFailed() {
-    return Boolean(this.attempts >= this.maxAttempts || 'failed' === this.status);
+      return Boolean(this.attempts >= this.maxAttempts || 'failed' === this.status);
   }
 
   // match existing API; right now these do the same but might not later
@@ -44,24 +44,24 @@ export default class Job extends BaseModel {
   @computed get isPending() { return Boolean(this.pollingId);  }
 
   @computed get jobStatus() {
-    if (this.isComplete) { return 'succeeded'; }
-    if (this.isPending)  { return 'started';   }
-    if ( this.hasFailed) { return 'failed';    }
-    return 'unknown';
+      if (this.isComplete) { return 'succeeded'; }
+      if (this.isPending)  { return 'started';   }
+      if ( this.hasFailed) { return 'failed';    }
+      return 'unknown';
   }
 
   startPolling(job) {
-    this.jobId = last(job.split('/'));
-    invariant((!this.pollingId || this.pollingId === 'pending'),
-      'poll already in progress, cannot start polling twice!');
-    invariant(this.jobId, 'job url is not set');
-    this.attempts = 0;
-    this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+      this.jobId = last(job.split('/'));
+      invariant((!this.pollingId || this.pollingId === 'pending'),
+          'poll already in progress, cannot start polling twice!');
+      invariant(this.jobId, 'job url is not set');
+      this.attempts = 0;
+      this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
   }
 
   stopPolling() {
-    clearInterval(this.pollingId);
-    this.pollingId = null;
+      clearInterval(this.pollingId);
+      this.pollingId = null;
   }
 
   // overriden by child
@@ -73,17 +73,17 @@ export default class Job extends BaseModel {
   requestJobStatus() { }
 
   onJobUpdateFailure() {
-    this.stopPolling();
-    this.onPollFailure();
+      this.stopPolling();
+      this.onPollFailure();
   }
 
   onJobUpdate({ data }) {
-    this.update(data);
-    if (this.isComplete) {
-      this.stopPolling();
-      this.onPollComplete(data);
-    } else {
-      this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
-    }
+      this.update(data);
+      if (this.isComplete) {
+          this.stopPolling();
+          this.onPollComplete(data);
+      } else {
+          this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+      }
   }
 }

@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, computed, styled, css,
+    React, PropTypes, observer, computed, styled, css,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
@@ -135,165 +135,165 @@ const SectionizerControls = styled.div`
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    ux: PropTypes.object.isRequired,
-    sectionizerProps: PropTypes.object,
-    hideSectionizer: PropTypes.bool,
-    onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
-    showingDetails: PropTypes.bool,
+      ux: PropTypes.object.isRequired,
+      sectionizerProps: PropTypes.object,
+      hideSectionizer: PropTypes.bool,
+      onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
+      showingDetails: PropTypes.bool,
   };
 
   renderSectionizer() {
-    if (this.props.hideSectionizer) {
-      return <div className="controls" />;
-    } else {
-      return (
-        <SectionizerControls>
-          <ScrollSpy dataSelector="data-section">
-            <Sectionizer
-              ref="sectionizer"
-              {...this.props.sectionizerProps}
-              nonAvailableWidth={1000}
-              disableScroll
-              onScreenElements={[]}
-            />
-          </ScrollSpy>
-        </SectionizerControls>
-      );
-    }
+      if (this.props.hideSectionizer) {
+          return <div className="controls" />;
+      } else {
+          return (
+              <SectionizerControls>
+                  <ScrollSpy dataSelector="data-section">
+                      <Sectionizer
+                          ref="sectionizer"
+                          {...this.props.sectionizerProps}
+                          nonAvailableWidth={1000}
+                          disableScroll
+                          onScreenElements={[]}
+                      />
+                  </ScrollSpy>
+              </SectionizerControls>
+          );
+      }
   }
 
   @computed get canAdd() {
-    return this.props.ux.canEdit;
+      return this.props.ux.canEdit;
   }
 
   renderExplanation() {
-    if (this.canAdd) { return null; }
-    return (
-      <div className="tutor-added-later">
-        <span>
+      if (this.canAdd) { return null; }
+      return (
+          <div className="tutor-added-later">
+              <span>
           Tutor selections are added later to support spaced practice and personalized learning.
-        </span>
-      </div>
-    );
+              </span>
+          </div>
+      );
   }
 
   renderIncreaseButton() {
-    const { ux } = this.props;
+      const { ux } = this.props;
 
-    return (
-      <SelectionButton
-        disabled={!ux.canIncreaseTutorExercises}
-        onClick={ux.increaseTutorSelection}
-        variant="plain"
-        data-test-id="increase-button"
-      >
-        <Icon
-          type="plus"
-          size="xs"
-        />
-      </SelectionButton>
-    );
+      return (
+          <SelectionButton
+              disabled={!ux.canIncreaseTutorExercises}
+              onClick={ux.increaseTutorSelection}
+              variant="plain"
+              data-test-id="increase-button"
+          >
+              <Icon
+                  type="plus"
+                  size="xs"
+              />
+          </SelectionButton>
+      );
   }
 
   renderDecreaseButton() {
-    const { ux } = this.props;
+      const { ux } = this.props;
 
-    return (
-      <SelectionButton
-        disabled={!ux.canDecreaseTutorExercises}
-        onClick={ux.decreaseTutorSelection}
-        variant="plain"
-        data-test-id="decrease-button"
-      >
-        <Icon
-          type="minus"
-          size="xs"
-        />
-      </SelectionButton>
-    );
+      return (
+          <SelectionButton
+              disabled={!ux.canDecreaseTutorExercises}
+              onClick={ux.decreaseTutorSelection}
+              variant="plain"
+              data-test-id="decrease-button"
+          >
+              <Icon
+                  type="minus"
+                  size="xs"
+              />
+          </SelectionButton>
+      );
   }
 
   homeworkFiltersAndCreateButton() {
-    const { ux, onDisplayAddEditQuestionModal } = this.props;
-    return (
-      <Filters>
-        <HomeExerciseFilters
-          className="question-filters"
-          // need to pass the `exercises.homework` so the useEffect can be triggered
-          // useEffect treats an Observable map as an array so it won't listen to changes
-          // if we add or delete an element.
-          exercises={ux.exercises ? ux.exercises.homework : null}
-          returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
-        <Button
-          variant="primary"
-          onClick={() => onDisplayAddEditQuestionModal(true)}>
+      const { ux, onDisplayAddEditQuestionModal } = this.props;
+      return (
+          <Filters>
+              <HomeExerciseFilters
+                  className="question-filters"
+                  // need to pass the `exercises.homework` so the useEffect can be triggered
+                  // useEffect treats an Observable map as an array so it won't listen to changes
+                  // if we add or delete an element.
+                  exercises={ux.exercises ? ux.exercises.homework : null}
+                  returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
+              <Button
+                  variant="primary"
+                  onClick={() => onDisplayAddEditQuestionModal(true)}>
               Create question
-        </Button>
-      </Filters>
-    );
+              </Button>
+          </Filters>
+      );
   }
 
   render() {
-    const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections }, showingDetails } = this.props;
+      const { ux: { numMCQs, numWRQs, numTutorSelections, totalSelections }, showingDetails } = this.props;
 
-    if(showingDetails) {
-      return null;
-    }
+      if(showingDetails) {
+          return null;
+      }
     
-    return (
-      <Wrapper>
-        <Columns>
-          <Sections>
-            {this.renderSectionizer()}
-          </Sections>
-          <Indicators>
-            <Columns>
-              <Indicator>
-                <div>
+      return (
+          <Wrapper>
+              <Columns>
+                  <Sections>
+                      {this.renderSectionizer()}
+                  </Sections>
+                  <Indicators>
+                      <Columns>
+                          <Indicator>
+                              <div>
                   My Selections
-                </div>
-                <Columns>
-                  <Counter>
-                    <Title>MCQs</Title>
-                    <span data-test-id="selection-count">{numMCQs}</span>
-                  </Counter>
-                  <Counter variant="plus">
+                              </div>
+                              <Columns>
+                                  <Counter>
+                                      <Title>MCQs</Title>
+                                      <span data-test-id="selection-count">{numMCQs}</span>
+                                  </Counter>
+                                  <Counter variant="plus">
                     +
-                  </Counter>
-                  <Counter>
-                    <Title>WRQs</Title>
-                    <span data-test-id="selection-count">{numWRQs}</span>
-                  </Counter>
-                </Columns>
-              </Indicator>
-              <Indicator>
-                <TourAnchor id="tutor-selections">
-                  <div className="tutor-selections">
-                    <div>Personalized questions</div>
-                    <SelectionsTooltip />
-                    <Columns>
-                      {this.renderDecreaseButton()}
-                      <Counter data-test-id="tutor-count">
-                        {numTutorSelections}
-                      </Counter>
-                      {this.renderIncreaseButton()}
-                    </Columns>
-                  </div>
-                </TourAnchor>
-              </Indicator>
-              <Indicator>
+                                  </Counter>
+                                  <Counter>
+                                      <Title>WRQs</Title>
+                                      <span data-test-id="selection-count">{numWRQs}</span>
+                                  </Counter>
+                              </Columns>
+                          </Indicator>
+                          <Indicator>
+                              <TourAnchor id="tutor-selections">
+                                  <div className="tutor-selections">
+                                      <div>Personalized questions</div>
+                                      <SelectionsTooltip />
+                                      <Columns>
+                                          {this.renderDecreaseButton()}
+                                          <Counter data-test-id="tutor-count">
+                                              {numTutorSelections}
+                                          </Counter>
+                                          {this.renderIncreaseButton()}
+                                      </Columns>
+                                  </div>
+                              </TourAnchor>
+                          </Indicator>
+                          <Indicator>
                 Total
-                <Counter data-test-id="total-count">
-                  {totalSelections}
-                </Counter>
-              </Indicator>
-              {this.renderExplanation()}
-            </Columns>
-          </Indicators>
-        </Columns>
-        {this.homeworkFiltersAndCreateButton()}
-      </Wrapper>
-    );
+                              <Counter data-test-id="total-count">
+                                  {totalSelections}
+                              </Counter>
+                          </Indicator>
+                          {this.renderExplanation()}
+                      </Columns>
+                  </Indicators>
+              </Columns>
+              {this.homeworkFiltersAndCreateButton()}
+          </Wrapper>
+      );
   }
 }
 

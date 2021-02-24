@@ -5,21 +5,21 @@ import '../../shared/specs/factories';
 
 const Factories = {};
 each({
-  Exercise,
+    Exercise,
 }, (Model, name) => {
-  Factories[camelCase(name)] = (attrs = {}) => {
-    const o = FactoryBot.create(name, attrs);
-    return new Model(o);
-  };
+    Factories[camelCase(name)] = (attrs = {}) => {
+        const o = FactoryBot.create(name, attrs);
+        return new Model(o);
+    };
 });
 
 Factories.data = (...args) => FactoryBot.create(...args);
 
 
 Factories.exercisesMap = ({ count = 4 } = {}) => {
-  const map = new ExercisesMap();
-  times(count, () => map.onLoaded({ data: FactoryBot.create('Exercise') }));
-  return map;
+    const map = new ExercisesMap();
+    times(count, () => map.onLoaded({ data: FactoryBot.create('Exercise') }));
+    return map;
 };
 
 export { FactoryBot };

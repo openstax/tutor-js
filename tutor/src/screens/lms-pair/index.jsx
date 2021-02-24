@@ -3,21 +3,20 @@ import { React, observer } from 'vendor';
 import './styles.scss';
 import UX from './ux';
 
-export default
 @observer
+export default
 class LmsPairWrapper extends React.Component {
-
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
+      ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   render() {
-    const { ux, ux: { panel: Panel } } = this.props;
+      const { ux, ux: { panel: Panel } } = this.props;
 
-    return (
-      <div className="new-course-wizard">
-        <Panel {...ux.props} />
-      </div>
-    );
+      return (
+          <div className="new-course-wizard">
+              <Panel {...ux.props} />
+          </div>
+      );
   }
 }

@@ -9,22 +9,22 @@ class PurchasesMap extends Map {
   keyType = String
 
   @computed get isAnyRefundable() {
-    return find(this.array, 'isRefundable');
+      return find(this.array, 'isRefundable');
   }
 
   @computed get withRefunds() {
-    return flatten(map(this.array, (purchase) =>
-      purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
-    )).reverse();
+      return flatten(map(this.array, (purchase) =>
+          purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
+      )).reverse();
   }
 
 
   // called by API
   fetch() {}
   onLoaded({ data: { orders } }) {
-    const ordersById = {};
-    orders.forEach(o => ordersById[o.identifier] = new Purchase(o));
-    this.replace(ordersById);
+      const ordersById = {};
+      orders.forEach(o => ordersById[o.identifier] = new Purchase(o));
+      this.replace(ordersById);
   }
 }
 

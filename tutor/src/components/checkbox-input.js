@@ -9,7 +9,7 @@ const StyledWrapper = styled.span`
 `;
 
 const StyledCheckboxInput = styled.input.attrs( () => ({
-  type: 'checkbox',
+    type: 'checkbox',
 }))`
   opacity: 0;
 
@@ -39,27 +39,27 @@ const StyledCheckboxInput = styled.input.attrs( () => ({
 `;
 
 const CheckboxInput = observer((props) => {
-  const [field] = props.standalone ? [] : useField({ type: 'checkbox', ...props });
-  const id = props.id || uniqueId(props.name);
+    const [field] = props.standalone ? [] : useField({ type: 'checkbox', ...props });
+    const id = props.id || uniqueId(props.name);
 
-  return (
-    <StyledWrapper className={props.className}>
-      <StyledCheckboxInput
-        {...field}
-        {...props}
-        id={id}
-      />
-      <label htmlFor={id}>
-        <Icon variant={props.checked ? 'checkedSquare' : 'checkSquare'} size="lg" />
-        {props.label}
-      </label>
-    </StyledWrapper>
-  );
+    return (
+        <StyledWrapper className={props.className}>
+            <StyledCheckboxInput
+                {...field}
+                {...props}
+                id={id}
+            />
+            <label htmlFor={id}>
+                <Icon variant={props.checked ? 'checkedSquare' : 'checkSquare'} size="lg" />
+                {props.label}
+            </label>
+        </StyledWrapper>
+    );
 });
 
 CheckboxInput.propTypes = {
-  name: PropTypes.string,
-  labelSize: PropTypes.string,
+    name: PropTypes.string,
+    labelSize: PropTypes.string,
 };
 
 export default CheckboxInput;

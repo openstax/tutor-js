@@ -11,22 +11,22 @@ import CourseSettingsSaved from '../components/toasts/course-settings-saved';
 const JobToasts = { lms, scores };
 
 setHandlers({
-  job(toast) {
-    invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
-    return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];
-  },
-  reload() {
-    return Reload;
-  },
-  scoresPublished() {
-    return ScoresPublished;
-  },
-  questionPublished() {
-    return QuestionPublished;
-  },
-  courseSettingsSaved() {
-    return CourseSettingsSaved;
-  },
+    job(toast) {
+        invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
+        return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];
+    },
+    reload() {
+        return Reload;
+    },
+    scoresPublished() {
+        return ScoresPublished;
+    },
+    questionPublished() {
+        return QuestionPublished;
+    },
+    courseSettingsSaved() {
+        return CourseSettingsSaved;
+    },
 });
 
 export { Toast } from 'shared/model/toasts';

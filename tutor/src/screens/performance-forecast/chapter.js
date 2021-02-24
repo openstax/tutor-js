@@ -8,37 +8,37 @@ import Section from './section';
 import Statistics from './statistics';
 
 const PerformanceForecastChapter = (props) => {
-  const { chapter, roleId, courseId } = props;
+    const { chapter, roleId, courseId } = props;
 
-  return (
-    <div className="chapter-panel">
-      <div className="chapter">
-        <div className="heading">
-          <span className="number">
-            {chapter.chapter_section[0]}
-          </span>
-          <div className="title" title={chapter.title}>
-            <BookPartTitle part={chapter} />
-          </div>
+    return (
+        <div className="chapter-panel">
+            <div className="chapter">
+                <div className="heading">
+                    <span className="number">
+                        {chapter.chapter_section[0]}
+                    </span>
+                    <div className="title" title={chapter.title}>
+                        <BookPartTitle part={chapter} />
+                    </div>
+                </div>
+                <ProgressBar {...props} section={chapter} />
+                <Statistics
+                    courseId={courseId}
+                    roleId={roleId}
+                    section={chapter}
+                    displaying="chapter" />
+            </div>
+            {filter(chapter.children, 'clue.is_real').map((section, i) =>
+                <Section key={i} section={section} {...props} />)}
         </div>
-        <ProgressBar {...props} section={chapter} />
-        <Statistics
-          courseId={courseId}
-          roleId={roleId}
-          section={chapter}
-          displaying="chapter" />
-      </div>
-      {filter(chapter.children, 'clue.is_real').map((section, i) =>
-        <Section key={i} section={section} {...props} />)}
-    </div>
-  );
+    );
 };
 
 PerformanceForecastChapter.propTypes = {
-  courseId: PropTypes.string.isRequired,
-  roleId:   PropTypes.string,
-  chapter:  ChapterSectionType.isRequired,
-  canPractice: PropTypes.bool,
+    courseId: PropTypes.string.isRequired,
+    roleId:   PropTypes.string,
+    chapter:  ChapterSectionType.isRequired,
+    canPractice: PropTypes.bool,
 };
 
 export default PerformanceForecastChapter;

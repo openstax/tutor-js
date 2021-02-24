@@ -16,61 +16,61 @@ export default class LmsPairUX {
   @observable createCourseUX = new CreateCourseUX(this);
 
   constructor({
-    courses = Courses.nonPreview.teaching.currentAndFuture,
+      courses = Courses.nonPreview.teaching.currentAndFuture,
   } = {}) {
-    this.courses = courses.where(c => c.is_access_switchable);
+      this.courses = courses.where(c => c.is_access_switchable);
   }
 
   @computed get panel() {
-    if (this.courses.any) {
-      if (1 === this.stage) {
-        return 'new' === this.newOrExisting ? CreateCourse : ExistingCourse;
+      if (this.courses.any) {
+          if (1 === this.stage) {
+              return 'new' === this.newOrExisting ? CreateCourse : ExistingCourse;
+          } else {
+              return NewOrExising;
+          }
       } else {
-        return NewOrExising;
+          return CreateCourse;
       }
-    } else {
-      return CreateCourse;
-    }
   }
 
   @action.bound onSelectNew() { this.newOrExisting = 'new'; }
   @action.bound onSelectExisting() { this.newOrExisting = 'existing'; }
   @action.bound goBackward() {
-    this.stage -= 1;
+      this.stage -= 1;
   }
   @action.bound goForward() {
-    if (0 === this.stage) {
-      this.stage += 1;
-    } else {
-      this.startPairing();
-    }
+      if (0 === this.stage) {
+          this.stage += 1;
+      } else {
+          this.startPairing();
+      }
   }
 
   @computed get canGoForward() {
-    if (0 === this.stage){
-      return Boolean(this.newOrExisting);
-    } else {
-      return Boolean(this.pairedCourse);
-    }
+      if (0 === this.stage){
+          return Boolean(this.newOrExisting);
+      } else {
+          return Boolean(this.pairedCourse);
+      }
   }
 
   @action.bound startPairing() {
-    this.lmsPair = new LMSPair(this.pairedCourse);
-    this.lmsPair.save().then(this.onPaired);
+      this.lmsPair = new LMSPair(this.pairedCourse);
+      this.lmsPair.save().then(this.onPaired);
   }
 
   @action.bound onPaired() {
-    if (this.lmsPair.success) {
-      window.location = '/dashboard';
-    }
+      if (this.lmsPair.success) {
+          window.location = '/dashboard';
+      }
   }
 
   @computed get props() {
-    return { ux: this };
+      return { ux: this };
   }
 
   @action.bound pairCourse(course) {
-    this.pairedCourse = course;
+      this.pairedCourse = course;
   }
 
 }

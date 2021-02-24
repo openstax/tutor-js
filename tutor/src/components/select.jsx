@@ -36,21 +36,21 @@ const StyledSelect = styled.select.attrs( () => ({
 `;
 
 const Select = observer((props) => {
-  const [ field ] = useField({ type: 'select', ...props });
+    const [ field ] = useField({ type: 'select', ...props });
 
-  return (
-    <SelectWrapper>
-      <StyledSelect
-        {...field}
-        {...props}
-      />
-      <Icon type="caret-down" />
-    </SelectWrapper>
-  );
+    return (
+        <SelectWrapper>
+            <StyledSelect
+                {...field}
+                {...props}
+            />
+            <Icon type="caret-down" />
+        </SelectWrapper>
+    );
 });
 
 Select.propTypes = {
-  name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 export default Select;

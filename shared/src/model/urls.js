@@ -6,32 +6,32 @@ let URL = {};
 const URL_SUFFIX = /_url$/;
 
 const URLMethods = {
-  update(urls) {
-    return (() => {
-      const result = [];
-      for (let name in urls) {
-        const url = urls[name];
-        if (name.match(URL_SUFFIX) && isString(url)) {
-          result.push(URL[ name.replace(URL_SUFFIX, '') ] = url.replace(/\/$/, ''));
-        }
-      }
-      return result;
-    })();
-  },
+    update(urls) {
+        return (() => {
+            const result = [];
+            for (let name in urls) {
+                const url = urls[name];
+                if (name.match(URL_SUFFIX) && isString(url)) {
+                    result.push(URL[ name.replace(URL_SUFFIX, '') ] = url.replace(/\/$/, ''));
+                }
+            }
+            return result;
+        })();
+    },
 
-  get(url) {
-    return URL[url];
-  },
+    get(url) {
+        return URL[url];
+    },
 
-  construct(base, ...parts) {
-    return `${this.get(base)}/${parts.join('/')}`;
-  },
+    construct(base, ...parts) {
+        return `${this.get(base)}/${parts.join('/')}`;
+    },
 
-  hasApiHost(key) {
-    return !isEmpty(URL[key]);
-  },
+    hasApiHost(key) {
+        return !isEmpty(URL[key]);
+    },
 
-  reset() { return URL = {}; },
+    reset() { return URL = {}; },
 };
 
 export default URLMethods;

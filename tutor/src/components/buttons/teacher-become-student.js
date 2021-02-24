@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, action, observable, styled,
+    React, PropTypes, observer, action, observable, styled,
 } from 'vendor';
 import Course from '../../models/course';
 import { withRouter } from 'react-router-dom';
@@ -9,8 +9,8 @@ import Theme from '../../theme';
 import FeatureFlags from '../../models/feature_flags';
 
 const BecomeButton = styled(Button).attrs({
-  className: 'd-inline-flex align-items-center',
-  variant: 'link',
+    className: 'd-inline-flex align-items-center',
+    variant: 'link',
 })`
   &.btn {
     padding: 0;
@@ -66,84 +66,84 @@ const PeriodSelector = styled(Dropdown)`
 export default class TeacherBecomesStudent extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course),
-    history: PropTypes.object.isRequired,
+      course: PropTypes.instanceOf(Course),
+      history: PropTypes.object.isRequired,
   }
 
   @observable isCreating = false;
   @observable periodMenuIsOpen = false;
 
   @action.bound onBecomeStudentPeriodSelect(periodId) {
-    this.becomeStudentInPeriod(
-      this.props.course.periods.find(p => p.id == periodId)
-    );
+      this.becomeStudentInPeriod(
+          this.props.course.periods.find(p => p.id == periodId)
+      );
   }
 
   @action.bound onBecomeStudentClick() {
-    this.becomeStudentInPeriod(
-      this.props.course.periods.find(period => !period.is_archived)
-    );
+      this.becomeStudentInPeriod(
+          this.props.course.periods.find(period => !period.is_archived)
+      );
   }
 
   async becomeStudentInPeriod(period) {
-    const { course } = this.props;
-    this.isCreating = true;
-    const role = await period.getTeacherStudentRole();
-    this.props.history.push(`/course/${course.id}/become/${role.id}`);
+      const { course } = this.props;
+      this.isCreating = true;
+      const role = await period.getTeacherStudentRole();
+      this.props.history.push(`/course/${course.id}/become/${role.id}`);
   }
 
   @action.bound onPeriodMenuToggle(isOpen) {
-    this.periodMenuIsOpen = isOpen;
+      this.periodMenuIsOpen = isOpen;
   }
 
   render() {
-    const { course } = this.props;
+      const { course } = this.props;
 
-    if (!FeatureFlags.teacher_student_enabled ||
+      if (!FeatureFlags.teacher_student_enabled ||
       !course ||
       !course.currentRole.isTeacher
-    ) { return null; }
+      ) { return null; }
 
-    if (this.isCreating) {
-      return (
-        <Waiting className="control">
-          <Icon type="spinner" spin size="2x" />
+      if (this.isCreating) {
+          return (
+              <Waiting className="control">
+                  <Icon type="spinner" spin size="2x" />
           Generating student view…
-        </Waiting>
-      );
-    }
+              </Waiting>
+          );
+      }
 
-    if (1 === course.periods.active.length) {
+      if (1 === course.periods.active.length) {
+          return (
+              <BecomeButton onClick={this.onBecomeStudentClick}>
+                  <Icon size="2x" type="glasses" />
+          View as student
+              </BecomeButton>
+          );
+      }
+
       return (
-        <BecomeButton onClick={this.onBecomeStudentClick}>
-          <Icon size="2x" type="glasses" />
+          <PeriodSelector
+              onToggle={this.onPeriodMenuToggle}
+              onSelect={this.onBecomeStudentPeriodSelect}
+          >
+              <Dropdown.Toggle variant="link" id="teacher-become-student">
+                  <Icon size="2x" type="glasses" />
           View as student
-        </BecomeButton>
+                  <Icon
+                      className="menu-toggle-icon"
+                      type={this.periodMenuIsOpen ? 'close' : 'angle-down'}
+                  />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                  {course.periods.active.map((period) => (
+                      <React.Fragment key={period.id}>
+                          <Dropdown.Item eventKey={period.id}>{period.name}</Dropdown.Item>
+                          <Dropdown.Divider />
+                      </React.Fragment>
+                  ))}
+              </Dropdown.Menu>
+          </PeriodSelector>
       );
-    }
-
-    return (
-      <PeriodSelector
-        onToggle={this.onPeriodMenuToggle}
-        onSelect={this.onBecomeStudentPeriodSelect}
-      >
-        <Dropdown.Toggle variant="link" id="teacher-become-student">
-          <Icon size="2x" type="glasses" />
-          View as student
-          <Icon
-            className="menu-toggle-icon"
-            type={this.periodMenuIsOpen ? 'close' : 'angle-down'}
-          />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {course.periods.active.map((period) => (
-            <React.Fragment key={period.id}>
-              <Dropdown.Item eventKey={period.id}>{period.name}</Dropdown.Item>
-              <Dropdown.Divider />
-            </React.Fragment>
-          ))}
-        </Dropdown.Menu>
-      </PeriodSelector>
-    );
   }
 }

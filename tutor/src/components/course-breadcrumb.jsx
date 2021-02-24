@@ -39,42 +39,42 @@ const TaskTitle = styled(TruncatedText)`
 `;
 
 const CourseBreadcrumb = observer(({ course, currentTitle, plan, noBottomMargin, className = '' }) => {
-  return (
-    <Wrapper noBottomMargin={noBottomMargin} className={cn(className)}>
-      <Links>
-        <TutorLink to="dashboard" params={{ courseId: course.id }}>
-          {course.name}
-          <AngleDivider>
-            <Icon type="angle-right" />
-          </AngleDivider>
-        </TutorLink>
+    return (
+        <Wrapper noBottomMargin={noBottomMargin} className={cn(className)}>
+            <Links>
+                <TutorLink to="dashboard" params={{ courseId: course.id }}>
+                    {course.name}
+                    <AngleDivider>
+                        <Icon type="angle-right" />
+                    </AngleDivider>
+                </TutorLink>
 
-        {
-          plan &&
+                {
+                    plan &&
             <>
               <TutorLink
-                to="reviewAssignment"
-                params={{ courseId: course.id, id: plan.id }}
+                  to="reviewAssignment"
+                  params={{ courseId: course.id, id: plan.id }}
               >
-                <TruncatedText>{plan.title}</TruncatedText>
+                  <TruncatedText>{plan.title}</TruncatedText>
               </TutorLink>
               <AngleDivider>
-                <Icon type="angle-right" />
+                  <Icon type="angle-right" />
               </AngleDivider>
             </>
-        }
-      </Links>
-      <TaskTitle as="h2">{currentTitle}</TaskTitle>
-    </Wrapper>
-  );
+                }
+            </Links>
+            <TaskTitle as="h2">{currentTitle}</TaskTitle>
+        </Wrapper>
+    );
 });
 
 CourseBreadcrumb.propTypes = {
-  course: PropTypes.instanceOf(Course).isRequired,
-  plan: PropTypes.object,
-  currentTitle: PropTypes.string.isRequired,
-  noBottomMargin: PropTypes.bool,
-  className: PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    plan: PropTypes.object,
+    currentTitle: PropTypes.string.isRequired,
+    noBottomMargin: PropTypes.bool,
+    className: PropTypes.string,
 };
 
 export default CourseBreadcrumb;

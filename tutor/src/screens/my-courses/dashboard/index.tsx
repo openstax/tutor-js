@@ -4,6 +4,7 @@ import { map, filter, some, includes, indexOf, findIndex } from 'lodash'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
+import { ID } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
 import { useAllCourses } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
@@ -106,6 +107,7 @@ const StyledMyCoursesDashboard = styled.div`
 /**
  * Main component
  */
+
 export const MyCoursesDashboard = () => {
     // getting all the data: offerings and courses
     const offerings = useAllOfferings()
@@ -117,9 +119,9 @@ export const MyCoursesDashboard = () => {
 
     // First time setting the `displayedOfferingIds`
     useEffect(() => {
-        if(offerings.length > 0 && courses.length > 0) {
+        if (offerings.length > 0 && courses.length > 0) {
             const uiDisplayedOfferingIds = UiSettings.get('displayedOfferingIds')
-            if(!uiDisplayedOfferingIds) {
+            if (!uiDisplayedOfferingIds) {
                 const offeringIds = map(filter(offerings, o => some(courses, c => c.offering_id === o.id)), m => m.id)
                 UiSettings.set('displayedOfferingIds', offeringIds)
                 setDisplayedOfferingIds(offeringIds)
@@ -141,10 +143,10 @@ export const MyCoursesDashboard = () => {
     }, [displayedOfferingIds, offerings])
 
     // move offerings block around
-    const swapOffering = (offeringId : ID, flow = 'up') => {
+    const swapOffering = (offeringId: ID, flow = 'up') => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === offeringId)
-        if(index >= 0) {
+        if (index >= 0) {
             const swapIndex = flow === 'up' ? index - 1 : index + 1;
             [tempDisplayedOfferingIds[index], tempDisplayedOfferingIds[swapIndex]] = [tempDisplayedOfferingIds[swapIndex], tempDisplayedOfferingIds[index]];
         }
@@ -155,7 +157,7 @@ export const MyCoursesDashboard = () => {
     const deleteOffering = () => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
-        if(index >= 0) {
+        if (index >= 0) {
             tempDisplayedOfferingIds.splice(index, 1)
             setDisplayedOfferingIds(tempDisplayedOfferingIds)
             setDeleteOfferingIdModal(null)
@@ -164,28 +166,28 @@ export const MyCoursesDashboard = () => {
 
     const renderDeleteModal = () => {
         const offeringHasCourses = some(courses, c => c.offering_id === deleteOfferingIdModal)
-        if(!offeringHasCourses) {
+        if (!offeringHasCourses) {
             return (
-                <DeleteOfferingModal 
-                  show={Boolean(deleteOfferingIdModal)}
-                  onHide={() => setDeleteOfferingIdModal(null)}
-                  onDelete={() => deleteOffering()}
-              />
+                <DeleteOfferingModal
+                    show={Boolean(deleteOfferingIdModal)}
+                    onHide={() => setDeleteOfferingIdModal(null)}
+                    onDelete={() => deleteOffering()}
+                />
             )
         }
         return (
             <DeleteOfferingWarningModal
-              show={Boolean(deleteOfferingIdModal)}
-              onHide={() => setDeleteOfferingIdModal(null)} />
+                show={Boolean(deleteOfferingIdModal)}
+                onHide={() => setDeleteOfferingIdModal(null)} />
         )
     }
 
     const settingsButton =
-    <Button
-      variant="link"
-      onClick={() => setIsEditMode(prevState => !prevState)}>
-      <Icon type="cog" />{isEditMode ? 'Exit settings' : 'Manage subjects'}
-    </Button>
+        <Button
+            variant="link"
+            onClick={() => setIsEditMode(prevState => !prevState)}>
+            <Icon type="cog" />{isEditMode ? 'Exit settings' : 'Manage subjects'}
+        </Button>
 
     return (
         <StyledMyCoursesDashboard>
@@ -195,21 +197,21 @@ export const MyCoursesDashboard = () => {
             </div>
             { map(displayedOfferings, (o, i) =>
                 <OfferingBlock
-                  key={o.id}
-                  offering={o}
-                  courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')}
-                  swapOffering={swapOffering}
-                  tryDeleteOffering={setDeleteOfferingIdModal}
-                  isEditMode={isEditMode}
-                  isFirstBlock={i === 0}
-                  isLastBlock={i === displayedOfferings.length - 1} />) 
+                    key={o.id}
+                    offering={o}
+                    courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')}
+                    swapOffering={swapOffering}
+                    tryDeleteOffering={setDeleteOfferingIdModal}
+                    isEditMode={isEditMode}
+                    isFirstBlock={i === 0}
+                    isLastBlock={i === displayedOfferings.length - 1} />)
             }
-            { isEditMode && 
+            { isEditMode &&
                 <>
                     <AddSubjectDropdown
-                      allOfferings={offerings}
-                      displayedOfferings={displayedOfferings}
-                      setDisplayedOfferingIds={setDisplayedOfferingIds} /> 
+                        allOfferings={offerings}
+                        displayedOfferings={displayedOfferings}
+                        setDisplayedOfferingIds={setDisplayedOfferingIds} />
                     <div className="controls bottom-controls">
                         {settingsButton}
                     </div>
