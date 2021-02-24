@@ -19,32 +19,32 @@ import Responsive from '../../components/responsive';
 
 // eslint-disable-next-line no-unused-vars
 const PageTips = observer(({ onPlayClick, tourContext, staticContext, ...props }) => {
-  if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
-  return (
-    <Dropdown.Item
-      className="page-tips"
-      {...props}
-      onSelect={onPlayClick}
-    >
-      <TourAnchor id="menu-option-page-tips">
+    if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
+    return (
+        <Dropdown.Item
+            className="page-tips"
+            {...props}
+            onSelect={onPlayClick}
+        >
+            <TourAnchor id="menu-option-page-tips">
         Page Tips
-      </TourAnchor>
-    </Dropdown.Item>
-  );
+            </TourAnchor>
+        </Dropdown.Item>
+    );
 });
 
 
-export default
 @withRouter
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
+export default
 class SupportMenu extends React.Component {
 
   static propTypes = {
-    tourContext: PropTypes.instanceOf(TourContext),
-    course: PropTypes.instanceOf(Course),
-    onClose:  PropTypes.func,
-    history: PropTypes.object.isRequired,
+      tourContext: PropTypes.instanceOf(TourContext),
+      course: PropTypes.instanceOf(Course),
+      onClose:  PropTypes.func,
+      history: PropTypes.object.isRequired,
   }
 
   @observable chatEnabled;
@@ -55,138 +55,137 @@ class SupportMenu extends React.Component {
   @observable hide = true;
 
   renderChat() {
-    if (!Chat.isEnabled) { return null; }
-    return [
-      <Dropdown.Item
-        style={{ display: 'none' }}
-        key="chat-enabled"
-        className="chat enabled"
-        ref={opt => this.chatEnabled = opt}
-        onSelect={this.onSelect}
-        onClick={Chat.start}
-      >
-        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat Support (9 - 5 CT)</span>
-      </Dropdown.Item>,
-      <Dropdown.Item
-        style={{ display: 'none' }}
-        key="chat-disabled"
-        className="chat disabled"
-        onSelect={this.onSelect}
-        ref={opt => this.chatDisabled = opt}
-      >
-        <Icon type='comments' color={Theme.colors.states.disabled} /><span>Chat Support Offline</span>
-      </Dropdown.Item>,
-    ];
+      if (!Chat.isEnabled) { return null; }
+      return [
+          <Dropdown.Item
+              style={{ display: 'none' }}
+              key="chat-enabled"
+              className="chat enabled"
+              ref={opt => this.chatEnabled = opt}
+              onSelect={this.onSelect}
+              onClick={Chat.start}
+          >
+              <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat Support (9 - 5 CT)</span>
+          </Dropdown.Item>,
+          <Dropdown.Item
+              style={{ display: 'none' }}
+              key="chat-disabled"
+              className="chat disabled"
+              onSelect={this.onSelect}
+              ref={opt => this.chatDisabled = opt}
+          >
+              <Icon type='comments' color={Theme.colors.states.disabled} /><span>Chat Support Offline</span>
+          </Dropdown.Item>,
+      ];
   }
 
   @action.bound
   onSelect() {
-    this.props.onClose && this.props.onClose();
+      this.props.onClose && this.props.onClose();
   }
 
 
   @action.bound
   onPlayTourClick() {
-    this.onSelect();
-    this.props.tourContext.playTriggeredTours();
+      this.onSelect();
+      this.props.tourContext.playTriggeredTours();
   }
 
   @action.bound
   goToAccessibility(ev) {
-    ev.preventDefault();
-    this.props.history.push(this.accessibilityLink);
+      ev.preventDefault();
+      this.props.history.push(this.accessibilityLink);
   }
 
   @computed
   get accessibilityLink() {
-    return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
+      return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
   }
 
   @action.bound
   onToggle(show) {
-    this.show = show;
+      this.show = show;
   }
 
   componentDidMount() {
-    // the delay is necessary for the menu to actually be placed in the DOM
-    delay(() => {
+      // the delay is necessary for the menu to actually be placed in the DOM
+      delay(() => {
       // now that the menu is in the DOM, close it but allow it to be shown in the future
-      this.onToggle(false);
-      this.hide = false;
-    }, 0);
+          this.onToggle(false);
+          this.hide = false;
+      }, 0);
 
-    when(
-      () => this.chatEnabled && this.chatDisabled,
-      () => Chat.setElementVisiblity(
-        findDOMNode(this.chatEnabled),
-        findDOMNode(this.chatDisabled)
-      ),
-    );
+      when(
+          () => this.chatEnabled && this.chatDisabled,
+          () => Chat.setElementVisiblity(
+              findDOMNode(this.chatEnabled),
+              findDOMNode(this.chatDisabled)
+          ),
+      );
   }
 
   renderDesktop() {
-    const { course } = this.props;
-    return (
-      <Dropdown show={this.show} onToggle={this.onToggle}>
-        <Dropdown.Toggle
-          id="support-menu"
-          ref={m => (this.dropdownToggle = m)}
-          aria-label="Page tips and support"
-          variant="ox"
-        >
-          <TourAnchor
-            id="support-menu-button"
-            aria-labelledby="support-menu"
-            onSelect={this.onSelect}
-          >
-            <Icon type="question-circle" />
-            <span title="Page tips and support" className="control-label">Help</span>
-          </TourAnchor>
-        </Dropdown.Toggle>
-        <Dropdown.Menu className={this.hide ? ' hide' : null}>
-          {this.renderItems()}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
+      return (
+          <Dropdown show={this.show} onToggle={this.onToggle}>
+              <Dropdown.Toggle
+                  id="support-menu"
+                  ref={m => (this.dropdownToggle = m)}
+                  aria-label="Page tips and support"
+                  variant="ox"
+              >
+                  <TourAnchor
+                      id="support-menu-button"
+                      aria-labelledby="support-menu"
+                      onSelect={this.onSelect}
+                  >
+                      <Icon type="question-circle" />
+                      <span title="Page tips and support" className="control-label">Help</span>
+                  </TourAnchor>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className={this.hide ? ' hide' : null}>
+                  {this.renderItems()}
+              </Dropdown.Menu>
+          </Dropdown>
+      );
   }
 
   renderItems() {
-    const { course } = this.props;
-    return (
+      const { course } = this.props;
+      return (
       <>
         <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
         <Dropdown.Item
-          key="nav-help-link"
-          className="-help-link"
-          target="_blank"
-          onSelect={this.onSelect}
-          href={UserMenu.helpLinkForCourse(course)}
+            key="nav-help-link"
+            className="-help-link"
+            target="_blank"
+            onSelect={this.onSelect}
+            href={UserMenu.helpLinkForCourse(course)}
         >
-          <span>Help Articles</span>
+            <span>Help Articles</span>
         </Dropdown.Item>
         <SupportDocument course={course} />
         <BestPracticesGuide course={course} />
         <Dropdown.Item
-          key="nav-keyboard-shortcuts"
-          className="-help-link"
-          onSelect={this.onSelect}
-          href={this.accessibilityLink}
-          onClick={this.goToAccessibility}
+            key="nav-keyboard-shortcuts"
+            className="-help-link"
+            onSelect={this.onSelect}
+            href={this.accessibilityLink}
+            onClick={this.goToAccessibility}
         >
-          <span>Accessibility Statement</span>
+            <span>Accessibility Statement</span>
         </Dropdown.Item>
         {this.renderChat()}
       </>
-    );
+      );
   }
 
   render() {
-    return (
-      <Responsive
-        desktop={this.renderDesktop()}
-        mobile={this.renderItems()}
-      />
-    );
+      return (
+          <Responsive
+              desktop={this.renderDesktop()}
+              mobile={this.renderItems()}
+          />
+      );
   }
 
 }

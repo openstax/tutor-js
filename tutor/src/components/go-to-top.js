@@ -43,32 +43,32 @@ const StyledIcon = styled(Icon)`
 `;
 
 const scrollStore = observable({
-  scrollTop: 0,
-  clientHeight: 0,
+    scrollTop: 0,
+    clientHeight: 0,
 });
 
 const GoToTop = observer(() => {
-  const onScroll = ({ scrollTop, clientHeight }) => {
-    scrollStore.scrollTop = scrollTop;
-    scrollStore.clientHeight = clientHeight;
-  };
-  const onClick = () => {
-    document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-  ScrollTracker({ onScroll: onScroll });
+    const onScroll = ({ scrollTop, clientHeight }) => {
+        scrollStore.scrollTop = scrollTop;
+        scrollStore.clientHeight = clientHeight;
+    };
+    const onClick = () => {
+        document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    ScrollTracker({ onScroll: onScroll });
 
-  if (!(scrollStore.scrollTop > scrollStore.clientHeight * 4))
-    return null;
+    if (!(scrollStore.scrollTop > scrollStore.clientHeight * 4))
+        return null;
 
-  return (
-    <StyledIcon
-      type="angle-up"
-      onClick={onClick}
-      title="Go to the top of the page"
-    >
+    return (
+        <StyledIcon
+            type="angle-up"
+            onClick={onClick}
+            title="Go to the top of the page"
+        >
       Go To Top
-    </StyledIcon>
-  );
+        </StyledIcon>
+    );
 });
 
 GoToTop.displayName = 'GoToTop';

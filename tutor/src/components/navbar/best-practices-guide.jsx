@@ -4,31 +4,31 @@ import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import Course from '../../models/course';
 
-export default
 @observer
+export default
 class BestPracticesGuide extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course),
+      course: PropTypes.instanceOf(Course),
   }
 
   render() {
-    const { course } = this.props;
-    if (!course || !course.currentRole.isTeacher || course.currentRole.isTeacherStudent) {
-      return null;
-    }
-    const url = course.bestPracticesDocumentURL;
-    if (!url) { return null; }
+      const { course } = this.props;
+      if (!course || !course.currentRole.isTeacher || course.currentRole.isTeacherStudent) {
+          return null;
+      }
+      const url = course.bestPracticesDocumentURL;
+      if (!url) { return null; }
 
-    return (
-      <Dropdown.Item
-        className="best-practices-guide"
-        target="_blank"
-        href={url}
-      >
+      return (
+          <Dropdown.Item
+              className="best-practices-guide"
+              target="_blank"
+              href={url}
+          >
         Best Practices Guide
-      </Dropdown.Item>
-    );
+          </Dropdown.Item>
+      );
   }
 
 }

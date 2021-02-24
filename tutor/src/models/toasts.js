@@ -10,19 +10,19 @@ import QuestionPublished from '../components/toasts/add-edit';
 const JobToasts = { lms, scores };
 
 setHandlers({
-  job(toast) {
-    invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
-    return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];
-  },
-  reload() {
-    return Reload;
-  },
-  scoresPublished() {
-    return ScoresPublished;
-  },
-  questionPublished() {
-    return QuestionPublished;
-  },
+    job(toast) {
+        invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
+        return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];
+    },
+    reload() {
+        return Reload;
+    },
+    scoresPublished() {
+        return ScoresPublished;
+    },
+    questionPublished() {
+        return QuestionPublished;
+    },
 });
 
 export { Toast } from 'shared/model/toasts';

@@ -1,7 +1,7 @@
 import { APIHandler, APIHandlerBase } from './api';
 import { idType } from './helpers/react';
 export {
-  APIHandler, APIHandlerBase, idType,
+    APIHandler, APIHandlerBase, idType,
 };
 export { default as LoadingAnimation } from './components/loading-animation';
 export { default as SuretyGuard } from './components/surety-guard';

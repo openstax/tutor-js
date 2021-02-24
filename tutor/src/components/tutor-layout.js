@@ -1,6 +1,6 @@
 import {
-  React, Provider,
-  PropTypes, observer, observable, styled, action,
+    React, Provider,
+    PropTypes, observer, observable, styled, action,
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
@@ -99,97 +99,97 @@ class CourseContext {
 class TutorLayout extends React.Component {
 
   static propTypes = {
-    app: PropTypes.object,
-    course: PropTypes.instanceOf(Course),
-    children: PropTypes.node.isRequired,
+      app: PropTypes.object,
+      course: PropTypes.instanceOf(Course),
+      children: PropTypes.node.isRequired,
   }
 
   @observable secondaryTopControls;
 
   courseContext = new CourseContext(this.props.course);
   topNavbarContext = new NavbarContext(function() {
-    this.left.set('logo', () => <Logo />);
-    this.right.set('menu', () => <Menus />);
+      this.left.set('logo', () => <Logo />);
+      this.right.set('menu', () => <Menus />);
   });
   bottomNavbarContext = new NavbarContext();
 
   @action.bound setSecondaryTopControls(controls) {
-    this.secondaryTopControls = controls;
+      this.secondaryTopControls = controls;
   }
 
   componentDidUpdate() {
-    this.courseContext.course = this.props.course;
+      this.courseContext.course = this.props.course;
   }
 
   getRouterName() {
-    return get(Router.currentMatch(), 'entry.name', '');
+      return get(Router.currentMatch(), 'entry.name', '');
   }
 
   isViewingTaskStep() {
-    const routerName = this.getRouterName();
-    return routerName === 'viewTaskStep';
+      const routerName = this.getRouterName();
+      return routerName === 'viewTaskStep';
   }
 
   isViewingCourseDashboard() {
-    const routerName = this.getRouterName();
-    return routerName === 'dashboard';
+      const routerName = this.getRouterName();
+      return routerName === 'dashboard';
   }
 
   render() {
-    const { app, course } = this.props;
-    return (
-      <Provider
-        topNavbar={this.topNavbarContext}
-        courseContext={this.courseContext}
-        bottomNavbar={this.bottomNavbarContext}
-        setSecondaryTopControls={this.setSecondaryTopControls}
-      >
-        {
-          /**
+      const { app, course } = this.props;
+      return (
+          <Provider
+              topNavbar={this.topNavbarContext}
+              courseContext={this.courseContext}
+              bottomNavbar={this.bottomNavbarContext}
+              setSecondaryTopControls={this.setSecondaryTopControls}
+          >
+              {
+                  /**
            * Hide the navbar if user is in the 'viewTaskStep' screen.
            * Use styled-components to check if the screen is mobile width.
            */
-        }
-        <StyledLayout hasNavbar={!this.isViewingTaskStep()}>
-          <Navbar
-            area="header"
-            context={this.topNavbarContext}
-            isDocked={Boolean(this.secondaryTopControls)}
-            className={this.getRouterName()}
-          />
-          {this.secondaryTopControls &&
+              }
+              <StyledLayout hasNavbar={!this.isViewingTaskStep()}>
+                  <Navbar
+                      area="header"
+                      context={this.topNavbarContext}
+                      isDocked={Boolean(this.secondaryTopControls)}
+                      className={this.getRouterName()}
+                  />
+                  {this.secondaryTopControls &&
             <SecondaryToolbar
-              controls={this.secondaryTopControls}
+                controls={this.secondaryTopControls}
             />}
-          {
-          /**
+                  {
+                      /**
            * Hide the mobile payment bar in every screen except the dashboard
            */
-          }
-          {this.isViewingCourseDashboard() && <MobilePaymentBar course={course} />}
-          <ErrorMonitoring />
-          <TermsModal />
-          <Toasts />
-          <CourseNagModal
-            key={course || 'no-course'}
-            course={course}
-          />
-          <Content
-          // adding the router name as a class so we can override the content css based on the screen
-            className={this.getRouterName()}
-            hasFooter={!this.bottomNavbarContext.isEmpty}
-            hasNavbar={!this.isViewingTaskStep()}>
-            <ImpersonationWarning app={app} />
-            {this.props.children}
-            {course && course.currentRole.isTeacher && <GoToTop />}
-          </Content>
-          <Navbar
-            area="footer"
-            context={this.bottomNavbarContext}
-          />
-        </StyledLayout>
-      </Provider>
-    );
+                  }
+                  {this.isViewingCourseDashboard() && <MobilePaymentBar course={course} />}
+                  <ErrorMonitoring />
+                  <TermsModal />
+                  <Toasts />
+                  <CourseNagModal
+                      key={course || 'no-course'}
+                      course={course}
+                  />
+                  <Content
+                      // adding the router name as a class so we can override the content css based on the screen
+                      className={this.getRouterName()}
+                      hasFooter={!this.bottomNavbarContext.isEmpty}
+                      hasNavbar={!this.isViewingTaskStep()}>
+                      <ImpersonationWarning app={app} />
+                      {this.props.children}
+                      {course && course.currentRole.isTeacher && <GoToTop />}
+                  </Content>
+                  <Navbar
+                      area="footer"
+                      context={this.bottomNavbarContext}
+                  />
+              </StyledLayout>
+          </Provider>
+      );
   }
 
 }

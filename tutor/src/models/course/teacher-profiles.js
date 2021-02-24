@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, computed,
+    BaseModel, identifiedBy, field, identifier, computed,
 } from 'shared/model';
 import User from '../user';
   
@@ -10,7 +10,7 @@ export default class CourseRole extends BaseModel {
   @field name;
   
   @computed get isCurrentUser () {
-    return this.id == User.profile_id;
+      return this.id == User.profile_id;
   }
 
-  }
+}

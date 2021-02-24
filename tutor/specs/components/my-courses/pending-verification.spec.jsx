@@ -5,9 +5,9 @@ jest.mock('../../../src/models/chat');
 
 describe('My Courses Pending Verification Component', function() {
 
-  it('renders and matches snapshot', () => {
-    User.fetch = jest.fn()
-    expect.snapshot(<PendingVerification />).toMatchSnapshot();
-  });
+    it('renders and matches snapshot', () => {
+        User.fetch = jest.fn()
+        expect.snapshot(<PendingVerification />).toMatchSnapshot();
+    });
 
 });

@@ -10,43 +10,43 @@ import MyHighlightsIcon from './my-highlights-icon';
 import NotesUX from '../../models/notes/ux';
 import SecondaryToolbarButton from '../navbar/secondary-toolbar-button';
 
-export default
 @observer
+export default
 class NoteSummaryToggle extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course),
-    type: PropTypes.oneOf(['reading', 'refbook']),
-    model: PropTypes.shape({
-      canAnnotate: PropTypes.bool,
-    }),
+      course: PropTypes.instanceOf(Course),
+      type: PropTypes.oneOf(['reading', 'refbook']),
+      model: PropTypes.shape({
+          canAnnotate: PropTypes.bool,
+      }),
   }
 
   @computed get isViewable() {
-    const { course, model } = this.props;
-    return get(model || course, 'canAnnotate', false);
+      const { course, model } = this.props;
+      return get(model || course, 'canAnnotate', false);
   }
 
   render() {
-    if (!this.isViewable) { return null; }
+      if (!this.isViewable) { return null; }
 
-    return (
-      <TourRegion
-        id="student-highlighting-reading"
-        courseId={this.props.course.id}
-      >
-        <TourAnchor id="student-highlighting-button">
-          <SecondaryToolbarButton
-            variant="plain"
-            bsPrefix="summary-toggle"
-            onClick={NotesUX.toggleSummary}
+      return (
+          <TourRegion
+              id="student-highlighting-reading"
+              courseId={this.props.course.id}
           >
-            <MyHighlightsIcon className="ox-icon" />
-            <span className="my-highlights-label">My Highlights</span>
-          </SecondaryToolbarButton>
-        </TourAnchor>
-      </TourRegion>
-    );
+              <TourAnchor id="student-highlighting-button">
+                  <SecondaryToolbarButton
+                      variant="plain"
+                      bsPrefix="summary-toggle"
+                      onClick={NotesUX.toggleSummary}
+                  >
+                      <MyHighlightsIcon className="ox-icon" />
+                      <span className="my-highlights-label">My Highlights</span>
+                  </SecondaryToolbarButton>
+              </TourAnchor>
+          </TourRegion>
+      );
   }
 
 }

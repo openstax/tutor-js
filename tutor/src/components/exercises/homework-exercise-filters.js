@@ -57,165 +57,165 @@ const StyledDropdown = styled(Dropdown)`
 
 //needs ref to get into the DOM
 const CustomToggle = forwardRef(({ text, onClick, 'aria-expanded': ariaExpanded }, ref) => {
-  return (
-    <span
-      aria-label={text}
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-    >
-      {text}
-      <Icon
-        size="lg"
-        type={ariaExpanded ? 'angle-up' : 'angle-down'}
-      />
-    </span>
-  );
+    return (
+        <span
+            aria-label={text}
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+        >
+            {text}
+            <Icon
+                size="lg"
+                type={ariaExpanded ? 'angle-up' : 'angle-down'}
+            />
+        </span>
+    );
 });
 CustomToggle.propTypes = {
-  text: PropTypes.string.isRequired,
-  // Inherited from Dropdown.Toggle
-  'aria-expanded': PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+    // Inherited from Dropdown.Toggle
+    'aria-expanded': PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 };
   
 // ref needed here also for dropdown to access the menu DOM
 const CustomMenu = forwardRef(
-  ({ children, className, style,'aria-labelledby': labeledBy, inlineStyle = {} }, ref) => {
-    return (
-      <div
-        ref={ref}
-        style={{ ...style, ...inlineStyle, top: '-2px' }}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        {children}
-      </div>
-    );
-  },
+    ({ children, className, style,'aria-labelledby': labeledBy, inlineStyle = {} }, ref) => {
+        return (
+            <div
+                ref={ref}
+                style={{ ...style, ...inlineStyle, top: '-2px' }}
+                className={className}
+                aria-labelledby={labeledBy}
+            >
+                {children}
+            </div>
+        );
+    },
 );
 CustomMenu.propTypes = {
-  inlineStyle: PropTypes.object,
-  // Inherited from Dropdown.Menu
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string.isRequired,
-  style: PropTypes.object.isRequired,
-  'aria-labelledby': PropTypes.string.isRequired,
+    inlineStyle: PropTypes.object,
+    // Inherited from Dropdown.Menu
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string.isRequired,
+    style: PropTypes.object.isRequired,
+    'aria-labelledby': PropTypes.string.isRequired,
 };
 
 const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) => {
-  if(!exercises) {
-    return null;
-  }
+    if(!exercises) {
+        return null;
+    }
 
-  const [filters, setFilters] = useState({
-    showMPQ: true,
-    showWRQ: true,
-    showTutor: true,
-    showOwned: true,
-    showOthers: true,
-  });
+    const [filters, setFilters] = useState({
+        showMPQ: true,
+        showWRQ: true,
+        showTutor: true,
+        showOwned: true,
+        showOthers: true,
+    });
 
-  const onFiltersChanged = (filter, checked) => {
-    setFilters(prevFilters => ({ ...prevFilters, [filter]: checked }));
-  };
+    const onFiltersChanged = (filter, checked) => {
+        setFilters(prevFilters => ({ ...prevFilters, [filter]: checked }));
+    };
 
-  // updates the props.exercises when a filter has changed
-  // send the filtered props.exercises back through props.returnFilteredExercises
-  useEffect(() => {
-    let ex = exercises;
-    if(!ex) return [];
-    ex = ex.where(e => {
-      const filterByQuestionSource =
+    // updates the props.exercises when a filter has changed
+    // send the filtered props.exercises back through props.returnFilteredExercises
+    useEffect(() => {
+        let ex = exercises;
+        if(!ex) return [];
+        ex = ex.where(e => {
+            const filterByQuestionSource =
       (filters.showTutor && e.belongsToOpenStax) ||
       (filters.showOwned && e.belongsToUser(User)) ||
       (filters.showOthers && e.belongsToOtherUser(User));
-      const filterByQuestionType =
+            const filterByQuestionType =
        (filters.showMPQ && e.isMultiChoice) ||
        (filters.showWRQ && e.isWrittenResponse);
       
-      return filterByQuestionSource && filterByQuestionType;
-    });
-    returnFilteredExercises(ex);
-    return () => {};
-  }, [filters, exercises]);
+            return filterByQuestionSource && filterByQuestionType;
+        });
+        returnFilteredExercises(ex);
+        return () => {};
+    }, [filters, exercises]);
 
-  return (
-    <StyledQuestionFilter className={cn(className)}>
-      <StyledDropdown blankwidth='13.9rem' data-test-id="question-type-menu">
-        <Dropdown.Toggle
-          as={CustomToggle}
-          text="Question Type"
+    return (
+        <StyledQuestionFilter className={cn(className)}>
+            <StyledDropdown blankwidth='13.9rem' data-test-id="question-type-menu">
+                <Dropdown.Toggle
+                    as={CustomToggle}
+                    text="Question Type"
 
-          id="dropdown-custom-components"/>
-        <Dropdown.Menu as={CustomMenu}>
-          <CheckboxInput
-            onChange={({ target: { checked } }) => {
-              onFiltersChanged('showMPQ', checked);
-            }}
-            checked={filters.showMPQ}
-            label="Multiple-choice questions"
-            labelSize="lg"
-            data-test-id='mcq-filter'
-            standalone
-          />
-          <CheckboxInput
-            onChange={({ target: { checked } }) => {
-              onFiltersChanged('showWRQ', checked);
-            }}
-            checked={filters.showWRQ}
-            label="Written-response questions"
-            labelSize="lg"
-            data-test-id='wrq-filter'
-            standalone
-          />
-        </Dropdown.Menu>
-      </StyledDropdown>
-      <StyledDropdown blankwidth='15.5rem'>
-        <Dropdown.Toggle
-          as={CustomToggle}
-          text="Question Source"
-          id="dropdown-custom-components"/>
-        <Dropdown.Menu as={CustomMenu}>
-          <CheckboxInput
-            onChange={({ target: { checked } }) => {
-              onFiltersChanged('showTutor', checked);
-            }}
-            checked={filters.showTutor}
-            label="Openstax Tutor"
-            labelSize="lg"
-            standalone
-          />
-          <CheckboxInput
-            onChange={({ target: { checked } }) => {
-              onFiltersChanged('showOwned', checked);
-            }}
-            checked={filters.showOwned}
-            label="My questions"
-            labelSize="lg"
-            standalone
-          />
-          <CheckboxInput
-            onChange={({ target: { checked } }) => {
-              onFiltersChanged('showOthers', checked);
-            }}
-            checked={filters.showOthers}
-            label="My co-teachers"
-            labelSize="lg"
-            standalone
-          />
-        </Dropdown.Menu>
-      </StyledDropdown>
-    </StyledQuestionFilter>
-  );
+                    id="dropdown-custom-components"/>
+                <Dropdown.Menu as={CustomMenu}>
+                    <CheckboxInput
+                        onChange={({ target: { checked } }) => {
+                            onFiltersChanged('showMPQ', checked);
+                        }}
+                        checked={filters.showMPQ}
+                        label="Multiple-choice questions"
+                        labelSize="lg"
+                        data-test-id='mcq-filter'
+                        standalone
+                    />
+                    <CheckboxInput
+                        onChange={({ target: { checked } }) => {
+                            onFiltersChanged('showWRQ', checked);
+                        }}
+                        checked={filters.showWRQ}
+                        label="Written-response questions"
+                        labelSize="lg"
+                        data-test-id='wrq-filter'
+                        standalone
+                    />
+                </Dropdown.Menu>
+            </StyledDropdown>
+            <StyledDropdown blankwidth='15.5rem'>
+                <Dropdown.Toggle
+                    as={CustomToggle}
+                    text="Question Source"
+                    id="dropdown-custom-components"/>
+                <Dropdown.Menu as={CustomMenu}>
+                    <CheckboxInput
+                        onChange={({ target: { checked } }) => {
+                            onFiltersChanged('showTutor', checked);
+                        }}
+                        checked={filters.showTutor}
+                        label="Openstax Tutor"
+                        labelSize="lg"
+                        standalone
+                    />
+                    <CheckboxInput
+                        onChange={({ target: { checked } }) => {
+                            onFiltersChanged('showOwned', checked);
+                        }}
+                        checked={filters.showOwned}
+                        label="My questions"
+                        labelSize="lg"
+                        standalone
+                    />
+                    <CheckboxInput
+                        onChange={({ target: { checked } }) => {
+                            onFiltersChanged('showOthers', checked);
+                        }}
+                        checked={filters.showOthers}
+                        label="My co-teachers"
+                        labelSize="lg"
+                        standalone
+                    />
+                </Dropdown.Menu>
+            </StyledDropdown>
+        </StyledQuestionFilter>
+    );
 };
 
 QuestionFilters.propTypes = {
-  className: PropTypes.string,
-  exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
-  returnFilteredExercises: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+    returnFilteredExercises: PropTypes.func.isRequired,
 };
 
 export default QuestionFilters;

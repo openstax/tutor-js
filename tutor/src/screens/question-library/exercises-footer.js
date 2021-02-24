@@ -21,20 +21,20 @@ const StyledExercisesFooter = styled.div`
 `;
 
 const ExercisesFooter = () => {
-  const [showTerms, setShowTerms] = useState(false);
-  return (
-    <StyledExercisesFooter>
-      <Button variant="link" onClick={() => setShowTerms(true)}>Terms of Use</Button>
-      <p>
+    const [showTerms, setShowTerms] = useState(false);
+    return (
+        <StyledExercisesFooter>
+            <Button variant="link" onClick={() => setShowTerms(true)}>Terms of Use</Button>
+            <p>
         Need more information? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
-      </p>
-      <Terms
-        show={showTerms}
-        onClose={() => setShowTerms(false)}
-        displayOnly={true}
-      />
-    </StyledExercisesFooter>
-  );
+            </p>
+            <Terms
+                show={showTerms}
+                onClose={() => setShowTerms(false)}
+                displayOnly={true}
+            />
+        </StyledExercisesFooter>
+    );
 };
 
 export default ExercisesFooter;

@@ -37,42 +37,42 @@ const SinglePeriod = styled.div`
 `;
 
 const CoursePeriodSelect = observer(({ course, periods, period, onChange }) => {
-  const items = periods || course.periods.active;
-  const choices = without(items, period);
-  if (!period) { return null; }
+    const items = periods || course.periods.active;
+    const choices = without(items, period);
+    if (!period) { return null; }
 
-  const onSelect = (periodId) => {
-    const period = find(items, { id: periodId });
-    onChange(period);
-  };
+    const onSelect = (periodId) => {
+        const period = find(items, { id: periodId });
+        onChange(period);
+    };
 
-  if (0 == choices.length) {
+    if (0 == choices.length) {
+        return (
+            <SinglePeriod><CGL course={course} /> {period.name}</SinglePeriod>
+        );
+    }
+
     return (
-      <SinglePeriod><CGL course={course} /> {period.name}</SinglePeriod>
+        <Dropdown alignRight onSelect={onSelect}>
+            <Label>
+                <StyledDropdownToggle id="course-period-select" variant="outline-secondary">
+                    <span>
+                        <CGL course={course} />
+                        {period.name}
+                    </span>
+                </StyledDropdownToggle>
+            </Label>
+            <Dropdown.Menu>
+                {choices.map(p => <Dropdown.Item eventKey={p.id} key={p.id}>{p.name}</Dropdown.Item>)}
+            </Dropdown.Menu>
+        </Dropdown>
     );
-  }
-
-  return (
-    <Dropdown alignRight onSelect={onSelect}>
-      <Label>
-        <StyledDropdownToggle id="course-period-select" variant="outline-secondary">
-          <span>
-            <CGL course={course} />
-            {period.name}
-          </span>
-        </StyledDropdownToggle>
-      </Label>
-      <Dropdown.Menu>
-        {choices.map(p => <Dropdown.Item eventKey={p.id} key={p.id}>{p.name}</Dropdown.Item>)}
-      </Dropdown.Menu>
-    </Dropdown>
-  );
 });
 CoursePeriodSelect.displayName = 'CoursePeriodSelect';
 CoursePeriodSelect.propTypes = {
-  course: PropTypes.instanceOf(Course),
-  period: PropTypes.instanceOf(Period),
-  onChange: PropTypes.func.isRequired,
+    course: PropTypes.instanceOf(Course),
+    period: PropTypes.instanceOf(Period),
+    onChange: PropTypes.func.isRequired,
 };
 
 export default CoursePeriodSelect;

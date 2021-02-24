@@ -8,22 +8,22 @@ import store from '../store'
 
 
 export default function TutorRoot({ app }) {
-  return (
-    <BrowserRouter>
-      <ReduxProvider store={store}>
-        <ThemeProvider theme={TutorTheme}>
-          <div className="tutor-root openstax">
-            <Route
-              path="/"
-              render={props => <App app={app} {...props} />}
-            />
-          </div>
-        </ThemeProvider>
-      </ReduxProvider>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <ReduxProvider store={store}>
+                <ThemeProvider theme={TutorTheme}>
+                    <div className="tutor-root openstax">
+                        <Route
+                            path="/"
+                            render={props => <App app={app} {...props} />}
+                        />
+                    </div>
+                </ThemeProvider>
+            </ReduxProvider>
+        </BrowserRouter>
+    );
 }
 
 TutorRoot.propTypes = {
-  app: PropTypes.object.isRequired,
+    app: PropTypes.object.isRequired,
 }

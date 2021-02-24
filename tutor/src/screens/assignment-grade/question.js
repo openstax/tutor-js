@@ -7,14 +7,14 @@ import { colors } from 'theme';
 import ScoresHelper from '../../helpers/scores';
 
 const AnswerKey = observer(({ ux }) => (
-  <label>
-    <input
-      type="checkbox"
-      checked={ux.showAnswerKey}
-      onChange={({ target: { checked } }) => ux.showAnswerKey = checked}
-    />
+    <label>
+        <input
+            type="checkbox"
+            checked={ux.showAnswerKey}
+            onChange={({ target: { checked } }) => ux.showAnswerKey = checked}
+        />
     Answer Key
-  </label>
+    </label>
 ));
 
 const StyledQuestionHeading = styled.div`
@@ -42,12 +42,12 @@ const StyledQuestionHeading = styled.div`
 `;
 
 const QuestionHeader = observer(({ questionIndex, ux, showAnswerKey = false }) => (
-  <StyledQuestionHeading onClick={() => ux.showOverview ? ux.goToQuestionHeading(questionIndex, ux.expandGradedAnswers) : undefined}>
-    <ExerciseNumber>
+    <StyledQuestionHeading onClick={() => ux.showOverview ? ux.goToQuestionHeading(questionIndex, ux.expandGradedAnswers) : undefined}>
+        <ExerciseNumber>
         Question {questionIndex + 1}
-    </ExerciseNumber>
-    {showAnswerKey && <AnswerKey ux={ux} /> }
-  </StyledQuestionHeading>
+        </ExerciseNumber>
+        {showAnswerKey && <AnswerKey ux={ux} /> }
+    </StyledQuestionHeading>
 ));
 
 const QuestionBody = styled.div`
@@ -66,7 +66,7 @@ const StyledQuestion = styled.div`
 `;
 
 QuestionHeader.propTypes = {
-  ux: PropTypes.object,
+    ux: PropTypes.object,
 };
 
 
@@ -81,96 +81,96 @@ const ExpandGradedWrapper = styled.div`
 `;
 
 const ExpandGraded = observer(({ ux }) => {
-  let completed = ux.showOnlyAttempted ? ux.selectedHeading.gradedStats.completed : ux.selectedHeading.gradedStatsWithUnAttemptedResponses.completed;
-  let gradeProgress =  ux.showOnlyAttempted ? ux.selectedHeading.gradedProgress : ux.selectedHeading.gradedProgressWithUnAttemptedResponses;
-  if (0 == completed) {
-    return null;
-  }
-  return (
-    <ExpandGradedWrapper>
-      <Button
-        onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
-        variant="link"
-      >
-        {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {gradeProgress}
-      </Button>
-      <label>
+    let completed = ux.showOnlyAttempted ? ux.selectedHeading.gradedStats.completed : ux.selectedHeading.gradedStatsWithUnAttemptedResponses.completed;
+    let gradeProgress =  ux.showOnlyAttempted ? ux.selectedHeading.gradedProgress : ux.selectedHeading.gradedProgressWithUnAttemptedResponses;
+    if (0 == completed) {
+        return null;
+    }
+    return (
+        <ExpandGradedWrapper>
+            <Button
+                onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
+                variant="link"
+            >
+                {ux.expandGradedAnswers ? 'Hide' : 'Expand'} graded answers {gradeProgress}
+            </Button>
+            <label>
         Average Score: {
-          ScoresHelper.formatPoints(
-            ux.selectedHeading.dropped
-              ? ux.selectedHeading.averageGradedPointsWithDroppedQuestion
-              : ux.selectedHeading.averageGradedPoints
-          )
-        } out of {ScoresHelper.formatPoints(ux.selectedHeading.points_without_dropping)}
-      </label>
-    </ExpandGradedWrapper>
-  );
+                    ScoresHelper.formatPoints(
+                        ux.selectedHeading.dropped
+                            ? ux.selectedHeading.averageGradedPointsWithDroppedQuestion
+                            : ux.selectedHeading.averageGradedPoints
+                    )
+                } out of {ScoresHelper.formatPoints(ux.selectedHeading.points_without_dropping)}
+            </label>
+        </ExpandGradedWrapper>
+    );
 });
 
 const Overiew = observer(({ ux }) => {
-  return (
+    return (
     <>
       {
-        ux.headings.map((h, i) => (
-          <StyledQuestion key={i} marginBottom>
-            <QuestionHeader questionIndex={i} ux={ux} />
-            <QuestionBody>
-              <Question
-                question={h.question}
-                hideAnswers={false}
-                displaySolution={false}
-                choicesEnabled={false}
-                displayFormats={false}
-              />
-              <ExpandGradedWrapper>
-                <Button
-                  onClick={() => ux.goToQuestionHeading(i, true)}
-                  variant="link"
-                >
+          ux.headings.map((h, i) => (
+              <StyledQuestion key={i} marginBottom>
+                  <QuestionHeader questionIndex={i} ux={ux} />
+                  <QuestionBody>
+                      <Question
+                          question={h.question}
+                          hideAnswers={false}
+                          displaySolution={false}
+                          choicesEnabled={false}
+                          displayFormats={false}
+                      />
+                      <ExpandGradedWrapper>
+                          <Button
+                              onClick={() => ux.goToQuestionHeading(i, true)}
+                              variant="link"
+                          >
                   Expand graded answers {ux.showOnlyAttempted ? h.gradedProgress : h.gradedProgressWithUnAttemptedResponses}
-                </Button>
-                <label>
+                          </Button>
+                          <label>
                   Average Score: {ScoresHelper.formatPoints(h.averageGradedPoints)} out of {ScoresHelper.formatPoints(h.responseStats.availablePoints)}
-                </label>
-              </ExpandGradedWrapper>
-            </QuestionBody>
-          </StyledQuestion>
-        ))
+                          </label>
+                      </ExpandGradedWrapper>
+                  </QuestionBody>
+              </StyledQuestion>
+          ))
       }
     </>
-  );
+    );
 });
 
 const IndividualQuestion = observer(({ ux }) => {
-  let responses = ux.expandGradedAnswers
-    ? concat(ux.gradedResponses, ux.needsGradingResponses)
-    : ux.needsGradingResponses;
-  return (
-    <StyledQuestion>
-      <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
-      <QuestionBody>
-        <Question
-          question={ux.selectedHeading ? ux.selectedHeading.question : null}
-          hideAnswers={false}
-          displaySolution={ux.showAnswerKey}
-          choicesEnabled={false}
-          displayFormats={false}
-        />
-        <ExpandGraded ux={ux} />
-        {responses.map((response, index) =>
-          <Answer
-            response={response}
-            key={index}
-            index={index}
-            ux={ux} />)}
-      </QuestionBody>
-    </StyledQuestion>
-  );
+    let responses = ux.expandGradedAnswers
+        ? concat(ux.gradedResponses, ux.needsGradingResponses)
+        : ux.needsGradingResponses;
+    return (
+        <StyledQuestion>
+            <QuestionHeader questionIndex={ux.selectedHeading.index} ux={ux} showAnswerKey={true} />
+            <QuestionBody>
+                <Question
+                    question={ux.selectedHeading ? ux.selectedHeading.question : null}
+                    hideAnswers={false}
+                    displaySolution={ux.showAnswerKey}
+                    choicesEnabled={false}
+                    displayFormats={false}
+                />
+                <ExpandGraded ux={ux} />
+                {responses.map((response, index) =>
+                    <Answer
+                        response={response}
+                        key={index}
+                        index={index}
+                        ux={ux} />)}
+            </QuestionBody>
+        </StyledQuestion>
+    );
 });
 const AssignmentGradingQuestion = observer(({ ux }) => {
-  const Component = ux.showOverview ? Overiew : IndividualQuestion;
+    const Component = ux.showOverview ? Overiew : IndividualQuestion;
 
-  return <Component ux={ux} />;
+    return <Component ux={ux} />;
 });
 
 export default AssignmentGradingQuestion;

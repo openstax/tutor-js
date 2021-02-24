@@ -8,36 +8,36 @@ const TODAY_IN_CURRENT_ZONE = moment().startOf('day').format();
 
 describe('Time Helpers', function() {
 
-  beforeEach(() => Courses.bootstrap([{ id: COURSE_ID, timezone: TEST_TIMEZONE }], { clear: true }));
+    beforeEach(() => Courses.bootstrap([{ id: COURSE_ID, timezone: TEST_TIMEZONE }], { clear: true }));
 
-  afterEach(() => Courses.clear());
-
-
-  it('will set the default timezone', function() {
-    const courseTimezone = Courses.get(COURSE_ID).timezone;
-
-    TimeHelper.syncCourseTimezone(courseTimezone);
-
-    expect(moment().startOf('day').format()).not.toEqual(TODAY_IN_CURRENT_ZONE);
-  });
+    afterEach(() => Courses.clear());
 
 
-  it('will reset the default timezone to user time', function() {
-    TimeHelper.unsyncCourseTimezone();
-    expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).toBe(true);
-  });
+    it('will set the default timezone', function() {
+        const courseTimezone = Courses.get(COURSE_ID).timezone;
 
-  it('checks if browser is in same timezone as course', function() {
-    const courseTimezone = Courses.get(COURSE_ID).timezone;
-    expect(
-      TimeHelper.isCourseTimezone(courseTimezone)
-    ).toBe(false);
+        TimeHelper.syncCourseTimezone(courseTimezone);
 
-    TimeHelper.syncCourseTimezone(courseTimezone);
-    expect(
-      TimeHelper.isCourseTimezone(courseTimezone),
-    ).toBe(true);
-    TimeHelper.unsyncCourseTimezone();
-  });
+        expect(moment().startOf('day').format()).not.toEqual(TODAY_IN_CURRENT_ZONE);
+    });
+
+
+    it('will reset the default timezone to user time', function() {
+        TimeHelper.unsyncCourseTimezone();
+        expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).toBe(true);
+    });
+
+    it('checks if browser is in same timezone as course', function() {
+        const courseTimezone = Courses.get(COURSE_ID).timezone;
+        expect(
+            TimeHelper.isCourseTimezone(courseTimezone)
+        ).toBe(false);
+
+        TimeHelper.syncCourseTimezone(courseTimezone);
+        expect(
+            TimeHelper.isCourseTimezone(courseTimezone),
+        ).toBe(true);
+        TimeHelper.unsyncCourseTimezone();
+    });
 
 });

@@ -9,13 +9,13 @@ const CHOICES = {};
 for (let i of Array.from(range(1, 7))) { CHOICES[i] = i; }
 
 function BloomsTag(props) {
-  return (
-    <SingleDropdown {...props} label="Blooms" type="blooms" choices={CHOICES} />
-  );
+    return (
+        <SingleDropdown {...props} label="Blooms" type="blooms" choices={CHOICES} />
+    );
 }
 
 BloomsTag.propTypes = {
-  exercise: PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 export default observer(BloomsTag);

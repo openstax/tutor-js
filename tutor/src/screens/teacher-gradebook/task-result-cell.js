@@ -19,58 +19,58 @@ const StyledCell = styled(Cell)`
 `;
 
 const ReviewLink = ({ task, children }) => useObserver(() => {
-  const { course } = task.student.period;
-  if (!course.currentRole.isTeacher) {
-    return children;
-  }
-  return (
-    <TutorLink
-      to="viewTask"
-      data-assignment-type={`${task.type}`}
-      params={{ courseId: course.id, id: task.id }}
-    >
-      {children}
-    </TutorLink>
-  );
+    const { course } = task.student.period;
+    if (!course.currentRole.isTeacher) {
+        return children;
+    }
+    return (
+        <TutorLink
+            to="viewTask"
+            data-assignment-type={`${task.type}`}
+            params={{ courseId: course.id, id: task.id }}
+        >
+            {children}
+        </TutorLink>
+    );
 });
 
 const Points = observer(({ task }) => {
-  const points = isNil(task.published_points) ? UNWORKED : ScoresHelper.formatPoints(task.published_points);
-  return <div className="correct-points">{points}</div>;
+    const points = isNil(task.published_points) ? UNWORKED : ScoresHelper.formatPoints(task.published_points);
+    return <div className="correct-points">{points}</div>;
 });
 
 const Percent = observer(({ task }) => {
-  const display = isNil(task.published_score) ? UNWORKED : `${ScoresHelper.asPercent(task.published_score)}%`;
-  return <div className="correct-score">{display}</div>;
+    const display = isNil(task.published_score) ? UNWORKED : `${ScoresHelper.asPercent(task.published_score)}%`;
+    return <div className="correct-score">{display}</div>;
 });
 
 const External = observer(({ task: { completed_step_count } }) => {
-  return <div className="external">{completed_step_count > 0 ? 'clicked' : UNWORKED}</div>;
+    return <div className="external">{completed_step_count > 0 ? 'clicked' : UNWORKED}</div>;
 });
 
 const TaskResult = observer(({ ux, task, striped, isLast }) => {
-  let contents = null;
-  if (task.isStarted || task.isDue) {
+    let contents = null;
+    if (task.isStarted || task.isDue) {
 
-    let Component;
+        let Component;
 
-    if (task.isExternal){
-      Component = External;
-    } else if (ux.displayScoresAsPoints) {
-      Component = Points;
+        if (task.isExternal){
+            Component = External;
+        } else if (ux.displayScoresAsPoints) {
+            Component = Points;
+        } else {
+            Component = Percent;
+        }
+
+        const value = <Component task={task} />;
+
+        contents = task.canBeReviewed ?
+            <ReviewLink task={task}>{value}</ReviewLink> : value;
     } else {
-      Component = Percent;
+        contents = <Unstarted>{UNWORKED}</Unstarted>;
     }
 
-    const value = <Component task={task} />;
-
-    contents = task.canBeReviewed ?
-      <ReviewLink task={task}>{value}</ReviewLink> : value;
-  } else {
-    contents = <Unstarted>{UNWORKED}</Unstarted>;
-  }
-
-  return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
+    return <StyledCell striped={striped} drawBorderBottom={isLast}>{contents}</StyledCell>;
 
 });
 

@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, identifier, session, belongsTo,
+    BaseModel, identifiedBy, identifier, session, belongsTo,
 } from 'shared/model';
 import UiSettings from 'shared/model/ui-settings';
 
@@ -24,11 +24,11 @@ export default class CourseLMS extends BaseModel {
   @belongsTo({ model: 'course' }) course;
 
   @computed get vendor() {
-    return UiSettings.get(LMS_VENDOR, this.course.id) || 'blackboard';
+      return UiSettings.get(LMS_VENDOR, this.course.id) || 'blackboard';
   }
 
   @action.bound setVendor(vendor) {
-    return UiSettings.set(LMS_VENDOR, this.course.id, vendor);
+      return UiSettings.set(LMS_VENDOR, this.course.id, vendor);
   }
 
   // called by API

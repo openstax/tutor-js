@@ -16,18 +16,18 @@ const ALL_LATE_TASK_ID = 12;
 const UNWORKED_TASK_ID = 10;
 
 describe('scores store', function() {
-  let scores;
-  let course;
+    let scores;
+    let course;
 
-  beforeEach(() => {
-    course = bootstrapCoursesList().get(COURSE_ID);
-    scores = course.scores;
-    scores.onFetchComplete({ data: DATA });
-  });
+    beforeEach(() => {
+        course = bootstrapCoursesList().get(COURSE_ID);
+        scores = course.scores;
+        scores.onFetchComplete({ data: DATA });
+    });
 
-  it('can get task by id', () => {
-    const task = Courses.get(COURSE_ID).scores.getTask('17');
-    expect(task.id).toEqual(COMPLETED_TASK_ID);
-  });
+    it('can get task by id', () => {
+        const task = Courses.get(COURSE_ID).scores.getTask('17');
+        expect(task.id).toEqual(COMPLETED_TASK_ID);
+    });
 
 });

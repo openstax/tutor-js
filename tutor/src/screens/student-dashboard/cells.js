@@ -8,7 +8,7 @@ const Cell = styled.div`
 `;
 
 const TitleCell = styled(Cell).withConfig({
-  displayName: 'TitleCell',
+    displayName: 'TitleCell',
 })`
   padding: 0 6rem 0 1rem;
   flex: 1;
@@ -21,7 +21,7 @@ const TitleCell = styled(Cell).withConfig({
 `;
 
 const DueCell = styled(Cell).withConfig({
-  displayName: 'DueCell',
+    displayName: 'DueCell',
 })`
   flex: 1;
   width: 20rem;
@@ -32,7 +32,7 @@ const DueCell = styled(Cell).withConfig({
 `;
 
 const StatusCell = styled(Cell).withConfig({
-  displayName: 'StatusCell',
+    displayName: 'StatusCell',
 })`
   width: 15.5rem;
   padding-right: 1rem;
@@ -42,7 +42,7 @@ const StatusCell = styled(Cell).withConfig({
 `;
 
 const ScoreCell = styled(Cell).withConfig({
-  displayName: 'ScoreCell',
+    displayName: 'ScoreCell',
 })`
   padding-right: 1rem;
   width: 8rem;

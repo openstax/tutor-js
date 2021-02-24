@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, action,
+    BaseModel, identifiedBy, field, identifier, action,
 } from 'shared/model';
 import { observable } from 'mobx';
 
@@ -13,8 +13,8 @@ class DroppedQuestion extends BaseModel {
   @observable isChanged;
 
   @action.bound setDropMethod(method) {
-    this.drop_method = method;
-    this.isChanged = true;
+      this.drop_method = method;
+      this.isChanged = true;
   }
 }
 

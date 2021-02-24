@@ -9,48 +9,48 @@ const Desktop = () => <p>DESKTOP</p>
 
 
 describe('Responsive Rendering', () => {
-  let props;
-  jest.useFakeTimers();
+    let props;
+    jest.useFakeTimers();
 
-  beforeEach(() => {
-    props = {
-      windowImpl: new FakeWindow(),
-      mobile: <Mobile />,
-      tablet: <Tablet />,
-      desktop: <Desktop />,
-    };
-  });
+    beforeEach(() => {
+        props = {
+            windowImpl: new FakeWindow(),
+            mobile: <Mobile />,
+            tablet: <Tablet />,
+            desktop: <Desktop />,
+        };
+    });
 
-  it('switches view depending on window width', () => {
-    const { windowImpl } = props;
-    windowImpl.resizeTo({ width: 1200 })
-    const c = mount(<Responsive {...props} />)
-    expect(c).toHaveRendered(Desktop)
-    windowImpl.resizeTo({ width: 780 })
-    jest.runAllTimers();
+    it('switches view depending on window width', () => {
+        const { windowImpl } = props;
+        windowImpl.resizeTo({ width: 1200 })
+        const c = mount(<Responsive {...props} />)
+        expect(c).toHaveRendered(Desktop)
+        windowImpl.resizeTo({ width: 780 })
+        jest.runAllTimers();
 
-    expect(c).toHaveRendered(Tablet)
+        expect(c).toHaveRendered(Tablet)
 
-    windowImpl.resizeTo({ width: 550 })
-    expect(c).toHaveRendered(Mobile)
-  })
+        windowImpl.resizeTo({ width: 550 })
+        expect(c).toHaveRendered(Mobile)
+    })
 
-  it ('renders desktop if tablet is ommited', () => {
-    props.windowImpl.resizeTo({ width: 780 }) // tablet size, but no tablet view given
-    props.tablet = undefined
-    const c = mount(<Responsive {...props} />)
-    expect(c).toHaveRendered(Desktop)
-  })
+    it ('renders desktop if tablet is ommited', () => {
+        props.windowImpl.resizeTo({ width: 780 }) // tablet size, but no tablet view given
+        props.tablet = undefined
+        const c = mount(<Responsive {...props} />)
+        expect(c).toHaveRendered(Desktop)
+    })
 
-  it('can use custom breakpoints', () => {
-    props.windowImpl.resizeTo({ width: 980 })
-    props.breakpoints={
-      tablet: 900,
-    }
-    const c = mount(<Responsive {...props} />)
-    expect(c).toHaveRendered(Tablet)
-    props.windowImpl.resizeTo({ width: 1200 })
-    expect(c).toHaveRendered(Desktop)
-  })
+    it('can use custom breakpoints', () => {
+        props.windowImpl.resizeTo({ width: 980 })
+        props.breakpoints={
+            tablet: 900,
+        }
+        const c = mount(<Responsive {...props} />)
+        expect(c).toHaveRendered(Tablet)
+        props.windowImpl.resizeTo({ width: 1200 })
+        expect(c).toHaveRendered(Desktop)
+    })
 
 })

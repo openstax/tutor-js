@@ -8,7 +8,7 @@ const StyledWrapper = styled.span`
 `;
 
 const StyledRadioInput = styled.input.attrs( () => ({
-  type: 'radio',
+    type: 'radio',
 }))`
   opacity: 0;
 
@@ -62,24 +62,24 @@ const StyledRadioInput = styled.input.attrs( () => ({
 `;
 
 const RadioInput = observer((props) => {
-  const [field] = props.standalone ? [] : useField({ type: 'text', ...props });
-  const id = props.id || uniqueId(props.name);
+    const [field] = props.standalone ? [] : useField({ type: 'text', ...props });
+    const id = props.id || uniqueId(props.name);
 
-  return (
-    <StyledWrapper>
-      <StyledRadioInput
-        {...field}
-        {...props}
-        id={id}
-      />
-      <label htmlFor={id}>{props.label}</label>
-    </StyledWrapper>
-  );
+    return (
+        <StyledWrapper>
+            <StyledRadioInput
+                {...field}
+                {...props}
+                id={id}
+            />
+            <label htmlFor={id}>{props.label}</label>
+        </StyledWrapper>
+    );
 });
 
 RadioInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  labelSize: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    labelSize: PropTypes.string,
 };
 
 export default RadioInput;

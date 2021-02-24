@@ -9,20 +9,20 @@ const StyledAssignmentClosedBanner = styled.div`
 `;
 
 const AssignmentClosedBanner = ({ ux }) => {
-  if (!ux.task.isAssignmentClosed) {
-    return null;
-  }
-  return ( 
-    <StyledAssignmentClosedBanner>
-      <span>This assignment is closed.</span>
-      {!ux.course.currentRole.isTeacher && (
-        <span> You can no longer add or edit a response.</span>)}
-    </StyledAssignmentClosedBanner>
-  );
+    if (!ux.task.isAssignmentClosed) {
+        return null;
+    }
+    return ( 
+        <StyledAssignmentClosedBanner>
+            <span>This assignment is closed.</span>
+            {!ux.course.currentRole.isTeacher && (
+                <span> You can no longer add or edit a response.</span>)}
+        </StyledAssignmentClosedBanner>
+    );
 };
 
 AssignmentClosedBanner.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 export default AssignmentClosedBanner;

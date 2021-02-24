@@ -14,71 +14,71 @@ export class OverlayRegistry {
   @observable pageScrollPosition;
 
   @computed get pageClassName() {
-    return cn('page', {
-      hidden: this.isPageHidden,
-    });
+      return cn('page', {
+          hidden: this.isPageHidden,
+      });
   }
 
   @computed get overlayClassName() {
-    return cn('overlay', this.activeOverlay.id);
+      return cn('overlay', this.activeOverlay.id);
   }
 
   @action.bound onOverlayAnimated() {
-    if (this.isOverlayExpanded) {
-      this.pageScrollPosition = { x: window.pageXOffset, y: window.pageYOffset };
-    }
-    this.isPageHidden = this.isOverlayExpanded;
-    if (!this.isOverlayExpanded) {
-      this.isOverlayHidden = true;
-    }
+      if (this.isOverlayExpanded) {
+          this.pageScrollPosition = { x: window.pageXOffset, y: window.pageYOffset };
+      }
+      this.isPageHidden = this.isOverlayExpanded;
+      if (!this.isOverlayExpanded) {
+          this.isOverlayHidden = true;
+      }
   }
 
   @action hideOverlay() {
-    if (this.isOverlayExpanded) {
-      this.onHide();
-    }
-    this.isPageHidden = false;
-    const pos = pick(this.pageScrollPosition, 'x', 'y');
-    if  (pos.x || pos.y) {
-      defer(() => { // schedule a scroll to take place after the page is re-displayed
-        window.scroll(pos.x, pos.y);
-      });
-      this.pageScrollPosition = null;
-    }
-    this.isOverlayExpanded = false;
+      if (this.isOverlayExpanded) {
+          this.onHide();
+      }
+      this.isPageHidden = false;
+      const pos = pick(this.pageScrollPosition, 'x', 'y');
+      if  (pos.x || pos.y) {
+          defer(() => { // schedule a scroll to take place after the page is re-displayed
+              window.scroll(pos.x, pos.y);
+          });
+          this.pageScrollPosition = null;
+      }
+      this.isOverlayExpanded = false;
   }
 
   @action.bound onEscKey() {
-    this.hideOverlay();
+      this.hideOverlay();
   }
 
   @action onHide() {
-    invoke(this.activeOverlay, 'onHide');
+      invoke(this.activeOverlay, 'onHide');
   }
 
   @action expandOverlay() {
-    this.isOverlayHidden = false;
-    defer(() => this.isOverlayExpanded = true);
+      this.isOverlayHidden = false;
+      defer(() => this.isOverlayExpanded = true);
   }
 
   @action setOverlay({ visible, id, renderer, onHide }) {
-    if (visible) {
-      if (id !== this.activeOverlay.id) {
-        this.onHide();
+      if (visible) {
+          if (id !== this.activeOverlay.id) {
+              this.onHide();
+          }
+          this.activeOverlay = { id, renderer, onHide };
+          this.expandOverlay();
+          Analytics.sendPageView(`/overlay/${id}`);
+      } else if (id == this.activeOverlay.id) {
+          this.hideOverlay();
       }
-      this.activeOverlay = { id, renderer, onHide };
-      this.expandOverlay();
-      Analytics.sendPageView(`/overlay/${id}`);
-    } else if (id == this.activeOverlay.id) {
-      this.hideOverlay();
-    }
   }
 
   get overlay() {
-    if (this.activeOverlay.renderer) {
-      return this.activeOverlay.renderer();
-    }
-    return null;
+      if (this.activeOverlay.renderer) {
+          return this.activeOverlay.renderer();
+      }
+      return null;
   }
 
 }

@@ -6,24 +6,24 @@ import User from '../../src/models/user';
 import { SpyMode as SM } from 'shared';
 
 describe('Tutor Layout', () => {
-  User.bootstrap({});
+    User.bootstrap({});
 
-  it('renders and matches snapshot', () => {
-    const l = mount(
-      <R>
-        <SM.Wrapper>
-          <MM>
-            <TC>
-              <TutorLayout>
-                <p>hi i am body</p>
-              </TutorLayout>
-            </TC>
-          </MM>
-        </SM.Wrapper>
-      </R>
-    );
-    expect(l.debug()).toMatchSnapshot();
-    l.unmount();
-  });
+    it('renders and matches snapshot', () => {
+        const l = mount(
+            <R>
+                <SM.Wrapper>
+                    <MM>
+                        <TC>
+                            <TutorLayout>
+                                <p>hi i am body</p>
+                            </TutorLayout>
+                        </TC>
+                    </MM>
+                </SM.Wrapper>
+            </R>
+        );
+        expect(l.debug()).toMatchSnapshot();
+        l.unmount();
+    });
 
 });

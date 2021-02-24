@@ -3,9 +3,9 @@ import flux from 'flux-react';
 import DestinationHelper from '../helpers/routes-and-destinations';
 
 const TransitionActions = flux.createActions([
-  'load',
-  'reset',
-  '_get',
+    'load',
+    'reset',
+    '_get',
 ]);
 
 
@@ -22,40 +22,40 @@ const TransitionActions = flux.createActions([
 // want that route to be ignored in History and back.
 
 const TransitionStore = flux.createStore({
-  actions: _.values(TransitionActions),
-  _local: [],
+    actions: _.values(TransitionActions),
+    _local: [],
 
-  load(path) {
-    let last;
-    const history = this._get();
-    if (history.length) { last = history[history.length - 1]; }
-    if ((path !== last) && DestinationHelper.shouldRememberRoute(path)) {
-      this._local.push(path);
-    }
-  },
-
-  reset() {
-    return this._local = [];
-  },
-
-  _get() {
-    return this._local;
-  },
-
-  exports: {
-    getPrevious(current) {
-      if (!current) {
-        current = window.document != null ? window.document.location.pathname : undefined;
-      }
-      for (let i = this._local.length - 1; i >= 0; i--) {
-        const path = this._local[i];
-        if (path !== current) {
-          return { path, name: DestinationHelper.destinationFromPath(path) };
+    load(path) {
+        let last;
+        const history = this._get();
+        if (history.length) { last = history[history.length - 1]; }
+        if ((path !== last) && DestinationHelper.shouldRememberRoute(path)) {
+            this._local.push(path);
         }
-      }
-      return null;
     },
-  },
+
+    reset() {
+        return this._local = [];
+    },
+
+    _get() {
+        return this._local;
+    },
+
+    exports: {
+        getPrevious(current) {
+            if (!current) {
+                current = window.document != null ? window.document.location.pathname : undefined;
+            }
+            for (let i = this._local.length - 1; i >= 0; i--) {
+                const path = this._local[i];
+                if (path !== current) {
+                    return { path, name: DestinationHelper.destinationFromPath(path) };
+                }
+            }
+            return null;
+        },
+    },
 });
 
 export { TransitionActions, TransitionStore };

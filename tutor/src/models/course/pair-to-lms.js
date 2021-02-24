@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, observable,
+    BaseModel, identifiedBy, observable,
 } from 'shared/model';
 
 @identifiedBy('course/create')
@@ -10,15 +10,15 @@ export default class CoursePair extends BaseModel {
 
 
   constructor(course) {
-    super();
-    this.course = course;
+      super();
+      this.course = course;
   }
 
   save() {
-    return this;
+      return this;
   }
 
   onPaired({ data: { success } }) {
-    this.success = success;
+      this.success = success;
   }
 }

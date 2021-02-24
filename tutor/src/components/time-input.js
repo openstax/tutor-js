@@ -47,71 +47,71 @@ const EXTRACT = /(\d+):(\d+)/;
 
 const TimeInput = observer(( props ) => {
 
-  const [ field ] = useField(props);
-  const { name } = props;
+    const [ field ] = useField(props);
+    const { name } = props;
 
-  let parts = (field.value || '').toString().match(EXTRACT) || [null, 0, 0];
-  let [_, hour, minute] = parts;
-  hour = parseInt(hour);
-  minute = parseInt(minute);
+    let parts = (field.value || '').toString().match(EXTRACT) || [null, 0, 0];
+    let [_, hour, minute] = parts;
+    hour = parseInt(hour);
+    minute = parseInt(minute);
 
-  const isAM = hour < 12;
-  const onChange = (h, m) => {
-    const ev = {
-      target: {
-        name: props.name,
-        value: `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`,
-      },
+    const isAM = hour < 12;
+    const onChange = (h, m) => {
+        const ev = {
+            target: {
+                name: props.name,
+                value: `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`,
+            },
+        };
+        field.onChange(ev);
+        props.onChange && props.onChange(ev);
     };
-    field.onChange(ev);
-    props.onChange && props.onChange(ev);
-  };
 
-  const minutes = (props.minutes || range(0, 60));
+    const minutes = (props.minutes || range(0, 60));
 
-  const optionValue = (h) => {
-    if (h == 12) {
-      return isAM ? 0 : 12;
-    }
+    const optionValue = (h) => {
+        if (h == 12) {
+            return isAM ? 0 : 12;
+        }
 
-    return isAM ? h : h + 12;
-  };
+        return isAM ? h : h + 12;
+    };
 
-  return (
-    <Wrapper>
-      <Select
-        value={hour}
-        name={`${name}_hour`}
-        onChange={ev => onChange(ev.target.value, minute)}
-      >
-        {range(1, 13).map((h) => <option value={optionValue(h)} key={h}>{h}</option>)}
-      </Select>
-      <TimeSeparator>:</TimeSeparator>
-      <Select
-        value={minute}
-        name={`${name}_minute`}
-        onChange={ev => onChange(hour, ev.target.value)}
-      >
-        {minutes.map((m) =>
-          <option value={m} key={m}>{`${m}`.padStart(2, '0')}</option>
-        )}
-      </Select>
-      <StyledToggleButtonGroup
-        type="radio"
-        name={`${name}_ampm`}
-        value={isAM ? 'am' : 'pm'}
-        onChange={(ampm) => {
-          const newHour = hour + ('am' == ampm ? -12 : 12);
-          onChange(newHour, minute);
-        }}
-      >
-        <ToggleButton value="am" variant="light">AM</ToggleButton>
-        <ToggleButton value="pm" variant="light">PM</ToggleButton>
-      </StyledToggleButtonGroup>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <Select
+                value={hour}
+                name={`${name}_hour`}
+                onChange={ev => onChange(ev.target.value, minute)}
+            >
+                {range(1, 13).map((h) => <option value={optionValue(h)} key={h}>{h}</option>)}
+            </Select>
+            <TimeSeparator>:</TimeSeparator>
+            <Select
+                value={minute}
+                name={`${name}_minute`}
+                onChange={ev => onChange(hour, ev.target.value)}
+            >
+                {minutes.map((m) =>
+                    <option value={m} key={m}>{`${m}`.padStart(2, '0')}</option>
+                )}
+            </Select>
+            <StyledToggleButtonGroup
+                type="radio"
+                name={`${name}_ampm`}
+                value={isAM ? 'am' : 'pm'}
+                onChange={(ampm) => {
+                    const newHour = hour + ('am' == ampm ? -12 : 12);
+                    onChange(newHour, minute);
+                }}
+            >
+                <ToggleButton value="am" variant="light">AM</ToggleButton>
+                <ToggleButton value="pm" variant="light">PM</ToggleButton>
+            </StyledToggleButtonGroup>
+        </Wrapper>
+    );
 });
 TimeInput.propTypes = {
-  name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 };
 export default TimeInput;

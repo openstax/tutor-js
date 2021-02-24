@@ -19,23 +19,23 @@ const Notice = styled.div`
 export default class TeacherPendingLoad extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {
-    const { currentRole, studentTaskPlans } = this.props.course;
+      const { currentRole, studentTaskPlans } = this.props.course;
 
-    if (studentTaskPlans.api.isPendingInitialFetch ||
+      if (studentTaskPlans.api.isPendingInitialFetch ||
         !currentRole.isTeacherStudent ||
         studentTaskPlans.isLatestPresent) {
 
-      return null;
-    }
+          return null;
+      }
 
-    return (
-      <Notice>
-        <Icon variant="activity" /> Building assignment.  This may take a few minutes.
-      </Notice>
-    );
+      return (
+          <Notice>
+              <Icon variant="activity" /> Building assignment.  This may take a few minutes.
+          </Notice>
+      );
   }
 }

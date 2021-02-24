@@ -82,96 +82,96 @@ const StyledGeneralForm = styled.div`
 
 const GeneralForm = observer(({ ux }) => {
 
-  const excludeOriginalInfo = () => {
-    if (!ux.fromExercise || ux.isUserGeneratedQuestion) {
-      return null;
-    }
-    return (
-      <div className="exclude-original-info">
-        <label>Exclude Original?</label>
-        <CheckboxInput
-          onChange={ux.changeExcludeOriginal}
-          label={
+    const excludeOriginalInfo = () => {
+        if (!ux.fromExercise || ux.isUserGeneratedQuestion) {
+            return null;
+        }
+        return (
+            <div className="exclude-original-info">
+                <label>Exclude Original?</label>
+                <CheckboxInput
+                    onChange={ux.changeExcludeOriginal}
+                    label={
             <>
               <span>Exclude the original question from my Question Library. </span>
               <span className="exclude-more-info">(exclusions apply only to future assignments)</span>
             </>
-          }
-          checked={ux.excludeOriginal}
-          standalone
-        />
-      </div>
-    );
-  };
+                    }
+                    checked={ux.excludeOriginal}
+                    standalone
+                />
+            </div>
+        );
+    };
 
-  return (
-    <StyledGeneralForm>
-      <AddEditFormTextInput
-        plainText
-        onChange={ux.changeQuestionName}
-        value={ux.questionName}
-        label='Name'
-        placeholder="Enter question name. Optional."
-        className="question-info"
-      />
-      <div className="authors-info">
-        <label>Author</label>
-        <TutorDropdown
-          toggleName={ux.author ? ux.author.name : ' '}
-          disabled={!!ux.fromExercise}
-          dropdownItems={ux.authors.map((tp, i) => (
-            <Dropdown.Item
-              key={i}
-              value={tp.id}
-              eventKey={tp.id}
-              onSelect={ux.changeAuthor}
-            >
-              {tp.name}
-            </Dropdown.Item>))}
-        />
-      </div>
-      <div className="sharing-info">
-        <label>Sharing</label>
-        <div>
-          <CheckboxInput
-            onChange={ux.changeAllowOthersCopyEdit}
-            label={
+    return (
+        <StyledGeneralForm>
+            <AddEditFormTextInput
+                plainText
+                onChange={ux.changeQuestionName}
+                value={ux.questionName}
+                label='Name'
+                placeholder="Enter question name. Optional."
+                className="question-info"
+            />
+            <div className="authors-info">
+                <label>Author</label>
+                <TutorDropdown
+                    toggleName={ux.author ? ux.author.name : ' '}
+                    disabled={!!ux.fromExercise}
+                    dropdownItems={ux.authors.map((tp, i) => (
+                        <Dropdown.Item
+                            key={i}
+                            value={tp.id}
+                            eventKey={tp.id}
+                            onSelect={ux.changeAuthor}
+                        >
+                            {tp.name}
+                        </Dropdown.Item>))}
+                />
+            </div>
+            <div className="sharing-info">
+                <label>Sharing</label>
+                <div>
+                    <CheckboxInput
+                        onChange={ux.changeAllowOthersCopyEdit}
+                        label={
               <>
                 <span>Allow other instructors to copy and edit this question under the CC-BY license. </span>
                 <Button variant="link" onClick={() => ux.showTermsOfUse = true}>Learn more.</Button>
               </>
-            }
-            checked={ux.allowOthersCopyEdit}
-            standalone
-          />
-          <CheckboxInput
-            onChange={ux.changeAnonymize}
-            label="Anonymize my name on the question."
-            checked={ux.anonymize}
-            standalone
-          />
-        </div>
-      </div>
-      {excludeOriginalInfo()}
-    </StyledGeneralForm>
-  );
+                        }
+                        checked={ux.allowOthersCopyEdit}
+                        standalone
+                    />
+                    <CheckboxInput
+                        onChange={ux.changeAnonymize}
+                        label="Anonymize my name on the question."
+                        checked={ux.anonymize}
+                        standalone
+                    />
+                </div>
+            </div>
+            {excludeOriginalInfo()}
+        </StyledGeneralForm>
+    );
 });
 GeneralForm.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 const General = observer(({ ux }) => {
-  return (
-    <AddEditQuestionFormBlock
-      label="General"
-      showGrayBackground={true}
-      onFocus={partial(ux.checkValidityOfFields, [])}
-      formContentRenderer={() => <GeneralForm ux={ux} />}
-    />
-  );
+    return (
+        <AddEditQuestionFormBlock
+            label="General"
+            showGrayBackground={true}
+            onFocus={partial(ux.checkValidityOfFields, [])}
+            formContentRenderer={() => <GeneralForm ux={ux} />}
+        />
+    );
 });
 General.propTypes = {
-  ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
+    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
 };
 
 export default General;

@@ -73,48 +73,48 @@ const StyledHeadingTitle = styled.div`
 
 
 const TaskInfo = ({ task }) => {
-  let dueInfo = null;
-  if (task.due_at)
-    dueInfo = (
+    let dueInfo = null;
+    if (task.due_at)
+        dueInfo = (
       <>
         <div className="title-divider">|</div>
         <div className="title-due-date">Due {<Time date={task.due_at} format="concise" />}</div>
       </>
-    );
+        );
 
-  return (
-    <div className="title-info">
-      <div className="title-name">{task.title}</div>
-      {dueInfo}
-    </div>
-  );
+    return (
+        <div className="title-info">
+            <div className="title-name">{task.title}</div>
+            {dueInfo}
+        </div>
+    );
 };
 TaskInfo.propTypes = {
-  task: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
 };
 
 const headerContent = (ux) => {
-  return (
+    return (
     <>
       <StyledHeadingTitle>
-        <TaskInfo task={ux.task} />
-        <div className="overview-task-icon">
-          <Icon
-            type="th"
-            onClick={ux.toggleTaskProgressTable}
-            className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
-          />
-        </div>
-        <ExitPracticeButton task={ux.task} />
+          <TaskInfo task={ux.task} />
+          <div className="overview-task-icon">
+              <Icon
+                  type="th"
+                  onClick={ux.toggleTaskProgressTable}
+                  className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
+              />
+          </div>
+          <ExitPracticeButton task={ux.task} />
       </StyledHeadingTitle>
       <TaskProgress
-        steps={ux.steps}
-        goToStep={ux.goToStepId}
-        currentStep={ux.currentStep}
-        hideTaskProgressTable={ux.hideTaskProgressTable}
+          steps={ux.steps}
+          goToStep={ux.goToStepId}
+          currentStep={ux.currentStep}
+          hideTaskProgressTable={ux.hideTaskProgressTable}
       />
     </>
-  );
+    );
 };
 
 @inject('setSecondaryTopControls')
@@ -122,43 +122,43 @@ const headerContent = (ux) => {
 class ExercisesTaskHeader extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.instanceOf(UX).isRequired,
-    setSecondaryTopControls: PropTypes.func.isRequired,
-    unDocked: PropTypes.bool,
+      ux: PropTypes.instanceOf(UX).isRequired,
+      setSecondaryTopControls: PropTypes.func.isRequired,
+      unDocked: PropTypes.bool,
   }
 
   constructor(props) {
-    super(props);
-    if (!props.unDocked) {
-      props.setSecondaryTopControls(this.renderExerciseHeader);
-    }
+      super(props);
+      if (!props.unDocked) {
+          props.setSecondaryTopControls(this.renderExerciseHeader);
+      }
   }
 
   componentWillUnmount() {
-    if (!this.props.unDocked) {
-      this.props.setSecondaryTopControls(null);
-    }
+      if (!this.props.unDocked) {
+          this.props.setSecondaryTopControls(null);
+      }
   }
 
   // if it is undocked from the navbar, show under the navbar
   render() {
-    if (this.props.unDocked) {
-      return this.renderExerciseHeader();
-    }
-    return null;
+      if (this.props.unDocked) {
+          return this.renderExerciseHeader();
+      }
+      return null;
   }
 
   @autobind renderExerciseHeader() {
 
-    const { ux, unDocked } = this.props;
-    return (
-      <StyledHeader
-        unDocked={unDocked}
-        headerContent={headerContent(ux)}
-        backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-        backToText='Dashboard'
-      />
-    );
+      const { ux, unDocked } = this.props;
+      return (
+          <StyledHeader
+              unDocked={unDocked}
+              headerContent={headerContent(ux)}
+              backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+              backToText='Dashboard'
+          />
+      );
   }
 }
 

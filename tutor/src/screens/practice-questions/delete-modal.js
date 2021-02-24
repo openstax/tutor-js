@@ -28,45 +28,45 @@ const Controls = styled.div`
 `;
 
 const DeleteQuestionModal = observer(({ onDelete, onCancel }) => {
-  return (
-    <Modal
-      show={true}
-      onHide={onCancel}
-      backdrop="static"
-    >
-      <StyledHeader closeButton>
+    return (
+        <Modal
+            show={true}
+            onHide={onCancel}
+            backdrop="static"
+        >
+            <StyledHeader closeButton>
         Delete question?
-      </StyledHeader>
-      <StyledBody>
-        <p>Are you sure you want to permanently delete this question from practice?</p>
-        <p>You can't undo this action.</p>
-        <ControlsWrapper>
-          <Controls>
-            <Button
-              data-test-id="confirm-delete-practice-question"
-              variant="default"
-              className="btn-standard btn-inline"
-              onClick={onDelete}
-            >
+            </StyledHeader>
+            <StyledBody>
+                <p>Are you sure you want to permanently delete this question from practice?</p>
+                <p>You can't undo this action.</p>
+                <ControlsWrapper>
+                    <Controls>
+                        <Button
+                            data-test-id="confirm-delete-practice-question"
+                            variant="default"
+                            className="btn-standard btn-inline"
+                            onClick={onDelete}
+                        >
               Delete
-            </Button>
-            <Button
-              data-test-id="cancel-delete-practice-question"
-              className="btn-standard btn-inline"
-              onClick={onCancel}
-            >
+                        </Button>
+                        <Button
+                            data-test-id="cancel-delete-practice-question"
+                            className="btn-standard btn-inline"
+                            onClick={onCancel}
+                        >
               Cancel
-            </Button>
-          </Controls>
-        </ControlsWrapper>
-      </StyledBody>
-    </Modal>
-  );
+                        </Button>
+                    </Controls>
+                </ControlsWrapper>
+            </StyledBody>
+        </Modal>
+    );
 });
 
 DeleteQuestionModal.propTypes = {
-  onDelete: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
 };
 
 export default DeleteQuestionModal;

@@ -10,12 +10,12 @@ import { TutorInput } from '../../components/tutor-input';
 import { Icon } from 'shared';
 
 
-export default
 @observer
+export default
 class RenameCourse extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable showModal = false;
@@ -23,70 +23,70 @@ class RenameCourse extends React.Component {
   @observable newName = '';
 
   @action.bound close() {
-    this.showModal = false;
+      this.showModal = false;
   }
 
   @action.bound open() {
-    this.showModal = true;
+      this.showModal = true;
   }
 
   @action.bound validate(name) {
-    this.isValid = (
-      name != this.props.course.name && Courses.isNameValid(name)
-    );
+      this.isValid = (
+          name != this.props.course.name && Courses.isNameValid(name)
+      );
   }
 
   @action.bound onChange(name) {
-    this.newName = name;
+      this.newName = name;
   }
 
   @action.bound
   performUpdate() {
-    if (this.isValid) {
-      this.props.course.name = this.newName;
-      this.props.course.save().then(this.close);
-    }
+      if (this.isValid) {
+          this.props.course.name = this.newName;
+          this.props.course.save().then(this.close);
+      }
   }
 
   render() {
-    const { course } = this.props;
+      const { course } = this.props;
 
-    return (
-      <React.Fragment>
-        <Icon onClick={this.open} className="control edit-course" type="pencil-alt" />
-        <Modal
-          show={this.showModal}
-          onHide={this.close}
-          className="settings-edit-course-modal">
-          <Modal.Header closeButton={true}>
-            <Modal.Title>
+      return (
+          <React.Fragment>
+              <Icon onClick={this.open} className="control edit-course" type="pencil-alt" />
+              <Modal
+                  show={this.showModal}
+                  onHide={this.close}
+                  className="settings-edit-course-modal">
+                  <Modal.Header closeButton={true}>
+                      <Modal.Title>
               Rename Course
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <TutorInput
-              label="Course Name"
-              ref={i => this.input = i}
-              name="course-name"
-              onChange={this.onChange}
-              default={course.name}
-              validate={this.validate}
-              autoFocus />
-          </Modal.Body>
-          <div className="modal-footer">
-            <AsyncButton
-              className="-edit-course-confirm"
-              onClick={this.performUpdate}
-              isWaiting={course.api.isPending}
-              waitingText="Saving..."
-              disabled={false === this.isValid}
-            >
+                      </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                      <TutorInput
+                          label="Course Name"
+                          ref={i => this.input = i}
+                          name="course-name"
+                          onChange={this.onChange}
+                          default={course.name}
+                          validate={this.validate}
+                          autoFocus />
+                  </Modal.Body>
+                  <div className="modal-footer">
+                      <AsyncButton
+                          className="-edit-course-confirm"
+                          onClick={this.performUpdate}
+                          isWaiting={course.api.isPending}
+                          waitingText="Saving..."
+                          disabled={false === this.isValid}
+                      >
               Rename
-            </AsyncButton>
-          </div>
-        </Modal>
-      </React.Fragment>
-    );
+                      </AsyncButton>
+                  </div>
+              </Modal>
+          </React.Fragment>
+      );
   }
 
 }

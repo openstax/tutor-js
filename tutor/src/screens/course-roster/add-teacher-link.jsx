@@ -7,58 +7,58 @@ import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import Course from '../../models/course';
 import { Icon } from 'shared';
 
-export default
 @observer
+export default
 class AddTeacherLink extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable isShown = false;
 
   @action.bound onClose() {
-    this.isShown = false;
+      this.isShown = false;
   }
 
   @action.bound onShow() {
-    this.isShown = true;
+      this.isShown = true;
   }
 
   render() {
-    const { course } = this.props;
-    return (
-      <React.Fragment>
-        <Button
-          onClick={this.onShow}
-          variant="link"
-          className="control add-teacher">
-          <Icon type="user-plus" />
+      const { course } = this.props;
+      return (
+          <React.Fragment>
+              <Button
+                  onClick={this.onShow}
+                  variant="link"
+                  className="control add-teacher">
+                  <Icon type="user-plus" />
           Add Instructor
-        </Button>
-        <Modal
-          size="lg"
-          show={this.isShown}
-          onHide={this.onClose}
-          className="settings-add-instructor-modal"
-        >
-          <Modal.Header closeButton={true}>
-            <Modal.Title>
+              </Button>
+              <Modal
+                  size="lg"
+                  show={this.isShown}
+                  onHide={this.onClose}
+                  className="settings-add-instructor-modal"
+              >
+                  <Modal.Header closeButton={true}>
+                      <Modal.Title>
               Add Teacher
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>
+                      </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                      <p>
               Share this link with an instructor so they can add themselves to the course:
-            </p>
-            <CopyOnFocusInput value={course.roster.teach_url || ''} focusOnMount={true} />
-            <p className="warning">
-              <Icon type="exclamation-triangle" /> Do not share this link with students
-            </p>
-          </Modal.Body>
-        </Modal>
-      </React.Fragment>
-    );
+                      </p>
+                      <CopyOnFocusInput value={course.roster.teach_url || ''} focusOnMount={true} />
+                      <p className="warning">
+                          <Icon type="exclamation-triangle" /> Do not share this link with students
+                      </p>
+                  </Modal.Body>
+              </Modal>
+          </React.Fragment>
+      );
   }
 
-};
+}

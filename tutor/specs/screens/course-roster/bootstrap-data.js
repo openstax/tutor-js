@@ -9,13 +9,13 @@ const COURSE_ID = '1';
 
 export function courseRosterBootstrap() {
 
-  Courses.bootstrap([COURSE]);
-  const { roster } = Courses.get(COURSE_ID);
-  roster.api.requestCounts.read = 1; // simulate loaded
-  roster.update(ROSTER);
+    Courses.bootstrap([COURSE]);
+    const { roster } = Courses.get(COURSE_ID);
+    roster.api.requestCounts.read = 1; // simulate loaded
+    roster.update(ROSTER);
 
-  return {
-    course: Courses.get(COURSE_ID),
-    params: { courseId: COURSE_ID },
-  };
+    return {
+        course: Courses.get(COURSE_ID),
+        params: { courseId: COURSE_ID },
+    };
 }

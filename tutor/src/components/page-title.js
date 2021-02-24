@@ -30,47 +30,47 @@ const Preamble = styled.div`
 
 class PageTitle extends React.Component {
   static propTypes = {
-    page: PropTypes.shape({
-      title: PropTypes.string,
-      chapter_section: PropTypes.instanceOf(ChapterSectionModel).isRequired,
-    }).isRequired,
-    showObjectivesPreamble: PropTypes.bool,
-    isChapterSectionDisplayed: PropTypes.bool,
+      page: PropTypes.shape({
+          title: PropTypes.string,
+          chapter_section: PropTypes.instanceOf(ChapterSectionModel).isRequired,
+      }).isRequired,
+      showObjectivesPreamble: PropTypes.bool,
+      isChapterSectionDisplayed: PropTypes.bool,
   };
 
   static defaultProps = {
-    showObjectivesPreamble: false,
+      showObjectivesPreamble: false,
   }
 
   get isIntro() {
-    return 0 === this.props.page.chapter_section.section;
+      return 0 === this.props.page.chapter_section.section;
   }
 
   get preambleMessage() {
-    return this.isIntro ?
-      'In this chapter you will learn about:' :
-      'By the end of this section, you will be able to:';
+      return this.isIntro ?
+          'In this chapter you will learn about:' :
+          'By the end of this section, you will be able to:';
   }
 
   render() {
 
-    const {
-      isChapterSectionDisplayed, showObjectivesPreamble, page,
-    } = this.props;
+      const {
+          isChapterSectionDisplayed, showObjectivesPreamble, page,
+      } = this.props;
 
-    if (isEmpty(page.title) || this.isIntro) { return null; }
+      if (isEmpty(page.title) || this.isIntro) { return null; }
 
-    return (
-      <PageTitleWrapper>
-        <Heading>
-          <Title part={page} displayChapterSection={isChapterSectionDisplayed} />
-        </Heading>
-        {showObjectivesPreamble && (
-          <Preamble>
-            {this.preambleMessage}
-          </Preamble>)}
-      </PageTitleWrapper>
-    );
+      return (
+          <PageTitleWrapper>
+              <Heading>
+                  <Title part={page} displayChapterSection={isChapterSectionDisplayed} />
+              </Heading>
+              {showObjectivesPreamble && (
+                  <Preamble>
+                      {this.preambleMessage}
+                  </Preamble>)}
+          </PageTitleWrapper>
+      );
   }
 }
 

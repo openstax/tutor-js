@@ -8,89 +8,89 @@ import Name from '../../components/name';
 import Student from '../../models/course/student';
 
 
-export default
 @observer
+export default
 class UnDropStudentLink extends React.Component {
 
   static propTypes = {
-    student: PropTypes.instanceOf(Student).isRequired,
+      student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound performUnDeletion() {
-    this.props.student.unDrop();
+      this.props.student.unDrop();
   }
 
   inProgressMessage() {
-    return (
-      {
-        title: 'Restoring student',
-        body:  <span>
-          <Icon type="spinner" spin={true} />
-          {' In progress'}
-        </span>,
-      }
-    );
+      return (
+          {
+              title: 'Restoring student',
+              body:  <span>
+                  <Icon type="spinner" spin={true} />
+                  {' In progress'}
+              </span>,
+          }
+      );
   }
 
   popOverBody() {
-    if (this.props.student.api.isPending) {
+      if (this.props.student.api.isPending) {
+          return (
+              <span><Icon type="spinner" spin />Restoring…</span>
+          );
+      }
       return (
-        <span><Icon type="spinner" spin />Restoring…</span>
-      );
-    }
-    return (
-      <Button
-        className="undrop-student"
-        onClick={this.performUnDeletion}
-        variant="success"
-      >
+          <Button
+              className="undrop-student"
+              onClick={this.performUnDeletion}
+              variant="success"
+          >
           Add <Name {...this.props.student} />?
-      </Button>
-    );
+          </Button>
+      );
   }
 
 
   popOverTitle() {
-    if (this.props.student.api.isPending) {
+      if (this.props.student.api.isPending) {
+          return (
+              <span><Icon type="spinner" spin />Restoring…</span>
+          );
+      }
       return (
-        <span><Icon type="spinner" spin />Restoring…</span>
-      );
-    }
-    return (
-      <span>
+          <span>
         Restore <Name {...this.props.student} />
-      </span>
-    );
+          </span>
+      );
   }
 
   confirmPopOver() {
-    return (
-      <Popover
-        className="undrop-student"
-        id={`drop-student-popover-${this.props.student.id}`}
-      >
-        <Popover.Title>
-          {this.popOverTitle()}
-        </Popover.Title>
-        <Popover.Content>
-          {this.popOverBody()}
-        </Popover.Content>
-      </Popover>
-    );
+      return (
+          <Popover
+              className="undrop-student"
+              id={`drop-student-popover-${this.props.student.id}`}
+          >
+              <Popover.Title>
+                  {this.popOverTitle()}
+              </Popover.Title>
+              <Popover.Content>
+                  {this.popOverBody()}
+              </Popover.Content>
+          </Popover>
+      );
   }
 
   render() {
-    return (
-      <OverlayTrigger
-        rootClose={true}
-        trigger="click"
-        placement="left"
-        overlay={this.confirmPopOver()}>
-        <a>
-          <Icon type="user-plus" />
-          {' Add Back to Active Roster'}
-        </a>
-      </OverlayTrigger>
-    );
+      return (
+          <OverlayTrigger
+              rootClose={true}
+              trigger="click"
+              placement="left"
+              overlay={this.confirmPopOver()}>
+              <a>
+                  <Icon type="user-plus" />
+                  {' Add Back to Active Roster'}
+              </a>
+          </OverlayTrigger>
+      );
   }
 }

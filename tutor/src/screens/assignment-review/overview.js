@@ -37,59 +37,59 @@ const StyledIcon = styled(Icon)`
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
   <>
     <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
-      {info.hasFreeResponse && (
-        <StyledIcon
-          type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
-          onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
-        />)}
-      {ux.planScores.isReading ? 'Question' :
-        (info.isCore ? label : 'OpenStax Tutor Selection')}
+        {info.hasFreeResponse && (
+            <StyledIcon
+                type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
+                onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
+            />)}
+        {ux.planScores.isReading ? 'Question' :
+            (info.isCore ? label : 'OpenStax Tutor Selection')}
     </ExerciseNumber>
     <div>{ScoresHelper.formatPoints(info.availablePoints)} Points</div>
   </>
 ));
 QuestionHeader.propTypes = {
-  styleVariant: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  info:  PropTypes.object.isRequired,
+    styleVariant: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    info:  PropTypes.object.isRequired,
 };
 
 const QuestionFooter = observer(({ ux, info }) => {
-  if (info.question.isMultipleChoice) { return null; }
-  const displayingFlag = !ux.scores.hasFinishedGrading && info.remaining > 0;
+    if (info.question.isMultipleChoice) { return null; }
+    const displayingFlag = !ux.scores.hasFinishedGrading && info.remaining > 0;
 
-  return (<Footer>
-    <strong>
+    return (<Footer>
+        <strong>
       Average score: {info.averagePoints ? ScoresHelper.formatPoints(info.averagePoints) : 'n/a'}
-    </strong>
-    {ux.canDisplayGradingButton &&
+        </strong>
+        {ux.canDisplayGradingButton &&
       <GradeButton
-        className={cn('btn btn-new-flag',
-          {
-            'btn-primary': !ux.scores.hasFinishedGrading,
-            'btn-standard': !ux.scores.hasFinishedGrading,
-            'btn-new-flag': !ux.scores.hasFinishedGrading,
-            'btn-link': ux.scores.hasFinishedGrading,
-          })}
-        to="gradeAssignmentQuestion"
-        params={{
-          courseId: ux.course.id,
-          id: ux.planId,
-          periodId: ux.selectedPeriod.id,
-          questionId: `${info.id}`,
-        }}
-        displayingFlag={displayingFlag}
+          className={cn('btn btn-new-flag',
+              {
+                  'btn-primary': !ux.scores.hasFinishedGrading,
+                  'btn-standard': !ux.scores.hasFinishedGrading,
+                  'btn-new-flag': !ux.scores.hasFinishedGrading,
+                  'btn-link': ux.scores.hasFinishedGrading,
+              })}
+          to="gradeAssignmentQuestion"
+          params={{
+              courseId: ux.course.id,
+              id: ux.planId,
+              periodId: ux.selectedPeriod.id,
+              questionId: `${info.id}`,
+          }}
+          displayingFlag={displayingFlag}
       >
-        {displayingFlag && <span className="flag">{info.remaining} NEW</span>}
-        <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
+          {displayingFlag && <span className="flag">{info.remaining} NEW</span>}
+          <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
       </GradeButton>
-    }
-  </Footer>);
+        }
+    </Footer>);
 });
 QuestionHeader.propTypes = {
-  styleVariant: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  info:  PropTypes.object.isRequired,
+    styleVariant: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    info:  PropTypes.object.isRequired,
 };
 
 const StyledQuestionFreeResponse = styled.div`
@@ -190,83 +190,83 @@ const ResponseHeader = styled.div`
 `;
 
 const MCQFreeResponse = observer(({ ux, question }) => (
-  question.answers.map((answer, i) => {
-    const responses = ux.scores.students.map((student, i) => {
-      const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
-      return (studentQuestion && studentQuestion.free_response) && (
-        <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-          <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
-          <div className="resp">{studentQuestion.free_response}</div>
-        </StyledQuestionFreeResponse>
-      );
+    question.answers.map((answer, i) => {
+        const responses = ux.scores.students.map((student, i) => {
+            const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
+            return (studentQuestion && studentQuestion.free_response) && (
+                <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
+                    <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
+                    <div className="resp">{studentQuestion.free_response}</div>
+                </StyledQuestionFreeResponse>
+            );
+        });
+
+        if (isEmpty(compact(responses))) { return null; }
+
+        return (
+            <ResponseWrapper key={`answer-${answer.id}`}>
+                <ResponseHeader>
+                    <span className={cn('letter', { 'green': answer.isCorrect, 'red': !answer.isCorrect })}>
+                        {ALPHABET[i]}
+                    </span>
+                    <ArbitraryHtmlAndMath
+                        html={answer.content_html}
+                    />
+                </ResponseHeader>
+                <div>
+                    {responses}
+                </div>
+            </ResponseWrapper>
+        );
+    })
+));
+
+const WRQFreeResponse = observer(({ ux, info }) => {
+    const responses = info.responses.map((response, i) => {
+        const student = response.student;
+        return response.free_response && (
+            <ResponseWrapper key={i} wrq={true}>
+                <StyledQuestionFreeResponse
+                    data-student-id={student.id}
+                    wrq={true}
+                    longResponse={response.free_response.length > 2000}
+                >
+                    <div>
+                        <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
+                        <div className="resp">
+                            <p>{response.free_response}</p>
+                        </div>
+                    </div>
+                    <div className="grade">
+                        {response.needs_grading && 'Not graded'}
+                        {!isNaN(response.grader_points) &&
+              <div>
+                  <h3>{ScoresHelper.formatPoints(response.grader_points)}</h3>
+                  {response.grader_comments}
+              </div>}
+                    </div>
+                </StyledQuestionFreeResponse>
+            </ResponseWrapper>
+        );
     });
 
     if (isEmpty(compact(responses))) { return null; }
 
     return (
-      <ResponseWrapper key={`answer-${answer.id}`}>
-        <ResponseHeader>
-          <span className={cn('letter', { 'green': answer.isCorrect, 'red': !answer.isCorrect })}>
-            {ALPHABET[i]}
-          </span>
-          <ArbitraryHtmlAndMath
-            html={answer.content_html}
-          />
-        </ResponseHeader>
-        <div>
-          {responses}
+        <div key={`wrq-responses-${info.question.id}`}>
+            {responses}
         </div>
-      </ResponseWrapper>
     );
-  })
-));
-
-const WRQFreeResponse = observer(({ ux, info }) => {
-  const responses = info.responses.map((response, i) => {
-    const student = response.student;
-    return response.free_response && (
-      <ResponseWrapper key={i} wrq={true}>
-        <StyledQuestionFreeResponse
-          data-student-id={student.id}
-          wrq={true}
-          longResponse={response.free_response.length > 2000}
-        >
-          <div>
-            <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
-            <div className="resp">
-              <p>{response.free_response}</p>
-            </div>
-          </div>
-          <div className="grade">
-            {response.needs_grading && 'Not graded'}
-            {!isNaN(response.grader_points) &&
-              <div>
-                <h3>{ScoresHelper.formatPoints(response.grader_points)}</h3>
-                {response.grader_comments}
-              </div>}
-          </div>
-        </StyledQuestionFreeResponse>
-      </ResponseWrapper>
-    );
-  });
-
-  if (isEmpty(compact(responses))) { return null; }
-
-  return (
-    <div key={`wrq-responses-${info.question.id}`}>
-      {responses}
-    </div>
-  );
 });
 
 const QuestionFreeResponse = observer(({ ux, info }) => {
-  if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
-  return (
-    <div data-test-id="student-free-responses">
-      {info.question.isMultipleChoice ? <MCQFreeResponse ux={ux} question={info.question} />
-        : <WRQFreeResponse ux={ux} info={info} />}
-    </div>
-  );
+    if (!ux.isShowingFreeResponseForQuestion(info.question)) { return null; }
+    return (
+        <div data-test-id="student-free-responses">
+            {info.question.isMultipleChoice ? <MCQFreeResponse ux={ux} question={info.question} />
+                : <WRQFreeResponse ux={ux} info={info} />}
+        </div>
+    );
 });
 
 const StyledStickyTable = styled(StickyTable)`
@@ -365,49 +365,49 @@ const StyledNamesToogleButton = styled(Button)`
 `;
 
 const GradingBlock = observer(({ ux }) => {
-  if (!ux.canDisplayGradingButton) { return null; }
+    if (!ux.canDisplayGradingButton) { return null; }
 
-  return (
-    <Toolbar>
-      <GradeButton
-        to="gradeAssignment"
-        className="btn btn-primary btn-new-flag btn-standard"
-        displayingFlag={ux.gradeableQuestionCount > 0}
-        params={{
-          courseId: ux.course.id,
-          id: ux.planId,
-          periodId: ux.selectedPeriod.id,
-        }}
-      >
-        {ux.gradeableQuestionCount > 0 &&
+    return (
+        <Toolbar>
+            <GradeButton
+                to="gradeAssignment"
+                className="btn btn-primary btn-new-flag btn-standard"
+                displayingFlag={ux.gradeableQuestionCount > 0}
+                params={{
+                    courseId: ux.course.id,
+                    id: ux.planId,
+                    periodId: ux.selectedPeriod.id,
+                }}
+            >
+                {ux.gradeableQuestionCount > 0 &&
           <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
-        <span>Grade answers</span>
-      </GradeButton>
-      <p>This assignment is now open for grading.</p>
-    </Toolbar>
-  );
+                <span>Grade answers</span>
+            </GradeButton>
+            <p>This assignment is now open for grading.</p>
+        </Toolbar>
+    );
 });
 
 const AvailablePoints = ({ value }) => {
-  if (!value) {
-    return (
-      <InfoIcon
-        color="#f36a31"
-        tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t
+    if (!value) {
+        return (
+            <InfoIcon
+                color="#f36a31"
+                tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t
         available, a student works an assignment late, or a student hasn’t started the assignment."
-      />
+            />
+        );
+    }
+    return (
+        <strong>({ScoresHelper.formatPoints(value)})</strong>
     );
-  }
-  return (
-    <strong>({ScoresHelper.formatPoints(value)})</strong>
-  );
 };
 AvailablePoints.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+        PropTypes.bool,
+    ]),
 };
 
 const StyledButton = styled(Button)`
@@ -421,84 +421,84 @@ const StyledCell = styled(Cell)`
 `;
 
 const SectionInfo = observer((props) => (
-  <div className="section-link-wrapper singular">
-    <SectionLink {...props} />
-  </div>
+    <div className="section-link-wrapper singular">
+        <SectionLink {...props} />
+    </div>
 ));
 
 const NamesToogleButton = observer(({ ux }) => (
-  <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility} data-test-id="names-toogle-button">
-    <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
-    />
-    <span data-test-id="names-toogle-button-text">{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
-  </StyledNamesToogleButton>
+    <StyledNamesToogleButton variant="default" onClick={ux.toogleNameVisibility} data-test-id="names-toogle-button">
+        <Icon type={ux.hideStudentsName ? 'eye' : 'eye-slash'}
+        />
+        <span data-test-id="names-toogle-button-text">{ux.hideStudentsName ? 'Show' : 'Hide'} student names</span>
+    </StyledNamesToogleButton>
 ));
 
 const HomeworkQuestionsWrapper = ({ ux, questionsInfo }) => (
-  <HomeworkQuestions
-    questionsInfo={questionsInfo}
-    questionType="teacher-review"
-    sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
-    headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-    questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
-    footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
-    styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
+    <HomeworkQuestions
+        questionsInfo={questionsInfo}
+        questionType="teacher-review"
+        sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
+        headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+        questionInfoRenderer={(props) => <QuestionFreeResponse ux={ux} {...props} />}
+        footerContentRenderer={(props) => <QuestionFooter ux={ux} {...props} />}
+        styleVariant={ux.planScores.isReading ? 'reading' : 'submission'} />
 );
 HomeworkQuestionsWrapper.propTypes = {
-  ux: PropTypes.object.isRequired,
-  questionsInfo: PropTypes.any.isRequired,
+    ux: PropTypes.object.isRequired,
+    questionsInfo: PropTypes.any.isRequired,
 };
 
 const QuestionList = observer(({ ux, scores }) => {
-  if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
+    if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
 
-  if (scores.questionsInfo && scores.questionsInfo.length === 0) {
-    return (
-      <StyledNoActivity>
-        <h2>No activity yet</h2>
-        <p>No activity has been recorded for this section yet. Once students start to work the assignment their activity will appear.</p>
-      </StyledNoActivity>
-    );
-  }
+    if (scores.questionsInfo && scores.questionsInfo.length === 0) {
+        return (
+            <StyledNoActivity>
+                <h2>No activity yet</h2>
+                <p>No activity has been recorded for this section yet. Once students start to work the assignment their activity will appear.</p>
+            </StyledNoActivity>
+        );
+    }
 
-  if(ux.planScores.isReading) {
-    return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
-      <div key={index}>
-        <StyledTopicHeader>
-          <h3>
-            <ArbitraryHtmlAndMath
-              html={key} />
-          </h3>
-          {/** Only the show the button at the top with the very first header */}
-          {
-            index === 0 &&
+    if(ux.planScores.isReading) {
+        return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
+            <div key={index}>
+                <StyledTopicHeader>
+                    <h3>
+                        <ArbitraryHtmlAndMath
+                            html={key} />
+                    </h3>
+                    {/** Only the show the button at the top with the very first header */}
+                    {
+                        index === 0 &&
             <NamesToogleButton ux={ux}/>
-          }
-        </StyledTopicHeader>
-        <HomeworkQuestionsWrapper
-          questionsInfo={scores.groupQuestionsByPageTopic[key]}
-          ux={ux}
-        />
-      </div>
-    ));
-  }
+                    }
+                </StyledTopicHeader>
+                <HomeworkQuestionsWrapper
+                    questionsInfo={scores.groupQuestionsByPageTopic[key]}
+                    ux={ux}
+                />
+            </div>
+        ));
+    }
 
-  return (
+    return (
     <>
       <StyledNamesToogleButtonWrapper>
-        <NamesToogleButton ux={ux}/>
+          <NamesToogleButton ux={ux}/>
       </StyledNamesToogleButtonWrapper>
       <HomeworkQuestionsWrapper
-        questionsInfo={scores.questionsInfo}
-        ux={ux}
+          questionsInfo={scores.questionsInfo}
+          ux={ux}
       />
     </>
-  );
+    );
 
 });
 QuestionList.propTypes = {
-  ux: PropTypes.object.isRequired,
-  scores: PropTypes.any.isRequired,
+    ux: PropTypes.object.isRequired,
+    scores: PropTypes.any.isRequired,
 };
 
 
@@ -506,34 +506,34 @@ const HomeWorkInfo = observer(({ ux }) => (
   <>
     <GradingBlock ux={ux}/>
     <StyledStickyTable>
-      <Row>
-        <Header>Question Number</Header>
-        {ux.scores.question_headings.map((h, i) =>
-          <Header key={i} center={true}>
-            {h.isCore ?
-              <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                {h.title}
-              </StyledButton> : h.title}
-          </Header>)}
-      </Row>
-      <Row>
-        <Header>Question Type</Header>
-        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
-      </Row>
-      <Row>
-        <Header>
+        <Row>
+            <Header>Question Number</Header>
+            {ux.scores.question_headings.map((h, i) =>
+                <Header key={i} center={true}>
+                    {h.isCore ?
+                        <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                            {h.title}
+                        </StyledButton> : h.title}
+                </Header>)}
+        </Row>
+        <Row>
+            <Header>Question Type</Header>
+            {ux.scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
+        </Row>
+        <Row>
+            <Header>
           Available Points <AvailablePoints value={(ux.scores.hasEqualTutorQuestions && ux.scores.availablePoints) || false} />
-        </Header>
-        {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
-      </Row>
-      <Row>
-        <Header>Correct Responses</Header>
-        {ux.scores.question_headings.map((h, i) => (
-          <StyledCell key={i} isTrouble={h.isTrouble}>
-            {h.humanCorrectResponses}
-          </StyledCell>
-        ))}
-      </Row>
+            </Header>
+            {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
+        </Row>
+        <Row>
+            <Header>Correct Responses</Header>
+            {ux.scores.question_headings.map((h, i) => (
+                <StyledCell key={i} isTrouble={h.isTrouble}>
+                    {h.humanCorrectResponses}
+                </StyledCell>
+            ))}
+        </Row>
     </StyledStickyTable>
     <Legend>
       MCQ: Multiple Choice Question (auto-graded);
@@ -545,18 +545,18 @@ const HomeWorkInfo = observer(({ ux }) => (
 
 const Overview = observer(({ ux }) => {
 
-  return (
-    <Wrapper data-test-id="overview">
-      {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
-      <QuestionList ux={ux} scores={ux.scores} />
-    </Wrapper>
-  );
+    return (
+        <Wrapper data-test-id="overview">
+            {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
+            <QuestionList ux={ux} scores={ux.scores} />
+        </Wrapper>
+    );
 
 });
 
 Overview.title = 'Submission Overview';
 Overview.propTypes = {
-  ux: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
 };
 
 

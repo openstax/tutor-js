@@ -13,73 +13,73 @@ const WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be 
 import Course from '../../models/course';
 import Teacher from '../../models/course/teacher';
 
-export default
 @withRouter
 @observer
+export default
 class RemoveTeacherLink extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    teacher: PropTypes.instanceOf(Teacher).isRequired,
-    history: PropTypes.object.isRequired,
+      course: PropTypes.instanceOf(Course).isRequired,
+      teacher: PropTypes.instanceOf(Teacher).isRequired,
+      history: PropTypes.object.isRequired,
   }
 
   @action.bound goToDashboard() {
-    this.props.history.push('/dashboard');
+      this.props.history.push('/dashboard');
   }
 
   @action.bound performDeletion() {
-    const request = this.props.teacher.drop();
-    if (this.props.teacher.isTeacherOfCourse) {
-      request.then(this.goToDashboard);
-    }
+      const request = this.props.teacher.drop();
+      if (this.props.teacher.isTeacherOfCourse) {
+          request.then(this.goToDashboard);
+      }
   }
 
   confirmPopOver() {
-    const { teacher } = this.props;
+      const { teacher } = this.props;
 
-    return (
-      <Popover
-        id={`settings-remove-popover-${teacher.id}`}
-        className="settings-remove-teacher"
-      >
-        <Popover.Title>
-          <span>Remove <Name {...teacher} />?</span>
-        </Popover.Title>
-        <Popover.Content>
-
-          <AsyncButton
-            variant="danger"
-            data-test-id="remove-confirm-btn"
-            onClick={this.performDeletion}
-            isWaiting={teacher.api.isPending}
-            waitingText="Removing..."
+      return (
+          <Popover
+              id={`settings-remove-popover-${teacher.id}`}
+              className="settings-remove-teacher"
           >
-            <Icon type="ban" /> Remove
-          </AsyncButton>
+              <Popover.Title>
+                  <span>Remove <Name {...teacher} />?</span>
+              </Popover.Title>
+              <Popover.Content>
 
-          <div className="warning">
-            {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
-          </div>
-        </Popover.Content>
-      </Popover>
-    );
+                  <AsyncButton
+                      variant="danger"
+                      data-test-id="remove-confirm-btn"
+                      onClick={this.performDeletion}
+                      isWaiting={teacher.api.isPending}
+                      waitingText="Removing..."
+                  >
+                      <Icon type="ban" /> Remove
+                  </AsyncButton>
+
+                  <div className="warning">
+                      {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
+                  </div>
+              </Popover.Content>
+          </Popover>
+      );
   }
 
   render() {
-    return (
-      <OverlayTrigger
-        rootClose={true}
-        trigger="click"
-        placement="left"
-        overlay={this.confirmPopOver()}
-      >
-        <a className="remove">
-          <Icon type="ban" />
-          {' Remove'}
-        </a>
-      </OverlayTrigger>
-    );
+      return (
+          <OverlayTrigger
+              rootClose={true}
+              trigger="click"
+              placement="left"
+              overlay={this.confirmPopOver()}
+          >
+              <a className="remove">
+                  <Icon type="ban" />
+                  {' Remove'}
+              </a>
+          </OverlayTrigger>
+      );
   }
 
 }

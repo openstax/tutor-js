@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, styled, observer,
+    React, PropTypes, styled, observer,
 } from 'vendor';
 import { withRouter } from 'react-router';
 import { Icon } from 'shared';
@@ -46,14 +46,14 @@ const BottomNote = styled(ExitButton)`
 `;
 
 const returnToTeacherRole = (course, history) => {
-  return async () => {
-    const role = course.roles.teacher;
-    history.replace(`/course/${course.id}/become/${role.id}`);
-  };
+    return async () => {
+        const role = course.roles.teacher;
+        history.replace(`/course/${course.id}/become/${role.id}`);
+    };
 };
 
 const IGNORED_ROUTES = [
-  'view-reference-book',
+    'view-reference-book',
 ];
 
 @withRouter
@@ -62,39 +62,39 @@ class TeacherAsStudentFrame extends React.Component {
   static displayName = 'TeacherAsStudentFrame';
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course),
-    routeName: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
+      course: PropTypes.instanceOf(Course),
+      routeName: PropTypes.string.isRequired,
+      children: PropTypes.node.isRequired,
+      history: PropTypes.shape({
+          push: PropTypes.func,
+      }),
   }
 
   render() {
-    const { course, routeName, children, history } = this.props;
+      const { course, routeName, children, history } = this.props;
 
-    if (
-      IGNORED_ROUTES.includes(routeName) ||
+      if (
+          IGNORED_ROUTES.includes(routeName) ||
         !course || !course.currentRole.isTeacherStudent
-    ) { return children; }
+      ) { return children; }
 
-    const onClick = returnToTeacherRole(course, history);
+      const onClick = returnToTeacherRole(course, history);
 
-    return (
-      <React.Fragment>
-        <StyledTeacherAsStudentFrame>
-          <TopButton onClick={onClick}>
+      return (
+          <React.Fragment>
+              <StyledTeacherAsStudentFrame>
+                  <TopButton onClick={onClick}>
             Exit student view
-            <Icon type="close" />
-          </TopButton>
-          <BottomNote as="div">
-            <Icon type="glasses" />
+                      <Icon type="close" />
+                  </TopButton>
+                  <BottomNote as="div">
+                      <Icon type="glasses" />
             You’re viewing OpenStax Tutor as a student
-          </BottomNote>
-        </StyledTeacherAsStudentFrame>
-        {children}
-      </React.Fragment>
-    );
+                  </BottomNote>
+              </StyledTeacherAsStudentFrame>
+              {children}
+          </React.Fragment>
+      );
   }
 }
 

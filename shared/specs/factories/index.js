@@ -6,12 +6,12 @@ import './exercise';
 const Factories = {};
 
 each({
-  Exercise,
+    Exercise,
 }, (Model, name) => {
-  Factories[camelCase(name)] = (attrs = {}) => {
-    const o = Factory.create(name, attrs);
-    return new Model(o);
-  };
+    Factories[camelCase(name)] = (attrs = {}) => {
+        const o = Factory.create(name, attrs);
+        return new Model(o);
+    };
 });
 
 export { Factory };

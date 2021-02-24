@@ -9,10 +9,10 @@ import LatePointsInfo from './late-points-info';
 import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
 const PointsScoredStatus = {
-  NOT_ANSWERED_NOT_GRADED: 'not-answered-not-graded',
-  INCORRECT: 'incorrect',
-  CORRECT: 'correct',
-  PARTIAL: 'partial',
+    NOT_ANSWERED_NOT_GRADED: 'not-answered-not-graded',
+    INCORRECT: 'incorrect',
+    CORRECT: 'correct',
+    PARTIAL: 'partial',
 };
 
 const StyledStickyTable = styled(StickyTable)`
@@ -151,149 +151,149 @@ const StyledPopover = styled(Popover)`
 `;
 
 const pointsScoredStatus = (step) => {
-  if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
-  if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
-  if(step.pointsScored >= step.available_points) return PointsScoredStatus.CORRECT;
-  return PointsScoredStatus.PARTIAL;
+    if(step.pointsScored === null) return PointsScoredStatus.NOT_ANSWERED_NOT_GRADED;
+    if(step.pointsScored <= 0) return PointsScoredStatus.INCORRECT;
+    if(step.pointsScored >= step.available_points) return PointsScoredStatus.CORRECT;
+    return PointsScoredStatus.PARTIAL;
 };
 
 const renderLateInfoPopover = (step) => {
-  if(isNil(step.pointsScored)) {
-    return (
-      <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
-    );
-  }
+    if(isNil(step.pointsScored)) {
+        return (
+            <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
+        );
+    }
 
-  return (
-    <StyledPopover graded>
-      <LatePointsInfo step={step} />
-    </StyledPopover>
-  );
+    return (
+        <StyledPopover graded>
+            <LatePointsInfo step={step} />
+        </StyledPopover>
+    );
 };
 
 const renderPointsScoredCell = (step) => {
-  if(step.isLate) {
-    return (
-      <OverlayTrigger
-        key={step.id}
-        show={true}
-        placement="bottom"
-        overlay={renderLateInfoPopover(step)}>
-        <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
-          {
-            step.isLate &&
+    if(step.isLate) {
+        return (
+            <OverlayTrigger
+                key={step.id}
+                show={true}
+                placement="bottom"
+                overlay={renderLateInfoPopover(step)}>
+                <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
+                    {
+                        step.isLate &&
             <div className="icon">
-              <Icon
-                color={colors.danger}
-                type='clock'
-                data-test-id="late-icon"
-              />
+                <Icon
+                    color={colors.danger}
+                    type='clock'
+                    data-test-id="late-icon"
+                />
             </div>
-          }
-          <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
-        </Cell>
-      </OverlayTrigger>
-    );
-  }
+                    }
+                    <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+                </Cell>
+            </OverlayTrigger>
+        );
+    }
 
-  return (
-    <Cell key={step.id} className={pointsScoredStatus(step)}>
-      <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
-    </Cell>
-  );
+    return (
+        <Cell key={step.id} className={pointsScoredStatus(step)}>
+            <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+        </Cell>
+    );
 };
 
 @observer
 class TaskProgress extends React.Component {
   static propTypes = {
-    steps: PropTypes.array.isRequired,
-    goToStep: PropTypes.func.isRequired,
-    currentStep: PropTypes.object.isRequired,
-    hideTaskProgressTable: PropTypes.bool.isRequired,
+      steps: PropTypes.array.isRequired,
+      goToStep: PropTypes.func.isRequired,
+      currentStep: PropTypes.object.isRequired,
+      hideTaskProgressTable: PropTypes.bool.isRequired,
   };
 
   render() {
-    const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
-    let progressIndex = 0;
+      const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
+      let progressIndex = 0;
 
-    return (
-      <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
-        <Row>
-          <Cell>Question number</Cell>
-          {
-            steps.map((step, stepIndex) => {
-              if (!step.isInfo) {
-                progressIndex += 1;
-                return (
-                  <Cell
-                    key={stepIndex}
-                    data-step-index={stepIndex}
-                    className={cn({ 'current-step': step === currentStep, 'completed': step.is_completed })}
-                    onClick={() => goToStep(step.id)}
-                  >
-                    {progressIndex}
-                    {step.isDroppedQuestion &&
+      return (
+          <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
+              <Row>
+                  <Cell>Question number</Cell>
+                  {
+                      steps.map((step, stepIndex) => {
+                          if (!step.isInfo) {
+                              progressIndex += 1;
+                              return (
+                                  <Cell
+                                      key={stepIndex}
+                                      data-step-index={stepIndex}
+                                      className={cn({ 'current-step': step === currentStep, 'completed': step.is_completed })}
+                                      onClick={() => goToStep(step.id)}
+                                  >
+                                      {progressIndex}
+                                      {step.isDroppedQuestion &&
                       <CornerTriangle color="blue"
-                        tooltip={step.dropped_method == 'zeroed' ?
-                          'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
+                          tooltip={step.dropped_method == 'zeroed' ?
+                              'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
                       />}
-                  </Cell>
-                );
-              }
-              else if (step.isInfo) {
-                // get the step info labels
-                let crumbClasses = '';
-                if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
-                const iconClasses = cn(`icon-${step.type}`, crumbClasses);
-                return (
-                  <Cell
-                    key={stepIndex}
-                    data-step-index={stepIndex}
-                    rowSpan="3"
-                    className="icons"
-                    onClick={() => goToStep(step.id)}>
-                    <i className={`icon-sm ${iconClasses}`} />
-                  </Cell>
-                );
-              }
-              return null;
-            })
-          }
-          <Cell>Total</Cell>
-        </Row>
-        <Row>
-          <Cell>Available Points</Cell>
-          {
-            steps.map((step, stepIndex) => {
-              if(!step.isInfo) {
-                progressIndex += 1;
-                return <Cell key={stepIndex}>{ScoresHelper.formatPoints(step.available_points)}</Cell>;
-              }
-              return <Cell key={stepIndex}></Cell>;
-            })
-          }
-          <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
-        </Row>
-        {
-          steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
-            <Row>
-              <Cell>Points Scored</Cell>
-              {
-                steps.map((step, stepIndex) => {
-                  if(!step.isInfo) {
-                    return renderPointsScoredCell(step, stepIndex);
+                                  </Cell>
+                              );
+                          }
+                          else if (step.isInfo) {
+                              // get the step info labels
+                              let crumbClasses = '';
+                              if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
+                              const iconClasses = cn(`icon-${step.type}`, crumbClasses);
+                              return (
+                                  <Cell
+                                      key={stepIndex}
+                                      data-step-index={stepIndex}
+                                      rowSpan="3"
+                                      className="icons"
+                                      onClick={() => goToStep(step.id)}>
+                                      <i className={`icon-sm ${iconClasses}`} />
+                                  </Cell>
+                              );
+                          }
+                          return null;
+                      })
                   }
-                  return <Cell key={stepIndex}></Cell>;
-                })
-              }
-              <Cell>
-                {isNil(task.publishedPoints) ?
-                  UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
-              </Cell>
+                  <Cell>Total</Cell>
+              </Row>
+              <Row>
+                  <Cell>Available Points</Cell>
+                  {
+                      steps.map((step, stepIndex) => {
+                          if(!step.isInfo) {
+                              progressIndex += 1;
+                              return <Cell key={stepIndex}>{ScoresHelper.formatPoints(step.available_points)}</Cell>;
+                          }
+                          return <Cell key={stepIndex}></Cell>;
+                      })
+                  }
+                  <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
+              </Row>
+              {
+                  steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
+            <Row>
+                <Cell>Points Scored</Cell>
+                {
+                    steps.map((step, stepIndex) => {
+                        if(!step.isInfo) {
+                            return renderPointsScoredCell(step, stepIndex);
+                        }
+                        return <Cell key={stepIndex}></Cell>;
+                    })
+                }
+                <Cell>
+                    {isNil(task.publishedPoints) ?
+                        UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
+                </Cell>
             </Row>
-        }
-      </StyledStickyTable>
-    );
+              }
+          </StyledStickyTable>
+      );
   }
 }
 

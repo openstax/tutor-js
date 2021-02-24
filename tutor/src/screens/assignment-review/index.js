@@ -38,123 +38,123 @@ class AssignmentReview extends React.Component {
   static displayName = 'AssignmentReview';
 
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string,
-      courseId: PropTypes.string.isRequired,
-    }),
-    history: PropTypes.object.isRequired,
+      params: PropTypes.shape({
+          id: PropTypes.string,
+          courseId: PropTypes.string.isRequired,
+      }),
+      history: PropTypes.object.isRequired,
   }
 
   @observable tabIndex = 0;
 
   @action.bound onTabSelection(tabIndex) {
-    this.tabIndex = tabIndex;
+      this.tabIndex = tabIndex;
   }
 
   constructor(props) {
-    super(props);
+      super(props);
 
-    // eslint-disable-next-line
+      // eslint-disable-next-line
     let { id, courseId, type } = props.params;
 
-    // eslint-disable-next-line
+      // eslint-disable-next-line
     const course = props.course || Courses.get(courseId);
 
-    this.ux = new UX();
+      this.ux = new UX();
 
-    this.ux.initialize({
-      ...Router.currentQuery(),
-      ...props.params,
-      history: props.history,
-      course,
-      onCompleteDelete: this.onCompleteDelete,
-      onEditAssignment: this.onEditAssignment,
-      onTabSelection: this.onTabSelection,
-    });
+      this.ux.initialize({
+          ...Router.currentQuery(),
+          ...props.params,
+          history: props.history,
+          course,
+          onCompleteDelete: this.onCompleteDelete,
+          onEditAssignment: this.onEditAssignment,
+          onTabSelection: this.onTabSelection,
+      });
   }
 
   @action.bound onCompleteDelete(date) {
-    const { ux } = this;
-    this.props.history.push(
-      Router.makePathname('calendarByDate', {
-        courseId: ux.course.id,
-        date: date,
-      })
-    );
+      const { ux } = this;
+      this.props.history.push(
+          Router.makePathname('calendarByDate', {
+              courseId: ux.course.id,
+              date: date,
+          })
+      );
   }
 
   @action.bound onEditAssignment() {
-    const { courseId, id } = this.props.params;
-    this.props.history.push(
-      Router.makePathname('editAssignment', {
-        courseId: courseId,
-        type: this.ux.taskPlan.type,
-        id: id,
-      })
-    );
+      const { courseId, id } = this.props.params;
+      this.props.history.push(
+          Router.makePathname('editAssignment', {
+              courseId: courseId,
+              type: this.ux.taskPlan.type,
+              id: id,
+          })
+      );
   }
 
   @action.bound renderTabs({ ux: { hasEnrollments, course, planScores }, tabIndex }) {
-    const AvailableTabs = [Details];
+      const AvailableTabs = [Details];
 
-    // pre-wrm courses have confusion around weights so we hide them
-    if (hasEnrollments && course.isWRM) {
-      if (planScores.isHomework) {
-        AvailableTabs.push(Overview, HomeworkScores);
-      }
-      if (planScores.isReading) {
-        AvailableTabs.push(Overview, ReadingScores);
-      }
-      if (planScores.isExternal) {
-        AvailableTabs.push(ExternalScores);
-      }
+      // pre-wrm courses have confusion around weights so we hide them
+      if (hasEnrollments && course.isWRM) {
+          if (planScores.isHomework) {
+              AvailableTabs.push(Overview, HomeworkScores);
+          }
+          if (planScores.isReading) {
+              AvailableTabs.push(Overview, ReadingScores);
+          }
+          if (planScores.isExternal) {
+              AvailableTabs.push(ExternalScores);
+          }
 
-    }
-    const Tab = AvailableTabs[tabIndex] || Details;
+      }
+      const Tab = AvailableTabs[tabIndex] || Details;
 
-    return (
+      return (
       <>
         <StyledTabs
-          selectedIndex={tabIndex}
-          params={this.props.params}
-          onSelect={this.onTabSelection}
-          tabs={AvailableTabs.map(t => t.title)}
+            selectedIndex={tabIndex}
+            params={this.props.params}
+            onSelect={this.onTabSelection}
+            tabs={AvailableTabs.map(t => t.title)}
         />
         <Tab ux={this.ux} />
       </>
-    );
+      );
   }
 
   render() {
-    const {
-      isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
-    } = this.ux;
+      const {
+          isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+      } = this.ux;
 
-    if (!isScoresReady) {
-      return <LoadingScreen message="Loading Assignment…" />;
-    }
+      if (!isScoresReady) {
+          return <LoadingScreen message="Loading Assignment…" />;
+      }
 
-    return (
-      <BackgroundWrapper>
-        <ScrollToTop>
-          <ContentWrapper>
-            <Heading>
-              <CourseBreadcrumb
-                course={course}
-                currentTitle={planScores.title}
-              />
-              <CoursePeriodSelect
-                period={selectedPeriod}
-                periods={assignedPeriods}
-                course={course}
-                onChange={setSelectedPeriod}
-              />
-            </Heading>
-            {this.renderTabs({ ux: this.ux, tabIndex: this.tabIndex })}
-          </ContentWrapper>
-        </ScrollToTop>
-      </BackgroundWrapper>
-    );
+      return (
+          <BackgroundWrapper>
+              <ScrollToTop>
+                  <ContentWrapper>
+                      <Heading>
+                          <CourseBreadcrumb
+                              course={course}
+                              currentTitle={planScores.title}
+                          />
+                          <CoursePeriodSelect
+                              period={selectedPeriod}
+                              periods={assignedPeriods}
+                              course={course}
+                              onChange={setSelectedPeriod}
+                          />
+                      </Heading>
+                      {this.renderTabs({ ux: this.ux, tabIndex: this.tabIndex })}
+                  </ContentWrapper>
+              </ScrollToTop>
+          </BackgroundWrapper>
+      );
   }
 }
 

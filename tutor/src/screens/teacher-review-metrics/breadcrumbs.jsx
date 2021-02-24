@@ -25,72 +25,72 @@ const Title = styled.div`
 class Breadcrumbs extends React.Component {
 
   static propTypes = {
-    taskPlan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    stats: PropTypes.instanceOf(Stats),
-    courseId: idType.isRequired,
-    currentStep: PropTypes.number,
-    scrollToStep: PropTypes.func.isRequired,
-    setSecondaryTopControls: PropTypes.func.isRequired,
-    unDocked: PropTypes.bool,
+      taskPlan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+      stats: PropTypes.instanceOf(Stats),
+      courseId: idType.isRequired,
+      currentStep: PropTypes.number,
+      scrollToStep: PropTypes.func.isRequired,
+      setSecondaryTopControls: PropTypes.func.isRequired,
+      unDocked: PropTypes.bool,
   };
 
   constructor(props) {
-    super(props);
-    if (!props.unDocked) {
-      props.setSecondaryTopControls(this.renderBreadcrumbs);
-    }
+      super(props);
+      if (!props.unDocked) {
+          props.setSecondaryTopControls(this.renderBreadcrumbs);
+      }
   }
 
   componentWillUnmount() {
-    if (!this.props.unDocked) {
-      this.props.setSecondaryTopControls(null);
-    }
+      if (!this.props.unDocked) {
+          this.props.setSecondaryTopControls(null);
+      }
   }
 
   @action.bound goToStep(key) {
-    this.props.scrollToStep(key);
+      this.props.scrollToStep(key);
   }
 
   @computed get crumbs() {
-    if (!this.props.stats) { return []; }
-    return map(this.props.stats.sections, s => ({
-      type: this.props.taskPlan.type, sectionLabel: s, key: s,
-    }));
+      if (!this.props.stats) { return []; }
+      return map(this.props.stats.sections, s => ({
+          type: this.props.taskPlan.type, sectionLabel: s, key: s,
+      }));
   }
 
   // nothing is rendered directly, instead it's set in the secondaryToolbar
   render() {
-    if (this.props.unDocked) {
-      return this.renderBreadcrumbs();
-    }
-    return null;
+      if (this.props.unDocked) {
+          return this.renderBreadcrumbs();
+      }
+      return null;
   }
 
   @autobind renderBreadcrumbs() {
-    const { currentStep, courseId, taskPlan } = this.props;
+      const { currentStep, courseId, taskPlan } = this.props;
 
-    const stepButtons = map(this.crumbs, crumb =>
-      <TutorBreadcrumb
-        step={crumb}
-        stepIndex={crumb.key}
-        currentStep={currentStep}
-        goToStep={this.goToStep}
-        key={`breadcrumb-${crumb.type}-${crumb.key}`} />
-    );
+      const stepButtons = map(this.crumbs, crumb =>
+          <TutorBreadcrumb
+              step={crumb}
+              stepIndex={crumb.key}
+              currentStep={currentStep}
+              goToStep={this.goToStep}
+              key={`breadcrumb-${crumb.type}-${crumb.key}`} />
+      );
 
-    const fallbackLink = {
-      to: 'viewTeacherDashboard',
-      params: { courseId: courseId },
-      text: 'Back to Calendar',
-    };
+      const fallbackLink = {
+          to: 'viewTeacherDashboard',
+          params: { courseId: courseId },
+          text: 'Back to Calendar',
+      };
 
-    return (
-      <StyledBreadcrumbs>
-        <Steps>{stepButtons}</Steps>
-        <Title>{taskPlan.title}</Title>
-        <BackButton fallbackLink={fallbackLink} />
-      </StyledBreadcrumbs>
-    );
+      return (
+          <StyledBreadcrumbs>
+              <Steps>{stepButtons}</Steps>
+              <Title>{taskPlan.title}</Title>
+              <BackButton fallbackLink={fallbackLink} />
+          </StyledBreadcrumbs>
+      );
   }
 
 }

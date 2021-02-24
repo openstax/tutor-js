@@ -13,31 +13,31 @@ const HTML = `\
 `;
 
 describe('DOM Helpers', function() {
-  let root, figure, p;
+    let root, figure, p;
 
-  beforeEach(function() {
-    root = document.createElement('div');
-    root.innerHTML = HTML;
-    p = root.querySelector('p.para');
-    figure = root.querySelector('figure');
-  });
+    beforeEach(function() {
+        root = document.createElement('div');
+        root.innerHTML = HTML;
+        p = root.querySelector('p.para');
+        figure = root.querySelector('figure');
+    });
 
-  it('can query using closest', function() {
-    expect( DOM(p).closest('.dc' ).tagName ).toEqual('DIV');
-    expect( DOM(figure).closest('.dc' ).tagName ).toEqual('DIV');
-    expect( DOM(figure).closest('div').className ).toEqual('wfig');
-  });
+    it('can query using closest', function() {
+        expect( DOM(p).closest('.dc' ).tagName ).toEqual('DIV');
+        expect( DOM(figure).closest('.dc' ).tagName ).toEqual('DIV');
+        expect( DOM(figure).closest('div').className ).toEqual('wfig');
+    });
 
-  it('can find using closest when same element matches', function() {
-    expect( DOM(p).closest( '.para' ).className ).toEqual('para');
-  });
+    it('can find using closest when same element matches', function() {
+        expect( DOM(p).closest( '.para' ).className ).toEqual('para');
+    });
 
-  it('returns null when not found', function() {
-    expect( DOM(p).closest( 'img' ) ).toBeNull();
-  });
+    it('returns null when not found', function() {
+        expect( DOM(p).closest( 'img' ) ).toBeNull();
+    });
 
-  it('does not find siblings', function() {
-    expect( DOM(p).closest( '.wfig' ) ).toBeNull();
-  });
+    it('does not find siblings', function() {
+        expect( DOM(p).closest( '.wfig' ) ).toBeNull();
+    });
 
 });

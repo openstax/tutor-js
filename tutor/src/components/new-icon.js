@@ -24,7 +24,7 @@ const LeftArrow = styled.div`
 `;
 
 const NewIcon = ({ children }) => {
-  return (
+    return (
     <>
       {children}
       <LeftArrow/>
@@ -32,10 +32,10 @@ const NewIcon = ({ children }) => {
            New
       </IconBackground>
     </>
-  );
+    );
 };
 NewIcon.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 

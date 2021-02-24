@@ -15,26 +15,26 @@ import droppedStudent from './enroll/dropped-student';
 import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
 
-export default
 @withRouter
 @observer
+export default
 class CourseEnroll extends React.Component {
 
   static propTypes = {
-    enrollment: PropTypes.object,
-    history: PropTypes.object.isRequired,
+      enrollment: PropTypes.object,
+      history: PropTypes.object.isRequired,
   }
 
   static Components = {
-    studentIDForm,
-    selectPeriod,
-    invalidLMS,
-    invalidLinks,
-    invalidCode,
-    invalidTeacher,
-    droppedStudent,
-    courseEnded,
-    unknownError,
+      studentIDForm,
+      selectPeriod,
+      invalidLMS,
+      invalidLinks,
+      invalidCode,
+      invalidTeacher,
+      droppedStudent,
+      courseEnded,
+      unknownError,
   }
 
   enrollmentCode = Router.currentParams().enrollmentCode;
@@ -42,21 +42,21 @@ class CourseEnroll extends React.Component {
     new Enroll({ enrollment_code: this.enrollmentCode, history: this.props.history });
 
   UNSAFE_componentWillMount() {
-    this.enrollment.create();
+      this.enrollment.create();
   }
 
   render() {
-    const { enrollment } = this;
-    if (!enrollment.bodyContents) {
-      return null;
-    }
+      const { enrollment } = this;
+      if (!enrollment.bodyContents) {
+          return null;
+      }
 
-    return (
-      <Modal.Dialog
-        className="course-enroll"
-      >
-        {enrollment.bodyContents}
-      </Modal.Dialog>
-    );
+      return (
+          <Modal.Dialog
+              className="course-enroll"
+          >
+              {enrollment.bodyContents}
+          </Modal.Dialog>
+      );
   }
 }

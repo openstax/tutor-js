@@ -14,7 +14,7 @@ import { observer, Provider } from 'mobx-react';
 import { SecondaryToolbar } from '../../src/components/navbar/secondary-toolbar'
 
 function wrapInDnDTestContext(DecoratedComponent) {
-  return wrapInTestContext(DecoratedComponent);
+    return wrapInTestContext(DecoratedComponent);
 }
 export { wrapInTestContext as wrapInDnDTestContext };
 
@@ -29,45 +29,45 @@ class TutorSpecLayout extends React.Component {
   topNavbarContext = new NavbarContext();
   bottomNavbarContext = new NavbarContext();
   @action.bound setSecondaryTopControls(controls) {
-    this.secondaryTopControls = controls;
+      this.secondaryTopControls = controls;
   }
   @action.bound setTopToolbarCollapsed(isCollapsed) {
-    this.isTopToolbarCollapsed = isCollapsed;
+      this.isTopToolbarCollapsed = isCollapsed;
   }
   render() {
-    return (
-      <Provider
-        topNavbar={this.topNavbarContext}
-        courseContext={this.courseContext}
-        bottomNavbar={this.bottomNavbarContext}
-        setSecondaryTopControls={this.setSecondaryTopControls}
-      >
-        <div>
-          <Navbar area="header" context={this.topNavbarContext}
-            isDocked={Boolean(this.secondaryTopControls)} />
-          {this.secondaryTopControls &&
+      return (
+          <Provider
+              topNavbar={this.topNavbarContext}
+              courseContext={this.courseContext}
+              bottomNavbar={this.bottomNavbarContext}
+              setSecondaryTopControls={this.setSecondaryTopControls}
+          >
+              <div>
+                  <Navbar area="header" context={this.topNavbarContext}
+                      isDocked={Boolean(this.secondaryTopControls)} />
+                  {this.secondaryTopControls &&
             <SecondaryToolbar
-              controls={this.secondaryTopControls}
-              setCollapsed={this.setTopToolbarCollapsed}
+                controls={this.secondaryTopControls}
+                setCollapsed={this.setTopToolbarCollapsed}
             />}
-          {this.props.children}
-          <Navbar area="footer" context={this.bottomNavbarContext} />
-        </div>
-      </Provider>
-    );
+                  {this.props.children}
+                  <Navbar area="footer" context={this.bottomNavbarContext} />
+              </div>
+          </Provider>
+      );
   }
 
 }
 
 const R = React.forwardRef(({ children, path }, ref) => (
-  <Router initialIndex={0} initialEntries={[path]} ref={ref}>
-    {children}
-  </Router>
+    <Router initialIndex={0} initialEntries={[path]} ref={ref}>
+        {children}
+    </Router>
 ));
 
 R.defaultProps = {
-  withRef: false,
-  path: '/',
+    withRef: false,
+    path: '/',
 };
 
 export { R };
@@ -76,49 +76,49 @@ export { R };
 export class C extends React.Component {
   static DnDContext = wrapInDnDTestContext(({ children }) => children);
   static propTypes = {
-    path: PropTypes.string,
-    withRef: PropTypes.bool,
-    withTours: PropTypes.object,
-    children: PropTypes.element.isRequired,
+      path: PropTypes.string,
+      withRef: PropTypes.bool,
+      withTours: PropTypes.object,
+      children: PropTypes.element.isRequired,
   }
 
   routerRef = React.createRef();
   componentRef = React.createRef();
 
   get router() {
-    return this.routerRef.current;
+      return this.routerRef.current;
   }
 
   get pathname() {
-    return this.routerRef.current.history.location.pathname;
+      return this.routerRef.current.history.location.pathname;
   }
 
   get component() {
-    return this.componentRef.current;
+      return this.componentRef.current;
   }
 
   render() {
-    const { children, withRef, path, noRef, withTours } = this.props;
+      const { children, withRef, path, noRef, withTours } = this.props;
 
-    const child = withRef ?
-      React.cloneElement(children, { ref: this.componentRef }) : children;
+      const child = withRef ?
+          React.cloneElement(children, { ref: this.componentRef }) : children;
 
-    return (
-      <ThemeProvider theme={Theme}>
-        <R ref={this.routerRef} noRef={noRef} path={path}>
-          <C.DnDContext>
-            <SpyMode.Wrapper>
-              <ModalManager>
-                <TourConductor tourContext={withTours}>
-                  <TutorSpecLayout>
-                    {child}
-                  </TutorSpecLayout>
-                </TourConductor>
-              </ModalManager>
-            </SpyMode.Wrapper>
-          </C.DnDContext>
-        </R>
-      </ThemeProvider>
-    );
+      return (
+          <ThemeProvider theme={Theme}>
+              <R ref={this.routerRef} noRef={noRef} path={path}>
+                  <C.DnDContext>
+                      <SpyMode.Wrapper>
+                          <ModalManager>
+                              <TourConductor tourContext={withTours}>
+                                  <TutorSpecLayout>
+                                      {child}
+                                  </TutorSpecLayout>
+                              </TourConductor>
+                          </ModalManager>
+                      </SpyMode.Wrapper>
+                  </C.DnDContext>
+              </R>
+          </ThemeProvider>
+      );
   }
 }

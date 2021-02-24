@@ -1,6 +1,6 @@
 import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, belongsTo,
+    BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 
 @identifiedBy('ecosystems/ecosystem')
@@ -13,6 +13,6 @@ export default class EcosystemBook extends BaseModel {
   @belongsTo({ model: 'ecosystems/ecosystem' }) ecosystem;
 
   @computed get titleWithVersion() {
-    return `${this.title} ${this.version}`;
+      return `${this.title} ${this.version}`;
   }
 }

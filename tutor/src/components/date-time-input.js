@@ -68,76 +68,76 @@ const Error = styled.div`
 `;
 
 const DateTimeInput = (assignedProps) => useObserver(() => {
-  const props = defaults({}, assignedProps, {
-    type: 'text',
-    format: 'MMM D | hh:mm A',
-    timeFormat: 'hh:mm A',
-  });
-  const [field, meta] = useField(props);
+    const props = defaults({}, assignedProps, {
+        type: 'text',
+        format: 'MMM D | hh:mm A',
+        timeFormat: 'hh:mm A',
+    });
+    const [field, meta] = useField(props);
 
-  const id = props.id || uniqueId(props.name);
-  const LabelWrapper = props.labelWrapper || React.Fragment;
+    const id = props.id || uniqueId(props.name);
+    const LabelWrapper = props.labelWrapper || React.Fragment;
 
-  const momentFunc = props.timezone ? moment.tz : moment;
-  const momentValue = field.value ? momentFunc(field.value, props.timezone) : null;
+    const momentFunc = props.timezone ? moment.tz : moment;
+    const momentValue = field.value ? momentFunc(field.value, props.timezone) : null;
 
-  const onUpdateDate = dt => {
-    const ev = { target: { name: field.name, value: dt } };
-    field.onBlur(ev);
-    field.onChange(ev);
-    props.onChange && props.onChange(ev);
-  };
+    const onUpdateDate = dt => {
+        const ev = { target: { name: field.name, value: dt } };
+        field.onBlur(ev);
+        field.onChange(ev);
+        props.onChange && props.onChange(ev);
+    };
 
-  return (
-    <StyledWrapper className={cn('date-time-input', props.className)}>
-      <LabelWrapper>
-        {props.label && <Label htmlFor={id}>{props.label}</Label>}
-      </LabelWrapper>
-      <PickerWrapper>
-        <StyledPicker
-          locale={locale}
-          generateConfig={generateConfig}
-          format={props.format}
-          showToday
-          showTime={{
-            showSecond: false,
-            use12Hours: true,
-            hideDisabledOptions: true,
-            format: props.timeFormat || 'hh:mm A',
-          }}
-          //Reference: https://github.com/react-component/picker/blob/master/src/interface.ts#L84
-          //Showing minutes step of 10, and 1 and 59
-          disabledTime={() => {
-            return {
-              disabledMinutes() {
-                return range(1, 60, 1).filter(f => f % 10 !== 0 && f !== 1 && f !== 59);
-              },
-            };
-          }}
-          {...field}
-          {...props}
-          value={momentValue}
-          onSelect={onUpdateDate}
-          onChange={onUpdateDate}
-          prefixCls="oxdt"
-          id={id}
-          autoFocus={props.autoFocus}
-          className={cn({ error: props.errorMessage })}
-        />
-        <IconWrapper>
-          <Icon type="calendar" />
-        </IconWrapper>
-      </PickerWrapper>
-      {meta.error && meta.touched && <Error>{meta.error}</Error>}
-      {props.errorMessage && <Error data-test-id="date-error-message">{props.errorMessage}</Error>}
-    </StyledWrapper>
-  );
+    return (
+        <StyledWrapper className={cn('date-time-input', props.className)}>
+            <LabelWrapper>
+                {props.label && <Label htmlFor={id}>{props.label}</Label>}
+            </LabelWrapper>
+            <PickerWrapper>
+                <StyledPicker
+                    locale={locale}
+                    generateConfig={generateConfig}
+                    format={props.format}
+                    showToday
+                    showTime={{
+                        showSecond: false,
+                        use12Hours: true,
+                        hideDisabledOptions: true,
+                        format: props.timeFormat || 'hh:mm A',
+                    }}
+                    //Reference: https://github.com/react-component/picker/blob/master/src/interface.ts#L84
+                    //Showing minutes step of 10, and 1 and 59
+                    disabledTime={() => {
+                        return {
+                            disabledMinutes() {
+                                return range(1, 60, 1).filter(f => f % 10 !== 0 && f !== 1 && f !== 59);
+                            },
+                        };
+                    }}
+                    {...field}
+                    {...props}
+                    value={momentValue}
+                    onSelect={onUpdateDate}
+                    onChange={onUpdateDate}
+                    prefixCls="oxdt"
+                    id={id}
+                    autoFocus={props.autoFocus}
+                    className={cn({ error: props.errorMessage })}
+                />
+                <IconWrapper>
+                    <Icon type="calendar" />
+                </IconWrapper>
+            </PickerWrapper>
+            {meta.error && meta.touched && <Error>{meta.error}</Error>}
+            {props.errorMessage && <Error data-test-id="date-error-message">{props.errorMessage}</Error>}
+        </StyledWrapper>
+    );
 });
 
 DateTimeInput.displayName = 'DateTimeInput';
 DateTimeInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  timezone: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    timezone: PropTypes.string,
 };
 
 export default DateTimeInput;

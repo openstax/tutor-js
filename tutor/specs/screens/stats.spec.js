@@ -4,28 +4,28 @@ import StatsStore from '../../src/models/stats';
 
 // apex charts calls textNode.getBBox which jsdom doesn't support
 jest.mock('react-apexcharts', () => (
-  (props) => JSON.stringify(props)
+    (props) => JSON.stringify(props)
 ));
 
 describe('Stats Screen', () => {
-  let props;
+    let props;
 
-  TimeMock.setTo('2019-10-30T12:00:00.000Z');
+    TimeMock.setTo('2019-10-30T12:00:00.000Z');
 
-  beforeEach(() => {
-    const stats = new StatsStore();
-    window.scrollTo = jest.fn();
-    stats.onLoaded({
-      data: ld.times(20, () => Factory.bot.create('Stat')),
+    beforeEach(() => {
+        const stats = new StatsStore();
+        window.scrollTo = jest.fn();
+        stats.onLoaded({
+            data: ld.times(20, () => Factory.bot.create('Stat')),
+        });
+        stats.api.requestCounts.read = 1;
+        props = {
+            stats,
+        };
     });
-    stats.api.requestCounts.read = 1;
-    props = {
-      stats,
-    };
-  });
 
-  it('renders and matches snapshot', () => {
-    expect(<R><Stats {...props} /></R>).toMatchSnapshot();
-  });
+    it('renders and matches snapshot', () => {
+        expect(<R><Stats {...props} /></R>).toMatchSnapshot();
+    });
 
 });
