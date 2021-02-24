@@ -8,10 +8,8 @@ import UiSettings from 'shared/model/ui-settings'
 import { useAllCourses } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
-import AddSubjectDropdown from './add-subject-dropdown'
+import AddSubjectDropdown from './addSubjectDropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
-
-import { ID } from '../../../store/types'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;

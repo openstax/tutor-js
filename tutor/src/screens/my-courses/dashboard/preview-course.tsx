@@ -13,6 +13,12 @@ import { Icon } from 'shared'
 
 const StyledPreviewCourse = styled.div`
   &&& {
+    .my-courses-item {
+      // Set to 0 so it does not show the entire logo of the book.
+      &:before {
+        height: 0;
+      }
+    }
     svg[data-icon="ellipsis-v"] {
       float: right;
       margin-right: 2rem;

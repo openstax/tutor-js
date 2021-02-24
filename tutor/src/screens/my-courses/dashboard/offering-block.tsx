@@ -11,7 +11,7 @@ import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
 
-import { Offering, Course } from '../../../store/types'
+import { Offering, Course, ID } from '../../../store/types'
 
 const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
@@ -88,17 +88,18 @@ const PastCourses: React.FC<PastCoursesProps> = ({ courses }) => {
 interface CurrentCoursesProps {
     courses: Course[]
     isPreviewInResource: boolean
+    renderCreateCourse: () => ReactElement
     renderCoursePreview: () => ReactElement 
 }
 
 /**
  * Component that displays the current and future courses. Plus the Course Preview and the create course button
  */
-const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, isPreviewInResource, renderCoursePreview }) => (
+const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, renderCreateCourse, isPreviewInResource, renderCoursePreview }) => (
     <>
         {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
         {!isPreviewInResource && renderCoursePreview()}
-        <CreateACourse />
+        {renderCreateCourse()}
     </>
 )
 
@@ -115,7 +116,7 @@ interface OfferingBlockProps {
 /**
  * Component that holds the past, current and future courses. Also the resources for the course.
  */
-const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, tryDeleteOffering, swapOffering, tryDeleteOffering, isEditMode, isFirstBlock, isLastBlock }) => {
+const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOffering, tryDeleteOffering, isEditMode, isFirstBlock, isLastBlock }) => {
     const [tabIndex, setTabIndex] = useState(0)
     const [isPreviewInResource, setIsPreviewInResource] = useState<boolean>(UiSettings.get('isPreviewInResource')?.[offering.appearance_code] || false)
 
@@ -135,6 +136,9 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, tryDel
                 <CurrentCourses
                   courses={currentCourses}
                   isPreviewInResource={isPreviewInResource}
+                  renderCreateCourse={() => (
+                      <CreateACourse appearanceCode={offering.appearance_code} />
+                  )}
                   renderCoursePreview={() => (
                   <CoursePreview
                     offering={offering}
