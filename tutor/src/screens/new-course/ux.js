@@ -133,7 +133,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @action.bound onCancel() {
-      this.router.history.push('/dashboard');
+      this.router.history.push('/courses');
   }
 
   @computed get stage() {

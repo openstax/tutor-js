@@ -8,11 +8,11 @@ const DASHBOARDS = {
 describe('Course Dashboard', () => {
     let page;
 
-    ['teacher', 'student'].forEach((role) => {
+    ['student'].forEach((role) => {
 
         describe(`as a ${role}`, () => {
 
-            beforeEach(() => openPage('/dashboard', { role }).then((pg) => page = pg));
+            beforeEach(() => openPage('/courses', { role }).then((pg) => page = pg));
 
             afterEach(() => page.close());
 
@@ -27,7 +27,7 @@ describe('Course Dashboard', () => {
                     await page.click('.joyride-tooltip__button--primary');
                     tip = await page.$('.joyride-tooltip__button--primary');
                 }
-                let snapshot = await snapshotPage(page, 'dashboard');
+                let snapshot = await snapshotPage(page, 'courses');
                 expect(snapshot).toMatchPreviousPage();
 
                 if (role === 'student') {

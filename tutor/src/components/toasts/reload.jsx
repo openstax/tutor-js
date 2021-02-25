@@ -12,7 +12,7 @@ const UserInitiatedReload = () => (
     </div>
 );
 
-const performRedirect = () => window.location = '/dashboard';
+const performRedirect = () => window.location = '/courses';
 
 const ForceReload = () => {
     const [timeLeft, setTimeLeft] = useState(15);

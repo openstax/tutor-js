@@ -3,7 +3,7 @@ import expect from 'expect';
 context('Grading Templates', () => {
 
     beforeEach(() => {
-        cy.visit('/dashboard');
+        cy.visit('/courses');
         cy.disableTours();
         cy.getTestElement('course-card').first().click();
         cy.get('.sidebar-toggle:not(.open)').click();
