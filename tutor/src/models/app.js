@@ -58,6 +58,7 @@ export default class TutorApp {
 
       const { data } = await app.fetch();
       await app.initializeApp(data);
+      return app
   }
 
   static logError(error, info) {
