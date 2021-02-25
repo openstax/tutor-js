@@ -1,7 +1,7 @@
-import { React, styled, css } from 'vendor'
+import { React, styled } from 'vendor'
 import { useEffect, useState, useRef } from 'react'
 import { Icon } from 'shared'
-import TutorTheme, { colors, breakpoints } from 'theme'
+import TutorTheme, { colors, breakpoint } from 'theme'
 
 const Panel = styled.div`
     position: absolute;
@@ -9,6 +9,10 @@ const Panel = styled.div`
     right: 0;
     z-index: ${TutorTheme.zIndex.sidePanel};
     display: flex;
+
+    ${breakpoint.mobile`
+        display: none;
+    `}
 
     .toggle {
         background: ${colors.primary};
@@ -108,7 +112,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ children, ignorePathIncludes = ' 
                 onClick={togglePanel}
                 aria-label={`${showPanel ? 'Collapse' : 'Expand'} panel`}
                 data-test-id="toggle-preview-panel"
-              >
+            >
                 <Icon type={showPanel ? 'caret-right' : 'caret-left'} />
             </button>
             {showPanel &&

@@ -92,9 +92,8 @@ const Content = styled.div`
   }
 `;
 
-const PreviewCourseSidePanel = ({ course, windowImpl = window }) => {
+const PreviewCourseSidePanel = ({ course }) => {
     if (course && course.is_preview) {
-        const initialPathname = windowImpl.location.pathname
         return (
             <SidePanel ignorePathIncludes={'t/month'}>
                 <h3>Ready to begin?</h3>
@@ -112,6 +111,10 @@ const PreviewCourseSidePanel = ({ course, windowImpl = window }) => {
     }
 
     return null;
+}
+
+PreviewCourseSidePanel.propTypes = {
+    course: PropTypes.instanceOf(Course),
 }
 
 class CourseContext {
