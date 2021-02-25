@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
 import Map from 'shared/model/map';
 import Offering from './offering';
 
@@ -30,6 +30,10 @@ class OfferingsMap extends Map {
 
     @computed get biology2e() {
         return this.available.where(c => c.appearance_code == 'biology_2e');
+    }
+
+    @action bootstrap(items) {
+        this.onLoaded({ data: { items } })
     }
 
     // will be overwritten by API
