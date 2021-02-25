@@ -11,7 +11,7 @@ describe('Preview Courses', () => {
         await page.click('.onboarding-nag button')
     })
 
-    it('displays a collapsible side panel', async () => {
+    it.skip('displays a collapsible side panel', async () => {
         await page.click('testEl=preview-panel-toggle-panel')
         await expect(page).toHaveSelector('testEl=preview-panel-create-course', { timeout: 10 })
         await page.click('testEl=preview-panel-toggle-panel')

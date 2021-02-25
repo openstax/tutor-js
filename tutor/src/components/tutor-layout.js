@@ -21,6 +21,7 @@ import { MobilePaymentBar } from './navbar/student-payment-bar';
 import GoToTop from './go-to-top';
 import SidePanel from './side-panel';
 import TutorLink from './link';
+import { useAllCourses } from '../store/courses'
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -93,7 +94,13 @@ const Content = styled.div`
 `;
 
 const PreviewCourseSidePanel = ({ course }) => {
-    if (course && course.is_preview) {
+    if (!course || !course.is_preview || !course.currentRole.isTeacher) {
+        return null
+    }
+
+    const courses = useAllCourses()
+
+    if (courses.filter(c => !c.is_preview && c.offering_id == course.offering_id).length == 0) {
         return (
             <SidePanel ignorePathIncludes={'t/month'}>
                 <h3>Ready to begin?</h3>
@@ -108,9 +115,9 @@ const PreviewCourseSidePanel = ({ course }) => {
                 </TutorLink>
             </SidePanel>
         )
+    } else {
+      return null
     }
-
-    return null;
 }
 
 PreviewCourseSidePanel.propTypes = {
