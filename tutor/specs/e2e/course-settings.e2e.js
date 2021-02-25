@@ -1,11 +1,11 @@
-import { visitPage, setTimeouts } from './helpers'
+import { visitPage, setTimeouts, setRole } from './helpers'
 
 describe('Course Settings', () => {
 
     beforeEach(async () => {
         await setTimeouts()
+        await setRole('teacher')
         await visitPage(page, '/course/1/settings?tab=1')
-
     })
 
     it('shows the course settings from with term and dates as ready only', async () => {
@@ -33,10 +33,10 @@ describe('Course Settings', () => {
     it('shows the save button when timezone is changed', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
         const timezoneDropdownTestId = '[data-test-id="timezone-dropdown"]'
+        const currentTZ = await page.$eval(timezoneDropdownTestId, el => el.textContent)
         await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
-        await expect(page).toHaveSelector(`${timezoneDropdownTestId} .dropdown-menu.show`)
-        await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a[value="US/Hawaii"]`)
-        await expect(page).toHaveText(`${timezoneDropdownTestId} .dropdown-toggle div`, 'US/Hawaii')
+        await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a:nth-child(2)`)
+        await expect(page).not.toHaveText(`${timezoneDropdownTestId} .dropdown-toggle div`, currentTZ)
         await expect(page).toHaveSelector('.save-changes-button')
     });
 

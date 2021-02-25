@@ -1,8 +1,9 @@
-import { visitPage, setTimeouts } from './helpers'
+import { visitPage, setTimeouts, setRole } from './helpers'
 
 describe('My Courses', () => {
     beforeEach(async () => {
         await setTimeouts()
+        await setRole('teacher')
     })
 
     it('displays course create page when no courses', async () => {

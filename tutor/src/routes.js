@@ -11,7 +11,7 @@ const getRoutes = (router) => {
     return [
         { path: '/dashboard', name: 'myCourses',
             renderer: r(() => import('./screens/my-courses'), 'Courses Listing') },
-        { path: '/dashboard', name: 'myCourses',
+        { path: '/courses', name: 'myCourses',
             renderer: r(() => import('./screens/my-courses'), 'Courses Listing') },
         { path: '/non-allowed-instructors', name: 'nonAllowedTeacher',
             renderer: () => NonAllowedTeacher },
