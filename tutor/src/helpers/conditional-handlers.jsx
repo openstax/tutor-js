@@ -4,8 +4,16 @@ import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
 import Courses from '../models/courses-map';
+import User from '../models/user'
 import { OXMatchByRouter } from 'shared';
 
+const StudentCourses = asyncComponent(
+    () => import('../components/my-courses'), 'My Courses',
+);
+
+const TeacherCourses = asyncComponent(
+    () => import('../screens/my-courses'), 'My Courses',
+);
 
 const StudentDashboard = asyncComponent(
     () => import('../screens/student-dashboard'), 'Course Dashboard',
@@ -30,7 +38,16 @@ const PreWRMGradebook =  asyncComponent(
 const getConditionalHandlers = (Router) => {
     const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
-    const renderTeacherStudent = (Teacher, Student) => {
+    const renderTeacherStudentMyCourses = () => {
+        return (props) => {
+            if(User.isProbablyTeacher) {
+                return <TeacherCourses {...props} />
+            }
+            return <StudentCourses {...props} />
+        }
+    }
+
+    const renderTeacherStudentCourseScreen = (Teacher, Student) => {
         return (props) => {
             const { courseId } = props.params;
             extend(props, { courseId });
@@ -41,7 +58,6 @@ const getConditionalHandlers = (Router) => {
                     <MatchForTutor {...props} />
                 );
             }
-
             if (course && course.currentRole.isTeacher) {
                 return <Teacher {...props} />;
             } else {
@@ -51,7 +67,7 @@ const getConditionalHandlers = (Router) => {
     };
 
     const renderGradeBook = () => {
-        const gradeBookRenderer = renderTeacherStudent(TeacherGradebook, StudentGradebook);
+        const gradeBookRenderer = renderTeacherStudentCourseScreen(TeacherGradebook, StudentGradebook);
         return (props) => {
             const course = Courses.get(props.params.courseId);
             if (course && course.currentRole.isTeacher && course.uses_pre_wrm_scores) {
@@ -80,9 +96,11 @@ const getConditionalHandlers = (Router) => {
     // care must be taken to always return the same function on every call.
     // If the function is dyamically created, react will mount/unmount itself
     // AND ITS CHILDREN, which is almost always undesirable and will trigger api reloads
-    const dashboard = renderTeacherStudent(TeacherDashboard, StudentDashboard);
+    const myCourses = renderTeacherStudentMyCourses();
+    const dashboard = renderTeacherStudentCourseScreen(TeacherDashboard, StudentDashboard);
     const gradebook = renderGradeBook();
     return {
+        myCourses() { return myCourses; },
         dashboard() { return dashboard; },
         gradebook() { return gradebook; },
         becomeRole() { return renderBecomeRole; },
