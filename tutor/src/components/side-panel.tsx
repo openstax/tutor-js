@@ -78,9 +78,11 @@ const Panel = styled.div`
 interface SidePanelProps {
     children: any
     windowImpl: any
+    initialPathname: string
+    ignorePathIncludes: string
 }
 
-const SidePanel: React.FC<SidePanelProps> = ({ children, windowImpl = window  }) => {
+const SidePanel: React.FC<SidePanelProps> = ({ children, ignorePathIncludes = ' ', windowImpl = window }) => {
     const mounted = useRef(false)
     const [showPanel, setPanelState] = useState(true)
     const togglePanel = () => {
@@ -89,7 +91,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ children, windowImpl = window  })
 
     useEffect(
         () => {
-            if (mounted.current) {
+            if (mounted.current && !windowImpl.location.pathname.includes(ignorePathIncludes)) {
                 setPanelState(false)
             } else {
                 mounted.current = true
@@ -105,6 +107,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ children, windowImpl = window  })
                 aria-expanded={showPanel}
                 onClick={togglePanel}
                 aria-label={`${showPanel ? 'Collapse' : 'Expand'} panel`}
+                data-test-id="toggle-preview-panel"
               >
                 <Icon type={showPanel ? 'caret-right' : 'caret-left'} />
             </button>

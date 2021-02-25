@@ -92,25 +92,26 @@ const Content = styled.div`
   }
 `;
 
-const PreviewCourseSidePanel = ({ course }) => {
-  if (course && course.is_preview) {
-    return (
-      <SidePanel>
-        <h3>Ready to begin?</h3>
-        <p>Creating a course is the first step towards managing your class assignments.</p>
-        <TutorLink
-          className="btn btn-primary"
-          to="createNewCourseFromOffering"
-          params={{ appearanceCode: course.appearance_code }}
-          data-test-id="create-course"
-        >
-          Create a course
-        </TutorLink>
-      </SidePanel>
-    )
-  }
+const PreviewCourseSidePanel = ({ course, windowImpl = window }) => {
+    if (course && course.is_preview) {
+        const initialPathname = windowImpl.location.pathname
+        return (
+            <SidePanel ignorePathIncludes={'t/month'}>
+                <h3>Ready to begin?</h3>
+                <p>Creating a course is the first step towards managing your class assignments.</p>
+                <TutorLink
+                    className="btn btn-primary"
+                    to="createNewCourseFromOffering"
+                    params={{ appearanceCode: course.appearance_code }}
+                    data-test-id="preview-panel-create-course"
+                >
+                    Create a course
+                </TutorLink>
+            </SidePanel>
+        )
+    }
 
-  return null;
+    return null;
 }
 
 class CourseContext {
