@@ -1,7 +1,7 @@
-import { React, styled } from 'vendor'
-import { useEffect, useState, useRef, ReactElement } from 'react'
-import { Icon } from 'shared'
-import TutorTheme, { colors, breakpoint } from 'theme'
+import styled from 'styled-components'
+import React, { useEffect, useState, useRef } from 'react'
+import Icon from '../../../shared/src/components/icon'
+import TutorTheme, { colors, breakpoint } from '../theme'
 
 const Panel = styled.div`
     position: absolute;
@@ -80,7 +80,6 @@ const Panel = styled.div`
 `
 
 interface SidePanelProps {
-    children: ReactElement
     ignorePathIncludes: string
     windowImpl: any
 }
