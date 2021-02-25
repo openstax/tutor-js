@@ -75,8 +75,12 @@ const Panel = styled.div`
     }
 `
 
-const SidePanel: React.FC = ({ children, windowImpl = window  }) => {
-    // Need to use ui_settings?
+interface SidePanelProps {
+    children: any
+    windowImpl: any
+}
+
+const SidePanel: React.FC<SidePanelProps> = ({ children, windowImpl = window  }) => {
     const mounted = useRef(false)
     const [showPanel, setPanelState] = useState(true)
     const togglePanel = () => {
@@ -96,7 +100,12 @@ const SidePanel: React.FC = ({ children, windowImpl = window  }) => {
 
     return (
         <Panel>
-            <button className="toggle" aria-expanded={showPanel} onClick={togglePanel}>
+            <button
+                className="toggle"
+                aria-expanded={showPanel}
+                onClick={togglePanel}
+                aria-label={`${showPanel ? 'Collapse' : 'Expand'} panel`}
+              >
                 <Icon type={showPanel ? 'caret-right' : 'caret-left'} />
             </button>
             {showPanel &&
