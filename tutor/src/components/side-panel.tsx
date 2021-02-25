@@ -1,5 +1,5 @@
 import { React, styled } from 'vendor'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, ReactElement } from 'react'
 import { Icon } from 'shared'
 import TutorTheme, { colors, breakpoint } from 'theme'
 
@@ -80,10 +80,9 @@ const Panel = styled.div`
 `
 
 interface SidePanelProps {
-    children: any
-    windowImpl: any
-    initialPathname: string
+    children: ReactElement
     ignorePathIncludes: string
+    windowImpl: any
 }
 
 const SidePanel: React.FC<SidePanelProps> = ({ children, ignorePathIncludes = ' ', windowImpl = window }) => {
