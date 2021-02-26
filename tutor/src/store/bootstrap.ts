@@ -1,8 +1,9 @@
 import { createAction } from '@reduxjs/toolkit'
-import { Course } from './types'
+import { Course, Offering } from './types'
 
 interface BoostrapPayload {
     courses: Course[]
+    offerings: Offering[]
 }
 
 export const bootstrap = createAction<BoostrapPayload>('bootstrap')

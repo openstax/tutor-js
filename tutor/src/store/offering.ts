@@ -1,5 +1,6 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
+import { bootstrap } from './bootstrap'
 import { Offering } from './types'
 import { getOfferings } from './api'
 
@@ -19,6 +20,9 @@ const offeringSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getOfferings.fulfilled, (state, action) => {
             offeringAdapter.setAll(state, action.payload.items)
+        }),
+        builder.addCase(bootstrap, (state, action) => {
+            offeringAdapter.setAll(state, action.payload.offerings)
         })
     },
 })
