@@ -117,14 +117,14 @@ describe('Course Builder UX Model', () => {
         advanceToSave();
     });
 
-    it('goes to dashboard after canceling', () => {
+    it('goes to my courses after canceling', () => {
         ux.router = {
             route: { match: { params: {} } },
             history: { push: jest.fn() },
         };
         const { onCancel } = ux;
         onCancel();
-        expect(ux.router.history.push).toHaveBeenCalledWith('/dashboard');
+        expect(ux.router.history.push).toHaveBeenCalledWith('/courses');
     });
 
     it('shows unavailable message for unavailable offerings', () => {

@@ -9,10 +9,8 @@ const getRoutes = (router) => {
     const ConditionalHandlers = getConditionalHandlers(router);
 
     return [
-        { path: '/dashboard', name: 'myCourses',
-            renderer: r(() => import('./screens/my-courses'), 'Courses Listing') },
         { path: '/courses', name: 'myCourses',
-            renderer: r(() => import('./screens/my-courses'), 'Courses Listing') },
+            renderer: ConditionalHandlers.myCourses },
         { path: '/non-allowed-instructors', name: 'nonAllowedTeacher',
             renderer: () => NonAllowedTeacher },
         { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',

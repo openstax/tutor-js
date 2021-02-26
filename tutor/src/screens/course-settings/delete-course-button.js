@@ -31,7 +31,7 @@ class DeleteCourseModal extends React.Component {
       const { course, history } = this.props;
       const courseTeacherMembership = course.currentCourseTeacher;
       if (courseTeacherMembership.isTeacherOfCourse) {
-          courseTeacherMembership.drop().then(history.push('/dashboard'));
+          courseTeacherMembership.drop().then(history.push('/courses'));
       }
   }
 

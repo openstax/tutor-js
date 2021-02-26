@@ -1,6 +1,6 @@
-context('Dashboard', () => {
+context('My Courses', () => {
     beforeEach(() => {
-        cy.visit('/dashboard');
+        cy.visit('/courses');
         cy.setRole('teacher')
     });
 
