@@ -8,7 +8,7 @@ describe('My Courses', () => {
 
         describe(`as a ${role}`, () => {
 
-            beforeEach(() => openPage('/dashboard', { role }).then((pg) => page = pg));
+            beforeEach(() => openPage('/courses', { role }).then((pg) => page = pg));
             afterEach(() => page.close());
 
             it(`matches snapshot for ${role}`, async () => {
@@ -20,7 +20,7 @@ describe('My Courses', () => {
     });
 
     it('displays pending for non-verified instructor', async () => {
-        const page = await openPage('/dashboard', { role: 'teacher' });
+        const page = await openPage('/courses', { role: 'teacher' });
         await page.evaluate(() => {
             _MODELS.COURSES.clear();
             _MODELS.USER.self_reported_role = 'instructor';

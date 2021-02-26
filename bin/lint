@@ -10,6 +10,8 @@ if [ $# -ne 0 ]; then
     if [ ! -z "$files" ]; then
       $(npm bin)/eslint $2 $files
     fi
+  elif [ "$1" == "fix" ]; then
+      $(npm bin)/eslint --ext $EXT {tutor,shared,exercises}/{src,specs} --fix
   else
     $(npm bin)/eslint --ext $EXT $1/{src,specs}
   fi

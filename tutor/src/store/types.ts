@@ -1,4 +1,6 @@
-type ID = string | number
+export type ID = string | number
+
+type Term = 'spring' | 'summer' | 'fall' | 'winter'
 
 export interface Role {
     id: ID
@@ -63,10 +65,32 @@ export interface Course {
     starts_at: string
     students: Student[]
     teacher_profiles: TeacherProfile[]
-    term: 'spring' | 'summer' | 'fall' | 'winter'
+    term: Term
     timezone: string
     uses_pre_wrm_scores: boolean
     uuid: string
     webview_url: string
     year: number
+    current_role_id?: string
+}
+
+export interface ActiveTermYears {
+    term: Term
+    year: number
+}
+
+export interface Offering {
+    id: ID
+    title: string
+    description: string
+    is_concept_coach: boolean
+    is_tutor: boolean
+    is_preview_available: boolean
+    is_available: boolean
+    appearance_code: string
+    default_course_name: string
+    does_cost: boolean
+    subject: string
+    active_term_years: ActiveTermYears[]
+    os_book_id: string
 }

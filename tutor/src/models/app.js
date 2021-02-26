@@ -12,6 +12,7 @@ import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
+import Offerings from './course/offerings';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
@@ -29,6 +30,7 @@ const BOOTSTRAPED_MODELS = {
     payments: Payments,
     feature_flags: FeatureFlagsApi,
     response_validation: ResponseValidation,
+    offerings: Offerings,
 };
 
 // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
@@ -56,6 +58,7 @@ export default class TutorApp {
 
       const { data } = await app.fetch();
       await app.initializeApp(data);
+      return app
   }
 
   static logError(error, info) {
@@ -70,17 +73,18 @@ export default class TutorApp {
       window._MODELS.bootstrapData = this.data = data;
       window._MODELS.app = this;
       store.dispatch(bootstrap(this.data))
+      window._MODELS.store = store
       forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
           const data = this.data[storeId];
           if (data) { model.bootstrap(data); }
       });
       // are we running under webpack?
       if (this.data.assets_url && typeof __webpack_public_path__ !== 'undefined') {
-      // if so, tell it where to load chunks from.
-      // eslint-disable-next-line no-undef
+          // if so, tell it where to load chunks from.
+          // eslint-disable-next-line no-undef
           __webpack_public_path__ = this.data.assets_url;
       }
-    
+
       BootstrapURLs.update(this.data);
       UiSettings.initialize(this.data.ui_settings || {});
       Notifications.on('tutor-update', this.onNotice);

@@ -177,6 +177,12 @@ class User extends BaseModel {
       return { category, code, data };
   }
 
+  suggestSubject({ subject }) {
+      // students do not submit suggestions
+      if (this.self_reported_role === 'student') { return 'ABORT'; }
+      return { subject };
+  }
+
   @computed get metrics() {
       const courses = Courses.nonPreview.array;
       const getValues = (attr) => uniq(map(courses, attr)).join(';');

@@ -25,7 +25,7 @@ class RemoveTeacherLink extends React.Component {
   }
 
   @action.bound goToDashboard() {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/courses');
   }
 
   @action.bound performDeletion() {

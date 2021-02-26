@@ -97,6 +97,11 @@ export default class CourseBuilderUX extends BaseModel {
       }
   }
 
+  @computed get isLastStage() {
+      // last stage is the openStax loader
+      return this.currentStageIndex === this.stages.length - 2;
+  }
+
   @computed get canNavigate() {
       return this.currentStageIndex !== this.stages.length - 1;
   }
@@ -128,7 +133,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @action.bound onCancel() {
-      this.router.history.push('/dashboard');
+      this.router.history.push('/courses');
   }
 
   @computed get stage() {

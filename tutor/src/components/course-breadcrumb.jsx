@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, Theme, cn } from 'vendor';
+import { React, PropTypes, styled, Theme, cn, observer } from 'vendor';
 import { Icon } from 'shared';
 import TutorLink from './link';
 import { Course } from '../models/courses-map';
@@ -38,7 +38,7 @@ const TaskTitle = styled(TruncatedText)`
   color: ${Theme.colors.neutral.darker};
 `;
 
-const CourseBreadcrumb = ({ course, currentTitle, plan, noBottomMargin, className = '' }) => {
+const CourseBreadcrumb = observer(({ course, currentTitle, plan, noBottomMargin, className = '' }) => {
     return (
         <Wrapper noBottomMargin={noBottomMargin} className={cn(className)}>
             <Links>
@@ -67,7 +67,7 @@ const CourseBreadcrumb = ({ course, currentTitle, plan, noBottomMargin, classNam
             <TaskTitle as="h2">{currentTitle}</TaskTitle>
         </Wrapper>
     );
-};
+});
 
 CourseBreadcrumb.propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,

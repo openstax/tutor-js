@@ -61,6 +61,7 @@ const StyledFooter = styled.div`
         background-color: white;
       }
     }
+  }
 `;
 
 const StyledHeaderInfo = styled.p`

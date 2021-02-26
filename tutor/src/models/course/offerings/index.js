@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
 import Map from 'shared/model/map';
 import Offering from './offering';
 
@@ -16,24 +16,28 @@ class OfferingsMap extends Map {
         return this;
     }
 
-  @computed get tutor() {
+    @computed get tutor() {
         return this.where(c => !c.is_concept_coach);
     }
 
-  @computed get previewable() {
-      return this.where(c => c.is_preview_available);
-  }
+    @computed get previewable() {
+        return this.where(c => c.is_preview_available);
+    }
 
-  @computed get available() {
-      return this.where(c => c.is_available && !c.is_concept_coach);
-  }
+    @computed get available() {
+        return this.where(c => c.is_available && !c.is_concept_coach);
+    }
 
-  @computed get biology2e() {
-      return this.available.where(c => c.appearance_code == 'biology_2e');
-  }
+    @computed get biology2e() {
+        return this.available.where(c => c.appearance_code == 'biology_2e');
+    }
 
-  // will be overwritten by API
-  fetch() {}
+    @action bootstrap(items) {
+        this.onLoaded({ data: { items } })
+    }
+
+    // will be overwritten by API
+    fetch() {}
 
 }
 

@@ -25,7 +25,7 @@ $my-courses-card-padding: 20px;
   }
 }
 
-.my-courses {
+.my-courses, .new-my-courses {
   @mixin card-title() {
     @include tutor-book-cover-font();
     font-weight: 800;
@@ -39,7 +39,7 @@ $my-courses-card-padding: 20px;
     padding-bottom: $my-courses-buffer;
     border-bottom: 1px solid rgb(200, 200, 200);;
   }
-  .my-courses-title,{
+  .my-courses-title {
     color: $tutor-tertiary;
   }
   .course-teacher {
@@ -166,7 +166,7 @@ $my-courses-card-padding: 20px;
       }
     }
 
-    &.preview {
+    &.preview, &.resource {
       box-shadow: 0;
       transition: box-shadow 0.3s ease-in-out;
       position: relative;
@@ -196,7 +196,6 @@ $my-courses-card-padding: 20px;
           flex-direction: column;
           justify-content: center;
           h4 {
-            color: $openstax-gold;
             text-transform: uppercase;
           }
           > * { margin: 0; }
@@ -262,17 +261,35 @@ $my-courses-card-padding: 20px;
       $fg: openstax-book-color($book, primary);
       $bg: openstax-book-color($book, secondary);
       &[data-appearance=#{$book}] {
-        .my-courses-item-title {
+        .my-courses-item-title,
+        svg[data-icon="external-link-square-alt"] {
           color: $fg;
           a {
             color: $fg;
           }
         }
+        .preview-belt h4 {
+          color: $bg;
+        }
+        svg[data-icon="external-link-square"] {
+          color: $fg;
+        }
         background-color: $bg;
       }
     }
-
   }
+
+  .my-courses-item-actions {
+    @each $book in map-keys($openstax-books) {
+      $fg: openstax-book-color($book, primary);
+      &[data-appearance=#{$book}] {
+        svg[data-icon="ellipsis-v"] {
+          color: $fg;
+        }
+      }
+    }
+  }
+  
 
   &.pending-faculty-verification {
     border-bottom: 1px solid $tutor-neutral-light;

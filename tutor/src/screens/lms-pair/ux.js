@@ -61,7 +61,7 @@ export default class LmsPairUX {
 
   @action.bound onPaired() {
       if (this.lmsPair.success) {
-          window.location = '/dashboard';
+          window.location = '/courses';
       }
   }
 

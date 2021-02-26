@@ -34,7 +34,7 @@ describe('Expired Preview Warning', () => {
         expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('Button[variant="primary"]').simulate('click');
 
-        expect(wrapper.instance().pathname).toEqual('/dashboard');
+        expect(wrapper.instance().pathname).toEqual('/courses');
 
     });
 

@@ -1,14 +1,15 @@
 import { React, PropTypes, observable, observer, action } from 'vendor';
-import { Icon } from 'shared';
-import Course from '../../models/course';
-import TimezoneModal from '../../components/timezone-modal';
+import { Dropdown } from 'react-bootstrap';
+import TimeHelper from '../../helpers/time';
+import TutorDropdown from '../../components/dropdown';
 
 @observer
-export default
-class SetTimezone extends React.Component {
+class Timezone extends React.Component {
 
   static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
+      value: PropTypes.string.isRequired,
+      onChange: PropTypes.func.isRequired,
+      disabled: PropTypes.bool,
   }
 
   @observable showModal = false
@@ -21,15 +22,24 @@ class SetTimezone extends React.Component {
   }
 
   render() {
+      const timezones = TimeHelper.getTimezones();
+      const { value, onChange, disabled } = this.props;
       return (
-      <>
-        <Icon type="pencil-alt" onClick={this.onOpen} className="control edit-course" />
-        <TimezoneModal
-            onClose={this.onClose}
-            show={this.showModal}
-            course={this.props.course}
-        />
-      </>
+          <TutorDropdown
+              dropdownTestId='timezone-dropdown'
+              toggleName={value}
+              disabled={disabled}
+              dropdownItems={timezones.map((tz, i) => (
+                  <Dropdown.Item
+                      key={i}
+                      value={tz}
+                      eventKey={tz}
+                      onSelect={(value) => onChange(value)}>
+                      {tz}
+                  </Dropdown.Item>))}
+          />
       );
   }
 }
+
+export default Timezone

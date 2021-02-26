@@ -1,13 +1,21 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import Dashboard from './dashboard'
 import { useHasAnyCourses } from '../../store/courses'
+import { getOfferings } from '../../store/api'
+import NewTeacher from './new-teacher'
 
-const MyCourses: React.FC = () => {
+const MyCourses: React.FC = (props) => {
+    const d = useDispatch()
+    useEffect(() => {
+        d(getOfferings())
+    }, [])
     const hasCourses = useHasAnyCourses()
     if (hasCourses) {
-        return <h1>Courses Dashboard</h1>
+        return <Dashboard />
     }
     return (
-        <h1>new user!</h1>
+        <NewTeacher history={props.history} data-test-id="new-teacher-screen" />
     )
 }
 
