@@ -116,7 +116,7 @@ const PreviewCourseSidePanel = ({ course }) => {
             </SidePanel>
         )
     } else {
-      return null
+        return null
     }
 }
 
