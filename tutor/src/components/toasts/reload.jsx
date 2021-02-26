@@ -30,7 +30,7 @@ const ForceReload = () => {
     return (
         <div className="body">
             <p>
-        You will be redirected to the Current Courses page in {timeLeft} seconds.
+                You will be redirected to the My Courses page in {timeLeft} seconds.
             </p>
             <Button className="reload-page" onClick={performRedirect}>Reload Now</Button>
         </div>

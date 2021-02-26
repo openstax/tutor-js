@@ -1,9 +1,9 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { map,groupBy, some } from 'lodash'
+import { map, groupBy, some } from 'lodash'
 import TutorDropdown from '../../../components/dropdown'
 
-import { Offering,ID } from '../../../store/types'
+import { Offering, ID } from '../../../store/types'
 
 interface AddSubjectsDropdownProps {
     allOfferings: Offering[]
@@ -20,7 +20,7 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
                     className="subject-item"
                     eventKey={subject}
                     disabled>
-                    {subject}
+                    {subject || 'Subjects'}
                 </Dropdown.Item>
 
                 {map(offerings, offering => {
@@ -34,7 +34,8 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
                             disabled={isDisplayed}>
                             {offering.title}
                         </Dropdown.Item>
-                    )}
+                    )
+                }
                 )}
             </div>
         )
