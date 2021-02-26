@@ -1,21 +1,19 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import Dashboard from './dashboard'
 import { useHasAnyCourses } from '../../store/courses'
-import { getOfferings } from '../../store/api'
 import NewTeacher from './new-teacher'
 
-const MyCourses: React.FC = (props) => {
-    const d = useDispatch()
-    useEffect(() => {
-        d(getOfferings())
-    }, [])
+interface MyCoursesProps {
+    history: any
+}
+
+const MyCourses: React.FC<MyCoursesProps> = ({ history }) => {
     const hasCourses = useHasAnyCourses()
     if (hasCourses) {
         return <Dashboard />
     }
     return (
-        <NewTeacher history={props.history} data-test-id="new-teacher-screen" />
+        <NewTeacher history={history} data-test-id="new-teacher-screen" />
     )
 }
 

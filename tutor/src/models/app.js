@@ -76,6 +76,7 @@ export default class TutorApp {
       window._MODELS.store = store
       forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
           const data = this.data[storeId];
+          console.log(data)
           if (data) { model.bootstrap(data); }
       });
       // are we running under webpack?
