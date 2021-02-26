@@ -9,6 +9,9 @@ const getRoutes = (router) => {
     const ConditionalHandlers = getConditionalHandlers(router);
 
     return [
+        { path: '/dashboard', name: 'oldMyCourses',
+            renderer: () => ({ history }) => { history.replace('/courses'); return null },
+        },
         { path: '/courses', name: 'myCourses',
             renderer: ConditionalHandlers.myCourses },
         { path: '/non-allowed-instructors', name: 'nonAllowedTeacher',
