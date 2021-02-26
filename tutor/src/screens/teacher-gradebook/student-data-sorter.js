@@ -1,13 +1,15 @@
-import { isNumber } from 'lodash';
+import { isString } from 'lodash';
 
 const percent = (num, total) => Math.round((num / total) * 100) || 0;
 
 const getSortValue = function(student, key, dataType, displayAs) {
-    //name, course_average, homework_score, reading_score
-    if (!isNumber(key)) {
-    //if string, normalize it
-        if(typeof student[key] === 'string' || student[key] instanceof String) {
+    // reading a property directly from student model
+    if (isString(key)) {
+        // if value is a string, normalize it
+        if(isString(student[key])) {
             return student[key].toLowerCase();
+        } else {
+            return student[key]
         }
     }
     const task = student.data[key];
