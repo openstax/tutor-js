@@ -36,6 +36,7 @@ describe('Tutor App model', () => {
             data: {
                 courses: [] ,
                 user: { },
+                offerings: [],
             },
         }))
         await App.boot();
