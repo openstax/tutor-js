@@ -19,6 +19,9 @@ import { get } from 'lodash';
 import { breakpoint } from 'theme';
 import { MobilePaymentBar } from './navbar/student-payment-bar';
 import GoToTop from './go-to-top';
+import SidePanel from './side-panel';
+import TutorLink from './link';
+import { useAllCourses } from '../store/courses'
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -89,6 +92,37 @@ const Content = styled.div`
     padding-top: 0;
   }
 `;
+
+const PreviewCourseSidePanel = ({ course }) => {
+    if (!course || !course.is_preview || !course.currentRole.isTeacher) {
+        return null
+    }
+
+    const courses = useAllCourses()
+
+    if (courses.filter(c => !c.is_preview && c.offering_id == course.offering_id).length == 0) {
+        return (
+            <SidePanel ignorePathIncludes={'t/month'}>
+                <h3>Ready to begin?</h3>
+                <p>Creating a course is the first step towards managing your class assignments.</p>
+                <TutorLink
+                    className="btn btn-primary"
+                    to="createNewCourseFromOffering"
+                    params={{ appearanceCode: course.appearance_code }}
+                    data-test-id="preview-panel-create-course"
+                >
+                    Create a course
+                </TutorLink>
+            </SidePanel>
+        )
+    } else {
+        return null
+    }
+}
+
+PreviewCourseSidePanel.propTypes = {
+    course: PropTypes.instanceOf(Course),
+}
 
 class CourseContext {
   @observable course;
@@ -182,6 +216,7 @@ class TutorLayout extends React.Component {
                       <ImpersonationWarning app={app} />
                       {this.props.children}
                       {course && course.currentRole.isTeacher && <GoToTop />}
+                      <PreviewCourseSidePanel course={course} />
                   </Content>
                   <Navbar
                       area="footer"

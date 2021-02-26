@@ -6,7 +6,7 @@ describe('My Courses', () => {
         await setRole('teacher')
     })
 
-    it('displays course create page when no courses', async () => {
+    it.skip('displays course create page when no courses', async () => {
         await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=existing-teacher-screen')
         await page.evaluate(() => {
@@ -16,7 +16,7 @@ describe('My Courses', () => {
         await expect(page).not.toHaveSelector('testEl=existing-teacher-screen', { timeout: 10 })
     })
 
-    it.only('allows a new teacher select and suggest subjects', async () => {
+    it('allows a new teacher select and suggest subjects', async () => {
         await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=existing-teacher-screen')
         await page.evaluate(() => {

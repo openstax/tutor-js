@@ -33,6 +33,10 @@ function addCourses(courses, attrs) {
     Factory.create('Course', merge(attrs,
       { name: 'Group with no assignments', id: 5, type: 'physics', months_ago: 2, now }))
   );
+  courses.push(
+    Factory.create('Course', merge(attrs,
+      { name: 'Preview Course', id: 6, type: 'physics', months_ago: 2, is_preview: true, now }))
+  );
 }
 
 BOOTSTRAP_DATA.accounts_api_url = `http://localhost:${be_port}/api`;
