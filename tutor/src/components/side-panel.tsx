@@ -4,7 +4,7 @@ import Icon from '../../../shared/src/components/icon'
 import TutorTheme, { colors, breakpoint } from '../theme'
 
 const Panel = styled.div`
-    position: absolute;
+    position: fixed;
     top: 33vh;
     right: 0;
     z-index: ${TutorTheme.zIndex.sidePanel};
