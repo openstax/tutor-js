@@ -167,45 +167,6 @@ const STUDENT_PAST_COURSE = {
     }],
 };
 
-const TEACHER_PREVIEW_COURSE_MODEL = {
-    id: '7',
-    homework_score_weight: 0.80,
-    homework_progress_weight: 0.15,
-    reading_score_weight: 0.05,
-    reading_progress_weight: 0.0,
-    name: 'Local Test Preview Course',
-    book_id: '123',
-    appearance_code: 'testing',
-    offering_id: '1',
-    is_active: true,
-    is_concept_coach: false,
-    is_preview: true,
-    year: 2017,
-    term: 'spring',
-    ecosystem_book_uuid: '3402dc53-113d-45f3-954e-8d2ad1e73659',
-    ecosystem_id: '12',
-    starts_at: moment().subtract(1, 'month').format(),
-    ends_at: moment().add(1, 'month').format(),
-    webview_url: 'http://cnx.org/',
-    salesforce_book_name: 'a book title',
-    current_role_id: '1',
-    periods: [{
-        id: '1',
-        name: '1st',
-        num_enrolled_students: 12,
-        enrollment_url: 'http://test/period/1',
-        default_open_time: '07:01',
-        default_due_time: '12:00',
-        is_archived: false,
-    }],
-
-    roles: [{
-        id: '1',
-        type: 'teacher',
-        joined_at: moment().subtract(2, 'week').format(),
-    }],
-};
-
 const MASTER_COURSES_LIST = [
     STUDENT_COURSE_ONE_MODEL,
     TEACHER_COURSE_TWO_MODEL,
@@ -217,4 +178,4 @@ const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products
 
 const bootstrapCoursesList = () => CoursesMap.bootstrap(MASTER_COURSES_LIST);
 
-export { STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, STUDENT_ARCHIVED_COURSE, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, TEACHER_PREVIEW_COURSE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE, bootstrapCoursesList };
+export { STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, STUDENT_ARCHIVED_COURSE, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE, bootstrapCoursesList };
