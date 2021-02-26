@@ -6,7 +6,7 @@ describe('My Courses', () => {
         await setRole('teacher')
     })
 
-    it('displays course create page when no courses', async () => {
+    it.skip('displays course create page when no courses', async () => {
         await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=existing-teacher-screen')
         await page.evaluate(() => {
