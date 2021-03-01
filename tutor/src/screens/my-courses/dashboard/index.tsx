@@ -6,7 +6,7 @@ import { colors } from 'theme'
 import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
-import { useAllCourses } from '../../../store/courses'
+import { useDisplayedCourseOfferingIds, useAllCourses } from '../../../store/courses'
 import { useAllOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './addSubjectDropdown'
@@ -114,20 +114,10 @@ export const MyCoursesDashboard = () => {
     const courses = useAllCourses()
 
     const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(UiSettings.get('displayedOfferingIds') || [])
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
+        useDisplayedCourseOfferingIds()
+    )
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
-
-    // First time setting the `displayedOfferingIds`
-    useEffect(() => {
-        if (offerings.length > 0 && courses.length > 0) {
-            const uiDisplayedOfferingIds = UiSettings.get('displayedOfferingIds')
-            if (!uiDisplayedOfferingIds) {
-                const offeringIds = map(filter(offerings, o => some(courses, c => c.offering_id === o.id)), m => m.id)
-                UiSettings.set('displayedOfferingIds', offeringIds)
-                setDisplayedOfferingIds(offeringIds)
-            }
-        }
-    }, [offerings, courses])
 
     // update the `displayedOfferingIds` if users adds/delete offerings
     useEffect(() => {

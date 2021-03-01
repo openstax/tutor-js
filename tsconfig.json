@@ -32,7 +32,8 @@
       "@types/jest",
       "jest-playwright-preset",
       "expect-playwright"
-    ]
+    ],
+    "typeRoots": [ "./types", "node_modules/@types" ]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": [

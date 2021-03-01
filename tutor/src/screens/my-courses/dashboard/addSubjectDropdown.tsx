@@ -31,7 +31,8 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
                             key={offering.id}
                             eventKey={offering.title}
                             onSelect={() => setDisplayedOfferingIds(prevState => [...prevState, offering.id])}
-                            disabled={isDisplayed}>
+                            disabled={isDisplayed}
+                        >
                             {offering.title}
                         </Dropdown.Item>
                     )
