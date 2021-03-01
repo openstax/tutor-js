@@ -153,10 +153,11 @@ Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
 };
 
 Factories.offeringsMap = ({ count = 4 } = {}) => {
+    const offerings = ['biology', 'physics', 'sociology', 'apush'].slice(0, count);
     const map = new OfferingsMap();
     map.onLoaded({
         data: {
-            items: range(count).map(() => FactoryBot.create('Offering', {})),
+            items: offerings.map((type) => FactoryBot.create('Offering', { type })),
         },
     });
     return map;

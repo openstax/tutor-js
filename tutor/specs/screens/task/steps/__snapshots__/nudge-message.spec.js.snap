@@ -30,7 +30,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "just_created": false,
       "map": undefined,
       "name": "College Physics",
-      "offering_id": 1,
+      "offering_id": 2,
       "periods": Array [
         CoursePeriod {
           "$nonSerializable": Object {
@@ -420,7 +420,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "just_created": false,
       "map": undefined,
       "name": "College Physics",
-      "offering_id": 1,
+      "offering_id": 2,
       "periods": Array [
         CoursePeriod {
           "$nonSerializable": Object {
@@ -814,7 +814,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "just_created": false,
       "map": undefined,
       "name": "College Physics",
-      "offering_id": 1,
+      "offering_id": 2,
       "periods": Array [
         CoursePeriod {
           "$nonSerializable": Object {
@@ -1208,7 +1208,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "just_created": false,
       "map": undefined,
       "name": "College Physics",
-      "offering_id": 1,
+      "offering_id": 2,
       "periods": Array [
         CoursePeriod {
           "$nonSerializable": Object {
@@ -1602,7 +1602,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "just_created": false,
       "map": undefined,
       "name": "College Physics",
-      "offering_id": 1,
+      "offering_id": 2,
       "periods": Array [
         CoursePeriod {
           "$nonSerializable": Object {

@@ -33,4 +33,11 @@ describe('My Courses', () => {
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=0')
     })
+
+    it.only('shows new UI for myCourses', async () => {
+        await visitPage(page, '/courses')
+        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
+        await jestPlaywright.debug() 
+        await expect(page).not.toHaveSelector('testEl=existing-teacher-screen', { timeout: 10000000 })
+    })
 })

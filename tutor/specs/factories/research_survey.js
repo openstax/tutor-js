@@ -1,5 +1,5 @@
 const {
-    Factory, sequence, fake, APPEARANCE_CODES,
+    Factory, sequence, fake,
 } = require('./helpers');
 
 Factory.define('ResearchSurvey')

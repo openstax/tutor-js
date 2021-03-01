@@ -9,19 +9,28 @@ const {
 
 const PLAN_TYPES = [ 'homework', 'reading', 'external', 'event' ];
 
-const TITLES = {
-    biology: 'Biology with Courseware',
-    physics: 'College Physics',
-    sociology: 'Sociology w Courseware',
-    apush: 'AP US History',
-};
-
-const APPEARANCE_CODES = {
-    biology: 'college_biology',
-    physics: 'college_physics',
-    sociology: 'intro_sociology',
-    ap_ush: 'ap_us_history',
-};
+const OFFERINGS = {
+    biology: {
+        id: 1,
+        title: 'Biology with Courseware',
+        appearance_code: 'college_biology',
+    },
+    physics: {
+        id: 2,
+        title: 'College Physics',
+        appearance_code: 'college_physics',
+    },
+    sociology: {
+        id: 3,
+        title: 'Sociology w Courseware',
+        appearance_code: 'intro_sociology',
+    },
+    apush: {
+        id: 4,
+        title: 'AP US History',
+        appearance_code: 'ap_us_history',
+    },
+}
 
 const SECTION_NAMES = [
     'Biotechnology',
@@ -56,6 +65,6 @@ function rng(options) {
 
 module.exports = {
     Factory, uuid, sequence, reference, fake, rng,
-    TITLES, APPEARANCE_CODES, PLAN_TYPES,
+    PLAN_TYPES, OFFERINGS,
     moment,  SECTION_NAMES,
 };

@@ -1,7 +1,7 @@
 const { cloneDeep } = require('lodash');
 const {
     Factory, sequence, uuid,
-    TITLES, fake,
+    TITLES, fake, OFFERINGS,
 } = require('./helpers');
 
 const physics = require('../../api/ecosystems/1/readings.json')[0];
@@ -32,6 +32,6 @@ Factory.define('Book')
     .chapter_section(() => [])
     .cnx_id(uuid)
     .short_id('GFy_h8cu')
-    .title(({ type = 'physics' }) => TITLES[type])
+    .title(({ type = 'physics' }) => OFFERINGS[type].title)
     .type('part')
     .webview_url('https://cnx.org');

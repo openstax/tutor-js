@@ -1,5 +1,5 @@
 const {
-    Factory, sequence, APPEARANCE_CODES,
+    Factory, sequence,
 } = require('./helpers');
 
 Factory.define('Note')

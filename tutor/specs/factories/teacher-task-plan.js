@@ -1,7 +1,7 @@
 const moment = require('moment');
 const {
     Factory, sequence, uuid, reference,
-    fake, APPEARANCE_CODES, PLAN_TYPES,
+    fake, PLAN_TYPES,
 } = require('./helpers');
 const { times } = require('lodash');
 

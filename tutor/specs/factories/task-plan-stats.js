@@ -1,5 +1,5 @@
 const {
-    Factory, sequence, reference, fake, TITLES,
+    Factory, sequence, reference, fake, OFFERINGS,
 } = require('./helpers');
 const { capitalize } = require('lodash');
 require('../../specs/factories/task-plan-stats');
@@ -17,7 +17,7 @@ Factory.define('TaskPlanExerciseStat')
 
 Factory.define('TaskPlanStatPage')
     .id(sequence)
-    .title(({ parent }) => TITLES[parent.type || 'physics'])
+    .title(() => OFFERINGS['physics'].title)
     .student_count(() => fake.random.number({ min: 10, max: 40 }))
     .correct_count(({ parent }) => fake.random.number({ min: 1, max: parent.total_count }))
     .incorrect_count(({ object }) => object.student_count - object.correct_count)

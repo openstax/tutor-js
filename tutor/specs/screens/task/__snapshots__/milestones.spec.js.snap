@@ -1059,7 +1059,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
         "just_created": false,
         "map": undefined,
         "name": "College Physics",
-        "offering_id": 1,
+        "offering_id": 2,
         "periods": Array [
           CoursePeriod {
             "$nonSerializable": Object {
