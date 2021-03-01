@@ -1335,14 +1335,8 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
-                      <input
-                        checked={false}
-                        className="answer-input-box"
-                        disabled={true}
-                        id="1-option-0"
-                        name="1-options"
-                        onChange={[Function]}
-                        type="radio"
+                      <div
+                        className="correct-incorrect"
                       />
                       <label
                         className="answer-label"
@@ -1357,7 +1351,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                             className="answer-letter"
                             data-test-id="answer-choice-a"
                             disabled={true}
-                            onClick={[Function]}
                           >
                             a
                           </button>
@@ -1397,14 +1390,8 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
-                      <input
-                        checked={false}
-                        className="answer-input-box"
-                        disabled={true}
-                        id="1-option-1"
-                        name="1-options"
-                        onChange={[Function]}
-                        type="radio"
+                      <div
+                        className="correct-incorrect"
                       />
                       <label
                         className="answer-label"
@@ -1419,7 +1406,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                             className="answer-letter"
                             data-test-id="answer-choice-b"
                             disabled={true}
-                            onClick={[Function]}
                           >
                             b
                           </button>
@@ -2563,7 +2549,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                         </div>
                       </div>
                     </Content>
-                    <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
+                    <ExercisePreview questionType=\\"teacher-preview\\" className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
                       <Card className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1} body={false}>
                         <div data-exercise-id=\\"14@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card\\">
                           <CardBody>
@@ -2573,7 +2559,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} writtenResponse={[undefined]} questionType=\\"teacher-preview\\" />
                                 <Component block={true} className=\\"exercise stimulus\\" html={[undefined]} />
                                 <div>
-                                  <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type={[undefined]} displaySolution={true}>
+                                  <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
                                     <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                       <QuestionHtml type=\\"context\\" html=\\"\\" hidden={false} />
                                       <QuestionHtml type=\\"stimulus\\" html=\\"\\" hidden={false} />
@@ -2582,16 +2568,15 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div dangerouslySetInnerHTML={{...}} />
                                         </Component>
                                       </QuestionHtml>
-                                      <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"student\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                      <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                         <div className=\\"answers-table\\">
-                                          <Memo(wrappedComponent) project={[undefined]} hasFeedback={false} hasIncorrectAnswer={false} />
-                                          <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                <input type=\\"radio\\" className=\\"answer-input-box\\" checked={false} id=\\"16-option-0\\" name=\\"16-options\\" onChange={[Function: res]} disabled={true} />
+                                                <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
-                                                    <button onClick={[Function: res]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
                                                       a
                                                     </button>
                                                   </span>
@@ -2611,13 +2596,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                <input type=\\"radio\\" className=\\"answer-input-box\\" checked={false} id=\\"16-option-1\\" name=\\"16-options\\" onChange={[Function: res]} disabled={true} />
+                                                <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
-                                                    <button onClick={[Function: res]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
                                                       b
                                                     </button>
                                                   </span>
@@ -2637,13 +2622,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                <input type=\\"radio\\" className=\\"answer-input-box\\" checked={false} id=\\"16-option-2\\" name=\\"16-options\\" onChange={[Function: res]} disabled={true} />
+                                                <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
-                                                    <button onClick={[Function: res]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
                                                       c
                                                     </button>
                                                   </span>
@@ -2663,13 +2648,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                <input type=\\"radio\\" className=\\"answer-input-box\\" checked={false} id=\\"16-option-3\\" name=\\"16-options\\" onChange={[Function: res]} disabled={true} />
+                                                <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-3\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
-                                                    <button onClick={[Function: res]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-d\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-d\\">
                                                       d
                                                     </button>
                                                   </span>
@@ -2689,13 +2674,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"student\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                <input type=\\"radio\\" className=\\"answer-input-box\\" checked={false} id=\\"16-option-4\\" name=\\"16-options\\" onChange={[Function: res]} disabled={true} />
+                                                <div className=\\"correct-incorrect\\" />
                                                 <label onKeyPress={[Function]} htmlFor=\\"16-option-4\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
-                                                    <button onClick={[Function: res]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-e\\">
+                                                    <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-e\\">
                                                       e
                                                     </button>
                                                   </span>
