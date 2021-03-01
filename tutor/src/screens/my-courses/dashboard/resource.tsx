@@ -45,20 +45,21 @@ interface ResourcesProps {
     link: string
     appearanceCode?: string
     className?: string
+    titleId?: string
 }
 
-const Resources: React.FC<ResourcesProps> = ({ title, info, link, appearanceCode, className }) => {
+const Resources: React.FC<ResourcesProps> = ({ title, info, link, appearanceCode, className, titleId = '' }) => {
     const itemClasses = cn('my-courses-item', 'resource', className, { 'has-not-appearance': !appearanceCode })
     return (
         <StyledResource className="my-courses-item-wrapper">
             <div
                 data-appearance={appearanceCode}
-                data-test-id="course-card"
+                data-test-id="resources-card"
                 data-is-teacher={true}
                 className={itemClasses}
             >
                 <a className="my-courses-item-title" href={link} target="_blank">
-                    <h4 className="name">{title}</h4>
+                    <h4 className="name" id={titleId}>{title}</h4>
                     <div className="preview-belt">
                         <p>{info}</p>
                     </div>

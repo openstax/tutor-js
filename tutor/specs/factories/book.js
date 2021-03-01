@@ -1,7 +1,6 @@
 const { cloneDeep } = require('lodash');
 const {
-    Factory, sequence, uuid,
-    TITLES, fake, OFFERINGS,
+    Factory, sequence, uuid, fake, OFFERINGS,
 } = require('./helpers');
 
 const physics = require('../../api/ecosystems/1/readings.json')[0];

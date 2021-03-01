@@ -46,11 +46,13 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
             <Resource
                 title="Instructor Getting Started Guide"
                 info="Find information on OpenStax Tutor features and answers to common questions"
-                link={CourseInformation.gettingStartedGuide.teacher} />
+                link={CourseInformation.gettingStartedGuide.teacher}
+                titleId="instructor-getting-started" />
             <Resource
                 title={<span><Icon type="play-circle"/> Video Tutorials </span>}
                 info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
-                link={CourseInformation.videoTutorials} />
+                link={CourseInformation.videoTutorials}
+                titleId="instructor-videos" />
         </>
     )
     return (
@@ -62,7 +64,8 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
             appearanceCode={offering.appearance_code}
             title="Instructor Resources"
             info="Free resources integrated with your book. "
-            link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
+            link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`}
+            titleId="instructor-resources" />
         }
     </>
     )
@@ -189,7 +192,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     )
 
     return (
-        <div className="offering-container">
+        <div className="offering-container" data-offering-id={offering.id}>
             {editModeIcons}
             <h3>{offering.title}</h3>
             <Tabs
