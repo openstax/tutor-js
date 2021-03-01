@@ -1,7 +1,7 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import { bootstrap } from './bootstrap'
-import { Offering } from './types'
+import { Offering, ID } from './types'
 import { getOfferings } from './api'
 
 const offeringAdapter = createEntityAdapter<Offering>({
@@ -29,6 +29,10 @@ const offeringSlice = createSlice({
 
 export const useAllOfferings = () => useSelector<OfferingSlice, Offering[]>(state => {
     return selectors.selectAll(state)
+})
+
+export const useOfferingForId = (offeringId: ID) => useSelector<OfferingSlice, Offering | undefined>(state => {
+    return selectors.selectById(state, offeringId)
 })
 
 export const offeringsReducer = offeringSlice.reducer
