@@ -53,6 +53,16 @@ describe('My Courses', () => {
         })
     
         it.only('enters edit mode', async () => {
+            const getOfferingIds = () => {
+                let offeringIds : string[] = []
+                const elements = document.getElementsByClassName('offering-container')
+                for(let i = 0; i < elements.length; i++){
+                    const element = elements[i];
+                    //@ts-ignore
+                    offeringIds.push(element.dataset.offeringId)
+                }
+                return offeringIds;
+            }
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
 
@@ -61,12 +71,22 @@ describe('My Courses', () => {
             await expect(page).toHaveSelector('.edit-mode-icons')
             await expect(page).toHaveSelector('.add-subject-dropdown')
 
+            // [1, 2]
+            const offeringOrderIds = await page.evaluate(getOfferingIds)
+            // ordering the offerings
+            await page.click(`.offering-container[data-offering-id="${offeringOrderIds[0]}"] .ox-icon-arrow-down`)
+            await expect(await page.evaluate(getOfferingIds)).toEqual(offeringOrderIds.reverse())
+
             const defaultOfferingContainersLength = await page.$$eval('.offering-container', node => node.length);
             await page.click('.add-subject-dropdown button')
             await page.waitForSelector('.dropdown-menu.show')
             await page.click('.dropdown-menu.show .offering-item:not(disabled)')
             // we added a new offering
             await expect(defaultOfferingContainersLength + 1).toEqual(await page.$$eval('.offering-container', node => node.length))
+
+            await page.click('.controls button')
+            await expect(await page.$eval('.controls button', node => node.textContent)).toEqual('Manage subjects')
+
         })
     })
 })
