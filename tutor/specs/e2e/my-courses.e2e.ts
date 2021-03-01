@@ -52,14 +52,14 @@ describe('My Courses', () => {
             await expect(await page.$eval('#instructor-videos', node => node.textContent)).toEqual(' Video Tutorials ')
         })
     
-        it.only('enters edit mode', async () => {
+        it('enters edit mode', async () => {
             const getOfferingIds = () => {
                 let offeringIds : string[] = []
-                const elements = document.getElementsByClassName('offering-container')
+                const elements = document.querySelectorAll<HTMLDivElement>('.offering-container')
                 for(let i = 0; i < elements.length; i++){
                     const element = elements[i];
-                    //@ts-ignore
-                    offeringIds.push(element.dataset.offeringId)
+                    if(element.dataset.offeringId)
+                        offeringIds.push(element.dataset.offeringId)
                 }
                 return offeringIds;
             }
