@@ -23,10 +23,12 @@ const StyledCreateCourse = styled.div`
 `
 
 interface CreateCourseProps {
-  appearanceCode: string
+    appearanceCode?: string
 }
 
 const CreateCourse: React.FC<CreateCourseProps> = ({ appearanceCode }) => {
+    if (!appearanceCode) { return null }
+
     return (
         <StyledCreateCourse>
             <TourAnchor id="create-course-zone">
