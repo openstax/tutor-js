@@ -4,7 +4,7 @@ import {
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
-import Course               from '../models/course';
+import Courses, { Course }  from '../models/courses-map';
 import { Logo }             from './navbar/logo';
 import { Menus }            from './navbar/menus';
 import TermsModal           from './terms-modal';
@@ -21,7 +21,7 @@ import { MobilePaymentBar } from './navbar/student-payment-bar';
 import GoToTop from './go-to-top';
 import SidePanel from './side-panel';
 import TutorLink from './link';
-import { useAllCourses } from '../store/courses'
+
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -94,30 +94,29 @@ const Content = styled.div`
 `;
 
 const PreviewCourseSidePanel = ({ course }) => {
-    if (!course || !course.is_preview || !course.currentRole.isTeacher) {
+    if (!course ||
+        !course.is_preview ||
+        !course.currentRole.isTeacher ||
+        !course.appearanceCode ||
+        !Courses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty
+    ) {
         return null
     }
 
-    const courses = useAllCourses()
-
-    if (courses.filter(c => !c.is_preview && c.offering_id == course.offering_id).length == 0) {
-        return (
-            <SidePanel ignorePathIncludes={'t/month'}>
-                <h3>Ready to begin?</h3>
-                <p>Creating a course is the first step towards managing your class assignments.</p>
-                <TutorLink
-                    className="btn btn-primary"
-                    to="createNewCourseFromOffering"
-                    params={{ appearanceCode: course.appearance_code }}
-                    data-test-id="preview-panel-create-course"
-                >
-                    Create a course
-                </TutorLink>
-            </SidePanel>
-        )
-    } else {
-        return null
-    }
+    return (
+        <SidePanel ignorePathIncludes={'t/month'}>
+            <h3>Ready to begin?</h3>
+            <p>Creating a course is the first step towards managing your class assignments.</p>
+            <TutorLink
+                className="btn btn-primary"
+                to="createNewCourseFromOffering"
+                params={{ appearanceCode: course.appearanceCode }}
+                data-test-id="preview-panel-create-course"
+            >
+            Create a course
+            </TutorLink>
+        </SidePanel>
+    )
 }
 
 PreviewCourseSidePanel.propTypes = {

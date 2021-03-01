@@ -194,6 +194,10 @@ export default class Course extends BaseModel {
         return CourseInformation.bestPracticesDocumentURLFor(this.appearanceCode);
     }
 
+    @computed get appearanceCode() {
+        return this.appearance_code || this.offering?.appearance_code || ''
+    }
+
     @computed get bounds() {
         return {
             start: TimeHelper.getMomentPreserveDate(this.starts_at, TimeHelper.ISO_DATE_FORMAT),
