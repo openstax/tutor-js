@@ -44,7 +44,8 @@ class ExercisePreview extends React.Component {
   };
 
   static defaultProps = {
-      panelStyle: 'default',
+      panelStyle:      'default',
+      questionType:    'teacher-preview',
       isInteractive:   true,
       overlayActions:  {},
       extractedInfo:   {},
@@ -143,7 +144,8 @@ class ExercisePreview extends React.Component {
                           video={info.hasVideo}
                           interactive={info.hasInteractive}
                           writtenResponse={info.isWrittenResponse}
-                          questionType={this.props.questionType || 'teacher-preview'} />
+                          questionType={this.props.questionType}
+                      />
                       {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
                       {this.renderStimulus()}
                       {map(this.exercise.questions, (question, index) => (
