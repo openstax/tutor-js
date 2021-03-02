@@ -17,6 +17,7 @@ import Stat from '../../src/models/stats';
 import { GradingTemplate } from '../../src/models/grading/templates';
 import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
+import { GET_OFFERINGS } from './helpers';
 
 import './research_survey';
 import './teacher-task-plan';
@@ -153,11 +154,11 @@ Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
 };
 
 Factories.offeringsMap = ({ count = 4 } = {}) => {
-    const offerings = ['biology', 'physics', 'sociology', 'apush'].slice(0, count);
+    const getOfferings = GET_OFFERINGS.slice(0, count)
     const map = new OfferingsMap();
     map.onLoaded({
         data: {
-            items: offerings.map((type) => FactoryBot.create('Offering', { type })),
+            items: getOfferings.map(go => go()),
         },
     });
     return map;

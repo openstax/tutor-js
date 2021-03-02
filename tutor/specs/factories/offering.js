@@ -1,8 +1,9 @@
 const {
-    Factory, fake, reference, OFFERINGS,
+    Factory, sequence, fake, reference,
+    TITLES, APPEARANCE_CODES,
 } = require('./helpers');
 
-const TITLE_KEYS = Object.keys(OFFERINGS);
+const TITLE_KEYS = Object.keys(TITLES);
 
 const moment = require('moment');
 
@@ -13,12 +14,12 @@ Factory.define('OfferingTerm')
     .year(() => moment().year());
 
 Factory.define('Offering')
-    .id(({ type = 'physics' }) => OFFERINGS[type].id)
-    .title(({ type = fake.random.arrayElement(TITLE_KEYS) }) => OFFERINGS[type].title)
+    .id(sequence)
+    .title(({ type = fake.random.arrayElement(TITLE_KEYS) }) => TITLES[type])
     .is_concept_coach(false)
     .is_tutor(true)
-    .appearance_code(({ type = 'physics' }) => OFFERINGS[type].appearance_code)
-    .default_course_name(({ type = 'physics' }) => OFFERINGS[type].title)
+    .appearance_code(({ type = 'physics' }) => APPEARANCE_CODES[type])
+    .default_course_name(({ type = 'physics' }) => TITLES[type])
     .does_cost(true)
     .active_term_years(reference('OfferingTerm', { count: 4 }))
     .is_available(true)

@@ -2,7 +2,6 @@ import { React, cn, useState, useHistory, useEffect, useRef } from 'vendor';
 import { isNil, extend, partial } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
-import S from '../helpers/string';
 import qs from 'qs';
 
 // Used to cancel router transitions the same way an onClick event is
@@ -93,7 +92,7 @@ const Tabs = ({
                         >
                             <a
                                 href="#"
-                                data-test-id={`${S.dasherize(tab)}-tab`}
+                                data-test-id={`${tab.toLowerCase()}-tab`}
                                 onClick={partial(onTabClick, index)}
                             >
                                 <h2>

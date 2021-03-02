@@ -9,28 +9,26 @@ const {
 
 const PLAN_TYPES = [ 'homework', 'reading', 'external', 'event' ];
 
-const OFFERINGS = {
-    biology: {
-        id: 1,
-        title: 'Biology with Courseware',
-        appearance_code: 'college_biology',
-    },
-    physics: {
-        id: 2,
-        title: 'College Physics',
-        appearance_code: 'college_physics',
-    },
-    sociology: {
-        id: 3,
-        title: 'Sociology w Courseware',
-        appearance_code: 'intro_sociology',
-    },
-    apush: {
-        id: 4,
-        title: 'AP US History',
-        appearance_code: 'ap_us_history',
-    },
-}
+const TITLES = {
+    biology: 'Biology with Courseware',
+    physics: 'College Physics',
+    sociology: 'Sociology w Courseware',
+    apush: 'AP US History',
+};
+
+const APPEARANCE_CODES = {
+    biology: 'college_biology',
+    physics: 'college_physics',
+    sociology: 'intro_sociology',
+    apush: 'ap_us_history',
+};
+
+const GET_OFFERINGS = [
+    () => Factory.create('Offering', { id: 1, title: TITLES.biology, appearance_code: APPEARANCE_CODES.biology }),
+    () => Factory.create('Offering', { id: 2, title: TITLES.physics, appearance_code: APPEARANCE_CODES.physics }),
+    () => Factory.create('Offering', { id: 3, title: TITLES.sociology, appearance_code: APPEARANCE_CODES.sociology }),
+    () => Factory.create('Offering', { id: 4, title: TITLES.apush, appearance_code: APPEARANCE_CODES.apush }),
+]
 
 const SECTION_NAMES = [
     'Biotechnology',
@@ -65,6 +63,6 @@ function rng(options) {
 
 module.exports = {
     Factory, uuid, sequence, reference, fake, rng,
-    PLAN_TYPES, OFFERINGS,
+    PLAN_TYPES, GET_OFFERINGS, TITLES, APPEARANCE_CODES,
     moment,  SECTION_NAMES,
 };

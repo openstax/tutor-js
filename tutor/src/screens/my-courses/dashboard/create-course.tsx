@@ -30,7 +30,7 @@ const CreateCourse: React.FC<CreateCourseProps> = ({ appearanceCode }) => {
     return (
         <StyledCreateCourse>
             <TourAnchor id="create-course-zone">
-                <div className="my-courses-add-zone">
+                <div className="my-courses-add-zone" data-test-id="add-course-card">
                     <TutorLink to="createNewCourseFromOffering" params={{ appearanceCode }}>
                         <div>
                             <IconAdd />

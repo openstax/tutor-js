@@ -1,6 +1,6 @@
 const {
     Factory, sequence, uuid, reference,
-    fake, OFFERINGS,
+    fake, TITLES, APPEARANCE_CODES,
 } = require('./helpers');
 const moment = require('moment');
 const { ordinal } = require('../../src/helpers/number');
@@ -40,7 +40,7 @@ Factory.define('Student')
 Factory.define('Course')
     .id(sequence)
     .uuid(uuid)
-    .name(({ type = 'physics' }) => OFFERINGS[type].title)
+    .name(({ type = 'physics' }) => TITLES[type])
     .code('OX-1')
     .term('spring')
     .year(2017)
@@ -52,10 +52,10 @@ Factory.define('Course')
     .default_due_time('07:00')
     .cloned_from_id(null)
     .salesforce_book_name(({ object }) => object.name)
-    .appearance_code(({ type = 'physics' }) => OFFERINGS[type].appearance_code)
+    .appearance_code(({ type = 'physics' }) => APPEARANCE_CODES[type])
     .ecosystem_id(({ object }) => object.id)
     .ecosystem_book_uuid(() => fake.random.arrayElement(Object.keys(BOOK_UID_XREF)))
-    .offering_id(({ type = 'physics' }) => OFFERINGS[type].id)
+    .offering_id(({ type = 'physics' }) => type === 'physics' ? 2 : 1)
     .book_pdf_url('https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf')
     .webview_url('https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd')
     .is_preview(false)

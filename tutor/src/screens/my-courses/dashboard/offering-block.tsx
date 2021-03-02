@@ -192,7 +192,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     )
 
     return (
-        <div className="offering-container" data-offering-id={offering.id}>
+        <div className="offering-container" data-offering-id={offering.id} data-test-id="offering-container">
             {editModeIcons}
             <h3>{offering.title}</h3>
             <Tabs

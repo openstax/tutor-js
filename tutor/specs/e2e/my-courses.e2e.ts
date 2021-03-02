@@ -34,35 +34,31 @@ describe('My Courses', () => {
         ).toContain('onboarding=0')
     })
 
-    describe('New Courses UI', () => {
+    describe('Teachers MyCourses UI', () => {
         it('shows new UI', async () => {
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
-            await expect(page).toHaveSelector('.offering-container')
+            await expect(page).toHaveSelector('testEl=offering-container')
             //course card
-            await expect(page).toHaveSelector('.offering-container .course-cards .my-courses-item-wrapper .my-courses-item')
-            //preview card
-            await expect(page).toHaveSelector('.offering-container .course-cards .preview')
-            //create course card
-            await expect(page).toHaveSelector('.offering-container .my-courses-add-zone')
+            await expect(page).toHaveSelector('testEl=course-card')
+            // //preview card
+            await expect(page).toHaveSelector('testEl=preview-course-card')
+            // //create course card
+            await expect(page).toHaveSelector('testEl=add-course-card')
     
             //Resources
-            await page.click('testEl=r-e-s-o-u-r-c-e-s-tab')
-            await expect(await page.$eval('#instructor-getting-started', node => node.textContent)).toEqual('Instructor Getting Started Guide')
-            await expect(await page.$eval('#instructor-videos', node => node.textContent)).toEqual(' Video Tutorials ')
+            await page.click('testEl=resources-tab')
+            await expect(page).toHaveText('#instructor-getting-started', 'Instructor Getting Started Guide')
+            await expect(page).toHaveText('#instructor-videos', ' Video Tutorials ')
         })
     
         it('enters edit mode', async () => {
             const getOfferingIds = () => {
-                let offeringIds : string[] = []
-                const elements = document.querySelectorAll<HTMLDivElement>('.offering-container')
-                for(let i = 0; i < elements.length; i++){
-                    const element = elements[i];
-                    if(element.dataset.offeringId)
-                        offeringIds.push(element.dataset.offeringId)
-                }
-                return offeringIds;
+                return Array.from(document.querySelectorAll<HTMLDivElement>('.offering-container'))
+                    .reduce((current, el) => el.dataset?.offeringId 
+                        ? current.concat(el.dataset.offeringId) : current, [] as string[])
             }
+
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
 

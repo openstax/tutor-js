@@ -1,12 +1,13 @@
 const {
-    Factory, sequence, uuid, reference, OFFERINGS,
+    Factory, sequence, uuid, reference,
+    TITLES,
 } = require('./helpers');
 
 
 Factory.define('EcosystemBook')
     .id(sequence)
     .uuid(uuid)
-    .title(({ type = 'physics' }) => OFFERINGS[type].title)
+    .title(({ type = 'physics' }) => TITLES[type])
     .version(({ parent, index }) => `${parent.id+3}.${index}`);
 
 Factory.define('Ecosystem')
