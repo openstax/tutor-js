@@ -341,7 +341,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                   role="tab"
                 >
                   <a
-                    data-test-id="this week-tab"
+                    data-test-id="this-week-tab"
                     href="#"
                     onClick={[Function]}
                   >
@@ -356,7 +356,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                   role="tab"
                 >
                   <a
-                    data-test-id="all past work-tab"
+                    data-test-id="all-past-work-tab"
                     href="#"
                     onClick={[Function]}
                   >
@@ -1314,7 +1314,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   role="tab"
                 >
                   <a
-                    data-test-id="this week-tab"
+                    data-test-id="this-week-tab"
                     href="#"
                     onClick={[Function]}
                   >
@@ -1329,7 +1329,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   role="tab"
                 >
                   <a
-                    data-test-id="all past work-tab"
+                    data-test-id="all-past-work-tab"
                     href="#"
                     onClick={[Function]}
                   >

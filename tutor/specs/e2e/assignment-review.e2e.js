@@ -32,7 +32,7 @@ describe('Assignment Review', () => {
     });
 
     // this spec will fail if re-ran repeatedlly when it runs out of questions to drop
-    it('can drop questions', async () => {
+    it('can drop questions1', async () => {
         await page.click('testEl=assignment-scores-tab')
         await page.click('testEl=drop-questions-btn')
         const qId = await page.$eval('testEl=drop-question-row >> input[type="checkbox"]:not(:checked)', el => el.id)
