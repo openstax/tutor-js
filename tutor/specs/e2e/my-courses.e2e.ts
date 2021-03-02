@@ -12,8 +12,8 @@ describe('My Courses', () => {
         await expect(page).toHaveSelector('testEl=existing-teacher-screen', { timeout: 1000 })
         await page.evaluate(() => {
             window._MODELS.store.dispatch({ type: 'bootstrap', payload: {
-                courses: [], offerings: window._MODELS.bootstrapData.offerings
-            }})
+                courses: [], offerings: window._MODELS.bootstrapData.offerings,
+            } })
         })
         await expect(page).toHaveSelector('testEl=new-teacher-screen', { timeout: 10000 })
         await page.type('testEl=input-suggested-subject', 'test')
