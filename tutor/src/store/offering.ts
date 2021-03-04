@@ -22,6 +22,8 @@ const offeringSlice = createSlice({
             offeringAdapter.setAll(state, action.payload.items)
         }),
         builder.addCase(bootstrap, (state, action) => {
+            console.log(state)
+            console.log(action)
             offeringAdapter.setAll(state, action.payload.offerings)
         })
     },
