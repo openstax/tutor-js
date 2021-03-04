@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import scrollIntoView from 'scroll-into-view'
 import { createPreviewCourse } from '../../store/courses'
-import { useAllOfferings } from '../../store/offering'
+import { useAvailableOfferings } from '../../store/offering'
 import User from '../../models/user'
 import { Offering } from '../../store/types'
 import CourseInformation from '../../models/course/information'
@@ -709,7 +709,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
         [queriedScreen],
     )
 
-    const offerings = groupBy(useAllOfferings(), 'subject')
+    const offerings = groupBy(useAvailableOfferings(), 'subject')
     const options = {
         selectedSubject: selectedSubject,
         setSelectedSubject: setSelectedSubject,

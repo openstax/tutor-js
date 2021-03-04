@@ -7,7 +7,7 @@ import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
 import { useDisplayedCourseOfferingIds, useAllCourses } from '../../../store/courses'
-import { useAllOfferings } from '../../../store/offering'
+import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './addSubjectDropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
@@ -110,8 +110,8 @@ const StyledMyCoursesDashboard = styled.div`
 
 export const MyCoursesDashboard = () => {
     // getting all the data: offerings and courses
-    const offerings = useAllOfferings()
     const courses = useAllCourses()
+    const offerings = useAvailableOfferings(courses)
 
     const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
     const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
