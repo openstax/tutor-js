@@ -191,19 +191,19 @@ class YouTube extends React.Component {
       this.props.onStateChange(event);
       switch (event.data) {
 
-      case YouTube.PlayerState.ENDED:
-          this.props.onEnd(event);
-          break;
+          case YouTube.PlayerState.ENDED:
+              this.props.onEnd(event);
+              break;
 
-      case YouTube.PlayerState.PLAYING:
-          this.props.onPlay(event);
-          break;
+          case YouTube.PlayerState.PLAYING:
+              this.props.onPlay(event);
+              break;
 
-      case YouTube.PlayerState.PAUSED:
-          this.props.onPause(event);
-          break;
+          case YouTube.PlayerState.PAUSED:
+              this.props.onPause(event);
+              break;
 
-      default:
+          default:
       }
   };
 

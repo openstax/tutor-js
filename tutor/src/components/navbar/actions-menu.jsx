@@ -128,12 +128,12 @@ class ActionsMenu extends React.Component {
           const separator = (suffix = 'divider') =>
               <Dropdown.Divider key={`${key}-${suffix}`} />;
           switch (options.separator) {
-          case 'after':
-              return [item, separator()];
-          case 'before':
-              return [separator(), item];
-          case 'both':
-              return [separator('before'), item, separator('after')];
+              case 'after':
+                  return [item, separator()];
+              case 'before':
+                  return [separator(), item];
+              case 'both':
+                  return [separator('before'), item, separator('after')];
           }
       }
       return item;

@@ -54,13 +54,13 @@ export default class extends React.Component {
       if (id == null) { return true; }
 
       switch (false) {
-      case !isEmpty(id): return true;
-      case !store.get(id, options): return false;
-      case !this.isLoading(id, options): return true;
-      case !this.isLoaded(id, options): return false;
-      case (!store.isUnknown(id, options) && !store.reload(id, options)): return true;
-      default:
-          return false;
+          case !isEmpty(id): return true;
+          case !store.get(id, options): return false;
+          case !this.isLoading(id, options): return true;
+          case !this.isLoaded(id, options): return false;
+          case (!store.isUnknown(id, options) && !store.reload(id, options)): return true;
+          default:
+              return false;
       }
   };
 
