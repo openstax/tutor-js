@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Button } from 'react-bootstrap'
-import { map, filter, some, includes, indexOf, findIndex } from 'lodash'
+import { map, filter, includes, indexOf, findIndex, every, sumBy } from 'lodash'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
@@ -155,8 +155,15 @@ export const MyCoursesDashboard = () => {
     }
 
     const renderDeleteModal = () => {
-        const offeringHasCourses = some(courses, c => c.offering_id === deleteOfferingIdModal)
-        if (!offeringHasCourses) {
+        const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
+        const areAllPreviewCourses = every(offeringCourses, oc => oc.is_preview)
+        const areAllCoursesWithoutStudents = every(offeringCourses, oc => sumBy(oc?.periods, p => {
+            console.log(oc)
+            console.log(p)
+            return p.num_enrolled_students
+        }) === 0)
+        
+        if (areAllPreviewCourses || areAllCoursesWithoutStudents) {
             return (
                 <DeleteOfferingModal
                     show={Boolean(deleteOfferingIdModal)}
