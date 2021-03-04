@@ -34,7 +34,7 @@ const CreateCourse: React.FC<CreateCourseProps> = ({ offering }) => {
         <StyledCreateCourse>
             <TourAnchor id="create-course-zone">
                 <div className="my-courses-add-zone">
-                    <TutorLink to="createNewCourseFromOffering" params={{ appearanceCode }}>
+                    <TutorLink to="createNewCourseFromOffering" params={{ offeringId: offering.id }}>
                         <div>
                             <IconAdd />
                             <span className="create-label">
@@ -44,7 +44,8 @@ const CreateCourse: React.FC<CreateCourseProps> = ({ offering }) => {
                     </TutorLink>
                 </div>
             </TourAnchor>
-        </StyledCreateCourse>)
+        </StyledCreateCourse>
+    )
 }
 
 export default CreateCourse

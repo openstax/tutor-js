@@ -630,7 +630,7 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
                     <TutorLink
                         className="btn btn-light"
                         to="createNewCourseFromOffering"
-                        params={{ appearanceCode: offering.appearance_code }}
+                        params={{ offeringId: offering.id }}
                         data-test-id="create-course"
                     >
                         Create a course
