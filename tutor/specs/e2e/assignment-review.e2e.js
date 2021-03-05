@@ -1,8 +1,12 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { visitPage, setTimeouts, setRole, resetState } from './helpers'
 
 // the BE mock api server is primarily in backend/task-plans
 
 describe('Assignment Review', () => {
+
+    beforeAll(async () => {
+        await resetState()
+    })
 
     beforeEach(async () => {
         await setTimeouts()
@@ -31,8 +35,8 @@ describe('Assignment Review', () => {
         await page.click('testEl=save-grade-btn')
     });
 
-    // this spec will fail if re-ran repeatedlly when it runs out of questions to drop
     it('can drop questions', async () => {
+        await resetState()
         await page.click('testEl=assignment-scores-tab')
         await page.click('testEl=drop-questions-btn')
         const qId = await page.$eval('testEl=drop-question-row >> input[type="checkbox"]:not(:checked)', el => el.id)
