@@ -10,8 +10,8 @@ import '../factories/definitions'
 export * from './mocker'
 
 export const SCREENS = {
-    mobile: [375,667], // iphone
-    tablet: [768,1024], // ipad
+    mobile: [375, 667], // iphone
+    tablet: [768, 1024], // ipad
     desktop: [1280, 1024], // pretty much anything is larger than this
 }
 
@@ -56,7 +56,7 @@ username:'${userName}',
 role:'${role}',
 is_test:true,
 faculty_status:'${isVerified ? 'confirmed_faculty' : 'no_faculty_info'}',
-school_type:'${approvedSchool ? 'college' : 'unknown_school_type' }',
+school_type:'${approvedSchool ? 'college' : 'unknown_school_type'}',
 school_location:'domestic_school'].id`
     )
     const userId = Number(returnedId)
@@ -85,7 +85,7 @@ export const loaderNotVisible = async (page: Page = (global as any).page) => {
     }
 }
 
-export const loginAs = async (userName: string, page: Page = (global as any).page ) => {
+export const loginAs = async (userName: string, page: Page = (global as any).page) => {
     const userMenu = await page.$('#user-menu')
     if (userMenu) {
         const currentUserName = await userMenu.getAttribute('data-username')
@@ -108,7 +108,7 @@ export const setTimeouts = async () => {
 
 // (screen: string) is getting complained that it is not not-used, but it is a type definiton
 // eslint-disable-next-line no-unused-vars
-export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
+export const withScreenSize = (testName: string, test: (screen: string) => Promise<void>) => {
     forEach(SCREENS, (dimensions, screen) => {
         const [width, height] = dimensions
 
@@ -119,14 +119,14 @@ export const withScreenSize = (testName: string, test: (screen: string) =>Promis
     })
 }
 
-export const selectAnswer = async (page: Page, choice : string, freeResponse: string) => {
+export const selectAnswer = async (page: Page, choice: string, freeResponse: string) => {
     await page.waitForSelector('css=.exercise-step >> testEl=free-response-box', { timeout: 2000 })
         .then(async () => {
             await page.type('css=.exercise-step >> testEl=free-response-box', freeResponse)
             await page.click('testEl=submit-answer-btn')
         })
         // free response is submitted
-        .catch(() => {})
+        .catch(() => { })
 
     await page.waitForSelector(`css=.answer-checked >> testEl=answer-choice-${choice}`, { timeout: 2000 })
         .then(async () => {
