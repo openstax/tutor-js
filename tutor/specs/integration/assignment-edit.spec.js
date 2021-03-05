@@ -6,7 +6,7 @@ context('Assignment Edit', () => {
     let typedOpenDate = moment().add(1, 'weeks').format('MMM D [| 05:00 PM]')
     let typedDueDate = moment().add(2, 'weeks').format('MMM D [| 05:00 PM]')
     let typedClosesDate = moment().add(3, 'weeks').format('MMM D [| 05:00 PM]')
-  
+
     const fillDetails = () => {
         cy.get('.heading').should('contain.text', 'STEP 1')
         cy.get('.controls .btn-primary').should('be.disabled')
