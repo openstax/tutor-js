@@ -34,6 +34,7 @@ export const disableTours = async () => {
     })
 }
 
+// eslint-disable-next-line
 export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
     forEach(SCREENS, (dimensions, screen) => {
         const [width, height] = dimensions
