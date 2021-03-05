@@ -1,4 +1,4 @@
-import { visitPage, setTimeouts } from './helpers'
+import { visitPage, setTimeouts, setRole } from './helpers'
 
 // the BE mock api server is primarily in backend/task-plans
 
@@ -6,6 +6,7 @@ describe('Course Roster', () => {
 
     beforeEach(async () => {
         await setTimeouts()
+        await setRole('teacher')
         await visitPage(page, '/course/1/roster')
 
     })

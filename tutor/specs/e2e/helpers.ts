@@ -1,5 +1,6 @@
 import { Page } from 'playwright-core'
 import fetch from 'node-fetch'
+import { forEach } from 'lodash'
 
 export const SCREENS = {
     mobile: [375,667], // iphone
@@ -30,5 +31,16 @@ export const setTimeouts = async () => {
 export const disableTours = async () => {
     await page.evaluate(() => {
         window._MODELS.feature_flags.set('tours', false)
+    })
+}
+
+export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
+    forEach(SCREENS, (dimensions, screen) => {
+        const [width, height] = dimensions
+
+        it(`${testName}. Width: ${width} | Height: ${height}`, async () => {
+            await page.setViewportSize({ width, height })
+            await test(screen)
+        })
     })
 }

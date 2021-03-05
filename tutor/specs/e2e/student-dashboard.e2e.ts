@@ -1,5 +1,4 @@
-import { visitPage, disableTours, setRole, setTimeouts, SCREENS } from './helpers'
-import { forEach } from 'lodash'
+import { visitPage, disableTours, setRole, setTimeouts, withScreenSize } from './helpers'
 
 describe('Student Dashboard', () => {
     beforeEach(async () => {
@@ -13,24 +12,15 @@ describe('Student Dashboard', () => {
         await page.click('testEl=all-past-work-tab')
     });
 
-    //https://github.com/facebook/jest/issues/1619
-    // NOTE: There were some asynchronous calls bug when setting up the forEach inside the `it`.
-    // GH issue that it is totally ok to do a forEach and create several `it`s.
-    forEach(SCREENS, (screen, type) => {
-        const [width, height] = screen
-
-        it(`loads assignment with screen width: ${width} and height: ${height}`, async () => {
-            await page.setViewportSize({ width, height })
-            await page.click('testEl=all-past-work-tab')
-            if(type === 'mobile') {
-                await page.click(':nth-match(.task.homework a, 1)')
-            }
-            else {
-                await page.click(':nth-match(.task.homework, 1)')
-            }
-            await expect(page).toHaveSelector('testEl=student-task')
-        })
+    withScreenSize('loads assignment', async (screen) => {
+        await page.click('testEl=all-past-work-tab')
+        if(screen === 'mobile') {
+            await page.click(':nth-match(.task.homework a, 1)')
+        }
+        else {
+            await page.click(':nth-match(.task.homework, 1)')
+        }
+        await expect(page).toHaveSelector('testEl=student-task')
     })
-
 
 })

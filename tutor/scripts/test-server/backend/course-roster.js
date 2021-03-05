@@ -5,17 +5,17 @@ require('../../../specs/factories/course-roster');
 
 module.exports = {
 
-  setRole() { },
+    setRole() { },
 
-  route(server) {
-    server.get('/api/courses/:courseId/roster', (req, res) => {
-      const course = getCourse(req.params.courseId);
-      const roster = Factory.create('CourseRoster', { course });
-      roster.teachers[0].role_id = course.roles.find(r => r.type == 'teacher').id;
-      res.json(roster);
-    });
+    route(server) {
+        server.get('/api/courses/:courseId/roster', (req, res) => {
+            const course = getCourse(req.params.courseId);
+            const roster = Factory.create('CourseRoster', { course });
+            roster.teachers[0].role_id = course.roles.find(r => r.type == 'teacher').id;
+            res.json(roster);
+        });
 
-    server.delete('/api/teachers/:teacherId', (req, res) => { res.json({}) });
-  },
+        server.delete('/api/teachers/:teacherId', (req, res) => { res.json({}) });
+    },
 
 };
