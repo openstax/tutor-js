@@ -18,7 +18,7 @@ const getRoutes = (router) => {
             renderer: () => NonAllowedTeacher },
         { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',
             renderer: r(() => import('./components/enroll'), 'Course Enrollment') },
-        { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering',
+        { path: '/new-course/offering/:offeringId?', name: 'createNewCourseFromOffering',
             renderer: r(() => import('./screens/new-course'), 'Create Course') },
         { path: '/new-course/:sourceId?', name: 'createNewCourse',
             renderer: r(() => import('./screens/new-course'), 'Copy Course') },

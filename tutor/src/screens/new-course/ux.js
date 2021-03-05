@@ -157,10 +157,8 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get offering() {
-      if (this.preselectedAppearanceCode) {
-          return find(this.offerings.available.array,
-              { appearance_code: this.preselectedAppearanceCode }
-          );
+      if (this.preselectedOfferingId) {
+          return this.offerings.get(this.preselectedOfferingId);
       }
       return this.newCourse.offering;
   }
@@ -169,8 +167,8 @@ export default class CourseBuilderUX extends BaseModel {
       return this.offerings.available.array;
   }
 
-  @computed get preselectedAppearanceCode() {
-      return this.params.appearanceCode;
+  @computed get preselectedOfferingId() {
+      return this.params.offeringId
   }
 
   @computed get canSkipOffering() {

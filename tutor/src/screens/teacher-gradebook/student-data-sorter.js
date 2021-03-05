@@ -16,22 +16,22 @@ const getSortValue = function(student, key, dataType, displayAs) {
     if (!task) { return -1; }
     let score;
     switch (task.type) {
-    case 'reading':
-        var progress = task.completed_on_time_step_count;
-        return percent(progress, task.step_count);
-    case 'homework':
-        switch (dataType) {
-        case 'score':
-            score = task.published_score;
-            if (displayAs === 'number') {
-                return score || 0;
-            } else {
-                return percent(score, task.exercise_count);
+        case 'reading':
+            var progress = task.completed_on_time_step_count;
+            return percent(progress, task.step_count);
+        case 'homework':
+            switch (dataType) {
+                case 'score':
+                    score = task.published_score;
+                    if (displayAs === 'number') {
+                        return score || 0;
+                    } else {
+                        return percent(score, task.exercise_count);
+                    }
+                case 'completed':
+                    return task.completedPercent;
             }
-        case 'completed':
-            return task.completedPercent;
-        }
-        break;
+            break;
     }
 
     // default to using task status for external and other type of events

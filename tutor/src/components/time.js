@@ -21,12 +21,12 @@ export default class Time extends React.Component {
   };
 
   dateFormat = (value) => { switch (value) {
-  case 'shortest': return 'M/D'; // 9/14
-  case 'short': return 'MMM DD, YYYY'; // Feb 14, 2010
-  case 'concise': return 'ddd, MMM DD[,] h:mma';
-  case 'medium': return 'dddd, MMMM Do YYYY, h:mma'; // Sunday, February 14th 2010, 3:25pm
-  case 'long': return 'dddd, MMMM Do YYYY, h:mm:ss a'; // Sunday, February 14th 2010, 3:25:50 pm
-  default: return value;
+      case 'shortest': return 'M/D'; // 9/14
+      case 'short': return 'MMM DD, YYYY'; // Feb 14, 2010
+      case 'concise': return 'ddd, MMM DD[,] h:mma';
+      case 'medium': return 'dddd, MMMM Do YYYY, h:mma'; // Sunday, February 14th 2010, 3:25pm
+      case 'long': return 'dddd, MMMM Do YYYY, h:mm:ss a'; // Sunday, February 14th 2010, 3:25:50 pm
+      default: return value;
   } };
 
   render() {
