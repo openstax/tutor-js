@@ -79,7 +79,9 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     const dispatch = useDispatch()
     const previewCourse = useLatestCoursePreview(offering.id)
     const [isCreating, setIsCreating] = useState(false)
-
+    if (!offering.is_preview_available) {
+        return null
+    }
     const goToPreviewCourse = (toPreview = false) => {
         if (previewCourse) {
             history.push(Router.makePathname(

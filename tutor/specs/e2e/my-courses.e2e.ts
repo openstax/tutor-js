@@ -24,6 +24,7 @@ describe('My Courses', () => {
         })
         await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=submit-suggested-subject')
+        await page.waitForNavigation()
         await expect(page).not.toHaveSelector('testEl=existing-teacher-screen', { timeout: 100 })
         expect(
             await page.evaluate(() => document.location.search)

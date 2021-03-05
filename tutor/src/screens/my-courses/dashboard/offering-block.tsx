@@ -17,8 +17,8 @@ const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
 const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
 
 const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
-    if(moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
-    if(moment(courseA.ends_at).isBefore(courseB.ends_at)) { return -1 }
+    if (moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
+    if (moment(courseA.ends_at).isBefore(courseB.ends_at)) { return -1 }
     return 0
 }
 const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
@@ -48,23 +48,23 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
                 info="Find information on OpenStax Tutor features and answers to common questions"
                 link={CourseInformation.gettingStartedGuide.teacher} />
             <Resource
-                title={<span><Icon type="play-circle"/> Video Tutorials </span>}
+                title={<span><Icon type="play-circle" /> Video Tutorials </span>}
                 info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
                 link={CourseInformation.videoTutorials} />
         </>
     )
     return (
-    <>
-        {renderCoursePreview()}
-        {generalResources}
-        {os_book_id &&
-        <Resource
-            appearanceCode={offering.appearance_code}
-            title="Instructor Resources"
-            info="Free resources integrated with your book. "
-            link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
-        }
-    </>
+        <>
+            {renderCoursePreview()}
+            {generalResources}
+            {os_book_id &&
+                <Resource
+                    appearanceCode={offering.appearance_code}
+                    title="Instructor Resources"
+                    info="Free resources integrated with your book. "
+                    link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
+            }
+        </>
     )
 }
 
@@ -76,7 +76,7 @@ interface PastCoursesProps {
  * Component that displays the past courses
  */
 const PastCourses: React.FC<PastCoursesProps> = ({ courses }) => {
-    if(courses.length === 0) {
+    if (courses.length === 0) {
         return <p className="no-courses-message">No past courses found.</p>
     }
     return (
@@ -96,7 +96,7 @@ interface CurrentCoursesProps {
  */
 const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, renderCreateCourse, renderCoursePreview }) => (
     <>
-        {map(courses, c => (<ViewCourse course={c} key={c.id}/>))}
+        {map(courses, c => (<ViewCourse course={c} key={c.id} />))}
         {renderCoursePreview()}
         {renderCreateCourse()}
     </>
@@ -129,47 +129,47 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     }, [isPreviewInResource])
 
     const renderCoursePreview = (isResourcesTab: boolean) => {
-        if((isPreviewInResource && isResourcesTab) || (!isPreviewInResource && !isResourcesTab)) {
+        if ((isPreviewInResource && isResourcesTab) || (!isPreviewInResource && !isResourcesTab)) {
             return (
                 <CoursePreview
                     offering={offering}
                     isPreviewInResource={isPreviewInResource}
                     setIsPreviewInResource={setIsPreviewInResource} />
             )
-        } 
+        }
         return null;
     }
 
     const showTabInfo = useCallback(() => {
-        switch(tabIndex) { 
-        case 0: { 
-            return ( 
-                <CurrentCourses
-                    courses={currentCourses}
-                    renderCreateCourse={() => (
-                        <CreateACourse appearanceCode={offering.appearance_code} />
-                    )}
-                    renderCoursePreview={() => renderCoursePreview(false)}
-                />
-            )
-        } 
-        case 1: { 
-            return <PastCourses courses={pastCourses} />
-        } 
-        case 2: { 
-            return (
-                <ResourcesInfo
-                    offering={offering}
-                    os_book_id={offering.os_book_id}
-                    isFirstBlock={isFirstBlock}
-                    renderCoursePreview={() => renderCoursePreview(true)}
-                />
-            )
-        } 
-        default: { 
-            return <p>How did you get here?!</p>
-        } 
-        } 
+        switch (tabIndex) {
+            case 0: {
+                return (
+                    <CurrentCourses
+                        courses={currentCourses}
+                        renderCreateCourse={() => (
+                            <CreateACourse offering={offering} />
+                        )}
+                        renderCoursePreview={() => renderCoursePreview(false)}
+                    />
+                )
+            }
+            case 1: {
+                return <PastCourses courses={pastCourses} />
+            }
+            case 2: {
+                return (
+                    <ResourcesInfo
+                        offering={offering}
+                        os_book_id={offering.os_book_id}
+                        isFirstBlock={isFirstBlock}
+                        renderCoursePreview={() => renderCoursePreview(true)}
+                    />
+                )
+            }
+            default: {
+                return <p>How did you get here?!</p>
+            }
+        }
     }, [tabIndex, isPreviewInResource])
 
     const editModeIcons = isEditMode && (
@@ -177,14 +177,14 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
             <Icon
                 type="arrow-up"
                 onClick={() => swapOffering(offering.id, 'up')}
-                buttonProps={{ disabled: isFirstBlock }}/>
+                buttonProps={{ disabled: isFirstBlock }} />
             <Icon
                 type="arrow-down"
                 onClick={() => swapOffering(offering.id, 'down')}
-                buttonProps={{ disabled: isLastBlock }}/>
+                buttonProps={{ disabled: isLastBlock }} />
             <Icon
                 type="trash"
-                onClick={() => tryDeleteOffering(offering.id)}/>
+                onClick={() => tryDeleteOffering(offering.id)} />
         </div>
     )
 
@@ -195,7 +195,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
             <Tabs
                 tabs={['CURRENT', 'PAST', 'RESOURCES']}
                 onSelect={(a) => setTabIndex(a)}
-                pushToPath={false}/>
+                pushToPath={false} />
             <div className="course-cards">
                 {showTabInfo()}
             </div>

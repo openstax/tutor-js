@@ -66,16 +66,16 @@ const toPerc = (n) => `${Math.round(n * 100)}%`;
 
 const gradedExplanation = (gradingType) => {
     switch (gradingType) {
-    case 'publish':
-        return 'After I publish the scores';
-    case 'grade':
-        return 'Immediately after I grade';
-    case 'answer':
-        return 'Immediately after student answers';
-    case 'due':
-        return 'After the due date';
-    default:
-        return 'invalid value';
+        case 'publish':
+            return 'After I publish the scores';
+        case 'grade':
+            return 'Immediately after I grade';
+        case 'answer':
+            return 'Immediately after student answers';
+        case 'due':
+            return 'After the due date';
+        default:
+            return 'invalid value';
     }
 };
 
