@@ -42,7 +42,8 @@ export default class CourseBuilderUX extends BaseModel {
       this.router = router;
       this.offerings = offerings;
       this.courses = courses;
-      this.newCourse = new CreateCourse({ courses, offerings });
+      this.newCourse = new CreateCourse({ courses, offerings, offering_id: this.preselectedOfferingId });
+
       if (!User.canCreateCourses) {
           delay(() => // use delay in case we're called from a React constructor
               router.history.replace(
@@ -196,9 +197,7 @@ export default class CourseBuilderUX extends BaseModel {
   afterCreate() {
       const c = this.newCourse.createdCourse;
       if (!c) { return; }
-      const url = c.is_concept_coach ?
-          `/course/${c.id}/cc/help?showIntro=true` : `/course/${c.id}?showIntro=true`;
-      this.router.history.push(url);
+      window.location = `/course/${c.id}?showIntro=true`;
   }
 
   // per step tests - must return true in order to navigate to next step

@@ -19,6 +19,7 @@ exports[`pairing a course displays create course 1`] = `
           >
             <button
               className="close"
+              data-test-id="cancel-x"
               disabled={true}
               onClick={[Function]}
               type="button"
@@ -66,6 +67,7 @@ exports[`pairing a course displays create course 1`] = `
               </button>
               <button
                 className="next btn btn-primary"
+                data-test-id="next-btn"
                 disabled={true}
                 onClick={[Function]}
                 type="button"

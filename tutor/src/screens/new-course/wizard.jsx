@@ -23,6 +23,7 @@ const Footer = observer(({ ux }) => {
                 onClick={ux.goForward}
                 variant="primary"
                 className="next"
+                data-test-id="next-btn"
                 disabled={!ux.canGoForward}
             >
                 {ux.isLastStage ? 'Finish' : 'Next'}
@@ -56,7 +57,7 @@ Title.propTypes = {
 const Header = ({ ux }) => {
     if(ux.isBuilding) return null;
     return (
-        <button type="button" className="close" onClick={ux.onCancel} disabled={!ux.canCancel}>
+        <button type="button" className="close" onClick={ux.onCancel} disabled={!ux.canCancel} data-test-id="cancel-x">
             <span aria-hidden="true">×</span><span className="sr-only">Close</span>
         </button>
     );
