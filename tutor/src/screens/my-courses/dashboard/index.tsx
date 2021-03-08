@@ -7,13 +7,12 @@ import { colors } from 'theme'
 import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
-import { dropCourseTeacher, getCourseRoster } from '../../../store/api'
+import { dropCourseTeacher } from '../../../store/api'
 import { useDisplayedCourseOfferingIds, useAllCourses } from '../../../store/courses'
 import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './addSubjectDropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
-import { current } from 'immer'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
