@@ -47,6 +47,7 @@ class DeleteCourseModal extends React.Component {
   renderDeleteCourseButton() {
       return (
           <Button
+              data-test-id="delete-course-btn"
               variant="link"
               onClick={this.open}>
               <Icon type="trash"/> Delete this course
@@ -69,7 +70,7 @@ class DeleteCourseModal extends React.Component {
                 {`Delete ${course.name}?`}
             </Modal.Header>
             <Modal.Body>
-                {hasAnyStudents && <p className="danger">This course has students enrolled in it.</p>}
+                {hasAnyStudents && <p className="danger" data-test-id="disabled-delete-course-message">This course has students enrolled in it.</p>}
                 <p>Are you sure you want to permanently delete this course? Once deleted, all data within this course will be lost.</p>
                 <p>You can’t undo this action.</p>
             </Modal.Body>
