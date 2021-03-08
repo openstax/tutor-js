@@ -1,13 +1,16 @@
 const Factory = require('object-factory-bot');
 
 module.exports = {
+    resetState() {
+        // no state, nothing to reset
+    },
 
-  setRole(){ },
+    setRole(){ },
 
-  route(server) {
-    server.post('/api/user/suggest', (req, res) => {
-      return res.json({});
-    });
-  },
+    route(server) {
+        server.post('/api/user/suggest', (req, res) => {
+            return res.json({});
+        });
+    },
 
 };

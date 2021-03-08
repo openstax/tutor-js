@@ -11,78 +11,91 @@ const os = require('os');
 faker.seed(12345);
 
 server.all('/*', function(req, res, next) {
-  res.setHeader('X-App-Date', now);
-  res.setHeader('Access-Control-Expose-Headers', 'X-App-Date');
-  next();  // call next() here to move on to next middleware/router
+    res.setHeader('X-App-Date', now);
+    res.setHeader('Access-Control-Expose-Headers', 'X-App-Date');
+    next();  // call next() here to move on to next middleware/router
 });
 
 
 const DB = path.join(os.tmpdir(), 'tutor-test-server/backend/db.json');
 fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 
-
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults({
-  logger: false,
+    logger: false,
 });
 const log = require('./log');
 server.use(express.json());
 server.use(middlewares);
 const GET_HANDLERS = {
-  setrole: {
-    setRole() {  },
-    handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
-  },
-  'user/bootstrap': require('./backend/bootstrap'),
-  offerings: require('./backend/offerings'),
-  'courses/:courseId/dashboard': require('./backend/dashboard'),
-  'courses/:courseId/performance': require('./backend/performance'),
-  'courses/:courseId/guide': require('./backend/performance-forecast'),
-  'ecosystems/:ecosystemId/readings': require('./backend/readings'),
+    setrole: {
+        setRole() {  },
+        resetState() {  },
+        handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
+    },
+    resetState: {
+        setRole() {  },
+        resetState() {  },
+        handler(req, resp) { resetState(req.query.role); resp.json({ ok: true }); },
+    },
+    'user/bootstrap': require('./backend/bootstrap'),
+    offerings: require('./backend/offerings'),
+    'courses/:courseId/dashboard': require('./backend/dashboard'),
+    'courses/:courseId/performance': require('./backend/performance'),
+    'courses/:courseId/guide': require('./backend/performance-forecast'),
+    'ecosystems/:ecosystemId/readings': require('./backend/readings'),
 };
 
 const MULTI_HANDLERS = [
-  require('./backend/grading-templates'),
-  require('./backend/task-plans'),
-  require('./backend/courses'),
-  require('./backend/tasks'),
-  require('./backend/terms'),
-  require('./backend/exercises'),
-  require('./backend/course-roster'),
-  require('./backend/suggest'),
+    require('./backend/grading-templates'),
+    require('./backend/task-plans'),
+    require('./backend/courses'),
+    require('./backend/tasks'),
+    require('./backend/terms'),
+    require('./backend/exercises'),
+    require('./backend/course-roster'),
+    require('./backend/suggest'),
 ];
 
 // routes that have custom logic
 for (let route in GET_HANDLERS) {
-  server.get(`/api/${route}`, GET_HANDLERS[route].handler);
+    server.get(`/api/${route}`, GET_HANDLERS[route].handler);
 }
 MULTI_HANDLERS.forEach((handler) => {
-  handler.route(server);
+    handler.route(server);
 });
 
 server.use(jsonServer.rewriter({
-  '/api/user/ui_settings': '/ui-settings',
-  '/api/log/entry': '/log',
-  '/api/log/event/onboarding/:id': '/onboarding',
-  '/api/user/tours/:id': '/tours',
-  '/api/:key': '/:key',
-  '/api/courses/:courseId/plans*': '/previousTaskPlans',
+    '/api/user/ui_settings': '/ui-settings',
+    '/api/log/entry': '/log',
+    '/api/log/event/onboarding/:id': '/onboarding',
+    '/api/user/tours/:id': '/tours',
+    '/api/:key': '/:key',
+    '/api/courses/:courseId/plans*': '/previousTaskPlans',
 }));
 server.use(router);
 
 function setRole(role) {
-  for (let route in GET_HANDLERS) {
-    GET_HANDLERS[route].setRole(role);
-  }
-  MULTI_HANDLERS.forEach((handler) => { handler.setRole(role); });
+    for (let route in GET_HANDLERS) {
+        GET_HANDLERS[route].setRole(role);
+    }
+    MULTI_HANDLERS.forEach((handler) => { handler.setRole(role); });
+}
+function resetState() {
+    for (let route in GET_HANDLERS) {
+        GET_HANDLERS[route].resetState();
+    }
+    MULTI_HANDLERS.forEach((handler) => {
+        handler.resetState();
+    });
 }
 
 server.listen(be_port, () => {
-  log('READY', true);
+    log('READY', true);
 });
 
 process.on('message', (msg) => {
-  if (msg.role) {
-    setRole(msg.role);
-  }
+    if (msg.role) {
+        setRole(msg.role);
+    }
 });

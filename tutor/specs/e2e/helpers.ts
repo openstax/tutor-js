@@ -14,6 +14,14 @@ export const setRole = async (role: Roles): Promise<boolean> => {
     return resp.ok
 }
 
+// use with care!  jest runs specs multi-process;
+// calling this in one spec may reset the state for another spec
+// while it's running
+export const resetState = async () => {
+    const resp = await fetch(`${testConfig.API_URL}/resetState`)
+    return resp.ok
+}
+
 
 export const setTimeouts = async () => {
     const TIMEOUT = testConfig.DEBUG ? 90 : 30

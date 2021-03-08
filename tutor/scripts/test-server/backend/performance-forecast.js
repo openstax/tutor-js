@@ -5,13 +5,16 @@ let ROLE = 'teacher';
 
 
 module.exports = {
+    resetState() {
+        // no state is modified, so nothing to reset
+    },
 
-  setRole(role) {
-    ROLE = role;
-  },
+    setRole(role) {
+        ROLE = role;
+    },
 
-  handler(req, res) {
-    return res.json(GUIDE);
-  },
+    handler(req, res) {
+        return res.json(GUIDE);
+    },
 
 };

@@ -13,36 +13,36 @@ function WebpackDriverStatusPlugin() { }
 
 WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
 
-  compiler.hooks['compile'].tap('WebPackDriver', function() {
-    log('status', 'compiling');
-  });
+    compiler.hooks['compile'].tap('WebPackDriver', function() {
+        log('status', 'compiling');
+    });
 
-  compiler.hooks['done'].tap('WebPackDriver', function(stats) {
-    if (stats.compilation.errors && stats.compilation.errors.length){
-      log('status', 'invalid');
-      for(let i = 0; i < stats.compilation.errors.length; i++){
-        const err = stats.compilation.errors[i];
-        log('error', {
-          name: err.name, message: err.message,
-          resource: err.module ? err.module.resource : '',
-        });
-      }
-      log('FAILED', true);
-    } else {
-      log('READY', true);
-    }
-  });
+    compiler.hooks['done'].tap('WebPackDriver', function(stats) {
+        if (stats.compilation.errors && stats.compilation.errors.length){
+            log('status', 'invalid');
+            for(let i = 0; i < stats.compilation.errors.length; i++){
+                const err = stats.compilation.errors[i];
+                log('error', {
+                    name: err.name, message: err.message,
+                    resource: err.module ? err.module.resource : '',
+                });
+            }
+            log('FAILED', true);
+        } else {
+            log('READY', true);
+        }
+    });
 };
 
 config.plugins = (config.plugins || []);
 
 config.plugins.push(
-  new WebpackDriverStatusPlugin()
+    new WebpackDriverStatusPlugin()
 );
 config.plugins.push(
-  new webpack.DefinePlugin({
-    'process.env': { 'BACKEND_SERVER_URL': JSON.stringify(`http://localhost:${be_port}/api`) },
-  })
+    new webpack.DefinePlugin({
+        'process.env': { 'BACKEND_SERVER_URL': JSON.stringify(`http://localhost:${be_port}/api`) },
+    })
 );
 
 const server = new WebpackDevServer(webpack(config), config.devServer);
