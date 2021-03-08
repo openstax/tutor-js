@@ -1,6 +1,6 @@
 export type ID = string | number
 
-type Term = 'spring' | 'summer' | 'fall' | 'winter'
+type CourseTerm = 'spring' | 'summer' | 'fall' | 'winter'
 
 export interface Role {
     id: ID
@@ -65,7 +65,7 @@ export interface Course {
     starts_at: string
     students: Student[]
     teacher_profiles: TeacherProfile[]
-    term: Term
+    term: CourseTerm
     timezone: string
     uses_pre_wrm_scores: boolean
     uuid: string
@@ -75,7 +75,7 @@ export interface Course {
 }
 
 export interface ActiveTermYears {
-    term: Term
+    term: CourseTerm
     year: number
 }
 
@@ -93,4 +93,47 @@ export interface Offering {
     subject: string
     active_term_years: ActiveTermYears[]
     os_book_id: string
+}
+
+export interface UserTerm {
+    id: ID
+    name: string
+    title: string
+    is_signed: boolean
+}
+
+export interface User {
+    account_uuid: string
+    available_terms: UserTerm[]
+    can_create_courses: boolean
+    faculty_status: 'confirmed_faculty' | 'no_faculty_info' | 'pending_faculty' | 'rejected_faculty'
+    name: string
+    first_name: string
+    last_name: string
+    is_admin: boolean
+    is_content_analyst: boolean
+    is_customer_service: boolean
+    is_researcher: boolean
+    profile_id: ID
+    created_at: string
+    profile_url: string
+    school_location: 'unknown_school_location' | 'domestic_school' | 'foreign_school'
+    self_reported_role: 'faculty' | 'student'
+    terms_signatures_needed: boolean
+    viewed_tour_stats: any[]
+}
+
+export interface BootstrapData {
+    courses: Course[]
+    accounts_api_url: string
+    accounts_profile_url: string
+    errata_form_url: string
+    feature_flags: { is_payments_enabled: boolean }
+    flash: any
+    hypothesis: any
+    offerings: Offering[]
+    payments: { is_enabled: boolean, js_url: string, base_url: string }
+    tutor_api_url: string
+    ui_settings: any
+    user: User
 }
