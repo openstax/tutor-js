@@ -28,7 +28,6 @@ const StyledResource = styled.div`
                 background: white;
                 box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
                 bottom: 40%;
-                padding: 1.2rem 3.2rem 1.2rem 1.2rem;
                 h4 {
                     font-size: 1.8rem;
                     line-height: 2rem;
