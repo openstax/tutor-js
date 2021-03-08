@@ -24,4 +24,5 @@ Factory.define('Offering')
     .active_term_years(reference('OfferingTerm', { count: 4 }))
     .is_available(true)
     .is_preview_available(true)
-    .preview_message(fake.company.bsBuzz);
+    .preview_message(fake.company.bsBuzz)
+    .os_book_id(sequence);
