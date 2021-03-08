@@ -540,11 +540,10 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
 interface SubjectDetailProps {
     offerings: Offering[]
     selectedSubject: number
-    history: History
 }
 
 const SubjectDetail: React.FC<SubjectDetailProps> = ({
-    offerings, selectedSubject, history,
+    offerings, selectedSubject,
 }) => {
     const [creatingPreview, setCreatingPreview] = useState(false)
     const dispatch = useDispatch()
@@ -560,9 +559,8 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
             .then((result) => {
                 setCreatingPreview(false)
                 if (!result.error) {
-                    history.push(Router.makePathname(
-                        'dashboard', { courseId: result.payload.id },
-                    ))
+                    // trigger a page reload so the course and offerings fully fetched
+                    window.location = Router.makePathname('dashboard', { courseId: result.payload.id })
                 }
             })
     }
