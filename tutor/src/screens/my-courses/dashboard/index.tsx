@@ -154,8 +154,9 @@ export const MyCoursesDashboard = () => {
             const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
             Promise.all(map(offeringCourses, c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
-                if(currentRole) {
-                    dispatch(dropCourseTeacher(currentRole.id))
+                const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
+                if(currentTeacher) {
+                    dispatch(dropCourseTeacher(currentTeacher.id))
                 } else {
                     Promise.resolve()
                 }

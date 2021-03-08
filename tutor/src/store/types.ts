@@ -24,6 +24,14 @@ export interface Student {
     student_identifier: string
 }
 
+export interface Teacher {
+    id: ID
+    course_id: ID
+    role_id: ID
+    name: string
+    is_active: boolean
+}
+
 export interface TeacherProfile {
     id: ID
     name: string
@@ -64,6 +72,7 @@ export interface Course {
     spy_info: any
     starts_at: string
     students: Student[]
+    teachers: Teacher[]
     teacher_profiles: TeacherProfile[]
     term: Term
     timezone: string
