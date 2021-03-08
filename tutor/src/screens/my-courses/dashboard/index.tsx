@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Button } from 'react-bootstrap'
-import { map, filter, includes, indexOf, findIndex, every, sumBy } from 'lodash'
+import { map, filter, includes, indexOf, findIndex, every, sumBy, find } from 'lodash'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
+import { dropCourseTeacher, getCourseRoster } from '../../../store/api'
 import { useDisplayedCourseOfferingIds, useAllCourses } from '../../../store/courses'
 import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './addSubjectDropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
+import { current } from 'immer'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -109,6 +112,7 @@ const StyledMyCoursesDashboard = styled.div`
  */
 
 export const MyCoursesDashboard = () => {
+    const dispatch = useDispatch()
     // getting all the data: offerings and courses
     const courses = useAllCourses()
     const offerings = useAvailableOfferings(courses)
@@ -147,23 +151,31 @@ export const MyCoursesDashboard = () => {
     const deleteOffering = () => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
-        if (index >= 0) {
-            tempDisplayedOfferingIds.splice(index, 1)
-            setDisplayedOfferingIds(tempDisplayedOfferingIds)
-            setDeleteOfferingIdModal(null)
+        if (index >= 0 && deleteOfferingIdModal) {
+            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
+            Promise.all(map(offeringCourses, c => {
+                const currentRole = find(c.roles, r => r.type === 'teacher')
+                if(currentRole) {
+                    dispatch(dropCourseTeacher(currentRole.id))
+                } else {
+                    Promise.resolve()
+                }
+            }))
+                .then(() => {
+                    tempDisplayedOfferingIds.splice(index, 1)
+                    setDisplayedOfferingIds(tempDisplayedOfferingIds)
+                    setDeleteOfferingIdModal(null)
+                })
         }
     }
 
     const renderDeleteModal = () => {
         const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
         const areAllPreviewCourses = every(offeringCourses, oc => oc.is_preview)
-        const areAllCoursesWithoutStudents = every(offeringCourses, oc => sumBy(oc?.periods, p => {
-            console.log(oc)
-            console.log(p)
+        const areAllNonPreviewCoursesWithoutStudents = every(filter(offeringCourses, c => String(c.term) !== 'preview'), oc => sumBy(oc?.periods, p => {
             return p.num_enrolled_students
         }) === 0)
-        
-        if (areAllPreviewCourses || areAllCoursesWithoutStudents) {
+        if (areAllPreviewCourses || areAllNonPreviewCoursesWithoutStudents) {
             return (
                 <DeleteOfferingModal
                     show={Boolean(deleteOfferingIdModal)}
