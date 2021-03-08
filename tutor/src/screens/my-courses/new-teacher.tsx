@@ -530,7 +530,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                         form="offering-form"
                     >
                         Next
-                 </Button>
+                    </Button>
                 </Footer>
             )}
         </StyledPage>
