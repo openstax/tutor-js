@@ -2,19 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import styled from 'styled-components'
 import { Modal, Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
-import { colors } from 'theme'
 import Course from '../../models/course';
-
-const StyledModal = styled(Modal)`
-    p.danger {
-        font-weight: 700;
-        color: ${colors.strong_red};
-    }
-`
 
 @observer
 class DeleteCourseModal extends React.Component {
@@ -62,7 +53,7 @@ class DeleteCourseModal extends React.Component {
       return (
       <>
         {this.renderDeleteCourseButton()}
-        <StyledModal
+        <Modal
             show={this.showModal}
             onHide={this.close}
             className="delete-course-modal">
@@ -70,7 +61,7 @@ class DeleteCourseModal extends React.Component {
                 {`Delete ${course.name}?`}
             </Modal.Header>
             <Modal.Body>
-                {hasAnyStudents && <p className="danger" data-test-id="disabled-delete-course-message">This course has students enrolled in it.</p>}
+                {hasAnyStudents && <strong><p className="text-danger" data-test-id="disabled-delete-course-message">This course has students enrolled in it.</p></strong>}
                 <p>Are you sure you want to permanently delete this course? Once deleted, all data within this course will be lost.</p>
                 <p>You can’t undo this action.</p>
             </Modal.Body>
@@ -82,7 +73,7 @@ class DeleteCourseModal extends React.Component {
                   Cancel
                 </Button>
             </div>
-        </StyledModal>
+        </Modal>
       </>
       );
   }

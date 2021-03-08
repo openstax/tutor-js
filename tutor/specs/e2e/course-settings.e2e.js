@@ -40,7 +40,7 @@ describe('Course Settings', () => {
         await expect(page).toHaveSelector('.save-changes-button')
     });
 
-    it.only('shows a warning message in the delete modal if there are any students enrolled in the course', async () => {
+    it('shows a warning message in the delete modal if there are any students enrolled in the course', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
         await page.click('testEl=delete-course-btn')
         await expect(page).toHaveSelector('testEl=disabled-delete-course-message')
