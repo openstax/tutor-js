@@ -13,7 +13,7 @@ max-width: 800px;
 
 export default function NonAllowedTeachers() {
     return (
-        <ThanksButNo className="non-allowed-instructors">
+        <ThanksButNo className="non-allowed-instructors" data-test-id="non-allowed-instructors">
             <p>
         Thanks for your interest in OpenStax Tutor! At this time, OpenStax Tutor is only
         available to instructors and students at high schools and 2- and 4-year institutions
