@@ -1,4 +1,5 @@
 const { Factory, uuid, sequence } = require('./helpers');
+const moment = require('moment');
 
 Factory.define('User')
     .profile_id(sequence)
@@ -11,6 +12,7 @@ Factory.define('User')
     .is_researcher(false)
     .faculty_status(({ is_teacher }) => is_teacher ? 'confirmed_faculty' : 'student')
     .can_create_courses(({ is_teacher }) => !!is_teacher)
+    .created_at(({ now }) => moment(now).subtract(3, 'day').toISOString())
     .viewed_tour_stats(() => [])
     .self_reported_role(({ is_teacher }) => is_teacher ? 'faculty' : 'student')
     .account_uuid(uuid)

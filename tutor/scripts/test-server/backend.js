@@ -39,6 +39,7 @@ const GET_HANDLERS = {
         handler(req, resp) { resetState(req.query.role); resp.json({ ok: true }); },
     },
     'user/bootstrap': require('./backend/bootstrap'),
+    user: require('./backend/user'),
     offerings: require('./backend/offerings'),
     'courses/:courseId/dashboard': require('./backend/dashboard'),
     'courses/:courseId/performance': require('./backend/performance'),
