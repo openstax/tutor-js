@@ -2,10 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import styled from 'styled-components'
+import { Modal, Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
+import { colors } from 'theme'
 import Course from '../../models/course';
+
+const StyledModal = styled(Modal)`
+    p.danger {
+        font-weight: 700;
+        color: ${colors.strong_red};
+    }
+`
 
 @observer
 class DeleteCourseModal extends React.Component {
@@ -36,21 +45,6 @@ class DeleteCourseModal extends React.Component {
   }
 
   renderDeleteCourseButton() {
-      const { course } = this.props;
-      const hasAnyStudents = !isEmpty(course.roster.students.active);
-
-      if(hasAnyStudents) {
-          const tooltip = (
-              <Tooltip className="disabled-delete-course-message">
-                  <p>This course has students enrolled in it and can not be deleted. To delete this course, drop all the students enrolled in it.</p>
-              </Tooltip>
-          );
-          return (
-              <OverlayTrigger placement="right" overlay={tooltip}>
-                  <span className="disabled-delete-course"><Icon type="trash"/> Delete this course</span>
-              </OverlayTrigger>
-          );
-      }
       return (
           <Button
               variant="link"
@@ -62,11 +56,12 @@ class DeleteCourseModal extends React.Component {
 
   render() {
       const { course } = this.props;
+      const hasAnyStudents = !isEmpty(course.roster.students.active);
 
       return (
       <>
         {this.renderDeleteCourseButton()}
-        <Modal
+        <StyledModal
             show={this.showModal}
             onHide={this.close}
             className="delete-course-modal">
@@ -74,12 +69,9 @@ class DeleteCourseModal extends React.Component {
                 {`Delete ${course.name}?`}
             </Modal.Header>
             <Modal.Body>
-                <p>
-          Are you sure you want to permanently delete this course? Once deleted, all data within this course will be lost.
-                </p>
-                <p>
-          You can’t undo this action.
-                </p>
+                {hasAnyStudents && <p className="danger">This course has students enrolled in it.</p>}
+                <p>Are you sure you want to permanently delete this course? Once deleted, all data within this course will be lost.</p>
+                <p>You can’t undo this action.</p>
             </Modal.Body>
             <div className="modal-footer">
                 <Button variant="default" size="lg" onClick={this.deleteCourse}>
@@ -89,7 +81,7 @@ class DeleteCourseModal extends React.Component {
                   Cancel
                 </Button>
             </div>
-        </Modal>
+        </StyledModal>
       </>
       );
   }

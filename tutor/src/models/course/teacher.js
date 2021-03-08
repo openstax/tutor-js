@@ -17,7 +17,7 @@ export default class CourseTeacher extends BaseModel {
   @belongsTo({ model: 'course/roster' }) roster;
 
   drop() {
-      return { id: this.id };
+      return { id: this.role_id };
   }
 
   @computed get isTeacherOfCourse() {
