@@ -12,7 +12,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     const courses = useAllCourses()
     const offerings = useAvailableOfferings(courses)
     const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
-        useDisplayedCourseOfferingIds()
+        UiSettings.get('displayedOfferingIds') || useDisplayedCourseOfferingIds()
     )
 
     // update the `displayedOfferingIds` if users adds/delete offerings
