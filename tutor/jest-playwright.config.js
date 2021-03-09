@@ -14,7 +14,7 @@ if (!process.env.EXTERNAL_SERVER) {
     config.serverOptions = {
         command: 'node tutor/scripts/test-server/index.js',
         basePath: '/dist/tutor.js',
-        launchTimeout: 90000,
+        launchTimeout: 5 * 60 * 1000,
         port: httpPort,
         protocol: 'http',
     };
