@@ -1,9 +1,10 @@
 import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { endsWith, get, first, sortBy, find, capitalize, sumBy, filter } from 'lodash'
+import { endsWith, get, first, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
 import { Course, Role } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
+import UiSettings from 'shared/model/ui-settings'
 import CourseInformation from '../models/course/information'
 
 const ROLE_PRIORITY = ['guest', 'student', 'teacher', 'admin'];
@@ -103,6 +104,12 @@ export const useLatestCoursePreview = (offeringId: string | number) => useSelect
     const courses = selectors.selectAll(state)
     return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview')
 })
+
+export const useDisplayedCourseOfferingIds = () => {
+    const courseOfferingIds = useAllCourses().map(c => c.offering_id)
+    const selectedIds = UiSettings.get('displayedOfferingIds') || []
+    return union(courseOfferingIds, selectedIds)
+}
 
 export { createPreviewCourse, updateCourse, selectors }
 export const coursesReducer = coursesSlice.reducer

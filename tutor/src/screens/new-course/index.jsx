@@ -5,7 +5,7 @@ import './styles.scss';
 
 const NewCourse = () => (
     <ScrollToTop>
-        <div className="new-course-wizard">
+        <div className="new-course-wizard" data-test-id="new-course-wizard">
             <Wizard />
         </div>
     </ScrollToTop>

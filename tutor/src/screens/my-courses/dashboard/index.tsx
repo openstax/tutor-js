@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import { map, filter, some, includes, indexOf, findIndex } from 'lodash'
+import { map, filter, findIndex, every, sumBy, find } from 'lodash'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 import { ID } from '../../../store/types'
-import UiSettings from 'shared/model/ui-settings'
+import { dropCourseTeacher } from '../../../store/api'
 import { useAllCourses } from '../../../store/courses'
-import { useAllOfferings } from '../../../store/offering'
+import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
-import AddSubjectDropdown from './addSubjectDropdown'
+import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
+import useDisplayedOfferings from './use-displayed-offerings'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -109,64 +111,44 @@ const StyledMyCoursesDashboard = styled.div`
  */
 
 export const MyCoursesDashboard = () => {
+    const dispatch = useDispatch()
     // getting all the data: offerings and courses
-    const offerings = useAllOfferings()
     const courses = useAllCourses()
+    const offerings = useAvailableOfferings(courses)
 
     const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(UiSettings.get('displayedOfferingIds') || [])
+    const [displayedOfferingIds, setDisplayedOfferingIds, displayedOfferings, swapOffering] = useDisplayedOfferings()
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
-
-    // First time setting the `displayedOfferingIds`
-    useEffect(() => {
-        if (offerings.length > 0 && courses.length > 0) {
-            const uiDisplayedOfferingIds = UiSettings.get('displayedOfferingIds')
-            if (!uiDisplayedOfferingIds) {
-                const offeringIds = map(filter(offerings, o => some(courses, c => c.offering_id === o.id)), m => m.id)
-                UiSettings.set('displayedOfferingIds', offeringIds)
-                setDisplayedOfferingIds(offeringIds)
-            }
-        }
-    }, [offerings, courses])
-
-    // update the `displayedOfferingIds` if users adds/delete offerings
-    useEffect(() => {
-        UiSettings.set('displayedOfferingIds', [...displayedOfferingIds])
-    }, [displayedOfferingIds])
-
-    // re-compute the `displayedOfferings` if `displayedOfferingIds` is modified
-    const displayedOfferings = useMemo(() => {
-        const filteredOfferings = filter(offerings, o => includes(displayedOfferingIds, o.id))
-        return filteredOfferings.sort((a, b) => {
-            return indexOf(displayedOfferingIds, a.id) - indexOf(displayedOfferingIds, b.id)
-        })
-    }, [displayedOfferingIds, offerings])
-
-    // move offerings block around
-    const swapOffering = (offeringId: ID, flow = 'up') => {
-        const tempDisplayedOfferingIds = [...displayedOfferingIds]
-        const index = findIndex(tempDisplayedOfferingIds, id => id === offeringId)
-        if (index >= 0) {
-            const swapIndex = flow === 'up' ? index - 1 : index + 1;
-            [tempDisplayedOfferingIds[index], tempDisplayedOfferingIds[swapIndex]] = [tempDisplayedOfferingIds[swapIndex], tempDisplayedOfferingIds[index]];
-        }
-        setDisplayedOfferingIds(tempDisplayedOfferingIds)
-    }
 
     // delete offering
     const deleteOffering = () => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
-        if (index >= 0) {
-            tempDisplayedOfferingIds.splice(index, 1)
-            setDisplayedOfferingIds(tempDisplayedOfferingIds)
-            setDeleteOfferingIdModal(null)
+        if (index >= 0 && deleteOfferingIdModal) {
+            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
+            Promise.all(map(offeringCourses, async c => {
+                const currentRole = find(c.roles, r => r.type === 'teacher')
+                const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
+                if(currentTeacher) {
+                    return dispatch(dropCourseTeacher(currentTeacher.id))
+                }
+                return Promise.resolve()
+            }))
+                .then(() => {
+                    tempDisplayedOfferingIds.splice(index, 1)
+                    setDisplayedOfferingIds(tempDisplayedOfferingIds)
+                    setDeleteOfferingIdModal(null)
+                })
         }
     }
 
     const renderDeleteModal = () => {
-        const offeringHasCourses = some(courses, c => c.offering_id === deleteOfferingIdModal)
-        if (!offeringHasCourses) {
+        const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
+        const areAllPreviewCourses = every(offeringCourses, oc => oc.is_preview)
+        const areAllNonPreviewCoursesWithoutStudents = every(filter(offeringCourses, c => String(c.term) !== 'preview'), oc => sumBy(oc?.periods, p => {
+            return p.num_enrolled_students
+        }) === 0)
+        if (areAllPreviewCourses || areAllNonPreviewCoursesWithoutStudents) {
             return (
                 <DeleteOfferingModal
                     show={Boolean(deleteOfferingIdModal)}

@@ -21,10 +21,10 @@ class SystemNotification extends React.Component {
   getIcon = () => {
       if (this.props.notice.icon) { return this.props.notice.icon; }
       switch (this.props.notice.level) {
-      case 'alert': return 'exclamation-triangle';
-      case 'error': case 'warning': return 'exclamation-circle';
-      default:
-          return 'info-circle';
+          case 'alert': return 'exclamation-triangle';
+          case 'error': case 'warning': return 'exclamation-circle';
+          default:
+              return 'info-circle';
       }
   };
 

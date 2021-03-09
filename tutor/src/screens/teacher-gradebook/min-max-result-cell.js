@@ -13,23 +13,23 @@ export const TYPE = {
 
 const getMinOrMaxResultPoints = (tasks, type) => {
     switch(type) {
-    case TYPE.MIN:
-        return minBy(tasks, 'published_points');
-    case TYPE.MAX:
-        return maxBy(tasks, 'published_points');
-    default:
-        return 0;
+        case TYPE.MIN:
+            return minBy(tasks, 'published_points');
+        case TYPE.MAX:
+            return maxBy(tasks, 'published_points');
+        default:
+            return 0;
     }
 };
 
 const getMinOrMaxResultAverage = (tasks, type) => {
     switch(type) {
-    case TYPE.MIN:
-        return minBy(tasks, 'published_score');
-    case TYPE.MAX:
-        return maxBy(tasks, 'published_score');
-    default:
-        return 0;
+        case TYPE.MIN:
+            return minBy(tasks, 'published_score');
+        case TYPE.MAX:
+            return maxBy(tasks, 'published_score');
+        default:
+            return 0;
     }
 };
 

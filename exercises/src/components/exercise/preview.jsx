@@ -36,6 +36,7 @@ class ExerciseEditingPreview extends React.Component {
                   ]}
               >
                   <ExercisePreview
+                      questionType="teacher-preview"
                       className='exercise-editing-preview'
                       isInteractive
                       displayAllTags

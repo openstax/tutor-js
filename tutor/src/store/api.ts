@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { first, template } from 'lodash'
-import { Course, Offering } from './types'
+import { Course, ID, Offering } from './types'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestOptions = { params?: any, data?: any }
@@ -64,8 +64,14 @@ export const createPreviewCourse = r<Offering, Course>('POST', 'courses', 'cours
     throw new Error('Offering does not have a current active term')
 })
 
-export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/updateCourse', (c: Course) => ({
-    params: { id: c.id }, data: { name: c.name }, // TODO include other updateable properties
+//Course
+export const updateCourse = r<Course, Course>('PUT', 'courses/${id}', 'courses/updateCourse', (course) => ({
+    params: { id: course.id }, data: { name: course.name }, // TODO include other updateable properties
 }))
 
+export const dropCourseTeacher = r<ID, any>('DELETE', 'teachers/${id}', 'courses/dropCourseTeacher', (roleId) => ({
+    params: { id: roleId },
+}))
+
+//Offering
 export const getOfferings = r<Offering, Collection<Offering>>('GET', 'offerings', 'offerings/getOfferings')

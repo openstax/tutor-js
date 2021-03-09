@@ -11,7 +11,7 @@ export { WRM_START_DATE };
 
 export function setNow(now) {
     if (!isDate(now)) {
-        now = new Date(now);
+        now = now ? new Date(now) : new Date();
     }
     shiftMs = now.getTime() - (new Date()).getTime();
 }

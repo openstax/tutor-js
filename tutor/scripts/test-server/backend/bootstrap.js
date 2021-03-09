@@ -68,7 +68,9 @@ module.exports = {
     data: {
         student, teacher,
     },
-
+    resetState() {
+        // no bootstrap state is modified, so nothing to reset
+    },
     setRole(role) {
         ROLE = role;
     },

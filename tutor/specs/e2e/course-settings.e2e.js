@@ -40,11 +40,10 @@ describe('Course Settings', () => {
         await expect(page).toHaveSelector('.save-changes-button')
     });
 
-    it('shows the "Delete this Course" button disabled if there are students in the course', async () => {
+    it('shows a warning message in the delete modal if there are any students enrolled in the course', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
-        await expect(page).toHaveSelector('.disabled-delete-course')
-        await page.hover('.disabled-delete-course')
-        await expect(page).toHaveSelector('.disabled-delete-course-message')
+        await page.click('testEl=delete-course-btn')
+        await expect(page).toHaveSelector('testEl=disabled-delete-course-message')
     });
 
     it('should save changes, show a success toast and the save button dissapears', async () => {

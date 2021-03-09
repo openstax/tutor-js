@@ -12,59 +12,68 @@ import { colors } from 'theme'
 import { Icon } from 'shared'
 
 const StyledPreviewCourse = styled.div`
-  &&& {
-    svg[data-icon="ellipsis-v"] {
-      float: right;
-      margin-right: 2rem;
-      margin-top: 2rem;
-    }
-    .my-courses-item-title {
-        h3 {
-          width: 20rem;
-          padding: 1.5rem;
-        }
-        .preview-belt {
-        background: white;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-        bottom: 40%;
-        h5 {
-          font-size: 1.8rem;
-          line-height: 2rem;
-          font-weight: 600;
-          color: ${colors.neutral.thin};
-        }
-        p {
-          color: ${colors.neutral.thin};
-        }
-      }
-    }
-    .my-courses-item-actions {
-      position: absolute;
-      right: 0;
-      top: 30px;
-      .dropdown-toggle {
-        padding: 0;
-        &:after {
-          display: none;
-        }
-      }
-      .dropdown-menu {
-        border: 1px solid #d5d5d5;
-        box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
-        border-radius: 0;
-        a {
-          padding: 1rem 1.5rem;
-          color: #5e6062;
-          font-size: 1.6rem;
-          &:hover {
-            background: #f1f1f1;
-            color: #424242;
-            font-weight: 500;
+    &&& {
+        .my-courses-item-title {
+            .name {
+                padding-right: 3.2rem;
+                overflow-wrap: break-word;
+            }
+            h3 {
+                width: 20rem;
+                padding: 1.5rem;
+            }
+            .preview-belt {
+                background: white;
+                box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+                bottom: 40%;
+            h5 {
+                font-size: 1.8rem;
+                line-height: 2rem;
+                font-weight: 600;
+                color: ${colors.neutral.thin};
+            }
+            p {
+                color: ${colors.neutral.thin};
+            }
           }
         }
-      }
+        .my-courses-item-actions {
+            position: absolute;
+            right: 10px;
+            top: 40px;
+            width: 18px;
+
+            .dropdown-toggle {
+              padding: 0;
+
+              &:after {
+                display: none;
+              }
+            }
+
+            .dropdown-menu {
+                border: 1px solid #d5d5d5;
+                box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
+                border-radius: 0;
+
+                a {
+                    padding: 1rem 1.5rem;
+                    color: #5e6062;
+                    font-size: 1.6rem;
+
+                    &:hover {
+                        background: #f1f1f1;
+                        color: #424242;
+                        font-weight: 500;
+                    }
+                }
+
+                svg {
+                    margin: 0;
+                }
+            }
+        }
     }
-  }
 `
 
 interface CoursePreviewProps {
@@ -79,7 +88,9 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     const dispatch = useDispatch()
     const previewCourse = useLatestCoursePreview(offering.id)
     const [isCreating, setIsCreating] = useState(false)
-
+    if (!offering.is_preview_available) {
+        return null
+    }
     const goToPreviewCourse = (toPreview = false) => {
         if (previewCourse) {
             history.push(Router.makePathname(

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import scrollIntoView from 'scroll-into-view'
 import { createPreviewCourse } from '../../store/courses'
-import { useAllOfferings } from '../../store/offering'
+import { useAvailableOfferings } from '../../store/offering'
 import User from '../../models/user'
 import { Offering } from '../../store/types'
 import CourseInformation from '../../models/course/information'
@@ -448,7 +448,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     }
 
     return (
-        <StyledPage>
+        <StyledPage data-test-id="new-teacher-screen" >
             <Header>
                 <h2>Welcome to OpenStax Tutor</h2>
                 <h1 id="instructions">
@@ -517,7 +517,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                     </form>
                 </Content>
             </Wrapper>
-            {!isEmpty(selectedSubject) &&
+            {!isEmpty(selectedSubject) && (
                 <Footer>
                     <Button
                         variant="primary"
@@ -532,7 +532,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                         Next
                     </Button>
                 </Footer>
-            }
+            )}
         </StyledPage>
     )
 }
@@ -540,11 +540,10 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
 interface SubjectDetailProps {
     offerings: Offering[]
     selectedSubject: number
-    history: History
 }
 
 const SubjectDetail: React.FC<SubjectDetailProps> = ({
-    offerings, selectedSubject, history,
+    offerings, selectedSubject,
 }) => {
     const [creatingPreview, setCreatingPreview] = useState(false)
     const dispatch = useDispatch()
@@ -560,9 +559,8 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
             .then((result) => {
                 setCreatingPreview(false)
                 if (!result.error) {
-                    history.push(Router.makePathname(
-                        'dashboard', { courseId: result.payload.id },
-                    ))
+                    // trigger a page reload so the course and offerings fully fetched
+                    window.location = Router.makePathname('dashboard', { courseId: result.payload.id })
                 }
             })
     }
@@ -630,7 +628,7 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
                     <TutorLink
                         className="btn btn-light"
                         to="createNewCourseFromOffering"
-                        params={{ appearanceCode: offering.appearance_code }}
+                        params={{ offeringId: offering.id }}
                         data-test-id="create-course"
                     >
                         Create a course
@@ -709,7 +707,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
         [queriedScreen],
     )
 
-    const offerings = groupBy(useAllOfferings(), 'subject')
+    const offerings = groupBy(useAvailableOfferings(), 'subject')
     const options = {
         selectedSubject: selectedSubject,
         setSelectedSubject: setSelectedSubject,
