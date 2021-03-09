@@ -10,9 +10,9 @@ import { dropCourseTeacher } from '../../../store/api'
 import { useAllCourses } from '../../../store/courses'
 import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
-import AddSubjectDropdown from './addSubjectDropdown'
+import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
-import useDisplayedOfferings from './useDisplayedOfferings'
+import useDisplayedOfferings from './use-displayed-offerings'
 
 const StyledMyCoursesDashboard = styled.div`
     background-color: white;
@@ -126,14 +126,13 @@ export const MyCoursesDashboard = () => {
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
         if (index >= 0 && deleteOfferingIdModal) {
             const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
-            Promise.all(map(offeringCourses, c => {
+            Promise.all(map(offeringCourses, async c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
                 const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
                 if(currentTeacher) {
-                    dispatch(dropCourseTeacher(currentTeacher.id))
-                } else {
-                    Promise.resolve()
+                    return dispatch(dropCourseTeacher(currentTeacher.id))
                 }
+                return Promise.resolve()
             }))
                 .then(() => {
                     tempDisplayedOfferingIds.splice(index, 1)
