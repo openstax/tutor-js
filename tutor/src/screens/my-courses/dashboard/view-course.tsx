@@ -17,7 +17,6 @@ const StyledViewCourse = styled.div`
             }
             .my-courses-item-title {
                 a {
-                    width: 20rem;
                     padding: 1.2rem;
                 }
             }
