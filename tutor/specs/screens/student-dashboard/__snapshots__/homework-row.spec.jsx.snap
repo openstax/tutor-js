@@ -209,7 +209,7 @@ exports[`Homework Row renders in progress 1`] = `
   >
     <div>
       <div
-        aria-label="Work on homework: proactive engage web-readiness"
+        aria-label="Work on homework: distributed integrate infomediaries"
         className="sc-fzqBZW c0 task homework viewable"
         data-event-id={1}
         href="/course/1/task/1"
@@ -229,7 +229,7 @@ exports[`Homework Row renders in progress 1`] = `
               type="homework"
             />
             <span>
-              proactive engage web-readiness
+              distributed integrate infomediaries
             </span>
           </div>
           <div
@@ -254,7 +254,7 @@ exports[`Homework Row renders in progress 1`] = `
                 className="tour-anchor"
                 data-tour-anchor-id="assignment-progress-status"
               >
-                1/10 completed
+                1/5 completed
               </span>
             </div>
           </div>
@@ -269,7 +269,7 @@ exports[`Homework Row renders in progress 1`] = `
               href="/course/1/gradebook"
               onClick={[Function]}
             >
-              5.0
+              0
             </a>
             <svg
               aria-hidden="true"
@@ -526,7 +526,7 @@ exports[`Homework Row renders with completed count 1`] = `
   >
     <div>
       <div
-        aria-label="Work on homework: rich reintermediate e-business"
+        aria-label="Work on homework: world-class iterate action-items"
         className="sc-fzqBZW c0 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
@@ -546,7 +546,7 @@ exports[`Homework Row renders with completed count 1`] = `
               type="homework"
             />
             <span>
-              rich reintermediate e-business
+              world-class iterate action-items
             </span>
           </div>
           <div
@@ -571,7 +571,7 @@ exports[`Homework Row renders with completed count 1`] = `
                 className="tour-anchor"
                 data-tour-anchor-id="assignment-progress-status"
               >
-                2/8 completed
+                5/5 completed
               </span>
             </div>
           </div>
@@ -586,7 +586,7 @@ exports[`Homework Row renders with completed count 1`] = `
               href="/course/2/gradebook"
               onClick={[Function]}
             >
-              6.0
+              2.0
             </a>
             <svg
               aria-hidden="true"
