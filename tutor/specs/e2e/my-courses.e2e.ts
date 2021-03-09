@@ -10,11 +10,8 @@ describe('My Courses', () => {
     it('allows a new teacher select and suggest subjects', async () => {
         await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=existing-teacher-screen', { timeout: 1000 })
-        await page.evaluate(() => {
-            window._MODELS.store.dispatch({ type: 'bootstrap', payload: {
-                courses: [], offerings: window._MODELS.bootstrapData.offerings,
-            } })
-        })
+        await modifyBootstrapData(page, (data) => ({ ...data, courses: [] }))
+        await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=new-teacher-screen', { timeout: 10000 })
         await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=submit-suggested-subject')
