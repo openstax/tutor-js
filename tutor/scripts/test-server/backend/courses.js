@@ -1,3 +1,5 @@
+const Factory = require('object-factory-bot');
+require('../../../specs/factories/course');
 const { getCourse } = require('./bootstrap');
 
 module.exports = {
@@ -38,9 +40,22 @@ module.exports = {
         return res.json({ id: null });
     },
 
+    create(req, res) {
+        return res.json(
+            Factory.create('Course', req.body)
+        );
+    },
+
+    clone(req, res) {
+        const course = getCourse(req.params.id);
+        const nextId = Factory.create('Course', req.body).id
+        return res.json({ ...course, ...req.body, id: nextId });
+    },
+
     route(server) {
         server.put('/api/courses/:id', this.put);
-        // /course/1/task/2/step/22  with exercise_id 22
+        server.post('/api/courses/:id/clone', this.clone);
+        server.post('/api/courses', this.create);
         server.get('/api/courses/:id/practice_questions', this.getPracticeQuestions);
         server.post('/api/courses/:id/practice_questions', this.savePracticeQuestion);
         server.delete('/api/courses/:id/practice_questions/:pqId', this.deletePracticeQuestion);

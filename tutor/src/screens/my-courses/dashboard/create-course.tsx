@@ -31,7 +31,7 @@ const CreateCourse: React.FC<CreateCourseProps> = ({ offering }) => {
     if (!offering.is_available) { return null }
 
     return (
-        <StyledCreateCourse>
+        <StyledCreateCourse data-test-id="create-course">
             <TourAnchor id="create-course-zone">
                 <div className="my-courses-add-zone">
                     <TutorLink to="createNewCourseFromOffering" params={{ offeringId: offering.id }}>

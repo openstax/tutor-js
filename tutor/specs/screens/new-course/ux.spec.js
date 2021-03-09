@@ -172,11 +172,6 @@ describe('Course Builder UX Model', () => {
             }));
         });
 
-        it('redirects after building', function() {
-            ux.currentStageIndex = ux.stages.length - 1;
-            expect(ux.router.history.push).toHaveBeenCalledWith('/course/42?showIntro=true');
-        });
-
     });
 
 });
