@@ -43,7 +43,7 @@ const Header = styled.div`
         font-size: 1.8rem;
         font-weight: bold;
         line-height: 3rem;
-        letter-spacing: 0.05rem;
+        letter-spacing: -0.05rem;
         margin: 0 0 1rem;
     }
 
@@ -468,6 +468,10 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     }
 
     const onChangeSuggestion = (value) => {
+        if (value.length > 0) {
+            setSelectedSubject(null)
+        }
+
         setSuggestedSubject(value)
         setShowSuggestSubmitButton(value.length > 0)
     }
@@ -500,7 +504,10 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                                 type="radio"
                                                 name="offering"
                                                 checked={selectedSubject === book.id}
-                                                onChange={() => setSelectedSubject(book.id)}
+                                                onChange={() => {
+                                                    setSelectedSubject(book.id)
+                                                    onChangeSuggestion('')
+                                                }}
                                                 data-test-id={`offering-${i}`}
                                             />
                                             <div className="control">
@@ -521,6 +528,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 <input
                                     type="text"
                                     maxLength={50}
+                                    value={suggestedSubject}
                                     placeholder="Suggest a subject"
                                     onChange={(e) => onChangeSuggestion(e.target.value)}
                                     data-test-id="input-suggested-subject"

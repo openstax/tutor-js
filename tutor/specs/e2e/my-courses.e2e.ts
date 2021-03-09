@@ -25,8 +25,13 @@ describe('My Courses', () => {
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=0')
         await expect(page).not.toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=offering-0', { force: true })
         await expect(page).toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testEl=submit-suggested-subject', { timeout: 100 })
+        await page.type('testEl=input-suggested-subject', 'test')
+        await expect(page).not.toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await page.click('testEl=offering-0', { force: true })
         await page.click('testEl=show-detail')
     })
 
