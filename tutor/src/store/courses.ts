@@ -108,7 +108,7 @@ export const useLatestCoursePreview = (offeringId: string | number) => useSelect
 export const useDisplayedCourseOfferingIds = () => {
     const courseOfferingIds = useAllCourses().map(c => c.offering_id)
     const selectedIds = UiSettings.get('displayedOfferingIds') || []
-    return union(courseOfferingIds, selectedIds)
+    return union(selectedIds, courseOfferingIds)
 }
 
 export { createPreviewCourse, updateCourse, selectors }
