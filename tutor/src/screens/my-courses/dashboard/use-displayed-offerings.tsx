@@ -11,9 +11,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     // getting all the data: offerings and courses
     const courses = useAllCourses()
     const offerings = useAvailableOfferings(courses)
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
-        UiSettings.get('displayedOfferingIds') || useDisplayedCourseOfferingIds()
-    )
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedCourseOfferingIds())
 
     // update the `displayedOfferingIds` if users adds/delete offerings
     useEffect(() => {
