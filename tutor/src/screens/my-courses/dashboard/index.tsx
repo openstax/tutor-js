@@ -37,6 +37,9 @@ const StyledMyCoursesDashboard = styled.div`
         padding-top: 2.4rem;
         padding: 2.4rem 3.2rem 6.4rem;
         min-height: 40rem;
+        h3 {
+            color: ${colors.neutral.std};
+        }
         .edit-mode-icons {
             float: right;
         }
@@ -74,6 +77,15 @@ const StyledMyCoursesDashboard = styled.div`
                 font-size: 1.8rem;
                 color: ${colors.neutral.darker};
                 margin: 7rem auto;
+            }
+        }
+        &.is-edit-mode {
+            h3 {
+                color: ${colors.neutral.darker};
+            }
+            .my-courses-item-wrapper , .my-courses-add-zone{
+                opacity: 0.6;
+                pointer-events: none;
             }
         }
     }

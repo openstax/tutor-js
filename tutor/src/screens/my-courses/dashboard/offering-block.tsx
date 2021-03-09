@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, ReactElement, Dispatch, SetStateAction } from 'react'
 import { map, filter } from 'lodash'
+import cn from 'classnames'
 import moment from 'moment'
 import { Icon } from 'shared'
 import UiSettings from 'shared/model/ui-settings'
@@ -189,7 +190,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     )
 
     return (
-        <div className="offering-container">
+        <div className={cn('offering-container', { 'is-edit-mode': isEditMode })}>
             {editModeIcons}
             <h3>{offering.title}</h3>
             <Tabs
