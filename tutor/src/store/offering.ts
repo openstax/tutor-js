@@ -2,7 +2,6 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import { bootstrap } from './bootstrap'
 import { Offering, Course, ID } from './types'
-import { getOfferings } from './api'
 
 const offeringAdapter = createEntityAdapter<Offering>({
     sortComparer: (a, b) => a.default_course_name.localeCompare(b.default_course_name),
@@ -18,9 +17,6 @@ const offeringSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getOfferings.fulfilled, (state, action) => {
-            offeringAdapter.setAll(state, action.payload.items)
-        }),
         builder.addCase(bootstrap, (state, action) => {
             offeringAdapter.setAll(state, action.payload.offerings)
         })
