@@ -78,16 +78,16 @@ server.use(router);
 
 function setRole(role) {
     for (let route in GET_HANDLERS) {
-        GET_HANDLERS[route].setRole?.(role);
+        GET_HANDLERS[route].setRole && GET_HANDLERS[route].setRole(role);
     }
-    MULTI_HANDLERS.forEach((handler) => { handler.setRole?.(role); });
+    MULTI_HANDLERS.forEach((handler) => { handler.setRole && handler.setRole(role); });
 }
 function resetState() {
     for (let route in GET_HANDLERS) {
-        GET_HANDLERS[route].resetState?.();
+        GET_HANDLERS[route].resetState && GET_HANDLERS[route].resetState();
     }
     MULTI_HANDLERS.forEach((handler) => {
-        handler.resetState?.();
+        handler.resetState && handler.resetState();
     });
 }
 
