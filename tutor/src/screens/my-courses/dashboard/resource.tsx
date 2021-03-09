@@ -5,38 +5,49 @@ import { colors } from 'theme'
 import { Icon } from 'shared'
 
 const StyledResource = styled.div`
-  &&& {
-    .my-courses-item {
-      &.has-not-appearance {
-        background-color:white;
-        a .preview-belt {
-          background: black;
-          p {color: white; }
+    &&& {
+        .my-courses-item {
+            .my-courses-item-title {
+                padding: 0;
+            }
+            &.has-not-appearance {
+                background-color:white;
+                a .preview-belt {
+                    background: black;
+                    p {color: white; }
+                }
+            }
         }
-      }
-    }
-    a {
-      color: black;
-      .preview-belt {
-        background: white;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-        bottom: 40%;
-        h4 {
-          font-size: 1.8rem;
-          line-height: 2rem;
-          font-weight: 600;
+        a {
+            display: block;
+            color: black;
+            .name {
+                padding: 1.2rem;
+            }
+            .preview-belt {
+                background: white;
+                box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+                bottom: 40%;
+                h4 {
+                    font-size: 1.8rem;
+                    line-height: 2rem;
+                    font-weight: 600;
+                }
+                p {
+                    color: ${colors.neutral.thin};
+                    margin-top: 0;
+                }
+            }
         }
-        p {
-          color: ${colors.neutral.thin};
+        svg {
+            margin: 0;
         }
-      }
+        svg[data-icon="external-link-square-alt"] {
+            position: absolute;
+            bottom: 16px;
+            left: 12px;
+        }
     }
-    svg[data-icon="external-link-square-alt"] {
-      position: absolute;
-      bottom: 20px;
-      left: 15px;
-    }
-  }
 `
 
 interface ResourcesProps {
@@ -62,8 +73,8 @@ const Resources: React.FC<ResourcesProps> = ({ title, info, link, appearanceCode
                     <div className="preview-belt">
                         <p>{info}</p>
                     </div>
+                    <Icon type="external-link-square" />
                 </a>
-                <Icon type="external-link-square" />
             </div>
         </StyledResource>
     )
