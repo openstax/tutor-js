@@ -39,7 +39,9 @@ export default {
     },
 
     dasherize(string) {
-        return String(string).toLocaleLowerCase().replace(/[-_\s]+/g, '-');
+        return String(string)
+            .replace(/[A-Z]/g, (char, index) => (index !== 0 ? '-' : '') + char.toLowerCase())
+            .replace(/[-_\s]+/g, '-');
     },
 
     // originated from http://individed.com/code/to-title-case/
