@@ -14,28 +14,28 @@ let ROLE = 'teacher';
 
 function addCourses(courses, attrs) {
     courses.push(
-      Factory.create('Course', merge(attrs, { id: 1, type: 'biology', months_ago: 1, now }
-      )));
+        Factory.create('Course', merge(attrs, { id: 1, type: 'biology', months_ago: 1, now }
+        )));
     courses.push(
-      Factory.create('Course', merge(attrs, { id: 2, type: 'physics', months_ago: 2, now }))
+        Factory.create('Course', merge(attrs, { id: 2, type: 'physics', months_ago: 2, now }))
     );
     courses.push(
-      Factory.create('Course', merge(attrs, {
-        name: 'Physics Copy',
-        cloned_from_id: 2,
-        id: 3, type: 'physics', months_ago: 1, now,
-      }))
+        Factory.create('Course', merge(attrs, {
+            name: 'Physics Copy',
+            cloned_from_id: 2,
+            id: 3, type: 'physics', months_ago: 1, now,
+        }))
     );
     courses.push(
-      Factory.create('Course', merge(attrs, { id: 4, type: 'biology', months_ago: -7, now }))
+        Factory.create('Course', merge(attrs, { id: 4, type: 'biology', months_ago: -7, now }))
     );
     courses.push(
-      Factory.create('Course', merge(attrs,
-        { name: 'Group with no assignments', id: 5, type: 'physics', months_ago: 2, now }))
+        Factory.create('Course', merge(attrs,
+            { name: 'Group with no assignments', id: 5, type: 'physics', months_ago: 2, now }))
     );
     courses.push(
-      Factory.create('Course', merge(attrs,
-        { name: 'Preview Course', id: 6, type: 'physics', months_ago: 2, is_preview: true, now }))
+        Factory.create('Course', merge(attrs,
+            { name: 'Preview Course', id: 6, type: 'physics', months_ago: 2, is_preview: true, now }))
     );
     const offering = Factory.create('Offering')
     let course = Factory.create('Course', merge(attrs, {
