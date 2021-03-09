@@ -7,7 +7,6 @@ const createDataTestIdEngine = () => {
 
     const toTestSelector = (sel) => {
         const quoted = sel.match(/^".*"$/) ? sel : `"${sel}"`;
-        console.log(quoted)
         return `[data-test-id=${quoted}]`;
     };
 

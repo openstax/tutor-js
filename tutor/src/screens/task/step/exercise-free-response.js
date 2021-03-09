@@ -184,7 +184,7 @@ class FreeResponseInput extends React.Component {
                       <RevertButton size="lg" ux={ux} />
                       <AnswerButton
                           size="lg"
-                          data-test-id={`${ux.isSubmitDisabled ? 'submit-answer-btn-disabled' : 'submit-answer-btn'}`}
+                          data-test-id="submit-answer-btn"
                           disabled={ux.isSubmitDisabled}
                           onClick={this.onSave}>
                           {ux.submitBtnLabel}
