@@ -13,9 +13,7 @@ module.exports = {
     setRole(role) {
         ROLE = role;
     },
-    resetState() {
-        // no state is modified, so nothing to reset
-    },
+
     handler(req, res) {
         const course = find(bootstrapData[ROLE].courses, { id: parseInt(req.params.courseId) });
         if (!course) {

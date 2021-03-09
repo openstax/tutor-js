@@ -39,6 +39,7 @@ const GET_HANDLERS = {
         handler(req, resp) { resetState(req.query.role); resp.json({ ok: true }); },
     },
     'user/bootstrap': require('./backend/bootstrap'),
+    user: require('./backend/user'),
     offerings: require('./backend/offerings'),
     'courses/:courseId/dashboard': require('./backend/dashboard'),
     'courses/:courseId/performance': require('./backend/performance'),
@@ -77,16 +78,16 @@ server.use(router);
 
 function setRole(role) {
     for (let route in GET_HANDLERS) {
-        GET_HANDLERS[route].setRole(role);
+        GET_HANDLERS[route].setRole?.(role);
     }
-    MULTI_HANDLERS.forEach((handler) => { handler.setRole(role); });
+    MULTI_HANDLERS.forEach((handler) => { handler.setRole?.(role); });
 }
 function resetState() {
     for (let route in GET_HANDLERS) {
-        GET_HANDLERS[route].resetState();
+        GET_HANDLERS[route].resetState?.();
     }
     MULTI_HANDLERS.forEach((handler) => {
-        handler.resetState();
+        handler.resetState?.();
     });
 }
 

@@ -448,7 +448,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     }
 
     return (
-        <StyledPage>
+        <StyledPage data-test-id="new-teacher-screen" >
             <Header>
                 <h2>Welcome to OpenStax Tutor</h2>
                 <h1 id="instructions">
@@ -517,7 +517,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                     </form>
                 </Content>
             </Wrapper>
-            {!isEmpty(selectedSubject) &&
+            {!isEmpty(selectedSubject) && (
                 <Footer>
                     <Button
                         variant="primary"
@@ -532,7 +532,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                         Next
                     </Button>
                 </Footer>
-            }
+            )}
         </StyledPage>
     )
 }

@@ -3,6 +3,7 @@
 exports[`My Courses Pending Verification Component renders and matches snapshot 1`] = `
 <div
   className="my-courses pending-faculty-verification container"
+  data-test-id="pending-verification"
 >
   <h2>
     My Courses

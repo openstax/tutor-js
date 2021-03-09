@@ -44,7 +44,7 @@ export default class PendingVerification extends React.Component {
 
     render() {
         return (
-            <div className="my-courses pending-faculty-verification container">
+            <div className="my-courses pending-faculty-verification container" data-test-id="pending-verification">
                 <h2>My Courses</h2>
                 <div className="courses">
                     <div className="locked-card">
