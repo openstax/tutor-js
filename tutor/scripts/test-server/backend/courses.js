@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
 require('../../../specs/factories/course');
-const { getCourse } = require('./bootstrap');
+const { getCourse, findOrCreateCourse } = require('./bootstrap');
 
 module.exports = {
 
@@ -41,9 +41,9 @@ module.exports = {
     },
 
     create(req, res) {
-        return res.json(
-            Factory.create('Course', req.body)
-        );
+        const course = findOrCreateCourse()
+        Object.assign(course, req.body)
+        return res.json(course);
     },
 
     clone(req, res) {

@@ -55,15 +55,26 @@ teacher.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
 
+function getCourse(id) {
+    return find(PAYLOADS[ROLE].courses, c => c.id == id);
+}
+
 
 const PAYLOADS = {
     student, teacher,
 };
 
 module.exports = {
-    getCourse(id) {
-        return find(PAYLOADS[ROLE].courses, c => c.id == id);
+    findOrCreateCourse(id) {
+        let course = getCourse(id)
+        if (!course) {
+            course = Factory.create('Course', { id: id })
+            PAYLOADS[ROLE].courses.push(course)
+        }
+        return course
     },
+
+    getCourse,
 
     data: {
         student, teacher,
