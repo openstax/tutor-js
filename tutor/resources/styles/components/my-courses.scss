@@ -7,7 +7,7 @@ $my-courses-item-tablet-height: 139px;
 $my-courses-item-offset: 140px;
 
 $course-transition: 200ms ease-in-out;
-$my-courses-card-padding: 20px;
+$my-courses-card-padding: 12px;
 
 // use shadow on after for quick fading shadows
 @mixin after-shadow() {
@@ -163,6 +163,8 @@ $my-courses-card-padding: 20px;
         display: block;
         padding: $my-courses-card-padding;
         text-decoration: none;
+        font-size: 1.6rem;
+        line-height: 2rem;
       }
     }
 
@@ -195,13 +197,14 @@ $my-courses-card-padding: 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
-          h4 {
+          h4, h5 {
             text-transform: uppercase;
           }
           > * { margin: 0; }
           p {
             margin-top: 0.5rem;
-             @include tutor-sans-font(1.4rem);
+            @include tutor-sans-font(1.2rem);
+            line-height: 1.8rem;
             font-weight: 400;
             color: $tutor-neutral-darker;
           }
@@ -289,7 +292,7 @@ $my-courses-card-padding: 20px;
       }
     }
   }
-  
+
 
   &.pending-faculty-verification {
     border-bottom: 1px solid $tutor-neutral-light;
