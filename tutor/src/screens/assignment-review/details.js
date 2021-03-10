@@ -91,11 +91,12 @@ const Title = styled.div`
   color: ${colors.neutral.thin};
 `;
 
-const Item = ({ children }) => (
-    <div><TruncatedText maxWidth="40rem">{children}</TruncatedText></div>
-);
+const Item = ({ children }) => {
+    if (!children) { return null; }
+    return <div><TruncatedText maxWidth="40rem">{children}</TruncatedText></div>
+}
 Item.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
 };
 
 const TaskingDefinitionList = styled.div`

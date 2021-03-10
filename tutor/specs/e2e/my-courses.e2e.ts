@@ -30,6 +30,15 @@ describe('My Courses', () => {
         await page.click('testEl=show-detail')
     })
 
+    it('displays a preview course', async () => {
+        await visitPage(page, '/courses')
+        await page.click('.my-courses-item.preview a')
+        await page.waitForNavigation()
+        expect(
+            await page.evaluate(() => window.location.pathname)
+        ).toMatch(/course\/\d+/)
+    })
+
     describe('unavailable messages', () => {
 
         it('displays pending message', async () => {

@@ -580,7 +580,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on event: robust strategize synergies"
+                    aria-label="Work on event: killer implement channels"
                     className="c12 task event"
                     data-event-id={7}
                     href="/course/1/task/7"
@@ -599,7 +599,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           type="event"
                         />
                         <span>
-                          robust strategize synergies
+                          killer implement channels
                         </span>
                       </div>
                       <div
@@ -639,7 +639,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          10.0
+                          2.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -665,7 +665,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on external: virtual disintermediate e-commerce"
+                    aria-label="Work on external: 24/365 benchmark mindshare"
                     className="c12 task external"
                     data-event-id={6}
                     href="/course/1/task/6"
@@ -684,7 +684,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           type="external"
                         />
                         <span>
-                          virtual disintermediate e-commerce
+                          24/365 benchmark mindshare
                         </span>
                       </div>
                       <div
@@ -709,7 +709,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                             className="tour-anchor"
                             data-tour-anchor-id="assignment-progress-status"
                           >
-                            Clicked
+                            Not started
                           </span>
                         </div>
                       </div>
@@ -750,7 +750,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on homework: 24/7 incubate paradigms"
+                    aria-label="Work on homework: efficient streamline vortals"
                     className="c12 task homework"
                     data-event-id={8}
                     href="/course/1/task/8"
@@ -769,7 +769,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           type="homework"
                         />
                         <span>
-                          24/7 incubate paradigms
+                          efficient streamline vortals
                         </span>
                       </div>
                       <div
@@ -794,7 +794,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                             className="tour-anchor"
                             data-tour-anchor-id="assignment-progress-status"
                           >
-                            Not started
+                            1/3 completed
                           </span>
                         </div>
                       </div>
@@ -809,7 +809,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          9.0
+                          4.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -835,7 +835,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on reading: real-time empower content"
+                    aria-label="Work on reading: B2C deploy convergence"
                     className="c12 task reading"
                     data-event-id={5}
                     href="/course/1/task/5"
@@ -854,7 +854,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           type="reading"
                         />
                         <span>
-                          real-time empower content
+                          B2C deploy convergence
                         </span>
                       </div>
                       <div
@@ -894,7 +894,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          8.0
+                          3.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -1553,7 +1553,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on event: transparent exploit architectures"
+                    aria-label="Work on event: cutting-edge mesh portals"
                     className="c12 task event"
                     data-event-id={3}
                     href="/course/1/task/3"
@@ -1572,7 +1572,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           type="event"
                         />
                         <span>
-                          transparent exploit architectures
+                          cutting-edge mesh portals
                         </span>
                       </div>
                       <div
@@ -1612,7 +1612,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          3.0
+                          5.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -1638,7 +1638,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on external: value-added reintermediate architectures"
+                    aria-label="Work on external: open-source mesh partnerships"
                     className="c12 task external"
                     data-event-id={2}
                     href="/course/1/task/2"
@@ -1657,7 +1657,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           type="external"
                         />
                         <span>
-                          value-added reintermediate architectures
+                          open-source mesh partnerships
                         </span>
                       </div>
                       <div
@@ -1697,7 +1697,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          6.0
+                          8.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -1723,7 +1723,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on homework: interactive mesh convergence"
+                    aria-label="Work on homework: real-time synthesize interfaces"
                     className="c12 task homework"
                     data-event-id={4}
                     href="/course/1/task/4"
@@ -1742,7 +1742,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           type="homework"
                         />
                         <span>
-                          interactive mesh convergence
+                          real-time synthesize interfaces
                         </span>
                       </div>
                       <div
@@ -1767,7 +1767,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                             className="tour-anchor"
                             data-tour-anchor-id="assignment-progress-status"
                           >
-                            12/12 completed
+                            Complete
                           </span>
                         </div>
                       </div>
@@ -1782,7 +1782,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          2.0
+                          5.0
                         </a>
                         <svg
                           aria-hidden="true"
@@ -1808,7 +1808,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    aria-label="Work on reading: proactive engage web-readiness"
+                    aria-label="Work on reading: distributed integrate infomediaries"
                     className="c12 task reading"
                     data-event-id={1}
                     href="/course/1/task/1"
@@ -1827,7 +1827,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           type="reading"
                         />
                         <span>
-                          proactive engage web-readiness
+                          distributed integrate infomediaries
                         </span>
                       </div>
                       <div
@@ -1867,7 +1867,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           href="/course/1/gradebook"
                           onClick={[Function]}
                         >
-                          5.0
+                          0
                         </a>
                         <svg
                           aria-hidden="true"

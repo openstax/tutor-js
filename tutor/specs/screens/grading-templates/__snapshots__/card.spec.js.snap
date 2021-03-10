@@ -297,7 +297,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         <div
           className="c4"
         >
-          59%
+          4%
            of question’s point value
         </div>
         <div
@@ -308,7 +308,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         <div
           className="c4"
         >
-          5%
+          59%
            of question’s point value
         </div>
         <div

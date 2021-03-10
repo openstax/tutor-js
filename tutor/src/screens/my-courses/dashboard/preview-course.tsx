@@ -91,21 +91,21 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     if (!offering.is_preview_available) {
         return null
     }
-    const goToPreviewCourse = (toPreview = false) => {
+    const goToPreviewCourse = (toSettings = false) => {
         if (previewCourse) {
             history.push(Router.makePathname(
-                `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: previewCourse.id },
+                toSettings ? 'courseSettings' : 'dashboard', { courseId: previewCourse.id },
             ))
-        }
-        else {
+        } else {
             setIsCreating(true)
             dispatch(createPreviewCourse(offering))
                 .then((result) => {
                     setIsCreating(false)
                     if (!result.error) {
-                        history.push(Router.makePathname(
-                            `${toPreview ? 'courseSettings' : 'dashboard'}`, { courseId: result.payload.id },
-                        ))
+                        window.location = Router.makePathname(
+                            toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
+                        )
+
                     }
                 })
         }

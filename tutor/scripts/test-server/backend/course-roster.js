@@ -8,13 +8,15 @@ module.exports = {
         // no state, nothing to reset
     },
 
-    setRole() { },
+    setRole() { },   
 
     route(server) {
         server.get('/api/courses/:courseId/roster', (req, res) => {
-            const course = getCourse(req.params.courseId);
+            const course = getCourse(req.params.courseId, 'teacher');
             const roster = Factory.create('CourseRoster', { course });
-            roster.teachers[0].role_id = course.roles.find(r => r.type == 'teacher').id;
+            const [ t ] = roster.teachers
+            t.role_id = course.roles.find(r => r.type == 'teacher').id;
+            t.is_active = true
             res.json(roster);
         });
 

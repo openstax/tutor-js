@@ -16,13 +16,15 @@ let SCORES = {}
 let GRADES = {}
 let SETTINGS = {}
 
-const setDefaultPlans = () => {
-    PAST = {
+function getPast(course) {
+    return {
         total_count: 5,
         items: times(5, (i) => Factory.create('TeacherTaskPlan', {
-            now, days_ago: 100 + (i*5),
+            now, days_ago: 100 + (i*5), course,
         })),
     };
+}
+const setDefaultPlans = () => {
 
     PLANS = {};
     SCORES = {};
@@ -91,7 +93,8 @@ module.exports = {
     },
 
     getPast(req, res) {
-        return res.json(PAST);
+        const course = getCourse(req.params.courseId);
+        return res.json(getPast(course));
     },
 
     get(req, res) {
@@ -104,7 +107,7 @@ module.exports = {
 
     getStats(req, res) {
         const course = getCourse(req.query.course_id);
-        const plan = planForId(req.params.id);
+        const plan = planForId(req.params.id, { course });
         const exercises = times(4).map(() => Factory.create('TutorExercise'));
 
         const stat = Factory.create('TaskPlanStat', { task_plan: plan, course, exercises });

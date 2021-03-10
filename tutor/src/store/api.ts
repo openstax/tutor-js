@@ -23,6 +23,9 @@ class ApiError extends Error {
     }
 }
 
+const baseUrl = process.env.BACKEND_SERVER_URL ?
+    process.env.BACKEND_SERVER_URL : window.location.port === '8000' ?
+        'http://localhost:3001/api' : `${window.location.origin}/api`;
 
 export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts?: RequestOptions): Promise<RetT> => {
     let req: { method: HttpMethod, body?: any } = { method }
@@ -30,7 +33,7 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
         req.body = JSON.stringify(opts.data)
     }
     const url = template(urlPattern)(opts?.params || {})
-    const resp = await fetch(`/api/${url}`, req)
+    const resp = await fetch(`${baseUrl}/${url}`, req)
 
     if (resp.ok) {
         return await resp.json() as RetT

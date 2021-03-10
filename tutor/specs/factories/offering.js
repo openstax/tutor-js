@@ -25,4 +25,5 @@ Factory.define('Offering')
     .is_available(true)
     .is_preview_available(true)
     .preview_message(fake.company.bsBuzz)
+    .subject(fake.random.arrayElement(['science', 'math', 'high school']))
     .os_book_id(sequence);

@@ -1,5 +1,6 @@
 const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
+const http = require('http');
 const log = require('./log');
 const { fe_port, be_port } = require('./ports');
 
@@ -29,6 +30,10 @@ WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
             }
             log('FAILED', true);
         } else {
+            http.createServer(function (req, res) {
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end('ok\n');
+            }).listen(fe_port + 2);
             log('READY', true);
         }
     });
@@ -46,4 +51,5 @@ config.plugins.push(
 );
 
 const server = new WebpackDevServer(webpack(config), config.devServer);
+
 server.listen(fe_port, 'localhost');
