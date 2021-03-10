@@ -19,7 +19,7 @@ const MyCourses: React.FC<MyCoursesProps> = ({ history }) => {
 
     // a verified instructor from approved institution
     if (User.canCreateCourses) {
-        return <NewTeacher history={history} data-test-id="new-teacher-screen" />
+        return <NewTeacher history={history} />
     }
 
     // even though this case should be handled by router;

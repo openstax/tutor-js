@@ -477,7 +477,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     }
 
     return (
-        <StyledPage data-test-id="new-teacher-screen" >
+        <StyledPage>
             <Header>
                 <h2>Welcome to OpenStax Tutor</h2>
                 <h1 id="instructions">
