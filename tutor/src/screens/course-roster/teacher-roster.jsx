@@ -17,7 +17,10 @@ class TeacherRoster extends React.Component {
 
   @autobind renderRow(teacher) {
       return (
-          <tr key={teacher.id} data-teacher-id={teacher.role_id}>
+          <tr key={teacher.id}
+              data-is-self={teacher.role_id == this.props.course.primaryRole.id}
+              data-teacher-id={teacher.role_id}
+          >
               <td>
                   {teacher.first_name}
               </td>
