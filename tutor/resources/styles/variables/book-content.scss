@@ -86,7 +86,7 @@ $openstax-books: (
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-neutral-neutral-darker-green-accent,
     highlight  : rgb(255, 255, 187), // pale yellow
-    control    : $tutor-neutral-lightest,
+    control    : $openstax-book-black,
   ),
   biology_2e: (
     primary    : $openstax-book-white,
@@ -106,7 +106,7 @@ $openstax-books: (
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-neutral-neutral-darker-green-accent,
     highlight  : rgb(255, 255, 187), // pale yellow
-    control    : $tutor-neutral-lightest,
+    control    : $openstax-book-black,
   ),
   concepts_biology: (
     primary    : $openstax-book-black,
@@ -116,7 +116,7 @@ $openstax-books: (
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-neutral-neutral-darker-green-accent,
     highlight  : rgb(255, 255, 187), // pale yellow
-    control    : $tutor-neutral-lightest,
+    control    : $openstax-book-black,
   ),
   college_biology: (
     primary    : $openstax-book-black,
@@ -126,7 +126,7 @@ $openstax-books: (
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-neutral-neutral-darker-green-accent,
     highlight  : rgb(255, 255, 187), // pale yellow
-    control    : $tutor-neutral-lightest,
+    control    : $openstax-book-black,
   ),
   principles_economics: (
     primary    : $openstax-book-white,
@@ -166,7 +166,7 @@ $openstax-books: (
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : lighten($tutor-primary, 5%),
-    control    : $openstax-book-warmer-blue,
+    control    : $openstax-book-black,
   ),
   anatomy_physiology: (
     primary    : $openstax-book-white,
@@ -179,24 +179,24 @@ $openstax-books: (
     control    : $tutor-neutral-lightest,
   ),
   ap_us_history: (
-    primary    : #000,
+    primary    : $openstax-book-black,
     secondary  : #0DC0DC,
     text       : $openstax-book-text-on-light-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : $openstax-book-blue-accent,
-    control    : darken(#002E6D, 5%),
+    control    : $openstax-book-black,
   ),
   entrepreneurship: (
-    primary    : #000,
+    primary    : $openstax-book-black,
     secondary  : #F36B32,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : lighten($tutor-primary, 5%),
-    control    : $openstax-book-warmer-blue,
+    control    : $openstax-book-black,
   ),
   psych_2e: (
     primary    : #fff,
