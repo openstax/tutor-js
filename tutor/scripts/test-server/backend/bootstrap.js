@@ -55,7 +55,6 @@ teacher.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
 
-
 const PAYLOADS = {
     student, teacher,
 };

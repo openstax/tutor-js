@@ -10,7 +10,7 @@ import { Offering } from '../../store/types'
 import CourseInformation from '../../models/course/information'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
-import { isEmpty, groupBy, map, extend } from 'lodash'
+import { groupBy, map, extend } from 'lodash'
 import Router from '../../helpers/router'
 import AsyncButton from 'shared/components/buttons/async-button'
 import TutorLink from '../../components/link'
@@ -214,7 +214,7 @@ const OfferingLabel = styled.label`
     }
 `
 
-const Footer = styled.div`
+const FooterWrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     position: fixed;
@@ -421,6 +421,31 @@ const OfferingList: React.FC<OfferingListProps> = ({ subject, offerings }) => {
     )
 }
 
+interface FooterProps {
+    setActiveScreen: void
+    selectedSubject: number
+}
+
+const Footer: React.FC<FooterProps> = ({ setActiveScreen, selectedSubject }) => {
+    if (!selectedSubject) { return null }
+    return (
+        <FooterWrapper>
+            <Button
+                variant="primary"
+                type="submit"
+                data-test-id="show-detail"
+                onClick={(e) => {
+                    e.preventDefault()
+                    setActiveScreen(Screens.Detail)
+                }}
+                form="offering-form"
+            >
+                Next
+            </Button>
+        </FooterWrapper>
+    )
+}
+
 interface SubjectSelectProps {
     selectedSubject: number
     setSelectedSubject: void
@@ -517,22 +542,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                     </form>
                 </Content>
             </Wrapper>
-            {!isEmpty(selectedSubject) && (
-                <Footer>
-                    <Button
-                        variant="primary"
-                        type="submit"
-                        data-test-id="show-detail"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            setActiveScreen(Screens.Detail)
-                        }}
-                        form="offering-form"
-                    >
-                        Next
-                    </Button>
-                </Footer>
-            )}
+            <Footer selectedSubject={selectedSubject} setActiveScreen={setActiveScreen}  />
         </StyledPage>
     )
 }
@@ -694,7 +704,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
     const [selectedSubject, setSelectedSubject] = useState()
 
     let queriedScreen = parseInt(Router.currentQuery().onboarding) || Screens.Select
-    if (queriedScreen === Screens.Detail && isEmpty(selectedSubject)) {
+    if (queriedScreen === Screens.Detail && !selectedSubject) {
         queriedScreen = Screens.Select
         history.push(windowImpl.location.pathname)
     }
@@ -724,7 +734,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
     return (
         <StyledBackgroundWrapper>
             <ScrollToTop>
-                <ContentWrapper>
+                <ContentWrapper data-test-id="new-teacher-screen">
                     {screens[activeScreen]}
                 </ContentWrapper>
             </ScrollToTop>

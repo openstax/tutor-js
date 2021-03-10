@@ -7,19 +7,12 @@ describe('My Courses', () => {
         await setRole('teacher')
     })
 
-    it('displays course create page when no courses', async () => {
-        await modifyBootstrapData(page, (data) => ({ ...data, courses: [] }))
-        await visitPage(page, '/courses')
-        await expect(page).toHaveSelector('testEl=new-teacher-screen')
-        await expect(page).not.toHaveSelector('testEl=existing-teacher-screen', { timeout: 10 })
-    })
-
     it('allows a new teacher select and suggest subjects', async () => {
         await visitPage(page, '/courses')
-        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
-        await page.evaluate(() => {
-            window._MODELS.store.dispatch({ type: 'bootstrap', payload: { courses: [], offerings: [] } })
-        })
+        await expect(page).toHaveSelector('testEl=existing-teacher-screen', { timeout: 1000 })
+        await modifyBootstrapData(page, (data) => ({ ...data, courses: [] }))
+        await visitPage(page, '/courses')
+        await expect(page).toHaveSelector('testEl=new-teacher-screen', { timeout: 500 })
         await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=submit-suggested-subject')
         await page.waitForNavigation()
@@ -31,6 +24,10 @@ describe('My Courses', () => {
         expect(
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=0')
+        await expect(page).not.toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await page.click('testEl=offering-0', { force: true })
+        await expect(page).toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await page.click('testEl=show-detail')
     })
 
     describe('unavailable messages', () => {
