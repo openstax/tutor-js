@@ -2,9 +2,9 @@ $openstax-book-white: rgb(255, 255, 255);
 $openstax-book-black: #000;
 $openstax-book-gray: #5E6062;
 $openstax-book-neutral-neutral-darker-green: darken($tutor-secondary, 8%); //rgb(119, 175, 66);
-$openstax-book-green: #7CAA42;
-$openstax-book-blue: #092565;
-$openstax-book-yellow: #EED04B;
+$openstax-book-green: #63A524;
+$openstax-book-blue: #002469;
+$openstax-book-yellow: #F4D019;
 $openstax-book-orange: $tutor-primary;
 $openstax-book-warmer-blue: rgb(0, 36, 106);
 
@@ -180,7 +180,7 @@ $openstax-books: (
   ),
   ap_us_history: (
     primary    : #000,
-    secondary  : #57BED8,
+    secondary  : #0DC0DC,
     text       : $openstax-book-text-on-light-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
@@ -190,7 +190,7 @@ $openstax-books: (
   ),
   entrepreneurship: (
     primary    : #000,
-    secondary  : #E37242,
+    secondary  : #F36B32,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
@@ -200,7 +200,7 @@ $openstax-books: (
   ),
   psych_2e: (
     primary    : #fff,
-    secondary  : #34755E,
+    secondary  : #067056,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
