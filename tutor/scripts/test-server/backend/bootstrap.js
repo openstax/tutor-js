@@ -59,7 +59,6 @@ function getCourse(id, role = ROLE) {
     return find(PAYLOADS[role].courses, c => c.id == id);
 }
 
-
 const PAYLOADS = {
     student, teacher,
 };

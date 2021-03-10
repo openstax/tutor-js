@@ -4,6 +4,7 @@ import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import Tabs from '../../components/tabs';
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 import Courses from '../../models/courses-map';
 import TeacherRoster from './teacher-roster';
 import StudentRoster from './student-roster';
@@ -70,6 +71,10 @@ class CourseRoster extends React.Component {
       );
   }
 
+  renderTitleBreadcrumbs() {
+      return <CourseBreadcrumb course={this.course} currentTitle="Course Roster" noBottomMargin />;
+  }
+
   render() {
       const { course } = this;
       let periods = [];
@@ -84,15 +89,11 @@ class CourseRoster extends React.Component {
       return (
           <CoursePage
               className="roster"
-              title="Course roster"
               course={course}
+              titleBreadcrumbs={this.renderTitleBreadcrumbs()}
+              titleAppearance="light"
+              controlBackgroundColor='white'
           >
-              <div className="course-settings-title">
-                  {course.name}
-              </div>
-              <h4 className="course-settings-term">
-                  {course.termFull}
-              </h4>
               <div className="settings-section teachers">
                   <TeacherRoster course={course} />
               </div>
