@@ -55,8 +55,8 @@ teacher.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
 
-function getCourse(id) {
-    return find(PAYLOADS[ROLE].courses, c => c.id == id);
+function getCourse(id, role = ROLE) {
+    return find(PAYLOADS[role].courses, c => c.id == id);
 }
 
 

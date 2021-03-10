@@ -16,7 +16,6 @@ Factory.define('CourseRosterStudent')
     .payment_due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
     .period_id(({ parent }) => parent.course.periods[0].id)
     .prompt_student_to_pay(false)
-    .role_id(sequence)
     .student_identifier(fake.random.alphaNumeric)
 
 Factory.define('CourseRosterTeacher')

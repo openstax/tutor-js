@@ -93,13 +93,12 @@ module.exports = {
     },
 
     getPast(req, res) {
-        const course = getCourse(req.query.course_id);
+        const course = getCourse(req.params.courseId);
         return res.json(getPast(course));
     },
 
     get(req, res) {
         const course = getCourse(req.query.course_id);
-        if (!course) { bang() }
         return res.json(planForId(req.params.id, {
             course,
             now: moment().add(fake.random.number() + 10, 'days'),
@@ -108,7 +107,7 @@ module.exports = {
 
     getStats(req, res) {
         const course = getCourse(req.query.course_id);
-        const plan = planForId(req.params.id);
+        const plan = planForId(req.params.id, { course });
         const exercises = times(4).map(() => Factory.create('TutorExercise'));
 
         const stat = Factory.create('TaskPlanStat', { task_plan: plan, course, exercises });

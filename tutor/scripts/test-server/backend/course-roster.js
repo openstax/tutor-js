@@ -12,7 +12,7 @@ module.exports = {
 
     route(server) {
         server.get('/api/courses/:courseId/roster', (req, res) => {
-            const course = getCourse(req.params.courseId);
+            const course = getCourse(req.params.courseId, 'teacher');
             const roster = Factory.create('CourseRoster', { course });
             const [ t ] = roster.teachers
             t.role_id = course.roles.find(r => r.type == 'teacher').id;

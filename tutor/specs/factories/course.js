@@ -20,8 +20,8 @@ Factory.define('Period')
     .teacher_student_role_id(sequence);
 
 Factory.define('Role')
-    .id(sequence)
     .type('student')
+    .id(({ object }) => object.type == 'teacher' ? 7 : sequence)
     .joined_at(({ parent }) => moment(parent.starts_at).add(1, 'week').toISOString());
 
 
