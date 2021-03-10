@@ -9,10 +9,10 @@ describe('My Courses', () => {
 
     it('allows a new teacher select and suggest subjects', async () => {
         await visitPage(page, '/courses')
-        await expect(page).toHaveSelector('testEl=existing-teacher-screen', { timeout: 1000 })
+        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
         await modifyBootstrapData(page, (data) => ({ ...data, courses: [] }))
         await visitPage(page, '/courses')
-        await expect(page).toHaveSelector('testEl=new-teacher-screen', { timeout: 1000 })
+        await expect(page).toHaveSelector('testEl=new-teacher-screen')
         await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=submit-suggested-subject')
         await page.waitForNavigation()
@@ -27,7 +27,7 @@ describe('My Courses', () => {
         await expect(page).not.toHaveSelector('testEl=show-detail', { timeout: 100 })
         await page.type('testEl=input-suggested-subject', 'test')
         await page.click('testEl=offering-0', { force: true })
-        await expect(page).toHaveSelector('testEl=show-detail', { timeout: 100 })
+        await expect(page).toHaveSelector('testEl=show-detail')
         await expect(page).not.toHaveSelector('testEl=submit-suggested-subject', { timeout: 100 })
         await page.type('testEl=input-suggested-subject', 'test')
         await expect(page).not.toHaveSelector('testEl=show-detail', { timeout: 100 })
