@@ -468,7 +468,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     }
 
     const onChangeSuggestion = (value) => {
-        if (value.length > 0) {
+        if (value) {
             setSelectedSubject(null)
         }
 
