@@ -37,12 +37,6 @@ function addCourses(courses, attrs) {
         Factory.create('Course', merge(attrs,
             { name: 'Preview Course', id: 6, type: 'physics', months_ago: 2, is_preview: true, now }))
     );
-    const offering = Factory.create('Offering')
-    let course = Factory.create('Course', merge(attrs, {
-        name: 'Preview Course without a created course in subject', id: 7, appearance_code: 'test', type: 'apush', months_ago: 2, is_preview: true, now
-    }))
-    course.offering_id = offering.id
-    courses.push(course)
 }
 
 BOOTSTRAP_DATA.accounts_api_url = `http://localhost:${be_port}/api`;
@@ -60,7 +54,6 @@ addCourses(teacher.courses, { is_teacher: true });
 teacher.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
-
 
 const PAYLOADS = {
     student, teacher,

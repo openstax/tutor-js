@@ -6,7 +6,7 @@ describe('Preview Courses', () => {
         await setRole('teacher')
     })
 
-    it('displays a collapsible side panel if no course created in subject', async () => {
+    xit('displays a collapsible side panel if no course created in subject', async () => {
         await visitPage(page, '/course/7')
         await page.evaluate(() => {
             window._MODELS.feature_flags.set('tours', false)
