@@ -526,7 +526,7 @@ exports[`Homework Row renders with completed count 1`] = `
   >
     <div>
       <div
-        aria-label="Work on homework: world-class iterate action-items"
+        aria-label="Work on homework: customized harness eyeballs"
         className="sc-fzqBZW c0 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
@@ -546,7 +546,7 @@ exports[`Homework Row renders with completed count 1`] = `
               type="homework"
             />
             <span>
-              world-class iterate action-items
+              customized harness eyeballs
             </span>
           </div>
           <div
@@ -571,7 +571,7 @@ exports[`Homework Row renders with completed count 1`] = `
                 className="tour-anchor"
                 data-tour-anchor-id="assignment-progress-status"
               >
-                5/5 completed
+                3/12 completed
               </span>
             </div>
           </div>
@@ -586,7 +586,7 @@ exports[`Homework Row renders with completed count 1`] = `
               href="/course/2/gradebook"
               onClick={[Function]}
             >
-              2.0
+              7.0
             </a>
             <svg
               aria-hidden="true"

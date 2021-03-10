@@ -123,14 +123,14 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="1.2"
+          data-chapter-section="1.4"
         >
-          1.2
+          1.4
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "multi-tasking",
+              "__html": "even-keeled",
             }
           }
         />
@@ -167,14 +167,14 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="5.1"
+          data-chapter-section="2.4"
         >
-          5.1
+          2.4
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "scalable",
+              "__html": "real-time",
             }
           }
         />
@@ -211,14 +211,14 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="5.1"
+          data-chapter-section="4.4"
         >
-          5.1
+          4.4
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "5th generation",
+              "__html": "stable",
             }
           }
         />

@@ -8,7 +8,7 @@ module.exports = {
         // no state, nothing to reset
     },
 
-    setRole() { },
+    setRole() { },   
 
     route(server) {
         server.get('/api/courses/:courseId/roster', (req, res) => {

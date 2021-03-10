@@ -21,7 +21,7 @@ Factory.define('Period')
 
 Factory.define('Role')
     .type('student')
-    .id(({ object }) => object.type == 'teacher' ? 7 : sequence)
+    .id(({ object }) => object.type == 'teacher' ? 7 : fake.random.number({ min: 10, max: 100 }))
     .joined_at(({ parent }) => moment(parent.starts_at).add(1, 'week').toISOString());
 
 

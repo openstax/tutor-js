@@ -209,7 +209,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
   >
     <div>
       <div
-        aria-label="Work on homework: virtual recontextualize networks"
+        aria-label="Work on homework: holistic revolutionize markets"
         className="sc-AxhUy c0 task homework viewable"
         data-event-id={4}
         href="/course/1/task/4"
@@ -229,7 +229,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
               type="homework"
             />
             <span>
-              virtual recontextualize networks
+              holistic revolutionize markets
             </span>
           </div>
           <div
@@ -269,7 +269,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
               href="/course/1/gradebook"
               onClick={[Function]}
             >
-              1.0
+              0
             </a>
             <svg
               aria-hidden="true"
