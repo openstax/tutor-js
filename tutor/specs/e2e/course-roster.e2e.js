@@ -9,7 +9,7 @@ describe('Course Roster', () => {
         await setRole('teacher')
     })
 
-    it('can remove self from course', async () => {
+    it.skip('can remove self from course', async () => {
         // await modifyBootstrapData(page, (data) => {
         //     Object.assign(data.courses.find(c => c.id == 1).roles[0], { id: 1, type: 'teacher' })
         //     return data
