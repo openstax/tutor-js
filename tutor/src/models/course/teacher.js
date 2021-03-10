@@ -8,7 +8,7 @@ import User from '../user';
 export default class CourseTeacher extends BaseModel {
 
   @identifier id;
-
+  @field role_id;
   @field first_name = '';
   @field last_name = '';
   @field role_id;

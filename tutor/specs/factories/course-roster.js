@@ -21,6 +21,7 @@ Factory.define('CourseRosterStudent')
 
 Factory.define('CourseRosterTeacher')
     .id(sequence)
+    .role_id(sequence)
     .first_name(fake.name.firstName)
     .last_name(fake.name.lastName)
     .is_active(true)
