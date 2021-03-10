@@ -14,7 +14,9 @@ module.exports = {
         server.get('/api/courses/:courseId/roster', (req, res) => {
             const course = getCourse(req.params.courseId);
             const roster = Factory.create('CourseRoster', { course });
-            roster.teachers[0].role_id = course.roles.find(r => r.type == 'teacher').id;
+            const [ t ] = roster.teachers
+            t.role_id = course.roles.find(r => r.type == 'teacher').id;
+            t.is_active = true
             res.json(roster);
         });
 

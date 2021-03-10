@@ -49,8 +49,8 @@ const GET_HANDLERS = {
 
 const MULTI_HANDLERS = [
     require('./backend/grading-templates'),
-    require('./backend/task-plans'),
     require('./backend/courses'),
+    require('./backend/task-plans'),
     require('./backend/tasks'),
     require('./backend/terms'),
     require('./backend/exercises'),

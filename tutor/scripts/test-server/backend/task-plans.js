@@ -16,13 +16,15 @@ let SCORES = {}
 let GRADES = {}
 let SETTINGS = {}
 
-const setDefaultPlans = () => {
-    PAST = {
+function getPast(course) {
+    return {
         total_count: 5,
         items: times(5, (i) => Factory.create('TeacherTaskPlan', {
-            now, days_ago: 100 + (i*5),
+            now, days_ago: 100 + (i*5), course,
         })),
     };
+}
+const setDefaultPlans = () => {
 
     PLANS = {};
     SCORES = {};
@@ -91,11 +93,13 @@ module.exports = {
     },
 
     getPast(req, res) {
-        return res.json(PAST);
+        const course = getCourse(req.query.course_id);
+        return res.json(getPast(course));
     },
 
     get(req, res) {
         const course = getCourse(req.query.course_id);
+        if (!course) { bang() }
         return res.json(planForId(req.params.id, {
             course,
             now: moment().add(fake.random.number() + 10, 'days'),
