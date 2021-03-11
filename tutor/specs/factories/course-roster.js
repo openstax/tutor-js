@@ -3,7 +3,6 @@ const {
 } = require('./helpers');
 const moment = require('moment');
 
-
 Factory.define('CourseRosterStudent')
     .id(sequence)
     .role_id(sequence)
@@ -20,7 +19,7 @@ Factory.define('CourseRosterStudent')
 
 Factory.define('CourseRosterTeacher')
     .id(sequence)
-    .role_id(sequence)
+    .role_id(({ course, index }) => index == 0 ? course.roles[0].id : fake.random.number({ min: 10, max: 100 }))
     .first_name(fake.name.firstName)
     .last_name(fake.name.lastName)
     .is_active(true)
@@ -31,5 +30,5 @@ Factory.define('CourseRoster')
         reference('CourseRosterStudent', { count: 10 })
     )
     .teachers(
-        reference('CourseRosterTeacher', { count: 2 })
+        reference('CourseRosterTeacher', { count: 2, defaults: ({ course }) => ({ course }) })
     )

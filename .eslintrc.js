@@ -35,7 +35,7 @@ module.exports = {
         "comma-dangle": ["error", "always-multiline"],
         "no-console":  "error",
         "no-debugger": "error",
-        "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
+        "no-unused-vars": [2, {'varsIgnorePattern': '_+', 'argsIgnorePattern': '^_'}],
         "consistent-return": [0, { "treatUndefinedAsUnspecified": true }],
         "object-curly-spacing": ["error", "always"],
         "quotes": ["error", "double"],

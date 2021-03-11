@@ -1,23 +1,68 @@
-import { visitPage, setTimeouts, setRole, resetState } from './helpers'
+import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
+//import { times } from 'lodash'
 
+//import { visitPage, setTimeouts, setRole, resetState } from './helpers'
 // the BE mock api server is primarily in backend/task-plans
+// interface MockData {
+//
+// }
+
+const PLAN_SETTINGS = {
+    1: { type: 'reading' },
+    2: { type: 'homework' },
+    3: { type: 'homework-wrm' },
+    4: { type: 'external' },
+    5: { type: 'event' },
+    6: { type: 'homework', exercises: [] },
+    7: { type: 'homework', exercises: [] },
+}
 
 describe('Assignment Review', () => {
 
-    beforeAll(async () => {
-        await resetState()
+    Mocker.mock(page, {
+        data: {
+
+            plan: (id) => Factory.create('TeacherTaskPlan', {
+                id, ...PLAN_SETTINGS[id], days_ago: Number(id) < 5 ? 30 : Number(id) * -1,
+            }),
+            // exercise: (id) => Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id }),
+            // exercises: (planId, mock) => (
+            //     mock.data('plan', planId).type.match(/homework/) ? times(8).map((id) => mock.data('exercise', id)) : []
+            // ),
+
+        },
+        handlers: {
+            'GET /api/plans/:id': async ({ mock, params: { id } }) => mock.data('plan', id),
+
+            'GET /api/plans/:id/scores': async ({ mock, params: { id } }) => (
+                Factory.create('TaskPlanScores', {
+                    task_plan: mock.data('plan', id),
+                    grades: {},
+                    course: mock.course(1),
+                    exercises: mock.data('exercises', id),
+                })
+            ),
+
+            // 'GET /api/courses/:id/roster': async ({ mock, params: { id } }) => (
+            //     Factory.create('CourseRoster', { id, course: mock.course(id) })
+            // ),
+        },
     })
+
+    // , {
+    // beforeAll(async () => {
+    // })
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
+
         await visitPage(page, '/course/1/assignment/review/2')
         await page.route('/api/plans/*', req => req.continue())
     });
 
-    it('loads and views feedback', async () => {
-        await page.click('testEl=submission-overview-tab')
-        await expect(page).toHaveSelector('testEl=student-free-responses')
+    fit('loads and views feedback', async () => {
+        // await page.click('testEl=submission-overview-tab')
+        // await expect(page).toHaveSelector('testEl=student-free-responses')
     });
 
     it('loads and views scores', async () => {
@@ -36,7 +81,6 @@ describe('Assignment Review', () => {
     });
 
     it('can drop questions', async () => {
-        await resetState()
         await page.click('testEl=assignment-scores-tab')
         await page.click('testEl=drop-questions-btn')
         const qId = await page.$eval('testEl=drop-question-row >> input[type="checkbox"]:not(:checked)', el => el.id)
@@ -61,7 +105,7 @@ describe('Assignment Review', () => {
         ).toMatch('/course/1/t/month/')
     });
 
-    it('can update details', async() => {
+    it('can update details', async () => {
         await page.click('testEl=edit-assignment')
         await page.fill('testEl=edit-assignment-name', 'Update')
         await page.click('testEl=confirm-save-assignment')
@@ -83,8 +127,8 @@ describe('Assignment Review', () => {
     });
 
     it('renders appropriate template and grading blocks for plan types', async () => {
-    // the beforeEach will visit review/2 which is gradable
-    // IMPORTANT must set timeout on a not exists, otherwise it keeps trying forever
+        // the beforeEach will visit review/2 which is gradable
+        // IMPORTANT must set timeout on a not exists, otherwise it keeps trying forever
         await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
         await expect(page).toHaveText('testEl=grading-block', 'Grade answers')
         await expect(page).not.toHaveText('testEl=grading-block', 'View submissions', { timeout: 100 })
@@ -110,7 +154,7 @@ describe('Assignment Review', () => {
         await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
         // the beforeEach will visit review/2 which is closed and non-editable
         const docPath = await page.evaluate(() => document.location.pathname)
-        const name = await page.$eval('testEl=assignment-name', el => el.innerText)
+        const name = await page.$eval('testEl=assignment-name', (el: HTMLElement) => el.innerText)
         await page.click('testEl=edit-assignment')
         await expect(page).toHaveText('css=.modal-dialog', `Edit ${name} details`)
         expect(
@@ -127,7 +171,7 @@ describe('Assignment Review', () => {
     });
 
     it('hides overview and scores tabs if not reading or homework', async () => {
-    // Homework
+        // Homework
         await expect(page).toHaveSelector('testEl=submission-overview-tab')
         await expect(page).toHaveSelector('testEl=assignment-scores-tab')
 

@@ -20,7 +20,7 @@ const APPEARANCE_CODES = {
     biology: 'college_biology',
     physics: 'college_physics',
     sociology: 'intro_sociology',
-    ap_ush: 'ap_us_history',
+    apush: 'ap_us_history',
 };
 
 const SECTION_NAMES = [

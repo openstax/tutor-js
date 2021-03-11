@@ -1,6 +1,10 @@
 import { Page } from 'playwright-core'
+import Factory from 'object-factory-bot'
 import { BootstrapData } from '../../src/store/types'
 import fetch from 'node-fetch'
+import '../factories/definitions'
+
+import { Mocker } from './mocker'
 
 export const visitPage = async (page: Page, path: string) => {
     const url = `${testConfig.URL}${path}`
@@ -47,3 +51,5 @@ export const setTimeouts = async () => {
 
     context.setDefaultTimeout(TIMEOUT * 1000)
 }
+
+export { Mocker, Factory }
