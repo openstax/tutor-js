@@ -173,13 +173,6 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     </Dropdown>
                                                   </Responsive>
                                                 </ActionsMenu>
-                                                <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
-                                                  <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
-                                                    <Observer>
-                                                      <PreviewAddCourseBtn course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
-                                                    </Observer>
-                                                  </inject(PreviewAddCourseBtn)>
-                                                </withRouter(inject(PreviewAddCourseBtn))>
                                                 <UserMenu>
                                                   <Responsive desktop={{...}} mobile={{...}}>
                                                     <Dropdown className=\\"user-menu\\" navbar={false}>
