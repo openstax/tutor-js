@@ -9,27 +9,31 @@ export interface JSON {
     readonly [text: string]: JSON | JSON[] | string | number | boolean
 }
 
+export type JSONOrArray = JSON | JSON[]
+
 interface MockedActivity {
-    [key: string]: JSON
+    [key: string]: JSONOrArray
 }
 
-interface HandlerFnParams<T> {
+interface HandlerFnParams {
     params: Record<string, string>,
     request: Request,
     route: Route,
     url: string,
-    mock: Mock<T>,
-}
-type HandlerFn<T> = (_opts: HandlerFnParams<T>) => Promise<JSON | null>
-
-
-type DataFn<T> = (_id: string, _mock: Mock<T>) => JSON | JSON[]
-
-interface Mocks<T> {
-    data: Record<string, DataFn<T>>
-    handlers: Record<string, HandlerFn<T> | JSON>
+    mock: Mock,
 }
 
+type HandlerFn = (_opts: HandlerFnParams) => Promise<JSONOrArray | null>
+
+type DataFn = (_id: string, _mock: Mock) => JSONOrArray
+
+type Routes = Record<string, HandlerFn | JSON>
+type MockData = Record<string, DataFn>
+
+//     {
+//     data:
+//     handlers: Record<string, HandlerFn | JSON>
+// }
 
 interface MockOptions {
     is_teacher?: boolean
@@ -41,21 +45,50 @@ const BOOTSTRAP_URL = '/api/user/bootstrap'
 
 type ID = string | number
 
-class Mock<T> {
-    mocks: Mocks<T>
+
+interface MockArgs {
+    page: Page
+    routes: Routes
+    data?: MockData
+    options?: MockOptions
+}
+
+const BOOTSTRAP_ROUTE = `GET ${BOOTSTRAP_URL}`
+
+class Mock {
+    routes: Routes
+    mockData: MockData
     page: Page
     options: MockOptions
     handlers: InstalledHandler[] = []
     activity: MockedActivity = {}
     recordedData: Record<string, Record<string, JSON>> = {}
 
-    constructor(page: Page, mocks: Mocks<T>, options: MockOptions) {
+    data: any
+
+    constructor({ page, routes, data, options }: MockArgs) {
         this.page = page
-        this.mocks = mocks
-        this.options = options || { data: {} }
-        const bsMatch = `GET ${BOOTSTRAP_URL}`
-        if (!this.mocks[bsMatch]) {
-            this.mocks[bsMatch] = FactoryBot.create('BootstrapData', { is_teacher: this.options.is_teacher || true })
+        this.routes = routes
+        this.mockData = data || {}
+        this.options = options || {}
+
+        this.data = new Proxy(this.recordedData, {
+            get: (target: any, prop: string) => (
+                (id: string): any => {
+                    if (target[prop] && target[prop][id]) {
+                        return target[prop][id]
+                    }
+                    if (!target[prop]) {
+                        target[prop] = {}
+                    }
+                    return target[prop][id] = this.mockData[prop](id, this)
+                }
+            ),
+        })
+
+
+        if (!this.routes[BOOTSTRAP_ROUTE]) {
+            this.routes[BOOTSTRAP_ROUTE] = FactoryBot.create('BootstrapData', { is_teacher: this.options.is_teacher || true })
         }
     }
 
@@ -64,23 +97,15 @@ class Mock<T> {
         return bs.courses.find((c: Course) => c.id == id)
     }
 
-    data(key: string, id: ID = '') {
-        if (this.recordedData[key] && this.recordedData[key][id]) {
-            return this.recordedData[key][id]
-        }
-        if (!this.recordedData[key]) {
-            this.recordedData[key] = {}
-        }
-        return this.recordedData[key][id] = this.options[key](id, this)
-    }
+    // _dataGetter
 }
-
 
 export const Mocker = {
 
-    mock<T extends Mocks<T>>(page: Page, mocks: T, options: MockOptions = {}) {
+    mock(args: MockArgs) {
+        //    page: Page, mocks: Mocks, data: MockData) {
 
-        const mock = new Mock<T>(page, mocks, options)
+        const mock = new Mock(args)
 
         beforeEach(async () => {
             await this.start(mock)
@@ -90,9 +115,9 @@ export const Mocker = {
         })
     },
 
-    async start<T>(mock: Mock<T>) {
+    async start(mock: Mock) {
 
-        const routes = Object.entries(mock.mocks.handlers).map(([urlMethodPattern, handler]) => {
+        const routes = Object.entries(mock.routes).map(([urlMethodPattern, handler]) => {
 
             const keys: Key[] = []
             const opts = { start: false, end: false }
@@ -138,7 +163,7 @@ export const Mocker = {
         return Promise.all(routes)
     },
 
-    async stop<T>(mock: Mock<T>) {
+    async stop(mock: Mock) {
         await Promise.all(
             mock.handlers.map(([url, handler]) => mock.page.unroute(url, handler))
         )

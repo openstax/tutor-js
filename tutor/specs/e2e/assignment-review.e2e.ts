@@ -1,5 +1,6 @@
-import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
-//import { times } from 'lodash'
+import { Factory, visitPage, setTimeouts } from './helpers'
+import { Mocker } from './mocker'
+import { times } from 'lodash'
 
 //import { visitPage, setTimeouts, setRole, resetState } from './helpers'
 // the BE mock api server is primarily in backend/task-plans
@@ -16,24 +17,29 @@ const PLAN_SETTINGS = {
     6: { type: 'homework', exercises: [] },
     7: { type: 'homework', exercises: [] },
 }
+const is_teacher = true
 
 describe('Assignment Review', () => {
 
-    Mocker.mock(page, {
-        data: {
 
+    Mocker.mock({
+        page,
+        data: {
             plan: (id) => Factory.create('TeacherTaskPlan', {
                 id, ...PLAN_SETTINGS[id], days_ago: Number(id) < 5 ? 30 : Number(id) * -1,
             }),
-            // exercise: (id) => Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id }),
-            // exercises: (planId, mock) => (
-            //     mock.data('plan', planId).type.match(/homework/) ? times(8).map((id) => mock.data('exercise', id)) : []
-            // ),
-
+            exercises: (planId, mock) => (
+                mock.data.plan(planId).type.match(/homework/) ? times(8).map((id) => mock.data('exercise', id)) : []
+            ),
+            exercise: (id) => (
+                Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id })
+            ),
         },
-        handlers: {
+        routes: {
+            'GET /api/courses/:courseId/dashboard': async ({ mock, params: { courseId } }) => (
+                Factory.create('CourseDashboard', { course: mock.course(courseId), is_teacher })
+            ),
             'GET /api/plans/:id': async ({ mock, params: { id } }) => mock.data('plan', id),
-
             'GET /api/plans/:id/scores': async ({ mock, params: { id } }) => (
                 Factory.create('TaskPlanScores', {
                     task_plan: mock.data('plan', id),
@@ -47,6 +53,7 @@ describe('Assignment Review', () => {
             //     Factory.create('CourseRoster', { id, course: mock.course(id) })
             // ),
         },
+        options: { is_teacher },
     })
 
     // , {
@@ -55,13 +62,12 @@ describe('Assignment Review', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-
         await visitPage(page, '/course/1/assignment/review/2')
         await page.route('/api/plans/*', req => req.continue())
     });
 
     fit('loads and views feedback', async () => {
-        // await page.click('testEl=submission-overview-tab')
+        await page.click('testEl=submission-overview-tab')
         // await expect(page).toHaveSelector('testEl=student-free-responses')
     });
 

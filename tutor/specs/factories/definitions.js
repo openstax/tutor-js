@@ -13,3 +13,4 @@ import './course-roster';
 import './note';
 import './grading-template';
 import './bootstrap';
+import './course-dashboard';
