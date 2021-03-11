@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import cn from 'classnames'
 import styled from 'styled-components'
-import { Dropdown } from 'react-bootstrap'
+import { Dropdown, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
+import Dialog from '../../../components/tutor-dialog';
 import { createPreviewCourse, useLatestCoursePreview } from '../../../store/courses'
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
@@ -99,13 +100,28 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
         } else {
             setIsCreating(true)
             dispatch(createPreviewCourse(offering))
-                .then((result) => {
+                .then((result: any) => {
                     setIsCreating(false)
                     if (!result.error) {
                         window.location = Router.makePathname(
                             toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
                         )
-
+                    } else {
+                        const dialogAttrs = {
+                            title: 'This Preview isn’t quite ready yet.',
+                            body: (
+                                <p>
+                                    We need a few minutes to load the sample data.
+                                    Click “Create a Course” to see a real course now, or try the Preview a little later.
+                                </p>
+                            ),
+                            buttons: [
+                                <Button key="ok" onClick={function() { return Dialog.hide(); }} variant="primary">
+                                    OK
+                                </Button>,
+                            ],
+                        }
+                        Dialog.show( dialogAttrs )
                     }
                 })
         }
