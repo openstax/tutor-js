@@ -10,12 +10,13 @@ import { Offering } from '../../store/types'
 import CourseInformation from '../../models/course/information'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
-import { groupBy, map, extend } from 'lodash'
+import { groupBy, sortBy, map, extend } from 'lodash'
 import Router from '../../helpers/router'
 import AsyncButton from 'shared/components/buttons/async-button'
 import TutorLink from '../../components/link'
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper'
 import qs from 'qs'
+import { SubjectOrder } from '../../models/subject-order'
 
 import './styles.scss'
 
@@ -725,7 +726,10 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
         [queriedScreen],
     )
 
-    const offerings = groupBy(useAvailableOfferings(), 'subject')
+    const offerings = groupBy(
+        sortBy(useAvailableOfferings(), o => [SubjectOrder.indexOf(o.subject), o.title]),
+        'subject'
+    )
     const options = {
         selectedSubject: selectedSubject,
         setSelectedSubject: setSelectedSubject,
