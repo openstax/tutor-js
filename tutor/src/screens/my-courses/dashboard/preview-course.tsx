@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
+import User from '../../../models/user'
 import { createPreviewCourse, useLatestCoursePreview } from '../../../store/courses'
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
@@ -88,7 +89,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     const dispatch = useDispatch()
     const previewCourse = useLatestCoursePreview(offering.id)
     const [isCreating, setIsCreating] = useState(false)
-    if (!offering.is_preview_available) {
+    if (!offering.is_preview_available || !User.canCreateCourses) {
         return null
     }
     const goToPreviewCourse = (toSettings = false) => {
