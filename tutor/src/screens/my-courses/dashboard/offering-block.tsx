@@ -192,7 +192,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     return (
         <div className={cn('offering-container', { 'is-edit-mode': isEditMode })}>
             {editModeIcons}
-            <h3>{offering.title}</h3>
+            <h3>{offering.subject || offering.title}</h3>
             <Tabs
                 tabs={['CURRENT', 'PAST', 'RESOURCES']}
                 onSelect={(a) => setTabIndex(a)}
