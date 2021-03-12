@@ -7,7 +7,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
 }
 
 <div
-  className="choices-listing list-group"
+  className="choices-listing select-dates list-group"
   onKeyDown={[Function]}
 >
   <div
