@@ -1,6 +1,9 @@
-import { visitPage, setTimeouts, setRole, disableTours } from './helpers'
+import { visitPage, setTimeouts, setRole, disableTours, resetState } from './helpers'
 
 describe('Assignment Grade', () => {
+    beforeAll(async () => {
+        await resetState()
+    })
 
     beforeEach(async () => {
         await setTimeouts()
