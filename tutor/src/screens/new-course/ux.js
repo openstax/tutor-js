@@ -92,9 +92,7 @@ export default class CourseBuilderUX extends BaseModel {
 
   @action.bound onOfferingsAvailable() {
       if (this.preselectedOfferingId) {
-          this.newCourse.offering = find(this.offerings.available.array,
-              { offering_id: this.preselectedOfferingId }
-          );
+          this.newCourse.offering = find(this.offerings.available.array, a => a.id == this.preselectedOfferingId );
       }
   }
 

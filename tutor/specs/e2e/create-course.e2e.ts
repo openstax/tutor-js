@@ -7,11 +7,11 @@ describe('Create Course wizard', () => {
         await setRole('teacher')
     })
 
-    it('pre-fills offering', async () => {
+    it('pre-fills offering and goes to the term step', async () => {
         await visitPage(page, '/courses')
         await page.click('testEl=create-course')
         await expect(page).toHaveSelector('testEl=new-course-wizard')
-        await expect(page).toHaveSelector('.choice.active')
+        await expect(page).toHaveSelector('.select-dates')
         await page.click('testEl=cancel-x')
         expect(
             await page.evaluate(() => document.location.pathname)

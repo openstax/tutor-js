@@ -29,7 +29,7 @@ class SelectDates extends React.Component {
       }
 
       return (
-          <Listing>
+          <Listing className="select-dates">
               {offering.validTerms.map((term, index) =>
                   <Choice
                       key={index}
