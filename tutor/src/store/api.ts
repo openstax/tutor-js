@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { first, template } from 'lodash'
+import { AppActions } from '../flux/app';
 import { Course, ID, Offering } from './types'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -34,10 +35,16 @@ export const request = async <RetT>(method: HttpMethod, urlPattern: string, opts
     }
     const url = template(urlPattern)(opts?.params || {})
     const resp = await fetch(`${baseUrl}/${url}`, req)
-
+    const respJson = await resp.json()
     if (resp.ok) {
-        return await resp.json() as RetT
+        return await respJson as RetT
     }
+
+    //AppActions sends a response with errors in a data field
+    respJson.data = {
+        errors: respJson.errors,
+    }
+    AppActions.setServerError(respJson)
     throw new ApiError(`${method} ${url}`, resp, opts)
 }
 

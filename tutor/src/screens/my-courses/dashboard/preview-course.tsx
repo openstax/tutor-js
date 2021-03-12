@@ -106,22 +106,6 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                         window.location = Router.makePathname(
                             toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
                         )
-                    } else {
-                        const dialogAttrs = {
-                            title: 'This Preview isn’t quite ready yet.',
-                            body: (
-                                <p>
-                                    We need a few minutes to load the sample data.
-                                    Click “Create a Course” to see a real course now, or try the Preview a little later.
-                                </p>
-                            ),
-                            buttons: [
-                                <Button key="ok" onClick={function() { return Dialog.hide(); }} variant="primary">
-                                    OK
-                                </Button>,
-                            ],
-                        }
-                        Dialog.show( dialogAttrs )
                     }
                 })
         }
