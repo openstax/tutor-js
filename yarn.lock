@@ -2218,6 +2218,11 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
   integrity sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
 
+"@types/qs@^6.9.6":
+  version "6.9.6"
+  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.6.tgz#df9c3c8b31a247ec315e6996566be3171df4b3b1"
+  integrity sha512-0/HnwIfW4ki2D8L8c9GVcG5I72s9jP5GSLVF0VIXDW00kmIpA6O33G7a8n59Tmh7Nz0WUC3rSb7PTY/sdW2JzA==
+
 "@types/react-redux@^7.1.16":
   version "7.1.16"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
@@ -11296,10 +11301,10 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-factory-bot@0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.7.4.tgz#6d3c43cfb074807177c55d13f77963d79ba16dd1"
-  integrity sha512-9E99PcCiLX2WjXWJfVnF8EL9O8sDDj5uJ3VqgmL0T+Cu3i7mCQfsoVA2HqAShKGXFZtQ0uUkD3MOoPTbU/k1Qg==
+object-factory-bot@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.8.0.tgz#a1cf2e9daa90fbff436b34ea0c55e4fe79d35533"
+  integrity sha512-MTFxaRG2GhaiXNauPeWbgQh3HwCFK+KkNpaYqtxnzHVlaXJ0Eenmsz/9bzDkZ0egdPRhZ7OoDO0l4rPhpS8+yg==
 
 object-hash@1.3.1:
   version "1.3.1"

@@ -24,7 +24,7 @@ Factory.define('TaskPlanStatPage')
     .chapter_section(({ index }) => [ 1, index + 1 ])
     .exercises(({ parent }) =>
         (parent.exercises || []).map( exercise => Factory.create('TutorExercise', {
-            ...exercise,
+            content: { ...exercise.content },
             question_stats: exercise.content.questions.map(question => Factory.create('TaskPlanExerciseStat', {
                 question,
                 period: parent.period,

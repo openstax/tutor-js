@@ -7,6 +7,7 @@ import './task-plan-stats';
 import './ecosystem';
 import './exercise';
 import './scores';
+import './task-scores';
 import './offering';
 import './stats';
 import './course-roster';

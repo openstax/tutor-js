@@ -1,24 +1,31 @@
-import { Factory, Mocker, visitPage, setTimeouts, setRole } from './helpers'
+import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
 
 describe('Course Settings', () => {
 
-    Mocker.mock(page, {
-        'GET /api/courses/:id/roster': async ({ mock, params: { id } }) => (
-            Factory.create('CourseRoster', { id, course: mock.course(id) })
-        ),
+    Mocker.mock({
+        page,
+        routes: {
+            '/api/courses/:id/roster': async ({ mock, params: { id } }) => (
+                Factory.create('CourseRoster', { id, course: mock.course(id) })
+            ),
+
+            '/api/courses/:id': async ({ request }) => {
+                if (request.method() == 'PUT') { return request.postDataJSON() as any }
+                return null
+            },
+        },
     })
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
         await visitPage(page, '/course/1/settings?tab=1')
     })
 
     it('shows the course settings from with term and dates as ready only', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
-        const isTermReadOnly = await page.$eval('#term', (el: HTMLElement) => el.readOnly)
-        const isStartDateReadOnly = await page.$eval('#startDate', (el: HTMLElement) => el.readOnly)
-        const isEndDateReadOnly = await page.$eval('#endDate', (el: HTMLElement) => el.readOnly)
+        const isTermReadOnly = await page.$eval('#term', (el: any) => el.readOnly)
+        const isStartDateReadOnly = await page.$eval('#startDate', (el: any) => el.readOnly)
+        const isEndDateReadOnly = await page.$eval('#endDate', (el: any) => el.readOnly)
         expect(isTermReadOnly).toBeTruthy()
         expect(isStartDateReadOnly).toBeTruthy()
         expect(isEndDateReadOnly).toBeTruthy()

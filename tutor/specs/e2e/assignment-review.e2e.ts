@@ -1,13 +1,9 @@
 import { Factory, visitPage, setTimeouts } from './helpers'
 import { Mocker } from './mocker'
-import { times } from 'lodash'
+import { times, merge } from 'lodash'
 
-//import { visitPage, setTimeouts, setRole, resetState } from './helpers'
-// the BE mock api server is primarily in backend/task-plans
-// interface MockData {
-//
-// }
-
+const COURSE_ID = 1
+const is_teacher = true
 const PLAN_SETTINGS = {
     1: { type: 'reading' },
     2: { type: 'homework' },
@@ -17,66 +13,89 @@ const PLAN_SETTINGS = {
     6: { type: 'homework', exercises: [] },
     7: { type: 'homework', exercises: [] },
 }
-const is_teacher = true
 
 describe('Assignment Review', () => {
 
-
     Mocker.mock({
         page,
+        options: { is_teacher },
         data: {
-            plan: (id) => Factory.create('TeacherTaskPlan', {
+            plan: (id, mock) => Factory.create('TeacherTaskPlan', {
+                course: mock.course(COURSE_ID),
                 id, ...PLAN_SETTINGS[id], days_ago: Number(id) < 5 ? 30 : Number(id) * -1,
             }),
             exercises: (planId, mock) => (
-                mock.data.plan(planId).type.match(/homework/) ? times(8).map((id) => mock.data('exercise', id)) : []
+                mock.data.plan(planId).type.match(/homework/) ? times(8).map((id) => mock.data.exercise(id)) : []
             ),
             exercise: (id) => (
                 Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id })
             ),
-        },
-        routes: {
-            'GET /api/courses/:courseId/dashboard': async ({ mock, params: { courseId } }) => (
-                Factory.create('CourseDashboard', { course: mock.course(courseId), is_teacher })
-            ),
-            'GET /api/plans/:id': async ({ mock, params: { id } }) => mock.data('plan', id),
-            'GET /api/plans/:id/scores': async ({ mock, params: { id } }) => (
+            scores: (id, mock) => (
                 Factory.create('TaskPlanScores', {
-                    task_plan: mock.data('plan', id),
+                    task_plan: mock.data.plan(id),
                     grades: {},
-                    course: mock.course(1),
-                    exercises: mock.data('exercises', id),
+                    course: mock.course(COURSE_ID),
+                    exercises: mock.data.exercises(id),
                 })
             ),
-
-            // 'GET /api/courses/:id/roster': async ({ mock, params: { id } }) => (
-            //     Factory.create('CourseRoster', { id, course: mock.course(id) })
-            // ),
         },
-        options: { is_teacher },
-    })
+        routes: {
+            '/api/courses/:courseId/grading_templates': async ({ mock, params: { courseId } }) => ({
+                total_count: 3,
+                items: ['reading', 'homework', 'homework'].map((task_plan_type, i) =>
+                    Factory.create('GradingTemplate', {
+                        name: i == 2 ? 'Second Homework' : undefined,
+                        task_plan_type, course: mock.course(courseId),
+                    })
+                ),
+            }),
+            '/api/plans/:id/scores*': async ({ mock, params: { id } }) => {
+                return mock.data.scores(id)
+            },
+            '/api/ecosystems/:id/readings': async ({ params: { id } }) => (
+                Factory.create('Book', { type: ((0 == Number(id) % 2) ? 'physics' : 'biology'), id })
+            ),
+            '/api/ecosystems/:id/exercises*': async ({ mock, query }) => {
+                return {
+                    total_count: query.exercise_ids.length,
+                    items: (query.exercise_ids as string[]).map((exId: string) => mock.data.exercise(exId)),
+                }
+            },
+            '/api/plans/:id': async ({ request, mock, params: { id } }) => {
+                const method = request.method()
+                if (method == 'GET') { return mock.data.plan(id) }
+                if (method == 'PUT') { return merge({}, mock.data.plan(id), request.postDataJSON()) }
+                if (method == 'DELETE') { return {} }
+            },
+            '/api/plans/:planId/stats': async ({ mock, params: { planId } }) => (
+                Factory.create('TaskPlanStat', {
+                    task_plan: mock.data.plan(planId),
 
-    // , {
-    // beforeAll(async () => {
-    // })
+                    exercises: mock.data.exercises(planId),
+                })
+            ),
+        },
+    })
 
     beforeEach(async () => {
         await setTimeouts()
-        await visitPage(page, '/course/1/assignment/review/2')
-        await page.route('/api/plans/*', req => req.continue())
     });
 
     fit('loads and views feedback', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
+        await expect(page).toHaveSelector('body')
         await page.click('testEl=submission-overview-tab')
-        // await expect(page).toHaveSelector('testEl=student-free-responses')
+        await expect(page).toHaveSelector('testEl=student-free-responses')
     });
 
     it('loads and views scores', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=assignment-scores-tab')
         await expect(page).toHaveSelector('testEl=scores')
     });
 
     it('can grade WRM', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.route('/api/courses/1/grading_templates*', req => req.continue())
         await page.click('testEl=grade-answers-btn')
         // if this times out, restart the backend server
@@ -87,6 +106,7 @@ describe('Assignment Review', () => {
     });
 
     it('can drop questions', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=assignment-scores-tab')
         await page.click('testEl=drop-questions-btn')
         const qId = await page.$eval('testEl=drop-question-row >> input[type="checkbox"]:not(:checked)', el => el.id)
@@ -97,12 +117,14 @@ describe('Assignment Review', () => {
 
 
     it('can render grading template preview', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await expect(page).not.toHaveSelector('testEl=grading-template-card', { timeout: 10 })
         await page.click('testEl=preview-card-trigger')
         await expect(page).toHaveSelector('testEl=grading-template-card')
     });
 
     it('can delete assignment', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=delete-assignment')
         await page.click('testEl=confirm-delete-assignment')
         await page.waitForNavigation()
@@ -112,6 +134,7 @@ describe('Assignment Review', () => {
     });
 
     it('can update details', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=edit-assignment')
         await page.fill('testEl=edit-assignment-name', 'Update')
         await page.click('testEl=confirm-save-assignment')
@@ -119,6 +142,7 @@ describe('Assignment Review', () => {
     });
 
     it('requires confirmation when changing grading template', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=edit-assignment')
         await page.click('testEl=grading-templates')
         await page.click('testEl="Second Homework"')
@@ -133,6 +157,7 @@ describe('Assignment Review', () => {
     });
 
     it('renders appropriate template and grading blocks for plan types', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         // the beforeEach will visit review/2 which is gradable
         // IMPORTANT must set timeout on a not exists, otherwise it keeps trying forever
         await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
@@ -157,6 +182,7 @@ describe('Assignment Review', () => {
     });
 
     it('edits unopened assigments in edit view', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await expect(page).toHaveText('testEl=grading-template-name', 'Default Homework')
         // the beforeEach will visit review/2 which is closed and non-editable
         const docPath = await page.evaluate(() => document.location.pathname)
@@ -177,7 +203,9 @@ describe('Assignment Review', () => {
     });
 
     it('hides overview and scores tabs if not reading or homework', async () => {
+        //        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         // Homework
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await expect(page).toHaveSelector('testEl=submission-overview-tab')
         await expect(page).toHaveSelector('testEl=assignment-scores-tab')
 
@@ -217,6 +245,7 @@ describe('Assignment Review', () => {
     });
 
     it('should hide the student names', async () => {
+        await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await page.click('testEl=submission-overview-tab')
         // names are shown first, so button label is "Hide student names"
         await expect(page).toHaveText('testEl=names-toogle-button', 'Hide student names')

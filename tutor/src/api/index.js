@@ -275,11 +275,9 @@ const startAPI = function() {
     connectModelDelete(TeacherTaskPlan, 'destroy', { onSuccess: 'onDeleteComplete', pattern: 'plans/{id}' });
     connectModelRead(TeacherTaskPlan, 'fetch', {
         onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}',
-        query() { return { course_id: this.course.id }; },
     });
     connectModelRead(TaskPlanStats, 'fetch', {
         onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats',
-        query() { return { course_id: this.taskPlan.course.id }; },
     });
     connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
     connectModelUpdate(TeacherTaskPlan, 'grantExtensions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
@@ -292,7 +290,6 @@ const startAPI = function() {
     connectModelRead(TaskPlanScores, 'fetch', {
         onSuccess: 'onApiRequestComplete',
         pattern: 'plans/{id}/scores',
-        query() { return { course_id: this.course.id }; },
     });
 
     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });

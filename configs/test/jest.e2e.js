@@ -20,7 +20,7 @@ const config = {
             DEBUG,
         },
     },
-    testTimeout: (DEBUG ? 90 : 50 )* 1000,
+    testTimeout: (DEBUG ? 90 : 20 )* 1000,
     testEnvironment: '../configs/test/playwright.env.js',
     setupFilesAfterEnv: ['expect-playwright'],
 };
