@@ -10,7 +10,7 @@ describe('Assignment Grade', () => {
     })
 
     it('loads and views questions', async () => {
-        await expect(page).toHaveText('testEl=questions-bar', 'Q8')
+        await expect(page).toHaveSelector('testEl=question-7')
     })
 
     it('changes focused student once graded', async () => {
