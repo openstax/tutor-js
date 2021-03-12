@@ -15,6 +15,8 @@ import { Icon } from 'shared'
 const StyledPreviewCourse = styled.div`
     &&& {
         .my-courses-item-title {
+            padding: 0;
+            display: block;
             .name {
                 padding-right: 3.2rem;
                 overflow-wrap: break-word;

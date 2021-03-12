@@ -56,7 +56,6 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
     )
     return (
         <>
-            {renderCoursePreview()}
             {generalResources}
             {os_book_id &&
                 <Resource
@@ -65,6 +64,7 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
                     info="Free resources integrated with your book. "
                     link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
             }
+            {renderCoursePreview()}
         </>
     )
 }

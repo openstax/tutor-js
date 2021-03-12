@@ -203,8 +203,8 @@ $my-courses-card-padding: 12px;
           > * { margin: 0; }
           p {
             margin-top: 0.5rem;
-            @include tutor-sans-font(1.2rem);
-            line-height: 1.8rem;
+            @include tutor-sans-font(1.4rem);
+            line-height: 2rem;
             font-weight: 400;
             color: $tutor-neutral-darker;
           }
