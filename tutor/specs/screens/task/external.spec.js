@@ -21,7 +21,7 @@ describe('Tasks External URL Screen', () => {
         expect(<C><External {...props} /></C>).toMatchSnapshot();
     });
 
-    it('renders link with href', () => {
+    fit('renders link with href', () => {
         const ex = mount(<C><External {...props} /></C>);
         expect(ex).toHaveRendered(`a[href="${props.ux.task.steps[0].external_url}"]`);
         ex.unmount();

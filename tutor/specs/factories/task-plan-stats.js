@@ -1,7 +1,7 @@
 const {
     Factory, sequence, reference, fake, TITLES,
 } = require('./helpers');
-const { capitalize } = require('lodash');
+const { capitalize, cloneDeep } = require('lodash');
 require('../../specs/factories/task-plan-stats');
 
 Factory.define('TaskPlanExerciseAnswer')
@@ -24,7 +24,7 @@ Factory.define('TaskPlanStatPage')
     .chapter_section(({ index }) => [ 1, index + 1 ])
     .exercises(({ parent }) =>
         (parent.exercises || []).map( exercise => Factory.create('TutorExercise', {
-            content: { ...exercise.content },
+            ...cloneDeep(exercise),
             question_stats: exercise.content.questions.map(question => Factory.create('TaskPlanExerciseStat', {
                 question,
                 period: parent.period,
