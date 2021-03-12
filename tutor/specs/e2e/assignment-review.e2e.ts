@@ -70,7 +70,6 @@ describe('Assignment Review', () => {
             '/api/plans/:planId/stats': async ({ mock, params: { planId } }) => (
                 Factory.create('TaskPlanStat', {
                     task_plan: mock.data.plan(planId),
-
                     exercises: mock.data.exercises(planId),
                 })
             ),
@@ -81,7 +80,7 @@ describe('Assignment Review', () => {
         await setTimeouts()
     });
 
-    fit('loads and views feedback', async () => {
+    it('loads and views feedback', async () => {
         await visitPage(page, `/course/${COURSE_ID}/assignment/review/2`)
         await expect(page).toHaveSelector('body')
         await page.click('testEl=submission-overview-tab')

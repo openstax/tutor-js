@@ -28,35 +28,35 @@ const log = require('./log');
 server.use(express.json());
 server.use(middlewares);
 const GET_HANDLERS = {
-//     setrole: {
-//         setRole() {  },
-//         resetState() {  },
-//         handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
-//     },
-//     resetState: {
-//         setRole() {  },
-//         resetState() {  },
-//         handler(req, resp) { resetState(req.query.role); resp.json({ ok: true }); },
-//     },
-//    'user/bootstrap': require('./backend/bootstrap'),
-//     user: require('./backend/user'),
-//     offerings: require('./backend/offerings'),
-//     'courses/:courseId/dashboard': require('./backend/dashboard'),
-//     'courses/:courseId/performance': require('./backend/performance'),
-//     'courses/:courseId/guide': require('./backend/performance-forecast'),
-//     'ecosystems/:ecosystemId/readings': require('./backend/readings'),
+    setrole: {
+        setRole() {  },
+        resetState() {  },
+        handler(req, resp) { setRole(req.query.role); resp.json({ ok: true }); },
+    },
+    resetState: {
+        setRole() {  },
+        resetState() {  },
+        handler(req, resp) { resetState(req.query.role); resp.json({ ok: true }); },
+    },
+   'user/bootstrap': require('./backend/bootstrap'),
+    user: require('./backend/user'),
+    offerings: require('./backend/offerings'),
+    'courses/:courseId/dashboard': require('./backend/dashboard'),
+    'courses/:courseId/performance': require('./backend/performance'),
+    'courses/:courseId/guide': require('./backend/performance-forecast'),
+    'ecosystems/:ecosystemId/readings': require('./backend/readings'),
 };
 
 
 const MULTI_HANDLERS = [
-//     require('./backend/grading-templates'),
-//     require('./backend/courses'),
-//     require('./backend/task-plans'),
-//     require('./backend/tasks'),
-//     require('./backend/terms'),
-//     require('./backend/exercises'),
-// //    require('./backend/course-roster'),
-//     require('./backend/suggest'),
+    require('./backend/grading-templates'),
+    require('./backend/courses'),
+    require('./backend/task-plans'),
+    require('./backend/tasks'),
+    require('./backend/terms'),
+    require('./backend/exercises'),
+    require('./backend/course-roster'),
+    require('./backend/suggest'),
 ];
 
 // routes that have custom logic
