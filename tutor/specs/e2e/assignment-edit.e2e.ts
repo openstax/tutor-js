@@ -175,40 +175,38 @@ describe('Assignment Edit', () => {
         expect(await page.innerText(`testEl=${templateName}`)).toContain(templateName)
     })
 
-    // // skipping; test is flaky in the morning on travis, some date math is incorrect here
-    // it.skip('can select another template and update dates, and change pivot dates to update other dates', () => {
-    //     const templateName = 'Template to update dates'
-    //     const dueDateOffsetDays = '3', dueTimeHour = '7', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
-    //     cy.visit('/course/2/assignment/edit/homework/new')
-    //     cy.disableTours()
-    //     fillDetails()
-    //     addTemplate({ name: templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, closesDateOffsetDays, isAM, doSelect: true })
-    //     cy.get('input[name="tasking_plans[0].opens_at"]').then(o => {
-    //         const openDate = o[0].defaultValue
-    //         let updatedDueDate;
-    //         // Due date should change
-    //         cy.get('input[name="tasking_plans[0].due_at"]').then(d => {
-    //             const dueDate = moment(d[0].defaultValue, format).toISOString();
-    //             updatedDueDate = dueDate;
-    //             // Compute the due date from the open date
-    //             const hour = isAM ? parseInt(dueTimeHour, 10) : parseInt(dueTimeHour, 10) + 12
-    //             const expectedDueDate = moment(openDate, format)
-    //                 .add(parseInt(dueDateOffsetDays, 10), 'days')
-    //                 .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
-    //                 .toISOString();
-    //             expect(dueDate).eq(expectedDueDate)
-    //         })
-    //         // Closes date should change
-    //         cy.get('input[name="tasking_plans[0].closes_at"]').then(c => {
-    //             const closesDate = moment(c[0].defaultValue, format).toISOString();
-    //             // Compute the closes date from the due date
-    //             const expectedDueDate = moment(updatedDueDate)
-    //                 .add(parseInt(closesDateOffsetDays, 10), 'days')
-    //                 .toISOString();
-    //             expect(closesDate).eq(expectedDueDate)
-    //         })
-    //     });
-    // })
+    it('can select another template and update dates, and change pivot dates to update other dates', async () => {
+        const templateName = 'Template to update dates'
+        const dueDateOffsetDays = '3', dueTimeHour = '19', dueTimeMinutes = '15', closesDateOffsetDays = '10', isAM = false
+
+        await visitPage(page, '/course/2/assignment/edit/homework/new')
+        await disableTours()
+        await fillDetails()
+        await addTemplate({ name: templateName, dueDateOffsetDays, dueTimeHour, dueTimeMinutes, closesDateOffsetDays, isAM, doSelect: true })
+        const openDate = await page.$eval('input[name="tasking_plans[0].opens_at"]', el => (el as any).defaultValue)
+        let updatedDueDate
+
+        // Due date should change
+        const dueAt = await page.$eval('input[name="tasking_plans[0].due_at"]', el => (el as any).defaultValue)
+        const dueDate = moment(dueAt, format).toISOString()
+        updatedDueDate = dueDate
+
+        // Compute the due date from the open date
+        const hour = isAM ? parseInt(dueTimeHour, 10) - 12 : parseInt(dueTimeHour, 10)
+        const expectedDueDate = moment(openDate, format)
+            .add(parseInt(dueDateOffsetDays, 10), 'days')
+            .set({ hour, minutes: parseInt(dueTimeMinutes, 10) })
+            .toISOString()
+        expect(dueDate).toEqual(expectedDueDate)
+        // Closes date should change
+        const closesAt = await page.$eval('input[name="tasking_plans[0].closes_at"]', el => (el as any).defaultValue)
+        const closesDate = moment(closesAt, format).toISOString()
+        // Compute the closes date from the due date
+        const expectedDueDate2 = moment(updatedDueDate)
+            .add(parseInt(closesDateOffsetDays, 10), 'days')
+            .toISOString()
+        expect(closesDate).toEqual(expectedDueDate2)
+    })
 
     it('changes open dates to update other dates', async () => {
         const templateName = 'Template to update dates'
