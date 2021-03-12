@@ -46,6 +46,13 @@ describe('Course Builder UX Model', () => {
         expect(ux.newCourse.save).toHaveBeenCalled();
     }
 
+    it('goes to the next term step if there is a preselected offeringId in the params', () => {
+        const course = courses.array[0];
+        testRouter.match.params = { offeringId: course.offering_id };
+        ux = createTestUX();
+        expect(ux.stage).toEqual('term');
+    });
+
     it('sets cloned course when sourceId is present', () => {
         const course = courses.array[0];
         testRouter.match.params = { sourceId: course.id };
