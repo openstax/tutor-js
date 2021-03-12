@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import cn from 'classnames'
 import styled from 'styled-components'
-import { Dropdown, Button } from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
-import Dialog from '../../../components/tutor-dialog';
 import { createPreviewCourse, useLatestCoursePreview } from '../../../store/courses'
 import { Offering } from '../../../store/types'
 import { colors } from 'theme'
@@ -100,7 +99,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
         } else {
             setIsCreating(true)
             dispatch(createPreviewCourse(offering))
-                .then((result: any) => {
+                .then((result) => {
                     setIsCreating(false)
                     if (!result.error) {
                         window.location = Router.makePathname(
