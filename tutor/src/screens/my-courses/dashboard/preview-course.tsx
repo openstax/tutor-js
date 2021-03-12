@@ -108,7 +108,6 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                         window.location = Router.makePathname(
                             toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
                         )
-
                     }
                 })
         }
