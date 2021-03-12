@@ -206,7 +206,6 @@
     "sass-loader": "8.0.0",
     "style-loader": "1.0.0",
     "tmp": "^0.1.0",
-    "ts-node": "^9.1.1",
     "url-loader": "2.1.0",
     "webpack": "4.39.3",
     "webpack-bundle-analyzer": "^3.4.1",
