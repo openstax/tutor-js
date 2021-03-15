@@ -8,7 +8,6 @@ import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import { dropCourseTeacher } from '../../../store/api'
 import { useAllCourses } from '../../../store/courses'
-import { useAvailableOfferings } from '../../../store/offering'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
@@ -124,9 +123,8 @@ const StyledMyCoursesDashboard = styled.div`
 
 export const MyCoursesDashboard = () => {
     const dispatch = useDispatch()
-    // getting all the data: offerings and courses
+    // getting all the data: courses
     const courses = useAllCourses()
-    const offerings = useAvailableOfferings(courses)
 
     const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
     const [displayedOfferingIds, setDisplayedOfferingIds, displayedOfferings, swapOffering] = useDisplayedOfferings()
@@ -203,7 +201,6 @@ export const MyCoursesDashboard = () => {
             { isEditMode &&
                 <>
                     <AddSubjectDropdown
-                        allOfferings={offerings}
                         displayedOfferings={displayedOfferings}
                         setDisplayedOfferingIds={setDisplayedOfferingIds} />
                     <div className="controls bottom-controls">
