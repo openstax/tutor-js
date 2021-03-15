@@ -1,18 +1,31 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
 
 describe('Course Settings', () => {
 
+    Mocker.mock({
+        page,
+        routes: {
+            '/api/courses/:id/roster': async ({ mock, params: { id } }) => (
+                Factory.create('CourseRoster', { id, course: mock.course(id) })
+            ),
+
+            '/api/courses/:id': async ({ request }) => {
+                if (request.method() == 'PUT') { return request.postDataJSON() as any }
+                return null
+            },
+        },
+    })
+
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
         await visitPage(page, '/course/1/settings?tab=1')
     })
 
     it('shows the course settings from with term and dates as ready only', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
-        const isTermReadOnly = await page.$eval('#term', el => el.readOnly)
-        const isStartDateReadOnly = await page.$eval('#startDate', el => el.readOnly)
-        const isEndDateReadOnly = await page.$eval('#endDate', el => el.readOnly)
+        const isTermReadOnly = await page.$eval('#term', (el: any) => el.readOnly)
+        const isStartDateReadOnly = await page.$eval('#startDate', (el: any) => el.readOnly)
+        const isEndDateReadOnly = await page.$eval('#endDate', (el: any) => el.readOnly)
         expect(isTermReadOnly).toBeTruthy()
         expect(isStartDateReadOnly).toBeTruthy()
         expect(isEndDateReadOnly).toBeTruthy()
@@ -33,10 +46,10 @@ describe('Course Settings', () => {
     it('shows the save button when timezone is changed', async () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
         const timezoneDropdownTestId = '[data-test-id="timezone-dropdown"]'
-        const currentTZ = await page.$eval(timezoneDropdownTestId, el => el.textContent)
+        const currentTZ = await page.$eval(timezoneDropdownTestId, el => el.textContent) || ''
         await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
         await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a:nth-child(2)`)
-        await expect(page).not.toHaveText(`${timezoneDropdownTestId} .dropdown-toggle div`, currentTZ)
+        await expect(page).not.toHaveText(`${timezoneDropdownTestId} .dropdown-toggle div`, currentTZ, { timeout: 100 })
         await expect(page).toHaveSelector('.save-changes-button')
     });
 
@@ -61,7 +74,7 @@ describe('Course Settings', () => {
 
         await expect(page).toHaveSelector('.save-changes-button')
         await page.click('.save-changes-button')
-        await expect(page).toHaveText('[data-test-id="course-settings-published"] .title span', 'Course Settings Saved')  
+        await expect(page).toHaveText('[data-test-id="course-settings-published"] .title span', 'Course Settings Saved')
     });
 
 })

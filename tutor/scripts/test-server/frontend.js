@@ -30,10 +30,17 @@ WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
             }
             log('FAILED', true);
         } else {
-            http.createServer(function (req, res) {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('ok\n');
-            }).listen(fe_port + 2);
+            try {
+                http.createServer(function (req, res) {
+                    res.writeHead(200, { 'Content-Type': 'text/plain' });
+                    res.end('ok\n');
+                }).listen(fe_port + 2);
+            } catch (e) {
+                console.log(e)
+                if (e.errno !== 'EADDRINUSE') {
+                    throw e
+                }
+            }
             log('READY', true);
         }
     });

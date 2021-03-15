@@ -3,7 +3,7 @@ import {
     map, last, omit, pick, partial, remove, invoke, get,
     extend, memoize, compact, isEmpty, forEach, mapValues, cloneDeep,
 } from 'lodash';
-import pathToRegexp from 'path-to-regexp';
+import { compile as pathToRegexp } from 'path-to-regexp';
 import { matchPath } from 'react-router-dom';
 
 
@@ -130,7 +130,7 @@ const buildPath = function(route, parent) {
             path: parent.path ? `${parent.path}/${route.path}` : route.path,
         },
     );
-    path.toPath = pathToRegexp.compile(path.path);
+    path.toPath = pathToRegexp(path.path);
     return path;
 };
 

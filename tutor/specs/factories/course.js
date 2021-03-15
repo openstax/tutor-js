@@ -83,7 +83,6 @@ Factory.define('Course')
             role_id: is_teacher ? 1 : object.roles[0].id,
         }),
     ])
-    .current_role_id(({ object }) => object.roles[0].id)
     .teacher_profiles([
         { id: 1, name: 'Review Teacher 1' },
         { id: 2, name: 'Review Teacher 2' },
