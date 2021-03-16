@@ -23,7 +23,7 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ displayedOffe
         // adding the subject block at the top
         setDisplayedOfferingIds(prevState => [offeringId, ...prevState])
         // then scroll to the top to see the new offering block
-        scroller.scrollToTop()
+        scroller.scrollToTop({ deferred: true })
     }
 
     const subjects = map(offeringsBySubject, (offerings, subject) => {
