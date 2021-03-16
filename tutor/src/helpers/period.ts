@@ -7,7 +7,7 @@ const PeriodHelper = {
     },
 
     sort(periods) {
-    // expects either numbers, names with numbers or just names
+        // expects either numbers, names with numbers or just names
         periods = sortBy(periods, (period) => { // eslint-disable-line consistent-return
             if (!isNumber(period.name)) {
                 const name = period.name.match(/[^0-9]+/ig);

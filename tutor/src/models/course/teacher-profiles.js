@@ -4,7 +4,7 @@ import {
 import User from '../user';
   
 @identifiedBy('course/teacherProfiles')
-export default class CourseRole extends BaseModel {
+export default class TeacherProfile extends BaseModel {
   
   @identifier id;
   @field name;

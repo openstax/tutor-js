@@ -1,5 +1,5 @@
 interface UiSettings {
-    get(prop: string): any
+    get(prop: string, id?: string | number): any
     set(prop: string, value: any): void
 }
 declare var uis: UiSettings;

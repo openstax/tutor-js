@@ -1,26 +1,27 @@
 import {
-    BaseModel, identifiedBy, field, identifier, hasMany,
+    BaseModel, field, model, NEW_ID, lazyGetter
 } from 'shared/model';
+import { CourseObj, CourseTerm } from './types'
 import {
-    sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
+    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty,
 } from 'lodash';
 import { computed, action } from 'mobx';
-import lazyGetter from 'shared/helpers/lazy-getter';
+
 import UiSettings from 'shared/model/ui-settings';
 import Offerings, { Offering } from './course/offerings';
-import Period  from './course/period';
-import Role    from './course/role';
+import Period from './course/period';
+import Role from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
-import TeacherProfiles from './course/teacher-profiles';
+import TeacherProfile from './course/teacher-profiles';
 import Scores from './scores';
 import LMS from './course/lms';
-import PH from '../helpers/period';
+//
 import TimeHelper from '../helpers/time';
 import Time from './time';
-import { getters } from '../helpers/computed-property';
-import moment from 'moment-timezone';
+//import { getters } from '../helpers/computed-property';
+import moment from 'moment' //-timezone';
 import { StudentTasks } from './student-tasks';
 import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
@@ -31,87 +32,100 @@ import { PracticeQuestions } from './practice-questions';
 import ReferenceBook from './reference-book';
 import Flags from './feature_flags';
 
-const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
+const ROLE_PRIORITY = ['guest', 'student', 'teacher', 'admin'];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 const SAVEABLE_ATTRS = [
     'name', 'is_lms_enabled', 'timezone', 'default_open_time', 'default_due_time',
     'homework_weight', 'reading_weight', 'code',
 ];
 
-@identifiedBy('course')
 export default class Course extends BaseModel {
 
-    @identifier id;
+    @field id = NEW_ID
 
-    @field name;
-    @field code;
-    @field is_lms_enabled;
+    @field name = '';
+    @field code = '';
+    @field is_lms_enabled = false;
 
     @field appearance_code = '';
-    @field uuid;
-    @field does_cost;
-    @field book_pdf_url;
-    @field cloned_from_id;
-    @field default_due_time;
-    @field default_open_time;
-    @field ecosystem_book_uuid;
-    @field ecosystem_id;
-    @field teacher_profiles;
+    @field uuid = '';
+    @field does_cost = false;
+    @field book_pdf_url = '';
+    @field cloned_from_id = NEW_ID;
 
-    @field is_active;
-    @field is_college;
-    @field is_concept_coach;
-    @field is_preview;
+    @field default_due_time = '';
+    @field default_open_time = '';
+    @field ecosystem_book_uuid = '';
+    @field ecosystem_id = NEW_ID;
+    //    @field teacher_profiles = '';
+
+    @field is_active = false;
+    @field is_college = false;
+    @field is_preview = false;
     @field timezone = 'US/Central';
-    @field offering_id;
+    @field offering_id = NEW_ID;
     @field is_lms_enabling_allowed = false;
     @field is_access_switchable = true;
-    @field salesforce_book_name;
-    @field current_role_id;
-    @field starts_at;
-    @field ends_at;
+    @field salesforce_book_name = '';
+    @field current_role_id = NEW_ID;
+    @field starts_at = '';
+    @field ends_at = '';
 
-    @field term;
-    @field webview_url;
-    @field year;
+    @field term: CourseTerm = 'unknown';
+    @field webview_url = '';
+    @field year = 0;
 
-    @field homework_score_weight;
-    @field homework_progress_weight;
-    @field reading_score_weight;
-    @field reading_progress_weight;
-    @field reading_weight;
-    @field homework_weight;
+    @field homework_score_weight = 0;
+    @field homework_progress_weight = 0;
+    @field reading_score_weight = 0;
+    @field reading_progress_weight = 0;
+    @field reading_weight = 0;
+    @field homework_weight = 0;
     @field just_created = false;
     @field uses_pre_wrm_scores = false;
     @field should_reuse_preview = false;
 
-    @lazyGetter lms = new LMS({ course: this });
-    @lazyGetter roster = new Roster({ course: this });
-    @lazyGetter scores = new Scores({ course: this });
-    @lazyGetter notes = new Notes({ course: this });
-    @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
-    @lazyGetter studentTaskPlans = new StudentTaskPlans({ course: this });
-    @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
-    @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
-    @lazyGetter studentTasks = new StudentTasks({ course: this });
-    @lazyGetter gradingTemplates = new GradingTemplates({ course: this });
-    @lazyGetter practiceQuestions = new PracticeQuestions({ course: this });
+    @lazyGetter() get lms() { return new LMS({ course: this }) };
+    @lazyGetter() get roster() { return new Roster({ course: this }); }
 
-    @hasMany({ model: Period, inverseOf: 'course', extend: getters({
-        sorted() { return PH.sort(this.active);                        },
-        archived() { return filter(this, period => !period.is_archived); },
-        active() { return filter(this, 'isActive'); },
-    }) }) periods = [];
+    @lazyGetter() get scores() { return new Scores({ course: this }); }
+    @lazyGetter() get notes() { return new Notes({ course: this }); }
+    @lazyGetter() get referenceBook() { return new ReferenceBook({ id: this.ecosystem_id }); }
+    @lazyGetter() get studentTaskPlans() { return new StudentTaskPlans({ course: this }); }
+    @lazyGetter() get teacherTaskPlans() { return new TeacherTaskPlans({ course: this }); }
+    @lazyGetter() get pastTaskPlans() { return new PastTaskPlans({ course: this }); }
+    @lazyGetter() get studentTasks() { return new StudentTasks({ course: this }); }
+    @lazyGetter() get gradingTemplates() { return new GradingTemplates({ course: this }); }
+    @lazyGetter() get practiceQuestions() { return new PracticeQuestions({ course: this }); }
 
-    @hasMany({ model: Role, inverseOf: 'course', extend: getters({
-        student() { return find(this, { isStudent: true }); },
-        teacher() { return find(this, { isTeacher: true }); },
-        teacherStudent() { return find(this, { isTeacherStudent: true }); },
-    }) }) roles;
-    @hasMany({ model: Student, inverseOf: 'course' }) students;
-    @hasMany({ model: TeacherProfiles, inverseOf: 'course' }) teacher_profiles;
 
-    constructor(attrs, map) {
+    @model(Period) periods: Period[] = []
+    // TODO figure out how best to methods, or if we want to
+    //     model: Period, inverseOf: 'course', extend: getters({
+    //         sorted() { return PH.sort(this.active); },
+    //         archived() { return filter(this, period => !period.is_archived); },
+    //         active() { return filter(this, 'isActive'); },
+    //     })
+    // }) periods = [];
+
+    @model(Role) roles: Role[] = []
+
+    //         student() { return find(this, { isStudent: true }); },
+    //         teacher() { return find(this, { isTeacher: true }); },
+    //         teacherStudent() { return find(this, { isTeacherStudent: true }); },
+    //     })
+    // }) roles;
+    //
+
+    @model(Student) students: Student[] = []
+
+    @model(TeacherProfile) teacher_profiles: TeacherProfile[] = []
+
+    // @hasMany({ model: Student, inverseOf: 'course' }) students;
+    // @hasMany({ model: TeacherProfiles, inverseOf: 'course' }) teacher_profiles;
+    map: Map<number, Course>;
+
+    constructor(attrs: CourseObj, map: Map<number, Course>) {
         super(attrs);
         this.map = map;
     }
@@ -140,9 +154,9 @@ export default class Course extends BaseModel {
         return role ? find(this.students, { role_id: role.id }) : null;
     }
 
-    @computed get currentRole() {
+    @computed get currentRole(): Role {
         if (this.current_role_id) {
-            return find(this.roles, { id: this.current_role_id });
+            return find(this.roles, { id: this.current_role_id }) || this.primaryRole;
         }
         return this.primaryRole;
     }
@@ -237,10 +251,10 @@ export default class Course extends BaseModel {
     @computed get shouldRemindNewEnrollmentLink() {
         return Boolean(
             !this.is_preview &&
-                !this.is_lms_enabled &&
-                (this.just_created || this.dashboardViewCount <= 1) &&
-                this.map && this.map.nonPreview.previouslyCreated.any &&
-                (this.isActive || this.isFuture)
+            !this.is_lms_enabled &&
+            (this.just_created || this.dashboardViewCount <= 1) &&
+            this.map && this.map.nonPreview.previouslyCreated.any &&
+            (this.isActive || this.isFuture)
         );
     }
 
@@ -262,9 +276,9 @@ export default class Course extends BaseModel {
         return moment.tz(date, this.timezone);
     }
 
-    @computed get tourAudienceTags() {
-        let tags = [];
-        if (!Flags.tours){ return tags; }
+    @computed get tourAudienceTags(): string[] {
+        let tags: string[] = [];
+        if (!Flags.tours) { return tags; }
 
         if (this.currentRole.isTeacher) {
             tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
@@ -302,8 +316,8 @@ export default class Course extends BaseModel {
         return UiSettings.get(DASHBOARD_VIEW_COUNT_KEY, this.id) || 0;
     }
 
-    @computed get primaryRole() {
-        return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
+    @computed get primaryRole(): Role {
+        return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type))) as Role;
     }
 
     @computed get currentUser() {
@@ -312,7 +326,7 @@ export default class Course extends BaseModel {
 
     @computed get currentCourseTeacher() {
         const teacherRole = find(this.roles, r => r.type === 'teacher');
-        if(!this.roster || isEmpty(this.roster.teachers) || !teacherRole) {
+        if (!this.roster || isEmpty(this.roster.teachers) || !teacherRole) {
             return null;
         }
 
@@ -329,7 +343,7 @@ export default class Course extends BaseModel {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
         return { data: [{ id: exercise.id, is_excluded }] };
     }
-    onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
+    onExerciseExcluded({ data: [exerciseAttrs] }, [{ exercise }]) {
         exercise.update(exerciseAttrs);
     }
 }

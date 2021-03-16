@@ -9,7 +9,7 @@ import { bootstrapCoursesList } from '../courses-test-data';
 
 import COURSE from '../../api/courses/1.json';
 jest.mock('../../src/models/payments');
-jest.mock('../../src/models/feature_flags',() => ({
+jest.mock('../../src/models/feature_flags', () => ({
     tours: true,
 }));
 jest.mock('shared/model/ui-settings', () => ({
@@ -21,7 +21,7 @@ describe('Course Model', () => {
 
     beforeEach(() => bootstrapCoursesList());
 
-    it('can be bootstrapped and size observed', () => {
+    fit('can be bootstrapped and size observed', () => {
         Courses.clear();
         const lenSpy = jest.fn();
         autorun(() => lenSpy(Courses.size));
@@ -65,7 +65,7 @@ describe('Course Model', () => {
         expect(course.currentRole.isTeacher).toEqual(true);
         course.teacherTaskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
         expect(course.teacherTaskPlans.reading.hasPublishing).toEqual(true);
-        expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published' ]);
+        expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published']);
     });
 
 
@@ -130,10 +130,12 @@ describe('Course Model', () => {
             expect(course.periods).toHaveLength(0);
             expect(course.periods.sorted).toHaveLength(0);
             expect(course.periods.active).toHaveLength(0);
-            course.update({ name: 'My Grand Course',
+            course.update({
+                name: 'My Grand Course',
                 periods:
-           [ { name: 'Period #1', enrollment_code: '1234' },
-               { name: 'Period #2', enrollment_code: '4321' } ] });
+                    [{ name: 'Period #1', enrollment_code: '1234' },
+                    { name: 'Period #2', enrollment_code: '4321' }]
+            });
             expect(course.periods).toHaveLength(2);
             expect(course.periods.sorted).toHaveLength(2);
             expect(course.periods.active).toHaveLength(2);
@@ -143,7 +145,7 @@ describe('Course Model', () => {
     it('calculates if terms are before', () => {
         const course = Courses.get(2);
         expect(course.isBeforeTerm('spring', 2013)).toBe(false);
-        expect(course.isBeforeTerm('spring', (new Date()).getFullYear()+1)).toBe(true);
+        expect(course.isBeforeTerm('spring', (new Date()).getFullYear() + 1)).toBe(true);
         expect(course.isBeforeTerm(course.term, course.year)).toBe(false);
     });
 
