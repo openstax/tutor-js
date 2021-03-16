@@ -3,7 +3,7 @@ import Factory from 'object-factory-bot'
 import { Page, Route, Request } from 'playwright-core'
 import { pathToRegexp, regexpToFunction, Key } from 'path-to-regexp'
 import qs from 'qs'
-import { defaults } from 'lodash'
+import { defaults, isFunction, clone } from 'lodash'
 import '../factories/bootstrap'
 import { Course } from '../../src/store/types'
 
@@ -42,7 +42,7 @@ interface MockOptions {
 
 type InstalledHandler = [RegExp, (_route: Route, _request: Request) => void]
 
-const BOOTSTRAP_URL = '/api/user/bootstrap'
+export const BOOTSTRAP_URL = '/api/user/bootstrap'
 const DASHBOARD_URL = '/api/courses/:courseId/dashboard'
 const USER_URL = '/api/user'
 
@@ -83,17 +83,16 @@ class Mock {
 
     constructor({ page, routes, data, options }: MockArgs) {
         this.page = page
-        this.routes = routes
-        this.mockData = data || {}
-        this.options = options || {}
+        this.routes = clone(routes)
+        this.mockData = clone(data || {})
+        this.options = clone(options || {})
         defaults(this.options, {
             is_teacher: true,
         })
-
+        Factory.resetSequences()
         this.data = new Proxy(this.recordedData, {
             get: (target: any, prop: string) => (
                 (id: string): any => {
-
                     if (target[prop] && target[prop][id]) {
                         return target[prop][id]
                     }
@@ -107,25 +106,46 @@ class Mock {
         setupDefaultRoutes(this.routes, this.options)
     }
 
-    course(id: ID): Course {
+    get bootstrapData(): any {
         let bs = this.activity[BOOTSTRAP_URL] as any
         if (!bs && this.routes[BOOTSTRAP_URL]) {
-            bs = this.routes[BOOTSTRAP_URL]
+            bs = isFunction(this.routes[BOOTSTRAP_URL]) ?
+                (this.routes[BOOTSTRAP_URL] as Function)() : this.routes[BOOTSTRAP_URL]
         }
-        return bs.courses.find((c: Course) => c.id == id)
+        return bs
     }
 
+    course(id: ID): Course {
+        return this.bootstrapData.courses.find((c: Course) => c.id == id)
+    }
+}
+
+class MockWrapper {
+    _mock: Mock
+    _args: MockArgs
+    constructor(args: MockArgs) {
+        this._args = args
+        this._mock = new Mock(this._args)
+    }
+    get current() {
+        return this._mock
+    }
+    reset() {
+        this._mock = new Mock(this._args)
+    }
 }
 
 export const Mocker = {
 
     mock(args: MockArgs) {
-        const mock = new Mock(args)
+        const mock = new MockWrapper(args)
+
         beforeEach(async () => {
-            await this.start(mock)
+            await this.start(mock.current)
         })
         afterEach(async () => {
-            await this.stop(mock)
+            await this.stop(mock.current)
+            mock.reset()
         })
         return mock
     },
@@ -147,7 +167,7 @@ export const Mocker = {
             const urlHandler = async (route: Route, request: Request) => {
                 const url = request.url()
                 const splitUrl = urlSplitter(url)
-                const json = typeof handler == 'function' ? await handler({
+                const json = isFunction(handler) ? await handler({
                     url,
                     mock,
                     query: qs.parse(url.split('?')[1]),

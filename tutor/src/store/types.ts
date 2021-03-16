@@ -60,6 +60,7 @@ export interface Course {
     is_active: boolean
     is_college: boolean
     is_lms_enabling_allowed: boolean
+    is_concept_coach: boolean
     is_preview: boolean
     num_sections: number
     offering_id: string

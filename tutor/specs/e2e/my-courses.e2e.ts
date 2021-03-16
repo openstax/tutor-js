@@ -1,16 +1,20 @@
-import { visitPage, setTimeouts, setRole, modifyBootstrapData } from './helpers'
+import { visitPage, Mocker, setTimeouts } from './helpers'
 
 describe('My Courses', () => {
-    beforeEach(async () => {
-        await jestPlaywright.resetPage()
-        await setTimeouts()
-        await setRole('teacher')
+
+
+    const mock = Mocker.mock({
+        page,
+        routes: {},
     })
 
+    beforeEach(async () => {
+        await setTimeouts()
+    })
+
+
     it('allows a new teacher select and suggest subjects', async () => {
-        await visitPage(page, '/courses')
-        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
-        await modifyBootstrapData(page, (data) => ({ ...data, courses: [] }))
+        mock.current.bootstrapData.courses = []
         await visitPage(page, '/courses')
         await expect(page).toHaveSelector('testEl=new-teacher-screen')
         await page.type('testEl=input-suggested-subject', 'test')
@@ -36,6 +40,9 @@ describe('My Courses', () => {
     })
 
     it('displays a preview course', async () => {
+        mock.current.bootstrapData.courses.forEach((c: any) => {
+            c.offering_id = mock.current.bootstrapData.offerings[0].id
+        })
         await visitPage(page, '/courses')
         await page.click('.my-courses-item.preview a')
         await page.waitForNavigation()
@@ -44,28 +51,24 @@ describe('My Courses', () => {
         ).toMatch(/course\/\d+/)
     })
 
+
     describe('unavailable messages', () => {
 
         it('displays pending message', async () => {
-            await modifyBootstrapData(page, (data) => {
-                data.courses = []
-                data.user.can_create_courses = false
-                data.user.created_at = (new Date()).toISOString()
-                return data
-            })
+            mock.current.bootstrapData.courses = []
+            mock.current.bootstrapData.user.can_create_courses = false
+            mock.current.bootstrapData.user.created_at = (new Date()).toISOString()
+
             await visitPage(page, '/courses')
             await expect(page).toHaveText('testEl=pending-verification', 'Pending faculty verification')
         })
 
         it('displays not available message', async () => {
-            await modifyBootstrapData(page, (data) => {
-                data.courses = []
-                data.user.can_create_courses = false
-                const now = new Date()
-                now.setDate(now.getDate() - 7)
-                data.user.created_at = now.toISOString()
-                return data
-            })
+            mock.current.bootstrapData.courses = []
+            mock.current.bootstrapData.user.can_create_courses = false
+            const now = new Date()
+            now.setDate(now.getDate() - 7)
+            mock.current.bootstrapData.user.created_at = now.toISOString()
             await visitPage(page, '/courses')
             await expect(page).toHaveText('testEl="non-allowed-instructors"', 'not able to offer')
         })
