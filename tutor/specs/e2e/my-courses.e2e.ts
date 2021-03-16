@@ -51,6 +51,14 @@ describe('My Courses', () => {
         ).toMatch(/course\/\d+/)
     })
 
+    it('hides concept coach courses', async () => {
+        const c = mock.current.course(1)
+        c.is_concept_coach = true
+        c.name = 'ConceptCoach'
+        await visitPage(page, '/courses')
+        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
+        await expect(page).not.toHaveText('testEl=course-card', 'ConceptCoach', { timeout: 100 })
+    })
 
     describe('unavailable messages', () => {
 

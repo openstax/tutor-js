@@ -37,7 +37,7 @@ const coursesSlice = createSlice({
             state.ids[course.id] = course
         })
         builder.addCase(bootstrap, (state, action) => {
-            courseAdapter.setAll(state, action.payload.courses)
+            courseAdapter.setAll(state, action.payload.courses.filter(c => !c.is_concept_coach))
         })
     },
 })
