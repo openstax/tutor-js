@@ -27,7 +27,7 @@ describe('Course Settings', () => {
             await expect(page).toHaveSelector('.course-detail-settings-form')
             const courseName = page.$eval('input#course-name', (el: any) => el.value)
             await page.click('testEl=delete-course-btn')
-            await expect(page).toHaveText('testEl=delete-course-message', 'delete', { timeout: 100 })
+            await expect(page).toHaveText('testEl=delete-course-message', 'delete')
             await expect(page).not.toHaveSelector('testEl=disabled-delete-course-message-warning', { timeout: 100 })
             await page.click('testEl=confirm-delete-btn')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
