@@ -63,8 +63,8 @@ class DeleteCourseModal extends React.Component {
                 {`Delete ${course.name}?`}
             </Modal.Header>
             <Modal.Body>
-                {hasAnyStudents && <strong><p className="text-danger" data-test-id="disabled-delete-course-message">This course has students enrolled in it.</p></strong>}
-                <p>{`Are you sure you want to ${hasAnyStudents ? 'leave' : 'delete'} this course? The course will still be available to enrolled students and co-teachers.`}</p>
+                {hasAnyStudents && <strong><p className="text-danger" data-test-id="disabled-delete-course-message-warning">This course has students enrolled in it.</p></strong>}
+                <p data-test-id="delete-course-message">{`Are you sure you want to ${hasAnyStudents ? 'leave' : 'delete'} this course? The course will still be available to enrolled students and co-teachers.`}</p>
                 <p>You can’t undo this action.</p>
             </Modal.Body>
             <div className="modal-footer">
