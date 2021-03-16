@@ -6,6 +6,7 @@ describe('Preview Courses', () => {
         page,
         options: {
             feature_flags: { tours: false },
+            num_courses: 1,
         },
         routes: {},
     })

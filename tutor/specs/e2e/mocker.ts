@@ -36,6 +36,7 @@ type MockData = Record<string, DataFn>
 interface MockOptions {
     feature_flags?: any
     is_teacher?: boolean
+    num_courses?: number
     debug?: boolean
 }
 
