@@ -5,14 +5,7 @@ import { bootstrap } from './bootstrap'
 import { Offering, Course, ID } from './types'
 import UiSettings from 'shared/model/ui-settings'
 
-const offeringAdapter = createEntityAdapter<Offering>({
-    sortComparer: (a, b) => {
-        //send an offering that is not available to the bottom of the list
-        if(!a.is_available && !a.is_preview_available) return 1
-        //if the number is higher, it is low priority
-        return b.number.localeCompare(a.number)
-    },
-})
+const offeringAdapter = createEntityAdapter<Offering>()
 
 const initialState = offeringAdapter.getInitialState()
 interface OfferingSlice { offerings: typeof initialState }

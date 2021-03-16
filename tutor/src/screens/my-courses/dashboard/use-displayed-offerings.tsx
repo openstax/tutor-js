@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { filter, includes, indexOf, findIndex, map } from 'lodash'
+import { filter, includes, indexOf, findIndex } from 'lodash'
 import { ID, Offering } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
 import { useAllCourses } from '../../../store/courses'
@@ -11,7 +11,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     // getting all the data: offerings and courses
     const courses = useAllCourses()
     const offerings = useAvailableOfferings(courses)
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(map(useDisplayedOfferingsIds(courses)))
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedOfferingsIds(courses))
 
     // update the `displayedOfferingIds` if users adds/delete offerings
     useEffect(() => {

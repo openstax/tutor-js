@@ -102,7 +102,7 @@ export interface Offering {
     subject: string
     active_term_years: ActiveTermYears[]
     os_book_id: string
-    number: string
+    number: number
 }
 
 export interface UserTerm {
