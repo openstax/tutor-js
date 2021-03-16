@@ -27,4 +27,4 @@ Factory.define('Offering')
     .preview_message(fake.company.bsBuzz)
     .subject(fake.random.arrayElement(['science', 'math', 'high school']))
     .os_book_id(sequence)
-    .number(sequence.toString());
+    .number(sequence);

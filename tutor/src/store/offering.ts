@@ -1,11 +1,14 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
+import { compareOfferings } from '../helpers/offering'
 import { useSelector } from 'react-redux'
 import { union } from 'lodash'
 import { bootstrap } from './bootstrap'
 import { Offering, Course, ID } from './types'
 import UiSettings from 'shared/model/ui-settings'
 
-const offeringAdapter = createEntityAdapter<Offering>()
+const offeringAdapter = createEntityAdapter<Offering>({
+    sortComparer: compareOfferings,
+})
 
 const initialState = offeringAdapter.getInitialState()
 interface OfferingSlice { offerings: typeof initialState }
