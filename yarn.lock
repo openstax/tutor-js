@@ -11286,10 +11286,10 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-factory-bot@0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.8.1.tgz#f8a8bb1b1d34e12d57513370c7ab3e66d2413f9f"
-  integrity sha512-4rQF1pKjYyS1JZr7ImzFKFD1z2YKYr4NEjcALzTLuAH/tKzLIw+09zLMJHsL/9s7cEpdNaFd/Y39EUdqv9ZOBQ==
+object-factory-bot@0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.8.2.tgz#6be31b328567690cc319737c20c679e1ef9fc544"
+  integrity sha512-Q3KtBc4X0B42azJdVp6SV7enls1Ia4qNnUN+3vq27Mbxkw7v1n299/Xs+CF+OvbO/aBheWvd1jN/CNnAYkow4A==
 
 object-hash@1.3.1:
   version "1.3.1"

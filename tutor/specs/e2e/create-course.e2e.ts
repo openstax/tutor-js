@@ -7,7 +7,7 @@ describe('Create Course wizard', () => {
     })
 
 
-    Mocker.mock({
+    const mock = Mocker.mock({
         page,
         routes: {},
     })
@@ -35,6 +35,10 @@ describe('Create Course wizard', () => {
 
     describe('create course', () => {
         beforeEach(async () => {
+            const bio = mock.current.bootstrapData.offerings.find((o: any) => o.appearance_code == 'college_biology')
+            mock.current.bootstrapData.courses.forEach((c: any) => {
+                c.offering_id = bio.id
+            })
             await visitPage(page, '/new-course')
             await page.click('[role=button][data-appearance=college_biology]')
             await page.click('testEl=next-btn')

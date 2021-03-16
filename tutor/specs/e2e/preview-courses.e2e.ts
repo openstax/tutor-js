@@ -16,7 +16,7 @@ describe('Preview Courses', () => {
     })
 
     it('displays a collapsible side panel that creates a course', async () => {
-        mock.course(1).is_preview = true
+        mock.current.course(1).is_preview = true
         await visitPage(page, '/course/1')
         await expect(page).toHaveSelector('testEl=preview-message')
         await page.click('testEl=dismiss-preview-msg')
@@ -26,7 +26,7 @@ describe('Preview Courses', () => {
     })
 
     it('hides preview panel for non-preview courses', async () => {
-        mock.course(1).is_preview = false
+        mock.current.course(1).is_preview = false
         await visitPage(page, '/course/1')
         await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
     })
