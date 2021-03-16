@@ -34,6 +34,7 @@ type Routes = Record<string, HandlerFn | JSON>
 type MockData = Record<string, DataFn>
 
 interface MockOptions {
+    feature_flags?: any
     is_teacher?: boolean
     debug?: boolean
 }
@@ -53,17 +54,17 @@ interface MockArgs {
     options?: MockOptions
 }
 
-const setupDefaultRoutes = (routes: Routes, { is_teacher }: MockOptions) => {
+const setupDefaultRoutes = (routes: Routes, options: MockOptions) => {
 
     if (!routes[USER_URL]) {
         routes[USER_URL] = Factory.create('User')
     }
     if (!routes[BOOTSTRAP_URL]) {
-        routes[BOOTSTRAP_URL] = Factory.create('BootstrapData', { is_teacher })
+        routes[BOOTSTRAP_URL] = Factory.create('BootstrapData', options)
     }
     if (!routes[DASHBOARD_URL]) {
         routes[DASHBOARD_URL] = async ({ mock, params: { courseId } }) => (
-            Factory.create('CourseDashboard', { course: mock.course(courseId), is_teacher })
+            Factory.create('CourseDashboard', { course: mock.course(courseId), ...options })
         )
     }
 }
