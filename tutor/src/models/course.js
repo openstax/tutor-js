@@ -315,7 +315,6 @@ export default class Course extends BaseModel {
         if(!this.roster || isEmpty(this.roster.teachers) || !teacherRole) {
             return null;
         }
-
         return find(this.roster.teachers, t => t.role_id === teacherRole.id);
     }
 

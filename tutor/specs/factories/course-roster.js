@@ -27,7 +27,9 @@ Factory.define('CourseRosterTeacher')
 Factory.define('CourseRoster')
     .teach_url('http://localhost:3001/teach/6d79445c999bbca09a6e33d62e540022/DO_NOT_GIVE_TO_STUDENTS')
     .students(
-        reference('CourseRosterStudent', { count: 10 })
+        reference('CourseRosterStudent', {
+            count: ({ numStudents }) => (numStudents == null) ? 10 : numStudents,
+        })
     )
     .teachers(
         reference('CourseRosterTeacher', { count: 2, defaults: ({ course }) => ({ course }) })

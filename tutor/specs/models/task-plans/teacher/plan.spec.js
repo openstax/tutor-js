@@ -5,8 +5,9 @@ describe('Task Plan Model', function() {
     let plan;
 
     beforeEach(() => {
-        plan = Factory.teacherTaskPlan();
-        plan.course = Factory.course();
+        const course = Factory.course()
+        plan = Factory.teacherTaskPlan({ course });
+        plan.course = course;
     });
 
     it('tasking plan changed', () => {

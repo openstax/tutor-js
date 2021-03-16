@@ -1,5 +1,7 @@
 import { React, PropTypes, observable, observer, action, computed, styled } from 'vendor';
+import { Redirect } from 'react-router-dom';
 import Courses from '../../models/courses-map';
+import Router from '../../../src/helpers/router';
 import CoursePage from '../../components/course-page';
 import Tabs from '../../components/tabs';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
@@ -30,7 +32,7 @@ class CourseSettings extends React.Component {
   }
 
   componentDidMount() {
-      this.course.roster.fetch();
+      this.course?.roster.fetch();
   }
 
   @observable tabIndex;
@@ -61,6 +63,9 @@ class CourseSettings extends React.Component {
 
   render() {
       const { course, tabIndex } = this;
+      if (!course) {
+          return <Redirect to={Router.makePathname('myCourses')} />;
+      }
       return (
           <StyledCourseSettings
               className="settings"

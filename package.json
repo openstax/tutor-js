@@ -198,7 +198,7 @@
     "json-server": "^0.15.0",
     "lighthouse": "^5.2.0",
     "node-sass": "4.13.1",
-    "object-factory-bot": "0.8.0",
+    "object-factory-bot": "0.8.1",
     "pixelmatch": "^5.0.2",
     "pngjs": "^3.4.0",
     "react-dnd-test-backend": "^9.3.4",
