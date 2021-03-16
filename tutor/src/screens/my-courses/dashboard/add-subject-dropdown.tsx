@@ -2,17 +2,30 @@ import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { map, groupBy, some } from 'lodash'
 import TutorDropdown from '../../../components/dropdown'
-
+import { useAllCourses } from '../../../store/courses'
+import { useAvailableOfferings } from '../../../store/offering'
 import { Offering, ID } from '../../../store/types'
+import Scroller from '../../../helpers/scroll-to'
 
 interface AddSubjectsDropdownProps {
-    allOfferings: Offering[]
     displayedOfferings: Offering[]
     setDisplayedOfferingIds: React.Dispatch<React.SetStateAction<ID[]>>
 }
 
-const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings, displayedOfferings, setDisplayedOfferingIds }) => {
+const scroller = new Scroller()
+
+const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ displayedOfferings, setDisplayedOfferingIds }) => {
+    const courses = useAllCourses()
+    const allOfferings = useAvailableOfferings(courses)
     const offeringsBySubject = groupBy(allOfferings, o => o.subject)
+
+    const onSelectOffering = (offeringId: ID) => {
+        // adding the subject block at the top
+        setDisplayedOfferingIds(prevState => [offeringId, ...prevState])
+        // then scroll to the top to see the new offering block
+        scroller.scrollToTop({ deferred: true })
+    }
+
     const subjects = map(offeringsBySubject, (offerings, subject) => {
         return (
             <div key={subject} className="subject-offering-items-container">
@@ -30,7 +43,7 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ allOfferings,
                             className="offering-item"
                             key={offering.id}
                             eventKey={offering.title}
-                            onSelect={() => setDisplayedOfferingIds(prevState => [...prevState, offering.id])}
+                            onSelect={() => onSelectOffering(offering.id)}
                             disabled={isDisplayed}
                         >
                             {offering.title}

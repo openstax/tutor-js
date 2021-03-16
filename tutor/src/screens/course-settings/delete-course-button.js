@@ -28,10 +28,12 @@ class DeleteCourseModal extends React.Component {
   }
 
   @action.bound deleteCourse() {
-      const { course, history } = this.props;
+      const { course } = this.props;
       const courseTeacherMembership = course.currentCourseTeacher;
       if (courseTeacherMembership.isTeacherOfCourse) {
-          courseTeacherMembership.drop().then(history.push('/courses'));
+          courseTeacherMembership.drop().then(
+              window.location = '/courses'
+          );
       }
   }
 
@@ -66,7 +68,7 @@ class DeleteCourseModal extends React.Component {
                 <p>You can’t undo this action.</p>
             </Modal.Body>
             <div className="modal-footer">
-                <Button variant="default" size="lg" onClick={this.deleteCourse}>
+                <Button variant="default" size="lg" data-test-id="confirm-delete-btn" onClick={this.deleteCourse}>
                   Yes, delete
                 </Button>
                 <Button variant="primary" size="lg" onClick={this.close}>

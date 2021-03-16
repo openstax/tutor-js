@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { filter, includes, indexOf, findIndex } from 'lodash'
 import { ID, Offering } from '../../../store/types'
 import UiSettings from 'shared/model/ui-settings'
-import { useDisplayedCourseOfferingIds, useAllCourses } from '../../../store/courses'
-import { useAvailableOfferings } from '../../../store/offering'
+import { useAllCourses } from '../../../store/courses'
+import { useAvailableOfferings, useDisplayedOfferingsIds } from '../../../store/offering'
 
 type ReturnUseDisplayedOfferings = [ID[], React.Dispatch<React.SetStateAction<ID[]>>, Offering[], (offeringId: ID, flow?: string) => void]
 
@@ -11,7 +11,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     // getting all the data: offerings and courses
     const courses = useAllCourses()
     const offerings = useAvailableOfferings(courses)
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedCourseOfferingIds())
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedOfferingsIds(courses))
 
     // update the `displayedOfferingIds` if users adds/delete offerings
     useEffect(() => {
