@@ -1,20 +1,80 @@
-import { visitPage, setTimeouts, setRole, disableTours } from './helpers'
+import { Factory, visitPage, setTimeouts } from './helpers'
+import { Mocker } from './mocker'
+import { times, merge, isNil } from 'lodash'
 
 describe('Assignment Grade', () => {
+    const COURSE_ID = 1
+    const is_teacher = true
+    const PLAN_SETTINGS = {
+        1: { type: 'reading' },
+        2: { type: 'homework' },
+    }
+    let GRADES = {}
+
+    Mocker.mock({
+        page,
+        options: { is_teacher },
+        data: {
+            plan: (id, mock) => Factory.create('TeacherTaskPlan', {
+                course: mock.course(COURSE_ID),
+                id, ...PLAN_SETTINGS[id], days_ago: Number(id) < 5 ? 30 : Number(id) * -1,
+            }),
+            exercises: (planId, mock) => (
+                mock.data.plan(planId).type.match(/homework/) ? times(8).map((id) => mock.data.exercise(id)) : []
+            ),
+            exercise: (id) => (
+                Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id })
+            ),
+            scores: (id, mock) => (
+                Factory.create('TaskPlanScores', {
+                    task_plan: mock.data.plan(id),
+                    grades: {},
+                    course: mock.course(COURSE_ID),
+                    exercises: mock.data.exercises(id),
+                })
+            ),
+        },
+        routes: {
+            '/api/steps/:id/grade': async ({ request, mock, params: { id } }) => {
+                GRADES[id] = request.postDataJSON()
+                return merge({}, mock.data.plan(id), request.postDataJSON())
+            },
+            '/api/plans/:id/scores*': async ({ mock, params: { id } }) => {
+                const _scores = mock.data.scores(id)
+                _scores.tasking_plans.forEach((tp: any) => {
+                    tp.students.forEach((s: any) => {
+                        s.questions.forEach((q: any) => {
+                            const grade = GRADES[q.task_step_id]
+                            if (grade) {
+                                Object.assign(q, grade);
+                                q.needs_grading = isNil(grade.grader_points)
+                            }
+                        })
+                    })
+                })
+                return _scores
+            },
+            '/api/plans/:planId/stats': async ({ mock, params: { planId } }) => (
+                Factory.create('TaskPlanStat', {
+                    task_plan: mock.data.plan(planId),
+                    exercises: mock.data.exercises(planId),
+                })
+            ),
+        },
+    })
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
-        await visitPage(page, '/course/1/assignment/grade/3')
-        await disableTours()
     })
 
     it('loads and views questions', async () => {
-        await expect(page).toHaveSelector('testEl=question-7')
+        await visitPage(page, `/course/${COURSE_ID}/assignment/grade/2`)
+        await expect(page).toHaveSelector('testEl=question-2')
     })
 
     it('changes focused student once graded', async () => {
-        await page.click('testEl=question-1')
+        await visitPage(page, `/course/${COURSE_ID}/assignment/grade/2`)
+        await page.click('testEl=question-2')
         await expect(page).toHaveSelector('testEl=student-answer')
         await page.type('[data-test-id=student-answer] input[name=score]', '0.9')
         await page.type('[data-test-id=student-answer] textarea[name=comment]', 'i like this answer a lot!')
