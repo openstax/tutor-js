@@ -9,6 +9,7 @@ const offeringAdapter = createEntityAdapter<Offering>({
     sortComparer: (a, b) => {
         //send an offering that is not available to the bottom of the list
         if(!a.is_available && !a.is_preview_available) return 1
+        //if the number is higher, it is low priority
         return b.number.localeCompare(a.number)
     },
 })
