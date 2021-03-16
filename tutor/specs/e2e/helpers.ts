@@ -46,7 +46,8 @@ export const modifyBootstrapData = async (page: Page, cb: bootstrapModifierFn) =
 }
 
 export const setTimeouts = async () => {
-    const TIMEOUT = testConfig.DEBUG ? 90 : 40
+    // a bit smaller than are set in jest config
+    const TIMEOUT = testConfig.DEBUG ? 600 : 15
 
     context.setDefaultTimeout(TIMEOUT * 1000)
 }
