@@ -6,6 +6,7 @@ require('./offering.js')
 Factory.define('BootstrapData')
     .accounts_api_url('http://localhost:8111/api')
     .tutor_api_url('http://localhost:8111/api')
+    .feature_flags({})
     .user(reference('User', { profile_id: 1, defaults: ({ is_teacher }) => ({ is_teacher }) }))
     .courses(reference('Course', {
         defaults: ({ is_teacher }) => ({ is_teacher }) ,

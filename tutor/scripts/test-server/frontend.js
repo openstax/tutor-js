@@ -30,10 +30,12 @@ WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
             }
             log('FAILED', true);
         } else {
-            http.createServer(function (req, res) {
+            // create a fake server just to open a port so the jest knows we're ready
+            const listener = http.createServer(function (req, res) {
                 res.writeHead(200, { 'Content-Type': 'text/plain' });
                 res.end('ok\n');
             }).listen(fe_port + 2, 'localhost', () => {});
+            setTimeout(() => { listener.close(() =>{}) }, 5000)
             log('READY', true);
         }
     });

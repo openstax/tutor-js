@@ -1,20 +1,33 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { visitPage, Mocker, setTimeouts } from './helpers'
 
 describe('Preview Courses', () => {
-    beforeEach(async () => {
-        await setTimeouts()
-        await setRole('teacher')
-        await visitPage(page, '/course/6')
-        await page.evaluate(() => {
-            window._MODELS.feature_flags.set('tours', false)
-        })
-        await page.click('.onboarding-nag button')
+
+    const mock = Mocker.mock({
+        page,
+        options: {
+            feature_flags: { tours: false },
+            num_courses: 1,
+        },
+        routes: {},
     })
 
-    it.skip('displays a collapsible side panel', async () => {
-        await page.click('testEl=preview-panel-toggle-panel')
-        await expect(page).toHaveSelector('testEl=preview-panel-create-course', { timeout: 10 })
-        await page.click('testEl=preview-panel-toggle-panel')
-        await expect(page).not.toHaveSelector('testEl=preview-panel-create-course', { timeout: 10 })
+    beforeEach(async () => {
+        await setTimeouts()
+    })
+
+    it('displays a collapsible side panel that creates a course', async () => {
+        mock.course(1).is_preview = true
+        await visitPage(page, '/course/1')
+        await expect(page).toHaveSelector('testEl=preview-message')
+        await page.click('testEl=dismiss-preview-msg')
+        await page.click('testEl=preview-panel-create-course')
+        await expect(page).toHaveSelector('testEl=new-course-wizard')
+        await expect(page).toHaveSelector('.select-dates')
+    })
+
+    it('hides preview panel for non-preview courses', async () => {
+        mock.course(1).is_preview = false
+        await visitPage(page, '/course/1')
+        await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
     })
 })

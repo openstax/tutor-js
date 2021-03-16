@@ -26,10 +26,10 @@ export default class DisplayPreviewMessage extends React.Component {
       return (
           <OnboardingNag className="only-preview">
               <Body>
-                  <p dangerouslySetInnerHTML={{ __html: this.props.ux.course.offering.preview_message }} />
+                  <p data-test-id="preview-message" dangerouslySetInnerHTML={{ __html: this.props.ux.course.offering.preview_message }} />
               </Body>
               <Footer>
-                  <Button onClick={() => this.onContinue(onContinue)} className="continue">Ok</Button>
+                  <Button data-test-id="dismiss-preview-msg" onClick={() => this.onContinue(onContinue)} className="continue">Ok</Button>
               </Footer>
           </OnboardingNag>
       );

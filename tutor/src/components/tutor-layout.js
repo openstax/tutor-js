@@ -110,7 +110,7 @@ const PreviewCourseSidePanel = ({ course }) => {
             <TutorLink
                 className="btn btn-primary"
                 to="createNewCourseFromOffering"
-                params={{ appearanceCode: course.appearanceCode }}
+                params={{ offeringId: course.offering_id }}
                 data-test-id="preview-panel-create-course"
             >
             Create a course

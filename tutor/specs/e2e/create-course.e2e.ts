@@ -1,11 +1,17 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { visitPage, Mocker, setTimeouts } from './helpers'
 
 describe('Create Course wizard', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
     })
+
+
+    Mocker.mock({
+        page,
+        routes: {},
+    })
+
 
     it('pre-fills offering and goes to the term step', async () => {
         await visitPage(page, '/courses')

@@ -103,7 +103,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ children, ignorePathIncludes = ' 
     )
 
     return (
-        <Panel>
+        <Panel data-test-id="side-panel">
             <button
                 className="toggle"
                 aria-expanded={showPanel}
