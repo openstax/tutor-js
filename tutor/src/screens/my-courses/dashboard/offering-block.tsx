@@ -47,11 +47,13 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
             <Resource
                 title="Instructor Getting Started Guide"
                 info="Find information on OpenStax Tutor features and answers to common questions"
-                link={CourseInformation.gettingStartedGuide.teacher} />
+                link={CourseInformation.gettingStartedGuide.teacher} 
+                dataTestId="getting-started-guide"/>
             <Resource
                 title={<span><Icon type="play-circle" /> Video Tutorials </span>}
                 info="Step by step instructions on some of the most important tasks in OpenStax Tutor"
-                link={CourseInformation.videoTutorials} />
+                link={CourseInformation.videoTutorials} 
+                dataTestId="getting-started-video"/>
         </>
     )
     return (
@@ -190,11 +192,11 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     )
 
     return (
-        <div className={cn('offering-container', { 'is-edit-mode': isEditMode })}>
+        <div className={cn('offering-container', { 'is-edit-mode': isEditMode })} data-offering-id={offering.id}>
             {editModeIcons}
             <h3>{offering.title}</h3>
             <Tabs
-                tabs={['CURRENT', 'PAST', 'RESOURCES']}
+                tabs={['current', 'past', 'resources']}
                 onSelect={(a) => setTabIndex(a)}
                 pushToPath={false} />
             <div className="course-cards">

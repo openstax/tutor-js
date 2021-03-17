@@ -131,7 +131,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
         <StyledPreviewCourse className="my-courses-item-wrapper preview">
             <div
                 data-appearance={offering.appearance_code}
-                data-test-id="course-card"
+                data-test-id="preview-course-card"
                 data-is-teacher={true}
                 data-offering-id={offering.id}
                 className={itemClasses}>
