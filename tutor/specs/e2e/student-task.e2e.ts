@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { visitPage, setRole, setTimeouts } from './helpers'
+import { visitPage, setRole, setTimeouts, selectAnswer } from './helpers'
 
 describe('Student Tasks', () => {
 
@@ -31,30 +31,13 @@ describe('Student Tasks', () => {
         //Verify: after clicking on a two-step question, the two step question icon shows up, moving all the data-step-index by 1
         await page.click('.sticky-table [data-step-index="4"]')
 
-        //check if text area for free response is available
-        await page.waitForSelector('.exercise-step [data-test-id="free-response-box"]', { timeout: 2000 })
-            .then(async () => {
-                await page.type('.exercise-step [data-test-id="free-response-box"]', 'why do i need to fill this out?')
-                await page.click('testEl=submit-answer-btn')
-            })
-            // free response is submitted
-            .catch(() => {})
-
-        //check if answer b is checked
-        await page.waitForSelector('.answer-checked [data-test-id="answer-choice-b"]', { timeout: 2000 })
-            .then(async () => {
-                await page.click('testEl=continue-btn')
-            })
-            .catch(async () => {
-                await page.click('testEl=answer-choice-b')
-                await page.click('testEl=submit-answer-btn')
-            })
+        await selectAnswer(page, 'b', 'why do i need to fill this out?')
 
         // go back and resubmit
         await page.click('.sticky-table [data-step-index="5"]')
-        await expect(page).toHaveSelector('.answer-checked [data-test-id="answer-choice-b"]')
+        await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-b')
         await page.click('testEl=answer-choice-c')
-        await expect(page).toHaveSelector('.answer-checked [data-test-id="answer-choice-c"]')
+        await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-c')
         await page.click('testEl=submit-answer-btn')
         await page.click('testEl=continue-btn')
     })
@@ -77,7 +60,7 @@ describe('Student Tasks', () => {
         ).toBeTruthy()
     })
 
-    it.skip('should be able to save question to my practice', async () => {
+    it('should be able to save question to my practice', async () => {
         await visitPage(page, '/course/1/task/2') 
         await page.click('.sticky-table [data-step-index="4"]')
         // start fresh - deleting the practice questions from course
@@ -85,7 +68,7 @@ describe('Student Tasks', () => {
             window._MODELS.courses.get(1).practiceQuestions.clear()
         })
 
-        await page.type('.exercise-step [data-test-id="free-response-box"]', 'why do i need to fill this out?')
+        await page.type('css=.exercise-step >> testEl=free-response-box', 'why do i need to fill this out?')
         await page.click('testEl=submit-answer-btn')
         await expect(page).toHaveSelector('testEl=save-practice-button')
         await expect(page).toHaveText('testEl=save-practice-button', 'Save to practice')

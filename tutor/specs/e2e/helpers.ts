@@ -59,7 +59,8 @@ export const setTimeouts = async () => {
     context.setDefaultTimeout(TIMEOUT * 1000)
 }
 
-// eslint-disable-next-line
+// (screen: string) is getting complained that it is not not-used, but it is a type definiton
+// eslint-disable-next-line no-unused-vars
 export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
     forEach(SCREENS, (dimensions, screen) => {
         const [width, height] = dimensions
@@ -69,6 +70,25 @@ export const withScreenSize = (testName: string, test: (screen: string) =>Promis
             await test(screen)
         })
     })
+}
+
+export const selectAnswer = async (page: Page, choice : string, freeResponse: string) => {
+    await page.waitForSelector('css=.exercise-step >> testEl=free-response-box', { timeout: 2000 })
+        .then(async () => {
+            await page.type('css=.exercise-step >> testEl=free-response-box', freeResponse)
+            await page.click('testEl=submit-answer-btn')
+        })
+        // free response is submitted
+        .catch(() => {})
+
+    await page.waitForSelector(`css=.answer-checked >> testEl=answer-choice-${choice}`, { timeout: 2000 })
+        .then(async () => {
+            await page.click(`css=.answer-checked >> testEl=answer-choice-${choice}`)
+        })
+        .catch(async () => {
+            await page.click(`testEl=answer-choice-${choice}`)
+            await page.click('testEl=submit-answer-btn')
+        })
 }
 
 
