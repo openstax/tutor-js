@@ -1,9 +1,16 @@
 import { Page } from 'playwright-core'
 import Factory from 'object-factory-bot'
+import { forEach } from 'lodash'
 import { BootstrapData } from '../../src/store/types'
 import fetch from 'node-fetch'
 import '../factories/definitions'
 export * from './mocker'
+
+export const SCREENS = {
+    mobile: [375,667], // iphone
+    tablet: [768,1024], // ipad
+    desktop: [1280, 1024], // pretty much anything is larger than this
+}
 
 export const visitPage = async (page: Page, path: string) => {
     const url = `${testConfig.URL}${path}`
@@ -50,6 +57,38 @@ export const setTimeouts = async () => {
     const TIMEOUT = testConfig.DEBUG ? 600 : 15
 
     context.setDefaultTimeout(TIMEOUT * 1000)
+}
+
+// (screen: string) is getting complained that it is not not-used, but it is a type definiton
+// eslint-disable-next-line no-unused-vars
+export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
+    forEach(SCREENS, (dimensions, screen) => {
+        const [width, height] = dimensions
+
+        it(`${testName}. Width: ${width} | Height: ${height}`, async () => {
+            await page.setViewportSize({ width, height })
+            await test(screen)
+        })
+    })
+}
+
+export const selectAnswer = async (page: Page, choice : string, freeResponse: string) => {
+    await page.waitForSelector('css=.exercise-step >> testEl=free-response-box', { timeout: 2000 })
+        .then(async () => {
+            await page.type('css=.exercise-step >> testEl=free-response-box', freeResponse)
+            await page.click('testEl=submit-answer-btn')
+        })
+        // free response is submitted
+        .catch(() => {})
+
+    await page.waitForSelector(`css=.answer-checked >> testEl=answer-choice-${choice}`, { timeout: 2000 })
+        .then(async () => {
+            await page.click(`css=.answer-checked >> testEl=answer-choice-${choice}`)
+        })
+        .catch(async () => {
+            await page.click(`testEl=answer-choice-${choice}`)
+            await page.click('testEl=submit-answer-btn')
+        })
 }
 
 

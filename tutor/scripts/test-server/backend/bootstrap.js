@@ -46,6 +46,9 @@ const student = clone(BOOTSTRAP_DATA);
 student.user = Factory.create('User', { profile_id: 1, is_teacher: false, available_terms: TERMS });
 student.courses = [];
 addCourses(student.courses, { is_teacher: false });
+student.offerings = [
+    'biology', 'physics', 'sociology', 'apush',
+].map((type) => Factory.create('Offering', { type }))
 
 const teacher = clone(BOOTSTRAP_DATA);
 teacher.user = Factory.create('User', { profile_id: 1, is_teacher: true, available_terms: TERMS });

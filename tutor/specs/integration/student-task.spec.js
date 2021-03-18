@@ -95,7 +95,7 @@ context('Student Tasks', () => {
         cy.getTestElement('submit-answer-btn').should('be.disabled')
     })
 
-    it.only('should be able to save question to my practice', () => {
+    it('should be able to save question to my practice', () => {
 
         cy.visit('/course/1/task/2')
         cy.get('.sticky-table [data-step-index=3]').click({ force: true })

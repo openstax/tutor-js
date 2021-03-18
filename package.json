@@ -60,6 +60,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@sentry/browser": "^6.0.3",
     "@types/classnames": "^2.2.11",
+    "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.168",
     "@types/node-fetch": "^2.5.8",
