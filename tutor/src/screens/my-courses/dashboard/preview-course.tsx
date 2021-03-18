@@ -136,6 +136,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                 data-offering-id={offering.id}
                 className={itemClasses}>
                 <a
+                    data-test-id="preview-course-item-title"
                     className="my-courses-item-title"
                     onClick={() => goToPreviewCourse()}
                 >

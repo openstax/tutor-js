@@ -46,7 +46,7 @@ describe('My Courses', () => {
             })
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
-            await expect(page).toHaveSelector('.offering-container')
+            await expect(page).toHaveSelector('testEl=offering-container')
             //course card
             await expect(page).toHaveSelector('testEl=course-card')
             // //preview card
@@ -74,26 +74,27 @@ describe('My Courses', () => {
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
 
-            await page.click('.controls button')
-            await expect(await page.$eval('.controls button', node => node.textContent)).toEqual('Exit settings')
-            await expect(page).toHaveSelector('.edit-mode-icons')
-            await expect(page).toHaveSelector('.add-subject-dropdown')
+            await page.click('testEl=dashboard-settings-btn')
+            expect(page).toHaveText('testEl=dashboard-settings-btn', 'Exit settings')
+            await expect(page).toHaveSelector('testEl=edit-mode-icons')
+            await expect(page).toHaveSelector('testEl=add-subject-dropdown')
 
             // [1, 2]
             const offeringOrderIds = await page.evaluate(getOfferingIds)
             // ordering the offerings
             await page.click(`.offering-container[data-offering-id="${offeringOrderIds[0]}"] .ox-icon-arrow-down`)
-            await expect(await page.evaluate(getOfferingIds)).toEqual(offeringOrderIds.reverse())
+            expect(await page.evaluate(getOfferingIds)).toEqual(offeringOrderIds.reverse())
 
-            const defaultOfferingContainersLength = await page.$$eval('.offering-container', node => node.length)
-            await page.click('.add-subject-dropdown button')
-            await page.waitForSelector('.dropdown-menu.show')
+            const offerings = await page.$$('testEl=offering-container')
+            await page.click('testEl=add-subject-dropdown-btn')
+            // there is a delay between clicking the offering and scrolling to the top
             await page.click('.dropdown-menu.show .offering-item:not(.disabled)', { timeout: 500 })
+            const updatedOfferings = await page.$$('testEl=offering-container')
             // we added a new offering
-            await expect(defaultOfferingContainersLength + 1).toEqual(await page.$$eval('.offering-container', node => node.length))
+            expect(updatedOfferings).toHaveLength(offerings.length + 1)
 
-            await page.click('.controls button')
-            await expect(await page.$eval('.controls button', node => node.textContent)).toEqual('Manage subjects')
+            await page.click('testEl=dashboard-settings-btn')
+            expect(await page.$eval('testEl=dashboard-settings-btn', node => node.textContent)).toEqual('Manage subjects')
         })
 
         it('displays a preview course', async () => {
@@ -101,7 +102,7 @@ describe('My Courses', () => {
                 c.offering_id = mock.current.bootstrapData.offerings[0].id
             })
             await visitPage(page, '/courses')
-            await page.click('.my-courses-item.preview a')
+            await page.click('testEl=preview-course-item-title')
             await page.waitForNavigation()
             expect(
                 await page.evaluate(() => window.location.pathname)

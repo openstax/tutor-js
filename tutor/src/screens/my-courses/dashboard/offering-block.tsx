@@ -176,7 +176,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     }, [tabIndex, isPreviewInResource])
 
     const editModeIcons = isEditMode && (
-        <div className="edit-mode-icons">
+        <div className="edit-mode-icons" data-test-id="edit-mode-icons">
             <Icon
                 type="arrow-up"
                 onClick={() => swapOffering(offering.id, 'up')}
@@ -192,7 +192,7 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     )
 
     return (
-        <div className={cn('offering-container', { 'is-edit-mode': isEditMode })} data-offering-id={offering.id}>
+        <div className={cn('offering-container', { 'is-edit-mode': isEditMode })} data-offering-id={offering.id} data-test-id="offering-container">
             {editModeIcons}
             <h3>{offering.title}</h3>
             <Tabs

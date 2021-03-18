@@ -176,6 +176,7 @@ export const MyCoursesDashboard = () => {
 
     const settingsButton =
         <Button
+            data-test-id="dashboard-settings-btn"
             variant="link"
             onClick={() => setIsEditMode(prevState => !prevState)}>
             <Icon type="cog" />{isEditMode ? 'Exit settings' : 'Manage subjects'}
