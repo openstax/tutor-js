@@ -12,11 +12,10 @@ import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
 import Time from './time';
 
-@identifiedBy('user')
+
 class User extends BaseModel {
 
-  @action.bound
-    bootstrap(data) {
+  @action.bound bootstrap(data) {
         this.update(data);
         this.csrf_token = read_csrf();
     }

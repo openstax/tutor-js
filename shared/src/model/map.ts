@@ -5,12 +5,14 @@ import { ModelApi } from './api'
 import { ID } from '../../types'
 import { LazyGetter } from 'lazy-get-decorator'
 
+export * from 'modeled-mobx'
+
 export interface MapableObject {
     id: ID
     update(data: any): void
 }
 
-export default class Map<K, V extends MapableObject> {
+export class Map<K, V extends MapableObject> {
 
     keyType = Number
 

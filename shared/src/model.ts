@@ -1,5 +1,6 @@
 import { computed, action } from 'mobx'
 import { isNil } from 'lodash'
+import { readonly } from 'core-decorators';
 import { modelize, serialize, field } from 'modeled-mobx'
 import { LazyGetter as lazyGetter } from 'lazy-get-decorator'
 import { ID } from '../types'
@@ -14,9 +15,8 @@ export class BaseModel implements MapableObject {
 
     @field id: ID = NEW_ID
 
-    constructor(attrs: any) {
+    constructor() {
         modelize(this)
-        if (attrs) { this.update(attrs) }
     }
 
     update(attrs: any) {
@@ -59,7 +59,8 @@ export class BaseModel implements MapableObject {
 
 }
 
-export { lazyGetter, modelize }
+export { lazyGetter, modelize, readonly }
+export type { ID }
 
 // export decorators so they can be easily imported into model classes
 export {

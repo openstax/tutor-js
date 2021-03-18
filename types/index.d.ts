@@ -7,3 +7,9 @@ declare var uis: UiSettings;
 declare module 'shared/model/ui-settings' {
     export = uis
 }
+
+type interpolate = (s: string) => string
+
+declare module 'interpolate' {
+    export = interpolate
+}

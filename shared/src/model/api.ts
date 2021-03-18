@@ -1,6 +1,7 @@
 import { modelize } from 'modeled-mobx'
 import { observable, computed, action } from 'mobx'
 import { readonly } from 'core-decorators'
+import { request, ApiUrlPatterns, RequestOptions } from '../api'
 
 export interface ApiError {
     code?: string
@@ -22,7 +23,7 @@ export interface ApiErrorResponse {
 }
 
 
-export class ModelApi {
+export class ModelApi<UrlPatternsT extends ApiUrlPatterns> {
 
     @readonly requestsInProgress = observable.map()
 
@@ -79,5 +80,11 @@ export class ModelApi {
 
     @action reset() {
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)
+    }
+
+    _requestFn = request
+
+    async request<RetT>(urlPattern: string, opts?: RequestOptions) {
+        return this._requestFn<RetT>(urlPattern, opts)
     }
 }

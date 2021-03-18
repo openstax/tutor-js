@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifiedBy, identifier, field, computed, session,
+    BaseModel, field, computed, observable,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { compact, includes } from 'lodash';
@@ -10,16 +10,14 @@ const TAGS = {
     IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
-@identifiedBy('exercises/tag')
 export default class ExerciseTag extends BaseModel {
 
-  @identifier id;
   @field data;
   @field is_visible;
   @field type;
   @field name;
   @field description;
-  @session exercise;
+  @observable exercise;
   @field({ model: ChapterSection }) chapter_section;
 
   @computed get isImportant() {

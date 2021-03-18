@@ -1,9 +1,10 @@
+import type { Course } from '../course'
 import { find, pick, last, sortBy, isNumber, filter } from 'lodash';
 import { readonly } from 'core-decorators';
-import { computed, action, runInAction } from 'mobx';
+import { runInAction } from 'mobx';
 import Student from './student';
 import {
-    BaseModel, field, hydrate, modelize, model, NEW_ID, lazyGetter, observable,
+    BaseModel, field, hydrate, modelize, NEW_ID, observable, computed, action,
 } from 'shared/model';
 
 import { PeriodObj } from '../types'
@@ -12,7 +13,10 @@ export class CoursePeriods {
 
     @readonly all = observable.array<CoursePeriod>()
 
-    contructor() {
+    course: Course
+
+    constructor(course: Course) {
+        this.course = course
         modelize(this)
     }
 
@@ -27,35 +31,39 @@ export class CoursePeriods {
         });
     }
 
-    @computed archived() { return filter(this, period => !period.is_archived); }
+    @computed archived() { return filter(this.sorted, period => !period.is_archived); }
 
-    @computed active() { return filter(this, 'isActive'); }
+    @computed active() { return filter(this.sorted, 'isActive'); }
 
     hydrate(periods: PeriodObj[]) {
-        this.all.replace(periods.map((pd) => hydrate(CoursePeriod, pd)))
-
+        this.all.replace(periods.map((prd) => hydrate(CoursePeriod, { ...prd, course: this.course })))
     }
 
-    serialize() {
-        return null; // periods are not serialized
-    }
+    serialize() { return null; } // periods are not serialized
+
 }
 
 
-export default class CoursePeriod extends BaseModel {
-    @identifier id;
+export class CoursePeriod extends BaseModel {
+    @field id = NEW_ID;
 
-    @field name;
-    @field default_due_time;
-    @field default_open_time;
-    @field enrollment_code;
-    @field enrollment_url;
-    @field is_archived;
-    @field teacher_student_role_id;
-
+    @field name = '';
+    @field default_due_time = '';
+    @field default_open_time = '';
+    @field enrollment_code = '';
+    @field enrollment_url = '';
+    @field is_archived = false;
+    @field teacher_student_role_id = NEW_ID;
     @field num_enrolled_students = 0;
 
-    @belongsTo({ model: 'course' }) course;
+    course: Course
+
+    contructor({ course }: { course: Course }) {
+        this.course = course
+        modelize(this)
+    }
+
+    //    @model({ model: 'course' }) course;
 
     @computed get scores() {
         return this.course.scores.periods.get(this.id);

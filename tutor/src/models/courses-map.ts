@@ -1,6 +1,6 @@
-import Map from 'shared/model/map';
-import { computed, action } from 'mobx';
-import Course from './course';
+import { Map, hydrate } from 'shared/model/map';
+import { override, computed, action } from 'mobx';
+import { Course } from './course';
 import { isEmpty, find } from 'lodash';
 import { CourseObj } from './types'
 
@@ -9,11 +9,10 @@ export { Course };
 export class CoursesMap extends Map<number, Course> {
     constructor() {
         super()
-
     }
 
     // override array in Map to return a sorted list with latest join date first
-    @computed get array() {
+    @override get array() {
         return this.values().sort((a, b) =>
             a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
         );
@@ -28,15 +27,15 @@ export class CoursesMap extends Map<number, Course> {
     }
 
     @computed get student() {
-        return this.where(c => c.currentRole.isStudent);
+        return this.where(c => c.roles.current.isStudent);
     }
 
     @computed get withoutStudents() {
-        return this.where(c => 0 === c.students.length);
+        return this.where(c => 0 === c.students.all.length);
     }
 
     @computed get teaching() {
-        return this.where(c => c.currentRole.isTeacher);
+        return this.where(c => c.roles.teacher);
     }
 
     @computed get completed() {
@@ -76,7 +75,7 @@ export class CoursesMap extends Map<number, Course> {
     }
 
     @action addNew(courseData: CourseObj) {
-        const course = new Course(courseData, this);
+        const course = hydrate(Course, { ...courseData, map: this });
         course.just_created = true;
         this.set(course.id, course);
         return course;
@@ -93,7 +92,7 @@ export class CoursesMap extends Map<number, Course> {
 
     bootstrap(courseData: CourseObj[], options: { clear?: boolean } = {}) {
         if (options.clear) { this.clear(); }
-        courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
+        courseData.forEach(cd => this.set(String(cd.id), hydrate(Course, { ...cd, map: this })));
         return this;
     }
 
@@ -103,7 +102,7 @@ export class CoursesMap extends Map<number, Course> {
     @action onLoaded({ data }: { data: CourseObj[] }) {
         data.forEach((cd) => {
             const course = this.get(cd.id);
-            course ? course.update(cd) : this.set(cd.id, new Course(cd, this));
+            course ? course.update(cd) : this.set(cd.id, hydrate(Course, { ...cd, map: this }));
         });
     }
 

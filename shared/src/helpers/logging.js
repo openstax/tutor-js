@@ -22,6 +22,7 @@ const Logger = {
     clearPending() {
         return PENDING = [];
     },
+    error(msg){}, // added for ts
 };
 
 const transmitPending = debounce(function() {

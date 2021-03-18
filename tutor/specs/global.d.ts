@@ -1,4 +1,5 @@
 /* eslint-disable */
+import('jest-fetch-mock')
 export { };
 
 interface TutorTestConfig {

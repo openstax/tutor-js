@@ -122,6 +122,8 @@ const Notifications = {
             this.removeType(this.POLLING_TYPES.COURSE_HAS_ENDED);
         }
     },
+
+    on(_event, _cb) {}, // added for ts, will be overidden by extend below
 };
 
 // mixin event emitter methods, particulary it's 'on' and 'off'
