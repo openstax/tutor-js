@@ -34,7 +34,7 @@ const offerings = [
 ]
 
 describe('Offering helpers', function() {
-    it.only('sort the offerings correctly', () => {
+    it('sort the offerings correctly', () => {
         const sortedOfferingIds = offerings.sort(compareOfferings).map(o => o.id)
         expect(sortedOfferingIds).toEqual([6,1,5,4,3,2])
     })

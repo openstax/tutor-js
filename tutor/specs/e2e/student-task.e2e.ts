@@ -26,7 +26,7 @@ describe('Student Tasks', () => {
         
     })
 
-    it.only('can change and re-submit answers to questions', async () => {
+    it('can change and re-submit answers to questions', async () => {
         await visitPage(page, '/course/1/task/2')
         //Verify: after clicking on a two-step question, the two step question icon shows up, moving all the data-step-index by 1
         await page.click('.sticky-table [data-step-index="4"]')
