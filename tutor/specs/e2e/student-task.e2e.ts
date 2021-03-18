@@ -59,7 +59,7 @@ describe('Student Tasks', () => {
             window._MODELS.feature_flags.set('tours', false);
         })
         await expect(page).toHaveSelector('testEl=student-free-response')
-        await page.type('testEl=free-response-box', longFreeResponseAnswer)
+        await page.type('testEl=free-response-box', longFreeResponseAnswer, { timeout: 30000 })
         await expect(page).toHaveSelector('.word-limit-error-info')
         expect(
             //@ts-ignore
