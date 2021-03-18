@@ -28,13 +28,12 @@ describe('Student Tasks', () => {
 
     it('can change and re-submit answers to questions', async () => {
         await visitPage(page, '/course/1/task/2')
-        //Verify: after clicking on a two-step question, the two step question icon shows up, moving all the data-step-index by 1
         await page.click('.sticky-table [data-step-index="4"]')
 
         await selectAnswer(page, 'b', 'why do i need to fill this out?')
 
         // go back and resubmit
-        await page.click('.sticky-table [data-step-index="5"]')
+        await page.click('.sticky-table [data-step-index="4"]')
         await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-b')
         await page.click('testEl=answer-choice-c')
         await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-c')
@@ -62,7 +61,7 @@ describe('Student Tasks', () => {
 
     it('should be able to save question to my practice', async () => {
         await visitPage(page, '/course/1/task/2') 
-        await page.click('.sticky-table [data-step-index="4"]')
+        await page.click('.sticky-table [data-step-index="5"]')
         // start fresh - deleting the practice questions from course
         await page.evaluate(() => {
             window._MODELS.courses.get(1).practiceQuestions.clear()
