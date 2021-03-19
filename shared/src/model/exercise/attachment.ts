@@ -1,16 +1,7 @@
-import type { Exercise } from '../course'
-import {
-    BaseModel, identifier, field, belongsTo,
-} from '../../model';
+import { BaseModel, model, field } from '../../model';
 
 
-export default
-    class ExerciseAttachment extends BaseModel {
-
-    @model(Exercise) exercise;
+export class ExerciseAttachment extends BaseModel {
 
     @field asset;
-
-
-
 }

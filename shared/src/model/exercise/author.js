@@ -1,12 +1,13 @@
 import {
-    BaseModel, identifiedBy, identifier, field,
+    BaseModel, modelize, field,
 } from '../../model';
 
+export class ExerciseAuthor extends BaseModel {
+    @field user_id;
+    @field name;
 
-@identifiedBy('exercise/author')
-export default
-class ExerciseAuthor extends BaseModel {
-
-  @identifier user_id;
-  @field name;
+    constructor() {
+        super()
+        modelize(this)
+    }
 }

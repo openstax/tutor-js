@@ -1,9 +1,9 @@
 import type { Course } from '../course'
-import { TutorDate } from '../date'
+import { DateTime } from '../date-time'
+import Api from '../../api'
 import {
     BaseModel, ID, NEW_ID, field, model, hydrate, modelize, observable, computed, action, readonly,
 } from 'shared/model';
-import Api from '../../api'
 import type { CoursePeriod } from './period'
 import Time from '../time';
 import { StudentObj } from '../types'
@@ -21,8 +21,6 @@ export class Students {
         this.course = course
         modelize(this)
     }
-
-
 
     hydrate(students: StudentObj[]) {
         this.all.replace(students.map((r) => hydrate(CourseStudent, { ...r, course: this.course })))
@@ -45,7 +43,7 @@ export default class CourseStudent extends BaseModel {
     @field is_paid = false;
     @field is_refund_allowed = false;
     @field is_refund_pending = false;
-    @model(TutorDate) payment_due_at = new TutorDate();
+    @model(DateTime) payment_due_at = DateTime.invalid('uninitialized')
     @field prompt_student_to_pay = false;
 
     @field period_id: ID = NEW_ID;
@@ -109,19 +107,33 @@ export default class CourseStudent extends BaseModel {
         return !this.is_active;
     }
 
-    // following methods are called by api
-    drop() { }
-    unDrop() { }
+    async drop() {
+        return this.api.request(Api.dropStudent, { params: { id: this.id } })
+    }
 
-    async savePeriod(): Promise<void> {
-        this.api.request<PeriodObj>(Api.updatePeriod, {
-        }
-            return { id: this.id, data: pick(this, 'period_id') };
+    async unDrop() {
+        return this.api.request(Api.unDropStudent, { params: { id: this.id } })
     }
+
+    async savePeriod() {
+        return this.api.request(Api.updateStudent, {
+            params: { id: this.id },
+            data: pick(this, 'period_id'),
+        })
+    }
+
     async saveStudentId() {
-        return { id: this.id, data: pick(this, 'student_identifier') };
+        return this.api.request(Api.saveStudentId, {
+            params: { id: this.id },
+            data: pick(this, 'student_identifier'),
+        })
     }
-    saveOwnStudentId() {
-        return { id: this.id, data: pick(this, 'student_identifier') };
+
+    async saveOwnStudentId() {
+        return this.api.request(Api.saveOwnStudentId, {
+            params: { id: this.id },
+            data: pick(this, 'student_identifier'),
+        })
     }
+
 }

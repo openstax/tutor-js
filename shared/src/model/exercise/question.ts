@@ -1,54 +1,59 @@
 import { uniq, map, keys, inRange, find, reduce, isEmpty, without, every, omit } from 'lodash';
 import {
-    BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
+    BaseModel, modelize, field, model, computed, action,
 } from '../../model';
 import Answer from './answer';
 import Solution from './solution';
 import Format from './format';
 import invariant from 'invariant';
+import { Question } from '../../../../tutor/src/components/homework-questions';
 
-export
-class ReviewQuestion {
-    constructor(question) {
+export class ReviewQuestion {
+    q: ExerciseQuestion
+
+    constructor(question: ExerciseQuestion) {
+        modelize(this)
         this.q = question;
     }
     get id() { return this.q.question_id; }
-  @computed get answers() { return this.q.answer_stats; }
-  @computed get formats() { return this.q.content.formats; }
-  @computed get stem_html(){ return this.q.content.stem_html; }
-  @computed get stimulus_html() { return this.q.content.stimulus_html; }
+    @computed get answers() { return this.q.answer_stats; }
+    @computed get formats() { return this.q.content.formats; }
+    @computed get stem_html(){ return this.q.content.stem_html; }
+    @computed get stimulus_html() { return this.q.content.stimulus_html; }
 }
 
 
-@identifiedBy('exercise/question')
-export default
-class ExerciseQuestion extends BaseModel {
+export class ExerciseQuestion extends BaseModel {
 
-  static FORMAT_TYPES = {
-      'open-ended': 'Open Ended',
-      'multiple-choice': 'Multiple Choice',
-      'true-false': 'True/False',
-  };
+    static FORMAT_TYPES = {
+        'open-ended': 'Open Ended',
+        'multiple-choice': 'Multiple Choice',
+        'true-false': 'True/False',
+    };
 
-  @identifier id;
-  @field is_answer_order_important = false;
-  @field stem_html = '';
-  @field stimulus_html = '';
-  @field title = '';
-  @field({ type: 'array' }) hints;
-  @hasMany({ model: Format, inverseOf: 'question' }) formats;
-  @hasMany({ model: Answer, inverseOf: 'question' }) answers;
-  @hasMany({ model: Solution, inverseOf: 'question' }) collaborator_solutions;
+    @field is_answer_order_important = false;
+    @field stem_html = '';
+    @field stimulus_html = '';
+    @field title = '';
+    @field hints: string[] = [];
+    @model(Format) formats: Format[] = []
+    @model(Answer) anwers:Answer[] = []
+    @model(Solution) collaborator_solutions: Solution[] = [];
 
-  @belongsTo({ model: 'exercise' }) exercise;
+    @model(Exercise) exercise;
 
-  @computed get allowedFormatTypes() {
-      const type = this.exercise.tags.withType('type');
-      if (type && type.value != 'practice') {
-          return omit(ExerciseQuestion.FORMAT_TYPES, 'open-ended');
-      }
-      return ExerciseQuestion.FORMAT_TYPES;
-  }
+    constructor() {
+        super()
+        modelize(this)
+    }
+
+    @computed get allowedFormatTypes() {
+        const type = this.exercise.tags.withType('type');
+        if (type && type.value != 'practice') {
+            return omit(ExerciseQuestion.FORMAT_TYPES, 'open-ended');
+        }
+        return ExerciseQuestion.FORMAT_TYPES;
+    }
 
   @computed get isMultipleChoice() {
       return this.answers.length > 0;

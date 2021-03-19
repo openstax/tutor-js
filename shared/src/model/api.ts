@@ -1,7 +1,7 @@
 import { modelize } from 'modeled-mobx'
 import { observable, computed, action } from 'mobx'
 import { readonly } from 'core-decorators'
-import { request, ApiUrlPatterns, RequestOptions } from '../api'
+import { request, RequestOptions } from '../api'
 
 export interface ApiError {
     code?: string
@@ -23,7 +23,7 @@ export interface ApiErrorResponse {
 }
 
 
-export class ModelApi<UrlPatternsT extends ApiUrlPatterns> {
+export class ModelApi {
 
     @readonly requestsInProgress = observable.map()
 
@@ -84,7 +84,7 @@ export class ModelApi<UrlPatternsT extends ApiUrlPatterns> {
 
     _requestFn = request
 
-    async request<RetT>(urlPattern: string, opts?: RequestOptions) {
-        return this._requestFn<RetT>(urlPattern, opts)
+    async request<RetT>(url: string, data?: any, options?: RequestOptions) {
+        return this._requestFn<RetT>(url, data, options)
     }
 }

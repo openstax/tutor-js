@@ -1,8 +1,8 @@
 import {
-    BaseModel, field, computed, action,
+    BaseModel, field, computed, hydrate, action, NEW_ID, observable, model, modelize,
 } from '../model';
 import { reduce, map, filter, inRange, merge, every, some, isNil } from 'lodash';
-import TagAssociation from './exercise/tag-association';
+import { TagsAssociation } from './exercise/tags-association';
 import invariant from 'invariant';
 import Attachment from './exercise/attachment';
 import Author from './exercise/author';
@@ -11,45 +11,44 @@ import Tag from './exercise/tag';
 
 export { Attachment, Author, Question, Tag };
 
-@identifiedBy('exercise')
-export default
-    class Exercise extends BaseModel {
 
-    static build(attrs) {
-        return new this(merge(attrs, {
+export class Exercise extends BaseModel {
+
+    static build(attrs: any) {
+        return hydrate(Exercise, merge(attrs, {
             questions: [{
                 formats: [],
             }],
         }));
     }
 
-    @identifier uuid;
-    @field id;
-    @field uid;
-    @field nickname;
-    @field({ type: 'array' }) versions;
+    @field uuid = '';
+    @field id = NEW_ID;
+    @field uid = '';
+    @field nickname = '';
+    @field versions: string[] = [];
+    @field is_vocab = '';
 
-    @field is_vocab;
+    @field stimulus_html = '';
 
-    @field stimulus_html;
+    @observable published_at = '';
+    @observable wrapper = '';
 
-    @session published_at;
-    @session wrapper;
+    @model(Attachment) attachments:Attachment[] = [];
+    @model(Author) authors:Author[] = [];
+    @model(Author) copyright_holders:Author[] = [];
+    @model(Question) questions:Question[] = [];
 
-    @hasMany({ model: Attachment, inverseOf: 'exercise' }) attachments;
-    @hasMany({
-        model: Author, extend: {
-            names() {
-                return map(this, 'name');
-            },
-        }
-    }) authors;
-    @hasMany({ model: Author }) copyright_holders;
-    @hasMany({ model: Question, inverseOf: 'exercise' }) questions;
-    @hasMany({
-        model: Tag,
-        extend: TagAssociation,
-    }) tags;
+    @model(TagsAssociation) tags = new TagsAssociation()
+    // :{
+    //     model: Tag,
+    //     extend: TagAssociation,
+    // }) tags;
+
+    constructor() {
+        super()
+        modelize(this)
+    }
 
     @computed get pool_types() {
         return [];
@@ -70,10 +69,10 @@ export default
     }
 
     @computed get validity() {
-        return reduce(this.questions.concat(this.tags), (memo, model) => ({
+        return reduce(([] as any[]).concat(this.questions, this.tags.all), (memo, model) => ({
             valid: memo.valid && model.validity.valid,
             part: memo.part || model.validity.part,
-        }), { valid: true });
+        }), { valid: true, part: false });
     }
 
     @action toggleMultiPart() {

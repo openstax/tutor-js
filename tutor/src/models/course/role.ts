@@ -1,13 +1,11 @@
 import type { Course } from '../course'
-import { TutorDate } from '../date'
-import { first, sortBy }
+import { first, sortBy } from 'lodash'
 import { readonly } from 'core-decorators';
 import {
     BaseModel, field, model, hydrate, modelize, observable, computed, action
 } from 'shared/model';
 import { RoleObj } from '../types'
-import moment, { unitOfTime } from 'moment';
-import Time from '../time';
+import { DateTime, DurationUnit } from '../date-time';
 
 const ROLE_PRIORITY = ['guest', 'student', 'teacher', 'admin'];
 
@@ -23,7 +21,7 @@ export class CourseRoles {
     }
 
     @computed get primary(): CourseRole {
-        return first(sortBy(this.all, (r: CourseRole) => -1 * ROLE_PRIORITY.indexOf(r.type)));
+        return first(sortBy(this.all, (r: CourseRole) => -1 * ROLE_PRIORITY.indexOf(r.type)))!;
     }
 
     @computed get current(): CourseRole {
@@ -56,7 +54,7 @@ export class CourseRoles {
 
 export default class CourseRole extends BaseModel {
 
-    @model(TutorDate) joined_at = new TutorDate;
+    @model(DateTime) joined_at = DateTime.invalid('uninitialized')
     @field type = '';
     @field period_id = 0;
     @field research_identifier = '';
@@ -84,8 +82,8 @@ export default class CourseRole extends BaseModel {
         return this.type == 'teacher';
     }
 
-    joinedAgo(terms: unitOfTime.Diff = 'days') {
-        return moment(Time.now).diff(this.joined_at, terms);
+    joinedAgo(terms: DurationUnit = 'days') {
+        return this.joined_at.diff(DateTime.now(), terms);
     }
 
     @action async become({ reset = true } = {}) {

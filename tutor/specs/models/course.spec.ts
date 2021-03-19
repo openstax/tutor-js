@@ -30,7 +30,6 @@ describe('Course Model', () => {
     });
 
     fit('Map can be bootstrapped and size observed', () => {
-
         runInAction(() => Courses.clear())
         const lenSpy = jest.fn();
         autorun(() => lenSpy(Courses.size));

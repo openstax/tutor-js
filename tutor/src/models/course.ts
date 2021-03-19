@@ -1,5 +1,5 @@
 import {
-    BaseModel, modelize, field, NEW_ID, ID, computed, action, lazyGetter,// model,
+    BaseModel, modelize, model, field, NEW_ID, ID, computed, action, lazyGetter,// model,
 } from 'shared/model';
 import { CourseObj, CourseTerm } from './types'
 import Api from '../api'
@@ -20,11 +20,11 @@ import {
 // import LMS from './course/lms';
 import { CourseRoles } from './course/role'
 import { Students } from './course/student'
-import Time from './time'
+import { DateTime } from './date-time'
 // import TimeHelper from '../helpers/time';
 
 // //import { getters } from '../helpers/computed-property';
-import luxon from 'luxon'
+
 // import { StudentTasks } from './student-tasks';
 // import { StudentTaskPlans } from './task-plans/student';
 // import { TeacherTaskPlans } from './task-plans/teacher';
@@ -68,7 +68,7 @@ export class Course extends BaseModel {
     @field salesforce_book_name = '';
     @field current_role_id: ID = NEW_ID;
     @field starts_at = '';
-    @field ends_at = '';
+    @model(DateTime) ends_at = DateTime.unknown
 
     @field term: CourseTerm = 'unknown';
     @field webview_url = '';
@@ -139,10 +139,10 @@ export class Course extends BaseModel {
     }
 
     async save() {
-        const course = await this.api.request<CourseObj>(Api.updateCourse, {
-            params: { id: this.id },
-            data: pick(this, SAVEABLE_ATTRS)
-        })
+        const course = await this.api.request<CourseObj>(
+            Api.updateCourse({ courseId: this.id }),
+            pick(this, SAVEABLE_ATTRS),
+        )
         this.update(course)
         return this
     }
@@ -207,15 +207,15 @@ export class Course extends BaseModel {
     // }
 
     @computed get hasEnded() {
-        return luxon(this.ends_at).isBefore(Time.now)
+        return this.ends_at.isInPast
     }
 
-    // @computed get allowedAssignmentDateRange() {
-    //     return {
-    //         start: this.momentInZone(this.starts_at).add(1, 'day').endOf('day'),
-    //         end: this.momentInZone(this.ends_at).subtract(1, 'day').startOf('day'),
-    //     };
-    // }
+    @computed get allowedAssignmentDateRange() {
+        return {
+            start: this.momentInZone(this.starts_at).add(1, 'day').endOf('day'),
+            end: this.momentInZone(this.ends_at).subtract(1, 'day').startOf('day'),
+        };
+    }
 
     // // bind to this so it can be used in disabledDate check
     // isInvalidAssignmentDate = (date) => {

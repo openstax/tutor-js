@@ -1,8 +1,32 @@
 
+import interpolate from 'interpolate'
+
+
+function r<P>(url: string) {
+  return (params: P) => interpolate(url, params)
+}
+
+// function r<T>()(url: string) {
+//     return (params: T) => interpolate(url, params)
+// }
+
+type ID = number | string
+
+interface CourseId {
+    courseId: ID
+}
+
 const Api = {
 
-    updateCourse: 'POST courses/{id}',
-    updateCoursePeriod: 'POST period/{id}'
+    getCourse:          r<CourseId>('GET courses/{courseId}'),
+    updateCourse:       r<CourseId>('POST courses/{courseId}'),
+    updateCoursePeriod: 'POST period/{id}',
+
+    saveOwnStudentId:   'POST students{id}',
+    saveStudentId:      'POST user/courses/{id}/student',
+    updateStudent:      'POST students{id}',
+    dropStudent:        'DELETE students/{id}',
+    unDropStudent:      'POST students/{id}/undrop',
 }
 
 export default Api
@@ -134,7 +158,6 @@ export const startApi = () => {
 //     });
 
 
-//     connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 
 //     connectModelRead(UserTerms, 'fetch', { onSuccess: 'onLoaded', url: 'terms' });
 //     connectModelUpdate(UserTerms, 'sign', { onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT' });
@@ -183,11 +206,6 @@ export const startApi = () => {
 //             timeout: 2000, // wait a max of 2 seconds
 //         });
 
-//     connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });
-//     connectModelUpdate(Student, 'saveStudentId', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' });
-//     connectModelUpdate(Student, 'savePeriod', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' });
-//     connectModelDelete(Student, 'drop', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' } );
-//     connectModelUpdate(Student, 'unDrop', { pattern: 'students/{id}/undrop', method: 'PUT', onSuccess: 'onApiRequestComplete' } );
 
 
 //     connectModelCreate(CourseEnroll, 'create', { url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors' });

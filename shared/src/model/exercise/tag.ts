@@ -24,9 +24,12 @@ class ExerciseTag extends BaseModel {
 
     @observable raw = '';
 
-    constructor() {
+    constructor(raw?: string) {
         super();
         modelize(this)
+        if (raw) {
+            this.raw = raw
+        }
     }
 
     hydrate(tag: string | object) {

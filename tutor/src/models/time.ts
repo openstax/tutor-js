@@ -9,7 +9,7 @@ const WRM_START_DATE = new Date('2020-06-18');
 
 export { WRM_START_DATE };
 
-export function setNow(now) {
+export function setNow(now: Date | string) {
     if (!isDate(now)) {
         now = now ? new Date(now) : new Date();
     }
