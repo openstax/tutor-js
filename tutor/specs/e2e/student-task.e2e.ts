@@ -5,7 +5,7 @@ describe('Student Tasks', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-        setRole('student')
+        await setRole('student')
     });
 
     const longFreeResponseAnswer = faker.lorem.words(510);
