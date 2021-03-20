@@ -1,28 +1,33 @@
+import { ExerciseQuestion } from './question'
 import { isEmpty } from 'lodash';
 import {
-    BaseModel, identifiedBy, identifier, field, computed, belongsTo,
+    BaseModel, modelize, field, computed, getParentOf,
 } from '../../model';
 
-@identifiedBy('exercise/answer')
-export default
+
+export
 class ExerciseAnswer extends BaseModel {
-  @identifier id;
-  @field content_html;
-  @field correctness;
-  @field feedback_html;
+    @field content_html = '';
+    @field correctness = '0';
+    @field feedback_html = '';
 
-  // set via inverseOf
-  @belongsTo({ model: 'exercise/question' }) question;
+    get question() { return getParentOf<ExerciseQuestion>(this) }
 
-  @computed get validity() {
-      if (isEmpty(this.content_html)) {
-          return { valid: false, part: 'Answer Distractor' };
-      } else {
-          return { valid: true };
-      }
-  }
+    @computed get validity() {
+        if (isEmpty(this.content_html)) {
+            return { valid: false, part: 'Answer Distractor' };
+        } else {
+            return { valid: true };
+        }
+    }
 
-  @computed get isCorrect() {
-      return this.correctness > 0;
-  }
+    @computed get isCorrect() {
+        return Number(this.correctness) > 0;
+    }
+
+    constructor() {
+        super()
+        modelize(this)
+    }
+
 }

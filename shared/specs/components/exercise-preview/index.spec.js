@@ -26,9 +26,7 @@ describe('Exercise Preview Component', function() {
     });
 
     it('sets the className when displaying feedback', () => {
-        props.displayFeedback = true;
-        const preview = mount(<ExercisePreview {...props} />);
-        //    console.log(preview.debug())
+        const preview = mount(<ExercisePreview {...props} displayFeedback={true} />);
         expect(preview).toHaveRendered('.card.openstax-exercise-preview.is-displaying-feedback');
         expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
         preview.unmount();
@@ -93,11 +91,11 @@ describe('Exercise Preview Component', function() {
 
     it('limits tags', () => {
         const preview = mount(<ExercisePreview {...props} />);
-        const importantTags = filter(exercise.tags, 'isImportant');
+        const importantTags = filter(exercise.tags.all, 'isImportant');
         expect(preview.find('.exercise-tag')).toHaveLength(importantTags.length + 1);
         props.displayAllTags = true;
         preview.setProps(props);
-        expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.length + 1);
+        expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.all.length + 1);
         expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
         preview.unmount();
     });

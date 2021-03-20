@@ -1,7 +1,9 @@
+import { Exercise } from 'shared/model/exercise';
 import Factories from '../factories';
 
 describe('Exercise Model', () => {
-    let exercise;
+    let exercise: Exercise;
+
     beforeEach(() => exercise = Factories.exercise({}));
 
     it('can move questions up/down', () => {
@@ -19,10 +21,6 @@ describe('Exercise Model', () => {
         expect(() =>
             exercise.moveQuestion(nextToLast, 1)
         ).toThrow();
-    });
-
-    it('gets author names', () => {
-        expect(exercise.authors.names()).toEqual(exercise.authors.map(a=>a.name));
     });
 
     it('calculates validity', () => {
@@ -49,28 +47,33 @@ describe('Exercise Model', () => {
 
     it('tests isPublishable', () => {
         expect(exercise.isPublishable).toBe(true);
-        exercise.published_at = new Date();
+        exercise.id = 0
+        expect(exercise.isNew).toBe(true)
+        expect(exercise.isPublishable).toBe(false);
+        exercise.id = 1
+        expect(exercise.isPublishable).toBe(true);
+        exercise.published_at = new Date()
         expect(exercise.isPublishable).toBe(false);
     });
 
     it('sets tags uniquely', () => {
         const book = exercise.tags.withType('book');
         book.value = 'uniq';
-        const secondBook = exercise.tags[
+        const secondBook = exercise.tags.all[
             exercise.tags.push({ type: 'book', value: 'new' }) - 1
         ];
-        const len = exercise.tags.length;
+        const len = exercise.tags.all.length;
         exercise.tags.setUniqueValue(secondBook, 'uniq');
-        expect(exercise.tags.length).toEqual(len - 1);
+        expect(exercise.tags.all.length).toEqual(len - 1);
         expect(exercise.tags.includes({ type: 'book', value: 'uniq' })).toBe(true);
         expect(exercise.tags.includes({ type: 'book', value: 'new' })).toBe(false);
     });
 
     it('can replace all tags', () => {
-        exercise.tags.push({ type: 'book', value: 'first' });
-        exercise.tags.push({ type: 'book', value: 'second' });
-        exercise.tags.replaceType('book', [{ value: 'only' }]);
-        const bookTags = exercise.tags.withType('book', { multiple: true });
+        exercise.tags.push({ type: 'book', value: 'first' } as any)
+        exercise.tags.push({ type: 'book', value: 'second' } as any);
+        exercise.tags.replaceType('book', [{ value: 'only' }] as any);
+        const bookTags = exercise.tags.withType('book', true);
         expect(bookTags).toHaveLength(1);
         expect(bookTags[0].value).toEqual('only');
     });

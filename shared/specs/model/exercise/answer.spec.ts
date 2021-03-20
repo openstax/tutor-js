@@ -1,16 +1,14 @@
-import Factories from '../../factories';
+import { ExerciseAnswer as Answer } from '../../../src/model/exercise/answer'
+// import Factories from '../../factories';
+
 
 describe('Exercise Question', () => {
-    let answer;
-
-    beforeEach(() => {
-        answer = Factories.exercise().questions[0].answers[0];
-    });
 
     it('validates', () => {
-        expect(answer.validity.valid).toBe(true);
-        answer.content_html = '';
+        const answer = new Answer()
         expect(answer.validity).toEqual({ 'part': 'Answer Distractor', 'valid': false });
+        answer.content_html = 'a choice';
+        expect(answer.validity.valid).toBe(true)
     });
 
 });

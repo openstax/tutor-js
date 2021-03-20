@@ -1,14 +1,16 @@
 import moment from 'moment';
-import URLs from 'model/urls';
-import Notifications from 'model/notifications';
-import Poller from 'model/notifications/pollers';
-import FakeWindow from 'shared/specs/helpers/fake-window';
+import URLs from 'shared/model/urls';
+import Notifications from 'shared/model/notifications';
+import Poller from 'shared/model/notifications/pollers';
+import FakeWindow from '../helpers/fake-window';
 
 describe('Notifications', function() {
-    let poll, setUrl;
+    let poll:any
+    let setUrl:any;
+    let windowImpl = new FakeWindow;
 
     beforeEach(function() {
-        this.windowImpl = new FakeWindow;
+        windowImpl = new FakeWindow;
         poll = jest.spyOn(Poller.prototype, 'poll');
         setUrl = jest.spyOn(Poller.prototype, 'setUrl');
     });
@@ -22,11 +24,11 @@ describe('Notifications', function() {
 
     it('polls when URL is set', function() {
         URLs.update({ accounts_api_url: 'http://localhost:2999/api' });
-        Notifications.startPolling(this.windowImpl);
+        Notifications.startPolling(windowImpl as any);
         expect(Poller.prototype.poll).toHaveBeenCalledTimes(1);
-        expect(Poller.prototype.setUrl.mock.calls[0]).toEqual(['http://localhost:2999/api/user']);
+        expect((Poller.prototype.setUrl as any).mock.calls[0]).toEqual(['http://localhost:2999/api/user']);
         URLs.update({ tutor_api_url: 'http://localhost:3001/api' });
-        Notifications.startPolling(this.windowImpl);
+        Notifications.startPolling(windowImpl as any);
         expect(Poller.prototype.poll).toHaveBeenCalledTimes(2);
     });
 

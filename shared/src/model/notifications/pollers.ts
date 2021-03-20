@@ -1,7 +1,7 @@
 import {
     extend, bindAll, difference, without, keys, isEmpty, values,
 } from 'lodash';
-import moment from 'moment';
+import moment, { Duration } from 'moment';
 import axios from 'axios';
 import User from '../user';
 import UiSettings from '../ui-settings';
@@ -10,11 +10,20 @@ const STORAGE_KEY = 'ox-notifications';
 
 class Poller {
 
-    static forType(notices, type) {
+    static forType(notices:any, type:string) {
         return new (POLLER_TYPES[type])(type, notices);
     }
 
-    constructor(type, notices, interval) {
+    type: string
+    url = ''
+    notices: any
+    interval: any
+    lastPoll: any
+    prefsStorageKey: string
+    polling: any
+    _activeNotices: any
+
+    constructor(type:string, notices: any, interval: Duration) {
         this.type = type;
         this.notices = notices;
         this.interval = interval;
@@ -30,7 +39,7 @@ class Poller {
       }
   }
 
-  setUrl(url) {
+  setUrl(url: string) {
       this.url = url;
       if (!this.polling) { this.startPolling(); }
   }
@@ -62,12 +71,12 @@ class Poller {
       return Promise.resolve();
   }
 
-  onReply() {
+  onReply(_data: any) {
       // eslint-disable-next-line no-console
       console.warn('base onReply method called unnecessarily');
   }
 
-  onError(resp) {
+  onError(resp: any) {
       // eslint-disable-next-line no-console
       console.warn(resp);
   }
@@ -76,7 +85,7 @@ class Poller {
       return values(this._activeNotices);
   }
 
-  acknowledge(notice) {
+  acknowledge(notice: any) {
       this._setObservedNoticeIds(
           this._getObservedNoticeIds().concat(notice.id)
       );
@@ -84,15 +93,15 @@ class Poller {
       return this.notices.emit('change');
   }
 
-  _setObservedNoticeIds(newIds) {
+  _setObservedNoticeIds(newIds: string[]) {
       return UiSettings.set(this.prefsStorageKey, newIds);
   }
 
-  _getObservedNoticeIds() {
+  _getObservedNoticeIds(): string[] {
       return UiSettings.get(this.prefsStorageKey) || [];
   }
 
-  _setActiveNotices(newActiveNotices, currentIds) {
+  _setActiveNotices(newActiveNotices:any, currentIds:any) {
       this._activeNotices = newActiveNotices;
       this.notices.emit('change');
       const observedIds = this._getObservedNoticeIds();
@@ -107,12 +116,13 @@ class Poller {
 
 
 class TutorUpdates extends Poller {
-    constructor(type, notices) {
+    active: any
+    constructor(type: string, notices: any) {
         super(type, notices, moment.duration(5, 'minutes'));
         this.active = {};
     }
 
-    onReply({ data }) {
+    onReply({ data }: any) {
         const observedIds = this._getObservedNoticeIds();
         const notices = {};
         const currentIds = [];
@@ -130,13 +140,13 @@ class TutorUpdates extends Poller {
 
 
 class AccountsNagger extends Poller {
-    constructor(type, notices) {
+    constructor(type: string, notices: any) {
         super(type, notices, moment.duration(1, 'day'));
     // uncomment FOR DEBUGGING to get notification bar to show up
     // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
     }
 
-    onReply({ data }) {
+    onReply({ data }: any) {
         User.setCurrent(data);
         const emails = {};
         for (let email of User.current().unVerfiedEmails()) {

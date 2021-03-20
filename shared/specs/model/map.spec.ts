@@ -1,4 +1,4 @@
-import Map from 'shared/model/map'
+import { Map } from 'shared/model/map'
 import { autorun, runInAction } from 'mobx'
 
 class FooModel {

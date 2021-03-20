@@ -8,15 +8,15 @@ const ERROR_CODES = {
     no_pin_confirmation_attempts_remaining: 'Too many PIN attempts',
 };
 
-class Email extends EventEmitter2 {
+class Email extends (EventEmitter2 as any) {
 
-    constructor(user, attrs) {
-        super();
+    constructor(user: User, attrs: any) {
+        super(); // eslint-disable-line constructor-super
         this.user = user;
         extend(this, attrs);
     }
 
-    sendVerification(pin, successCallBack) {
+    sendVerification(pin: any, successCallBack: any) {
         return this.makeRequest('confirm_by_pin', { pin }).then(resp => {
             if (!resp) return;
             if (resp.status === 204) {
@@ -24,7 +24,7 @@ class Email extends EventEmitter2 {
                 this.is_verified = true;
                 successCallBack(this);
             } else {
-                const code = __guard__(first(resp.data != null ? resp.data.errors : undefined), x => x.code);
+                const code = first<any>(resp.data?.errors || [{ code: '' }]).code;
                 this.error = ERROR_CODES[code];
                 if (code === 'no_pin_confirmation_attempts_remaining') {
                     this.verificationFailed = true;
@@ -43,10 +43,10 @@ class Email extends EventEmitter2 {
         });
     }
 
-    makeRequest(type, data = {}) {
+    makeRequest(type: any, data = {}) {
         this.requestInProgress = true;
 
-        const afterRequest = resp => {
+        const afterRequest = (resp:any) => {
             this.requestInProgress = false;
             this.emit('change');
             return resp;
@@ -61,18 +61,18 @@ class Email extends EventEmitter2 {
     }
 }
 
-class User extends EventEmitter2 {
+class User extends (EventEmitter2 as any) {
 
     static current() {
         return this._current_user;
     }
 
-    static setCurrent(data) {
+    static setCurrent(data: any) {
         return this._current_user = new User(data);
     }
 
-    constructor(data) {
-        super();
+    constructor(data: any) {
+        super(); // eslint-disable-line constructor-super
         this.attibutes = data;
         this.emails = map(this.attibutes.contact_infos, ci => new Email(this, ci));
     }
@@ -83,7 +83,3 @@ class User extends EventEmitter2 {
 }
 
 export default User;
-
-function __guard__(value, transform) {
-    return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

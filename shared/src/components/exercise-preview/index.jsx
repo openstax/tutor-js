@@ -8,11 +8,13 @@ import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import ArbitraryHtmlAndMath from '../html';
-import Tag from '../../model/exercise/tag';
+import {
+    Exercise,
+    ExerciseTag as Tag,
+} from '../../model/exercise';
 import Question from '../question';
 import ExerciseBadges from '../exercise-badges';
 import ControlsOverlay from './controls-overlay';
-import Exercise from '../../model/exercise';
 
 @observer
 class ExercisePreview extends React.Component {
@@ -98,7 +100,7 @@ class ExercisePreview extends React.Component {
 
   @computed get tags() {
       const { displayAllTags, displayNickname, exercise } = this.props;
-      let tags = exercise.tags.slice();
+      let tags = exercise.tags.all.slice();
       if (!displayAllTags) { tags = filter(tags, 'isImportant'); }
       tags = sortBy(tags, 'sortValue', 'title');
       if (displayNickname && exercise.nickname) {
@@ -196,5 +198,6 @@ class ExercisePreview extends React.Component {
       );
   }
 }
+
 
 export default ExercisePreview;

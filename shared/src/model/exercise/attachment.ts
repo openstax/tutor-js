@@ -1,16 +1,17 @@
+import type { Exercise } from '../exercise'
 import {
-    BaseModel, identifiedBy, identifier, field, belongsTo,
+    BaseModel, field, modelize, getParentOf,
 } from '../../model';
 
-
-@identifiedBy('exercise/attachment')
-export default
+export
 class ExerciseAttachment extends BaseModel {
 
-  @identifier id;
+    get exercise() { return getParentOf<Exercise>(this) }
 
-  @belongsTo({ type: 'exercise' }) exercise;
+    @field asset: any;
 
-  @field({ type: 'object' }) asset;
-
+    constructor() {
+        super()
+        modelize(this)
+    }
 }

@@ -6,7 +6,7 @@ let URL = {};
 const URL_SUFFIX = /_url$/;
 
 const URLMethods = {
-    update(urls) {
+    update(urls: object) {
         return (() => {
             const result = [];
             for (let name in urls) {
@@ -19,15 +19,15 @@ const URLMethods = {
         })();
     },
 
-    get(url) {
+    get(url:string) {
         return URL[url];
     },
 
-    construct(base, ...parts) {
+    construct(base:string, ...parts:(string | number)[]) {
         return `${this.get(base)}/${parts.join('/')}`;
     },
 
-    hasApiHost(key) {
+    hasApiHost(key:string) {
         return !isEmpty(URL[key]);
     },
 

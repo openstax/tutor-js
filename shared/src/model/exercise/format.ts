@@ -1,33 +1,33 @@
 import {
-    BaseModel, identifiedBy, observable, computed,
+    BaseModel, modelize, observable, computed,
 } from '../../model';
 
 
-@identifiedBy('exercise/format')
-export default
+export
 class ExerciseFormat extends BaseModel {
 
-    static serialize(format) {
-        return format ? format.value : '';
+    @observable _format;
+
+    constructor(format: string) {
+        super();
+        this._format = format;
+        modelize(this)
     }
 
-  @observable _format;
+    serialize() {
+        return this.asString
+    }
 
-  constructor(format) {
-      super();
-      this._format = format;
-  }
+    @computed get asString() {
+        return this._format;
+    }
 
-  @computed get asString() {
-      return this._format;
-  }
+    @computed get value() {
+        return this.asString;
+    }
 
-  @computed get value() {
-      return this.asString;
-  }
-
-  set value(v) {
-      this._format = v;
-  }
+    set value(v) {
+        this._format = v;
+    }
 
 }

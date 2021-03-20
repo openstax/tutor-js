@@ -1,13 +1,13 @@
-import { ld } from 'shared/specs/helpers';
+import { ld } from '../helpers';
 
-import URLs from 'model/urls';
-import User from 'model/user';
-import UiSettings from 'model/ui-settings';
-import Networking from 'model/networking';
+import URLs from 'shared/model/urls';
+import User from 'shared/model/user';
+import UiSettings from 'shared/model/ui-settings';
+import Networking from 'shared/model/networking';
 
 describe('User mode', function() {
-    let user = null;
-    let perform;
+    let user = null as any as User;
+    let perform: any;
 
     beforeEach(function() {
         perform = jest.spyOn(Networking, 'perform');
@@ -37,7 +37,7 @@ describe('User mode', function() {
         });
     });
 
-    it('can send an email confirmation', function() {
+    fit('can send an email confirmation', function() {
         const email = ld.first(user.unVerfiedEmails());
         email.sendVerification('1234');
         expect(Networking.perform).toHaveBeenCalledWith({

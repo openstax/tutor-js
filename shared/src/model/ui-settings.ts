@@ -1,6 +1,5 @@
 import { debounce, isNil, get, isObject } from 'lodash';
 import { toJS, observable } from 'mobx';
-import Map from './map';
 import URLs from './urls';
 import Networking from './networking';
 
@@ -12,14 +11,14 @@ const saveSettingsDefaultImpl = debounce( () =>
         url: URLs.construct('tutor_api', 'user', 'ui_settings'),
         withCredentials: true,
         silenceErrors: true,
-        onError: (err) => {
+        onError: (err: any) => {
             const code = get(err, 'response.data.errors[0].code');
             if (code === 'ui_settings_is_too_long') {
                 SETTINGS.clear();
             }
         },
         data: {
-            ui_settings: Map.toObject(SETTINGS),
+            ui_settings: SETTINGS.toJSON(),
         },
     }), 500,
 );
@@ -27,21 +26,21 @@ const saveSettingsDefaultImpl = debounce( () =>
 let saveSettings = saveSettingsDefaultImpl;
 
 const UiSettings = {
-    initialize(settings, saver = saveSettingsDefaultImpl) {
+    initialize(settings: any, saver = saveSettingsDefaultImpl) {
         saveSettings = saver;
         return SETTINGS.replace(observable.object(settings));
     },
 
-    get(key, id) {
+    get(key:string, id?: string|number) {
         const obj = SETTINGS.get(key);
         if (!isNil(id) && isObject(obj)) { return obj[id]; } else { return obj; }
     },
 
-    has(key) {
+    has(key: string) {
         return SETTINGS.has(key);
     },
 
-    set(key, id, value) {
+    set(key:any, id?:any, value?:any) {
         if (isObject(key)) {
             SETTINGS.merge(key);
         } else {
@@ -61,23 +60,6 @@ const UiSettings = {
         return saveSettings();
     },
 
-    // a es7 decorator function to add a settings backing to a property
-    decorate(key) {
-        return (_, __, d) => {
-            const { configurable, enumerable, initializer } = d;
-            return {
-                configurable, enumerable,
-                get() {
-                    if (initializer && !UiSettings.has(key)) {
-                        return initializer();
-                    }
-                    return UiSettings.get(key);
-                },
-                set(val) { return UiSettings.set(key, val); },
-            };
-        };
-    },
-
     // for use by specs to reset
     _reset() {
         SETTINGS.clear();
@@ -85,7 +67,7 @@ const UiSettings = {
     },
 
     // for debugging purposes
-    _dump() { return SETTINGS.toJS(); },
+    _dump() { return SETTINGS.toJSON(); },
 };
 
 export default UiSettings;

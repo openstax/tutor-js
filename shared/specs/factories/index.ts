@@ -1,18 +1,13 @@
 import Factory from 'object-factory-bot';
-import { each, camelCase } from 'lodash';
-import Exercise from '../../src/model/exercise';
+import { hydrate } from 'modeled-mobx'
+import { Exercise } from '../../src/model/exercise';
 import './exercise';
 
-const Factories = {};
+const Factories = {
 
-each({
-    Exercise,
-}, (Model, name) => {
-    Factories[camelCase(name)] = (attrs = {}) => {
-        const o = Factory.create(name, attrs);
-        return new Model(o);
-    };
-});
+    exercise: (attrs: any = {}) => hydrate(Exercise, Factory.create('Exercise', attrs)),
+
+}
 
 export { Factory };
 export default Factories;

@@ -1,9 +1,11 @@
-import URLs from 'model/urls';
+import URLs from 'shared/model/urls';
 describe('URLs', function() {
 
+    let urls: any = {}
+
     beforeEach(function() {
-        this.urls = { foo_url: 'http://foo.bar.com/' };
-        return URLs.update(this.urls);
+        urls = { foo_url: 'http://foo.bar.com/' };
+        return URLs.update(urls);
     });
 
     afterEach(() => URLs.reset());

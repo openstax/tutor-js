@@ -1,7 +1,7 @@
-import Networking from 'model/networking';
-import axios from 'axios';
+import Networking from 'shared/model/networking';
+import { FetchMock } from 'jest-fetch-mock';
 
-jest.mock('axios', () => jest.fn( () => Promise.resolve()));
+const fetchMock = fetch as FetchMock;
 
 describe('Stand-alone Networking', () => {
 
@@ -13,13 +13,15 @@ describe('Stand-alone Networking', () => {
             withCredentials: true,
             data: { foo: 'bar' },
         });
-        expect(axios).toHaveBeenCalledWith({
-            'method': 'PUT',
-            'url': '/test',
-            'withCredentials': true,
-            'CSRF_Token': '1234',
-            'data': { 'foo': 'bar' },
-        });
+
+        expect(fetchMock.mock.calls.length).toEqual(1)
+        // expect(axios).toHaveBeenCalledWith({
+        //     'method': 'PUT',
+        //     'url': '/test',
+        //     'withCredentials': true,
+        //     'CSRF_Token': '1234',
+        //     'data': { 'foo': 'bar' },
+        // });
     });
 
 });

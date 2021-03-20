@@ -137,6 +137,7 @@ Factory.define('OpenEndedExerciseQuestion')
     .community_solutions(() => []);
 
 Factory.define('Exercise')
+    .id(sequence)
     .tags([
         'assignment-type:reading',
         'requires-context:true',

@@ -1,23 +1,16 @@
-import { computed, action } from 'mobx'
+import { action } from 'mobx'
 import { isNil } from 'lodash'
 import { readonly } from 'core-decorators';
-import { modelize, serialize, field } from 'modeled-mobx'
+import { modelize, serialize } from 'modeled-mobx'
 import { LazyGetter as lazyGetter } from 'lazy-get-decorator'
-import { ID } from '../types'
+import { ID } from './types'
 import { ModelApi } from './model/api'
-import { MapableObject } from './model/map'
 
 export const NEW_ID = 0
 
-export class BaseModel implements MapableObject {
+export class BaseModel {
 
     static idField = 'id'
-
-    @field id: ID = NEW_ID
-
-    constructor() {
-        modelize(this)
-    }
 
     update(attrs: any) {
         for (const [key, value] of Object.entries(attrs)) {
@@ -31,9 +24,9 @@ export class BaseModel implements MapableObject {
 
     @lazyGetter() get api() { return new ModelApi() }
 
-    @computed get isNew() {
+    get isNew() {
         const id = this[(this.constructor as any).idField]
-        return isNil(id) || id === 0
+        return isNil(id) || id === NEW_ID
     }
 
     @action ensureLoaded() {
@@ -63,9 +56,7 @@ export { lazyGetter, modelize, readonly }
 export type { ID }
 
 // export decorators so they can be easily imported into model classes
-export {
-    serialize, hydrate, model, field,
-} from 'modeled-mobx'
+export * from 'modeled-mobx'
 
 export {
     computed,

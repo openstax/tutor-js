@@ -37,8 +37,8 @@
         ],
         "typeRoots": [ "./types", "node_modules/@types" ],
         "paths": {
-            "shared": ["shared/src/index.js"],
-            "shared/*": ["shared/src/*"]
+            "shared": ["./shared/src/index.js"],
+            "shared/*": ["./shared/src/*"]
         }
     },
     "include": ["**/*.ts", "**/*.tsx"],

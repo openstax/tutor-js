@@ -1,8 +1,10 @@
 import { map } from 'lodash';
+import { ExerciseQuestion } from 'shared/model/exercise/question';
 import Factories from '../../factories';
+import { serialize } from 'modeled-mobx'
 
 describe('Exercise Question', () => {
-    let question;
+    let question: ExerciseQuestion;
 
     beforeEach(() => question = Factories.exercise().questions[0]);
 
@@ -51,24 +53,24 @@ describe('Exercise Question', () => {
     });
 
     it('can serialize formats', () => {
-        expect(question.serialize()).toMatchObject({
+        expect(serialize(question)).toMatchObject({
             formats: [ 'free-response', 'multiple-choice' ],
         });
     });
 
     it('validates', () => {
-        question.formats = ['free-response'];
+        question.formats = ['free-response'] as any;
         expect(question.validity.valid).toBe(true);
-        question.formats = ['free-response', 'multiple-choice'];
-        question.answers.clear();
+        question.formats = ['free-response', 'multiple-choice'] as any;
+        question.answers = []
         expect(question.validity.valid).toBe(false);
-        question.formats = ['free-response'];
+        question.formats = ['free-response'] as any;
         expect(question.isOpenEnded).toBe(true);
         expect(question.validity.valid).toBe(true);
     });
 
     it('#collaborator_solution_html', () => {
-        question.collaborator_solutions.clear();
+        question.collaborator_solutions = [];
         expect(question.collaborator_solutions).toHaveLength(0);
         question.collaborator_solution_html = 'one, two, three';
         expect(question.collaborator_solutions).toHaveLength(1);

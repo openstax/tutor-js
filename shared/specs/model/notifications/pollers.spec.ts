@@ -1,19 +1,30 @@
 import { ld } from '../../helpers';
-import FakeWindow from 'shared/specs/helpers/fake-window';
-import Notifications from 'model/notifications';
-import UiSettings from 'model/ui-settings';
+import FakeWindow from '../../helpers/fake-window';
+import Notifications from '../../../src/model/notifications';
+import UiSettings from '../../../src/model/ui-settings';
 import moment from 'moment';
-import TEST_NOTICES from '../../../api/notifications';
-import Poller from 'model/notifications/pollers';
+import Poller from '../../../src/model/notifications/pollers';
 
-jest.mock('model/notifications');
-jest.mock('model/ui-settings');
+const TEST_NOTICES = {
+    notifications:  [
+        {
+            id: '1',
+            message: 'Warning: Updates will happen soon!  Site will be down.',
+        }, {
+            id: '2',
+            message: 'These are test messages.',
+        },
+    ],
+}
+
+jest.mock('../../../src/model/notifications');
+jest.mock('../../../src/model/ui-settings');
 
 describe('Notification Pollers', function() {
-    let notices = null;
-    let tutor = null;
-    let accounts = null;
-    let pollers = null;
+    let notices:any = null;
+    let tutor:any = null;
+    let accounts:any = null;
+    let pollers:any = null;
 
     beforeEach(function() {
         notices = Notifications;
@@ -61,22 +72,22 @@ describe('Notification Pollers', function() {
 
     it('remembers when acknowledged', function() {
         for (let poller of pollers) {
-            const notice = ld.first(poller.getActiveNotifications());
+            const notice:any = ld.first(poller.getActiveNotifications());
             poller.acknowledge(notice);
             expect(UiSettings.set).toHaveBeenLastCalledWith(`ox-notifications-${poller.type}`, [notice.id]);
         }
     });
 
     it('does not list items that are already acknowledged', function() {
-        UiSettings.get.mockReturnValue(['2']);
+        (UiSettings.get as any).mockReturnValue(['2']);
         tutor.onReply({ data: TEST_NOTICES });
         const active = tutor.getActiveNotifications();
         expect( ld.map(active, 'id') ).toEqual(['1']); // no id "2"
     });
 
     it('removes outdated ids from prefs', function() {
-    // mock that we've observed the current notices
-        UiSettings.get.mockReturnValue(['1', '2']);
+        // mock that we've observed the current notices
+        (UiSettings.get as any).mockReturnValue(['1', '2']);
         tutor.onReply({ data: TEST_NOTICES });
 
         // load a new set of messages that do not include the previous ones

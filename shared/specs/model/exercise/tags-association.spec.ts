@@ -1,4 +1,4 @@
-import { TagsAssociation, Tag } from '../../../src/model/exercise/tag-association'
+import { TagsAssociation, Tag } from '../../../src/model/exercise/tags-association'
 
 describe('Exercise Tags Association', () => {
 

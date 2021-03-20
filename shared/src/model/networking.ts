@@ -1,31 +1,34 @@
-import axios from 'axios';
-import extend from 'lodash/extend';
-import defaultsDeep from 'lodash/defaultsDeep';
+import { pick, defaultsDeep } from 'lodash'
 
-let OPTIONS = {};
+let OPTIONS:any = {};
 
-const emitError = function({ response }) {
+const emitError = function({ response }: any) {
     OPTIONS.handlers.onFail && OPTIONS.handlers.onFail({ response });
     return response;
 };
 
 const Networking = {
-    setOptions(options) {
+    setOptions(options:any) {
         return OPTIONS = options;
     },
 
-    updateOptions(options) {
+    updateOptions(options:any) {
         return defaultsDeep(OPTIONS, options);
     },
 
-    perform(opts) {
-        return axios(extend({}, OPTIONS != null ? OPTIONS.xhr : undefined, opts))
-            .catch(function(err) {
+    perform(opts: any) {
+        const req = pick(opts, 'method') as any
+        if (opts.data) {
+            req.data = JSON.stringify(opts.data)
+        }
+        return fetch(opts.url, req)
+            .catch((err) => {
                 if (!opts.silenceErrors) { emitError(err); }
                 if (opts.onError) { opts.onError(err); }
                 return err.response;
-            });
+            })
     },
+
 };
 
 export default Networking;

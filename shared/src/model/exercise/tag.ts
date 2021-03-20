@@ -1,7 +1,7 @@
 import {
-    BaseModel, identifiedBy, observable, computed, action,
+    BaseModel, modelize, observable, computed, action,
 } from '../../model';
-import { isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
+import { isString, isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
 
 const TYPES = {
     IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time', 'hts', 'rp', 'difficulty'],
@@ -19,106 +19,112 @@ const TITLE_SUBSTITUTIONS = [
     [/aplo:.*:(.*)$/, 'aplo:$1'],
 ];
 
-@identifiedBy('exercise/tag')
-export default
+export
 class ExerciseTag extends BaseModel {
 
-  @observable raw;
+    @observable raw = '';
 
-  constructor(tag) {
-      super();
-      if (isObject(tag)) {
-          this.setParts(tag);
-      } else {
-          this.raw = tag;
-      }
-  }
+    constructor(raw?: string) {
+        super();
+        modelize(this)
+        if (isString(raw)) {
+            this.raw = raw
+        }
+    }
 
-  static serialize(t) {
-      return t.asString;
-  }
+    hydrate(tag: string | object) {
+        if (isObject(tag)) {
+            this.setParts(tag);
+        } else {
+            this.raw = tag;
+        }
+    }
 
-  @computed get isImportant() {
-      return TYPES.IMPORTANT.includes(this.type);
-  }
+    serialize() {
+        return this.asString;
+    }
 
-  @computed get validity() {
-      // if it's an "important" tag it must have a value
-      if (!this.isImportant || this.value) {
-          return { valid: true };
-      }
-      return { valid: false, part: `${this.type} must have value` };
-  }
+    @computed get isImportant() {
+        return TYPES.IMPORTANT.includes(this.type);
+    }
 
-  @computed get name() {
-      return this.asString;
-  }
+    @computed get validity() {
+        // if it's an "important" tag it must have a value
+        if (!this.isImportant || this.value) {
+            return { valid: true };
+        }
+        return { valid: false, part: `${this.type} must have value` };
+    }
 
-  @computed get sortValue() {
-      // APLO should always appear first
-      if ('aplo' === this.type) { return 'A'; }
-      // and the LO
-      if ('lo' === this.type) { return 'AA'; }
-      return this.title.toLowerCase();
-  }
+    @computed get name() {
+        return this.asString;
+    }
 
-  @computed get title() {
-      const [match, replacement] = TITLE_SUBSTITUTIONS.find(
-          ([m]) => this.asString.match(m),
-      ) || [];
-      if (match) {
-          return this.asString.replace(match, replacement);
-      }
-      return this.asString;
-  }
+    @computed get sortValue() {
+        // APLO should always appear first
+        if ('aplo' === this.type) { return 'A'; }
+        // and the LO
+        if ('lo' === this.type) { return 'AA'; }
+        return this.title.toLowerCase();
+    }
 
-  @computed get asString() {
-      return this.raw || '';
-  }
+    @computed get title() {
+        const [match, replacement] = TITLE_SUBSTITUTIONS.find(
+            ([m]) => this.asString.match(m),
+        ) || [];
+        if (match) {
+            return this.asString.replace(match, replacement as string)
+        }
+        return this.asString;
+    }
 
-  @computed get asObject() {
-      return pick(this, 'type', 'specifier', 'value');
-  }
+    @computed get asString() {
+        return this.raw || '';
+    }
 
-  @computed get parts() {
-      return this.asString.split(':');
-  }
+    @computed get asObject() {
+        return pick(this, 'type', 'specifier', 'value');
+    }
 
-  @computed get type() {
-      return first(this.parts);
-  }
+    @computed get parts() {
+        return this.asString.split(':');
+    }
 
-  @computed get isLO() {
-      return Boolean(this.type === 'lo' || this.type === 'aplo');
-  }
+    @computed get type() {
+        return first(this.parts) || '';
+    }
 
-  set type(type) {
-      this.setParts({ type });
-  }
+    @computed get isLO() {
+        return Boolean(this.type === 'lo' || this.type === 'aplo');
+    }
 
-  @computed get specifier() {
-      return this.parts.length == 3 ? this.parts[1] : null;
-  }
+    set type(type) {
+        this.setParts({ type });
+    }
 
-  set specifier(specifier) {
-      this.setParts({ specifier });
-  }
+    @computed get specifier() {
+        return this.parts.length == 3 ? this.parts[1] : null;
+    }
 
-  @computed get value() {
-      return last(this.parts);
-  }
+    set specifier(specifier) {
+        this.setParts({ specifier });
+    }
 
-  set value(value) {
-      this.setParts({ value });
-  }
+    @computed get value() {
+        return last(this.parts);
+    }
+
+    set value(value) {
+        this.setParts({ value });
+    }
 
 
-  @action setParts(parts) {
-      this.raw = filter(
-          values(extend(this.asObject,
-              pick(parts, 'type', 'specifier', 'value')
-          )), v => !isNil(v)
-      ).join(':');
-  }
+    @action setParts(parts: any) {
+        this.raw = filter(
+            values(extend(this.asObject,
+                pick(parts, 'type', 'specifier', 'value')
+            )), v => !isNil(v)
+        ).join(':');
+    }
 
 }

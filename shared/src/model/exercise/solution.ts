@@ -1,15 +1,20 @@
 import {
-    BaseModel, identifiedBy, field, hasMany, belongsTo,
+    BaseModel, field, model, getParentOf, modelize,
 } from '../../model';
+import { ExerciseAttachment } from './attachment'
+import type { ExerciseQuestion } from './question'
 
-@identifiedBy('exercise/solution')
-export default
-class ExerciseSolution extends BaseModel {
+export class ExerciseSolution extends BaseModel {
 
-  @field content_html = '';
-  @field solution_type = 'detailed';
-  @hasMany({ model: 'exercise/attachment' }) attachments;
+    @field content_html = '';
+    @field solution_type = 'detailed';
 
-  // set via inverseOf
-  @belongsTo({ model: 'exercise/question' }) question;
+    @model(ExerciseAttachment) attachments: ExerciseAttachment[] = [];
+
+    get question() { return getParentOf<ExerciseQuestion>(this) }
+
+    constructor() {
+        super()
+        modelize(this)
+    }
 }
