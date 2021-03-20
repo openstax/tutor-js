@@ -20,13 +20,10 @@ const Api = {
     dropStudent:        r<StudentId>('DELETE', 'students/{studentId}'),
     unDropStudent:      r<StudentId>('POST', 'students/{studentId}/undrop'),
 
-    fetchReferenceBook: r<BookId>('POST', 'ecosystems/{bookId}/readings')
-
+    fetchReferenceBook: r<BookId>('POST', 'ecosystems/{bookId}/readings'),
 }
 
 export default Api
-
-
 //     connectModelRead(ReferenceBookNode, 'fetchContent', {
 //         pattern: 'ecosystems/{ecosystemId}/pages/{cnx_id}',
 //         onSuccess: 'onContentFetchComplete',
@@ -66,9 +63,7 @@ export default Api
 //         onSuccess: 'onHighlightedPagesLoaded',
 //         pattern: 'books/{bookUuid}/highlighted_sections',
 //     });
-
-
-
+//
 //     connectModelRead(UserTerms, 'fetch', { onSuccess: 'onLoaded', url: 'terms' });
 //     connectModelUpdate(UserTerms, 'sign', { onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT' });
 //     connectModelUpdate(Survey, 'save',
@@ -115,9 +110,7 @@ export default Api
 //         { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',
 //             timeout: 2000, // wait a max of 2 seconds
 //         });
-
-
-
+//
 //     connectModelCreate(CourseEnroll, 'create', { url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors' });
 //     connectModelUpdate(
 //         CourseEnroll,
@@ -270,14 +263,10 @@ export default Api
 //     );
 
 // };
-
-
 // export default {
 //     boot: startAPI,
 // };
-
-
-
+//
 // TODO: convert flux
 //     connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
 
