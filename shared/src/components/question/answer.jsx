@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { partial, pick, debounce } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, makeObservable } from 'mobx';
+import { action, modelize } from '../../model'
 import keymaster from 'keymaster';
 import Icon from '../icon';
 import { idType } from '../../helpers/react';
@@ -69,9 +69,7 @@ class Answer extends React.Component {
 
     constructor(props) {
         super(props)
-        makeObservable(this, {
-            onChange: action.bound,
-        })
+        modelize(this)
     }
 
     UNSAFE_componentWillMount() {
@@ -124,7 +122,7 @@ class Answer extends React.Component {
         );
     }; // silence react event return value warning
 
-    onChange() {
+    @action.bound onChange() {
         this.props.onChangeAnswer(this.props.answer);
     }
 

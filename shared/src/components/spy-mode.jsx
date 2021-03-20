@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
-import { observable, action, makeObservable } from 'mobx';
+import { observable, action, modelize } from '../model'
 import { Provider, observer } from 'mobx-react';
 
 export class SpyModeContext {
-    isEnabled = false;
+    @observable isEnabled = false;
     constructor() {
-        makeObservable(this, {
-            isEnabled: observable,
-        })
+        modelize(this)
     }
     toggle() { this.isEnabled = !this.isEnabled; }
 }
@@ -26,12 +24,10 @@ class SpyModeWrapper extends React.Component {
 
     constructor(props) {
         super(props)
-        makeObservable(this, {
-            toggleDebug: action.bound,
-        })
+        modelize(this)
     }
 
-    toggleDebug(ev) {
+    @action.bound toggleDebug(ev) {
         ev.preventDefault();
         this.mode.toggle();
     }

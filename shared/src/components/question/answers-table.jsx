@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { range, map, zip, keys, isNil, extend } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, makeObservable } from 'mobx';
+import { action, modelize } from '../../model';
 import { idType } from '../../helpers/react';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
@@ -65,9 +65,7 @@ class AnswersTable extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        makeObservable(this, {
-            onChangeAnswer: action.bound,
-        })
+        modelize(this)
         const originalKeyScope = this.getOriginalKeyScope();
 
 
@@ -104,7 +102,7 @@ class AnswersTable extends React.Component {
         this.setState({ originalKeyScope: undefined });
     };
 
-    onChangeAnswer(answer, changeEvent) {
+    @action.bound onChangeAnswer(answer, changeEvent) {
         if (this.props.onChange) {
             this.setState({ answer_id: answer.id });
             return (

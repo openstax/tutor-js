@@ -8,7 +8,7 @@ export default
 class ExerciseIdentifierLink extends React.Component {
 
   static propTypes = {
-      bookUUID: PropTypes.string.isRequired,
+      bookUUID: PropTypes.string,
       exerciseId: PropTypes.string.isRequired,
       project: PropTypes.oneOf(['concept-coach', 'tutor']),
       related_content: PropTypes.arrayOf(PropTypes.shape({
