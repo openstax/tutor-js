@@ -1,9 +1,9 @@
-import type { Exercise } from '../exercise'
+import type Exercise from '../exercise'
 import {
     BaseModel, field, modelize, getParentOf,
 } from '../../model';
 
-export
+export default
 class ExerciseAttachment extends BaseModel {
 
     get exercise() { return getParentOf<Exercise>(this) }

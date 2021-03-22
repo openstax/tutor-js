@@ -1,10 +1,11 @@
 import {
     BaseModel, field, model, getParentOf, modelize,
 } from '../../model';
-import { ExerciseAttachment } from './attachment'
-import type { ExerciseQuestion } from './question'
+import ExerciseAttachment from './attachment'
+import type ExerciseQuestion from './question'
 
-export class ExerciseSolution extends BaseModel {
+export default
+class ExerciseSolution extends BaseModel {
 
     @field content_html = '';
     @field solution_type = 'detailed';

@@ -3,7 +3,7 @@ import {
 } from '../../model';
 
 
-export
+export default
 class ExerciseFormat extends BaseModel {
 
     @observable _format;

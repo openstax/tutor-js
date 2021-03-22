@@ -18,7 +18,8 @@ const toLDT = (val: ComparableValue):LDT => {
     }
 }
 
-export class DateTime {
+export default
+class DateTime {
     static get now() {
         return new DateTime(Time.now.getTime())
     }

@@ -12,7 +12,7 @@ export interface MapableObject {
     update(data: any): void // eslint-disable-line no-unused-vars
 }
 
-export class Map<K, V extends MapableObject> {
+export default class Map<K, V extends MapableObject> {
 
     keyType = Number
 

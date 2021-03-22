@@ -1,11 +1,11 @@
-import type { Exercise } from '../exercise'
+import type Exercise from '../exercise'
 import { uniq, map, remove, keys, inRange, find, reduce, isEmpty, without, every, omit } from 'lodash';
 import {
     BaseModel, modelize, field, model, computed, action, getParentOf, hydrate, ID, NEW_ID,
 } from '../../model';
-import { ExerciseAnswer as Answer } from './answer';
-import { ExerciseSolution as Solution } from './solution';
-import { ExerciseFormat as Format } from './format';
+import Answer from './answer';
+import Solution from './solution';
+import Format from './format';
 import invariant from 'invariant';
 
 export class ReviewQuestion {
@@ -23,7 +23,8 @@ export class ReviewQuestion {
 }
 
 
-export class ExerciseQuestion extends BaseModel {
+export default
+class ExerciseQuestion extends BaseModel {
 
     static FORMAT_TYPES = {
         'open-ended': 'Open Ended',

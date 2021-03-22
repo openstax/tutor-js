@@ -3,18 +3,15 @@ import {
 } from '../model';
 import { reduce, map, filter, inRange, merge, every, some, isNil } from 'lodash';
 import invariant from 'invariant';
-import { TagsAssociation } from './exercise/tags-association';
-import { ExerciseQuestion as Question } from './exercise/question'
-import { ExerciseAttachment as Attachment } from './exercise/attachment'
-import { ExerciseAuthor as Author } from './exercise/author'
-import { DateTime } from './date-time'
+import TagsAssociation, { Tag } from './exercise/tags-association';
+import Question from './exercise/question'
+import Attachment from './exercise/attachment'
+import Author from './exercise/author'
+import DateTime from './date-time'
 
-export * from './exercise/author'
-export * from './exercise/attachment'
-export * from './exercise/question'
-export * from './exercise/tag'
+export { Attachment, Author, Question, Tag };
 
-export class Exercise extends BaseModel {
+export default class Exercise extends BaseModel {
 
     static build(attrs: any) {
         return hydrate(Exercise, merge(attrs, {

@@ -8,10 +8,7 @@ import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import ArbitraryHtmlAndMath from '../html';
-import {
-    Exercise,
-    ExerciseTag as Tag,
-} from '../../model/exercise';
+import Exercise, { Tag } from '../../model/exercise';
 import Question from '../question';
 import ExerciseBadges from '../exercise-badges';
 import ControlsOverlay from './controls-overlay';

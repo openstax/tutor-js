@@ -1,9 +1,9 @@
 import { filter, find, remove } from 'lodash';
 import { action } from 'mobx';
 import { model, modelize, hydrate } from '../../model'
-import { ExerciseTag as Tag } from './tag'
+import Tag from './tag'
 
-class TagsAssociation {
+export default class TagsAssociation {
 
     @model(Tag) all: Tag[] = []
 
@@ -52,5 +52,4 @@ class TagsAssociation {
     }
 }
 
-
-export { TagsAssociation, Tag };
+export { Tag }

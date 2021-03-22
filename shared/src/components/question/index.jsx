@@ -7,7 +7,7 @@ import { idType } from '../../helpers/react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
-import { ExerciseQuestion as QuestionModel, ReviewQuestion } from '../../model/exercise/question';
+import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
 
 @observer
 class QuestionHtml extends React.Component {

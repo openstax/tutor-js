@@ -1,5 +1,5 @@
 import { map } from 'lodash';
-import { ExerciseQuestion } from 'shared/model/exercise/question';
+import ExerciseQuestion from 'shared/model/exercise/question';
 import Factories from '../../factories';
 import { serialize } from 'modeled-mobx'
 

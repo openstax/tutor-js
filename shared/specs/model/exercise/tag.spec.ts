@@ -1,5 +1,5 @@
 import ld from 'lodash';
-import { ExerciseTag as Tag } from '../../../src/model/exercise/tag';
+import Tag from '../../../src/model/exercise/tag';
 
 describe('Exercise Tags', () => {
 

@@ -1,6 +1,4 @@
-import { ExerciseAnswer as Answer } from '../../../src/model/exercise/answer'
-// import Factories from '../../factories';
-
+import Answer from '../../../src/model/exercise/answer'
 
 describe('Exercise Question', () => {
 

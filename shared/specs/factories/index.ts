@@ -1,6 +1,6 @@
 import Factory from 'object-factory-bot';
 import { hydrate } from 'modeled-mobx'
-import { Exercise } from '../../src/model/exercise';
+import Exercise from '../../src/model/exercise';
 import './exercise';
 
 const Factories = {

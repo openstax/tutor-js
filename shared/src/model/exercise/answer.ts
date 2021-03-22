@@ -5,7 +5,7 @@ import {
 } from '../../model';
 
 
-export
+export default
 class ExerciseAnswer extends BaseModel {
     @field content_html = '';
     @field correctness = '0';

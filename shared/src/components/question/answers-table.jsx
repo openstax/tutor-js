@@ -6,7 +6,7 @@ import { action, modelize } from '../../model';
 import { idType } from '../../helpers/react';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
-import { ExerciseQuestion, ReviewQuestion } from '../../model/exercise/question';
+import ExerciseQuestion, { ReviewQuestion } from '../../model/exercise/question';
 import Answer from './answer';
 import { Feedback } from './feedback';
 import Instructions  from './instructions';

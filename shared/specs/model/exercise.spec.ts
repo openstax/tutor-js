@@ -1,4 +1,4 @@
-import { Exercise } from 'shared/model/exercise';
+import Exercise from 'shared/model/exercise';
 import Factories from '../factories';
 
 describe('Exercise Model', () => {
