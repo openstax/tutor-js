@@ -72,7 +72,7 @@ describe('Student Tasks', () => {
         await page.evaluate(() => {
             window._MODELS.feature_flags.set('tours', false);
         })
-        await page.click('.sticky-table [data-step-index="5"]')
+        await page.click('.sticky-table [data-step-index="3"]')
         // start fresh - deleting the practice questions from course
         await page.evaluate(() => {
             window._MODELS.courses.get(1).practiceQuestions.clear()
