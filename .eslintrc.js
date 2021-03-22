@@ -89,12 +89,14 @@ module.exports = {
             }
         }],
     },
-    "overrides": {
-        "files": "*.tsx",
-        "rules": {
-            'react/prop-types': 0,
-            'no-unused-vars': 'off',
-            '@typescript-eslint/no-unused-vars': 'error',
-        }
-    }
+    "overrides": [
+        {
+            "files": "*.tsx",
+            "rules": {
+                'react/prop-types': 0,
+                'no-unused-vars': 'off',
+                '@typescript-eslint/no-unused-vars': 'error',
+            },
+        },
+    ],
 };
