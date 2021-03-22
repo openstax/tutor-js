@@ -51,7 +51,7 @@ context('Student Tasks', () => {
         cy.location('pathname').should('contain', '/course/1/task/3/step')
     })
 
-    it('can change and re-submit answers to questions', () => {
+    it.skip('can change and re-submit answers to questions', () => {
         cy.visit('/course/1/task/2')
         cy.get('.sticky-table [data-step-index=3]').click({ force: true })
         cy.get('.exercise-step').then(st => {
