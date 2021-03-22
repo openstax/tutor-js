@@ -25,7 +25,7 @@ describe('Student Tasks', () => {
         
     })
 
-    it('can change and re-submit answers to questions', async () => {
+    it.skip('can change and re-submit answers to questions', async () => {
         await visitPage(page, '/course/1/task/2')
         await page.evaluate(() => {
             window._MODELS.feature_flags.set('tours', false);
