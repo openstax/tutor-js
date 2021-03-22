@@ -51,33 +51,34 @@ context('Student Tasks', () => {
         cy.location('pathname').should('contain', '/course/1/task/3/step')
     })
 
-    it.skip('can change and re-submit answers to questions', () => {
-        cy.visit('/course/1/task/2')
-        cy.get('.sticky-table [data-step-index=3]').click({ force: true })
-        cy.get('.exercise-step').then(st => {
-            const fr = st.find('[data-test-id="free-response-box"]')
-            if (fr.length > 0){
-                cy.wrap(fr).type('why do i need to fill this out?')
-                cy.getTestElement('submit-answer-btn').click()
-            }
-        })
-        cy.getTestElement('answer-choice-b').then( bt => {
-            if (!bt.closest('.answer-checked').length) {
-                cy.getTestElement('answer-choice-b').click()
-                cy.getTestElement('submit-answer-btn').click()
-            }
-        })
-        cy.getTestElement('continue-btn').click()
-        cy.get('.sticky-table [data-step-index=4]').should('have.class', 'current-step')
-        // go back and resubmit
-        cy.get('.sticky-table [data-step-index=3]').click({ force: true })
-        cy.get('.answer-checked [data-test-id="answer-choice-b"]').should('exist')
+    //TODO: flaky test. Investigate
+    // it.skip('can change and re-submit answers to questions', () => {
+    //     cy.visit('/course/1/task/2')
+    //     cy.get('.sticky-table [data-step-index=3]').click({ force: true })
+    //     cy.get('.exercise-step').then(st => {
+    //         const fr = st.find('[data-test-id="free-response-box"]')
+    //         if (fr.length > 0){
+    //             cy.wrap(fr).type('why do i need to fill this out?')
+    //             cy.getTestElement('submit-answer-btn').click()
+    //         }
+    //     })
+    //     cy.getTestElement('answer-choice-b').then( bt => {
+    //         if (!bt.closest('.answer-checked').length) {
+    //             cy.getTestElement('answer-choice-b').click()
+    //             cy.getTestElement('submit-answer-btn').click()
+    //         }
+    //     })
+    //     cy.getTestElement('continue-btn').click()
+    //     cy.get('.sticky-table [data-step-index=4]').should('have.class', 'current-step')
+    //     // go back and resubmit
+    //     cy.get('.sticky-table [data-step-index=3]').click({ force: true })
+    //     cy.get('.answer-checked [data-test-id="answer-choice-b"]').should('exist')
 
-        cy.getTestElement('answer-choice-c').click()
-        cy.get('.answer-checked [data-test-id="answer-choice-c"]').should('exist')
-        cy.getTestElement('submit-answer-btn').click()
-        cy.getTestElement('continue-btn').click()
-    })
+    //     cy.getTestElement('answer-choice-c').click()
+    //     cy.get('.answer-checked [data-test-id="answer-choice-c"]').should('exist')
+    //     cy.getTestElement('submit-answer-btn').click()
+    //     cy.getTestElement('continue-btn').click()
+    // })
   
     it('should show late clock icon and the late points info, if task step is late', () => {
         cy.visit('/course/1/task/4')
