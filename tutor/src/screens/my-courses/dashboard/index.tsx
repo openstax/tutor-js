@@ -135,7 +135,7 @@ export const MyCoursesDashboard = () => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
         if (index >= 0 && deleteOfferingIdModal) {
-            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
+            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
             Promise.all(map(offeringCourses, async c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
                 const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
