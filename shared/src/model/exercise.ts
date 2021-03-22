@@ -8,20 +8,11 @@ import { ExerciseQuestion as Question } from './exercise/question'
 import { ExerciseAttachment as Attachment } from './exercise/attachment'
 import { ExerciseAuthor as Author } from './exercise/author'
 import { DateTime } from './date-time'
-//import { ExerciseTag as Tag } from './exercise/tag'
-
-// import Tag from './exercise/tag';
 
 export * from './exercise/author'
 export * from './exercise/attachment'
 export * from './exercise/question'
 export * from './exercise/tag'
-
-
-// import Author from './exercise/author';
-// import Attachment from
-// import Question from './exercise/question';
-
 
 export class Exercise extends BaseModel {
 

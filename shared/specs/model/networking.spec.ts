@@ -1,6 +1,5 @@
 import Networking from 'shared/model/networking';
 import { FetchMock } from 'jest-fetch-mock';
-
 const fetchMock = fetch as FetchMock;
 
 describe('Stand-alone Networking', () => {
@@ -13,15 +12,9 @@ describe('Stand-alone Networking', () => {
             withCredentials: true,
             data: { foo: 'bar' },
         });
-
         expect(fetchMock.mock.calls.length).toEqual(1)
-        // expect(axios).toHaveBeenCalledWith({
-        //     'method': 'PUT',
-        //     'url': '/test',
-        //     'withCredentials': true,
-        //     'CSRF_Token': '1234',
-        //     'data': { 'foo': 'bar' },
-        // });
+        expect(fetchMock.mock.calls[0][0]).toEqual('/test')
+        expect(fetchMock.mock.calls[0][1]).toEqual({ method: 'PUT', data: JSON.stringify({ 'foo': 'bar' }) })
     });
 
 });
