@@ -35,9 +35,10 @@ describe('Student Tasks', () => {
             window._MODELS.feature_flags.set('tours', false);
         })
         await page.click('.sticky-table [data-step-index="4"]')
+        const stepUrl = await page.evaluate(() => document.location.pathname)
         await selectAnswer(page, 'b', 'why do i need to fill this out?')
         // go back and resubmit
-        await page.click('.sticky-table .completed')
+        await visitPage(page, stepUrl)
         await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-b')
         await page.click('testEl=answer-choice-c')
         await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-c')
