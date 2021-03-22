@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+NPM=$(npm bin)
+
+cmd=${2:-run}
+args=${@:3}
+url=http://localhost:8112
+
+# echo $cmd
+# echo $args
+
+yarn run tutor:test:server &
+
+PID=$!
+
+echo started server with PID=$PID
+
+echo waiting on $url
+$NPM/wait-on $url
+echo available
+
+yarn run tutor:test:e2e --all
+TEST_STATUS=$?
+
+pkill -P $PID
+
+exit $TEST_STATUS
