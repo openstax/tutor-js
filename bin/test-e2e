@@ -16,9 +16,9 @@ PID=$!
 
 echo started server with PID=$PID
 
-echo waiting on $url
+echo Waiting for server to become available on $url
 $NPM/wait-on $url
-echo available
+echo Server is now available
 
 yarn run tutor:test:e2e --all
 TEST_STATUS=$?
