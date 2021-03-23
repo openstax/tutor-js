@@ -132,6 +132,8 @@ const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) =>
                     <TutorLink
                         to='courseSettings'
                         params={{ courseId: course.id }}
+                        // tab 1 goes to the course details tab
+                        query={{ tab: 1 }}
                         role="button"
                         className="dropdown-item">
                         Course Settings

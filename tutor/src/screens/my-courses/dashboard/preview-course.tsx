@@ -95,19 +95,18 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
         return null
     }
     const goToPreviewCourse = (toSettings = false) => {
+        const routePath = toSettings ? 'courseSettings' : 'dashboard';
+        // course settings is tab = 1
+        const queryPath = toSettings ? { query: { tab: 1 } } : {};
         if (previewCourse) {
-            history.push(Router.makePathname(
-                toSettings ? 'courseSettings' : 'dashboard', { courseId: previewCourse.id },
-            ))
+            history.push(Router.makePathname(routePath, { courseId: previewCourse.id }, queryPath))
         } else {
             setIsCreating(true)
             dispatch(createPreviewCourse(offering))
                 .then((result) => {
                     setIsCreating(false)
                     if (!result.error) {
-                        window.location = Router.makePathname(
-                            toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
-                        )
+                        window.location = Router.makePathname(routePath, { courseId: result.payload.id }, queryPath)
                     }
                 })
         }
