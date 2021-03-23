@@ -1,5 +1,5 @@
 import { map } from 'lodash';
-import ExerciseQuestion from 'shared/model/exercise/question';
+import ExerciseQuestion, { Format } from 'shared/model/exercise/question';
 import Factories from '../../factories';
 import { serialize } from 'modeled-mobx'
 
@@ -59,12 +59,13 @@ describe('Exercise Question', () => {
     });
 
     it('validates', () => {
-        question.formats = ['free-response'] as any;
+        question.formats = ['free-response'].map(s => new Format(s)) //  as any;
         expect(question.validity.valid).toBe(true);
-        question.formats = ['free-response', 'multiple-choice'] as any;
+        question.formats = ['free-response', 'multiple-choice'].map(s => new Format(s))
         question.answers = []
+
         expect(question.validity.valid).toBe(false);
-        question.formats = ['free-response'] as any;
+        question.formats = ['free-response'].map(s => new Format(s))
         expect(question.isOpenEnded).toBe(true);
         expect(question.validity.valid).toBe(true);
     });

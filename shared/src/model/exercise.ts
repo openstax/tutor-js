@@ -40,7 +40,7 @@ export default class Exercise extends BaseModel {
 
     constructor() {
         super()
-        modelize(this, {})
+        modelize(this)
     }
 
     @computed get pool_types() {

@@ -23,6 +23,11 @@ describe('Exercise Model', () => {
         ).toThrow();
     });
 
+    it('has number/value', () => {
+        expect(exercise.number).toBeGreaterThan(0)
+        expect(exercise.version).toBeGreaterThan(0)
+    })
+
     it('calculates validity', () => {
         expect(exercise.validity.valid).toBe(true);
         const dok = exercise.tags.withType('dok');

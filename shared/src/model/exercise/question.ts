@@ -8,6 +8,8 @@ import Solution from './solution';
 import Format from './format';
 import invariant from 'invariant';
 
+export { Answer, Solution, Format }
+
 export class ReviewQuestion {
     q: any
 

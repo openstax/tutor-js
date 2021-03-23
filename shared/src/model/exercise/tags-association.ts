@@ -11,7 +11,7 @@ export default class TagsAssociation {
         modelize(this)
     }
 
-    push(attrs: any) { return this.all.push(attrs) }
+    push(attrs: any) { return this.all.push(hydrate(Tag, attrs)) }
 
     withType(type: string): Tag // eslint-disable-line
     withType(type: string, multiple:false): Tag // eslint-disable-line
@@ -47,8 +47,8 @@ export default class TagsAssociation {
         return Boolean(find(this.all, { type, value }));
     }
 
-    hydrate(tags: any) {
-        this.all = tags
+    hydrate(tags: any[]) {
+        this.all.splice(0, this.all.length, ...tags.map(t => hydrate(Tag, t)))
     }
 }
 

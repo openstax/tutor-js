@@ -35,7 +35,7 @@ export default class Map<K, V extends MapableObject> {
         return Promise.resolve()
     }
 
-    fetch(): Promise<any> {
+    fetch(..._args: any[]): Promise<any> {
         throw new Error('abstract method, should be overriden')
     }
 

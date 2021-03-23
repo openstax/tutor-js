@@ -1,4 +1,4 @@
-import { ExerciseQuestion } from './question'
+import Question from './question'
 import { isEmpty } from 'lodash';
 import {
     BaseModel, modelize, field, computed, getParentOf,
@@ -11,7 +11,7 @@ class ExerciseAnswer extends BaseModel {
     @field correctness = '0';
     @field feedback_html = '';
 
-    get question() { return getParentOf<ExerciseQuestion>(this) }
+    get question() { return getParentOf<Question>(this) }
 
     @computed get validity() {
         if (isEmpty(this.content_html)) {
