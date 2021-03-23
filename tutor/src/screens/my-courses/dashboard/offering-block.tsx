@@ -63,7 +63,7 @@ const ResourcesInfo: React.FC<ResourcesInfoProps> = ({ offering, os_book_id, isF
                 <Resource
                     appearanceCode={offering.appearance_code}
                     title="Instructor Resources"
-                    info="Free resources available for your book."
+                    info="Free resources available for your book"
                     link={`https://openstax.org/details/books/${os_book_id}?Instructor%20resources`} />
             }
             {renderCoursePreview()}
