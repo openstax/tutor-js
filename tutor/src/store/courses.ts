@@ -2,7 +2,7 @@ import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolki
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { endsWith, get, first, last, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
-import { Course, Role } from './types'
+import { Course, ID, Role } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
 import UiSettings from 'shared/model/ui-settings'
@@ -31,6 +31,9 @@ const coursesSlice = createSlice({
         setCurrentRole(state, { payload: { id, roleId } }: PayloadAction<{ id: string, roleId: string }>) {
             const course = state.entities[id]
             if (course) { course.current_role_id = roleId }
+        },
+        removeCourses(state, { payload: { courseIds } }: PayloadAction<{ courseIds: ID[] }>) {
+            courseAdapter.removeMany(state, courseIds);
         },
     },
     extraReducers: (builder) => {
@@ -124,4 +127,4 @@ export const coursesReducer = coursesSlice.reducer
 
 // exports must be named and you cannot export all actions at once
 // https://stackoverflow.com/questions/29844074/es6-export-all-values-from-object
-export const { rename, setCurrentRole } = coursesSlice.actions
+export const { rename, setCurrentRole, removeCourses } = coursesSlice.actions

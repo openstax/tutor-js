@@ -7,7 +7,7 @@ import { colors } from 'theme'
 import { Icon } from 'shared'
 import { ID } from '../../../store/types'
 import { dropCourseTeacher } from '../../../store/api'
-import { useAllCourses } from '../../../store/courses'
+import { useAllCourses, removeCourses } from '../../../store/courses'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
@@ -134,8 +134,8 @@ export const MyCoursesDashboard = () => {
     const deleteOffering = () => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
+        const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
         if (index >= 0 && deleteOfferingIdModal) {
-            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
             Promise.all(map(offeringCourses, async c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
                 const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
@@ -148,6 +148,7 @@ export const MyCoursesDashboard = () => {
                     tempDisplayedOfferingIds.splice(index, 1)
                     setDisplayedOfferingIds(tempDisplayedOfferingIds)
                     setDeleteOfferingIdModal(null)
+                    dispatch(removeCourses({ courseIds: offeringCourses.map(oc => oc.id) }))
                 })
         }
     }

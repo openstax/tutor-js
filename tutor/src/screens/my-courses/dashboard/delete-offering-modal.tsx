@@ -59,6 +59,7 @@ interface DeleteOfferingModalProps {
 const DeleteOfferingModal: React.FC<DeleteOfferingModalProps> = ({ show, onHide, onDelete }) => {
     return (
         <Modal
+            data-test-id="delete-offering-modal"
             show={show}
             backdrop="static"
             onHide={onHide}
@@ -71,10 +72,10 @@ const DeleteOfferingModal: React.FC<DeleteOfferingModalProps> = ({ show, onHide,
                 <p>You can’t undo this action.</p>
                 <ControlsWrapper>
                     <Controls>
-                        <Button variant="default" size="lg" onClick={onDelete}>
+                        <Button data-test-id="delete-offering-modal-btn" variant="default" size="lg" onClick={onDelete}>
                   Yes, delete
                         </Button>
-                        <Button variant="primary" size="lg" onClick={onHide}>
+                        <Button data-test-id="delete-offering-modal-cancel-btn" variant="primary" size="lg" onClick={onHide}>
                   Cancel
                         </Button>
                     </Controls>
