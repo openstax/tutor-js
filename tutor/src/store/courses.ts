@@ -1,6 +1,7 @@
 import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
+import moment from 'moment'
 import { useSelector } from 'react-redux'
-import { endsWith, get, first, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
+import { endsWith, get, first, last, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
 import { Course, Role } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
@@ -102,7 +103,14 @@ export const useCoursesByOfferingId = (offeringId: string | number, includePrevi
 
 export const useLatestCoursePreview = (offeringId: string | number) => useSelector<CourseSlice, Course | undefined>(state => {
     const courses = selectors.selectAll(state)
-    return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview')
+    const latest = last(sortBy(
+        filter(courses, c => c.offering_id === offeringId && c.is_preview),
+        'ends_at'
+    ))
+    if (moment().isAfter(latest?.ends_at)) {
+        return undefined;
+    }
+    return latest
 })
 
 export const useDisplayedCourseOfferingIds = () => {

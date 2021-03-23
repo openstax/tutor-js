@@ -8,6 +8,8 @@ TEST=$1
 
 if [[ "$TEST" = "lint" ]]; then
   ./bin/lint || exit 112
+elif [[ "$TEST" = "e2e" ]]; then
+    ./bin/test-e2e
 else
   ./bin/test $TEST --all --verbose
 fi
