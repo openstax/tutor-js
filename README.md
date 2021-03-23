@@ -33,12 +33,11 @@ After local updates are made:
 1. `yarn install`
 1. restart `yarn start`
 
-#### Cypress tests
+#### Playwright tests
 
-Tutor uses [cypress](https://www.cypress.io) for acceptance testing.  The cypress tests can be ran by:
+Tutor uses [playwright](http://playwright.dev) for acceptance testing.  The tests can be ran by:
 1. start the stubbed backend server: `yarn run tutor:test:server`
-1. run the cypress test suite: `yarn run tutor:test:cypress`
-  * To write new cypress tests, open the cypress UI by running: `yarn run tutor:test:cypress open`
+1. run the e2e test suite: `yarn run tutor:test:e2e`
 
 ### Tutor Server
 
