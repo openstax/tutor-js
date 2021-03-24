@@ -1,13 +1,15 @@
 import Map from 'shared/model/map';
+import { ID, hydrate } from 'shared/model';
 import { sortBy, last, get } from 'lodash';
 import { action } from 'mobx';
 import Exercise from './exercises/exercise';
 
 const NEW = 'new';
 
-export class ExerciseVersions extends Map {
-
-    get(version) {
+export class ExerciseVersions extends Map<ID, Exercise> {
+    id: string = ''
+    update(){}
+    get(version: ID) {
         if (version === 'latest') {
             return last(sortBy(this.array, 'version'));
         } else {
@@ -17,9 +19,9 @@ export class ExerciseVersions extends Map {
 
 }
 
-export class ExercisesMap extends Map {
+export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
 
-    createNewRecord() {
+    createNewRecord(): Exercise {
         const ex = Exercise.build({ id: NEW });
         this.set(NEW, ex);
         return ex;
@@ -29,64 +31,69 @@ export class ExercisesMap extends Map {
         return this.get(NEW) || this.createNewRecord();
     }
 
-    get(idWithVersion) {
+    get(idWithVersion: string): Exercise | undefined {
         const [id, version = 'latest'] = String(idWithVersion).split('@');
-        if (id === NEW) { return super.get(id) || this.createNewRecord(); }
-        const versions = super.get(id);
-        return versions ? versions.get(version) : null;
+        if (id === NEW) { return super.get(id) as Exercise || this.createNewRecord(); }
+        const versions = super.get(id) as ExerciseVersions;
+        return versions ? versions.get(version) : undefined;
     }
 
-    fetch(id) {
+    async fetch(id: ID): Promise<any>{
         if (!String(id).match(/@/)){ id = `${id}@latest`; }
-        return { id };
+        return this.api.request<Exercise>(['GET', `/api/exercise/${id}`])
+            .then((data) => {
+                this.onLoaded({ data })
+            })
     }
 
-  @action onLoaded({ data, exercise }) {
-        let versions = super.get(data.number);
+    @action onLoaded({ data, exercise }: { data: any, exercise?:Exercise }) {
+        const [number, version ] = data.uid.split('@')
+        let versions = super.get(number) as ExerciseVersions;
         if (!versions) {
             versions = new ExerciseVersions();
-            this.set(data.number, versions);
+            this.set(number, versions);
         }
-        let existing = versions.get(data.version);
+        let existing = versions.get(version);
         if (exercise) {
-            versions.set(data.version, exercise);
+            versions.set(version, exercise);
             exercise.published_at = data.published_at;
             existing = exercise;
         }
-        existing ? existing.update(data) : versions.set(data.version, exercise || new Exercise(data));
+        // console.log(data, hydrate(Exercise, data).tags)
+        existing ? existing.update(data) : versions.set(version, exercise || hydrate(Exercise, data));
     }
 
-  @action ensureLoaded(numberWithVersion) {
-      if (numberWithVersion === NEW) {
-          this.findOrCreateNewRecord();
-      } else if (!this.get(numberWithVersion)) {
-          this.fetch(numberWithVersion);
-      }
-  }
+    async ensureLoaded(numberWithVersion: string): Promise<any> {
+        if (numberWithVersion === NEW) {
+            this.findOrCreateNewRecord();
+        } else if (!this.get(numberWithVersion)) {
+            this.fetch(numberWithVersion);
+        }
+    }
 
-  publish(exercise) {
-      const data = exercise.serialize()
-      return { uid: exercise.uid, data } ;
-  }
+    publish(exercise: Exercise) {
+        const data = exercise.toJSON()
+        return { uid: exercise.uid, data } ;
+    }
 
-  saveDraft(exercise) {
-      const req = { data: exercise.serialize() }
-      if (exercise.isNew) {
-          Object.assign(req, { url: 'exercises', method: 'POST' });
-      } else {
-          Object.assign(req, { number: exercise.number });
-      }
-      return req;
-  }
+    saveDraft(exercise: Exercise) {
+        const req = { data: exercise.toJSON() }
+        if (exercise.isNew) {
+            Object.assign(req, { url: 'exercises', method: 'POST' });
+        } else {
+            Object.assign(req, { number: exercise.number });
+        }
+        return req;
+    }
 
-  onSaved({ data }, [exercise]) {
-      exercise.error = null;
-      this.onLoaded({ data, exercise });
-  }
+    onSaved({ data }: { data: Exercise }, [exercise]: Exercise[]) {
+        exercise.error = null;
+        this.onLoaded({ data, exercise });
+    }
 
-  onError(error, [exercise]) {
-      exercise.onError(get(error, 'response.data.errors[0].message', error.message));
-  }
+    onError(error: any, [exercise]: Exercise[]) {
+        exercise.onError(get(error, 'response.data.errors[0].message', error.message));
+    }
 
 }
 
