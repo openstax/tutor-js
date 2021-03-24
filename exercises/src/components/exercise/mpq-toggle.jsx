@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
@@ -11,6 +12,11 @@ class MPQToggle extends React.Component {
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onConfirm() {
         this.props.exercise.toggleMultiPart();

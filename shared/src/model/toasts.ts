@@ -1,8 +1,8 @@
 import { readonly } from 'core-decorators';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
-import { computed, observable } from 'mobx';
-import { BaseModel } from '../model';
+import { computed, observable, makeAutoObservable } from 'mobx';
+import { BaseModel, hydrate, action } from '../model';
 
 const Handlers = observable.map({});
 
@@ -26,7 +26,22 @@ class Toast extends BaseModel {
 }
 
 
-const Store = observable.array<Toast>()
+const current = observable.array<Toast>()
+
+const Store = makeAutoObservable({
+    push(attrs: Toast) {
+        current.push(hydrate(Toast, attrs))
+    },
+
+    shift() {
+        return current.shift()
+    },
+
+    get isEmpty() {
+        return current.length == 0
+    },
+
+}, { shift: action })
 
 const setHandlers = (handlers: any) => {
     Handlers.replace(handlers);

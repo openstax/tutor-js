@@ -1,14 +1,23 @@
 import interpolate from 'interpolate'
+import qs from 'qs';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type RequestOptions = { method?: HttpMethod }
 
 export type MethodUrl = [HttpMethod, string]
 
-export function r<P>(method: HttpMethod, url: string) {
-    return [method, (params: P) => interpolate(url, params)]
-}
 
+export function r<P, Q=Record<string, any>>(method: HttpMethod, url: string) {
+    return (params?: P, query?: Q) => {
+        if (params) {
+            url = interpolate(url, params)
+        }
+        if (query) {
+            url += '?' + qs.stringify(query, { arrayFormat: 'brackets', encode: false })
+        }
+        return [method, interpolate(url, params)] as MethodUrl
+    }
+}
 
 class ApiError extends Error {
     request: string

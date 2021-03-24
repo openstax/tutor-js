@@ -18,6 +18,11 @@ class BookTagSelect extends React.Component {
 
     };
 
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
+
     @action.bound updateTag(ev) {
         this.props.exercise.tags.setUniqueValue(this.props.tag, ev.target.value);
     }
@@ -54,7 +59,7 @@ class BookTags extends React.Component {
 
     constructor(props) {
         super(props)
-        modelize(this)
+        modelize(this);
     }
 
     render() {

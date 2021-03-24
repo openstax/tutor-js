@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { modelize } from 'shared/model'
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -17,7 +18,6 @@ const DEFAULT_TAB = 'question-0';
 @observer
 export default
 class Exercise extends React.Component {
-
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -35,11 +35,16 @@ class Exercise extends React.Component {
 
     @observable activeTabKey = DEFAULT_TAB;
 
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
+
     @computed get exercise() {
         return this.props.exercises.get(this.props.match.params.uid);
     }
 
-    UNSAFE_componentWillMount() {
+    @action componentDidMount() {
         const { uid } = this.props.match.params;
         this.props.exercises.ensureLoaded(uid);
     }
@@ -54,7 +59,7 @@ class Exercise extends React.Component {
                 {this.renderNickname()}
                 <div className="exercise-stimulus">
                     <label>
-            Exercise Stimulus
+                        Exercise Stimulus
                     </label>
                     <textarea
                         onChange={this.updateStimulus}
@@ -119,7 +124,7 @@ class Exercise extends React.Component {
         return (
             <div className="nickname">
                 <label>
-          Exercise Nickname:
+                    Exercise Nickname:
                     <input onChange={this.updateNickname} value={this.exercise.nickname || ''} />
                 </label>
             </div>

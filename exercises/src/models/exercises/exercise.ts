@@ -1,4 +1,4 @@
-import { action, computed } from 'mobx';
+import { action } from 'mobx';
 import { merge, find, isEmpty, isObject, map } from 'lodash';
 import { modelize, model, hydrate, observable } from 'shared/model';
 import Image from './image';
@@ -18,27 +18,26 @@ class Exercise extends SharedExercise {
         }));
     }
 
-    @observable error?:any;
+    error?:any;
 
-    @model(Image) images:Image[] = []
-    @model(Delegation) delegations: Delegation[] = []
+    images:Image[] = []
+    delegations: Delegation[] = []
 
     constructor() {
         super()
-        modelize(this)
-        // , {
-        //     delegations: ,
-        //     images: model(Image),
-        //     error: observable,
-        //     onError: action
-        // })
+        modelize(this, {
+            delegations: model(Delegation),
+            images: model(Image),
+            error: observable,
+            onError: action,
+        })
     }
 
-    @action onError(message: any) {
+    onError(message: any) {
         this.error = message;
     }
 
-    @computed get errorMessage() {
+    get errorMessage() {
         if (isEmpty(this.error)) { return ''; }
         if (isObject(this.error)) {
             return map(this.error, (v: any, k: string) => `${k}: ${v}`).join('; ');
@@ -46,7 +45,7 @@ class Exercise extends SharedExercise {
         return this.error; // hope react can render whatever it is
     }
 
-    @computed get readOnlyReason() {
+    get readOnlyReason() {
         if (this.isNew) { return null; } // new records can always be edited
         const userId = CurrentUser.id;
         if (!find(this.authors.concat(this.copyright_holders), { user_id: userId }) &&
@@ -56,7 +55,7 @@ class Exercise extends SharedExercise {
         return null;
     }
 
-    @computed get canEdit() {
+    get canEdit() {
         return !this.readOnlyReason;
     }
 }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { modelize } from 'shared/model'
 import React from 'react';
 import { partial } from 'lodash';
 import { observer } from 'mobx-react';
@@ -10,7 +11,6 @@ import cn from 'classnames';
 @observer
 export default
 class Answer extends React.Component {
-
     static propTypes = {
         answer: PropTypes.instanceOf(AnswerModel).isRequired,
         canMoveUp: PropTypes.bool.isRequired,
@@ -21,6 +21,11 @@ class Answer extends React.Component {
     };
 
     state = {};
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound updateFeedback(ev) {
         this.props.answer.feedback_html = ev.target.value;
@@ -37,7 +42,7 @@ class Answer extends React.Component {
             <li className={cn('answer', { 'correct-answer': answer.isCorrect })}>
                 <div className="answer-actions">
                     <label>
-            Distractor
+                        Distractor
                     </label>
                     <Icon type="check-circle"
                         className="is-correct"
@@ -45,11 +50,11 @@ class Answer extends React.Component {
                         onClick={partial(this.props.changeCorrect, answer)}
                     />
                     {canMoveUp &&
-            <Icon onClick={partial(this.props.moveAnswer, answer, 1)} type="arrow-circle-down" />
+                        <Icon onClick={partial(this.props.moveAnswer, answer, 1)} type="arrow-circle-down" />
                     }
                     {canMoveDown &&
-            <Icon type="arrow-circle-up"
-                onClick={partial(this.props.moveAnswer, answer, -1)}  />
+                        <Icon type="arrow-circle-up"
+                            onClick={partial(this.props.moveAnswer, answer, -1)}  />
                     }
                     <Icon
                         type="ban"

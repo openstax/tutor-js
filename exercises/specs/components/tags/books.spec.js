@@ -25,7 +25,7 @@ describe('Book tags component', function() {
         const books = mount(<Books {...props} />);
         expect(find(props.exercise.tags, { value: 'stax-econ' })).toBeUndefined();
         books.find('select').simulate('change', { target: { value: 'stax-econ' } });
-        expect(find(props.exercise.tags, { value: 'stax-econ' })).not.toBeUndefined();
+        expect(props.exercise.tags.withType('book').value).toEqual('stax-econ')
         books.unmount();
     });
 
@@ -36,7 +36,7 @@ describe('Book tags component', function() {
         expect(props.exercise.tags).toHaveLength(0);
     });
 
-    fit('can add a new tag', () => {
+    it('can add a new tag', () => {
         props.exercise.tags.clear()
         const books = mount(<Books {...props} />);
         expect(books).not.toHaveRendered('select');

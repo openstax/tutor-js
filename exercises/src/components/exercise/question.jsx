@@ -1,23 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { modelize } from 'shared/model'
 import { Alert } from'react-bootstrap';
 import { SuretyGuard, Icon } from 'shared';
 import { partial } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import QuestionModel  from 'shared/model/exercise/question';
+import AnswerModel from 'shared/model/exercise/answer'
 import QuestionFormatType from './question-format-type';
 import Answer from './answer';
 
 @observer
 export default
 class Question extends React.Component {
-
     static propTypes = {
         question: PropTypes.instanceOf(QuestionModel).isRequired,
         onMove: PropTypes.func.isRequired,
         onRemove: PropTypes.func.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound setCorrectAnswer(answer) {
         this.props.question.setCorrectAnswer(answer);
@@ -37,7 +43,7 @@ class Question extends React.Component {
     }
 
     @action.bound addAnswer() {
-        this.props.question.answers.push({});
+        this.props.question.answers.push(new AnswerModel());
     }
 
     @action.bound removeAnswer(answer) {
@@ -91,14 +97,14 @@ class Question extends React.Component {
 
                 {!validity.valid && (
                     <Alert variant="warning">
-            To save your work, you must fill out the {validity.part}
+                        To save your work, you must fill out the {validity.part}
                     </Alert>)}
 
                 <QuestionFormatType question={question} />
                 {!question.exercise.isMultiPart && (
                     <div className="question-stimulus">
                         <label>
-              Question Stimulus
+                            Question Stimulus
                         </label>
                         <textarea
                             onChange={this.updateStimulus}
@@ -107,7 +113,7 @@ class Question extends React.Component {
                 )}
                 <div>
                     <label>
-            Question Stem
+                        Question Stem
                     </label>
                     <textarea onChange={this.updateStem} value={question.stem_html} />
                 </div>

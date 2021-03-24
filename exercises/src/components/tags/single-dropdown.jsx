@@ -4,6 +4,7 @@ import { get, map }  from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
+import { modelize } from 'shared/model'
 import Wrapper from './wrapper';
 
 @observer
@@ -16,6 +17,11 @@ class SingleDropdown extends React.Component {
         icon: PropTypes.node,
         choices: PropTypes.object.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound updateTag(ev) {
         const tag = this.props.exercise.tags.findOrAddWithType(this.props.type);

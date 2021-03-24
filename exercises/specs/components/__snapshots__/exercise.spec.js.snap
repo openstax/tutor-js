@@ -1566,15 +1566,15 @@ exports[`Exercises component resets fields when model is new 1`] = `
     <Exercise exercises={{...}} match={{...}}>
       <div className=\\"exercise-editor\\">
         <div className=\\"editing-controls\\">
-          <Tabs id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: res]} defaultActiveKey=\\"question-0\\" variant=\\"tabs\\" mountOnEnter={false} unmountOnExit={false}>
-            <TabContainer id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function]} transition={[undefined]} mountOnEnter={false} unmountOnExit={false}>
+          <Tabs id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: selectTab] { isMobxAction: true }} defaultActiveKey=\\"question-0\\" variant=\\"tabs\\" mountOnEnter={false} unmountOnExit={false}>
+            <TabContainer id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function (anonymous)]} transition={[undefined]} mountOnEnter={false} unmountOnExit={false}>
               <Nav variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\" justify={false} fill={false}>
-                <ForwardRef as=\\"nav\\" activeKey={[undefined]} className=\\"nav nav-tabs\\" role=\\"tablist\\" onSelect={[Function]}>
+                <ForwardRef as=\\"nav\\" activeKey={[undefined]} className=\\"nav nav-tabs\\" role=\\"tablist\\" onSelect={[Function (anonymous)]}>
                   <nav className=\\"nav nav-tabs\\" onKeyDown={[Function: handleKeyDown]} role=\\"tablist\\">
                     <NavItem as={{...}} eventKey=\\"question-0\\" disabled={[undefined]} className={[undefined]}>
                       <NavLink eventKey=\\"question-0\\" disabled={false} className=\\"nav-item\\" as={{...}}>
                         <ForwardRef href={[undefined]} eventKey=\\"question-0\\" as={{...}} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
-                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"question-0\\" id=\\"exercise-parts-tab-question-0\\" aria-controls=\\"exercise-parts-tabpane-question-0\\" tabIndex={[undefined]} aria-selected={true} onClick={[Function]} className=\\"nav-item nav-link active\\">
+                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"question-0\\" id=\\"exercise-parts-tab-question-0\\" aria-controls=\\"exercise-parts-tabpane-question-0\\" tabIndex={[undefined]} aria-selected={true} onClick={[Function (anonymous)]} className=\\"nav-item nav-link active\\">
                             <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"question-0\\" id=\\"exercise-parts-tab-question-0\\" aria-controls=\\"exercise-parts-tabpane-question-0\\" tabIndex={[undefined]} aria-selected={true} onClick={[Function: handleClick]} className=\\"nav-item nav-link active\\" onKeyDown={[Function: handleKeyDown]}>
                               Question
                             </a>
@@ -1585,7 +1585,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                     <NavItem as={{...}} eventKey=\\"tags\\" disabled={[undefined]} className={[undefined]}>
                       <NavLink eventKey=\\"tags\\" disabled={false} className=\\"nav-item\\" as={{...}}>
                         <ForwardRef href={[undefined]} eventKey=\\"tags\\" as={{...}} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
-                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"tags\\" id=\\"exercise-parts-tab-tags\\" aria-controls=\\"exercise-parts-tabpane-tags\\" tabIndex={-1} aria-selected={false} onClick={[Function]} className=\\"nav-item nav-link\\">
+                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"tags\\" id=\\"exercise-parts-tab-tags\\" aria-controls=\\"exercise-parts-tabpane-tags\\" tabIndex={-1} aria-selected={false} onClick={[Function (anonymous)]} className=\\"nav-item nav-link\\">
                             <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"tags\\" id=\\"exercise-parts-tab-tags\\" aria-controls=\\"exercise-parts-tabpane-tags\\" tabIndex={-1} aria-selected={false} onClick={[Function: handleClick]} className=\\"nav-item nav-link\\" onKeyDown={[Function: handleKeyDown]}>
                               Tags
                             </a>
@@ -1596,7 +1596,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                     <NavItem as={{...}} eventKey=\\"assets\\" disabled={[undefined]} className={[undefined]}>
                       <NavLink eventKey=\\"assets\\" disabled={false} className=\\"nav-item\\" as={{...}}>
                         <ForwardRef href={[undefined]} eventKey=\\"assets\\" as={{...}} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
-                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"assets\\" id=\\"exercise-parts-tab-assets\\" aria-controls=\\"exercise-parts-tabpane-assets\\" tabIndex={-1} aria-selected={false} onClick={[Function]} className=\\"nav-item nav-link\\">
+                          <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"assets\\" id=\\"exercise-parts-tab-assets\\" aria-controls=\\"exercise-parts-tabpane-assets\\" tabIndex={-1} aria-selected={false} onClick={[Function (anonymous)]} className=\\"nav-item nav-link\\">
                             <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"assets\\" id=\\"exercise-parts-tab-assets\\" aria-controls=\\"exercise-parts-tabpane-assets\\" tabIndex={-1} aria-selected={false} onClick={[Function: handleClick]} className=\\"nav-item nav-link\\" onKeyDown={[Function: handleKeyDown]}>
                               Assets
                             </a>
@@ -1611,12 +1611,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                 <div className=\\"tab-content\\">
                   <TabPane eventKey=\\"question-0\\">
                     <Fade in={true} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
-                      <Transition addEndListener={[Function: transitionEnd]} in={true} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                      <Transition addEndListener={[Function: transitionEnd]} in={true} onEnter={[Function (anonymous)]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
                         <div id=\\"exercise-parts-tabpane-question-0\\" aria-labelledby=\\"exercise-parts-tab-question-0\\" role=\\"tabpanel\\" aria-hidden={false} className=\\"fade tab-pane active show\\">
                           <div className=\\"nickname\\">
                             <label>
                               Exercise Nickname:
-                              <input onChange={[Function: res]} value=\\"desmond\\" />
+                              <input onChange={[Function: updateNickname] { isMobxAction: true }} value=\\"desmond\\" />
                             </label>
                           </div>
                           <Question onRemove={[Function: onRemove]} onMove={[Function: onMove]} question={{...}}>
@@ -1624,48 +1624,48 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <QuestionFormatType question={{...}}>
                                 <div className=\\"format-type\\">
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: res]} checked={false} />
+                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} />
                                     <label htmlFor=\\"input-open-ended\\">
                                       Open Ended
                                     </label>
                                   </div>
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: res]} checked={true} />
+                                    <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={true} />
                                     <label htmlFor=\\"input-multiple-choice\\">
                                       Multiple Choice
                                     </label>
                                   </div>
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function: res]} checked={false} />
+                                    <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} />
                                     <label htmlFor=\\"input-true-false\\">
                                       True/False
                                     </label>
                                   </div>
                                   <div className=\\"multi-choice-boxes\\">
                                     <div className=\\"requires-choices\\">
-                                      <input type=\\"checkbox\\" id=\\"input-rq\\" checked={true} onChange={[Function: res]} />
+                                      <input type=\\"checkbox\\" id=\\"input-rq\\" checked={true} onChange={[Function: setChoiceRequired] { isMobxAction: true }} />
                                       <label htmlFor=\\"input-rq\\">
                                         Two Step Question
                                       </label>
                                       <OverlayTrigger trigger=\\"hover\\" placement=\\"right\\" overlay={{...}} defaultOverlayShown={false}>
                                         <RefHolder>
-                                          <Icon type=\\"question-circle\\" className=\\"question-info-icon\\" buttonProps={{...}} tooltipProps={{...}} onMouseOver={[Function]} onMouseOut={[Function]}>
-                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function]} onMouseOut={[Function]} icon={{...}}>
-                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function]} onMouseOut={[Function]} icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} onMouseOver={[Function]} onMouseOut={[Function]}>
+                                          <Icon type=\\"question-circle\\" className=\\"question-info-icon\\" buttonProps={{...}} tooltipProps={{...}} onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]}>
+                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]} icon={{...}}>
+                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]} icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle question-info-icon\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]}>
                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
                                                 </svg>
                                               </FontAwesomeIcon>
                                             </IconWrapper>
                                           </Icon>
                                         </RefHolder>
-                                        <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
-                                          <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} containerPadding={5} />
+                                        <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} transition={{...}} rootClose={false}>
+                                          <Overlay placement=\\"right\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} rootClose={false} transition={{...}} containerPadding={5} />
                                         </Overlay>
                                       </OverlayTrigger>
                                     </div>
                                     <div className=\\"order-matters\\">
-                                      <input type=\\"checkbox\\" id=\\"input-om\\" checked={false} onChange={[Function: res]} />
+                                      <input type=\\"checkbox\\" id=\\"input-om\\" checked={false} onChange={[Function: preserveOrderClicked] { isMobxAction: true }} />
                                       <label htmlFor=\\"input-om\\">
                                         Order Matters
                                       </label>
@@ -1677,23 +1677,23 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <label>
                                   Question Stimulus
                                 </label>
-                                <textarea onChange={[Function: res]} defaultValue=\\"\\" />
+                                <textarea onChange={[Function: updateStimulus] { isMobxAction: true }} defaultValue=\\"\\" />
                               </div>
                               <div>
                                 <label>
                                   Question Stem
                                 </label>
-                                <textarea onChange={[Function: res]} value=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" />
+                                <textarea onChange={[Function: updateStem] { isMobxAction: true }} value=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" />
                               </div>
                               <div>
                                 <label>
                                   Answers
                                 </label>
-                                <Icon tooltip=\\"Add New\\" type=\\"plus-square\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
+                                <Icon tooltip=\\"Add New\\" type=\\"plus-square\\" onClick={[Function: addAnswer] { isMobxAction: true }} buttonProps={{...}} tooltipProps={{...}}>
                                   <OverlayTrigger placement=\\"auto\\" trigger={{...}} overlay={{...}} defaultOverlayShown={false}>
                                     <RefHolder>
-                                      <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} onBlur={[Function]} active={false} disabled={false} type=\\"button\\" onFocus={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-                                        <button onClick={[Function: res]} onBlur={[Function]} disabled={false} onFocus={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
+                                      <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: addAnswer] { isMobxAction: true }} onBlur={[Function (anonymous)]} active={false} disabled={false} type=\\"button\\" onFocus={[Function (anonymous)]} onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]}>
+                                        <button onClick={[Function: addAnswer] { isMobxAction: true }} onBlur={[Function (anonymous)]} disabled={false} onFocus={[Function (anonymous)]} onMouseOver={[Function (anonymous)]} onMouseOut={[Function (anonymous)]} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
                                           <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}}>
                                             <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                               <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-square\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -1704,13 +1704,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         </button>
                                       </Button>
                                     </RefHolder>
-                                    <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
-                                      <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} containerPadding={5} />
+                                    <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} transition={{...}} rootClose={false}>
+                                      <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} rootClose={false} transition={{...}} containerPadding={5} />
                                     </Overlay>
                                   </OverlayTrigger>
                                 </Icon>
                                 <ol className=\\"answer-choices\\">
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={false} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={false} moveAnswer={[Function: moveAnswer] { isMobxAction: true }} changeCorrect={[Function: setCorrectAnswer] { isMobxAction: true }} removeAnswer={[Function: removeAnswer] { isMobxAction: true }} changeAnswer={[undefined]}>
                                     <li className=\\"answer correct-answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
@@ -1756,14 +1756,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: updateContent] { isMobxAction: true }} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" />
+                                      <textarea onChange={[Function: updateFeedback] { isMobxAction: true }} value=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" />
                                     </li>
                                   </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: moveAnswer] { isMobxAction: true }} changeCorrect={[Function: setCorrectAnswer] { isMobxAction: true }} removeAnswer={[Function: removeAnswer] { isMobxAction: true }} changeAnswer={[undefined]}>
                                     <li className=\\"answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
@@ -1822,14 +1822,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: updateContent] { isMobxAction: true }} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" />
+                                      <textarea onChange={[Function: updateFeedback] { isMobxAction: true }} value=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" />
                                     </li>
                                   </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: moveAnswer] { isMobxAction: true }} changeCorrect={[Function: setCorrectAnswer] { isMobxAction: true }} removeAnswer={[Function: removeAnswer] { isMobxAction: true }} changeAnswer={[undefined]}>
                                     <li className=\\"answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
@@ -1888,14 +1888,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: updateContent] { isMobxAction: true }} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"Objects far smaller than what is visible may require quantum mechanics.\\" />
+                                      <textarea onChange={[Function: updateFeedback] { isMobxAction: true }} value=\\"Objects far smaller than what is visible may require quantum mechanics.\\" />
                                     </li>
                                   </Answer>
-                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                  <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: moveAnswer] { isMobxAction: true }} changeCorrect={[Function: setCorrectAnswer] { isMobxAction: true }} removeAnswer={[Function: removeAnswer] { isMobxAction: true }} changeAnswer={[undefined]}>
                                     <li className=\\"answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
@@ -1954,14 +1954,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: updateContent] { isMobxAction: true }} value=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.\\" />
+                                      <textarea onChange={[Function: updateFeedback] { isMobxAction: true }} value=\\"Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.\\" />
                                     </li>
                                   </Answer>
-                                  <Answer answer={{...}} canMoveUp={false} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
+                                  <Answer answer={{...}} canMoveUp={false} canMoveDown={true} moveAnswer={[Function: moveAnswer] { isMobxAction: true }} changeCorrect={[Function: setCorrectAnswer] { isMobxAction: true }} removeAnswer={[Function: removeAnswer] { isMobxAction: true }} changeAnswer={[undefined]}>
                                     <li className=\\"answer\\">
                                       <div className=\\"answer-actions\\">
                                         <label>
@@ -2007,11 +2007,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Button>
                                         </Icon>
                                       </div>
-                                      <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
+                                      <textarea onChange={[Function: updateContent] { isMobxAction: true }} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                       <label>
                                         Choice-Level Feedback
                                       </label>
-                                      <textarea onChange={[Function: res]} value=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" />
+                                      <textarea onChange={[Function: updateFeedback] { isMobxAction: true }} value=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" />
                                     </li>
                                   </Answer>
                                 </ol>
@@ -2020,7 +2020,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <label>
                                   Detailed Solution
                                 </label>
-                                <textarea onChange={[Function: res]} value=\\"four\\" />
+                                <textarea onChange={[Function: updateSolution] { isMobxAction: true }} value=\\"four\\" />
                               </div>
                             </div>
                           </Question>
@@ -2030,22 +2030,22 @@ exports[`Exercises component resets fields when model is new 1`] = `
                   </TabPane>
                   <TabPane eventKey=\\"tags\\">
                     <Fade in={false} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
-                      <Transition addEndListener={[Function: transitionEnd]} in={false} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                      <Transition addEndListener={[Function: transitionEnd]} in={false} onEnter={[Function (anonymous)]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
                         <div id=\\"exercise-parts-tabpane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"fade tab-pane\\">
                           <ExerciseTags exercise={{...}}>
                             <div className=\\"tags-panel\\">
                               <div className=\\"tags\\">
                                 <BookTags exercise={{...}}>
-                                  <TagWrapper label=\\"Book\\" onAdd={[Function: res]} singleTag={true}>
+                                  <TagWrapper label=\\"Book\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
                                     <div className=\\"tag-type book has-single-tag\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
                                           Book
                                         </span>
                                         <div className=\\"controls\\">
-                                          <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                              <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                          <Icon onClick={[Function: add] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                              <button onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                     <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2060,8 +2060,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       </div>
                                       <BookTagSelect exercise={{...}} tag={{...}}>
                                         <div className=\\"tag\\">
-                                          <BookSelection onChange={[Function: res]} selected=\\"stax-phys\\" limit={{...}}>
-                                            <select className=\\"form-control\\" onChange={[Function: res]} value=\\"stax-phys\\">
+                                          <BookSelection onChange={[Function: updateTag] { isMobxAction: true }} selected=\\"stax-phys\\" limit={{...}}>
+                                            <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"stax-phys\\">
                                               <option value=\\"stax-anp\\">
                                                 Anatomy and Physiology
                                               </option>
@@ -2107,9 +2107,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </select>
                                           </BookSelection>
                                           <span className=\\"controls\\">
-                                            <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                            <Icon onClick={[Function: onDelete] { isMobxAction: true }} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2128,16 +2128,16 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 </BookTags>
                                 <SciencePracticeTags exercise={{...}} />
                                 <LoTags exercise={{...}}>
-                                  <TagWrapper label=\\"LO\\" onAdd={[Function: res]}>
+                                  <TagWrapper label=\\"LO\\" onAdd={[Function: onAdd] { isMobxAction: true }}>
                                     <div className=\\"tag-type lo\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
                                           LO
                                         </span>
                                         <div className=\\"controls\\">
-                                          <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                              <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                          <Icon onClick={[Function: onAdd] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                            <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: onAdd] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                              <button onClick={[Function: onAdd] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                     <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2152,19 +2152,19 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       </div>
                                       <Input exercise={{...}} tag={{...}}>
                                         <div className=\\"tag\\">
-                                          <BookSelection onChange={[Function: res]} selected=\\"stax-phys\\" limit={{...}}>
-                                            <select className=\\"form-control\\" onChange={[Function: res]} value=\\"stax-phys\\">
+                                          <BookSelection onChange={[Function: updateBook] { isMobxAction: true }} selected=\\"stax-phys\\" limit={{...}}>
+                                            <select className=\\"form-control\\" onChange={[Function: updateBook] { isMobxAction: true }} value=\\"stax-phys\\">
                                               <option value=\\"stax-phys\\">
                                                 College Physics
                                               </option>
                                             </select>
                                           </BookSelection>
-                                          <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: res]} onBlur={[Function: res]} value=\\"1-2-1\\" placeholder=\\"##-##-##\\" />
+                                          <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onTextChange] { isMobxAction: true }} onBlur={[Function: onTextBlur] { isMobxAction: true }} value=\\"1-2-1\\" placeholder=\\"##-##-##\\" />
                                           <TagError error={[undefined]} />
                                           <span className=\\"controls\\">
-                                            <Icon type=\\"trash\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                            <Icon type=\\"trash\\" onClick={[Function: onDelete] { isMobxAction: true }} buttonProps={{...}} tooltipProps={{...}}>
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2193,19 +2193,19 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]}>
-                                            <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
-                                              <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
-                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
-                                                  <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" id={[undefined]} onKeyDown={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
-                                                    <div className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl css-2b097c-container\\" id={[undefined]} onKeyDown={[Function]}>
-                                                      <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
-                                                        <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function]} onTouchEnd={[Function]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
-                                                          <div className=\\" css-yk16xz-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
-                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                          <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: updateTags] { isMobxAction: true }}>
+                                            <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: updateTags] { isMobxAction: true }} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
+                                              <Select isMulti={true} options={{...}} onChange={[Function (anonymous)]} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function (anonymous)]} onMenuClose={[Function (anonymous)]} onMenuOpen={[Function (anonymous)]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function (anonymous)]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl\\" id={[undefined]} onKeyDown={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"StyledSelect-sc-1cekfhv-0 bOCDkl css-2b097c-container\\" id={[undefined]} onKeyDown={[Function (anonymous)]}>
+                                                      <Control cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerRef={[Function (anonymous)]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\" css-yk16xz-control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]}>
+                                                            <ValueContainer cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
                                                               <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\">
                                                                 <div className=\\" css-1hwfws3\\">
-                                                                  <MultiValue cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
+                                                                  <MultiValue cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
                                                                     <ForwardRef(render)>
                                                                       <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
                                                                         <div className=\\"css-1rhbuit-multiValue\\">
@@ -2231,12 +2231,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                       </MultiValueGeneric>
                                                                     </ForwardRef(render)>
                                                                   </MultiValue>
-                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-4-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function (anonymous)]} id=\\"react-select-4-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
                                                                     <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
                                                                       <div className=\\"css-w8afj7-Input\\">
-                                                                        <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
                                                                           <div className=\\"\\" style={{...}}>
-                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
                                                                             <div style={{...}} />
                                                                           </div>
                                                                         </AutosizeInput>
@@ -2246,12 +2246,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                 </div>
                                                               </EmotionCssPropInternal>
                                                             </ValueContainer>
-                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                            <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
                                                               <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
                                                                 <div className=\\" css-1g48xl4-IndicatorsContainer\\">
-                                                                  <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
-                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
-                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                  <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
                                                                         <CrossIcon>
                                                                           <Svg size={20}>
                                                                             <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
@@ -2264,14 +2264,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                       </div>
                                                                     </EmotionCssPropInternal>
                                                                   </ClearIndicator>
-                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                  <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
                                                                     <EmotionCssPropInternal css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
                                                                       <span className=\\" css-1okebmr-indicatorSeparator\\" />
                                                                     </EmotionCssPropInternal>
                                                                   </IndicatorSeparator>
-                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
-                                                                    <EmotionCssPropInternal onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
-                                                                      <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
+                                                                  <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\" css-tlfecz-indicatorContainer\\">
                                                                         <DownChevron>
                                                                           <Svg size={20}>
                                                                             <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
@@ -2304,17 +2304,17 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <HistoricalThinkingTag exercise={{...}} />
                                 <ReasoningProcessTag exercise={{...}} />
                                 <CnxModTag exercise={{...}}>
-                                  <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\">
-                                    <TagWrapper label=\\"CNX Module\\" onAdd={[Function: res]} singleTag={true}>
+                                  <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\">
+                                    <TagWrapper label=\\"CNX Module\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
                                       <div className=\\"tag-type cnxModule has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             CNX Module
                                           </span>
                                           <div className=\\"controls\\">
-                                            <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                            <Icon onClick={[Function: add] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2327,14 +2327,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </Icon>
                                           </div>
                                         </div>
-                                        <Input exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\" tag={{...}} inputType=\\"text\\">
+                                        <Input exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\" tag={{...}} inputType=\\"text\\">
                                           <div className=\\"tag\\">
-                                            <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: res]} onBlur={[Function: res]} value=\\"\\" placeholder=\\"########-####-####-####-############\\" />
+                                            <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onChange] { isMobxAction: true }} onBlur={[Function: validateAndSave] { isMobxAction: true }} value=\\"\\" placeholder=\\"########-####-####-####-############\\" />
                                             <TagError error=\\"\\" />
                                             <span className=\\"controls\\">
-                                              <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                  <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                              <Icon onClick={[Function: onDelete] { isMobxAction: true }} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                  <button onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                       <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                         <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2353,17 +2353,17 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </MultiInput>
                                 </CnxModTag>
                                 <CnxFeature exercise={{...}}>
-                                  <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function]} placeholder=\\"feature-id\\" validateInput={[Function]}>
-                                    <TagWrapper label=\\"CNX Feature\\" onAdd={[Function: res]} singleTag={true}>
+                                  <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]}>
+                                    <TagWrapper label=\\"CNX Feature\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
                                       <div className=\\"tag-type cnxFeature has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
                                             CNX Feature
                                           </span>
                                           <div className=\\"controls\\">
-                                            <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                            <Icon onClick={[Function: add] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                              <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                <button onClick={[Function: add] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                       <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-plus-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
@@ -2376,14 +2376,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </Icon>
                                           </div>
                                         </div>
-                                        <Input exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function]} placeholder=\\"feature-id\\" validateInput={[Function]} tag={{...}} inputType=\\"text\\">
+                                        <Input exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]} tag={{...}} inputType=\\"text\\">
                                           <div className=\\"tag\\">
-                                            <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: res]} onBlur={[Function: res]} value=\\"one-1\\" placeholder=\\"feature-id\\" />
+                                            <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onChange] { isMobxAction: true }} onBlur={[Function: validateAndSave] { isMobxAction: true }} value=\\"one-1\\" placeholder=\\"feature-id\\" />
                                             <TagError error=\\"\\" />
                                             <span className=\\"controls\\">
-                                              <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
-                                                  <button onClick={[Function: res]} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                              <Icon onClick={[Function: onDelete] { isMobxAction: true }} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
+                                                  <button onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
                                                     <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                                                       <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
                                                         <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
@@ -2412,7 +2412,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"3\\" disabled={[undefined]}>
                                             <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
@@ -2443,7 +2443,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"3\\" disabled={[undefined]}>
+                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"3\\" disabled={[undefined]}>
                                             <option value=\\"\\" />
                                             <option value=\\"1\\">
                                               1
@@ -2480,7 +2480,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: res]} value=\\"long\\" disabled={[undefined]}>
+                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"long\\" disabled={[undefined]}>
                                             <option value=\\"\\" />
                                             <option value=\\"short\\">
                                               Short
@@ -2506,7 +2506,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                   </TabPane>
                   <TabPane eventKey=\\"assets\\">
                     <Fade in={false} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
-                      <Transition addEndListener={[Function: transitionEnd]} in={false} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                      <Transition addEndListener={[Function: transitionEnd]} in={false} onEnter={[Function (anonymous)]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
                         <div id=\\"exercise-parts-tabpane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"fade tab-pane\\">
                           <Attachments exercises={{...}} exercise={{...}}>
                             <div className=\\"attachments\\">
@@ -2516,7 +2516,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                     <div className=\\"controls\\">
                                       <label className=\\"btn btn-secondary selector\\">
                                         Add new image
-                                        <input id=\\"file\\" className=\\"file\\" type=\\"file\\" onChange={[Function: res]} />
+                                        <input id=\\"file\\" className=\\"file\\" type=\\"file\\" onChange={[Function: onImageChange] { isMobxAction: true }} />
                                       </label>
                                     </div>
                                   </div>
@@ -2557,7 +2557,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
                               <div className=\\"exercise-body\\">
                                 <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} writtenResponse={[undefined]} questionType=\\"teacher-preview\\" />
-                                <Component block={true} className=\\"exercise stimulus\\" html={[undefined]} />
+                                <Component block={true} className=\\"exercise stimulus\\" html=\\"\\" />
                                 <div>
                                   <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true}>
                                     <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
@@ -2570,11 +2570,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       </QuestionHtml>
                                       <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                         <div className=\\"answers-table\\">
-                                          <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
-                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
+                                                <label onKeyPress={[Function (anonymous)]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
                                                     <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-a\\">
                                                       a
@@ -2596,11 +2596,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
-                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
+                                                <label onKeyPress={[Function (anonymous)]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
                                                     <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-b\\">
                                                       b
@@ -2622,11 +2622,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
-                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
+                                                <label onKeyPress={[Function (anonymous)]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
                                                     <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-c\\">
                                                       c
@@ -2648,11 +2648,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
-                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-3\\" className=\\"answer-label\\">
+                                                <label onKeyPress={[Function (anonymous)]} htmlFor=\\"16-option-3\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
                                                     <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-d\\">
                                                       d
@@ -2674,11 +2674,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </section>
                                             </div>
                                           </Answer>
-                                          <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
+                                          <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                             <div className=\\"openstax-answer\\">
                                               <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                 <div className=\\"correct-incorrect\\" />
-                                                <label onKeyPress={[Function]} htmlFor=\\"16-option-4\\" className=\\"answer-label\\">
+                                                <label onKeyPress={[Function (anonymous)]} htmlFor=\\"16-option-4\\" className=\\"answer-label\\">
                                                   <span className=\\"answer-letter-wrapper\\">
                                                     <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true} data-test-id=\\"answer-choice-e\\">
                                                       e

@@ -29,10 +29,10 @@ class Input extends React.Component {
 
     constructor(props) {
         super(props)
-        modelize(this)
+        modelize(this);
     }
 
-    componentDidMount() {
+    @action componentDidMount() {
         this.value = this.props.tag.value;
     }
 
@@ -81,6 +81,11 @@ class MultiInput extends React.Component {
         cleanInput:    PropTypes.func.isRequired,
         validateInput: PropTypes.func.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound add() {
         this.props.exercise.tags.push({ type: this.props.type });

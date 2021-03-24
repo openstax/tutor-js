@@ -1,4 +1,4 @@
-import { C, React, Factory } from '../../helpers';
+import { C, React, Factory, runInAction } from '../../helpers';
 import ExerciseControls from '../../../src/components/exercise/controls';
 import ToastsStore from '../../../src/models/toasts';
 
@@ -27,12 +27,10 @@ describe('Exercise controls component', function() {
         };
     });
 
-    fit('disables publish/draft if exercise is published', () => {
-
-        return
+    it('disables publish/draft if exercise is published', () => {
         const controls = mount(<C><ExerciseControls {...props} /></C>);
         expect(controls.find('button.publish').props().disabled).toBe(false);
-        exercise.published_at = new Date();
+        runInAction( () => exercise.published_at = new Date() )
         expect(controls.find('button.draft').props().disabled).toBe(false);
         expect(exercise.isPublishable).toBe(false);
         controls.update();
@@ -42,7 +40,7 @@ describe('Exercise controls component', function() {
 
     it('adds a toast when saved', () => {
         const controls = mount(<C><ExerciseControls {...props} /></C>);
-        exercise.published_at = new Date();
+        runInAction( () => exercise.published_at = new Date() )
         props.exercises.saveDraft = jest.fn(() => Promise.resolve());
         controls.find('button.draft').simulate('click');
         expect(props.exercises.saveDraft).toHaveBeenCalled();
@@ -60,7 +58,7 @@ describe('Exercise controls component', function() {
 
     it('adds a toast when published', () => {
         const controls = mount(<C><ExerciseControls {...props} /></C>);
-        exercise.published_at = new Date();
+        runInAction( () => exercise.published_at = new Date() )
         props.exercises.publish = jest.fn(() => Promise.resolve());
         controls.find('button.publish').simulate('click');
         controls.find('ExerciseControls').instance().publishExercise();

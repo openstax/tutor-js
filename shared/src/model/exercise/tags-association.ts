@@ -1,6 +1,5 @@
 import { filter, find, remove } from 'lodash';
-import { action } from 'mobx';
-import { model, modelize, hydrate } from '../../model'
+import { model, modelize, action, hydrate } from '../../model'
 import Tag from './tag'
 
 export default class TagsAssociation {
@@ -10,7 +9,7 @@ export default class TagsAssociation {
     constructor() {
         modelize(this)
     }
-
+    remove(tag: Tag){ return remove(this.all, tag) }
     push(attrs: any) { return this.all.push(hydrate(Tag, attrs)) }
     clear() { this.all.splice(0, this.all.length) }
     get length() { return this.all.length }
@@ -33,11 +32,11 @@ export default class TagsAssociation {
         });
     }
 
-    removeType(type: string) {
+    @action removeType(type: string) {
         remove(this.all, { type })
     }
 
-    setUniqueValue(tag:Tag, value: string) {
+    @action setUniqueValue(tag:Tag, value: string) {
         const existing = find(this.all, { type: tag.type, value: value });
         if (existing) {
             remove(this.all, tag)

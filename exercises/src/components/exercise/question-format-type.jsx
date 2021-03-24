@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
+import { modelize } from 'shared/model'
 import { action } from 'mobx';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -14,10 +15,14 @@ const StyledTwoStepInfo = styled(Popover)`
 
 @observer
 class QuestionFormatType extends React.Component {
-
     static propTypes = {
         question: PropTypes.instanceOf(Question).isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound updateRadioFormat(ev) {
         this.props.question.setExclusiveFormat(ev.target.value);

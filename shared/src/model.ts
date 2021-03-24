@@ -1,5 +1,5 @@
 import { action } from 'mobx'
-import { isNil } from 'lodash'
+import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
 import { modelize, serialize } from 'modeled-mobx'
 import { LazyGetter as lazyGetter } from 'lazy-get-decorator'
@@ -26,7 +26,7 @@ export class BaseModel {
 
     get isNew() {
         const id = this[(this.constructor as any).idField]
-        return isNil(id) || id === NEW_ID
+        return isEmpty(id) || id === NEW_ID
     }
 
     @action ensureLoaded() {
@@ -62,4 +62,8 @@ export {
     computed,
     observable,
     action,
+    runInAction,
+    flow,
+    autorun,
+    flowResult,
 } from 'mobx'

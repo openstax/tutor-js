@@ -8,15 +8,16 @@ describe('Exercises map', () => {
         map.onLoaded({ data: { uid: '1@2' } });
         map.onLoaded({ data: { uid: '2@11' } });
         expect(map.keys()).toEqual([ 1, 2 ]);
+        expect(map.get('1@1')).toBeInstanceOf(Exercise)
         expect(map.get('1@1')).toMatchObject({
-            number: 1, version: 1,
+            uid: '1@1',
         });
-        expect(map.get(1)).toMatchObject({
-            number: 1, version: 2,
+        expect(map.get('1')).toMatchObject({
+            uid: '1@2',
         });
     });
 
-    fit('sets to a exercise model', () => {
+    it('sets to a exercise model', () => {
         const map = new ExercisesMap();
         map.onLoaded({ data: { uid: '1@1' } });
         const ex = map.get('1@1');

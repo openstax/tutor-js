@@ -4,7 +4,7 @@ import { partial, find } from 'lodash';
 import Exercises, { ExercisesMap } from '../../models/exercises';
 import { idType } from 'shared';
 import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { modelize, computed, action } from 'shared/model';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import keymaster from 'keymaster';
 
@@ -26,6 +26,11 @@ class PreviewControls extends React.Component {
 
     static defaultProps = {
         exercises: Exercises,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     componentDidMount() {

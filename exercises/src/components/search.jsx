@@ -7,8 +7,7 @@ import Controls from './search/controls';
 import { observer, inject } from 'mobx-react';
 import BSPagination from 'shared/components/pagination';
 import Loading from 'shared/components/loading-animation';
-
-import { action } from 'mobx';
+import { modelize, action } from 'shared/model';
 import UX from '../ux';
 
 const Pagination = styled(BSPagination)`
@@ -20,7 +19,6 @@ const Pagination = styled(BSPagination)`
 @inject('ux')
 @observer
 class Search extends React.Component {
-
     static Controls = Controls;
 
     static propTypes = {
@@ -29,6 +27,11 @@ class Search extends React.Component {
             push: PropTypes.func.isRequired,
         }).isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     get search() {
         return this.props.ux.search;

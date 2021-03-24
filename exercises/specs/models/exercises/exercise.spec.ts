@@ -24,7 +24,7 @@ describe('Exercises model', () => {
         expect(ex.canEdit).toBe(true);
         expect(ex.tags.withType('assignment-type').value).toEqual('reading')
 
-        ex.id = 1234 // no longer new
+        ex.uid = '1234@1' // no longer new
         expect(ex.isNew).toBe(false);
         expect(ex.canEdit).toBe(false);
         expect(ex.readOnlyReason).toEqual('Author: Auron');

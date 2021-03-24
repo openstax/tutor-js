@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
+import { modelize } from 'shared/model'
 import { DirectUpload } from '@rails/activestorage';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import Image from '../../../models/exercises/image';
@@ -15,7 +16,6 @@ const STORAGE_PATH = '/rails/active_storage';
 @withRouter
 @observer
 class AttachmentChooser extends React.Component {
-
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
         exercises: PropTypes.instanceOf(ExercisesMap),
@@ -32,6 +32,11 @@ class AttachmentChooser extends React.Component {
     @observable progress;
     @observable file;
     @observable error;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound updateUploadStatus(status, redirect) {
         if (status.error) {
@@ -119,7 +124,6 @@ class AttachmentChooser extends React.Component {
             </div>
         );
     }
-
 }
 
 export default AttachmentChooser;

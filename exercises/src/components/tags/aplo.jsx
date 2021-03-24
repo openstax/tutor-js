@@ -4,7 +4,7 @@ import { defaults, filter, map } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
-import { computed, action, observable, modelize } from 'shared/model'
+import { computed, action, observable, modelize } from 'shared/model';
 import TagModel from 'shared/model/exercise/tag';
 import { Icon } from 'shared';
 import Error from './error';
@@ -38,7 +38,7 @@ class Input extends React.Component {
 
     constructor(props) {
         super(props)
-        modelize(this)
+        modelize(this);
     }
 
     @computed get book() {
@@ -141,7 +141,7 @@ class ApLoTags extends React.Component {
 
     constructor(props) {
         super(props)
-        modelize(this)
+        modelize(this);
     }
 
     @action.bound onAdd() {

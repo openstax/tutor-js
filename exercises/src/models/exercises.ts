@@ -1,8 +1,8 @@
 import Map from 'shared/model/map';
-import { ID, hydrate } from 'shared/model';
+import { action, ID, hydrate } from 'shared/model';
 import { sortBy, last, get } from 'lodash';
-import { action } from 'mobx';
 import Exercise from './exercises/exercise';
+import Api  from '../api'
 
 const NEW = 'new';
 
@@ -38,15 +38,14 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         return versions ? versions.get(version) : undefined;
     }
 
-    async fetch(id: ID): Promise<any>{
+    async fetch(id: string): Promise<any>{
         if (!String(id).match(/@/)){ id = `${id}@latest`; }
-        return this.api.request<Exercise>(['GET', `/api/exercise/${id}`])
-            .then((data) => {
-                this.onLoaded({ data })
-            })
+        const data = await this.api.request<Exercise>(Api.exercise({ uid: id }))
+        this.onLoaded({ data })
     }
 
     @action onLoaded({ data, exercise }: { data: any, exercise?:Exercise }) {
+
         const [number, version ] = data.uid.split('@')
         let versions = super.get(number) as ExerciseVersions;
         if (!versions) {
@@ -76,22 +75,28 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         return { uid: exercise.uid, data } ;
     }
 
-    saveDraft(exercise: Exercise) {
-        const req = { data: exercise.toJSON() }
+    async saveDraft(exercise: Exercise) {
+        let url: any
         if (exercise.isNew) {
-            Object.assign(req, { url: 'exercises', method: 'POST' });
+            url = Api.saveNewDraft()
         } else {
-            Object.assign(req, { number: exercise.number });
+            url = Api.saveExistingDraft({ number: exercise.number })
         }
-        return req;
+        this.onSaved(
+            await this.api.request(url, exercise.toJSON()),
+            exercise
+        )
+
+        // const req = { data:  }
+        // return req;
     }
 
-    onSaved({ data }: { data: Exercise }, [exercise]: Exercise[]) {
+    @action onSaved(data: Exercise, exercise: Exercise) {
         exercise.error = null;
         this.onLoaded({ data, exercise });
     }
 
-    onError(error: any, [exercise]: Exercise[]) {
+    @action onError(error: any, [exercise]: Exercise[]) {
         exercise.onError(get(error, 'response.data.errors[0].message', error.message));
     }
 

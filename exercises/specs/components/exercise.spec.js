@@ -1,6 +1,6 @@
-import { Router, React, Factory } from '../helpers';
+import { Router, React, Factory, runInAction, fetchMock } from '../helpers';
 import Exercise from '../../src/components/exercise';
-import ExerciseModel from '../../src/models/exercises/exercise';
+
 
 // eslint-disable-next-line react/prop-types
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
@@ -32,8 +32,9 @@ describe('Exercises component', () => {
     });
 
     it('renders with intro and a multiple questions when exercise is MC', () => {
-        const ex = new ExerciseModel(Factory.data('Exercise', { multipart: true }));
-        props.exercises.set(ex.uid, ex);
+        const ex = Factory.exercise({ multipart: true });
+        fetchMock.mockResponseOnce(JSON.stringify({ uid: ex.uid }))
+        runInAction(() => props.exercises.set(ex.uid, ex) );
         props.match.params.uid = ex.uid;
         expect.snapshot(<Router><Exercise {...props} /></Router>).toMatchSnapshot();
     });

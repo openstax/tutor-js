@@ -2108,6 +2108,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/history@*":
+  version "4.7.8"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.8.tgz#49348387983075705fe8f4e02fb67f7daaec4934"
+  integrity sha512-S78QIYirQcUoo6UJZx9CSP0O2ix9IaeAXwQi26Rhr/+mg7qqPy8TzaxHSUut7eGjL8WmLccT7/MXf304WjqHcA==
+
 "@types/hoist-non-react-statics@*", "@types/hoist-non-react-statics@^3.3.0", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -2233,6 +2238,30 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
+
+"@types/react-router-dom@^5.1.7":
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.7.tgz#a126d9ea76079ffbbdb0d9225073eb5797ab7271"
+  integrity sha512-D5mHD6TbdV/DNHYsnwBTv+y73ei+mMjrkGrla86HthE4/PVvL1J94Bu3qABU+COXzpL23T1EZapVVpwHuBXiUg==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.1.12"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.12.tgz#0f300e09468e7aed86e18241c90238c18c377e51"
+  integrity sha512-0bhXQwHYfMeJlCh7mGhc0VJTRm0Gk+Z8T00aiP4702mDUuLs9SMhnd2DitpjWFjdOecx2UXtICK14H9iMnziGA==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-test-renderer@^17.0.1":
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-17.0.1.tgz#3120f7d1c157fba9df0118dae20cb0297ee0e06b"
+  integrity sha512-3Fi2O6Zzq/f3QR9dRnlnHso9bMl7weKCviFmfF6B4LS1Uat6Hkm15k0ZAQuDz+UBq6B3+g+NM6IT2nr5QgPzCw==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react@*":
   version "16.9.2"
@@ -10899,10 +10928,10 @@ mockdate@^2.0.5:
   resolved "https://registry.yarnpkg.com/mockdate/-/mockdate-2.0.5.tgz#70c6abf9ed4b2dae65c81dfc170dd1a5cec53620"
   integrity sha512-ST0PnThzWKcgSLyc+ugLVql45PvESt3Ul/wrdV/OPc/6Pr8dbLAIJsN1cIp41FLzbN+srVTNIRn+5Cju0nyV6A==
 
-modeled-mobx@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.3.2.tgz#79424a660e5ce77ac88db1e490669bd02856f30f"
-  integrity sha512-VVXMdqVsGtr+0eWZ8zgLxzU3QSB9uZvLIL049jgZ64zNuy/EX0+De8IrARXqIq8mTlg0esCbcCQIu5PpUcj0Cw==
+modeled-mobx@0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.3.5.tgz#481a30e7e90c0a750bd4871a661b590cb4e16f7b"
+  integrity sha512-oky1qSbONr1hCN2Ul7lQrbRcVkoLdFzoQujvGbTwiwOQklplK+WrgleXatNvJv7QbsEsS4yx9QB9MV7h+lXORA==
   dependencies:
     mobx "^6.1"
 

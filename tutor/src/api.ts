@@ -1,7 +1,6 @@
 
 import { r } from 'shared/api/request'
-
-type ID = number | string
+import { ID } from 'shared/types'
 
 interface CourseId { courseId: ID }
 interface PeriodId { periodId: ID }

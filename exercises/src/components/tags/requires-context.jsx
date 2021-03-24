@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model';
 import Exercise from '../../models/exercises/exercise';
 
 const TYPE = 'requires-context';
@@ -12,6 +12,11 @@ class RequiresContextTag extends React.Component {
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound updateTag(ev) {
         if (ev.target.checked) {

@@ -51,94 +51,94 @@ const StyledTemplateModal = styled(CloneModal)`
 @observer
 class Editor extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      showModal: PropTypes.bool.isRequired,
-      onHide: PropTypes.func.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        showModal: PropTypes.bool.isRequired,
+        onHide: PropTypes.func.isRequired,
+    }
 
-  @action.bound
-  async saveDraft() {
-      const { ux: { saveAsDraft }, onHide } = this.props;
-      await saveAsDraft();
-      onHide();
-  }
+    @action.bound
+    async saveDraft() {
+        const { ux: { saveAsDraft }, onHide } = this.props;
+        await saveAsDraft();
+        onHide();
+    }
 
-  @action.bound
-  async publish() {
-      const { ux: { savePlan }, onHide } = this.props;
-      await savePlan();
-      onHide();
-  }
+    @action.bound
+    async publish() {
+        const { ux: { savePlan }, onHide } = this.props;
+        await savePlan();
+        onHide();
+    }
 
-  @action.bound
-  async editDetails() {
-      const { ux: { saveAsDraft, navigateToStep } } = this.props;
-      await saveAsDraft();
-      navigateToStep('details');
-  }
+    @action.bound
+    async editDetails() {
+        const { ux: { saveAsDraft, navigateToStep } } = this.props;
+        await saveAsDraft();
+        navigateToStep('details');
+    }
 
-  render() {
-      const { ux, showModal, onHide } = this.props;
-      return (
-          <StyledTemplateModal
-              show={showModal}
-              backdrop="static"
-              onHide={onHide}
-              templateType={ux.plan.type}
-          >
-              <Modal.Header closeButton>
-                  {`Add details to ${ux.plan.title}`}
-              </Modal.Header>
-              <Modal.Body>
-                  <Formik
-                      initialValues={ux.formValues} 
-                      validateOnMount={true}
-                  >
-                      {ux.renderMiniCloneEditor}
-                  </Formik>
-              </Modal.Body>
-              <Modal.Footer>
-                  <div>
-                      <Button
-                          variant="default"
-                          onClick={onHide}
-                          size="lg"
-                      >
-            Cancel
-                      </Button>
-                  </div>
-                  <div>
-                      <Button
-                          className="other-button"
-                          size="lg"
-                          onClick={this.saveDraft}
-                      >
-            Save as Draft
-                      </Button>
-                      <Button
-                          className={cn({ 'other-button': ux.plan.isHomework || ux.plan.isReading })}
-                          size="lg"
-                          onClick={this.publish}
-                      >
-            Publish
-                      </Button>
-                      {/* Only show the "Edit other details" button when cloning homework or reading assignments */}
-                      {(ux.plan.isHomework || ux.plan.isReading) &&
-            <Button
-                size="lg"
-                onClick={this.editDetails}
+    render() {
+        const { ux, showModal, onHide } = this.props;
+        return (
+            <StyledTemplateModal
+                show={showModal}
+                backdrop="static"
+                onHide={onHide}
+                templateType={ux.plan.type}
             >
-            Edit other details
-            </Button>
-                      }
-                  </div>
-          
-              </Modal.Footer>
-          </StyledTemplateModal>
-     
-     
-      );
-  }
+                <Modal.Header closeButton>
+                    {`Add details to ${ux.plan.title}`}
+                </Modal.Header>
+                <Modal.Body>
+                    <Formik
+                        initialValues={ux.formValues}
+                        validateOnMount={true}
+                    >
+                        {ux.renderMiniCloneEditor}
+                    </Formik>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div>
+                        <Button
+                            variant="default"
+                            onClick={onHide}
+                            size="lg"
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                    <div>
+                        <Button
+                            className="other-button"
+                            size="lg"
+                            onClick={this.saveDraft}
+                        >
+                            Save as Draft
+                        </Button>
+                        <Button
+                            className={cn({ 'other-button': ux.plan.isHomework || ux.plan.isReading })}
+                            size="lg"
+                            onClick={this.publish}
+                        >
+                            Publish
+                        </Button>
+                        {/* Only show the "Edit other details" button when cloning homework or reading assignments */}
+                        {(ux.plan.isHomework || ux.plan.isReading) &&
+                         <Button
+                             size="lg"
+                             onClick={this.editDetails}
+                         >
+                             Edit other details
+                         </Button>
+                        }
+                    </div>
+
+                </Modal.Footer>
+            </StyledTemplateModal>
+
+
+        );
+    }
 }
 export default Editor;

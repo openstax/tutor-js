@@ -13,56 +13,79 @@ export { Attachment, Author, Question, Tag };
 
 export default class SharedExercise extends BaseModel {
 
-    @field id: ID = NEW_ID
-    @field uuid = '';
-    @field uid = '';
-    @field nickname = '';
-    @field versions: string[] = [];
-    @field is_vocab = false;
+    static idField = 'uid'
+    id = NEW_ID;
+    uuid = '';
+    uid = '';
+    nickname = '';
+    versions: string[] = [];
+    is_vocab = false;
 
-    @field stimulus_html = '';
+    stimulus_html = '';
 
-    @model(DateTime) published_at?: DateTime | Date
-    @observable wrapper = '';
+    published_at?: DateTime | Date
+    wrapper = '';
 
-    @model(Attachment) attachments:Attachment[] = [];
-    @model(Author) authors:Author[] = [];
-    @model(Author) copyright_holders:Author[] = [];
-    @model(Question) questions:Question[] = [];
+    attachments:Attachment[] = [];
+    authors:Author[] = [];
+    copyright_holders:Author[] = [];
+    questions:Question[] = [];
 
-    @model(TagsAssociation) tags = new TagsAssociation()
+    tags = new TagsAssociation()
 
     constructor() {
         super()
-        modelize(this)
+        modelize(this, {
+            uuid: field,
+            uid: field,
+            nickname: field,
+            versions: field,
+            is_vocab: field,
+            stimulus_html: field,
+            published_at: model(DateTime),
+            attachments: model(Attachment),
+            authors: model(Author),
+            copyright_holders: model(Author),
+            questions: model(Question),
+            tags: model(TagsAssociation),
+            wrapper: observable,
+            pool_types: computed,
+            cnxModuleUUIDs: computed,
+            validity: computed,
+            toggleMultiPart: action,
+            onQuestionFreeResponseSelected: action,
+            moveQuestion: action,
+        })
     }
 
-    @computed get pool_types() {
+    get pool_types() {
         return [];
     }
 
-    @computed get number() {
+    get number() {
         const n = this.uid.split('@')[0];
         return isNil(n) ? n : Number(n);
     }
+    set number(n:ID) { this.uid = `${n}@${this.version}` }
 
-    @computed get version() {
+    get version() {
         const n = this.uid.split('@')[1];
         return isNil(n) ? n : Number(n);
     }
+    set version(v:ID) { this.uid = `${this.number}@${v}` }
 
-    @computed get cnxModuleUUIDs() {
+    get cnxModuleUUIDs() {
         return map(filter(this.tags, { type: 'context-cnxmod' }), 'value');
     }
 
-    @computed get validity() {
+    get validity() {
         return reduce(([] as any[]).concat(this.questions, this.tags.all), (memo, model) => ({
             valid: memo.valid && model.validity.valid,
             part: memo.part || model.validity.part,
         }), { valid: true, part: true });
     }
 
-    @action toggleMultiPart() {
+    toggleMultiPart() {
         if (this.isMultiPart) {
             this.questions = [this.questions[0]];
             this.stimulus_html = '';
@@ -71,7 +94,7 @@ export default class SharedExercise extends BaseModel {
         }
     }
 
-    @action moveQuestion(question: Question, offset: number) {
+    moveQuestion(question: Question, offset: number) {
         const index = this.questions.indexOf(question);
         invariant((index !== -1) && inRange(index + offset, 0, this.questions.length),
             'question not found or cannot move past bounds');
@@ -82,18 +105,18 @@ export default class SharedExercise extends BaseModel {
         return Boolean(this.stimulus_html);
     }
 
-    @computed get isMultiPart() { return this.questions.length > 1; }
-    @computed get isSinglePart() { return this.questions.length == 1; }
-    @computed get isMultiChoice() { return every(this.questions, 'isMultipleChoice'); }
-    @computed get isOpenEnded() { return some(this.questions, 'isOpenEnded'); }
+    get isMultiPart() { return this.questions.length > 1; }
+    isSinglePart() { return this.questions.length == 1; }
+    get isMultiChoice() { return every(this.questions, 'isMultipleChoice'); }
+    get isOpenEnded() { return some(this.questions, 'isOpenEnded'); }
     //WRM is OpenEnded and have no answers
-    @computed get isWrittenResponse() { return every(this.questions, (q) => q.isOpenEnded && q.answers.length === 0); }
+    get isWrittenResponse() { return every(this.questions, (q) => q.isOpenEnded && q.answers.length === 0); }
 
-    @computed get isPublishable() {
+    get isPublishable() {
         return Boolean(!this.isNew && this.validity.valid && !this.published_at);
     }
 
-    @action onQuestionFreeResponseSelected() {
+    onQuestionFreeResponseSelected() {
         this.tags.findOrAddWithType('type').value = 'practice';
     }
 

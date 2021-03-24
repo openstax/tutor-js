@@ -52,10 +52,10 @@ describe('Exercise Model', () => {
 
     it('tests isPublishable', () => {
         expect(exercise.isPublishable).toBe(true);
-        exercise.id = 0
+        exercise.uid = ''
         expect(exercise.isNew).toBe(true)
         expect(exercise.isPublishable).toBe(false);
-        exercise.id = 1
+        exercise.uid = '1@1'
         expect(exercise.isPublishable).toBe(true);
         exercise.published_at = new Date()
         expect(exercise.isPublishable).toBe(false);

@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import TagModel from 'shared/model/exercise/tag';
 import { Icon } from 'shared';
+import { modelize } from 'shared/model'
 import Error from './error';
 import Wrapper from './wrapper';
 
@@ -22,6 +23,12 @@ class Input extends React.Component {
 
     @observable errorMsg;
     @observable value = this.props.tag.value;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
+
     @computed get book() {
         return this.props.tag.specifier;
     }
@@ -92,6 +99,11 @@ class LoTags extends React.Component {
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onAdd() {
         this.props.exercise.tags.push({ type: TYPE, value: '' });

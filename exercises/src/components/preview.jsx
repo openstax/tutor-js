@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { modelize } from 'shared/model'
 import { computed } from 'mobx';
 import Exercises, { ExercisesMap } from '../models/exercises';
 import { idType } from 'shared';
@@ -12,7 +13,6 @@ import { ExercisePreview } from 'shared';
 @observer
 export default
 class Preview extends React.Component {
-
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -30,6 +30,11 @@ class Preview extends React.Component {
     }
 
     static Controls = Controls;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     UNSAFE_componentWillMount() {
         const { uid } = this.props.match.params;
