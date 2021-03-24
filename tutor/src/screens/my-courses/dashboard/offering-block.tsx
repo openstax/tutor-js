@@ -178,14 +178,17 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     const editModeIcons = isEditMode && (
         <div className="edit-mode-icons" data-test-id="edit-mode-icons">
             <Icon
+                data-test-id="move-up-offering"
                 type="arrow-up"
                 onClick={() => swapOffering(offering.id, 'up')}
                 buttonProps={{ disabled: isFirstBlock }} />
             <Icon
+                data-test-id="move-down-offering"
                 type="arrow-down"
                 onClick={() => swapOffering(offering.id, 'down')}
                 buttonProps={{ disabled: isLastBlock }} />
             <Icon
+                data-test-id="delete-offering"
                 type="trash"
                 onClick={() => tryDeleteOffering(offering.id)} />
         </div>
