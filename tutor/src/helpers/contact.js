@@ -1,3 +1,5 @@
+import Time from '../models/time';
+import user from '../models/user';
 import UserMenu from '../models/user/menu';
 import { isNil, isObject } from 'lodash';
 
@@ -6,22 +8,24 @@ const makeContactMessage = function(
 ) {
     const { userAgent } = window.navigator;
     const { data } = config;
-    let reqDetails;
-    let msg = `Hello!
+    let msg = `Hello!\n\nI ran into a problem at ${location} while using browser:\n${userAgent}`;
 
-  I ran into a problem at ${location} while using browser
-  ${userAgent}.\n`;
-
-    if (!isNil(status)) {
-        reqDetails = `${config.method} on ${config.url} returned status "${status}" with message "${statusMessage}"\n\n`;
+    if(!isNil(status)) {
+        msg += `\n\nThe request details are: ${config.method} on ${config.baseURL}/${
+            config.url} returned status "${status}" with message "${statusMessage}"`;
     }
+
     if (data) {
-        reqDetails += `The request body was:\n${isObject(data) ? JSON.stringify(data, null, 2) : data}`;
+        msg += `\n\nThe request body was:\n${
+            isObject(data) ? JSON.stringify(data, null, 2) : data}`;
     }
 
-    if(reqDetails) {
-        msg += `\nThe request details are:\n${reqDetails}.`;
+    if (user) {
+        msg += `\n\nUser info:\n  UUID: ${
+            user.account_uuid}\n  Self-reported role: ${user.self_reported_role}`;
     }
+
+    msg += `\n\nTime: ${Time.now}`;
 
     return msg;
 };
@@ -31,7 +35,9 @@ const makeContactURL = function(
     { status, statusMessage, config = {} } = {}
 ) {
     const location = window.location.href;
-    const body = encodeURIComponent(makeContactMessage({ status, statusMessage, config, location }));
+    const body = encodeURIComponent(
+        makeContactMessage({ status, statusMessage, config, location })
+    );
     const subject = encodeURIComponent(`OpenStax Tutor Error ${status} at ${location}`);
     return `mailto:${UserMenu.supportEmail}?subject=${subject}&body=${body}`;
 };
