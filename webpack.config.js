@@ -17,6 +17,7 @@ const servePath    = `http://${host}:${port}`;
 const publicPath   = process.env.PUBLIC_PATH || (production ? '/dist/' : `${servePath}/dist/`);
 const defaultEntry = `./${project}/index.js`;
 const isTutor      = project == 'tutor';
+const isCI         = !!process.env.CI
 
 const ENTRIES = {
   tutor: {
@@ -108,13 +109,14 @@ const config = {
     port,
     publicPath,
     historyApiFallback: true,
-    inline: true,
+    inline: !isCI,
     quiet: false,
     noInfo: false,
     clientLogLevel: 'warning',
     host: '0.0.0.0',
     filename: '[name].js',
-    hot: true,
+    hot: !isCI,
+    liveReload: !isCI,
     stats: 'errors-only',
   },
 };

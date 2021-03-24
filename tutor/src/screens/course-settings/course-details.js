@@ -156,7 +156,7 @@ const CourseDetails = observer(({ course, history }) => {
     };
 
     return (
-        <StyledCourseDetails>
+        <StyledCourseDetails data-test-id="course-details">
             <Formik initialValues={initialValues} validate={validate}>
                 {({
                     setFieldValue,

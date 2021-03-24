@@ -98,9 +98,9 @@ const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) =>
     const dispatch = useDispatch()
     const primaryRole = useCurrentRole(course.id)
     return (
-        <StyledViewCourse className='my-courses-item-wrapper'>
+        <StyledViewCourse className='my-courses-item-wrapper' data-test-id='course-card'>
             <div
-                data-test-id="course-card"
+                data-test-id={`course-card-${course.id}`}
                 data-title={useNameCleaned(course.id)}
                 data-book-title={useBookName(course.id)}
                 data-appearance={course.appearance_code}
@@ -125,18 +125,22 @@ const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) =>
                 </div>
             </div>
             <Dropdown className="my-courses-item-actions">
-                <Dropdown.Toggle variant="ox">
+                <Dropdown.Toggle variant="ox" data-test-id={`course-card-item-actions-${course.id}`}>
                     <Icon type="ellipsis-v" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <TutorLink
+                        data-test-id={`course-card-item-actions-course-settings-${course.id}`}
                         to='courseSettings'
                         params={{ courseId: course.id }}
+                        // tab 1 goes to the course details tab
+                        query={{ tab: 1 }}
                         role="button"
                         className="dropdown-item">
                         Course Settings
                     </TutorLink>
                     <TutorLink
+                        data-test-id={`course-card-item-actions-create-course-${course.id}`}
                         to="createNewCourse"
                         params={{ sourceId: course.id }}
                         role="button"

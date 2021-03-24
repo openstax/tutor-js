@@ -1,7 +1,8 @@
 import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit'
+import moment from 'moment'
 import { useSelector } from 'react-redux'
-import { endsWith, get, first, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
-import { Course, Role } from './types'
+import { endsWith, get, first, last, sortBy, find, capitalize, sumBy, filter, union } from 'lodash'
+import { Course, ID, Role } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
 import UiSettings from 'shared/model/ui-settings'
@@ -30,6 +31,9 @@ const coursesSlice = createSlice({
         setCurrentRole(state, { payload: { id, roleId } }: PayloadAction<{ id: string, roleId: string }>) {
             const course = state.entities[id]
             if (course) { course.current_role_id = roleId }
+        },
+        removeCourses(state, { payload: { courseIds } }: PayloadAction<{ courseIds: ID[] }>) {
+            courseAdapter.removeMany(state, courseIds);
         },
     },
     extraReducers: (builder) => {
@@ -102,7 +106,14 @@ export const useCoursesByOfferingId = (offeringId: string | number, includePrevi
 
 export const useLatestCoursePreview = (offeringId: string | number) => useSelector<CourseSlice, Course | undefined>(state => {
     const courses = selectors.selectAll(state)
-    return find(courses, c => c.offering_id === offeringId && String(c.term) == 'preview')
+    const latest = last(sortBy(
+        filter(courses, c => c.offering_id === offeringId && c.is_preview),
+        'ends_at'
+    ))
+    if (moment().isAfter(latest?.ends_at)) {
+        return undefined;
+    }
+    return latest
 })
 
 export const useDisplayedCourseOfferingIds = () => {
@@ -116,4 +127,4 @@ export const coursesReducer = coursesSlice.reducer
 
 // exports must be named and you cannot export all actions at once
 // https://stackoverflow.com/questions/29844074/es6-export-all-values-from-object
-export const { rename, setCurrentRole } = coursesSlice.actions
+export const { rename, setCurrentRole, removeCourses } = coursesSlice.actions

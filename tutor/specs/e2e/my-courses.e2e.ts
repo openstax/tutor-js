@@ -1,3 +1,4 @@
+import { Course } from '../../src/store/types'
 import { visitPage, Mocker, setTimeouts } from './helpers'
 
 describe('My Courses', () => {
@@ -116,6 +117,60 @@ describe('My Courses', () => {
             await visitPage(page, '/courses')
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
             await expect(page).not.toHaveText('testEl=course-card', 'ConceptCoach', { timeout: 100 })
+        })
+
+        it('deletes offering', async () => {
+            let courseIdWithStudents;
+            const offeringIdWithStudents = mock.current.bootstrapData.offerings[0].id
+            const offeringIdWithEmptyStudents = mock.current.bootstrapData.offerings[1].id
+            mock.current.bootstrapData.courses.forEach((c: Course, index: number) => {
+                if(index === 0) {
+                    // leave one course with students
+                    courseIdWithStudents = c.id;
+                    c.offering_id = offeringIdWithStudents
+                } else {
+                    // rest of the course give a current offering, and set number of students to 0
+                    c.offering_id = offeringIdWithEmptyStudents
+                    c.periods.forEach(p => p.num_enrolled_students = 0)
+                }
+            })
+
+            // delete an offering block
+            await visitPage(page, '/courses')
+            await page.click('testEl=dashboard-settings-btn')
+            await page.click(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"] >> testEl=delete-offering`)
+            await expect(page).toHaveSelector('testEl=delete-offering-modal')
+            await page.click('testEl=delete-offering-modal-btn')
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
+
+            // go to a course
+            await page.click('testEl=dashboard-settings-btn')
+            await page.click(`[data-course-id="${courseIdWithStudents}"]`)
+            expect(
+                await page.evaluate(() => document.location.pathname)
+            ).toMatch(`/course/${courseIdWithStudents}`)
+
+            // go back to dashboard and make sure the offering block is not shown
+            await page.goBack()
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
+
+            // refreshing the page and make sure the offering block is not shown
+            await visitPage(page, '/courses')
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
+        })
+        
+        it('goes to course settings details tab when clicking on "Course Settings" option', async () => {
+            mock.current.bootstrapData.courses.forEach((c: any) => {
+                c.offering_id = mock.current.bootstrapData.offerings[0].id
+            })
+            await visitPage(page, '/courses')
+            await page.waitForSelector('testEl=offering-container')
+            const courseId = await page.$eval('.offering-container .my-courses-item' , ex => ex.dataset.courseId);
+            await page.click(`testEl=course-card-item-actions-${courseId}`)
+            await page.click(`testEl=course-card-item-actions-course-settings-${courseId}`)
+            expect(
+                await page.evaluate(() => `${document.location.pathname}${document.location.search}`)
+            ).toMatch(`/course/${courseId}/settings?tab=1`)
         })
     })
 
