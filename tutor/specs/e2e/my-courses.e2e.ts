@@ -119,7 +119,7 @@ describe('My Courses', () => {
             await expect(page).not.toHaveText('testEl=course-card', 'ConceptCoach', { timeout: 100 })
         })
 
-        it.only('deletes offering', async () => {
+        it('deletes offering', async () => {
             let courseIdWithStudents;
             const offeringIdWithStudents = mock.current.bootstrapData.offerings[0].id
             const offeringIdWithEmptyStudents = mock.current.bootstrapData.offerings[1].id
@@ -141,10 +141,10 @@ describe('My Courses', () => {
             await page.click(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"] >> testEl=delete-offering`)
             await expect(page).toHaveSelector('testEl=delete-offering-modal')
             await page.click('testEl=delete-offering-modal-btn')
-            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`)
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
 
             // go to a course
-            await page.click('testEl=dashboard-settings-btn', { force: true })
+            await page.click('testEl=dashboard-settings-btn')
             await page.click(`[data-course-id="${courseIdWithStudents}"]`)
             expect(
                 await page.evaluate(() => document.location.pathname)
@@ -152,11 +152,11 @@ describe('My Courses', () => {
 
             // go back to dashboard and make sure the offering block is not shown
             await page.goBack()
-            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 10 })
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
 
             // refreshing the page and make sure the offering block is not shown
             await visitPage(page, '/courses')
-            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 10 })
+            await expect(page).not.toHaveSelector(`.offering-container[data-offering-id="${offeringIdWithEmptyStudents}"]`, { timeout: 100 })
         })
     })
 
