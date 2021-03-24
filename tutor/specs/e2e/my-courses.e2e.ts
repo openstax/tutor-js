@@ -117,6 +117,20 @@ describe('My Courses', () => {
             await expect(page).toHaveSelector('testEl=existing-teacher-screen')
             await expect(page).not.toHaveText('testEl=course-card', 'ConceptCoach', { timeout: 100 })
         })
+
+        it('goes to course settings details tab when clicking on "Course Settings" option', async () => {
+            mock.current.bootstrapData.courses.forEach((c: any) => {
+                c.offering_id = mock.current.bootstrapData.offerings[0].id
+            })
+            await visitPage(page, '/courses')
+            await page.waitForSelector('testEl=offering-container')
+            const courseId = await page.$eval('.offering-container .my-courses-item' , ex => ex.dataset.courseId);
+            await page.click(`testEl=course-card-item-actions-${courseId}`)
+            await page.click(`testEl=course-card-item-actions-course-settings-${courseId}`)
+            expect(
+                await page.evaluate(() => `${document.location.pathname}${document.location.search}`)
+            ).toMatch(`/course/${courseId}/settings?tab=1`)
+        })
     })
 
     describe('unavailable messages', () => {
