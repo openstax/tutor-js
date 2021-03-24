@@ -36,8 +36,8 @@ describe('Book tags component', function() {
         expect(props.exercise.tags).toHaveLength(0);
     });
 
-    it('can add a new tag', () => {
-        props.exercise.tags = [];
+    fit('can add a new tag', () => {
+        props.exercise.tags.clear()
         const books = mount(<Books {...props} />);
         expect(books).not.toHaveRendered('select');
         books.find('.controls Icon[type="plus-circle"]').simulate('click');

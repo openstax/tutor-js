@@ -11,68 +11,68 @@ import Toasts from '../../models/toasts';
 
 @observer
 class ExerciseControls extends React.Component {
-  static propTypes = {
-      match: PropTypes.shape({
-          params: PropTypes.shape({
-              uid: idType,
-          }),
-      }),
-      history: PropTypes.shape({
-          push: PropTypes.func,
-      }).isRequired,
-      exercises: PropTypes.instanceOf(ExercisesMap),
-  };
+    static propTypes = {
+        match: PropTypes.shape({
+            params: PropTypes.shape({
+                uid: idType,
+            }),
+        }),
+        history: PropTypes.shape({
+            push: PropTypes.func,
+        }).isRequired,
+        exercises: PropTypes.instanceOf(ExercisesMap),
+    };
 
-  static defaultProps = {
-      exercises: Exercises,
-  }
+    static defaultProps = {
+        exercises: Exercises,
+    }
 
-  componentDidMount() {
-  }
+    componentDidMount() {
+    }
 
-  @computed get exercise() {
-      return this.props.exercises.get(this.props.match.params.uid);
-  }
+    @computed get exercise() {
+        return this.props.exercises.get(this.props.match.params.uid);
+    }
 
-  @action.bound saveExerciseDraft() {
-      const { exercise } = this;
-      this.props.exercises.saveDraft(exercise).then(() => {
-          Toasts.push({
-              handler: 'published',
-              status: 'ok',
-              info: { isDraft: true, exercise },
-          });
-          this.props.history.push(`/exercise/${exercise.uid}`);
-      });
-  }
+    @action.bound saveExerciseDraft() {
+        const { exercise } = this;
+        this.props.exercises.saveDraft(exercise).then(() => {
+            Toasts.push({
+                handler: 'published',
+                status: 'ok',
+                info: { isDraft: true, exercise },
+            });
+            this.props.history.push(`/exercise/${exercise.uid}`);
+        });
+    }
 
-  @action.bound publishExercise() {
-      const { exercise } = this;
-      this.props.exercises.publish(exercise).then(() => {
-          this.props.exercises.createNewRecord();
-          Toasts.push({ handler: 'published', status: 'ok', info: { exercise } });
-          this.props.history.push('/search');
-      });
-  }
+    @action.bound publishExercise() {
+        const { exercise } = this;
+        this.props.exercises.publish(exercise).then(() => {
+            this.props.exercises.createNewRecord();
+            Toasts.push({ handler: 'published', status: 'ok', info: { exercise } });
+            this.props.history.push('/search');
+        });
+    }
 
-  render() {
-      const { exercise } = this;
-      if (!exercise) { return null; }
+    render() {
+        const { exercise } = this;
+        if (!exercise) { return null; }
 
-      return (
-          <li className="exercise-navbar-controls">
-              <ButtonToolbar className="navbar-btn">
-                  <AsyncButton
-                      variant="info"
-                      className="draft"
-                      onClick={this.saveExerciseDraft}
-                      disabled={!exercise.validity.valid}
-                      isWaiting={exercise.api.isPending}
-                      waitingText="Saving..."
-                  >
+        return (
+            <li className="exercise-navbar-controls">
+                <ButtonToolbar className="navbar-btn">
+                    <AsyncButton
+                        variant="info"
+                        className="draft"
+                        onClick={this.saveExerciseDraft}
+                        disabled={!exercise.validity.valid}
+                        isWaiting={exercise.api.isPending}
+                        waitingText="Saving..."
+                    >
             Save Draft
-                  </AsyncButton>
-                  {!exercise.isNew &&
+                    </AsyncButton>
+                    {!exercise.isNew &&
             <SuretyGuard
                 onConfirm={this.publishExercise}
                 okButtonLabel="Publish"
@@ -88,13 +88,13 @@ class ExerciseControls extends React.Component {
                 Publish
                 </AsyncButton>
             </SuretyGuard>}
-              </ButtonToolbar>
-              <div className="right-side">
-                  <MPQToggle exercise={exercise} />
-              </div>
-          </li>
-      );
-  }
+                </ButtonToolbar>
+                <div className="right-side">
+                    <MPQToggle exercise={exercise} />
+                </div>
+            </li>
+        );
+    }
 }
 
 export default ExerciseControls;

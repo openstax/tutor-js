@@ -1,17 +1,23 @@
 import { observable } from 'mobx';
+import { BaseModel, field, ID, model, modelize, observable, ID, NEW_ID } from 'shared/model';
 
-class User {
+class User extends BaseModel {
 
-    @observable id;
-    @observable username;
-    @observable faculty_status;
-    @observable first_name;
-    @observable full_name;
-    @observable last_name;
-    @observable self_reported_role;
-    @observable support_identifier;
+    @field id: ID = NEW_ID;
+    @field username = '';
+    @field faculty_status = '';
+    @field first_name = '';
+    @field full_name = '';
+    @field last_name = '';
+    @field self_reported_role = '';
+    @field support_identifier = '';
 
-    bootstrap(data) {
+    constructor() {
+        super()
+        modelize(this)
+    }
+
+    bootstrap(data: any) {
         Object.assign(this, data);
     }
 

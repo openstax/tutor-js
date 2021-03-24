@@ -21,38 +21,38 @@ const Pagination = styled(BSPagination)`
 @observer
 class Search extends React.Component {
 
-  static Controls = Controls;
+    static Controls = Controls;
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      history: PropTypes.shape({
-          push: PropTypes.func.isRequired,
-      }).isRequired,
-  };
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired,
+        }).isRequired,
+    };
 
-  get search() {
-      return this.props.ux.search;
-  }
+    get search() {
+        return this.props.ux.search;
+    }
 
-  @action.bound onEdit(ev) {
-      ev.preventDefault();
-      this.props.history.push(ev.currentTarget.pathname);
-  }
+    @action.bound onEdit(ev) {
+        ev.preventDefault();
+        this.props.history.push(ev.currentTarget.pathname);
+    }
 
-  render() {
-      const { clauses, exercises, pagination, api } = this.search;
-      const body = api.isPending ?
-          <Loading message="Searching…" /> :
-          exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
+    render() {
+        const { clauses, exercises, pagination, api } = this.search;
+        const body = api.isPending ?
+            <Loading message="Searching…" /> :
+            exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
 
-      return (
-          <div className="search">
-              {clauses.map((c, i) => <Clause key={i} clause={c} />)}
-              {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
-              {body}
-          </div>
-      );
-  }
+        return (
+            <div className="search">
+                {clauses.map((c, i) => <Clause key={i} clause={c} />)}
+                {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
+                {body}
+            </div>
+        );
+    }
 }
 
 export default Search;

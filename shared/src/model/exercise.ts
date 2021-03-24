@@ -1,7 +1,7 @@
 import {
-    BaseModel, field, computed, hydrate, action, observable, model, modelize, ID, NEW_ID,
+    BaseModel, field, computed, action, observable, model, modelize, ID, NEW_ID,
 } from '../model';
-import { reduce, map, filter, inRange, merge, every, some, isNil } from 'lodash';
+import { reduce, map, filter, inRange, every, some, isNil } from 'lodash';
 import invariant from 'invariant';
 import TagsAssociation, { Tag } from './exercise/tags-association';
 import Question from './exercise/question'
@@ -11,21 +11,14 @@ import DateTime from './date-time'
 
 export { Attachment, Author, Question, Tag };
 
-export default class Exercise extends BaseModel {
+export default class SharedExercise extends BaseModel {
 
-    static build(attrs: any) {
-        return hydrate(Exercise, merge(attrs, {
-            questions: [{
-                formats: [],
-            }],
-        }));
-    }
     @field id: ID = NEW_ID
     @field uuid = '';
     @field uid = '';
     @field nickname = '';
     @field versions: string[] = [];
-    @field is_vocab = '';
+    @field is_vocab = false;
 
     @field stimulus_html = '';
 
@@ -36,6 +29,7 @@ export default class Exercise extends BaseModel {
     @model(Author) authors:Author[] = [];
     @model(Author) copyright_holders:Author[] = [];
     @model(Question) questions:Question[] = [];
+
     @model(TagsAssociation) tags = new TagsAssociation()
 
     constructor() {

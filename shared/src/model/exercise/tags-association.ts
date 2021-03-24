@@ -12,6 +12,8 @@ export default class TagsAssociation {
     }
 
     push(attrs: any) { return this.all.push(hydrate(Tag, attrs)) }
+    clear() { this.all.splice(0, this.all.length) }
+    get length() { return this.all.length }
 
     withType(type: string): Tag // eslint-disable-line
     withType(type: string, multiple:false): Tag // eslint-disable-line

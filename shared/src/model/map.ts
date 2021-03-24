@@ -28,14 +28,14 @@ export default class Map<K, V extends MapableObject> {
         }
     }
 
-    @action ensureLoaded(): Promise<any> {
+    async ensureLoaded(..._args: any[]): Promise<any> {
         if (!this.api.isPending && !this.api.hasBeenFetched) {
             return this.fetch()
         }
         return Promise.resolve()
     }
 
-    fetch(..._args: any[]): Promise<any> {
+    async fetch(..._args: any[]): Promise<any> {
         throw new Error('abstract method, should be overriden')
     }
 

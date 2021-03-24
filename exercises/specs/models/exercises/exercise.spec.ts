@@ -1,12 +1,14 @@
 import Exercise from '../../../src/models/exercises/exercise';
 import User from '../../../src/models/user';
+import { hydrate, NEW_ID } from 'shared/model';
 
 jest.mock('../../../src/models/user');
 
 describe('Exercises model', () => {
 
     it('calculates read-only status', () => {
-        const ex = new Exercise({
+        const ex = hydrate(Exercise, {
+            tags: [ 'assignment-type:reading', 'requires-context:true' ],
             authors: [ { user_id: 1, name: 'Auron' } ],
             copyright_holders: [ { user_id: 2, name: 'Cory' } ],
             delegations: [
@@ -16,10 +18,13 @@ describe('Exercises model', () => {
                 { delegator_id: 2, delegate_id: 6, delegate_type: 'Unknown', can_update: true },
             ],
         });
+
+        expect(ex.id).toBe(NEW_ID)
         expect(ex.isNew).toBe(true);
         expect(ex.canEdit).toBe(true);
+        expect(ex.tags.withType('assignment-type').value).toEqual('reading')
 
-        ex.uuid = '1234'; // no longer new
+        ex.id = 1234 // no longer new
         expect(ex.isNew).toBe(false);
         expect(ex.canEdit).toBe(false);
         expect(ex.readOnlyReason).toEqual('Author: Auron');
@@ -43,6 +48,8 @@ describe('Exercises model', () => {
         expect(ex.canEdit).toBe(true);
 
         User.id = 5;
+
+
         expect(ex.canEdit).toBe(false);
 
         User.id = 6;
