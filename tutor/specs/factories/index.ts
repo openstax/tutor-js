@@ -1,5 +1,6 @@
 import FactoryBot from 'object-factory-bot';
 import { range } from 'lodash';
+import { hydrate } from 'shared/model'
 import '../../../shared/specs/factories';
 import faker from 'faker';
 import Course from '../../src/models/course';
@@ -25,7 +26,7 @@ export interface Model extends Function {
 }
 
 function factoryFactory<T extends Model>(factoryName: string, Model: T) {
-    return (attrs = {}, modelArgs?: any): InstanceType<T>  => {
+    return (attrs = {}, modelArgs?: any): InstanceType<T> => {
         const o = FactoryBot.create(factoryName as string, attrs);
         return new Model(o, modelArgs);
     };
@@ -85,13 +86,11 @@ const Factories = {
     },
 
     studentTaskPlans: ({ course, count = 4, attributes = {} }: { course: Course, count: number, attributes: any}) => {
-        course.studentTaskPlans.onLoaded({
-            data: {
-                tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
-                                                                Object.assign({ course }, attributes)
-                                                               )),
-            },
-        });
+        course.studentTaskPlans.onLoaded({ data: {
+            tasks: range(count).map(() => FactoryBot.create(
+                'StudentDashboardTask', Object.assign({ course }, attributes)
+            )),
+        }});
     },
 
 
@@ -124,7 +123,7 @@ const Factories = {
             book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
         }
         if (pageIds.length == 0) {
-            pageIds = book.children[1].children.map(pg => pg.id);
+            pageIds = book.children[1].children.map((pg: Page) => pg.id);
         }
         pageIds.forEach(pgId => {
             map.onLoaded({
@@ -140,13 +139,12 @@ const Factories = {
         return map;
     },
 
-    offeringsMap: ({ count = 4 }: { count?: number } = {}) => {
+    offeringsMap: ({ count = 4 }: { count?: number } = {}): OfferingsMap => {
         const map = new OfferingsMap();
-        map.onLoaded({
-            data: {
-                items: range(count).map(() => FactoryBot.create('Offering', {})),
-            },
-        });
+        range(count).map(() => {
+            const o = hydrate(Offering, FactoryBot.create('Offering', {}))
+            map.set(o.id, o)
+        })
         return map;
     },
 

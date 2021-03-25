@@ -6,6 +6,7 @@ import { ID } from '../types'
 import { LazyGetter } from 'lazy-get-decorator'
 
 export * from 'modeled-mobx'
+export type { ID }
 
 export interface MapableObject {
     id: ID

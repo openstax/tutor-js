@@ -52,7 +52,7 @@ class DateTime {
     serialize() { return this._value.toISO() }
 
     get asInterval() { return this._value.until(this._value) }
-
+    get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
     isBefore(compareTo: ComparableValue) { return this.asInterval.isBefore(toLDT(compareTo)) }
