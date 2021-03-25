@@ -10,9 +10,6 @@ describe('Question Library', () => {
     beforeEach(async () => {
         await setTimeouts()
         await visitPage(page, '/course/1/questions')
-        await page.evaluate(() => {
-            window._MODELS.feature_flags.set('tours', false);
-        })
     })
 
     it('can select a chapter and display questions', async () => {
