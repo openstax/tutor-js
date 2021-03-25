@@ -179,26 +179,37 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:7@1
           </span>
@@ -268,26 +279,37 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:3@1
           </span>
@@ -451,26 +473,37 @@ exports[`Exercise Preview Component can render question formats 1`] = `
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:4@1
           </span>
@@ -708,26 +741,37 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:8@1
           </span>
@@ -876,56 +920,73 @@ exports[`Exercise Preview Component limits tags 1`] = `
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-assignment-type"
           >
             assignment-type:reading
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-book"
           >
             book:stax-phys
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-context-cnxfeature"
           >
             context-cnxfeature:one-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-context-cnxmod"
           >
             context-cnxmod:
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-filter-type"
           >
             filter-type:test-prep
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-requires-context"
           >
             requires-context:true
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:9@1
           </span>
@@ -1084,26 +1145,37 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:1@1
           </span>
@@ -1320,26 +1392,37 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
         >
           <span
             className="exercise-tag"
+            data-test-id="tag-type-lo"
           >
             lo:stax-phys:1-2-1
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-blooms"
           >
             blooms:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-dok"
           >
             dok:3
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-science-practice"
+          >
+            science-practice:modeling
+          </span>
+          <span
+            className="exercise-tag"
+            data-test-id="tag-type-time"
           >
             time:long
           </span>
           <span
             className="exercise-tag"
+            data-test-id="tag-type-ID"
           >
             ID:2@1
           </span>
