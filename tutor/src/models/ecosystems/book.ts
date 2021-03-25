@@ -1,8 +1,7 @@
-import { computed } from 'mobx';
-import { BaseModel, field, identifier, model, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, NEW_ID } from 'shared/model';
 
 export default class EcosystemBook extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field title;
     @field uuid;
     @field version;

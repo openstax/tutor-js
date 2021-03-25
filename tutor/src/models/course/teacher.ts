@@ -1,12 +1,10 @@
-import {
-    BaseModel, field, identifier, model, computed,
-} from 'shared/model';
+import { BaseModel, field, model, computed, NEW_ID } from 'shared/model';
 
 import User from '../user';
 
 export default class CourseTeacher extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field role_id;
   @field first_name = '';
   @field last_name = '';

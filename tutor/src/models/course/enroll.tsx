@@ -2,12 +2,12 @@ import React from 'react';
 import {
   BaseModel,
   field,
-  identifier,
   computed,
   action,
   when,
   observable,
   modelize,
+  NEW_ID,
 } from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
@@ -20,7 +20,7 @@ import User from '../user';
 
 export default class CourseEnrollment extends BaseModel {
 
-    @identifier id;
+    @field id = NEW_ID;
     @field enrollment_code;
 
     @field student_identifier;

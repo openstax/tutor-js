@@ -1,5 +1,5 @@
 import { sortBy, values } from 'lodash';
-import { BaseModel, model, action, observable, computed, identifier, modelize } from 'shared/model';
+import { BaseModel, model, action, observable, computed, modelize, NEW_ID } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
@@ -55,7 +55,7 @@ class PageNotes extends Map {
 }
 
 class HighlightedSection extends BaseModel {
-    @identifier uuid;
+    @field uuid = NEW_ID;
     @observable title;
     @model(ChapterSection) chapter_section;
 

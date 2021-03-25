@@ -1,4 +1,4 @@
-import { BaseModel, identifier, field, computed, observable } from 'shared/model';
+import { BaseModel, field, computed, observable, NEW_ID } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { compact, includes } from 'lodash';
 
@@ -10,7 +10,7 @@ const TAGS = {
 
 export default class ExerciseTag extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field data;
   @field is_visible;
   @field type;

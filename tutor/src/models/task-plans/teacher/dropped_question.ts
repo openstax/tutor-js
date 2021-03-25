@@ -1,8 +1,7 @@
-import { BaseModel, field, identifier, action, modelize } from 'shared/model';
-import { observable } from 'mobx';
+import { BaseModel, field, action, modelize, observable, NEW_ID } from 'shared/model';
 
 class DroppedQuestion extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field question_id;
     @field drop_method = 'zeroed';
     @field updated_at;

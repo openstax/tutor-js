@@ -1,4 +1,4 @@
-import { BaseModel, identifier, model, field, modelize } from 'shared/model';
+import { BaseModel, model, field, modelize, NEW_ID } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -56,7 +56,7 @@ export default class Tour extends BaseModel {
           return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
       }
 
-    @identifier id;
+    @field id = NEW_ID;
 
     @field group_id;
     @field name;

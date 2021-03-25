@@ -2,13 +2,13 @@ import { last, map, filter, reduce } from 'lodash';
 import {
     BaseModel,
     model,
-    identifier,
     field,
     computed,
     action,
     observable,
     model,
     modelize,
+    NEW_ID,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -24,7 +24,7 @@ export default class TutorExercise extends BaseModel {
         modelize(this);
     }
 
-  @identifier id;
+  @field id = NEW_ID;
   @field ecosystem_id;
 
   @model(ExerciseContent) content;

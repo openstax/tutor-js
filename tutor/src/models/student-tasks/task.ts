@@ -1,6 +1,4 @@
-import {
-    BaseModel, field, identifier, model, action, computed, observable,
-} from 'shared/model';
+import { BaseModel, field, model, action, computed, observable, NEW_ID } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
@@ -12,7 +10,7 @@ export { StudentTaskStep };
 
 export default class StudentTask extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field title;
   @field description;
   @field type;

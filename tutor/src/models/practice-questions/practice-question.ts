@@ -1,10 +1,9 @@
 import { extend } from 'lodash';
-import { computed, action } from 'mobx';
-import { BaseModel, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, modelize, computed, action, NEW_ID } from 'shared/model';
 
 export default class PracticeQuestion extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field tasked_exercise_id;
   @field exercise_id;
   @field available;

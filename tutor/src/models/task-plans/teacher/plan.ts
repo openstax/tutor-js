@@ -6,9 +6,9 @@ import {
   observable,
   createAtom,
   toJS,
-  identifier,
   model,
   modelize,
+  NEW_ID,
 } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import Exercises from '../../exercises';
@@ -64,7 +64,7 @@ class QuestionInfo {
 
 export default class TeacherTaskPlan extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field title = '';
   @field description = '';
   @field type;

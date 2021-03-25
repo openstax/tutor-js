@@ -1,4 +1,12 @@
-import { BaseModel, identifier, action, observable, computed, model, modelize } from 'shared/model';
+import {
+  BaseModel,
+  action,
+  observable,
+  computed,
+  model,
+  modelize,
+  NEW_ID,
+} from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import UiSettings from 'shared/model/ui-settings';
 
@@ -7,7 +15,7 @@ const LMS_VENDOR = 'lmsv';
 export default class CourseLMS extends BaseModel {
     @observable course;
 
-    @identifier id;
+    @field id = NEW_ID;
     @observable key;
     @observable secret;
     @observable launch_url;

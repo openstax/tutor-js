@@ -1,8 +1,7 @@
-import { BaseModel, field, identifier, model, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, action, NEW_ID } from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
 } from 'lodash';
-import { computed, action } from 'mobx';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import UiSettings from 'shared/model/ui-settings';
 import Offerings, { Offering } from './course/offerings';
@@ -38,7 +37,7 @@ const SAVEABLE_ATTRS = [
 
 export default class Course extends BaseModel {
 
-    @identifier id;
+    @field id = NEW_ID;
 
     @field name;
     @field code;

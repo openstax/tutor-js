@@ -1,4 +1,4 @@
-import { BaseModel, identifier, action, observable, computed, modelize } from 'shared/model';
+import { BaseModel, action, observable, computed, modelize, NEW_ID } from 'shared/model';
 import { last } from 'lodash';
 
 import invariant from 'invariant';
@@ -6,7 +6,7 @@ import invariant from 'invariant';
 const MAX_ATTEMPTS = 50;
 
 export default class Job extends BaseModel {
-    @identifier jobId;
+    @field jobId = NEW_ID;
 
     @observable pollingId;
     @observable attempts = 0;

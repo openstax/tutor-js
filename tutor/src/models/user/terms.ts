@@ -1,5 +1,4 @@
-import { BaseModel, identifier, field, model, modelize } from 'shared/model';
-import { computed, action } from 'mobx';
+import { BaseModel, field, model, modelize, computed, action, NEW_ID } from 'shared/model';
 import { isProd } from '../../helpers/production';
 
 const REQUIRED_FOR_EVERYONE = [
@@ -8,7 +7,7 @@ const REQUIRED_FOR_EVERYONE = [
 ];
 
 class Term extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field title;
     @field content;
     @field has_signed_before;

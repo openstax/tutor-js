@@ -1,12 +1,10 @@
-import {
-    BaseModel, identifier, model, computed, action,
-} from 'shared/model';
+import { BaseModel, model, computed, action, NEW_ID } from 'shared/model';
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
 
 export default class StudentTaskStepGroup extends BaseModel {
 
-  @identifier uid;
+  @field uid = NEW_ID;
   @model(StudentTaskStep) steps;
 
   @readonly isGrouped = true;

@@ -1,12 +1,11 @@
-import { computed } from 'mobx';
-import { BaseModel, identifier, model, modelize } from 'shared/model';
+import { BaseModel, model, modelize, computed, NEW_ID } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
 import lazyGetter from 'shared/helpers/lazy-getter';
 
 export default class Ecosystem extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @model(Book) books;
 
     constructor() {

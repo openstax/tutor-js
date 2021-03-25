@@ -1,13 +1,13 @@
 import { findIndex, isNil } from 'lodash';
 import { moment, computed } from 'vendor';
-import { BaseModel, model, identifier, field } from 'shared/model';
+import { BaseModel, model, field, NEW_ID } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
 
 export default class TaskResult extends BaseModel {
-  @identifier id;
+  @field id = NEW_ID;
   @field({ type: 'bignum' }) score;
   @field points;
   @field published_points;

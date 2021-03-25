@@ -1,8 +1,16 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
-import { action, observable, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 import Map from 'shared/model/map';
-import { BaseModel, identifier, field, model, modelize } from 'shared/model';
+import {
+  BaseModel,
+  field,
+  model,
+  modelize,
+  action,
+  observable,
+  computed,
+  NEW_ID,
+} from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
@@ -23,7 +31,7 @@ function mapPages(page, pages) {
 }
 
 export default class ReferenceBook extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field archive_url;
     @field webview_url;
 

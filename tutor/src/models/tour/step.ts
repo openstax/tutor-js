@@ -1,8 +1,4 @@
-import { BaseModel, identifier, model, field, modelize } from 'shared/model';
-
-import {
-    computed, action,
-} from 'mobx';
+import { BaseModel, model, field, modelize, computed, action, NEW_ID } from 'shared/model';
 
 import { isEmpty, intersection } from 'lodash';
 
@@ -22,7 +18,7 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 // Has a title and rich text body.
 
 export default class TourStep extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
 
     @model tour;
 

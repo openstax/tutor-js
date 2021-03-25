@@ -1,6 +1,4 @@
-import {
-    BaseModel, field, identifier, model, computed,
-} from 'shared/model';
+import { BaseModel, field, model, computed, NEW_ID } from 'shared/model';
 import Exercises from '../../exercises';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
@@ -10,7 +8,7 @@ import DroppedQuestion from './dropped_question';
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
 
 class TaskPlanScoreStudentQuestion extends BaseModel {
-  @identifier question_id;
+  @field question_id = NEW_ID;
   @field exercise_id;
   @field is_completed = false;
   @field points;
@@ -123,7 +121,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 }
 
 class TaskPlanScoreStudent extends BaseModel {
-  @identifier role_id;
+  @field role_id = NEW_ID;
   @field task_id;
   @field first_name;
   @field last_name;
@@ -171,7 +169,7 @@ class TaskPlanScoreStudent extends BaseModel {
 }
 
 class TaskPlanScoreHeading extends BaseModel {
-  @identifier title;
+  @field title = NEW_ID;
   @field exercise_id;
   @field question_id;
   @field type;
@@ -287,7 +285,7 @@ class TaskPlanScoreHeading extends BaseModel {
 }
 
 class TaskPlanScoresTasking extends BaseModel {
-  @identifier id;
+  @field id = NEW_ID;
   @field period_id;
   @field period_name;
   @field total_fraction;
@@ -420,7 +418,7 @@ class TaskPlanScoresTasking extends BaseModel {
 
 export default class TaskPlanScores extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field title;
   @field description;
   @field type;

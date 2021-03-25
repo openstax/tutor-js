@@ -4,7 +4,6 @@ import { SerializedHighlight } from '@openstax/highlighter';
 import {
   BaseModel,
   field,
-  identifier,
   computed,
   action,
   toJS,
@@ -12,13 +11,14 @@ import {
   observable,
   model,
   modelize,
+  NEW_ID,
 } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 
 export default class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
-  @identifier id;
+  @field id = NEW_ID;
   @field annotation = '';
   @field anchor;
   @field course_id;

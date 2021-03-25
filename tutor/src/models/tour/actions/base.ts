@@ -1,6 +1,4 @@
-export {
-    identifier, model, field, computed,
-} from 'shared/model';
+export { model, field, computed } from 'shared/model';
 import { extend, pick } from 'lodash';
 import { BaseModel, computed } from 'shared/model';
 

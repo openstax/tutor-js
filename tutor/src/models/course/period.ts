@@ -1,10 +1,18 @@
 import { find, pick, last } from 'lodash';
-import { computed, action, runInAction } from 'mobx';
 import Student from './student';
-import { BaseModel, field, identifier, model, modelize } from 'shared/model';
+import {
+  BaseModel,
+  field,
+  model,
+  modelize,
+  computed,
+  action,
+  runInAction,
+  NEW_ID
+} from 'shared/model';
 
 export default class CoursePeriod extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
 
     @field name;
     @field default_due_time;

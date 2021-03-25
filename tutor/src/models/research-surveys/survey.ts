@@ -1,9 +1,8 @@
 import { pick } from 'lodash';
-import { computed } from 'mobx';
-import { BaseModel, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, modelize, computed, NEW_ID } from 'shared/model';
 
 export default class ResearchSurvey extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field title;
     @field model?: any;
     @field response;

@@ -1,8 +1,5 @@
 import { moment } from 'vendor';
-import {
-    BaseModel, field, identifier,
-    observable, computed, action, model,
-} from 'shared/model';
+import { BaseModel, field, observable, computed, action, model, NEW_ID } from 'shared/model';
 import S from '../../helpers/string';
 import { pick, get, isNil } from 'lodash';
 import Exercise from '../exercises/exercise';
@@ -70,7 +67,7 @@ const NO_ADDITIONAL_CONTENT = [
 
 export default class StudentTaskStep extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field uid;
   @field preview;
   @field available_points;

@@ -5,8 +5,8 @@ import {
     computed,
     model,
     field,
-    identifier,
     modelize,
+    NEW_ID,
 } from 'shared/model';
 import {
     get, flatMap, groupBy, find, isEmpty, keys,
@@ -50,7 +50,7 @@ class AnswerStat extends BaseModel {
 
 class Student extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field name;
 
 }
@@ -131,7 +131,7 @@ class QuestionStats extends BaseModel {
 }
 
 class Page extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field({ model: ChapterSection }) chapter_section
     @observable title;
     @observable correct_count;
@@ -195,7 +195,7 @@ class Stats extends BaseModel {
 }
 
 export default class TaskPlanStats extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @observable title;
     @observable type;
 

@@ -1,7 +1,6 @@
 import { reduce, isEmpty, isNil } from 'lodash';
-import { action, computed } from 'mobx';
 import Big from 'big.js';
-import { BaseModel, identifier, field, model, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, action, computed, NEW_ID } from 'shared/model';
 
 import TaskResult from './task-result';
 
@@ -11,7 +10,7 @@ export default class Student extends BaseModel {
     @field last_name;
     @field is_dropped;
     @field name;
-    @identifier role;
+    @field role = NEW_ID;
     @field student_identifier;
     @model('scores/period') period;
 

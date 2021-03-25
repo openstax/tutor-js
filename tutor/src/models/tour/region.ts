@@ -1,13 +1,11 @@
-import {
-    BaseModel, field, identifier, computed,
-} from 'shared/model';
+import { BaseModel, field, computed, NEW_ID } from 'shared/model';
 
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
 
 export default class TourRegion extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field courseId;
 
   @field otherTours?: any[];
