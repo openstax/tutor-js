@@ -1,53 +1,45 @@
+import type Course from '../course'
 import { computed, action } from 'mobx';
 import { readonly } from 'core-decorators';
-import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
-import Time from '../time';
+import { BaseModel, model, field, modelize, NEW_ID, lazyGetter, getParentOf } from 'shared/model';
+import DateTime from 'shared/model/date-time'
 import moment from 'moment';
 import { pick } from 'lodash';
 import Payments from '../payments';
 
-@identifiedBy('course/student')
 export default class CourseStudent extends BaseModel {
-    @identifier id;
-
     @readonly static TEACHER_AS_STUDENT_ID = -9;
 
-    @field name;
-    @field uuid;
+    @field id = NEW_ID;
+    @field name = '';
+    @field uuid = '';
     @field first_name = '';
     @field last_name = '';
-    @field is_active;
-    @field is_comped;
-    @field is_paid;
-    @field is_refund_allowed;
-    @field is_refund_pending;
-    @field({ type: 'date' }) payment_due_at;
-    @field prompt_student_to_pay;
+    @field is_active = false;
+    @field is_comped = false;
+    @field is_paid = false;
+    @field is_refund_allowed = false;
+    @field is_refund_pending = false;
+    @model(DateTime) payment_due_at = DateTime.unknown;
+    @field prompt_student_to_pay = false;
 
-    @field period_id;
-    @field role_id;
-    @field student_identifier;
+    @field period_id = NEW_ID;
+    @field role_id = NEW_ID;
+    @field student_identifier = '';
 
-    @belongsTo course;
-    @belongsTo({ model: 'course/roster' }) roster;
+    get course() { return getParentOf(this) as Course }
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
-    @computed get courseId() {
-        return this.course ? this.courseId : this.roster.course.id;
-    }
-
     get mustPayImmediately() {
-        return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(Time.now));
+        return Boolean(this.needsPayment && this.payment_due_at.isInPast);
     }
 
     get trialTimeRemaining() {
-        return moment.duration(moment().diff(moment(this.payment_due_at))).humanize();
+        return moment.duration(moment().diff(moment(this.payment_due_at.asDate))).humanize();
     }
 
     onSaved({ data }) {
@@ -66,10 +58,8 @@ export default class CourseStudent extends BaseModel {
     @computed get isUnPaid() {
         return Boolean(
             this.course.does_cost &&
-          !this.course.is_preview &&
-          (
-              this.is_refund_pending || (!this.is_paid && !this.is_comped)
-          )
+                !this.course.is_preview &&
+                ( this.is_refund_pending || (!this.is_paid && !this.is_comped) )
         );
     }
 

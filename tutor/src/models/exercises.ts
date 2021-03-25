@@ -160,7 +160,7 @@ export class ExercisesMap extends Map {
         }
     }
 
-    @action onLoaded(reply, [{ course, book, page_ids }]) {
+    @action onLoaded(reply, [{ course, book, page_ids }]: any) {
         if (course && !book) {
             book = course.referenceBook;
         }

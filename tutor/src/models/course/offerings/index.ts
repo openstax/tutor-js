@@ -1,25 +1,11 @@
 import { computed, action } from 'mobx';
-import Map from 'shared/model/map';
+import Map, { ID, modelize } from 'shared/model/map';
 import Offering from './offering';
 
-class OfferingsMap extends Map {
+class OfferingsMap extends Map<ID, Offering> {
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
-    }
-
-    onLoaded({ data: { items } }) {
-        items.forEach(offering => this.set(offering.id, new Offering(offering)));
-    }
-
-    get fetched() {
-        if (!this.isFetched && this.fetch){
-            this.fetch();
-            this.isFetched = true;
-        }
-        return this;
     }
 
     @computed get tutor() {
@@ -38,12 +24,10 @@ class OfferingsMap extends Map {
         return this.available.where(c => c.appearance_code == 'biology_2e');
     }
 
-    @action bootstrap(items) {
-        this.onLoaded({ data: { items } })
+    @action bootstrap(items: any) {
+        this.replace(items)
     }
 
-    // will be overwritten by API
-    fetch() {}
 }
 
 const offeringsMap = new OfferingsMap();

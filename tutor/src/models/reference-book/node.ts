@@ -1,9 +1,13 @@
+import type Book from '../reference-book'
 import { merge, pick, filter } from 'lodash';
 import { action, computed } from 'mobx';
-import { BaseModel, hasMany, identifiedBy, identifier, field, session, modelize } from 'shared/model';
+import {
+    BaseModel, model, NEW_ID, field, observable,
+    modelize, getParentOf, hydrate, extendedArray,
+} from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
-import { getters } from '../../helpers/computed-property';
+import ReferenceBook from '../reference-book';
 
 const NON_ASSIGNABLE_TITLES = [
     'Glossary',
@@ -32,32 +36,34 @@ const NOT_FOUND_CONTENT = {
   `,
 };
 
-@identifiedBy('reference-book/node')
 export default class ReferenceBookNode extends BaseModel {
-    @identifier id;
-    @field title;
-    @field type;
 
-    @field cnx_id;
-    @field short_id;
-    @field uuid;
-    @field({ model: ChapterSection }) chapter_section;
-    @session chapter;
+
+    // a mock page for use by entities such as exercises that need to indicate
+    // they are not linked to a "real" page
+    // eslint-disable-next-line
+    static UNKNOWN = hydrate(ReferenceBookNode, { id: 'UNKNOWN', chapter_section: ['99','99'] })
+
+    @field id = NEW_ID;
+    @field title = '';
+    @field type = '';
+
+    @field cnx_id = '';
+    @field short_id = '';
+    @field uuid = '';
+    @field(ChapterSection) chapter_section = new ChapterSection();
+
+    @observable chapter = '';
 
     @field content_html = '';
 
-    @hasMany({
-        model: 'reference-book/node', inverseOf: 'parent',
-        extend: getters({
-            assignable() { return filter(this, 'isAssignable'); },
-            first() { return this.length ? this[0] : null; },
-        }),
-    }) children;
+    @model(Node) children: Node[] = extendedArray<Node>({
+        get assignable() { return filter(this, 'isAssignable'); },
+        get first() { return this.length ? this[0] : null; },
+    })
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -80,7 +86,7 @@ export default class ReferenceBookNode extends BaseModel {
     }
 
     @computed get pathId() {
-        let n = this;
+        let n: any = this;
         let path = [this.index];
         while (n.parent) {
             n = n.parent;
@@ -89,13 +95,13 @@ export default class ReferenceBookNode extends BaseModel {
         return path.join('-');
     }
 
-    @session({ type: 'object' }) parent;
+    get parent(): ReferenceBookNode | Book { return getParentOf(this) }
 
     // nb these are not observable, othewise they can't be set from within mapPages computed
-    nextPage = null;
-    prevPage = null;
+    nextPage: ReferenceBookNode | null = null;
+    prevPage: ReferenceBookNode | null = null;
 
-    @action linkNextPage(pg) {
+    @action linkNextPage(pg: ReferenceBookNode) {
         this.nextPage = pg;
         pg.prevPage = this;
         return pg;
@@ -117,19 +123,19 @@ export default class ReferenceBookNode extends BaseModel {
             .replace(/<\/body>[\s\S]*$/, '');
     }
 
-    @computed get book() {
-        let n = this;
+    @computed get book(): ReferenceBook {
+        let n: any = this;
         while (n.parent) {
             n = n.parent;
         }
-        return n;
+        return n as ReferenceBook;
     }
 
     fetchContent() {
         return { cnx_id: this.cnx_id, ecosystemId: this.book.id };
     }
 
-    @action onContentFetchComplete({ data }) {
+    @action onContentFetchComplete({ data }: any) {
         this.update(pick(data, UPDATEABLE_FIELDS));
         MediaActions.parse(this.content_html);
     }
@@ -170,8 +176,3 @@ export default class ReferenceBookNode extends BaseModel {
         return `${this.chapter_section.asString}. ${this.titleText}`;
     }
 }
-
-// a mock page for use by entities such as exercises that need to indicate
-// they are not linked to a "real" page
-// eslint-disable-next-line
-ReferenceBookNode.UNKNOWN = new ReferenceBookNode({ id: 'UNKNOWN', chapter_section: ['99','99'] });

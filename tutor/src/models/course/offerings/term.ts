@@ -1,18 +1,22 @@
 import {
-    BaseModel, field, identifiedBy,
+    BaseModel, field, modelize,
 } from 'shared/model';
 
-@identifiedBy('offerings/term')
 export default class Term extends BaseModel {
 
-  @field term;
-  @field year;
+    @field term = '';
+    @field year = 0;
 
-  is(term, year) {
-      return this.term == term && this.year === year;
-  }
+    constructor() {
+        super();
+        modelize(this);
+    }
 
-  isEqual(other) {
-      return Boolean(other && this.is(other.term, other.year));
-  }
+    is(term: string, year: number) {
+        return this.term == term && this.year === year;
+    }
+
+    isEqual(other: Term) {
+        return Boolean(other && this.is(other.term, other.year));
+    }
 }

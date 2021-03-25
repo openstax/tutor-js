@@ -73,7 +73,10 @@ class StudentTaskPlans extends Map {
   }
 
   // note: the response also contains limited course and role information but they're currently unused
-  onLoaded({ data: { tasks, research_surveys, all_tasks_are_ready } }) {
+  onLoaded(
+      { data: { tasks, research_surveys, all_tasks_are_ready } }:
+      { data: { tasks: Task[], research_surveys?: any, all_tasks_are_ready?: boolean } }
+  ) {
       this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
       this.mergeModelData(tasks);
       this.all_tasks_are_ready = all_tasks_are_ready;

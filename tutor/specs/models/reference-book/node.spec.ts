@@ -1,7 +1,9 @@
+
 import Factory from '../../factories';
 
 describe('Reference Book Node', () => {
-    let page;
+    let page = Factory.page();
+
     beforeEach(() => {
         page = Factory.page();
     });

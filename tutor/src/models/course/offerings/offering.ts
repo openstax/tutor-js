@@ -1,31 +1,28 @@
-import { BaseModel, field, identifier, hasMany, identifiedBy, modelize } from 'shared/model';
+import { BaseModel, field, NEW_ID, modelize, model } from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
 import { computed } from 'mobx';
 import Term from './term';
 
-@identifiedBy('offerings/offering')
 export default class Offering extends BaseModel {
     @readonly static possibleTerms = [
         'spring', 'summer', 'fall', 'winter',
     ];
 
-    @identifier id;
-    @field title;
-    @field description;
-    @field is_concept_coach;
-    @field is_tutor;
+    @field id = NEW_ID;
+    @field title = '';
+    @field description = '';
+    @field is_concept_coach = false;
+    @field is_tutor = false;
     @field is_preview_available = true;
     @field is_available = true;
-    @field preview_message;
-    @field appearance_code;
+    @field preview_message = '';
+    @field appearance_code = '';
 
-    @hasMany({ model: Term }) active_term_years;
+    @model(Term) active_term_years: Term[] = [];
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
