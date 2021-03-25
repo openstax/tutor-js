@@ -10,7 +10,7 @@ export default class TourRegion extends BaseModel {
   @identifier id;
   @field courseId;
 
-  @field({ type: 'array' }) otherTours;
+  @field otherTours?: any[];
 
   @computed get tour_ids() {
       // this seems convoluted, but this makes it so that `tour_ids` will react

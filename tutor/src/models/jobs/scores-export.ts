@@ -1,6 +1,5 @@
-import { session, modelize } from 'shared/model';
+import { observable, computed, modelize } from 'shared/model';
 import moment from 'moment';
-import { observable, computed } from 'mobx';
 import Job from '../job';
 import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
@@ -22,7 +21,7 @@ export default class ScoresExport extends Job {
     }
 
   @observable course;
-  @session url;
+  @observable url;
 
   @computed get lastExportedAt() {
       const date = UiSettings.get(LAST_EXPORT, this.course.id);

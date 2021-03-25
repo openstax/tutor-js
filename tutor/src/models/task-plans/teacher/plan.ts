@@ -1,5 +1,16 @@
-import { BaseModel, field, session, identifier, model, modelize } from 'shared/model';
-import { action, computed, observable, createAtom, toJS } from 'mobx';
+import {
+  BaseModel,
+  field,
+  action,
+  computed,
+  observable,
+  createAtom,
+  toJS,
+  identifier,
+  model,
+  modelize,
+} from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import Exercises from '../../exercises';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
@@ -59,9 +70,9 @@ export default class TeacherTaskPlan extends BaseModel {
   @field type;
 
   @field ecosystem_id;
-  @field({ type: 'date' }) first_published_at
-  @field({ type: 'date' }) last_published_at;
-  @session({ type: 'date' }) publish_last_requested_at;
+  @model(DateTime) first_published_at?: DateTime;
+  @model(DateTime) last_published_at?: DateTime;
+  @model(DateTime) publish_last_requested_at?: DateTime;
   @field failed_at;
   @field killed_at;
   @field is_draft;
@@ -76,8 +87,8 @@ export default class TeacherTaskPlan extends BaseModel {
   @field ungraded_step_count;
   @field gradable_step_count;
   @field wrq_count;
-  @field({ type: 'object' }) extensions; // null by default
-  @field({ type: 'object' }) settings = {};
+  @field extensions?: any; // null by default
+  @field settings?: any = {};
 
   @model(DroppedQuestion) dropped_questions;
 

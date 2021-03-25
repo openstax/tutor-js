@@ -1,6 +1,5 @@
-import { BaseModel, identifier, session, modelize } from 'shared/model';
+import { BaseModel, identifier, action, observable, computed, modelize } from 'shared/model';
 import { last } from 'lodash';
-import { action, observable, computed } from 'mobx';
 
 import invariant from 'invariant';
 
@@ -10,11 +9,11 @@ export default class Job extends BaseModel {
     @identifier jobId;
 
     @observable pollingId;
-    @session attempts = 0;
-    @session interval = 5;
-    @session maxAttempts = 30;
-    @session status;
-    @session progress;
+    @observable attempts = 0;
+    @observable interval = 5;
+    @observable maxAttempts = 30;
+    @observable status;
+    @observable progress;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

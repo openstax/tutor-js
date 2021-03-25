@@ -3,6 +3,7 @@ import { action, observable, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 import Map from 'shared/model/map';
 import { BaseModel, identifier, field, model, modelize } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
 
@@ -57,7 +58,7 @@ export default class ReferenceBook extends BaseModel {
     @field title;
     @field type;
     @field uuid;
-    @field({ type: 'date' }) baked_at;
+    @model(DateTime) baked_at = DateTime.unknown;
     @field is_collated;
 
     fetch() {

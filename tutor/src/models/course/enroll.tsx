@@ -1,6 +1,14 @@
 import React from 'react';
-import { BaseModel, field, identifier, computed, session, modelize } from 'shared/model';
-import { action, when, observable } from 'mobx';
+import {
+  BaseModel,
+  field,
+  identifier,
+  computed,
+  action,
+  when,
+  observable,
+  modelize,
+} from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import Courses, { Course } from '../courses-map';
@@ -16,11 +24,11 @@ export default class CourseEnrollment extends BaseModel {
     @field enrollment_code;
 
     @field student_identifier;
-    @session pendingEnrollmentCode;
-    @session originalEnrollmentCode;
-    @session({ type: 'object' }) to = {};
-    @session status;
-    @session({ type: 'object' }) history;
+    @observable pendingEnrollmentCode;
+    @observable originalEnrollmentCode;
+    @observable to: any = {};
+    @observable status;
+    @observable history?: any;
     @observable isComplete = false;
     @observable courseToJoin;
     @observable isLoadingCourses;

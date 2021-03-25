@@ -3,6 +3,7 @@ import moment from 'moment';
 import {
     BaseModel, field, identifier, model, computed,
 } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import Courses from '../courses-map';
 import Time from '../time';
 import S from '../../helpers/string';
@@ -21,8 +22,8 @@ export default class Purchase extends BaseModel {
   @field is_refunded;
   @field sales_tax;
   @field total;
-  @field({ type: 'date' }) updated_at;
-  @field({ type: 'date' }) purchased_at;
+  @model(DateTime) updated_at = DateTime.unknown;
+  @model(DateTime) purchased_at = DateTime.unknown;
   @model(Product) product;
 
   @computed get course() {

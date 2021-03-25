@@ -1,11 +1,12 @@
 import { last, map, filter, reduce } from 'lodash';
-import { computed, action, observable } from 'mobx';
 import {
     BaseModel,
     model,
     identifier,
     field,
-    session,
+    computed,
+    action,
+    observable,
     model,
     modelize,
 } from 'shared/model';
@@ -34,11 +35,11 @@ export default class TutorExercise extends BaseModel {
   @field has_interactive = false;
   @field has_video = false;
   @field page_uuid = false;
-  @field({ type: 'array' }) pool_types;
+  @field pool_types?: any[];
   @field url = '';
   @field context;
   @field preview;
-  @field({ type: 'object' }) author;
+  @field author?: any;
 
   @model(ExerciseContent) related_content;
 
@@ -52,7 +53,7 @@ export default class TutorExercise extends BaseModel {
       },
   }) */
 
-  @session isSelected = false;
+  @observable isSelected = false;
 
   @observable _page;
   @computed get page() {
@@ -67,7 +68,7 @@ export default class TutorExercise extends BaseModel {
       this._page = pg;
   }
   @model(ExerciseContent) question_stats;
-  @session average_step_number;
+  @observable average_step_number;
 
   @computed get isAssignable() { return !this.is_excluded; }
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }

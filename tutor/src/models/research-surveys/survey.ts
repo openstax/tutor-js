@@ -5,7 +5,7 @@ import { BaseModel, field, identifier, modelize } from 'shared/model';
 export default class ResearchSurvey extends BaseModel {
     @identifier id;
     @field title;
-    @field({ type: 'object' }) model;
+    @field model?: any;
     @field response;
 
     constructor() {

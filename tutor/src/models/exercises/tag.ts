@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifier, field, computed, session,
-} from 'shared/model';
+import { BaseModel, identifier, field, computed, observable } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { compact, includes } from 'lodash';
 
@@ -18,7 +16,7 @@ export default class ExerciseTag extends BaseModel {
   @field type;
   @field name;
   @field description;
-  @session exercise;
+  @observable exercise;
   @field({ model: ChapterSection }) chapter_section;
 
   @computed get isImportant() {

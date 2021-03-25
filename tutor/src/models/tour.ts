@@ -60,7 +60,7 @@ export default class Tour extends BaseModel {
 
     @field group_id;
     @field name;
-    @field({ type: 'array' }) audience_tags;
+    @field audience_tags?: any[];
     @field scrollToSteps;
     @field showOverlay;
     @field autoplay = false;

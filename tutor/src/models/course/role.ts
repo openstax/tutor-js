@@ -1,11 +1,12 @@
 import { BaseModel, field, identifier, model, modelize } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
 
 export default class CourseRole extends BaseModel {
     @identifier id;
-    @field({ type: 'date' }) joined_at;
+    @model(DateTime) joined_at = DateTime.unknown;
     @field type;
     @field period_id;
     @field research_identifier;

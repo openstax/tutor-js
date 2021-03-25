@@ -1,6 +1,4 @@
-import {
-    BaseModel, field, action, session, computed,
-} from 'shared/model';
+import { BaseModel, field, action, observable, computed } from 'shared/model';
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
@@ -11,7 +9,7 @@ export default class TaskingPlan extends BaseModel {
   @field id;
   @field target_id;
   @field target_type;
-  @session({ type: 'object' }) plan;
+  @observable plan?: any;
 
   // Note: These are deliberatly NOT set to {type: 'date'}
   // doing so causes strings in YYYY-MM-DD format to be converted to a date

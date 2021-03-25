@@ -81,11 +81,11 @@ export default class StudentTaskStep extends BaseModel {
   @field feedback_html;
   @field correct_answer_id;
   @field last_completed_at;
-  @field({ type: 'object' }) response_validation;
-  @field({ type: 'object' }) spy;
+  @field response_validation?: any;
+  @field spy?: any;
   @field external_url;
-  @field({ type: 'array' }) labels;
-  @field({ type: 'array' }) formats;
+  @field labels?: any[];
+  @field formats?: any[];
   @field group;
   @field can_be_updated;
   @field dropped_method;
@@ -97,7 +97,7 @@ export default class StudentTaskStep extends BaseModel {
   @field tasked_id;
   @field exercise_id;
 
-  @field({ type: 'object' }) task;
+  @field task?: any;
   @observable content;
 
   @model('student-tasks/step-group') multiPartGroup;

@@ -1,6 +1,7 @@
 import {
-    BaseModel, field, identifier, model, action, session, computed, observable,
+    BaseModel, field, identifier, model, action, computed, observable,
 } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
@@ -22,16 +23,16 @@ export default class StudentTask extends BaseModel {
   @field late_work_penalty_per_period;
   @field published_late_work_point_penalty; // point penalty that is visible to the student
   @field published_points; // points that are visible to the student
-  @field({ type: 'object' }) spy;
-  @field({ type: 'date' }) due_at;
-  @field({ type: 'date' }) closes_at;
+  @field spy?: any;
+  @model(DateTime) due_at?: DateTime;
+  @model(DateTime) closes_at?: DateTime;
 
   @field is_provisional_score;
 
   @model(Student) students;
   @model(StudentTaskStep) steps;
 
-  @session({ type: 'object' }) tasksMap;
+  @observable tasksMap?: any;
 
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }

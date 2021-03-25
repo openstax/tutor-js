@@ -1,7 +1,7 @@
-import { BaseModel, field, model, session, modelize } from 'shared/model';
+import { BaseModel, field, model, action, computed, observable, modelize } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import moment from 'moment';
 import { find, startsWith, map, uniq, max } from 'lodash';
-import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms, Term } from './user/terms';
@@ -46,7 +46,7 @@ class User extends BaseModel {
     @model(Term) available_terms = [];
 
     @model(ViewedTourStat) viewed_tour_stats;
-    @session({ type: 'date' }) created_at;
+    @model(DateTime) created_at = DateTime.unknown;
 
     @computed get firstName() {
         return this.first_name || (this.name ? this.name.replace(/ .*/, '') : '');

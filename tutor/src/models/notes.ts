@@ -1,6 +1,5 @@
-import { action, observable, computed } from 'mobx';
 import { sortBy, values } from 'lodash';
-import { BaseModel, model, session, identifier, modelize } from 'shared/model';
+import { BaseModel, model, action, observable, computed, identifier, modelize } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
@@ -57,8 +56,8 @@ class PageNotes extends Map {
 
 class HighlightedSection extends BaseModel {
     @identifier uuid;
-    @session title;
-    @session({ model: ChapterSection }) chapter_section;
+    @observable title;
+    @model(ChapterSection) chapter_section;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

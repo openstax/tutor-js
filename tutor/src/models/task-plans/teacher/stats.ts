@@ -1,7 +1,8 @@
 import {
     BaseModel,
     model,
-    session,
+    observable,
+    computed,
     model,
     field,
     identifier,
@@ -10,7 +11,6 @@ import {
 import {
     get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
-import { computed } from 'mobx';
 import { getters } from '../../../helpers/computed-property';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../../chapter-section';
@@ -18,8 +18,8 @@ import Exercise from '../../exercises/exercise';
 import { ReviewQuestion } from 'shared/model/exercise/question';
 
 class AnswerStat extends BaseModel {
-    @session answer_id;
-    @session selected_count;
+    @observable answer_id;
+    @observable selected_count;
 
     @model('task-plan/stats/question') question;
 
@@ -56,8 +56,8 @@ class Student extends BaseModel {
 }
 
 class Answer extends BaseModel {
-    @session free_response;
-    @session answer_id;
+    @observable free_response;
+    @observable answer_id;
     @model('task-plan/stats/question') students;
     @model('task-plan/stats/question') question;
 
@@ -88,9 +88,9 @@ const AnswersAssociation = {
 };
 
 class QuestionStats extends BaseModel {
-    @session question_id;
-    @session answered_count;
-    @session exercise;
+    @observable question_id;
+    @observable answered_count;
+    @observable exercise;
 
     @model(Answer) answers; // extend: AnswersAssociation
     @model(AnswerStat) answer_stats; /* extend: getters({
@@ -133,11 +133,11 @@ class QuestionStats extends BaseModel {
 class Page extends BaseModel {
     @identifier id;
     @field({ model: ChapterSection }) chapter_section
-    @session title;
-    @session correct_count;
-    @session incorrect_count;
-    @session is_trouble;
-    @session student_count;
+    @observable title;
+    @observable correct_count;
+    @observable incorrect_count;
+    @observable is_trouble;
+    @observable student_count;
 
     @model('task-plan/stats/question') exercises;
 
@@ -150,13 +150,13 @@ class Page extends BaseModel {
 }
 
 class Stats extends BaseModel {
-    @session period_id;
-    @session name;
-    @session total_count;
-    @session complete_count;
-    @session partially_complete_count;
+    @observable period_id;
+    @observable name;
+    @observable total_count;
+    @observable complete_count;
+    @observable partially_complete_count;
     @model('task-plan/stats/question') taskPlan;
-    @session is_trouble;
+    @observable is_trouble;
     @model('task-plan/stats/question') current_pages;
     @model('task-plan/stats/question') spaced_pages;
 
@@ -196,10 +196,10 @@ class Stats extends BaseModel {
 
 export default class TaskPlanStats extends BaseModel {
     @identifier id;
-    @session title;
-    @session type;
+    @observable title;
+    @observable type;
 
-    @session shareable_url;
+    @observable shareable_url;
 
     @model('task-plan/stats/question') stats;
 

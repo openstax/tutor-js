@@ -38,9 +38,9 @@ export default class TourStep extends BaseModel {
     @field spotLightPadding = 5;
     @field requiredViewsCount = 1;
     @field displayWithButtons = true;
-    @field({ type: 'object' }) action;
+    @field action?: any;
     @field className;
-    @field({ type: 'array' }) disabledBreakpoints;
+    @field disabledBreakpoints?: any[];
 
     windowSize = new WindowSize();
 

@@ -1,10 +1,9 @@
-import { observable } from 'mobx';
-import { computed } from 'mobx';
 import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import moment from 'moment';
 import Time from '../../time';
-import { BaseModel, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, identifier, modelize, observable, computed } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 
 export default class StudentTask extends BaseModel {
 
@@ -31,10 +30,10 @@ export default class StudentTask extends BaseModel {
   @field completed_on_time_steps_count = 0;
   @field completed_accepted_late_steps_count = 0;
   @field description;
-  @field({ type: 'date' }) last_worked_at;
-  @field({ type: 'date' }) due_at;
-  @field({ type: 'date' }) opens_at;
-  @field({ type: 'date' }) accepted_late_at;
+  @model(DateTime) last_worked_at?: DateTime;
+  @model(DateTime) due_at?: DateTime;
+  @model(DateTime) opens_at?: DateTime;
+  @model(DateTime) accepted_late_at?: DateTime;
 
   constructor(attrs, studentTasks) {
       super(attrs);
