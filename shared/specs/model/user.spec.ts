@@ -37,7 +37,7 @@ describe('User mode', function() {
         });
     });
 
-    fit('can send an email confirmation', function() {
+    it('can send an email confirmation', function() {
         const email = ld.first(user.unVerfiedEmails());
         email.sendVerification('1234');
         expect(Networking.perform).toHaveBeenCalledWith({

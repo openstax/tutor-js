@@ -1,4 +1,4 @@
-import { action } from 'mobx'
+import { action, observable, IObservableArray } from 'mobx'
 import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
 import { modelize, serialize } from 'modeled-mobx'
@@ -67,3 +67,9 @@ export {
     autorun,
     flowResult,
 } from 'mobx'
+
+export function extendedArray<M, E = Record<string, any>>(extensions: E): IObservableArray<M> & E {
+    const v = observable.array<M>()
+    Object.assign(v, extensions)
+    return v as IObservableArray<M> & E
+}
