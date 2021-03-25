@@ -3,6 +3,12 @@ import { action } from 'mobx';
 import { delay } from 'lodash';
 
 export default class OpenDowndownMenu extends BaseAction {
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
+
+        modelize(this);
+    }
 
     preValidate() {
     // click menu twice to force it to render
@@ -48,11 +54,11 @@ export default class OpenDowndownMenu extends BaseAction {
         );
     }
 
-  @action.bound clickMenu() {
-        if (!this.menu) { return Promise.resolve(); }
-        return new Promise((resolve) => {
-            delay(() => this.menu.click(), 5);
-            delay(() => resolve(), 50);
-        });
-    }
+    @action.bound clickMenu() {
+          if (!this.menu) { return Promise.resolve(); }
+          return new Promise((resolve) => {
+              delay(() => this.menu.click(), 5);
+              delay(() => resolve(), 50);
+          });
+      }
 }

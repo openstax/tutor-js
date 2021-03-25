@@ -48,73 +48,73 @@ Preamble.propTypes = {
 @observer
 export default class ExerciseTaskStep extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      step: PropTypes.instanceOf(Step).isRequired,
-      isFollowupMPQ: PropTypes.bool,
-      isMultiPart: PropTypes.bool,
-      windowImpl: PropTypes.object,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        step: PropTypes.instanceOf(Step).isRequired,
+        isFollowupMPQ: PropTypes.bool,
+        isMultiPart: PropTypes.bool,
+        windowImpl: PropTypes.object,
+    }
 
-  constructor(props) {
-      super(props);
-      const { step } = props;
-      if (!step.content || !step.content.questions) {
-          this.logAndRetryFetch();
-      }
-  }
+    constructor(props) {
+        super(props);
+        const { step } = props;
+        if (!step.content || !step.content.questions) {
+            this.logAndRetryFetch();
+        }
+    }
 
-  // TODO: remove this code when we no longer see it's messages logged
-  logAndRetryFetch() {
-      const { step } = this.props;
+    // TODO: remove this code when we no longer see it's messages logged
+    logAndRetryFetch() {
+        const { step } = this.props;
 
-      step.fetch().then(() => {
-          Raven.log('No questions found on step', {
-              stepId: step.id,
-              type: step.type,
-              foundAfterReFetch: !!(step.content && step.content.questions),
-          });
-      });
-  }
+        step.fetch().then(() => {
+            Raven.log('No questions found on step', {
+                stepId: step.id,
+                type: step.type,
+                foundAfterReFetch: !!(step.content && step.content.questions),
+            });
+        });
+    }
 
-  render() {
-      const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
-      const { content } = step;
+    render() {
+        const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
+        const { content } = step;
 
-      return (
-      <>
-        <StyledExercise
-            step={step}
-            questionNumber={ux.questionNumberForStep(step)}
-            numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
-            goBackward={() => ux.goToStep(ux.previousStep)}
-            canGoBackward={Boolean(ux.previousStep)}
-            goForward={() => ux.goToStep(ux.nextStep)}
-            canGoForward={Boolean(ux.nextStep)}
-
-        >
-            <Badges
-                spacedPractice={step.isSpacedPractice}
-                personalized={!isFollowupMPQ && step.isPersonalized}
-                multiPart={isMultiPart && !isFollowupMPQ}
-                writtenResponse={step.isWrittenResponseExercise}
-            />
-
-            <Preamble
-                content={content}
-                isHidden={isFollowupMPQ} />
-
-            {(content.questions || []).map((q, i) =>
-                <ExerciseQuestion
-                    ux={ux}
-                    index={i}
-                    key={q.id}
+        return (
+            <>
+                <StyledExercise
                     step={step}
-                    question={q}
-                />)}
-        </StyledExercise>
-      </>
-      );
-  }
+                    questionNumber={ux.questionNumberForStep(step)}
+                    numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
+                    goBackward={() => ux.goToStep(ux.previousStep)}
+                    canGoBackward={Boolean(ux.previousStep)}
+                    goForward={() => ux.goToStep(ux.nextStep)}
+                    canGoForward={Boolean(ux.nextStep)}
+
+                >
+                    <Badges
+                        spacedPractice={step.isSpacedPractice}
+                        personalized={!isFollowupMPQ && step.isPersonalized}
+                        multiPart={isMultiPart && !isFollowupMPQ}
+                        writtenResponse={step.isWrittenResponseExercise}
+                    />
+
+                    <Preamble
+                        content={content}
+                        isHidden={isFollowupMPQ} />
+
+                    {(content.questions || []).map((q, i) =>
+                        <ExerciseQuestion
+                            ux={ux}
+                            index={i}
+                            key={q.id}
+                            step={step}
+                            question={q}
+                        />)}
+                </StyledExercise>
+            </>
+        );
+    }
 
 }

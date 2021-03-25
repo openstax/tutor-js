@@ -22,21 +22,21 @@ global.mount   = enzyme.mount;
 global.expect.extend(toHaveNoViolations);
 global.axe = axe;
 if (!global.document.createRange) {
-  global.document.createRange = jest.fn(() => ({
-    setStart: () => {},
-    setEnd: () => {},
-    collapse: jest.fn(),
-    commonAncestorContainer: {
-      nodeName: 'BODY',
-      ownerDocument: document,
-    },
-  }));
+    global.document.createRange = jest.fn(() => ({
+        setStart: () => {},
+        setEnd: () => {},
+        collapse: jest.fn(),
+        commonAncestorContainer: {
+            nodeName: 'BODY',
+            ownerDocument: document,
+        },
+    }));
 }
 if (!global.window.customElements) {
-  global.customElements = {
-    get: () => false,
-    define: () => false,
-  };
+    global.customElements = {
+        get: () => false,
+        define: () => false,
+    };
 }
 
 Object.defineProperty(window, 'scrollTo', { value: jest.fn(), writable: true });

@@ -26,6 +26,7 @@ class StudentTaskPlans extends Map {
 
   constructor({ course } = {}) {
       super();
+      modelize(this);
       this.course = course;
   }
 

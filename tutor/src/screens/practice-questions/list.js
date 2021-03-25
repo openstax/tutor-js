@@ -230,34 +230,34 @@ const PracticeQuestionsList = ({ ux, history }) => {
     };
 
     return (
-    <>
-      <StyledExerciseCardsWrapper className="practice-questions-list">
-          <ExerciseCards {...exerciseCardProps}/>
-      </StyledExerciseCardsWrapper>
-      <StyledFooterControls>
-          <Button
-              data-test-id="clear-practice-selection"
-              variant="default"
-              disabled={isEmpty(selectedExerciseIds)}
-              onClick={clearSelection}>
+        <>
+            <StyledExerciseCardsWrapper className="practice-questions-list">
+                <ExerciseCards {...exerciseCardProps}/>
+            </StyledExerciseCardsWrapper>
+            <StyledFooterControls>
+                <Button
+                    data-test-id="clear-practice-selection"
+                    variant="default"
+                    disabled={isEmpty(selectedExerciseIds)}
+                    onClick={clearSelection}>
               Clear Selection
-          </Button>
-          <Button
-              data-test-id="start-practice"
-              variant="primary"
-              disabled={isEmpty(selectedExerciseIds)}
-              onClick={startPractice}>
+                </Button>
+                <Button
+                    data-test-id="start-practice"
+                    variant="primary"
+                    disabled={isEmpty(selectedExerciseIds)}
+                    onClick={startPractice}>
             Start Practice
-          </Button>
-      </StyledFooterControls>
-      {exerciseToBeDeleted && 
+                </Button>
+            </StyledFooterControls>
+            {exerciseToBeDeleted && 
         <DeleteQuestionModal
             onDelete={() => {
                 deletePracticeQuestion(exerciseToBeDeleted.id);
                 setExerciseToBeDeleted(null);
             }}
             onCancel={() => setExerciseToBeDeleted(null)}/> }
-    </>
+        </>
     );
 };
 PracticeQuestionsList.propTypes = {

@@ -18,145 +18,146 @@ const MENU_VISIBLE_BREAKPOINT = 1350;
 
 export default class QaScreenUX extends BookUX {
 
-  @readonly allowsAnnotating = false;
-  @observable ecosystemId;
+    @readonly allowsAnnotating = false;
+    @observable ecosystemId;
 
-  @observable isDisplayingExercises = true;
-  @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
-  @observable isShowing2StepPreview = false;
-  @observable ignoredExerciseTypes = [];
-  @observable appearance_code = 'default';
+    @observable isDisplayingExercises = true;
+    @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
+    @observable isShowing2StepPreview = false;
+    @observable ignoredExerciseTypes = [];
+    @observable appearance_code = 'default';
   
-  constructor({
-      history,
-      exercises = DefaultExercises,
-      ecosystems = DefaultEcosystems,
-  }) {
-      super();
-      this.history = history;
-      this.exercisesMap = exercises;
-      this.ecosystemsMap = ecosystems;
+    constructor({
+        history,
+        exercises = DefaultExercises,
+        ecosystems = DefaultEcosystems,
+    }) {
+        super();
+        modelize(this);
+        this.history = history;
+        this.exercisesMap = exercises;
+        this.ecosystemsMap = ecosystems;
 
-      this.diposeExerciseFetcher = autorun(() => {
-          if (this.ecosystem && !this.ecosystem.referenceBook.api.isFetchedOrFetching) {
-              this.ecosystemId = this.ecosystem.id;
-          }
-          if (this.book && this.page) {
-              this.exercisesMap.ensurePagesLoaded({
-                  book: this.book, page_ids: [this.page.id], limit: false,
-              });
-          }
-      });
-  }
+        this.diposeExerciseFetcher = autorun(() => {
+            if (this.ecosystem && !this.ecosystem.referenceBook.api.isFetchedOrFetching) {
+                this.ecosystemId = this.ecosystem.id;
+            }
+            if (this.book && this.page) {
+                this.exercisesMap.ensurePagesLoaded({
+                    book: this.book, page_ids: [this.page.id], limit: false,
+                });
+            }
+        });
+    }
 
-  @computed get isFetchingExercises() {
-      return Boolean(
-          this.ecosystem &&
+    @computed get isFetchingExercises() {
+        return Boolean(
+            this.ecosystem &&
         this.page &&
         this.exercisesMap.isFetching({ page_id: this.page.id })
-      );
-  }
+        );
+    }
 
-  @action unmount() {
-      super.unmount();
-      this.diposeExerciseFetcher();
-  }
+    @action unmount() {
+        super.unmount();
+        this.diposeExerciseFetcher();
+    }
 
-  @computed get exercises() {
-      if (!this.page) { return []; }
-      return this.exercisesMap.forPageId(this.page.id);
-  }
+    @computed get exercises() {
+        if (!this.page) { return []; }
+        return this.exercisesMap.forPageId(this.page.id);
+    }
 
-  @computed get exerciseTypes() {
-      return uniq(flatMap(this.exercises, 'types'));
-  }
+    @computed get exerciseTypes() {
+        return uniq(flatMap(this.exercises, 'types'));
+    }
 
-  // TODO, complete ignoring types
-  isTypeIgnored() { return false; }
+    // TODO, complete ignoring types
+    isTypeIgnored() { return false; }
 
-  @action.bound onEcosystemSelect(ecosystemId) {
-      this.history.push(
-          Router.makePathname('QADashboard', { ecosystemId }),
-      );
-  }
+    @action.bound onEcosystemSelect(ecosystemId) {
+        this.history.push(
+            Router.makePathname('QADashboard', { ecosystemId }),
+        );
+    }
 
-  @action.bound onAppearanceCodeSelect(code) {
-      this.appearance_code = code;
-  }
+    @action.bound onAppearanceCodeSelect(code) {
+        this.appearance_code = code;
+    }
 
-  @computed get ecosystem() {
-      return this.ecosystemsMap.get(this.ecosystemId);
-  }
+    @computed get ecosystem() {
+        return this.ecosystemsMap.get(this.ecosystemId);
+    }
 
-  checkForTeacherContent() { }
+    checkForTeacherContent() { }
 
-  @action.bound setDisplayingCard(el, checked) {
-      this.isDisplayingExercises = checked;
-  }
+    @action.bound setDisplayingCard(el, checked) {
+        this.isDisplayingExercises = checked;
+    }
 
-  sectionHref(page) {
-      if (!page) { return null; }
-      return Router.makePathname('QADashboard', {
-          ecosystemId: this.ecosystemId,
-          pageId: page.id,
-      });
-  }
+    sectionHref(page) {
+        if (!page) { return null; }
+        return Router.makePathname('QADashboard', {
+            ecosystemId: this.ecosystemId,
+            pageId: page.id,
+        });
+    }
 
-  propsForPage = (page) => {
-      return {
-          tabIndex: this.isMenuVisible ? 0 : -1,
-          to: 'QADashboard',
-          params: { ecosystemId: this.ecosystemId, pageId: page.id },
-      };
-  }
+    propsForPage = (page) => {
+        return {
+            tabIndex: this.isMenuVisible ? 0 : -1,
+            to: 'QADashboard',
+            params: { ecosystemId: this.ecosystemId, pageId: page.id },
+        };
+    }
 
-  bookLinkFor(props) {
-      let { ecosystemId, pageId } = Router.currentParams();
-      const { query } = props;
-      return Router.makePathname(
-          'QADashboard', { ecosystemId, pageId }, query
-      );
-  }
+    bookLinkFor(props) {
+        let { ecosystemId, pageId } = Router.currentParams();
+        const { query } = props;
+        return Router.makePathname(
+            'QADashboard', { ecosystemId, pageId }, query
+        );
+    }
 
-  rewriteBookLink(link) {
-      const parts = link.pathname.split('/');
-      if (parts.length < 4) { return; }
-      const bookId = parts[2];
-      const pageId = parts[3];
-      link.href = `/qa/${bookId}/${pageId}`;
-  }
+    rewriteBookLink(link) {
+        const parts = link.pathname.split('/');
+        if (parts.length < 4) { return; }
+        const bookId = parts[2];
+        const pageId = parts[3];
+        link.href = `/qa/${bookId}/${pageId}`;
+    }
 
-  sectionLinkProps(section) {
-      if (!section) { return null; }
-      return {
-          to: 'QADashboard',
-          params: extend(Router.currentParams(), { pageId: section.id }),
-      };
-  }
+    sectionLinkProps(section) {
+        if (!section) { return null; }
+        return {
+            to: 'QADashboard',
+            params: extend(Router.currentParams(), { pageId: section.id }),
+        };
+    }
 
-  @action.bound onNavSetSection(path) {
-      this.history.push(path);
-  }
+    @action.bound onNavSetSection(path) {
+        this.history.push(path);
+    }
 
-  @action setNavBar(nav) {
-      nav.childProps.set('ux', this);
-      nav.left.replace({
-          'slide-out-menu-toggle': MenuToggle,
-      });
-      nav.right.merge({
-          view: ViewToggle,
-          appearance: AppearanceSelector,
-          ecosystems: EcosystemSelector,
-          menu: UserMenu,
-      });
-  }
+    @action setNavBar(nav) {
+        nav.childProps.set('ux', this);
+        nav.left.replace({
+            'slide-out-menu-toggle': MenuToggle,
+        });
+        nav.right.merge({
+            view: ViewToggle,
+            appearance: AppearanceSelector,
+            ecosystems: EcosystemSelector,
+            menu: UserMenu,
+        });
+    }
 
-  @action clearNavBar(nav) {
-      nav.resetToDefault();
-  }
+    @action clearNavBar(nav) {
+        nav.resetToDefault();
+    }
 
 
-  @computed get courseDataProps() {
-      return { 'data-appearance': this.appearance_code };
-  }
+    @computed get courseDataProps() {
+        return { 'data-appearance': this.appearance_code };
+    }
 }

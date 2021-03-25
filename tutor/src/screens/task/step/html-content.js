@@ -24,27 +24,27 @@ const Loader = () => (
 @observer
 export default class HtmlContentTaskStep extends React.Component {
 
-  static Loader = Loader;
+    static Loader = Loader;
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      step: PropTypes.instanceOf(Step).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        step: PropTypes.instanceOf(Step).isRequired,
+    }
 
-  render() {
-      const { ux, step } = this.props;
+    render() {
+        const { ux, step } = this.props;
 
-      return (
-          <HtmlContent
-              data-appearance={ux.course.appearance_code}
-              unpadded className={`${step.type}-step`}>
-              <Badges
-                  video={step.isVideo}
-                  interactive={step.isInteractive}
-              />
-              <ArbitraryHtmlAndMath html={step.content.html} />
-              <ContinueBtn ux={ux} />
-          </HtmlContent>
-      );
-  }
+        return (
+            <HtmlContent
+                data-appearance={ux.course.appearance_code}
+                unpadded className={`${step.type}-step`}>
+                <Badges
+                    video={step.isVideo}
+                    interactive={step.isInteractive}
+                />
+                <ArbitraryHtmlAndMath html={step.content.html} />
+                <ContinueBtn ux={ux} />
+            </HtmlContent>
+        );
+    }
 }

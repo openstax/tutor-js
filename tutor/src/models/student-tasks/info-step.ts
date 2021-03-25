@@ -12,6 +12,7 @@ export default
 class StudentTaskInfoStep {
 
     constructor(info) {
+        modelize(this);
         Object.assign(this, info);
     }
   @observable wasViewed = false;

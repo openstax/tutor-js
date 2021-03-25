@@ -1,7 +1,14 @@
 import { last, map, filter, reduce } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import {
-    BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+    BaseModel,
+    identifiedBy,
+    belongsTo,
+    identifier,
+    field,
+    session,
+    hasMany,
+    modelize,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -15,6 +22,7 @@ export default class TutorExercise extends BaseModel {
 
     constructor(attrs = {}) {
         super(attrs);
+        modelize(this);
     }
 
   @identifier id;

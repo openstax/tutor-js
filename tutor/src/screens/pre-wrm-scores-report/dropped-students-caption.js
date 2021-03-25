@@ -9,21 +9,21 @@ const Legend = styled.p`
 @observer
 export default class DroppedStudentsCaption extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+    }
 
-  render() {
-      if (!this.props.ux.hasDroppedStudents) {
-          return null;
-      }
+    render() {
+        if (!this.props.ux.hasDroppedStudents) {
+            return null;
+        }
 
-      return (
-          <Legend>
+        return (
+            <Legend>
         * Dropped students’ scores are not included in the
         overall course averages and appear at the bottom of the table.
-          </Legend>
-      );
-  }
+            </Legend>
+        );
+    }
 
 }

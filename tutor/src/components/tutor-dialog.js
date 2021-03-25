@@ -8,71 +8,71 @@ import { flow, extend, clone } from 'lodash';
 
 // This is the "real" dialog component. It's rendered to a div under document.body
 class DetachedTutorDialog extends React.Component {
-  static displayName = 'DetachedTutorDialog';
+    static displayName = 'DetachedTutorDialog';
 
-  static propTypes = {
-      title:         PropTypes.string.isRequired,
-      onOk:          PropTypes.func.isRequired,
-      onCancel:      PropTypes.func.isRequired,
-      body:          PropTypes.any.isRequired,
-      show:          PropTypes.bool,
-      buttons:       PropTypes.arrayOf( PropTypes.element ),
-      okBtnText:     PropTypes.string,
-      cancelBtnText: PropTypes.string,
-      className:     PropTypes.string,
-  }
+    static propTypes = {
+        title:         PropTypes.string.isRequired,
+        onOk:          PropTypes.func.isRequired,
+        onCancel:      PropTypes.func.isRequired,
+        body:          PropTypes.any.isRequired,
+        show:          PropTypes.bool,
+        buttons:       PropTypes.arrayOf( PropTypes.element ),
+        okBtnText:     PropTypes.string,
+        cancelBtnText: PropTypes.string,
+        className:     PropTypes.string,
+    }
 
-  state = { show: true };
+    state = { show: true };
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-      if (nextProps.show != null) { this.setState({ show: nextProps.show }); }
-  }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.show != null) { this.setState({ show: nextProps.show }); }
+    }
 
-  _hide = () => {
-      return this.setState({ show: false });
-  };
+    _hide = () => {
+        return this.setState({ show: false });
+    };
 
-  hide = () => {
-      this._hide();
-      return this.props.onCancel();
-  };
+    hide = () => {
+        this._hide();
+        return this.props.onCancel();
+    };
 
-  render() {
-      if (!this.state.show) { return null; }
-      const buttons = this.props.buttons || [
-          <Button
-              key="ok"
-              className="ok"
-              onClick={flow(this.props.onOk, this._hide)}
-              variant="primary">
-              {this.props.okBtnText || 'OK'}
-          </Button>,
-          <Button
-              key="cancel"
-              className="cancel"
-              onClick={flow(this.props.onCancel, this._hide)}>
-              {this.props.cancelBtnText || 'Cancel'}
-          </Button>,
-      ];
-      const classes = ['tutor-dialog'];
-      if (this.props.className) { classes.push(this.props.className); }
+    render() {
+        if (!this.state.show) { return null; }
+        const buttons = this.props.buttons || [
+            <Button
+                key="ok"
+                className="ok"
+                onClick={flow(this.props.onOk, this._hide)}
+                variant="primary">
+                {this.props.okBtnText || 'OK'}
+            </Button>,
+            <Button
+                key="cancel"
+                className="cancel"
+                onClick={flow(this.props.onCancel, this._hide)}>
+                {this.props.cancelBtnText || 'Cancel'}
+            </Button>,
+        ];
+        const classes = ['tutor-dialog'];
+        if (this.props.className) { classes.push(this.props.className); }
 
-      return (
-          <Modal className={classes.join(' ')} show={this.state.show} onHide={this.hide}>
-              <Modal.Header closeButton={true}>
-                  <Modal.Title>
-                      {this.props.title}
-                  </Modal.Title>
-              </Modal.Header>
-              <div className="modal-body">
-                  {this.props.body}
-              </div>
-              <div className="modal-footer">
-                  {buttons}
-              </div>
-          </Modal>
-      );
-  }
+        return (
+            <Modal className={classes.join(' ')} show={this.state.show} onHide={this.hide}>
+                <Modal.Header closeButton={true}>
+                    <Modal.Title>
+                        {this.props.title}
+                    </Modal.Title>
+                </Modal.Header>
+                <div className="modal-body">
+                    {this.props.body}
+                </div>
+                <div className="modal-footer">
+                    {buttons}
+                </div>
+            </Modal>
+        );
+    }
 }
 
 export default (TutorDialog = createReactClass({

@@ -9,26 +9,26 @@ const StyledButton = styled(SecondaryToolbarButton)`
 export default
 class MilestonesToggle extends React.Component {
 
-  static propTypes = {
+    static propTypes = {
 
-  }
+    }
 
-  @observable static isActive = false;
+    @observable static isActive = false;
 
-  @action.bound onToggle() {
-      MilestonesToggle.isActive = !MilestonesToggle.isActive;
-  }
+    @action.bound onToggle() {
+        MilestonesToggle.isActive = !MilestonesToggle.isActive;
+    }
 
-  render() {
-      return (
-          <StyledButton
-              variant="plain"
-              onClick={this.onToggle}
-              bsPrefix="milestones-toggle"
-          >
-              <Icon type="th" />
-              <span>Overview</span>
-          </StyledButton>
-      );
-  }
+    render() {
+        return (
+            <StyledButton
+                variant="plain"
+                onClick={this.onToggle}
+                bsPrefix="milestones-toggle"
+            >
+                <Icon type="th" />
+                <span>Overview</span>
+            </StyledButton>
+        );
+    }
 }

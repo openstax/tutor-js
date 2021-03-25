@@ -92,10 +92,10 @@ const GeneralForm = observer(({ ux }) => {
                 <CheckboxInput
                     onChange={ux.changeExcludeOriginal}
                     label={
-            <>
-              <span>Exclude the original question from my Question Library. </span>
-              <span className="exclude-more-info">(exclusions apply only to future assignments)</span>
-            </>
+                        <>
+                            <span>Exclude the original question from my Question Library. </span>
+                            <span className="exclude-more-info">(exclusions apply only to future assignments)</span>
+                        </>
                     }
                     checked={ux.excludeOriginal}
                     standalone
@@ -136,10 +136,10 @@ const GeneralForm = observer(({ ux }) => {
                     <CheckboxInput
                         onChange={ux.changeAllowOthersCopyEdit}
                         label={
-              <>
-                <span>Allow other instructors to copy and edit this question under the CC-BY license. </span>
-                <Button variant="link" onClick={() => ux.showTermsOfUse = true}>Learn more.</Button>
-              </>
+                            <>
+                                <span>Allow other instructors to copy and edit this question under the CC-BY license. </span>
+                                <Button variant="link" onClick={() => ux.showTermsOfUse = true}>Learn more.</Button>
+                            </>
                         }
                         checked={ux.allowOthersCopyEdit}
                         standalone

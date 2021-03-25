@@ -54,142 +54,142 @@ const StyledExerciseQuestion = styled.div`
 @observer
 export default class ExerciseQuestion extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      step: PropTypes.instanceOf(Step).isRequired,
-      question: PropTypes.instanceOf(QuestionModel).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        step: PropTypes.instanceOf(Step).isRequired,
+        question: PropTypes.instanceOf(QuestionModel).isRequired,
+    }
 
-  @observable selectedAnswer = null;
+    @observable selectedAnswer = null;
 
-  @computed get needsSaved() {
-      const { step } = this.props;
-      return (
-          !step.is_completed || step.api.isPending ||
+    @computed get needsSaved() {
+        const { step } = this.props;
+        return (
+            !step.is_completed || step.api.isPending ||
       (this.answerId != step.answer_id)
-      );
+        );
 
-  }
+    }
 
-  componentDidMount() {
-      keymaster('enter', 'multiple-choice', this.onEnter);
-  }
+    componentDidMount() {
+        keymaster('enter', 'multiple-choice', this.onEnter);
+    }
 
-  componentWillUnmount() {
-      keymaster.unbind('enter', 'multiple-choice');
-  }
+    componentWillUnmount() {
+        keymaster.unbind('enter', 'multiple-choice');
+    }
 
-  @action.bound onEnter() {
-      this.needsSaved && this.answerId ?
-          this.onAnswerSave() : this.onNextStep();
-  }
+    @action.bound onEnter() {
+        this.needsSaved && this.answerId ?
+            this.onAnswerSave() : this.onNextStep();
+    }
 
-  @action.bound onAnswerChange(answer) {
-      const { ux, step } = this.props;
+    @action.bound onAnswerChange(answer) {
+        const { ux, step } = this.props;
 
-      ux.setCurrentMultiPartStep(step);
-      this.selectedAnswer = answer;
-  }
+        ux.setCurrentMultiPartStep(step);
+        this.selectedAnswer = answer;
+    }
 
-  @action.bound async onAnswerSave() {
-      const { ux, step } = this.props;
+    @action.bound async onAnswerSave() {
+        const { ux, step } = this.props;
 
-      ux.setCurrentMultiPartStep(step);
-      await ux.onAnswerSave(step, this.selectedAnswer);
-      this.selectedAnswer = null;
-  }
+        ux.setCurrentMultiPartStep(step);
+        await ux.onAnswerSave(step, this.selectedAnswer);
+        this.selectedAnswer = null;
+    }
 
-  @action.bound onNextStep() {
-      const { ux, step } = this.props;
-      ux.onAnswerContinue(step);
-  }
+    @action.bound onNextStep() {
+        const { ux, step } = this.props;
+        ux.onAnswerContinue(step);
+    }
 
-  @action.bound async addOrRemovePracticeQuestion() {
-      if (this.practiceQuestion) {
-          this.practiceQuestion.destroy();
-      }
-      else {
-          const { ux, step } = this.props;
-          ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
-      }
-  }
+    @action.bound async addOrRemovePracticeQuestion() {
+        if (this.practiceQuestion) {
+            this.practiceQuestion.destroy();
+        }
+        else {
+            const { ux, step } = this.props;
+            ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
+        }
+    }
 
-  @computed get answerId() {
-      return this.selectedAnswer ?
-          this.selectedAnswer.id : this.props.step.answer_id;
-  }
+    @computed get answerId() {
+        return this.selectedAnswer ?
+            this.selectedAnswer.id : this.props.step.answer_id;
+    }
 
-  @computed get practiceQuestion() {
-      const { ux, step } = this.props;
-      return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
-  }
+    @computed get practiceQuestion() {
+        const { ux, step } = this.props;
+        return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
+    }
 
-  renderSaveButton() {
-      const { step } = this.props;
-      return (
-          <AsyncButton
-              size="lg"
-              waitingText="Saving…"
-              disabled={!this.answerId}
-              onClick={this.onAnswerSave}
-              isWaiting={step.api.isPending}
-              data-test-id="submit-answer-btn"
-          >
+    renderSaveButton() {
+        const { step } = this.props;
+        return (
+            <AsyncButton
+                size="lg"
+                waitingText="Saving…"
+                disabled={!this.answerId}
+                onClick={this.onAnswerSave}
+                isWaiting={step.api.isPending}
+                data-test-id="submit-answer-btn"
+            >
         Submit
-          </AsyncButton>
-      );
-  }
+            </AsyncButton>
+        );
+    }
 
-  renderNextButton() {
-      const { canUpdateCurrentStep } = this.props.ux;
-      return (
-          <Button size="lg" onClick={this.onNextStep} data-test-id="continue-btn">
-              {canUpdateCurrentStep ? 'Continue' : 'Next'}
-          </Button>
-      );
-  }
+    renderNextButton() {
+        const { canUpdateCurrentStep } = this.props.ux;
+        return (
+            <Button size="lg" onClick={this.onNextStep} data-test-id="continue-btn">
+                {canUpdateCurrentStep ? 'Continue' : 'Next'}
+            </Button>
+        );
+    }
 
-  render() {
-      const { ux, question, step, ux: { course } } = this.props;
-      const questionNumber = ux.questionNumberForStep(step);
-      if (step.canEditFreeResponse) {
-          return (
-              <FreeResponseInput
-                  step={step} question={question}
-                  questionNumber={questionNumber}
-                  taskUX={ux}
-                  key={question.id} course={course}
-              />
-          );
-      }
+    render() {
+        const { ux, question, step, ux: { course } } = this.props;
+        const questionNumber = ux.questionNumberForStep(step);
+        if (step.canEditFreeResponse) {
+            return (
+                <FreeResponseInput
+                    step={step} question={question}
+                    questionNumber={questionNumber}
+                    taskUX={ux}
+                    key={question.id} course={course}
+                />
+            );
+        }
 
-      return (
-          <StyledExerciseQuestion data-test-id="student-exercise-question">
-              <Question
-                  task={ux.task}
-                  question={question}
-                  choicesEnabled={!ux.isReadOnly && step.canAnswer}
-                  answer_id={this.answerId}
-                  focus={!step.multiPartGroup}
-                  questionNumber={questionNumber}
-                  onChange={this.onAnswerChange}
-                  feedback_html={step.feedback_html}
-                  hasCorrectAnswer={step.hasCorrectAnswer}
-                  correct_answer_id={step.is_completed ? step.correct_answer_id : null}
-              >
-                  <FreeResponseReview course={course} step={step} />
-              </Question>
-              <Controls>
-                  {step.canAnswer && this.needsSaved ?
-                      this.renderSaveButton() : this.renderNextButton()}
-                  {ux.canSaveToPractice && (
-                      <SavePracticeButton
-                          practiceQuestions={ux.course.practiceQuestions}
-                          taskStep={step}
-                      />)}
-              </Controls>
-              <StepFooter course={course} step={step} />
-          </StyledExerciseQuestion>
-      );
-  }
+        return (
+            <StyledExerciseQuestion data-test-id="student-exercise-question">
+                <Question
+                    task={ux.task}
+                    question={question}
+                    choicesEnabled={!ux.isReadOnly && step.canAnswer}
+                    answer_id={this.answerId}
+                    focus={!step.multiPartGroup}
+                    questionNumber={questionNumber}
+                    onChange={this.onAnswerChange}
+                    feedback_html={step.feedback_html}
+                    hasCorrectAnswer={step.hasCorrectAnswer}
+                    correct_answer_id={step.is_completed ? step.correct_answer_id : null}
+                >
+                    <FreeResponseReview course={course} step={step} />
+                </Question>
+                <Controls>
+                    {step.canAnswer && this.needsSaved ?
+                        this.renderSaveButton() : this.renderNextButton()}
+                    {ux.canSaveToPractice && (
+                        <SavePracticeButton
+                            practiceQuestions={ux.course.practiceQuestions}
+                            taskStep={step}
+                        />)}
+                </Controls>
+                <StepFooter course={course} step={step} />
+            </StyledExerciseQuestion>
+        );
+    }
 }

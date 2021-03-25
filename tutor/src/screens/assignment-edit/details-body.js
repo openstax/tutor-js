@@ -78,24 +78,24 @@ const EditModal = observer(({ ux }) => {
 const TemplateField = observer(({ ux }) => {
     const dropdownItems = 
     <>
-      {
-          ux.gradingTemplates.map(t =>
-              <Dropdown.Item
-                  key={t.id}
-                  value={t.id}
-                  eventKey={t.id}
-                  onSelect={k => ux.onSelectTemplate(k)}
-                  data-test-id={`${t.name}`}
-              >
-                  {t.name}
-              </Dropdown.Item>)
-      }
-      {
-          ux.canAddTemplate &&
+        {
+            ux.gradingTemplates.map(t =>
+                <Dropdown.Item
+                    key={t.id}
+                    value={t.id}
+                    eventKey={t.id}
+                    onSelect={k => ux.onSelectTemplate(k)}
+                    data-test-id={`${t.name}`}
+                >
+                    {t.name}
+                </Dropdown.Item>)
+        }
+        {
+            ux.canAddTemplate &&
         <StyledAddItem as="button" onClick={ux.onShowAddTemplate} data-test-id="add-template">
       + Add new template
         </StyledAddItem>
-      }
+        }
     </>;
 
     return (

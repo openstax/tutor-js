@@ -28,35 +28,35 @@ const StyledSavePracticeButton = styled.button`
 const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
     if (isSavingOrRemoving) {
         return (
-      <>
-        <Icon
-            type='spinner'
-            spin
-            className="save-practice-icon" />
-        <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
-      </>
+            <>
+                <Icon
+                    type='spinner'
+                    spin
+                    className="save-practice-icon" />
+                <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
+            </>
         );
     } 
     if(isSaved) {
         return (
-      <>
-        <Icon
-            type="minus"
-            color="white"
-            className="save-practice-icon"/>
-        <span>Remove from practice</span>
-      </>
+            <>
+                <Icon
+                    type="minus"
+                    color="white"
+                    className="save-practice-icon"/>
+                <span>Remove from practice</span>
+            </>
         );
     }
 
     return (
-    <>
-      <Icon
-          type="plus"
-          color={colors.cerulan}
-          className="save-practice-icon"/>
-      <span>Save to practice</span>
-    </>
+        <>
+            <Icon
+                type="plus"
+                color={colors.cerulan}
+                className="save-practice-icon"/>
+            <span>Save to practice</span>
+        </>
     );
 };
 

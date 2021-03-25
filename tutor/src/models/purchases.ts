@@ -5,27 +5,33 @@ import { map, flatten } from 'lodash';
 import Purchase from './purchases/purchase';
 
 class PurchasesMap extends Map {
+    keyType = String
 
-  keyType = String
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @computed get isAnyRefundable() {
-      return find(this.array, 'isRefundable');
-  }
+        modelize(this);
+    }
 
-  @computed get withRefunds() {
-      return flatten(map(this.array, (purchase) =>
-          purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
-      )).reverse();
-  }
+    @computed get isAnyRefundable() {
+        return find(this.array, 'isRefundable');
+    }
+
+    @computed get withRefunds() {
+        return flatten(map(this.array, (purchase) =>
+            purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
+        )).reverse();
+    }
 
 
-  // called by API
-  fetch() {}
-  onLoaded({ data: { orders } }) {
-      const ordersById = {};
-      orders.forEach(o => ordersById[o.identifier] = new Purchase(o));
-      this.replace(ordersById);
-  }
+    // called by API
+    fetch() {}
+    onLoaded({ data: { orders } }) {
+        const ordersById = {};
+        orders.forEach(o => ordersById[o.identifier] = new Purchase(o));
+        this.replace(ordersById);
+    }
 }
 
 const purchasesMap = new PurchasesMap();

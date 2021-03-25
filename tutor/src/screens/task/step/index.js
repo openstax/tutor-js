@@ -51,69 +51,69 @@ const MultipartGroup = styled.div`
 @observer
 class TaskStep extends React.Component {
 
-  static propTypes = {
-      pending: PropTypes.func,
-      ux: PropTypes.object.isRequired,
-      step: PropTypes.shape({
-          steps: PropTypes.array,
-          type: PropTypes.string.isRequired,
-          needsFetched: PropTypes.bool,
-          api: PropTypes.shape({
-              hasErrors: PropTypes.bool,
-          }),
-          task: PropTypes.shape({
-              type: PropTypes.string.isRequired,
-          }),
-      }).isRequired,
-  };
+    static propTypes = {
+        pending: PropTypes.func,
+        ux: PropTypes.object.isRequired,
+        step: PropTypes.shape({
+            steps: PropTypes.array,
+            type: PropTypes.string.isRequired,
+            needsFetched: PropTypes.bool,
+            api: PropTypes.shape({
+                hasErrors: PropTypes.bool,
+            }),
+            task: PropTypes.shape({
+                type: PropTypes.string.isRequired,
+            }),
+        }).isRequired,
+    };
 
-  render() {
-      const { ux, step } = this.props;
+    render() {
+        const { ux, step } = this.props;
 
-      if (!step || (step.api && step.api.hasErrors)) {
-          return <Failure task={ux.task} step={step} />;
-      }
-      const { type, needsFetched } = step;
+        if (!step || (step.api && step.api.hasErrors)) {
+            return <Failure task={ux.task} step={step} />;
+        }
+        const { type, needsFetched } = step;
 
-      const stepProps = {
-          ...this.props,
-          onContinue: ux.canGoForward ? ux.goForward : null,
-      };
+        const stepProps = {
+            ...this.props,
+            onContinue: ux.canGoForward ? ux.goForward : null,
+        };
 
-      STEP_TYPES.end = step.task && step.task.type === 'practice_saved'
-          ? SavedPracticeEnd 
-          : End;
+        STEP_TYPES.end = step.task && step.task.type === 'practice_saved'
+            ? SavedPracticeEnd 
+            : End;
 
-      if ('mpq' === type) {
-          return (
-              <MultipartGroup>
-                  {step.steps.map((s, i) =>
-                      <TaskStep
-                          key={i}
-                          {...stepProps}
-                          isMultiPart
-                          isFollowupMPQ={0 !== i}
-                          step={s}
-                      />)}
-              </MultipartGroup>
-          );
-      }
+        if ('mpq' === type) {
+            return (
+                <MultipartGroup>
+                    {step.steps.map((s, i) =>
+                        <TaskStep
+                            key={i}
+                            {...stepProps}
+                            isMultiPart
+                            isFollowupMPQ={0 !== i}
+                            step={s}
+                        />)}
+                </MultipartGroup>
+            );
+        }
 
-      if (needsFetched) {
-          const Pending = PENDING_TYPES[type] || PENDING_TYPES.reading;
-          return <LoadingCard><Pending /></LoadingCard>;
-      }
+        if (needsFetched) {
+            const Pending = PENDING_TYPES[type] || PENDING_TYPES.reading;
+            return <LoadingCard><Pending /></LoadingCard>;
+        }
 
-      const Step = STEP_TYPES[type];
+        const Step = STEP_TYPES[type];
 
-      if (!Step) {
-          return <Failure task={ux.task} step={step} />;
-      }
+        if (!Step) {
+            return <Failure task={ux.task} step={step} />;
+        }
 
-      return (
-          <Step {...stepProps} />
-      );
-  }
+        return (
+            <Step {...stepProps} />
+        );
+    }
 }
 
 export { TaskStep };

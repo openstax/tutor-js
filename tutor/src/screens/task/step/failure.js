@@ -18,60 +18,60 @@ const StyledFailure = styled(StepCard)`
 
 class Failure extends React.Component {
 
-  static propTypes = {
-      task: PropTypes.instanceOf(Task).isRequired,
-      step: PropTypes.object,
-  }
+    static propTypes = {
+        task: PropTypes.instanceOf(Task).isRequired,
+        step: PropTypes.object,
+    }
 
-  componentDidMount() {
-      const { task, step } = this.props;
+    componentDidMount() {
+        const { task, step } = this.props;
 
-      let errMsg = [];
-      if (get(task, 'api.hasErrors')) {
-          const { last: _, ...errors } = task.api.errors;
-          errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
-      }
-      // step may not be present if the task had errors
-      if (!step) { return; }
+        let errMsg = [];
+        if (get(task, 'api.hasErrors')) {
+            const { last: _, ...errors } = task.api.errors;
+            errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
+        }
+        // step may not be present if the task had errors
+        if (!step) { return; }
 
-      const { last: _, ...errors } = get(step, 'api.errors', {});
-      errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
-      if (errMsg.length) {
-          Raven.log(errMsg.join('\n'), {
-              taskId: task.id,
-              stepId: step.id,
-          });
-      }
-  }
+        const { last: _, ...errors } = get(step, 'api.errors', {});
+        errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
+        if (errMsg.length) {
+            Raven.log(errMsg.join('\n'), {
+                taskId: task.id,
+                stepId: step.id,
+            });
+        }
+    }
 
-  get isLoading() {
-      const model = this.props.step || this.props.task;
-      return 'get' === get(model, 'api.errors.last.config.method');
-  }
+    get isLoading() {
+        const model = this.props.step || this.props.task;
+        return 'get' === get(model, 'api.errors.last.config.method');
+    }
 
-  render() {
-      return (
-          <StyledFailure>
-              <h3>
+    render() {
+        return (
+            <StyledFailure>
+                <h3>
           We’re sorry! An error occurred
           when {this.isLoading ? 'loading' : 'saving'} this step.
-              </h3>
-              <h4>
+                </h3>
+                <h4>
           Please either go back and retry or
           reload this page and try again.
-              </h4>
-              <p>
+                </h4>
+                <p>
           We’ve received an automated notification
           that this error occurred and we’ll look into it.
-              </p>
-              <p>
+                </p>
+                <p>
           Please <SupportEmailLink label="contact support" /> if
           you continue to get this error.
-              </p>
-              <ReloadPageButton />
-          </StyledFailure>
-      );
-  }
+                </p>
+                <ReloadPageButton />
+            </StyledFailure>
+        );
+    }
 
 }
 

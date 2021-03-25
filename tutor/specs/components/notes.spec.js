@@ -36,8 +36,8 @@ describe('Notes', () => {
         body.innerHTML = '<div id="mount"><div class="book-content">' +
       page.contents;
         window.MutationObserver = class {
-      disconnect = jest.fn()
-      observe = jest.fn()
+            disconnect = jest.fn()
+            observe = jest.fn()
         };
         window.getSelection = jest.fn(() => ({
             removeAllRanges: jest.fn(),

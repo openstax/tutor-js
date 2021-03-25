@@ -9,6 +9,7 @@ class PastTaskPlans extends Map {
 
   constructor(attrs) {
       super();
+      modelize(this);
       this.course = attrs.course;
   }
 

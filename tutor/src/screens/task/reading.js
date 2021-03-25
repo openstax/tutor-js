@@ -34,40 +34,40 @@ const StyledPagingNavigation = styled(PagingNavigation)`
 @observer
 class ReadingTask extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      windowImpl: PropTypes.object,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        windowImpl: PropTypes.object,
+    }
 
-  render() {
-      const { ux, windowImpl } = this.props;
+    render() {
+        const { ux, windowImpl } = this.props;
 
-      return (
-          <StyledReading className="reading-task">
-              <ReadingNavbar ux={ux} />
-              <StyledPagingNavigation
-                  className={cn('progress-panel')}
-                  enableKeys={true}
-                  forwardRenderer={<IconWrapper><NextIcon /></IconWrapper>}
-                  backwardRenderer={<IconWrapper><PrevIcon /></IconWrapper>}
-                  isForwardEnabled={ux.canGoForward}
-                  isBackwardEnabled={ux.canGoBackward}
-                  onForwardNavigation={ux.goForward}
-                  onBackwardNavigation={ux.goBackward}
-                  titles={ux.relatedStepTitles}
-                  renderMobileFooter={true}
-              >
-                  <ProgressCard ux={ux} />
-                  <TaskStep
-                      ux={ux}
-                      step={ux.currentGroupedStep}
-                      windowImpl={windowImpl}
-                      data-test-id="task-step"
-                  />
-              </StyledPagingNavigation>
-          </StyledReading>
-      );
-  }
+        return (
+            <StyledReading className="reading-task">
+                <ReadingNavbar ux={ux} />
+                <StyledPagingNavigation
+                    className={cn('progress-panel')}
+                    enableKeys={true}
+                    forwardRenderer={<IconWrapper><NextIcon /></IconWrapper>}
+                    backwardRenderer={<IconWrapper><PrevIcon /></IconWrapper>}
+                    isForwardEnabled={ux.canGoForward}
+                    isBackwardEnabled={ux.canGoBackward}
+                    onForwardNavigation={ux.goForward}
+                    onBackwardNavigation={ux.goBackward}
+                    titles={ux.relatedStepTitles}
+                    renderMobileFooter={true}
+                >
+                    <ProgressCard ux={ux} />
+                    <TaskStep
+                        ux={ux}
+                        step={ux.currentGroupedStep}
+                        windowImpl={windowImpl}
+                        data-test-id="task-step"
+                    />
+                </StyledPagingNavigation>
+            </StyledReading>
+        );
+    }
 
 }
 

@@ -25,13 +25,13 @@ const LeftArrow = styled.div`
 
 const NewIcon = ({ children }) => {
     return (
-    <>
-      {children}
-      <LeftArrow/>
-      <IconBackground>
+        <>
+            {children}
+            <LeftArrow/>
+            <IconBackground>
            New
-      </IconBackground>
-    </>
+            </IconBackground>
+        </>
     );
 };
 NewIcon.propTypes = {

@@ -6,102 +6,107 @@ import { isEmpty, find } from 'lodash';
 export { Course };
 
 export class CoursesMap extends Map {
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  // override array in Map to return a sorted list with latest join date first
-  @computed get array() {
-        return this.values().sort((a, b) =>
-            a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
-        );
+        modelize(this);
     }
 
-  @computed get active() {
-      return this.where(c => c.is_active);
-  }
+    // override array in Map to return a sorted list with latest join date first
+    @computed get array() {
+          return this.values().sort((a, b) =>
+              a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
+          );
+      }
 
-  @computed get costing() {
-      return this.where(c => c.does_cost);
-  }
+    @computed get active() {
+        return this.where(c => c.is_active);
+    }
 
-  @computed get student() {
-      return this.where(c => c.currentRole.isStudent);
-  }
+    @computed get costing() {
+        return this.where(c => c.does_cost);
+    }
 
-  @computed get withoutStudents() {
-      return this.where(c => 0 === c.students.length);
-  }
+    @computed get student() {
+        return this.where(c => c.currentRole.isStudent);
+    }
 
-  @computed get teaching() {
-      return this.where(c => c.currentRole.isTeacher);
-  }
+    @computed get withoutStudents() {
+        return this.where(c => 0 === c.students.length);
+    }
 
-  @computed get completed() {
-      return this.where(c => c.hasEnded);
-  }
+    @computed get teaching() {
+        return this.where(c => c.currentRole.isTeacher);
+    }
 
-  @computed get future() {
-      return this.where(c => !c.hasStarted);
-  }
+    @computed get completed() {
+        return this.where(c => c.hasEnded);
+    }
 
-  @computed get currentAndFuture() {
-      return this.where(c => !c.hasEnded);
-  }
+    @computed get future() {
+        return this.where(c => !c.hasStarted);
+    }
 
-  @computed get tutor() {
-      return this.where(c => !c.is_concept_coach);
-  }
+    @computed get currentAndFuture() {
+        return this.where(c => !c.hasEnded);
+    }
 
-  @computed get conceptCoach() {
-      return this.where(c => c.is_concept_coach);
-  }
+    @computed get tutor() {
+        return this.where(c => !c.is_concept_coach);
+    }
 
-  @computed get nonPreview() {
-      return this.where(c => !c.is_preview);
-  }
+    @computed get conceptCoach() {
+        return this.where(c => c.is_concept_coach);
+    }
 
-  @computed get previouslyCreated() {
-      return this.where(c => !c.just_created);
-  }
+    @computed get nonPreview() {
+        return this.where(c => !c.is_preview);
+    }
 
-  @computed get preview() {
-      return this.where(c => c.is_preview);
-  }
+    @computed get previouslyCreated() {
+        return this.where(c => !c.just_created);
+    }
 
-  @computed get isViewed() {
-      return this.where(c => c.dashboardViewCount > 0);
-  }
+    @computed get preview() {
+        return this.where(c => c.is_preview);
+    }
 
-  @action addNew(courseData) {
-      const course = new Course(courseData, this);
-      course.just_created = true;
-      this.set(course.id, course);
-      return course;
-  }
+    @computed get isViewed() {
+        return this.where(c => c.dashboardViewCount > 0);
+    }
 
-  forEcosystemId(ecosystem_id) {
-      return find(this.array, c => c.isActive && c.ecosystem_id == ecosystem_id ) ||
-      find(this.array, c => c.ecosystem_id == ecosystem_id) ;
-  }
+    @action addNew(courseData) {
+        const course = new Course(courseData, this);
+        course.just_created = true;
+        this.set(course.id, course);
+        return course;
+    }
 
-  isNameValid(name) {
-      return Boolean(!isEmpty(name) && !find(this.array, { name }));
-  }
+    forEcosystemId(ecosystem_id) {
+        return find(this.array, c => c.isActive && c.ecosystem_id == ecosystem_id ) ||
+        find(this.array, c => c.ecosystem_id == ecosystem_id) ;
+    }
 
-  bootstrap( courseData, options = {} ) {
-      if (options.clear) { this.clear(); }
-      courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
-      return this;
-  }
+    isNameValid(name) {
+        return Boolean(!isEmpty(name) && !find(this.array, { name }));
+    }
 
-  // called by API
-  fetch() { }
+    bootstrap( courseData, options = {} ) {
+        if (options.clear) { this.clear(); }
+        courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
+        return this;
+    }
 
-  @action onLoaded({ data }) {
-      data.forEach((cd) => {
-          const course = this.get(cd.id);
-          course ? course.update(cd) : this.set(cd.id, new Course(cd, this));
-      });
-  }
+    // called by API
+    fetch() { }
 
+    @action onLoaded({ data }) {
+        data.forEach((cd) => {
+            const course = this.get(cd.id);
+            course ? course.update(cd) : this.set(cd.id, new Course(cd, this));
+        });
+    }
 }
 
 const coursesMap = new CoursesMap();

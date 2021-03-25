@@ -2,9 +2,7 @@ import { isString, get, pick, extend } from 'lodash';
 import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
-import {
-    BaseModel, identifiedBy, field, identifier, session,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, identifier, session, modelize } from 'shared/model';
 
 @identifiedBy('notes/note')
 export default class Note extends BaseModel {
@@ -22,6 +20,7 @@ export default class Note extends BaseModel {
 
   constructor(attrs = {}, page) {
       super(attrs);
+      modelize(this);
       this.page = page;
       intercept(this, 'annotation', this.validateTextLength);
   }

@@ -20,6 +20,7 @@ export default class BasicCourseOnboarding {
   }
 
   constructor(course, tourContext) {
+      modelize(this);
       this.course = course;
       this.tourContext = tourContext;
       this.isDismissed = false;

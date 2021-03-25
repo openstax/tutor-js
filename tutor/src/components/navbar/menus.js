@@ -10,12 +10,12 @@ import UserMenu            from './user-menu';
 import dom                 from '../../helpers/dom';
 
 const DesktopMenus = observer(({ course }) => (
-  <>
-    <StudentPayNowBtn    course={course} />
-    <SupportMenu         course={course} />
-    <ActionsMenu         course={course} />
-    <UserMenu />
-  </>
+    <>
+        <StudentPayNowBtn    course={course} />
+        <SupportMenu         course={course} />
+        <ActionsMenu         course={course} />
+        <UserMenu />
+    </>
 ));
 
 const MobileMenus = observer(({ course }) => (

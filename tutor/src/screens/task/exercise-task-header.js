@@ -76,10 +76,10 @@ const TaskInfo = ({ task }) => {
     let dueInfo = null;
     if (task.due_at)
         dueInfo = (
-      <>
-        <div className="title-divider">|</div>
-        <div className="title-due-date">Due {<Time date={task.due_at} format="concise" />}</div>
-      </>
+            <>
+                <div className="title-divider">|</div>
+                <div className="title-due-date">Due {<Time date={task.due_at} format="concise" />}</div>
+            </>
         );
 
     return (
@@ -95,25 +95,25 @@ TaskInfo.propTypes = {
 
 const headerContent = (ux) => {
     return (
-    <>
-      <StyledHeadingTitle>
-          <TaskInfo task={ux.task} />
-          <div className="overview-task-icon">
-              <Icon
-                  type="th"
-                  onClick={ux.toggleTaskProgressTable}
-                  className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
-              />
-          </div>
-          <ExitPracticeButton task={ux.task} />
-      </StyledHeadingTitle>
-      <TaskProgress
-          steps={ux.steps}
-          goToStep={ux.goToStepId}
-          currentStep={ux.currentStep}
-          hideTaskProgressTable={ux.hideTaskProgressTable}
-      />
-    </>
+        <>
+            <StyledHeadingTitle>
+                <TaskInfo task={ux.task} />
+                <div className="overview-task-icon">
+                    <Icon
+                        type="th"
+                        onClick={ux.toggleTaskProgressTable}
+                        className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
+                    />
+                </div>
+                <ExitPracticeButton task={ux.task} />
+            </StyledHeadingTitle>
+            <TaskProgress
+                steps={ux.steps}
+                goToStep={ux.goToStepId}
+                currentStep={ux.currentStep}
+                hideTaskProgressTable={ux.hideTaskProgressTable}
+            />
+        </>
     );
 };
 
@@ -121,45 +121,45 @@ const headerContent = (ux) => {
 @observer
 class ExercisesTaskHeader extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      setSecondaryTopControls: PropTypes.func.isRequired,
-      unDocked: PropTypes.bool,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        setSecondaryTopControls: PropTypes.func.isRequired,
+        unDocked: PropTypes.bool,
+    }
 
-  constructor(props) {
-      super(props);
-      if (!props.unDocked) {
-          props.setSecondaryTopControls(this.renderExerciseHeader);
-      }
-  }
+    constructor(props) {
+        super(props);
+        if (!props.unDocked) {
+            props.setSecondaryTopControls(this.renderExerciseHeader);
+        }
+    }
 
-  componentWillUnmount() {
-      if (!this.props.unDocked) {
-          this.props.setSecondaryTopControls(null);
-      }
-  }
+    componentWillUnmount() {
+        if (!this.props.unDocked) {
+            this.props.setSecondaryTopControls(null);
+        }
+    }
 
-  // if it is undocked from the navbar, show under the navbar
-  render() {
-      if (this.props.unDocked) {
-          return this.renderExerciseHeader();
-      }
-      return null;
-  }
+    // if it is undocked from the navbar, show under the navbar
+    render() {
+        if (this.props.unDocked) {
+            return this.renderExerciseHeader();
+        }
+        return null;
+    }
 
-  @autobind renderExerciseHeader() {
+    @autobind renderExerciseHeader() {
 
-      const { ux, unDocked } = this.props;
-      return (
-          <StyledHeader
-              unDocked={unDocked}
-              headerContent={headerContent(ux)}
-              backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-              backToText='Dashboard'
-          />
-      );
-  }
+        const { ux, unDocked } = this.props;
+        return (
+            <StyledHeader
+                unDocked={unDocked}
+                headerContent={headerContent(ux)}
+                backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+                backToText='Dashboard'
+            />
+        );
+    }
 }
 
 export default ExercisesTaskHeader;

@@ -98,123 +98,123 @@ Exercises.propTypes = {
 
 @observer
 class SectionsExercises extends React.Component {
-  static propTypes = {
-      pageId:                 PropTypes.string.isRequired,
-      book:                   PropTypes.instanceOf(Book).isRequired,
-      exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-      onShowDetailsViewClick: PropTypes.func.isRequired,
-      onExerciseToggle:       PropTypes.func.isRequired,
-      getExerciseIsSelected:  PropTypes.func.isRequired,
-      getExerciseActions:     PropTypes.func.isRequired,
-  };
+    static propTypes = {
+        pageId:                 PropTypes.string.isRequired,
+        book:                   PropTypes.instanceOf(Book).isRequired,
+        exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+        onShowDetailsViewClick: PropTypes.func.isRequired,
+        onExerciseToggle:       PropTypes.func.isRequired,
+        getExerciseIsSelected:  PropTypes.func.isRequired,
+        getExerciseActions:     PropTypes.func.isRequired,
+    };
 
-  @computed get pageExercises() {
-      return this.props.exercises.byPageId[this.props.pageId];
-  }
+    @computed get pageExercises() {
+        return this.props.exercises.byPageId[this.props.pageId];
+    }
 
-  @computed get mcExercises() {
-      return this.pageExercises.filter(e => e.isMultiChoice);
-  }
+    @computed get mcExercises() {
+        return this.pageExercises.filter(e => e.isMultiChoice);
+    }
 
-  @computed get oeExercises() {
-      return this.pageExercises.filter(e => e.isOpenEnded);
-  }
+    @computed get oeExercises() {
+        return this.pageExercises.filter(e => e.isOpenEnded);
+    }
 
-  render() {
-      const { pageId, book, ...previewProps } = this.props;
-      if(isEmpty(this.pageExercises)) {
-          return null;
-      }
-      const page = book.pages.byId.get(pageId);
+    render() {
+        const { pageId, book, ...previewProps } = this.props;
+        if(isEmpty(this.pageExercises)) {
+            return null;
+        }
+        const page = book.pages.byId.get(pageId);
 
-      // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
-      return (
-          <Wrapper data-section={page.chapter_section.asString}>
-              <SectionLabel>
-                  <BookPartTitle part={page} displayChapterSection />
-              </SectionLabel>
-              <Exercises
-                  title="Multiple Choice Questions"
-                  hintText="(MCQs are auto-graded by Tutor)"
-                  id={`mc-${pageId}`}
-                  {...previewProps}
-                  exercises={this.mcExercises}
-              />
-              <Exercises
-                  title="Written Response Questions"
-                  hintText="(WRQs have to be manually graded by the teacher)"
-                  id={`oe-${pageId}`}
-                  {...previewProps}
-                  exercises={this.oeExercises}
-              />
-          </Wrapper>
-      );
-  }
+        // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
+        return (
+            <Wrapper data-section={page.chapter_section.asString}>
+                <SectionLabel>
+                    <BookPartTitle part={page} displayChapterSection />
+                </SectionLabel>
+                <Exercises
+                    title="Multiple Choice Questions"
+                    hintText="(MCQs are auto-graded by Tutor)"
+                    id={`mc-${pageId}`}
+                    {...previewProps}
+                    exercises={this.mcExercises}
+                />
+                <Exercises
+                    title="Written Response Questions"
+                    hintText="(WRQs have to be manually graded by the teacher)"
+                    id={`oe-${pageId}`}
+                    {...previewProps}
+                    exercises={this.oeExercises}
+                />
+            </Wrapper>
+        );
+    }
 }
 
 
 @observer
 export default class ExerciseCards extends React.Component {
 
-  static propTypes = {
-      pageIds:                ArrayOrMobxType.isRequired,
-      book:                   PropTypes.instanceOf(Book).isRequired,
-      exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
-      onExerciseToggle:       PropTypes.func.isRequired,
-      getExerciseIsSelected:  PropTypes.func.isRequired,
-      getExerciseActions:     PropTypes.func.isRequired,
-      onShowDetailsViewClick: PropTypes.func.isRequired,
-      goBackward:             PropTypes.func.isRequired,
-      focusedExercise:        PropTypes.instanceOf(Exercise),
-      topScrollOffset:        PropTypes.number,
-      disableScroll:          PropTypes.bool,
-      windowImpl:             PropTypes.object,
-  };
+    static propTypes = {
+        pageIds:                ArrayOrMobxType.isRequired,
+        book:                   PropTypes.instanceOf(Book).isRequired,
+        exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+        onExerciseToggle:       PropTypes.func.isRequired,
+        getExerciseIsSelected:  PropTypes.func.isRequired,
+        getExerciseActions:     PropTypes.func.isRequired,
+        onShowDetailsViewClick: PropTypes.func.isRequired,
+        goBackward:             PropTypes.func.isRequired,
+        focusedExercise:        PropTypes.instanceOf(Exercise),
+        topScrollOffset:        PropTypes.number,
+        disableScroll:          PropTypes.bool,
+        windowImpl:             PropTypes.object,
+    };
 
-  static defaultProps = {
-      topScrollOffset: 110,
-  };
+    static defaultProps = {
+        topScrollOffset: 110,
+    };
 
-  scroller = new ScrollTo({
-      windowImpl: this.props.windowImpl,
-      onAfterScroll: this.onAfterScroll,
-  });
+    scroller = new ScrollTo({
+        windowImpl: this.props.windowImpl,
+        onAfterScroll: this.onAfterScroll,
+    });
 
-  componentDidMount() {
-      if (!this.props.disableScroll){
-          if (this.props.focusedExercise) {
-              this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
-          } else {
-              this.scroller.scrollToSelector('[data-section]');
-          }
-      }
-  }
+    componentDidMount() {
+        if (!this.props.disableScroll){
+            if (this.props.focusedExercise) {
+                this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
+            } else {
+                this.scroller.scrollToSelector('[data-section]');
+            }
+        }
+    }
 
-  onAfterScroll = (el) => {
-      if (this.props.focusedExercise) { el.focus(); }
-  }
+    onAfterScroll = (el) => {
+        if (this.props.focusedExercise) { el.focus(); }
+    }
 
-  render() {
-      const { pageIds, exercises, goBackward, ...sectionProps } = this.props;
+    render() {
+        const { pageIds, exercises, goBackward, ...sectionProps } = this.props;
 
-      if (exercises.noneForPageIds(pageIds)) {
-          return <NoExercisesFound 
-              isHomework={true}
-              sectionHasExercises={exercises.noneForPageIds(pageIds) ? false : true}
-              onSelectSections={goBackward}/>;
-      }
+        if (exercises.noneForPageIds(pageIds)) {
+            return <NoExercisesFound 
+                isHomework={true}
+                sectionHasExercises={exercises.noneForPageIds(pageIds) ? false : true}
+                onSelectSections={goBackward}/>;
+        }
 
-      let sections = map(pageIds, pageId => (
-          <SectionsExercises
-              key={pageId}
-              exercises={exercises}
-              pageId={pageId}
-              {...sectionProps}
-          />
-      ));
+        let sections = map(pageIds, pageId => (
+            <SectionsExercises
+                key={pageId}
+                exercises={exercises}
+                pageId={pageId}
+                {...sectionProps}
+            />
+        ));
 
-      return (
-          <div className="exercise-cards">{sections}</div>
-      );
-  }
+        return (
+            <div className="exercise-cards">{sections}</div>
+        );
+    }
 }

@@ -15,151 +15,151 @@ const NUM_SECTIONS = 4;
 // eslint-disable-next-line react/prefer-stateless-function
 class ProgressGuide extends React.Component {
 
-  static propTypes = {
-      courseId: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-      ]).isRequired,
-  };
+    static propTypes = {
+        courseId: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ]).isRequired,
+    };
 
-  render() {
-      const { courseId } = this.props;
-      const sections = PerformanceForecast.Helpers.recentSections(
-          PerformanceForecast.Student.store.getSectionsWithClues(courseId)
-      );
+    render() {
+        const { courseId } = this.props;
+        const sections = PerformanceForecast.Helpers.recentSections(
+            PerformanceForecast.Student.store.getSectionsWithClues(courseId)
+        );
 
-      return (
-          <Card className="progress-guide">
-              <h2>
+        return (
+            <Card className="progress-guide">
+                <h2>
           Performance Forecast
-              </h2>
-              <h3 className="recent">
+                </h2>
+                <h3 className="recent">
           Recent topics
-              </h3>
-              <div className="guide-group">
-                  <div className="chapter-panel">
-                      {sections.map((section, i) =>
-                          <Section key={i} section={section} canPractice={true} {...this.props} />)}
-                  </div>
-              </div>
-              <PerformanceForecastColorKey />
-          </Card>
-      );
-  }
+                </h3>
+                <div className="guide-group">
+                    <div className="chapter-panel">
+                        {sections.map((section, i) =>
+                            <Section key={i} section={section} canPractice={true} {...this.props} />)}
+                    </div>
+                </div>
+                <PerformanceForecastColorKey />
+            </Card>
+        );
+    }
 }
 
 @withRouter
 class ProgressGuideCards extends React.Component {
 
-  static propTypes = {
-      courseId: PropTypes.string.isRequired,
-      history: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        courseId: PropTypes.string.isRequired,
+        history: PropTypes.object.isRequired,
+    }
 
-  @action.bound viewPerformanceForecast() {
-      return this.props.history.push(
-          Router.makePathname('viewPerformanceGuide', this.props)
-      );
-  }
+    @action.bound viewPerformanceForecast() {
+        return this.props.history.push(
+            Router.makePathname('viewPerformanceGuide', this.props)
+        );
+    }
 
-  @action.bound viewMyPracticeQuestions() {
-      return this.props.history.push(
-          Router.makePathname('practiceQuestions', this.props)
-      );
-  }
+    @action.bound viewMyPracticeQuestions() {
+        return this.props.history.push(
+            Router.makePathname('practiceQuestions', this.props)
+        );
+    }
 
-  renderEmpty(sections) {
-      return (
-          <Card className="progress-guide empty">
-              <div className="actions-box">
-                  <h2>
+    renderEmpty(sections) {
+        return (
+            <Card className="progress-guide empty">
+                <div className="actions-box">
+                    <h2>
             Performance Forecast
-                  </h2>
-                  <p>
+                    </h2>
+                    <p>
             The performance forecast is an estimate of your
             current understanding of a topic.
             It is a personalized display based on your answers
             to reading questions, homework problems,
             and previous practices.
-                  </p>
-                  <p>
+                    </p>
+                    <p>
             This area will fill in with topics as your assignments are graded.
-                  </p>
-                  <SpyMode.Content>
-                      <ul>
-                          <li>
-                              {sections.length} sections were returned
+                    </p>
+                    <SpyMode.Content>
+                        <ul>
+                            <li>
+                                {sections.length} sections were returned
                 by the performance forecast
-                          </li>
-                          {sections.map((section) =>
-                              <li key={section.chapter_section.join('.')}>
-                                  {section.chapter_section.join('.')}
-                                  {' section.title'}
-                              </li>)}
-                      </ul>
-                  </SpyMode.Content>
-              </div>
-          </Card>
-      );
-  }
+                            </li>
+                            {sections.map((section) =>
+                                <li key={section.chapter_section.join('.')}>
+                                    {section.chapter_section.join('.')}
+                                    {' section.title'}
+                                </li>)}
+                        </ul>
+                    </SpyMode.Content>
+                </div>
+            </Card>
+        );
+    }
 
-  render() {
-      const sections = PerformanceForecast.Student.store.getSectionsWithClues(this.props.courseId);
-      const recent = PerformanceForecast.Helpers.recentSections(sections);
-      if (isEmpty(recent)) { return this.renderEmpty(sections); }
+    render() {
+        const sections = PerformanceForecast.Student.store.getSectionsWithClues(this.props.courseId);
+        const recent = PerformanceForecast.Helpers.recentSections(sections);
+        if (isEmpty(recent)) { return this.renderEmpty(sections); }
 
-      return (
-          <Card className="progress-guide">
-              <div className="actions-box">
-                  <ProgressGuide sections={recent} {...this.props} />
-                  <PracticeWeakestButton courseId={this.props.courseId} />
-                  <Button
-                      variant="outline-secondary"
-                      onClick={this.viewPerformanceForecast}
-                      className="view-performance-forecast"
-                      role="link"
-                  >View All Topics</Button>
-                  <Button
-                      variant="outline-secondary"
-                      onClick={this.viewMyPracticeQuestions}
-                      className="view-my-practice-questions"
-                      role="link"
-                  >My Practice Questions</Button>
-              </div>
-          </Card>
-      );
-  }
+        return (
+            <Card className="progress-guide">
+                <div className="actions-box">
+                    <ProgressGuide sections={recent} {...this.props} />
+                    <PracticeWeakestButton courseId={this.props.courseId} />
+                    <Button
+                        variant="outline-secondary"
+                        onClick={this.viewPerformanceForecast}
+                        className="view-performance-forecast"
+                        role="link"
+                    >View All Topics</Button>
+                    <Button
+                        variant="outline-secondary"
+                        onClick={this.viewMyPracticeQuestions}
+                        className="view-my-practice-questions"
+                        role="link"
+                    >My Practice Questions</Button>
+                </div>
+            </Card>
+        );
+    }
 }
 
 export default
 class ProgressGuideShell extends React.Component {
 
-  static propTypes = {
-      courseId: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-      ]).isRequired,
-  };
+    static propTypes = {
+        courseId: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ]).isRequired,
+    };
 
-  renderLoading = (refreshButton) => {
-      return (
-          <div className="actions-box loadable is-loading">
+    renderLoading = (refreshButton) => {
+        return (
+            <div className="actions-box loadable is-loading">
         Loading progress information...
-              {refreshButton}
-          </div>
-      );
-  };
+                {refreshButton}
+            </div>
+        );
+    };
 
-  render() {
-      return (
-          <LoadableItem
-              id={this.props.courseId}
-              store={PerformanceForecast.Student.store}
-              renderLoading={this.renderLoading}
-              actions={PerformanceForecast.Student.actions}
-              renderItem={() => {
-                  return <ProgressGuideCards {...this.props} />;
-              }} />
-      );
-  }
+    render() {
+        return (
+            <LoadableItem
+                id={this.props.courseId}
+                store={PerformanceForecast.Student.store}
+                renderLoading={this.renderLoading}
+                actions={PerformanceForecast.Student.actions}
+                renderItem={() => {
+                    return <ProgressGuideCards {...this.props} />;
+                }} />
+        );
+    }
 }

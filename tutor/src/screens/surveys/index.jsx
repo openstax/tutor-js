@@ -33,68 +33,70 @@ const ThankYou = () => {
 @observer
 export default
 class Surveys extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+        params: PropTypes.shape({
+            courseId: idType,
+            surveyId: idType,
+        }).isRequired,
+    }
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-      params: PropTypes.shape({
-          courseId: idType,
-          surveyId: idType,
-      }).isRequired,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  UNSAFE_componentWillMount() {
-      if (!this.studentTaskPlans.api.isFetchedOrFetching) {
-          this.studentTaskPlans.fetch();
-      }
-  }
+    UNSAFE_componentWillMount() {
+        if (!this.studentTaskPlans.api.isFetchedOrFetching) {
+            this.studentTaskPlans.fetch();
+        }
+    }
 
-  @computed get course() {
-      return this.props.course || Courses.get(this.props.params.courseId);
-  }
+    @computed get course() {
+        return this.props.course || Courses.get(this.props.params.courseId);
+    }
 
-  @computed get studentTaskPlans() {
-      return this.course.studentTaskPlans;
-  }
+    @computed get studentTaskPlans() {
+        return this.course.studentTaskPlans;
+    }
 
-  @computed get survey() {
-      return this.studentTaskPlans.researchSurveys ?
-          this.studentTaskPlans.researchSurveys.get(this.props.params.surveyId) : null;
-  }
+    @computed get survey() {
+        return this.studentTaskPlans.researchSurveys ?
+            this.studentTaskPlans.researchSurveys.get(this.props.params.surveyId) : null;
+    }
 
-  @computed get model() {
-      return this.survey ? new Model(this.survey.surveyJS) : null;
-  }
+    @computed get model() {
+        return this.survey ? new Model(this.survey.surveyJS) : null;
+    }
 
-  @action.bound onComplete(survey) {
-      this.survey.response = survey.data;
-      this.survey.save();
-  }
+    @action.bound onComplete(survey) {
+        this.survey.response = survey.data;
+        this.survey.save();
+    }
 
-  render() {
-      const { course, model, survey } = this;
-      if (!survey) {
-          return this.studentTaskPlans.api.isPending ?
-              <LoadingScreen /> : <NotFound />;
-      }
-      if (survey.api.isPending) {
-          return <LoadingScreen message="Saving response…" />;
-      }
-      if (survey.isComplete) {
-          return <ThankYou survey={survey} />;
-      }
+    render() {
+        const { course, model, survey } = this;
+        if (!survey) {
+            return this.studentTaskPlans.api.isPending ?
+                <LoadingScreen /> : <NotFound />;
+        }
+        if (survey.api.isPending) {
+            return <LoadingScreen message="Saving response…" />;
+        }
+        if (survey.isComplete) {
+            return <ThankYou survey={survey} />;
+        }
 
-      return (
-          <CoursePage
-              className="research-surveys"
-              title={course.name}
-              subtitle={course.termFull}
-              course={course}
-          >
-              <h3>{survey.title}</h3>
-              <Survey model={model} onComplete={this.onComplete} />
-          </CoursePage>
-      );
-  }
-
-
+        return (
+            <CoursePage
+                className="research-surveys"
+                title={course.name}
+                subtitle={course.termFull}
+                course={course}
+            >
+                <h3>{survey.title}</h3>
+                <Survey model={model} onComplete={this.onComplete} />
+            </CoursePage>
+        );
+    }
 }

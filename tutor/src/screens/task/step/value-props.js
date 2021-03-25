@@ -17,40 +17,40 @@ const CardBody = styled(StepCard)`
 
 class ValueProp extends React.Component {
 
-  static propTypes = {
-      blue: PropTypes.bool,
-      title: PropTypes.string.isRequired,
-      className: PropTypes.string,
-      children: PropTypes.node.isRequired,
-      step: PropTypes.shape({
-          type: PropTypes.string.isRequired,
-      }).isRequired,
-      ux: PropTypes.shape({
-          viewedInfoSteps: PropTypes.array.isRequired,
-          canGoForward: PropTypes.bool.isRequired,
-          goForward: PropTypes.func.isRequired,
-      }).isRequired,
-  };
+    static propTypes = {
+        blue: PropTypes.bool,
+        title: PropTypes.string.isRequired,
+        className: PropTypes.string,
+        children: PropTypes.node.isRequired,
+        step: PropTypes.shape({
+            type: PropTypes.string.isRequired,
+        }).isRequired,
+        ux: PropTypes.shape({
+            viewedInfoSteps: PropTypes.array.isRequired,
+            canGoForward: PropTypes.bool.isRequired,
+            goForward: PropTypes.func.isRequired,
+        }).isRequired,
+    };
 
-  componentWillUnmount() {
-      this.props.ux.viewedInfoSteps.push(this.props.step.type);
-  }
+    componentWillUnmount() {
+        this.props.ux.viewedInfoSteps.push(this.props.step.type);
+    }
 
-  render() {
-      const { className, blue, step: { type }, title, children, ux } = this.props;
+    render() {
+        const { className, blue, step: { type }, title, children, ux } = this.props;
 
-      return (
-          <CardBody
-              blue={blue}
-              data-test-id={`${type}-value-prop`}
-              className={cn(`openstax-${type}`, className)}
-          >
-              <h1>{title}</h1>
-              {children}
-              <ContinueBtn data-test-id="value-prop-continue-btn" variant="light" ux={ux} />
-          </CardBody>
-      );
-  }
+        return (
+            <CardBody
+                blue={blue}
+                data-test-id={`${type}-value-prop`}
+                className={cn(`openstax-${type}`, className)}
+            >
+                <h1>{title}</h1>
+                {children}
+                <ContinueBtn data-test-id="value-prop-continue-btn" variant="light" ux={ux} />
+            </CardBody>
+        );
+    }
 }
 
 export function PersonalizedGroup(props) {

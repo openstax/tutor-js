@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, field, session, identifier, hasMany,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, session, identifier, hasMany, modelize } from 'shared/model';
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
@@ -101,6 +99,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
   constructor(attrs) {
       super(attrs);
+      modelize(this);
       this.course = attrs.course;
       this.cloned_from_id = attrs.cloned_from_id;
       this.unmodified_plans = attrs.tasking_plans;
@@ -113,7 +112,6 @@ export default class TeacherTaskPlan extends BaseModel {
       if (this.isNew && !this.isClone) {
           Object.assign(this.settings, this.defaultSettings);
       }
-
   }
 
   @computed get defaultSettings() {

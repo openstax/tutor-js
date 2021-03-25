@@ -50,43 +50,43 @@ const FormButtons = observer(({ ux }) => {
     // if editing
     if (ux.from_exercise_id) {
         return (
-      <>
-        {previewButton}
-        <Button
-            variant="default"
-            className="cancel"
-            onClick={ux.doExitForm}>
+            <>
+                {previewButton}
+                <Button
+                    variant="default"
+                    className="cancel"
+                    onClick={ux.doExitForm}>
           Cancel
-        </Button>
-        <Button
-            variant="primary"
-            data-test-id="publish-btn"
-            onClick={() => ux.publish(true)}
-            disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
+                </Button>
+                <Button
+                    variant="primary"
+                    data-test-id="publish-btn"
+                    onClick={() => ux.publish(true)}
+                    disabled={!ux.isReadyToPublish || !ux.hasAnyChanges}>
           Publish changes
-        </Button>
-      </>
+                </Button>
+            </>
         );
     }
     // otherwise it is creating
     return (
-    <>
-      {previewButton}
-      <Button
-          variant="default"
-          className="publish"
-          onClick={() => ux.publish(false)}
-          disabled={!ux.isReadyToPublish}>
+        <>
+            {previewButton}
+            <Button
+                variant="default"
+                className="publish"
+                onClick={() => ux.publish(false)}
+                disabled={!ux.isReadyToPublish}>
         Publish question
-      </Button>
-      <Button
-          variant="primary"
-          className="publish"
-          onClick={() => ux.publish(true)}
-          disabled={!ux.isReadyToPublish}>
+            </Button>
+            <Button
+                variant="primary"
+                className="publish"
+                onClick={() => ux.publish(true)}
+                disabled={!ux.isReadyToPublish}>
         Publish &amp; Exit
-      </Button>
-    </>
+            </Button>
+        </>
     );
 });
 FormButtons.propTypes = {

@@ -16,6 +16,7 @@ export default class CourseUX {
   @observable course;
 
   constructor(course) {
+      modelize(this);
       this.course = course;
   }
 

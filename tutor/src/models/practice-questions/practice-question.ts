@@ -1,8 +1,6 @@
 import { extend } from 'lodash';
 import { computed, action } from 'mobx';
-import {
-    BaseModel, identifiedBy, field, identifier,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, identifier, modelize } from 'shared/model';
 
 
 @identifiedBy('practice-questions/practice-question')
@@ -15,6 +13,7 @@ export default class PracticeQuestion extends BaseModel {
 
   constructor(attrs = {}, map) {
       super(attrs);
+      modelize(this);
       this.map = map;
   }
 

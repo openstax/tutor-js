@@ -136,13 +136,13 @@ const TagForm = observer(({ ux }) => {
                         <label>Bloom's taxonomy</label>
                         <QuestionInfo
                             popoverInfo={
-                <>
-                  <p>
+                                <>
+                                    <p>
                     Bloom’s taxonomy is designed to make it easier for
                     teachers to classify learning outcomes and write better assessments.
-                  </p>
-                  <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
-                </>
+                                    </p>
+                                    <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
+                                </>
                             } />
                     </div>
                     {dropDownTags(TAG_BLOOMS, ux.tagBloom, ux.changeBloomTag)}
@@ -157,13 +157,13 @@ const TagForm = observer(({ ux }) => {
                         <QuestionInfo
                             placement="bottom"
                             popoverInfo={
-                <>
-                  <p>
+                                <>
+                                    <p>
                     Depth of Knowledge or DoK is used to identify the level of rigor for
                     an assessment and categorize activities according to the level of complexity in thinking.
-                  </p>
-                  <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
-                </>
+                                    </p>
+                                    <a href="https://openstax.org/blog/use-blooms-taxonomy-and-depth-of-knowledge-to-write-better-questions-in-openstax-tutor" target="_blank">Learn More</a>
+                                </>
                             } />
                     </div>
                     {dropDownTags(TAG_DOKS, ux.tagDok, ux.changeDokTag)}

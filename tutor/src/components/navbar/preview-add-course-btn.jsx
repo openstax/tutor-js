@@ -20,41 +20,45 @@ import onboardingForCourse from '../../models/course/onboarding';
 @observer
 export default
 class PreviewAddCourseBtn extends React.Component {
+    static propTypes = {
+        history: PropTypes.object.isRequired,
+        course: PropTypes.instanceOf(Course),
+        tourContext: PropTypes.instanceOf(TourContext),
+    }
 
-  static propTypes = {
-      history: PropTypes.object.isRequired,
-      course: PropTypes.instanceOf(Course),
-      tourContext: PropTypes.instanceOf(TourContext),
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @computed get ux() {
-      return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
-  }
+    @computed get ux() {
+        return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
+    }
 
-  componentWillUnmount() {
-      if (this.ux) { this.ux.close(); }
-  }
+    componentWillUnmount() {
+        if (this.ux) { this.ux.close(); }
+    }
 
-  @action.bound
-  onAddCourse() {
-      this.props.history.push(
-          Router.makePathname('myCourses')
-      );
-  }
+    @action.bound
+    onAddCourse() {
+        this.props.history.push(
+            Router.makePathname('myCourses')
+        );
+    }
 
-  render() {
-      if (!get(this, 'ux.showCreateCourseAction')) { return null; }
+    render() {
+        if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
-      return (
-          <TourAnchor
-              className="preview-add-course-nav-button"
-              id="preview-add-course-nav-button"
-          >
-              <Button onClick={this.onAddCourse}>
-                  <Icon type="plus-square" />
-          Create a course
-              </Button>
-          </TourAnchor>
-      );
-  }
+        return (
+            <TourAnchor
+                className="preview-add-course-nav-button"
+                id="preview-add-course-nav-button"
+            >
+                <Button onClick={this.onAddCourse}>
+                    <Icon type="plus-square" />
+            Create a course
+                </Button>
+            </TourAnchor>
+        );
+    }
 }

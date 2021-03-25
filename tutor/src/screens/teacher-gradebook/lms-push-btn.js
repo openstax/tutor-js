@@ -10,45 +10,49 @@ import Push from '../../models/jobs/lms-score-push';
 @observer
 export default
 class LmsPush extends React.Component {
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+    }
 
-  @computed get lmsPush() {
-      return Push.forCourse(this.props.course);
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound startPush() {
-      this.lmsPush.start();
-  }
+    @computed get lmsPush() {
+        return Push.forCourse(this.props.course);
+    }
 
-  render() {
-      const { course } = this.props;
-      const { lastPushedAt } = this.lmsPush;
+    @action.bound startPush() {
+        this.lmsPush.start();
+    }
 
-      if (!course.is_lms_enabled) { return null; }
+    render() {
+        const { course } = this.props;
+        const { lastPushedAt } = this.lmsPush;
 
-      const popover = (
-          <Popover className="scores-popover">
-              <p>Export Course average to {course.name}</p>
-              {lastPushedAt && <p>Last sent to LMS: <strong>{lastPushedAt}</strong></p>}
-          </Popover>
-      );
-      return (
-      <>
-        <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
-            <AsyncButton
-                variant='plain'
-                isWaiting={this.lmsPush.isPending}
-                waitingText="Sending course averages to LMS…"
-                onClick={this.startPush}
-                data-test-id="lms-push">
-                <Icon type="paper-plane" />
-            </AsyncButton>
-        </OverlayTrigger>
+        if (!course.is_lms_enabled) { return null; }
 
-      </>
-      );
-  }
+        const popover = (
+            <Popover className="scores-popover">
+                <p>Export Course average to {course.name}</p>
+                {lastPushedAt && <p>Last sent to LMS: <strong>{lastPushedAt}</strong></p>}
+            </Popover>
+        );
+        return (
+            <>
+                <OverlayTrigger placement="bottom" overlay={popover} trigger="hover">
+                    <AsyncButton
+                        variant='plain'
+                        isWaiting={this.lmsPush.isPending}
+                        waitingText="Sending course averages to LMS…"
+                        onClick={this.startPush}
+                        data-test-id="lms-push">
+                        <Icon type="paper-plane" />
+                    </AsyncButton>
+                </OverlayTrigger>
 
+            </>
+        );
+    }
 }

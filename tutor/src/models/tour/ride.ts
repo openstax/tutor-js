@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, computed, session,
-} from 'shared/model';
+import { BaseModel, identifiedBy, computed, session, modelize } from 'shared/model';
 import { action, observable } from 'mobx';
 import { find, filter, each } from 'lodash';
 
@@ -17,6 +15,7 @@ export default class TourRide extends BaseModel {
 
   constructor(attrs) {
       super(attrs);
+      modelize(this);
       each(this.tour.steps, s => s.preValidate());
       if (this.currentStep) {
           this.currentStep.prepare({ prevStep: null }).then(() => {

@@ -11,26 +11,26 @@ const PATHS = {
 // created as plain class without this binding and never updates
 class Arrow extends React.Component {
 
-  static propTypes = {
-      direction: PropTypes.oneOf(['left', 'right', 'up', 'down']),
-  };
+    static propTypes = {
+        direction: PropTypes.oneOf(['left', 'right', 'up', 'down']),
+    };
 
-  shouldComponentUpdate(nextProps) { return nextProps.direction !== this.props.direction; }
+    shouldComponentUpdate(nextProps) { return nextProps.direction !== this.props.direction; }
 
-  render() {
-      const vertical = (this.props.direction === 'up') || (this.props.direction === 'down');
-      return (
-          <svg
-              className={`icon arrow ${this.props.direction}`}
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              viewBox={`0 0 ${vertical ? '735 370' : '370 735' }`}>
-              <path d={PATHS[this.props.direction]} />
-          </svg>
-      );
-  }
+    render() {
+        const vertical = (this.props.direction === 'up') || (this.props.direction === 'down');
+        return (
+            <svg
+                className={`icon arrow ${this.props.direction}`}
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                viewBox={`0 0 ${vertical ? '735 370' : '370 735' }`}>
+                <path d={PATHS[this.props.direction]} />
+            </svg>
+        );
+    }
 }
 
 

@@ -1,6 +1,4 @@
-import {
-    identifiedBy, session,
-} from 'shared/model';
+import { identifiedBy, session, modelize } from 'shared/model';
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
@@ -34,6 +32,7 @@ export default class ScoresExport extends Job {
 
   constructor(course) {
       super({ maxAttempts: 120, interval: 5 }); // every 5 seconds for max of 10 mins
+      modelize(this);
       this.course = course;
   }
 

@@ -3,6 +3,12 @@ import Map from 'shared/model/map';
 import Offering from './offering';
 
 class OfferingsMap extends Map {
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
+
+        modelize(this);
+    }
 
     onLoaded({ data: { items } }) {
         items.forEach(offering => this.set(offering.id, new Offering(offering)));
@@ -38,7 +44,6 @@ class OfferingsMap extends Map {
 
     // will be overwritten by API
     fetch() {}
-
 }
 
 const offeringsMap = new OfferingsMap();

@@ -1,44 +1,48 @@
-import {
-    BaseModel, identifiedBy, field, identifier, belongsTo,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
 
 @identifiedBy('course/role')
 export default class CourseRole extends BaseModel {
+    @identifier id;
+    @field({ type: 'date' }) joined_at;
+    @field type;
+    @field period_id;
+    @field research_identifier;
+    @belongsTo({ model: 'course' }) course;
 
-  @identifier id;
-  @field({ type: 'date' }) joined_at;
-  @field type;
-  @field period_id;
-  @field research_identifier;
-  @belongsTo({ model: 'course' }) course;
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @computed get isStudentLike() {
-      return Boolean(this.isStudent || this.isTeacherStudent);
-  }
+        modelize(this);
+    }
 
-  @computed get isStudent() {
-      return this.type == 'student';
-  }
+    @computed get isStudentLike() {
+        return Boolean(this.isStudent || this.isTeacherStudent);
+    }
 
-  @computed get isTeacherStudent() {
-      return this.type == 'teacher_student';
-  }
+    @computed get isStudent() {
+        return this.type == 'student';
+    }
 
-  @computed get isTeacher() {
-      return this.type == 'teacher';
-  }
+    @computed get isTeacherStudent() {
+        return this.type == 'teacher_student';
+    }
 
-  joinedAgo(terms = 'days') {
-      return moment(Time.now).diff(this.joined_at, terms);
-  }
+    @computed get isTeacher() {
+        return this.type == 'teacher';
+    }
 
-  @action async become({ reset = true } = {}) {
-      if (reset) {
-          this.course.clearCachedStudentData();
-      }
-      this.course.current_role_id = this.id;
-  }
+    joinedAgo(terms = 'days') {
+        return moment(Time.now).diff(this.joined_at, terms);
+    }
+
+    @action async become({ reset = true } = {}) {
+        if (reset) {
+            this.course.clearCachedStudentData();
+        }
+        this.course.current_role_id = this.id;
+    }
 }

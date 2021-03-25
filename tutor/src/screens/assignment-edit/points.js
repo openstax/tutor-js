@@ -78,63 +78,63 @@ const QuestionTags = observer(({ info: { exercise } }) => {
 
 class QuestionHeading extends React.Component {
 
-  static propTypes = {
-      ux:    PropTypes.object.isRequired,
-      info:  PropTypes.object.isRequired,
-      styleVariant: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-  };
+    static propTypes = {
+        ux:    PropTypes.object.isRequired,
+        info:  PropTypes.object.isRequired,
+        styleVariant: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+    };
 
-  @action.bound moveExerciseUp() {
-      this.props.ux.plan.moveExercise(this.props.info.exercise, -1);
-  }
+    @action.bound moveExerciseUp() {
+        this.props.ux.plan.moveExercise(this.props.info.exercise, -1);
+    }
 
-  @action.bound moveExerciseDown() {
-      this.props.ux.plan.moveExercise(this.props.info.exercise, 1);
-  }
+    @action.bound moveExerciseDown() {
+        this.props.ux.plan.moveExercise(this.props.info.exercise, 1);
+    }
 
-  @action.bound removeExercise() {
-      this.props.ux.plan.removeExercise(this.props.info.exercise);
-  }
+    @action.bound removeExercise() {
+        this.props.ux.plan.removeExercise(this.props.info.exercise);
+    }
 
-  @action.bound setPoints(ev) {
-      const points = parseFloat(S.numberWithOneDecimalPlace(ev.target.value));
-      const { exerciseIndex, questionIndex } = this.props.info;
-      this.props.ux.plan.settings.exercises[exerciseIndex].points[questionIndex] = points;
-  }
+    @action.bound setPoints(ev) {
+        const points = parseFloat(S.numberWithOneDecimalPlace(ev.target.value));
+        const { exerciseIndex, questionIndex } = this.props.info;
+        this.props.ux.plan.settings.exercises[exerciseIndex].points[questionIndex] = points;
+    }
 
-  render() {
-      const { styleVariant, label, info: { questionIndex, points } } = this.props;
-      const formattedPoints = S.numberWithOneDecimalPlace(points);
+    render() {
+        const { styleVariant, label, info: { questionIndex, points } } = this.props;
+        const formattedPoints = S.numberWithOneDecimalPlace(points);
 
-      return (
-          <Heading>
-              <ExerciseNumber variant={styleVariant}>
-                  {label}
-              </ExerciseNumber>
-              <Actions>
+        return (
+            <Heading>
+                <ExerciseNumber variant={styleVariant}>
+                    {label}
+                </ExerciseNumber>
+                <Actions>
 
-                  <Input defaultValue={formattedPoints} onChange={this.setPoints} /> Points
-                  <Controls>
-                      {questionIndex == 0 && (
-              <>
-                <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
-                <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
-              </>)}
-                      <SuretyGuard
-                          title={false}
-                          onConfirm={this.removeExercise}
-                          okButtonLabel="Remove"
-                          placement="left"
-                          message="Are you sure you want to remove this exercise?"
-                      >
-                          <Icon size="xs" type="close" />
-                      </SuretyGuard>
-                  </Controls>
-              </Actions>
-          </Heading>
-      );
-  }
+                    <Input defaultValue={formattedPoints} onChange={this.setPoints} /> Points
+                    <Controls>
+                        {questionIndex == 0 && (
+                            <>
+                                <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
+                                <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
+                            </>)}
+                        <SuretyGuard
+                            title={false}
+                            onConfirm={this.removeExercise}
+                            okButtonLabel="Remove"
+                            placement="left"
+                            message="Are you sure you want to remove this exercise?"
+                        >
+                            <Icon size="xs" type="close" />
+                        </SuretyGuard>
+                    </Controls>
+                </Actions>
+            </Heading>
+        );
+    }
 }
 
 const Points = observer(({ ux }) => (

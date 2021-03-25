@@ -13,6 +13,7 @@ class LateWorkMessages {
   displayName = 'LateWork';
 
   constructor(task) {
+      modelize(this);
       this.task = task;
   }
 
@@ -128,110 +129,118 @@ class ReadingContent extends LateWorkMessages {
 }
 
 class LateWorkPopover extends React.Component {
+    static propTypes = {
+        columnIndex: PropTypes.number.isRequired,
+        hide: PropTypes.func.isRequired,
+        task: PropTypes.instanceOf(TaskResult).isRequired,
+    }
 
-  static propTypes = {
-      columnIndex: PropTypes.number.isRequired,
-      hide: PropTypes.func.isRequired,
-      task: PropTypes.instanceOf(TaskResult).isRequired,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @computed get content() {
-      const Content = this.props.task.type === 'homework' ? HomeworkContent : ReadingContent;
-      return new Content(this.props.task);
-  }
+    @computed get content() {
+        const Content = this.props.task.type === 'homework' ? HomeworkContent : ReadingContent;
+        return new Content(this.props.task);
+    }
 
-  @action.bound onButtonClick() {
-      if (this.content.isAccepted && !this.props.task.hasAdditionalLateWork) {
-          this.props.task.rejectLate().then(this.props.hide);
-      } else {
-          this.props.task.acceptLate().then(this.props.hide);
-      }
-  }
+    @action.bound onButtonClick() {
+        if (this.content.isAccepted && !this.props.task.hasAdditionalLateWork) {
+            this.props.task.rejectLate().then(this.props.hide);
+        } else {
+            this.props.task.acceptLate().then(this.props.hide);
+        }
+    }
 
-  render() {
-      const { content } = this;
+    render() {
+        const { content } = this;
 
-      const status = this.props.task.type === 'homework' ? content.score() : content.progress();
-      const popoverProps = omit(this.props, 'hide', 'task', 'show', 'columnIndex');
-      return (
-          <Popover
-              {...popoverProps}
-              id={`late-work-info-popover-${content.task.id}`}
-              className={content.className()}
-          >
-              <Popover.Title>{content.get('title')}</Popover.Title>
-              <Popover.Content>
-                  <div className="late-status">
-                      {content.get('body')}
-                      <div className="description">
-                          <span className="title">
-                              {content.reportingOn} on {content.lateDueDate()}:
-                          </span>
-                          <span className="status">
-                              {status}
-                          </span>
-                      </div>
-                  </div>
-              </Popover.Content>
-          </Popover>
-      );
-  }
+        const status = this.props.task.type === 'homework' ? content.score() : content.progress();
+        const popoverProps = omit(this.props, 'hide', 'task', 'show', 'columnIndex');
+        return (
+            <Popover
+                {...popoverProps}
+                id={`late-work-info-popover-${content.task.id}`}
+                className={content.className()}
+            >
+                <Popover.Title>{content.get('title')}</Popover.Title>
+                <Popover.Content>
+                    <div className="late-status">
+                        {content.get('body')}
+                        <div className="description">
+                            <span className="title">
+                                {content.reportingOn} on {content.lateDueDate()}:
+                            </span>
+                            <span className="status">
+                                {status}
+                            </span>
+                        </div>
+                    </div>
+                </Popover.Content>
+            </Popover>
+        );
+    }
 }
 
 
 @observer
 class LateWork extends React.Component {
+    static propTypes = {
+        onMouseOver:  PropTypes.func.isRequired,
+        onMouseLeave: PropTypes.func.isRequired,
+        columnIndex: PropTypes.number.isRequired,
+        task: PropTypes.instanceOf(TaskResult).isRequired,
+    }
 
-  static propTypes = {
-      onMouseOver:  PropTypes.func.isRequired,
-      onMouseLeave: PropTypes.func.isRequired,
-      columnIndex: PropTypes.number.isRequired,
-      task: PropTypes.instanceOf(TaskResult).isRequired,
-  }
+    @observable isShown = false;
 
-  @observable isShown = false;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound show() {
-      this.isShown = true;
-  }
+    @action.bound show() {
+        this.isShown = true;
+    }
 
-  @action.bound hide() {
-      this.isShown = false;
-  }
+    @action.bound hide() {
+        this.isShown = false;
+    }
 
-  @action.bound getTarget() {
-      return this.refs.caret;
-  }
+    @action.bound getTarget() {
+        return this.refs.caret;
+    }
 
-  render() {
-      const { task } = this.props;
+    render() {
+        const { task } = this.props;
 
-      if (task.completed_step_count == task.completed_on_time_steps_count) {
-          return null;
-      }
+        if (task.completed_step_count == task.completed_on_time_steps_count) {
+            return null;
+        }
 
-      return (
-          <div
-              className="late-caret-trigger"
-              onMouseOver={this.props.onMouseOver}
-              onClick={this.show}
-              onMouseLeave={this.props.onMouseLeave}>
-              <Overlay
-                  placement="top"
-                  trigger="click"
-                  rootClose={true}
-                  onHide={this.hide}
-                  show={this.isShown}
-                  target={this.getTarget}>
-                  <LateWorkPopover
-                      task={this.props.task}
-                      columnIndex={this.props.columnIndex}
-                      hide={this.hide} />
-              </Overlay>
-              <div ref="caret" className="late-caret" />
-          </div>
-      );
-  }
+        return (
+            <div
+                className="late-caret-trigger"
+                onMouseOver={this.props.onMouseOver}
+                onClick={this.show}
+                onMouseLeave={this.props.onMouseLeave}>
+                <Overlay
+                    placement="top"
+                    trigger="click"
+                    rootClose={true}
+                    onHide={this.hide}
+                    show={this.isShown}
+                    target={this.getTarget}>
+                    <LateWorkPopover
+                        task={this.props.task}
+                        columnIndex={this.props.columnIndex}
+                        hide={this.hide} />
+                </Overlay>
+                <div ref="caret" className="late-caret" />
+            </div>
+        );
+    }
 }
 
 export { LateWorkPopover, LateWork };

@@ -10,40 +10,44 @@ import BuilderUX from './ux';
 @observer
 export default
 class SelectDates extends React.Component {
+    static title = 'When will you teach this course?';
 
-  static title = 'When will you teach this course?';
+    static propTypes = {
+        ux: PropTypes.instanceOf(BuilderUX).isRequired,
+    }
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(BuilderUX).isRequired,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound
-  onSelect(term) {
-      this.props.ux.newCourse.term = term;
-  }
+    @action.bound
+    onSelect(term) {
+        this.props.ux.newCourse.term = term;
+    }
 
-  render() {
-      const { ux, ux: { offering } } = this.props;
-      if (!offering) {
-          return <OfferingUnavailable />;
-      }
+    render() {
+        const { ux, ux: { offering } } = this.props;
+        if (!offering) {
+            return <OfferingUnavailable />;
+        }
 
-      return (
-          <Listing className="select-dates">
-              {offering.validTerms.map((term, index) =>
-                  <Choice
-                      key={index}
-                      active={term.isEqual(ux.newCourse.term)}
-                      onClick={partial(this.onSelect, term)}
-                  >
-                      <span className="term">
-                          {term.term}
-                      </span>
-                      <span className="year">
-                          {term.year}
-                      </span>
-                  </Choice>)}
-          </Listing>
-      );
-  }
+        return (
+            <Listing className="select-dates">
+                {offering.validTerms.map((term, index) =>
+                    <Choice
+                        key={index}
+                        active={term.isEqual(ux.newCourse.term)}
+                        onClick={partial(this.onSelect, term)}
+                    >
+                        <span className="term">
+                            {term.term}
+                        </span>
+                        <span className="year">
+                            {term.year}
+                        </span>
+                    </Choice>)}
+            </Listing>
+        );
+    }
 }

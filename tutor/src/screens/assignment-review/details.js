@@ -177,12 +177,12 @@ const StyledReadingNotice = styled.p`
 
 const QuestionHeader = observer(({ styleVariant, label, info }) => {
     return (
-    <>
-      <StyledExerciseNumber variant={styleVariant}>
-          {label}
-      </StyledExerciseNumber>
-      <strong>{ScoresHelper.formatPoints(info.availablePoints)} Points</strong>
-    </>
+        <>
+            <StyledExerciseNumber variant={styleVariant}>
+                {label}
+            </StyledExerciseNumber>
+            <strong>{ScoresHelper.formatPoints(info.availablePoints)} Points</strong>
+        </>
     );
 });
 
@@ -213,27 +213,27 @@ const Questions = observer(({ ux, questionsInfo }) => {
     let Content;
     if(ux.planScores.isReading) {
         Content = (
-      <>
-        <Header><h6>Questions Assigned</h6></Header>
-        <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Tutor Beta</StyledReadingNotice>
-      </>
+            <>
+                <Header><h6>Questions Assigned</h6></Header>
+                <StyledReadingNotice>Questions for reading assignments are automatically assigned by OpenStax Tutor Beta</StyledReadingNotice>
+            </>
         );
     }
     else {
         Content = (
-      <>
-        <Header>
-            <h6>Questions Assigned</h6>
-        </Header>
+            <>
+                <Header>
+                    <h6>Questions Assigned</h6>
+                </Header>
 
-        {ux.isExercisesReady ? (
-            <StyledHomeworkQuestions
-                questionsInfo={questionsInfo}
-                sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
-                headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
-                styleVariant="submission"
-            />) : <Loading message="Loading Questions…"/>}
-      </>
+                {ux.isExercisesReady ? (
+                    <StyledHomeworkQuestions
+                        questionsInfo={questionsInfo}
+                        sectionLinkRenderer={(props) => <SectionInfo ux={ux} {...props} />}
+                        headerContentRenderer={(props) => <QuestionHeader ux={ux} {...props} />}
+                        styleVariant="submission"
+                    />) : <Loading message="Loading Questions…"/>}
+            </>
         );
     }
     return (

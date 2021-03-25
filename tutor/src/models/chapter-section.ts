@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy } from 'shared/model';
+import { BaseModel, identifiedBy, modelize } from 'shared/model';
 import { isArray, reduceRight } from 'lodash';
 import { computed } from 'mobx';
 
@@ -7,6 +7,7 @@ export default class ChapterSection extends BaseModel {
 
     constructor(arg = []) {
         super();
+        modelize(this);
         if (isArray(arg)) {
             [this.chapter, this.section] = arg;
         } else {

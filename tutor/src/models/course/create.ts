@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, field, belongsTo, computed, session,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, belongsTo, computed, session, modelize } from 'shared/model';
 import { observable, action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
@@ -40,6 +38,7 @@ export default class CourseCreate extends BaseModel {
 
   constructor({ courses = Courses, offerings = Offerings, ...attrs } = {}) {
       super(attrs);
+      modelize(this);
       this.courses = courses;
       this.offerings = offerings;
   }

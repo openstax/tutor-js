@@ -20,9 +20,9 @@ import './commands';
 // require('./commands')
 
 Cypress.on('uncaught:exception', (err) => {
-  if(err.message.contains('ResizeObserver loop limit exceeded'))
-    return false;
-  return true;
+    if(err.message.contains('ResizeObserver loop limit exceeded'))
+        return false;
+    return true;
 });
 
-console.log("Using server url:", Cypress.config('browserUrl'))
+console.log('Using server url:', Cypress.config('browserUrl'))

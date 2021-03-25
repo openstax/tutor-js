@@ -74,7 +74,6 @@ const StyledHeaderInfo = styled.p`
 @observer
 export default
 class QLSectionsChooser extends React.Component {
-
   static propTypes = {
       course: PropTypes.instanceOf(Course).isRequired,
       pageIds: PropTypes.array.isRequired,
@@ -83,6 +82,13 @@ class QLSectionsChooser extends React.Component {
   };
 
   @observable pageIds = this.props.pageIds;
+
+  constructor() {
+    // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+    super();
+
+    modelize(this);
+  }
 
   @action.bound showQuestions() {
       this.props.exercises.fetch({

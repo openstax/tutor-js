@@ -241,30 +241,30 @@ const GrantExtension = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
-      >
-          <Button
-              variant="light"
-              className="btn-standard"
-              onClick={() => ux.isDisplayingGrantExtension=true}
-          >
+        <>
+            <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
+            >
+                <Button
+                    variant="light"
+                    className="btn-standard"
+                    onClick={() => ux.isDisplayingGrantExtension=true}
+                >
           Grant Extension
-          </Button>
-      </OverlayTrigger>
-      {ux.isDisplayingGrantExtension && (
-          <Formik
-              onSubmit={ux.saveDisplayingGrantExtension}
-              initialValues={{
-                  extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
-                  extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
-              }}
-          >
-              {(form) => <ExtendModal ux={ux} form={form} />}
-          </Formik>)}
-    </>
+                </Button>
+            </OverlayTrigger>
+            {ux.isDisplayingGrantExtension && (
+                <Formik
+                    onSubmit={ux.saveDisplayingGrantExtension}
+                    initialValues={{
+                        extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
+                        extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
+                    }}
+                >
+                    {(form) => <ExtendModal ux={ux} form={form} />}
+                </Formik>)}
+        </>
     );
 });
 

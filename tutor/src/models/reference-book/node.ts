@@ -1,8 +1,6 @@
 import { merge, pick, filter } from 'lodash';
 import { action, computed } from 'mobx';
-import {
-    BaseModel, hasMany, identifiedBy, identifier, field, session,
-} from 'shared/model';
+import { BaseModel, hasMany, identifiedBy, identifier, field, session, modelize } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
 import { getters } from '../../helpers/computed-property';
@@ -36,135 +34,141 @@ const NOT_FOUND_CONTENT = {
 
 @identifiedBy('reference-book/node')
 export default class ReferenceBookNode extends BaseModel {
-  @identifier id;
-  @field title;
-  @field type;
+    @identifier id;
+    @field title;
+    @field type;
 
-  @field cnx_id;
-  @field short_id;
-  @field uuid;
-  @field({ model: ChapterSection }) chapter_section;
-  @session chapter;
+    @field cnx_id;
+    @field short_id;
+    @field uuid;
+    @field({ model: ChapterSection }) chapter_section;
+    @session chapter;
 
-  @field content_html = '';
+    @field content_html = '';
 
-  @hasMany({
-      model: 'reference-book/node', inverseOf: 'parent',
-      extend: getters({
-          assignable() { return filter(this, 'isAssignable'); },
-          first() { return this.length ? this[0] : null; },
-      }),
-  }) children;
+    @hasMany({
+        model: 'reference-book/node', inverseOf: 'parent',
+        extend: getters({
+            assignable() { return filter(this, 'isAssignable'); },
+            first() { return this.length ? this[0] : null; },
+        }),
+    }) children;
 
-  @computed get hasContent() {
-      return this.isPage;
-  }
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @computed get isUnit() {
-      return 'unit' === this.type;
-  }
-  @computed get isChapter() {
-      return 'chapter' === this.type || 'part' == this.type;
-  }
-  @computed get isPage() {
-      return 'page' === this.type;
-  }
+        modelize(this);
+    }
 
-  @computed get index() {
-      return this.parent && this.parent.children.indexOf(this);
-  }
+    @computed get hasContent() {
+        return this.isPage;
+    }
 
-  @computed get pathId() {
-      let n = this;
-      let path = [this.index];
-      while (n.parent) {
-          n = n.parent;
-          path.push(n.index);
-      }
-      return path.join('-');
-  }
+    @computed get isUnit() {
+        return 'unit' === this.type;
+    }
+    @computed get isChapter() {
+        return 'chapter' === this.type || 'part' == this.type;
+    }
+    @computed get isPage() {
+        return 'page' === this.type;
+    }
 
-  @session({ type: 'object' }) parent;
+    @computed get index() {
+        return this.parent && this.parent.children.indexOf(this);
+    }
 
-  // nb these are not observable, othewise they can't be set from within mapPages computed
-  nextPage = null;
-  prevPage = null;
+    @computed get pathId() {
+        let n = this;
+        let path = [this.index];
+        while (n.parent) {
+            n = n.parent;
+            path.push(n.index);
+        }
+        return path.join('-');
+    }
 
-  @action linkNextPage(pg) {
-      this.nextPage = pg;
-      pg.prevPage = this;
-      return pg;
-  }
+    @session({ type: 'object' }) parent;
 
-  @action fetchExercises() {}
+    // nb these are not observable, othewise they can't be set from within mapPages computed
+    nextPage = null;
+    prevPage = null;
 
-  @action ensureLoaded() {
-      if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) {
-          this.fetchContent();
-      }
-  }
+    @action linkNextPage(pg) {
+        this.nextPage = pg;
+        pg.prevPage = this;
+        return pg;
+    }
 
-  @computed get contents() {
-      // NS: The BE has fixed this on 2/28/2020
-      // the regex can be removed after all ecosystems are re-imported
-      return this.content_html
-          .replace(/^[\s\S]*<body[\s\S]*?>/, '')
-          .replace(/<\/body>[\s\S]*$/, '');
-  }
+    @action fetchExercises() {}
 
-  @computed get book() {
-      let n = this;
-      while (n.parent) {
-          n = n.parent;
-      }
-      return n;
-  }
+    @action ensureLoaded() {
+        if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) {
+            this.fetchContent();
+        }
+    }
 
-  fetchContent() {
-      return { cnx_id: this.cnx_id, ecosystemId: this.book.id };
-  }
+    @computed get contents() {
+        // NS: The BE has fixed this on 2/28/2020
+        // the regex can be removed after all ecosystems are re-imported
+        return this.content_html
+            .replace(/^[\s\S]*<body[\s\S]*?>/, '')
+            .replace(/<\/body>[\s\S]*$/, '');
+    }
 
-  @action onContentFetchComplete({ data }) {
-      this.update(pick(data, UPDATEABLE_FIELDS));
-      MediaActions.parse(this.content_html);
-  }
+    @computed get book() {
+        let n = this;
+        while (n.parent) {
+            n = n.parent;
+        }
+        return n;
+    }
 
-  @computed get asTopic() {
-      return merge({ chapter_section: this.chapter_section.asString }, pick(this, 'id', 'title'));
-  }
+    fetchContent() {
+        return { cnx_id: this.cnx_id, ecosystemId: this.book.id };
+    }
 
-  @computed get bookIsCollated() {
-      return Boolean(this.book && this.book.is_collated);
-  }
+    @action onContentFetchComplete({ data }) {
+        this.update(pick(data, UPDATEABLE_FIELDS));
+        MediaActions.parse(this.content_html);
+    }
 
-  onContentFetchFail() {
-      this.update(NOT_FOUND_CONTENT);
-  }
+    @computed get asTopic() {
+        return merge({ chapter_section: this.chapter_section.asString }, pick(this, 'id', 'title'));
+    }
 
-  @computed get isIntro() {
-      return this.chapter_section.section < 2 && this.title.startsWith('Intro');
-  }
+    @computed get bookIsCollated() {
+        return Boolean(this.book && this.book.is_collated);
+    }
 
-  @computed get isChapterSectionDisplayed() {
-      return Boolean(!this.isIntro && this.isAssignable);
-  }
+    onContentFetchFail() {
+        this.update(NOT_FOUND_CONTENT);
+    }
 
-  @computed get titleText() {
-      const match = this.title.match(/class="os-text">([^<]+)<\/span>/);
-      return match ? match[1] : this.title;
-  }
+    @computed get isIntro() {
+        return this.chapter_section.section < 2 && this.title.startsWith('Intro');
+    }
 
-  @computed get isAssignable() {
-      return !NON_ASSIGNABLE_TITLES.find(m => this.titleText.match(m));
-  }
+    @computed get isChapterSectionDisplayed() {
+        return Boolean(!this.isIntro && this.isAssignable);
+    }
 
-  @computed get titleWithSection() {
-      if(!this.chapter_section || !this.chapter_section.chapter) {
-          return this.titleText;
-      }
-      return `${this.chapter_section.asString}. ${this.titleText}`;
-  }
+    @computed get titleText() {
+        const match = this.title.match(/class="os-text">([^<]+)<\/span>/);
+        return match ? match[1] : this.title;
+    }
 
+    @computed get isAssignable() {
+        return !NON_ASSIGNABLE_TITLES.find(m => this.titleText.match(m));
+    }
+
+    @computed get titleWithSection() {
+        if(!this.chapter_section || !this.chapter_section.chapter) {
+            return this.titleText;
+        }
+        return `${this.chapter_section.asString}. ${this.titleText}`;
+    }
 }
 
 // a mock page for use by entities such as exercises that need to indicate

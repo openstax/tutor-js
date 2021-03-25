@@ -31,173 +31,185 @@ const Title = styled.div`
 }))
 @observer
 class TeacherDashboardWrapper extends React.Component {
+    static propTypes = {
+        dateFormat: PropTypes.string,
+        date: PropTypes.string.isRequired,
+        course: PropTypes.instanceOf(Course).isRequired,
+        tourContext: PropTypes.object,
+        // router's history is needed for Navbar helpers
+        history: PropTypes.object.isRequired,
+    }
 
-  static propTypes = {
-      dateFormat: PropTypes.string,
-      date: PropTypes.string.isRequired,
-      course: PropTypes.instanceOf(Course).isRequired,
-      tourContext: PropTypes.object,
-      // router's history is needed for Navbar helpers
-      history: PropTypes.object.isRequired,
-  }
-
-  static defaultProps = {
-      dateFormat: TimeHelper.ISO_DATE_FORMAT,
-  }
-
-
-  @computed get date() {
-      return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
-  }
-
-  @computed get bounds() {
-      const { date } = this;
-      return {
-          startAt: TimeHelper.toISO(
-              date.clone().startOf('month').startOf('week').subtract(1, 'day')
-          ),
-          endAt: TimeHelper.toISO(
-              date.clone().endOf('month').endOf('week').add(1, 'day')
-          ),
-      };
-  }
-
-  @computed get fetchParams() {
-      return extend({ courseId: this.props.course.id }, this.bounds);
-  }
-
-  @observable loader = new ModelLoader({
-      model: this.props.course.teacherTaskPlans,
-      fetch: true,
-  });
-
-  disposePlanObserver = observe(this, 'fetchParams', ({ newValue: fetchParam }) => {
-      this.loader.fetch(fetchParam);
-  });
+    static defaultProps = {
+        dateFormat: TimeHelper.ISO_DATE_FORMAT,
+    }
 
 
-  @observable displayAs = 'month';
-  @observable showingSideBar = false;
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  componentDidMount() {
-      const { course } = this.props;
-      const courseTimezone = course.timezone;
-      TimeHelper.syncCourseTimezone(courseTimezone);
-      course.trackDashboardView();
-      // if the teacher is impersonating a student and hit the back button
-      // the currentRole will be a TeacherStudent.  We need to reset it
-      if (course.currentRole.isTeacherStudent && course.roles.teacher) {
-          course.current_role_id = null;
-      }
-    
-      course.referenceBook.ensureLoaded();
-  }
+        modelize(this);
+    }
 
-  componentWillUnmount() {
-      TimeHelper.unsyncCourseTimezone();
-      this.disposePlanObserver();
-  }
 
-  @action.bound onSidebarToggle(isOpen) {
-      this.showingSideBar = isOpen;
-  }
+    @computed get date() {
+        return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
+    }
 
-  render() {
-      const {
-          showingSideBar, displayAs,
-          props: { dateFormat, course },
-      } = this;
+    @computed get bounds() {
+        const { date } = this;
+        return {
+            startAt: TimeHelper.toISO(
+                date.clone().startOf('month').startOf('week').subtract(1, 'day')
+            ),
+            endAt: TimeHelper.toISO(
+                date.clone().endOf('month').endOf('week').add(1, 'day')
+            ),
+        };
+    }
 
-      const hasPeriods = !isEmpty(course.periods.active);
-      const dashboardProps = {
-          course, date:  moment(this.props.date),
-          displayAs, hasPeriods,
-          showingSideBar, dateFormat,
-      };
+    @computed get fetchParams() {
+        return extend({ courseId: this.props.course.id }, this.bounds);
+    }
 
-      if (this.loader.isBusy) {
-          extend(dashboardProps, { className: 'calendar-loading' });
-      }
+    @observable loader = new ModelLoader({
+        model: this.props.course.teacherTaskPlans,
+        fetch: true,
+    });
 
-      return (
-          <CoursePage
-              className="list-task-plans"
-              title={(
-                  <Title>
-                      <h1>{course.name}</h1>
-                  </Title>
-              )}
-              titleControls={(
-                  <TeacherBecomesStudent course={course} />
-              )}
-              subtitle={course.termFull}
-              course={course}
-              controls={
-                  <CourseCalendarHeader
-                      onSidebarToggle={this.onSidebarToggle}
-                      course={course}
-                      hasPeriods={hasPeriods}
-                      defaultOpen={this.showingSideBar}
-                  />}
-              notices={
-                  <NotificationsBar
-                      course={course}
-                      role={course.primaryRole}
-                      callbacks={NotificationHelpers.buildCallbackHandlers(this)}
-                  />
-              }
-          >
-              <Dashboard {...dashboardProps} />
-          </CoursePage>
-      );
-  }
+    disposePlanObserver = observe(this, 'fetchParams', ({ newValue: fetchParam }) => {
+        this.loader.fetch(fetchParam);
+    });
+
+
+    @observable displayAs = 'month';
+    @observable showingSideBar = false;
+
+    componentDidMount() {
+        const { course } = this.props;
+        const courseTimezone = course.timezone;
+        TimeHelper.syncCourseTimezone(courseTimezone);
+        course.trackDashboardView();
+        // if the teacher is impersonating a student and hit the back button
+        // the currentRole will be a TeacherStudent.  We need to reset it
+        if (course.currentRole.isTeacherStudent && course.roles.teacher) {
+            course.current_role_id = null;
+        }
+      
+        course.referenceBook.ensureLoaded();
+    }
+
+    componentWillUnmount() {
+        TimeHelper.unsyncCourseTimezone();
+        this.disposePlanObserver();
+    }
+
+    @action.bound onSidebarToggle(isOpen) {
+        this.showingSideBar = isOpen;
+    }
+
+    render() {
+        const {
+            showingSideBar, displayAs,
+            props: { dateFormat, course },
+        } = this;
+
+        const hasPeriods = !isEmpty(course.periods.active);
+        const dashboardProps = {
+            course, date:  moment(this.props.date),
+            displayAs, hasPeriods,
+            showingSideBar, dateFormat,
+        };
+
+        if (this.loader.isBusy) {
+            extend(dashboardProps, { className: 'calendar-loading' });
+        }
+
+        return (
+            <CoursePage
+                className="list-task-plans"
+                title={(
+                    <Title>
+                        <h1>{course.name}</h1>
+                    </Title>
+                )}
+                titleControls={(
+                    <TeacherBecomesStudent course={course} />
+                )}
+                subtitle={course.termFull}
+                course={course}
+                controls={
+                    <CourseCalendarHeader
+                        onSidebarToggle={this.onSidebarToggle}
+                        course={course}
+                        hasPeriods={hasPeriods}
+                        defaultOpen={this.showingSideBar}
+                    />}
+                notices={
+                    <NotificationsBar
+                        course={course}
+                        role={course.primaryRole}
+                        callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+                    />
+                }
+            >
+                <Dashboard {...dashboardProps} />
+            </CoursePage>
+        );
+    }
 }
 export { TeacherDashboardWrapper };
 
 
 export default
 class TeacherDashboardDateWrapper extends React.Component {
+    static propTypes = {
+        params: PropTypes.shape({
+            courseId: PropTypes.string,
+            date: PropTypes.string,
+        }).isRequired,
+    }
 
-  static propTypes = {
-      params: PropTypes.shape({
-          courseId: PropTypes.string,
-          date: PropTypes.string,
-      }).isRequired,
-  }
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @computed get course() {
-      return Courses.get(this.props.params.courseId);
-  }
+        modelize(this);
+    }
 
-  render() {
-      if (!this.course) {
-          return <Redirect to={Router.makePathname('myCourses')} />;
-      }
-      let { date } = this.props.params;
+    @computed get course() {
+        return Courses.get(this.props.params.courseId);
+    }
 
-      if (!date || !moment(date, TimeHelper.ISO_DATE_FORMAT, true).isValid()) {
-          const { bounds } = this.course;
-          date = Time.now;
-          if (bounds.start.isAfter(date)) {
-              date = bounds.start;
-          }
+    render() {
+        if (!this.course) {
+            return <Redirect to={Router.makePathname('myCourses')} />;
+        }
+        let { date } = this.props.params;
 
-          return (
-              <Redirect to={Router.makePathname('calendarByDate', {
-                  courseId: this.course.id,
-                  date: moment(date).format(TimeHelper.ISO_DATE_FORMAT),
-              })} />
-          );
-      }
+        if (!date || !moment(date, TimeHelper.ISO_DATE_FORMAT, true).isValid()) {
+            const { bounds } = this.course;
+            date = Time.now;
+            if (bounds.start.isAfter(date)) {
+                date = bounds.start;
+            }
 
-      return (
-          <ScrollToTop>
-              <TeacherDashboardWrapper
-                  date={date}
-                  course={this.course}
-              />
-          </ScrollToTop>
-      );
-  }
+            return (
+                <Redirect to={Router.makePathname('calendarByDate', {
+                    courseId: this.course.id,
+                    date: moment(date).format(TimeHelper.ISO_DATE_FORMAT),
+                })} />
+            );
+        }
 
+        return (
+            <ScrollToTop>
+                <TeacherDashboardWrapper
+                    date={date}
+                    course={this.course}
+                />
+            </ScrollToTop>
+        );
+    }
 }

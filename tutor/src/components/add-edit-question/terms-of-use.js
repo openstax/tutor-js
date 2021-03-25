@@ -69,30 +69,30 @@ const agreeTermsOfUse = () => {
 const TermAgreement = ({ onClose }) => {
     const [agree, setAgree] = useState(false);
     return (
-    <>
-      <CheckboxInput
-          className="i-agree"
-          onChange={() => setAgree(prevState => !prevState)}
-          label="I have read and agree to these terms of use."
-          checked={agree}
-          standalone
-      />
-      <div className="buttons-wrapper">
-          <Button
-              variant="default"
-              className="cancel"
-              onClick={onClose}>
+        <>
+            <CheckboxInput
+                className="i-agree"
+                onChange={() => setAgree(prevState => !prevState)}
+                label="I have read and agree to these terms of use."
+                checked={agree}
+                standalone
+            />
+            <div className="buttons-wrapper">
+                <Button
+                    variant="default"
+                    className="cancel"
+                    onClick={onClose}>
           Cancel
-          </Button>
-          <Button
-              data-test-id="agree-to-terms"
-              variant="primary"
-              disabled={!agree}
-              onClick={agreeTermsOfUse}>
+                </Button>
+                <Button
+                    data-test-id="agree-to-terms"
+                    variant="primary"
+                    disabled={!agree}
+                    onClick={agreeTermsOfUse}>
           Accept and continue
-          </Button>
-      </div>
-    </>
+                </Button>
+            </div>
+        </>
     );
 };
 TermAgreement.propTypes = {

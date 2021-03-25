@@ -1,6 +1,4 @@
-import {
-    identifiedBy,
-} from 'shared/model';
+import { identifiedBy, modelize } from 'shared/model';
 
 import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
@@ -45,6 +43,7 @@ export default class TaskPlanPublish extends Job {
 
   constructor(plan) {
       super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
+      modelize(this);
       this.plan = plan;
   }
 

@@ -26,41 +26,46 @@ Success.propTypes = {
 
 @observer
 class Failure extends React.Component {
+    static propTypes = {
+        dismiss: PropTypes.func.isRequired,
+        toast: PropTypes.object.isRequired,
+    }
 
-  static propTypes = {
-      dismiss: PropTypes.func.isRequired,
-      toast: PropTypes.object.isRequired,
-  }
+    @observable showDetails = false;
 
-  @observable showDetails = false;
-  @action.bound onShowDetails() { this.showDetails = true; }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  render() {
-      if (this.showDetails) {
-          return (
-              <WarningModal
-                  backdrop={false}
-                  title="Scores not exported"
-                  footer={<Button className="dismiss" onClick={this.props.dismiss}>Close</Button>}
-              >
-          The scores spreadsheet could not be exported. Return
-          to the student scores page to try again.  If
-          this problem persists, please contact <SupportEmailLink />.
-              </WarningModal>
-          );
-      }
-      return (
-          <div className="toast scores failure">
-              <div className="title">
-          Scores not exported
-                  <Icon type="close" className="dismiss" onClick={this.props.dismiss} />
-              </div>
-              <div className="body">
-                  <Button className="details" variant="link" onClick={this.onShowDetails}>Details</Button>
-              </div>
-          </div>
-      );
-  }
+    @action.bound onShowDetails() { this.showDetails = true; }
+
+    render() {
+        if (this.showDetails) {
+            return (
+                <WarningModal
+                    backdrop={false}
+                    title="Scores not exported"
+                    footer={<Button className="dismiss" onClick={this.props.dismiss}>Close</Button>}
+                >
+            The scores spreadsheet could not be exported. Return
+            to the student scores page to try again.  If
+            this problem persists, please contact <SupportEmailLink />.
+                </WarningModal>
+            );
+        }
+        return (
+            <div className="toast scores failure">
+                <div className="title">
+            Scores not exported
+                    <Icon type="close" className="dismiss" onClick={this.props.dismiss} />
+                </div>
+                <div className="body">
+                    <Button className="details" variant="link" onClick={this.onShowDetails}>Details</Button>
+                </div>
+            </div>
+        );
+    }
 }
 
 export { Failure, Success };

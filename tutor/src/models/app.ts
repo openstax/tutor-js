@@ -43,83 +43,86 @@ window._MODELS = Object.assign({
 
 
 export default class TutorApp {
+    @observable tutor_assets_hash;
+    @observable osweb_base_url;
+    @observable is_impersonating;
 
-  @observable tutor_assets_hash;
-  @observable osweb_base_url;
-  @observable is_impersonating;
+    static rootComponent = Tutor;
 
-  static rootComponent = Tutor;
+    constructor() {
+        modelize(this);
+    }
 
-  static async boot() {
-      await documentReady();
+    static async boot() {
+        await documentReady();
 
-      const app = new TutorApp();
-      [Raven, Api].forEach(lib => lib.boot({ app }));
+        const app = new TutorApp();
+        [Raven, Api].forEach(lib => lib.boot({ app }));
 
-      const { data } = await app.fetch();
-      await app.initializeApp(data);
-      return app
-  }
+        const { data } = await app.fetch();
+        await app.initializeApp(data);
+        return app
+    }
 
-  static logError(error, info) {
-      Raven.captureException(error, { extra: info });
-  }
+    static logError(error, info) {
+        Raven.captureException(error, { extra: info });
+    }
 
-  logError(error, info) {
-      Raven.captureException(error, { extra: info });
-  }
+    logError(error, info) {
+        Raven.captureException(error, { extra: info });
+    }
 
-  @action.bound initializeApp(data) {
-      window._MODELS.bootstrapData = this.data = data;
-      window._MODELS.app = this;
-      store.dispatch(bootstrap(this.data))
-      window._MODELS.store = store
-      forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
-          const data = this.data[storeId];
-          if (data) { model.bootstrap(data); }
-      });
-      // are we running under webpack?
-      if (this.data.assets_url && typeof __webpack_public_path__ !== 'undefined') {
-          // if so, tell it where to load chunks from.
-          // eslint-disable-next-line no-undef
-          __webpack_public_path__ = this.data.assets_url;
-      }
+    @action.bound initializeApp(data) {
+        window._MODELS.bootstrapData = this.data = data;
+        window._MODELS.app = this;
+        store.dispatch(bootstrap(this.data))
+        window._MODELS.store = store
+        forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
+            const data = this.data[storeId];
+            if (data) { model.bootstrap(data); }
+        });
+        // are we running under webpack?
+        if (this.data.assets_url && typeof __webpack_public_path__ !== 'undefined') {
+            // if so, tell it where to load chunks from.
+            // eslint-disable-next-line no-undef
+            __webpack_public_path__ = this.data.assets_url;
+        }
 
-      BootstrapURLs.update(this.data);
-      UiSettings.initialize(this.data.ui_settings || {});
-      Notifications.on('tutor-update', this.onNotice);
-      Notices.start(this.data);
-      this.osweb_base_url = this.data.osweb_base_url;
-      this.is_impersonating = this.data.is_impersonating;
-      ExerciseHelpers.setOSWebURL(this.osweb_base_url);
-      Chat.initialize();
-      startMathJax();
-      TransitionAssistant.startMonitoring();
-      Raven.setUser(User);
-      this.user = User;
-      this.courses = Courses;
-      PulseInsights.boot({ app: this });
-      return Promise.resolve(this);
-  }
+        BootstrapURLs.update(this.data);
+        UiSettings.initialize(this.data.ui_settings || {});
+        Notifications.on('tutor-update', this.onNotice);
+        Notices.start(this.data);
+        this.osweb_base_url = this.data.osweb_base_url;
+        this.is_impersonating = this.data.is_impersonating;
+        ExerciseHelpers.setOSWebURL(this.osweb_base_url);
+        Chat.initialize();
+        startMathJax();
+        TransitionAssistant.startMonitoring();
+        Raven.setUser(User);
+        this.user = User;
+        this.courses = Courses;
+        PulseInsights.boot({ app: this });
+        return Promise.resolve(this);
+    }
 
-  @action.bound onNotice({ tutor_assets_hash, feature_flags }) {
-      // set flags first because other behaviour might rely on them
-      FeatureFlagsApi.merge(feature_flags);
-      // when it's null, the url should default to the first update
-      if (isNil(this.tutor_assets_hash)) {
-          this.tutor_assets_hash = tutor_assets_hash;
-      } else if (this.tutor_assets_hash !== tutor_assets_hash) {
-          Toasts.push({ handler: 'reload' });
-      }
-  }
+    @action.bound onNotice({ tutor_assets_hash, feature_flags }) {
+        // set flags first because other behaviour might rely on them
+        FeatureFlagsApi.merge(feature_flags);
+        // when it's null, the url should default to the first update
+        if (isNil(this.tutor_assets_hash)) {
+            this.tutor_assets_hash = tutor_assets_hash;
+        } else if (this.tutor_assets_hash !== tutor_assets_hash) {
+            Toasts.push({ handler: 'reload' });
+        }
+    }
 
-  fetch() {
+    fetch() {
 
-  }
+    }
 
-  onLoaded({ data }) {
-      this.data = data;
-  }
+    onLoaded({ data }) {
+        this.data = data;
+    }
 }
 
 adapters.connectModelRead(TutorApp, 'fetch', { url: '/user/bootstrap', onSuccess: 'onLoaded' });

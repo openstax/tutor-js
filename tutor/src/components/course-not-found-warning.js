@@ -13,34 +13,34 @@ const MESSAGES = {
 @withRouter
 class CourseNotFoundWarning extends React.Component {
 
-  static propTypes = {
-      areaName: PropTypes.string.isRequired,
-      history: PropTypes.object.isRequired,
-      messageType: PropTypes.oneOf(Object.keys(MESSAGES)),
-  }
+    static propTypes = {
+        areaName: PropTypes.string.isRequired,
+        history: PropTypes.object.isRequired,
+        messageType: PropTypes.oneOf(Object.keys(MESSAGES)),
+    }
 
-  static defaultProps = {
-      areaName: 'course',
-  }
+    static defaultProps = {
+        areaName: 'course',
+    }
 
-  goToMyCourses = () => {
-      this.props.history.push(TutorRouter.makePathname('myCourses'));
-  }
+    goToMyCourses = () => {
+        this.props.history.push(TutorRouter.makePathname('myCourses'));
+    }
 
 
-  render() {
-      const { areaName, messageType } = this.props;
+    render() {
+        const { areaName, messageType } = this.props;
 
-      return (
-          <WarningModal
-              onDismiss={this.goToMyCourses}
-              title={`Sorry, you can’t access this ${areaName}`}
-              footer={<Button className="dismiss" onClick={this.goToMyCourses}>Close</Button>}
-          >
-              {MESSAGES[messageType] || MESSAGES.notMember}
-          </WarningModal>
-      );
-  }
+        return (
+            <WarningModal
+                onDismiss={this.goToMyCourses}
+                title={`Sorry, you can’t access this ${areaName}`}
+                footer={<Button className="dismiss" onClick={this.goToMyCourses}>Close</Button>}
+            >
+                {MESSAGES[messageType] || MESSAGES.notMember}
+            </WarningModal>
+        );
+    }
 }
 
 export { CourseNotFoundWarning };

@@ -47,43 +47,43 @@ export { TaskFooterControls };
 @observer
 class Footer extends React.Component {
 
-  static displayName = 'Footer'
+    static displayName = 'Footer'
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
 
-      bottomNavbar: PropTypes.shape({
-          left: PropTypes.shape({
-              set: PropTypes.func.isRequired,
-              delete: PropTypes.func.isRequired,
-          }).isRequired,
-          right: PropTypes.shape({
-              set: PropTypes.func.isRequired,
-              delete: PropTypes.func.isRequired,
-          }).isRequired,
-      }),
-      children: PropTypes.object.isRequired,
-  }
+        bottomNavbar: PropTypes.shape({
+            left: PropTypes.shape({
+                set: PropTypes.func.isRequired,
+                delete: PropTypes.func.isRequired,
+            }).isRequired,
+            right: PropTypes.shape({
+                set: PropTypes.func.isRequired,
+                delete: PropTypes.func.isRequired,
+            }).isRequired,
+        }),
+        children: PropTypes.object.isRequired,
+    }
 
-  componentDidMount() {
-      const { course, task } = this.props.ux;
+    componentDidMount() {
+        const { course, task } = this.props.ux;
 
-      this.props.bottomNavbar.left.set('taskInfo', () =>
-          <TaskInfo task={task} />
-      );
-      this.props.bottomNavbar.right.set('taskControls', () =>
-          <TaskFooterControls task={task} course={course} />
-      );
-  }
+        this.props.bottomNavbar.left.set('taskInfo', () =>
+            <TaskInfo task={task} />
+        );
+        this.props.bottomNavbar.right.set('taskControls', () =>
+            <TaskFooterControls task={task} course={course} />
+        );
+    }
 
-  componentWillUnmount() {
-      this.props.bottomNavbar.left.delete('taskInfo');
-      this.props.bottomNavbar.right.delete('taskControls');
-  }
+    componentWillUnmount() {
+        this.props.bottomNavbar.left.delete('taskInfo');
+        this.props.bottomNavbar.right.delete('taskControls');
+    }
 
-  render() {
-      return this.props.children;
-  }
+    render() {
+        return this.props.children;
+    }
 }
 
 const withFooter = (ChildComponent) => {

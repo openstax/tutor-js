@@ -8,25 +8,25 @@ import Router from '../../helpers/router';
 @observer
 class EventTask extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-      <>
-        <Header
-            unDocked={true}
-            title={ux.task.title}
-            backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-            backToText='Dashboard'
-        />
-        <Instructions ux={ux} />
-      </>
-      );
-  }
+        return (
+            <>
+                <Header
+                    unDocked={true}
+                    title={ux.task.title}
+                    backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+                    backToText='Dashboard'
+                />
+                <Instructions ux={ux} />
+            </>
+        );
+    }
 
 }
 

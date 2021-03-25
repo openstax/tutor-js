@@ -190,10 +190,10 @@ const TaskResult = observer(({ result, striped }) => {
         body = 'n/a';
     } else if (result.needs_grading) {
         body = (
-      <>
-        {result.submitted_late && <Icon variant="lateWork" />}
-        <UngradedIcon>{result.displayValue}</UngradedIcon>
-      </>
+            <>
+                {result.submitted_late && <Icon variant="lateWork" />}
+                <UngradedIcon>{result.displayValue}</UngradedIcon>
+            </>
         );
     } else if (result.submitted_late) {
         body = (
@@ -267,76 +267,76 @@ const Scores = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <TableHeader ux={ux} />
-      <StyledStickyTable data-test-id="scores">
-          <Row>
-              <StudentColumnHeader scores={scores} ux={ux} />
-              {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
-          </Row>
-          {ux.sortedStudents.map((student,sIndex) => (
-              <Row key={sIndex}>
-                  <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} border={false} />
-                  {scores.question_headings.map((heading, i) => (
-                      <TaskResult
-                          key={i}
-                          index={i}
-                          ux={ux}
-                          result={student.resultForHeading(heading)}
-                          striped={0 === sIndex % 2}
-                      />
-                  ))}
-              </Row>))}
-          <Row>
-              <AverageScoreHeader ux={ux} />
-              {scores.question_headings.map((h, i) => (
-                  <Cell key={i}>
-                      <ResultWrapper>
-                          {isNaN(h.displayAverageGradedPoints) && UNWORKED ||
+        <>
+            <TableHeader ux={ux} />
+            <StyledStickyTable data-test-id="scores">
+                <Row>
+                    <StudentColumnHeader scores={scores} ux={ux} />
+                    {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
+                </Row>
+                {ux.sortedStudents.map((student,sIndex) => (
+                    <Row key={sIndex}>
+                        <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} border={false} />
+                        {scores.question_headings.map((heading, i) => (
+                            <TaskResult
+                                key={i}
+                                index={i}
+                                ux={ux}
+                                result={student.resultForHeading(heading)}
+                                striped={0 === sIndex % 2}
+                            />
+                        ))}
+                    </Row>))}
+                <Row>
+                    <AverageScoreHeader ux={ux} />
+                    {scores.question_headings.map((h, i) => (
+                        <Cell key={i}>
+                            <ResultWrapper>
+                                {isNaN(h.displayAverageGradedPoints) && UNWORKED ||
                   ScoresHelper.formatPoints(h.displayAverageGradedPoints)}
-                      </ResultWrapper>
-                  </Cell>
-              ))}
-          </Row>
-      </StyledStickyTable>
-      <TableBottom>
-          <Definitions>
-              <Entry wide={true}>
-                  <Term aria-label="Not yet attempted">{UNWORKED}</Term>
-                  <Definition>Question not yet attempted</Definition>
-              </Entry>
-              <Entry>
-                  <Term variant="icon" aria-label="Extension"><EIcon /></Term>
-                  <Definition>Extension granted</Definition>
-              </Entry>
-              <Entry>
-                  <Term variant="icon" aria-label="Late"><Icon variant="lateWork" /></Term>
-                  <Definition>Late work</Definition>
-              </Entry>
-              <Entry wide={true}>
-                  <Term variant="unattempted" aria-label="Unattempted"></Term>
-                  <Definition>Question not attempted, 0 points auto-assigned</Definition>
-              </Entry>
-              <Entry>
-                  <Term variant="icon" aria-label="Dropped"><DroppedIcon color="blue" /></Term>
-                  <Definition>Dropped question</Definition>
-              </Entry>
-              <Entry>
-                  <Term variant="icon" aria-label="Ungraded"><UngradedIcon>UG</UngradedIcon></Term>
-                  <Definition>Ungraded</Definition>
-              </Entry>
-              <Entry wide={true}>
-                  <Term variant="trouble" aria-label="Less than 50%"></Term>
-                  <Definition>Scores less than 50% of question's point value</Definition>
-              </Entry>
-          </Definitions>
-          <p>
-              <strong>Note:</strong> This page reflects both published and unpublished scores
+                            </ResultWrapper>
+                        </Cell>
+                    ))}
+                </Row>
+            </StyledStickyTable>
+            <TableBottom>
+                <Definitions>
+                    <Entry wide={true}>
+                        <Term aria-label="Not yet attempted">{UNWORKED}</Term>
+                        <Definition>Question not yet attempted</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Extension"><EIcon /></Term>
+                        <Definition>Extension granted</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Late"><Icon variant="lateWork" /></Term>
+                        <Definition>Late work</Definition>
+                    </Entry>
+                    <Entry wide={true}>
+                        <Term variant="unattempted" aria-label="Unattempted"></Term>
+                        <Definition>Question not attempted, 0 points auto-assigned</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Dropped"><DroppedIcon color="blue" /></Term>
+                        <Definition>Dropped question</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Ungraded"><UngradedIcon>UG</UngradedIcon></Term>
+                        <Definition>Ungraded</Definition>
+                    </Entry>
+                    <Entry wide={true}>
+                        <Term variant="trouble" aria-label="Less than 50%"></Term>
+                        <Definition>Scores less than 50% of question's point value</Definition>
+                    </Entry>
+                </Definitions>
+                <p>
+                    <strong>Note:</strong> This page reflects both published and unpublished scores
           for an assignment. Scores may differ from the Gradebook, where only published
           scores are displayed. Students see their scores as they appear in your Gradebook.
-          </p>
-      </TableBottom>
-    </>
+                </p>
+            </TableBottom>
+        </>
     );
 });
 

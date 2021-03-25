@@ -25,6 +25,7 @@ class TourConductor extends React.Component {
 
   constructor(props) {
       super(props);
+      modelize(this);
       this.tourContext = props.tourContext || new TourContext();
 
       this.props.modalManager.queue(this, 2);

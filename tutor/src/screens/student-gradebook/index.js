@@ -21,45 +21,45 @@ const StyledTourRegion = styled(TourRegion)`
 @observer
 class StudentGradebook extends React.Component {
 
-  static displayName = 'StudentGradebook';
+    static displayName = 'StudentGradebook';
 
-  static propTypes = {
-      params: PropTypes.shape({
-          id: PropTypes.string,
-          courseId: PropTypes.string.isRequired,
-      }),
-  }
+    static propTypes = {
+        params: PropTypes.shape({
+            id: PropTypes.string,
+            courseId: PropTypes.string.isRequired,
+        }),
+    }
 
-  ux = new UX({
-      ...this.props.params,
-  });
+    ux = new UX({
+        ...this.props.params,
+    });
 
-  render() {
-      const { ux } = this;
+    render() {
+        const { ux } = this;
 
-      if (!ux.isReady) {
-          return <LoadingScreen message="Loading Grades…" />;
-      }
+        if (!ux.isReady) {
+            return <LoadingScreen message="Loading Grades…" />;
+        }
 
-      return (
-      <>
-        <Header
-            backTo="dashboard"
-            backToParams={{ courseId: ux.course.id }}
-            backToText="Dashboard"
-            title="Scores"
-        />
-        <StyledTourRegion
-            id="gradebook"
-            className="gradebook-table"
-            courseId={this.ux.course.id}
-            otherTours={['preview-gradebook']}
-        >
-            <Table ux={ux} />
-        </StyledTourRegion>
-      </>
-      );
-  }
+        return (
+            <>
+                <Header
+                    backTo="dashboard"
+                    backToParams={{ courseId: ux.course.id }}
+                    backToText="Dashboard"
+                    title="Scores"
+                />
+                <StyledTourRegion
+                    id="gradebook"
+                    className="gradebook-table"
+                    courseId={this.ux.course.id}
+                    otherTours={['preview-gradebook']}
+                >
+                    <Table ux={ux} />
+                </StyledTourRegion>
+            </>
+        );
+    }
 }
 
 export default StudentGradebook;

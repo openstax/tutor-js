@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, identifier, field, belongsTo, hasMany,
-} from 'shared/model';
+import { BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import { isProd } from '../../helpers/production';
 
@@ -11,80 +9,92 @@ const REQUIRED_FOR_EVERYONE = [
 
 @identifiedBy('user/term')
 class Term extends BaseModel {
-  @identifier id;
-  @field title;
-  @field content;
-  @field has_signed_before;
-  @field is_proxy_signed;
-  @field is_signed;
-  @field name;
+    @identifier id;
+    @field title;
+    @field content;
+    @field has_signed_before;
+    @field is_proxy_signed;
+    @field is_signed;
+    @field name;
 
-  @computed get isRequired() {
-      return !!REQUIRED_FOR_EVERYONE.includes(this.name);
-  }
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @computed get hasAgreed() {
-      return Boolean(this.is_signed || this.is_proxy_signed);
-  }
+        modelize(this);
+    }
 
+    @computed get isRequired() {
+        return !!REQUIRED_FOR_EVERYONE.includes(this.name);
+    }
+
+    @computed get hasAgreed() {
+        return Boolean(this.is_signed || this.is_proxy_signed);
+    }
 }
 
 @identifiedBy('user/terms')
 class UserTerms extends BaseModel {
+    @belongsTo({ model: 'user' }) user;
+    @hasMany({ model: Term }) terms;
 
-  @belongsTo({ model: 'user' }) user;
-  @hasMany({ model: Term }) terms;
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  hasAgreedTo(name) {
-      const term = this.get(name);
-      // allow bypassing terms on local dev since the localBE will not have the terms loaded
-      return term ? term.hasAgreed : !isProd;
-  }
+        modelize(this);
+    }
 
-  @computed get areSignaturesNeeded() {
-      return this.requiredAndUnsigned.length !== 0;
-  }
+    hasAgreedTo(name) {
+        const term = this.get(name);
+        // allow bypassing terms on local dev since the localBE will not have the terms loaded
+        return term ? term.hasAgreed : !isProd;
+    }
 
-  @computed get requiredAndUnsigned() {
-      return this.user.available_terms.filter(t => t.isRequired && !t.hasAgreed);
-  }
+    @computed get areSignaturesNeeded() {
+        return this.requiredAndUnsigned.length !== 0;
+    }
 
-  @action.bound fetchIfNeeded() {
-      if (this.areSignaturesNeeded) { this.fetch(); }
-  }
+    @computed get requiredAndUnsigned() {
+        return this.user.available_terms.filter(t => t.isRequired && !t.hasAgreed);
+    }
 
-  get(name) {
-      return this.user.available_terms.find(t => t.name == name);
-  }
+    @action.bound fetchIfNeeded() {
+        if (this.areSignaturesNeeded) { this.fetch(); }
+    }
 
-  // will be overwritten by api
-  fetch() { }
+    get(name) {
+        return this.user.available_terms.find(t => t.name == name);
+    }
 
-  onLoaded({ data }) {
-      data.forEach((termData) => {
-          const term = this.get(termData.name);
-          if (term) {
-              term.update(termData);
-          } else {
-              this.user.available_terms.push(termData);
-          }
-      });
-  }
+    // will be overwritten by api
+    fetch() { }
 
-  // called after signed api completes
-  onSigned(resp, [ids]) {
-      this.user.available_terms.forEach(t => {
-          if (ids.includes(t.id)) {
-              t.is_signed = true;
-          }
-      });
+    onLoaded({ data }) {
+        data.forEach((termData) => {
+            const term = this.get(termData.name);
+            if (term) {
+                term.update(termData);
+            } else {
+                this.user.available_terms.push(termData);
+            }
+        });
+    }
 
-  }
+    // called after signed api completes
+    onSigned(resp, [ids]) {
+        this.user.available_terms.forEach(t => {
+            if (ids.includes(t.id)) {
+                t.is_signed = true;
+            }
+        });
 
-  // called by api
-  sign(ids) {
-      return { ids };
-  }
+    }
+
+    // called by api
+    sign(ids) {
+        return { ids };
+    }
 }
 
 export { Term, UserTerms };

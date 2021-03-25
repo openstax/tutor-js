@@ -25,439 +25,444 @@ const ignoreMutation = (m) => m.target.matches('.tutor-highlight,.MathJax,.MathJ
 export default
 class NotesWidgetWrapper extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-      children: PropTypes.node.isRequired,
-      windowImpl: PropTypes.shape({
-          open: PropTypes.func,
-          document: PropTypes.object,
-      }),
-      page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
-  };
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+        children: PropTypes.node.isRequired,
+        windowImpl: PropTypes.shape({
+            open: PropTypes.func,
+            document: PropTypes.object,
+        }),
+        page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
+    };
 
-  constructor(props) {
-      super(props);
-      if (props.course) {
-          props.course.notes.ensurePageExists(props.page);
-      }
-  }
+    constructor(props) {
+        super(props);
+        if (props.course) {
+            props.course.notes.ensurePageExists(props.page);
+        }
+    }
 
-  render() {
-      const { course, page } = this.props;
+    render() {
+        const { course, page } = this.props;
 
-      if (!course || !course.canAnnotate) { return this.props.children; }
+        if (!course || !course.canAnnotate) { return this.props.children; }
 
-      return (
-          <NotesWidget
-              key={`${course.id}.${page.id}`}
-              notes={course.notes.forPage(page)}
-              {...this.props}
-          />
-      );
-  }
+        return (
+            <NotesWidget
+                key={`${course.id}.${page.id}`}
+                notes={course.notes.forPage(page)}
+                {...this.props}
+            />
+        );
+    }
 
 }
 
 @observer
 class NotesWidget extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        notes: PropTypes.instanceOf(PageNotes).isRequired,
+        children: PropTypes.node.isRequired,
+        windowImpl: PropTypes.shape({
+            open: PropTypes.func,
+            MutationObserver: PropTypes.func,
+            document: PropTypes.object,
+            getSelection: PropTypes.func,
+            pageXOffset: PropTypes.number,
+            pageYOffset: PropTypes.number,
+        }),
+        page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
+    };
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      notes: PropTypes.instanceOf(PageNotes).isRequired,
-      children: PropTypes.node.isRequired,
-      windowImpl: PropTypes.shape({
-          open: PropTypes.func,
-          MutationObserver: PropTypes.func,
-          document: PropTypes.object,
-          getSelection: PropTypes.func,
-          pageXOffset: PropTypes.number,
-          pageYOffset: PropTypes.number,
-      }),
-      page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
-  };
+    static defaultProps = {
+        windowImpl: window,
+    };
 
-  static defaultProps = {
-      windowImpl: window,
-  };
+    scrollHelper = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
+    highlightScrollHandler = elements => this.scrollHelper.scrollToElement(last(elements), {
+        scrollTopOffset: (window.innerHeight / 2) - 80,
+    });
 
-  scrollHelper = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
-  highlightScrollHandler = elements => this.scrollHelper.scrollToElement(last(elements), {
-      scrollTopOffset: (window.innerHeight / 2) - 80,
-  });
+    @observable isMounted = false;
+    @observable scrollToPendingNote;
+    @observable highlighter;
+    @observable activeNote;
+    @observable pendingHighlight;
 
-  @observable isMounted = false;
-  @observable scrollToPendingNote;
-  @observable highlighter;
-  @observable activeNote;
-  @observable pendingHighlight;
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  componentDidMount() {
-      this.isMounted = true;
-      if (!this.props.course.canAnnotate) { return; }
-      when(
-          () => !this.props.notes.api.isPending,
-          this.initializePage,
-      );
-  }
+        modelize(this);
+    }
 
-  componentWillUnmount() {
-      if (this.highlighter) {
-          this.highlighter.unmount();
-      }
-      this.isMounted = false;
-  }
+    componentDidMount() {
+        this.isMounted = true;
+        if (!this.props.course.canAnnotate) { return; }
+        when(
+            () => !this.props.notes.api.isPending,
+            this.initializePage,
+        );
+    }
 
-  setupPendingHighlightScroll(highlightId) {
-      this.scrollToPendingNote = () => {
-          const highlight = this.highlighter.getHighlight(highlightId);
-          this.highlighter.clearFocus();
-          if (highlight) {
-              highlight.focus().scrollTo(this.highlightScrollHandler);
-          } else {
-              Logging.error(`Page attempted to scroll to note id '${highlightId}' but it was not found`);
-          }
-          this.scrollToPendingNote = null;
-      };
-  }
+    componentWillUnmount() {
+        if (this.highlighter) {
+            this.highlighter.unmount();
+        }
+        this.isMounted = false;
+    }
 
-  async waitForPageReady() {
-      await imagesComplete({ body: this.documentRoot });
-      return new Promise(r => {
-          when(
-              () => !this.props.notes.api.isPending,
-              r,
-          );
-      });
-  }
+    setupPendingHighlightScroll(highlightId) {
+        this.scrollToPendingNote = () => {
+            const highlight = this.highlighter.getHighlight(highlightId);
+            this.highlighter.clearFocus();
+            if (highlight) {
+                highlight.focus().scrollTo(this.highlightScrollHandler);
+            } else {
+                Logging.error(`Page attempted to scroll to note id '${highlightId}' but it was not found`);
+            }
+            this.scrollToPendingNote = null;
+        };
+    }
 
-  initializeHighlighter() {
-      // if page changes quickly and then unmounts
-      // a debounced call may be pending
-      if (!this.isMounted) {
-          return;
-      }
+    async waitForPageReady() {
+        await imagesComplete({ body: this.documentRoot });
+        return new Promise(r => {
+            when(
+                () => !this.props.notes.api.isPending,
+                r,
+            );
+        });
+    }
 
-      if (this.highlighter) {
-          this.highlighter.eraseAll();
-          this.highlighter.unmount();
-      }
+    initializeHighlighter() {
+        // if page changes quickly and then unmounts
+        // a debounced call may be pending
+        if (!this.isMounted) {
+            return;
+        }
 
-      // create a new highlighter
-      this.highlighter = new Highlighter(this.documentRoot, {
-          snapTableRows: true,
-          snapMathJax: true,
-          snapWords: true,
-          className: 'tutor-highlight',
-          onClick: this.onHighlightClick,
-          onSelect: this.onHighlightSelect,
-      });
+        if (this.highlighter) {
+            this.highlighter.eraseAll();
+            this.highlighter.unmount();
+        }
 
-      this.props.notes.forEach(note => {
-          try {
-              this.highlighter.highlight(note.highlight);
-          } catch(error) {
-              console.warn(error); // eslint-disable-line no-console
-          }
-      });
-      // scroll if needed
-      if (this.scrollToPendingNote && !this.props.notes.isEmpty) {
-          this.scrollToPendingNote();
-      }
+        // create a new highlighter
+        this.highlighter = new Highlighter(this.documentRoot, {
+            snapTableRows: true,
+            snapMathJax: true,
+            snapWords: true,
+            className: 'tutor-highlight',
+            onClick: this.onHighlightClick,
+            onSelect: this.onHighlightSelect,
+        });
 
-  }
+        this.props.notes.forEach(note => {
+            try {
+                this.highlighter.highlight(note.highlight);
+            } catch(error) {
+                console.warn(error); // eslint-disable-line no-console
+            }
+        });
+        // scroll if needed
+        if (this.scrollToPendingNote && !this.props.notes.isEmpty) {
+            this.scrollToPendingNote();
+        }
 
-  initializePage = debounce(async () => {
-      if (!this.isMounted) {
-          return;
-      }
-      NotesUX.statusMessage.show({
-          type: 'info',
-          message: 'Waiting for page to finish loading…',
-      });
+    }
 
-      const { highlight } = Router.currentQuery();
-      if (highlight && !this.scrollToPendingNote ) {
-          this.setupPendingHighlightScroll(highlight);
-      }
-      try {
-          await this.waitForPageReady();
+    initializePage = debounce(async () => {
+        if (!this.isMounted) {
+            return;
+        }
+        NotesUX.statusMessage.show({
+            type: 'info',
+            message: 'Waiting for page to finish loading…',
+        });
 
-          // create and attach notes to highlghter
-          this.initializeHighlighter();
+        const { highlight } = Router.currentQuery();
+        if (highlight && !this.scrollToPendingNote ) {
+            this.setupPendingHighlightScroll(highlight);
+        }
+        try {
+            await this.waitForPageReady();
 
-          NotesUX.statusMessage.hide();
-      } catch(err) {
-      // ignore errors that happened due to unmount
-          if (this.isMounted) {
-              Raven.captureException(err);
-          }
-      }
-  }, 100)
+            // create and attach notes to highlghter
+            this.initializeHighlighter();
 
-  @action.bound onHighlightClick(highlight) {
-      const note = highlight ? this.props.notes.get(highlight.id) : null;
-      this.pendingHighlight = null;
-      this.activeNote = note;
+            NotesUX.statusMessage.hide();
+        } catch(err) {
+        // ignore errors that happened due to unmount
+            if (this.isMounted) {
+                Raven.captureException(err);
+            }
+        }
+    }, 100)
 
-      this.highlighter.clearFocus();
-      if (highlight) {
-          highlight.focus().scrollTo(this.highlightScrollHandler);
-      }
-  }
+    @action.bound onHighlightClick(highlight) {
+        const note = highlight ? this.props.notes.get(highlight.id) : null;
+        this.pendingHighlight = null;
+        this.activeNote = note;
 
-  cantHighlightReason(highlights, highlight) {
-      if (highlights.length > 0) {
-          return 'Highlights cannot overlap one another';
-      }
-      const node = dom(highlight.range.commonAncestorContainer);
+        this.highlighter.clearFocus();
+        if (highlight) {
+            highlight.focus().scrollTo(this.highlightScrollHandler);
+        }
+    }
 
-      if (!node.closest('.book-content')) {
-          return 'Only content can be highlighted';
-      }
+    cantHighlightReason(highlights, highlight) {
+        if (highlights.length > 0) {
+            return 'Highlights cannot overlap one another';
+        }
+        const node = dom(highlight.range.commonAncestorContainer);
 
-      for (const re of this.referenceElements) {
-          if (dom(re).isParent(node.el)) {
-              return null;
-          }
-      }
+        if (!node.closest('.book-content')) {
+            return 'Only content can be highlighted';
+        }
 
-      return 'Only content that is enclosed in paragraphs can be highlighted';
-  }
+        for (const re of this.referenceElements) {
+            if (dom(re).isParent(node.el)) {
+                return null;
+            }
+        }
 
-  @action.bound onHighlightSelect(highlights, highlight) {
-      this.activeNote = null;
-      const error = this.cantHighlightReason(highlights, highlight);
+        return 'Only content that is enclosed in paragraphs can be highlighted';
+    }
 
-      if (error) {
-          this.pendingHighlight = null;
-          NotesUX.statusMessage.show({ message: error, autoHide: true });
-      } else {
-          this.pendingHighlight = highlight;
-          NotesUX.statusMessage.hide();
-      }
-  }
+    @action.bound onHighlightSelect(highlights, highlight) {
+        this.activeNote = null;
+        const error = this.cantHighlightReason(highlights, highlight);
 
-  get documentRoot() {
-      const doc = this.props.windowImpl.document;
-      return doc.querySelector('[data-type="composite-page"]') || doc.querySelector('.book-content') || doc;
-  }
+        if (error) {
+            this.pendingHighlight = null;
+            NotesUX.statusMessage.show({ message: error, autoHide: true });
+        } else {
+            this.pendingHighlight = highlight;
+            NotesUX.statusMessage.hide();
+        }
+    }
 
-  get referenceElements() {
-      return Array.from(this.documentRoot.children)
-          .filter(e => e.matches('[id]'))
-          .reverse();
-  }
+    get documentRoot() {
+        const doc = this.props.windowImpl.document;
+        return doc.querySelector('[data-type="composite-page"]') || doc.querySelector('.book-content') || doc;
+    }
 
-  @autobind
-  highlightAndClose() {
-      return this.saveNewHighlight().then(
-          action(note => {
-              this.props.windowImpl.getSelection().removeAllRanges();
-              this.pendingHighlight = null;
-              this.highlighter.highlight(note.highlight);
-              return note;
-          }));
-  }
+    get referenceElements() {
+        return Array.from(this.documentRoot.children)
+            .filter(e => e.matches('[id]'))
+            .reverse();
+    }
 
-  @autobind
-  openAnnotator() {
-      return this.highlightAndClose().then(note => this.activeNote = note);
-  }
+    @autobind
+    highlightAndClose() {
+        return this.saveNewHighlight().then(
+            action(note => {
+                this.props.windowImpl.getSelection().removeAllRanges();
+                this.pendingHighlight = null;
+                this.highlighter.highlight(note.highlight);
+                return note;
+            }));
+    }
 
-  @autobind
-  saveNewHighlight() {
-      const highlight = this.pendingHighlight;
+    @autobind
+    openAnnotator() {
+        return this.highlightAndClose().then(note => this.activeNote = note);
+    }
 
-      const referenceElement = this.referenceElements
-          .find(re => dom(re).isParent(
-              highlight.range.commonAncestorContainer)
-          );
+    @autobind
+    saveNewHighlight() {
+        const highlight = this.pendingHighlight;
 
-      const serializedHighlight = highlight.serialize(referenceElement);
+        const referenceElement = this.referenceElements
+            .find(re => dom(re).isParent(
+                highlight.range.commonAncestorContainer)
+            );
 
-      return this.props.notes.create({
-          anchor: `#${referenceElement.id}`,
-          title: this.props.page.title,
-          page: this.props.page,
-          rect: dom(highlight.range).boundingClientRect,
-          ...serializedHighlight.data,
-      });
-  }
+        const serializedHighlight = highlight.serialize(referenceElement);
 
-  getNoteByOffset(offset) {
-      const note = this.activeNote;
-      if (!note) {
-          return null;
-      }
-      const highlight = this.highlighter.getHighlight(note.id);
-      if (!highlight) {
-          return null;
-      }
+        return this.props.notes.create({
+            anchor: `#${referenceElement.id}`,
+            title: this.props.page.title,
+            page: this.props.page,
+            rect: dom(highlight.range).boundingClientRect,
+            ...serializedHighlight.data,
+        });
+    }
 
-      const highlights = this.highlighter.getHighlights();
-      const targetIndex = highlights.indexOf(highlight) + offset;
+    getNoteByOffset(offset) {
+        const note = this.activeNote;
+        if (!note) {
+            return null;
+        }
+        const highlight = this.highlighter.getHighlight(note.id);
+        if (!highlight) {
+            return null;
+        }
 
-      if (!highlights[targetIndex]) {
-          return null;
-      }
+        const highlights = this.highlighter.getHighlights();
+        const targetIndex = highlights.indexOf(highlight) + offset;
 
-      const targetNoteId = highlights[targetIndex].id;
+        if (!highlights[targetIndex]) {
+            return null;
+        }
 
-      return this.props.notes.get(targetNoteId);
-  }
+        const targetNoteId = highlights[targetIndex].id;
 
-  get nextNote() {
-      return this.getNoteByOffset(1);
-  }
+        return this.props.notes.get(targetNoteId);
+    }
 
-  get previousNote() {
-      return this.getNoteByOffset(-1);
-  }
+    get nextNote() {
+        return this.getNoteByOffset(1);
+    }
 
-  @action.bound onMutations(mutationsList) {
-      // ignore muatations caused by highlights or mathjax
-      if (!mutationsList.find(ignoreMutation)) {
-          this.initializePage();
-      }
-  }
+    get previousNote() {
+        return this.getNoteByOffset(-1);
+    }
 
-  @action.bound setElement(el) {
-      if (this.contentObserver) {
-          this.contentObserver.disconnect();
-          this.contentObserver = null;
-      }
-      this.element = el;
-      if (this.element) {
-          this.contentObserver = new this.props.windowImpl.MutationObserver(this.onMutations);
-          this.contentObserver.observe(el, { childList: true, subtree: true });
-      }
-  }
+    @action.bound onMutations(mutationsList) {
+        // ignore muatations caused by highlights or mathjax
+        if (!mutationsList.find(ignoreMutation)) {
+            this.initializePage();
+        }
+    }
 
-  get parentRect() {
-      if (!this.element) {
-          return { top: 0, bottom: 0, left: 0, right: 0 };
-      }
-      const wLeft = this.props.windowImpl.pageXOffset;
-      const wTop = this.props.windowImpl.pageYOffset;
-      const parentRect =  this.element.getBoundingClientRect();
-      return {
-          bottom: wTop + parentRect.bottom,
-          left: wLeft + parentRect.left,
-          right: wLeft + parentRect.right,
-          top: wTop + parentRect.top,
-      };
-  }
+    @action.bound setElement(el) {
+        if (this.contentObserver) {
+            this.contentObserver.disconnect();
+            this.contentObserver = null;
+        }
+        this.element = el;
+        if (this.element) {
+            this.contentObserver = new this.props.windowImpl.MutationObserver(this.onMutations);
+            this.contentObserver.observe(el, { childList: true, subtree: true });
+        }
+    }
 
-  @action.bound seeAll() {
-      NotesUX.isSummaryVisible = true;
-      this.activeNote = null;
-  }
+    get parentRect() {
+        if (!this.element) {
+            return { top: 0, bottom: 0, left: 0, right: 0 };
+        }
+        const wLeft = this.props.windowImpl.pageXOffset;
+        const wTop = this.props.windowImpl.pageYOffset;
+        const parentRect =  this.element.getBoundingClientRect();
+        return {
+            bottom: wTop + parentRect.bottom,
+            left: wLeft + parentRect.left,
+            right: wLeft + parentRect.right,
+            top: wTop + parentRect.top,
+        };
+    }
 
-  @action.bound editNote(note) {
-      this.activeNote = note;
+    @action.bound seeAll() {
+        NotesUX.isSummaryVisible = true;
+        this.activeNote = null;
+    }
 
-      this.highlighter.clearFocus();
-      const highlight = this.highlighter.getHighlight(note.id);
-      if (highlight) {
-          highlight.focus().scrollTo(this.highlightScrollHandler);
-      }
-  }
+    @action.bound editNote(note) {
+        this.activeNote = note;
 
-  @action.bound hideActiveHighlight() {
-      this.activeNote = null;
-  }
+        this.highlighter.clearFocus();
+        const highlight = this.highlighter.getHighlight(note.id);
+        if (highlight) {
+            highlight.focus().scrollTo(this.highlightScrollHandler);
+        }
+    }
 
-  @action.bound onNoteDelete(note) {
-      const highlight = this.highlighter.getHighlight(note.id);
-      if (highlight) {
-          this.highlighter.erase(highlight);
-      }
-  }
+    @action.bound hideActiveHighlight() {
+        this.activeNote = null;
+    }
 
-  @action.bound onModalScollTop() {
-      scrollIntoView(document.querySelector('.modal-body .filter-area'), {
-          time: 300,
-          validTarget: (target) => {
-              return target !== window && target.matches('.modal-body');
-          },
-      });
-  }
+    @action.bound onNoteDelete(note) {
+        const highlight = this.highlighter.getHighlight(note.id);
+        if (highlight) {
+            this.highlighter.erase(highlight);
+        }
+    }
 
-  renderStatusMessage() {
-      if (!NotesUX.statusMessage.display) { return null; }
+    @action.bound onModalScollTop() {
+        scrollIntoView(document.querySelector('.modal-body .filter-area'), {
+            time: 300,
+            validTarget: (target) => {
+                return target !== window && target.matches('.modal-body');
+            },
+        });
+    }
 
-      return (
-          <div
-              className={cn('status-message-toast', NotesUX.statusMessage.type)}
-          >
-              <Icon type={NotesUX.statusMessage.icon} /> {NotesUX.statusMessage.message}
-          </div>
-      );
-  }
+    renderStatusMessage() {
+        if (!NotesUX.statusMessage.display) { return null; }
 
-  render() {
+        return (
+            <div
+                className={cn('status-message-toast', NotesUX.statusMessage.type)}
+            >
+                <Icon type={NotesUX.statusMessage.icon} /> {NotesUX.statusMessage.message}
+            </div>
+        );
+    }
 
-      return (
-          <div className="annotater">
-              <EditBox
-                  note={this.activeNote}
-                  onHide={this.hideActiveHighlight}
-                  onDelete={this.onNoteDelete}
-                  goToNote={this.editNote}
-                  next={this.nextNote}
-                  previous={this.previousNote}
-                  seeAll={this.seeAll}
-              />
-              <SidebarButtons
-                  windowImpl={this.props.windowImpl}
-                  highlighter={this.highlighter}
-                  notes={this.props.notes}
-                  parentRect={this.parentRect}
-                  onClick={this.editNote}
-                  activeNote={this.activeNote}
-              />
+    render() {
 
-              <InlineControls
-                  pendingHighlight={this.pendingHighlight}
-                  windowImpl={this.props.windowImpl}
-                  parentRect={this.parentRect}
-                  annotate={this.openAnnotator}
-                  highlight={this.highlightAndClose}
-              />
+        return (
+            <div className="annotater">
+                <EditBox
+                    note={this.activeNote}
+                    onHide={this.hideActiveHighlight}
+                    onDelete={this.onNoteDelete}
+                    goToNote={this.editNote}
+                    next={this.nextNote}
+                    previous={this.previousNote}
+                    seeAll={this.seeAll}
+                />
+                <SidebarButtons
+                    windowImpl={this.props.windowImpl}
+                    highlighter={this.highlighter}
+                    notes={this.props.notes}
+                    parentRect={this.parentRect}
+                    onClick={this.editNote}
+                    activeNote={this.activeNote}
+                />
 
-              <div className="annotater-content" ref={this.setElement}>
-                  <Modal
-                      show={NotesUX.isSummaryVisible}
-                      onHide={NotesUX.hideSummary}
-                      dialogClassName="notes-modal"
-                      scrollable={true}
-                  >
-                      <Modal.Header
-                          closeButton={true}
-                          closeLabel={'Close'}
-                      >
-                          <Modal.Title>My Highlights and Notes</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                          <SummaryPage
-                              notes={this.props.course.notes}
-                              onDelete={this.onNoteDelete}
-                              page={this.props.page}
-                          />
-                          <Icon
-                              type="angle-up"
-                              buttonProps={{ bsPrefix: 'modal-scroll-btn' }}
-                              color="#fff"
-                              aria-label="Scroll to top"
-                              onClick={this.onModalScollTop}
-                          />
-                      </Modal.Body>
-                  </Modal>
-                  {this.props.children}
-              </div>
-              {this.renderStatusMessage()}
-          </div>
-      );
-  }
+                <InlineControls
+                    pendingHighlight={this.pendingHighlight}
+                    windowImpl={this.props.windowImpl}
+                    parentRect={this.parentRect}
+                    annotate={this.openAnnotator}
+                    highlight={this.highlightAndClose}
+                />
 
+                <div className="annotater-content" ref={this.setElement}>
+                    <Modal
+                        show={NotesUX.isSummaryVisible}
+                        onHide={NotesUX.hideSummary}
+                        dialogClassName="notes-modal"
+                        scrollable={true}
+                    >
+                        <Modal.Header
+                            closeButton={true}
+                            closeLabel={'Close'}
+                        >
+                            <Modal.Title>My Highlights and Notes</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <SummaryPage
+                                notes={this.props.course.notes}
+                                onDelete={this.onNoteDelete}
+                                page={this.props.page}
+                            />
+                            <Icon
+                                type="angle-up"
+                                buttonProps={{ bsPrefix: 'modal-scroll-btn' }}
+                                color="#fff"
+                                aria-label="Scroll to top"
+                                onClick={this.onModalScollTop}
+                            />
+                        </Modal.Body>
+                    </Modal>
+                    {this.props.children}
+                </div>
+                {this.renderStatusMessage()}
+            </div>
+        );
+    }
 }

@@ -144,204 +144,207 @@ function openWindow(url, options = {}) {
 @observer
 export default
 class ManagePayments extends React.Component {
+    static propTypes = {
+        windowImpl: PropTypes.shape({
+            open: PropTypes.func,
+        }),
+    };
 
-  static propTypes = {
-      windowImpl: PropTypes.shape({
-          open: PropTypes.func,
-      }),
-  };
+    @observable refunding;
 
-  @observable refunding;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  UNSAFE_componentWillMount() {
-      // for testing, it's helpful to insert a dummy payment record
-      // to do this, comment out the fetch and uncomment the rest
-      Purchases.fetch();
-      // setTimeout(() => {
-      //   Purchases.onLoaded({ data: { orders: [
-      //     {
-      //       identifier: 1234, product_instance_uuid: '387bf53c-ee0d-11ea-adc1-0242ac120002',
-      //       is_refunded: false, sales_tax: 0.0, total: 10.00,
-      //       updated_at: moment().subtract(1, 'week').toISOString(),
-      //       purchased_at: moment().subtract(1, 'week').toISOString(),
-      //       product: {
-      //         name: 'OpenStax Tutor Beta', price: '10.00', uuid: 'fa882aa5-1093-43ff-aa7a-914ba3242f5a',
-      //       },
-      //     },
-      //   ] } });
-      // });
-  }
+    UNSAFE_componentWillMount() {
+        // for testing, it's helpful to insert a dummy payment record
+        // to do this, comment out the fetch and uncomment the rest
+        Purchases.fetch();
+        // setTimeout(() => {
+        //   Purchases.onLoaded({ data: { orders: [
+        //     {
+        //       identifier: 1234, product_instance_uuid: '387bf53c-ee0d-11ea-adc1-0242ac120002',
+        //       is_refunded: false, sales_tax: 0.0, total: 10.00,
+        //       updated_at: moment().subtract(1, 'week').toISOString(),
+        //       purchased_at: moment().subtract(1, 'week').toISOString(),
+        //       product: {
+        //         name: 'OpenStax Tutor Beta', price: '10.00', uuid: 'fa882aa5-1093-43ff-aa7a-914ba3242f5a',
+        //       },
+        //     },
+        //   ] } });
+        // });
+    }
 
-  @action.bound
-  onRequestRefund(ev) {
-      this.refunding = Purchases.get(ev.target.dataset.identifier);
-  }
+    @action.bound
+    onRequestRefund(ev) {
+        this.refunding = Purchases.get(ev.target.dataset.identifier);
+    }
 
-  onShowInvoiceClick(ev) {
-      ev.preventDefault();
-      openWindow(ev.target.href, { width: 700, height: 500 });
-  }
+    onShowInvoiceClick(ev) {
+        ev.preventDefault();
+        openWindow(ev.target.href, { width: 700, height: 500 });
+    }
 
-  renderEmpty() {
-      return (
-          <div className="empty">
-              <h3>No payments were found for your account.</h3>
-          </div>
-      );
-  }
-
-  renderRefundCell(purchase) {
-      if (purchase && purchase.isRefundable) {
-          return (
-              <AsyncButton
-                  data-identifier={purchase.identifier}
-                  isWaiting={purchase.api.isPending}
-                  onClick={this.onRequestRefund}
-              >
-            Request Refund
-              </AsyncButton>
-          );
-      } else {
-          return null;
-      }
-  }
-
-
-  renderInvoiceButton(purchase) {
-      if (purchase.is_refund_record) { return null; }
-      return (
-          <a
-              data-identifier={purchase.identifier}
-              onClick={this.onShowInvoiceClick}
-              href={purchase.invoiceURL}
-              className="invoice-link"
-          >
-        Invoice
-          </a>
-      );
-  }
-
-  renderTable() {
-      if (Purchases.isEmpty) { return this.renderEmpty(); }
-
-      return (
-          <Table striped>
-              <thead>
-                  <tr>
-                      <th>Item</th>
-                      <th>Transaction date</th>
-                      <th>Order number</th>
-                      <th>Amount</th>
-                      <th>Invoice</th>
-                      {Purchases.isAnyRefundable && <th></th>}
-                  </tr>
-              </thead>
-              <tbody>
-                  {Purchases.withRefunds.map(purchase =>
-                      <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
-                          <td>{purchase.product.name}</td>
-                          <td>{formatDate(purchase.purchased_at)}</td>
-                          <td>{purchase.identifier}</td>
-                          <td className="total">
-                              {purchase.formattedTotal}
-                          </td>
-                          <td>{this.renderInvoiceButton(purchase)}</td>
-                          {Purchases.isAnyRefundable && <td className="refund">{this.renderRefundCell(purchase)}</td>}
-                      </tr>
-                  )}
-              </tbody>
-          </Table>
-      );
-  }
-
-  renderList() {
-      if (Purchases.isEmpty) { return this.renderEmpty(); }
-      return (
-          <PaymentInfoRows>
-              {Purchases.withRefunds.map(purchase =>
-                  <div className="manage-payment-info-row" key={purchase.identifier}>
-                      <div className="manage-payment-info">
-                          <span>Item</span> 
-                          <span>
-                              {purchase.product.name}
-                          </span>
-                      </div>
-                      <div className="manage-payment-info">
-                          <span>Transaction date</span> 
-                          <span>
-                              {formatDate(purchase.purchased_at)}
-                          </span>
-                      </div>
-                      <div className="manage-payment-info">
-                          <span>Order number</span> 
-                          <span>
-                              {purchase.identifier}
-                          </span>
-                      </div>
-                      <div className="manage-payment-info">
-                          <span>Amount</span> 
-                          <span className={cn({ refunded: purchase.is_refund_record })}>
-                              {purchase.formattedTotal}
-                          </span>
-                      </div>
-                      <div className="manage-payment-info">
-                          <span>Invoice</span> 
-                          <span>
-                              {this.renderInvoiceButton(purchase)}
-                          </span>
-                      </div>
-                      {this.renderRefundCell(purchase)}
-                  </div>
-              )}
-          </PaymentInfoRows>
-      );
-  }
-
-  @action.bound
-  onRefundConfirm() {
-      this.refunding.refund();
-      this.refunding = null;
-  }
-
-  @action.bound
-  onRefundCancel() {
-      this.refunding = null;
-  }
-
-  render() {
-      const back = backInfo();
-      return (
-      <>
-        <Header 
-            unDocked={true}
-            title="Manage Payments"
-            backTo={back.to}
-            backToText={back.text}
-        />
-        <StyledContainer className="manage-payments">
-            <RefundModal
-                purchase={this.refunding}
-                onRefund={this.onRefundConfirm}
-                onCancel={this.onRefundCancel}
-            />
-            {Purchases.api.isPending
-                ? <OXFancyLoader isLoading />
-                : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
-            }
-            <div className="footer">
-                <NewTabLink
-                    className="refund-policy"
-                    href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
-                >
-            Refund policy for OpenStax Tutor Beta courses
-                </NewTabLink>
-                <div className="help">
-            Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
-                </div>
+    renderEmpty() {
+        return (
+            <div className="empty">
+                <h3>No payments were found for your account.</h3>
             </div>
-        </StyledContainer>
-      </>
-      );
-  }
+        );
+    }
 
+    renderRefundCell(purchase) {
+        if (purchase && purchase.isRefundable) {
+            return (
+                <AsyncButton
+                    data-identifier={purchase.identifier}
+                    isWaiting={purchase.api.isPending}
+                    onClick={this.onRequestRefund}
+                >
+              Request Refund
+                </AsyncButton>
+            );
+        } else {
+            return null;
+        }
+    }
+
+
+    renderInvoiceButton(purchase) {
+        if (purchase.is_refund_record) { return null; }
+        return (
+            <a
+                data-identifier={purchase.identifier}
+                onClick={this.onShowInvoiceClick}
+                href={purchase.invoiceURL}
+                className="invoice-link"
+            >
+          Invoice
+            </a>
+        );
+    }
+
+    renderTable() {
+        if (Purchases.isEmpty) { return this.renderEmpty(); }
+
+        return (
+            <Table striped>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Transaction date</th>
+                        <th>Order number</th>
+                        <th>Amount</th>
+                        <th>Invoice</th>
+                        {Purchases.isAnyRefundable && <th></th>}
+                    </tr>
+                </thead>
+                <tbody>
+                    {Purchases.withRefunds.map(purchase =>
+                        <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
+                            <td>{purchase.product.name}</td>
+                            <td>{formatDate(purchase.purchased_at)}</td>
+                            <td>{purchase.identifier}</td>
+                            <td className="total">
+                                {purchase.formattedTotal}
+                            </td>
+                            <td>{this.renderInvoiceButton(purchase)}</td>
+                            {Purchases.isAnyRefundable && <td className="refund">{this.renderRefundCell(purchase)}</td>}
+                        </tr>
+                    )}
+                </tbody>
+            </Table>
+        );
+    }
+
+    renderList() {
+        if (Purchases.isEmpty) { return this.renderEmpty(); }
+        return (
+            <PaymentInfoRows>
+                {Purchases.withRefunds.map(purchase =>
+                    <div className="manage-payment-info-row" key={purchase.identifier}>
+                        <div className="manage-payment-info">
+                            <span>Item</span> 
+                            <span>
+                                {purchase.product.name}
+                            </span>
+                        </div>
+                        <div className="manage-payment-info">
+                            <span>Transaction date</span> 
+                            <span>
+                                {formatDate(purchase.purchased_at)}
+                            </span>
+                        </div>
+                        <div className="manage-payment-info">
+                            <span>Order number</span> 
+                            <span>
+                                {purchase.identifier}
+                            </span>
+                        </div>
+                        <div className="manage-payment-info">
+                            <span>Amount</span> 
+                            <span className={cn({ refunded: purchase.is_refund_record })}>
+                                {purchase.formattedTotal}
+                            </span>
+                        </div>
+                        <div className="manage-payment-info">
+                            <span>Invoice</span> 
+                            <span>
+                                {this.renderInvoiceButton(purchase)}
+                            </span>
+                        </div>
+                        {this.renderRefundCell(purchase)}
+                    </div>
+                )}
+            </PaymentInfoRows>
+        );
+    }
+
+    @action.bound
+    onRefundConfirm() {
+        this.refunding.refund();
+        this.refunding = null;
+    }
+
+    @action.bound
+    onRefundCancel() {
+        this.refunding = null;
+    }
+
+    render() {
+        const back = backInfo();
+        return (
+        <>
+          <Header 
+              unDocked={true}
+              title="Manage Payments"
+              backTo={back.to}
+              backToText={back.text}
+          />
+          <StyledContainer className="manage-payments">
+              <RefundModal
+                  purchase={this.refunding}
+                  onRefund={this.onRefundConfirm}
+                  onCancel={this.onRefundCancel}
+              />
+              {Purchases.api.isPending
+                  ? <OXFancyLoader isLoading />
+                  : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
+              }
+              <div className="footer">
+                  <NewTabLink
+                      className="refund-policy"
+                      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
+                  >
+              Refund policy for OpenStax Tutor Beta courses
+                  </NewTabLink>
+                  <div className="help">
+              Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
+                  </div>
+              </div>
+          </StyledContainer>
+        </>
+        );
+    }
 }

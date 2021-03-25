@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, identifier, session,
-} from 'shared/model';
+import { BaseModel, identifiedBy, identifier, session, modelize } from 'shared/model';
 import { last } from 'lodash';
 import { action, observable, computed } from 'mobx';
 
@@ -10,80 +8,86 @@ const MAX_ATTEMPTS = 50;
 
 @identifiedBy('job')
 export default class Job extends BaseModel {
+    @identifier jobId;
 
-  @identifier jobId;
+    @observable pollingId;
+    @session attempts = 0;
+    @session interval = 5;
+    @session maxAttempts = 30;
+    @session status;
+    @session progress;
 
-  @observable pollingId;
-  @session attempts = 0;
-  @session interval = 5;
-  @session maxAttempts = 30;
-  @session status;
-  @session progress;
+    constructor() {
+        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
+        super();
 
-  @action.bound
-  checkForUpdate() {
-      if (this.attempts < this.maxAttempts) {
-          this.attempts += 1;
-          this.requestJobStatus();
-      } else {
-          this.stopPolling();
-          this.onPollTimeout();
-      }
-  }
+        modelize(this);
+    }
 
-  @computed get isComplete() {
-      return 'succeeded' === this.status || 'failed' === this.status;
-  }
+    @action.bound
+    checkForUpdate() {
+        if (this.attempts < this.maxAttempts) {
+            this.attempts += 1;
+            this.requestJobStatus();
+        } else {
+            this.stopPolling();
+            this.onPollTimeout();
+        }
+    }
 
-  @computed get hasFailed() {
-      return Boolean(this.attempts >= this.maxAttempts || 'failed' === this.status);
-  }
+    @computed get isComplete() {
+        return 'succeeded' === this.status || 'failed' === this.status;
+    }
 
-  // match existing API; right now these do the same but might not later
-  @computed get isPolling() { return Boolean(this.pollingId);  }
-  @computed get isPending() { return Boolean(this.pollingId);  }
+    @computed get hasFailed() {
+        return Boolean(this.attempts >= this.maxAttempts || 'failed' === this.status);
+    }
 
-  @computed get jobStatus() {
-      if (this.isComplete) { return 'succeeded'; }
-      if (this.isPending)  { return 'started';   }
-      if ( this.hasFailed) { return 'failed';    }
-      return 'unknown';
-  }
+    // match existing API; right now these do the same but might not later
+    @computed get isPolling() { return Boolean(this.pollingId);  }
+    @computed get isPending() { return Boolean(this.pollingId);  }
 
-  startPolling(job) {
-      this.jobId = last(job.split('/'));
-      invariant((!this.pollingId || this.pollingId === 'pending'),
-          'poll already in progress, cannot start polling twice!');
-      invariant(this.jobId, 'job url is not set');
-      this.attempts = 0;
-      this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
-  }
+    @computed get jobStatus() {
+        if (this.isComplete) { return 'succeeded'; }
+        if (this.isPending)  { return 'started';   }
+        if ( this.hasFailed) { return 'failed';    }
+        return 'unknown';
+    }
 
-  stopPolling() {
-      clearInterval(this.pollingId);
-      this.pollingId = null;
-  }
+    startPolling(job) {
+        this.jobId = last(job.split('/'));
+        invariant((!this.pollingId || this.pollingId === 'pending'),
+            'poll already in progress, cannot start polling twice!');
+        invariant(this.jobId, 'job url is not set');
+        this.attempts = 0;
+        this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+    }
 
-  // overriden by child
-  onPollComplete() { }
-  onPollTimeout() {}
-  onPollFailure() {}
+    stopPolling() {
+        clearInterval(this.pollingId);
+        this.pollingId = null;
+    }
 
-  // called by API
-  requestJobStatus() { }
+    // overriden by child
+    onPollComplete() { }
+    onPollTimeout() {}
+    onPollFailure() {}
 
-  onJobUpdateFailure() {
-      this.stopPolling();
-      this.onPollFailure();
-  }
+    // called by API
+    requestJobStatus() { }
 
-  onJobUpdate({ data }) {
-      this.update(data);
-      if (this.isComplete) {
-          this.stopPolling();
-          this.onPollComplete(data);
-      } else {
-          this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
-      }
-  }
+    onJobUpdateFailure() {
+        this.stopPolling();
+        this.onPollFailure();
+    }
+
+    onJobUpdate({ data }) {
+        this.update(data);
+        if (this.isComplete) {
+            this.stopPolling();
+            this.onPollComplete(data);
+        } else {
+            this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+        }
+    }
 }

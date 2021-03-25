@@ -70,96 +70,98 @@ const VENDORS = { blackboard, canvas, moodle, d2l, sakai };
 @observer
 export default
 class LMSAccessCard extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+    };
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-  };
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  UNSAFE_componentWillMount() {
-      if (!this.props.course.canOnlyUseEnrollmentLinks) {
-          this.props.course.lms.fetch();
-      }
-  }
+    UNSAFE_componentWillMount() {
+        if (!this.props.course.canOnlyUseEnrollmentLinks) {
+            this.props.course.lms.fetch();
+        }
+    }
 
-  @observable showModal = false;
-  @action.bound close() {
-      this.showModal = false;
-  }
+    @observable showModal = false;
+    @action.bound close() {
+        this.showModal = false;
+    }
 
-  @action.bound open() {
-      this.props.course.lms.fetch();
-      this.showModal = true;
-  }
+    @action.bound open() {
+        this.props.course.lms.fetch();
+        this.showModal = true;
+    }
 
-  renderPaired() {
-      return (
-          <div className="lms-access enrolled">
-              <p>
-          Students enroll in this course and access assignments through a paired course in their LMS.
-              </p>
-              <a onClick={this.open}>Show LMS keys again</a>
-              <Modal
-                  show={this.showModal}
-                  onHide={this.close}
-                  className="lms-pairing-keys"
-              >
-                  <Modal.Header closeButton={true}>
-                      <Modal.Title>
-              LMS Pairing keys
-                      </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                      {this.renderKeys()}
-                  </Modal.Body>
-                  <Modal.Footer>
-                      <Button onClick={this.close}>Close</Button>
-                  </Modal.Footer>
-              </Modal>
-          </div>
-      );
+    renderPaired() {
+        return (
+            <div className="lms-access enrolled">
+                <p>
+            Students enroll in this course and access assignments through a paired course in their LMS.
+                </p>
+                <a onClick={this.open}>Show LMS keys again</a>
+                <Modal
+                    show={this.showModal}
+                    onHide={this.close}
+                    className="lms-pairing-keys"
+                >
+                    <Modal.Header closeButton={true}>
+                        <Modal.Title>
+                LMS Pairing keys
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.renderKeys()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        );
 
-  }
+    }
 
-  renderKeys() {
-      const { course: { lms } } = this.props;
-      if (lms.api.isPending) { return <LoadingScreen />; }
-      const VendorCard = VENDORS[lms.vendor];
+    renderKeys() {
+        const { course: { lms } } = this.props;
+        if (lms.api.isPending) { return <LoadingScreen />; }
+        const VendorCard = VENDORS[lms.vendor];
 
-      return (
-          <div className="lms-access">
+        return (
+            <div className="lms-access">
 
-              <ToggleButtonGroup
-                  size="small"
-                  name="vendor"
-                  onChange={lms.setVendor}
-                  value={lms.vendor}
-              >
-                  <ToggleButton variant="default" value="blackboard">Blackboard</ToggleButton>
-                  <ToggleButton variant="default" value="canvas">Canvas</ToggleButton>
-                  <ToggleButton variant="default" value="moodle">Moodle</ToggleButton>
-                  <ToggleButton variant="default" value="d2l">Desire2Learn</ToggleButton>
-                  <ToggleButton variant="default" value="sakai">Sakai</ToggleButton>
-              </ToggleButtonGroup>
+                <ToggleButtonGroup
+                    size="small"
+                    name="vendor"
+                    onChange={lms.setVendor}
+                    value={lms.vendor}
+                >
+                    <ToggleButton variant="default" value="blackboard">Blackboard</ToggleButton>
+                    <ToggleButton variant="default" value="canvas">Canvas</ToggleButton>
+                    <ToggleButton variant="default" value="moodle">Moodle</ToggleButton>
+                    <ToggleButton variant="default" value="d2l">Desire2Learn</ToggleButton>
+                    <ToggleButton variant="default" value="sakai">Sakai</ToggleButton>
+                </ToggleButtonGroup>
 
-              <p>
-          Copy the information below and paste into your LMS where prompted. Then
-          launch OpenStax Tutor from your LMS to pair.
-              </p>
+                <p>
+            Copy the information below and paste into your LMS where prompted. Then
+            launch OpenStax Tutor from your LMS to pair.
+                </p>
 
-              <VendorCard lms={lms} />
+                <VendorCard lms={lms} />
 
-          </div>
-      );
-  }
+            </div>
+        );
+    }
 
-  render() {
-      const { course } = this.props;
-      if (course.canOnlyUseLMS) {
-          return this.renderPaired();
-      }
+    render() {
+        const { course } = this.props;
+        if (course.canOnlyUseLMS) {
+            return this.renderPaired();
+        }
 
-      return this.renderKeys();
-  }
-
-
+        return this.renderKeys();
+    }
 }

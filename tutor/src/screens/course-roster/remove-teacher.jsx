@@ -17,69 +17,72 @@ import Teacher from '../../models/course/teacher';
 @observer
 export default
 class RemoveTeacherLink extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        teacher: PropTypes.instanceOf(Teacher).isRequired,
+        history: PropTypes.object.isRequired,
+    }
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      teacher: PropTypes.instanceOf(Teacher).isRequired,
-      history: PropTypes.object.isRequired,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound goToDashboard() {
-      window.location = '/courses'
-  }
+    @action.bound goToDashboard() {
+        window.location = '/courses'
+    }
 
-  @action.bound performDeletion() {
-      const request = this.props.teacher.drop();
-      if (this.props.teacher.isTeacherOfCourse) {
-          request.then(this.goToDashboard);
-      }
-  }
+    @action.bound performDeletion() {
+        const request = this.props.teacher.drop();
+        if (this.props.teacher.isTeacherOfCourse) {
+            request.then(this.goToDashboard);
+        }
+    }
 
-  confirmPopOver() {
-      const { teacher } = this.props;
+    confirmPopOver() {
+        const { teacher } = this.props;
 
-      return (
-          <Popover
-              id={`settings-remove-popover-${teacher.id}`}
-              className="settings-remove-teacher"
-          >
-              <Popover.Title>
-                  <span>Remove <Name {...teacher} />?</span>
-              </Popover.Title>
-              <Popover.Content>
+        return (
+            <Popover
+                id={`settings-remove-popover-${teacher.id}`}
+                className="settings-remove-teacher"
+            >
+                <Popover.Title>
+                    <span>Remove <Name {...teacher} />?</span>
+                </Popover.Title>
+                <Popover.Content>
 
-                  <AsyncButton
-                      variant="danger"
-                      data-test-id="remove-confirm-btn"
-                      onClick={this.performDeletion}
-                      isWaiting={teacher.api.isPending}
-                      waitingText="Removing..."
-                  >
-                      <Icon type="ban" /> Remove
-                  </AsyncButton>
+                    <AsyncButton
+                        variant="danger"
+                        data-test-id="remove-confirm-btn"
+                        onClick={this.performDeletion}
+                        isWaiting={teacher.api.isPending}
+                        waitingText="Removing..."
+                    >
+                        <Icon type="ban" /> Remove
+                    </AsyncButton>
 
-                  <div className="warning">
-                      {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
-                  </div>
-              </Popover.Content>
-          </Popover>
-      );
-  }
+                    <div className="warning">
+                        {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
+                    </div>
+                </Popover.Content>
+            </Popover>
+        );
+    }
 
-  render() {
-      return (
-          <OverlayTrigger
-              rootClose={true}
-              trigger="click"
-              placement="left"
-              overlay={this.confirmPopOver()}
-          >
-              <a className="remove">
-                  <Icon type="ban" />
-                  {' Remove'}
-              </a>
-          </OverlayTrigger>
-      );
-  }
-
+    render() {
+        return (
+            <OverlayTrigger
+                rootClose={true}
+                trigger="click"
+                placement="left"
+                overlay={this.confirmPopOver()}
+            >
+                <a className="remove">
+                    <Icon type="ban" />
+                    {' Remove'}
+                </a>
+            </OverlayTrigger>
+        );
+    }
 }

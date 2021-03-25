@@ -187,40 +187,40 @@ const QuestionPreviewModal = observer(({ ux }) => {
         const correctAnswer = find(ux.filledOptions, o => o.isCorrect);
         QuestionComponent =
       <>
-        <Question
-            question={question}
-            answer_id={correctAnswer ? correctAnswer.id : null}
-            correct_answer_id={correctAnswer ? correctAnswer.id : null}
-            hideAnswers={!showAnswers}
-        />
-        {
-            !showAnswers &&
+          <Question
+              question={question}
+              answer_id={correctAnswer ? correctAnswer.id : null}
+              correct_answer_id={correctAnswer ? correctAnswer.id : null}
+              hideAnswers={!showAnswers}
+          />
+          {
+              !showAnswers &&
           <>
-            <textarea
-                placeholder="Enter your response..."
-                aria-label="question response text box"
-                value={freeResponseText}
-                onChange={({ target: { value } }) => setFreeReponseText(value)} />
-            <Button
-                size="lg"
-                disabled={isEmpty(freeResponseText.trim())}
-                onClick={() => setshowAnswers(true)}
-            >
+              <textarea
+                  placeholder="Enter your response..."
+                  aria-label="question response text box"
+                  value={freeResponseText}
+                  onChange={({ target: { value } }) => setFreeReponseText(value)} />
+              <Button
+                  size="lg"
+                  disabled={isEmpty(freeResponseText.trim())}
+                  onClick={() => setshowAnswers(true)}
+              >
               Submit
-            </Button>
-            </>
-        }
+              </Button>
+          </>
+          }
         
       </>;
     }
     else {
         QuestionComponent = 
       <>
-        <Question question={question}/>
-        <textarea
-            placeholder="Enter your response..."
-            aria-label="question response text box"
-            readOnly />
+          <Question question={question}/>
+          <textarea
+              placeholder="Enter your response..."
+              aria-label="question response text box"
+              readOnly />
       </>
         ;
     }

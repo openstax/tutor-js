@@ -15,16 +15,16 @@ const AddEditQuestionModals = observer(({ ux }) => {
             show={true} />;
     }
     return (
-    <>
-      <AddEditQuestionForm ux={ux} />
-      <FeedbackTipModal ux={ux} />
-      <ExitWarningModal ux={ux} />
-      <QuestionPreviewModal ux={ux} />
-      <AddEditQuestionTermsOfUse
-          onClose={() => ux.showTermsOfUse = false}
-          show={ux.showTermsOfUse}
-          displayOnly />;
-    </>
+        <>
+            <AddEditQuestionForm ux={ux} />
+            <FeedbackTipModal ux={ux} />
+            <ExitWarningModal ux={ux} />
+            <QuestionPreviewModal ux={ux} />
+            <AddEditQuestionTermsOfUse
+                onClose={() => ux.showTermsOfUse = false}
+                show={ux.showTermsOfUse}
+                displayOnly />;
+        </>
     );
 });
 

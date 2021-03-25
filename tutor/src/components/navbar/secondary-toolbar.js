@@ -18,20 +18,20 @@ const StyledSecondaryToolbar = styled.div`
 @observer
 class SecondaryToolbar extends React.Component {
 
-  static propTypes = {
-      controls: PropTypes.func.isRequired,
-      className: PropTypes.string,
-  }
+    static propTypes = {
+        controls: PropTypes.func.isRequired,
+        className: PropTypes.string,
+    }
 
-  render() {
-      const { controls, className } = this.props;
+    render() {
+        const { controls, className } = this.props;
 
-      return (
-          <StyledSecondaryToolbar renderFn={controls} className={cn(className)}>
-              {controls()}
-          </StyledSecondaryToolbar>
-      );
-  }
+        return (
+            <StyledSecondaryToolbar renderFn={controls} className={cn(className)}>
+                {controls()}
+            </StyledSecondaryToolbar>
+        );
+    }
 
 }
 

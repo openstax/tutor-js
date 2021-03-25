@@ -184,101 +184,101 @@ const Variants = {
 export default
 class Icon extends React.Component {
 
-  static propTypes = {
-      type: PropTypes.oneOf(Object.keys(Icons)),
-      spin: PropTypes.bool,
-      busy: PropTypes.bool,
-      className: PropTypes.string,
-      onClick: PropTypes.func,
-      onNavbar: PropTypes.bool,
-      tooltipProps: PropTypes.object,
-      buttonProps: PropTypes.object,
-      btnVariant: PropTypes.string,
-      asButton: PropTypes.bool,
-      variant: PropTypes.oneOf(Object.keys(Variants)),
-      tooltip: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.element,
-      ]),
-  };
+    static propTypes = {
+        type: PropTypes.oneOf(Object.keys(Icons)),
+        spin: PropTypes.bool,
+        busy: PropTypes.bool,
+        className: PropTypes.string,
+        onClick: PropTypes.func,
+        onNavbar: PropTypes.bool,
+        tooltipProps: PropTypes.object,
+        buttonProps: PropTypes.object,
+        btnVariant: PropTypes.string,
+        asButton: PropTypes.bool,
+        variant: PropTypes.oneOf(Object.keys(Variants)),
+        tooltip: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.element,
+        ]),
+    };
 
-  static defaultProps = {
-      buttonProps: {},
-      tooltipProps: defaultTooltipProps,
-  };
+    static defaultProps = {
+        buttonProps: {},
+        tooltipProps: defaultTooltipProps,
+    };
 
-  uniqueId = uniqueId('icon-tooltip-')
+    uniqueId = uniqueId('icon-tooltip-')
 
-  render() {
-      let { variant, ...providedProps } = this.props;
-      if (variant) {
-          defaults(providedProps, Variants[variant]);
-      }
-      const {
-          onClick, onBlur, buttonProps, tooltipProps, btnVariant,
-          type, className, tooltip, onNavbar, busy, asButton,
-          ...props
-      } = providedProps;
-      props.icon = Icons[type];
-      if (busy) {
-          props.icon = 'spinner';
-          props.spin = true;
-      }
-      const wrapWithButton = onClick || btnVariant || asButton;
+    render() {
+        let { variant, ...providedProps } = this.props;
+        if (variant) {
+            defaults(providedProps, Variants[variant]);
+        }
+        const {
+            onClick, onBlur, buttonProps, tooltipProps, btnVariant,
+            type, className, tooltip, onNavbar, busy, asButton,
+            ...props
+        } = providedProps;
+        props.icon = Icons[type];
+        if (busy) {
+            props.icon = 'spinner';
+            props.spin = true;
+        }
+        const wrapWithButton = onClick || btnVariant || asButton;
 
 
-      if (wrapWithButton) {
-          HOISTED_PROPS.forEach(prop => {
-              if (props[prop]) {
-                  buttonProps[prop] = props[prop];
-                  delete props[prop];
-              }
-          });
-      }
+        if (wrapWithButton) {
+            HOISTED_PROPS.forEach(prop => {
+                if (props[prop]) {
+                    buttonProps[prop] = props[prop];
+                    delete props[prop];
+                }
+            });
+        }
 
-      let icon = (
-          <IconWrapper
-              data-variant={variant}
-              className={cn('ox-icon', `ox-icon-${type}`, className)}
-              {...props}
-          />
-      );
+        let icon = (
+            <IconWrapper
+                data-variant={variant}
+                className={cn('ox-icon', `ox-icon-${type}`, className)}
+                {...props}
+            />
+        );
 
-      if (wrapWithButton) {
+        if (wrapWithButton) {
 
-          icon = (
-              <Button
-                  variant={btnVariant || 'plain'}
-                  className={cn(`ox-icon-${type}`, className, {
-                      'btn btn-standard btn-icon': asButton,
-                  })}
-                  onClick={onClick}
-                  onBlur={onBlur}
-                  {...buttonProps}
-              >{icon}</Button>
-          );
-      }
+            icon = (
+                <Button
+                    variant={btnVariant || 'plain'}
+                    className={cn(`ox-icon-${type}`, className, {
+                        'btn btn-standard btn-icon': asButton,
+                    })}
+                    onClick={onClick}
+                    onBlur={onBlur}
+                    {...buttonProps}
+                >{icon}</Button>
+            );
+        }
 
-      if (!tooltip) {
-          return icon;
-      }
+        if (!tooltip) {
+            return icon;
+        }
 
-      const tooltipEl = (
-          <Tooltip
-              id={this.uniqueId}
-              className={cn('ox-icon-tt', { 'on-navbar': onNavbar })}
-              {...defaults(tooltipProps, defaultTooltipProps)}
-          >
-              {tooltip}
-          </Tooltip>
-      );
+        const tooltipEl = (
+            <Tooltip
+                id={this.uniqueId}
+                className={cn('ox-icon-tt', { 'on-navbar': onNavbar })}
+                {...defaults(tooltipProps, defaultTooltipProps)}
+            >
+                {tooltip}
+            </Tooltip>
+        );
 
-      return (
-          <OverlayTrigger {...tooltipProps} overlay={tooltipEl}>
-              {icon}
-          </OverlayTrigger>
-      );
+        return (
+            <OverlayTrigger {...tooltipProps} overlay={tooltipEl}>
+                {icon}
+            </OverlayTrigger>
+        );
 
-  }
+    }
 
 }

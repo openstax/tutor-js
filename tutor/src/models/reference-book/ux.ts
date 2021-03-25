@@ -22,6 +22,7 @@ export default class BookUX {
   scroller = new Scroller({ windowImpl: this.windowImpl });
 
   constructor({ windowImpl } = {}) {
+      modelize(this);
       this.windowImpl = windowImpl;
       this.disposers = [
           observe(this, 'ecosystemId', this.onEcosystemChange),

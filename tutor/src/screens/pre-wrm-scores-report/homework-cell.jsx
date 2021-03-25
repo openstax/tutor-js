@@ -13,99 +13,102 @@ import UX from './ux';
 @observer
 export default
 class HomeworkCell extends React.Component {
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        className: PropTypes.string,
+        columnIndex: PropTypes.number.isRequired,
+        task: PropTypes.instanceOf(TaskResult).isRequired,
+    }
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      className: PropTypes.string,
-      columnIndex: PropTypes.number.isRequired,
-      task: PropTypes.instanceOf(TaskResult).isRequired,
-  }
+    @observable isShowingPopover = false;
 
-  @observable isShowingPopover = false;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound show() {
-      this.isShowingPopover = true;
-  }
+    @action.bound show() {
+        this.isShowingPopover = true;
+    }
 
-  @action.bound hide() {
-      this.isShowingPopover = false;
-  }
+    @action.bound hide() {
+        this.isShowingPopover = false;
+    }
 
-  @action.bound getPieChartTarget() {
-      return (
-          ReactDOM.findDOMNode(this.refs.pieChart)
-      );
-  }
+    @action.bound getPieChartTarget() {
+        return (
+            ReactDOM.findDOMNode(this.refs.pieChart)
+        );
+    }
 
-  renderPopover() {
-      const { task } = this.props;
-      const progress = <PieProgress ref="pieChart" task={task} />;
-      if (!task.isStarted) {
-          return <div>{progress}</div>;
-      }
-      return (
-          <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
+    renderPopover() {
+        const { task } = this.props;
+        const progress = <PieProgress ref="pieChart" task={task} />;
+        if (!task.isStarted) {
+            return <div>{progress}</div>;
+        }
+        return (
+            <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
 
-              <Overlay
-                  target={this.getPieChartTarget}
-                  show={this.isShowingPopover}
-                  onHide={this.hide}
-                  placement="left"
-              >
-                  <Popover
-                      onMouseOver={this.show}
-                      onMouseLeave={this.hide}
-                      id={`scores-cell-info-popover-${task.id}`}
-                      className="scores-scores-tooltip-completed-info"
-                  >
-                      <Popover.Content>
-                          <div className="info">
-                              <div className="row">
-                                  <div>
-                    Completed {task.humanCompletedPercent}
-                                  </div>
-                              </div>
-                              <div className="row">
-                                  <div>
-                                      {task.humanProgress} questions
-                                  </div>
-                              </div>
-                          </div>
-                      </Popover.Content>
-                  </Popover>
-              </Overlay>
-              {progress}
-          </div>
-      );
-  }
+                <Overlay
+                    target={this.getPieChartTarget}
+                    show={this.isShowingPopover}
+                    onHide={this.hide}
+                    placement="left"
+                >
+                    <Popover
+                        onMouseOver={this.show}
+                        onMouseLeave={this.hide}
+                        id={`scores-cell-info-popover-${task.id}`}
+                        className="scores-scores-tooltip-completed-info"
+                    >
+                        <Popover.Content>
+                            <div className="info">
+                                <div className="row">
+                                    <div>
+                      Completed {task.humanCompletedPercent}
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div>
+                                        {task.humanProgress} questions
+                                    </div>
+                                </div>
+                            </div>
+                        </Popover.Content>
+                    </Popover>
+                </Overlay>
+                {progress}
+            </div>
+        );
+    }
 
-  renderLateWork() {
-      const { ux, task, columnIndex } = this.props;
+    renderLateWork() {
+        const { ux, task, columnIndex } = this.props;
 
-      if (!ux.course.currentRole.isTeacher) {
-          return null;
-      }
+        if (!ux.course.currentRole.isTeacher) {
+            return null;
+        }
 
-      return (
-          <LateWork
-              task={task}
-              onMouseOver={this.show}
-              onMouseLeave={this.hide}
-              columnIndex={columnIndex}
-          />
-      );
-  }
+        return (
+            <LateWork
+                task={task}
+                onMouseOver={this.show}
+                onMouseLeave={this.hide}
+                columnIndex={columnIndex}
+            />
+        );
+    }
 
-  render() {
-      const { ux, task } = this.props;
+    render() {
+        const { ux, task } = this.props;
 
-      return (
-          <div className="scores-cell">
-              <Correctness ux={ux} task={task} />
-              {this.renderPopover()}
-              {this.renderLateWork()}
-          </div>
-      );
-  }
-
+        return (
+            <div className="scores-cell">
+                <Correctness ux={ux} task={task} />
+                {this.renderPopover()}
+                {this.renderLateWork()}
+            </div>
+        );
+    }
 }

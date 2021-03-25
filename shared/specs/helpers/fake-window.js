@@ -35,8 +35,8 @@ const defaults = {
 
 class FakeMutationObserver {
 
-  disconnect = jest.fn()
-  observe = jest.fn()
+    disconnect = jest.fn()
+    observe = jest.fn()
 
 }
 
@@ -88,19 +88,19 @@ class FakeWindow {
         });
     }
 
-  getSelection = jest.fn(() => ({
-      removeAllRanges: jest.fn(),
-      addRange: jest.fn(),
-      getRangeAt: jest.fn(() => ({
-          cloneRange: jest.fn(),
-          getBoundingClientRect: jest.fn(() => ({
-              bottom: 150,
-              top: 100,
-              left: 100,
-              right: 150,
-          })),
-      })),
-  }));
+    getSelection = jest.fn(() => ({
+        removeAllRanges: jest.fn(),
+        addRange: jest.fn(),
+        getRangeAt: jest.fn(() => ({
+            cloneRange: jest.fn(),
+            getBoundingClientRect: jest.fn(() => ({
+                bottom: 150,
+                top: 100,
+                left: 100,
+                right: 150,
+            })),
+        })),
+    }));
 
 }
 

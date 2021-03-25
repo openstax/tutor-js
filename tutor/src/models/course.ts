@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, field, identifier, hasMany,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, identifier, hasMany, modelize } from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
 } from 'lodash';
@@ -113,6 +111,7 @@ export default class Course extends BaseModel {
 
     constructor(attrs, map) {
         super(attrs);
+        modelize(this);
         this.map = map;
     }
 

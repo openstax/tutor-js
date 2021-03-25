@@ -1,6 +1,6 @@
 import { orderBy, sortBy, find } from 'lodash';
-import { action, observable, computed, decorate } from 'mobx';
-import { identifiedBy } from 'shared/model';
+import { action, observable, computed } from 'mobx';
+import { identifiedBy, modelize } from 'shared/model';
 import Course from '../../course';
 import Courses from '../../courses-map';
 import Offerings from './index';
@@ -23,6 +23,7 @@ class PreviewCourseOffering extends Course {
           is_preview: true,
           roles: [ { type: 'teacher' } ],
       });
+      modelize(this);
       this.offering = offering;
   }
 
@@ -71,7 +72,7 @@ const Previews = {
 
 };
 
-decorate(Previews, {
+modelize(Previews, {
     fetch: action,
     all: computed,
 });

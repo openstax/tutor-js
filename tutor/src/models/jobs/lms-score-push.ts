@@ -1,6 +1,4 @@
-import {
-    identifiedBy, session,
-} from 'shared/model';
+import { identifiedBy, session, modelize } from 'shared/model';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import Map from 'shared/model/map';
@@ -31,6 +29,7 @@ export default class LmsScorePush extends Job {
 
   constructor(course) {
       super({ maxAttempts: 180, interval: 5 }); // every 5 seconds for max of 15 mins
+      modelize(this);
       this.course = course;
   }
 

@@ -4,9 +4,7 @@ import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import moment from 'moment';
 import Time from '../../time';
-import {
-    BaseModel, identifiedBy, field, identifier,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, identifier, modelize } from 'shared/model';
 
 
 @identifiedBy('task-plans/student/task')
@@ -42,6 +40,7 @@ export default class StudentTask extends BaseModel {
 
   constructor(attrs, studentTasks) {
       super(attrs);
+      modelize(this);
       this.tasks = studentTasks;
   }
 

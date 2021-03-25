@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 export default class WindowScroll {
 
     constructor(windowImpl = window) {
+        modelize(this);
         this.position = fromResource(
             (sink) => {
                 sink(this.readPosition(windowImpl));

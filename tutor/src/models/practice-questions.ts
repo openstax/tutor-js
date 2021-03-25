@@ -1,7 +1,7 @@
 import { action, computed } from 'mobx';
 import { find, map } from 'lodash';
 import Map from 'shared/model/map';
-import { field } from 'shared/model';
+import { field, modelize } from 'shared/model';
 import PracticeQuestion from './practice-questions/practice-question';
 
 class PracticeQuestions extends Map {
@@ -11,6 +11,7 @@ class PracticeQuestions extends Map {
 
   constructor({ course }) {
       super();
+      modelize(this);
       this.course = course;
   }
 

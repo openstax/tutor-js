@@ -12,42 +12,42 @@ import { StepCard } from './step/card';
 @observer
 export default class TaskPractice extends React.Component {
 
-  static propTypes = {
-      params: PropTypes.shape({
-          courseId: idType.isRequired,
-      }).isRequired,
-      course: PropTypes.instanceOf(Course),
-  }
+    static propTypes = {
+        params: PropTypes.shape({
+            courseId: idType.isRequired,
+        }).isRequired,
+        course: PropTypes.instanceOf(Course),
+    }
 
-  @computed get course() {
-      return this.props.course || Courses.get(this.props.params.courseId);
-  }
+    @computed get course() {
+        return this.props.course || Courses.get(this.props.params.courseId);
+    }
 
-  @observable taskId;
+    @observable taskId;
 
-  componentDidMount() {
-      if (!this.course) { return; }
-      this.course.studentTasks
-          .practice(Router.currentQuery())
-          .then(({ data: { id } }) => { this.taskId = id; });
-  }
+    componentDidMount() {
+        if (!this.course) { return; }
+        this.course.studentTasks
+            .practice(Router.currentQuery())
+            .then(({ data: { id } }) => { this.taskId = id; });
+    }
 
-  render() {
-      if (!this.course) {
-          return <CourseNotFoundWarning areaName="assignment" messageType="notAllowed" />;
-      }
+    render() {
+        if (!this.course) {
+            return <CourseNotFoundWarning areaName="assignment" messageType="notAllowed" />;
+        }
 
-      if (!this.taskId) {
-          return (
-              <StepCard><PendingLoad /></StepCard>
-          );
-      }
+        if (!this.taskId) {
+            return (
+                <StepCard><PendingLoad /></StepCard>
+            );
+        }
 
-      return <Redirect to={Router.makePathname('viewTask', {
-          id: this.taskId,
-          courseId: this.course.id,
-      })} />;
+        return <Redirect to={Router.makePathname('viewTask', {
+            id: this.taskId,
+            courseId: this.course.id,
+        })} />;
 
-  }
+    }
 
 }

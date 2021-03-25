@@ -63,48 +63,52 @@ DeletePeriodModal.propTypes = {
 @observer
 export default
 class DeletePeriodLink extends React.Component {
+    static propTypes = {
+        period: PropTypes.instanceOf(Period).isRequired,
+        onDelete: PropTypes.func.isRequired,
+    }
 
-  static propTypes = {
-      period: PropTypes.instanceOf(Period).isRequired,
-      onDelete: PropTypes.func.isRequired,
-  }
+    @observable showModalForPeriod;
 
-  @observable showModalForPeriod;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound close() {
-      this.showModalForPeriod = null;
-  }
+    @action.bound close() {
+        this.showModalForPeriod = null;
+    }
 
-  @action.bound open() {
-      this.showModalForPeriod = this.props.period;
-  }
+    @action.bound open() {
+        this.showModalForPeriod = this.props.period;
+    }
 
-  @action.bound performDelete() {
-      this.props.onDelete();
-      this.props.period.archive().then(this.close);
-  }
+    @action.bound performDelete() {
+        this.props.onDelete();
+        this.props.period.archive().then(this.close);
+    }
 
-  render() {
-      const { period } = this.props;
-      const students = period.course.roster.students.activeByPeriod[period.id];
-      if (!isEmpty(students)) { return null; }
+    render() {
+        const { period } = this.props;
+        const students = period.course.roster.students.activeByPeriod[period.id];
+        if (!isEmpty(students)) { return null; }
 
-      return (
-          <React.Fragment>
-              <Button
-                  onClick={this.open}
-                  variant="link"
-                  className="control delete-period"
-              >
-                  <Icon type="trash" />Delete <CourseGroupingLabel courseId={period.course.id} />
-              </Button>
-              <DeletePeriodModal
-                  onClose={this.close}
-                  isBusy={this.showModalForPeriod && this.showModalForPeriod.api.isPending}
-                  onDelete={this.performDelete}
-                  period={this.showModalForPeriod}
-              />
-          </React.Fragment>
-      );
-  }
+        return (
+            <React.Fragment>
+                <Button
+                    onClick={this.open}
+                    variant="link"
+                    className="control delete-period"
+                >
+                    <Icon type="trash" />Delete <CourseGroupingLabel courseId={period.course.id} />
+                </Button>
+                <DeletePeriodModal
+                    onClose={this.close}
+                    isBusy={this.showModalForPeriod && this.showModalForPeriod.api.isPending}
+                    onDelete={this.performDelete}
+                    period={this.showModalForPeriod}
+                />
+            </React.Fragment>
+        );
+    }
 }

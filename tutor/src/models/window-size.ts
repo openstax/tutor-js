@@ -6,6 +6,7 @@ import { BREAKPOINTS } from '../theme';
 export default class WindowSize {
 
     constructor({ windowImpl = window } = {}) {
+        modelize(this);
         this.size = fromResource(
             (sink) => {
                 sink(this.readSize(windowImpl));

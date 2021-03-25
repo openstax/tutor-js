@@ -42,47 +42,47 @@ const DeleteModal = observer(({ isVisible, show, onClose, isBusy, onDelete }) =>
 @observer
 export default class DeleteButton extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+    }
 
-  @observable showModal = false;
+    @observable showModal = false;
 
-  @action.bound close() {
-      this.showModal = false;
-  }
+    @action.bound close() {
+        this.showModal = false;
+    }
 
-  @action.bound open() {
-      this.showModal = true;
-  }
+    @action.bound open() {
+        this.showModal = true;
+    }
 
-  @action.bound onDelete() {
-      this.showModal = false;
-      this.props.ux.onDelete();
-  }
+    @action.bound onDelete() {
+        this.showModal = false;
+        this.props.ux.onDelete();
+    }
 
-  render() {
-      const { plan, isApiPending } = this.props.ux;
-      if (plan.isNew && !isApiPending) { return null; }
+    render() {
+        const { plan, isApiPending } = this.props.ux;
+        if (plan.isNew && !isApiPending) { return null; }
 
-      return (
-          <DeleteWrapper id="builder-delete-button">
-              <DeleteModal
-                  isVisible={plan.isVisibleToStudents}
-                  show={this.showModal}
-                  onClose={this.close}
-                  isBusy={isApiPending}
-                  onDelete={this.onDelete}
-              />
-              <Button
-                  onClick={this.open}
-                  variant="plain"
-                  className="control delete-assignment"
-              >
-                  <Icon type="trash" />Delete
-              </Button>
-          </DeleteWrapper>
-      );
-  }
+        return (
+            <DeleteWrapper id="builder-delete-button">
+                <DeleteModal
+                    isVisible={plan.isVisibleToStudents}
+                    show={this.showModal}
+                    onClose={this.close}
+                    isBusy={isApiPending}
+                    onDelete={this.onDelete}
+                />
+                <Button
+                    onClick={this.open}
+                    variant="plain"
+                    className="control delete-assignment"
+                >
+                    <Icon type="trash" />Delete
+                </Button>
+            </DeleteWrapper>
+        );
+    }
 
 }

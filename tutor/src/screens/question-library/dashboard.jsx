@@ -11,62 +11,67 @@ import ExercisesDisplay from './exercises-display';
 
 @observer
 class QuestionsDashboard extends React.Component {
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      exercises: PropTypes.instanceOf(ExercisesMap),
-  };
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        exercises: PropTypes.instanceOf(ExercisesMap),
+    };
 
-  static defaultProps = {
-      exercises: Exercises,
-  }
+    static defaultProps = {
+        exercises: Exercises,
+    }
 
-  @observable isShowingExercises = false;
-  @observable showingDetails = false;
-  @observable focusedExercise = false;
-  @observable chapterIds;
-  @observable pageIds = [];
+    @observable isShowingExercises = false;
+    @observable showingDetails = false;
+    @observable focusedExercise = false;
+    @observable chapterIds;
+    @observable pageIds = [];
 
-  @action.bound onShowDetailsViewClick() {
-      this.showingDetails = true;
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound onShowCardViewClick() {
-      this.showingDetails = false;
-  }
+    @action.bound onShowDetailsViewClick() {
+        this.showingDetails = true;
+    }
 
-  @action.bound onSelectionsChange(pageIds) {
-      this.pageIds = pageIds;
-      this.isShowingExercises = !isEmpty(pageIds);
-  }
+    @action.bound onShowCardViewClick() {
+        this.showingDetails = false;
+    }
 
-  @action.bound onSelectSections() {
-      this.showingDetails = false;
-      this.isShowingExercises = false;
-  }
+    @action.bound onSelectionsChange(pageIds) {
+        this.pageIds = pageIds;
+        this.isShowingExercises = !isEmpty(pageIds);
+    }
 
-  render() {
-      const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
-      return (
-          <div className={classes}>
-              {!this.isShowingExercises && (
-                  <SectionsChooser
-                      {...this.props}
-                      pageIds={this.pageIds}
-                      onSelectionsChange={this.onSelectionsChange}
-                  />
-              )}
-              {this.isShowingExercises && (
-                  <ExercisesDisplay
-                      {...this.props}
-                      onSelectSections={this.onSelectSections}
-                      showingDetails={this.showingDetails}
-                      onShowCardViewClick={this.onShowCardViewClick}
-                      onShowDetailsViewClick={this.onShowDetailsViewClick}
-                      pageIds={this.pageIds} />
-              )}
-          </div>
-      );
-  }
+    @action.bound onSelectSections() {
+        this.showingDetails = false;
+        this.isShowingExercises = false;
+    }
+
+    render() {
+        const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
+        return (
+            <div className={classes}>
+                {!this.isShowingExercises && (
+                    <SectionsChooser
+                        {...this.props}
+                        pageIds={this.pageIds}
+                        onSelectionsChange={this.onSelectionsChange}
+                    />
+                )}
+                {this.isShowingExercises && (
+                    <ExercisesDisplay
+                        {...this.props}
+                        onSelectSections={this.onSelectSections}
+                        showingDetails={this.showingDetails}
+                        onShowCardViewClick={this.onShowCardViewClick}
+                        onShowDetailsViewClick={this.onShowDetailsViewClick}
+                        pageIds={this.pageIds} />
+                )}
+            </div>
+        );
+    }
 }
 
 export default QuestionsDashboard;

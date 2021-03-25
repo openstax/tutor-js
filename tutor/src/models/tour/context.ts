@@ -1,6 +1,4 @@
-import {
-    BaseModel, identifiedBy, computed, observable, field,
-} from 'shared/model';
+import { BaseModel, identifiedBy, computed, observable, field, modelize } from 'shared/model';
 import {
     find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
@@ -34,6 +32,7 @@ export default class TourContext extends BaseModel {
 
   constructor(attrs) {
       super(attrs);
+      modelize(this);
       this.pickTourRide();
       observe(this, 'tour', this.pickTourRide);
   }

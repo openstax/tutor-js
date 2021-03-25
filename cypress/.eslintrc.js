@@ -1,6 +1,6 @@
 module.exports = {
-  "globals": {
-    "Cypress":     false,
-    "cy":          false,
-  }
+    'globals': {
+        'Cypress':     false,
+        'cy':          false,
+    },
 }

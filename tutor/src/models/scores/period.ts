@@ -1,9 +1,7 @@
 import { find, reduce, isEmpty, filter } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
-import {
-    BaseModel, identifiedBy, field, hasMany,
-} from 'shared/model';
+import { BaseModel, identifiedBy, field, hasMany, modelize } from 'shared/model';
 import Heading from './heading';
 import Student from './student';
 
@@ -23,6 +21,7 @@ export default class CourseScoresPeriod extends BaseModel {
 
   constructor(attrs, course) {
       super(attrs);
+      modelize(this);
       this.course = course;
   }
 
