@@ -11,9 +11,7 @@ describe('Exercise Question', () => {
         question.setExclusiveFormat('true-false');
         expect(map(question.formats, 'value')).toEqual(['true-false']);
         question.setExclusiveFormat('multiple-choice');
-        expect(map(question.formats, 'value')).toEqual(['free-response', 'multiple-choice']);
-        question.setExclusiveFormat('multiple-choice');
-        expect(map(question.formats, 'value')).toEqual(['free-response', 'multiple-choice']);
+        expect(map(question.formats, 'value')).toEqual(['multiple-choice', 'free-response']);
         question.setExclusiveFormat('true-false');
         expect(map(question.formats, 'value')).toEqual(['true-false']);
         question.setExclusiveFormat('open-ended');
@@ -78,9 +76,9 @@ describe('Exercise Question', () => {
         question.collaborator_solution_html = '';
         expect(question.collaborator_solutions).toHaveLength(0);
     });
-    it('uses answers for detecting multi-choice', () => {
+    it('uses formats for detecting multi-choice', () => {
         expect(question.isMultipleChoice).toBe(true);
-        question.answers = [];
+        question.formats = ['free-response'];
         expect(question.isMultipleChoice).toBe(false);
     });
 });
