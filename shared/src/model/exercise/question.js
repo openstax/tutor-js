@@ -120,20 +120,18 @@ class ExerciseQuestion extends BaseModel {
           this.answers = [];
       }
       if (name == 'open-ended') { name = 'free-response'; }
-      let formats = without(map(this.formats, 'value'), ...keys(ExerciseQuestion.FORMAT_TYPES));
-      formats.push(name);
+      this.formats.push(name);
 
       switch(name) {
           case 'free-response':
               this.exercise.onQuestionFreeResponseSelected(this);
               break;
           case 'multiple-choice':
-              if(!formats.includes('free-response')) {
-                  formats.push('free-response')
+              if(!this.formats.includes('free-response')) {
+                  this.formats.push('free-response')
               }
               break;
           case 'true-false':
-              formats = without(formats, 'free-response');
               if (this.answers.length == 0) {
                   this.answers.push({ content_html: 'True' });
                   this.answers.push({ content_html: 'False' });
@@ -141,7 +139,7 @@ class ExerciseQuestion extends BaseModel {
               break;
       }
 
-      this.formats = uniq(formats).sort();
+      uniq(this.formats).sort();
   }
 
   @action toggleFormat(value, selected) {
