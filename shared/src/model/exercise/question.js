@@ -51,7 +51,7 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isMultipleChoice() {
-      return this.answers.length > 0;
+      return this.hasFormat('multiple-choice');
   }
 
   @computed get isOpenEnded() {
@@ -114,21 +114,33 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @action setExclusiveFormat(name) {
+      //reset formats and answers
+      this.formats = [];
+      if(this.answers.length > 0) {
+          this.answers = [];
+      }
       if (name == 'open-ended') { name = 'free-response'; }
-
       let formats = without(map(this.formats, 'value'), ...keys(ExerciseQuestion.FORMAT_TYPES));
       formats.push(name);
-      if ('true-false' === name) {
-          formats = without(formats, 'free-response');
-          if (this.answers.length == 0) {
-              this.answers.push({ content_html: 'True' });
-              this.answers.push({ content_html: 'False' });
-          }
-      } else if ('multiple-choice' === name && !formats.includes('free-response')) {
-          formats = formats.concat('free-response');
-      } else if (name == 'free-response') {
-          this.exercise.onQuestionFreeResponseSelected(this);
+
+      switch(name) {
+          case 'free-response':
+              this.exercise.onQuestionFreeResponseSelected(this);
+              break;
+          case 'multiple-choice':
+              if(!formats.includes('free-response')) {
+                  formats.push('free-response')
+              }
+              break;
+          case 'true-false':
+              formats = without(formats, 'free-response');
+              if (this.answers.length == 0) {
+                  this.answers.push({ content_html: 'True' });
+                  this.answers.push({ content_html: 'False' });
+              }  
+              break;
       }
+
       this.formats = uniq(formats).sort();
   }
 
