@@ -134,8 +134,8 @@ class TaskPlanScoreStudent extends BaseModel {
   @field late_work_point_penalty;
   @field grades_need_publishing;
 
-  @model('task-plan/scores/student') questions;
-  @model('task-plan/scores/student') tasking;
+  @model(TaskPlanScoreStudentQuestion) questions;
+  @model('task-plan/scores/tasking') tasking;
 
   resultForHeading(heading) {
       return this.questions.length > heading.index ? this.questions[heading.index] : null;
@@ -290,12 +290,12 @@ class TaskPlanScoresTasking extends BaseModel {
   @field period_name;
   @field total_fraction;
 
-  @model('task-plan/scores/student') plan;
+  @model('task-plan/scores') plan;
   @model(TaskPlanScoreHeading) question_headings; /* extend: {
       gradable() { return filter(this, h => h.question && h.question.isOpenEnded); },
       core() { return filter(this, h => h.type != 'Tutor'); },
   } */
-  @model('task-plan/scores/student') students;
+  @model(TaskPlanScoreStudent) students;
 
   @computed get availablePoints() {
       return sumBy(this.question_headings, 'points');
@@ -424,9 +424,9 @@ export default class TaskPlanScores extends BaseModel {
   @field type;
   @field ecosystem_id;
 
-  @model('task-plan/scores/student') taskPlan;
+  @model('task-plans/teacher/plan') taskPlan;
 
-  @model('task-plan/scores/student') dropped_questions;
+  @model(DroppedQuestion) dropped_questions;
   @model(TaskPlanScoresTasking) tasking_plans; /* extend: {
       forPeriod(period) { return find(this, { period_id: period.id }); },
   } */

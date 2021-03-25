@@ -28,8 +28,8 @@ export default class TutorExercise extends BaseModel {
   @field ecosystem_id;
 
   @model(ExerciseContent) content;
-  @model(ExerciseContent) book;
-  @model(ExerciseContent) course;
+  @model('book') book;
+  @model('course') course;
   @field is_excluded = false;
   @field is_copyable = true;
   @field has_interactive = false;
@@ -41,7 +41,7 @@ export default class TutorExercise extends BaseModel {
   @field preview;
   @field author?: any;
 
-  @model(ExerciseContent) related_content;
+  @model(RelatedContent) related_content;
 
   @model(Tag) tags; /* extend: getters({
       foo() { return 1234; },
@@ -67,7 +67,7 @@ export default class TutorExercise extends BaseModel {
   set page(pg) {
       this._page = pg;
   }
-  @model(ExerciseContent) question_stats;
+  @model('task-plan/stats/question') question_stats;
   @observable average_step_number;
 
   @computed get isAssignable() { return !this.is_excluded; }

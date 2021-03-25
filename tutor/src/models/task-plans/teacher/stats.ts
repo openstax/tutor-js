@@ -58,7 +58,7 @@ class Student extends BaseModel {
 class Answer extends BaseModel {
     @observable free_response;
     @observable answer_id;
-    @model('task-plan/stats/question') students;
+    @model(Student) students;
     @model('task-plan/stats/question') question;
 
     constructor() {
@@ -139,7 +139,7 @@ class Page extends BaseModel {
     @observable is_trouble;
     @observable student_count;
 
-    @model('task-plan/stats/question') exercises;
+    @model(Exercise) exercises;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -155,10 +155,10 @@ class Stats extends BaseModel {
     @observable total_count;
     @observable complete_count;
     @observable partially_complete_count;
-    @model('task-plan/stats/question') taskPlan;
+    @model('task-plan/stats') taskPlan;
     @observable is_trouble;
-    @model('task-plan/stats/question') current_pages;
-    @model('task-plan/stats/question') spaced_pages;
+    @model(Page) current_pages;
+    @model(Page) spaced_pages;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -201,9 +201,9 @@ export default class TaskPlanStats extends BaseModel {
 
     @observable shareable_url;
 
-    @model('task-plan/stats/question') stats;
+    @model(Stats) stats;
 
-    @model('task-plan/stats/question') taskPlan;
+    @model('task-plans/teacher/plan') taskPlan;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
