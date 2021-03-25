@@ -133,8 +133,10 @@ class ChapterAccordion extends React.Component {
           : selected.length ? 'partial' : 'unchecked';
 
       return (
-          <ChapterWrapper className="chapter"
+          <ChapterWrapper
+              className="chapter"
               data-is-expanded={this.expanded}
+              data-test-id="section-chapter-chooser"
           >
               <ChapterHeading
                   role="button"
