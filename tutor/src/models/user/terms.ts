@@ -1,4 +1,4 @@
-import { BaseModel, identifier, field, belongsTo, hasMany, modelize } from 'shared/model';
+import { BaseModel, identifier, field, model, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import { isProd } from '../../helpers/production';
 
@@ -34,8 +34,8 @@ class Term extends BaseModel {
 
 
 class UserTerms extends BaseModel {
-    @belongsTo({ model: 'user' }) user;
-    @hasMany({ model: Term }) terms;
+    @model('user') user;
+    @model(Term) terms;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,8 +1,8 @@
 import {
     BaseModel,
-    belongsTo,
+    model,
     session,
-    hasMany,
+    model,
     field,
     identifier,
     modelize,
@@ -21,7 +21,7 @@ class AnswerStat extends BaseModel {
     @session answer_id;
     @session selected_count;
 
-    @belongsTo({ model: 'task-plan/stats/question' }) question;
+    @model('task-plan/stats/question') question;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -58,8 +58,8 @@ class Student extends BaseModel {
 class Answer extends BaseModel {
     @session free_response;
     @session answer_id;
-    @hasMany({ model: Student }) students;
-    @belongsTo({ model: 'task-plan/stats/question' }) question;
+    @model('task-plan/stats/question') students;
+    @model('task-plan/stats/question') question;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -92,10 +92,10 @@ class QuestionStats extends BaseModel {
     @session answered_count;
     @session exercise;
 
-    @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
-    @hasMany({ model: AnswerStat, inverseOf: 'question', extend: getters({
+    @model(Answer) answers; // extend: AnswersAssociation
+    @model(AnswerStat) answer_stats; /* extend: getters({
         correct() { return find(this, { isCorrect: true }); },
-    }) } ) answer_stats;
+    }) */
 
     @lazyInitialize forReview = new ReviewQuestion(this);
 
@@ -139,7 +139,7 @@ class Page extends BaseModel {
     @session is_trouble;
     @session student_count;
 
-    @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
+    @model('task-plan/stats/question') exercises;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -155,10 +155,10 @@ class Stats extends BaseModel {
     @session total_count;
     @session complete_count;
     @session partially_complete_count;
-    @belongsTo({ model: 'task-plan/stats' }) taskPlan;
+    @model('task-plan/stats/question') taskPlan;
     @session is_trouble;
-    @hasMany({ model: Page }) current_pages;
-    @hasMany({ model: Page }) spaced_pages;
+    @model('task-plan/stats/question') current_pages;
+    @model('task-plan/stats/question') spaced_pages;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -201,9 +201,9 @@ export default class TaskPlanStats extends BaseModel {
 
     @session shareable_url;
 
-    @hasMany({ model: Stats, inverseOf: 'plan' }) stats;
+    @model('task-plan/stats/question') stats;
 
-    @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
+    @model('task-plan/stats/question') taskPlan;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { sortBy, values } from 'lodash';
-import { BaseModel, hasMany, session, identifier, modelize } from 'shared/model';
+import { BaseModel, model, session, identifier, modelize } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
@@ -72,12 +72,12 @@ class Notes extends BaseModel {
 
   pages = observable.map();
 
-  @hasMany({ model: HighlightedSection, extend: {
+  @model(HighlightedSection) summary; /* extend: {
       sorted() { return sortBy(this, 'chapter_section.asNumber'); },
       forPage(page) {
           return this.find(s => s.uuid == page.uuid);
       },
-  } }) summary;
+  } */
 
 
   constructor({ course }) {

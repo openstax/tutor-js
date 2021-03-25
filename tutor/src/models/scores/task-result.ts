@@ -1,7 +1,7 @@
 import { findIndex, isNil } from 'lodash';
 import { moment, computed } from 'vendor';
 import {
-    BaseModel, belongsTo, identifier, field,
+    BaseModel, model, identifier, field,
 } from 'shared/model';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
@@ -25,7 +25,7 @@ export default class TaskResult extends BaseModel {
   // can be removed once old scores is removed
   @field completed_on_time_steps_count;
 
-  @belongsTo({ model: 'scores/student' }) student;
+  @model('scores/student') student;
   @computed get period() { return this.student.period; }
   @computed get course() { return this.student.period.course; }
 

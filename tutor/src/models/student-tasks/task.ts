@@ -1,5 +1,5 @@
 import {
-    BaseModel, field, identifier, hasMany, action, session, computed, observable,
+    BaseModel, field, identifier, model, action, session, computed, observable,
 } from 'shared/model';
 import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
@@ -28,8 +28,8 @@ export default class StudentTask extends BaseModel {
 
   @field is_provisional_score;
 
-  @hasMany({ model: Student }) students;
-  @hasMany({ model: StudentTaskStep, inverseOf: 'task' }) steps;
+  @model(Student) students;
+  @model(StudentTaskStep) steps;
 
   @session({ type: 'object' }) tasksMap;
 

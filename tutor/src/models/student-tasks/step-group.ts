@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifier, hasMany, computed, action,
+    BaseModel, identifier, model, computed, action,
 } from 'shared/model';
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
@@ -7,7 +7,7 @@ import { readonly } from 'core-decorators';
 export default class StudentTaskStepGroup extends BaseModel {
 
   @identifier uid;
-  @hasMany({ model: StudentTaskStep }) steps;
+  @model(StudentTaskStep) steps;
 
   @readonly isGrouped = true;
   @readonly type = 'mpq';

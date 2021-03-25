@@ -1,4 +1,4 @@
-import { BaseModel, field, identifier, hasMany, modelize } from 'shared/model';
+import { BaseModel, field, identifier, model, modelize } from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
 } from 'lodash';
@@ -94,19 +94,19 @@ export default class Course extends BaseModel {
     @lazyGetter gradingTemplates = new GradingTemplates({ course: this });
     @lazyGetter practiceQuestions = new PracticeQuestions({ course: this });
 
-    @hasMany({ model: Period, inverseOf: 'course', extend: getters({
+    @model(Period) periods = []; /* extend: getters({
         sorted() { return PH.sort(this.active);                        },
         archived() { return filter(this, period => !period.is_archived); },
         active() { return filter(this, 'isActive'); },
-    }) }) periods = [];
+    }) */
 
-    @hasMany({ model: Role, inverseOf: 'course', extend: getters({
+    @model(Role) roles; /* extend: getters({
         student() { return find(this, { isStudent: true }); },
         teacher() { return find(this, { isTeacher: true }); },
         teacherStudent() { return find(this, { isTeacherStudent: true }); },
-    }) }) roles;
-    @hasMany({ model: Student, inverseOf: 'course' }) students;
-    @hasMany({ model: TeacherProfiles, inverseOf: 'course' }) teacher_profiles;
+    }) */
+    @model(Student) students;
+    @model(TeacherProfiles) teacher_profiles;
 
     constructor(attrs, map) {
         super(attrs);

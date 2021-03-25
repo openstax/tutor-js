@@ -1,4 +1,4 @@
-import { BaseModel, field, identifier, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, identifier, model, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
@@ -9,7 +9,7 @@ export default class CourseRole extends BaseModel {
     @field type;
     @field period_id;
     @field research_identifier;
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

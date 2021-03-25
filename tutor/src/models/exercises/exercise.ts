@@ -2,11 +2,11 @@ import { last, map, filter, reduce } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import {
     BaseModel,
-    belongsTo,
+    model,
     identifier,
     field,
     session,
-    hasMany,
+    model,
     modelize,
 } from 'shared/model';
 import Tag from './tag';
@@ -26,9 +26,9 @@ export default class TutorExercise extends BaseModel {
   @identifier id;
   @field ecosystem_id;
 
-  @belongsTo({ model: ExerciseContent, inverseOf: 'wrapper' }) content;
-  @belongsTo({ model: 'book' }) book;
-  @belongsTo({ model: 'course' }) course;
+  @model(ExerciseContent) content;
+  @model(ExerciseContent) book;
+  @model(ExerciseContent) course;
   @field is_excluded = false;
   @field is_copyable = true;
   @field has_interactive = false;
@@ -40,9 +40,9 @@ export default class TutorExercise extends BaseModel {
   @field preview;
   @field({ type: 'object' }) author;
 
-  @hasMany({ model: RelatedContent }) related_content;
+  @model(ExerciseContent) related_content;
 
-  @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
+  @model(Tag) tags; /* extend: getters({
       foo() { return 1234; },
       important() {
           return reduce(this, (o, t) => t.recordInfo(o), {});
@@ -50,7 +50,7 @@ export default class TutorExercise extends BaseModel {
       chapterSection() {
           return new ChapterSection(this.important.chapterSection);
       },
-  }) }) tags;
+  }) */
 
   @session isSelected = false;
 
@@ -66,7 +66,7 @@ export default class TutorExercise extends BaseModel {
   set page(pg) {
       this._page = pg;
   }
-  @hasMany({ model: 'task-plan/stats/question', inverseOf: 'exercise' }) question_stats;
+  @model(ExerciseContent) question_stats;
   @session average_step_number;
 
   @computed get isAssignable() { return !this.is_excluded; }

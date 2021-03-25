@@ -2,7 +2,7 @@ import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
-import { BaseModel, field, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize } from 'shared/model';
 import Time from '../time';
 
 export default class Heading extends BaseModel {
@@ -13,7 +13,7 @@ export default class Heading extends BaseModel {
     @field title;
     @field type;
     @field available_points;
-    @belongsTo({ model: 'scores/period' }) period;
+    @model('scores/period') period;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

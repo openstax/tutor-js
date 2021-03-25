@@ -1,4 +1,4 @@
-import { BaseModel, field, belongsTo, computed, session, modelize } from 'shared/model';
+import { BaseModel, field, model, computed, session, modelize } from 'shared/model';
 import { observable, action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
@@ -20,7 +20,7 @@ export default class CourseCreate extends BaseModel {
 
   @observable createdCourse;
 
-  @belongsTo({ model: Term }) term;
+  @model(Term) term;
 
   @observable errors = observable.map();
 

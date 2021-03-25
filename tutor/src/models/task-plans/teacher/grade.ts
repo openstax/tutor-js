@@ -1,12 +1,12 @@
 import {
-    BaseModel, field, belongsTo,
+    BaseModel, field, model,
 } from 'shared/model';
 import { pick } from 'lodash';
 import TeacherTaskPlan from './plan';
 
 export default class TeacherTaskGrade extends BaseModel {
 
-  @belongsTo({ model: TeacherTaskPlan }) taskPlan;
+  @model(TeacherTaskPlan) taskPlan;
 
   constructor({ response, points, comment }) {
       super();

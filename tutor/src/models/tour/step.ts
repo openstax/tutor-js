@@ -1,4 +1,4 @@
-import { BaseModel, identifier, belongsTo, field, modelize } from 'shared/model';
+import { BaseModel, identifier, model, field, modelize } from 'shared/model';
 
 import {
     computed, action,
@@ -24,7 +24,7 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 export default class TourStep extends BaseModel {
     @identifier id;
 
-    @belongsTo tour;
+    @model tour;
 
     @field title;
     @field body;

@@ -1,4 +1,4 @@
-import { identifier, BaseModel, belongsTo, field } from 'shared/model';
+import { identifier, BaseModel, model, field } from 'shared/model';
 import ChapterSection from './chapter-section';
 
 export default class RelatedContent extends BaseModel {
@@ -6,7 +6,7 @@ export default class RelatedContent extends BaseModel {
   @identifier uuid;
   @field page_id;
   @field title;
-  @belongsTo({ model: ChapterSection }) chapter_section;
+  @model(ChapterSection) chapter_section;
 
   constructor(attrs) {
       if (attrs.book_location) {

@@ -1,7 +1,7 @@
 import { find, pick, extend } from 'lodash';
 import moment from 'moment';
 import {
-    BaseModel, field, identifier, belongsTo, computed,
+    BaseModel, field, identifier, model, computed,
 } from 'shared/model';
 import Courses from '../courses-map';
 import Time from '../time';
@@ -23,7 +23,7 @@ export default class Purchase extends BaseModel {
   @field total;
   @field({ type: 'date' }) updated_at;
   @field({ type: 'date' }) purchased_at;
-  @belongsTo({ model: Product }) product;
+  @model(Product) product;
 
   @computed get course() {
       return find(Courses.array, c =>

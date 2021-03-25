@@ -1,4 +1,4 @@
-import { BaseModel, field, hasMany, session, modelize } from 'shared/model';
+import { BaseModel, field, model, session, modelize } from 'shared/model';
 import moment from 'moment';
 import { find, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
@@ -43,9 +43,9 @@ class User extends BaseModel {
     @field is_admin;
     @field is_content_analyst;
     @field is_customer_service;
-    @hasMany({ model: Term  }) available_terms = [];
+    @model(Term) available_terms = [];
 
-    @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
+    @model(ViewedTourStat) viewed_tour_stats;
     @session({ type: 'date' }) created_at;
 
     @computed get firstName() {

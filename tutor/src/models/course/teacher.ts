@@ -1,5 +1,5 @@
 import {
-    BaseModel, field, identifier, belongsTo, computed,
+    BaseModel, field, identifier, model, computed,
 } from 'shared/model';
 
 import User from '../user';
@@ -13,7 +13,7 @@ export default class CourseTeacher extends BaseModel {
   @field role_id;
   @field is_active;
 
-  @belongsTo({ model: 'course/roster' }) roster;
+  @model('course/roster') roster;
 
   drop() {
       return { id: this.id };

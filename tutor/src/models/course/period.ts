@@ -1,7 +1,7 @@
 import { find, pick, last } from 'lodash';
 import { computed, action, runInAction } from 'mobx';
 import Student from './student';
-import { BaseModel, field, identifier, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, identifier, model, modelize } from 'shared/model';
 
 export default class CoursePeriod extends BaseModel {
     @identifier id;
@@ -16,7 +16,7 @@ export default class CoursePeriod extends BaseModel {
 
     @field num_enrolled_students = 0;
 
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

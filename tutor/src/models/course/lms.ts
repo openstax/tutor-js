@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'mobx';
-import { BaseModel, identifier, session, belongsTo, modelize } from 'shared/model';
+import { BaseModel, identifier, session, model, modelize } from 'shared/model';
 import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
@@ -17,7 +17,7 @@ export default class CourseLMS extends BaseModel {
     @session({ type: 'date' }) created_at;
     @session({ type: 'date' }) updated_at;
 
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,4 +1,4 @@
-import { BaseModel, field, session, identifier, hasMany, modelize } from 'shared/model';
+import { BaseModel, field, session, identifier, model, modelize } from 'shared/model';
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
@@ -79,13 +79,13 @@ export default class TeacherTaskPlan extends BaseModel {
   @field({ type: 'object' }) extensions; // null by default
   @field({ type: 'object' }) settings = {};
 
-  @hasMany({ model: DroppedQuestion }) dropped_questions;
+  @model(DroppedQuestion) dropped_questions;
 
-  @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
+  @model(TaskingPlan) tasking_plans; /* extend: {
       forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
       defaults(tasking, plan) { return { opens_at: plan.defaultOpensAt }; },
       areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },
-  } }) tasking_plans;
+  } */
 
   @observable unmodified_plans = [];
 

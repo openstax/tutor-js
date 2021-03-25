@@ -2,7 +2,7 @@ import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 import Map from 'shared/model/map';
-import { BaseModel, identifier, field, hasMany, modelize } from 'shared/model';
+import { BaseModel, identifier, field, model, modelize } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
 
@@ -50,7 +50,7 @@ export default class ReferenceBook extends BaseModel {
         return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
     }
 
-    @hasMany({ model: Node, inverseOf: 'parent' }) children;
+    @model(Node) children;
 
     @field cnx_id;
     @field short_id;
