@@ -1482,61 +1482,73 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               >
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-lo"
                 >
                   lo:stax-phys:1-2-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-assignment-type"
                 >
                   assignment-type:reading
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-blooms"
                 >
                   blooms:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-book"
                 >
                   book:stax-phys
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxfeature"
                 >
                   context-cnxfeature:one-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxmod"
                 >
                   context-cnxmod:
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-dok"
                 >
                   dok:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-filter-type"
                 >
                   filter-type:test-prep
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-requires-context"
                 >
                   requires-context:true
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-time"
                 >
                   time:long
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-Nickname"
                 >
                   Nickname:maurine
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-ID"
                 >
                   ID:1@1
                 </span>
@@ -2730,40 +2742,40 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <div className=\\"exercise-footer\\">
                                 <div>
                                   <div className=\\"exercise-tags\\">
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-lo\\">
                                       lo:stax-phys:1-2-1
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-assignment-type\\">
                                       assignment-type:reading
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-blooms\\">
                                       blooms:3
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-book\\">
                                       book:stax-phys
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-context-cnxfeature\\">
                                       context-cnxfeature:one-1
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-context-cnxmod\\">
                                       context-cnxmod:
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-dok\\">
                                       dok:3
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-filter-type\\">
                                       filter-type:test-prep
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-requires-context\\">
                                       requires-context:true
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-time\\">
                                       time:long
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-Nickname\\">
                                       Nickname:desmond
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-ID\\">
                                       ID:14@1
                                     </span>
                                   </div>
