@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifiedBy, identifier, field, computed, session,
+    BaseModel, identifier, field, computed, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { compact, includes } from 'lodash';
@@ -10,7 +10,6 @@ const TAGS = {
     IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
-@identifiedBy('exercises/tag')
 export default class ExerciseTag extends BaseModel {
 
   @identifier id;
@@ -33,7 +32,7 @@ export default class ExerciseTag extends BaseModel {
   @computed get isBlooms() {
       return this.type == 'blooms';
   }
-  
+
   @computed get isDOK() {
       return this.type == 'dok';
   }

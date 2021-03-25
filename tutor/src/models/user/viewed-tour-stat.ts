@@ -1,8 +1,5 @@
-import {
-    BaseModel, identifiedBy, field, identifier,
-} from 'shared/model';
+import { BaseModel, field, identifier } from 'shared/model';
 
-@identifiedBy('user/viewed-tour-stat')
 export default class ViewedTourStat extends BaseModel {
 
   @identifier id;

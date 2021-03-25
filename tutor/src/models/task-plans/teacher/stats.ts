@@ -1,7 +1,6 @@
 import {
     BaseModel,
     belongsTo,
-    identifiedBy,
     session,
     hasMany,
     field,
@@ -18,7 +17,6 @@ import ChapterSection from '../../chapter-section';
 import Exercise from '../../exercises/exercise';
 import { ReviewQuestion } from 'shared/model/exercise/question';
 
-@identifiedBy('task-plan/stats/answer-stat')
 class AnswerStat extends BaseModel {
     @session answer_id;
     @session selected_count;
@@ -50,8 +48,6 @@ class AnswerStat extends BaseModel {
     }
 }
 
-
-@identifiedBy('task-plan/stats/student')
 class Student extends BaseModel {
 
   @identifier id;
@@ -59,7 +55,6 @@ class Student extends BaseModel {
 
 }
 
-@identifiedBy('task-plan/stats/answer')
 class Answer extends BaseModel {
     @session free_response;
     @session answer_id;
@@ -86,14 +81,12 @@ class Answer extends BaseModel {
     }
 }
 
-
 const AnswersAssociation = {
     withFreeResponse() {
         return this.filter(ans => !isEmpty(ans.free_response));
     },
 };
 
-@identifiedBy('task-plan/stats/question')
 class QuestionStats extends BaseModel {
     @session question_id;
     @session answered_count;
@@ -137,7 +130,6 @@ class QuestionStats extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats/page')
 class Page extends BaseModel {
     @identifier id;
     @field({ model: ChapterSection }) chapter_section
@@ -157,7 +149,6 @@ class Page extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats/stat')
 class Stats extends BaseModel {
     @session period_id;
     @session name;
@@ -203,7 +194,6 @@ class Stats extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats')
 export default class TaskPlanStats extends BaseModel {
     @identifier id;
     @session title;

@@ -1,6 +1,5 @@
-import { BaseAction, identifiedBy } from './base';
+import { BaseAction } from './base';
 
-@identifiedBy('tour/action/hover-exercise')
 export default class Reposition extends BaseAction {
 
     beforeStep() {

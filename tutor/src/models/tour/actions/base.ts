@@ -1,5 +1,5 @@
 export {
-    identifiedBy, identifier, belongsTo, field, computed,
+    identifier, belongsTo, field, computed,
 } from 'shared/model';
 import { extend, pick } from 'lodash';
 import { BaseModel, computed } from 'shared/model';

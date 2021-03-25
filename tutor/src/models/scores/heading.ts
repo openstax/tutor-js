@@ -2,10 +2,9 @@ import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
-import { BaseModel, identifiedBy, field, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, belongsTo, modelize } from 'shared/model';
 import Time from '../time';
 
-@identifiedBy('scores/heading')
 export default class Heading extends BaseModel {
     @field({ type: 'bignum' }) average_score;
     @field({ type: 'bignum' }) average_progress;

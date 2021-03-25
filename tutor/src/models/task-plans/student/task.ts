@@ -4,10 +4,8 @@ import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import moment from 'moment';
 import Time from '../../time';
-import { BaseModel, identifiedBy, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, identifier, modelize } from 'shared/model';
 
-
-@identifiedBy('task-plans/student/task')
 export default class StudentTask extends BaseModel {
 
   @observable hidden = false;

@@ -1,11 +1,10 @@
 import { find, reduce, isEmpty, filter } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
-import { BaseModel, identifiedBy, field, hasMany, modelize } from 'shared/model';
+import { BaseModel, field, hasMany, modelize } from 'shared/model';
 import Heading from './heading';
 import Student from './student';
 
-@identifiedBy('scores/period')
 export default class CourseScoresPeriod extends BaseModel {
 
   @field({ type: 'bignum' }) overall_course_average;

@@ -1,9 +1,8 @@
-import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, identifier, belongsTo, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
 
-@identifiedBy('course/role')
 export default class CourseRole extends BaseModel {
     @identifier id;
     @field({ type: 'date' }) joined_at;

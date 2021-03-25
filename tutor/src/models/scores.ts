@@ -2,11 +2,10 @@ import { find } from 'lodash';
 import { observable, action } from 'mobx';
 import Map from 'shared/model/map';
 
-import { BaseModel, identifiedBy, belongsTo, modelize } from 'shared/model';
+import { BaseModel, belongsTo, modelize } from 'shared/model';
 
 import ScoresForPeriod from './scores/period';
 
-@identifiedBy('scores')
 export default class Scores extends BaseModel {
     @belongsTo({ model: 'course' }) course;
 

@@ -1,12 +1,11 @@
 import {
-    BaseModel, identifiedBy, field, action, session, computed,
+    BaseModel, field, action, session, computed,
 } from 'shared/model';
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import Toasts from '../../toasts';
 
-@identifiedBy('tasking-plan')
 export default class TaskingPlan extends BaseModel {
 
   @field id;

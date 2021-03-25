@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseModel, identifiedBy, modelize } from 'shared/model';
+import { BaseModel, modelize } from 'shared/model';
 import { merge, extend } from 'lodash';
 import { action, observable, when, computed } from 'mobx';
 import loadjs from 'loadjs';
@@ -14,7 +14,6 @@ const REQUIRED_OPTIONS = [
     'course',
 ];
 
-@identifiedBy('payments')
 export default class Payments extends BaseModel {
 
     @readonly static config = observable({

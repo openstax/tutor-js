@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifiedBy, field, identifier, hasMany, belongsTo, computed,
+    BaseModel, field, identifier, hasMany, belongsTo, computed,
 } from 'shared/model';
 import Exercises from '../../exercises';
 import {
@@ -9,7 +9,6 @@ import {
 import DroppedQuestion from './dropped_question';
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
 
-@identifiedBy('task-plan/scores/student-question')
 class TaskPlanScoreStudentQuestion extends BaseModel {
   @identifier question_id;
   @field exercise_id;
@@ -123,7 +122,6 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
   }
 }
 
-@identifiedBy('task-plan/scores/student')
 class TaskPlanScoreStudent extends BaseModel {
   @identifier role_id;
   @field task_id;
@@ -172,8 +170,6 @@ class TaskPlanScoreStudent extends BaseModel {
   }
 }
 
-
-@identifiedBy('task-plan/scores/question')
 class TaskPlanScoreHeading extends BaseModel {
   @identifier title;
   @field exercise_id;
@@ -290,7 +286,6 @@ class TaskPlanScoreHeading extends BaseModel {
   }
 }
 
-@identifiedBy('task-plan/scores/tasking')
 class TaskPlanScoresTasking extends BaseModel {
   @identifier id;
   @field period_id;
@@ -423,8 +418,6 @@ class TaskPlanScoresTasking extends BaseModel {
   }
 }
 
-
-@identifiedBy('task-plan/scores')
 export default class TaskPlanScores extends BaseModel {
 
   @identifier id;

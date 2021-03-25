@@ -2,9 +2,8 @@ import { isString, get, pick, extend } from 'lodash';
 import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
-import { BaseModel, identifiedBy, field, identifier, session, modelize } from 'shared/model';
+import { BaseModel, field, identifier, session, modelize } from 'shared/model';
 
-@identifiedBy('notes/note')
 export default class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;

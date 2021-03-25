@@ -1,13 +1,12 @@
 import { findIndex, isNil } from 'lodash';
 import { moment, computed } from 'vendor';
 import {
-    BaseModel, identifiedBy, belongsTo, identifier, field,
+    BaseModel, belongsTo, identifier, field,
 } from 'shared/model';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
 
-@identifiedBy('scores/task-result')
 export default class TaskResult extends BaseModel {
   @identifier id;
   @field({ type: 'bignum' }) score;

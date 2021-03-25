@@ -1,4 +1,4 @@
-import { identifiedBy, session, modelize } from 'shared/model';
+import { session, modelize } from 'shared/model';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import Map from 'shared/model/map';
@@ -12,7 +12,6 @@ import Job from '../job';
 const CURRENT = new Map();
 const LAST_PUSH = 'sclp';
 
-@identifiedBy('jobs/lms-score-push')
 export default class LmsScorePush extends Job {
 
     static forCourse(course) {

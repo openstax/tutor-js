@@ -1,11 +1,10 @@
 import { reduce, isEmpty, isNil } from 'lodash';
 import { action, computed } from 'mobx';
 import Big from 'big.js';
-import { BaseModel, identifiedBy, identifier, field, hasMany, belongsTo, modelize } from 'shared/model';
+import { BaseModel, identifier, field, hasMany, belongsTo, modelize } from 'shared/model';
 
 import TaskResult from './task-result';
 
-@identifiedBy('scores/student')
 export default class Student extends BaseModel {
     @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
     @field first_name;

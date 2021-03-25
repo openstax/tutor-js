@@ -1,9 +1,8 @@
 import { find, pick, last } from 'lodash';
 import { computed, action, runInAction } from 'mobx';
 import Student from './student';
-import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, identifier, belongsTo, modelize } from 'shared/model';
 
-@identifiedBy('course/period')
 export default class CoursePeriod extends BaseModel {
     @identifier id;
 

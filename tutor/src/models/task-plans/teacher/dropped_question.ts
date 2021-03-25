@@ -1,7 +1,6 @@
-import { BaseModel, identifiedBy, field, identifier, action, modelize } from 'shared/model';
+import { BaseModel, field, identifier, action, modelize } from 'shared/model';
 import { observable } from 'mobx';
 
-@identifiedBy('task-plan/dropped-question')
 class DroppedQuestion extends BaseModel {
     @identifier id;
     @field question_id;

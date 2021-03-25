@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import { sortBy, values } from 'lodash';
-import { BaseModel, identifiedBy, hasMany, session, identifier, modelize } from 'shared/model';
+import { BaseModel, hasMany, session, identifier, modelize } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
@@ -55,7 +55,6 @@ class PageNotes extends Map {
 
 }
 
-@identifiedBy('notes/highlighted-section')
 class HighlightedSection extends BaseModel {
     @identifier uuid;
     @session title;
@@ -69,7 +68,6 @@ class HighlightedSection extends BaseModel {
     }
 }
 
-@identifiedBy('notes')
 class Notes extends BaseModel {
 
   pages = observable.map();

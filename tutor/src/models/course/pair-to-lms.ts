@@ -1,8 +1,5 @@
-import {
-    BaseModel, identifiedBy, observable,
-} from 'shared/model';
+import { BaseModel, observable } from 'shared/model';
 
-@identifiedBy('course/create')
 export default class CoursePair extends BaseModel {
 
   @observable course;

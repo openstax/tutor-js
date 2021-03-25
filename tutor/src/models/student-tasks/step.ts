@@ -1,6 +1,6 @@
 import { moment } from 'vendor';
 import {
-    BaseModel, identifiedBy, field, identifier,
+    BaseModel, field, identifier,
     observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
 import S from '../../helpers/string';
@@ -68,7 +68,6 @@ const NO_ADDITIONAL_CONTENT = [
     'external_url',
 ];
 
-@identifiedBy('student-tasks/task-step')
 export default class StudentTaskStep extends BaseModel {
 
   @identifier id;

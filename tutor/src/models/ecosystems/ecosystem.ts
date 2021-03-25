@@ -1,12 +1,10 @@
 import { computed } from 'mobx';
-import { BaseModel, identifiedBy, identifier, hasMany, modelize } from 'shared/model';
+import { BaseModel, identifier, hasMany, modelize } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
 import lazyGetter from 'shared/helpers/lazy-getter';
 
-
-@identifiedBy('ecosystems/ecosystem')
 export default class Ecosystem extends BaseModel {
     @identifier id;
     @hasMany({ model: Book, inverseOf: 'ecosystem' }) books;

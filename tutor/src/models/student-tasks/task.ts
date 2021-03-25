@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifiedBy, field, identifier, hasMany, action, session, computed, observable,
+    BaseModel, field, identifier, hasMany, action, session, computed, observable,
 } from 'shared/model';
 import moment from 'moment';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
@@ -9,7 +9,6 @@ import S from '../../helpers/string';
 import Time from '../../models/time';
 export { StudentTaskStep };
 
-@identifiedBy('student-tasks/task')
 export default class StudentTask extends BaseModel {
 
   @identifier id;

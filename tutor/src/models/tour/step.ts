@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, identifier, belongsTo, field, modelize } from 'shared/model';
+import { BaseModel, identifier, belongsTo, field, modelize } from 'shared/model';
 
 import {
     computed, action,
@@ -21,7 +21,6 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 // Can be linked to either an anchor or region
 // Has a title and rich text body.
 
-@identifiedBy('tour/step')
 export default class TourStep extends BaseModel {
     @identifier id;
 

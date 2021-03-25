@@ -1,6 +1,6 @@
 import { orderBy, sortBy, find } from 'lodash';
 import { action, observable, computed } from 'mobx';
-import { identifiedBy, modelize } from 'shared/model';
+import { modelize } from 'shared/model';
 import Course from '../../course';
 import Courses from '../../courses-map';
 import Offerings from './index';
@@ -8,7 +8,6 @@ import CourseCreate from '../create';
 
 export { PreviewCourseOffering };
 
-@identifiedBy('course/offerings/preview')
 class PreviewCourseOffering extends Course {
 
   @observable offering;

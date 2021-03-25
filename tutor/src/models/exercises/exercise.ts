@@ -2,7 +2,6 @@ import { last, map, filter, reduce } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import {
     BaseModel,
-    identifiedBy,
     belongsTo,
     identifier,
     field,
@@ -17,7 +16,6 @@ import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
 
-@identifiedBy('exercises/exercise')
 export default class TutorExercise extends BaseModel {
 
     constructor(attrs = {}) {

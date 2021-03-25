@@ -1,10 +1,9 @@
 import {
-    BaseModel, identifiedBy, field, identifier, belongsTo, computed,
+    BaseModel, field, identifier, belongsTo, computed,
 } from 'shared/model';
 
 import User from '../user';
 
-@identifiedBy('course/teacher')
 export default class CourseTeacher extends BaseModel {
 
   @identifier id;

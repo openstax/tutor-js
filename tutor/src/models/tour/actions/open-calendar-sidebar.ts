@@ -1,8 +1,7 @@
-import { BaseAction, identifiedBy } from './base';
+import { BaseAction } from './base';
 import { delay } from 'lodash';
 import { action, computed } from 'mobx';
 
-@identifiedBy('tour/action/open-calendar-sidebar')
 export default class OpenCalendarSidebar extends BaseAction {
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

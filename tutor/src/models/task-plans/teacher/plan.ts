@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, field, session, identifier, hasMany, modelize } from 'shared/model';
+import { BaseModel, field, session, identifier, hasMany, modelize } from 'shared/model';
 import { action, computed, observable, createAtom, toJS } from 'mobx';
 import Exercises from '../../exercises';
 import {
@@ -51,7 +51,6 @@ class QuestionInfo {
 }
 
 
-@identifiedBy('task-plans/teacher/plan')
 export default class TeacherTaskPlan extends BaseModel {
 
   @identifier id;

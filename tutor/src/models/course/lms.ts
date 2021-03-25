@@ -1,10 +1,9 @@
 import { action, observable, computed } from 'mobx';
-import { BaseModel, identifiedBy, identifier, session, belongsTo, modelize } from 'shared/model';
+import { BaseModel, identifier, session, belongsTo, modelize } from 'shared/model';
 import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
 
-@identifiedBy('course/lms')
 export default class CourseLMS extends BaseModel {
     @observable course;
 

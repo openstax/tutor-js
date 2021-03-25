@@ -1,7 +1,6 @@
-import { identifier, BaseModel, identifiedBy, belongsTo, field } from 'shared/model';
+import { identifier, BaseModel, belongsTo, field } from 'shared/model';
 import ChapterSection from './chapter-section';
 
-@identifiedBy('related-content')
 export default class RelatedContent extends BaseModel {
 
   @identifier uuid;

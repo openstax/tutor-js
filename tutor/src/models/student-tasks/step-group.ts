@@ -1,10 +1,9 @@
 import {
-    BaseModel, identifiedBy, identifier, hasMany, computed, action,
+    BaseModel, identifier, hasMany, computed, action,
 } from 'shared/model';
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
 
-@identifiedBy('student-tasks/step-group')
 export default class StudentTaskStepGroup extends BaseModel {
 
   @identifier uid;

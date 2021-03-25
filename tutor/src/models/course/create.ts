@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, field, belongsTo, computed, session, modelize } from 'shared/model';
+import { BaseModel, field, belongsTo, computed, session, modelize } from 'shared/model';
 import { observable, action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
@@ -6,7 +6,6 @@ import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
 
-@identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {
 
   @field name = '';

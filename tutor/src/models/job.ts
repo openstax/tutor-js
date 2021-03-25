@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, identifier, session, modelize } from 'shared/model';
+import { BaseModel, identifier, session, modelize } from 'shared/model';
 import { last } from 'lodash';
 import { action, observable, computed } from 'mobx';
 
@@ -6,7 +6,6 @@ import invariant from 'invariant';
 
 const MAX_ATTEMPTS = 50;
 
-@identifiedBy('job')
 export default class Job extends BaseModel {
     @identifier jobId;
 

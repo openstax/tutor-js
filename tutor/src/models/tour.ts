@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, identifier, hasMany, field, modelize } from 'shared/model';
+import { BaseModel, identifier, hasMany, field, modelize } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -11,7 +11,6 @@ import User from './user';
 
 const TourInstances = new Map();
 
-@identifiedBy('tour')
 export default class Tour extends BaseModel {
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

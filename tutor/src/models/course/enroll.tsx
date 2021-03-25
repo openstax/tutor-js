@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseModel, identifiedBy, field, identifier, computed, session, modelize } from 'shared/model';
+import { BaseModel, field, identifier, computed, session, modelize } from 'shared/model';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
@@ -10,7 +10,6 @@ import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
 import User from '../user';
 
-@identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
 
     @identifier id;

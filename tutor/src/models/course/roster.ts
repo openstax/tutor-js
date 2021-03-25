@@ -1,13 +1,12 @@
 import { filter, groupBy } from 'lodash';
 import {
-    BaseModel, identifiedBy, field, hasMany, belongsTo,
+    BaseModel, field, hasMany, belongsTo,
 } from 'shared/model';
 
 import Teacher from './teacher';
 import Student from './student';
 import { getters } from '../../helpers/computed-property';
 
-@identifiedBy('course/roster')
 export default class CourseRoster extends BaseModel {
 
   @field teach_url;

@@ -1,9 +1,7 @@
 import { extend } from 'lodash';
 import { computed, action } from 'mobx';
-import { BaseModel, identifiedBy, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, identifier, modelize } from 'shared/model';
 
-
-@identifiedBy('practice-questions/practice-question')
 export default class PracticeQuestion extends BaseModel {
 
   @identifier id;

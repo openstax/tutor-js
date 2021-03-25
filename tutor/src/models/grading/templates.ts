@@ -1,12 +1,11 @@
 import Map from 'shared/model/map';
 import { isNil, defaults } from 'lodash';
 import {
-    BaseModel, identifiedBy, action, field,
+    BaseModel, action, field,
     identifier, computed, observable,
 } from 'shared/model';
 import S from '../../helpers/string';
 
-@identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
 
     // returns a formik errors object as described:

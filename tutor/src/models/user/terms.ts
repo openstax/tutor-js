@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, modelize } from 'shared/model';
+import { BaseModel, identifier, field, belongsTo, hasMany, modelize } from 'shared/model';
 import { computed, action } from 'mobx';
 import { isProd } from '../../helpers/production';
 
@@ -7,7 +7,6 @@ const REQUIRED_FOR_EVERYONE = [
     'privacy_policy',
 ];
 
-@identifiedBy('user/term')
 class Term extends BaseModel {
     @identifier id;
     @field title;
@@ -33,7 +32,7 @@ class Term extends BaseModel {
     }
 }
 
-@identifiedBy('user/terms')
+
 class UserTerms extends BaseModel {
     @belongsTo({ model: 'user' }) user;
     @hasMany({ model: Term }) terms;

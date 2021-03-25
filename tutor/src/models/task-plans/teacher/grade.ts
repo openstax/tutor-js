@@ -1,10 +1,9 @@
 import {
-    BaseModel, identifiedBy, field, belongsTo,
+    BaseModel, field, belongsTo,
 } from 'shared/model';
 import { pick } from 'lodash';
 import TeacherTaskPlan from './plan';
 
-@identifiedBy('task-plans/teacher/grade')
 export default class TeacherTaskGrade extends BaseModel {
 
   @belongsTo({ model: TeacherTaskPlan }) taskPlan;

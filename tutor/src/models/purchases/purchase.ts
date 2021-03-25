@@ -1,21 +1,19 @@
 import { find, pick, extend } from 'lodash';
 import moment from 'moment';
 import {
-    BaseModel, identifiedBy, field, identifier, belongsTo, computed,
+    BaseModel, field, identifier, belongsTo, computed,
 } from 'shared/model';
 import Courses from '../courses-map';
 import Time from '../time';
 import S from '../../helpers/string';
 import Payments from '../payments';
 
-@identifiedBy('purchase/product')
 class Product extends BaseModel {
   @identifier uuid;
   @field name;
   @field price;
 }
 
-@identifiedBy('purchase')
 export default class Purchase extends BaseModel {
 
   @identifier identifier;

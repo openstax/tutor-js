@@ -1,8 +1,5 @@
-import {
-    BaseModel, identifiedBy,
-} from 'shared/model';
+import { BaseModel } from 'shared/model';
 
-@identifiedBy('stats')
 export default class Stats extends BaseModel {
 
     // called by API

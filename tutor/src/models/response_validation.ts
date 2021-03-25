@@ -1,5 +1,5 @@
 import {
-    BaseModel, identifiedBy, action, field,
+    BaseModel, action, field,
 } from 'shared/model';
 
 const Config = {
@@ -8,7 +8,6 @@ const Config = {
     is_ui_enabled: false,
 };
 
-@identifiedBy('response_validation')
 class ResponseValidation extends BaseModel {
 
     static bootstrap(config) {

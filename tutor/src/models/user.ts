@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, field, hasMany, session, modelize } from 'shared/model';
+import { BaseModel, field, hasMany, session, modelize } from 'shared/model';
 import moment from 'moment';
 import { find, startsWith, map, uniq, max } from 'lodash';
 import { action, computed, observable } from 'mobx';
@@ -10,7 +10,6 @@ import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
 import Time from './time';
 
-@identifiedBy('user')
 class User extends BaseModel {
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

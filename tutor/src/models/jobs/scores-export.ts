@@ -1,4 +1,4 @@
-import { identifiedBy, session, modelize } from 'shared/model';
+import { session, modelize } from 'shared/model';
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
@@ -10,7 +10,6 @@ import Toasts from '../toasts';
 const CURRENT = new Map();
 const LAST_EXPORT = 'sce';
 
-@identifiedBy('jobs/scores-export')
 export default class ScoresExport extends Job {
 
     static forCourse(course) {
