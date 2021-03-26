@@ -83,7 +83,8 @@ class AttachmentChooser extends React.Component {
       reader.onloadend = (async () => {
           this.file = file;
           const image = await this.processImage(file);
-          this.imageData = image.src;
+          // adjust url to match what it'll be once exercise is saved
+          this.imageData = window.location.origin + encodeURI(image.src.replace(/storage\/blobs/, 'storage/blobs/proxy'));
       });
       reader.readAsDataURL(file);
   }
@@ -105,9 +106,11 @@ class AttachmentChooser extends React.Component {
       const classNames = classnames('attachment', {
           'with-image': image,
       });
+      const copypaste = this.imageData ? `<img src="${this.imageData}" alt="">` : '';
       return (
           <div className={classNames}>
               {image}
+              {copypaste && <textarea value={copypaste} readOnly={true} className="copypaste" />}
               <div className="controls">
                   <label className="btn btn-secondary selector">
                       {image ? 'Choose different image' : 'Add new image'}
