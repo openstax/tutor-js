@@ -40,7 +40,7 @@ const StyledPreviewCourse = styled.div`
             }
           }
         }
-        .my-courses-item-actions {
+        .my-preview-courses-item-actions {
             position: absolute;
             right: 10px;
             top: 40px;
