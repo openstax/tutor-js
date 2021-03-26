@@ -10,14 +10,24 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     value=""
   />
   <option
+    value="stax-amfg"
+  >
+    Additive Manufacturing
+  </option>
+  <option
+    value="stax-usgovt"
+  >
+    American Government
+  </option>
+  <option
     value="stax-anp"
   >
     Anatomy and Physiology
   </option>
   <option
-    value="stax-apbio"
+    value="stax-anth"
   >
-    Biology for AP® Courses
+    Anthropology
   </option>
   <option
     value="stax-bio"
@@ -25,9 +35,14 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Biology
   </option>
   <option
-    value="stax-apphys"
+    value="stax-apbio"
   >
-    College Physics for AP® Courses
+    Biology for AP® Courses
+  </option>
+  <option
+    value="stax-bca"
+  >
+    Business Computer Applications
   </option>
   <option
     value="stax-phys"
@@ -35,9 +50,29 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     College Physics
   </option>
   <option
+    value="stax-apphys"
+  >
+    College Physics for AP® Courses
+  </option>
+  <option
+    value="stax-pyth"
+  >
+    Computer Programming with Python
+  </option>
+  <option
+    value="stax-cs"
+  >
+    Computer Science
+  </option>
+  <option
     value="stax-cbio"
   >
     Concepts of Biology
+  </option>
+  <option
+    value="stax-cmath"
+  >
+    Contemporary Math
   </option>
   <option
     value="stax-econ"
@@ -45,9 +80,24 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Economics
   </option>
   <option
+    value="stax-engcomp"
+  >
+    English Composition
+  </option>
+  <option
     value="stax-eship"
   >
     Entrepreneurship
+  </option>
+  <option
+    value="stax-fin"
+  >
+    Finance
+  </option>
+  <option
+    value="stax-k12phys"
+  >
+    HS Physics
   </option>
   <option
     value="stax-macro"
@@ -60,9 +110,14 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Micro Economics
   </option>
   <option
-    value="stax-k12phys"
+    value="stax-phi"
   >
-    HS Physics
+    Philosophy
+  </option>
+  <option
+    value="stax-polisci"
+  >
+    Political Science
   </option>
   <option
     value="stax-psy"
@@ -75,9 +130,19 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Sociology
   </option>
   <option
+    value="stax-ushist"
+  >
+    U.S. History
+  </option>
+  <option
     value="stax-apush"
   >
     U.S. History for AP® Courses
+  </option>
+  <option
+    value="stax-worldhist"
+  >
+    World History
   </option>
 </select>
 `;
