@@ -29,7 +29,7 @@ class MultiSelect extends React.Component {
 
   @action.bound updateTags(tags) {
       const { tagType, exercise } = this.props;
-      exercise.tags.replaceType(tagType, tags);
+      exercise.tags.replaceType(tagType, tags || []);
   }
 
   render() {
