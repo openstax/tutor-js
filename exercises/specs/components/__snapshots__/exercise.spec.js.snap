@@ -1265,6 +1265,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           <div
             className="attachment"
           >
+            
             <div
               className="controls"
             >
