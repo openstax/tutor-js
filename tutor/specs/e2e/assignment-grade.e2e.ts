@@ -69,12 +69,12 @@ describe('Assignment Grade', () => {
 
     it('loads and views questions', async () => {
         await visitPage(page, `/course/${COURSE_ID}/assignment/grade/2`)
-        await expect(page).toHaveSelector('testEl=question-2')
+        await expect(page).toHaveSelector('testEl=question-1')
     })
 
     it('changes focused student once graded', async () => {
         await visitPage(page, `/course/${COURSE_ID}/assignment/grade/2`)
-        await page.click('testEl=question-2')
+        await page.click('testEl=question-1')
         await expect(page).toHaveSelector('testEl=student-answer')
         await page.type('[data-test-id=student-answer] input[name=score]', '0.9')
         await page.type('[data-test-id=student-answer] textarea[name=comment]', 'i like this answer a lot!')
