@@ -1,5 +1,4 @@
-import { Factory, visitPage, setTimeouts } from './helpers'
-import { Mocker } from './mocker'
+import { Factory, visitPage, Mocker, setTimeouts } from './helpers'
 import { times, merge, isNil } from 'lodash'
 
 describe('Assignment Grade', () => {
@@ -20,7 +19,7 @@ describe('Assignment Grade', () => {
                 id, ...PLAN_SETTINGS[id], days_ago: Number(id) < 5 ? 30 : Number(id) * -1,
             }),
             exercises: (planId, mock) => (
-                mock.data.plan(planId).type.match(/homework/) ? times(8).map((id) => mock.data.exercise(id)) : []
+                mock.data.plan(planId).type.match(/homework/) ? times(16).map((id) => mock.data.exercise(id)) : []
             ),
             exercise: (id) => (
                 Factory.create(Number(id) % 3 == 0 ? 'OpenEndedTutorExercise' : 'TutorExercise', { id })

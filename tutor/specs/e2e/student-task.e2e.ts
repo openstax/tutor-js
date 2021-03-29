@@ -23,7 +23,7 @@ xdescribe('Student Tasks', () => {
         await page.type('testEl=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
         await page.click('testEl=submit-answer-btn')
         expect(await page.evaluate(() => document.location.pathname)).toContain('/course/1/task/3/step')
-        
+
     })
 
     it('can change and re-submit answers to questions', async () => {
@@ -39,7 +39,7 @@ xdescribe('Student Tasks', () => {
         await page.click('testEl=submit-answer-btn')
         await page.click('testEl=continue-btn')
     })
-  
+
     it('should show late clock icon and the late points info, if task step is late', async () => {
         await visitPage(page, '/course/1/task/4')
         await expect(page).toHaveSelector('testEl=late-icon')
@@ -59,7 +59,7 @@ xdescribe('Student Tasks', () => {
     })
 
     it('should be able to save question to my practice', async () => {
-        await visitPage(page, '/course/1/task/2') 
+        await visitPage(page, '/course/1/task/2')
         await page.click('.sticky-table [data-step-index="3"]')
         // start fresh - deleting the practice questions from course
         await page.evaluate(() => {
