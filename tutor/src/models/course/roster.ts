@@ -13,12 +13,12 @@ export default class CourseRoster extends BaseModel {
 
   @model('course') course;
 
-  @model(Teacher) teachers; /* extend: getters({
+  @model(Teacher) teachers = []; /* extend: getters({
       active() { return filter(this, t => t.is_active); },
       dropped(){ return filter(this, t => !t.is_active); },
   }) */
 
-  @model(Student) students; /* extend: getters({
+  @model(Student) students = []; /* extend: getters({
       active() { return filter(this, t => t.is_active); },
       activeByPeriod() { return groupBy(filter(this, t => t.is_active), 'period_id'); },
       dropped(){ return filter(this, t => !t.is_active); },

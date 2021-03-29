@@ -99,13 +99,13 @@ export default class Course extends BaseModel {
         active() { return filter(this, 'isActive'); },
     }) */
 
-    @model(Role) roles; /* extend: getters({
+    @model(Role) roles = []; /* extend: getters({
         student() { return find(this, { isStudent: true }); },
         teacher() { return find(this, { isTeacher: true }); },
         teacherStudent() { return find(this, { isTeacherStudent: true }); },
     }) */
-    @model(Student) students;
-    @model(TeacherProfiles) teacher_profiles;
+    @model(Student) students = [];
+    @model(TeacherProfiles) teacher_profiles = [];
 
     constructor(attrs, map) {
         super(attrs);

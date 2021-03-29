@@ -25,7 +25,7 @@ class StudentTaskPlaceHolderStep extends TaskStepContent { }
 class StudentTaskReadingStep extends TaskStepContent {
   @observable title;
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
-  @model(RelatedContent) related_content;
+  @model(RelatedContent) related_content = [];
   @lazyGetter page = new ReferenceBookNode({
       uuid: this.related_content[0].uuid,
       id: this.related_content[0].page_id,

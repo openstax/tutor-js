@@ -34,7 +34,7 @@ class Term extends BaseModel {
 
 class UserTerms extends BaseModel {
     @model('user') user;
-    @model(Term) terms;
+    @model(Term) terms = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

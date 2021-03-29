@@ -41,9 +41,9 @@ export default class TutorExercise extends BaseModel {
   @field preview;
   @field author?: any;
 
-  @model(RelatedContent) related_content;
+  @model(RelatedContent) related_content = [];
 
-  @model(Tag) tags; /* extend: getters({
+  @model(Tag) tags = []; /* extend: getters({
       foo() { return 1234; },
       important() {
           return reduce(this, (o, t) => t.recordInfo(o), {});
@@ -67,7 +67,7 @@ export default class TutorExercise extends BaseModel {
   set page(pg) {
       this._page = pg;
   }
-  @model('task-plan/stats/question') question_stats;
+  @model('task-plan/stats/question') question_stats = [];
   @observable average_step_number;
 
   @computed get isAssignable() { return !this.is_excluded; }

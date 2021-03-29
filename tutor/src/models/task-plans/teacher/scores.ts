@@ -134,7 +134,7 @@ class TaskPlanScoreStudent extends BaseModel {
   @field late_work_point_penalty;
   @field grades_need_publishing;
 
-  @model(TaskPlanScoreStudentQuestion) questions;
+  @model(TaskPlanScoreStudentQuestion) questions = [];
   @model('task-plan/scores/tasking') tasking;
 
   resultForHeading(heading) {
@@ -291,11 +291,11 @@ class TaskPlanScoresTasking extends BaseModel {
   @field total_fraction;
 
   @model('task-plan/scores') plan;
-  @model(TaskPlanScoreHeading) question_headings; /* extend: {
+  @model(TaskPlanScoreHeading) question_headings = []; /* extend: {
       gradable() { return filter(this, h => h.question && h.question.isOpenEnded); },
       core() { return filter(this, h => h.type != 'Tutor'); },
   } */
-  @model(TaskPlanScoreStudent) students;
+  @model(TaskPlanScoreStudent) students = [];
 
   @computed get availablePoints() {
       return sumBy(this.question_headings, 'points');
@@ -426,8 +426,8 @@ export default class TaskPlanScores extends BaseModel {
 
   @model('task-plans/teacher/plan') taskPlan;
 
-  @model(DroppedQuestion) dropped_questions;
-  @model(TaskPlanScoresTasking) tasking_plans; /* extend: {
+  @model(DroppedQuestion) dropped_questions = [];
+  @model(TaskPlanScoresTasking) tasking_plans = []; /* extend: {
       forPeriod(period) { return find(this, { period_id: period.id }); },
   } */
   @field({ model: 'grading/template' }) grading_template;

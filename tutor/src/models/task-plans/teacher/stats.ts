@@ -58,7 +58,7 @@ class Student extends BaseModel {
 class Answer extends BaseModel {
     @observable free_response;
     @observable answer_id;
-    @model(Student) students;
+    @model(Student) students = [];
     @model('task-plan/stats/question') question;
 
     constructor() {
@@ -92,8 +92,8 @@ class QuestionStats extends BaseModel {
     @observable answered_count;
     @observable exercise;
 
-    @model(Answer) answers; // extend: AnswersAssociation
-    @model(AnswerStat) answer_stats; /* extend: getters({
+    @model(Answer) answers = []; // extend: AnswersAssociation
+    @model(AnswerStat) answer_stats = []; /* extend: getters({
         correct() { return find(this, { isCorrect: true }); },
     }) */
 
@@ -139,7 +139,7 @@ class Page extends BaseModel {
     @observable is_trouble;
     @observable student_count;
 
-    @model(Exercise) exercises;
+    @model(Exercise) exercises = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -157,8 +157,8 @@ class Stats extends BaseModel {
     @observable partially_complete_count;
     @model('task-plan/stats') taskPlan;
     @observable is_trouble;
-    @model(Page) current_pages;
-    @model(Page) spaced_pages;
+    @model(Page) current_pages = [];
+    @model(Page) spaced_pages = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -201,7 +201,7 @@ export default class TaskPlanStats extends BaseModel {
 
     @observable shareable_url;
 
-    @model(Stats) stats;
+    @model(Stats) stats = [];
 
     @model('task-plans/teacher/plan') taskPlan;
 

@@ -72,7 +72,7 @@ export default class Tour extends BaseModel {
     @field className;
     @field courseId;
 
-    @model(TourStep) steps;
+    @model(TourStep) steps = [];
 
     @computed get countId() {
         if (this.perCourse && this.courseId) {

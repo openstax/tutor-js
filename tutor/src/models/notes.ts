@@ -71,7 +71,7 @@ class Notes extends BaseModel {
 
   pages = observable.map();
 
-  @model(HighlightedSection) summary; /* extend: {
+  @model(HighlightedSection) summary = []; /* extend: {
       sorted() { return sortBy(this, 'chapter_section.asNumber'); },
       forPage(page) {
           return this.find(s => s.uuid == page.uuid);

@@ -5,7 +5,7 @@ import { readonly } from 'core-decorators';
 export default class StudentTaskStepGroup extends BaseModel {
 
   @field uid = NEW_ID;
-  @model(StudentTaskStep) steps;
+  @model(StudentTaskStep) steps = [];
 
   @readonly isGrouped = true;
   @readonly type = 'mpq';

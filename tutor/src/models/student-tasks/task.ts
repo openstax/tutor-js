@@ -27,8 +27,8 @@ export default class StudentTask extends BaseModel {
 
   @field is_provisional_score;
 
-  @model(Student) students;
-  @model(StudentTaskStep) steps;
+  @model(Student) students = [];
+  @model(StudentTaskStep) steps = [];
 
   @observable tasksMap?: any;
 

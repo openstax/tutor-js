@@ -90,9 +90,9 @@ export default class TeacherTaskPlan extends BaseModel {
   @field extensions?: any; // null by default
   @field settings?: any = {};
 
-  @model(DroppedQuestion) dropped_questions;
+  @model(DroppedQuestion) dropped_questions = [];
 
-  @model(TaskingPlan) tasking_plans; /* extend: {
+  @model(TaskingPlan) tasking_plans = []; /* extend: {
       forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
       defaults(tasking, plan) { return { opens_at: plan.defaultOpensAt }; },
       areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },

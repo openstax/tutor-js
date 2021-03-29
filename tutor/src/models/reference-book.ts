@@ -59,7 +59,7 @@ export default class ReferenceBook extends BaseModel {
         return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
     }
 
-    @model(Node) children;
+    @model(Node) children = [];
 
     @field cnx_id;
     @field short_id;

@@ -6,7 +6,7 @@ import lazyGetter from 'shared/helpers/lazy-getter';
 
 export default class Ecosystem extends BaseModel {
     @field id = NEW_ID;
-    @model(Book) books;
+    @model(Book) books = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

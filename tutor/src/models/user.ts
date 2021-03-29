@@ -45,7 +45,7 @@ class User extends BaseModel {
     @field is_customer_service;
     @model(Term) available_terms = [];
 
-    @model(ViewedTourStat) viewed_tour_stats;
+    @model(ViewedTourStat) viewed_tour_stats = [];
     @model(DateTime) created_at = DateTime.unknown;
 
     @computed get firstName() {

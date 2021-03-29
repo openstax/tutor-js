@@ -5,7 +5,7 @@ import { BaseModel, field, model, modelize, action, computed, NEW_ID } from 'sha
 import TaskResult from './task-result';
 
 export default class Student extends BaseModel {
-    @model(TaskResult) data;
+    @model(TaskResult) data = [];
     @field first_name;
     @field last_name;
     @field is_dropped;

@@ -13,8 +13,8 @@ export default class CourseScoresPeriod extends BaseModel {
   @field({ type: 'bignum' }) overall_homework_score;
   @field({ type: 'bignum' }) overall_homework_progress;
   @field period_id;
-  @model(Heading) data_headings;
-  @model(Student) students; /* extend: {
+  @model(Heading) data_headings = [];
+  @model(Student) students = []; /* extend: {
       active() { return filter(this, 'isActive'); },
   } */
 
