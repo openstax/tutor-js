@@ -1,13 +1,11 @@
-import { BaseModel, identifiedBy, computed, session, modelize } from 'shared/model';
-import { action, observable } from 'mobx';
+import { BaseModel, computed, action, observable, modelize } from 'shared/model';
 import { find, filter, each } from 'lodash';
 
-@identifiedBy('tour/ride')
 export default class TourRide extends BaseModel {
 
-  @session({ type: 'object' }) tour;
-  @session({ type: 'object' }) context;
-  @session({ type: 'object' }) region;
+  @observable tour?: any;
+  @observable context?: any;
+  @observable region?: any;
 
   @observable _stepIndex = 0;
   @observable _isReady = false;

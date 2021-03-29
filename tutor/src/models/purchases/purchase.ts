@@ -1,31 +1,28 @@
 import { find, pick, extend } from 'lodash';
 import moment from 'moment';
-import {
-    BaseModel, identifiedBy, field, identifier, belongsTo, computed,
-} from 'shared/model';
+import { BaseModel, field, model, computed, NEW_ID } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import Courses from '../courses-map';
 import Time from '../time';
 import S from '../../helpers/string';
 import Payments from '../payments';
 
-@identifiedBy('purchase/product')
 class Product extends BaseModel {
-  @identifier uuid;
+  @field uuid = NEW_ID;
   @field name;
   @field price;
 }
 
-@identifiedBy('purchase')
 export default class Purchase extends BaseModel {
 
-  @identifier identifier;
+  @field uuid = NEW_ID;
   @field product_instance_uuid;
   @field is_refunded;
   @field sales_tax;
   @field total;
-  @field({ type: 'date' }) updated_at;
-  @field({ type: 'date' }) purchased_at;
-  @belongsTo({ model: Product }) product;
+  @model(DateTime) updated_at = DateTime.unknown;
+  @model(DateTime) purchased_at = DateTime.unknown;
+  @model(Product) product;
 
   @computed get course() {
       return find(Courses.array, c =>

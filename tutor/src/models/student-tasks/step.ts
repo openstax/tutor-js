@@ -1,8 +1,5 @@
 import { moment } from 'vendor';
-import {
-    BaseModel, identifiedBy, field, identifier,
-    observable, computed, action, belongsTo, hasMany,
-} from 'shared/model';
+import { BaseModel, field, observable, computed, action, model, NEW_ID } from 'shared/model';
 import S from '../../helpers/string';
 import { pick, get, isNil } from 'lodash';
 import Exercise from '../exercises/exercise';
@@ -28,7 +25,7 @@ class StudentTaskPlaceHolderStep extends TaskStepContent { }
 class StudentTaskReadingStep extends TaskStepContent {
   @observable title;
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
-  @hasMany({ model: RelatedContent }) related_content;
+  @model(RelatedContent) related_content = [];
   @lazyGetter page = new ReferenceBookNode({
       uuid: this.related_content[0].uuid,
       id: this.related_content[0].page_id,
@@ -68,10 +65,9 @@ const NO_ADDITIONAL_CONTENT = [
     'external_url',
 ];
 
-@identifiedBy('student-tasks/task-step')
 export default class StudentTaskStep extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field uid;
   @field preview;
   @field available_points;
@@ -82,11 +78,11 @@ export default class StudentTaskStep extends BaseModel {
   @field feedback_html;
   @field correct_answer_id;
   @field last_completed_at;
-  @field({ type: 'object' }) response_validation;
-  @field({ type: 'object' }) spy;
+  @field response_validation?: any;
+  @field spy?: any;
   @field external_url;
-  @field({ type: 'array' }) labels;
-  @field({ type: 'array' }) formats;
+  @field labels?: any[];
+  @field formats?: any[];
   @field group;
   @field can_be_updated;
   @field dropped_method;
@@ -98,10 +94,10 @@ export default class StudentTaskStep extends BaseModel {
   @field tasked_id;
   @field exercise_id;
 
-  @field({ type: 'object' }) task;
+  @field task?: any;
   @observable content;
 
-  @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
+  @model('student-tasks/step-group') multiPartGroup;
 
   @computed get canAnnotate() {
       return this.isReading;

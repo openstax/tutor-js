@@ -1,17 +1,14 @@
-import {
-    BaseModel, identifiedBy, field, identifier, computed,
-} from 'shared/model';
+import { BaseModel, field, computed, NEW_ID } from 'shared/model';
 
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
 
-@identifiedBy('tour/region')
 export default class TourRegion extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field courseId;
 
-  @field({ type: 'array' }) otherTours;
+  @field otherTours?: any[];
 
   @computed get tour_ids() {
       // this seems convoluted, but this makes it so that `tour_ids` will react

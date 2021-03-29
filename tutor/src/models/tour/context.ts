@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, computed, observable, field, modelize } from 'shared/model';
+import { BaseModel, computed, observable, field, modelize } from 'shared/model';
 import {
     find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
@@ -13,7 +13,6 @@ import TourRide  from './ride';
 // Created by the upper-most React element (the Conductor)
 // Regions and Anchors check in and out as they're mounted/unmounted
 
-@identifiedBy('tour/context')
 export default class TourContext extends BaseModel {
 
   @observable regions = observable.array([], { deep: false });

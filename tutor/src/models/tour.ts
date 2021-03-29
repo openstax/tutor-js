@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, identifier, hasMany, field, modelize } from 'shared/model';
+import { BaseModel, model, field, modelize, NEW_ID } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -11,7 +11,6 @@ import User from './user';
 
 const TourInstances = new Map();
 
-@identifiedBy('tour')
 export default class Tour extends BaseModel {
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -57,11 +56,11 @@ export default class Tour extends BaseModel {
           return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
       }
 
-    @identifier id;
+    @field id = NEW_ID;
 
     @field group_id;
     @field name;
-    @field({ type: 'array' }) audience_tags;
+    @field audience_tags?: any[];
     @field scrollToSteps;
     @field showOverlay;
     @field autoplay = false;
@@ -73,7 +72,7 @@ export default class Tour extends BaseModel {
     @field className;
     @field courseId;
 
-    @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
+    @model(TourStep) steps = [];
 
     @computed get countId() {
         if (this.perCourse && this.courseId) {

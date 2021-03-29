@@ -1,9 +1,9 @@
 import type Book from '../reference-book'
 import { merge, pick, filter } from 'lodash';
-import { action, computed } from 'mobx';
 import {
     BaseModel, model, NEW_ID, field, observable,
     modelize, getParentOf, hydrate, extendedArray,
+    action, computed,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';

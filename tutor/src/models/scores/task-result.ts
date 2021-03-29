@@ -1,15 +1,13 @@
 import { findIndex, isNil } from 'lodash';
 import { moment, computed } from 'vendor';
-import {
-    BaseModel, identifiedBy, belongsTo, identifier, field,
-} from 'shared/model';
+import { BaseModel, model, field, NEW_ID } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import Time from '../time';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
 
-@identifiedBy('scores/task-result')
 export default class TaskResult extends BaseModel {
-  @identifier id;
+  @field id = NEW_ID;
   @field({ type: 'bignum' }) score;
   @field points;
   @field published_points;
@@ -17,7 +15,7 @@ export default class TaskResult extends BaseModel {
   @field is_provisional_score;
   @field step_count;
   @field completed_step_count;
-  @field({ type: 'date' }) due_at;
+  @model(DateTime) due_at = DateTime.unknown;
   @field progress;
   @field is_late_work_accepted;
   @field available_points;
@@ -26,7 +24,7 @@ export default class TaskResult extends BaseModel {
   // can be removed once old scores is removed
   @field completed_on_time_steps_count;
 
-  @belongsTo({ model: 'scores/student' }) student;
+  @model('scores/student') student;
   @computed get period() { return this.student.period; }
   @computed get course() { return this.student.period.course; }
 

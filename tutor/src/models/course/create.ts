@@ -1,12 +1,10 @@
-import { BaseModel, identifiedBy, field, belongsTo, computed, session, modelize } from 'shared/model';
-import { observable, action } from 'mobx';
+import { BaseModel, field, model, computed, observable, action, modelize } from 'shared/model';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
 
-@identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {
 
   @field name = '';
@@ -15,13 +13,13 @@ export default class CourseCreate extends BaseModel {
   @field estimated_student_count;
   @field is_preview = false;
   @field timezone = 'US/Central';
-  @session new_or_copy = 'new';
-  @session cloned_from_id = false;
+  @observable new_or_copy = 'new';
+  @observable cloned_from_id = false;
   @field copy_question_library = true;
 
   @observable createdCourse;
 
-  @belongsTo({ model: Term }) term;
+  @model(Term) term;
 
   @observable errors = observable.map();
 

@@ -1,6 +1,14 @@
 import React from 'react';
-import { BaseModel, identifiedBy, field, identifier, computed, session, modelize } from 'shared/model';
-import { action, when, observable } from 'mobx';
+import {
+  BaseModel,
+  field,
+  computed,
+  action,
+  when,
+  observable,
+  modelize,
+  NEW_ID,
+} from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import Courses, { Course } from '../courses-map';
@@ -10,18 +18,17 @@ import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
 import User from '../user';
 
-@identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
 
-    @identifier id;
+    @field id = NEW_ID;
     @field enrollment_code;
 
     @field student_identifier;
-    @session pendingEnrollmentCode;
-    @session originalEnrollmentCode;
-    @session({ type: 'object' }) to = {};
-    @session status;
-    @session({ type: 'object' }) history;
+    @observable pendingEnrollmentCode;
+    @observable originalEnrollmentCode;
+    @observable to: any = {};
+    @observable status;
+    @observable history?: any;
     @observable isComplete = false;
     @observable courseToJoin;
     @observable isLoadingCourses;

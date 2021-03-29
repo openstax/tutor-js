@@ -1,24 +1,31 @@
-import { action, observable, computed } from 'mobx';
-import { BaseModel, identifiedBy, identifier, session, belongsTo, modelize } from 'shared/model';
+import {
+  BaseModel,
+  action,
+  observable,
+  computed,
+  model,
+  modelize,
+  NEW_ID,
+} from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
 
-@identifiedBy('course/lms')
 export default class CourseLMS extends BaseModel {
     @observable course;
 
-    @identifier id;
-    @session key;
-    @session secret;
-    @session launch_url;
-    @session configuration_url;
-    @session xml;
+    @field id = NEW_ID;
+    @observable key;
+    @observable secret;
+    @observable launch_url;
+    @observable configuration_url;
+    @observable xml;
 
-    @session({ type: 'date' }) created_at;
-    @session({ type: 'date' }) updated_at;
+    @model(DateTime) created_at = DateTime.unknown;
+    @model(DateTime) updated_at = DateTime.unknown;
 
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,4 +1,4 @@
-import { identifiedBy, modelize } from 'shared/model';
+import { modelize } from 'shared/model';
 
 import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
@@ -6,7 +6,6 @@ import Job from '../job';
 
 const CURRENT = new Map();
 
-@identifiedBy('jobs/task-plan-publish')
 export default class TaskPlanPublish extends Job {
 
     static forPlan(plan) {

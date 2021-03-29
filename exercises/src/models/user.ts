@@ -1,4 +1,3 @@
-import { observable } from 'mobx';
 import { BaseModel, field, ID, model, modelize, observable, ID, NEW_ID } from 'shared/model';
 
 class User extends BaseModel {

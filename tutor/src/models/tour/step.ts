@@ -1,8 +1,4 @@
-import { BaseModel, identifiedBy, identifier, belongsTo, field, modelize } from 'shared/model';
-
-import {
-    computed, action,
-} from 'mobx';
+import { BaseModel, model, field, modelize, computed, action, NEW_ID } from 'shared/model';
 
 import { isEmpty, intersection } from 'lodash';
 
@@ -21,11 +17,10 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 // Can be linked to either an anchor or region
 // Has a title and rich text body.
 
-@identifiedBy('tour/step')
 export default class TourStep extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
 
-    @belongsTo tour;
+    @model tour;
 
     @field title;
     @field body;
@@ -39,9 +34,9 @@ export default class TourStep extends BaseModel {
     @field spotLightPadding = 5;
     @field requiredViewsCount = 1;
     @field displayWithButtons = true;
-    @field({ type: 'object' }) action;
+    @field action?: any;
     @field className;
-    @field({ type: 'array' }) disabledBreakpoints;
+    @field disabledBreakpoints?: any[];
 
     windowSize = new WindowSize();
 

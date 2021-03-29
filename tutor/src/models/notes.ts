@@ -1,6 +1,5 @@
-import { action, observable, computed } from 'mobx';
 import { sortBy, values } from 'lodash';
-import { BaseModel, identifiedBy, hasMany, session, identifier, modelize } from 'shared/model';
+import { BaseModel, model, action, observable, computed, modelize, NEW_ID } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
@@ -55,11 +54,10 @@ class PageNotes extends Map {
 
 }
 
-@identifiedBy('notes/highlighted-section')
 class HighlightedSection extends BaseModel {
-    @identifier uuid;
-    @session title;
-    @session({ model: ChapterSection }) chapter_section;
+    @field uuid = NEW_ID;
+    @observable title;
+    @model(ChapterSection) chapter_section;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -69,17 +67,16 @@ class HighlightedSection extends BaseModel {
     }
 }
 
-@identifiedBy('notes')
 class Notes extends BaseModel {
 
   pages = observable.map();
 
-  @hasMany({ model: HighlightedSection, extend: {
+  @model(HighlightedSection) summary = []; /* extend: {
       sorted() { return sortBy(this, 'chapter_section.asNumber'); },
       forPage(page) {
           return this.find(s => s.uuid == page.uuid);
       },
-  } }) summary;
+  } */
 
 
   constructor({ course }) {

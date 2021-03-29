@@ -1,20 +1,18 @@
 import { reduce, isEmpty, isNil } from 'lodash';
-import { action, computed } from 'mobx';
 import Big from 'big.js';
-import { BaseModel, identifiedBy, identifier, field, hasMany, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, action, computed, NEW_ID } from 'shared/model';
 
 import TaskResult from './task-result';
 
-@identifiedBy('scores/student')
 export default class Student extends BaseModel {
-    @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
+    @model(TaskResult) data = [];
     @field first_name;
     @field last_name;
     @field is_dropped;
     @field name;
-    @identifier role;
+    @field role = NEW_ID;
     @field student_identifier;
-    @belongsTo({ model: 'scores/period' }) period;
+    @model('scores/period') period;
 
     @field({ type: 'bignum' }) course_average;
     @field({ type: 'bignum' }) homework_score;

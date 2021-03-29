@@ -1,9 +1,8 @@
-import { identifiedBy, session, modelize } from 'shared/model';
+import { observable, computed, action, modelize } from 'shared/model';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
-import { observable, computed, action } from 'mobx';
 import Time from '../../models/time';
 import Toasts from '../toasts';
 
@@ -12,7 +11,6 @@ import Job from '../job';
 const CURRENT = new Map();
 const LAST_PUSH = 'sclp';
 
-@identifiedBy('jobs/lms-score-push')
 export default class LmsScorePush extends Job {
 
     static forCourse(course) {
@@ -25,7 +23,7 @@ export default class LmsScorePush extends Job {
     }
 
   @observable course;
-  @session url;
+  @observable url;
 
   constructor(course) {
       super({ maxAttempts: 180, interval: 5 }); // every 5 seconds for max of 15 mins

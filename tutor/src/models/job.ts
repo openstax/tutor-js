@@ -1,21 +1,19 @@
-import { BaseModel, identifiedBy, identifier, session, modelize } from 'shared/model';
+import { BaseModel, action, observable, computed, modelize, NEW_ID } from 'shared/model';
 import { last } from 'lodash';
-import { action, observable, computed } from 'mobx';
 
 import invariant from 'invariant';
 
 const MAX_ATTEMPTS = 50;
 
-@identifiedBy('job')
 export default class Job extends BaseModel {
-    @identifier jobId;
+    @field jobId = NEW_ID;
 
     @observable pollingId;
-    @session attempts = 0;
-    @session interval = 5;
-    @session maxAttempts = 30;
-    @session status;
-    @session progress;
+    @observable attempts = 0;
+    @observable interval = 5;
+    @observable maxAttempts = 30;
+    @observable status;
+    @observable progress;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,16 +1,16 @@
-import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, NEW_ID } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import { computed, action } from 'mobx';
 import moment from 'moment';
 import Time from '../time';
 
-@identifiedBy('course/role')
 export default class CourseRole extends BaseModel {
-    @identifier id;
-    @field({ type: 'date' }) joined_at;
+    @field id = NEW_ID;
+    @model(DateTime) joined_at = DateTime.unknown;
     @field type;
     @field period_id;
     @field research_identifier;
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

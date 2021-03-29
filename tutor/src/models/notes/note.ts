@@ -1,22 +1,32 @@
 import { isString, get, pick, extend } from 'lodash';
-import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
-import { BaseModel, identifiedBy, field, identifier, session, modelize } from 'shared/model';
+import {
+  BaseModel,
+  field,
+  computed,
+  action,
+  toJS,
+  intercept,
+  observable,
+  model,
+  modelize,
+  NEW_ID,
+} from 'shared/model';
+import DateTime from 'shared/model/date-time';
 
-@identifiedBy('notes/note')
 export default class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
-  @identifier id;
+  @field id = NEW_ID;
   @field annotation = '';
   @field anchor;
   @field course_id;
-  @field({ type: 'object' }) contents = {};
+  @field contents: any = {};
   @field page_id;
-  @session({ model: ChapterSection }) chapter_section;
-  @session({ type: 'date' }) created_at;
-  @session({ type: 'date' }) updated_at;
+  @model(ChapterSection) chapter_section;
+  @model(DateTime) created_at = DateTime.unknown;
+  @model(DateTime) updated_at = DateTime.unknown;
 
   constructor(attrs = {}, page) {
       super(attrs);

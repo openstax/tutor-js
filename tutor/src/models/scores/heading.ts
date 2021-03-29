@@ -1,20 +1,19 @@
 import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
-import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
-import { BaseModel, identifiedBy, field, belongsTo, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, action } from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import Time from '../time';
 
-@identifiedBy('scores/heading')
 export default class Heading extends BaseModel {
     @field({ type: 'bignum' }) average_score;
     @field({ type: 'bignum' }) average_progress;
-    @field({ type: 'date' }) due_at;
+    @model(DateTime) due_at = DateTime.unknown;
     @field plan_id;
     @field title;
     @field type;
     @field available_points;
-    @belongsTo({ model: 'scores/period' }) period;
+    @model('scores/period') period;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

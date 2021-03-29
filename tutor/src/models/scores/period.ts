@@ -1,11 +1,10 @@
 import { find, reduce, isEmpty, filter } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
-import { BaseModel, identifiedBy, field, hasMany, modelize } from 'shared/model';
+import { BaseModel, field, model, modelize } from 'shared/model';
 import Heading from './heading';
 import Student from './student';
 
-@identifiedBy('scores/period')
 export default class CourseScoresPeriod extends BaseModel {
 
   @field({ type: 'bignum' }) overall_course_average;
@@ -14,10 +13,10 @@ export default class CourseScoresPeriod extends BaseModel {
   @field({ type: 'bignum' }) overall_homework_score;
   @field({ type: 'bignum' }) overall_homework_progress;
   @field period_id;
-  @hasMany({ model: Heading, inverseOf: 'period' }) data_headings;
-  @hasMany({ model: Student, inverseOf: 'period', extend: {
+  @model(Heading) data_headings = [];
+  @model(Student) students = []; /* extend: {
       active() { return filter(this, 'isActive'); },
-  } }) students;
+  } */
 
   constructor(attrs, course) {
       super(attrs);

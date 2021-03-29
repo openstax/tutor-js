@@ -1,14 +1,14 @@
 import { last, map, filter, reduce } from 'lodash';
-import { computed, action, observable } from 'mobx';
 import {
     BaseModel,
-    identifiedBy,
-    belongsTo,
-    identifier,
+    model,
     field,
-    session,
-    hasMany,
+    computed,
+    action,
+    observable,
+    model,
     modelize,
+    NEW_ID,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -17,7 +17,6 @@ import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
 
-@identifiedBy('exercises/exercise')
 export default class TutorExercise extends BaseModel {
 
     constructor(attrs = {}) {
@@ -25,26 +24,26 @@ export default class TutorExercise extends BaseModel {
         modelize(this);
     }
 
-  @identifier id;
+  @field id = NEW_ID;
   @field ecosystem_id;
 
-  @belongsTo({ model: ExerciseContent, inverseOf: 'wrapper' }) content;
-  @belongsTo({ model: 'book' }) book;
-  @belongsTo({ model: 'course' }) course;
+  @model(ExerciseContent) content;
+  @model('book') book;
+  @model('course') course;
   @field is_excluded = false;
   @field is_copyable = true;
   @field has_interactive = false;
   @field has_video = false;
   @field page_uuid = false;
-  @field({ type: 'array' }) pool_types;
+  @field pool_types?: any[];
   @field url = '';
   @field context;
   @field preview;
-  @field({ type: 'object' }) author;
+  @field author?: any;
 
-  @hasMany({ model: RelatedContent }) related_content;
+  @model(RelatedContent) related_content = [];
 
-  @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
+  @model(Tag) tags = []; /* extend: getters({
       foo() { return 1234; },
       important() {
           return reduce(this, (o, t) => t.recordInfo(o), {});
@@ -52,9 +51,9 @@ export default class TutorExercise extends BaseModel {
       chapterSection() {
           return new ChapterSection(this.important.chapterSection);
       },
-  }) }) tags;
+  }) */
 
-  @session isSelected = false;
+  @observable isSelected = false;
 
   @observable _page;
   @computed get page() {
@@ -68,8 +67,8 @@ export default class TutorExercise extends BaseModel {
   set page(pg) {
       this._page = pg;
   }
-  @hasMany({ model: 'task-plan/stats/question', inverseOf: 'exercise' }) question_stats;
-  @session average_step_number;
+  @model('task-plan/stats/question') question_stats = [];
+  @observable average_step_number;
 
   @computed get isAssignable() { return !this.is_excluded; }
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }

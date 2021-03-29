@@ -1,7 +1,16 @@
 import type Course from '../course'
-import { computed, action } from 'mobx';
 import { readonly } from 'core-decorators';
-import { BaseModel, model, field, modelize, NEW_ID, lazyGetter, getParentOf } from 'shared/model';
+import {
+  BaseModel,
+  model,
+  field,
+  modelize,
+  NEW_ID,
+  lazyGetter,
+  getParentOf,
+  computed,
+  action,
+} from 'shared/model';
 import DateTime from 'shared/model/date-time'
 import moment from 'moment';
 import { pick } from 'lodash';

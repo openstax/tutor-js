@@ -1,11 +1,18 @@
 import { find, pick, last } from 'lodash';
-import { computed, action, runInAction } from 'mobx';
 import Student from './student';
-import { BaseModel, identifiedBy, field, identifier, belongsTo, modelize } from 'shared/model';
+import {
+  BaseModel,
+  field,
+  model,
+  modelize,
+  computed,
+  action,
+  runInAction,
+  NEW_ID
+} from 'shared/model';
 
-@identifiedBy('course/period')
 export default class CoursePeriod extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
 
     @field name;
     @field default_due_time;
@@ -17,7 +24,7 @@ export default class CoursePeriod extends BaseModel {
 
     @field num_enrolled_students = 0;
 
-    @belongsTo({ model: 'course' }) course;
+    @model('course') course;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

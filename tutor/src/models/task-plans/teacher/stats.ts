@@ -1,29 +1,27 @@
 import {
     BaseModel,
-    belongsTo,
-    identifiedBy,
-    session,
-    hasMany,
+    model,
+    observable,
+    computed,
+    model,
     field,
-    identifier,
     modelize,
+    NEW_ID,
 } from 'shared/model';
 import {
     get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
-import { computed } from 'mobx';
 import { getters } from '../../../helpers/computed-property';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../../chapter-section';
 import Exercise from '../../exercises/exercise';
 import { ReviewQuestion } from 'shared/model/exercise/question';
 
-@identifiedBy('task-plan/stats/answer-stat')
 class AnswerStat extends BaseModel {
-    @session answer_id;
-    @session selected_count;
+    @observable answer_id;
+    @observable selected_count;
 
-    @belongsTo({ model: 'task-plan/stats/question' }) question;
+    @model('task-plan/stats/question') question;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -50,21 +48,18 @@ class AnswerStat extends BaseModel {
     }
 }
 
-
-@identifiedBy('task-plan/stats/student')
 class Student extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field name;
 
 }
 
-@identifiedBy('task-plan/stats/answer')
 class Answer extends BaseModel {
-    @session free_response;
-    @session answer_id;
-    @hasMany({ model: Student }) students;
-    @belongsTo({ model: 'task-plan/stats/question' }) question;
+    @observable free_response;
+    @observable answer_id;
+    @model(Student) students = [];
+    @model('task-plan/stats/question') question;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -86,23 +81,21 @@ class Answer extends BaseModel {
     }
 }
 
-
 const AnswersAssociation = {
     withFreeResponse() {
         return this.filter(ans => !isEmpty(ans.free_response));
     },
 };
 
-@identifiedBy('task-plan/stats/question')
 class QuestionStats extends BaseModel {
-    @session question_id;
-    @session answered_count;
-    @session exercise;
+    @observable question_id;
+    @observable answered_count;
+    @observable exercise;
 
-    @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
-    @hasMany({ model: AnswerStat, inverseOf: 'question', extend: getters({
+    @model(Answer) answers = []; // extend: AnswersAssociation
+    @model(AnswerStat) answer_stats = []; /* extend: getters({
         correct() { return find(this, { isCorrect: true }); },
-    }) } ) answer_stats;
+    }) */
 
     @lazyInitialize forReview = new ReviewQuestion(this);
 
@@ -137,17 +130,16 @@ class QuestionStats extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats/page')
 class Page extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field({ model: ChapterSection }) chapter_section
-    @session title;
-    @session correct_count;
-    @session incorrect_count;
-    @session is_trouble;
-    @session student_count;
+    @observable title;
+    @observable correct_count;
+    @observable incorrect_count;
+    @observable is_trouble;
+    @observable student_count;
 
-    @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
+    @model(Exercise) exercises = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -157,17 +149,16 @@ class Page extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats/stat')
 class Stats extends BaseModel {
-    @session period_id;
-    @session name;
-    @session total_count;
-    @session complete_count;
-    @session partially_complete_count;
-    @belongsTo({ model: 'task-plan/stats' }) taskPlan;
-    @session is_trouble;
-    @hasMany({ model: Page }) current_pages;
-    @hasMany({ model: Page }) spaced_pages;
+    @observable period_id;
+    @observable name;
+    @observable total_count;
+    @observable complete_count;
+    @observable partially_complete_count;
+    @model('task-plan/stats') taskPlan;
+    @observable is_trouble;
+    @model(Page) current_pages = [];
+    @model(Page) spaced_pages = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -203,17 +194,16 @@ class Stats extends BaseModel {
     }
 }
 
-@identifiedBy('task-plan/stats')
 export default class TaskPlanStats extends BaseModel {
-    @identifier id;
-    @session title;
-    @session type;
+    @field id = NEW_ID;
+    @observable title;
+    @observable type;
 
-    @session shareable_url;
+    @observable shareable_url;
 
-    @hasMany({ model: Stats, inverseOf: 'plan' }) stats;
+    @model(Stats) stats = [];
 
-    @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
+    @model('task-plans/teacher/plan') taskPlan;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

@@ -1,14 +1,11 @@
-import {
-    BaseModel, identifiedBy, identifier, hasMany, computed, action,
-} from 'shared/model';
+import { BaseModel, model, computed, action, NEW_ID } from 'shared/model';
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
 
-@identifiedBy('student-tasks/step-group')
 export default class StudentTaskStepGroup extends BaseModel {
 
-  @identifier uid;
-  @hasMany({ model: StudentTaskStep }) steps;
+  @field uid = NEW_ID;
+  @model(StudentTaskStep) steps = [];
 
   @readonly isGrouped = true;
   @readonly type = 'mpq';

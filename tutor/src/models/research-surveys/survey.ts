@@ -1,12 +1,10 @@
 import { pick } from 'lodash';
-import { computed } from 'mobx';
-import { BaseModel, identifiedBy, field, identifier, modelize } from 'shared/model';
+import { BaseModel, field, modelize, computed, NEW_ID } from 'shared/model';
 
-@identifiedBy('student/task')
 export default class ResearchSurvey extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field title;
-    @field({ type: 'object' }) model;
+    @field model?: any;
     @field response;
 
     constructor() {

@@ -1,15 +1,12 @@
-import { computed } from 'mobx';
-import { BaseModel, identifiedBy, identifier, hasMany, modelize } from 'shared/model';
+import { BaseModel, model, modelize, computed, NEW_ID } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
 import lazyGetter from 'shared/helpers/lazy-getter';
 
-
-@identifiedBy('ecosystems/ecosystem')
 export default class Ecosystem extends BaseModel {
-    @identifier id;
-    @hasMany({ model: Book, inverseOf: 'ecosystem' }) books;
+    @field id = NEW_ID;
+    @model(Book) books = [];
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

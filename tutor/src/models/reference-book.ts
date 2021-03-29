@@ -1,11 +1,19 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
-import { action, observable, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 import Map from 'shared/model/map';
-import { BaseModel, identifiedBy, identifier, field, hasMany, modelize } from 'shared/model';
+import {
+  BaseModel,
+  field,
+  model,
+  modelize,
+  action,
+  observable,
+  computed,
+  NEW_ID,
+} from 'shared/model';
+import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
-
 
 function mapPages(page, pages) {
     if (page.isPage) {
@@ -22,9 +30,8 @@ function mapPages(page, pages) {
     return pages;
 }
 
-@identifiedBy('reference-book')
 export default class ReferenceBook extends BaseModel {
-    @identifier id;
+    @field id = NEW_ID;
     @field archive_url;
     @field webview_url;
 
@@ -52,14 +59,14 @@ export default class ReferenceBook extends BaseModel {
         return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
     }
 
-    @hasMany({ model: Node, inverseOf: 'parent' }) children;
+    @model(Node) children = [];
 
     @field cnx_id;
     @field short_id;
     @field title;
     @field type;
     @field uuid;
-    @field({ type: 'date' }) baked_at;
+    @model(DateTime) baked_at = DateTime.unknown;
     @field is_collated;
 
     fetch() {

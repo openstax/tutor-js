@@ -1,20 +1,17 @@
-import {
-    BaseModel, identifiedBy, field, identifier, belongsTo, computed,
-} from 'shared/model';
+import { BaseModel, field, model, computed, NEW_ID } from 'shared/model';
 
 import User from '../user';
 
-@identifiedBy('course/teacher')
 export default class CourseTeacher extends BaseModel {
 
-  @identifier id;
+  @field id = NEW_ID;
   @field role_id;
   @field first_name = '';
   @field last_name = '';
   @field role_id;
   @field is_active;
 
-  @belongsTo({ model: 'course/roster' }) roster;
+  @model('course/roster') roster;
 
   drop() {
       return { id: this.id };

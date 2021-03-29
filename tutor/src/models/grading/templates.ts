@@ -1,12 +1,8 @@
 import Map from 'shared/model/map';
 import { isNil, defaults } from 'lodash';
-import {
-    BaseModel, identifiedBy, action, field,
-    identifier, computed, observable,
-} from 'shared/model';
+import { BaseModel, action, field, computed, observable, NEW_ID } from 'shared/model';
 import S from '../../helpers/string';
 
-@identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
 
     // returns a formik errors object as described:
@@ -15,7 +11,7 @@ class GradingTemplate extends BaseModel {
         return {};
     }
 
-  @identifier id;
+  @field id = NEW_ID;
   @field name = '';
   @field task_plan_type;
   @field completion_weight;

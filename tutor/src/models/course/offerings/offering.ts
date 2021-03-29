@@ -1,7 +1,6 @@
-import { BaseModel, field, NEW_ID, modelize, model } from 'shared/model';
+import { BaseModel, field, NEW_ID, modelize, model, computed } from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
-import { computed } from 'mobx';
 import Term from './term';
 
 export default class Offering extends BaseModel {

@@ -1,4 +1,4 @@
-import { BaseModel, identifiedBy, modelize } from 'shared/model';
+import { BaseModel, modelize } from 'shared/model';
 import {
     invoke, filter, result, isEmpty, pick, values, every, delay, find,
 } from 'lodash';
@@ -11,8 +11,6 @@ import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 
-
-@identifiedBy('course/builder-ux')
 export default class CourseBuilderUX extends BaseModel {
 
     @readonly course = new Course();
