@@ -90,6 +90,8 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
                   "__html": "even-keeled",
                 }
               }
+              data-test-id="book-title"
+              data-title="even-keeled"
             />
           </div>
           <div

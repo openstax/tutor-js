@@ -11,6 +11,7 @@ exports[`_class3 renders and matches snapshot 1`] = `
       <a
         aria-label="Browse course reference book"
         className="browse-the-book btn btn-default"
+        data-test-id="browse-the-book-btn"
         href="/book/1/page/42"
         onClick={[Function]}
         target="_blank"
