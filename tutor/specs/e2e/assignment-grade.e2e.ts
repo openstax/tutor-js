@@ -59,6 +59,15 @@ describe('Assignment Grade', () => {
                     exercises: mock.data.exercises(planId),
                 })
             ),
+            '/api/courses/:courseId/roster': async ({ mock }) => {
+                const course = mock.course(COURSE_ID)
+                const roster = Factory.create('CourseRoster', { course })
+                const [ t ] = roster.teachers
+                t.role_id = course?.roles?.find(r => r.type == 'teacher')?.id
+                t.is_active = true
+
+                return roster
+            },
         },
     })
 
