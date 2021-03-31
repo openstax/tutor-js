@@ -1,5 +1,5 @@
 import Map, { hydrateModel } from 'shared/model/map';
-import { ID, modelize, computed, action } from 'shared/model'
+import { ID, modelize, computed, action, override } from 'shared/model'
 import Course from './course';
 import { isEmpty, find } from 'lodash';
 import { CourseObj } from './types'
@@ -14,7 +14,7 @@ export class CoursesMap extends Map<ID, Course> {
     }
 
     // override array in Map to return a sorted list with latest join date first
-    @computed get array() {
+    @override get array() {
           return this.values().sort((a, b) =>
               a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
           );
@@ -97,7 +97,7 @@ export class CoursesMap extends Map<ID, Course> {
         return Boolean(!isEmpty(name) && !find(this.array, { name }));
     }
 
-    bootstrap( courseData: CourseObj[], options: { clear?: boolean } = {} ) {
+    @action bootstrap( courseData: CourseObj[], options: { clear?: boolean } = {} ) {
         if (options.clear) { this.clear(); }
         courseData.forEach(cd => this.set(String(cd.id), hydrateModel(Course, cd, this)));
         return this;

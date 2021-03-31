@@ -1,16 +1,13 @@
-import { BaseModel, model, field, modelize, computed, action, NEW_ID } from 'shared/model';
-
+import { BaseModel, field, modelize, computed, action, NEW_ID, getParentOf } from 'shared/model';
 import { isEmpty, intersection } from 'lodash';
-
 import Markdown from 'markdown-it';
 import MDRegex from 'markdown-it-regexp';
-
 import Actions from './actions';
 import WindowSize from '../window-size';
+import type Tour from '../tour'
 
 const MD = Markdown({ html: true, linkify: true, typographer: true });
-
-MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></i>' ));
+MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></i>' ))
 
 // TourStep
 // A step in a tour, where steps are connected by a “next” button that leads from one step to the next.
@@ -20,22 +17,20 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 export default class TourStep extends BaseModel {
     @field id = NEW_ID;
 
-    @model tour;
-
-    @field title;
-    @field body;
-    @field position;
+    @field title = '';
+    @field body = '';
+    @field position = '';
     @field isCancelable = true;
-    @field is_fixed;
-    @field anchor_id;
-    @field customComponent;
+    @field is_fixed = false;
+    @field anchor_id = '';
+    @field customComponent: any;
     @field spotlight = true;
     @field displayAs = 'standard';
     @field spotLightPadding = 5;
     @field requiredViewsCount = 1;
     @field displayWithButtons = true;
     @field action?: any;
-    @field className;
+    @field className?: string;
     @field disabledBreakpoints?: any[];
 
     windowSize = new WindowSize();
@@ -47,11 +42,13 @@ export default class TourStep extends BaseModel {
         modelize(this);
     }
 
+    get tour() { return getParentOf<Tour>(this) }
+
     @computed get target() {
         return this.anchor_id ? `[data-tour-anchor-id="${this.anchor_id}"]` : null;
     }
 
-    get element() {
+    get element(): HTMLElement | null {
         return this.target ? document.querySelector(this.target) : null;
     }
 
@@ -84,11 +81,11 @@ export default class TourStep extends BaseModel {
         this.actionInstance && this.actionInstance.preValidate();
     }
 
-    @action prepare(options) {
+    @action prepare(options: any) {
         return (this.actionInstance && this.actionInstance.beforeStep(options)) || Promise.resolve();
     }
 
-    @action complete(options) {
+    @action complete(options: any) {
         return (this.actionInstance && this.actionInstance.afterStep(options) ) || Promise.resolve();
     }
 

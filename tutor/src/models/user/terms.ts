@@ -1,5 +1,7 @@
-import { BaseModel, field, model, modelize, computed, action, NEW_ID } from 'shared/model';
-import { isProd } from '../../helpers/production';
+import { BaseModel, field, model, modelize, computed, action, NEW_ID, ID, getParentOf } from 'shared/model';
+import { isProd } from '../../helpers/production'
+import type { User } from '../user'
+import Api from '../../api'
 
 const REQUIRED_FOR_EVERYONE = [
     'general_terms_of_use',
@@ -8,17 +10,15 @@ const REQUIRED_FOR_EVERYONE = [
 
 class Term extends BaseModel {
     @field id = NEW_ID;
-    @field title;
-    @field content;
-    @field has_signed_before;
-    @field is_proxy_signed;
-    @field is_signed;
-    @field name;
+    @field title = '';
+    @field content = '';
+    @field has_signed_before = false;
+    @field is_proxy_signed = false;
+    @field is_signed = false;
+    @field name = '';
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -33,17 +33,16 @@ class Term extends BaseModel {
 
 
 class UserTerms extends BaseModel {
-    @model('user') user;
     @model(Term) terms = [];
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
-    hasAgreedTo(name) {
+    get user() { return getParentOf<User>(this) }
+
+    hasAgreedTo(name: string) {
         const term = this.get(name);
         // allow bypassing terms on local dev since the localBE will not have the terms loaded
         return term ? term.hasAgreed : !isProd;
@@ -61,15 +60,18 @@ class UserTerms extends BaseModel {
         if (this.areSignaturesNeeded) { this.fetch(); }
     }
 
-    get(name) {
+    get(name: string): Term | undefined {
         return this.user.available_terms.find(t => t.name == name);
     }
 
     // will be overwritten by api
-    fetch() { }
+    async fetch() {
+        const terms = await this.api.request<Term[]>(Api.fetchUserTerms())
+        this.onLoaded(terms)
+    }
 
-    onLoaded({ data }) {
-        data.forEach((termData) => {
+    @action onLoaded(terms: Term[]) {
+        terms.forEach((termData) => {
             const term = this.get(termData.name);
             if (term) {
                 term.update(termData);
@@ -79,8 +81,14 @@ class UserTerms extends BaseModel {
         });
     }
 
+    // called by api
+    async sign(termIds: ID[]) {
+        await this.api.request(Api.signUserTerms({ termIds }))
+        this.onSigned(termIds)
+    }
+
     // called after signed api completes
-    onSigned(resp, [ids]) {
+    onSigned(ids: ID[]) {
         this.user.available_terms.forEach(t => {
             if (ids.includes(t.id)) {
                 t.is_signed = true;
@@ -89,10 +97,7 @@ class UserTerms extends BaseModel {
 
     }
 
-    // called by api
-    sign(ids) {
-        return { ids };
-    }
+
 }
 
 export { Term, UserTerms };

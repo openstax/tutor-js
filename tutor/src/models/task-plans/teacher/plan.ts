@@ -1,19 +1,10 @@
 import {
-    BaseModel,
-    field,
-    action,
-    computed,
-    observable,
-    model,
-    extendedArray,
-    modelize,
-    NEW_ID,
-    ID,
-    hydrateModel,
+    BaseModel, field, action, computed, observable, model,
+    extendedArray, modelize, NEW_ID, ID, override, hydrateModel,
 } from 'shared/model';
 import type Page from '../../reference-book/node'
 import Exercise from '../../exercises/exercise'
-import { createAtom, IAtom } from 'mobx'
+import { createAtom, IAtom, toJS } from 'mobx'
 import type Course from '../../course'
 import type Period from '../../course/period'
 import DateTime, { Interval, findEarliest, findLatest } from 'shared/model/date-time';
@@ -30,6 +21,8 @@ import TaskPlanStats from './stats';
 import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
 import TaskPlanScores from './scores';
+import Api from '../../../api';
+import { TaskPlanExtensionObj } from '../../types'
 
 const SELECTION_COUNTS = {
     default: 3,
@@ -89,15 +82,15 @@ export default class TeacherTaskPlan extends BaseModel {
     @field ungraded_step_count = 0;
     @field gradable_step_count = 0;
     @field wrq_count = 0;
-    @field extensions?: any; // null by default
+    @field extensions: TaskPlanExtensionObj[] = []
     @field settings?: any = {};
 
     @model(DroppedQuestion) dropped_questions = [];
 
-    @model(TaskingPlan) tasking_plans = extendedArray<TaskingPlan>({
-        forPeriod(period: Period) { return find(this, { target_id: period.id, target_type: 'period' }); },
-        areValid() { return Boolean(this.length > 0 && every(this, 'isValid')); },
-    })
+    @model(TaskingPlan) tasking_plans = extendedArray((plans: TaskingPlan[]) => ({
+        forPeriod(period: Period) { return find(plans, { target_id: period.id, target_type: 'period' }); },
+        areValid() { return Boolean(plans.length > 0 && every(this, 'isValid')); },
+    }))
 
     @observable unmodified_plans: TaskingPlan[] = [];
 
@@ -194,7 +187,7 @@ export default class TeacherTaskPlan extends BaseModel {
         if (opens.isInPast) {
             return null;
         }
-        if (opens.hasSame(DateTime.now, 'day')) {
+        if (opens.isSame(DateTime.now, 'day')) {
             return opens.format('h:mm a z');
         }
         return opens.format('M/D');
@@ -206,7 +199,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
     intervalFor(attr: 'opensAt' | 'dueAt' | 'closesAt') {
         const dates = map(this.tasking_plans, attr).sort()
-        return new Interval(first(dates), last(dates))
+        return new Interval(first(dates) as DateTime, last(dates) as DateTime)
     }
 
     get dateRanges() {
@@ -341,13 +334,11 @@ export default class TeacherTaskPlan extends BaseModel {
 
     @action reset() {
         this.title = this.description = '';
-        this.tasking_plans = this.course.periods.archived
+        this.tasking_plans.clear()
+        this.course.periods.active.forEach(period => {
+            this.tasking_plans.push({ target_id: period.id, target_type: 'period' } as TaskingPlan)
+        });
 
-
-
-        //     .active.map(period => ({
-        //     target_id: period.id, target_type: 'period',
-        // }));
     }
 
     @computed get publishedStatus() {
@@ -404,7 +395,7 @@ export default class TeacherTaskPlan extends BaseModel {
         });
     }
 
-    @action createClone({ course }) {
+    @action createClone({ course }: { course: Course }) {
         return new TeacherTaskPlan({
             ...this.clonedAttributes,
             course,
@@ -468,38 +459,37 @@ export default class TeacherTaskPlan extends BaseModel {
         );
     }
 
-    // called from api
-    save() {
-        const options = this.isNew ? {
-            url: `courses/${this.course.id}/plans`,
-            method: 'POST',
-        } : {
-            url: `plans/${this.id}`,
-        };
-        options.data = this.dataForSave;
-        return options;
+    async save() {
+        const data = await this.api.request<TeacherTaskPlan>(
+            this.isNew ?
+                Api.createTaskPlan({ courseId: this.course.id }) : Api.fetchTaskPlan({ taskPlanId: this.id }),
+            this.dataForSave
+        )
+        this.onApiRequestComplete(data)
     }
 
-    grantExtensions(extensions) {
+    async grantExtensions(extensions: TaskPlanExtensionObj[]) {
         //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
-        return {
-            id: this.id,
-            data: {
-                extensions: grantedExtensions,
-            },
-        };
+        const updatedExtensions = this.api.request<TaskPlanExtensionObj[]>(
+            Api.grantTaskExtensions({ taskPlanId: this.id }),
+            { extensions: grantedExtensions },
+        )
+        return updatedExtensions
     }
 
-    // called from api
-    onApiRequestComplete({ data }) {
+
+    @override onApiRequestComplete(data: TeacherTaskPlan) {
         this.api.errors = {};
         this.update(data);
         this.is_publish_requested = false;
         this.unmodified_plans = data.tasking_plans;
     }
 
-    fetch() { return this; }
+    fetch() {
+        const plan = this.api.request<TeacherTaskPlan>(Api.fetchTaskPlan({ taskPlanId: this.id }))
+        this.update(plan)
+    }
 
     destroy() {
         this.is_deleting = true;
@@ -511,12 +501,12 @@ export default class TeacherTaskPlan extends BaseModel {
         this.course.teacherTaskPlans.delete(this.id);
     }
 
-    isValidCloseDate(taskings, date) {
+    isValidCloseDate(taskings: TaskingPlan[], date: DateTime) {
         if (date.isAfter(this.course.ends_at)) {
             return true;
         }
         return !!taskings.find(tasking => {
-            return date.isBefore(tasking.due_at);
+            return date.isBefore(tasking.dueAt);
         });
     }
 

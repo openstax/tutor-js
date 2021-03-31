@@ -1,17 +1,16 @@
-import { BaseModel, model, modelize, computed, NEW_ID } from 'shared/model';
+import { BaseModel, model, modelize, computed, field, NEW_ID, lazyGetter, hydrateModel } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
-import lazyGetter from 'shared/helpers/lazy-getter';
+
 
 export default class Ecosystem extends BaseModel {
     @field id = NEW_ID;
-    @model(Book) books = [];
+
+    @model(Book) books:Book[] = [];
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -20,5 +19,5 @@ export default class Ecosystem extends BaseModel {
         return this.books.length ? this.books[0] : null;
     }
 
-    @lazyGetter referenceBook = new ReferenceBook({ id: this.id });
+    @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.id }, this) };
 }

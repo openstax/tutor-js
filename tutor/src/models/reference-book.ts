@@ -1,12 +1,12 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { readonly } from 'core-decorators';
-import Map from 'shared/model/map';
+import Map, { hydrateInstance } from 'shared/model/map';
+import { ReferenceBookObj } from './types'
 import {
   BaseModel,
   field,
   model,
   modelize,
-  action,
   observable,
   computed,
   NEW_ID,
@@ -14,11 +14,12 @@ import {
 import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
+import Api from '../api'
 
-function mapPages(page, pages) {
+function mapPages(page: ReferenceBook | Node, pages: any) {
     if (page.isPage) {
-        const lastPage = last(Array.from(pages.byId.values()));
-        if (lastPage) { lastPage.linkNextPage(page); }
+        const lastPage = last(Array.from(pages.byId.values())) as Node | undefined;
+        if (lastPage) { lastPage.linkNextPage(page as Node); }
         pages.all.push(page);
         pages.byId.set(page.id, page);
         pages.byUUID.set(page.uuid, page);
@@ -32,17 +33,20 @@ function mapPages(page, pages) {
 
 export default class ReferenceBook extends BaseModel {
     @field id = NEW_ID;
-    @field archive_url;
-    @field webview_url;
 
-    @field({ model: ChapterSection }) chapter_section;
+    @field({ model: ChapterSection }) chapter_section = ChapterSection.blank;
+    @readonly isPage = false
+    @readonly index = 0;
 
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
+    @model(Node) children:Node[] = [];
 
-        modelize(this);
-    }
+    @field cnx_id = '';
+    @field short_id = '';
+    @field title = '';
+    @field type = '';
+    @field uuid = '';
+    @model(DateTime) baked_at = DateTime.unknown;
+    @field is_collated = true;
 
     @computed get pages() {
         return mapPages(this, {
@@ -53,35 +57,25 @@ export default class ReferenceBook extends BaseModel {
         });
     }
 
-    @readonly index = 0;
-
     @computed get chapters() {
         return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
     }
 
-    @model(Node) children = [];
-
-    @field cnx_id;
-    @field short_id;
-    @field title;
-    @field type;
-    @field uuid;
-    @model(DateTime) baked_at = DateTime.unknown;
-    @field is_collated;
-
-    fetch() {
-        return { id: this.id };
+    constructor() {
+        super();
+        modelize(this);
     }
 
-    @action ensureFetched() {
+    async fetch() {
+        const data = await this.api.request<ReferenceBookObj[]>(Api.fetchReferenceBook({ bookId: this.id }))
+        hydrateInstance(this, omit(first(data), 'id'))
+    }
+
+    async ensureFetched() {
         if (this.pages.all.length == 0) {
-            return this.fetch();
+            return await this.fetch();
         }
         return Promise.resolve(this);
-    }
-
-    @action onApiRequestComplete({ data }) {
-        this.update(omit(first(data), 'id')); // data is an array
     }
 
     // a simplified data structure suitable for passing into flux

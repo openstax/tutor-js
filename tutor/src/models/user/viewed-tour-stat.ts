@@ -1,8 +1,12 @@
-import { BaseModel, field, NEW_ID } from 'shared/model';
+import { BaseModel, field, modelize } from 'shared/model';
 
 export default class ViewedTourStat extends BaseModel {
+    @field id:string = ''
+    @field view_count = 1
 
-  @field id = NEW_ID;
-  @field view_count = 1;
+    constructor() {
+        super();
+        modelize(this);
+    }
 
 }

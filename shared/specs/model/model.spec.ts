@@ -7,8 +7,8 @@ describe('Model base class', () => {
     }
 
     class Foo extends BaseModel {
-        @model(Bar) bars = extendedArray<Bar>(() => ({
-            eq(n: number) { return this.filter((b:Bar) => b.num == n) },
+        @model(Bar) bars = extendedArray((a: Bar[]) => ({
+            eq(n: number) { return a.filter((b) => b.num == n) },
         }))
 
         constructor() {

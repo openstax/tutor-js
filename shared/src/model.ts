@@ -41,8 +41,7 @@ export class BaseModel {
         throw new Error('fetch called on base model')
     }
 
-    @action onApiRequestComplete({ data }: { data: any }) {
-        this.api.errors = {}
+    @action onApiRequestComplete(data: any) {
         this.update(data)
     }
 
@@ -70,16 +69,17 @@ export {
     runInAction,
     flow,
     autorun,
+    override,
     flowResult,
 } from 'mobx'
 
-interface ModelClass extends Function {
-    new(...args: any[]): any;
-}
 
-
-export function extendedArray<T>(fn: (a: T[]) => E): IObservableArray<T> & E {
-    const a = observable.array<T>()
-    Object.assign(a, fn(a))
-    return a as IObservableArray<T> & E
+export function extendedArray<T, E>(fn: (a: T[]) => E): IObservableArray<T> & E {
+    const ary = observable.array<T>()
+    const extensions = fn(ary)
+    Object.keys(extensions).forEach(prop => {
+        const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
+        Object.defineProperty(ary, prop, desc)
+    })
+    return ary as IObservableArray<T> & E
 }

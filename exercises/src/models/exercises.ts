@@ -45,7 +45,6 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
     }
 
     @action onLoaded({ data, exercise }: { data: any, exercise?:Exercise }) {
-
         const [number, version ] = data.uid.split('@')
         let versions = super.get(number) as ExerciseVersions;
         if (!versions) {
@@ -85,9 +84,6 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
             await this.api.request(url, exercise.toJSON()),
             exercise
         )
-
-        // const req = { data:  }
-        // return req;
     }
 
     @action onSaved(data: Exercise, exercise: Exercise) {

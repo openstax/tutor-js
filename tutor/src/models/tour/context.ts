@@ -1,4 +1,4 @@
-import { BaseModel, computed, observable, field, modelize } from 'shared/model';
+import { BaseModel, computed, observable, field, modelize, hydrateInstance, ID } from 'shared/model';
 import {
     find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
@@ -8,6 +8,7 @@ import Courses   from '../courses-map';
 import User      from '../user';
 import Tour      from '../tour';
 import TourRide  from './ride';
+import Region    from './region'
 
 // TourContext
 // Created by the upper-most React element (the Conductor)
@@ -15,8 +16,8 @@ import TourRide  from './ride';
 
 export default class TourContext extends BaseModel {
 
-  @observable regions = observable.array([], { deep: false });
-  @observable anchors = observable.map({}, { deep: false });
+  @observable regions = observable.array<Region>([], { deep: false });
+  @observable anchors = observable.map<ID, HTMLElement>({}, { deep: false });
 
   @field isEnabled = true;
 
@@ -24,14 +25,15 @@ export default class TourContext extends BaseModel {
 
   @field autoRemind = true;
 
-  @observable forcePastToursIndication;
+  @observable forcePastToursIndication = false;
 
-  @observable otherModal;
-  @observable tourRide;
+  @observable otherModal?: any;
+  @observable tourRide?: TourRide;
 
-  constructor(attrs) {
-      super(attrs);
+  constructor(attrs: any) {
+      super();
       modelize(this);
+      hydrateInstance(this, attrs)
       this.pickTourRide();
       observe(this, 'tour', this.pickTourRide);
   }
@@ -52,17 +54,17 @@ export default class TourContext extends BaseModel {
       return compact(this.courseIds.map(id => Courses.get(id)));
   }
 
-  addAnchor(id, domEl) {
+  addAnchor(id: string, domEl:HTMLElement) {
       this.anchors.set(id, domEl);
       this.pickTourRide();
   }
 
-  removeAnchor(id) {
+  removeAnchor(id: string) {
       this.anchors.delete(id);
       this.pickTourRide();
   }
 
-  openRegion(region) {
+  openRegion(region: Region) {
       const existing = find(this.regions, { id: region.id });
       if (!existing){
           this.regions.push(region);
@@ -71,7 +73,7 @@ export default class TourContext extends BaseModel {
       this.pickTourRide();
   }
 
-  closeRegion(region) {
+  closeRegion(region: Region) {
       forEach(this.allTours, (tour) => {
           tour.justViewed = false;
       });
@@ -79,13 +81,13 @@ export default class TourContext extends BaseModel {
       this.pickTourRide();
   }
 
-  checkReminders(region) {
+  checkReminders(region: Region) {
       const checkRegion = region || first(this.regions);
       const remindersTourId = 'page-tips-reminders';
       if ( checkRegion && this.autoRemind && !this.tour &&
       this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
       ) {
-          delay(() => checkRegion.otherTours.push(remindersTourId), 500);
+          delay(() => checkRegion.otherTours?.push(remindersTourId), 500);
       }
   }
 

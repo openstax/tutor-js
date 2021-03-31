@@ -1,51 +1,54 @@
-import { BaseModel, field, model, action, computed, observable, modelize } from 'shared/model';
+import { BaseModel, field, model, action, computed, observable, modelize, hydrateInstance, hydrateModel } from 'shared/model';
 import DateTime from 'shared/model/date-time';
-import moment from 'moment';
-import { find, startsWith, map, uniq, max } from 'lodash';
+import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
-import Courses from './courses-map';
+import Courses, { Course } from './courses-map';
 import { UserTerms, Term } from './user/terms';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
-import Time from './time';
+import { FacultyStatus, SelfReportedRoles } from './types'
+import Api from '../api'
+import type Tour from './tour'
 
-class User extends BaseModel {
+interface UserEventPayload {
+    category: string
+    code: string
+    data: any
+}
+
+export class User extends BaseModel {
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
     @action.bound
-      bootstrap(data) {
-          this.update(data);
-          this.csrf_token = read_csrf();
+      bootstrap(data: any) {
+          hydrateInstance(this, data);
+          this.csrf_token = read_csrf() as string;
       }
 
-    @observable csrf_token;
-    terms = new UserTerms({ user: this });
+    @observable csrf_token = '';
 
-    @field account_uuid;
+    terms = hydrateModel(UserTerms, {}, this);
 
-    @field name;
-    @field first_name;
-    @field last_name;
-    @field faculty_status;
-    @field self_reported_role;
-    @field account_uuid;
-    @field profile_id;
+    @field account_uuid = '';
+    @field name = '';
+    @field first_name = '';
+    @field last_name = '';
+    @field faculty_status: FacultyStatus = 'no_faculty_info'
+    @field self_reported_role: SelfReportedRoles = 'unknown_role'
+    @field profile_id = '';
+    @field profile_url = '';
+    @field can_create_courses = false;
+    @field is_test = false;
+    @field is_admin = false;
+    @field is_content_analyst = false;
+    @field is_customer_service = false;
+    @model(Term) available_terms: Term[] = [];
 
-    @field can_create_courses;
-    @field profile_url;
-    @field is_test;
-    @field is_admin;
-    @field is_content_analyst;
-    @field is_customer_service;
-    @model(Term) available_terms = [];
-
-    @model(ViewedTourStat) viewed_tour_stats = [];
+    @model(ViewedTourStat) viewed_tour_stats: ViewedTourStat[] = [];
     @model(DateTime) created_at = DateTime.unknown;
 
     @computed get firstName() {
@@ -79,7 +82,7 @@ class User extends BaseModel {
         return true;
     }
 
-    @action removeCourse(course) {
+    @action removeCourse(course: Course) {
         return Courses.delete(course.id);
     }
 
@@ -96,7 +99,7 @@ class User extends BaseModel {
     }
 
     @computed get wasNewlyCreated() {
-        return moment(Time.now).subtract(1, 'day').isBefore(this.created_at);
+        return this.created_at.distanceToNow('day') < 2
     }
 
     @computed get isProbablyTeacher() {
@@ -104,7 +107,7 @@ class User extends BaseModel {
     }
 
     @computed get tourAudienceTags() {
-        let tags = [];
+        let tags:string[] = [];
         if (!Flags.tours){ return tags; }
 
         if (
@@ -134,32 +137,32 @@ class User extends BaseModel {
     }
 
     resetTours() {
-        this.viewed_tour_stats.clear();
+        this.viewed_tour_stats = []
     }
 
-    replayTour(tour) {
-        this.viewed_tour_stats.remove(find(this.viewed_tour_stats, { id: tour.id }));
+    replayTour(tour: Tour) {
+        remove(this.viewed_tour_stats, { id: tour.id })
     }
 
-    viewedTour(tour, options) {
+    viewedTour(tour: Tour, options:any = {}) {
         let stats = this.viewed_tour_stats.find((stat) => stat.id === tour.countId);
 
         if (stats) {
             stats.view_count ++;
         } else {
-            stats = new ViewedTourStat({ id: tour.countId });
+            stats = hydrateModel(ViewedTourStat, { id: tour.countId }, this);
             this.viewed_tour_stats.push(stats);
         }
 
-        this.saveTourView({ id: tour.countId }, options);
+        this.saveTourView(stats, options);
     }
 
-    verifiedRoleForCourse(course) {
+    verifiedRoleForCourse(course: Course) {
         return this.isConfirmedFaculty && course.primaryRole ? course.primaryRole.type : 'student';
     }
 
-    saveTourView(tour, options) {
-        return { data: options };
+    async saveTourView(stat: ViewedTourStat, options: any) {
+        await this.api.request<Tour>(Api.saveTourView({ tourId: stat.id }), options)
     }
 
     @computed get isUnverifiedInstructor() {
@@ -174,21 +177,19 @@ class User extends BaseModel {
         return UiSettings.get('sessionCount') || 0;
     }
 
-    logEvent({ category, code, data }) {
-        // students do not track events
-        if (this.self_reported_role === 'student') { return 'ABORT'; }
-        return { category, code, data };
+    async logEvent({ category, code, data }: UserEventPayload) {
+        return await this.api.request(Api.logUserEvent({ category, code }), data)
     }
 
-    suggestSubject({ subject }) {
+    async suggestSubject({ subject }: { subject: string }) {
         // students do not submit suggestions
         if (this.self_reported_role === 'student') { return 'ABORT'; }
-        return { subject };
+        return this.api.request(Api.suggestCourseSubject(), { subject })
     }
 
     @computed get metrics() {
         const courses = Courses.nonPreview.array;
-        const getValues = (attr) => uniq(map(courses, attr)).join(';');
+        const getValues = (attr: any) => uniq(map(courses, attr)).join(';');
         return {
             role: this.isProbablyTeacher ? 'instructor' : 'student',
             is_new_user: Courses.completed.nonPreview.isEmpty,
@@ -196,15 +197,13 @@ class User extends BaseModel {
             has_viewed_preview: Courses.preview.any,
             has_per_cost_course: Boolean(find(courses, 'does_cost')),
             course_subjects: getValues('appearance_code'),
-            course_types: getValues(c => c.is_preview ? 'preview' : 'real'),
+            course_types: getValues((c:Course) => c.is_preview ? 'preview' : 'real'),
             course_roles: getValues('currentRole.type'),
-            course_enrollment_types: getValues(c => c.is_lms_enabled ? 'lms' : 'links'),
-            max_course_enrollment: max(courses.map(c => c.currentRole.isTeacher ? c.num_enrolled_students : -1)),
+            course_enrollment_types: getValues((c:Course) => c.is_lms_enabled ? 'lms' : 'links'),
+            max_course_enrollment: max(courses.map((c:Course) => c.currentRole.isTeacher ? c.num_enrolled_students : -1)),
         };
     }
 }
-
-export { User };
 
 const currentUser = new User;
 

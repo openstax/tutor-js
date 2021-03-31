@@ -31,7 +31,7 @@ export default class SharedExercise extends BaseModel {
     copyright_holders:Author[] = [];
     questions:Question[] = [];
 
-    tags = new TagsAssociation()
+    @model(Tag) tags = new TagsAssociation()
 
     constructor() {
         super()

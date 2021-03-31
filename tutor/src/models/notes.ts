@@ -1,130 +1,140 @@
+import type Course from './course'
 import { sortBy, values } from 'lodash';
-import { BaseModel, model, action, observable, computed, modelize, NEW_ID } from 'shared/model';
+import { BaseModel, model, action, observable, computed, field, modelize, ID, extendedArray } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
+import Api from '../api'
+import { HighlightedPageObj } from './types'
+import Page from './reference-book/node'
 
-class PageNotes extends Map {
-  keyType = Number
-
-  static Model = Note
-
-  constructor({ page, notes }) {
-      super();
-      modelize(this);
-      this.notes = notes;
-      this.page = page;
-      this.fetch();
-  }
-
-  @computed get uuid() {
-      return this.page.uuid;
-  }
-
-  @computed get byPagePosition() {
-      return sortBy(this.array, 'pageTopPosition');
-  }
-
-  fetch() {
-      return { pageUuid: this.page.uuid };
-  }
-
-  @action onLoaded({ data: notes }) {
-      this.mergeModelData(notes);
-  }
-
-  @action onNoteDeleted(note) {
-      this.delete(note.id);
-      this.notes.onNoteDeleted(note, this);
-  }
-
-  async create({ anchor, page, ...attrs }) {
-      const note = new Note({
-          anchor,
-          chapter_section: page.chapter_section,
-          page_id: page.id,
-          contents: attrs,
-      }, this);
-      await note.save();
-      if (!this.notes.summary.forPage(page)) {
-          this.notes.summary.push(page);
-      }
-      return note;
-  }
-
-}
 
 class HighlightedSection extends BaseModel {
-    @field uuid = NEW_ID;
-    @observable title;
-    @model(ChapterSection) chapter_section;
+    @field uuid: string = ''
+    @observable title = ''
+    @model(ChapterSection) chapter_section!: ChapterSection
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 }
 
 class Notes extends BaseModel {
+    uuid: string = ''
+    pages = observable.map();
+    course: Course
 
-  pages = observable.map();
+    @model(HighlightedSection) summary = extendedArray((a: HighlightedSection[]) => ({
+        sorted() { return sortBy(a, 'chapter_section.asNumber'); },
+        forPage(page: PageNotes) {
+            return a.find(s => s.uuid == page.uuid);
+        },
+    }))
 
-  @model(HighlightedSection) summary = []; /* extend: {
-      sorted() { return sortBy(this, 'chapter_section.asNumber'); },
-      forPage(page) {
-          return this.find(s => s.uuid == page.uuid);
-      },
-  } */
+    constructor({ course }: { course: Course }) {
+        super();
+        modelize(this);
+        this.course = course;
+        this.fetchHighlightedPages();
+    }
 
+    hasNotesForPage(page: Page) {
+        return Boolean(this.pages.get(page.uuid));
+    }
 
-  constructor({ course }) {
-      super();
-      modelize(this);
-      this.course = course;
-      this.fetchHighlightedPages();
-  }
+    @computed get isAnyPagePending() {
+        return Boolean(Array.from(this.pages.values()).find(pg => pg.api.isPending));
+    }
 
-  hasNotesForPage(page) {
-      return Boolean(this.pages.get(page.uuid));
-  }
+    forPage(page: Page) {
+        return this.pages.get(page.uuid);
+    }
 
-  @computed get isAnyPagePending() {
-      return Boolean(Array.from(this.pages.values()).find(pg => pg.api.isPending));
-  }
+    @action ensurePageExists(page: Page) {
+        if (!this.hasNotesForPage(page)) {
+            const notes = new PageNotes({ page, notes: this });
+            this.pages.set(page.uuid, notes);
+        }
+        return this.forPage(page);
+    }
 
-  @action forPage(page) {
-      return this.pages.get(page.uuid);
-  }
+    async fetchHighlightedPages() {
+        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(Api.fetchHighlightedPages({ bookUUID: this.course.ecosystem_book_uuid }))
+        this.onHighlightedPagesLoaded(data.pages)
+    }
 
-  @action ensurePageExists(page) {
-      if (!this.hasNotesForPage(page)) {
-          const notes = new PageNotes({ page, notes: this });
-          this.pages.set(page.uuid, notes);
-      }
-      return this.forPage(page);
-  }
+    onHighlightedPagesLoaded(pages: HighlightedPageObj[]) {
+        const summary:Record<string, HighlightedPageObj> = {};
+        pages.forEach(pg => {
+            const key = pg.uuid;
+            if (!summary[key]) { summary[key] = pg; }
+        });
+        this.summary = values(summary) as any;
+    }
 
-  fetchHighlightedPages() {
-      return { bookUuid: this.course.ecosystem_book_uuid };
-  }
-
-  onHighlightedPagesLoaded({ data: { pages } }) {
-      const summary = {};
-      pages.forEach(pg => {
-          const key = pg.uuid;
-          if (!summary[key]) { summary[key] = pg; }
-      });
-      this.summary = values(summary);
-  }
-
-  @action onNoteDeleted(note, page) {
-      if (page.isEmpty) {
-          this.summary.remove(this.summary.find(s => s.uuid == page.uuid));
-      }
-  }
+    @action onNoteDeleted(page: PageNotes) {
+        if (page.isEmpty) {
+            const pg = this.summary.find(s => s.uuid == page.uuid)
+            if (pg) {
+                this.summary.remove(pg);
+            }
+        }
+    }
 
 }
+
+class PageNotes extends Map<ID, Note> {
+    keyType = Number
+
+    static Model = Note
+    notes: Notes
+    page: Page
+    constructor({ page, notes }: { page: Page, notes: Notes }) {
+        super();
+        modelize(this);
+        this.notes = notes;
+        this.page = page;
+        this.fetch();
+    }
+
+    @computed get uuid() {
+        return this.page.uuid;
+    }
+
+    @computed get byPagePosition() {
+        return sortBy(this.array, 'pageTopPosition');
+    }
+
+    async fetch() {
+        const notes = await this.api.request(Api.fetchPageNotes({ pageUUID: this.page.uuid }));
+        this.onLoaded(notes)
+    }
+
+    @action onLoaded(notes: any) {
+        this.mergeModelData(notes);
+    }
+
+    @action onNoteDeleted(note: Note) {
+        this.delete(note.id);
+        this.notes.onNoteDeleted(this);
+    }
+
+    async create({ anchor: string, page, ...attrs }) {
+        const note = new Note({
+            anchor,
+            chapter_section: page.chapter_section,
+            page_id: page.id,
+            contents: attrs,
+        }, this);
+        await note.save();
+        if (!this.notes.summary.forPage(page)) {
+            this.notes.summary.push(page);
+        }
+        return note;
+    }
+
+}
+
 
 export { Note, Notes, PageNotes };

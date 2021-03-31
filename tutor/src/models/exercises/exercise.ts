@@ -1,7 +1,6 @@
 import { last, map, filter, reduce } from 'lodash';
 import {
     BaseModel,
-    model,
     field,
     computed,
     action,
@@ -9,27 +8,30 @@ import {
     model,
     modelize,
     NEW_ID,
+    extendedArray,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import ReferenceBookNode from '../reference-book/node';
-import { getters } from '../../helpers/computed-property';
-import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
+import ReferenceBook from '../reference-book';
+import type Course from '../course'
+import type Page from '../reference-book/node'
 
 export default class TutorExercise extends BaseModel {
 
-    constructor(attrs = {}) {
-        super(attrs);
+    constructor() {
+        super();
         modelize(this);
     }
 
     @field id = NEW_ID;
-    @field ecosystem_id;
+    @field ecosystem_id = NEW_ID;
 
-    @model(ExerciseContent) content;
-    @model('book') book;
-    @model('course') course;
+    @model(ExerciseContent) content: ExerciseContent;
+
+    @observable book?:ReferenceBook
+    @observable course?:Course
     @field is_excluded = false;
     @field is_copyable = true;
     @field has_interactive = false;
@@ -37,25 +39,23 @@ export default class TutorExercise extends BaseModel {
     @field page_uuid = false;
     @field pool_types?: any[];
     @field url = '';
-    @field context;
-    @field preview;
+    // @field context;
+    // @field preview;
     @field author?: any;
 
     @model(RelatedContent) related_content = [];
 
-    @model(Tag) tags = []; /* extend: getters({
-                              foo() { return 1234; },
-                              important() {
-                              return reduce(this, (o, t) => t.recordInfo(o), {});
-                              },
-                              chapterSection() {
-                              return new ChapterSection(this.important.chapterSection);
-                              },
-                              }) */
+    @model(Tag) tags = extendedArray((tags: Tag[]) => ({
+        important() {
+            return reduce(tags, (o, t) => t.recordInfo(o), {});
+        },
+    }))
+
 
     @observable isSelected = false;
 
-    @observable _page;
+    @observable _page?: Page;
+
     @computed get page() {
         if (this._page) { return this._page; }
         if (!this.book && !this.course) { return ReferenceBookNode.UNKNOWN; }

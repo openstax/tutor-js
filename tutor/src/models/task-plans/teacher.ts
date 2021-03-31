@@ -1,85 +1,91 @@
-import { computed, observable, action } from 'mobx';
-import { find, last, sortBy, filter } from 'lodash';
-import Map from 'shared/model/map';
-import TaskPlan from './teacher/plan';
+import { Map, getParentOf, modelize, computed, action, ID, hydrateModel, hydrateInstance } from 'shared/model'
+import { find, last, sortBy, filter } from 'lodash'
+import TaskPlan from './teacher/plan'
+import type Course from '../course'
+import Api from '../../api'
 
 export
-class TeacherTaskPlans extends Map {
+class TeacherTaskPlans extends Map<ID, TaskPlan> {
 
-  @observable course;
 
-  constructor({ course } = {}) {
-      super();
-      modelize(this);
-      this.course = course;
-  }
+    constructor() {
+        super();
+        modelize(this);
+    }
 
-  get chainedValues() {
-      return { course: this.course };
-  }
+    get course() { return getParentOf<Course>(this) }
 
-  withPlanId(planId, attributes = {}) {
-      let plan = this.get(planId);
-      if (!plan) {
-          plan = new TaskPlan({ id: planId, course: this.course, ...attributes });
-          this.set(planId, plan);
-      }
-      return plan;
-  }
+    get chainedValues() {
+        return { course: this.course };
+    }
 
-  addClone(planAttrs) {
-      this.set(planAttrs.id, new TaskPlan({ ...planAttrs, course: this.course }));
-  }
+    withPlanId(planId: ID, attributes = {}) {
+        let plan = this.get(planId);
+        if (!plan) {
+            plan = new TaskPlan({ id: planId, course: this.course, ...attributes });
+            this.set(planId, plan);
+        }
+        return plan;
+    }
 
-  @computed get active() {
-      return this.where(plan => !plan.is_deleting);
-  }
+    addClone(planAttrs: any) {
+        this.set(planAttrs.id, new TaskPlan({ ...planAttrs, course: this.course }));
+    }
 
-  @computed get isPublishing() {
-      return this.where(plan => plan.isPublishing);
-  }
+    @computed get active() {
+        return this.where(plan => !plan.is_deleting);
+    }
 
-  @computed get hasPublishing() {
-      return Boolean(find(this.array, 'isPublishing'));
-  }
+    @computed get isPublishing() {
+        return this.where(plan => plan.isPublishing);
+    }
 
-  @computed get reading() {
-      return this.where(plan => plan.type === 'reading');
-  }
+    @computed get hasPublishing() {
+        return Boolean(find(this.array, 'isPublishing'));
+    }
 
-  @computed get homework() {
-      return this.where(plan => plan.type === 'homework');
-  }
+    @computed get reading() {
+        return this.where(plan => plan.type === 'reading');
+    }
 
-  @computed get pastDue() {
-      return this.where(plan => plan.isPastDue);
-  }
+    @computed get homework() {
+        return this.where(plan => plan.type === 'homework');
+    }
 
-  @computed get open() {
-      return this.where(plan => plan.isOpen);
-  }
+    @computed get pastDue() {
+        return this.where(plan => plan.isPastDue);
+    }
 
-  @computed get lastPublished() {
-      return last(sortBy(filter(this.array, tp => tp.last_published_at), 'last_published_at'));
-  }
+    @computed get open() {
+        return this.where(plan => plan.isOpen);
+    }
 
-  withPeriodId(periodId) {
-      return this.where(plan => find(plan.tasking_plans, { target_id: periodId }));
-  }
+    @computed get lastPublished() {
+        return last(sortBy(filter(this.array, tp => tp.last_published_at), 'last_published_at'));
+    }
 
-  pastDueWithPeriodId(periodId) {
-      return this.where(plan => plan.isPastDueWithPeriodId(periodId));
-  }
+    withPeriodId(periodId: ID) {
+        return this.where(plan => find(plan.tasking_plans, { target_id: periodId }));
+    }
 
-  // called from api
-  fetch() {
-      return this;
-  }
-  @action onLoaded({ data: { plans } }) {
-      plans.forEach(plan => {
-          const tp = this.get(plan.id);
-          tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
-      });
-  }
+    pastDueWithPeriodId(periodId) {
+        return this.where(plan => plan.isPastDueWithPeriodId(periodId));
+    }
+
+    // called from api
+    async fetch({ start_at, end_at }: { start_at: string, end_at: string }) {
+        const data = await this.api.request<{ plans: TaskPlan[] }>(
+            Api.fetchTaskPlans({ courseId: this.course.id }, { start_at, end_at })
+        )
+        this.onLoaded(data.plans)
+        return this;
+    }
+
+    @action onLoaded(plans: TaskPlan[]) {
+        plans.forEach(plan => {
+            const tp = this.get(plan.id);
+            tp ? hydrateInstance(tp, plan, this) : this.set(plan.id, hydrateModel(TaskPlan, { ...plan, course: this.course }, this);
+        });
+    }
 
 }

@@ -4,9 +4,7 @@ import { delay } from 'lodash';
 
 export default class OpenDowndownMenu extends BaseAction {
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -18,7 +16,7 @@ export default class OpenDowndownMenu extends BaseAction {
         }
     }
 
-    beforeStep() {
+    beforeStep(_options: any) {
         window.scroll(0,0);
         if (this.isOpen) {
             return Promise.resolve();

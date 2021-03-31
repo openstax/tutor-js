@@ -1,12 +1,12 @@
-import Time from '../../src/models/time';
+import Time from '../../../shared/src/model/time'
 import MockDate from 'mockdate';
-import moment from 'moment-timezone';
+
 import { partial, isString } from 'lodash';
 import FactoryBot from 'object-factory-bot';
 
 const TimeMock = {
 
-    setTo(dateTime) {
+    setTo(dateTime: string | Date) {
         if (isString(dateTime)) {
             dateTime = new Date(dateTime);
         }
@@ -15,24 +15,18 @@ const TimeMock = {
         return dateTime;
     },
 
-    mock(dateTime) {
+    mock(dateTime: string | Date) {
         const now = new Date(dateTime);
-        const tz  = 'America/Chicago';
-
+        // const tz  = 'America/Chicago';
         MockDate.set(now, -360);
-        FactoryBot.defaults.now = dateTime;
+        FactoryBot.defaults!.now = dateTime;
         const spy = jest.spyOn(Time, 'now', 'get');
         spy.mockImplementation(() => now);
-
-        jest.spyOn(moment.tz, 'guess').mockImplementation(() => tz);
-        moment.tz.setDefault(tz);
-        moment.locale('en');
     },
 
     restore() {
-        delete FactoryBot.defaults.now;
+        delete FactoryBot.defaults!.now;
         MockDate.reset();
-        moment.tz.setDefault();
     },
 
 };

@@ -20,15 +20,16 @@ import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
+import { GradingTemplateObj, CourseObj, TutorExerciseObj }from '../../src/models/types'
 
 export interface Model extends Function {
     new(...args: any[]): any;
 }
 
 function factoryFactory<T extends Model>(factoryName: string, Model: T) {
-    return (attrs = {}, modelArgs?: any): InstanceType<T> => {
-        const o = FactoryBot.create(factoryName as string, attrs);
-        return new Model(o, modelArgs);
+    return (attrs = {}, parent?: any): InstanceType<T> => {
+        const data = FactoryBot.create(factoryName as string, attrs);
+        return hydrateModel(Model, data,  parent)
     };
 }
 
@@ -57,13 +58,13 @@ const Factories = {
 
     coursesMap: ({ count = 2, ...attrs } = {}) => {
         const map = new CoursesMap();
-        map.onLoaded({ data: range(count).map(() => FactoryBot.create('Course', attrs)) });
+        map.onLoaded(range(count).map(() => FactoryBot.create('Course', attrs) as CourseObj));
         return map;
     },
 
     ecosystemsMap: ({ count = 4 } = {}) => {
         const map = new EcosystemsMap();
-        map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });
+        map.mergeModelData( range(count).map(() => FactoryBot.create('Ecosystem')) )
         return map;
     },
 
@@ -110,7 +111,7 @@ const Factories = {
     notesPageMap: ({ course, page, count = 4 }: { course: Course, page: Page, count: number }) => {
         const notes = course.notes.ensurePageExists(page);
         range(count).forEach(() => {
-            const note = new Note(FactoryBot.create('Note', { page }), page)
+            const note = hydrateModel(Note, FactoryBot.create('Note', { page }), page)
             notes.set(note.id, note);
         })
         return notes;
@@ -126,15 +127,12 @@ const Factories = {
             pageIds = book.children[1].children.map((pg: Page) => pg.id);
         }
         pageIds.forEach(pgId => {
-            map.onLoaded({
-                data: {
-                    items: range(count).map(() => FactoryBot.create('TutorExercise', {
-                        now,
-
-                        page_uuid: book.pages.byId.get(pgId).uuid,
-                    })),
-                },
-            }, [{ book, page_ids: [ pgId ] }]);
+            map.onLoaded(
+                range(count).map(() => FactoryBot.create('TutorExercise', {
+                    now, page_uuid: book.pages.byId.get(pgId).uuid,
+                })) as TutorExerciseObj[],
+                undefined, book, [ pgId ],
+            );
         });
         return map;
     },
@@ -151,11 +149,9 @@ const Factories = {
 
     gradingTemplates: ({ course, count = 2 }: { course: Course, count: number }) => {
         const map = course.gradingTemplates;
-        map.onLoaded({
-            data: {
-                items: range(count).map(() => FactoryBot.create('GradingTemplate', { course })),
-            },
-        });
+        map.onLoaded(
+            range(count).map(() => FactoryBot.create('GradingTemplate', { course }) as GradingTemplateObj),
+        );
         return map;
     },
 

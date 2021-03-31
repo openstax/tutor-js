@@ -48,7 +48,7 @@ export default class TagsAssociation {
         return Boolean(find(this.all, { type, value }));
     }
 
-    hydrateModel(tags: any[]) {
+    hydrate(tags: any[]) {
         this.all.splice(0, this.all.length, ...tags.map(t => hydrateModel(Tag, t)))
     }
 }

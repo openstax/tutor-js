@@ -8,6 +8,7 @@ import { readonly } from 'core-decorators';
 import Page from './reference-book/node'
 import ReferenceBook from './reference-book'
 import Api from '../api'
+import { TutorExerciseObj } from './types'
 
 const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
@@ -149,20 +150,18 @@ export class ExercisesMap extends Map<ID, Exercise> {
         this.onLoaded(replyData, course, book, page_ids)
     }
 
-    @action onLoaded(reply: any, course?: Course, book?: ReferenceBook, page_ids?: ID[]) {
+    @action onLoaded(exercises: TutorExerciseObj[], course?: Course, book?: ReferenceBook, page_ids?: ID[]) {
         if (course && !book) {
             book = course.referenceBook;
         }
         if (page_ids) {
             page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
         }
-        reply.data.items.forEach((ex: Exercise) => {
+        exercises.forEach((ex) => {
             const exercise = this.get(ex.id);
             exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book })));
         });
     }
-
-
 
     hasFetched({ page_id }: { page_id: ID }) {
         return this.fetched.has(page_id);

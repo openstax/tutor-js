@@ -1,4 +1,4 @@
-import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, modelize, hydrateInstance } from 'shared/model';
+import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, ID, modelize, hydrateInstance } from 'shared/model';
 import type TaskPlan from './plan'
 import type Period from '../../course/period'
 import type Course from '../../course'
@@ -18,7 +18,7 @@ export default class TaskingPlan extends BaseModel {
     }
 
     @field id = NEW_ID;
-    @field target_id = NEW_ID;
+    @field target_id:ID = NEW_ID;
     @field target_type?: 'course' | 'period';
 
     get plan() { return getParentOf<TaskPlan>(this) }

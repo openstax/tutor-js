@@ -5,6 +5,7 @@ import { isString, isNumber, isDate } from 'lodash'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
 import moment from 'moment'
+import pluralize from 'pluralize';
 import Time from './time'
 
 export type { DurationUnit }
@@ -16,7 +17,7 @@ export default class DateTime {
         return new DateTime(Time.now.getTime())
     }
 
-    @readonly static unknown = new DateTime(new Date(NaN))
+    @readonly static unknown = new DateTime(new Date(0))
 
     static hydrate(iso: string) {
         return new DateTime(iso)
@@ -27,13 +28,12 @@ export default class DateTime {
     constructor(dateThing: DateTimeInputs) {
         modelize(this, {
             _value: observable,
-
         })
         this._value = toLDT(dateThing)
     }
 
-    diff(other: DateTimeInputs, unit: DurationUnit) { return this._value.diff(toLDT(other), unit)[unit]; }
-    distanceToNow(unit: DurationUnit) { return this._value.diff(LDT.fromJSDate(Time.now), unit)[unit]; }
+    diff(other: DateTimeInputs, unit: DurationUnit) { return Math.round(this._value.diff(toLDT(other), unit)[unit]) }
+    distanceToNow(unit: DurationUnit) { return Math.round(this._value.diff(LDT.fromJSDate(Time.now), unit)[unit]) }
 
     serialize() { return this._value.toISO() }
 
@@ -44,11 +44,11 @@ export default class DateTime {
 
     get asISOString() { return this._value.toISO() }
     get asMoment() { return moment(this._value.toJSDate()) }
-   // get asInterval() { return this._value.until(this._value) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
-    intervalTo(other: DateTimeInputs) { return LDTInterval.fromDateTimes(this._value, toLDT(other)) }
+    get intervalToNow() { return new Interval(this, new DateTime(Time.now)) }
+    intervalTo(other: DateTimeInputs) { return new Interval(this, toLDT(other)) }
 
     toISOString() { return this.asISOString }
     toString() { return this.asISOString }
@@ -64,14 +64,16 @@ export default class DateTime {
     isAfter(compareTo: ComparableValue) { return this.diff(compareTo, 'millisecond') < 0 }
     get isInFuture() { return this.isAfter(Time.now) }
 
-    hasSame(compareTo: ComparableValue, unit: DurationUnit) { return this._value.until(toLDT(compareTo)).hasSame(unit) }
+    isSame(compareTo: ComparableValue, unit: DurationUnit) {
+        return Math.trunc(this._value.diff(toLDT(compareTo), unit).get(unit)) == 0
+    }
 
     isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'seconds') {
-        return this._value.until(toLDT(other)).toDuration().get(unit) <= 0
+        return Math.trunc(this._value.diff(toLDT(other)).get(unit)) <= 0
     }
 
     isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') {
-        return this._value.until(toLDT(other)).toDuration().get(unit) >= 0
+        return Math.trunc(this._value.diff(toLDT(other)).get(unit)) >= 0
     }
 
     isUnknown() { return this._value === DateTime.unknown._value }
@@ -81,19 +83,20 @@ export default class DateTime {
 }
 
 function toLDT(dateThing: DateTimeInputs):LDT {
-    console.log(dateThing, DateTime)
-    if (dateThing instanceof DateTime) {
+    if (isDate(dateThing)){
+        return LDT.fromJSDate(dateThing)
+    } else if (dateThing instanceof DateTime) {
         return dateThing._value // n.b. we're copying _value which should be safe since it's never mutated
     } else if (isString(dateThing)) {
         return LDT.fromISO(dateThing)
     } else if (isNumber(dateThing)) {
         return LDT.fromMillis(dateThing)
-    } else if (isDate(dateThing)){
-        return LDT.fromJSDate(dateThing)
     } else if (LDT.isDateTime(dateThing)) {
         return dateThing
+    } else if (moment.isMoment(dateThing)) {
+        return LDT.fromMillis((dateThing as any).millisecond())
     } else {
-        throw `attempted to hydrate unknown type ${dateThing}`
+        throw `attempted to hydrate unknown date type ${typeof dateThing} (${dateThing})`
     }
 }
 
@@ -112,7 +115,19 @@ export class Interval {
         this.start = new DateTime(start)
         this.end = new DateTime(end)
     }
+    get asLuxon() { return LDTInterval.fromDateTimes(this.start._value, this.end._value) }
+
     length(unit: DurationUnit = 'seconds') {
-        return LDTInterval.fromDateTimes(this.start._value, this.end._value).length(unit)
+        return this.asLuxon.length(unit)
+    }
+
+    get humanized() {
+
+        const { days, hours, minutes } = this.asLuxon.toDuration(['days', 'hours', 'minutes'])
+        let str: string[] = []
+        if (days)  str.push(pluralize('day', days, true))
+        if (hours) str.push(pluralize('hour', hours, true))
+        if (minutes) str.push(pluralize('minute', minutes, true))
+        return str.join(' ')
     }
 }

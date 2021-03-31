@@ -51,16 +51,16 @@ export default class ReferenceBookNode extends BaseModel {
     @field cnx_id = '';
     @field short_id = '';
     @field uuid = '';
-    @field(ChapterSection) chapter_section = new ChapterSection();
+    @field(ChapterSection) chapter_section = ChapterSection.blank
 
     @observable chapter = '';
 
     @field content_html = '';
 
-    @model(Node) children: Node[] = extendedArray<Node>({
-        get assignable() { return false } //filter(this, 'isAssignable'); },
-        get first() { return this.length ? this[0] : null; },
-    })
+    @model(ReferenceBookNode) children = extendedArray((a: ReferenceBookNode[]) =>({
+        get assignable() { return filter(a, 'isAssignable'); },
+        get first() { return a.length ? a[0] : null; },
+    }))
 
     constructor() {
         super();
@@ -109,7 +109,7 @@ export default class ReferenceBookNode extends BaseModel {
 
     @action fetchExercises() {}
 
-    @override async ensureLoaded() {
+    @override async ensureLoaded(): Promise<void> {
         if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) {
             this.fetchContent();
         }

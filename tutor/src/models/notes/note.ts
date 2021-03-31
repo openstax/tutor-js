@@ -1,95 +1,84 @@
 import { isString, get, pick, extend } from 'lodash';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
+import { intercept, runInAction, toJS } from 'mobx'
+import Api from '../../api'
 import {
-  BaseModel,
-  field,
-  computed,
-  action,
-  toJS,
-  intercept,
-  observable,
-  model,
-  modelize,
-  NEW_ID,
+    BaseModel,
+    field,
+    computed,
+    action,
+    model,
+    modelize,
+    NEW_ID,
+    ID,
 } from 'shared/model';
 import DateTime from 'shared/model/date-time';
+import type { PageNotes } from '../notes'
 
 export default class Note extends BaseModel {
 
-  static MAX_TEXT_LENGTH = 500;
-  @field id = NEW_ID;
-  @field annotation = '';
-  @field anchor;
-  @field course_id;
-  @field contents: any = {};
-  @field page_id;
-  @model(ChapterSection) chapter_section;
-  @model(DateTime) created_at = DateTime.unknown;
-  @model(DateTime) updated_at = DateTime.unknown;
+    static MAX_TEXT_LEN = 500
 
-  constructor(attrs = {}, page) {
-      super(attrs);
-      modelize(this);
-      this.page = page;
-      intercept(this, 'annotation', this.validateTextLength);
-  }
+    @field id = NEW_ID;
+    @field annotation = '';
+    @field anchor = '';
+    @field course_id: ID = NEW_ID;
+    @field contents: any = {};
+    @field page_id: ID = NEW_ID;
+    @model(ChapterSection) chapter_section?: ChapterSection;
+    @model(DateTime) created_at = DateTime.unknown;
+    @model(DateTime) updated_at = DateTime.unknown;
 
-  @computed get highlight() {
-      return new SerializedHighlight(
-          extend(toJS(this.contents), pick(this, 'id')),
-      );
-  }
+    page!: PageNotes
 
-  get course() {
-      return this.page.notes.course;
-  }
+    constructor() {
+        super();
+        modelize(this);
+        intercept(this, 'annotation', this.validateTextLength);
+    }
 
-  get siblings() {
-      return this.page.notes.forPageId(this.page_id);
-  }
+    @computed get highlight() {
+        return new SerializedHighlight(
+            extend(toJS(this.contents), pick(this, 'id')),
+        );
+    }
 
-  get pageTopPosition() {
-      return get(this, 'contents.rect.top', 0);
-  }
+    get course() {
+        return this.page?.notes.course;
+    }
 
-  validateTextLength(change) {
-      if (isString(change.newValue) && change.newValue.length > Note.MAX_TEXT_LEN) {
-          change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
-      }
-      return change;
-  }
+    get pageTopPosition():number {
+        return get(this, 'contents.rect.top', 0);
+    }
 
-  @computed get content() {
-      return this.contents.content;
-  }
+    validateTextLength(change: any) {
+        if (isString(change.newValue) && change.newValue.length > Note.MAX_TEXT_LEN) {
+            change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
+        }
+        return change;
+    }
 
-  @action save() {
-      return extend(this.urlParams, {
-          data: {
-              course_id: this.course.id,
-              ...pick(this, 'id', 'anchor', 'contents', 'annotation'),
-          },
-      });
-  }
+    @computed get content() {
+        return this.contents.content;
+    }
 
-  @action destroy() {
-      return this.urlParams;
-  }
+    async save() {
+        const update = await this.api.request(
+            this.isNew ? Api.createNote({ pageUUID: this.page.uuid }) : Api.saveNote({ noteId: this.id }),
+            { course_id: this.course.id, ...pick(this, 'id', 'anchor', 'contents', 'annotation') },
+        )
+        this.onUpdated(update)
+    }
 
-  onUpdated({ data }) {
-      this.update(data);
-      this.page.set(this.id, this);
-  }
+    async destroy() {
+        await this.api.request(Api.deleteNote({ noteId: this.id }))
+        runInAction(() => this.page.onNoteDeleted(this))
+    }
 
-  onDeleted() {
-      this.page.onNoteDeleted(this);
-  }
-
-  @computed get urlParams() {
-      return {
-          pageUuid: this.page.uuid,
-      };
-  }
+    @action onUpdated(data: any) {
+        this.update(data);
+        this.page.set(this.id, this);
+    }
 
 }

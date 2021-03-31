@@ -1,4 +1,4 @@
-import lazyGetter from 'shared/helpers/lazy-getter';
+import { lazyGetter } from 'shared/model';
 import Search from './models/search';
 
 export default class ExerciseUX {

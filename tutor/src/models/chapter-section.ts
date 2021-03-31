@@ -1,9 +1,11 @@
 import { BaseModel, modelize, observable } from 'shared/model';
 import { isArray, reduceRight } from 'lodash';
 import { computed } from 'mobx';
-
+import { readonly } from 'core-decorators'
 
 export default class ChapterSection extends BaseModel {
+
+    @readonly static blank = new ChapterSection()
 
     constructor(arg: [number, number] | string = '') {
         super();

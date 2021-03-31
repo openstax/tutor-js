@@ -167,3 +167,117 @@ export interface GradingTemplateObj {
     name: string
     task_plan_type: 'reading' | 'homework'
 }
+
+export interface HighlightedPageObj {
+    chapter_section: number[]
+    id: number
+    title: string
+    uuid: string
+}
+
+export interface ReferenceBookNodeObj {
+    chapter_section: number[]
+    children: ReferenceBookNodeObj[]
+    cnx_id: string
+    type: 'unit' | 'chapter' | 'page'
+    uuid: string
+}
+
+export interface ReferenceBookObj {
+    id: ID
+    title: string
+    cnx_id: string
+    type: 'book'
+    uuid: string
+    short_id: string
+    version: string
+    is_collated: boolean
+    archive_url: string
+    webview_url: string
+    baked_at: string
+    chapter_section: number[]
+    children: ReferenceBookNodeObj
+}
+
+export interface ReferenceBookPageObj {
+    chapter_section: number[]
+    content_html: string
+    spy: Record<string, any>
+    title: string
+}
+
+// keep enums in sync with app/models/openstax/accounts/account.rb in accounts-rails gem
+export type FacultyStatus = 'no_faculty_info' | 'pending_faculty' | 'confirmed_faculty' | 'rejected_faculty' | 'no_faculty_info'
+export type SelfReportedRoles = 'unknown_role' | 'student' | 'instructor' | 'administrator' | 'librarian' | 'designer' | 'adjunct' | 'homeschool'
+
+export interface ExercisePersonObj {
+    user_id: ID
+    name: string
+}
+
+export interface ExerciseAnswerObj {
+    id: ID
+    content_html: string
+    correctness: string
+    feedback_html: string
+}
+
+export interface ExerciseTagObj {
+    id: ID
+    type: string
+    is_visible: boolean
+    data: string
+}
+
+export interface ExerciseQuestionObj {
+    id: ID
+    is_answer_order_important: boolean
+    stimulus_html: string
+    stem_html: string
+    answers: ExerciseAnswerObj[]
+    hints: any[]
+    formats: string[]
+    combo_choices: any[]
+    collaborator_solutions: any[]
+}
+
+export interface ExerciseObj {
+    tags: string[]
+    uuid: string
+    group_uuid: string
+    number: ID
+    version: Number
+    uid: string
+    published_at: string
+    authors: ExercisePersonObj[]
+    copyright_holders: ExercisePersonObj[]
+    derived_from: any[]
+    is_vocab: boolean
+    stimulus_html: string
+    questions: ExerciseQuestionObj[]
+    versions: number[]
+    attachments: any[]
+    delegations: any[]
+
+}
+
+export interface TutorExerciseObj {
+    id: ID
+    url: string
+    content: ExerciseObj
+    images: any[]
+    tags: ExerciseTagObj[]
+    pool_types: string[]
+    is_excluded: boolean
+    has_interactive: boolean
+    has_video: boolean
+    page_uuid: string
+    author: ExercisePersonObj
+    is_copyable: boolean
+}
+
+export interface TaskPlanExtensionObj {
+    role_id: ID
+    due_at: string
+    closes_at: string
+}

@@ -33,8 +33,8 @@ export default class CourseRole extends BaseModel {
         return this.type == 'teacher';
     }
 
-    joinedAgo(terms:DurationUnit = 'days') {
-        return this.joined_at.distanceToNow(terms);
+    joinedAgo(terms: DurationUnit = 'days') {
+        return this.joined_at.distanceToNow(terms) * -1;
     }
 
     @action async become({ reset = true } = {}) {

@@ -1,7 +1,7 @@
 const { Factory, reference } = require('./helpers');
-require('./course.js')
-require('./user.js')
-require('./offering.js')
+require('./course')
+require('./user')
+require('./offering')
 
 Factory.define('BootstrapData')
     .accounts_api_url('http://localhost:8111/api')

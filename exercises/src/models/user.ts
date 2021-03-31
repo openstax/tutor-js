@@ -1,4 +1,4 @@
-import { BaseModel, field, ID, model, modelize, observable, ID, NEW_ID } from 'shared/model';
+import { BaseModel, field,  modelize, ID, NEW_ID } from 'shared/model';
 
 class User extends BaseModel {
 

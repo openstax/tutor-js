@@ -69,7 +69,7 @@ export default class Course extends BaseModel {
 
     @field term = '';
     @field webview_url = '';
-    @field year = '';
+    @field year = 0;
 
     @field homework_score_weight = 0;
     @field homework_progress_weight = 0;
@@ -93,16 +93,16 @@ export default class Course extends BaseModel {
     @lazyGetter get studentTaskPlans() { return hydrateModel(StudentTaskPlans, {} , this) }
     @lazyGetter get practiceQuestions() { return hydrateModel(PracticeQuestions, {}, this) }
 
-    @model(Period) periods = extendedArray<Period>((a) => ({
-        get archived() { return PH.sort(filter(a, period => !period.is_archived)) },
-        get active() { return PH.sort(filter(a, 'isActive')) },
+    @model(Period) periods = extendedArray((a: Period[]) => ({
+        get sorted() { return PH.sort(a) },
+        get archived() { return filter(this.sorted, period => !period.is_archived) },
+        get active() { return filter(this.sorted, 'isActive') },
     }))
 
-
-    @model(Role) roles = extendedArray<Role>((a) => ({
-        get student() { return find(a, { isStudent: true }); },
-        get teacher() { return find(a, { isTeacher: true }); },
-        get teacherStudent() { return find(a, { isTeacherStudent: true }); },
+    @model(Role) roles = extendedArray((roles: Role[]) => ({
+        get student() { return find(roles, { isStudent: true }); },
+        get teacher() { return find(roles, { isTeacher: true }); },
+        get teacherStudent() { return find(roles, { isTeacherStudent: true }); },
     }))
 
     @model(Student) students: Student[] = [];
@@ -225,8 +225,7 @@ export default class Course extends BaseModel {
 
     // bind to this so it can be used in disabledDate check
     isInvalidAssignmentDate = (date: DateTime) => {
-        return date < moment(this.starts_at).endOf('day') ||
-            date > moment(this.ends_at).endOf('day');
+        return date.isBefore(this.starts_at.startOf('day')) || date.isAfter(this.ends_at.endOf('day'))
     }
 
     @computed get hasStarted() {
@@ -292,7 +291,7 @@ export default class Course extends BaseModel {
         return tags;
     }
 
-    isBeforeTerm(term: string, year: string) {
+    isBeforeTerm(term: string, year: number) {
         if (this.year === year) {
             return Boolean(
                 Offering.possibleTerms.indexOf(this.term) < Offering.possibleTerms.indexOf(term)
