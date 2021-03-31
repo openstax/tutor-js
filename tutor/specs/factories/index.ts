@@ -1,6 +1,6 @@
 import FactoryBot from 'object-factory-bot';
 import { range } from 'lodash';
-import { hydrate } from 'shared/model'
+import { hydrateModel } from 'shared/model'
 import '../../../shared/specs/factories';
 import faker from 'faker';
 import Course from '../../src/models/course';
@@ -142,7 +142,7 @@ const Factories = {
     offeringsMap: ({ count = 4 }: { count?: number } = {}): OfferingsMap => {
         const map = new OfferingsMap();
         range(count).map(() => {
-            const o = hydrate(Offering, FactoryBot.create('Offering', {}))
+            const o = hydrateModel(Offering, FactoryBot.create('Offering', {}))
             map.set(o.id, o)
         })
         return map;

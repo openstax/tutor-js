@@ -6,20 +6,64 @@ interface CourseId { courseId: ID }
 interface PeriodId { periodId: ID }
 interface StudentId { studentId: ID }
 interface BookId { bookId: ID }
+interface StepId { stepId: ID }
+interface TaskId { taskId: ID }
+interface ExerciseNumber { courseId: ID, exerciseNumber: string }
+interface EcosystemIdAction { ecosystemId: ID, action: string }
+interface GradingTemplateId { templateId: ID }
 
 const Api = {
 
-    getCourse:          r<CourseId>('GET', 'courses/{courseId}'),
-    updateCourse:       r<CourseId>('POST', 'courses/{courseId}'),
-    updateCoursePeriod: r<PeriodId>('POST', 'period/{periodId}'),
+    getCourse:             r<CourseId>('GET', 'courses/{courseId}'),
+    updateCourse:          r<CourseId>('POST', 'courses/{courseId}'),
+    updateCoursePeriod:    r<PeriodId>('POST', 'period/{periodId}'),
 
-    saveOwnStudentId:   r<StudentId>('POST', 'students{studentId}'),
-    saveStudentId:      r<CourseId>('POST', 'user/courses/{courseId}/student'),
-    updateStudent:      r<StudentId>('POST', 'students{studentId}'),
-    dropStudent:        r<StudentId>('DELETE', 'students/{studentId}'),
-    unDropStudent:      r<StudentId>('POST', 'students/{studentId}/undrop'),
+    saveOwnStudentId:      r<StudentId>('POST', 'students{studentId}'),
+    saveStudentId:         r<CourseId>('POST', 'user/courses/{courseId}/student'),
+    updateStudent:         r<StudentId>('POST', 'students{studentId}'),
+    dropStudent:           r<StudentId>('DELETE', 'students/{studentId}'),
+    unDropStudent:         r<StudentId>('POST', 'students/{studentId}/undrop'),
 
-    fetchReferenceBook: r<BookId>('POST', 'ecosystems/{bookId}/readings'),
+    fetchReferenceBook:    r<BookId>('POST', 'ecosystems/{bookId}/readings'),
+
+    fetchCourseRoster:     r<CourseId>('GET', 'courses/{courseId}/roster'),
+
+    fetchCourseLMS:        r<CourseId>('GET', 'lms/courses/{courseId}'),
+
+    practiceWorstTasks:    r<CourseId>('GET', 'courses/{courseId}/practice/worst'),
+    practiceSavedTasks:    r<CourseId>('GET', 'courses/{courseId}/practice/saved'),
+
+    fetchStudentTaskStep:  r<StepId>('GET', 'steps/{stepId}'),
+    saveStudentTaskStep:   r<StepId>('POST', 'steps/{stepId}'),
+
+    fetchStudentTask:      r<TaskId>('GET', 'tasks/{taskId}'),
+    saveStudentTask:       r<TaskId>('PUT', 'tasks/{taskId}'),
+
+    createExercise:        r<CourseId>('POST', 'courses/{courseId}/exercises'),
+    deleteExercise:        r<ExerciseNumber>('DELETE', 'courses/{courseId}/exercises/{exerciseNumber}'),
+
+    fetchExercises:        r<EcosystemIdAction>('GET', 'ecosystems/{ecosystem_id}/{action}'),
+    fetchLimitedExercises: r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystem_id}/{action}/{limit}'),
+
+    fetchCourse:           r<CourseId>('GET', 'course/{courseId}'),
+    saveCourse:            r<CourseId>('PUT', 'course/{courseId}'),
+    createCourse:          r('POST', 'course'),
+    saveExerciseExclusion: r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
+
+    fetchCourses:          r('GET', 'courses'),
+
+//     connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
+//     connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
+//     connectModelUpdate(Course,
+//         'saveExerciseExclusion', { method: 'PUT', pattern: , onSuccess: 'onExerciseExcluded' }
+//     );
+
+    fetchGradingTemplates: r<CourseId>('GET','courses/{courseId}/grading_templates'),
+    createGradingTemplate: r<CourseId>('POST', 'courses/{courseId}/grading_templates'),
+    saveGradingTemplate:   r<GradingTemplateId>('PUT', 'grading_templates/{id}'),
+    deleteGradingTemplate: r<GradingTemplateId>('DELETE', 'grading_templates/{id}'),
+
+
 }
 
 export default Api
@@ -90,7 +134,6 @@ export default Api
 //     );
 //     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
 
-//     connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
 
 //     connectModelUpdate(TeacherTaskGrade, 'save', {
 //         method: 'PUT', pattern: 'steps/{task_step_id}/grade', onSuccess: 'onGraded',
@@ -122,9 +165,6 @@ export default Api
 //         },
 //     );
 
-//     connectModelCreate(StudentTasks, 'practice', {
-//         pattern: 'courses/{courseId}/practice',
-//     });
 
 //     connectModelRead(PracticeQuestions, 'fetch', {
 //         pattern: 'courses/{courseId}/practice_questions',
@@ -144,48 +184,16 @@ export default Api
 //         onSuccess: 'onDestroyed',
 //     });
 
-//     connectModelRead(StudentTask, 'fetch', {
-//         onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
-//         query() { return { course_id: this.course.id }; },
-//     });
-//     connectModelUpdate(StudentTask, 'exit', {
-//         method: 'PUT',
-//         pattern: 'courses/{courseId}/practice/{id}/exit',
-//         query() { return { courseId: this.course.id }; },
-//     });
-//     connectModelUpdate(StudentTaskStep, 'save', {
-//         onSuccess: 'onAnswerSaved', onFail: 'setApiErrors', pattern: 'steps/{id}',
-//         query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
-//     });
-
-//     connectModelRead(StudentTaskStep, 'fetch', {
-//         onSuccess: 'onLoaded', onFail: 'setApiErrors', pattern: 'steps/{id}',
-//         query() { return { task_id: this.task.id, course_id: this.task.course.id }; },
-//     });
-
 //     connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard' });
 //     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
-//     connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
-//     connectModelUpdate(Course,
-//         'saveExerciseExclusion', { method: 'PUT', pattern: 'courses/{id}/exercises/exclude', onSuccess: 'onExerciseExcluded' }
-//     );
 
-//     connectModelCreate(Exercises.constructor,
-//         'createExercise', { pattern: 'courses/{courseId}/exercises', onSuccess: 'onExerciseCreated' }
-//     );
 
-//     connectModelDelete(Exercises.constructor,
-//         'deleteExercise', { pattern: 'courses/{courseId}/exercises/{exerciseNumber}', onSuccess: 'onExerciseDeleted' }
-//     );
-
-//     connectModelRead(CourseLMS, 'fetch', { pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete' });
 
 //     connectModelUpdate(CoursePairLMS, 'save', { method: 'POST', pattern: 'lms/courses/{course.id}/pair', onSuccess: 'onPaired' });
 
 //     connectModelUpdate(LmsPushScores, 'start', { method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted' });
 
-//     connectModelRead(CourseRoster, 'fetch', { pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete' });
 
 //     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 
@@ -230,25 +238,8 @@ export default Api
 
 //     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
 
-//     connectModelRead(GradingTemplates, 'fetch', {
-//         onSuccess: 'onLoaded',
-//         pattern: 'courses/{courseId}/grading_templates',
-//     });
 
 
-//     connectModelRead(GradingTemplate, 'save', {
-//         onSuccess: 'onSaved',
-//         method() { return this.isNew ? 'POST' : 'PUT'; },
-//         pattern() {
-//             return this.isNew ?
-//                 'courses/{courseId}/grading_templates' : 'grading_templates/{id}';
-//         },
-//     });
-
-//     connectModelDelete(GradingTemplate, 'remove', {
-//         pattern: 'grading_templates/{id}',
-//         onSuccess: 'onRemoved',
-//     });
 
 //     connectModelCreate(
 //         User.constructor,
@@ -285,5 +276,4 @@ export default Api
 //     });
 
 //     connectRead(ReferenceBookExerciseActions, { url(url) { return url; } });
-//     connectModelRead(Exercises.constructor, 'fetch', { onSuccess: 'onLoaded' });
 //     connectModelRead(Ecosystems.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'ecosystems' });

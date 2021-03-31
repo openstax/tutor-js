@@ -1,5 +1,5 @@
 import Map from 'shared/model/map';
-import { action, ID, hydrate } from 'shared/model';
+import { action, ID, hydrateModel, hydrateInstance } from 'shared/model';
 import { sortBy, last, get } from 'lodash';
 import Exercise from './exercises/exercise';
 import Api  from '../api'
@@ -58,8 +58,7 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
             exercise.published_at = data.published_at;
             existing = exercise;
         }
-        // console.log(data, hydrate(Exercise, data).tags)
-        existing ? existing.update(data) : versions.set(version, exercise || hydrate(Exercise, data));
+        existing ? hydrateInstance(existing, data) : versions.set(version, exercise || hydrateModel(Exercise, data));
     }
 
     async ensureLoaded(numberWithVersion: string): Promise<any> {

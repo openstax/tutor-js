@@ -1,13 +1,13 @@
 import Exercise from '../../../src/models/exercises/exercise';
 import User from '../../../src/models/user';
-import { hydrate, NEW_ID } from 'shared/model';
+import { hydrateModel, NEW_ID } from 'shared/model';
 
 jest.mock('../../../src/models/user');
 
 describe('Exercises model', () => {
 
     it('calculates read-only status', () => {
-        const ex = hydrate(Exercise, {
+        const ex = hydrateModel(Exercise, {
             tags: [ 'assignment-type:reading', 'requires-context:true' ],
             authors: [ { user_id: 1, name: 'Auron' } ],
             copyright_holders: [ { user_id: 2, name: 'Cory' } ],

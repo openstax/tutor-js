@@ -2075,6 +2075,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/big.js@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@types/big.js/-/big.js-6.0.2.tgz#a86938c1bb4511e69d91f69823cacc3f48ff1fa3"
+  integrity sha512-7NdmOT3zjtghMofDwP1nAJCJWVjc/96V5msXRAZ4lPrvpGlajA95VQec7OXwA2wQaVmhjt+F5ko8pjvQU1tTFA==
+
 "@types/classnames@^2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.11.tgz#2521cc86f69d15c5b90664e4829d84566052c1cf"
@@ -2312,6 +2317,11 @@
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
     csstype "^3.0.2"
+
+"@types/validator@^13.1.3":
+  version "13.1.3"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.1.3.tgz#366b394aa3fbeed2392bf0a20ded606fa4a3d35e"
+  integrity sha512-DaOWN1zf7j+8nHhqXhIgNmS+ltAC53NXqGxYuBhWqWgqolRhddKzfZU814lkHQSTG0IUfQxU7Cg0gb8fFWo2mA==
 
 "@types/wait-on@^5.2.0":
   version "5.2.0"
@@ -10933,10 +10943,10 @@ mockdate@^2.0.5:
   resolved "https://registry.yarnpkg.com/mockdate/-/mockdate-2.0.5.tgz#70c6abf9ed4b2dae65c81dfc170dd1a5cec53620"
   integrity sha512-ST0PnThzWKcgSLyc+ugLVql45PvESt3Ul/wrdV/OPc/6Pr8dbLAIJsN1cIp41FLzbN+srVTNIRn+5Cju0nyV6A==
 
-modeled-mobx@0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.3.6.tgz#baff203de98b9571a8605846d09d2dde168e828b"
-  integrity sha512-BKIbhaQZeRAUV6qq3n6EykCXXwl6FhNKY2LdpTjrCelygRTHO6RBBt1vAfN9Jsk96RK/D+CcX/j6CR2wnghQ3A==
+modeled-mobx@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.4.0.tgz#efc6084868c38f35b557ad811ccb9dc224de4571"
+  integrity sha512-pLOL40U+MJDsV/Mg1VVplTqIc9dCQ2kvWQXPyhzkR+d21UKKE0wYnUCorqjz6sYl0bI2D0jl7CCrqeTzqthpvw==
   dependencies:
     mobx "^6.1"
 

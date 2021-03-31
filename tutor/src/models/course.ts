@@ -1,8 +1,9 @@
-import { BaseModel, field, model, modelize, computed, action, NEW_ID } from 'shared/model';
+import { BaseModel, field, lazyGetter, model, modelize, computed, action, NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction } from 'shared/model';
 import {
-    sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick, isEmpty,
+    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter,
 } from 'lodash';
-import lazyGetter from 'shared/helpers/lazy-getter';
+import Api from '../api'
+import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import Offerings, { Offering } from './course/offerings';
 import Period  from './course/period';
@@ -10,23 +11,22 @@ import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
-import TeacherProfiles from './course/teacher-profiles';
 import Scores from './scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
-import TimeHelper from '../helpers/time';
-import Time from './time';
-import { getters } from '../helpers/computed-property';
-import moment from 'moment-timezone';
+import { TeacherProfile } from './course/teacher-profile'
 import { StudentTasks } from './student-tasks';
 import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
 import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
+import DateTime from 'shared/model/date-time'
 import { GradingTemplates } from './grading/templates';
 import { PracticeQuestions } from './practice-questions';
 import ReferenceBook from './reference-book';
 import Flags from './feature_flags';
+import { CourseObj } from './types';
+import Exercise from './exercises/exercise'
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -39,82 +39,92 @@ export default class Course extends BaseModel {
 
     @field id = NEW_ID;
 
-    @field name;
-    @field code;
-    @field is_lms_enabled;
+    @field name = '';
+    @field code = '';
+    @field is_lms_enabled = false;
 
     @field appearance_code = '';
-    @field uuid;
-    @field does_cost;
-    @field book_pdf_url;
-    @field cloned_from_id;
-    @field default_due_time;
-    @field default_open_time;
-    @field ecosystem_book_uuid;
-    @field ecosystem_id;
-    @field teacher_profiles;
+    @field uuid = '';
+    @field does_cost = false;
+    @field book_pdf_url = '';
+    @field cloned_from_id = NEW_ID;
+    @field default_due_time = '';
+    @field default_open_time = '';
+    @field ecosystem_book_uuid = '';
+    @field ecosystem_id = NEW_ID;
+    @model(TeacherProfile) teacher_profiles:TeacherProfile[] = [];
 
-    @field is_active;
-    @field is_college;
-    @field is_concept_coach;
-    @field is_preview;
+    @field is_active = false;
+    @field is_college = false;
+    @field is_concept_coach = false;
+    @field is_preview = false;
     @field timezone = 'US/Central';
-    @field offering_id;
+    @field offering_id = NEW_ID;
     @field is_lms_enabling_allowed = false;
     @field is_access_switchable = true;
-    @field salesforce_book_name;
-    @field current_role_id;
-    @field starts_at;
-    @field ends_at;
+    @field salesforce_book_name = '';
+    @field current_role_id = NEW_ID;
+    @model(DateTime) starts_at = DateTime.unknown;
+    @model(DateTime) ends_at = DateTime.unknown;
 
-    @field term;
-    @field webview_url;
-    @field year;
+    @field term = '';
+    @field webview_url = '';
+    @field year = '';
 
-    @field homework_score_weight;
-    @field homework_progress_weight;
-    @field reading_score_weight;
-    @field reading_progress_weight;
-    @field reading_weight;
-    @field homework_weight;
+    @field homework_score_weight = 0;
+    @field homework_progress_weight = 0;
+    @field reading_score_weight = 0;
+    @field reading_progress_weight = 0;
+    @field reading_weight = 0;
+    @field homework_weight = 0;
     @field just_created = false;
     @field uses_pre_wrm_scores = false;
     @field should_reuse_preview = false;
 
-    @lazyGetter lms = new LMS({ course: this });
-    @lazyGetter roster = new Roster({ course: this });
-    @lazyGetter scores = new Scores({ course: this });
-    @lazyGetter notes = new Notes({ course: this });
-    @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
-    @lazyGetter studentTaskPlans = new StudentTaskPlans({ course: this });
-    @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
-    @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
-    @lazyGetter studentTasks = new StudentTasks({ course: this });
-    @lazyGetter gradingTemplates = new GradingTemplates({ course: this });
-    @lazyGetter practiceQuestions = new PracticeQuestions({ course: this });
+    @lazyGetter get lms() { return hydrateModel(LMS, {}, this) }
+    @lazyGetter get notes() { return hydrateModel(Notes, {}, this) }
+    @lazyGetter get roster() { return hydrateModel(Roster, {}, this) }
+    @lazyGetter get scores() { return hydrateModel(Scores, {}, this) }
+    @lazyGetter get studentTasks() { return hydrateModel(StudentTasks, {}, this) }
+    @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.ecosystem_id }, this) }
+    @lazyGetter get pastTaskPlans() { return hydrateModel(PastTaskPlans, {}, this) }
+    @lazyGetter get teacherTaskPlans() { return hydrateModel(TeacherTaskPlans, {}, this) }
+    @lazyGetter get gradingTemplates() { return hydrateModel(GradingTemplates, {}, this) }
+    @lazyGetter get studentTaskPlans() { return hydrateModel(StudentTaskPlans, {} , this) }
+    @lazyGetter get practiceQuestions() { return hydrateModel(PracticeQuestions, {}, this) }
 
-    @model(Period) periods = []; /* extend: getters({
-        sorted() { return PH.sort(this.active);                        },
-        archived() { return filter(this, period => !period.is_archived); },
-        active() { return filter(this, 'isActive'); },
-    }) */
+    @model(Period) periods = extendedArray<Period>((a) => ({
+        get archived() { return PH.sort(filter(a, period => !period.is_archived)) },
+        get active() { return PH.sort(filter(a, 'isActive')) },
+    }))
 
-    @model(Role) roles = []; /* extend: getters({
-        student() { return find(this, { isStudent: true }); },
-        teacher() { return find(this, { isTeacher: true }); },
-        teacherStudent() { return find(this, { isTeacherStudent: true }); },
-    }) */
-    @model(Student) students = [];
-    @model(TeacherProfiles) teacher_profiles = [];
 
-    constructor(attrs, map) {
-        super(attrs);
+    @model(Role) roles = extendedArray<Role>((a) => ({
+        get student() { return find(a, { isStudent: true }); },
+        get teacher() { return find(a, { isTeacher: true }); },
+        get teacherStudent() { return find(a, { isTeacherStudent: true }); },
+    }))
+
+    @model(Student) students: Student[] = [];
+
+    get otherCourses():CoursesMap { return getParentOf(this) }
+
+    constructor() {
+        super()
         modelize(this);
-        this.map = map;
+    }
+
+    @computed get defaultTimes() {
+        const opens = this.default_open_time.split(':').map(Number)
+        const due = this.default_due_time.split(':').map(Number)
+        return {
+            due: { hour: due[0], minute: due[1] },
+            opens: { hour: opens[0], minute: opens[1] },
+        }
     }
 
     @computed get sortKey() {
-        return this.primaryRole.joined_at;
+        return this.primaryRole?.joined_at || DateTime.unknown;
     }
 
     @computed get offering() {
@@ -139,7 +149,7 @@ export default class Course extends BaseModel {
 
     @computed get currentRole() {
         if (this.current_role_id) {
-            return find(this.roles, { id: this.current_role_id });
+            return find(this.roles, { id: this.current_role_id }) as Role;
         }
         return this.primaryRole;
     }
@@ -197,34 +207,34 @@ export default class Course extends BaseModel {
 
     @computed get bounds() {
         return {
-            start: TimeHelper.getMomentPreserveDate(this.starts_at, TimeHelper.ISO_DATE_FORMAT),
-            end: TimeHelper.getMomentPreserveDate(this.ends_at, TimeHelper.ISO_DATE_FORMAT),
+            start: this.dateTimeInZone(this.starts_at).startOf('day'),
+            end: this.dateTimeInZone(this.ends_at).endOf('day'),
         };
     }
 
     @computed get hasEnded() {
-        return moment(this.ends_at).isBefore(Time.now);
+        return this.ends_at.isInPast
     }
 
     @computed get allowedAssignmentDateRange() {
         return {
-            start: this.momentInZone(this.starts_at).add(1, 'day').endOf('day'),
-            end: this.momentInZone(this.ends_at).subtract(1, 'day').startOf('day'),
+            start: this.starts_at.plus({ day: 1 }).endOf('day'),
+            end: this.ends_at.minus({ day: 1 }).startOf('day'),
         };
     }
 
     // bind to this so it can be used in disabledDate check
-    isInvalidAssignmentDate = (date) => {
+    isInvalidAssignmentDate = (date: DateTime) => {
         return date < moment(this.starts_at).endOf('day') ||
             date > moment(this.ends_at).endOf('day');
     }
 
     @computed get hasStarted() {
-        return moment(this.starts_at).isBefore(Time.now);
+        return this.starts_at.isInPast
     }
 
     @computed get isFuture() {
-        return moment(this.starts_at).isAfter(Time.now);
+        return this.starts_at.isInFuture
     }
 
     @computed get isActive() {
@@ -236,7 +246,7 @@ export default class Course extends BaseModel {
             !this.is_preview &&
                 !this.is_lms_enabled &&
                 (this.just_created || this.dashboardViewCount <= 1) &&
-                this.map && this.map.nonPreview.previouslyCreated.any &&
+                this.otherCourses && this.otherCourses.nonPreview.previouslyCreated.any &&
                 (this.isActive || this.isFuture)
         );
     }
@@ -255,12 +265,12 @@ export default class Course extends BaseModel {
         return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
     }
 
-    momentInZone(date) {
-        return moment.tz(date, this.timezone);
+    dateTimeInZone(date:DateTime = DateTime.now) {
+        return date.inZone(this.timezone);
     }
 
     @computed get tourAudienceTags() {
-        let tags = [];
+        let tags: string[] = [];
         if (!Flags.tours){ return tags; }
 
         if (this.currentRole.isTeacher) {
@@ -282,7 +292,7 @@ export default class Course extends BaseModel {
         return tags;
     }
 
-    isBeforeTerm(term, year) {
+    isBeforeTerm(term: string, year: string) {
         if (this.year === year) {
             return Boolean(
                 Offering.possibleTerms.indexOf(this.term) < Offering.possibleTerms.indexOf(term)
@@ -300,7 +310,7 @@ export default class Course extends BaseModel {
     }
 
     @computed get primaryRole() {
-        return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
+        return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type))) as Role;
     }
 
     @computed get currentUser() {
@@ -316,16 +326,26 @@ export default class Course extends BaseModel {
     }
 
     // called by API
-    fetch() { }
-    save() {
-        return { id: this.id, data: pick(this, SAVEABLE_ATTRS) };
+    async fetch() {
+        const data = await this.api.request<CourseObj>(Api.fetchCourse({ courseId: this.id }))
+        runInAction(() => hydrateInstance(this, data))
     }
 
-    saveExerciseExclusion({ exercise, is_excluded }) {
+    async save() {
+        const data = await this.api.request<CourseObj>(
+            this.isNew ? Api.createCourse() : Api.saveCourse({ courseId: this.id }),
+            pick(this, SAVEABLE_ATTRS)
+        )
+        runInAction(() => hydrateInstance(this, data))
+    }
+
+    async saveExerciseExclusion({ exercise, is_excluded }: { exercise: Exercise, is_excluded: boolean }) {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
-        return { data: [{ id: exercise.id, is_excluded }] };
+        const data = await this.api.request(
+            Api.saveExerciseExclusion({ courseId: this.id }),
+            [{ id: exercise.id, is_excluded }]
+        )
+        runInAction(() => hydrateInstance(exercise, data, this))
     }
-    onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
-        exercise.update(exerciseAttrs);
-    }
+
 }

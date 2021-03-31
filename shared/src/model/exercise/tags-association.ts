@@ -1,5 +1,5 @@
 import { filter, find, remove } from 'lodash';
-import { model, modelize, action, hydrate } from '../../model'
+import { model, modelize, action, hydrateModel } from '../../model'
 import Tag from './tag'
 
 export default class TagsAssociation {
@@ -10,7 +10,7 @@ export default class TagsAssociation {
         modelize(this)
     }
     remove(tag: Tag){ return remove(this.all, tag) }
-    push(attrs: any) { return this.all.push(hydrate(Tag, attrs)) }
+    push(attrs: any) { return this.all.push(hydrateModel(Tag, attrs)) }
     clear() { this.all.splice(0, this.all.length) }
     get length() { return this.all.length }
 
@@ -28,7 +28,7 @@ export default class TagsAssociation {
     @action replaceType(type: string, tags: Tag[]) {
         this.removeType(type)
         tags.forEach((tag) => {
-            this.all.push(hydrate(Tag, { type: type, value: tag.value }))
+            this.all.push(hydrateModel(Tag, { type: type, value: tag.value }))
         });
     }
 
@@ -48,8 +48,8 @@ export default class TagsAssociation {
         return Boolean(find(this.all, { type, value }));
     }
 
-    hydrate(tags: any[]) {
-        this.all.splice(0, this.all.length, ...tags.map(t => hydrate(Tag, t)))
+    hydrateModel(tags: any[]) {
+        this.all.splice(0, this.all.length, ...tags.map(t => hydrateModel(Tag, t)))
     }
 }
 

@@ -1,7 +1,7 @@
 import type Exercise from '../exercise'
 import { uniq, map, remove, keys, inRange, find, reduce, isEmpty, without, every, omit } from 'lodash';
 import {
-    BaseModel, modelize, field, model, computed, action, getParentOf, hydrate, ID, NEW_ID,
+    BaseModel, modelize, field, model, computed, action, getParentOf, hydrateModel, ID, NEW_ID,
 } from '../../model';
 import Answer from './answer';
 import Solution from './solution';
@@ -130,8 +130,8 @@ class ExerciseQuestion extends BaseModel {
         if ('true-false' === name) {
             formats = without(formats, 'free-response');
             if (this.answers.length == 0) {
-                this.answers.push(hydrate(Answer, { content_html: 'True' }));
-                this.answers.push(hydrate(Answer, { content_html: 'False' }));
+                this.answers.push(hydrateModel(Answer, { content_html: 'True' }));
+                this.answers.push(hydrateModel(Answer, { content_html: 'False' }));
             }
         } else if ('multiple-choice' === name && !formats.includes('free-response')) {
             formats = formats.concat('free-response');

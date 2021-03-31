@@ -2,8 +2,8 @@ import type Book from '../reference-book'
 import { merge, pick, filter } from 'lodash';
 import {
     BaseModel, model, NEW_ID, field, observable,
-    modelize, getParentOf, hydrate, extendedArray,
-    action, computed,
+    modelize, getParentOf, hydrateModel, extendedArray,
+    action, computed, override,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
@@ -42,7 +42,7 @@ export default class ReferenceBookNode extends BaseModel {
     // a mock page for use by entities such as exercises that need to indicate
     // they are not linked to a "real" page
     // eslint-disable-next-line
-    static UNKNOWN = hydrate(ReferenceBookNode, { id: 'UNKNOWN', chapter_section: ['99','99'] })
+    static UNKNOWN = hydrateModel(ReferenceBookNode, { id: 'UNKNOWN', chapter_section: ['99','99'] })
 
     @field id = NEW_ID;
     @field title = '';
@@ -58,7 +58,7 @@ export default class ReferenceBookNode extends BaseModel {
     @field content_html = '';
 
     @model(Node) children: Node[] = extendedArray<Node>({
-        get assignable() { return filter(this, 'isAssignable'); },
+        get assignable() { return false } //filter(this, 'isAssignable'); },
         get first() { return this.length ? this[0] : null; },
     })
 
@@ -109,7 +109,7 @@ export default class ReferenceBookNode extends BaseModel {
 
     @action fetchExercises() {}
 
-    @action ensureLoaded() {
+    @override async ensureLoaded() {
         if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) {
             this.fetchContent();
         }

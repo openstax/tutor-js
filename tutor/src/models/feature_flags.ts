@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, ObservableMap } from 'mobx';
 
 export const defaultValues = {
     tours: true,
@@ -8,13 +8,13 @@ export const defaultValues = {
     teacher_student_enabled: false,
 };
 
-const FeatureFlags = observable.map(defaultValues);
+const FeatureFlags:ObservableMap<string, boolean> & { bootstrap(_v: any):void } = observable.map(defaultValues) as any
 
-FeatureFlags.bootstrap = (values) => {
+FeatureFlags.bootstrap = (values: any) => {
     FeatureFlags.merge(values);
 };
 
-const FlagsInterface = {};
+const FlagsInterface: typeof defaultValues = {} as any;
 
 FeatureFlags.forEach((_, name) => {
 

@@ -1,15 +1,15 @@
-import Map from 'shared/model/map';
-import { computed, action } from 'mobx';
+import Map, { hydrateModel } from 'shared/model/map';
+import { ID, modelize, computed, action } from 'shared/model'
 import Course from './course';
 import { isEmpty, find } from 'lodash';
+import { CourseObj } from './types'
+import Api from '../api'
 
 export { Course };
 
-export class CoursesMap extends Map {
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
-
+export class CoursesMap extends Map<ID, Course> {
+    constructor(data: Array<object> | object = {}, options = {}) {
+        super(data, options);
         modelize(this);
     }
 
@@ -19,6 +19,10 @@ export class CoursesMap extends Map {
               a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
           );
       }
+
+    where(condition: (val: Course) => boolean): CoursesMap {
+        return super.where(condition) as any as CoursesMap
+    }
 
     @computed get active() {
         return this.where(c => c.is_active);
@@ -76,35 +80,39 @@ export class CoursesMap extends Map {
         return this.where(c => c.dashboardViewCount > 0);
     }
 
-    @action addNew(courseData) {
-        const course = new Course(courseData, this);
+    @action addNew(courseData: any) {
+        const course = hydrateModel(Course, courseData, this);
         course.just_created = true;
         this.set(course.id, course);
         return course;
     }
 
-    forEcosystemId(ecosystem_id) {
+    forEcosystemId(ecosystem_id: ID) {
         return find(this.array, c => c.isActive && c.ecosystem_id == ecosystem_id ) ||
         find(this.array, c => c.ecosystem_id == ecosystem_id) ;
     }
 
-    isNameValid(name) {
+
+    isNameValid(name: string) {
         return Boolean(!isEmpty(name) && !find(this.array, { name }));
     }
 
-    bootstrap( courseData, options = {} ) {
+    bootstrap( courseData: CourseObj[], options: { clear?: boolean } = {} ) {
         if (options.clear) { this.clear(); }
-        courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
+        courseData.forEach(cd => this.set(String(cd.id), hydrateModel(Course, cd, this)));
         return this;
     }
 
-    // called by API
-    fetch() { }
+    async fetch(..._args: any[]): Promise<any> {
+        this.onLoaded(
+            await this.api.request<CourseObj[]>(Api.fetchCourses())
+        )
+    }
 
-    @action onLoaded({ data }) {
-        data.forEach((cd) => {
+    @action onLoaded(courses: CourseObj[]) {
+        courses.forEach((cd) => {
             const course = this.get(cd.id);
-            course ? course.update(cd) : this.set(cd.id, new Course(cd, this));
+            course ? course.update(cd) : this.set(cd.id, hydrateModel(Course, cd, this));
         });
     }
 }

@@ -1,24 +1,22 @@
-import { BaseModel, action, observable, computed, modelize, NEW_ID } from 'shared/model';
+import { BaseModel, action, observable, field, computed, modelize } from 'shared/model';
 import { last } from 'lodash';
 
 import invariant from 'invariant';
 
-const MAX_ATTEMPTS = 50;
+export const MAX_ATTEMPTS = 50;
 
 export default class Job extends BaseModel {
-    @field jobId = NEW_ID;
+    @field jobId: string = ''
 
-    @observable pollingId;
+    @observable pollingId: number | string = ''
     @observable attempts = 0;
     @observable interval = 5;
     @observable maxAttempts = 30;
-    @observable status;
-    @observable progress;
+    @observable status = '';
+    @observable progress = '';
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -52,22 +50,22 @@ export default class Job extends BaseModel {
         return 'unknown';
     }
 
-    startPolling(job) {
-        this.jobId = last(job.split('/'));
+    startPolling(job: string) {
+        this.jobId = last(job.split('/')) as string;
         invariant((!this.pollingId || this.pollingId === 'pending'),
             'poll already in progress, cannot start polling twice!');
         invariant(this.jobId, 'job url is not set');
         this.attempts = 0;
-        this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+        this.pollingId = window.setTimeout(this.checkForUpdate, this.interval * 1000);
     }
 
     stopPolling() {
-        clearInterval(this.pollingId);
-        this.pollingId = null;
+        clearInterval(this.pollingId as number);
+        this.pollingId = 0;
     }
 
     // overriden by child
-    onPollComplete() { }
+    onPollComplete(_data: any) { }
     onPollTimeout() {}
     onPollFailure() {}
 
@@ -79,13 +77,13 @@ export default class Job extends BaseModel {
         this.onPollFailure();
     }
 
-    onJobUpdate({ data }) {
+    onJobUpdate({ data }: any) {
         this.update(data);
         if (this.isComplete) {
             this.stopPolling();
             this.onPollComplete(data);
         } else {
-            this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
+            this.pollingId = window.setTimeout(this.checkForUpdate, this.interval * 1000);
         }
     }
 }

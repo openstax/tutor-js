@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { merge, find, isEmpty, isObject, map } from 'lodash';
-import { modelize, model, hydrate, observable } from 'shared/model';
+import { modelize, model, hydrateModel, observable } from 'shared/model';
 import Image from './image';
 import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
@@ -11,7 +11,7 @@ export default
 class Exercise extends SharedExercise {
 
     static build(attrs: any) {
-        return hydrate(Exercise, merge(attrs, {
+        return hydrateModel(Exercise, merge(attrs, {
             questions: [{
                 formats: [],
             }],

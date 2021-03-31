@@ -2,11 +2,12 @@ import { action, observable, IObservableArray } from 'mobx'
 import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
 import { modelize, serialize } from 'modeled-mobx'
-import { LazyGetter as lazyGetter } from 'lazy-get-decorator'
+import { LazyGetter } from 'lazy-get-decorator'
 import { ID } from './types'
 import { ModelApi } from './model/api'
+import Map from './model/map'
 
-export const NEW_ID = 0
+export const NEW_ID: number = 0
 
 export class BaseModel {
 
@@ -22,14 +23,14 @@ export class BaseModel {
         return serialize(this)
     }
 
-    @lazyGetter() get api() { return new ModelApi() }
+    @LazyGetter() get api() { return new ModelApi() }
 
     get isNew() {
         const id = this[(this.constructor as any).idField]
         return isEmpty(id) || id === NEW_ID
     }
 
-    @action ensureLoaded() {
+    @action async ensureLoaded(): Promise<void> {
         if (!this.api.isPending && !this.api.hasBeenFetched) {
             return this.fetch()
         }
@@ -52,7 +53,11 @@ export class BaseModel {
 
 }
 
-export { lazyGetter, modelize, readonly }
+export function lazyGetter<T>(target: Object, property: string|symbol, desc: TypedPropertyDescriptor<T>) {
+    return LazyGetter()(target, property, desc)
+}
+
+export { modelize, readonly, Map }
 export type { ID }
 
 // export decorators so they can be easily imported into model classes
@@ -68,8 +73,13 @@ export {
     flowResult,
 } from 'mobx'
 
-export function extendedArray<M, E = Record<string, any>>(extensions: E): IObservableArray<M> & E {
-    const v = observable.array<M>()
-    Object.assign(v, extensions)
-    return v as IObservableArray<M> & E
+interface ModelClass extends Function {
+    new(...args: any[]): any;
+}
+
+
+export function extendedArray<T>(fn: (a: T[]) => E): IObservableArray<T> & E {
+    const a = observable.array<T>()
+    Object.assign(a, fn(a))
+    return a as IObservableArray<T> & E
 }

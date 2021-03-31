@@ -1,6 +1,6 @@
 import { map } from 'lodash';
 import {
-    BaseModel, model, runInAction, hydrate, modelize, observable, computed, action, getParentOf,
+    BaseModel, model, runInAction, hydrateModel, modelize, observable, computed, action, getParentOf,
 } from 'shared/model';
 import Exercise from './exercises/exercise';
 import Api from '../api'
@@ -57,7 +57,7 @@ class Search extends BaseModel {
     constructor() {
         super();
         modelize(this);
-        if (!this.clauses.length) { this.clauses.push(hydrate(Clause, {}, this)) }
+        if (!this.clauses.length) { this.clauses.push(hydrateModel(Clause, {}, this)) }
     }
 
     @action.bound execute() {
@@ -105,7 +105,7 @@ class Search extends BaseModel {
 
         runInAction(() => {
             this.total_count = total_count;
-            this.exercises = items.map((ex:any) => hydrate(Exercise, ex, this));
+            this.exercises = items.map((ex:any) => hydrateModel(Exercise, ex, this));
         })
     }
 

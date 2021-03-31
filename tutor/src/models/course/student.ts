@@ -6,7 +6,6 @@ import {
   field,
   modelize,
   NEW_ID,
-  lazyGetter,
   getParentOf,
   computed,
   action,
@@ -51,10 +50,6 @@ export default class CourseStudent extends BaseModel {
         return moment.duration(moment().diff(moment(this.payment_due_at.asDate))).humanize();
     }
 
-    onSaved({ data }) {
-        this.update(data);
-    }
-
     // corresponds to how the BE sets the "prompt_student_to_pay" flag
     // We calculate it ourself so that it can change when payments is enabled/disabled
     // https://github.com/openstax/tutor-server/blob/master/app/representers/api/v1/student_representer.rb#L68-L84
@@ -89,6 +84,10 @@ export default class CourseStudent extends BaseModel {
 
     @computed get is_dropped() {
         return !this.is_active;
+    }
+
+    onSaved({ data }) {
+        this.update(data);
     }
 
     // following methods are called by api

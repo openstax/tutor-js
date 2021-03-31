@@ -72,8 +72,8 @@ export default class Map<K, V extends MapableObject> {
         return this._map.delete(this.coerceKey(key))
     }
 
-    where(condition: (val: V) => boolean): Map<K, V> { // eslint-disable-line no-unused-vars
-        const map = new (this.constructor as any)(this.chainedValues, { keyType: this.keyType })
+    where(condition: (val: V) => boolean): any { // eslint-disable-line no-unused-vars
+        const map = new (this.constructor as any)(this.chainedValues, { keyType: this.keyType }) as T
         this._map.forEach(((c: V) => {
             if (condition(c)) { map.set(c.id, c) }
         }))

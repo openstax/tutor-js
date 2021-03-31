@@ -1,14 +1,14 @@
-import { modelize } from 'shared/model';
-
-import Map from 'shared/model/map';
+import { modelize, ID } from 'shared/model';
+import type TaskPlan from '../task-plans/teacher/plan'
+//import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
 import Job from '../job';
 
-const CURRENT = new Map();
+const CURRENT = new Map<ID, TaskPlanPublish>();
 
 export default class TaskPlanPublish extends Job {
 
-    static forPlan(plan) {
+    static forPlan(plan: TaskPlan) {
         let pub = CURRENT.get(plan.id);
         if (!pub) {
             pub = new TaskPlanPublish(plan);
@@ -17,7 +17,7 @@ export default class TaskPlanPublish extends Job {
         return pub;
     }
 
-    static stopPollingForPlan(plan) {
+    static stopPollingForPlan(plan: TaskPlan) {
         const pub = CURRENT.get(plan.id);
         if (pub) {
             pub.stopListening();
@@ -25,11 +25,11 @@ export default class TaskPlanPublish extends Job {
         }
     }
 
-    static hasPlanId(id) {
+    static hasPlanId(id: ID) {
         return CURRENT.has(id);
     }
 
-    static isPublishing(plan) {
+    static isPublishing(plan: TaskPlan) {
         const pub = CURRENT.get(plan.id);
         return Boolean(pub ? pub.isPending : false);
     }
@@ -40,7 +40,7 @@ export default class TaskPlanPublish extends Job {
 
   @observable plan;
 
-  constructor(plan) {
+  constructor(plan: TaskPlan) {
       super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
       modelize(this);
       this.plan = plan;

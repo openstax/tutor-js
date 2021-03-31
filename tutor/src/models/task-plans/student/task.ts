@@ -1,8 +1,6 @@
 import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
-import moment from 'moment';
-import Time from '../../time';
-import { BaseModel, field, modelize, observable, computed, NEW_ID } from 'shared/model';
+import { BaseModel, field, modelize, observable, computed, model, NEW_ID } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 
 export default class StudentTask extends BaseModel {
@@ -10,52 +8,48 @@ export default class StudentTask extends BaseModel {
   @observable hidden = false;
 
   @field id = NEW_ID;
-  @field title;
-  @field type;
-  @field complete;
-  @field published_points; // points that are visible to the student
-  @field is_provisional_score;
-  @field is_deleted;
-  @field is_college;
-  @field is_extended;
-  @field is_past_due;
+  @field title = '';
+  @field type = '';
+  @field complete = false;
+  @field published_points = 0; // points that are visible to the student
+  @field is_provisional_score = false;
+  @field is_deleted = false;
+  @field is_college = false;
+  @field is_extended = false;
+  @field is_past_due = false;
   @field complete_exercise_count = 0;
-  @field correct_exercise_count;
+  @field correct_exercise_count = 0;
   @field exercise_count = 0;
   @field completed_accepted_late_exercise_count = 0;
   @field completed_on_time_exercise_count = 0;
-  @field task_plan_id;
+  @field task_plan_id = NEW_ID;
   @field steps_count = 0;
   @field completed_steps_count = 0;
   @field completed_on_time_steps_count = 0;
   @field completed_accepted_late_steps_count = 0;
-  @field description;
-  @model(DateTime) last_worked_at?: DateTime;
-  @model(DateTime) due_at?: DateTime;
-  @model(DateTime) opens_at?: DateTime;
-  @model(DateTime) accepted_late_at?: DateTime;
+  @field description = '';
+  @model(DateTime) last_worked_at = DateTime.unknown
+  @model(DateTime) due_at = DateTime.unknown
+  @model(DateTime) opens_at = DateTime.unknown
+  @model(DateTime) accepted_late_at = DateTime.unknown
 
-  constructor(attrs, studentTasks) {
-      super(attrs);
+  constructor() {
+      super()
       modelize(this);
-      this.tasks = studentTasks;
   }
 
   @computed get workedLate() {
       return Boolean(
-          this.last_worked_at && moment(this.last_worked_at).isAfter(this.due_at)
-      );
+          !this.last_worked_at.isUnknown && this.last_worked_at.isAfter(this.due_at)
+      )
   }
 
   @computed get isPastDue() {
-      return moment(this.due_at).isBefore(Time.now);
+      return this.due_at.isInPast
   }
 
   @computed get isAlmostDue() {
-      return moment(Time.now).isBetween(
-          moment(this.due_at).subtract(1, 'day'),
-          this.due_at,
-      );
+      return this.due_at.distanceToNow('day') == 1
   }
 
   @computed get scoreShown() {
@@ -82,12 +76,12 @@ export default class StudentTask extends BaseModel {
       return Boolean(this.hidden || (this.is_deleted && !this.isStarted));
   }
 
-  @computed get isTeacherStudent() {
-      return true === get(this, 'tasks.course.currentRole.isTeacherStudent');
+  @computed get isTeacherStudent(): boolean {
+      return get(this, 'tasks.course.currentRole.isTeacherStudent', false);
   }
 
   @computed get isOpen() {
-      return this.opens_at < Time.now;
+      return this.opens_at.isInPast
   }
 
   @computed get isViewable() {

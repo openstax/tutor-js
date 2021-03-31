@@ -1,8 +1,13 @@
-import Map from 'shared/model/map';
+import { ID, Map, modelize, observable } from 'shared/model'
+import type Course from './course'
+import type { User } from './user'
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
 import { extend, groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
+import Page from './reference-book/node'
+import ReferenceBook from './reference-book'
+import Api from '../api'
 
 const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
@@ -10,8 +15,9 @@ const PENDING = Symbol('PENDING');
 
 export { COMPLETE, PENDING };
 
+type FETCHED_TYPE = typeof COMPLETE | typeof PENDING
 
-export const exerciseSort = (exercises, course, user) => {
+export const exerciseSort = (exercises: Exercise[], course: Course, user: User) => {
     return sortBy(exercises, (ex) => {
         const cs = ex.page.chapter_section.asNumber;
         if (ex.belongsToUser(user)) {
@@ -26,14 +32,23 @@ export const exerciseSort = (exercises, course, user) => {
 };
 
 
-export class ExercisesMap extends Map {
-    @readonly fetched = new Map();
+interface FetchArg {
+    book?: ReferenceBook,
+    course?: Course,
+    ecosystem_id?: ID,
+    page_ids?: ID[],
+    exercise_ids?: ID[],
+    limit?: string,
+    query?: any,
+    action?: string,
+}
+
+export class ExercisesMap extends Map<ID, Exercise> {
+    @readonly fetched = observable.map<ID, FETCHED_TYPE>()
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
-        modelize(this);
+        modelize(this)
     }
 
     @computed get byPageId() {
@@ -44,11 +59,11 @@ export class ExercisesMap extends Map {
         return uniq(map(this.array, 'page.id'));
     }
 
-    noneForPageIds(pageIds) {
+    noneForPageIds(pageIds: ID[]) {
         return !find(pageIds, pgId => !isEmpty(this.byPageId[pgId]));
     }
 
-    forPageId(pageId) {
+    forPageId(pageId: ID) {
         return this.byPageId[pageId] || [];
     }
 
@@ -64,7 +79,7 @@ export class ExercisesMap extends Map {
         return this.where(e => e.isReading);
     }
 
-    isMinimumExcludedForPage(page) {
+    isMinimumExcludedForPage(page: Page) {
         const exercises = this.forPageId(page.id);
         const nonExcluded = filter(exercises, { is_excluded: false }).length;
         if ((MIN_EXCLUDED_COUNT == nonExcluded) ||
@@ -76,11 +91,11 @@ export class ExercisesMap extends Map {
         }
     }
 
-    clear({ exceptIds } = {}) {
+    clear({ exceptIds }: {exceptIds?:ID[]} = {}) {
         if (exceptIds) {
-            exceptIds = exceptIds.map(this.keyType);
+            const ids = exceptIds.map(this.keyType);
             this.keys().forEach((k) => {
-                if (!exceptIds.includes(k)) {
+                if (!ids.includes(k as number)) {
                     this._map.delete(k);
                 }
             });
@@ -91,7 +106,7 @@ export class ExercisesMap extends Map {
 
 
     // called by API
-    fetch({
+    async fetch({
         book,
         course,
         ecosystem_id,
@@ -100,15 +115,20 @@ export class ExercisesMap extends Map {
         limit = 'homework_core',
         query = {},
         action = 'exercises',
-    }) {
+    }: FetchArg) {
         if (!ecosystem_id) {
             if (course && !book) {
                 book = course.referenceBook;
             }
-            ecosystem_id = book.id;
+            if (book) {
+                ecosystem_id = book.id;
+            }
         }
 
-        let url = `ecosystems/${ecosystem_id}/${action}`;
+        // const [ method, baseUrl ] =
+        // let url = baseUrl
+        // let url =
+        // `ecosystems/${ecosystem_id}/${action}`;
 
         if (page_ids) {
             page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
@@ -117,22 +137,38 @@ export class ExercisesMap extends Map {
         if(course) {
             query.course_id = course.id;
         }
+        const params = { ecosystemId: ecosystem_id as string, action }
+        let replyData: any
         if (exercise_ids) {
             query.exercise_ids = uniq(toJS(exercise_ids));
-        } else if (limit) {
-            url += `/${limit}`;
-        }
+            replyData = await this.api.request(Api.fetchExercises(params, query))
 
-        return {
-            url, query,
-        };
+        } else if (limit) {
+            replyData = await this.api.request(Api.fetchLimitedExercises({ ...params, limit }, query))
+        }
+        this.onLoaded(replyData, course, book, page_ids)
     }
 
-    hasFetched({ page_id }) {
+    @action onLoaded(reply: any, course?: Course, book?: ReferenceBook, page_ids?: ID[]) {
+        if (course && !book) {
+            book = course.referenceBook;
+        }
+        if (page_ids) {
+            page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
+        }
+        reply.data.items.forEach((ex: Exercise) => {
+            const exercise = this.get(ex.id);
+            exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book })));
+        });
+    }
+
+
+
+    hasFetched({ page_id }: { page_id: ID }) {
         return this.fetched.has(page_id);
     }
 
-    isFetching({ page_id, pageIds }) {
+    isFetching({ page_id, pageIds }: { page_id?: ID, pageIds?: ID[] }) {
         if (page_id) {
             return this.fetched.get(page_id) === PENDING;
         } else if (pageIds) {
@@ -141,7 +177,7 @@ export class ExercisesMap extends Map {
         return false;
     }
 
-    ensureExercisesLoaded({ book, course, ecosystem_id, exercise_ids, limit, ...query }) {
+    ensureExercisesLoaded({ book, course, ecosystem_id, exercise_ids, limit, ...query }: FetchArg) {
         const unFetchedExerciseIds = filter(exercise_ids, exId => !this.get(exId));
         if (!isEmpty(unFetchedExerciseIds)) {
             return this.fetch({
@@ -151,7 +187,7 @@ export class ExercisesMap extends Map {
         return Promise.resolve(this);
     }
 
-    ensurePagesLoaded({ book, course, page_ids, limit }) {
+    ensurePagesLoaded({ book, course, page_ids, limit }: FetchArg) {
         const unFetchedPageIds = filter(page_ids, page_id =>
             !this.isFetching({ page_id }) && !this.hasFetched({ page_id })
         );
@@ -160,44 +196,33 @@ export class ExercisesMap extends Map {
         }
     }
 
-    @action onLoaded(reply, [{ course, book, page_ids }]: any) {
-        if (course && !book) {
-            book = course.referenceBook;
-        }
-        if (page_ids) {
-            page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
-        }
-        reply.data.items.forEach((ex) => {
-            const exercise = this.get(ex.id);
-            exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book })));
-        });
+    @action deleteByExerciseId(exerciseId: ID) {
+        this._map.delete(Number(exerciseId));
     }
-
-    @action deleteByExerciseId(exerciseId) {
-        this._map.delete(parseInt(exerciseId, 10));
-    }
-    deleteExercise(course, exercise) {
-        return { courseId: course.id, exerciseNumber: exercise.content.number };
-    }
-    onExerciseDeleted(resp, [ , exercise]) {
+    async deleteExercise(course: Course, exercise: Exercise) {
+        await this.api.request(
+            Api.deleteExercise({
+                courseId: course.id, exerciseNumber: exercise.content.number,
+            })
+        )
         this.deleteByExerciseId(exercise.id);
     }
 
-    createExercise({ course, data }) {
-        return { 
-            courseId: course.id,
-            data,
-        };
+    async createExercise({ course, data }: { course: Course, data: Exercise }): Promise<Exercise> {
+        const reply = await this.api.request(Api.createExercise({ courseId: course.id }), data)
+        return await this.onExerciseCreated(course, reply)
     }
-    async onExerciseCreated({ data }, [{ course }]) {
+
+    @action async onExerciseCreated(course: Course, data: any): Promise<Exercise> {
         // remove any existing copies
         const existing = [...this.array];
         existing.forEach((ex) => {
-            if (ex.content.number == data.content.number)
+            if (ex.content.number == data.content.number) {
                 this.delete(ex.id);
+            }
         });
-
         await this.fetch({ course, exercise_ids: [data.id] });
+        return Promise.resolve(this.get(data.id) as Exercise)
     }
 }
 

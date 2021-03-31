@@ -1,19 +1,20 @@
 import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import Big from 'big.js';
-import moment from 'moment';
-import { BaseModel, field, model, modelize, computed, action } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, action, NEW_ID, getParentOf } from 'shared/model';
 import DateTime from 'shared/model/date-time';
-import Time from '../time';
+import Bignum from 'shared/model/bignum'
+import type PeriodScores from './period'
 
 export default class Heading extends BaseModel {
-    @field({ type: 'bignum' }) average_score;
-    @field({ type: 'bignum' }) average_progress;
+    @model(Bignum) average_score = Bignum.unknown;
+    @model(Bignum) average_progress = Bignum.unknown;
     @model(DateTime) due_at = DateTime.unknown;
-    @field plan_id;
-    @field title;
-    @field type;
-    @field available_points;
-    @model('scores/period') period;
+    @field plan_id = NEW_ID;
+    @field title = '';
+    @field type = '';
+    @field available_points = 0;
+
+    get period():PeriodScores { return getParentOf(this) }
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
@@ -22,7 +23,7 @@ export default class Heading extends BaseModel {
         modelize(this);
     }
 
-    @computed get columnIndex() {
+    @computed get columnIndex(): number {
         return findIndex(this.period.data_headings, this);
     }
 
@@ -37,19 +38,19 @@ export default class Heading extends BaseModel {
     }
 
     @computed get isDue() {
-        return moment(this.due_at).isBefore(Time.now);
+        return this.due_at.isInPast
     }
 
     @computed get tasks() {
         return map(this.period.students, (s) => s.data[this.columnIndex]);
     }
 
-    @action adjustScores() {
-        this.average_score = this.averageForType('score');
-        this.average_progress = this.averageForType('progress');
-    }
+    // @action adjustScores() {
+    //     this.average_score = this.averageForType('score');
+    //     this.average_progress = this.averageForType('progress');
+    // }
 
-    averageForType(attr) {
+    averageForType(attr: string) {
         const tasks = filter(this.tasks, 'student.isActive');
         if (isEmpty(tasks)) { return null; }
 

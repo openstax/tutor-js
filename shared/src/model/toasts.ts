@@ -2,9 +2,12 @@ import { readonly } from 'core-decorators';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
 import { computed, observable, makeAutoObservable } from 'mobx';
-import { BaseModel, hydrate, action } from '../model';
+import { BaseModel, hydrateModel, action } from '../model';
 
 const Handlers = observable.map({});
+interface ToastAttrs {
+    handler: 'scoresPublished'
+}
 
 class Toast extends BaseModel {
 
@@ -29,8 +32,8 @@ class Toast extends BaseModel {
 const current = observable.array<Toast>()
 
 const Store = makeAutoObservable({
-    push(attrs: Toast) {
-        current.push(hydrate(Toast, attrs))
+    push(attrs: ToastAttrs) {
+        current.push(hydrateModel(Toast, attrs))
     },
 
     shift() {

@@ -1,21 +1,19 @@
-import { BaseModel, field, model, modelize, NEW_ID } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import type Course from '../course'
+import { BaseModel, field, model, modelize, getParentOf, NEW_ID } from 'shared/model';
+import DateTime, { DurationUnit } from 'shared/model/date-time';
 import { computed, action } from 'mobx';
-import moment from 'moment';
-import Time from '../time';
 
 export default class CourseRole extends BaseModel {
     @field id = NEW_ID;
     @model(DateTime) joined_at = DateTime.unknown;
-    @field type;
-    @field period_id;
-    @field research_identifier;
-    @model('course') course;
+    @field type = '';
+    @field period_id = NEW_ID;
+    @field research_identifier = '';
+
+    get course(): Course { return  getParentOf(this); }
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
@@ -35,8 +33,8 @@ export default class CourseRole extends BaseModel {
         return this.type == 'teacher';
     }
 
-    joinedAgo(terms = 'days') {
-        return moment(Time.now).diff(this.joined_at, terms);
+    joinedAgo(terms:DurationUnit = 'days') {
+        return this.joined_at.distanceToNow(terms);
     }
 
     @action async become({ reset = true } = {}) {

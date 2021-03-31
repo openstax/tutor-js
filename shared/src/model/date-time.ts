@@ -1,25 +1,17 @@
-import { DateTime as LDT } from 'luxon'
-// import { parseISO, isBefore, isAfter } from 'date-fns'
+import { DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone} from 'luxon'
+import { map, compact, flatten, max, min } from 'lodash';
 import { readonly } from 'core-decorators'
 import { isString, isNumber, isDate } from 'lodash'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
+import moment from 'moment'
 import Time from './time'
 
-type ComparableValue = Date | DateTime | LDT
+export type { DurationUnit }
+export type ComparableValue = Date | DateTime | LDT
+export type DateTimeInputs = DateTime | Date | string | number | LDT
 
-const toLDT = (val: ComparableValue):LDT => {
-    if (isDate(val)) {
-        return LDT.fromJSDate(val)
-    } else if (LDT.isDateTime(val)) {
-        return val
-    } else {
-        return val.asDateTime
-    }
-}
-
-export default
-class DateTime {
+export default class DateTime {
     static get now() {
         return new DateTime(Time.now.getTime())
     }
@@ -30,36 +22,97 @@ class DateTime {
         return new DateTime(iso)
     }
 
-    private _value!: LDT
+    _value!: LDT
 
-    constructor(dateThing: Date | string | number) {
+    constructor(dateThing: DateTimeInputs) {
         modelize(this, {
             _value: observable,
-        })
 
-        if (isString(dateThing)) {
-            this._value = LDT.fromISO(dateThing)
-        } else if (isNumber(dateThing)) {
-            this._value = LDT.fromMillis(dateThing)
-        } else if (isDate(dateThing)){
-            this._value = LDT.fromJSDate(dateThing)
-        } else {
-            throw `attempted to hydrate unknown type ${dateThing}`
-        }
+        })
+        this._value = toLDT(dateThing)
     }
 
+    diff(other: DateTimeInputs, unit: DurationUnit) { return this._value.diff(toLDT(other), unit)[unit]; }
+    distanceToNow(unit: DurationUnit) { return this._value.diff(LDT.fromJSDate(Time.now), unit)[unit]; }
 
     serialize() { return this._value.toISO() }
 
-    get asInterval() { return this._value.until(this._value) }
+    set(values: DateObjectUnits) { return new DateTime(this._value.set(values)) }
+
+    startOf(unit: DurationUnit) { return new DateTime(this._value.startOf(unit)) }
+    endOf(unit: DurationUnit) { return new DateTime(this._value.endOf(unit)) }
+
+    get asISOString() { return this._value.toISO() }
+    get asMoment() { return moment(this._value.toJSDate()) }
+   // get asInterval() { return this._value.until(this._value) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
-    isBefore(compareTo: ComparableValue) { return this.asInterval.isBefore(toLDT(compareTo)) }
+    intervalTo(other: DateTimeInputs) { return LDTInterval.fromDateTimes(this._value, toLDT(other)) }
+
+    toISOString() { return this.asISOString }
+    toString() { return this.asISOString }
+
+    inZone(zone: Zone|string) { return new DateTime(this._value.setZone(zone)) }
+
+    minus(duration: DurationObject) { return new DateTime(this._value.minus(duration)) }
+    plus(duration: DurationObject) { return new DateTime(this._value.plus(duration)) }
+
+    isBefore(compareTo: ComparableValue) { return this.diff(compareTo, 'millisecond') > 0 }
     get isInPast() { return this.isBefore(Time.now) }
 
-    isAfter(compare: ComparableValue) { return this.asInterval.isAfter(toLDT(compare)) }
+    isAfter(compareTo: ComparableValue) { return this.diff(compareTo, 'millisecond') < 0 }
     get isInFuture() { return this.isAfter(Time.now) }
 
+    hasSame(compareTo: ComparableValue, unit: DurationUnit) { return this._value.until(toLDT(compareTo)).hasSame(unit) }
+
+    isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'seconds') {
+        return this._value.until(toLDT(other)).toDuration().get(unit) <= 0
+    }
+
+    isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') {
+        return this._value.until(toLDT(other)).toDuration().get(unit) >= 0
+    }
+
     isUnknown() { return this._value === DateTime.unknown._value }
+    get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
+
+    format(fmt: string) { return this._value.toFormat(fmt) }
+}
+
+function toLDT(dateThing: DateTimeInputs):LDT {
+    console.log(dateThing, DateTime)
+    if (dateThing instanceof DateTime) {
+        return dateThing._value // n.b. we're copying _value which should be safe since it's never mutated
+    } else if (isString(dateThing)) {
+        return LDT.fromISO(dateThing)
+    } else if (isNumber(dateThing)) {
+        return LDT.fromMillis(dateThing)
+    } else if (isDate(dateThing)){
+        return LDT.fromJSDate(dateThing)
+    } else if (LDT.isDateTime(dateThing)) {
+        return dateThing
+    } else {
+        throw `attempted to hydrate unknown type ${dateThing}`
+    }
+}
+
+export function findEarliest(dateThing: DateTimeInputs, ...dateThings: DateTimeInputs[]): DateTime {
+    return new DateTime(min(compact(map(flatten([dateThing, ...dateThings]), toLDT))) as LDT)
+}
+
+export function findLatest(dateThing: DateTimeInputs, ...dateThings: DateTimeInputs[]): DateTime {
+    return new DateTime(max(compact(map(flatten([dateThing, ...dateThings]), toLDT))) as LDT)
+}
+
+export class Interval {
+    start: DateTime
+    end: DateTime
+    constructor(start: DateTimeInputs, end: DateTimeInputs) {
+        this.start = new DateTime(start)
+        this.end = new DateTime(end)
+    }
+    length(unit: DurationUnit = 'seconds') {
+        return LDTInterval.fromDateTimes(this.start._value, this.end._value).length(unit)
+    }
 }

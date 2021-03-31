@@ -1,34 +1,35 @@
 import { findIndex, isNil } from 'lodash';
-import { moment, computed } from 'vendor';
-import { BaseModel, model, field, NEW_ID } from 'shared/model';
+import { BaseModel, computed, model, field, NEW_ID, getParentOf } from 'shared/model';
 import DateTime from 'shared/model/date-time';
-import Time from '../time';
+import type Student from './student'
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
+import Bignum from 'shared/model/bignum';
 
 export default class TaskResult extends BaseModel {
-  @field id = NEW_ID;
-  @field({ type: 'bignum' }) score;
-  @field points;
-  @field published_points;
-  @field published_score;
-  @field is_provisional_score;
-  @field step_count;
-  @field completed_step_count;
-  @model(DateTime) due_at = DateTime.unknown;
-  @field progress;
-  @field is_late_work_accepted;
-  @field available_points;
-  @field recovered_exercise_count;
+    @field id = NEW_ID;
+    @model(Bignum) score = Bignum.unknown;
+    @field points = 0;
+    @field published_points = 0;
+    @field published_score = 0;
+    @field is_provisional_score = false;
+    @field step_count = 0;
+    @field completed_step_count = 0;
+    @model(DateTime) due_at = DateTime.unknown;
+    @field progress = 0;
+    @field is_late_work_accepted = false;
+    @field available_points = 0;
+    @field recovered_exercise_count = 0;
 
-  // can be removed once old scores is removed
-  @field completed_on_time_steps_count;
+    // can be removed once old scores is removed
+    @field completed_on_time_steps_count = 0;
 
-  @model('scores/student') student;
-  @computed get period() { return this.student.period; }
-  @computed get course() { return this.student.period.course; }
+    get student():Student { return getParentOf(this) }
 
-  @computed get columnIndex() {
+    @computed get period() { return this.student.period; }
+    @computed get course() { return this.student.period.course; }
+
+    @computed get columnIndex() {
       return findIndex(this.student.data, s => s.id === this.id);
   }
 
