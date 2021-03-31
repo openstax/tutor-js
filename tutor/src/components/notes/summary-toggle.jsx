@@ -40,6 +40,7 @@ class NoteSummaryToggle extends React.Component {
                       variant="plain"
                       bsPrefix="summary-toggle"
                       onClick={NotesUX.toggleSummary}
+                      data-test-id="my-highlights-btn"
                   >
                       <MyHighlightsIcon className="ox-icon" />
                       <span className="my-highlights-label">My Highlights</span>
