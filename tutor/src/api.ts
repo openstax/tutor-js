@@ -58,7 +58,7 @@ const Api = {
     fetchCourses:          r('GET', 'courses'),
 
     fetchCourse:           r<CourseId>('GET', 'course/{courseId}'),
-    updateCourse:          r<CourseId>('POST', 'courses/{courseId}'),
+    updateCourse:          r<CourseId>('POST', 'course/{courseId}'),
     createCourse:          r('POST', 'course'),
     saveExerciseExclusion: r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
 
