@@ -1,4 +1,4 @@
-import { action, observe } from 'mobx';
+import { action, observe, modelize } from 'shared/model'
 import { invoke } from 'lodash';
 
 class Actions {

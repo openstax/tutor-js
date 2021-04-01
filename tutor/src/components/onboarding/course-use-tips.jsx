@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { computed } from 'mobx';
+import { computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { OnboardingNag, Body, Heading, Footer } from './onboarding-nag';
 import TutorLink from '../link';

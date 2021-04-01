@@ -2,7 +2,7 @@ import { React, PropTypes, styled, observer, inject } from 'vendor';
 import { extend, isEmpty } from 'lodash';
 import moment from '../../helpers/moment-range';
 import Router from '../../helpers/router';
-import { observable, computed, action, observe } from 'mobx';
+import { observable, computed, action, observe, modelize } from 'shared/model'
 import { Redirect, withRouter } from 'react-router-dom';
 import { NotificationsBar, ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';

@@ -4,23 +4,31 @@ import Time from 'shared/model/time'
 import moment from 'moment'
 import { modelize, ID, getParentOf } from 'shared/model'
 import { computed, action, observable } from 'mobx';
-import { filter, groupBy, sortBy, pickBy, find } from 'lodash';
+import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import StudentTask from './student/task';
 import ResearchSurveys from '../research-surveys';
 import Raven from '../app/raven';
+import Api from '../../api'
+import { StudentTaskObj } from '../types'
 
 const MAX_POLLING_ATTEMPTS = 30;
 const WEEK_FORMAT = 'GGGGWW';
 const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 10; // every 10 seconds
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60; // every hour
 
+interface TasksPayload {
+    tasks: StudentTaskObj[]
+    all_tasks_are_ready: boolean
+    research_surveys: any
+}
+
 export
 class StudentTaskPlans extends Map<ID, StudentTask> {
 
-    @observable researchSurveys = null;
+    @observable researchSurveys: ResearchSurveys|null = null;
     @observable expecting_assignments_count = 0;
     @observable all_tasks_are_ready = false;
-    @observable refreshTimer: number = 0;
+    @observable refreshTimer: number | null = null;
     @observable isPeriodicallyFetching = false;
 
     constructor() {
@@ -42,10 +50,10 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
 
     @computed get pastTasksByWeek() {
         const thisWeek = moment(Time.now).startOf('isoWeek').format(WEEK_FORMAT);
-        return pickBy(this.byWeek, (events, week) => week < thisWeek);
+        return pickBy(this.byWeek, (_events, week) => week < thisWeek);
     }
 
-    weeklyTasksForDay(day) {
+    weeklyTasksForDay(day: moment.Moment) {
         return this.byWeek[moment(day).startOf('isoWeek').format(WEEK_FORMAT)] || [];
     }
 
@@ -66,20 +74,17 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
         const endOfWeek = this.endOfThisWeek;
         return sortBy(
             filter(
-                this.array, event => endOfWeek.isBefore(event.due_at)
+                this.array, event => endOfWeek.isBefore(event.due_at.asMoment)
             ),
             ['due_at', 'type', 'title']
         );
     }
 
     // note: the response also contains limited course and role information but they're currently unused
-    onLoaded(
-        { data: { tasks, research_surveys, all_tasks_are_ready } }:
-        { data: { tasks: Task[], research_surveys?: any, all_tasks_are_ready?: boolean } }
-    ) {
+    onLoaded({ tasks, research_surveys, all_tasks_are_ready }: TasksPayload) {
         this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
         this.mergeModelData(tasks);
-        this.all_tasks_are_ready = all_tasks_are_ready;
+        this.all_tasks_are_ready = !!all_tasks_are_ready;
     }
 
     @computed get isPendingTaskLoading() {
@@ -97,7 +102,7 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
                 this.api.requestCounts.read % MAX_POLLING_ATTEMPTS == 0
         ) {
             Raven.log(`Dashboard loading timed out waiting on Biglearn after ${
-this.api.requestCounts.read} attempts.`);
+                this.api.requestCounts.read} attempts.`);
         } else if (!this.isPendingTaskLoading) {
             // reset our read count so it's ready to poll again if needed
             this.api.requestCounts.read = 1;
@@ -105,7 +110,7 @@ this.api.requestCounts.read} attempts.`);
         return this.fetch().then(() => {
             const interval = this.useFastPolling ?
                 FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
-            this.refreshTimer = setTimeout(this.fetchTaskPeriodically, interval);
+            this.refreshTimer = window.setTimeout(this.fetchTaskPeriodically, interval);
         });
     }
 
@@ -142,12 +147,13 @@ this.api.requestCounts.read} attempts.`);
 
     @computed get isLatestPresent() {
         const latest = this.course.teacherTaskPlans.lastPublished;
-        return Boolean(!latest || !!find(this.array, { task_plan_id: latest.id }));
+        return Boolean(!latest || !!this.array.find( tp => tp.task_plan_id == latest.id) );
     }
 
     // called from API
-    fetch() {
-        return { courseId: this.course.id };
+    async fetch() {
+        const data = await this.api.request<TasksPayload>(Api.fetchStudentTasks({ courseId: this.course.id }))
+        this.onLoaded(data)
     }
 
 }

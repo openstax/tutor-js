@@ -25,7 +25,7 @@ export default class SharedExercise extends BaseModel {
 
     published_at?: DateTime | Date
     wrapper = '';
-
+    stem_html = ''
     attachments:Attachment[] = [];
     authors:Author[] = [];
     copyright_holders:Author[] = [];

@@ -4,7 +4,7 @@ import { deferred } from '../helpers';
 jest.useFakeTimers();
 
 class TestModel {
-  fetch = jest.fn(() => Promise.resolve());
+    fetch = jest.fn(() => Promise.resolve());
 }
 
 

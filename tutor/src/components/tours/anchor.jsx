@@ -11,40 +11,40 @@ import { ReactHelpers } from 'shared';
 export default
 class TourAnchor extends React.Component {
 
-  static defaultProps = {
-      tag: 'div',
-      className: '',
-      tourContext: null,
-  }
+    static defaultProps = {
+        tag: 'div',
+        className: '',
+        tourContext: null,
+    }
 
-  static propTypes = {
-      tag: PropTypes.string,
-      className: PropTypes.string,
-      id: PropTypes.string.isRequired,
-      children: PropTypes.node.isRequired,
-      tourContext: PropTypes.instanceOf(TourContext),
-  }
+    static propTypes = {
+        tag: PropTypes.string,
+        className: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        children: PropTypes.node.isRequired,
+        tourContext: PropTypes.instanceOf(TourContext),
+    }
 
-  componentDidMount() {
-      if (this.props.tourContext) {
-          this.props.tourContext.addAnchor(this.props.id, `[data-tour-anchor-id="${this.props.id}"]`);
-      }
-  }
+    componentDidMount() {
+        if (this.props.tourContext) {
+            this.props.tourContext.addAnchor(this.props.id, `[data-tour-anchor-id="${this.props.id}"]`);
+        }
+    }
 
-  componentWillUnmount() {
-      if (this.props.tourContext) {
-          this.props.tourContext.removeAnchor(this.props.id);
-      }
-  }
+    componentWillUnmount() {
+        if (this.props.tourContext) {
+            this.props.tourContext.removeAnchor(this.props.id);
+        }
+    }
 
-  render() {
-      const { id, tag, className, tourContext: _, ...otherProps } = this.props;
+    render() {
+        const { id, tag, className, tourContext: _, ...otherProps } = this.props;
 
-      return React.createElement(tag, extend({
-          className: cn('tour-anchor', className),
-          'data-tour-anchor-id': id,
-          ref: ref => (this.wrapperEl = ref),
-      }, ReactHelpers.filterProps(otherProps)), this.props.children);
-  }
+        return React.createElement(tag, extend({
+            className: cn('tour-anchor', className),
+            'data-tour-anchor-id': id,
+            ref: ref => (this.wrapperEl = ref),
+        }, ReactHelpers.filterProps(otherProps)), this.props.children);
+    }
 
 }

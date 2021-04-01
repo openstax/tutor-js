@@ -217,7 +217,7 @@ export default class StudentTaskStep extends BaseModel {
     }
 
     @computed get isLate() {
-        return moment(this.last_completed_at).isAfter(this.task.due_at);
+        return this.last_completed_at.isAfter(this.task.due_at)
     }
 
     @action fetchIfNeeded() {
@@ -250,13 +250,13 @@ export default class StudentTaskStep extends BaseModel {
         this.onLoaded(data)
     }
 
-   async save(): Promise<void> {
-       if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
-       const data = await this.api.request(
-           Api.saveStudentTaskStep({ stepId: this.id }),
-           pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation')
-       )
-       this.onLoaded(data)
+    async save(): Promise<void> {
+        if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
+        const data = await this.api.request(
+            Api.saveStudentTaskStep({ stepId: this.id }),
+            pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation')
+        )
+        this.onLoaded(data)
     }
 
     @action beginRecordingAnswer({ free_response }: { free_response: string }) {

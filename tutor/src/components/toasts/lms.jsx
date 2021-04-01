@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import pluralize from 'pluralize';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { Button, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { Icon } from 'shared';

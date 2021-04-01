@@ -4,38 +4,38 @@ import 'mobx-react';
 
 export default class AbsentCell extends React.Component {
 
-  static propTypes = {
-      headings: PropTypes.array.isRequired,
-      columnIndex: PropTypes.number.isRequired,
-  }
+    static propTypes = {
+        headings: PropTypes.array.isRequired,
+        columnIndex: PropTypes.number.isRequired,
+    }
 
-  findTypeFromColumn() {
-      const { headings, columnIndex } = this.props;
-      return headings[columnIndex] ? headings[columnIndex].type : null;
-  }
+    findTypeFromColumn() {
+        const { headings, columnIndex } = this.props;
+        return headings[columnIndex] ? headings[columnIndex].type : null;
+    }
 
-  render() {
-      const columnType = this.findTypeFromColumn();
+    render() {
+        const columnType = this.findTypeFromColumn();
 
-      if (columnType === 'external') {
-          return (
-              <div className="scores-cell">
-                  <div className="worked not-started wide">
+        if (columnType === 'external') {
+            return (
+                <div className="scores-cell">
+                    <div className="worked not-started wide">
             ---
-                  </div>
-              </div>
-          );
-      } else {
-          return (
-              <div className="scores-cell">
-                  <div className="score not-started">
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="scores-cell">
+                    <div className="score not-started">
             ---
-                  </div>
-                  <div className="worked not-started">
+                    </div>
+                    <div className="worked not-started">
             ---
-                  </div>
-              </div>
-          );
-      }
-  }
+                    </div>
+                </div>
+            );
+        }
+    }
 }

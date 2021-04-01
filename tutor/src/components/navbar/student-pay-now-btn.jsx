@@ -32,64 +32,64 @@ const willDisplayPayment = (course) => {
 export default
 class StudentPayNowBtn extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  @observable isShowingModal = false;
+    @observable isShowingModal = false;
 
-  @action.bound
-  onClick() {
-      this.isShowingModal = true;
-  }
+    @action.bound
+    onClick() {
+        this.isShowingModal = true;
+    }
 
-  @action.bound
-  onComplete() {
-      this.props.course.userStudentRecord.markPaid();
-      this.isShowingModal = false;
-  }
+    @action.bound
+    onComplete() {
+        this.props.course.userStudentRecord.markPaid();
+        this.isShowingModal = false;
+    }
 
-  @action.bound
-  onCancel() {
-      this.isShowingModal = false;
-  }
+    @action.bound
+    onCancel() {
+        this.isShowingModal = false;
+    }
 
-  renderModal() {
-      if (this.isShowingModal) {
-          return (
-              <PaymentsModal
-                  onPaymentComplete={this.onComplete}
-                  onCancel={this.onCancel}
-                  course={this.props.course}
-              />
-          );
-      }
-      return null;
-  }
+    renderModal() {
+        if (this.isShowingModal) {
+            return (
+                <PaymentsModal
+                    onPaymentComplete={this.onComplete}
+                    onCancel={this.onCancel}
+                    course={this.props.course}
+                />
+            );
+        }
+        return null;
+    }
 
-  render() {
-      if (!willDisplayPayment(this.props.course)) { return null; }
+    render() {
+        if (!willDisplayPayment(this.props.course)) { return null; }
 
-      if (isInTrialPeriod(this.props.course)) {
-          return (
-              <span className="student-pay-now">
+        if (isInTrialPeriod(this.props.course)) {
+            return (
+                <span className="student-pay-now">
           Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
-              </span>
-          );
-      }
+                </span>
+            );
+        }
 
-      return (
-          <span className="student-pay-now">
-              <span className="days">
+        return (
+            <span className="student-pay-now">
+                <span className="days">
           You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
-              </span>
-              {this.renderModal()}
-              <Button variant="primary" onClick={this.onClick}>
+                </span>
+                {this.renderModal()}
+                <Button variant="primary" onClick={this.onClick}>
           Pay now
-              </Button>
-          </span>
-      );
-  }
+                </Button>
+            </span>
+        );
+    }
 }
 
 export { willDisplayPayment, StudentPayNowBtn };

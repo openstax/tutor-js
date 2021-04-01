@@ -52,15 +52,15 @@ const CourseBreadcrumb = observer(({ course, currentTitle, plan, noBottomMargin,
                 {
                     plan &&
             <>
-              <TutorLink
-                  to="reviewAssignment"
-                  params={{ courseId: course.id, id: plan.id }}
-              >
-                  <TruncatedText>{plan.title}</TruncatedText>
-              </TutorLink>
-              <AngleDivider>
-                  <Icon type="angle-right" />
-              </AngleDivider>
+                <TutorLink
+                    to="reviewAssignment"
+                    params={{ courseId: course.id, id: plan.id }}
+                >
+                    <TruncatedText>{plan.title}</TruncatedText>
+                </TutorLink>
+                <AngleDivider>
+                    <Icon type="angle-right" />
+                </AngleDivider>
             </>
                 }
             </Links>

@@ -70,6 +70,7 @@
     "@types/markdown-it": "^12.0.1",
     "@types/mockdate": "^2.0.0",
     "@types/node-fetch": "^2.5.8",
+    "@types/object-hash": "^1.3.4",
     "@types/pluralize": "^0.0.29",
     "@types/qs": "^6.9.6",
     "@types/react-redux": "^7.1.16",

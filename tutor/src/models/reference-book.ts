@@ -3,13 +3,13 @@ import { readonly } from 'core-decorators';
 import Map, { hydrateInstance } from 'shared/model/map';
 import { ReferenceBookObj } from './types'
 import {
-  BaseModel,
-  field,
-  model,
-  modelize,
-  observable,
-  computed,
-  NEW_ID,
+    BaseModel,
+    field,
+    model,
+    modelize,
+    observable,
+    computed,
+    NEW_ID,
 } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';

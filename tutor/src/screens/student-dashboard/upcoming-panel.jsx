@@ -8,27 +8,27 @@ import Course from '../../models/course';
 export default
 class UpcomingCard extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+    }
 
-  render() {
-      const { course, course: { studentTaskPlans } } = this.props;
+    render() {
+        const { course, course: { studentTaskPlans } } = this.props;
 
-      const tasks = studentTaskPlans.upcomingTasks;
+        const tasks = studentTaskPlans.upcomingTasks;
 
-      return (
-          <React.Fragment>
-              <EventsCard
-                  className="upcoming"
-                  onTaskClick={this.onTaskClick}
-                  course={course}
-                  events={tasks}
-                  title="Coming Up"
-                  emptyClassName="upcoming"
-                  emptyMessage='No upcoming assignments' />
-          </React.Fragment>
-      );
-  }
+        return (
+            <React.Fragment>
+                <EventsCard
+                    className="upcoming"
+                    onTaskClick={this.onTaskClick}
+                    course={course}
+                    events={tasks}
+                    title="Coming Up"
+                    emptyClassName="upcoming"
+                    emptyMessage='No upcoming assignments' />
+            </React.Fragment>
+        );
+    }
 
 }

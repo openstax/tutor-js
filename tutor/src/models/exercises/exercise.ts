@@ -81,7 +81,7 @@ export default class TutorExercise extends BaseModel {
         return map(
             filter(this.tags, tag =>
                 tag.id.startsWith('filter-type:') || tag.id.startsWith('type:')
-                  ),
+            ),
             tag => last(tag.id.split(':'))
         );
     }

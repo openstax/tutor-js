@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { action, computed, observe, observable } from 'mobx';
+import { action, computed, observe, observable, modelize } from 'shared/model'
 import { Modal } from 'react-bootstrap';
 import { pick } from 'lodash';
 import Course from '../models/course';

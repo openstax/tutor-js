@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { action, observable, observe } from 'mobx';
+import { action, observable, observe, modelize } from 'shared/model'
 import { Provider, observer } from 'mobx-react';
 import { createTransformer } from 'mobx-utils';
 

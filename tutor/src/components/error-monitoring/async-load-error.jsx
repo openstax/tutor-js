@@ -8,27 +8,27 @@ import Raven from '../../models/app/raven';
 
 class AsyncLoadError extends React.Component {
 
-  static propTypes = {
-      error: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        error: PropTypes.object.isRequired,
+    }
 
-  componentDidMount() {
-      reloadOnce();
-  }
+    componentDidMount() {
+        reloadOnce();
+    }
 
-  render() {
+    render() {
 
-      return (
-          <div className="invalid-page">
-              <OXColoredStripe />
-              <h1>
+        return (
+            <div className="invalid-page">
+                <OXColoredStripe />
+                <h1>
           Uh-oh, the page failed to load
-              </h1>
-              <p>{String(this.props.error)}</p>
-              <Button variant="primary" onClick={forceReload}>Retry</Button>
-          </div>
-      );
-  }
+                </h1>
+                <p>{String(this.props.error)}</p>
+                <Button variant="primary" onClick={forceReload}>Retry</Button>
+            </div>
+        );
+    }
 
 }
 
@@ -36,27 +36,27 @@ class AsyncLoadError extends React.Component {
 export default
 class ErrorBoundary extends React.Component {
 
-  static propTypes = {
-      children: PropTypes.node.isRequired,
-  }
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+    }
 
-  state = { error: null };
+    state = { error: null };
 
-  static getDerivedStateFromError(error) {
-      // Update state so the next render will show the fallback UI.
-      return { error };
-  }
+    static getDerivedStateFromError(error) {
+        // Update state so the next render will show the fallback UI.
+        return { error };
+    }
 
-  componentDidCatch(error, errorInfo) {
-      Raven.captureException(error, errorInfo);
-  }
+    componentDidCatch(error, errorInfo) {
+        Raven.captureException(error, errorInfo);
+    }
 
-  render() {
-      const { error } = this.state;
-      if (error) {
-          return <AsyncLoadError error={error} />;
-      }
+    render() {
+        const { error } = this.state;
+        if (error) {
+            return <AsyncLoadError error={error} />;
+        }
 
-      return this.props.children;
-  }
+        return this.props.children;
+    }
 }

@@ -72,42 +72,42 @@ Header.propTypes = {
 export default
 class NewCourseWizard extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object,
-  }
+    static propTypes = {
+        ux: PropTypes.object,
+    }
 
-  @observable ux = this.props.ux || new BuilderUX({
-      router: pick(this.props, 'history', 'match'),
-  });
+    @observable ux = this.props.ux || new BuilderUX({
+        router: pick(this.props, 'history', 'match'),
+    });
 
-  render() {
-      const wizardClasses = cn('new-course-wizard', this.ux.stage, {
-          'is-loading': this.ux.isBusy,
-          'is-building': this.ux.isBuilding,
-      });
-      const Component = componentFor(this.ux.stage);
+    render() {
+        const wizardClasses = cn('new-course-wizard', this.ux.stage, {
+            'is-loading': this.ux.isBusy,
+            'is-building': this.ux.isBuilding,
+        });
+        const Component = componentFor(this.ux.stage);
 
-      return (
-          <Card
-              className={wizardClasses}
-          >
-              <Card.Header>
-                  <Header ux={this.ux}/>
-              </Card.Header>
-              <Card.Body>
-                  <div className="title-wrapper">
-                      <Title ux={this.ux} />
-                  </div>
-                  <OXFancyLoader
-                      isLoading={this.ux.isBusy}
-                      message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
-                  />
-                  {!this.ux.isBusy && <Component ux={this.ux} />}
-              </Card.Body>
-              <Card.Footer>
-                  <Footer ux={this.ux} />
-              </Card.Footer>
-          </Card>
-      );
-  }
+        return (
+            <Card
+                className={wizardClasses}
+            >
+                <Card.Header>
+                    <Header ux={this.ux}/>
+                </Card.Header>
+                <Card.Body>
+                    <div className="title-wrapper">
+                        <Title ux={this.ux} />
+                    </div>
+                    <OXFancyLoader
+                        isLoading={this.ux.isBusy}
+                        message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
+                    />
+                    {!this.ux.isBusy && <Component ux={this.ux} />}
+                </Card.Body>
+                <Card.Footer>
+                    <Footer ux={this.ux} />
+                </Card.Footer>
+            </Card>
+        );
+    }
 }

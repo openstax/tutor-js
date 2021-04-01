@@ -1,4 +1,4 @@
-import { observable, runInAction, computed, action, when, observe } from 'mobx';
+import { observable, runInAction, computed, action, when, observe, modelize } from 'shared/model'
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';

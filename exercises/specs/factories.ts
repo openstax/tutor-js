@@ -14,7 +14,7 @@ const Factories = {
         const map = new ExercisesMap();
         times(count, () => map.onLoaded({ data: FactoryBot.create('Exercise') }));
         return map;
-    }
+    },
 }
 
 export { FactoryBot };

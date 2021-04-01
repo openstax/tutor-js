@@ -1,5 +1,5 @@
 import { styled, PropTypes, React } from 'vendor';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
@@ -74,94 +74,94 @@ const StyledHeaderInfo = styled.p`
 @observer
 export default
 class QLSectionsChooser extends React.Component {
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      pageIds: PropTypes.array.isRequired,
-      exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
-      onSelectionsChange: PropTypes.func.isRequired,
-  };
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        pageIds: PropTypes.array.isRequired,
+        exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+        onSelectionsChange: PropTypes.func.isRequired,
+    };
 
-  @observable pageIds = this.props.pageIds;
+    @observable pageIds = this.props.pageIds;
 
-  constructor() {
+    constructor() {
     // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-    super();
+        super();
 
-    modelize(this);
-  }
+        modelize(this);
+    }
 
-  @action.bound showQuestions() {
-      this.props.exercises.fetch({
-          limit: false,
-          course: this.props.course,
-          page_ids: this.pageIds,
-      });
-      this.props.onSelectionsChange(this.pageIds);
-  }
+    @action.bound showQuestions() {
+        this.props.exercises.fetch({
+            limit: false,
+            course: this.props.course,
+            page_ids: this.pageIds,
+        });
+        this.props.onSelectionsChange(this.pageIds);
+    }
 
-  @action.bound clearQuestions() {
-      this.pageIds = [];
-      this.props.onSelectionsChange(this.pageIds);
-  }
+    @action.bound clearQuestions() {
+        this.pageIds = [];
+        this.props.onSelectionsChange(this.pageIds);
+    }
 
-  @action.bound onSectionChange(pageIds) {
-      this.pageIds = pageIds;
-  }
+    @action.bound onSectionChange(pageIds) {
+        this.pageIds = pageIds;
+    }
 
-  headerInfo = () => 
-      <StyledHeaderInfo>The Question Library is a collection of peer-reviewed questions included with your course.</StyledHeaderInfo>
+    headerInfo = () => 
+        <StyledHeaderInfo>The Question Library is a collection of peer-reviewed questions included with your course.</StyledHeaderInfo>
 
-  render() {
-      return (
-          <div className="sections-chooser panel">
-              <StyledHeader
-                  unDocked
-                  backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
-                  backToText='Dashboard'
-                  title="Question Library"
-                  headerContent={this.headerInfo()}
-              />
-              <StyledTourRegion
-                  className="sections-list"
-                  id="question-library-sections-chooser"
-                  otherTours={['preview-question-library-sections-chooser', 'question-library-super']}
-                  courseId={this.props.course.id}>
-                  <div className="book-link">
-                      <a
-                          aria-label="Browse the book"
-                          href={`/book/${this.props.course.id}`}
-                          target="_blank">
+    render() {
+        return (
+            <div className="sections-chooser panel">
+                <StyledHeader
+                    unDocked
+                    backTo={Router.makePathname('dashboard', { courseId: this.props.course.id })}
+                    backToText='Dashboard'
+                    title="Question Library"
+                    headerContent={this.headerInfo()}
+                />
+                <StyledTourRegion
+                    className="sections-list"
+                    id="question-library-sections-chooser"
+                    otherTours={['preview-question-library-sections-chooser', 'question-library-super']}
+                    courseId={this.props.course.id}>
+                    <div className="book-link">
+                        <a
+                            aria-label="Browse the book"
+                            href={`/book/${this.props.course.id}`}
+                            target="_blank">
             Browse the book
-                      </a>
-                  </div>
-                  <h2>Select chapter and section to view questions</h2>
-                  <Chooser
-                      onSelectionChange={this.onSectionChange}
-                      selectedPageIds={this.pageIds}
-                      book={this.props.course.referenceBook}
-                  />
-              </StyledTourRegion>
-              <StyledFooter className="section-controls footer">
-                  <div className="wrapper">
-                      <Button
-                          variant="default"
-                          className="cancel"
-                          disabled={isEmpty(this.pageIds)}
-                          onClick={this.clearQuestions}
-                      >
+                        </a>
+                    </div>
+                    <h2>Select chapter and section to view questions</h2>
+                    <Chooser
+                        onSelectionChange={this.onSectionChange}
+                        selectedPageIds={this.pageIds}
+                        book={this.props.course.referenceBook}
+                    />
+                </StyledTourRegion>
+                <StyledFooter className="section-controls footer">
+                    <div className="wrapper">
+                        <Button
+                            variant="default"
+                            className="cancel"
+                            disabled={isEmpty(this.pageIds)}
+                            onClick={this.clearQuestions}
+                        >
               Clear selection
-                      </Button>
-                      <Button
-                          variant="primary"
-                          data-test-id="show-questions"
-                          disabled={isEmpty(this.pageIds)}
-                          onClick={this.showQuestions}
-                      >
+                        </Button>
+                        <Button
+                            variant="primary"
+                            data-test-id="show-questions"
+                            disabled={isEmpty(this.pageIds)}
+                            onClick={this.showQuestions}
+                        >
               Show questions
-                      </Button>
-                  </div>
-              </StyledFooter>
-          </div>
-      );
-  }
+                        </Button>
+                    </div>
+                </StyledFooter>
+            </div>
+        );
+    }
 }

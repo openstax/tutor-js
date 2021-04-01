@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import Link from '../../components/new-tab-link';
 import LoadingScreen from 'shared/components/loading-animation';

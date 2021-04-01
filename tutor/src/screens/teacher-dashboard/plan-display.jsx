@@ -14,26 +14,26 @@ const Ribbon = styled.div`
 
 class CoursePlanDisplay extends React.Component {
 
-  static propTypes = {
-      plan: PropTypes.instanceOf(TaskPlan).isRequired,
-      label: PropTypes.node.isRequired,
-      course: PropTypes.instanceOf(Course).isRequired,
-      className: PropTypes.string.isRequired,
-      hasReview: PropTypes.bool,
-      isFirst: PropTypes.bool,
-      isLast: PropTypes.bool,
-      setIsViewing: PropTypes.func,
-      spacingMargin: PropTypes.number,
-  };
+    static propTypes = {
+        plan: PropTypes.instanceOf(TaskPlan).isRequired,
+        label: PropTypes.node.isRequired,
+        course: PropTypes.instanceOf(Course).isRequired,
+        className: PropTypes.string.isRequired,
+        hasReview: PropTypes.bool,
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
+        setIsViewing: PropTypes.func,
+        spacingMargin: PropTypes.number,
+    };
 
-  static defaultProps = {
-      hasReview: false,
-      isFirst: false,
-      isLast: false,
-      spacingMargin: 2,
-      rangeLength: 7,
-      defaultPlansCount: 3,
-  };
+    static defaultProps = {
+        hasReview: false,
+        isFirst: false,
+        isLast: false,
+        spacingMargin: 2,
+        rangeLength: 7,
+        defaultPlansCount: 3,
+    };
 
 }
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Note, PageNotes } from '../../models/notes';

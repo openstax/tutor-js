@@ -33,85 +33,85 @@ class Poller {
         document.addEventListener('visibilitychange', this.onVisiblityChange);
     }
 
-  onVisiblityChange = () => {
-      if (this.shouldPoll) {
-          this.poll();
-      }
-  }
+    onVisiblityChange = () => {
+        if (this.shouldPoll) {
+            this.poll();
+        }
+    }
 
-  setUrl(url: string) {
-      this.url = url;
-      if (!this.polling) { this.startPolling(); }
-  }
+    setUrl(url: string) {
+        this.url = url;
+        if (!this.polling) { this.startPolling(); }
+    }
 
-  destroy() {
-      if (this.polling) { this.notices.windowImpl.clearInterval(this.polling); }
-      document.removeEventListener('visibilitychange', this.onVisiblityChange);
-      return delete this.polling;
-  }
+    destroy() {
+        if (this.polling) { this.notices.windowImpl.clearInterval(this.polling); }
+        document.removeEventListener('visibilitychange', this.onVisiblityChange);
+        return delete this.polling;
+    }
 
-  startPolling() {
-      this.polling = this.notices.windowImpl.setInterval(this.poll, this.interval.asMilliseconds());
+    startPolling() {
+        this.polling = this.notices.windowImpl.setInterval(this.poll, this.interval.asMilliseconds());
 
-      return this.poll();
+        return this.poll();
 
-  }
+    }
 
-  get shouldPoll() {
-      // we poll if the document is visible and a poll is due
-      return this.notices.windowImpl.document.hidden !== true &&
+    get shouldPoll() {
+        // we poll if the document is visible and a poll is due
+        return this.notices.windowImpl.document.hidden !== true &&
       moment().isSameOrAfter(this.lastPoll.clone().add(this.interval));
-  }
+    }
 
-  poll() {
-      if (this.shouldPoll) {
-          this.lastPoll = moment();
-          return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
-      }
-      return Promise.resolve();
-  }
+    poll() {
+        if (this.shouldPoll) {
+            this.lastPoll = moment();
+            return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
+        }
+        return Promise.resolve();
+    }
 
-  onReply(_data: any) {
-      // eslint-disable-next-line no-console
-      console.warn('base onReply method called unnecessarily');
-  }
+    onReply(_data: any) {
+        // eslint-disable-next-line no-console
+        console.warn('base onReply method called unnecessarily');
+    }
 
-  onError(resp: any) {
-      // eslint-disable-next-line no-console
-      console.warn(resp);
-  }
+    onError(resp: any) {
+        // eslint-disable-next-line no-console
+        console.warn(resp);
+    }
 
-  getActiveNotifications() {
-      return values(this._activeNotices);
-  }
+    getActiveNotifications() {
+        return values(this._activeNotices);
+    }
 
-  acknowledge(notice: any) {
-      this._setObservedNoticeIds(
-          this._getObservedNoticeIds().concat(notice.id)
-      );
-      delete this._activeNotices[notice.id];
-      return this.notices.emit('change');
-  }
+    acknowledge(notice: any) {
+        this._setObservedNoticeIds(
+            this._getObservedNoticeIds().concat(notice.id)
+        );
+        delete this._activeNotices[notice.id];
+        return this.notices.emit('change');
+    }
 
-  _setObservedNoticeIds(newIds: string[]) {
-      return UiSettings.set(this.prefsStorageKey, newIds);
-  }
+    _setObservedNoticeIds(newIds: string[]) {
+        return UiSettings.set(this.prefsStorageKey, newIds);
+    }
 
-  _getObservedNoticeIds(): string[] {
-      return UiSettings.get(this.prefsStorageKey) || [];
-  }
+    _getObservedNoticeIds(): string[] {
+        return UiSettings.get(this.prefsStorageKey) || [];
+    }
 
-  _setActiveNotices(newActiveNotices:any, currentIds:any) {
-      this._activeNotices = newActiveNotices;
-      this.notices.emit('change');
-      const observedIds = this._getObservedNoticeIds();
+    _setActiveNotices(newActiveNotices:any, currentIds:any) {
+        this._activeNotices = newActiveNotices;
+        this.notices.emit('change');
+        const observedIds = this._getObservedNoticeIds();
 
-      // Prune the list of observed notice ids so it doesn't continue to fill up with old notices
-      const outdatedIds = difference(observedIds, without(currentIds, ...Array.from(keys(newActiveNotices))));
-      if (!isEmpty(outdatedIds)) {
-          this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
-      }
-  }
+        // Prune the list of observed notice ids so it doesn't continue to fill up with old notices
+        const outdatedIds = difference(observedIds, without(currentIds, ...Array.from(keys(newActiveNotices))));
+        if (!isEmpty(outdatedIds)) {
+            this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
+        }
+    }
 }
 
 

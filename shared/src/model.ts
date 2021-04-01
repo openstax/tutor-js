@@ -1,7 +1,7 @@
 import { action, observable, IObservableArray } from 'mobx'
 import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
-import { modelize, serialize } from 'modeled-mobx'
+import { hydrateInstance, modelize, serialize } from 'modeled-mobx'
 import { LazyGetter } from 'lazy-get-decorator'
 import { ID } from './types'
 import { ModelApi } from './model/api'
@@ -42,7 +42,7 @@ export class BaseModel {
     }
 
     @action onApiRequestComplete(data: any) {
-        this.update(data)
+        hydrateInstance(this, data)
     }
 
     // todo: finish impl once fetch api is nailed down
@@ -61,7 +61,7 @@ export type { ID }
 
 // export decorators so they can be easily imported into model classes
 export * from 'modeled-mobx'
-
+export { observer } from 'mobx-react'
 export {
     computed,
     observable,
@@ -71,10 +71,12 @@ export {
     autorun,
     override,
     flowResult,
+    observe,
+    when,
 } from 'mobx'
 
 
-export function extendedArray<T, E>(fn: (a: T[]) => E): IObservableArray<T> & E {
+export function extendedArray<T, E>(fn: (_ary: T[]) => E): IObservableArray<T> & E {
     const ary = observable.array<T>()
     const extensions = fn(ary)
     Object.keys(extensions).forEach(prop => {

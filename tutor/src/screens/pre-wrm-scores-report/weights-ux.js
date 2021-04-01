@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model';
 import { sum, toArray, flow, inRange, keys, isEqual, pick, invert, mapValues, isNaN, partial } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;

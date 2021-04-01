@@ -88,121 +88,121 @@ EventTime.propTypes = {
 export default
 class EventRow extends React.Component {
 
-  static propTypes = {
-      event:   PropTypes.object.isRequired,
-      course:  PropTypes.instanceOf(Course).isRequired,
-      history: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        event:   PropTypes.object.isRequired,
+        course:  PropTypes.instanceOf(Course).isRequired,
+        history: PropTypes.object.isRequired,
+    }
 
-  @action.bound onClick(ev) {
-      ev.preventDefault();
-      if (this.isViewable) {
-          this.props.history.push(
-              ev.currentTarget.getAttribute('href')
-          );
-      }
-  }
+    @action.bound onClick(ev) {
+        ev.preventDefault();
+        if (this.isViewable) {
+            this.props.history.push(
+                ev.currentTarget.getAttribute('href')
+            );
+        }
+    }
 
-  @action.bound onHitEnter(ev) {
-      if(ev.key === 'Enter')
-          this.onClick(ev);
-  }
+    @action.bound onHitEnter(ev) {
+        if(ev.key === 'Enter')
+            this.onClick(ev);
+    }
 
-  @computed get isViewable() {
-      return get(this.props, 'viewable', this.props.event.isViewable);
-  }
+    @computed get isViewable() {
+        return get(this.props, 'viewable', this.props.event.isViewable);
+    }
 
-  renderDesktop() {
-      const { event, course } = this.props;
-      return (
-      <>
-        <ClickableInfoRow
-            href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-            onClick={this.onClick}
-        >
-            <TitleCell>
-                <EventTypeIcon event={event} />
-                <span>{event.title}</span>
-            </TitleCell>
-            <DueCell>
-                <EventTime event={event} />
-                {event.is_extended && <StyledEIcon />}
-                <HideButton event={event} />
-            </DueCell>
-            <StatusCell>
-                <TaskStatus event={event} course={course} />
-            </StatusCell>
-        </ClickableInfoRow>
-        <ScoreCell>
-            <TaskScore event={event} course={course} />
-        </ScoreCell>
-      </>
-      );
-  }
+    renderDesktop() {
+        const { event, course } = this.props;
+        return (
+            <>
+                <ClickableInfoRow
+                    href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+                    onClick={this.onClick}
+                >
+                    <TitleCell>
+                        <EventTypeIcon event={event} />
+                        <span>{event.title}</span>
+                    </TitleCell>
+                    <DueCell>
+                        <EventTime event={event} />
+                        {event.is_extended && <StyledEIcon />}
+                        <HideButton event={event} />
+                    </DueCell>
+                    <StatusCell>
+                        <TaskStatus event={event} course={course} />
+                    </StatusCell>
+                </ClickableInfoRow>
+                <ScoreCell>
+                    <TaskScore event={event} course={course} />
+                </ScoreCell>
+            </>
+        );
+    }
 
-  renderMobile() {
-      const { event, course } = this.props;
-      return (
-          <MobileRow>
-              <a
-                  href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-                  onClick={this.onClick}
-              >
-                  <div className="assignment-title-icon">
-                      <EventTypeIcon event={event} />
-                      <span className="assignment-title">{event.title}</span>
-                  </div>
-                  <div className="mobile-event-info-container">
-                      <div className="mobile-event-info">
-                          <span>Due on</span> 
-                          <span>
-                              <EventTime event={event} />
-                              {event.is_extended && <StyledEIcon />}
-                          </span>
-                      </div>
-                      <div className="mobile-event-info">
-                          <span>Status</span> 
-                          <span>
-                              <TaskStatus event={event} course={course} />
-                          </span>
-                      </div>
-                  </div>
-              </a>
-              <div className="mobile-event-info-container">
-                  <div className="mobile-event-info">
-                      <span>Score</span>
-                      <TaskScore event={event} course={course} />
-                  </div>
-              </div>
-          </MobileRow>
-      );
-  }
+    renderMobile() {
+        const { event, course } = this.props;
+        return (
+            <MobileRow>
+                <a
+                    href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+                    onClick={this.onClick}
+                >
+                    <div className="assignment-title-icon">
+                        <EventTypeIcon event={event} />
+                        <span className="assignment-title">{event.title}</span>
+                    </div>
+                    <div className="mobile-event-info-container">
+                        <div className="mobile-event-info">
+                            <span>Due on</span> 
+                            <span>
+                                <EventTime event={event} />
+                                {event.is_extended && <StyledEIcon />}
+                            </span>
+                        </div>
+                        <div className="mobile-event-info">
+                            <span>Status</span> 
+                            <span>
+                                <TaskStatus event={event} course={course} />
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <div className="mobile-event-info-container">
+                    <div className="mobile-event-info">
+                        <span>Score</span>
+                        <TaskScore event={event} course={course} />
+                    </div>
+                </div>
+            </MobileRow>
+        );
+    }
 
-  render() {
-      const { event, course } = this.props;
-      if (event.isHidden) { return null; }
+    render() {
+        const { event, course } = this.props;
+        if (event.isHidden) { return null; }
 
-      return (
-      <>
-        <NotOpenNotice task={event} course={course} />
-        <TaskRow
-            className={cn(`task ${event.type}`, {
-                viewable: this.isViewable,
-                deleted: event.is_deleted,
-            })}
-            aria-label={`Work on ${event.type}: ${this.props.event.title}`}
-            tabIndex={this.isViewable ? 0 : -1}
-            href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-            onKeyDown={this.isViewable ? this.onHitEnter : undefined}
-            data-event-id={this.props.event.id}
-        >
-            <Responsive
-                desktop={this.renderDesktop()}
-                mobile={this.renderMobile()}
-            />
+        return (
+            <>
+                <NotOpenNotice task={event} course={course} />
+                <TaskRow
+                    className={cn(`task ${event.type}`, {
+                        viewable: this.isViewable,
+                        deleted: event.is_deleted,
+                    })}
+                    aria-label={`Work on ${event.type}: ${this.props.event.title}`}
+                    tabIndex={this.isViewable ? 0 : -1}
+                    href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+                    onKeyDown={this.isViewable ? this.onHitEnter : undefined}
+                    data-event-id={this.props.event.id}
+                >
+                    <Responsive
+                        desktop={this.renderDesktop()}
+                        mobile={this.renderMobile()}
+                    />
           
-        </TaskRow>
-      </>
-      );
-  }
+                </TaskRow>
+            </>
+        );
+    }
 }

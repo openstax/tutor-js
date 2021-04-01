@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
 import { find } from 'lodash';
 
 const DEFAULTS = {

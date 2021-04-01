@@ -8,40 +8,40 @@ import BuilderUX from './ux';
 export default
 class CourseClone extends React.Component {
 
-  static title = 'Which course do you want to copy?';
+    static title = 'Which course do you want to copy?';
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(BuilderUX).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(BuilderUX).isRequired,
+    }
 
-  @action.bound
-  onSelect(course) {
-      this.props.ux.newCourse.cloned_from = course;
-  }
+    @action.bound
+    onSelect(course) {
+        this.props.ux.newCourse.cloned_from = course;
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-          <Listing>
-              {ux.cloneSources.map(course =>
-                  <Choice
-                      key={`course-clone-${course.id}`}
-                      active={course === ux.newCourse.cloned_from}
-                      onClick={partial(this.onSelect, course)}>
-                      <div className="contents">
-                          <div className="title">
-                              {course.name}
-                          </div>
-                          <div className="sub-title">
-                              {course.term}
-                              {' '}
-                              {course.year}
-                          </div>
-                      </div>
-                  </Choice>
-              )}
-          </Listing>
-      );
-  }
+        return (
+            <Listing>
+                {ux.cloneSources.map(course =>
+                    <Choice
+                        key={`course-clone-${course.id}`}
+                        active={course === ux.newCourse.cloned_from}
+                        onClick={partial(this.onSelect, course)}>
+                        <div className="contents">
+                            <div className="title">
+                                {course.name}
+                            </div>
+                            <div className="sub-title">
+                                {course.term}
+                                {' '}
+                                {course.year}
+                            </div>
+                        </div>
+                    </Choice>
+                )}
+            </Listing>
+        );
+    }
 }

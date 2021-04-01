@@ -1,28 +1,30 @@
-import { observable } from 'mobx';
+import { ID, action, observable, modelize } from 'shared/model'
 import Map from 'shared/model/map';
 import TaskPlan from './plan';
+import Api from '../../../api'
 
 export
-class PastTaskPlans extends Map {
+class PastTaskPlans extends Map<ID, TaskPlan> {
 
-  @observable course;
+    @observable course;
 
-  constructor(attrs) {
-      super();
-      modelize(this);
-      this.course = attrs.course;
-  }
+    constructor(attrs: any) {
+        super();
+        modelize(this);
+        this.course = attrs.course;
+    }
 
-  // called from api
-  fetch() {
-      if (!this.course.isCloned) { return 'ABORT'; }
-      return { id: this.course.cloned_from_id };
-  }
-  onLoaded({ data: { items } }) {
-      items.forEach(plan => {
-          const tp = this.get(plan.id);
-          tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
-      });
-  }
+    // called from api
+    async fetch() {
+        if (!this.course.isCloned) { return }
+        const data = this.api.request(Api.fetchPastTaskPlans({ courseId: this.course.cloned_from_id }))
+        this.onLoaded(data)
+    }
+    @action onLoaded({ items }: any) {
+        items.forEach((plan: any) => {
+            const tp = this.get(plan.id);
+            tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
+        });
+    }
 
 }

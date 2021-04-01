@@ -1,13 +1,14 @@
 import type Course from './course'
 import { sortBy, values } from 'lodash';
-import { BaseModel, model, action, observable, computed, field, modelize, ID, extendedArray } from 'shared/model';
+import {
+    BaseModel, model, action, observable, computed, field, modelize, ID, extendedArray,
+} from 'shared/model'
 import ChapterSection from './chapter-section';
-import Map from 'shared/model/map';
+import Map, { hydrateModel } from 'shared/model/map';
 import Note from './notes/note';
 import Api from '../api'
 import { HighlightedPageObj } from './types'
 import Page from './reference-book/node'
-
 
 class HighlightedSection extends BaseModel {
     @field uuid: string = ''
@@ -27,7 +28,7 @@ class Notes extends BaseModel {
 
     @model(HighlightedSection) summary = extendedArray((a: HighlightedSection[]) => ({
         sorted() { return sortBy(a, 'chapter_section.asNumber'); },
-        forPage(page: PageNotes) {
+        forPage(page: Page) {
             return a.find(s => s.uuid == page.uuid);
         },
     }))
@@ -120,8 +121,8 @@ class PageNotes extends Map<ID, Note> {
         this.notes.onNoteDeleted(this);
     }
 
-    async create({ anchor: string, page, ...attrs }) {
-        const note = new Note({
+    async create({ anchor, page, ...attrs }: { anchor: string, page: Page, attrs: any[] }) {
+        const note = hydrateModel(Note, {
             anchor,
             chapter_section: page.chapter_section,
             page_id: page.id,

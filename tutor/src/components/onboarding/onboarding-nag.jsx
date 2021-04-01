@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import Router from '../../helpers/router';
 import { OnboardingNag, Heading, Body, Footer } from './nag-components';

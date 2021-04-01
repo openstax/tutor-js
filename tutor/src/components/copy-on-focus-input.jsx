@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable } from 'mobx';
+import { observable, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';

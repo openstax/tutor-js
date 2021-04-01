@@ -51,8 +51,8 @@ export default class Tour extends BaseModel {
     }
 
     @computed static get all() {
-          return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
-      }
+        return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
+    }
 
     @field id: string = ''
 

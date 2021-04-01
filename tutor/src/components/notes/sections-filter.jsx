@@ -3,7 +3,7 @@ import React from 'react';
 import Multiselect from '../multi-select';
 import TagList from '../tag-list';
 import { observer } from 'mobx-react';
-import { action, computed } from 'mobx';
+import { action, computed, modelize } from 'shared/model'
 import styled from 'styled-components';
 import BookPartTitle from '../book-part-title';
 

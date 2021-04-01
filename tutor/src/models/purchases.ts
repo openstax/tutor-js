@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import { find } from 'lodash';
-import { computed } from 'mobx';
+import { computed, modelize } from 'shared/model'
 import { map, flatten } from 'lodash';
 import Purchase from './purchases/purchase';
 

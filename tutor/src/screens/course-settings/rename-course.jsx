@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { Modal } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import Courses from '../../models/courses-map';

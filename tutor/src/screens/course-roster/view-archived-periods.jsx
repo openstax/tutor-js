@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { isEmpty } from 'lodash';
 import { Button, Modal } from 'react-bootstrap';
 import { SpyMode, AsyncButton } from 'shared';

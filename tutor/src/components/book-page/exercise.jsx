@@ -50,48 +50,48 @@ ReferenceBookExercise.propTypes = {
 ReferenceBookExercise.displayName = 'ReferenceBookExercise';
 
 export class ReferenceBookExerciseShell extends React.Component {
-  static displayName = 'ReferenceBookExerciseShell';
-  static propTypes = {
-      exerciseAPIUrl: PropTypes.string,
-  }
-  isLoading = () => {
-      const { exerciseAPIUrl } = this.props;
-      return (
-          ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
-      );
-  };
+    static displayName = 'ReferenceBookExerciseShell';
+    static propTypes = {
+        exerciseAPIUrl: PropTypes.string,
+    }
+    isLoading = () => {
+        const { exerciseAPIUrl } = this.props;
+        return (
+            ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
+        );
+    };
 
-  load = () => {
-      const { exerciseAPIUrl } = this.props;
-      if (!this.isLoading()) { return ReferenceBookExerciseActions.load(exerciseAPIUrl); }
-  };
+    load = () => {
+        const { exerciseAPIUrl } = this.props;
+        if (!this.isLoading()) { return ReferenceBookExerciseActions.load(exerciseAPIUrl); }
+    };
 
-  renderExercise = () => {
-      const exerciseHtml = ReactDOMServer.renderToStaticMarkup(<ReferenceBookExercise {...this.props} />);
-      return (
-          <ArbitraryHtmlAndMath html={exerciseHtml} />
-      );
-  };
+    renderExercise = () => {
+        const exerciseHtml = ReactDOMServer.renderToStaticMarkup(<ReferenceBookExercise {...this.props} />);
+        return (
+            <ArbitraryHtmlAndMath html={exerciseHtml} />
+        );
+    };
 
-  render() {
-      const { exerciseAPIUrl } = this.props;
+    render() {
+        const { exerciseAPIUrl } = this.props;
 
-      return (
-          <LoadableItem
-              id={exerciseAPIUrl}
-              bindEvent={`loaded.${exerciseAPIUrl}`}
-              isLoading={this.isLoading}
-              load={this.load}
-              store={ReferenceBookExerciseStore}
-              actions={ReferenceBookExerciseActions}
-              renderItem={this.renderExercise}
-              renderLoading={function() { return (
-                  <span className="loading-exercise">
+        return (
+            <LoadableItem
+                id={exerciseAPIUrl}
+                bindEvent={`loaded.${exerciseAPIUrl}`}
+                isLoading={this.isLoading}
+                load={this.load}
+                store={ReferenceBookExerciseStore}
+                actions={ReferenceBookExerciseActions}
+                renderItem={this.renderExercise}
+                renderLoading={function() { return (
+                    <span className="loading-exercise">
               Loading exercise...
-                  </span>
-              );}}
-              renderError={function() { return <ReferenceBookMissingExercise />; }}
-          />
-      );
-  }
+                    </span>
+                );}}
+                renderError={function() { return <ReferenceBookMissingExercise />; }}
+            />
+        );
+    }
 }

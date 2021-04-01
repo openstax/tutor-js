@@ -1,7 +1,5 @@
-import {
-    computed, observable,
-} from 'mobx';
-
+import { computed, observable, modelize } from 'shared/model'
+import Course from '../course'
 
 export default class CourseUX {
 
@@ -13,33 +11,33 @@ export default class CourseUX {
         return '$10';
     }
 
-  @observable course;
+    @observable course: Course;
 
-  constructor(course) {
-      modelize(this);
-      this.course = course;
-  }
+    constructor(course: Course) {
+        modelize(this);
+        this.course = course;
+    }
 
-  @computed get dataProps() {
-      return {
-          'data-title':       this.course.nameCleaned,
-          'data-book-title':  this.course.bookName,
-          'data-appearance':  this.course.appearance_code,
-          'data-is-preview':  this.course.is_preview || false,
-          'data-term':        this.course.termFull,
-      };
-  }
+    @computed get dataProps() {
+        return {
+            'data-title':       this.course.nameCleaned,
+            'data-book-title':  this.course.bookName,
+            'data-appearance':  this.course.appearance_code,
+            'data-is-preview':  this.course.is_preview || false,
+            'data-term':        this.course.termFull,
+        };
+    }
 
-  @computed get courseType() {
-      return this.course.is_concept_coach ? 'cc' : 'tutor';
-  }
+    @computed get courseType() {
+        return this.course.is_concept_coach ? 'cc' : 'tutor';
+    }
 
-  @computed get courseId() {
-      return this.course.isNew ? 'new' : this.course.id;
-  }
+    @computed get courseId() {
+        return this.course.isNew ? 'new' : this.course.id;
+    }
 
-  get formattedStudentCost() {
-      return CourseUX.formattedStudentCost;
-  }
+    get formattedStudentCost() {
+        return CourseUX.formattedStudentCost;
+    }
 
 }

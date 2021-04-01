@@ -1,6 +1,6 @@
 import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import Big from 'big.js';
-import { BaseModel, field, model, modelize, computed, action, NEW_ID, getParentOf } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, NEW_ID, getParentOf } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import Bignum from 'shared/model/bignum'
 import type PeriodScores from './period'
@@ -44,11 +44,6 @@ export default class Heading extends BaseModel {
     @computed get tasks() {
         return map(this.period.students, (s) => s.data[this.columnIndex]);
     }
-
-    // @action adjustScores() {
-    //     this.average_score = this.averageForType('score');
-    //     this.average_progress = this.averageForType('progress');
-    // }
 
     averageForType(attr: string) {
         const tasks = filter(this.tasks, 'student.isActive');

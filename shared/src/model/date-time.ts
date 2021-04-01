@@ -1,4 +1,4 @@
-import { DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone} from 'luxon'
+import { DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone } from 'luxon'
 import { map, compact, flatten, max, min } from 'lodash';
 import { readonly } from 'core-decorators'
 import { isString, isNumber, isDate } from 'lodash'

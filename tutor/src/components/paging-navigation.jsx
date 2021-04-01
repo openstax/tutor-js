@@ -5,7 +5,7 @@ import { isFunction, partial, defer } from 'lodash';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 import { PrevIcon, NextIcon } from './icons/pagination';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 import S from '../helpers/string';
@@ -265,23 +265,23 @@ class PagingNavigation extends React.Component {
 
     render() {
         return (
-        <>
-          <div className={classnames('tutor-paging-navigation', this.props.className)}>
-              {this.renderControls()}
-              {this.renderPrev()}
-              <div
-                  tabIndex="0"
-                  role="region"
-                  aria-live="polite"
-                  id="paged-content"
-                  className="paged-content"
-              >
-                  {this.props.children}
-              </div>
-              {this.renderNext()}
-          </div>
-          {this.props.renderMobileFooter && this.renderMobileFooter()}
-        </>
+            <>
+                <div className={classnames('tutor-paging-navigation', this.props.className)}>
+                    {this.renderControls()}
+                    {this.renderPrev()}
+                    <div
+                        tabIndex="0"
+                        role="region"
+                        aria-live="polite"
+                        id="paged-content"
+                        className="paged-content"
+                    >
+                        {this.props.children}
+                    </div>
+                    {this.renderNext()}
+                </div>
+                {this.props.renderMobileFooter && this.renderMobileFooter()}
+            </>
         );
     }
 }

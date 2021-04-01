@@ -3,49 +3,49 @@ import { BaseModel, field, modelize, computed, action, NEW_ID } from 'shared/mod
 
 export default class PracticeQuestion extends BaseModel {
 
-  @field id = NEW_ID;
-  @field tasked_exercise_id;
-  @field exercise_id;
-  @field available;
+    @field id = NEW_ID;
+    @field tasked_exercise_id;
+    @field exercise_id;
+    @field available;
 
-  constructor(attrs = {}, map) {
-      super(attrs);
-      modelize(this);
-      this.map = map;
-  }
+    constructor(attrs = {}, map) {
+        super(attrs);
+        modelize(this);
+        this.map = map;
+    }
 
-  save() {
-      return extend(this.urlParams, {
-          data: {
-              tasked_exercise_id: this.tasked_exercise_id,
-          },
-      });
-  }
+    save() {
+        return extend(this.urlParams, {
+            data: {
+                tasked_exercise_id: this.tasked_exercise_id,
+            },
+        });
+    }
 
-  @action onSaved({ data }) {
-      this.update(data);
-      if (!this.map.get(this.id)) {
-      // delete the pending key, and set the new one with its id and the data
-          this.map.delete('pending');
-          this.map.set(this.id, this);
-      }
-  }
+    @action onSaved({ data }) {
+        this.update(data);
+        if (!this.map.get(this.id)) {
+            // delete the pending key, and set the new one with its id and the data
+            this.map.delete('pending');
+            this.map.set(this.id, this);
+        }
+    }
 
-  destroy() {
-      return this.urlParams;
-  }
+    destroy() {
+        return this.urlParams;
+    }
 
-  onDestroyed() {
-      if (this.map.get(this.id)) {
-          this.map.delete(this.id);
-      }
-  }
+    onDestroyed() {
+        if (this.map.get(this.id)) {
+            this.map.delete(this.id);
+        }
+    }
 
-  @computed get urlParams() {
-      return {
-          id: this.id,
-          courseId: this.map.course.id,
-      };
-  }
+    @computed get urlParams() {
+        return {
+            id: this.id,
+            courseId: this.map.course.id,
+        };
+    }
 
 }

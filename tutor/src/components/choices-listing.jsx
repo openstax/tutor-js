@@ -3,7 +3,7 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model'
 import { readonly } from 'core-decorators';
 import { ReactHelpers } from 'shared';
 import { Icon } from 'shared';
@@ -59,20 +59,20 @@ class Choice extends React.Component {
 
 @observer
 class Listing extends React.Component {
-  static propTypes = {
-      className:  PropTypes.string,
-      children:   PropTypes.node,
-  }
+    static propTypes = {
+        className:  PropTypes.string,
+        children:   PropTypes.node,
+    }
 
-  @readonly static Choice = Choice;
+    @readonly static Choice = Choice;
 
-  render() {
-      return (
-          <ListGroup className={classnames('choices-listing', this.props.className)}>
-              {this.props.children}
-          </ListGroup>
-      );
-  }
+    render() {
+        return (
+            <ListGroup className={classnames('choices-listing', this.props.className)}>
+                {this.props.children}
+            </ListGroup>
+        );
+    }
 
 }
 

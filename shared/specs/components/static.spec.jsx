@@ -2,11 +2,11 @@ import React from 'react';
 import StaticComponent from '../../src/components/static';
 
 class TestComponent extends StaticComponent {
-  renderSpy = jest.fn();
-  render() {
-      this.renderSpy();
-      return null;
-  }
+    renderSpy = jest.fn();
+    render() {
+        this.renderSpy();
+        return null;
+    }
 }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { computed, action, modelize } from 'shared/model'
 import { without, find } from 'lodash';
 import { autobind } from 'core-decorators';
 import { Nav, Popover, OverlayTrigger } from 'react-bootstrap';

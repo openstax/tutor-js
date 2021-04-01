@@ -20,37 +20,37 @@ export default class ScoresExport extends Job {
         return exp;
     }
 
-  @observable course;
-  @observable url;
+    @observable course;
+    @observable url;
 
-  @computed get lastExportedAt() {
-      const date = UiSettings.get(LAST_EXPORT, this.course.id);
-      return date ? moment(date).format('M/D/YY, h:mma') : null;
-  }
+    @computed get lastExportedAt() {
+        const date = UiSettings.get(LAST_EXPORT, this.course.id);
+        return date ? moment(date).format('M/D/YY, h:mma') : null;
+    }
 
-  constructor(course) {
-      super({ maxAttempts: 120, interval: 5 }); // every 5 seconds for max of 10 mins
-      modelize(this);
-      this.course = course;
-  }
+    constructor(course) {
+        super({ maxAttempts: 120, interval: 5 }); // every 5 seconds for max of 10 mins
+        modelize(this);
+        this.course = course;
+    }
 
-  onPollComplete(info) {
-      UiSettings.set(LAST_EXPORT, this.course.id, Time.now.toISOString());
-      Toasts.push({
-          info,
-          type: 'scores',
-          handler: 'job',
-          status: this.hasFailed ? 'failed' : 'ok',
-      });
-  }
+    onPollComplete(info) {
+        UiSettings.set(LAST_EXPORT, this.course.id, Time.now.toISOString());
+        Toasts.push({
+            info,
+            type: 'scores',
+            handler: 'job',
+            status: this.hasFailed ? 'failed' : 'ok',
+        });
+    }
 
-  create() {
-      // set this now so status updates immediately
-      this.pollingId = 'pending';
-  }
+    create() {
+        // set this now so status updates immediately
+        this.pollingId = 'pending';
+    }
 
-  onCreated({ data }) {
-      this.startPolling(data.job);
-  }
+    onCreated({ data }) {
+        this.startPolling(data.job);
+    }
 
 }

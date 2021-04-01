@@ -38,40 +38,40 @@ export default class TaskPlanPublish extends Job {
         CURRENT.clear();
     }
 
-  @observable plan;
+    @observable plan;
 
-  constructor(plan: TaskPlan) {
-      super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
-      modelize(this);
-      this.plan = plan;
-  }
+    constructor(plan: TaskPlan) {
+        super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
+        modelize(this);
+        this.plan = plan;
+    }
 
-  stopListening() {
-      if (this.publishChangeListener) {
-          this.publishChangeListener();
-          this.publishChangeListener = null;
-          this.stopPolling();
-      }
-  }
+    stopListening() {
+        if (this.publishChangeListener) {
+            this.publishChangeListener();
+            this.publishChangeListener = null;
+            this.stopPolling();
+        }
+    }
 
-  startListening() {
-      if (this.publishChangeListener) { return; }
-      this.publishChangeListener = reaction(
-          () => this.shouldPoll,
-          () => (this.shouldPoll && !this.isPolling) ?
-              this.startPolling(this.plan.publish_job_url) : this.stopPolling(),
-          { fireImmediately: true }
-      );
+    startListening() {
+        if (this.publishChangeListener) { return; }
+        this.publishChangeListener = reaction(
+            () => this.shouldPoll,
+            () => (this.shouldPoll && !this.isPolling) ?
+                this.startPolling(this.plan.publish_job_url) : this.stopPolling(),
+            { fireImmediately: true }
+        );
 
-  }
+    }
 
-  @computed get shouldPoll() {
-      return Boolean(this.plan && this.plan.isPollable);
-  }
+    @computed get shouldPoll() {
+        return Boolean(this.plan && this.plan.isPollable);
+    }
 
-  onPollComplete() {
-      this.plan.onPublishComplete();
-  }
+    onPollComplete() {
+        this.plan.onPublishComplete();
+    }
 
 
 }

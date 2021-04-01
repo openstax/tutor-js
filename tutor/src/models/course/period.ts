@@ -1,14 +1,14 @@
 import { find, pick, last } from 'lodash';
 import Student from './student';
 import {
-  BaseModel,
-  field,
-  model,
-  modelize,
-  computed,
-  action,
-  runInAction,
-  NEW_ID
+    BaseModel,
+    field,
+    model,
+    modelize,
+    computed,
+    action,
+    runInAction,
+    NEW_ID,
 } from 'shared/model';
 
 export default class CoursePeriod extends BaseModel {

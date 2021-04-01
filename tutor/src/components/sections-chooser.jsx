@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Collapse } from 'react-bootstrap';
 import { filter, extend, forEach, find } from 'lodash';
@@ -246,16 +246,16 @@ class SectionsChooser extends React.Component {
         }
 
         return (
-        <>
-          {book.chapters.map((chapter, i) =>
-              <ChapterAccordion
-                  key={i}
-                  {...this.props}
-                  onChange={this.onSectionSelectionChange}
-                  selections={this.selections}
-                  chapter={chapter}
-              />)}
-        </>
+            <>
+                {book.chapters.map((chapter, i) =>
+                    <ChapterAccordion
+                        key={i}
+                        {...this.props}
+                        onChange={this.onSectionSelectionChange}
+                        selections={this.selections}
+                        chapter={chapter}
+                    />)}
+            </>
         );
     }
 }

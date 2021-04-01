@@ -9,35 +9,35 @@ import CourseInformation from '../../models/course/information';
 export default
 class SupportDocumentLink extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  get role() {
-      const { course } = this.props;
-      if (course) {
-          if (course.currentRole.isTeacherStudent) {
-              return 'student';
-          }
-          return course.currentRole.type;
-      }
-      return User.isProbablyTeacher ? 'teacher' : 'student';
-  }
+    get role() {
+        const { course } = this.props;
+        if (course) {
+            if (course.currentRole.isTeacherStudent) {
+                return 'student';
+            }
+            return course.currentRole.type;
+        }
+        return User.isProbablyTeacher ? 'teacher' : 'student';
+    }
 
-  render() {
-      const url = CourseInformation.gettingStartedGuide[this.role];
+    render() {
+        const url = CourseInformation.gettingStartedGuide[this.role];
 
-      return (
-          <Dropdown.Item
-              className="support-document-link"
-              target="_blank"
-              href={url}
-          >
-              <TourAnchor id="menu-support-document">
+        return (
+            <Dropdown.Item
+                className="support-document-link"
+                target="_blank"
+                href={url}
+            >
+                <TourAnchor id="menu-support-document">
           Getting Started Guide
-              </TourAnchor>
-          </Dropdown.Item>
-      );
-  }
+                </TourAnchor>
+            </Dropdown.Item>
+        );
+    }
 
 }

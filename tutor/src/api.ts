@@ -27,6 +27,7 @@ interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
 
 const Api = {
+    bootstrap:             r('GET', '/user/bootstrap'),
 
     getCourse:             r<CourseId>('GET', 'courses/{courseId}'),
     updateCourse:          r<CourseId>('POST', 'courses/{courseId}'),
@@ -91,72 +92,88 @@ const Api = {
 
     fetchTaskPlans:        r<CourseId, TaskPlanQuery>('GET', 'courses/{course.id}/dashboard'),
 
-    fetchTaskPlan:         r<TaskPlanId>('GET', 'plans/{id}'),
+    fetchPastTaskPlans:    r<CourseId>('GET', 'courses/{course.id}/plans'),
+    fetchTaskPlan:         r<TaskPlanId>('GET', 'plans/{taskPlanId}'),
     deleteTaskPlan:        r<TaskPlanId>('DELETE', 'plans/{id}'),
     saveTaskPlan:          r<TaskPlanId>('PUT', 'plans/{id}'),
     createTaskPlan:        r<CourseId>('POST', 'courses/${courseId}/plans'),
 
     grantTaskExtensions:   r<TaskPlanId>('PUT', 'plans/{id}'),
 
+    fetchStudentTasks:     r<CourseId>('GET', 'courses/{courseId}/dashboard'),
 
-//     connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
-//     connectModelUpdate(TeacherTaskPlan, 'grantExtensions', { onSuccess: 'onApiRequestComplete', pattern:
+    fetchTaskPlanStats:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
+
+    fetchTaskPlanReview:   r<TaskPlanId>('GET', 'plans/{id}/review'),
+
+    //     connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: });
+
+
+    //     connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern:  });
+
+
+    //     connectModelRead(Stats, 'fetch', {
+    //         url: '/stats', onSuccess: 'onLoaded',
+    //     });
+
+
+    //     connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+    //     connectModelUpdate(TeacherTaskPlan, 'grantExtensions', { onSuccess: 'onApiRequestComplete', pattern:
     //  });
-//     connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+    //     connectModelUpdate(TeacherTaskPlan, 'saveDroppedQuestions', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
 
 
-//     connectModelDelete(TeacherTaskPlan, 'destroy', { onSuccess: 'onDeleteComplete', pattern: 'plans/{id}' });
-//     connectModelRead(TeacherTaskPlan, 'fetch', {
-//         onSuccess: 'onApiRequestComplete', pattern: ,
-//     });
+    //     connectModelDelete(TeacherTaskPlan, 'destroy', { onSuccess: 'onDeleteComplete', pattern: 'plans/{id}' });
+    //     connectModelRead(TeacherTaskPlan, 'fetch', {
+    //         onSuccess: 'onApiRequestComplete', pattern: ,
+    //     });
 
-//     connectModelUpdate(TeacherTaskGrade, 'save', {
-//         method: 'PUT', pattern: , onSuccess: 'onGraded',
-//     });
-//     connectModelRead(TeacherTaskPlans, 'fetch', {
-//         pattern: 'courses/{course.id}/dashboard', onSuccess: 'onLoaded',
-//         params({ startAt, endAt }) { return { start_at: startAt, end_at: endAt }; },
-//     });
+    //     connectModelUpdate(TeacherTaskGrade, 'save', {
+    //         method: 'PUT', pattern: , onSuccess: 'onGraded',
+    //     });
+    //     connectModelRead(TeacherTaskPlans, 'fetch', {
+    //         pattern: 'courses/{course.id}/dashboard', onSuccess: 'onLoaded',
+    //         params({ startAt, endAt }) { return { start_at: startAt, end_at: endAt }; },
+    //     });
 
-//     connectModelRead( PastTaskPlans, 'fetch', {
-//         pattern: 'courses/{course.id}/plans', onSuccess: 'onLoaded',
-//         params: { clone_status: 'unused_source' },
-//     });
+    //     connectModelRead( PastTaskPlans, 'fetch', {
+    //         pattern:, onSuccess: 'onLoaded',
+    //         params: { clone_status: 'unused_source' },
+    //     });
 
 
+    //     connectModelUpdate(UserTerms, 'sign', { onSuccess: 'onSigned', pattern: , method: 'PUT' });
 
-//     connectModelUpdate(UserTerms, 'sign', { onSuccess: 'onSigned', pattern: , method: 'PUT' });
-
-//     connectModelRead(UserTerms, 'fetch', { onSuccess: 'onLoaded', url: 'terms' });
+    //     connectModelRead(UserTerms, 'fetch', { onSuccess: 'onLoaded', url: 'terms' });
 
 
     //     connectModelRead(Ecosystems.constructor, 'fetch', { onSuccess: 'onLoaded', url:  });
 
 
     //     connectModelCreate(
-//         User.constructor,
-//         'suggestSubject',
-//         {
-//             onSuccess: 'onSaved',
-//             method: 'POST',
-//             pattern: 'user/suggest',
-//             data({ data }) { return { data }; },
-//         },
-//     );
+    //         User.constructor,
+    //         'suggestSubject',
+    //         {
+    //             onSuccess: 'onSaved',
+    //             method: 'POST',
+    //             pattern: 'user/suggest',
+    //             data({ data }) { return { data }; },
+    //         },
+    //     );
 
     //     connectModelCreate(
-//         User.constructor,
-//         'logEvent',
-//         {
-//             method: 'POST',
-//             pattern: ,
-//             data({ data }) { return { data }; },
-//         },
-//     );
+    //         User.constructor,
+    //         'logEvent',
+    //         {
+    //             method: 'POST',
+    //             pattern: ,
+    //             data({ data }) { return { data }; },
+    //         },
+    //     );
 
     //     connectModelUpdate(User.constructor, 'saveTourView',
-//         { pattern:  }
-//     );
+    //         { pattern:  }
+    //     );
 
 }
 
@@ -196,7 +213,6 @@ export default Api
 //     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
 
 
-
 //     connectModelRead(ResponseValidation, 'validate',
 //         { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',
 //             timeout: 2000, // wait a max of 2 seconds
@@ -233,10 +249,7 @@ export default Api
 //         onSuccess: 'onDestroyed',
 //     });
 
-//     connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard' });
 //     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
-
-
 
 
 //     connectModelUpdate(CoursePairLMS, 'save', { method: 'POST', pattern: 'lms/courses/{course.id}/pair', onSuccess: 'onPaired' });
@@ -271,7 +284,6 @@ export default Api
 
 //     connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
 
-//     connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
 
 //     connectModelRead(TaskPlanScores, 'fetch', {
 //         onSuccess: 'onApiRequestComplete',
@@ -279,9 +291,6 @@ export default Api
 //     });
 
 //     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
-
-
-
 
 
 // };

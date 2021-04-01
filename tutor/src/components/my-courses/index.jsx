@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { computed } from 'mobx';
+import { computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import User from '../../models/user';
 import Router from '../../helpers/router';
@@ -24,8 +24,8 @@ class MyCourses extends React.Component {
     }
 
     @computed get firstCourse() {
-          return Courses.array[0];
-      }
+        return Courses.array[0];
+    }
 
     @computed get shouldRedirect() {
         if (Courses.size !== 1){

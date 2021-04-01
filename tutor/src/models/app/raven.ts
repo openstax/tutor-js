@@ -1,13 +1,14 @@
 import * as Sentry from '@sentry/browser';
 import { first, isEmpty, isObject, each } from 'lodash';
 import { isProd } from '../../helpers/production';
+import type { User } from '../user'
 
 const isMathJaxUrl = /mathjax/;
 
-const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
+const isMathjax = (crumb: any) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
 const IGNORED = /ResizeObserver|ChunkLoadError|button after page initialization/
 
-const sendWithXtras = (method, arg, xtra) => {
+const sendWithXtras = (method: 'captureException' | 'captureMessage', arg: any, xtra: any) => {
     if (isEmpty(xtra)) {
         Sentry[method](arg);
     } else {
@@ -36,7 +37,7 @@ const RavenErrorLogging = {
                 if (isMathjax(breadcrumb)) { return null; }
                 return breadcrumb;
             },
-            beforeSend(event, hint){
+            beforeSend(event, hint: any){
                 const error = hint.originalException;
                 if (error?.message?.match(IGNORED)) {
                     return null
@@ -46,20 +47,20 @@ const RavenErrorLogging = {
         });
     },
 
-    setUser(user) {
+    setUser(user: User) {
         Sentry.configureScope(scope => {
             scope.setUser({ id: user.account_uuid });
         });
     },
 
-    captureException(error, xtra) {
+    captureException(error: any, xtra: any) {
         if (!isProd) {
             console.warn(error); // eslint-disable-line no-console
         }
         sendWithXtras('captureException', error, xtra);
     },
 
-    log(msg, xtra) {
+    log(msg: string, xtra?: any) {
         sendWithXtras('captureMessage', msg, xtra);
     },
 

@@ -64,60 +64,60 @@ const DEFAULT_COURSE_ITEMS = {
 @observer
 class MyCoursesBase extends React.Component {
 
-  static propTypes = {
-      courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
-      items:      PropTypes.objectOf(PropTypes.element),
-      className:  PropTypes.string,
-      before:     PropTypes.element,
-      after:      PropTypes.element,
-  }
+    static propTypes = {
+        courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+        items:      PropTypes.objectOf(PropTypes.element),
+        className:  PropTypes.string,
+        before:     PropTypes.element,
+        after:      PropTypes.element,
+    }
 
-  @computed get items() {
-      return merge({}, DEFAULT_COURSE_ITEMS, this.props.items);
-  }
+    @computed get items() {
+        return merge({}, DEFAULT_COURSE_ITEMS, this.props.items);
+    }
 
-  renderCourse(course) {
-      const Item = course.is_preview ? CoursePreview :
-          this.items[User.verifiedRoleForCourse(course)];
-      return Item ? wrapCourse(Item, course) : null;
-  }
+    renderCourse(course) {
+        const Item = course.is_preview ? CoursePreview :
+            this.items[User.verifiedRoleForCourse(course)];
+        return Item ? wrapCourse(Item, course) : null;
+    }
 
-  render() {
-      const { courses, className, before, after } = this.props;
+    render() {
+        const { courses, className, before, after } = this.props;
 
-      const sectionClasses = classnames('my-courses-section', className);
+        const sectionClasses = classnames('my-courses-section', className);
 
-      return (
-          <Row className={sectionClasses}>
-              {before}
-              {map(courses, (course) => this.renderCourse(course))}
-              {after}
-          </Row>
-      );
-  }
+        return (
+            <Row className={sectionClasses}>
+                {before}
+                {map(courses, (course) => this.renderCourse(course))}
+                {after}
+            </Row>
+        );
+    }
 }
 
 @observer
 class MyCoursesTitle extends React.Component {
-  static propTypes = {
-      title: PropTypes.string.isRequired,
-      main: PropTypes.bool,
-  }
+    static propTypes = {
+        title: PropTypes.string.isRequired,
+        main: PropTypes.bool,
+    }
 
-  static defaultProps = {
-      main: false,
-  }
+    static defaultProps = {
+        main: false,
+    }
 
-  render() {
-      const { title } = this.props;
-      return (
-          <Row className="my-courses-title">
-              <Col xs={12}>
-                  <h1>{title}</h1>
-              </Col>
-          </Row>
-      );
-  }
+    render() {
+        const { title } = this.props;
+        return (
+            <Row className="my-courses-title">
+                <Col xs={12}>
+                    <h1>{title}</h1>
+                </Col>
+            </Row>
+        );
+    }
 }
 
 
@@ -144,34 +144,34 @@ class MyCoursesCurrent extends React.Component {
 
 @observer
 class MyCoursesBasic extends React.Component {
-  static propTypes = {
-      title:    PropTypes.string.isRequired,
-      baseName: PropTypes.string.isRequired,
-      courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
-      before:   PropTypes.element,
-      after:    PropTypes.element,
-  }
+    static propTypes = {
+        title:    PropTypes.string.isRequired,
+        baseName: PropTypes.string.isRequired,
+        courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+        before:   PropTypes.element,
+        after:    PropTypes.element,
+    }
 
-  render() {
-      const { courses, baseName, title, before, after } = this.props;
-      if (isEmpty(courses)) { return null; }
+    render() {
+        const { courses, baseName, title, before, after } = this.props;
+        if (isEmpty(courses)) { return null; }
 
-      return (
-          (
-              <div className={baseName}>
-                  <StyledContainer>
-                      <MyCoursesTitle title={title} />
-                      <MyCoursesBase
-                          className={`${baseName}-section`}
-                          courses={courses}
-                          before={before}
-                          after={after}
-                      />
-                  </StyledContainer>
-              </div>
-          )
-      );
-  }
+        return (
+            (
+                <div className={baseName}>
+                    <StyledContainer>
+                        <MyCoursesTitle title={title} />
+                        <MyCoursesBase
+                            className={`${baseName}-section`}
+                            courses={courses}
+                            before={before}
+                            after={after}
+                        />
+                    </StyledContainer>
+                </div>
+            )
+        );
+    }
 }
 
 
@@ -221,28 +221,28 @@ ExploreAPreview.propTypes = {
 @observer
 class MyCoursesPreview extends React.Component {
 
-  @observable previews;
+    @observable previews;
 
-  componentDidMount() {
-      if (User.canViewPreviewCourses) {
-          PreviewCourseOffering.fetch();
-      }
-  }
+    componentDidMount() {
+        if (User.canViewPreviewCourses) {
+            PreviewCourseOffering.fetch();
+        }
+    }
 
-  render() {
-      if (!User.canViewPreviewCourses) { return null; }
+    render() {
+        if (!User.canViewPreviewCourses) { return null; }
 
-      const courses = PreviewCourseOffering.all;
+        const courses = PreviewCourseOffering.all;
 
-      return (
-          <MyCoursesBasic
-              courses={take(courses, courses.length - 1)}
-              baseName={'my-courses-preview'}
-              title="Preview Courses"
-              after={<ExploreAPreview course={last(courses)} />}
-          />
-      );
-  }
+        return (
+            <MyCoursesBasic
+                courses={take(courses, courses.length - 1)}
+                baseName={'my-courses-preview'}
+                title="Preview Courses"
+                after={<ExploreAPreview course={last(courses)} />}
+            />
+        );
+    }
 }
 
 export { MyCoursesCurrent, MyCoursesPast, MyCoursesFuture, MyCoursesPreview };

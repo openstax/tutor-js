@@ -10,50 +10,50 @@ export { PreviewCourseOffering };
 
 class PreviewCourseOffering extends Course {
 
-  @observable offering;
-  @observable courseCreate;
+    @observable offering;
+    @observable courseCreate;
 
-  constructor(offering) {
-      super({
-          id: `preview-${offering.id}`,
-          offering_id: offering.id,
-          name: offering.title,
-          appearance_code: offering.appearance_code,
-          is_preview: true,
-          roles: [ { type: 'teacher' } ],
-      });
-      modelize(this);
-      this.offering = offering;
-  }
+    constructor(offering) {
+        super({
+            id: `preview-${offering.id}`,
+            offering_id: offering.id,
+            name: offering.title,
+            appearance_code: offering.appearance_code,
+            is_preview: true,
+            roles: [ { type: 'teacher' } ],
+        });
+        modelize(this);
+        this.offering = offering;
+    }
 
-  // This property is called to determine if the preview course already exists
-  // We return false if shouldReusePreview is false so we get an updated course
-  @computed get isCreated() {
-      return !!(this.previewCourse && this.previewCourse.should_reuse_preview);
-  }
+    // This property is called to determine if the preview course already exists
+    // We return false if shouldReusePreview is false so we get an updated course
+    @computed get isCreated() {
+        return !!(this.previewCourse && this.previewCourse.should_reuse_preview);
+    }
 
-  // To avoid errors, this method needs to accept any course returned by build()
-  @computed get previewCourse() {
-      return find(
-          orderBy(Courses.preview.active.teaching.array, 'should_reuse_preview', 'desc'),
-          { offering_id: this.offering_id }
-      );
-  }
+    // To avoid errors, this method needs to accept any course returned by build()
+    @computed get previewCourse() {
+        return find(
+            orderBy(Courses.preview.active.teaching.array, 'should_reuse_preview', 'desc'),
+            { offering_id: this.offering_id }
+        );
+    }
 
-  @computed get isBuilding() {
-      return !!(this.courseCreate && this.courseCreate.api.isPending);
-  }
+    @computed get isBuilding() {
+        return !!(this.courseCreate && this.courseCreate.api.isPending);
+    }
 
-  @action build() {
-      if (this.isBuilding) { return Promise.resolve(this.courseCreate); }
-      this.courseCreate = new CourseCreate({
-          name: this.name,
-          is_preview: true,
-          offering_id: this.offering_id,
-          term: this.offering.currentTerm,
-      });
-      return this.courseCreate.save();
-  }
+    @action build() {
+        if (this.isBuilding) { return Promise.resolve(this.courseCreate); }
+        this.courseCreate = new CourseCreate({
+            name: this.name,
+            is_preview: true,
+            offering_id: this.offering_id,
+            term: this.offering.currentTerm,
+        });
+        return this.courseCreate.save();
+    }
 
 }
 

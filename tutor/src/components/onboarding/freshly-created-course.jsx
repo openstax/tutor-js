@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Collapse } from 'react-bootstrap';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { map, partial } from 'lodash';
 import { OnboardingNag, Body, Footer } from './onboarding-nag';

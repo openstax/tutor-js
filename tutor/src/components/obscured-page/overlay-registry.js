@@ -1,5 +1,5 @@
 import { invoke, defer, pick } from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import cn from 'classnames';
 import Analytics from '../../helpers/analytics';
 

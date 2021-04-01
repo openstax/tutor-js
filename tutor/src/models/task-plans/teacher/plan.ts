@@ -327,11 +327,6 @@ export default class TeacherTaskPlan extends BaseModel {
         ));
     }
 
-
-    isPastDueWithPeriodId() {
-        return find(this.tasking_plans, 'isPastDue');
-    }
-
     @action reset() {
         this.title = this.description = '';
         this.tasking_plans.clear()

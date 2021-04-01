@@ -6,7 +6,7 @@ import { BaseModel, hydrateModel, action } from '../model';
 
 const Handlers = observable.map({});
 interface ToastAttrs {
-    handler: 'scoresPublished'
+    handler: 'scoresPublished' | 'reload'
 }
 
 class Toast extends BaseModel {

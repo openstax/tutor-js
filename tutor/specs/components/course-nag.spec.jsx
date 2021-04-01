@@ -6,7 +6,7 @@ import Onboarding from '../../src/models/course/onboarding/base';
 
 jest.mock('../../src/models/tour/context', () => (
     class MockContext {
-    tour = {}
+        tour = {}
     }
 ));
 

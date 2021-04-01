@@ -24,10 +24,10 @@ export class User extends BaseModel {
     }
 
     @action.bound
-      bootstrap(data: any) {
-          hydrateInstance(this, data);
-          this.csrf_token = read_csrf() as string;
-      }
+    bootstrap(data: any) {
+        hydrateInstance(this, data);
+        this.csrf_token = read_csrf() as string;
+    }
 
     @observable csrf_token = '';
 

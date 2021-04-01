@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { action, computed } from 'mobx';
+import { action, computed, modelize } from 'shared/model'
 import { observer, inject } from 'mobx-react';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';

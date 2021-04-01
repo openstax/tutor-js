@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import Tabs from '../../components/tabs';

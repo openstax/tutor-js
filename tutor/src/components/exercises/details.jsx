@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
 import { ExercisePreview } from 'shared';
 import ControlsOverlay from 'shared/components/exercise-preview/controls-overlay';
 import PagingNavigation from '../paging-navigation';

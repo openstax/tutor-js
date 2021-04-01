@@ -8,38 +8,38 @@ import MilestonesToggle from '../../screens/task/reading-milestones-toggle';
 export default
 class CenterControls extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  @observable static currentTaskStep;
+    @observable static currentTaskStep;
 
-  @computed get course() {
-      if (this.props.course) { return this.props.course; }
+    @computed get course() {
+        if (this.props.course) { return this.props.course; }
 
-      return null;
-  }
+        return null;
+    }
 
-  @computed get shouldRender() {
-      return get(this.task, 'isReading', false);
-  }
+    @computed get shouldRender() {
+        return get(this.task, 'isReading', false);
+    }
 
-  render() {
-      if (!this.shouldRender) { return null; }
+    render() {
+        if (!this.shouldRender) { return null; }
 
-      const { taskStep } = this;
+        const { taskStep } = this;
 
-      return (
-          <div className="center-control">
-              <div className="icons">
-                  <MilestonesToggle model={taskStep} />
-                  <NotesSummaryToggle
-                      course={this.course}
-                      type="reading"
-                      model={taskStep}
-                  />
-              </div>
-          </div>
-      );
-  }
+        return (
+            <div className="center-control">
+                <div className="icons">
+                    <MilestonesToggle model={taskStep} />
+                    <NotesSummaryToggle
+                        course={this.course}
+                        type="reading"
+                        model={taskStep}
+                    />
+                </div>
+            </div>
+        );
+    }
 }

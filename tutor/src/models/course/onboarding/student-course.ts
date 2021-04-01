@@ -1,9 +1,7 @@
-import {
-    computed, observable, action,
-} from 'mobx';
+import { computed, observable, action, modelize } from 'shared/model';
 import { get } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
-import BaseOnboarding from './base';
+import { BaseOnboarding, Course, TourContext } from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';
 
@@ -13,15 +11,14 @@ const TRIAL_ACKNOWLEDGED = 'FTA';
 export default class StudentCourseOnboarding extends BaseOnboarding {
     @observable displayPayment = false;
     @observable displayTrialActive = false;
+    @observable needsTermsSigned = false
 
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
-
+    constructor(course: Course, tourContext: TourContext) {
+        super(course, tourContext);
         modelize(this);
     }
 
-    @computed get nagComponent() {
+    @computed get nagComponent(): any {
         if (this.needsTermsSigned) { return null; }
         const student = this.course.userStudentRecord;
         if (!student || student.is_comped) { return null; }
@@ -81,7 +78,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
             setTimeout(() => window.location.reload());
         } else {
             this.displayPayment = false;
-            this.course.userStudentRecord.markPaid();
+            this.course.userStudentRecord?.markPaid();
             // start fetch tasks since they could not be fetched while student was in unpaid status
             this.course.studentTaskPlans.startFetching();
         }

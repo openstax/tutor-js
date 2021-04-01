@@ -28,54 +28,54 @@ PastAssignmentsLoading.propTypes = {
 export default
 class PastAssignments extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      className: PropTypes.string,
-      cloningPlanId: PropTypes.string,
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        className: PropTypes.string,
+        cloningPlanId: PropTypes.string,
+    }
 
-  @observable hoveredPlan;
+    @observable hoveredPlan;
 
-  @action.bound offTaskHover() {
-      this.hoveredPlan = null;
-  }
+    @action.bound offTaskHover() {
+        this.hoveredPlan = null;
+    }
 
-  @action.bound onTaskHover(plan) {
-      this.hoveredPlan = plan;
-  }
+    @action.bound onTaskHover(plan) {
+        this.hoveredPlan = plan;
+    }
 
-  componentDidMount() {
-      const { course } = this.props;
-      if (course.isCloned) { course.pastTaskPlans.fetch(); }
-  }
+    componentDidMount() {
+        const { course } = this.props;
+        if (course.isCloned) { course.pastTaskPlans.fetch(); }
+    }
 
-  render() {
-      const { course } = this.props;
-      if (!course.isCloned) { return null; }
+    render() {
+        const { course } = this.props;
+        if (!course.isCloned) { return null; }
 
-      const plans = course.pastTaskPlans;
-      if (plans.api.isPending){ return <PastAssignmentsLoading />; }
-      if (plans.isEmpty) { return null; }
+        const plans = course.pastTaskPlans;
+        if (plans.api.isPending){ return <PastAssignmentsLoading />; }
+        if (plans.isEmpty) { return null; }
 
-      return (
-          <div className={cn('past-assignments', this.props.className)}>
-              <div className="section-label">
+        return (
+            <div className={cn('past-assignments', this.props.className)}>
+                <div className="section-label">
           Copied
-              </div>
-              <div className="plans">
-                  {plans.array.map((plan) =>
-                      <CloneAssignmentLink
-                          plan={plan}
-                          toolTip={
-                              `Orig. due date ${TimeHelper.toHumanDate(plan.dateRanges.due.start)}`
-                          }
-                          key={plan.id}
-                          offHover={this.offTaskHover}
-                          onHover={partial(this.onTaskHover, plan)}
-                          isEditing={plan.id === this.props.cloningPlanId}
-                      />)}
-              </div>
-          </div>
-      );
-  }
+                </div>
+                <div className="plans">
+                    {plans.array.map((plan) =>
+                        <CloneAssignmentLink
+                            plan={plan}
+                            toolTip={
+                                `Orig. due date ${TimeHelper.toHumanDate(plan.dateRanges.due.start)}`
+                            }
+                            key={plan.id}
+                            offHover={this.offTaskHover}
+                            onHover={partial(this.onTaskHover, plan)}
+                            isEditing={plan.id === this.props.cloningPlanId}
+                        />)}
+                </div>
+            </div>
+        );
+    }
 }

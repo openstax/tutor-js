@@ -1,4 +1,4 @@
-import { action, observable, computed } from 'mobx';
+import { action, observable, computed, modelize } from 'shared/model'
 import LMSPair from '../../models/course/pair-to-lms';
 import Courses from '../../models/courses-map';
 import NewOrExising from './new-or-existing';

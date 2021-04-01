@@ -1,10 +1,6 @@
-import {
-    computed, observable,
-} from 'mobx';
-
+import { computed, observable, modelize } from 'shared/model'
 import { filter, includes, isEmpty } from 'lodash';
-
-import BaseOnboarding from './base';
+import { Course, BaseOnboarding, TourContext } from './base';
 import Courses from '../../courses-map';
 import UiSettings from 'shared/model/ui-settings';
 
@@ -15,10 +11,9 @@ const VIEWED_PREVIEW_MESSAGE  = 'VPM';
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
 export default class PreviewOnboarding extends BaseOnboarding {
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
 
+    constructor(course: Course, tourContext: TourContext) {
+        super(course, tourContext);
         modelize(this);
     }
 
@@ -36,19 +31,19 @@ export default class PreviewOnboarding extends BaseOnboarding {
     }
 
     @computed get shouldWarnPreviewOnly() {
-          if (!HAS_PUBLISHED.get() ||
+        if (!HAS_PUBLISHED.get() ||
           this.hasCreatedRealCourse ||
           !this.course.offering ||
           !this.course.offering.is_available ||
         this.course.teacherTaskPlans.api.isPending
-          ) { return false; }
+        ) { return false; }
 
-          const plans = this.course.teacherTaskPlans.active;
-          const realPlanCount = filter(
-              plans, (plan) => !plan.is_preview && includes(NAG_PLAN_TYPES, plan.type)
-          ).length;
-          return (realPlanCount > 0 && realPlanCount % 2 === 0);
-      }
+        const plans = this.course.teacherTaskPlans.active;
+        const realPlanCount = filter(
+            plans, (plan) => !plan.is_preview && includes(NAG_PLAN_TYPES, plan.type)
+        ).length;
+        return (realPlanCount > 0 && realPlanCount % 2 === 0);
+    }
 
     @computed get shouldDisplayPreviewMessage() {
         return Boolean(
@@ -60,7 +55,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
     @computed get shouldDisplaySecondSessionNag() {
         return Boolean(
-            this.course.courseIsNaggable &&
+            this.courseIsNaggable &&
           this.course.offering &&
           this.course.offering.is_available
         );

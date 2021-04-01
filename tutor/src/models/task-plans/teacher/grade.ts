@@ -6,32 +6,32 @@ import TeacherTaskPlan from './plan';
 
 export default class TeacherTaskGrade extends BaseModel {
 
-  @model(TeacherTaskPlan) taskPlan;
+    @model(TeacherTaskPlan) taskPlan;
 
-  constructor({ response, points, comment }) {
-      super();
-      this.response = response;
-      this.grader_points = points;
-      this.grader_comments = comment;
-  }
+    constructor({ response, points, comment }) {
+        super();
+        this.response = response;
+        this.grader_points = points;
+        this.grader_comments = comment;
+    }
 
-  @field grader_points;
-  @field grader_comments;
+    @field grader_points;
+    @field grader_comments;
 
-  save() {
-      return {
-          task_step_id: this.response.task_step_id,
-          data: pick(this, 'grader_points', 'grader_comments'),
-      };
-  }
+    save() {
+        return {
+            task_step_id: this.response.task_step_id,
+            data: pick(this, 'grader_points', 'grader_comments'),
+        };
+    }
 
-  onGraded({ data }) {
-      this.update(data);
-      this.response.update(data);
-  }
-  // not clear how these are populated
-  @field answer_id;
-  @field free_response;
-  @field response_validation;
-  @field last_graded_at;
+    onGraded({ data }) {
+        this.update(data);
+        this.response.update(data);
+    }
+    // not clear how these are populated
+    @field answer_id;
+    @field free_response;
+    @field response_validation;
+    @field last_graded_at;
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { computed, action, modelize } from 'shared/model'
 import { get } from 'lodash';
 import { Icon } from 'shared';
 import { withRouter } from 'react-router-dom';

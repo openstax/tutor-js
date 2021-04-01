@@ -8,7 +8,7 @@ export class BaseAction extends BaseModel {
     options: any
     step: TourStep
 
-    constructor(options: any) {
+    constructor(options: any = {}) {
         super();
         this.options = options;
         this.step = this.options.step
@@ -27,11 +27,11 @@ export class BaseAction extends BaseModel {
         return this.el?.querySelector(selector);
     }
 
-    async beforeStep(_options:any) {
+    async beforeStep(_options?:any) {
         return Promise.resolve();
     }
 
-    async afterStep(_options:any) {
+    async afterStep(_options?:any) {
         return Promise.resolve();
     }
 

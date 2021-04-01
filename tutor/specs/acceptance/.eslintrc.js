@@ -20,6 +20,5 @@ module.exports = {
         'require':    false,
         'process':    false,
         '__dirname':  false,
-        'console':    false,
     },
 };

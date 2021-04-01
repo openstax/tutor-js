@@ -45,30 +45,30 @@ const Title = styled.span`
 @observer
 class CoursePlanLabel extends React.Component {
 
-  static propTypes = {
-      plan: PropTypes.shape({
-          title: PropTypes.string.isRequired,
-          opensAt: PropTypes.string,
-          opensAtString: PropTypes.string,
-      }).isRequired,
-  };
+    static propTypes = {
+        plan: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            opensAt: PropTypes.string,
+            opensAtString: PropTypes.string,
+        }).isRequired,
+    };
 
 
-  render() {
-      const { plan } = this.props;
+    render() {
+        const { plan } = this.props;
 
-      return (
-          <TourAnchor id="calendar-task-plan">
-              <Label
-                  data-opens-at={plan.opensAtString}
-                  data-title={plan.title}
-              >
-                  <GradeBanner plan={plan} />
-                  <Title className="text" title={plan.title}>{plan.title}</Title>
-              </Label>
-          </TourAnchor>
-      );
-  }
+        return (
+            <TourAnchor id="calendar-task-plan">
+                <Label
+                    data-opens-at={plan.opensAtString}
+                    data-title={plan.title}
+                >
+                    <GradeBanner plan={plan} />
+                    <Title className="text" title={plan.title}>{plan.title}</Title>
+                </Label>
+            </TourAnchor>
+        );
+    }
 }
 
 export default CoursePlanLabel;

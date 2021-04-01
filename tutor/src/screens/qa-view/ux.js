@@ -1,4 +1,4 @@
-import { observable, computed, action, autorun } from 'mobx';
+import { observable, computed, action, autorun, modelize } from 'shared/model';
 import { readonly } from 'core-decorators';
 import { extend, uniq, flatMap } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';

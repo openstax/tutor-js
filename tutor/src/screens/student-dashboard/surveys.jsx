@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { computed, action } from 'mobx';
+import { computed, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import Router from '../../helpers/router';

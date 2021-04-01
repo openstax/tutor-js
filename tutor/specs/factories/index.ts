@@ -14,7 +14,6 @@ import { ExercisesMap } from '../../src/models/exercises';
 import ResearchSurvey from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
-import Stat from '../../src/models/stats';
 import { GradingTemplate } from '../../src/models/grading/templates';
 import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
@@ -23,13 +22,13 @@ import { studentTasks, studentTask } from './student-task-models';
 import { GradingTemplateObj, CourseObj, TutorExerciseObj }from '../../src/models/types'
 
 export interface Model extends Function {
-    new(...args: any[]): any;
+    new(..._args: any[]): any;
 }
 
 function factoryFactory<T extends Model>(factoryName: string, Model: T) {
     return (attrs = {}, parent?: any): InstanceType<T> => {
         const data = FactoryBot.create(factoryName as string, attrs);
-        return hydrateModel(Model, data,  parent)
+        return hydrateModel(Model, data, parent)
     };
 }
 
@@ -43,7 +42,6 @@ const Factories = {
     },
 
     note: factoryFactory('Note', Note),
-    stat: factoryFactory('Stat', Stat),
     book: factoryFactory('Book', Book),
     page: factoryFactory('Page', Page),
     course: factoryFactory('Course', Course),
@@ -78,20 +76,18 @@ const Factories = {
     },
 
     teacherTaskPlans: ({ course, count = 4 }: { course: Course, count: number}) => {
-        course.teacherTaskPlans.onLoaded({
-            data: {
-                plans: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
-            },
-        });
+        course.teacherTaskPlans.onLoaded(
+            range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })) as any,
+        );
         return course.teacherTaskPlans;
     },
 
     studentTaskPlans: ({ course, count = 4, attributes = {} }: { course: Course, count: number, attributes: any}) => {
-        course.studentTaskPlans.onLoaded({ data: {
-            tasks: range(count).map(() => FactoryBot.create(
+        course.studentTaskPlans.onLoaded(
+            range(count).map(() => FactoryBot.create(
                 'StudentDashboardTask', Object.assign({ course }, attributes)
-            )),
-        }});
+            )) as any
+        );
     },
 
 

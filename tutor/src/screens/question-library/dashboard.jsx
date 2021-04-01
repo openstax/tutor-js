@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Course from '../../models/course';

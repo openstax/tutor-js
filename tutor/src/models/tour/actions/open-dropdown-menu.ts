@@ -1,5 +1,5 @@
 import { BaseAction } from './base';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model'
 import { delay } from 'lodash';
 
 export default class OpenDowndownMenu extends BaseAction {
@@ -8,15 +8,17 @@ export default class OpenDowndownMenu extends BaseAction {
         modelize(this);
     }
 
+    menu?: HTMLElement
+
     preValidate() {
     // click menu twice to force it to render
         if (this.menu && !this.isRendered) {
             this.menu.click();
-            delay(() => this.menu.click(), 1);
+            delay(() => this.menu?.click(), 1);
         }
     }
 
-    beforeStep(_options: any) {
+    async beforeStep(_options: any) {
         window.scroll(0,0);
         if (this.isOpen) {
             return Promise.resolve();
@@ -24,7 +26,7 @@ export default class OpenDowndownMenu extends BaseAction {
         return this.clickMenu();
     }
 
-    afterStep({ nextStep } = {}) {
+    async afterStep({ nextStep }: { nextStep?:any } = {}) {
     // don't close if the next step's action is targeting
     // the same menu; doing so causes the menu to flicker
         if (this.menu &&
@@ -41,22 +43,22 @@ export default class OpenDowndownMenu extends BaseAction {
 
     get isOpen() {
         return Boolean(
-            this.menu && this.menu.parentElement.classList.contains('show')
+            this.menu && this.menu?.parentElement?.classList.contains('show')
         );
     }
 
     get isRendered() {
         return Boolean(
             this.menu &&
-        this.menu.parentElement.querySelector('.dropdown-item')
+                this.menu?.parentElement?.querySelector('.dropdown-item')
         );
     }
 
-    @action.bound clickMenu() {
-          if (!this.menu) { return Promise.resolve(); }
-          return new Promise((resolve) => {
-              delay(() => this.menu.click(), 5);
-              delay(() => resolve(), 50);
-          });
-      }
+    @action.bound clickMenu(): Promise<void> {
+        if (!this.menu) { return Promise.resolve(); }
+        return new Promise((resolve) => {
+            delay(() => this.menu?.click(), 5);
+            delay(() => resolve(), 50);
+        });
+    }
 }

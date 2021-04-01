@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, action, computed } from 'mobx';
-import { observer } from 'mobx-react';
+import { observable, action, computed, modelize, observer } from 'shared/model'
 import { Collapse } from 'react-bootstrap';
 import { filter, extend, forEach, find } from 'lodash';
 import styled from 'styled-components';

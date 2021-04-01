@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import classnames from 'classnames';
@@ -15,26 +15,26 @@ import CourseGroupingLabel from '../../components/course-grouping-label';
 @observer
 class RenamePeriodField extends React.Component {
 
-  static propTypes = {
-      label: PropTypes.object.isRequired,
-      name:  PropTypes.string.isRequired,
-      default: PropTypes.string.isRequired,
-      onChange:  PropTypes.func.isRequired,
-      validate: PropTypes.func.isRequired,
-  }
+    static propTypes = {
+        label: PropTypes.object.isRequired,
+        name:  PropTypes.string.isRequired,
+        default: PropTypes.string.isRequired,
+        onChange:  PropTypes.func.isRequired,
+        validate: PropTypes.func.isRequired,
+    }
 
-  render() {
-      return (
-          <TutorInput
-              ref="input"
-              autoFocus
-              label={this.props.label}
-              default={this.props.default}
-              required={true}
-              onChange={this.props.onChange}
-              validate={this.props.validate} />
-      );
-  }
+    render() {
+        return (
+            <TutorInput
+                ref="input"
+                autoFocus
+                label={this.props.label}
+                default={this.props.default}
+                required={true}
+                onChange={this.props.onChange}
+                validate={this.props.validate} />
+        );
+    }
 }
 
 

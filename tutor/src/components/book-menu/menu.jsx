@@ -196,42 +196,42 @@ const StyledMenu = styled.div`
 export default
 class BookMenu extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(MenuUX),
-      className: PropTypes.string,
-      currentPage: PropTypes.instanceOf(ReferenceBookNode),
-      pageLinkProps: PropTypes.func.isRequired,
-      book: PropTypes.instanceOf(ReferenceBook).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(MenuUX),
+        className: PropTypes.string,
+        currentPage: PropTypes.instanceOf(ReferenceBookNode),
+        pageLinkProps: PropTypes.func.isRequired,
+        book: PropTypes.instanceOf(ReferenceBook).isRequired,
+    }
 
-  ux = this.props.ux || new MenuUX(this.props)
+    ux = this.props.ux || new MenuUX(this.props)
 
-  menuWrapper = React.createRef()
+    menuWrapper = React.createRef()
 
-  componentDidMount() {
-      this.ux.wrapper = this.menuWrapper.current;
-  }
+    componentDidMount() {
+        this.ux.wrapper = this.menuWrapper.current;
+    }
 
-  componentDidUpdate() {
-      this.ux.currentPage = this.props.currentPage;
-  }
+    componentDidUpdate() {
+        this.ux.currentPage = this.props.currentPage;
+    }
 
-  render() {
-      const { book, className, pageLinkProps } = this.props;
+    render() {
+        const { book, className, pageLinkProps } = this.props;
 
-      return (
-          <StyledMenu ref={this.menuWrapper} className={cn('book-menu', className )}>
-              {map(book.children, (child, i) => (
-                  <Node
-                      ux={this.ux}
-                      node={child}
-                      key={i}
-                      depth={0}
-                      pageLinkProps={pageLinkProps}
-                  />
-              ))}
-          </StyledMenu>
-      );
-  }
+        return (
+            <StyledMenu ref={this.menuWrapper} className={cn('book-menu', className )}>
+                {map(book.children, (child, i) => (
+                    <Node
+                        ux={this.ux}
+                        node={child}
+                        key={i}
+                        depth={0}
+                        pageLinkProps={pageLinkProps}
+                    />
+                ))}
+            </StyledMenu>
+        );
+    }
 
 }

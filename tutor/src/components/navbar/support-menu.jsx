@@ -3,7 +3,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown } from 'react-bootstrap';
 import { delay, get } from 'lodash';
-import { action, computed, observable, when } from 'mobx';
+import { action, computed, observable, when, modelize } from 'shared/model'
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
@@ -156,30 +156,30 @@ class SupportMenu extends React.Component {
     renderItems() {
         const { course } = this.props;
         return (
-        <>
-          <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
-          <Dropdown.Item
-              key="nav-help-link"
-              className="-help-link"
-              target="_blank"
-              onSelect={this.onSelect}
-              href={UserMenu.helpLinkForCourse(course)}
-          >
-              <span>Help Articles</span>
-          </Dropdown.Item>
-          <SupportDocument course={course} />
-          <BestPracticesGuide course={course} />
-          <Dropdown.Item
-              key="nav-keyboard-shortcuts"
-              className="-help-link"
-              onSelect={this.onSelect}
-              href={this.accessibilityLink}
-              onClick={this.goToAccessibility}
-          >
-              <span>Accessibility Statement</span>
-          </Dropdown.Item>
-          {this.renderChat()}
-        </>
+            <>
+                <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
+                <Dropdown.Item
+                    key="nav-help-link"
+                    className="-help-link"
+                    target="_blank"
+                    onSelect={this.onSelect}
+                    href={UserMenu.helpLinkForCourse(course)}
+                >
+                    <span>Help Articles</span>
+                </Dropdown.Item>
+                <SupportDocument course={course} />
+                <BestPracticesGuide course={course} />
+                <Dropdown.Item
+                    key="nav-keyboard-shortcuts"
+                    className="-help-link"
+                    onSelect={this.onSelect}
+                    href={this.accessibilityLink}
+                    onClick={this.goToAccessibility}
+                >
+                    <span>Accessibility Statement</span>
+                </Dropdown.Item>
+                {this.renderChat()}
+            </>
         );
     }
 

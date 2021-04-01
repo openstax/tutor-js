@@ -3,10 +3,10 @@ import { find, last, sortBy, filter } from 'lodash'
 import TaskPlan from './teacher/plan'
 import type Course from '../course'
 import Api from '../../api'
+// import TaskingPlan from './teacher/tasking'
 
 export
 class TeacherTaskPlans extends Map<ID, TaskPlan> {
-
 
     constructor() {
         super();
@@ -61,15 +61,15 @@ class TeacherTaskPlans extends Map<ID, TaskPlan> {
     }
 
     @computed get lastPublished() {
-        return last(sortBy(filter(this.array, tp => tp.last_published_at), 'last_published_at'));
+        return last(sortBy(filter(this.array, tp => !!tp.last_published_at), 'last_published_at'));
     }
 
     withPeriodId(periodId: ID) {
-        return this.where(plan => find(plan.tasking_plans, { target_id: periodId }));
+        return this.where(plan => !!find(plan.tasking_plans, tp => tp.target_id == periodId));
     }
 
-    pastDueWithPeriodId(periodId) {
-        return this.where(plan => plan.isPastDueWithPeriodId(periodId));
+    pastDueWithPeriodId(periodId: ID) {
+        return this.where(plan => find(plan.tasking_plans, tp => tp.target_id == periodId)?.isPastDue || false)
     }
 
     // called from api
@@ -84,7 +84,11 @@ class TeacherTaskPlans extends Map<ID, TaskPlan> {
     @action onLoaded(plans: TaskPlan[]) {
         plans.forEach(plan => {
             const tp = this.get(plan.id);
-            tp ? hydrateInstance(tp, plan, this) : this.set(plan.id, hydrateModel(TaskPlan, { ...plan, course: this.course }, this);
+            if (tp) {
+                hydrateInstance(tp, plan, this)
+            } else {
+                this.set(plan.id, hydrateModel(TaskPlan, { ...plan, course: this.course }, this))
+            }
         });
     }
 

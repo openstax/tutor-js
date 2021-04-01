@@ -42,100 +42,100 @@ const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 @observer
 class TaskTeacherReviewQuestion extends React.Component {
 
-  static propTypes = {
-      question: PropTypes.instanceOf(QuestionStats).isRequired,
-  };
+    static propTypes = {
+        question: PropTypes.instanceOf(QuestionStats).isRequired,
+    };
 
-  @observable showNamesAndFreeResponse = false;
+    @observable showNamesAndFreeResponse = false;
 
-  @computed get isExpandable() {
-      return this.props.question.answers.withFreeResponse().length > TOGGLE_FREE_RESPONSE_LIMIT;
-  }
+    @computed get isExpandable() {
+        return this.props.question.answers.withFreeResponse().length > TOGGLE_FREE_RESPONSE_LIMIT;
+    }
 
-  @action.bound onChangeAnswerAttempt() {
-      // TODO show cannot change answer message here
-      return null;
-  }
+    @action.bound onChangeAnswerAttempt() {
+        // TODO show cannot change answer message here
+        return null;
+    }
 
-  toggleFreeResponse = () => {
-      this.showNamesAndFreeResponse = !this.showNamesAndFreeResponse;
-  };
+    toggleFreeResponse = () => {
+        this.showNamesAndFreeResponse = !this.showNamesAndFreeResponse;
+    };
 
-  renderNoFreeResponse = () => {
-      const freeResponsesClasses = 'teacher-review-answers has-no-answers';
-      const header = <i>
+    renderNoFreeResponse = () => {
+        const freeResponsesClasses = 'teacher-review-answers has-no-answers';
+        const header = <i>
       No student text responses
-      </i>;
+        </i>;
 
-      return (
-          <Card header={header} className={freeResponsesClasses} />
-      );
-  };
+        return (
+            <Card header={header} className={freeResponsesClasses} />
+        );
+    };
 
-  @computed get toggleFreeResponseControls() {
-      const numAnswers = this.props.question.answers.withFreeResponse().length;
-      let msg, icon;
+    @computed get toggleFreeResponseControls() {
+        const numAnswers = this.props.question.answers.withFreeResponse().length;
+        let msg, icon;
 
-      if (this.isExpandable) {
-          if (this.showNamesAndFreeResponse) {
-              msg = 'Hide student text responses';
-              icon = 'chevron-down';
-          } else {
-              msg = `View student text responses (${numAnswers})`;
-              icon = 'chevron-right';
-          }
-      } else {
-          if (this.showNamesAndFreeResponse) {
-              msg = 'Hide student names';
-              icon = 'eye-slash';
-          } else {
-              msg = 'Show student names';
-              icon = 'eye';
-          }
-      }
-      return <a onClick={this.toggleFreeResponse}><Icon type={icon} /> {msg}</a>;
-  }
+        if (this.isExpandable) {
+            if (this.showNamesAndFreeResponse) {
+                msg = 'Hide student text responses';
+                icon = 'chevron-down';
+            } else {
+                msg = `View student text responses (${numAnswers})`;
+                icon = 'chevron-right';
+            }
+        } else {
+            if (this.showNamesAndFreeResponse) {
+                msg = 'Hide student names';
+                icon = 'eye-slash';
+            } else {
+                msg = 'Show student names';
+                icon = 'eye';
+            }
+        }
+        return <a onClick={this.toggleFreeResponse}><Icon type={icon} /> {msg}</a>;
+    }
 
-  renderFreeResponse = () => {
-      const { showNamesAndFreeResponse, toggleFreeResponseControls, props: { question } } = this;
+    renderFreeResponse = () => {
+        const { showNamesAndFreeResponse, toggleFreeResponseControls, props: { question } } = this;
 
-      let freeResponsesClasses = classnames('teacher-review-answers', {
-          active: showNamesAndFreeResponse,
-          'is-expandable': this.isExpandable,
-      });
+        let freeResponsesClasses = classnames('teacher-review-answers', {
+            active: showNamesAndFreeResponse,
+            'is-expandable': this.isExpandable,
+        });
 
 
-      const freeResponses = map(question.answers.withFreeResponse(), (answer, index) => (
-          <FreeResponseReview {...answer} key={`free-response-${question.id}-${index}`} />
-      ));
+        const freeResponses = map(question.answers.withFreeResponse(), (answer, index) => (
+            <FreeResponseReview {...answer} key={`free-response-${question.id}-${index}`} />
+        ));
 
-      return (
-          <TourAnchor id="student-responses">
-              <Card className={freeResponsesClasses}>
-                  <Card.Body>{toggleFreeResponseControls}</Card.Body>
-                  {freeResponses}
-              </Card>
-          </TourAnchor>
+        return (
+            <TourAnchor id="student-responses">
+                <Card className={freeResponsesClasses}>
+                    <Card.Body>{toggleFreeResponseControls}</Card.Body>
+                    {freeResponses}
+                </Card>
+            </TourAnchor>
 
-      );
-  };
+        );
+    };
 
-  render() {
-      let studentResponses;
-      const { question } = this.props;
+    render() {
+        let studentResponses;
+        const { question } = this.props;
 
-      studentResponses = question.hasFreeResponse ? this.renderFreeResponse() : this.renderNoFreeResponse();
+        studentResponses = question.hasFreeResponse ? this.renderFreeResponse() : this.renderNoFreeResponse();
 
-      return (
-          <Question
-              question={question.forReview}
-              answered_count={question.answered_count}
-              type="teacher-review"
-              onChangeAttempt={this.onChangeAnswerAttempt}>
-              {studentResponses}
-          </Question>
-      );
-  }
+        return (
+            <Question
+                question={question.forReview}
+                answered_count={question.answered_count}
+                type="teacher-review"
+                onChangeAttempt={this.onChangeAnswerAttempt}>
+                {studentResponses}
+            </Question>
+        );
+    }
 }
 
 function TaskTeacherReviewQuestionTracker(props) {
@@ -156,59 +156,59 @@ TaskTeacherReviewQuestionTracker.displayName = 'TaskTeacherReviewQuestionTracker
 
 export default
 class TaskTeacherReviewExercise extends React.Component {
-  static displayName = 'TaskTeacherReviewExercise';
+    static displayName = 'TaskTeacherReviewExercise';
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course).isRequired,
-      exercise: PropTypes.instanceOf(Exercise).isRequired,
-      question_stats: PropTypes.object,
-      sectionKey: PropTypes.string,
-  };
+    static propTypes = {
+        course: PropTypes.instanceOf(Course).isRequired,
+        exercise: PropTypes.instanceOf(Exercise).isRequired,
+        question_stats: PropTypes.object,
+        sectionKey: PropTypes.string,
+    };
 
-  getQuestionStatsById = (questionId) => {
-      const { question_stats } = this.props;
-      questionId = questionId.toString();
-      return (
-          find(question_stats, { question_id: questionId })
-      );
-  };
+    getQuestionStatsById = (questionId) => {
+        const { question_stats } = this.props;
+        questionId = questionId.toString();
+        return (
+            find(question_stats, { question_id: questionId })
+        );
+    };
 
-  renderQuestion = (question, index) => {
-      return (
-          <TaskTeacherReviewQuestionTracker
-              key={`task-review-question-${question.question_id}`}
-              question={question}
-              sectionKey={`${this.props.exercise.content.uid}-${index}`} />
-      );
-  };
+    renderQuestion = (question, index) => {
+        return (
+            <TaskTeacherReviewQuestionTracker
+                key={`task-review-question-${question.question_id}`}
+                question={question}
+                sectionKey={`${this.props.exercise.content.uid}-${index}`} />
+        );
+    };
 
-  @computed get stimulusHTML() {
-      const { stimulus_html } = this.props.exercise.content;
-      if (isEmpty(stimulus_html)) { return null; }
-      return (
-          <ArbitraryHtmlAndMath
-              className="exercise-stimulus"
-              block={true}
-              html={stimulus_html}
-          />
-      );
-  }
+    @computed get stimulusHTML() {
+        const { stimulus_html } = this.props.exercise.content;
+        if (isEmpty(stimulus_html)) { return null; }
+        return (
+            <ArbitraryHtmlAndMath
+                className="exercise-stimulus"
+                block={true}
+                html={stimulus_html}
+            />
+        );
+    }
 
-  render() {
-      const { course, exercise } = this.props;
+    render() {
+        const { course, exercise } = this.props;
 
-      return (
-          <div className="task-step openstax-exercise openstax-exercise-card">
-              {this.stimulusHTML}
-              {map(exercise.question_stats, this.renderQuestion)}
-              <TourAnchor id="errata-link">
-                  <ExerciseIdentifierLink
-                      bookUUID={course.ecosystem_book_uuid}
-                      exerciseId={exercise.content.uid}
-                      project="tutor"
-                  />
-              </TourAnchor>
-          </div>
-      );
-  }
+        return (
+            <div className="task-step openstax-exercise openstax-exercise-card">
+                {this.stimulusHTML}
+                {map(exercise.question_stats, this.renderQuestion)}
+                <TourAnchor id="errata-link">
+                    <ExerciseIdentifierLink
+                        bookUUID={course.ecosystem_book_uuid}
+                        exerciseId={exercise.content.uid}
+                        project="tutor"
+                    />
+                </TourAnchor>
+            </div>
+        );
+    }
 }

@@ -66,8 +66,6 @@ export default class TaskingPlan extends BaseModel {
         const dueDateOffsetDays = template.default_due_date_offset_days;
         const closeDateOffsetDays = template.default_close_date_offset_days;
         const { opens, due } = template.defaultTimes
-        // const [ defaultOpenHour, defaultOpenMinute ] = template.default_open_time.split(':');
-        // const [ defaultDueHour, defaultDueMinute ] = template.default_due_time.split(':').map(Number);
 
         let defaultOpensAt;
         if (dueAt) {
@@ -78,7 +76,7 @@ export default class TaskingPlan extends BaseModel {
             defaultOpensAt = this.course.dateTimeInZone().plus({ days: 1 });
         }
         this.opens_at = this.limitDateToCourse(defaultOpensAt)
-            .hour(defaultOpenHour).minute(defaultOpenMinute).startOf('minute').toISOString();
+            .set({ hour: opens.hour, minute: opens.minute }).startOf('minute').toISOString();
 
         let defaultDueAt;
         if (dueAt) {
@@ -90,7 +88,7 @@ export default class TaskingPlan extends BaseModel {
         dueAt = this.limitDateToCourse(defaultDueAt);
         if (!options.dateWasManuallySet) {
             dueAt = dueAt.set({
-                hour: defaultDueHour, minute: defaultDueMinute,
+                hour: due.hour, minute: due.minute,
                 second: 0, millisecond: 0,
             })
         }
@@ -183,7 +181,7 @@ export default class TaskingPlan extends BaseModel {
 
     // resets the due at time to course default
     // and sets opens at date to match the give due at
-    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: DateTime,defaultOpenTime: string, defaultDueTime: string  }) {
+    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: DateTime,defaultOpenTime: string, defaultDueTime: string }) {
         dueAt = this.course.dateTimeInZone(dueAt)
         if(!dueAt.isValid) { return; }
 

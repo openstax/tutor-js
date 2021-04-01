@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action, computed } from 'mobx';
+import { action, computed, modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import { autobind } from 'core-decorators';

@@ -1,4 +1,4 @@
-import { observable, action, observe } from 'mobx';
+import { observable, action, observe, modelize } from 'shared/model'
 import scrollIntoView from 'scroll-into-view';
 
 export default class MenuUX {

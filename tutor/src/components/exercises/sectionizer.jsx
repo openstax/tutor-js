@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { first, partial, find, findIndex, isEmpty, sortBy } from 'lodash';
 import cn from 'classnames';
@@ -147,20 +147,20 @@ class Sectionizer extends React.Component {
     renderSectionLinks () {
         if (!this.props.fullWidth) {
             return(
-          <>
-            <div
-                className={cn('prev', { disabled: 0 === this.scrollIndex })}
-                onClick={this.goBack}>
+                <>
+                    <div
+                        className={cn('prev', { disabled: 0 === this.scrollIndex })}
+                        onClick={this.goBack}>
               ❮❮
-            </div>
-            {this.renderCurrentLinks()}
-            <div
-                className="next"
-                className={cn('next', { disabled: (this.props.chapter_sections.length - 1) === this.scrollIndex })}
-                onClick={this.goNext}>
+                    </div>
+                    {this.renderCurrentLinks()}
+                    <div
+                        className="next"
+                        className={cn('next', { disabled: (this.props.chapter_sections.length - 1) === this.scrollIndex })}
+                        onClick={this.goNext}>
                ❯❯
-            </div>
-          </>
+                    </div>
+                </>
             );
         }
         return this.renderCurrentLinks();

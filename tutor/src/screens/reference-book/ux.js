@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
 import User from '../../models/user';

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { defer } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, observable, computed } from 'mobx';
+import { action, observable, computed, modelize } from 'shared/model'
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';

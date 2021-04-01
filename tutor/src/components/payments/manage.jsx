@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { Table } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
@@ -315,36 +315,36 @@ class ManagePayments extends React.Component {
     render() {
         const back = backInfo();
         return (
-        <>
-          <Header 
-              unDocked={true}
-              title="Manage Payments"
-              backTo={back.to}
-              backToText={back.text}
-          />
-          <StyledContainer className="manage-payments">
-              <RefundModal
-                  purchase={this.refunding}
-                  onRefund={this.onRefundConfirm}
-                  onCancel={this.onRefundCancel}
-              />
-              {Purchases.api.isPending
-                  ? <OXFancyLoader isLoading />
-                  : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
-              }
-              <div className="footer">
-                  <NewTabLink
-                      className="refund-policy"
-                      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
-                  >
+            <>
+                <Header 
+                    unDocked={true}
+                    title="Manage Payments"
+                    backTo={back.to}
+                    backToText={back.text}
+                />
+                <StyledContainer className="manage-payments">
+                    <RefundModal
+                        purchase={this.refunding}
+                        onRefund={this.onRefundConfirm}
+                        onCancel={this.onRefundCancel}
+                    />
+                    {Purchases.api.isPending
+                        ? <OXFancyLoader isLoading />
+                        : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
+                    }
+                    <div className="footer">
+                        <NewTabLink
+                            className="refund-policy"
+                            href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
+                        >
               Refund policy for OpenStax Tutor Beta courses
-                  </NewTabLink>
-                  <div className="help">
+                        </NewTabLink>
+                        <div className="help">
               Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
-                  </div>
-              </div>
-          </StyledContainer>
-        </>
+                        </div>
+                    </div>
+                </StyledContainer>
+            </>
         );
     }
 }

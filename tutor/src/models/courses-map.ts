@@ -15,12 +15,12 @@ export class CoursesMap extends Map<ID, Course> {
 
     // override array in Map to return a sorted list with latest join date first
     @override get array() {
-          return this.values().sort((a, b) =>
-              a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
-          );
-      }
+        return this.values().sort((a, b) =>
+            a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
+        );
+    }
 
-    where(condition: (val: Course) => boolean): CoursesMap {
+    where(condition: (_course: Course) => boolean): CoursesMap {
         return super.where(condition) as any as CoursesMap
     }
 

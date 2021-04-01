@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, Overlay } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import Time from '../../components/time';
 import classnames from 'classnames';
 import omit from 'lodash/omit';
@@ -10,122 +10,122 @@ import TaskResult from '../../models/scores/task-result';
 
 class LateWorkMessages {
 
-  displayName = 'LateWork';
+    displayName = 'LateWork';
 
-  constructor(task) {
-      modelize(this);
-      this.task = task;
-  }
+    constructor(task) {
+        modelize(this);
+        this.task = task;
+    }
 
-  @computed get status() {
-      if (this.task.is_late_work_accepted) {
-          return this.task.hasAdditionalLateWork ? 'additional' : 'accepted';
-      }
-      return 'pending';
-  }
+    @computed get status() {
+        if (this.task.is_late_work_accepted) {
+            return this.task.hasAdditionalLateWork ? 'additional' : 'accepted';
+        }
+        return 'pending';
+    }
 
-  @computed get isAccepted() {
-      return Boolean(
-          this.task.is_late_work_accepted && !this.task.hasAdditionalLateWork
-      );
-  }
+    @computed get isAccepted() {
+        return Boolean(
+            this.task.is_late_work_accepted && !this.task.hasAdditionalLateWork
+        );
+    }
 
-  score() {
-      return this.task.humanScore;
-  }
+    score() {
+        return this.task.humanScore;
+    }
 
-  progress() {
-      return this.task.humanProgress;
-  }
+    progress() {
+        return this.task.humanProgress;
+    }
 
-  lateExerciseCount() {
-      return (this.task.completed_exercise_count - this.task.completed_on_time_exercise_count) || 0;
-  }
+    lateExerciseCount() {
+        return (this.task.completed_exercise_count - this.task.completed_on_time_exercise_count) || 0;
+    }
 
-  lateDueDate() {
-      if (this.isAccepted && this.task.last_worked_at) {
-          return 'due date';
-      } else {
-          return <Time date={this.task.last_worked_at} format="shortest" />;
-      }
-  }
+    lateDueDate() {
+        if (this.isAccepted && this.task.last_worked_at) {
+            return 'due date';
+        } else {
+            return <Time date={this.task.last_worked_at} format="shortest" />;
+        }
+    }
 
-  className() {
-      return (
-          classnames( 'late-work-info-popover', this.keyword, this.status, {
-              'is-accepted': this.isAccepted,
-          })
-      );
-  }
+    className() {
+        return (
+            classnames( 'late-work-info-popover', this.keyword, this.status, {
+                'is-accepted': this.isAccepted,
+            })
+        );
+    }
 
-  get(type) {
-      const msg = this[type]();
-      return msg ? msg[this.status] : '';
-  }
+    get(type) {
+        const msg = this[type]();
+        return msg ? msg[this.status] : '';
+    }
 }
 
 
 class HomeworkContent extends LateWorkMessages {
-  reportingOn = 'Score';
+    reportingOn = 'Score';
 
-  title() {
-      return {
-          additional: 'Additional late work',
-          accepted:   'You accepted this student’s late score.',
-          pending:    `${this.lateExerciseCount()} questions worked after the due date`,
-      };
-  }
+    title() {
+        return {
+            additional: 'Additional late work',
+            accepted:   'You accepted this student’s late score.',
+            pending:    `${this.lateExerciseCount()} questions worked after the due date`,
+        };
+    }
 
-  button() {
-      return {
-          additional: 'Accept new late score',
-          accepted:   'Use this score',
-          pending:    'Accept late score',
-      };
-  }
+    button() {
+        return {
+            additional: 'Accept new late score',
+            accepted:   'Use this score',
+            pending:    'Accept late score',
+        };
+    }
 
-  body() {
-      return {
-          additional: (
-              <div className="body">
+    body() {
+        return {
+            additional: (
+                <div className="body">
           This student worked {this.task.unacceptedLateStepCount} questions
           after you accepted a late score
           on <Time date={this.task.accepted_late_at || new Date()} format="shortest" />.
-              </div>
-          ),
-      };
-  }
+                </div>
+            ),
+        };
+    }
 
 }
 
 
 class ReadingContent extends LateWorkMessages {
 
-  reportingOn = 'Progress';
+    reportingOn = 'Progress';
 
-  title() {
-      return (
-          {
-              additional: 'Additional late work',
-              accepted:   'You accepted this student’s late reading progress.',
-              pending:    'Reading progress after the due date',
-          }
-      );
-  }
-  button() {
-      return (
-          {
-              additional: 'Accept new late progress',
-              accepted:   'Use this progress',
-              pending:    'Accept late progress',
-          }
-      );
-  }
-  body() {
-      return (
-          null
-      );
-  }
+    title() {
+        return (
+            {
+                additional: 'Additional late work',
+                accepted:   'You accepted this student’s late reading progress.',
+                pending:    'Reading progress after the due date',
+            }
+        );
+    }
+    button() {
+        return (
+            {
+                additional: 'Accept new late progress',
+                accepted:   'Use this progress',
+                pending:    'Accept late progress',
+            }
+        );
+    }
+    body() {
+        return (
+            null
+        );
+    }
 }
 
 class LateWorkPopover extends React.Component {

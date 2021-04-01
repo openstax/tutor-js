@@ -1,7 +1,4 @@
-/* global require:true */
-
 const TOURS = {};
-
 [
     require('./gradebook.json'),
     require('./analytics-modal.json'),

@@ -10,31 +10,31 @@ import './styles.scss';
 @observer
 export default
 class QuestionsDashboardShell extends React.Component {
-  static propTypes = {
-      exercises: PropTypes.object,
-  }
+    static propTypes = {
+        exercises: PropTypes.object,
+    }
 
-  static defaultProps = {
-      exercises: Exercises,
-  }
+    static defaultProps = {
+        exercises: Exercises,
+    }
 
-  @computed get course() {
-      const { courseId } = Router.currentParams();
-      return Courses.get(courseId);
-  }
+    @computed get course() {
+        const { courseId } = Router.currentParams();
+        return Courses.get(courseId);
+    }
 
-  componentDidMount() {
-      this.props.exercises.clear();
-      this.course.referenceBook.ensureLoaded();
-  }
+    componentDidMount() {
+        this.props.exercises.clear();
+        this.course.referenceBook.ensureLoaded();
+    }
 
-  componentWillUnmount() {
-      Exercises.clear();
-  }
+    componentWillUnmount() {
+        Exercises.clear();
+    }
 
-  render() {
-      if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
-      return <Dashboard exercises={this.props.exercises} course={this.course} />;
-  }
+    render() {
+        if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
+        return <Dashboard exercises={this.props.exercises} course={this.course} />;
+    }
 
 }

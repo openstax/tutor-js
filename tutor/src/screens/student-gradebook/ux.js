@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
 import { orderBy } from 'lodash';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';

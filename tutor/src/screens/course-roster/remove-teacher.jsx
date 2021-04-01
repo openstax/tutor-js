@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Popover, OverlayTrigger } from 'react-bootstrap';

@@ -19,5 +19,5 @@ export default class Ecosystem extends BaseModel {
         return this.books.length ? this.books[0] : null;
     }
 
-    @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.id }, this) };
+    @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.id }, this) }
 }

@@ -8,17 +8,17 @@ import { observer } from 'mobx-react';
 export default
 class AccountLink extends React.Component {
 
-  static propTypes = {
-      onClick: PropTypes.func,
-  }
+    static propTypes = {
+        onClick: PropTypes.func,
+    }
 
-  render() {
-      const { profile_url } = User;
-      if (!profile_url) { return null; }
-      return (
-          <Dropdown.Item {...this.props} href={profile_url} target="_blank">
+    render() {
+        const { profile_url } = User;
+        if (!profile_url) { return null; }
+        return (
+            <Dropdown.Item {...this.props} href={profile_url} target="_blank">
         My Account
-          </Dropdown.Item>
-      );
-  }
+            </Dropdown.Item>
+        );
+    }
 }

@@ -1,5 +1,5 @@
 import { React, PropTypes, observer, cn } from 'vendor';
-import { observable, action, when } from 'mobx';
+import { observable, action, when, modelize } from 'shared/model'
 import Raven from '../models/app/raven';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';

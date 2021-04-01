@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import Course from '../../models/course';
 import { Icon } from 'shared';
@@ -38,7 +38,7 @@ class AddTeacherLink extends React.Component {
                     variant="link"
                     className="control add-teacher">
                     <Icon type="user-plus" />
-            Add Instructor
+                    Add Instructor
                 </Button>
                 <Modal
                     size="lg"
@@ -48,12 +48,12 @@ class AddTeacherLink extends React.Component {
                 >
                     <Modal.Header closeButton={true}>
                         <Modal.Title>
-                Add Teacher
+                            Add Teacher
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <p>
-                Share this link with an instructor so they can add themselves to the course:
+                            Share this link with an instructor so they can add themselves to the course:
                         </p>
                         <CopyOnFocusInput value={course.roster.teach_url || ''} focusOnMount={true} />
                         <p className="warning">

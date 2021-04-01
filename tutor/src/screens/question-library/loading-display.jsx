@@ -8,17 +8,17 @@ import { Icon } from 'shared';
 export default
 class LoadingDisplay extends React.Component {
 
-  static propTypes = {
-      exercises: PropTypes.instanceOf(ExercisesMap),
-  }
+    static propTypes = {
+        exercises: PropTypes.instanceOf(ExercisesMap),
+    }
 
-  render() {
-      if (!this.props.exercises.api.isPending) { return null; }
+    render() {
+        if (!this.props.exercises.api.isPending) { return null; }
 
-      return (
-          <div className="loading">
-              <Icon type="spinner" spin={true} /> Loading …
-          </div>
-      );
-  }
+        return (
+            <div className="loading">
+                <Icon type="spinner" spin={true} /> Loading …
+            </div>
+        );
+    }
 }

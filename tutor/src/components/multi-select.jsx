@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import classnames from 'classnames';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import styled from 'styled-components';

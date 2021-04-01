@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Survey, Model } from 'survey-react';
-import { computed, action } from 'mobx';
+import { computed, action, modelize } from 'shared/model'
 import { Card } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { observer } from 'mobx-react';

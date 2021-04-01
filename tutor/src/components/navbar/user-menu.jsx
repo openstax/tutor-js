@@ -13,12 +13,12 @@ class UserMenu extends React.Component {
 
     renderItems() {
         return (
-      <>
-        <Dropdown.Divider />
-        <AccountLink />
-        <Dropdown.Divider />
-        <LogOut />
-      </>
+            <>
+                <Dropdown.Divider />
+                <AccountLink />
+                <Dropdown.Divider />
+                <LogOut />
+            </>
         );
     }
 

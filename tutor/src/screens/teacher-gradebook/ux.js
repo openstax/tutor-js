@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
 import studentDataSorter from './student-data-sorter';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';

@@ -3,7 +3,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { Icon } from 'shared';
 import Student from '../../models/course/student';
 

@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model';
 import { filter, sortBy } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import studentDataSorter from './student-data-sorter';

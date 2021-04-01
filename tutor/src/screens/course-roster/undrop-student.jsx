@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model'
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Name from '../../components/name';

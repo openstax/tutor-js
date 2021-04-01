@@ -18,9 +18,9 @@ export default class CourseScoresPeriod extends BaseModel {
     @field period_id = NEW_ID;
     @model(Heading) data_headings: Heading[] = [];
 
-    @model(Student) students = extendedArray({
-        active() { return filter(this, 'isActive'); },
-    })
+    @model(Student) students = extendedArray((students: Student[]) => ({
+        get active() { return filter(students, 'isActive'); },
+    }))
 
     get courseScores():CourseScores { return getParentOf(this) }
     get course() { return this.courseScores.course }

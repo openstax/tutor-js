@@ -34,8 +34,7 @@ class StudentTasks extends Map<ID, StudentTask> {
                 page_ids: query.practice_question_ids,
             })
         }
-        console.log(reply)
-        debugger
+        return reply
     }
 }
 

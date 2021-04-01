@@ -129,7 +129,7 @@ describe('Course Model', () => {
                     name: 'My Grand Course',
                     periods: [
                         { name: 'Period #1', enrollment_code: '1234' },
-                        { name: 'Period #2', enrollment_code: '4321' }
+                        { name: 'Period #2', enrollment_code: '4321' },
                     ],
                 });
             })

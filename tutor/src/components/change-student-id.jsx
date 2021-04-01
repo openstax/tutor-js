@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import { isEmpty } from 'lodash';
 import { Modal, Button, Form } from 'react-bootstrap';
 import Courses from '../models/courses-map';
@@ -81,51 +81,51 @@ class ChangeStudentId extends React.Component {
         if (this.isSaved) { return this.renderSuccess(); }
 
         return (
-        <>
-          <Header
-              unDocked={true}
-              backTo={Router.makePathname('dashboard', { courseId: this.courseId })}
-              backToText='Dashboard'
-              title='Change Student ID'
-          />
-          <Modal.Dialog
-              className="change-student-id"
-          >
-              <Modal.Body>
-                  <div className="title">
-                      <h2>Update your student ID</h2>
-                  </div>
-                  <Form.Label className="id-number-body">
-                      <div className="sub-title">Enter your school-issued student ID number</div>
-                      <div className="inputs">
+            <>
+                <Header
+                    unDocked={true}
+                    backTo={Router.makePathname('dashboard', { courseId: this.courseId })}
+                    backToText='Dashboard'
+                    title='Change Student ID'
+                />
+                <Modal.Dialog
+                    className="change-student-id"
+                >
+                    <Modal.Body>
+                        <div className="title">
+                            <h2>Update your student ID</h2>
+                        </div>
+                        <Form.Label className="id-number-body">
+                            <div className="sub-title">Enter your school-issued student ID number</div>
+                            <div className="inputs">
 
-                          <span className="student-id-icon"></span>
-                          <input
-                              autoFocus
-                              onKeyUp={this.checkValidity}
-                              ref={i => (this.input = i)}
-                              placeholder='School issued ID'
-                              defaultValue={this.student.student_identifier}
-                          />
-                      </div>
-                  </Form.Label>
-                  {this.isValid ? null : this.renderWarning()}
-              </Modal.Body>
-              <Modal.Footer>
-                  <AsyncButton
-                      disabled={!this.isValid}
-                      variant="primary"
-                      className="btn btn-success"
-                      isWaiting={!!this.student.api.isPending}
-                      waitingText={'Confirming…'}
-                      onClick={this.onSubmit}
-                  >
+                                <span className="student-id-icon"></span>
+                                <input
+                                    autoFocus
+                                    onKeyUp={this.checkValidity}
+                                    ref={i => (this.input = i)}
+                                    placeholder='School issued ID'
+                                    defaultValue={this.student.student_identifier}
+                                />
+                            </div>
+                        </Form.Label>
+                        {this.isValid ? null : this.renderWarning()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <AsyncButton
+                            disabled={!this.isValid}
+                            variant="primary"
+                            className="btn btn-success"
+                            isWaiting={!!this.student.api.isPending}
+                            waitingText={'Confirming…'}
+                            onClick={this.onSubmit}
+                        >
               Save
-                  </AsyncButton>
-                  <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
-              </Modal.Footer>
-          </Modal.Dialog>
-        </>
+                        </AsyncButton>
+                        <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+            </>
         );
     }
 }

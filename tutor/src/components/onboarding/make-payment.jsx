@@ -9,21 +9,21 @@ import { OnboardingNag } from './onboarding-nag';
 export default
 class MakePayment extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-      onDismiss: PropTypes.func.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+        onDismiss: PropTypes.func.isRequired,
+    }
 
-  static className = 'make-payment';
+    static className = 'make-payment';
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-          <OnboardingNag className="make-payment">
-              <PaymentsCard onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
-          </OnboardingNag>
-      );
-  }
+        return (
+            <OnboardingNag className="make-payment">
+                <PaymentsCard onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
+            </OnboardingNag>
+        );
+    }
 
 }

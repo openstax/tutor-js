@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from 'shared/model/map';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
 
 class Region extends Map {
 

@@ -3,11 +3,11 @@ import User from '../user';
 
 export class TeacherProfile extends BaseModel {
 
-  @field id = NEW_ID;
-  @field name = '';
+    @field id = NEW_ID;
+    @field name = '';
 
-  @computed get isCurrentUser () {
-      return this.id == User.profile_id;
-  }
+    @computed get isCurrentUser () {
+        return this.id == User.profile_id;
+    }
 
 }

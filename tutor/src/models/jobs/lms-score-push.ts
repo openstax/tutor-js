@@ -22,43 +22,43 @@ export default class LmsScorePush extends Job {
         return exp;
     }
 
-  @observable course;
-  @observable url;
+    @observable course;
+    @observable url;
 
-  constructor(course) {
-      super({ maxAttempts: 180, interval: 5 }); // every 5 seconds for max of 15 mins
-      modelize(this);
-      this.course = course;
-  }
+    constructor(course) {
+        super({ maxAttempts: 180, interval: 5 }); // every 5 seconds for max of 15 mins
+        modelize(this);
+        this.course = course;
+    }
 
-  @computed get lastPushedAt() {
-      const date = UiSettings.get(LAST_PUSH, this.course.id);
-      return date ? moment(date).format('M/D/YY, h:mma') : null;
-  }
+    @computed get lastPushedAt() {
+        const date = UiSettings.get(LAST_PUSH, this.course.id);
+        return date ? moment(date).format('M/D/YY, h:mma') : null;
+    }
 
-  onPollComplete(info) {
-      UiSettings.set(LAST_PUSH, this.course.id, Time.now.toISOString());
-      const succeeded = Boolean(
-          !this.hasFailed &&
+    onPollComplete(info) {
+        UiSettings.set(LAST_PUSH, this.course.id, Time.now.toISOString());
+        const succeeded = Boolean(
+            !this.hasFailed &&
         info.data.num_callbacks &&
         isEmpty(info.errors)
-      );
-      Toasts.push({
-          info,
-          type: 'lms',
-          handler: 'job',
-          status: succeeded ? 'ok' : 'failed',
-          errors: info.errors,
-      });
-  }
+        );
+        Toasts.push({
+            info,
+            type: 'lms',
+            handler: 'job',
+            status: succeeded ? 'ok' : 'failed',
+            errors: info.errors,
+        });
+    }
 
-  @action start() {
-      // set this now so status updates immediately
-      this.pollingId = 'pending';
-  }
+    @action start() {
+        // set this now so status updates immediately
+        this.pollingId = 'pending';
+    }
 
-  @action onStarted({ data }) {
-      this.startPolling(data.job);
-  }
+    @action onStarted({ data }) {
+        this.startPolling(data.job);
+    }
 
 }

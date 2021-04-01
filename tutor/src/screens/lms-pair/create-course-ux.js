@@ -1,6 +1,6 @@
 import CreateCourseUX from '../new-course/ux';
 import Router from './router';
-import { computed, action } from 'mobx';
+import { computed, action, modelize } from 'shared/model';
 
 export default
 class PairingCreateCourseUX extends CreateCourseUX {

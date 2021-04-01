@@ -1,13 +1,13 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, modelize } from 'shared/model'
 import { readonly } from 'core-decorators';
 
 const ERROR_DISPLAY_TIMEOUT = 1000 * 4;
 
 class StatusMessage {
     @observable display = false;
-    @observable type;
-    @observable message;
-    @observable hideTimer;
+    @observable type = ''
+    @observable message = ''
+    @observable hideTimer: number | null = null;
 
     constructor() {
         modelize(this);
@@ -23,7 +23,7 @@ class StatusMessage {
         this.hideTimer = null;
     }
 
-    show({ message, type = 'error', autoHide = false }) {
+    show({ message, type = 'error', autoHide = false }: { message: string, type: string, autoHide: boolean }) {
         if (this.hideTimer) {
             clearTimeout(this.hideTimer);
             this.hideTimer = null;
@@ -34,7 +34,7 @@ class StatusMessage {
         });
 
         if (autoHide) {
-            this.hideTimer = setTimeout(
+            this.hideTimer = window.setTimeout(
                 this.hide, ERROR_DISPLAY_TIMEOUT
             );
         }

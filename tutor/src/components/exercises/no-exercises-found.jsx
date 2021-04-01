@@ -29,15 +29,15 @@ const noResultsInFiltering = () =>
     </p>;
 
 const noQuestionsInSection = (isHomework, onSelectSections) =>
-  <>
-    <h3>
+    <>
+        <h3>
         No questions found.
-    </h3>
-    <p className="lead">
+        </h3>
+        <p className="lead">
       Select a different {backToSelectionSections(onSelectSections)}
-        {isHomework && ' or add your own questions'}.
-    </p>
-  </>;
+            {isHomework && ' or add your own questions'}.
+        </p>
+    </>;
 
 const NoExercisesFound = (props) => {
     return (

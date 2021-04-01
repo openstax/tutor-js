@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { find } from 'lodash';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { Modal, Button } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { TutorInput } from '../../components/tutor-input';
@@ -16,26 +16,26 @@ import classnames from 'classnames';
 @observer
 class AddPeriodField extends React.Component {
 
-  static propTypes = {
-      label: PropTypes.object.isRequired,
-      name:  PropTypes.string.isRequired,
-      onChange:  PropTypes.func.isRequired,
-      validate: PropTypes.func.isRequired,
-  }
+    static propTypes = {
+        label: PropTypes.object.isRequired,
+        name:  PropTypes.string.isRequired,
+        onChange:  PropTypes.func.isRequired,
+        validate: PropTypes.func.isRequired,
+    }
 
-  render() {
-      return (
-          <TutorInput
-              ref="input"
-              label={this.props.label}
-              autoFocus
-              default={''}
-              hasValue
-              required={true}
-              onChange={this.props.onChange}
-              validate={this.props.validate} />
-      );
-  }
+    render() {
+        return (
+            <TutorInput
+                ref="input"
+                label={this.props.label}
+                autoFocus
+                default={''}
+                hasValue
+                required={true}
+                onChange={this.props.onChange}
+                validate={this.props.validate} />
+        );
+    }
 }
 
 
@@ -88,7 +88,7 @@ class AddPeriodLink extends React.Component {
             <React.Fragment>
                 <Button onClick={this.open} variant="link" className="control add-period">
                     <Icon type="plus-square" />
-            Add <CourseGroupingLabel courseId={this.props.course.id} />
+                    Add <CourseGroupingLabel courseId={this.props.course.id} />
                 </Button>
                 <Modal
                     show={this.showModal}
@@ -96,7 +96,7 @@ class AddPeriodLink extends React.Component {
                     className="settings-edit-period-modal">
                     <Modal.Header closeButton={true}>
                         <Modal.Title>
-                Add <CourseGroupingLabel courseId={this.props.course.id} />
+                            Add <CourseGroupingLabel courseId={this.props.course.id} />
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body className={classnames({ 'is-invalid-form': !this.isValid })}>
@@ -115,7 +115,7 @@ class AddPeriodLink extends React.Component {
                             waitingText="Adding..."
                             disabled={!this.isValid}
                         >
-                Add
+                            Add
                         </AsyncButton>
                     </Modal.Footer>
                 </Modal>

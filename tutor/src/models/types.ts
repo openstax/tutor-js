@@ -144,6 +144,9 @@ export interface BootstrapData {
     payments: { is_enabled: boolean, js_url: string, base_url: string }
     tutor_api_url: string
     ui_settings: any
+    assets_url: string
+    is_impersonating: boolean
+    osweb_base_url: string
     user: UserObj
 }
 
@@ -280,4 +283,31 @@ export interface TaskPlanExtensionObj {
     role_id: ID
     due_at: string
     closes_at: string
+}
+
+export type TaskPlanType = 'homework' | 'reading' | 'external' | 'event' | ''
+
+export interface StudentTaskObj {
+    id: ID
+    closes_at: string
+    complete: boolean
+    complete_exercise_count: number
+    completed_on_time_exercise_steps_count: number
+    completed_on_time_steps_count: number
+    completed_steps_count: number
+    correct_exercise_count: number
+    due_at: string
+    exercise_count: number
+    gradable_step_count: number
+    is_deleted: boolean
+    is_extended: boolean
+    is_past_due: boolean
+    is_provisional_score: boolean
+    opens_at: string
+    published_points: number
+    steps_count: number
+    task_plan_id: ID
+    title: string
+    type: TaskPlanType
+    ungraded_step_count: number
 }
