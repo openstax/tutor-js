@@ -221,7 +221,7 @@ export default class StudentTaskStep extends BaseModel {
     }
 
     @action fetchIfNeeded() {
-        if (this.needsFetched && !this.api.isFetchInProgress) {
+        if (this.needsFetched && !this.api.isInProgress('fetchStudentTaskStep')) {
             this.fetch();
         }
     }

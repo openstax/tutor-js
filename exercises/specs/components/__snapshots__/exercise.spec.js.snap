@@ -1553,10 +1553,10 @@ exports[`Exercises component renders and matches snapshot 1`] = `
 
 exports[`Exercises component renders with intro and a multiple questions when exercise is MC 1`] = `
 <div
-  className="fade alert alert-danger show"
+  className="fade alert alert-info show"
   role="alert"
 >
-  Exercise was not found
+  Loading…
 </div>
 `;
 

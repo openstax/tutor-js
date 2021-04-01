@@ -19,7 +19,22 @@ export function r<P, Q=Record<string, any>>(method: HttpMethod, url: string) {
     }
 }
 
-class ApiError extends Error {
+
+// export a function that accepts a property from api definitions,
+// the paramters and the query string needed to build it's url
+export function makeUrlFunc<T extends Record<string, any>>(definitions: T) {
+    return function<K extends keyof T>(
+        key: K,
+        params?: Parameters<T[K]>[0],
+        query?: Parameters<T[K]>[1],
+    ) {
+        const methodUrl = definitions[key](params, query)
+        return { key, methodUrl }
+    }
+}
+
+
+export class ApiError extends Error {
     request: string
     requestOptions: RequestOptions
     apiResponse: Response
@@ -46,10 +61,19 @@ export const request = async<RetT>(
     if (data) {
         req.body = JSON.stringify(data)
     }
-    const resp = await fetch(`${baseUrl}/${url}`, req)
-    const respJson = await resp.json()
-    if (resp.ok) {
-        return await respJson as RetT
+    try {
+        const resp = await fetch(`${baseUrl}/${url}`, req)
+        const respJson = await resp.json()
+        if (resp.ok) {
+            return await respJson as RetT
+        } else {
+            throw new ApiError(`${method} ${url}`, resp, opts)
+        }
+    } catch (err) {
+        if (err instanceof ApiError) {
+            throw err
+        }
+        throw new ApiError(`${method} ${url}`, err, opts)
     }
-    throw new ApiError(`${method} ${url}`, resp, opts)
+
 }
