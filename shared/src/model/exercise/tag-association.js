@@ -12,9 +12,11 @@ const TagAssociation = {
 
     replaceType: action(function(type, tags) {
         this.withType(type, { multiple: true }).forEach(t => this.remove(t));
-        tags.forEach((tag) => {
-            this.push({ type: type, value: tag.value });
-        });
+        if (tags) {
+            tags.forEach((tag) => {
+                this.push({ type: type, value: tag.value });
+            });
+        }
     }),
 
     removeType: action(function(type) {
