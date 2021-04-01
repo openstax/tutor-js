@@ -1,16 +1,14 @@
 import {
-    React, PropTypes, computed, observer, observable, styled,
+    React, PropTypes, computed, observer, styled,
 } from 'vendor';
-import { isEmpty, merge, map, take, last } from 'lodash';
+import { isEmpty, merge, map } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
-import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
 import CreateACourse from './create-a-course';
-import { CoursePreview, Course, CourseTeacher } from './course';
-import TourAnchor from '../tours/anchor';
+import { Course, CourseTeacher } from './course';
 import { breakpoint } from 'theme';
 
 const StyledContainer = styled(Container)`
@@ -77,8 +75,7 @@ class MyCoursesBase extends React.Component {
     }
 
     renderCourse(course) {
-        const Item = course.is_preview ? CoursePreview :
-            this.items[User.verifiedRoleForCourse(course)];
+        const Item = this.items[User.verifiedRoleForCourse(course)];
         return Item ? wrapCourse(Item, course) : null;
     }
 
@@ -202,47 +199,5 @@ class MyCoursesFuture extends React.Component {
     }
 }
 
-function ExploreAPreview({ course }) {
-    return (
-        <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
-            <TourAnchor id='explore-a-preview-zone'>
-                <CoursePreview
-                    course={course}
-                />
-            </TourAnchor>
-        </Col>
-    );
-}
 
-ExploreAPreview.propTypes = {
-    course: PropTypes.object,
-};
-
-@observer
-class MyCoursesPreview extends React.Component {
-
-    @observable previews;
-
-    componentDidMount() {
-        if (User.canViewPreviewCourses) {
-            PreviewCourseOffering.fetch();
-        }
-    }
-
-    render() {
-        if (!User.canViewPreviewCourses) { return null; }
-
-        const courses = PreviewCourseOffering.all;
-
-        return (
-            <MyCoursesBasic
-                courses={take(courses, courses.length - 1)}
-                baseName={'my-courses-preview'}
-                title="Preview Courses"
-                after={<ExploreAPreview course={last(courses)} />}
-            />
-        );
-    }
-}
-
-export { MyCoursesCurrent, MyCoursesPast, MyCoursesFuture, MyCoursesPreview };
+export { MyCoursesCurrent, MyCoursesPast, MyCoursesFuture };

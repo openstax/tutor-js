@@ -6,7 +6,7 @@ import {
 import ChapterSection from './chapter-section';
 import Map, { hydrateModel } from 'shared/model/map';
 import Note from './notes/note';
-import Api from '../api'
+import urlFor from '../api'
 import { HighlightedPageObj } from './types'
 import Page from './reference-book/node'
 
@@ -61,7 +61,7 @@ class Notes extends BaseModel {
     }
 
     async fetchHighlightedPages() {
-        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(Api.fetchHighlightedPages({ bookUUID: this.course.ecosystem_book_uuid }))
+        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(urlFor('fetchHighlightedPages', { bookUUID: this.course.ecosystem_book_uuid }))
         this.onHighlightedPagesLoaded(data.pages)
     }
 
@@ -108,7 +108,7 @@ class PageNotes extends Map<ID, Note> {
     }
 
     async fetch() {
-        const notes = await this.api.request(Api.fetchPageNotes({ pageUUID: this.page.uuid }));
+        const notes = await this.api.request(urlFor('fetchPageNotes', { pageUUID: this.page.uuid }));
         this.onLoaded(notes)
     }
 

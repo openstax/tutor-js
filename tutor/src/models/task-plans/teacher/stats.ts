@@ -15,7 +15,7 @@ import ChapterSection from '../../chapter-section';
 import Exercise from '../../exercises/exercise';
 import { TaskPlanType } from '../../types'
 import type TeacherTaskPlan from './plan'
-import Api from '../../../api'
+import urlFor from '../../../api'
 
 class AnswerStat extends BaseModel {
 
@@ -136,12 +136,12 @@ export default class TaskPlanStats extends BaseModel {
     }
 
     async fetch() {
-        const data = await this.api.request(Api.fetchTaskPlanStats({ taskPlanId: this.id }))
+        const data = await this.api.request(urlFor('fetchTaskPlanStats', { taskPlanId: this.id }))
         this.onApiRequestComplete(data)
     }
 
     async fetchReview() {
-        const data = await this.api.request(Api.fetchTaskPlanReview({ taskPlanId: this.id }))
+        const data = await this.api.request(urlFor('fetchTaskPlanReview', { taskPlanId: this.id }))
         this.onApiRequestComplete(data)
     }
 

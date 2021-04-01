@@ -1,6 +1,6 @@
 import { ID, Map, modelize, action }  from 'shared/model'
 import Ecosystem from './ecosystems/ecosystem'
-import Api from '../api'
+import urlFor from '../api'
 
 class EcosystemsMap extends Map<ID, Ecosystem> {
     static Model = Ecosystem;
@@ -11,7 +11,7 @@ class EcosystemsMap extends Map<ID, Ecosystem> {
     }
 
     @action async fetch() {
-        const data = await this.api.request(Api.fetchEcosystems())
+        const data = await this.api.request(urlFor('fetchEcosystems'))
         this.mergeModelData(data);
     }
 }

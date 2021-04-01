@@ -29,7 +29,7 @@ describe('My Courses Component', function() {
         User.self_reported_role = '';
     });
 
-    it('matches snapshot', function() {
+    fit('matches snapshot', function() {
         expect.snapshot(<C><CourseListing /></C>).toMatchSnapshot();
     });
 

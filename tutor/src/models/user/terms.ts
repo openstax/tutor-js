@@ -1,7 +1,7 @@
 import { BaseModel, field, model, modelize, computed, action, NEW_ID, ID, getParentOf } from 'shared/model';
 import { isProd } from '../../helpers/production'
 import type { User } from '../user'
-import Api from '../../api'
+import urlFor from '../../api'
 
 const REQUIRED_FOR_EVERYONE = [
     'general_terms_of_use',
@@ -66,7 +66,7 @@ class UserTerms extends BaseModel {
 
     // will be overwritten by api
     async fetch() {
-        const terms = await this.api.request<Term[]>(Api.fetchUserTerms())
+        const terms = await this.api.request<Term[]>(urlFor('fetchUserTerms'))
         this.onLoaded(terms)
     }
 
@@ -83,7 +83,7 @@ class UserTerms extends BaseModel {
 
     // called by api
     async sign(termIds: ID[]) {
-        await this.api.request(Api.signUserTerms({ termIds }))
+        await this.api.request(urlFor('signUserTerms', { termIds }))
         this.onSigned(termIds)
     }
 

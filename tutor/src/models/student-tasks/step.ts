@@ -12,7 +12,7 @@ import ReferenceBookNode from '../reference-book/node';
 import { extractCnxId } from '../../helpers/content';
 import { MediaActions } from '../../flux/media';
 import DateTime from 'shared/model/date-time';
-import Api from '../../api'
+import urlFor from '../../api'
 
 class TaskStepContent extends BaseModel {
     update(data: any) {
@@ -246,14 +246,14 @@ export default class StudentTaskStep extends BaseModel {
 
     // called by API
     async fetch(): Promise<void> {
-        const data = await this.api.request(Api.fetchStudentTaskStep({ stepId: this.id }))
+        const data = await this.api.request(urlFor('fetchStudentTaskStep', { stepId: this.id }))
         this.onLoaded(data)
     }
 
     async save(): Promise<void> {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
         const data = await this.api.request(
-            Api.saveStudentTaskStep({ stepId: this.id }),
+            urlFor('saveStudentTaskStep', { stepId: this.id }),
             pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation')
         )
         this.onLoaded(data)

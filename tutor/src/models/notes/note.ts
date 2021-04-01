@@ -2,7 +2,7 @@ import { isString, get, pick, extend } from 'lodash';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
 import { intercept, runInAction, toJS } from 'mobx'
-import Api from '../../api'
+import urlFor from '../../api'
 import {
     BaseModel,
     field,
@@ -65,14 +65,14 @@ export default class Note extends BaseModel {
 
     async save() {
         const update = await this.api.request(
-            this.isNew ? Api.createNote({ pageUUID: this.page.uuid }) : Api.saveNote({ noteId: this.id }),
+            this.isNew ? urlFor('createNote', { pageUUID: this.page.uuid }) : urlFor('saveNote', { noteId: this.id }),
             { course_id: this.course.id, ...pick(this, 'id', 'anchor', 'contents', 'annotation') },
         )
         this.onUpdated(update)
     }
 
     async destroy() {
-        await this.api.request(Api.deleteNote({ noteId: this.id }))
+        await this.api.request(urlFor('deleteNote', { noteId: this.id }))
         runInAction(() => this.page.onNoteDeleted(this))
     }
 

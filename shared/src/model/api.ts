@@ -66,7 +66,7 @@ export class ModelApi {
     }
 
     async request<RetT>(
-        { key, methodUrl}: { key: string, methodUrl: MethodUrl },
+        { key, methodUrl }: { key: string, methodUrl: MethodUrl },
         data?: any, options?: RequestOptions
     ) {
         this.requestsInProgress.set(key, methodUrl)

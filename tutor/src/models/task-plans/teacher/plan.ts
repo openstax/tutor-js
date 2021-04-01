@@ -21,7 +21,7 @@ import TaskPlanStats from './stats';
 import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
 import TaskPlanScores from './scores';
-import Api from '../../../api';
+import urlFor from '../../../api';
 import { TaskPlanExtensionObj } from '../../types'
 
 const SELECTION_COUNTS = {
@@ -439,12 +439,12 @@ export default class TeacherTaskPlan extends BaseModel {
         return 0 === this.invalidParts.length;
     }
 
-    @action saveDroppedQuestions() {
-        return {
-            data: {
-                dropped_questions: toJS(this.dropped_questions),
-            },
-        };
+    async saveDroppedQuestions() {
+        const data = await this.api.request<TeacherTaskPlan>(
+            urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
+            { dropped_questions: toJS(this.dropped_questions) },
+        )
+        this.onApiRequestComplete(data)
     }
 
     @computed get activeAssignedPeriods() {
@@ -457,7 +457,7 @@ export default class TeacherTaskPlan extends BaseModel {
     async save() {
         const data = await this.api.request<TeacherTaskPlan>(
             this.isNew ?
-                Api.createTaskPlan({ courseId: this.course.id }) : Api.fetchTaskPlan({ taskPlanId: this.id }),
+                urlFor('createTaskPlan', { courseId: this.course.id }) : urlFor('saveTaskPlan', { taskPlanId: this.id }),
             this.dataForSave
         )
         this.onApiRequestComplete(data)
@@ -467,7 +467,7 @@ export default class TeacherTaskPlan extends BaseModel {
         //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
         const updatedExtensions = this.api.request<TaskPlanExtensionObj[]>(
-            Api.grantTaskExtensions({ taskPlanId: this.id }),
+            urlFor('grantTaskExtensions', { taskPlanId: this.id }),
             { extensions: grantedExtensions },
         )
         return updatedExtensions
@@ -482,7 +482,7 @@ export default class TeacherTaskPlan extends BaseModel {
     }
 
     fetch() {
-        const plan = this.api.request<TeacherTaskPlan>(Api.fetchTaskPlan({ taskPlanId: this.id }))
+        const plan = this.api.request<TeacherTaskPlan>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
         this.update(plan)
     }
 

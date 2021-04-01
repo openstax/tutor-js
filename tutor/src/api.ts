@@ -1,4 +1,3 @@
-
 import { r, makeUrlFunc } from 'shared/api/request'
 import { ID } from 'shared/types'
 
@@ -25,8 +24,6 @@ interface TermIds { termIds: ID[] }
 interface TaskStepId { taskStepId: ID }
 interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
-
-
 
 const Definitions = {
     bootstrap:             r('GET', '/user/bootstrap'),

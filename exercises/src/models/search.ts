@@ -93,13 +93,12 @@ class Search extends BaseModel {
 
     //called by api
     async perform() {
-        const { total_count, items } = await this.api
-            .request<{ total_count: number, items: Exercise[] }>(
-                urlFor('search', {}, {
-                    q: map(this.clauses, 'asQuery').join(' '),
-                    per_page: this.perPageSize,
-                    page: this.currentPage,
-                })
+        const { total_count, items } = await this.api.request<{ total_count: number, items: Exercise[] }>(
+            urlFor('search', {}, {
+                q: map(this.clauses, 'asQuery').join(' '),
+                per_page: this.perPageSize,
+                page: this.currentPage,
+            })
         )
 
 
