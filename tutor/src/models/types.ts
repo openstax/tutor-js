@@ -37,7 +37,7 @@ export interface TeacherProfileObj {
     name: string
 }
 
-export interface PeriodObj {
+export interface CoursePeriodObj {
     id: ID
     enrollment_code: string
     enrollment_url: string
@@ -64,7 +64,7 @@ export interface CourseObj {
     num_sections: number
     offering_id: string
     past_due_unattempted_ungraded_wrq_are_zero: boolean
-    periods: PeriodObj[]
+    periods: CoursePeriodObj[]
     reading_weight: number
     related_teacher_profile_ids: number[]
     roles: RoleObj[]

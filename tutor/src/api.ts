@@ -29,10 +29,6 @@ interface TaskPlanId { taskPlanId: ID }
 const Api = {
     bootstrap:             r('GET', '/user/bootstrap'),
 
-    getCourse:             r<CourseId>('GET', 'courses/{courseId}'),
-    updateCourse:          r<CourseId>('POST', 'courses/{courseId}'),
-    updateCoursePeriod:    r<PeriodId>('POST', 'period/{periodId}'),
-
     saveOwnStudentId:      r<CourseId>('POST', 'user/courses/{courseId}/student'),
     updateStudent:         r<StudentId>('POST', 'students{studentId}'),
     dropStudent:           r<StudentId>('DELETE', 'students/{studentId}'),
@@ -59,12 +55,19 @@ const Api = {
     fetchExercises:        r<EcosystemIdAction>('GET', 'ecosystems/{ecosystem_id}/{action}'),
     fetchLimitedExercises: r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystem_id}/{action}/{limit}'),
 
+    fetchCourses:          r('GET', 'courses'),
+
     fetchCourse:           r<CourseId>('GET', 'course/{courseId}'),
-    saveCourse:            r<CourseId>('PUT', 'course/{courseId}'),
+    updateCourse:          r<CourseId>('POST', 'courses/{courseId}'),
     createCourse:          r('POST', 'course'),
     saveExerciseExclusion: r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
 
-    fetchCourses:          r('GET', 'courses'),
+    createCoursePeriod:    r<CourseId>('POST', 'courses/{courseId}/periods'),
+    updateCoursePeriod:    r<PeriodId>('PUT', 'periods/{periodId}'),
+    archiveCoursePeriod:   r<PeriodId>('DELETE', 'periods/{periodId}'),
+    restoreCoursePeriod:   r<PeriodId>('PUT', 'periods/{periodId}'),
+
+    createTeacherStudent:  r<PeriodId>('PUT', 'periods/{periodId}/teacher_student'),
 
     fetchPageNotes:        r<PageUUID>('GET', 'pages/{pageUUID}/notes'),
     fetchHighlightedPages: r<BookUUID>('GET', 'books/{bookUuid}/highlighted_sections'),
@@ -259,13 +262,6 @@ export default Api
 
 //     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 
-//     connectModelCreate(Period, 'create', { pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate' });
-
-//     connectModelUpdate(Period, 'createTeacherStudent', { method: 'PUT', pattern: 'periods/{id}/teacher_student', onSuccess: 'onCreateTeacherStudent' });
-
-//     connectModelUpdate(Period, 'save', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
-//     connectModelDelete(Period, 'archive', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
-//     connectModelUpdate(Period, 'unarchive', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
 
 //     connectModelRead(CourseScores, 'fetch',
 //         { pattern: 'courses/{courseId}/performance', onSuccess: 'onFetchComplete' });

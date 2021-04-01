@@ -332,7 +332,7 @@ export default class Course extends BaseModel {
 
     async save() {
         const data = await this.api.request<CourseObj>(
-            this.isNew ? Api.createCourse() : Api.saveCourse({ courseId: this.id }),
+            this.isNew ? Api.createCourse() : Api.updateCourse({ courseId: this.id }),
             pick(this, SAVEABLE_ATTRS)
         )
         runInAction(() => hydrateInstance(this, data))
