@@ -137,12 +137,12 @@ export default class TaskPlanStats extends BaseModel {
 
     async fetch() {
         const data = await this.api.request(urlFor('fetchTaskPlanStats', { taskPlanId: this.id }))
-        this.onApiRequestComplete(data)
+        this.update(data)
     }
 
     async fetchReview() {
         const data = await this.api.request(urlFor('fetchTaskPlanReview', { taskPlanId: this.id }))
-        this.onApiRequestComplete(data)
+        this.update(data)
     }
 
 }

@@ -92,7 +92,7 @@ const Factories = {
 
 
     courseRoster: ({ course }: { course: Course }) => {
-        course.roster.onApiRequestComplete({
+        course.roster.update({
             data: FactoryBot.create('CourseRoster', { course }),
         });
     },
@@ -117,7 +117,7 @@ const Factories = {
         const map = new ExercisesMap();
         if (!book) { return map; }
         if (book.children.length == 0) {
-            book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+            book.update( FactoryBot.create('Book') );
         }
         if (pageIds.length == 0) {
             pageIds = book.children[1].children.map((pg: Page) => pg.id);

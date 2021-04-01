@@ -1,6 +1,6 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { readonly } from 'core-decorators';
-import Map, { hydrateInstance } from 'shared/model/map';
+import Map from 'shared/model/map';
 import { ReferenceBookObj } from './types'
 import {
     BaseModel,
@@ -68,7 +68,7 @@ export default class ReferenceBook extends BaseModel {
 
     async fetch() {
         const data = await this.api.request<ReferenceBookObj[]>(urlFor('fetchReferenceBook', { bookId: this.id }))
-        hydrateInstance(this, omit(first(data), 'id'))
+        this.update(omit(first(data), 'id'))
     }
 
     async ensureFetched() {

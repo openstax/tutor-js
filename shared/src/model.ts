@@ -13,12 +13,6 @@ export class BaseModel {
 
     static idField = 'id'
 
-    update(attrs: any) {
-        for (const [key, value] of Object.entries(attrs)) {
-            this[key] = value
-        }
-    }
-
     toJSON() {
         return serialize(this)
     }
@@ -37,17 +31,12 @@ export class BaseModel {
         return Promise.resolve()
     }
 
-    fetch() {
+    async fetch(..._args: any[]): Promise<any> {
         throw new Error('fetch called on base model')
     }
 
-    @action onApiRequestComplete(data: any) {
+    @action update(data: any) {
         hydrateInstance(this, data)
-    }
-
-    // todo: finish impl once fetch api is nailed down
-    @action setApiErrors() {
-
     }
 
 }

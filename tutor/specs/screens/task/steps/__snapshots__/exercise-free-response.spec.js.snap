@@ -324,7 +324,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
     response_validation={
       ResponseValidation {
         "ensureLoaded": [MockFunction],
-        "onApiRequestComplete": [MockFunction],
+        .update": [MockFunction],
         "onFailure": [MockFunction],
         "onValidationComplete": [MockFunction],
         "serialize": [MockFunction],

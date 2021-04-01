@@ -65,19 +65,19 @@ export default class CoursePeriod extends BaseModel {
             pick(this, 'name')
         )
         runInAction(() => {
-            this.onApiRequestComplete(periodData)
+            this.update(periodData)
             this.course.periods.push(this);
         })
     }
 
     async archive() {
         const periodData = await this.api.request<CoursePeriodObj>(urlFor('archiveCoursePeriod', { periodId: this.id }))
-        this.onApiRequestComplete(periodData)
+        this.update(periodData)
     }
 
     async unarchive() {
         const periodData = await this.api.request<CoursePeriodObj>(urlFor('restoreCoursePeriod', { periodId: this.id }))
-        this.onApiRequestComplete(periodData)
+        this.update(periodData)
     }
 
     @action async getTeacherStudentRole() {

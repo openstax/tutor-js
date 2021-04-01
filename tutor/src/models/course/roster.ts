@@ -26,7 +26,7 @@ export default class CourseRoster extends BaseModel {
 
     async fetch() {
         const roster = this.api.request(urlFor('fetchCourseRoster', { courseId: this.course.id }));
-        this.onApiRequestComplete(roster)
+        this.update(roster)
     }
 
 }

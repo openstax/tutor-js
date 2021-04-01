@@ -444,7 +444,7 @@ export default class TeacherTaskPlan extends BaseModel {
             urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
             { dropped_questions: toJS(this.dropped_questions) },
         )
-        this.onApiRequestComplete(data)
+        this.update(data)
     }
 
     @computed get activeAssignedPeriods() {
@@ -460,7 +460,7 @@ export default class TeacherTaskPlan extends BaseModel {
                 urlFor('createTaskPlan', { courseId: this.course.id }) : urlFor('saveTaskPlan', { taskPlanId: this.id }),
             this.dataForSave
         )
-        this.onApiRequestComplete(data)
+        this.update(data)
     }
 
     async grantExtensions(extensions: TaskPlanExtensionObj[]) {
@@ -474,15 +474,15 @@ export default class TeacherTaskPlan extends BaseModel {
     }
 
 
-    @override onApiRequestComplete(data: TeacherTaskPlan) {
-        this.api.errors = {};
+    @override update(data: TeacherTaskPlan) {
+        this.api.errors.clear()
         this.update(data);
         this.is_publish_requested = false;
         this.unmodified_plans = data.tasking_plans;
     }
 
-    fetch() {
-        const plan = this.api.request<TeacherTaskPlan>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
+    async fetch() {
+        const plan = await this.api.request<TeacherTaskPlan>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
         this.update(plan)
     }
 
