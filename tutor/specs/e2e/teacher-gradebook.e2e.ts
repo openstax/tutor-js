@@ -20,7 +20,7 @@ describe('Teacher Gradebook', () => {
     beforeEach(async () => {
         await setTimeouts()
         await setRole('teacher')
-        await visitPage(page, `/course/1/gradebook`)
+        await visitPage(page, '/course/1/gradebook')
     });
 
     it('loads and views grades', async () => {
