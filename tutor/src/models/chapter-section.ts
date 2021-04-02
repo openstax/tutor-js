@@ -7,11 +7,13 @@ export default class ChapterSection extends BaseModel {
 
     @readonly static blank = new ChapterSection()
 
-    constructor(arg: [number, number] | string = '') {
+    constructor(arg: ChapterSection | [number, number] | string = '') {
         super();
         modelize(this);
         if (isArray(arg)) {
             [this.chapter, this.section] = arg;
+        } else if (arg instanceof ChapterSection) {
+            [this.chapter, this.section] = arg.split();
         } else {
             [this.chapter, this.section] = arg.split('.').map(Number);
         }
@@ -68,7 +70,6 @@ export default class ChapterSection extends BaseModel {
         return reduceRight(
             this.asArray,
             (memo:number, num: number, index: number) => memo + (num * Math.pow(100, index + 1)),
-            0,
         );
     }
 
