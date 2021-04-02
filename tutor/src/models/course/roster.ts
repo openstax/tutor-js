@@ -3,7 +3,7 @@ import { filter, groupBy } from 'lodash';
 import {
     BaseModel, field, model, extendedArray, getParentOf,
 } from 'shared/model';
-import Api from '../../api'
+import urlFor from '../../api'
 import Teacher from './teacher';
 import Student from './student';
 
@@ -25,8 +25,8 @@ export default class CourseRoster extends BaseModel {
     }))
 
     async fetch() {
-        const roster = this.api.request(Api.fetchCourseRoster({ courseId: this.course.id }));
-        this.onApiRequestComplete(roster)
+        const roster = this.api.request(urlFor('fetchCourseRoster', { courseId: this.course.id }));
+        this.update(roster)
     }
 
 }

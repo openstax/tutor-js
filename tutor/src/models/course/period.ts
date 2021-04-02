@@ -3,7 +3,7 @@ import Student from './student';
 import type Course from '../course'
 import type Role from './role'
 import DateTime from 'shared/model/date-time'
-import Api from '../../api'
+import urlFor from '../../api'
 import { CoursePeriodObj, RoleObj } from '../types'
 import {
     BaseModel,
@@ -61,23 +61,23 @@ export default class CoursePeriod extends BaseModel {
         const { isNew } = this
         const periodData = await this.api.request<CoursePeriodObj>(
             isNew ?
-                Api.createCoursePeriod({ courseId: this.course.id }) : Api.updateCoursePeriod({ periodId: this.id }),
+                urlFor('createCoursePeriod', { courseId: this.course.id }) : urlFor('updateCoursePeriod', { periodId: this.id }),
             pick(this, 'name')
         )
         runInAction(() => {
-            this.onApiRequestComplete(periodData)
+            this.update(periodData)
             this.course.periods.push(this);
         })
     }
 
     async archive() {
-        const periodData = await this.api.request<CoursePeriodObj>(Api.archiveCoursePeriod({ periodId: this.id }))
-        this.onApiRequestComplete(periodData)
+        const periodData = await this.api.request<CoursePeriodObj>(urlFor('archiveCoursePeriod', { periodId: this.id }))
+        this.update(periodData)
     }
 
     async unarchive() {
-        const periodData = await this.api.request<CoursePeriodObj>(Api.restoreCoursePeriod({ periodId: this.id }))
-        this.onApiRequestComplete(periodData)
+        const periodData = await this.api.request<CoursePeriodObj>(urlFor('restoreCoursePeriod', { periodId: this.id }))
+        this.update(periodData)
     }
 
     @action async getTeacherStudentRole() {
@@ -112,6 +112,6 @@ export default class CoursePeriod extends BaseModel {
     }
 
     createTeacherStudent() {
-        return this.api.request<RoleObj>(Api.createTeacherStudent({ periodId: this.id }))
+        return this.api.request<RoleObj>(urlFor('createTeacherStudent', { periodId: this.id }))
     }
 }

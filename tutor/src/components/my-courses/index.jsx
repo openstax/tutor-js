@@ -9,7 +9,7 @@ import EmptyCourses from './empty';
 import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';
 import NonAllowedTeacher from './non-allowed-teacher';
-import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
+import { MyCoursesPast, MyCoursesCurrent } from './listings';
 
 @observer
 export default
@@ -73,7 +73,6 @@ class MyCourses extends React.Component {
                 className="my-courses"
             >
                 <MyCoursesCurrent />
-                <MyCoursesPreview />
                 <MyCoursesPast    />
             </TourRegion>
         );

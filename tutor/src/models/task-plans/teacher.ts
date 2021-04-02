@@ -2,7 +2,7 @@ import { Map, getParentOf, modelize, computed, action, ID, hydrateModel, hydrate
 import { find, last, sortBy, filter } from 'lodash'
 import TaskPlan from './teacher/plan'
 import type Course from '../course'
-import Api from '../../api'
+import urlFor from '../../api'
 // import TaskingPlan from './teacher/tasking'
 
 export
@@ -75,7 +75,7 @@ class TeacherTaskPlans extends Map<ID, TaskPlan> {
     // called from api
     async fetch({ start_at, end_at }: { start_at: string, end_at: string }) {
         const data = await this.api.request<{ plans: TaskPlan[] }>(
-            Api.fetchTaskPlans({ courseId: this.course.id }, { start_at, end_at })
+            urlFor('fetchTaskPlans', { courseId: this.course.id }, { start_at, end_at })
         )
         this.onLoaded(data.plans)
         return this;

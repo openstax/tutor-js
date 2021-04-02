@@ -3,7 +3,7 @@ import {
     BaseModel, model, runInAction, hydrateModel, modelize, observable, computed, action, getParentOf,
 } from 'shared/model';
 import Exercise from './exercises/exercise';
-import Api from '../api'
+import urlFor from '../api'
 
 class Clause extends BaseModel {
 
@@ -93,9 +93,8 @@ class Search extends BaseModel {
 
     //called by api
     async perform() {
-        const { total_count, items } = await this.api
-            .request<{ total_count: number, items: Exercise[] }>(
-            Api.search({
+        const { total_count, items } = await this.api.request<{ total_count: number, items: Exercise[] }>(
+            urlFor('search', {}, {
                 q: map(this.clauses, 'asQuery').join(' '),
                 per_page: this.perPageSize,
                 page: this.currentPage,

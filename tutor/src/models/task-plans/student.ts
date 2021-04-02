@@ -8,7 +8,7 @@ import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import StudentTask from './student/task';
 import ResearchSurveys from '../research-surveys';
 import Raven from '../app/raven';
-import Api from '../../api'
+import urlFor from '../../api'
 import { StudentTaskObj } from '../types'
 
 const MAX_POLLING_ATTEMPTS = 30;
@@ -152,7 +152,7 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
 
     // called from API
     async fetch() {
-        const data = await this.api.request<TasksPayload>(Api.fetchStudentTasks({ courseId: this.course.id }))
+        const data = await this.api.request<TasksPayload>(urlFor('fetchStudentTasks', { courseId: this.course.id }))
         this.onLoaded(data)
     }
 
