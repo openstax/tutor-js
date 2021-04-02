@@ -1,5 +1,6 @@
 import interpolate from 'interpolate'
 import qs from 'qs';
+import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type RequestOptions = { method?: HttpMethod }
@@ -19,7 +20,6 @@ export function r<P, Q=Record<string, any>>(method: HttpMethod, url: string) {
     }
 }
 
-
 // export a function that accepts a property from api definitions,
 // the paramters and the query string needed to build it's url
 export function makeUrlFunc<T extends Record<string, any>>(definitions: T) {
@@ -33,18 +33,21 @@ export function makeUrlFunc<T extends Record<string, any>>(definitions: T) {
     }
 }
 
-
-export class ApiError extends Error {
+export class ApiError extends CustomError {
     request: string
     requestOptions: RequestOptions
     apiResponse: Response
 
     constructor(request: string, resp: Response, opts?: RequestOptions) {
-        super(resp.statusText)
+        super(`${resp.status}: ${resp.statusText}`)
         this.request = request
         this.requestOptions = opts || {}
         this.apiResponse = resp
     }
+}
+
+export function isApiError(err: any): err is ApiError {
+    return err instanceof ApiError
 }
 
 const baseUrl = process.env.BACKEND_SERVER_URL ?
@@ -63,8 +66,8 @@ export const request = async<RetT>(
     }
     try {
         const resp = await fetch(`${baseUrl}/${url}`, req)
-        const respJson = await resp.json()
         if (resp.ok) {
+            const respJson = await resp.json()
             return await respJson as RetT
         } else {
             throw new ApiError(`${method} ${url}`, resp, opts)
@@ -73,7 +76,7 @@ export const request = async<RetT>(
         if (err instanceof ApiError) {
             throw err
         }
-        throw new ApiError(`${method} ${url}`, err, opts)
+        throw new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, opts)
     }
 
 }

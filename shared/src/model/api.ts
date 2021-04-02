@@ -68,7 +68,7 @@ export class ModelApi {
     async request<RetT>(
         { key, methodUrl }: { key: string, methodUrl: MethodUrl },
         data?: any, options?: RequestOptions
-    ) {
+    ): Promise<RetT | ApiError> {
         this.requestsInProgress.set(key, methodUrl)
         try {
             const reply = await request<RetT>(methodUrl, data, options)
@@ -77,7 +77,7 @@ export class ModelApi {
             return reply
         } catch (e) {
             this.errors.set(key, e)
-            throw e
+            return e
         }
     }
 }
