@@ -40,7 +40,7 @@ export class ApiError extends CustomError {
     apiResponse: Response
 
     constructor(request: string, resp: Response, options?: RequestOptions) {
-        super(`${resp.status}: ${resp.statusText}`)
+        super(`${request} failed with ${resp.status}: ${resp.statusText}`)
         this.request = request
         this.requestOptions = options || {}
         this.apiResponse = resp
