@@ -101,7 +101,7 @@ export default class StudentTask extends BaseModel {
 
     @action onFetchComplete(data:any) {
         const { steps, ...task } = data;
-        this.api.errors = {};
+        this.api.errors.clear()
         this.update(task);
         steps.forEach((stepData:any, i:number) => {
             if (this.steps.length > i) {
