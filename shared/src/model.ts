@@ -7,7 +7,7 @@ import { ID } from './types'
 import { ModelApi } from './model/api'
 import Map from './model/map'
 
-export { isApiError } from './api/request'
+export { isApiError, ApiError } from './api/request'
 
 export const NEW_ID: number = 0
 

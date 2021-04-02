@@ -1,4 +1,4 @@
-import { BaseModel, hydrateModel, modelize, field, isApiError } from 'shared/model'
+import { BaseModel, hydrateModel, modelize, field, isApiError, ApiError } from 'shared/model'
 
 describe('model api class', () => {
     class Foo extends BaseModel {
@@ -13,6 +13,13 @@ describe('model api class', () => {
 
     beforeEach(() => {
         model  = hydrateModel(Foo, { name: 'a model' })
+    })
+
+    it('throws by default', async () => {
+        fetchMock.mockResponseOnce('bad! bad! bad!', { status: 511, statusText: 'no!' })
+        expect(async () => {
+            await model.api.request<{ name: string }>({ key: 'fetch', methodUrl: ['GET', 'something'] })
+        }).toThrowError(ApiError)
     })
 
     it('tracks loading status', async () => {
@@ -35,7 +42,7 @@ describe('model api class', () => {
         expect(model.api.requestCounts.update).toEqual(0)
     });
 
-    it('captures errors', async () => {
+    fit('captures errors', async () => {
         fetchMock.mockResponseOnce('bad! bad! bad!', { status: 511, statusText: 'no!' })
         const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] }, null, { nothrow: true })
         expect(isApiError(reply)).toBe(true)

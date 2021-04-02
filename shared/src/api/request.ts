@@ -4,6 +4,7 @@ import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type RequestOptions = { nothrow?: boolean }
+export type NoThrowOptions = { nothrow: true }
 
 export type MethodUrl = [HttpMethod, string]
 
@@ -54,11 +55,10 @@ const baseUrl = process.env.BACKEND_SERVER_URL ?
     process.env.BACKEND_SERVER_URL : window.location.port === '8000' ?
         'http://localhost:3001/api' : `${window.location.origin}/api`;
 
-export const request = async<RetT>(
-    methodUrl: MethodUrl,
-    data?: any,
-    options: RequestOptions = {}
-): Promise<RetT> => {
+
+async function request<RetT>(methodUrl: MethodUrl, data: any, options: NoThrowOptions): Promise<RetT | ApiError> // eslint-disable-line
+async function request<RetT>(methodUrl: MethodUrl, data?: any, options?: any): Promise<RetT> // eslint-disable-line
+async function request<RetT>(methodUrl: MethodUrl, data?: any, options?: RequestOptions): Promise<RetT|ApiError> {  // eslint-disable-line
     const [method, url] = methodUrl
     let req: { method: string, body?: any } = { method }
     if (data) {
@@ -73,10 +73,14 @@ export const request = async<RetT>(
             throw new ApiError(`${method} ${url}`, resp, options)
         }
     } catch (err) {
-        if (err instanceof ApiError) {
-            throw err
+        const apiErr = (err instanceof ApiError) ? err : new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, options)
+        if  (options?.nothrow) {
+            return apiErr
         }
-        throw new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, options)
+        throw apiErr
+
     }
 
 }
+
+export { request }

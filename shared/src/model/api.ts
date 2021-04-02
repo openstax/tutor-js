@@ -1,7 +1,7 @@
 import { modelize } from 'modeled-mobx'
 import { observable, computed, action, runInAction } from 'mobx'
 import { readonly } from 'core-decorators'
-import { request, MethodUrl, RequestOptions, ApiError } from '../api/request'
+import { request, MethodUrl, NoThrowOptions, RequestOptions, ApiError, isApiError } from '../api/request'
 
 const httpMethodToType = {
     GET: 'read',
@@ -9,6 +9,8 @@ const httpMethodToType = {
     PUT: 'update',
     DELETE: 'delete',
 }
+
+type RequestUrlKey = { key: string, methodUrl: MethodUrl }
 
 export class ModelApi {
     @readonly requestsInProgress = observable.map<string,MethodUrl>({}, { deep: false })
@@ -63,23 +65,24 @@ export class ModelApi {
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)
     }
 
-    async request<RetT>(
-        { key, methodUrl }: { key: string, methodUrl: MethodUrl },
-        data?: any, options?: RequestOptions
-    ): Promise<RetT> {
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any): Promise<RetT> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data: any, options: NoThrowOptions): Promise<RetT|ApiError> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any, options?: RequestOptions): Promise<RetT> { // eslint-disable-line
         this.requestsInProgress.set(key, methodUrl)
         try {
             const reply = await request<RetT>(methodUrl, data, options)
             runInAction(() => {
                 this.requestsInProgress.delete(key)
                 this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
+                if (isApiError(reply)) {
+                    this.errors.set(key, reply)
+                }
             })
             return reply
         } catch (e) {
             this.errors.set(key, e)
             if (options?.nothrow) {
-                // TODO figure out how to change RetT based on nothrow in options
-                return e as any as RetT
+                return e
             }
             throw e
         }
