@@ -19,7 +19,7 @@ describe('model api class', () => {
         fetchMock.mockResponseOnce(() => new Promise((done) => {
             setTimeout(() => done(JSON.stringify({ name: 'from server' })), 10)
         }))
-        const replyPromise = model.api.request<{ name: string }>({ key: 'fetch', methodUrl: ['PUT', 'model/bar'] })
+        const replyPromise = model.api.request<{ name: string }>({ key: 'fetch', methodUrl: ['PUT', 'model/bar'] }, null, { nothrow: true })
         expect(model.api.isPending).toBe(true)
         expect(model.api.requestCounts.update).toEqual(0)
         expect(model.api.isInProgress('fetch')).toBe(true)
@@ -37,7 +37,7 @@ describe('model api class', () => {
 
     it('captures errors', async () => {
         fetchMock.mockResponseOnce('bad! bad! bad!', { status: 511, statusText: 'no!' })
-        const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] })
+        const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] }, null, { nothrow: true })
         expect(isApiError(reply)).toBe(true)
         expect(model.api.hasErrors).toBe(true)
         expect(model.api.errors.get('saveThings')?.apiResponse?.status).toBe(511)
@@ -45,7 +45,7 @@ describe('model api class', () => {
 
     it('deals with invalid json', async () => {
         fetchMock.mockResponseOnce('bad! bad! bad!', { status: 201, statusText: 'ok' })
-        const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] })
+        const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] }, null, { nothrow: true })
         expect(isApiError(reply)).toBe(true)
         expect(String(reply)).toMatch(/invalid json/)
     })

@@ -3,7 +3,7 @@ import qs from 'qs';
 import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-export type RequestOptions = { method?: HttpMethod }
+export type RequestOptions = { nothrow?: boolean }
 
 export type MethodUrl = [HttpMethod, string]
 
@@ -38,10 +38,10 @@ export class ApiError extends CustomError {
     requestOptions: RequestOptions
     apiResponse: Response
 
-    constructor(request: string, resp: Response, opts?: RequestOptions) {
+    constructor(request: string, resp: Response, options?: RequestOptions) {
         super(`${resp.status}: ${resp.statusText}`)
         this.request = request
-        this.requestOptions = opts || {}
+        this.requestOptions = options || {}
         this.apiResponse = resp
     }
 }
@@ -57,7 +57,7 @@ const baseUrl = process.env.BACKEND_SERVER_URL ?
 export const request = async<RetT>(
     methodUrl: MethodUrl,
     data?: any,
-    opts: RequestOptions = {}
+    options: RequestOptions = {}
 ): Promise<RetT> => {
     const [method, url] = methodUrl
     let req: { method: string, body?: any } = { method }
@@ -70,13 +70,13 @@ export const request = async<RetT>(
             const respJson = await resp.json()
             return await respJson as RetT
         } else {
-            throw new ApiError(`${method} ${url}`, resp, opts)
+            throw new ApiError(`${method} ${url}`, resp, options)
         }
     } catch (err) {
         if (err instanceof ApiError) {
             throw err
         }
-        throw new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, opts)
+        throw new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, options)
     }
 
 }

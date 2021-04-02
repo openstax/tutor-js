@@ -1,5 +1,5 @@
 import { modelize } from 'modeled-mobx'
-import { observable, computed, action } from 'mobx'
+import { observable, computed, action, runInAction } from 'mobx'
 import { readonly } from 'core-decorators'
 import { request, MethodUrl, RequestOptions, ApiError } from '../api/request'
 
@@ -11,16 +11,14 @@ const httpMethodToType = {
 }
 
 export class ModelApi {
-
-    @readonly requestsInProgress = observable.map<string,MethodUrl>()
-    @readonly errors = observable.map<string, ApiError>()
+    @readonly requestsInProgress = observable.map<string,MethodUrl>({}, { deep: false })
+    @readonly errors = observable.map<string, ApiError>({}, { deep: false })
     @readonly requestCounts = observable({
         read: 0,
         create: 0,
         update: 0,
         delete: 0,
     })
-
 
     constructor() {
         modelize(this)
@@ -68,16 +66,22 @@ export class ModelApi {
     async request<RetT>(
         { key, methodUrl }: { key: string, methodUrl: MethodUrl },
         data?: any, options?: RequestOptions
-    ): Promise<RetT | ApiError> {
+    ): Promise<RetT> {
         this.requestsInProgress.set(key, methodUrl)
         try {
             const reply = await request<RetT>(methodUrl, data, options)
-            this.requestsInProgress.delete(key)
-            this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
+            runInAction(() => {
+                this.requestsInProgress.delete(key)
+                this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
+            })
             return reply
         } catch (e) {
             this.errors.set(key, e)
-            return e
+            if (options?.nothrow) {
+                // TODO figure out how to change RetT based on nothrow in options
+                return e as any as RetT
+            }
+            throw e
         }
     }
 }
