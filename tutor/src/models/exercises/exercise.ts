@@ -17,6 +17,14 @@ import RelatedContent from '../related-content';
 import ReferenceBook from '../reference-book';
 import type Course from '../course'
 import type Page from '../reference-book/node'
+import ChapterSection from '../chapter-section';
+
+interface ImportantTags {
+    lo?: Tag
+    dok?: Tag
+    blooms?: Tag
+    chapter_section?: ChapterSection
+}
 
 export default class TutorExercise extends BaseModel {
 
@@ -46,8 +54,8 @@ export default class TutorExercise extends BaseModel {
     @model(RelatedContent) related_content = [];
 
     @model(Tag) tags = extendedArray((tags: Tag[]) => ({
-        important() {
-            return reduce(tags, (o, t) => t.recordInfo(o), {});
+        get important() {
+            return reduce(tags, (o, t) => t.recordInfo(o), {} as ImportantTags);
         },
     }))
 
