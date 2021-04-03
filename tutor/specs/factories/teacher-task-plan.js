@@ -41,6 +41,7 @@ Factory.define('TeacherTaskPlan')
                 points: Array(ex.content.questions.length).fill(1.0),
             }))
         }
+        return s
     })
     .tasking_plans(reference('TeacherTaskPlanTasking', {
         count({ course }) { return course ? course.periods.length : 0; },

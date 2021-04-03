@@ -82,10 +82,6 @@ export class User extends BaseModel {
         return true;
     }
 
-    @action removeCourse(course: Course) {
-        return Courses.delete(course.id);
-    }
-
     @computed get isConfirmedFaculty() {
         return this.faculty_status === 'confirmed_faculty';
     }

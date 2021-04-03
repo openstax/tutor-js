@@ -1,4 +1,7 @@
-import { BaseModel, field, lazyGetter, model, modelize, computed, action, NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction } from 'shared/model';
+import {
+    BaseModel, ID, field, lazyGetter, model, modelize, computed, action,
+    NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction,
+} from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter,
 } from 'lodash';
@@ -47,7 +50,7 @@ export default class Course extends BaseModel {
     @field uuid = '';
     @field does_cost = false;
     @field book_pdf_url = '';
-    @field cloned_from_id = NEW_ID;
+    @field cloned_from_id: null| ID = null
     @field default_due_time = '';
     @field default_open_time = '';
     @field ecosystem_book_uuid = '';

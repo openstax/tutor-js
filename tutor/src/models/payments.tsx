@@ -23,14 +23,14 @@ export default class Payments extends BaseModel {
         product_uuid: '',
     });
 
-    static bootstrap(data) {
+    static bootstrap(data: any) {
         extend(this.config, data);
     }
 
-    @observable pendingTimeout;
+    @observable pendingTimeout: number;
     @observable errorMessage = ''
-    @observable element;
-    @observable parentCallbacks;
+    @observable element: HTMLElement;
+    @observable parentCallbacks: any;
 
     constructor(options = {}) {
         super();

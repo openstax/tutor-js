@@ -10982,10 +10982,10 @@ mockdate@^2.0.5:
   resolved "https://registry.yarnpkg.com/mockdate/-/mockdate-2.0.5.tgz#70c6abf9ed4b2dae65c81dfc170dd1a5cec53620"
   integrity sha512-ST0PnThzWKcgSLyc+ugLVql45PvESt3Ul/wrdV/OPc/6Pr8dbLAIJsN1cIp41FLzbN+srVTNIRn+5Cju0nyV6A==
 
-modeled-mobx@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.4.0.tgz#efc6084868c38f35b557ad811ccb9dc224de4571"
-  integrity sha512-pLOL40U+MJDsV/Mg1VVplTqIc9dCQ2kvWQXPyhzkR+d21UKKE0wYnUCorqjz6sYl0bI2D0jl7CCrqeTzqthpvw==
+modeled-mobx@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/modeled-mobx/-/modeled-mobx-0.4.1.tgz#67517de64863eff99f9f5fe5bae2853fa737d4f0"
+  integrity sha512-6JHS9ROGdgSJcyo724zXZt14wbvUI+nliM5/8O0Fw2mvbI2TAguAswe025YZkDJePHvfsgpwdEYp+q73NPtgxg==
   dependencies:
     mobx "^6.1"
 

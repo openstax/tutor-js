@@ -1,6 +1,5 @@
-import { BaseModel, field, computed, NEW_ID, getParentOf } from 'shared/model';
+import { BaseModel, computed, field, NEW_ID, getParentOf } from 'shared/model';
 import type CourseRoster from './roster'
-import User from '../user';
 
 export default class CourseTeacher extends BaseModel {
 
@@ -23,7 +22,7 @@ export default class CourseTeacher extends BaseModel {
     onDropped() {
         this.roster.teachers.remove(this);
         if (this.isTeacherOfCourse){
-            User.removeCourse(this.roster.course);
+            this.roster.course.otherCourses.delete(this.roster.course.id)
         }
     }
 }
