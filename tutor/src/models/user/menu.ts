@@ -1,14 +1,15 @@
 import { pickBy, extend, pick, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
 import User from '../user';
-import Courses from '../courses-map';
+import Courses, { Course } from '../courses-map';
 import Payments from '../payments';
+import { ID } from '../../store/types';
 
 const ROUTES = {
 
     myCourses: {
         label: 'My Courses',
-        locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
+        locked(course: Course) { return get(course, 'currentRole.isTeacherStudent'); },
         params: () => undefined,
         options: {
             separator: 'after',
@@ -17,11 +18,11 @@ const ROUTES = {
     dashboard: {
         label: 'Dashboard',
         icon: 'home',
-        isAllowed(course) { return !!course; },
+        isAllowed(course: Course) { return !!course; },
     },
     browseBook: {
         label: 'Browse the Book',
-        isAllowed(course) { return !!course; },
+        isAllowed(course: Course) { return !!course; },
     },
     studentScores: {
         label: 'Scores',
@@ -37,7 +38,7 @@ const ROUTES = {
     },
     guide: {
         label: 'Performance Forecast',
-        isAllowed(course) { return get(course, 'is_concept_coach') !== true; },
+        isAllowed(course: Course) { return get(course, 'is_concept_coach') !== true; },
         roles: {
             student: 'viewPerformanceGuide',
             teacher: 'viewPerformanceGuide',
@@ -69,14 +70,14 @@ const ROUTES = {
     },
     get_started: {
         label: 'Getting Started',
-        isAllowed(course) { return get(course, 'is_concept_coach') === true; },
+        isAllowed(course: Course) { return get(course, 'is_concept_coach') === true; },
         roles: {
             teacher: 'ccDashboardHelp',
         },
     },
     changeId: {
         label: 'Change Student ID',
-        locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
+        locked(course: Course) { return get(course, 'currentRole.isTeacherStudent'); },
         roles: {
             student: 'changeStudentId',
         },
@@ -86,13 +87,13 @@ const ROUTES = {
     },
     cloneCourse: {
         label: 'Copy this Course',
-        params({ courseId }) {
+        params({ courseId }: { courseId: ID }) {
             return { sourceId: courseId };
         },
         roles: {
             teacher: 'createNewCourse',
         },
-        isAllowed(course) {
+        isAllowed(course: Course) {
             return !!(course && !course.is_preview && User.canCreateCourses);
         },
         options: {
@@ -102,7 +103,7 @@ const ROUTES = {
     createNewCourse: {
         label: 'Create a Course',
         isAllowed() { return User.canCreateCourses; },
-        options({ course }) {
+        options({ course }: { course: Course }) {
             return course ? { separator: 'before' } : { separator: 'both' };
         },
     },
@@ -131,8 +132,8 @@ const ROUTES = {
     },
     managePayments: {
         label: 'Manage Payments',
-        locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
-        isAllowed(course) { return Boolean(
+        locked(course: Course) { return get(course, 'currentRole.isTeacherStudent'); },
+        isAllowed(course: Course) { return Boolean(
             this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any
         ); },
     },
@@ -146,15 +147,14 @@ const ROUTES = {
 };
 
 const TUTOR_HELP = 'https://openstax.secure.force.com/help?search=tutor';
-const TUTOR_CONTACT = 'https://openstax.org/contact';
 const SUPPORT_EMAIL = 'support@openstax.org';
 
-function getRouteByRole(routeName, menuRole) {
+function getRouteByRole(routeName: string, menuRole: string) {
     if (!ROUTES[routeName].roles) { return routeName; }
     return ROUTES[routeName].roles[menuRole];
 }
 
-function addRouteProperty(route, property, rules, options, defaults) {
+function addRouteProperty(route: any, property: string, rules: any, options: any, defaults?: any) {
     let value;
     if (isFunction(rules[property])) {
         value = rules[property](options);
@@ -177,13 +177,15 @@ const UserMenu = observable({
         return SUPPORT_EMAIL;
     },
 
-    helpLinkForCourse(course) {
+    helpLinkForCourse(course: Course) {
         if (!course) { return this.helpURL; }
         return TUTOR_HELP;
     },
 
-    getRoutes(course) {
-        let isTeacher = false, menuRole, courseId;
+    getRoutes(course: Course) {
+        let isTeacher = false
+        let menuRole = ''
+        let courseId: ID = ''
 
         if (course) {
             courseId = course.id;
@@ -191,12 +193,12 @@ const UserMenu = observable({
         }
         const options = { courseId: courseId, menuRole };
         const validRoutes = pickBy(
-            ROUTES, (route, routeName) =>
+            ROUTES, (route: any, routeName: string) =>
                 (!route.isAllowed || route.isAllowed(course)) &&
         (!route.isTeacher || isTeacher) &&
         getRouteByRole(routeName, menuRole)
         );
-        const routes = [];
+        const routes: any[] = [];
 
         each(validRoutes, (routeRules, routeName) => {
             const name = getRouteByRole(routeName, menuRole);
