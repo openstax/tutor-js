@@ -9,11 +9,9 @@ export type NoThrowOptions = { nothrow: true }
 export type MethodUrl = [HttpMethod, string]
 
 
-export function r<P, Q=Record<string, any>>(method: HttpMethod, url: string) {
+export function r<P, Q=Record<string, any>>(method: HttpMethod, pattern: string) {
     return (params?: P, query?: Q) => {
-        if (params) {
-            url = interpolate(url, params)
-        }
+        let url = params ? interpolate(pattern, params) : pattern
         if (query) {
             url += '?' + qs.stringify(query, { arrayFormat: 'brackets', encode: false })
         }
