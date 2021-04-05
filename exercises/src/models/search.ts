@@ -1,6 +1,6 @@
 import { map } from 'lodash';
 import {
-    BaseModel, model, runInAction, hydrateModel, modelize, observable, computed, action, getParentOf,
+    BaseModel, model, runInAction, array, hydrateModel, modelize, observable, computed, action, getParentOf,
 } from 'shared/model';
 import Exercise from './exercises/exercise';
 import urlFor from '../api'
@@ -48,8 +48,8 @@ class Clause extends BaseModel {
 export default
 class Search extends BaseModel {
 
-    @model(Clause) clauses:Clause[] = [];
-    @model(Exercise) exercises:Exercise[] = [];
+    @model(Clause) clauses = array<Clause>()
+    @model(Exercise) exercises = array<Exercise>()
     @observable total_count = 0;
     @observable perPageSize = 25;
     @observable currentPage = 1;

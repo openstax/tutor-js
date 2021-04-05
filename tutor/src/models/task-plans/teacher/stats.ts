@@ -8,7 +8,7 @@ import {
     NEW_ID,
     ID,
     getParentOf,
-    extendedArray,
+    array,
 } from 'shared/model';
 import { find, isEmpty } from 'lodash';
 import ChapterSection from '../../chapter-section';
@@ -66,13 +66,13 @@ class QuestionStats extends BaseModel {
     @observable question_id:ID = NEW_ID;
     @observable answered_count = 0;
 
-    @model(Answer) answers = extendedArray((answers: Answer[]) => ({
+    @model(Answer) answers = array((answers: Answer[]) => ({
         get withFreeResponse() {
             return answers.filter(ans => !isEmpty(ans.free_response));
         },
     }))
 
-    @model(AnswerStat) answer_stats = extendedArray((stats: AnswerStat[]) => ({
+    @model(AnswerStat) answer_stats = array((stats: AnswerStat[]) => ({
         get correct() { return find(stats, { isCorrect: true }); },
     }))
 

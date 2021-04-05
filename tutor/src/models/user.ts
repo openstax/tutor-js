@@ -46,9 +46,9 @@ export class User extends BaseModel {
     @field is_admin = false;
     @field is_content_analyst = false;
     @field is_customer_service = false;
-    @model(Term) available_terms: Term[] = [];
+    @model(Term) available_terms = array<Term>()
 
-    @model(ViewedTourStat) viewed_tour_stats: ViewedTourStat[] = [];
+    @model(ViewedTourStat) viewed_tour_stats = array<ViewedTourStat>()
     @model(DateTime) created_at = DateTime.unknown;
 
     @computed get firstName() {
@@ -133,7 +133,7 @@ export class User extends BaseModel {
     }
 
     resetTours() {
-        this.viewed_tour_stats = []
+        this.viewed_tour_stats.clear()
     }
 
     replayTour(tour: Tour) {

@@ -1,4 +1,4 @@
-import { BaseModel, model, field, modelize } from 'shared/model';
+import { BaseModel, model, field, modelize, array } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -70,7 +70,7 @@ export default class Tour extends BaseModel {
     @field className;
     @field courseId;
 
-    @model(TourStep) steps = [];
+    @model(TourStep) steps = array<TourStep>()
 
     @computed get countId() {
         if (this.perCourse && this.courseId) {

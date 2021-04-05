@@ -10,6 +10,7 @@ import {
     observable,
     computed,
     NEW_ID,
+    array,
 } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
@@ -38,7 +39,7 @@ export default class ReferenceBook extends BaseModel {
     @readonly isPage = false
     @readonly index = 0;
 
-    @model(Node) children:Node[] = [];
+    @model(Node) children = array<Node>()
 
     @field cnx_id = '';
     @field short_id = '';

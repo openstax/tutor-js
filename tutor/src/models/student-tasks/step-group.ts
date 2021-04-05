@@ -1,4 +1,4 @@
-import { BaseModel, model, computed, action, field, NEW_ID } from 'shared/model';
+import { BaseModel, model, computed, action, field, NEW_ID, array } from 'shared/model';
 import StudentTaskStep from './step'
 import { readonly } from 'core-decorators';
 
@@ -11,7 +11,7 @@ interface StudentTaskStepGroupKey {
 export default class StudentTaskStepGroup extends BaseModel {
 
     @field uid = NEW_ID;
-    @model(StudentTaskStep) steps:StudentTaskStep[] = [];
+    @model(StudentTaskStep) steps = array<StudentTaskStep>()
 
     @readonly isGrouped = true;
     @readonly type = 'mpq';

@@ -1,6 +1,6 @@
 import {
     BaseModel, field, action, computed, observable, model, lazyGetter,
-    extendedArray, modelize, NEW_ID, ID, override, hydrateInstance, hydrateModel,
+    array, modelize, NEW_ID, ID, override, hydrateInstance, hydrateModel,
 } from 'shared/model';
 import { createAtom, IAtom, toJS } from 'mobx'
 import type Page from '../../reference-book/node'
@@ -88,7 +88,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
     @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = [];
 
-    @model(TaskingPlan) tasking_plans = extendedArray((plans: TaskingPlan[]) => ({
+    @model(TaskingPlan) tasking_plans = array((plans: TaskingPlan[]) => ({
         forPeriod(period: Period) { return find(plans, { target_id: period.id, target_type: 'period' }); },
         areValid() { return Boolean(plans.length > 0 && every(this, 'isValid')); },
     }))

@@ -1,7 +1,7 @@
 import type Exercise from '../exercise'
 import { uniq, map, remove, keys, inRange, find, reduce, isEmpty, without, every, omit } from 'lodash';
 import {
-    BaseModel, modelize, field, model, computed, action, getParentOf, hydrateModel, ID, NEW_ID,
+    BaseModel, array, modelize, field, model, computed, action, getParentOf, hydrateModel, ID, NEW_ID,
 } from '../../model';
 import Answer from './answer';
 import Solution from './solution';
@@ -40,9 +40,9 @@ class ExerciseQuestion extends BaseModel {
     @field stimulus_html = '';
     @field title = '';
     @field hints: string[] = [];
-    @model(Format) formats: Format[] = []
-    @model(Answer) answers:Answer[] = []
-    @model(Solution) collaborator_solutions: Solution[] = [];
+    @model(Format) formats = array<Format>()
+    @model(Answer) answers = array<Answer>()
+    @model(Solution) collaborator_solutions = array<Solution>()
 
     get exercise() { return getParentOf<Exercise>(this) }
 

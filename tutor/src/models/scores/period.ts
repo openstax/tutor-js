@@ -3,7 +3,7 @@ import { computed } from 'mobx';
 import type CourseScores from '../scores'
 //import type TaskResult from './task-result'
 import Bignum from 'shared/model/bignum'
-import { BaseModel, field, model, modelize, NEW_ID, extendedArray, getParentOf } from 'shared/model';
+import { BaseModel, field, model, modelize, array, NEW_ID, getParentOf } from 'shared/model';
 import Heading from './heading';
 import Student from './student';
 
@@ -17,9 +17,9 @@ export default class CourseScoresPeriod extends BaseModel {
     @model(Bignum) overall_homework_progress = Bignum.unknown;
 
     @field period_id = NEW_ID;
-    @model(Heading) data_headings: Heading[] = [];
+    @model(Heading) data_headings = array<Heading>()
 
-    @model(Student) students = extendedArray((students: Student[]) => ({
+    @model(Student) students = array((students: Student[]) => ({
         get active() { return filter(students, 'isActive'); },
     }))
 

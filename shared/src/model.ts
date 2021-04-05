@@ -71,7 +71,9 @@ export {
 } from 'mobx'
 
 
-export function extendedArray<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {
+function array<T>(): IObservableArray<T>  // eslint-disable-line
+function array<T, E>(fn: (_ary: T[]) => E): IObservableArray<T> & E  // eslint-disable-line
+function array<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {  // eslint-disable-line
     const ary = observable.array<T>()
     if (fn) {
         const extensions = fn(ary)
@@ -82,3 +84,5 @@ export function extendedArray<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> 
     }
     return ary as IObservableArray<T> & E
 }
+
+export { array }

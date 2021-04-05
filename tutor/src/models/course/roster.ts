@@ -1,7 +1,7 @@
 import type Course from '../course'
 import { filter, groupBy } from 'lodash';
 import {
-    BaseModel, field, model, extendedArray, getParentOf, modelize,
+    BaseModel, field, model, array, getParentOf, modelize,
 } from 'shared/model';
 import urlFor from '../../api'
 import Teacher from './teacher';
@@ -18,12 +18,12 @@ export default class CourseRoster extends BaseModel {
 
     get course():Course { return getParentOf(this) }
 
-    @model(Teacher) teachers = extendedArray((teachers: Teacher[]) => ({
+    @model(Teacher) teachers = array((teachers: Teacher[]) => ({
         get active() { return filter(teachers, t => t.is_active); },
         get dropped(){ return filter(teachers, t => !t.is_active); },
     }))
 
-    @model(Student) students = extendedArray((students: Student[]) => ({
+    @model(Student) students = array((students: Student[]) => ({
         get active() { return filter(students, t => t.is_active); },
         get activeByPeriod() { return groupBy(filter(students, t => t.is_active), 'period_id'); },
         get dropped(){ return filter(students, t => !t.is_active); },

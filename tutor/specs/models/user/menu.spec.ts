@@ -2,6 +2,8 @@ import { ld, Factory } from '../../helpers';
 import UserMenu from '../../../src/models/user/menu';
 import User from '../../../src/models/user';
 
+const UntypedUser = User as any
+
 jest.mock('../../../src/models/user', () => ({
     canCreateCourses: true,
     isConfirmedFaculty: true,
@@ -14,7 +16,7 @@ describe('Current User Store', function() {
     });
 
     it('should return expected menu routes when course is missing', () => {
-        User.canCreateCourses = true;
+        UntypedUser.canCreateCourses = true;
         expect.snapshot(UserMenu.getRoutes()).toMatchSnapshot();
     });
 
