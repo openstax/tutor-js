@@ -1,4 +1,4 @@
-import { BaseModel, field, model, action, computed, observable, modelize, hydrateInstance, hydrateModel } from 'shared/model';
+import { BaseModel, field, model, array, action, computed, observable, modelize, hydrateInstance, hydrateModel } from 'shared/model';
 import DateTime from 'shared/model/date-time';
 import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
@@ -23,8 +23,7 @@ export class User extends BaseModel {
         modelize(this);
     }
 
-    @action.bound
-    bootstrap(data: any) {
+    @action.bound bootstrap(data: any) {
         hydrateInstance(this, data);
         this.csrf_token = read_csrf() as string;
     }
@@ -175,7 +174,8 @@ export class User extends BaseModel {
     }
 
     async logEvent({ category, code, data }: UserEventPayload) {
-        return await this.api.request(urlFor('logUserEvent',{ category, code }), data)
+        if (!this.isProbablyTeacher) { return false }
+        return await this.api.request(urlFor('logUserEvent', { category, code }), data)
     }
 
     async suggestSubject({ subject }: { subject: string }) {

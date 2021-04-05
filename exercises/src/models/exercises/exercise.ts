@@ -18,8 +18,8 @@ class Exercise extends SharedExercise {
         }));
     }
     @observable error?:any;
-    @model(Image) images:Image[] = []
-    @model(Delegation) delegations: Delegation[] = []
+    @model(Image) images = array<Image>()
+    @model(Delegation) delegations = array<Delegation>()
 
     constructor() {
         super()
