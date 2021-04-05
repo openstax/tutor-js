@@ -7,16 +7,18 @@ import TourContext from '../../../src/models/tour/context';
 import User from '../../../src/models/user';
 import Tour from '../../../src/models/tour';
 import browser from 'detect-browser';
+import { hydrateModel } from 'modeled-mobx';
 
 jest.mock('detect-browser', () => ({
     name: 'not-ie',
 }));
 describe('Tour Context Model', () => {
-    let context;
-    let region;
+    let context: TourContext;
+    let region: TourRegion;
+
     beforeEach(() => {
         context = new TourContext();
-        region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
+        region = hydrateModel(TourRegion, { id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
         bootstrapCoursesList();
     });
     afterEach(() => {

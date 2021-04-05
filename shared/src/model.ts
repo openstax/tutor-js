@@ -15,6 +15,10 @@ export class BaseModel {
 
     static idField = 'id'
 
+    constructor() {
+        modelize(this)
+    }
+
     toJSON() {
         return serialize(this)
     }
@@ -67,12 +71,14 @@ export {
 } from 'mobx'
 
 
-export function extendedArray<T, E>(fn: (_ary: T[]) => E): IObservableArray<T> & E {
+export function extendedArray<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {
     const ary = observable.array<T>()
-    const extensions = fn(ary)
-    Object.keys(extensions).forEach(prop => {
-        const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
-        Object.defineProperty(ary, prop, desc)
-    })
+    if (fn) {
+        const extensions = fn(ary)
+        Object.keys(extensions).forEach(prop => {
+            const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
+            Object.defineProperty(ary, prop, desc)
+        })
+    }
     return ary as IObservableArray<T> & E
 }

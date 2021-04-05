@@ -1,8 +1,8 @@
-import { TimeMock, Factory } from '../../../helpers';
-import moment from 'moment';
+import { TimeMock, Factory, DateTime } from '../../../helpers';
+import TeacherTaskPlan from '../../../../src/models/task-plans/teacher/plan';
 
 describe('Task Plan for Teachers', () => {
-    let plan;
+    let plan: TeacherTaskPlan;
 
     const now = new Date('Thu Aug 3 2017 16:53:12 GMT-0500 (CDT)');
     TimeMock.setTo(now);
@@ -15,17 +15,16 @@ describe('Task Plan for Teachers', () => {
 
     it('calculates due range', () => {
         plan.tasking_plans.forEach((tp, i) => {
-            tp.due_at = moment(now).add(i, 'day').toDate();
+            tp.due_at = DateTime.now.plus({ day: i }).asISOString
         });
         expect(
-            moment(now).isSame(plan.duration.start),
+            DateTime.now.isSame(plan.interval.start, 'minute')
         ).toBe(true);
         expect(
-            moment(now).add(plan.tasking_plans.length-1, 'day').isSame(
-                plan.duration.end
-            ),
+            DateTime.now.plus({ day: plan.tasking_plans.length - 1 }).isSame(
+                plan.interval.end, 'minute'
+            )
         ).toBe(true);
     });
-
 
 });

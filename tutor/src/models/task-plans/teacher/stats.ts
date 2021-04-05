@@ -126,7 +126,7 @@ export default class TaskPlanStats extends BaseModel {
 
     @observable shareable_url = '';
 
-    @model(Stats) stats = [];
+    @model(Stats) stats: Stats[] = [];
 
     get taskPlan() { return getParentOf<TeacherTaskPlan>(this) }
 

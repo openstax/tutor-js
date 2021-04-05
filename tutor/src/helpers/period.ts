@@ -16,11 +16,12 @@ const PeriodHelper = {
                     return name;
                 }
             }
+            return ''
         });
         return sortBy(periods, (period) => { // eslint-disable-line consistent-return
             if (!isNumber(period.name)) {
                 const number = period.name.match(/[0-9.-]+/g);
-                return number ? parseFloat(number) : null;
+                return number ? parseFloat(number[0]) : '';
             } else {
                 return period.name;
             }

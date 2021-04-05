@@ -32,17 +32,20 @@ export default class DateTime {
         this._value = toLDT(dateThing)
     }
 
-    diff(other: DateTimeInputs, unit: DurationUnit) { return Math.round(this._value.diff(toLDT(other), unit)[unit]) }
-    distanceToNow(unit: DurationUnit) { return Math.round(this._value.diff(LDT.fromJSDate(Time.now), unit)[unit]) }
+    // called by modeled-mobx to store value as json
+    serialize() { return this.asISOString }
 
-    serialize() { return this._value.toISO() }
+    diff(other: DateTimeInputs, unit: DurationUnit) {
+        return Math.trunc(this._value.diff(toLDT(other), unit).get(unit))
+    }
+    distanceToNow(unit: DurationUnit) { return this.diff(DateTime.now, unit) }
 
     set(values: DateObjectUnits) { return new DateTime(this._value.set(values)) }
 
     startOf(unit: DurationUnit) { return new DateTime(this._value.startOf(unit)) }
     endOf(unit: DurationUnit) { return new DateTime(this._value.endOf(unit)) }
 
-    get asISOString() { return this._value.toISO() }
+    get asISOString() { return this._value.toUTC().toISO() }
     get asMoment() { return moment(this._value.toJSDate()) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
@@ -58,28 +61,20 @@ export default class DateTime {
     minus(duration: DurationObject) { return new DateTime(this._value.minus(duration)) }
     plus(duration: DurationObject) { return new DateTime(this._value.plus(duration)) }
 
-    isBefore(compareTo: ComparableValue) { return this.diff(compareTo, 'millisecond') > 0 }
+    isBefore(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(compareTo, unit) < 0 }
     get isInPast() { return this.isBefore(Time.now) }
 
-    isAfter(compareTo: ComparableValue) { return this.diff(compareTo, 'millisecond') < 0 }
+    isAfter(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(compareTo, unit) > 0 }
     get isInFuture() { return this.isAfter(Time.now) }
 
-    isSame(compareTo: ComparableValue, unit: DurationUnit) {
-        return Math.trunc(this._value.diff(toLDT(compareTo), unit).get(unit)) == 0
-    }
+    isSame(other: ComparableValue, unit: DurationUnit) { return this.diff(other, unit) == 0 }
+    isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(other, unit) <= 0 }
+    isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') { return this.diff(other, unit) >= 0 }
 
-    isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'seconds') {
-        return Math.trunc(this._value.diff(toLDT(other)).get(unit)) <= 0
-    }
-
-    isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') {
-        return Math.trunc(this._value.diff(toLDT(other)).get(unit)) >= 0
-    }
-
-    isUnknown() { return this._value === DateTime.unknown._value }
+    get isUnknown() { return this._value === DateTime.unknown._value }
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
 
-    format(fmt: string) { return this._value.toFormat(fmt) }
+    format(fmt: string) { return this.asMoment.format(fmt) }
 }
 
 function toLDT(dateThing: DateTimeInputs):LDT {
@@ -96,7 +91,7 @@ function toLDT(dateThing: DateTimeInputs):LDT {
     } else if (moment.isMoment(dateThing)) {
         return LDT.fromMillis((dateThing as any).millisecond())
     } else {
-        throw `attempted to hydrate unknown date type ${typeof dateThing} (${dateThing})`
+        throw new Error(`attempted to hydrate unknown date type ${typeof dateThing} (${dateThing})`)
     }
 }
 
@@ -122,7 +117,6 @@ export class Interval {
     }
 
     get humanized() {
-
         const { days, hours, minutes } = this.asLuxon.toDuration(['days', 'hours', 'minutes'])
         let str: string[] = []
         if (days)  str.push(pluralize('day', days, true))

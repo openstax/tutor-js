@@ -23,7 +23,7 @@ export default class TaskingPlan extends BaseModel {
 
     get plan() { return getParentOf<TaskPlan>(this) }
 
-    // Note: These are deliberatly NOT set to {type: 'date'}
+    // Note: These are deliberatly NOT set using @model(DateTime)
     // doing so causes strings in YYYY-MM-DD format to be converted to a date
     // that's in the user's timezone.  The date is later coverted to UTC causing
     // it to possibily refer to a different day.
@@ -113,7 +113,7 @@ export default class TaskingPlan extends BaseModel {
     }
 
     @computed get isBeforeDue() {
-        return this.dueAt.isInPast
+        return this.dueAt.isInFuture
     }
 
     @computed get isDueAfterOpen() {
@@ -130,6 +130,7 @@ export default class TaskingPlan extends BaseModel {
         if(this.isNew || this.dueAtChanged) {
             isValid = isValid && this.isBeforeDue;
         }
+
         //event does not have a close date (visually)
         if(!this.plan.isEvent) {
             isValid = isValid && this.isCloseAfterDue;
@@ -175,13 +176,13 @@ export default class TaskingPlan extends BaseModel {
         return Boolean(
             !this.plan.isPublished ||
                 !this.unmodified ||
-                this.unmodified.opensAt.isInFuture,
+                new DateTime(this.unmodified.opens_at).isInFuture,
         );
     }
 
     // resets the due at time to course default
     // and sets opens at date to match the give due at
-    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: DateTime,defaultOpenTime: string, defaultDueTime: string }) {
+    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: DateTime, defaultOpenTime: string, defaultDueTime: string }) {
         dueAt = this.course.dateTimeInZone(dueAt)
         if(!dueAt.isValid) { return; }
 
@@ -192,18 +193,17 @@ export default class TaskingPlan extends BaseModel {
         if (dueAt.isBefore(nearFuture)) {
             dueAt = nearFuture;
         }
-        this.due_at = dueAt.asISOString;
+        this.due_at = dueAt.toISOString()
 
         // is requested due at before opens?
         if (dueAt.isBefore(this.opensAt)) {
             [ hour, minute ] = defaultOpenTime.split(':').map(Number);
-            const opens_at = this.course.dateTimeInZone().set({ hour, minute }).startOf('minute');
-
-            if (dueAt.isSameOrBefore(opens_at)) {
+            const opensNow = this.course.dateTimeInZone().set({ hour, minute }).startOf('minute');
+            if (dueAt.isSameOrBefore(opensNow)) {
                 // set opens_at to just before due
                 this.opens_at = dueAt.minus({ minute: 1 }).asISOString;
             } else {
-                this.opens_at = opens_at.toISOString();
+                this.opens_at = opensNow.toISOString();
             }
         }
     }

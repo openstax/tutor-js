@@ -1,7 +1,7 @@
 import type Course from '../course'
 import { filter, groupBy } from 'lodash';
 import {
-    BaseModel, field, model, extendedArray, getParentOf,
+    BaseModel, field, model, extendedArray, getParentOf, modelize,
 } from 'shared/model';
 import urlFor from '../../api'
 import Teacher from './teacher';
@@ -10,6 +10,11 @@ import Student from './student';
 export default class CourseRoster extends BaseModel {
 
     @field teach_url = '';
+
+    constructor() {
+        super()
+        modelize(this);
+    }
 
     get course():Course { return getParentOf(this) }
 

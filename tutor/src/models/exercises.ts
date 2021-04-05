@@ -39,7 +39,7 @@ interface FetchArg {
     ecosystem_id?: ID,
     page_ids?: ID[],
     exercise_ids?: ID[],
-    limit?: string,
+    limit?: string | boolean,
     query?: any,
     action?: string,
 }
@@ -60,7 +60,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         return uniq(map(this.array, 'page.id'));
     }
 
-    noneForPageIds(pageIds: ID[]) {
+    noneForPageIds(pageIds: ID[] = []) {
         return !find(pageIds, pgId => !isEmpty(this.byPageId[pgId]));
     }
 

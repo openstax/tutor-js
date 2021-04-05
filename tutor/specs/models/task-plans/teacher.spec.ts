@@ -1,20 +1,21 @@
-import Courses from '../../../src/models/courses-map';
-import { autorun } from 'mobx';
+import Courses, { Course } from '../../../src/models/courses-map';
+import { autorun, action, runInAction } from 'mobx';
 import { map } from 'lodash';
+import { TeacherTaskPlanObj } from '../../../src/models/types';
 
 const COURSE_ID = '123';
 
 describe('Teacher Task Plans', function() {
-    let course;
+    let course!: Course;
 
-    beforeEach(() => {
-        Courses.bootstrap([{ id: COURSE_ID }], { clear: true });
-        course = Courses.get(COURSE_ID);
-    });
-    afterEach(() => {
+    beforeEach(action(() => {
+        Courses.bootstrap([{ id: COURSE_ID } as any], { clear: true });
+        course = Courses.get(COURSE_ID)!;
+    }));
+    afterEach(action(() => {
         Courses.clear();
         course.teacherTaskPlans.clear();
-    });
+    }));
 
     it('has api', () => {
         expect(course.teacherTaskPlans.api).not.toBeUndefined();
@@ -26,33 +27,24 @@ describe('Teacher Task Plans', function() {
             changeSpy(map(course.teacherTaskPlans.array, 'id'));
         });
         expect(changeSpy).toHaveBeenCalledWith([]);
-        course.teacherTaskPlans.onLoaded({
-            data: {
-                plans: [
-                    { id: '1', hello: 'world', steps: [] },
-                ],
-            },
-        }, [ { courseId: COURSE_ID } ]);
+        course.teacherTaskPlans.onLoaded([
+            { id: '1', task_steps: [] } as any as TeacherTaskPlanObj,
+        ]);
         expect(changeSpy).toHaveBeenCalledWith(['1']);
     });
 
     it('filters out deleting plans', () => {
-        course.teacherTaskPlans.onLoaded({
-            data: {
-                plans: [
-                    { id: '1', hello: 'world', steps: [] },
-                    { id: '2', hello: 'world', steps: [] },
-                ],
-            },
-        }, [ { courseId: COURSE_ID } ]);
-
-        course.teacherTaskPlans.get(1).is_deleting = true;
+        course.teacherTaskPlans.onLoaded([
+            { id: '1', hello: 'world', steps: [] },
+            { id: '2', hello: 'world', steps: [] },
+        ] as any as TeacherTaskPlanObj[])
+        runInAction(() => { course.teacherTaskPlans.get(1)!.is_deleting = true  })
         expect(course.teacherTaskPlans.active.array).toHaveLength(1);
     });
 
     it('can store a cloned plan', () => {
         const plan = {
-            'title': 'Homework','ecosystem_id': '7',
+            'title': 'NEW PLAN','ecosystem_id': '7',
             'id': '_CREATING_0',
             'type': 'homework','is_feedback_immediate': true,
             'settings': {
@@ -82,26 +74,23 @@ describe('Teacher Task Plans', function() {
         };
         const plans = course.teacherTaskPlans;
         plans.addClone(plan);
-        const model = plans.get(plan.id);
+        const model = plans.get(plan.id)!;
+        expect(model.title).toEqual('NEW PLAN')
         expect(model.tasking_plans).toHaveLength(2);
         expect(model.id).toEqual(plan.id);
-        model.tasking_plans.forEach((tp, i) => {
+        model.tasking_plans.forEach(action((tp, i) => {
             expect(tp.opens_at).toEqual(plan.tasking_plans[i].opens_at);
             expect(tp.due_at).toEqual(plan.tasking_plans[i].due_at);
-        });
+        }));
     });
 
     it('lastPublished', () => {
-        course.teacherTaskPlans.onLoaded({
-            data: {
-                plans: [
-                    { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' },
-                    { id: '2', last_published_at: '2017-01-01T00:00:00.000Z' },
-                    { id: '3', last_published_at: '2017-01-04T00:00:00.000Z' },
-                    { id: '4', last_published_at: '2016-01-01T00:00:00.000Z' },
-                ],
-            },
-        }, [ { courseId: COURSE_ID } ]);
-        expect(course.teacherTaskPlans.lastPublished.id).toEqual('3');
+        course.teacherTaskPlans.onLoaded([
+            { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' },
+            { id: '2', last_published_at: '2017-01-01T00:00:00.000Z' },
+            { id: '3', last_published_at: '2017-01-04T00:00:00.000Z' },
+            { id: '4', last_published_at: '2016-01-01T00:00:00.000Z' },
+        ] as any as TeacherTaskPlanObj[]);
+        expect(course.teacherTaskPlans.lastPublished?.id).toEqual('3');
     });
 });

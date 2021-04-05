@@ -71,7 +71,7 @@ const BOOKS = {
     },
 };
 
-each(BOOKS, (properties, code) => properties.code = code);
+each(BOOKS, (properties: any, code: string) => properties.code = code);
 
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
@@ -79,12 +79,12 @@ each(BOOKS, (properties, code) => properties.code = code);
 export default {
     ...BOOKS,
 
-    bestPracticesDocumentURLFor(code) {
+    bestPracticesDocumentURLFor(code: string) {
         return this[code] && this[code].bp_doc ?
             `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
     },
 
-    information(code) {
+    information(code: string) {
         return this[code] || { title: String.titleize(code), subject: '', code };
     },
 

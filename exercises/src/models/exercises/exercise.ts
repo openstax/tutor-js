@@ -17,23 +17,16 @@ class Exercise extends SharedExercise {
             }],
         }));
     }
-
-    error?:any;
-
-    images:Image[] = []
-    delegations: Delegation[] = []
+    @observable error?:any;
+    @model(Image) images:Image[] = []
+    @model(Delegation) delegations: Delegation[] = []
 
     constructor() {
         super()
-        modelize(this, {
-            delegations: model(Delegation),
-            images: model(Image),
-            error: observable,
-            onError: action,
-        })
+        modelize(this)
     }
 
-    onError(message: any) {
+    @action onError(message: any) {
         this.error = message;
     }
 

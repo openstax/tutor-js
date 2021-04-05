@@ -94,7 +94,7 @@ const Definitions = {
 
     fetchTaskPlans:        r<CourseId, TaskPlanQuery>('GET', 'courses/{course.id}/dashboard'),
 
-    fetchPastTaskPlans:    r<CourseId>('GET', 'courses/{course.id}/plans'),
+    fetchPastTaskPlans:    r<CourseId>('GET', 'courses/{courseId}/plans'),
     fetchTaskPlan:         r<TaskPlanId>('GET', 'plans/{taskPlanId}'),
     deleteTaskPlan:        r<TaskPlanId>('DELETE', 'plans/{id}'),
     saveTaskPlan:          r<TaskPlanId>('PUT', 'plans/{id}'),
@@ -108,6 +108,10 @@ const Definitions = {
     fetchTaskPlanStats:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
 
     fetchTaskPlanReview:   r<TaskPlanId>('GET', 'plans/{id}/review'),
+
+    fetchTaskPlanScores:   r<TaskPlanId>('GET', 'plans/{id}/scores'),
+
+    fetchCourseScores:     r<CourseId>('GET', 'courses/{courseId}/performance'),
 
 }
 
@@ -197,11 +201,6 @@ export default urlFor
 
 
 //     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
-
-
-//     connectModelRead(CourseScores, 'fetch',
-//         { pattern: 'courses/{courseId}/performance', onSuccess: 'onFetchComplete' });
-
 //     connectModelUpdate(TaskResult, 'acceptLate', { method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted' });
 
 //     connectModelUpdate(TaskResult, 'rejectLate', { method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected' });
@@ -215,16 +214,7 @@ export default urlFor
 //     });
 
 //     connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
-
-
-//     connectModelRead(TaskPlanScores, 'fetch', {
-//         onSuccess: 'onApiRequestComplete',
-//         pattern: 'plans/{id}/scores',
-//     });
-
 //     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
-
-
 // };
 // export default {
 //     boot: startAPI,
