@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import { find } from 'lodash';
-import { computed, modelize, ID } from 'shared/model'
+import { computed, modelize, ID, hydrateInstance, hydrateModel } from 'shared/model'
 import { map, flatten } from 'lodash';
 import Purchase from './purchases/purchase';
 
@@ -21,13 +21,15 @@ class PurchasesMap extends Map<ID, Purchase> {
         )).reverse();
     }
 
-
-    // called by API
-    onLoaded({ data: { orders } } : {data: { orders: any } } ) {
-        const ordersById = {};
-        orders.forEach((o:any) => ordersById[o.identifier] = new Purchase(o));
-        this.replace(ordersById);
-    }
+    onLoaded({ data: { orders } } : {data: { orders: any[] } } ) {
+        orders.forEach((o:Purchase) => {
+            const purchase = this.get(o.identifier)
+            if(purchase) {
+                hydrateInstance(purchase, o, this)
+            } else {
+                this.set(o.identifier, hydrateModel(Purchase, o, this))
+            }
+        });    }
 }
 
 const purchasesMap = new PurchasesMap();

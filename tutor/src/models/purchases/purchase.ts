@@ -9,7 +9,7 @@ import Payments from '../payments';
 import Course from '../course';
 
 class Product extends BaseModel {
-    @field uuid = NEW_ID;
+    @field uuid = '';
     @field name = '';
     @field price = '';
 
@@ -22,7 +22,6 @@ class Product extends BaseModel {
 export default class Purchase extends BaseModel {
 
     @field id = NEW_ID;
-    @field uuid = NEW_ID;
     @field product_instance_uuid = '';
     @field identifier = '';
     @field refund_survey = '';
