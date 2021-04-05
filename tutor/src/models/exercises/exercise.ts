@@ -1,15 +1,7 @@
 import { last, map, filter, reduce } from 'lodash';
 import {
-    BaseModel,
-    field,
-    computed,
-    action,
-    observable,
-    model,
-    modelize,
-    NEW_ID,
-    array,
-    getParentOf,
+    BaseModel, field, computed, action, observable, model,
+    modelize, NEW_ID, ID, array, getParentOf,
 } from 'shared/model';
 import Tag, { ImportantTags } from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -124,6 +116,6 @@ export default class TutorExercise extends BaseModel {
 
     // Openstax exercises returns an id of 0;
     @computed get belongsToOpenStax() { return this.author.id === '0'; }
-    belongsToUser(user:User) { return this.author.id == user.profile_id; }
+    belongsToUser(user: { id: ID }) { return this.author.id == user.id; }
     belongsToOtherUser(user:User) { return !this.belongsToOpenStax && !this.belongsToUser(user); }
 }

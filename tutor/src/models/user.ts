@@ -31,7 +31,7 @@ export class User extends BaseModel {
     @observable csrf_token = '';
 
     terms = hydrateModel(UserTerms, {}, this);
-
+    get id() { return this.profile_id }
     @field account_uuid = '';
     @field name = '';
     @field first_name = '';

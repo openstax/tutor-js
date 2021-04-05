@@ -125,12 +125,6 @@ export class ExercisesMap extends Map<ID, Exercise> {
                 ecosystem_id = book.id;
             }
         }
-
-        // const [ method, baseUrl ] =
-        // let url = baseUrl
-        // let url =
-        // `ecosystems/${ecosystem_id}/${action}`;
-
         if (page_ids) {
             page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
             query.page_ids = uniq(toJS(page_ids));
@@ -143,10 +137,12 @@ export class ExercisesMap extends Map<ID, Exercise> {
         if (exercise_ids) {
             query.exercise_ids = uniq(toJS(exercise_ids));
             replyData = await this.api.request(urlFor('fetchExercises', params, query))
-
-        } else if (limit) {
+        } else if (typeof limit == 'string') {
             replyData = await this.api.request(urlFor('fetchLimitedExercises', { ...params, limit }, query))
+        } else {
+            throw new Error('must specify limit or exercise_ids')
         }
+
         this.onLoaded(replyData, course, book, page_ids)
     }
 
@@ -154,6 +150,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         if (course && !book) {
             book = course.referenceBook;
         }
+
         if (page_ids) {
             page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
         }
