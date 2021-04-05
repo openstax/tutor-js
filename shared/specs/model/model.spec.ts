@@ -1,4 +1,4 @@
-import { BaseModel, hydrateModel, modelize, observable, extendedArray, field, model } from 'shared/model'
+import { BaseModel, hydrateModel, modelize, observable, array, field, model } from 'shared/model'
 
 describe('Model base class', () => {
 
@@ -8,7 +8,7 @@ describe('Model base class', () => {
 
     class Foo extends BaseModel {
         @field foo = ''
-        @model(Bar) bars = extendedArray((a: Bar[]) => ({
+        @model(Bar) bars = array((a: Bar[]) => ({
             eq(n: number) { return a.filter((b) => b.num == n) },
         }))
         constructor() {

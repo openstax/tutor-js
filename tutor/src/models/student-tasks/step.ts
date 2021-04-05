@@ -1,5 +1,5 @@
 import {
-    BaseModel, field, observable, computed, action, model, NEW_ID, lazyGetter, hydrateModel, hydrateInstance,
+    BaseModel, field, observable, computed, array, action, model, NEW_ID, lazyGetter, hydrateModel, hydrateInstance,
 } from 'shared/model';
 import type StudentTaskStepGroup from './step-group'
 import S from '../../helpers/string';
@@ -32,7 +32,7 @@ class StudentTaskReadingStep extends TaskStepContent {
     html = ''
     chapter_section = ''
 
-    @model(RelatedContent) related_content:RelatedContent[] = [];
+    @model(RelatedContent) related_content = array<RelatedContent>()
 
     @lazyGetter get chapterSection() { return new ChapterSection(this.chapter_section) }
     @lazyGetter get page() {

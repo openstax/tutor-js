@@ -1,6 +1,6 @@
 import {
     BaseModel, ID, field, lazyGetter, model, modelize, computed, action,
-    NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction,
+    NEW_ID, array, hydrateModel, getParentOf, hydrateInstance, runInAction,
 } from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter,
@@ -96,13 +96,13 @@ export default class Course extends BaseModel {
     @lazyGetter get studentTaskPlans() { return hydrateModel(StudentTaskPlans, {} , this) }
     @lazyGetter get practiceQuestions() { return hydrateModel(PracticeQuestions, {}, this) }
 
-    @model(Period) periods = extendedArray((a: Period[]) => ({
+    @model(Period) periods = array((a: Period[]) => ({
         get sorted() { return PH.sort(a) },
         get archived() { return filter(this.sorted, period => !period.is_archived) },
         get active() { return filter(this.sorted, 'isActive') },
     }))
 
-    @model(Role) roles = extendedArray((roles: Role[]) => ({
+    @model(Role) roles = array((roles: Role[]) => ({
         get student() { return find(roles, { isStudent: true }); },
         get teacher() { return find(roles, { isTeacher: true }); },
         get teacherStudent() { return find(roles, { isTeacherStudent: true }); },
@@ -144,7 +144,6 @@ export default class Course extends BaseModel {
         this.scores.periods.reset();
         this.studentTasks.reset();
     }
-
     @computed get userStudentRecord() {
         const role = this.roles.student || this.roles.teacherStudent;
         return role ? find(this.students, { role_id: role.id }) : null;

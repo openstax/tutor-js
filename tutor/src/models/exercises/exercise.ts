@@ -8,7 +8,7 @@ import {
     model,
     modelize,
     NEW_ID,
-    extendedArray,
+    array,
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
@@ -18,6 +18,7 @@ import ReferenceBook from '../reference-book';
 import type Course from '../course'
 import type Page from '../reference-book/node'
 import ChapterSection from '../chapter-section';
+import { QuestionStats } from '../task-plans/teacher/stats'
 
 interface ImportantTags {
     lo?: Tag
@@ -51,9 +52,9 @@ export default class TutorExercise extends BaseModel {
     // @field preview;
     @field author?: any;
 
-    @model(RelatedContent) related_content = [];
+    @model(RelatedContent) related_content = array<RelatedContent>()
 
-    @model(Tag) tags = extendedArray((tags: Tag[]) => ({
+    @model(Tag) tags = array((tags: Tag[]) => ({
         get important() {
             return reduce(tags, (o, t) => t.recordInfo(o), {} as ImportantTags);
         },
@@ -75,7 +76,8 @@ export default class TutorExercise extends BaseModel {
     set page(pg) {
         this._page = pg;
     }
-    @model('task-plan/stats/question') question_stats = [];
+    @model(QuestionStats) question_stats = array<QuestionStats>()
+
     @observable average_step_number;
 
     @computed get isAssignable() { return !this.is_excluded; }

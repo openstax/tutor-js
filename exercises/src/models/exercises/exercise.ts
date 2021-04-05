@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { merge, find, isEmpty, isObject, map } from 'lodash';
-import { modelize, model, hydrateModel, observable } from 'shared/model';
+import { modelize, model, hydrateModel, observable, array } from 'shared/model';
 import Image from './image';
 import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';

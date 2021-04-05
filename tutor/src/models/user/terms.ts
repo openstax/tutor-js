@@ -1,4 +1,4 @@
-import { BaseModel, field, model, modelize, computed, action, NEW_ID, ID, getParentOf } from 'shared/model';
+import { BaseModel, field, model, modelize, computed, action, array, NEW_ID, ID, getParentOf } from 'shared/model';
 import { isProd } from '../../helpers/production'
 import type { User } from '../user'
 import urlFor from '../../api'
@@ -33,7 +33,7 @@ class Term extends BaseModel {
 
 
 class UserTerms extends BaseModel {
-    @model(Term) terms = [];
+    @model(Term) terms = array<Term>()
 
     constructor() {
         super();

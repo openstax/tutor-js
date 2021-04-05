@@ -1,7 +1,7 @@
 import type Course from './course'
 import { sortBy, values } from 'lodash';
 import {
-    BaseModel, model, action, observable, computed, field, modelize, ID, extendedArray,
+    BaseModel, model, action, observable, computed, field, modelize, ID, array,
 } from 'shared/model'
 import ChapterSection from './chapter-section';
 import Map, { hydrateModel } from 'shared/model/map';
@@ -26,7 +26,7 @@ class Notes extends BaseModel {
     pages = observable.map();
     course: Course
 
-    @model(HighlightedSection) summary = extendedArray((a: HighlightedSection[]) => ({
+    @model(HighlightedSection) summary = array((a: HighlightedSection[]) => ({
         sorted() { return sortBy(a, 'chapter_section.asNumber'); },
         forPage(page: Page) {
             return a.find(s => s.uuid == page.uuid);

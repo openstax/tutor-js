@@ -1,10 +1,10 @@
 import { filter, find, remove } from 'lodash';
-import { model, modelize, action, hydrateModel } from '../../model'
+import { model, modelize, action, hydrateModel, array } from '../../model'
 import Tag from './tag'
 
 export default class TagsAssociation {
 
-    @model(Tag) all: Tag[] = []
+    @model(Tag) all = array<Tag>()
 
     constructor() {
         modelize(this)

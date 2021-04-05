@@ -2,7 +2,7 @@ import type Book from '../reference-book'
 import { merge, pick, filter } from 'lodash';
 import {
     BaseModel, model, NEW_ID, field, observable,
-    modelize, getParentOf, hydrateModel, extendedArray,
+    modelize, getParentOf, hydrateModel, array,
     action, computed, override,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
@@ -57,7 +57,7 @@ export default class ReferenceBookNode extends BaseModel {
 
     @field content_html = '';
 
-    @model(ReferenceBookNode) children = extendedArray((a: ReferenceBookNode[]) =>({
+    @model(ReferenceBookNode) children = array((a: ReferenceBookNode[]) =>({
         get assignable() { return filter(a, 'isAssignable'); },
         get first() { return a.length ? a[0] : null; },
     }))

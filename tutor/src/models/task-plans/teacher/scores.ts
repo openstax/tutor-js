@@ -1,4 +1,4 @@
-import { BaseModel, ID, field, model, computed, NEW_ID, getParentOf, extendedArray } from 'shared/model';
+import { BaseModel, ID, field, model, computed, NEW_ID, getParentOf, array } from 'shared/model';
 import Exercises from '../../exercises';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
@@ -302,7 +302,7 @@ class TaskPlanScoresTasking extends BaseModel {
     get scores() { return getParentOf<TaskPlanScores>(this) }
 
 
-    @model(TaskPlanScoreHeading) question_headings = extendedArray((headings: TaskPlanScoreHeading[]) => ({
+    @model(TaskPlanScoreHeading) question_headings = array((headings: TaskPlanScoreHeading[]) => ({
         gradable() { return filter(headings, h => h.question && h.question.isOpenEnded); },
         core() { return filter(headings, h => h.type != 'Tutor'); },
     }))
@@ -440,7 +440,7 @@ export default class TaskPlanScores extends BaseModel {
 
     @model(DroppedQuestion) dropped_questions:DroppedQuestion[] = []
 
-    @model(TaskPlanScoresTasking) tasking_plans = extendedArray((taskings: TaskPlanScoresTasking[]) => ({
+    @model(TaskPlanScoresTasking) tasking_plans = array((taskings: TaskPlanScoresTasking[]) => ({
         forPeriod(period: CoursePeriod) { return find(taskings, { period_id: period.id }); },
     }))
 

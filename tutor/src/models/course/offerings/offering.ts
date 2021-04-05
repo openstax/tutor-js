@@ -1,4 +1,4 @@
-import { BaseModel, field, NEW_ID, modelize, model, computed } from 'shared/model';
+import { BaseModel, field, NEW_ID, array, modelize, model, computed } from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
 import Term from './term';
@@ -18,7 +18,7 @@ export default class Offering extends BaseModel {
     @field preview_message = '';
     @field appearance_code = '';
 
-    @model(Term) active_term_years: Term[] = [];
+    @model(Term) active_term_years = array<Term>()
 
     constructor() {
         super();
