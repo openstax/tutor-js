@@ -1,28 +1,34 @@
-import { BaseModel, field, model, computed, NEW_ID } from 'shared/model';
+import { BaseModel, ID, field, model, computed, NEW_ID, getParentOf, extendedArray } from 'shared/model';
 import Exercises from '../../exercises';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
     get, some, reduce, every, uniq, isNumber, isEmpty, groupBy, orderBy,
 } from 'lodash';
+import { TaskPlanType } from '../../types'
+import { GradingTemplate } from '../../grading/templates'
 import DroppedQuestion from './dropped_question';
+import type TaskPlan from '../../task-plans/teacher/plan'
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
+import urlFor from '../../../api'
+import CoursePeriod from '../../course/period';
 
 class TaskPlanScoreStudentQuestion extends BaseModel {
     @field question_id = NEW_ID;
-    @field exercise_id;
+    @field exercise_id:ID = NEW_ID;
     @field is_completed = false;
-    @field points;
-    @field late_work_point_penalty;
-    @field selected_answer_id;
-    @field is_correct;
-    @field free_response;
-    @field task_step_id;
-    @field needs_grading;
-    @field grader_points;
-    @field grader_comments;
-    @field submitted_late;
+    @field points = 0;
+    @field comments = ''
+    @field late_work_point_penalty = 0;
+    @field selected_answer_id = 0;
+    @field is_correct = false;
+    @field free_response = '';
+    @field task_step_id: ID = NEW_ID;
+    @field needs_grading = false;
+    @field grader_points = 0 ;
+    @field grader_comments = '';
+    @field submitted_late = false;
 
-    @model('task-plan/scores/student') student;
+    get student() { return getParentOf<TaskPlanScoreStudent>(this) }
 
     @computed get gradedPoints() {
         return isNil(this.grader_points) ? this.points : this.grader_points;
@@ -110,7 +116,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
    * If question is dropped with full points but student has not attempted the question yet, show 0
    */
     @computed get droppedQuestionPoints() {
-        const droppedQuestion = this.questionHeading.dropped;
+        const droppedQuestion = this.questionHeading?.dropped;
         if(droppedQuestion) {
             return droppedQuestion.drop_method == 'zeroed' || !this.is_completed
                 ? 0
@@ -122,22 +128,23 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
 class TaskPlanScoreStudent extends BaseModel {
     @field role_id = NEW_ID;
-    @field task_id;
-    @field first_name;
-    @field last_name;
-    @field student_identifier;
-    @field is_dropped;
-    @field is_late;
-    @field available_points;
-    @field total_points;
-    @field total_fraction;
-    @field late_work_point_penalty;
-    @field grades_need_publishing;
+    @field task_id = NEW_ID;
+    @field first_name = '';
+    @field last_name = '';
+    @field student_identifier = '';
+    @field is_dropped = false
+    @field is_late = false
+    @field available_points = 0
+    @field total_points = 0
+    @field total_fraction = 0
+    @field late_work_point_penalty = 0
+    @field grades_need_publishing = false
 
-    @model(TaskPlanScoreStudentQuestion) questions = [];
-    @model('task-plan/scores/tasking') tasking;
+    @model(TaskPlanScoreStudentQuestion) questions:TaskPlanScoreStudentQuestion[] = [];
 
-    resultForHeading(heading) {
+    get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
+
+    resultForHeading(heading: TaskPlanScoreHeading) {
         return this.questions.length > heading.index ? this.questions[heading.index] : null;
     }
 
@@ -170,16 +177,18 @@ class TaskPlanScoreStudent extends BaseModel {
 
 class TaskPlanScoreHeading extends BaseModel {
     @field title = NEW_ID;
-    @field exercise_id;
-    @field question_id;
-    @field type;
-    @field points;
-    @field points_without_dropping;
-    @field ecosystem_id;
+    @field exercise_id = NEW_ID;
+    @field question_id = NEW_ID;
+    @field type = '';
+    @field points = 0;
+    @field points_without_dropping = 0;
+    @field ecosystem_id = NEW_ID;
 
     @computed get isCore() {
         return 'Tutor' !== this.type;
     }
+
+    get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
 
     @computed get index() {
         return this.tasking && this.tasking.question_headings.indexOf(this);
@@ -286,16 +295,19 @@ class TaskPlanScoreHeading extends BaseModel {
 
 class TaskPlanScoresTasking extends BaseModel {
     @field id = NEW_ID;
-    @field period_id;
-    @field period_name;
-    @field total_fraction;
+    @field period_id: ID = NEW_ID;
+    @field period_name = '';
+    @field total_fraction = 0;
 
-    @model('task-plan/scores') plan;
-    @model(TaskPlanScoreHeading) question_headings = []; /* extend: {
-      gradable() { return filter(this, h => h.question && h.question.isOpenEnded); },
-      core() { return filter(this, h => h.type != 'Tutor'); },
-  } */
-    @model(TaskPlanScoreStudent) students = [];
+    get scores() { return getParentOf<TaskPlanScores>(this) }
+
+
+    @model(TaskPlanScoreHeading) question_headings = extendedArray((headings: TaskPlanScoreHeading[]) => ({
+        gradable() { return filter(headings, h => h.question && h.question.isOpenEnded); },
+        core() { return filter(headings, h => h.type != 'Tutor'); },
+    }))
+
+    @model(TaskPlanScoreStudent) students:TaskPlanScoreStudent[] = [];
 
     @computed get availablePoints() {
         return sumBy(this.question_headings, 'points');
@@ -310,8 +322,8 @@ class TaskPlanScoresTasking extends BaseModel {
             for (const studentQuestion of student.questions) {
                 const exercise = Exercises.get(studentQuestion.exercise_id);
                 if (exercise) {
-                    const question = exercise.content.questions.find(q => q.id == studentQuestion.question_id);
-
+                    const question = exercise.content.questions?.find(q => q.id == studentQuestion.question_id);
+                    if (!question) continue;
                     // while rare, heading will be null if this student received more exercises than others
                     const heading = studentQuestion.questionHeading;
                     const questionInfo = info[question.id] || (info[question.id] = {
@@ -322,7 +334,7 @@ class TaskPlanScoresTasking extends BaseModel {
                         averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
                         remaining: heading ? heading.gradedStats.remaining : 0,
                         index: studentQuestion.index,
-                        isCore: heading.isCore,
+                        isCore: heading?.isCore,
                         exercise,
                         question,
                         responses: [],
@@ -333,7 +345,7 @@ class TaskPlanScoresTasking extends BaseModel {
         }
 
         // add their stats once all the questions are gathered
-        return sortBy(Object.values(info).map((qi) => {
+        return sortBy(Object.values(info).map((qi: any) => {
             for (const answer of qi.question.answers) {
                 answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length,
                 answer.answered_count = qi.responses.length;
@@ -379,11 +391,11 @@ class TaskPlanScoresTasking extends BaseModel {
                 result.push(question);
             });
             return result;
-        }, []);
+        }, [] as TaskPlanScoreStudentQuestion[]);
     }
 
     @computed get wrmQuestions() {
-        return filter(this.allStudentQuestionStatus, s => s.questionHeading.type === 'WRQ');
+        return filter(this.allStudentQuestionStatus, s => s.questionHeading?.type === 'WRQ');
     }
 
     @computed get hasWRMQuestions() {
@@ -419,18 +431,20 @@ class TaskPlanScoresTasking extends BaseModel {
 export default class TaskPlanScores extends BaseModel {
 
     @field id = NEW_ID;
-    @field title;
-    @field description;
-    @field type;
-    @field ecosystem_id;
+    @field title = '';
+    @field description = '';
+    @field type: TaskPlanType = '';
+    @field ecosystem_id: ID = NEW_ID;
 
-    @model('task-plans/teacher/plan') taskPlan;
+    get taskPlan() { return getParentOf<TaskPlan>(this) }
 
-    @model(DroppedQuestion) dropped_questions = [];
-    @model(TaskPlanScoresTasking) tasking_plans = []; /* extend: {
-      forPeriod(period) { return find(this, { period_id: period.id }); },
-  } */
-    @field({ model: 'grading/template' }) grading_template;
+    @model(DroppedQuestion) dropped_questions:DroppedQuestion[] = []
+
+    @model(TaskPlanScoresTasking) tasking_plans = extendedArray((taskings: TaskPlanScoresTasking[]) => ({
+        forPeriod(period: CoursePeriod) { return find(taskings, { period_id: period.id }); },
+    }))
+
+    @model(GradingTemplate) grading_template?: GradingTemplate;
 
     @computed get exerciseIds() {
         const ids = this.taskPlan.exerciseIds;
@@ -449,7 +463,7 @@ export default class TaskPlanScores extends BaseModel {
     async ensureExercisesLoaded() {
         if (this.exerciseIds.length) {
             await Exercises.ensureExercisesLoaded({
-                course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds, task_plan_id: this.id,
+                course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds,
             });
         }
     }
@@ -466,7 +480,10 @@ export default class TaskPlanScores extends BaseModel {
         return 'reading' == this.type;
     }
 
-    fetch() { return { id: this.id }; }
+    async fetch() {
+        const data = await this.api.request(urlFor('fetchTaskPlanScores', { taskPlanId: this.id }));
+        this.update(data)
+    }
 
     get course() {
         return this.taskPlan.course;

@@ -1,28 +1,29 @@
 import {
-    BaseModel, field, action, computed, observable, model,
-    extendedArray, modelize, NEW_ID, ID, override, hydrateModel,
+    BaseModel, field, action, computed, observable, model, lazyGetter,
+    extendedArray, modelize, NEW_ID, ID, override, hydrateInstance, hydrateModel,
 } from 'shared/model';
-import type Page from '../../reference-book/node'
-import Exercise from '../../exercises/exercise'
 import { createAtom, IAtom, toJS } from 'mobx'
+import type Page from '../../reference-book/node'
 import type Course from '../../course'
 import type Period from '../../course/period'
 import DateTime, { Interval, findEarliest, findLatest } from 'shared/model/date-time';
-import Exercises, { ExercisesMap } from '../../exercises';
+import Exercises, { Exercise, ExercisesMap } from '../../exercises';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
-    compact, findIndex, filter, includes, uniq, omit, unionBy,
+    compact, findIndex, filter, includes, uniq, unionBy,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
-import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
 import TaskPlanStats from './stats';
 import DroppedQuestion from './dropped_question';
 import moment from '../../../helpers/moment-range';
 import TaskPlanScores from './scores';
-import Api from '../../../api';
-import { TaskPlanExtensionObj } from '../../types'
+import urlFor from '../../../api';
+import {
+    TaskPlanExtensionObj, TeacherTaskPlanObj, TeacherTaskPlanSettingsObj,
+    TeacherTaskPlanTaskingPlanObj,
+} from '../../types'
 
 const SELECTION_COUNTS = {
     default: 3,
@@ -83,16 +84,16 @@ export default class TeacherTaskPlan extends BaseModel {
     @field gradable_step_count = 0;
     @field wrq_count = 0;
     @field extensions: TaskPlanExtensionObj[] = []
-    @field settings?: any = {};
+    @field settings: TeacherTaskPlanSettingsObj = {};
 
-    @model(DroppedQuestion) dropped_questions = [];
+    @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = [];
 
     @model(TaskingPlan) tasking_plans = extendedArray((plans: TaskingPlan[]) => ({
         forPeriod(period: Period) { return find(plans, { target_id: period.id, target_type: 'period' }); },
         areValid() { return Boolean(plans.length > 0 && every(this, 'isValid')); },
     }))
 
-    @observable unmodified_plans: TaskingPlan[] = [];
+    @observable unmodified_plans: TeacherTaskPlanTaskingPlanObj[] = [];
 
     // only set when publishing
     @field is_feedback_immediate = false;
@@ -104,22 +105,27 @@ export default class TeacherTaskPlan extends BaseModel {
     course: Course
     exercisesMap: ExercisesMap
 
-    constructor(attrs: any) {
+    constructor(course: Course, map?: ExercisesMap) {
         super();
         modelize(this);
-        this.course = attrs.course
-        this.cloned_from_id = attrs.cloned_from_id;
-        this.unmodified_plans = attrs.tasking_plans;
-        this.exercisesMap = attrs.exercisesMap || Exercises;
+        this.course = course
+        this.exercisesMap = map || Exercises
+    }
 
-        this.publishing = createAtom(
+    static hydrate(attrs: any) {
+        const plan = new TeacherTaskPlan(attrs.course, attrs.exercisesMap)
+        hydrateInstance(plan, attrs)
+        plan.unmodified_plans = attrs.tasking_plans;
+
+        plan.publishing = createAtom(
             'TaskPlanUpdates',
-            () => { TaskPlanPublish.forPlan(this).startListening(); },
-            () => { TaskPlanPublish.stopPollingForPlan(this); },
+            () => { TaskPlanPublish.forPlan(plan).startListening(); },
+            () => { TaskPlanPublish.stopPollingForPlan(plan); },
         );
-        if (this.isNew && !this.isClone) {
-            Object.assign(this.settings, this.defaultSettings);
+        if (plan.isNew && !plan.isClone) {
+            Object.assign(plan.settings, plan.defaultSettings);
         }
+        return plan
     }
 
     @computed get defaultSettings() {
@@ -144,8 +150,8 @@ export default class TeacherTaskPlan extends BaseModel {
         return this.course.gradingTemplates.get(this.grading_template_id);
     }
 
-    @lazyInitialize get scores() { return hydrateModel(TaskPlanScores, { taskPlan: this, id: this.id }, this) }
-    @lazyInitialize get analytics() {  return hydrateModel(TaskPlanStats, { taskPlan: this }, this) }
+    @lazyGetter get scores() { return hydrateModel(TaskPlanScores, { taskPlan: this, id: this.id }, this) }
+    @lazyGetter get analytics() {  return hydrateModel(TaskPlanStats, { taskPlan: this }, this) }
 
     findOrCreateTaskingForPeriod(period: Period, defaultAttrs:any = {}) {
         let tp = this.tasking_plans.forPeriod(period);
@@ -291,6 +297,7 @@ export default class TeacherTaskPlan extends BaseModel {
     @computed get isGradeable() { return this.dateRanges.due.start.isInPast }
     @computed get isVisibleToStudents() { return this.isPublished && this.isOpen; }
 
+
     @computed get isPollable() {
         return Boolean(
             !this.failed_at &&
@@ -314,9 +321,10 @@ export default class TeacherTaskPlan extends BaseModel {
     }
 
     @computed get questionsInfo() {
+
         return flatMap(this.exercises, (exercise, exerciseIndex) => (
             exercise.content.questions.map((question, questionIndex) => {
-                const points = this.settings.exercises[exerciseIndex].points[questionIndex];
+                const points = (this.settings.exercises?.[exerciseIndex]?.points[questionIndex]) || 0;
                 return new QuestionInfo({
                     key: `${exerciseIndex}-${questionIndex}`,
                     question, exercise, exerciseIndex, questionIndex, plan: this,
@@ -368,7 +376,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
     @action addExercise(ex: Exercise) {
         if (!this.exerciseIds.find(exId => exId == ex.id)) {
-            this.settings.exercises.push({
+            this.settings.exercises?.push({
                 id: ex.id,
                 points: map(ex.content.questions, question => question.isOpenEnded ? 2.0 : 1.0),
             });
@@ -384,14 +392,15 @@ export default class TeacherTaskPlan extends BaseModel {
     @computed get clonedAttributes() {
         return extend(pick(
             this,
-            'description', 'settings', 'title', 'type', 'ecosystem_id', 'is_feedback_immediate', 'grading_template_id'
+            'description', 'title', 'type', 'ecosystem_id', 'is_feedback_immediate', 'grading_template_id'
         ), {
             tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
+            settings: this.canEdit ? this.settings : null,
         });
     }
 
     @action createClone({ course }: { course: Course }) {
-        return new TeacherTaskPlan({
+        return hydrateModel(TeacherTaskPlan, {
             ...this.clonedAttributes,
             course,
             cloned_from_id: this.id,
@@ -408,17 +417,13 @@ export default class TeacherTaskPlan extends BaseModel {
             pick(this, 'is_publish_requested', 'cloned_from_id'),
             { tasking_plans: map(this.tasking_plans, 'dataForSave') },
         );
-        if (!this.canEdit) {
-            data = omit(data, 'settings');
-        }
         return data;
     }
 
     @computed get isExternalUrlValid() {
         return Boolean(
             !this.isExternal ||
-                (!isEmpty(this.settings.external_url) &&
-                    isUrl(this.settings.external_url))
+                (this.settings.external_url && isUrl(this.settings.external_url))
         );
     }
 
@@ -439,12 +444,12 @@ export default class TeacherTaskPlan extends BaseModel {
         return 0 === this.invalidParts.length;
     }
 
-    @action saveDroppedQuestions() {
-        return {
-            data: {
-                dropped_questions: toJS(this.dropped_questions),
-            },
-        };
+    async saveDroppedQuestions() {
+        const data = await this.api.request<TeacherTaskPlanObj>(
+            urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
+            { dropped_questions: toJS(this.dropped_questions) },
+        )
+        this.update(data)
     }
 
     @computed get activeAssignedPeriods() {
@@ -455,34 +460,34 @@ export default class TeacherTaskPlan extends BaseModel {
     }
 
     async save() {
-        const data = await this.api.request<TeacherTaskPlan>(
+        const data = await this.api.request<TeacherTaskPlanObj>(
             this.isNew ?
-                Api.createTaskPlan({ courseId: this.course.id }) : Api.fetchTaskPlan({ taskPlanId: this.id }),
+                urlFor('createTaskPlan', { courseId: this.course.id }) : urlFor('saveTaskPlan', { taskPlanId: this.id }),
             this.dataForSave
         )
-        this.onApiRequestComplete(data)
+        this.update(data)
     }
 
     async grantExtensions(extensions: TaskPlanExtensionObj[]) {
         //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
         const updatedExtensions = this.api.request<TaskPlanExtensionObj[]>(
-            Api.grantTaskExtensions({ taskPlanId: this.id }),
+            urlFor('grantTaskExtensions', { taskPlanId: this.id }),
             { extensions: grantedExtensions },
         )
         return updatedExtensions
     }
 
 
-    @override onApiRequestComplete(data: TeacherTaskPlan) {
-        this.api.errors = {};
-        this.update(data);
+    @override update(data: TeacherTaskPlanObj) {
+        this.api.errors.clear()
+        super.update(data)
         this.is_publish_requested = false;
         this.unmodified_plans = data.tasking_plans;
     }
 
-    fetch() {
-        const plan = this.api.request<TeacherTaskPlan>(Api.fetchTaskPlan({ taskPlanId: this.id }))
+    async fetch() {
+        const plan = await this.api.request<TeacherTaskPlanObj>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
         this.update(plan)
     }
 

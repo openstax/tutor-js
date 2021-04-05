@@ -1,6 +1,6 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { readonly } from 'core-decorators';
-import Map, { hydrateInstance } from 'shared/model/map';
+import Map from 'shared/model/map';
 import { ReferenceBookObj } from './types'
 import {
     BaseModel,
@@ -14,7 +14,7 @@ import {
 import DateTime from 'shared/model/date-time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
-import Api from '../api'
+import urlFor from '../api'
 
 function mapPages(page: ReferenceBook | Node, pages: any) {
     if (page.isPage) {
@@ -67,8 +67,8 @@ export default class ReferenceBook extends BaseModel {
     }
 
     async fetch() {
-        const data = await this.api.request<ReferenceBookObj[]>(Api.fetchReferenceBook({ bookId: this.id }))
-        hydrateInstance(this, omit(first(data), 'id'))
+        const data = await this.api.request<ReferenceBookObj[]>(urlFor('fetchReferenceBook', { bookId: this.id }))
+        this.update(omit(first(data), 'id'))
     }
 
     async ensureFetched() {

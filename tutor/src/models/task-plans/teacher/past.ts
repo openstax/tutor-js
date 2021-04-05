@@ -1,29 +1,32 @@
-import { ID, action, observable, modelize } from 'shared/model'
-import Map from 'shared/model/map';
+import { ID, action, modelize } from 'shared/model'
+import Map, { getParentOf, hydrateModel } from 'shared/model/map';
 import TaskPlan from './plan';
-import Api from '../../../api'
+import urlFor from '../../../api'
+import type Course from '../../course';
+import { TeacherTaskPlanObj } from '../../types'
 
 export
 class PastTaskPlans extends Map<ID, TaskPlan> {
 
-    @observable course;
 
-    constructor(attrs: any) {
+    constructor() {
         super();
         modelize(this);
-        this.course = attrs.course;
     }
+
+    get course() { return getParentOf<Course>(this) }
 
     // called from api
     async fetch() {
-        if (!this.course.isCloned) { return }
-        const data = this.api.request(Api.fetchPastTaskPlans({ courseId: this.course.cloned_from_id }))
-        this.onLoaded(data)
+        if (!this.course?.cloned_from_id) { return }
+        const data = await this.api.request<{ items: TeacherTaskPlanObj[] }>(urlFor('fetchPastTaskPlans', { courseId: this.course.cloned_from_id }))
+        this.onLoaded(data.items)
     }
-    @action onLoaded({ items }: any) {
-        items.forEach((plan: any) => {
+
+    @action onLoaded(items: TeacherTaskPlanObj[]) {
+        items.forEach((plan) => {
             const tp = this.get(plan.id);
-            tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
+            tp ? tp.update(plan) : this.set(plan.id, hydrateModel(TaskPlan, { ...plan, course: this.course }, this));
         });
     }
 

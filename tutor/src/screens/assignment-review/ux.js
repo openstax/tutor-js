@@ -266,7 +266,7 @@ export default class AssignmentReviewUX {
     }
 
     @computed get isDroppedQuestionsSaving() {
-        return this.taskPlan.api.isWriteInProgress;
+        return this.taskPlan.api.isInProgress('saveDroppedQuestions')
     }
 
     @action.bound onDelete() {

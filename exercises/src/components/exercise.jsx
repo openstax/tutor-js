@@ -134,7 +134,7 @@ class Exercise extends React.Component {
     renderMPQ() {
         return (
             <Button onClick={this.addQuestion} className="add-mpq" variant="primary">
-        Add Question
+                Add Question
             </Button>
         );
     }

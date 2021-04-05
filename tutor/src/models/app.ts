@@ -6,7 +6,7 @@ import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { documentReady } from '../helpers/dom';
-import Api from '../api';
+import urlFor from '../api';
 import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
@@ -118,7 +118,7 @@ export default class TutorApp {
     }
 
     async fetch() {
-        return request<BootstrapData>(Api.bootstrap())
+        return request<BootstrapData>(urlFor('bootstrap'))
     }
 
 }

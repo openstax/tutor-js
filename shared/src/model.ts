@@ -7,16 +7,16 @@ import { ID } from './types'
 import { ModelApi } from './model/api'
 import Map from './model/map'
 
+export { isApiError, ApiError } from './api/request'
+
 export const NEW_ID: number = 0
 
 export class BaseModel {
 
     static idField = 'id'
 
-    update(attrs: any) {
-        for (const [key, value] of Object.entries(attrs)) {
-            this[key] = value
-        }
+    constructor() {
+        modelize(this)
     }
 
     toJSON() {
@@ -37,17 +37,12 @@ export class BaseModel {
         return Promise.resolve()
     }
 
-    fetch() {
+    async fetch(..._args: any[]): Promise<any> {
         throw new Error('fetch called on base model')
     }
 
-    @action onApiRequestComplete(data: any) {
+    @action update(data: any) {
         hydrateInstance(this, data)
-    }
-
-    // todo: finish impl once fetch api is nailed down
-    @action setApiErrors() {
-
     }
 
 }
@@ -76,12 +71,14 @@ export {
 } from 'mobx'
 
 
-export function extendedArray<T, E>(fn: (_ary: T[]) => E): IObservableArray<T> & E {
+export function extendedArray<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {
     const ary = observable.array<T>()
-    const extensions = fn(ary)
-    Object.keys(extensions).forEach(prop => {
-        const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
-        Object.defineProperty(ary, prop, desc)
-    })
+    if (fn) {
+        const extensions = fn(ary)
+        Object.keys(extensions).forEach(prop => {
+            const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
+            Object.defineProperty(ary, prop, desc)
+        })
+    }
     return ary as IObservableArray<T> & E
 }

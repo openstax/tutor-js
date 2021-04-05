@@ -37,7 +37,7 @@ export interface TeacherProfileObj {
     name: string
 }
 
-export interface PeriodObj {
+export interface CoursePeriodObj {
     id: ID
     enrollment_code: string
     enrollment_url: string
@@ -64,7 +64,7 @@ export interface CourseObj {
     num_sections: number
     offering_id: string
     past_due_unattempted_ungraded_wrq_are_zero: boolean
-    periods: PeriodObj[]
+    periods: CoursePeriodObj[]
     reading_weight: number
     related_teacher_profile_ids: number[]
     roles: RoleObj[]
@@ -310,4 +310,103 @@ export interface StudentTaskObj {
     title: string
     type: TaskPlanType
     ungraded_step_count: number
+}
+
+export interface TaskPlanDroppedQuestionObj {
+    id: ID
+    points: number
+}
+
+export interface TeacherTaskPlanSettingsObj {
+    exercises?: {
+        id: ID
+        points: number[]
+    }[]
+    page_ids?: ID[]
+    external_url?: string
+
+}
+
+export interface TeacherTaskPlanTaskingPlanObj {
+    id: ID
+    opens_at: string
+    due_at: string
+    closes_at: string
+    gradable_step_count: number
+    target_id: ID
+    target_type: 'course' | 'period'
+    ungraded_step_count: number
+}
+
+export interface TeacherTaskPlanObj {
+    id: ID
+    dropped_questions: TaskPlanDroppedQuestionObj[]
+    ecosystem_id: ID
+    extensions: any[]
+    first_published_at: string
+    gradable_step_count: number
+    grading_template_id: ID
+    is_draft: boolean
+    is_preview: boolean
+    is_published: boolean
+    is_publishing: boolean
+    last_published_at: string
+    num_completed_tasks: number
+    num_in_progress_tasks: number
+    num_not_started_tasks: number
+    settings: TeacherTaskPlanSettingsObj
+    tasking_plans: TeacherTaskPlanTaskingPlanObj[]
+    title: string
+    type: TaskPlanType
+    ungraded_step_count: number
+    wrq_count: number
+}
+
+export interface PeriodPerformanceHeadingObj {
+    available_points: number
+    average_progress: number
+    average_score: number
+    due_at: string
+    plan_id: ID
+    title: number
+    type: TaskPlanType
+}
+
+export interface StudentTaskPerformanceObj {
+    available_points: number
+    completed_on_time_steps_count: number
+
+    completed_step_count: number
+    due_at: string
+    id: ID
+    is_provisional_score: boolean
+    progress: number
+    published_points: number
+    published_score: number
+    step_count: number
+}
+
+export interface PeriodPerformanceStudentObj {
+    course_average: number
+    name: string
+    first_name: string
+    last_name: string
+    data: StudentTaskPerformanceObj[]
+    homework_progress: number
+    homework_score: number
+    is_dropped: boolean
+    reading_progress: number
+    reading_score: number
+    role: ID
+}
+
+export interface PeriodPerformanceObj {
+    period_id: ID
+    data_headings: PeriodPerformanceHeadingObj[]
+    students: PeriodPerformanceStudentObj[]
+    overall_course_average: number
+    overall_homework_progress: number
+    overall_homework_score: number
+    overall_reading_progress: number
+    overall_reading_score: number
 }

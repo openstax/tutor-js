@@ -1,7 +1,7 @@
 import {
     BaseModel, action, observable, computed, model, modelize, NEW_ID, field, getParentOf, hydrateInstance,
 } from 'shared/model';
-import Api from '../../api'
+import urlFor from '../../api'
 import type Course from '../course'
 import DateTime from 'shared/model/date-time';
 import UiSettings from 'shared/model/ui-settings';
@@ -36,7 +36,7 @@ export default class CourseLMS extends BaseModel {
     }
 
     async fetch() {
-        const json = await this.api.request(Api.fetchCourseLMS({ courseId: this.course.id }))
+        const json = await this.api.request(urlFor('fetchCourseLMS', { courseId: this.course.id }))
         hydrateInstance(this, json)
     }
 

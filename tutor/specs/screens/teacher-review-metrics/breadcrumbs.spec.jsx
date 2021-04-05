@@ -16,9 +16,9 @@ xdescribe('Task Teacher Review: Breadcrumbs', function() {
         Courses.set(course.id, course);
         plan = course.teacherTaskPlans.withPlanId(1);
         plan.update(FactoryBot.create('TeacherTaskPlan'));
-        plan.analytics.onApiRequestComplete({
-            data: FactoryBot.create('TaskPlanStat', { course }),
-        });
+        plan.analytics.update(
+            FactoryBot.create('TaskPlanStat', { course }),
+        );
         Router.makePathname.mockReturnValue('/bread');
         props = {
             taskPlan: plan,

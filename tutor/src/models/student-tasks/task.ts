@@ -5,7 +5,7 @@ import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
 import Student from './student';
 import S from '../../helpers/string';
-import Api from '../../api'
+import urlFor from '../../api'
 
 export { StudentTaskStep };
 
@@ -95,13 +95,13 @@ export default class StudentTask extends BaseModel {
 
     // called by API
     async fetch() {
-        const data = this.api.request(Api.fetchStudentTask({ taskId: this.id }))
+        const data = this.api.request(urlFor('fetchStudentTask', { taskId: this.id }))
         this.onFetchComplete(data)
     }
 
     @action onFetchComplete(data:any) {
         const { steps, ...task } = data;
-        this.api.errors = {};
+        this.api.errors.clear()
         this.update(task);
         steps.forEach((stepData:any, i:number) => {
             if (this.steps.length > i) {

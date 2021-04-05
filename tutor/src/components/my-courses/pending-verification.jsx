@@ -53,7 +53,7 @@ export default class PendingVerification extends React.Component {
                                 <div>
                                     <IconAdd />
                                     <span>
-                    CREATE A COURSE
+                                        CREATE A COURSE
                                     </span>
                                 </div>
                             </div>

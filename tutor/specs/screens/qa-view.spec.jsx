@@ -21,9 +21,9 @@ describe('QA Screen', function() {
         const ecosystems = Factory.ecosystemsMap();
         exercises.fetch = jest.fn();
         jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
-            this.onApiRequestComplete({
-                data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
-            });
+            this.update(
+                FactoryBot.create('Book', { id: this.id, type: 'biology' })
+            );
             return Promise.resolve();
         });
         ux = new QaUX({ history, exercises, ecosystems });

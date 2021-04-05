@@ -17,5 +17,6 @@ module.exports = {
         mount:      false,
         console:    false,
         jest:       false,
+        fetchMock:  false,
     },
 };

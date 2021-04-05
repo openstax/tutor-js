@@ -19,7 +19,7 @@ describe('Questions Dashboard Component', function() {
     beforeEach(function() {
         course = Factory.course();
         book = course.referenceBook;
-        course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+        course.referenceBook.update(FactoryBot.create('Book'));
         exercises = Factory.exercisesMap({ ecosystem_id: course.ecosystem_id, pageIds: [], count: 0 });
 
         terms = new UserTerms({ user: User });

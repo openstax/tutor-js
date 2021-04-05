@@ -19,7 +19,7 @@ import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
-import { GradingTemplateObj, CourseObj, TutorExerciseObj }from '../../src/models/types'
+import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj }from '../../src/models/types'
 
 export interface Model extends Function {
     new(..._args: any[]): any;
@@ -66,16 +66,14 @@ const Factories = {
         return map;
     },
 
-    pastTaskPlans: ({ course, count = 4 }: { course: Course, count: number}) => {
-        course.pastTaskPlans.onLoaded({
-            data: {
-                items: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
-            },
-        });
+    pastTaskPlans: ({ course, count = 4, ...rest }: { course: Course, count?: number } & Record<string, any>) => {
+        course.pastTaskPlans.onLoaded(
+            range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course, ...rest })) as TeacherTaskPlanObj[],
+        );
         return course.pastTaskPlans;
     },
 
-    teacherTaskPlans: ({ course, count = 4 }: { course: Course, count: number}) => {
+    teacherTaskPlans: ({ course, count = 4 }: { course: Course, count?: number}) => {
         course.teacherTaskPlans.onLoaded(
             range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })) as any,
         );
@@ -92,9 +90,7 @@ const Factories = {
 
 
     courseRoster: ({ course }: { course: Course }) => {
-        course.roster.onApiRequestComplete({
-            data: FactoryBot.create('CourseRoster', { course }),
-        });
+        course.roster.update( FactoryBot.create('CourseRoster', { course }) );
     },
 
     scores: ({ course }: { course: Course }) => {
@@ -117,7 +113,7 @@ const Factories = {
         const map = new ExercisesMap();
         if (!book) { return map; }
         if (book.children.length == 0) {
-            book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+            book.update( FactoryBot.create('Book') );
         }
         if (pageIds.length == 0) {
             pageIds = book.children[1].children.map((pg: Page) => pg.id);

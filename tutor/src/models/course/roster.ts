@@ -1,15 +1,20 @@
 import type Course from '../course'
 import { filter, groupBy } from 'lodash';
 import {
-    BaseModel, field, model, extendedArray, getParentOf,
+    BaseModel, field, model, extendedArray, getParentOf, modelize,
 } from 'shared/model';
-import Api from '../../api'
+import urlFor from '../../api'
 import Teacher from './teacher';
 import Student from './student';
 
 export default class CourseRoster extends BaseModel {
 
     @field teach_url = '';
+
+    constructor() {
+        super()
+        modelize(this);
+    }
 
     get course():Course { return getParentOf(this) }
 
@@ -25,8 +30,8 @@ export default class CourseRoster extends BaseModel {
     }))
 
     async fetch() {
-        const roster = this.api.request(Api.fetchCourseRoster({ courseId: this.course.id }));
-        this.onApiRequestComplete(roster)
+        const roster = this.api.request(urlFor('fetchCourseRoster', { courseId: this.course.id }));
+        this.update(roster)
     }
 
 }

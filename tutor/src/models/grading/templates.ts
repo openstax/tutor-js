@@ -7,7 +7,7 @@ import {
     ID, NEW_ID, Map, serialize, modelize, hydrateModel, hydrateInstance,
 } from 'shared/model';
 import S from '../../helpers/string';
-import Api from '../../api'
+import urlFor from '../../api'
 
 class GradingTemplate extends BaseModel {
 
@@ -122,8 +122,8 @@ class GradingTemplate extends BaseModel {
     async save() {
         const data = await this.api.request<GradingTemplateObj>(
             this.isNew ?
-                Api.createGradingTemplate({ courseId: this.course.id }) :
-                Api.saveGradingTemplate({ templateId: this.id }),
+                urlFor('createGradingTemplate', { courseId: this.course.id }) :
+                urlFor('saveGradingTemplate', { templateId: this.id }),
             serialize(this)
         )
         await this.onSaved(data)
@@ -138,7 +138,7 @@ class GradingTemplate extends BaseModel {
     }
 
     async remove() {
-        await this.api.request<GradingTemplateObj>(Api.deleteGradingTemplate({ templateId: this.id }))
+        await this.api.request<GradingTemplateObj>(urlFor('deleteGradingTemplate', { templateId: this.id }))
         this.onRemoved()
     }
 
@@ -174,7 +174,7 @@ class GradingTemplates extends Map<ID, GradingTemplate> {
 
     // called by API
     async fetch() {
-        const templates = await this.api.request<{ items: GradingTemplateObj[] }>(Api.fetchGradingTemplates({ courseId: this.course.id }))
+        const templates = await this.api.request<{ items: GradingTemplateObj[] }>(urlFor('fetchGradingTemplates', { courseId: this.course.id }))
         this.onLoaded(templates.items)
         // this.onRemoved()
 

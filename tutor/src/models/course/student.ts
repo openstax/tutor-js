@@ -1,7 +1,7 @@
 import type CoursePeriod from './period'
 import type Course from '../course'
 import DateTime from 'shared/model/date-time'
-import Api from '../../api'
+import urlFor from '../../api'
 import {
     BaseModel, ID, NEW_ID, field, model, hydrateModel, modelize,
     observable, computed, action, readonly, getParentOf,
@@ -106,30 +106,30 @@ export default class CourseStudent extends BaseModel {
     }
 
     async drop() {
-        return this.api.request(Api.dropStudent({ studentId: this.id }))
+        return this.api.request(urlFor('dropStudent', { studentId: this.id }))
     }
 
     async unDrop() {
-        return this.api.request(Api.unDropStudent({ studentId: this.id }))
+        return this.api.request(urlFor('unDropStudent', { studentId: this.id }))
     }
 
     async savePeriod() {
         return this.api.request(
-            Api.updateStudent({ studentId: this.id }),
+            urlFor('updateStudent', { studentId: this.id }),
             pick(this, 'period_id'),
         )
     }
 
     async saveStudentId() {
         return this.api.request(
-            Api.updateStudent({ studentId: this.id }),
+            urlFor('updateStudent', { studentId: this.id }),
             pick(this, 'student_identifier'),
         )
     }
 
     async saveOwnStudentId() {
         return this.api.request(
-            Api.saveOwnStudentId({ courseId: this.course.id }),
+            urlFor('saveOwnStudentId', { courseId: this.course.id }),
             pick(this, 'student_identifier'),
         )
     }

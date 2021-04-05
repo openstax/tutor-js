@@ -1552,11 +1552,3315 @@ exports[`Exercises component renders and matches snapshot 1`] = `
 `;
 
 exports[`Exercises component renders with intro and a multiple questions when exercise is MC 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c3 {
+  position: relative;
+  overflow: hidden;
+}
+
+.c4 {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  min-height: 50px;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+  top: 25px;
+  right: -50px;
+  left: auto;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #232e66;
+}
+
+.c4 > div {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.c2 {
+  margin-top: 1.5rem;
+}
+
+.c1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
 <div
-  className="fade alert alert-danger show"
-  role="alert"
+  className="exercise-editor"
 >
-  Exercise was not found
+  <div
+    className="editing-controls"
+  >
+    <button
+      className="add-mpq btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Add Question
+    </button>
+    <nav
+      className="nav nav-tabs"
+      onKeyDown={[Function]}
+      role="tablist"
+    >
+      <a
+        aria-controls="exercise-parts-tabpane-intro"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="intro"
+        href="#"
+        id="exercise-parts-tab-intro"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Intro
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-question-0"
+        aria-selected={true}
+        className="nav-item nav-link active"
+        data-rb-event-key="question-0"
+        href="#"
+        id="exercise-parts-tab-question-0"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+      >
+        Question 1
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-question-1"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="question-1"
+        href="#"
+        id="exercise-parts-tab-question-1"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Question 2
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-question-2"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="question-2"
+        href="#"
+        id="exercise-parts-tab-question-2"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Question 3
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-tags"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="tags"
+        href="#"
+        id="exercise-parts-tab-tags"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Tags
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-assets"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="assets"
+        href="#"
+        id="exercise-parts-tab-assets"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Assets
+      </a>
+    </nav>
+    <div
+      className="tab-content"
+    >
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-intro"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-intro"
+        role="tabpanel"
+      >
+        <div
+          className="nickname"
+        >
+          <label>
+            Exercise Nickname:
+            <input
+              onChange={[Function]}
+              value="garnet"
+            />
+          </label>
+        </div>
+        <div
+          className="exercise-stimulus"
+        >
+          <label>
+            Exercise Stimulus
+          </label>
+          <textarea
+            defaultValue=""
+            onChange={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        aria-hidden={false}
+        aria-labelledby="exercise-parts-tab-question-0"
+        className="fade tab-pane active show"
+        id="exercise-parts-tabpane-question-0"
+        role="tabpanel"
+      >
+        <div
+          className="question"
+        >
+          <div
+            className="controls"
+          >
+            <a
+              className="remove-question"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                data-icon="trash-alt"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+              <span>
+                Remove Question
+              </span>
+            </a>
+            <button
+              className="ox-icon-arrow-circle-right move-question btn btn-plain"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-arrow-circle-right fa-w-16 c0 ox-icon ox-icon-arrow-circle-right move-question"
+                data-icon="arrow-circle-right"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            className="format-type"
+          >
+            <div>
+              <input
+                checked={false}
+                id="input-open-ended"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="open-ended"
+              />
+              <label
+                htmlFor="input-open-ended"
+              >
+                Open Ended
+              </label>
+            </div>
+            <div>
+              <input
+                checked={true}
+                id="input-multiple-choice"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="multiple-choice"
+              />
+              <label
+                htmlFor="input-multiple-choice"
+              >
+                Multiple Choice
+              </label>
+            </div>
+            <div>
+              <input
+                checked={false}
+                id="input-true-false"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="true-false"
+              />
+              <label
+                htmlFor="input-true-false"
+              >
+                True/False
+              </label>
+            </div>
+            <div
+              className="multi-choice-boxes"
+            >
+              <div
+                className="requires-choices"
+              >
+                <input
+                  checked={true}
+                  id="input-rq"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-rq"
+                >
+                  Two Step Question
+                </label>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-question-circle fa-w-16 c0 ox-icon ox-icon-question-circle question-info-icon"
+                  data-icon="question-circle"
+                  data-prefix="fas"
+                  focusable="false"
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                className="order-matters"
+              >
+                <input
+                  checked={false}
+                  id="input-om"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-om"
+                >
+                  Order Matters
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label>
+              Question Stem
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not."
+            />
+          </div>
+          <div>
+            <label>
+              Answers
+            </label>
+            <button
+              className="ox-icon-plus-square btn btn-plain"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-plus-square fa-w-14 c0 ox-icon ox-icon-plus-square"
+                data-icon="plus-square"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+            <ol
+              className="answer-choices"
+            >
+              <li
+                className="answer correct-answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="green"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="While the speed of the satellite is far less than the speed of light, if it is in a strong gravitational field it cannot be described by classical physics."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Classical physics could describe the motion of a satellite because it is moving at a speed much smaller than the speed of light, because it is not in a strong gravitational field, and because it involves an object that is visible to the naked eye."
+                />
+              </li>
+            </ol>
+          </div>
+          <div>
+            <label>
+              Detailed Solution
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="four"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-question-1"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-question-1"
+        role="tabpanel"
+      >
+        <div
+          className="question"
+        >
+          <div
+            className="controls"
+          >
+            <button
+              className="ox-icon-arrow-circle-left move-question btn btn-plain"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-arrow-circle-left fa-w-16 c0 ox-icon ox-icon-arrow-circle-left move-question"
+                data-icon="arrow-circle-left"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+            <a
+              className="remove-question"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                data-icon="trash-alt"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+              <span>
+                Remove Question
+              </span>
+            </a>
+            <button
+              className="ox-icon-arrow-circle-right move-question btn btn-plain"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-arrow-circle-right fa-w-16 c0 ox-icon ox-icon-arrow-circle-right move-question"
+                data-icon="arrow-circle-right"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            className="format-type"
+          >
+            <div>
+              <input
+                checked={false}
+                id="input-open-ended"
+                name="1-formats"
+                onChange={[Function]}
+                type="radio"
+                value="open-ended"
+              />
+              <label
+                htmlFor="input-open-ended"
+              >
+                Open Ended
+              </label>
+            </div>
+            <div>
+              <input
+                checked={true}
+                id="input-multiple-choice"
+                name="1-formats"
+                onChange={[Function]}
+                type="radio"
+                value="multiple-choice"
+              />
+              <label
+                htmlFor="input-multiple-choice"
+              >
+                Multiple Choice
+              </label>
+            </div>
+            <div>
+              <input
+                checked={false}
+                id="input-true-false"
+                name="1-formats"
+                onChange={[Function]}
+                type="radio"
+                value="true-false"
+              />
+              <label
+                htmlFor="input-true-false"
+              >
+                True/False
+              </label>
+            </div>
+            <div
+              className="multi-choice-boxes"
+            >
+              <div
+                className="requires-choices"
+              >
+                <input
+                  checked={true}
+                  id="input-rq"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-rq"
+                >
+                  Two Step Question
+                </label>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-question-circle fa-w-16 c0 ox-icon ox-icon-question-circle question-info-icon"
+                  data-icon="question-circle"
+                  data-prefix="fas"
+                  focusable="false"
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                className="order-matters"
+              >
+                <input
+                  checked={false}
+                  id="input-om"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-om"
+                >
+                  Order Matters
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label>
+              Question Stem
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?"
+            />
+          </div>
+          <div>
+            <label>
+              Answers
+            </label>
+            <button
+              className="ox-icon-plus-square btn btn-plain"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-plus-square fa-w-14 c0 ox-icon ox-icon-plus-square"
+                data-icon="plus-square"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+            <ol
+              className="answer-choices"
+            >
+              <li
+                className="answer correct-answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="green"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy included all aspects of nature excluding physics."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy included all aspects of nature, including physics."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy included all aspects of nature including physics."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy and physics are essentially the same thing."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Biology and chemistry are also part of natural philosophy, but not part of physics."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy and physics are different."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Physics is part of natural philosophy."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy included all aspects of nature excluding physics."
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Natural philosophy included all aspects of nature, including physics."
+                />
+              </li>
+            </ol>
+          </div>
+          <div>
+            <label>
+              Detailed Solution
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="four"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-question-2"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-question-2"
+        role="tabpanel"
+      >
+        <div
+          className="question"
+        >
+          <div
+            className="controls"
+          >
+            <button
+              className="ox-icon-arrow-circle-left move-question btn btn-plain"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-arrow-circle-left fa-w-16 c0 ox-icon ox-icon-arrow-circle-left move-question"
+                data-icon="arrow-circle-left"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+            <a
+              className="remove-question"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                data-icon="trash-alt"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+              <span>
+                Remove Question
+              </span>
+            </a>
+          </div>
+          <div
+            className="format-type"
+          >
+            <div>
+              <input
+                checked={false}
+                id="input-open-ended"
+                name="2-formats"
+                onChange={[Function]}
+                type="radio"
+                value="open-ended"
+              />
+              <label
+                htmlFor="input-open-ended"
+              >
+                Open Ended
+              </label>
+            </div>
+            <div>
+              <input
+                checked={true}
+                id="input-multiple-choice"
+                name="2-formats"
+                onChange={[Function]}
+                type="radio"
+                value="multiple-choice"
+              />
+              <label
+                htmlFor="input-multiple-choice"
+              >
+                Multiple Choice
+              </label>
+            </div>
+            <div>
+              <input
+                checked={false}
+                id="input-true-false"
+                name="2-formats"
+                onChange={[Function]}
+                type="radio"
+                value="true-false"
+              />
+              <label
+                htmlFor="input-true-false"
+              >
+                True/False
+              </label>
+            </div>
+            <div
+              className="multi-choice-boxes"
+            >
+              <div
+                className="requires-choices"
+              >
+                <input
+                  checked={true}
+                  id="input-rq"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-rq"
+                >
+                  Two Step Question
+                </label>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-question-circle fa-w-16 c0 ox-icon ox-icon-question-circle question-info-icon"
+                  data-icon="question-circle"
+                  data-prefix="fas"
+                  focusable="false"
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                className="order-matters"
+              >
+                <input
+                  checked={false}
+                  id="input-om"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-om"
+                >
+                  Order Matters
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label>
+              Question Stem
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?"
+            />
+          </div>
+          <div>
+            <label>
+              Answers
+            </label>
+            <button
+              className="ox-icon-plus-square btn btn-plain"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-plus-square fa-w-14 c0 ox-icon ox-icon-plus-square"
+                data-icon="plus-square"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+            <ol
+              className="answer-choices"
+            >
+              <li
+                className="answer correct-answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="green"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-down btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 c0 ox-icon ox-icon-arrow-circle-down"
+                      data-icon="arrow-circle-down"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <div
+                  className="answer-actions"
+                >
+                  <label>
+                    Distractor
+                  </label>
+                  <button
+                    className="ox-icon-check-circle is-correct btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-check-circle fa-w-16 c0 ox-icon ox-icon-check-circle is-correct"
+                      color="lightGray"
+                      data-icon="check-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-arrow-circle-up btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 c0 ox-icon ox-icon-arrow-circle-up"
+                      data-icon="arrow-circle-up"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="ox-icon-ban btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-ban fa-w-16 c0 ox-icon ox-icon-ban"
+                      data-icon="ban"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
+                />
+              </li>
+            </ol>
+          </div>
+          <div>
+            <label>
+              Detailed Solution
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="four"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-tags"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-tags"
+        role="tabpanel"
+      >
+        <div
+          className="tags-panel"
+        >
+          <div
+            className="tags"
+          >
+            <div
+              className="tag-type book has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Book
+                </span>
+                <div
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-plus-circle btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+                      data-icon="plus-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="stax-phys"
+                >
+                  <option
+                    value="stax-anp"
+                  >
+                    Anatomy and Physiology
+                  </option>
+                  <option
+                    value="stax-apbio"
+                  >
+                    Biology for AP® Courses
+                  </option>
+                  <option
+                    value="stax-bio"
+                  >
+                    Biology
+                  </option>
+                  <option
+                    value="stax-apphys"
+                  >
+                    College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                  <option
+                    value="stax-cbio"
+                  >
+                    Concepts of Biology
+                  </option>
+                  <option
+                    value="stax-econ"
+                  >
+                    Economics
+                  </option>
+                  <option
+                    value="stax-eship"
+                  >
+                    Entrepreneurship
+                  </option>
+                  <option
+                    value="stax-macro"
+                  >
+                    Macro Economics
+                  </option>
+                  <option
+                    value="stax-micro"
+                  >
+                    Micro Economics
+                  </option>
+                  <option
+                    value="stax-k12phys"
+                  >
+                    HS Physics
+                  </option>
+                  <option
+                    value="stax-psy"
+                  >
+                    Psychology
+                  </option>
+                  <option
+                    value="stax-soc"
+                  >
+                    Sociology
+                  </option>
+                  <option
+                    value="stax-apush"
+                  >
+                    U.S. History for AP® Courses
+                  </option>
+                </select>
+                <span
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-trash btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                      data-icon="trash-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 448 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type lo"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  LO
+                </span>
+                <div
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-plus-circle btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+                      data-icon="plus-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="stax-phys"
+                >
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                </select>
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="##-##-##"
+                  type="text"
+                  value="1-2-1"
+                />
+                <span
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-trash btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                      data-icon="trash-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 448 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type assignmentType"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Assignment Type
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <div
+                  className="c1 css-2b097c-container"
+                  onKeyDown={[Function]}
+                >
+                  <div
+                    className=" css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <div
+                      className=" css-1hwfws3"
+                    >
+                      <div
+                        className="css-1rhbuit-multiValue"
+                      >
+                        <div
+                          className="css-12jo7m5"
+                        >
+                          Reading
+                        </div>
+                        <div
+                          className="css-1alnv5e"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="css-tj5bde-Svg"
+                            focusable="false"
+                            height={14}
+                            viewBox="0 0 20 20"
+                            width={14}
+                          >
+                            <path
+                              d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        className="css-w8afj7-Input"
+                      >
+                        <div
+                          className=""
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-3-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className=" css-1g48xl4-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className=" css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-tj5bde-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className=" css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className=" css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-tj5bde-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="tag-type cnxModule has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  CNX Module
+                </span>
+                <div
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-plus-circle btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+                      data-icon="plus-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                className="tag"
+              >
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="########-####-####-####-############"
+                  type="text"
+                  value=""
+                />
+                <span
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-trash btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                      data-icon="trash-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 448 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type cnxFeature has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  CNX Feature
+                </span>
+                <div
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-plus-circle btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+                      data-icon="plus-circle"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                className="tag"
+              >
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="feature-id"
+                  type="text"
+                  value="one-1"
+                />
+                <span
+                  className="controls"
+                >
+                  <button
+                    className="ox-icon-trash btn btn-plain"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+                      data-icon="trash-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      style={Object {}}
+                      viewBox="0 0 448 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type dok has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  DOK
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="3"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="1"
+                  >
+                    1
+                  </option>
+                  <option
+                    value="2"
+                  >
+                    2
+                  </option>
+                  <option
+                    value="3"
+                  >
+                    3
+                  </option>
+                  <option
+                    value="4"
+                  >
+                    4
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="tag-type blooms has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Blooms
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="3"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="1"
+                  >
+                    1
+                  </option>
+                  <option
+                    value="2"
+                  >
+                    2
+                  </option>
+                  <option
+                    value="3"
+                  >
+                    3
+                  </option>
+                  <option
+                    value="4"
+                  >
+                    4
+                  </option>
+                  <option
+                    value="5"
+                  >
+                    5
+                  </option>
+                  <option
+                    value="6"
+                  >
+                    6
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="tag-type time has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Time
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="long"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="short"
+                  >
+                    Short
+                  </option>
+                  <option
+                    value="medium"
+                  >
+                    Medium
+                  </option>
+                  <option
+                    value="long"
+                  >
+                    Long
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-assets"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-assets"
+        role="tabpanel"
+      >
+        <div
+          className="attachments"
+        >
+          <div
+            className="attachment"
+          >
+            <div
+              className="controls"
+            >
+              <label
+                className="btn btn-secondary selector"
+              >
+                Add new image
+                <input
+                  className="file"
+                  id="file"
+                  onChange={[Function]}
+                  type="file"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="c2"
+  >
+    <div
+      className="c3"
+    >
+      <div
+        className="c4"
+        color="navy"
+        hidden={false}
+      >
+        <div>
+          READ ONLY
+        </div>
+        <div>
+          Author: Louvenia
+        </div>
+      </div>
+      <div
+        className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card"
+        data-exercise-id="9@1"
+        tabIndex={-1}
+      >
+        <div
+          className="card-body"
+        >
+          <div
+            className="exercise-body"
+          >
+            <div>
+              <div
+                className="openstax-question openstax-question-preview"
+              >
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
+                  className="answers-table"
+                >
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="9-option-0"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice a:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-a"
+                            disabled={true}
+                          >
+                            a
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "While the speed of the satellite is far less than the speed of light, if it is in a strong gravitational field it cannot be described by classical physics.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="9-option-1"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice b:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-b"
+                            disabled={true}
+                          >
+                            b
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Classical physics could describe the motion of a satellite because it is moving at a speed much smaller than the speed of light, because it is not in a strong gravitational field, and because it involves an object that is visible to the naked eye.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                </div>
+                <div
+                  className="formats-listing"
+                >
+                  <div
+                    className="header"
+                  >
+                    Formats:
+                  </div>
+                  <span>
+                    free-response
+                  </span>
+                  <span>
+                    multiple-choice
+                  </span>
+                </div>
+                <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                className="openstax-question openstax-question-preview"
+              >
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
+                  className="answers-table"
+                >
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="10-option-0"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice a:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-a"
+                            disabled={true}
+                          >
+                            a
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy included all aspects of nature, including physics.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="10-option-1"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice b:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-b"
+                            disabled={true}
+                          >
+                            b
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="10-option-2"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice c:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-c"
+                            disabled={true}
+                          >
+                            c
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Biology and chemistry are also part of natural philosophy, but not part of physics.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="10-option-3"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice d:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-d"
+                            disabled={true}
+                          >
+                            d
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Physics is part of natural philosophy.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="10-option-4"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice e:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-e"
+                            disabled={true}
+                          >
+                            e
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy included all aspects of nature, including physics.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                </div>
+                <div
+                  className="formats-listing"
+                >
+                  <div
+                    className="header"
+                  >
+                    Formats:
+                  </div>
+                  <span>
+                    free-response
+                  </span>
+                  <span>
+                    multiple-choice
+                  </span>
+                </div>
+                <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                className="openstax-question openstax-question-preview"
+              >
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
+                  className="answers-table"
+                >
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="11-option-0"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice a:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-a"
+                            disabled={true}
+                          >
+                            a
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <section
+                      className="answers-answer disabled"
+                      role="region"
+                    >
+                      <div
+                        className="correct-incorrect"
+                      />
+                      <label
+                        className="answer-label"
+                        htmlFor="11-option-1"
+                        onKeyPress={[Function]}
+                      >
+                        <span
+                          className="answer-letter-wrapper"
+                        >
+                          <button
+                            aria-label="Choice b:"
+                            className="answer-letter"
+                            data-test-id="answer-choice-b"
+                            disabled={true}
+                          >
+                            b
+                          </button>
+                        </span>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                          <aside>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.",
+                                }
+                              }
+                            />
+                          </aside>
+                        </div>
+                      </label>
+                    </section>
+                  </div>
+                </div>
+                <div
+                  className="formats-listing"
+                >
+                  <div
+                    className="header"
+                  >
+                    Formats:
+                  </div>
+                  <span>
+                    free-response
+                  </span>
+                  <span>
+                    multiple-choice
+                  </span>
+                </div>
+                <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="exercise-footer"
+          >
+            <div>
+              <div
+                className="exercise-tags"
+              >
+                <span
+                  className="exercise-tag"
+                >
+                  lo:stax-phys:1-2-1
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  assignment-type:reading
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  blooms:3
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  book:stax-phys
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  context-cnxfeature:one-1
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  context-cnxmod:
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  dok:3
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  filter-type:test-prep
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  requires-context:true
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  time:long
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  Nickname:garnet
+                </span>
+                <span
+                  className="exercise-tag"
+                >
+                  ID:9@1
+                </span>
+              </div>
+            </div>
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -2231,12 +5535,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                       </MultiValueGeneric>
                                                                     </ForwardRef(render)>
                                                                   </MultiValue>
-                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function (anonymous)]} id=\\"react-select-4-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function (anonymous)]} id=\\"react-select-5-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
                                                                     <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
                                                                       <div className=\\"css-w8afj7-Input\\">
-                                                                        <AutosizeInput className=\\"\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-5-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
                                                                           <div className=\\"\\" style={{...}}>
-                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-5-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
                                                                             <div style={{...}} />
                                                                           </div>
                                                                         </AutosizeInput>

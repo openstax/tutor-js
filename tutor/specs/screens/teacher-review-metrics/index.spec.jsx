@@ -15,12 +15,12 @@ describe('Task Teacher Review', () => {
         Courses.set(course.id, course);
         plan = course.teacherTaskPlans.array[0];
         plan.fetch = jest.fn(() => Promise.resolve());
-        plan.onApiRequestComplete({ data: planData });
+        plan.update(planData);
         plan.analytics.fetch = jest.fn();
         plan.analytics.api.requestCounts.read = 1;
-        plan.analytics.onApiRequestComplete({
-            data: FactoryBot.create('TaskPlanStat', { course }),
-        });
+        plan.analytics.update(
+            FactoryBot.create('TaskPlanStat', { course }),
+        );
 
         props = {
             params: {

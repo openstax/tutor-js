@@ -10,11 +10,11 @@ describe(UX, () => {
     let ux;
 
     beforeEach(() => {
-        ux = new UX();
-        jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
-            this.onApiRequestComplete({
-                data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
-            });
+        ux = new UX();// eslint-disable-next-line
+        jest.spyOn(Book.prototype, 'fetch').mockImplementation(function(this: Book) {
+            this.update(
+                FactoryBot.create('Book', { id: this.id, type: 'biology' }),
+            );
             return Promise.resolve();
         });
         jest.spyOn(Node.prototype, 'ensureLoaded').mockImplementation(function() {

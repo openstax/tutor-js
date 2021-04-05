@@ -1,13 +1,13 @@
-import { ID, Map, modelize, observable } from 'shared/model'
+import { hydrateModel, ID, Map, modelize, observable } from 'shared/model'
 import type Course from './course'
 import type { User } from './user'
 import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
+import { groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
 import Page from './reference-book/node'
 import ReferenceBook from './reference-book'
-import Api from '../api'
+import urlFor from '../api'
 import { TutorExerciseObj } from './types'
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -39,7 +39,7 @@ interface FetchArg {
     ecosystem_id?: ID,
     page_ids?: ID[],
     exercise_ids?: ID[],
-    limit?: string,
+    limit?: string | boolean,
     query?: any,
     action?: string,
 }
@@ -60,7 +60,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         return uniq(map(this.array, 'page.id'));
     }
 
-    noneForPageIds(pageIds: ID[]) {
+    noneForPageIds(pageIds: ID[] = []) {
         return !find(pageIds, pgId => !isEmpty(this.byPageId[pgId]));
     }
 
@@ -142,10 +142,10 @@ export class ExercisesMap extends Map<ID, Exercise> {
         let replyData: any
         if (exercise_ids) {
             query.exercise_ids = uniq(toJS(exercise_ids));
-            replyData = await this.api.request(Api.fetchExercises(params, query))
+            replyData = await this.api.request(urlFor('fetchExercises', params, query))
 
         } else if (limit) {
-            replyData = await this.api.request(Api.fetchLimitedExercises({ ...params, limit }, query))
+            replyData = await this.api.request(urlFor('fetchLimitedExercises', { ...params, limit }, query))
         }
         this.onLoaded(replyData, course, book, page_ids)
     }
@@ -159,7 +159,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         }
         exercises.forEach((ex) => {
             const exercise = this.get(ex.id);
-            exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book })));
+            exercise ? exercise.update(ex) : this.set(ex.id, hydrateModel(Exercise, { ...ex, book }));
         });
     }
 
@@ -200,15 +200,15 @@ export class ExercisesMap extends Map<ID, Exercise> {
     }
     async deleteExercise(course: Course, exercise: Exercise) {
         await this.api.request(
-            Api.deleteExercise({
-                courseId: course.id, exerciseNumber: exercise.content.number,
+            urlFor('deleteExercise', {
+                courseId: course.id, exerciseNumber: String(exercise.content.number),
             })
         )
         this.deleteByExerciseId(exercise.id);
     }
 
     async createExercise({ course, data }: { course: Course, data: Exercise }): Promise<Exercise> {
-        const reply = await this.api.request(Api.createExercise({ courseId: course.id }), data)
+        const reply = await this.api.request(urlFor('createExercise', { courseId: course.id }), data)
         return await this.onExerciseCreated(course, reply)
     }
 

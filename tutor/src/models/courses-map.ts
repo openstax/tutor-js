@@ -3,7 +3,7 @@ import { ID, modelize, computed, action, override } from 'shared/model'
 import Course from './course';
 import { isEmpty, find } from 'lodash';
 import { CourseObj } from './types'
-import Api from '../api'
+import urlFor from '../api'
 
 export { Course };
 
@@ -21,7 +21,7 @@ export class CoursesMap extends Map<ID, Course> {
     }
 
     where(condition: (_course: Course) => boolean): CoursesMap {
-        return super.where(condition) as any as CoursesMap
+        return super.where(condition)
     }
 
     @computed get active() {
@@ -105,7 +105,7 @@ export class CoursesMap extends Map<ID, Course> {
 
     async fetch(..._args: any[]): Promise<any> {
         this.onLoaded(
-            await this.api.request<CourseObj[]>(Api.fetchCourses())
+            await this.api.request<CourseObj[]>(urlFor('fetchCourses'))
         )
     }
 

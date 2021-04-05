@@ -1,40 +1,26 @@
 import { modelize } from 'modeled-mobx'
-import { observable, computed, action } from 'mobx'
+import { observable, computed, action, runInAction } from 'mobx'
 import { readonly } from 'core-decorators'
-import { request, MethodUrl, RequestOptions } from '../api/request'
+import { request, MethodUrl, NoThrowOptions, RequestOptions, ApiError, isApiError } from '../api/request'
 
-export interface ApiError {
-    code?: string
+const httpMethodToType = {
+    GET: 'read',
+    POST: 'update',
+    PUT: 'update',
+    DELETE: 'delete',
 }
 
-export interface ApiErrors {
-    [k: string]: ApiError
-}
-
-export interface ApiErrorResponse {
-    isRecorded: boolean
-    response?: {
-        data?: {
-            errors?: {
-                code: string
-            }[]
-        }
-    }
-}
-
+type RequestUrlKey = { key: string, methodUrl: MethodUrl }
 
 export class ModelApi {
-
-    @readonly requestsInProgress = observable.map()
-
+    @readonly requestsInProgress = observable.map<string,MethodUrl>({}, { deep: false })
+    @readonly errors = observable.map<string, ApiError>({}, { deep: false })
     @readonly requestCounts = observable({
         read: 0,
         create: 0,
         update: 0,
         delete: 0,
     })
-
-    @observable errors: ApiErrors = {}
 
     constructor() {
         modelize(this)
@@ -52,16 +38,8 @@ export class ModelApi {
         return this.isPending && !this.hasBeenFetched
     }
 
-    @computed get isFetchInProgress() {
-        return Boolean(this.requestsInProgress.get('read'))
-    }
-
-    @computed get isWriteInProgress() {
-        return Boolean(
-            this.requestsInProgress.get('put') ||
-            this.requestsInProgress.get('post') ||
-            this.requestsInProgress.get('patch')
-        )
+    isInProgress(key: string) {
+        return Boolean(this.requestsInProgress.get(key))
     }
 
     @computed get hasBeenFetched() {
@@ -70,21 +48,43 @@ export class ModelApi {
         )
     }
 
+    @computed get isFetchInProgress() {
+        return Array.from(this.requestsInProgress.values()).find(([method]) => method == 'GET')
+    }
+
     @computed get isFetchedOrFetching() {
         return Boolean(this.isFetchInProgress || this.hasBeenFetched)
     }
 
     @computed get hasErrors() {
-        return Boolean(Object.keys(this.errors || {}).length)
+        return this.errors.size > 0
     }
 
     @action reset() {
+        this.errors.clear()
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)
     }
 
-    _requestFn = request
-
-    async request<RetT>(url: MethodUrl, data?: any, options?: RequestOptions) {
-        return this._requestFn<RetT>(url, data, options)
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any): Promise<RetT> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data: any, options: NoThrowOptions): Promise<RetT|ApiError> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any, options?: RequestOptions): Promise<RetT> { // eslint-disable-line
+        this.requestsInProgress.set(key, methodUrl)
+        try {
+            const reply = await request<RetT>(methodUrl, data, options)
+            runInAction(() => {
+                this.requestsInProgress.delete(key)
+                this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
+                if (isApiError(reply)) {
+                    this.errors.set(key, reply)
+                }
+            })
+            return reply
+        } catch (e) {
+            this.errors.set(key, e)
+            if (options?.nothrow) {
+                return e
+            }
+            throw e
+        }
     }
 }

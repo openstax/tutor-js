@@ -2,7 +2,7 @@ import Map from 'shared/model/map';
 import { action, ID, hydrateModel, hydrateInstance } from 'shared/model';
 import { sortBy, last, get } from 'lodash';
 import Exercise from './exercises/exercise';
-import Api  from '../api'
+import urlFor  from '../api'
 
 const NEW = 'new';
 
@@ -40,7 +40,7 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
 
     async fetch(id: string): Promise<any>{
         if (!String(id).match(/@/)){ id = `${id}@latest`; }
-        const data = await this.api.request<Exercise>(Api.exercise({ uid: id }))
+        const data = await this.api.request<Exercise>(urlFor('exercise', { uid: id }))
         this.onLoaded({ data })
     }
 
@@ -76,9 +76,9 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
     async saveDraft(exercise: Exercise) {
         let url: any
         if (exercise.isNew) {
-            url = Api.saveNewDraft()
+            url = urlFor('saveNewDraft');
         } else {
-            url = Api.saveExistingDraft({ number: exercise.number })
+            url = urlFor('saveExistingDraft', { number: exercise.number })
         }
         this.onSaved(
             await this.api.request(url, exercise.toJSON()),

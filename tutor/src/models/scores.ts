@@ -1,32 +1,31 @@
 import { find } from 'lodash';
+import type Course from './course'
 import { observable, action } from 'mobx';
-import Map from 'shared/model/map';
-
-import { BaseModel, model, modelize } from 'shared/model';
-
+import { BaseModel, Map, getParentOf, ID, modelize, hydrateModel } from 'shared/model';
 import ScoresForPeriod from './scores/period';
+import urlFor from '../api';
+import { PeriodPerformanceObj } from './types'
 
 export default class Scores extends BaseModel {
-    @model('course') course;
 
-    @observable periods = new Map();
+    get course() { return getParentOf<Course>(this) }
+    @observable periods = new Map<ID, ScoresForPeriod>();
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 
-    fetch() {
-        return { courseId: this.course.id };
+    async fetch() {
+        const data = await this.api.request<PeriodPerformanceObj[]>(urlFor('fetchCourseScores', { courseId: this.course.id }))
+        this.onFetchComplete(data)
     }
 
-    @action onFetchComplete({ data }) {
-        data.forEach(s => this.periods.set(s.period_id, new ScoresForPeriod(s, this.course)));
+    @action onFetchComplete(data: PeriodPerformanceObj[]) {
+        data.forEach(s => this.periods.set(s.period_id, hydrateModel(ScoresForPeriod, s, this)))
     }
 
-    getTask(taskId) {
+    getTask(taskId: ID) {
         const id = Number(taskId);
         const periods = this.periods.values();
         for(let p=0; p < periods.length; p+=1) {

@@ -1,4 +1,4 @@
-import { BaseModel, computed, observable, field, modelize, hydrateInstance, ID } from 'shared/model';
+import { BaseModel, computed, observable, field, modelize, ID } from 'shared/model';
 import {
     find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
@@ -30,10 +30,9 @@ export default class TourContext extends BaseModel {
     @observable otherModal?: any;
     @observable tourRide?: TourRide;
 
-    constructor(attrs: any) {
+    constructor() {
         super();
         modelize(this);
-        hydrateInstance(this, attrs)
         this.pickTourRide();
         observe(this, 'tour', this.pickTourRide);
     }
@@ -98,7 +97,7 @@ export default class TourContext extends BaseModel {
 
     // terms agreements are allowed to interrupt tours
     @computed get isReady() {
-        return !!((isEmpty(this.courses) || !User.terms_signatures_needed) && this.tour);
+        return !!((isEmpty(this.courses) || !User.terms.areSignaturesNeeded) && this.tour);
     }
 
     // The tour that should be shown
@@ -109,7 +108,7 @@ export default class TourContext extends BaseModel {
     @action.bound pickTourRide() {
         const { tour } = this;
         if (this.tourRide && this.tourRide.tour === tour) { return; }
-        this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion }) : null;
+        this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion }) : undefined;
     }
 
     @computed get audienceTags() {
@@ -156,7 +155,7 @@ export default class TourContext extends BaseModel {
         return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; eligible tours: [${map(this.eligibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
     }
 
-    @action playTriggeredTours(options = {}) {
+    @action playTriggeredTours(options: { except?: boolean } = {}) {
         this.eligibleTours.forEach((tour) => {
             if (!tour.autoplay && tour.id != options.except) {
                 tour.play();
@@ -166,7 +165,7 @@ export default class TourContext extends BaseModel {
     }
 
     @action onTourComplete({ exitedEarly = false } = {}) {
-        this.tourRide.tour.markViewed({ exitedEarly });
+        this.tourRide?.tour.markViewed({ exitedEarly });
         this.pickTourRide();
     }
 

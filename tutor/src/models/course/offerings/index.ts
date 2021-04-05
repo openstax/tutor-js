@@ -8,6 +8,10 @@ class OfferingsMap extends Map<ID, Offering> {
         modelize(this);
     }
 
+    where(condition: (_course: Offering) => boolean): OfferingsMap {
+        return super.where(condition)
+    }
+
     @computed get tutor() {
         return this.where(c => !c.is_concept_coach);
     }

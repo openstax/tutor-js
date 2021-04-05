@@ -8,7 +8,7 @@ import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 import Flags from './feature_flags';
 import { FacultyStatus, SelfReportedRoles } from './types'
-import Api from '../api'
+import urlFor from '../api'
 import type Tour from './tour'
 
 interface UserEventPayload {
@@ -80,10 +80,6 @@ export class User extends BaseModel {
             return exploreViewStats.view_count < 4;
         }
         return true;
-    }
-
-    @action removeCourse(course: Course) {
-        return Courses.delete(course.id);
     }
 
     @computed get isConfirmedFaculty() {
@@ -162,7 +158,8 @@ export class User extends BaseModel {
     }
 
     async saveTourView(stat: ViewedTourStat, options: any) {
-        await this.api.request<Tour>(Api.saveTourView({ tourId: stat.id }), options)
+        await this.api.request<Tour>(urlFor('saveTourView',{ tourId: stat.id }), options)
+
     }
 
     @computed get isUnverifiedInstructor() {
@@ -178,13 +175,13 @@ export class User extends BaseModel {
     }
 
     async logEvent({ category, code, data }: UserEventPayload) {
-        return await this.api.request(Api.logUserEvent({ category, code }), data)
+        return await this.api.request(urlFor('logUserEvent',{ category, code }), data)
     }
 
     async suggestSubject({ subject }: { subject: string }) {
         // students do not submit suggestions
         if (this.self_reported_role === 'student') { return 'ABORT'; }
-        return this.api.request(Api.suggestCourseSubject(), { subject })
+        return this.api.request(urlFor('suggestCourseSubject'), { subject })
     }
 
     @computed get metrics() {

@@ -1,8 +1,11 @@
-import { BaseModel, field, lazyGetter, model, modelize, computed, action, NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction } from 'shared/model';
+import {
+    BaseModel, ID, field, lazyGetter, model, modelize, computed, action,
+    NEW_ID, extendedArray, hydrateModel, getParentOf, hydrateInstance, runInAction,
+} from 'shared/model';
 import {
     sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter,
 } from 'lodash';
-import Api from '../api'
+import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import Offerings, { Offering } from './course/offerings';
@@ -47,7 +50,7 @@ export default class Course extends BaseModel {
     @field uuid = '';
     @field does_cost = false;
     @field book_pdf_url = '';
-    @field cloned_from_id = NEW_ID;
+    @field cloned_from_id: null| ID = null
     @field default_due_time = '';
     @field default_open_time = '';
     @field ecosystem_book_uuid = '';
@@ -326,13 +329,13 @@ export default class Course extends BaseModel {
 
     // called by API
     async fetch() {
-        const data = await this.api.request<CourseObj>(Api.fetchCourse({ courseId: this.id }))
+        const data = await this.api.request<CourseObj>(urlFor('fetchCourse', { courseId: this.id }))
         runInAction(() => hydrateInstance(this, data))
     }
 
     async save() {
         const data = await this.api.request<CourseObj>(
-            this.isNew ? Api.createCourse() : Api.saveCourse({ courseId: this.id }),
+            this.isNew ? urlFor('createCourse') : urlFor('updateCourse', { courseId: this.id }),
             pick(this, SAVEABLE_ATTRS)
         )
         runInAction(() => hydrateInstance(this, data))
@@ -341,7 +344,7 @@ export default class Course extends BaseModel {
     async saveExerciseExclusion({ exercise, is_excluded }: { exercise: Exercise, is_excluded: boolean }) {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
         const data = await this.api.request(
-            Api.saveExerciseExclusion({ courseId: this.id }),
+            urlFor('saveExerciseExclusion', { courseId: this.id }),
             [{ id: exercise.id, is_excluded }]
         )
         runInAction(() => hydrateInstance(exercise, data, this))
