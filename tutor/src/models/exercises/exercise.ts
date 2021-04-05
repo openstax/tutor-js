@@ -9,23 +9,17 @@ import {
     modelize,
     NEW_ID,
     array,
+    getParentOf,
 } from 'shared/model';
-import Tag from './tag';
+import Tag, { ImportantTags } from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import ReferenceBookNode from '../reference-book/node';
+import type { User }from '../user'
 import RelatedContent from '../related-content';
 import ReferenceBook from '../reference-book';
 import type Course from '../course'
 import type Page from '../reference-book/node'
-import ChapterSection from '../chapter-section';
-import { QuestionStats } from '../task-plans/teacher/stats'
-
-interface ImportantTags {
-    lo?: Tag
-    dok?: Tag
-    blooms?: Tag
-    chapter_section?: ChapterSection
-}
+import type { QuestionStats } from '../task-plans/teacher/stats'
 
 export default class TutorExercise extends BaseModel {
 
@@ -37,7 +31,7 @@ export default class TutorExercise extends BaseModel {
     @field id = NEW_ID;
     @field ecosystem_id = NEW_ID;
 
-    @model(ExerciseContent) content: ExerciseContent;
+    @model(ExerciseContent) content: ExerciseContent = new ExerciseContent();
 
     @observable book?:ReferenceBook
     @observable course?:Course
@@ -46,7 +40,7 @@ export default class TutorExercise extends BaseModel {
     @field has_interactive = false;
     @field has_video = false;
     @field page_uuid = false;
-    @field pool_types?: any[];
+    @field pool_types: string[] = array<string>()
     @field url = '';
     // @field context;
     // @field preview;
@@ -68,17 +62,18 @@ export default class TutorExercise extends BaseModel {
     @computed get page() {
         if (this._page) { return this._page; }
         if (!this.book && !this.course) { return ReferenceBookNode.UNKNOWN; }
-        const book = this.book || this.course.referenceBook;
-        return book.pages.byUUID.get(this.page_uuid) || ReferenceBookNode.UNKNOWN;
+        const book = this.book || this.course?.referenceBook;
+        return book?.pages.byUUID.get(this.page_uuid) || ReferenceBookNode.UNKNOWN;
     }
 
     // below fields are set if read from stats
     set page(pg) {
         this._page = pg;
     }
-    @model(QuestionStats) question_stats = array<QuestionStats>()
 
-    @observable average_step_number;
+    get question_stats() { return getParentOf<QuestionStats>(this) }
+
+    @observable average_step_number?: number;
 
     @computed get isAssignable() { return !this.is_excluded; }
     @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
@@ -106,7 +101,8 @@ export default class TutorExercise extends BaseModel {
     }
 
     // called from api
-    @action saveExclusion(course, is_excluded) {
+    @action saveExclusion(course: Course, is_excluded: boolean) {
+
         this.is_excluded = is_excluded;
         return { id: course.id, data: {} };
     }
@@ -128,6 +124,6 @@ export default class TutorExercise extends BaseModel {
 
     // Openstax exercises returns an id of 0;
     @computed get belongsToOpenStax() { return this.author.id === '0'; }
-    belongsToUser(user) { return this.author.id == user.profile_id; }
-    belongsToOtherUser(user) { return !this.belongsToOpenStax && !this.belongsToUser(user); }
+    belongsToUser(user:User) { return this.author.id == user.profile_id; }
+    belongsToOtherUser(user:User) { return !this.belongsToOpenStax && !this.belongsToUser(user); }
 }

@@ -96,7 +96,7 @@ class Page extends BaseModel {
     @observable is_trouble = false;
     @observable student_count = 0;
 
-    @model(Exercise) exercises = [];
+    @model(Exercise) exercises = array<Exercise>()
 
     constructor() {
         super();

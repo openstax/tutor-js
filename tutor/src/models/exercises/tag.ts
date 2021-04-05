@@ -1,6 +1,7 @@
-import { BaseModel, field, computed, observable, NEW_ID } from 'shared/model';
+import { BaseModel, field, computed, getParentOf } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { compact, includes } from 'lodash';
+import type Exercise from './exercise'
 
 const TAGS = {
     LO: ['lo', 'aplo'],
@@ -8,16 +9,26 @@ const TAGS = {
     IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
+export interface ImportantTags {
+    lo?: ExerciseTag
+    dok?: ExerciseTag
+    blooms?: ExerciseTag
+    chapterSection?: ChapterSection
+}
+
+
 export default class ExerciseTag extends BaseModel {
 
-    @field id = NEW_ID;
-    @field data;
-    @field is_visible;
-    @field type;
-    @field name;
-    @field description;
-    @observable exercise;
-    @field({ model: ChapterSection }) chapter_section;
+    @field id = ''
+    @field data = '';
+    @field is_visible = false;
+    @field type = '';
+    @field name = '';
+    @field description = '';
+
+    get exercise() { return getParentOf<Exercise>(this) }
+
+    @field({ model: ChapterSection }) chapter_section = ChapterSection.blank;
 
     @computed get isImportant() {
         return includes(TAGS.IMPORTANT, this.type);
@@ -48,7 +59,7 @@ export default class ExerciseTag extends BaseModel {
         return this.id.replace(/(\w+:\s*)/, '');
     }
 
-    recordInfo(tag) {
+    recordInfo(tag: ImportantTags) {
         if (this.isDOK) { tag.dok = this; }
         if (this.isLO) { tag.lo = this; }
         if (this.isBlooms) { tag.blooms = this; }

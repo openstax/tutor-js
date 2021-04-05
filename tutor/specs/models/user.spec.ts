@@ -1,5 +1,5 @@
-import { autorun } from 'mobx';
-import { TimeMock } from '../helpers';
+import { autorun, action } from 'mobx';
+import { TimeMock, fetchMock } from '../helpers';
 import User from '../../src/models/user';
 import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
@@ -10,6 +10,7 @@ import { bootstrapCoursesList } from '../courses-test-data';
 import DateTime from 'shared/model/date-time'
 
 describe('User Model', () => {
+    beforeEach(() => fetchMock.resetMocks())
     afterEach(() => {
         User.viewed_tour_stats.clear();
     });
@@ -54,7 +55,7 @@ describe('User Model', () => {
         expect(User.tourAudienceTags).toEqual([]);
     });
 
-    fit('#verifiedRoleForCourse', () => {
+    it('#verifiedRoleForCourse', () => {
         bootstrapCoursesList();
         expect(User.verifiedRoleForCourse(Courses.get(1)!)).toEqual('student');
         User.can_create_courses = true;
@@ -65,7 +66,7 @@ describe('User Model', () => {
 
     it('#recordSessionStart', () => {
         const spy = jest.spyOn(UiSettings, 'set');
-
+        fetchMock.mockResponseOnce(JSON.stringify({ ok: true }))
         User.recordSessionStart();
         expect(UiSettings.set).toHaveBeenCalled();
         expect(UiSettings.set).toHaveBeenCalledWith('sessionCount', 1);
@@ -74,7 +75,7 @@ describe('User Model', () => {
         spy.mockRestore();
     });
 
-    it('#isProbablyTeacher', () => {
+    it('#isProbablyTeacher', action(() => {
         User.faculty_status = 'nope' as any;
         User.can_create_courses = false;
         User.self_reported_role = 'student';
@@ -90,17 +91,26 @@ describe('User Model', () => {
         expect(User.canViewPreviewCourses).toBe(false);
         User.can_create_courses = true;
         expect(User.canViewPreviewCourses).toBe(true);
-    });
+    }));
 
-    xit('#logEvent', () => {
+    it('#logEvent', action(() => {
+        fetchMock.mockResponseOnce(JSON.stringify({ ok: true }))
+        const ev = { category: 'test', code: 'test', data: { some: 'data' } };
+        User.can_create_courses = false;
         User.self_reported_role = 'student';
-        const ev = { category: 'test', code: 'test', data: {} };
-        expect(User.logEvent(ev)).toEqual('ABORT');
-        User.self_reported_role = 'instructor';
-        expect(User.logEvent(ev)).toEqual(ev);
-    });
+        User.logEvent(ev)
 
-    it('checks for names then splits', () => {
+        expect(fetchMock.mock.calls).toHaveLength(0)
+        User.self_reported_role = 'instructor';
+        User.logEvent(ev)
+        expect(fetchMock.mock.calls).toHaveLength(1)
+        const body = fetchMock.mock.calls[0][1]?.body as string
+        expect(JSON.parse(body)).toMatchObject({
+            some: 'data',
+        })
+    }))
+
+    it('checks for names then splits', action(() => {
         User.name = 'Sir Alex Williams IV';
         User.first_name = User.last_name = '';
         expect(User.initials).toEqual('S I');
@@ -109,14 +119,14 @@ describe('User Model', () => {
         User.last_name = 'Smith';
         expect(User.lastName).toEqual('Smith');
         expect(User.initials).toEqual('B S');
-    });
+    }))
 
-    it('calculates new users', () => {
+    it('calculates new users', action(() => {
         // one hour ago
         User.created_at = new DateTime('2021-01-15T11:00:00.000Z')
         expect(User.wasNewlyCreated).toBe(true)
         // a day + hour ago
         User.created_at = new DateTime('202-0-0T14:11:00.000Z')
         expect(User.wasNewlyCreated).toBe(false)
-    })
+    }))
 });
