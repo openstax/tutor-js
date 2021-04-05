@@ -27,10 +27,12 @@ export default class Payments extends BaseModel {
         extend(this.config, data);
     }
 
-    @observable pendingTimeout: number;
-    @observable errorMessage = ''
-    @observable element: HTMLElement;
-    @observable parentCallbacks: any;
+    @observable pendingTimeout: any
+    @observable errorMessage: any
+    @observable element: HTMLElement | null = null
+    @observable parentCallbacks: any
+    @observable options: any
+    @observable remote: any
 
     constructor(options = {}) {
         super();
@@ -72,8 +74,7 @@ export default class Payments extends BaseModel {
         return Boolean(this.errorMessage);
     }
 
-    @action.bound
-    fetch() {
+    async fetch() {
         if (!Payments.config.js_url) { return this.logFailure('Attempted to load payments without a url set'); }
         this.pendingTimeout = setTimeout(this.onTimeout, this.options.timeoutLength);
         if (this.OSaymentClass) { // may already be loaded
@@ -88,7 +89,7 @@ export default class Payments extends BaseModel {
 
     @action.bound
     onChat() { // we're ignoring the error, not sure how to prefill chat
-        const chatLink = document.querySelector('.chat.enabled a');
+        const chatLink = document.querySelector<HTMLLinkElement>('.chat.enabled a');
         if (chatLink) { chatLink.click(); }
     }
 
@@ -106,10 +107,11 @@ export default class Payments extends BaseModel {
         this.pendingTimeout = null;
     }
 
-    logFailure(msg) {
+    logFailure(msg: string) {
         this.errorMessage = msg;
         clearTimeout(this.pendingTimeout);
         this.pendingTimeout = null;
+        //@ts-ignore
         Logging.error(msg);
     }
 
@@ -139,7 +141,7 @@ export default class Payments extends BaseModel {
 
 }
 
-NotificationActions.on('tutor-update', ({ payments }) => {
+NotificationActions.on('tutor-update', ({ payments }: {payments: any}) => {
     // eslint-disable-next-line
   extend(Payments.config, payments);
 });
