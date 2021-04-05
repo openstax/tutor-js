@@ -15,9 +15,9 @@ export class BaseModel {
 
     static idField = 'id'
 
-    // constructor() {
-    //     modelize(this, { decorateOnly: true })
-    // }
+    constructor() {
+        modelize(this)
+    }
 
     toJSON() {
         return serialize(this)
