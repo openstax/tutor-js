@@ -1,6 +1,7 @@
 import {
     BaseModel, action, field,
 } from 'shared/model';
+import urlFor from '../api'
 
 const Config = {
     url: '',
@@ -10,28 +11,30 @@ const Config = {
 
 class ResponseValidation extends BaseModel {
 
-    static bootstrap(config) {
+    static bootstrap(config: typeof Config) {
         Object.assign(Config, config);
     }
 
-    @field bad_word_count;
-    @field common_word_count;
-    @field computation_time;
-    @field domain_word_count;
-    @field inner_product;
-    @field innovation_word_count;
-    @field processed_response;
-    @field remove_nonwords;
-    @field remove_stopwords;
-    @field response;
-    @field spelling_correction;
-    @field spelling_correction_used;
-    @field num_spelling_correction;
-    @field tag_numeric;
-    @field tag_numeric_input;
-    @field uid_found;
-    @field uid_used;
-    @field valid;
+    @field bad_word_count = 0;
+    @field common_word_count = 0;
+    @field computation_time = 0;
+    @field domain_word_count = 0;
+    @field inner_product = 0;
+    @field innovation_word_count = 0;
+    @field processed_response = '';
+    @field remove_nonwords = false;
+    @field remove_stopwords = false;
+    @field response = '';
+    @field spelling_correction = 'auto'
+    @field spelling_correction_used = false
+    @field num_spelling_correction = 0;
+    @field tag_numeric = false;
+    @field tag_numeric_input = 'auto';
+    @field uid_found = false;
+    @field uid_used = '';
+    @field valid = false;
+
+    config: typeof Config
 
     constructor() {
         super();
@@ -46,25 +49,20 @@ class ResponseValidation extends BaseModel {
         return Boolean(this.config.is_ui_enabled);
     }
 
-    validate({ response, uid = '' }) {
-        if (!this.isEnabled) { return 'ABORT'; }
-
-        return {
-            url: this.config.url,
-            query: {
-                uid,
-                response,
-            },
-        };
+    async validate({ response, uid = '' }: { response: string, uid?: string }) {
+        if (!this.isEnabled) { return }
+        try {
+            const data = await this.api.request(
+                urlFor('responseValidation', {}, { uid, response }),
+                { origin: this.config.url },
+            )
+            this.onValidationComplete(data)
+        } catch(err) {
+            err.preventDefault()
+        }
     }
 
-    onFailure(error) {
-        console.warn(error); // eslint-disable-line no-console
-        // signal not to display error modal
-        error.isRecorded = true;
-    }
-
-    @action onValidationComplete({ data }) {
+    @action onValidationComplete(data: any) {
         this.update(data);
     }
 
