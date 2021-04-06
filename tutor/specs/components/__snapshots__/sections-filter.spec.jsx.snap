@@ -133,6 +133,8 @@ exports[`SectionsFilter component renders 1`] = `
               "__html": "even-keeled",
             }
           }
+          data-test-id="book-title"
+          data-title="even-keeled"
         />
       </div>
     </div>
@@ -177,6 +179,8 @@ exports[`SectionsFilter component renders 1`] = `
               "__html": "real-time",
             }
           }
+          data-test-id="book-title"
+          data-title="real-time"
         />
       </div>
     </div>
@@ -221,6 +225,8 @@ exports[`SectionsFilter component renders 1`] = `
               "__html": "stable",
             }
           }
+          data-test-id="book-title"
+          data-title="stable"
         />
       </div>
     </div>

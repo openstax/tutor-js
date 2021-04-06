@@ -34,7 +34,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                       </span>
                                                     </styled.span>
                                                     <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
-                                                      <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                                                      <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
                                                           <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>
                                                             <div className=\\"sc-AxirZ jSNLok book-part-title\\" style={[undefined]}>
@@ -45,7 +45,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                                   </span>
                                                                 </styled.span>
                                                               </ChapterSection>
-                                                              <span dangerouslySetInnerHTML={{...}} />
+                                                              <span dangerouslySetInnerHTML={{...}} data-title=\\"Nerve Conduction–Electrocardiograms\\" data-test-id=\\"book-title\\" />
                                                             </div>
                                                           </styled.div>
                                                         </BookPartTitle>
