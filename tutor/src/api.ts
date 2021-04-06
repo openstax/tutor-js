@@ -25,6 +25,7 @@ interface TaskStepId { taskStepId: ID }
 interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
 
+
 const Definitions = {
     bootstrap:             r('GET', '/user/bootstrap'),
 
@@ -113,6 +114,8 @@ const Definitions = {
 
     fetchCourseScores:     r<CourseId>('GET', 'courses/{courseId}/performance'),
 
+    responseValidation:    r<any, {uid: string, response: string}>('GET', 'validate'),
+
 }
 
 export { Definitions }
@@ -154,12 +157,6 @@ export default urlFor
 //         },
 //     );
 //     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
-
-
-//     connectModelRead(ResponseValidation, 'validate',
-//         { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',
-//             timeout: 2000, // wait a max of 2 seconds
-//         });
 //
 //     connectModelCreate(CourseEnroll, 'create', { url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors' });
 //     connectModelUpdate(
