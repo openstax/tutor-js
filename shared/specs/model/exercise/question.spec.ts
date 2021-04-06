@@ -59,19 +59,19 @@ describe('Exercise Question', () => {
     });
 
     it('validates', () => {
-        question.formats = ['free-response'].map(s => new Format(s)) //  as any;
+        question.formats.replace(['free-response'].map(s => new Format(s)));
         expect(question.validity.valid).toBe(true);
-        question.formats = ['free-response', 'multiple-choice'].map(s => new Format(s))
-        question.answers = []
+        question.formats.replace(['free-response', 'multiple-choice'].map(s => new Format(s)));
+        question.answers.clear();
 
         expect(question.validity.valid).toBe(false);
-        question.formats = ['free-response'].map(s => new Format(s))
+        question.formats.replace(['free-response'].map(s => new Format(s)));
         expect(question.isOpenEnded).toBe(true);
         expect(question.validity.valid).toBe(true);
     });
 
     it('#collaborator_solution_html', () => {
-        question.collaborator_solutions = [];
+        question.collaborator_solutions.clear();
         expect(question.collaborator_solutions).toHaveLength(0);
         question.collaborator_solution_html = 'one, two, three';
         expect(question.collaborator_solutions).toHaveLength(1);
@@ -83,7 +83,7 @@ describe('Exercise Question', () => {
     });
     it('uses answers for detecting multi-choice', () => {
         expect(question.isMultipleChoice).toBe(true);
-        question.answers = [];
+        question.answers.clear();
         expect(question.isMultipleChoice).toBe(false);
     });
 });

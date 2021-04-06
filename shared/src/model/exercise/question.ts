@@ -97,7 +97,7 @@ class ExerciseQuestion extends BaseModel {
     set collaborator_solution_html(val) {
         if (!val) {
             if (this.collaborator_solutions.length) {
-                this.collaborator_solutions = []
+                this.collaborator_solutions.clear();
             }
         } else {
             if (!this.collaborator_solutions.length) {
@@ -138,7 +138,7 @@ class ExerciseQuestion extends BaseModel {
         } else if (name == 'free-response') {
             this.exercise.onQuestionFreeResponseSelected();
         }
-        this.formats = map(uniq(formats).sort(), nm => new Format(nm));
+        this.formats.replace(map(uniq(formats).sort(), nm => new Format(nm)));
     }
 
     @action toggleFormat(value: string, selected: boolean) {
