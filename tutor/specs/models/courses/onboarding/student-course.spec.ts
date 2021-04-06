@@ -1,5 +1,7 @@
-import Course from '../../../../src/models/course';
+import { hydrateModel } from '../../../helpers'
 import Nags from '../../../../src/components/onboarding/nags';
+import Course from '../../../../src/models/course';
+import TourContext from '../../../../src/models/tour/context'
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
@@ -14,16 +16,19 @@ jest.mock('../../../../src/models/payments');
 
 jest.useFakeTimers();
 
+const mockedSettings = UiSettings as any
 describe('Student Course Onboarding', () => {
-    let ux;
+    let ux:CourseUX;
 
     beforeEach(() => {
-        UiSettings.get.mockImplementation(() => undefined);
-        User.terms_signatures_needed = false;
+        mockedSettings.get.mockImplementation(() => undefined);
+        User.available_terms.push({
+            id: 1, name: 'general_terms_of_use', title: 'T&C', is_signed: false,
+        } as any)
         window.location.reload = jest.fn();
         ux = new CourseUX(
-            new Course({ id: 1 }),
-            { tour: null },
+            hydrateModel(Course, { id: 1 }),
+            hydrateModel(TourContext, {}),
         );
         Object.assign(ux.course, {
             id: 1,
@@ -37,48 +42,46 @@ describe('Student Course Onboarding', () => {
     });
 
     afterEach(() => {
-        ux.close();
+        ux!.close();
     });
 
     it('#nagComponent', () => {
         expect(ux.course.needsPayment).toBeUndefined();
         expect(ux.nagComponent).toBeNull();
-        ux.course.does_cost = true;
-        expect(ux.nagComponent).toBe(Nags.payDisabled);
+        ux.course.does_cost = true
+        expect(ux.nagComponent).toBe(Nags.payDisabled)
         Payments.config.is_enabled = true;
-        ux.course.needsPayment = true;
-        ux.course.userStudentRecord = {};
+        (ux.course as any).needsPayment = true;
+        (ux.course as any).userStudentRecord = {};
         expect(ux.nagComponent).toBe(Nags.payNowOrLater);
-        User.terms_signatures_needed = false;
-        ux.course.userStudentRecord = { mustPayImmediately: true };
-        expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
-        User.terms_signatures_needed = true;
+        expect(User.terms.areSignaturesNeeded).toEqual(true);
+        (ux.course as any).userStudentRecord = { mustPayImmediately: true };
         expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
     });
 
     it('#payNow', () => {
-        ux.course.needsPayment = true;
+        (ux.course as any).needsPayment = true;
         ux.payNow();
         expect(ux.nagComponent).toBe(Nags.makePayment);
     });
 
     it('#onPaymentComplete', () => {
-        ux.course.needsPayment = true;
+        (ux.course as any).needsPayment = true;
         ux.payNow();
-        ux.course.userStudentRecord = {
+        (ux.course as any).userStudentRecord = {
             markPaid: jest.fn(),
         };
         ux.onPaymentComplete();
         expect(ux.course.studentTaskPlans.startFetching).toHaveBeenCalled();
-        expect(ux.course.userStudentRecord.markPaid).toHaveBeenCalled();
+        expect((ux.course as any).userStudentRecord.markPaid).toHaveBeenCalled();
     });
 
     it('silences tours', () => {
-        ux.course.userStudentRecord = { mustPayImmediately: false };
-        UiSettings.get.mockImplementation(() => true);
+        (ux.course as any).userStudentRecord = { mustPayImmediately: false };
+        (UiSettings.get as any).mockImplementation(() => true);
         ux.mount();
         expect(ux.tourContext.otherModal).toBe(ux);
-        ux.course.needsPayment = true;
+        (ux.course as any).needsPayment = true;
         ux.displayPayment = true;
         expect(ux.tourContext.otherModal.isDisplaying).toBe(true);
         ux.close();
@@ -86,7 +89,7 @@ describe('Student Course Onboarding', () => {
     });
 
     it('fetches tasks on mount and periodically after that', () => {
-        ux.course.userStudentRecord = {
+        (ux.course as any).userStudentRecord = {
             mustPayImmediately: false, markPaid: jest.fn(),
         };
         expect(ux.course.studentTaskPlans.refreshTasks).not.toHaveBeenCalled();
@@ -96,7 +99,7 @@ describe('Student Course Onboarding', () => {
     });
 
     it('reloads page when paid after being locked out', () => {
-        ux.course.userStudentRecord = {
+        (ux.course as any).userStudentRecord = {
             mustPayImmediately: true, markPaid: jest.fn(() => Promise.resolve()),
         };
         expect(ux.paymentIsPastDue).toEqual(true);

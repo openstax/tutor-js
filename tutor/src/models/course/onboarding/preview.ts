@@ -1,9 +1,8 @@
-import { computed, observable, modelize } from 'shared/model'
+import { computed, observable, modelize, override } from 'shared/model'
 import { filter, includes, isEmpty } from 'lodash';
 import { Course, BaseOnboarding, TourContext } from './base';
 import Courses from '../../courses-map';
 import UiSettings from 'shared/model/ui-settings';
-
 import Nags from '../../../components/onboarding/nags';
 
 const HAS_PUBLISHED = observable.box(false);
@@ -61,7 +60,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
         );
     }
 
-    @computed get nagComponent() {
+    @override get nagComponent() {
 
         if (this.otherModalsAreDisplaying) { return null; }
 
