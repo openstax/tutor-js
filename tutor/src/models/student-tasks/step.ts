@@ -254,7 +254,7 @@ export default class StudentTaskStep extends BaseModel {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation')
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation') }
         )
         this.onLoaded(data)
     }

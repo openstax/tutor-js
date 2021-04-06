@@ -335,7 +335,7 @@ export default class Course extends BaseModel {
     async save() {
         const data = await this.api.request<CourseObj>(
             this.isNew ? urlFor('createCourse') : urlFor('updateCourse', { courseId: this.id }),
-            pick(this, SAVEABLE_ATTRS)
+            { data: pick(this, SAVEABLE_ATTRS) },
         )
         runInAction(() => hydrateInstance(this, data))
     }
@@ -344,7 +344,7 @@ export default class Course extends BaseModel {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
         const data = await this.api.request(
             urlFor('saveExerciseExclusion', { courseId: this.id }),
-            [{ id: exercise.id, is_excluded }]
+            { data: [{ id: exercise.id, is_excluded }] },
         )
         runInAction(() => hydrateInstance(exercise, data, this))
     }

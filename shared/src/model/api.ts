@@ -65,12 +65,12 @@ export class ModelApi {
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)
     }
 
-    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any): Promise<RetT> // eslint-disable-line
-    async request<RetT>({ key, methodUrl }: RequestUrlKey, data: any, options: NoThrowOptions): Promise<RetT|ApiError> // eslint-disable-line
-    async request<RetT>({ key, methodUrl }: RequestUrlKey, data?: any, options?: RequestOptions): Promise<RetT> { // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, options: NoThrowOptions): Promise<RetT|ApiError> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: RequestOptions): Promise<RetT> // eslint-disable-line
+    async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: any): Promise<RetT|ApiError> { // eslint-disable-line
         this.requestsInProgress.set(key, methodUrl)
         try {
-            const reply = await request<RetT>(methodUrl, data, options)
+            const reply = await request<RetT>(methodUrl, options)
             runInAction(() => {
                 this.requestsInProgress.delete(key)
                 this.requestCounts[httpMethodToType[methodUrl[0]]] += 1

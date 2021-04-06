@@ -116,21 +116,21 @@ export default class CourseStudent extends BaseModel {
     async savePeriod() {
         return this.api.request(
             urlFor('updateStudent', { studentId: this.id }),
-            pick(this, 'period_id'),
+            { data: pick(this, 'period_id') },
         )
     }
 
     async saveStudentId() {
         return this.api.request(
             urlFor('updateStudent', { studentId: this.id }),
-            pick(this, 'student_identifier'),
+            { data: pick(this, 'student_identifier') },
         )
     }
 
     async saveOwnStudentId() {
         return this.api.request(
             urlFor('saveOwnStudentId', { courseId: this.course.id }),
-            pick(this, 'student_identifier'),
+            { data: pick(this, 'student_identifier') },
         )
     }
 

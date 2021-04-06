@@ -205,7 +205,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
     }
 
     async createExercise({ course, data }: { course: Course, data: Exercise }): Promise<Exercise> {
-        const reply = await this.api.request(urlFor('createExercise', { courseId: course.id }), data)
+        const reply = await this.api.request(urlFor('createExercise', { courseId: course.id }), { data })
         return await this.onExerciseCreated(course, reply)
     }
 

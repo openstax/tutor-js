@@ -66,7 +66,7 @@ export default class Note extends BaseModel {
     async save() {
         const update = await this.api.request(
             this.isNew ? urlFor('createNote', { pageUUID: this.page.uuid }) : urlFor('saveNote', { noteId: this.id }),
-            { course_id: this.course.id, ...pick(this, 'id', 'anchor', 'contents', 'annotation') },
+            { data: { course_id: this.course.id, ...pick(this, 'id', 'anchor', 'contents', 'annotation') } },
         )
         this.onUpdated(update)
     }
