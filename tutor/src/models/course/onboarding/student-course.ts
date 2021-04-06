@@ -1,4 +1,4 @@
-import { computed, observable, action, modelize } from 'shared/model';
+import { computed, override, observable, action, modelize } from 'shared/model';
 import { get } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { BaseOnboarding, Course, TourContext } from './base';
@@ -18,11 +18,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
         modelize(this);
     }
 
-    @computed get nagComponent(): any {
+    @override get nagComponent(): any {
         if (this.needsTermsSigned) { return null; }
         const student = this.course.userStudentRecord;
         if (!student || student.is_comped) { return null; }
-
         if (this.displayPayment) { return Nags.makePayment; }
         if (!Payments.config.is_enabled && this.course.does_cost){
             if (!UiSettings.get(TRIAL_ACKNOWLEDGED, this.course.id)) {

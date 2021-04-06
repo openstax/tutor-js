@@ -22,7 +22,7 @@ class TeacherTaskPlans extends Map<ID, TaskPlan> {
     withPlanId(planId: ID, attributes = {}) {
         let plan = this.get(planId);
         if (!plan) {
-            plan = new TaskPlan({ id: planId, course: this.course, ...attributes });
+            plan = hydrateModel(TaskPlan, { id: planId, course: this.course, ...attributes }, this)
             this.set(planId, plan);
         }
         return plan;
