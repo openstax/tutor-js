@@ -447,7 +447,7 @@ export default class TeacherTaskPlan extends BaseModel {
     async saveDroppedQuestions() {
         const data = await this.api.request<TeacherTaskPlanObj>(
             urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
-            { dropped_questions: toJS(this.dropped_questions) },
+            { data: { dropped_questions: toJS(this.dropped_questions) } },
         )
         this.update(data)
     }
@@ -463,7 +463,7 @@ export default class TeacherTaskPlan extends BaseModel {
         const data = await this.api.request<TeacherTaskPlanObj>(
             this.isNew ?
                 urlFor('createTaskPlan', { courseId: this.course.id }) : urlFor('saveTaskPlan', { taskPlanId: this.id }),
-            this.dataForSave
+            { data: this.dataForSave },
         )
         this.update(data)
     }
@@ -473,7 +473,7 @@ export default class TeacherTaskPlan extends BaseModel {
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
         const updatedExtensions = this.api.request<TaskPlanExtensionObj[]>(
             urlFor('grantTaskExtensions', { taskPlanId: this.id }),
-            { extensions: grantedExtensions },
+            { data: { extensions: grantedExtensions } },
         )
         return updatedExtensions
     }

@@ -51,8 +51,8 @@ const Definitions = {
     createExercise:        r<CourseId>('POST', 'courses/{courseId}/exercises'),
     deleteExercise:        r<ExerciseNumber>('DELETE', 'courses/{courseId}/exercises/{exerciseNumber}'),
 
-    fetchExercises:        r<EcosystemIdAction>('GET', 'ecosystems/{ecosystem_id}/{action}'),
-    fetchLimitedExercises: r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystem_id}/{action}/{limit}'),
+    fetchExercises:        r<EcosystemIdAction>('GET', 'ecosystems/{ecosystemId}/{action}'),
+    fetchLimitedExercises: r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystemId}/{action}/{limit}'),
 
     fetchCourses:          r('GET', 'courses'),
 

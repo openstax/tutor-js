@@ -124,7 +124,7 @@ class GradingTemplate extends BaseModel {
             this.isNew ?
                 urlFor('createGradingTemplate', { courseId: this.course.id }) :
                 urlFor('saveGradingTemplate', { templateId: this.id }),
-            serialize(this)
+            { data: serialize(this) }
         )
         await this.onSaved(data)
     }

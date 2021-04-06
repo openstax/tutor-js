@@ -62,7 +62,7 @@ export default class CoursePeriod extends BaseModel {
         const periodData = await this.api.request<CoursePeriodObj>(
             isNew ?
                 urlFor('createCoursePeriod', { courseId: this.course.id }) : urlFor('updateCoursePeriod', { periodId: this.id }),
-            pick(this, 'name')
+            { data: pick(this, 'name') }
         )
         runInAction(() => {
             this.update(periodData)

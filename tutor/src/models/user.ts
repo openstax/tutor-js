@@ -31,7 +31,7 @@ export class User extends BaseModel {
     @observable csrf_token = '';
 
     terms = hydrateModel(UserTerms, {}, this);
-
+    get id() { return this.profile_id }
     @field account_uuid = '';
     @field name = '';
     @field first_name = '';
@@ -157,8 +157,7 @@ export class User extends BaseModel {
     }
 
     async saveTourView(stat: ViewedTourStat, options: any) {
-        await this.api.request<Tour>(urlFor('saveTourView',{ tourId: stat.id }), options)
-
+        await this.api.request<Tour>(urlFor('saveTourView',{ tourId: stat.id }), { data: options })
     }
 
     @computed get isUnverifiedInstructor() {
@@ -175,13 +174,13 @@ export class User extends BaseModel {
 
     async logEvent({ category, code, data }: UserEventPayload) {
         if (!this.isProbablyTeacher) { return false }
-        return await this.api.request(urlFor('logUserEvent', { category, code }), data)
+        return await this.api.request(urlFor('logUserEvent', { category, code }), { data })
     }
 
     async suggestSubject({ subject }: { subject: string }) {
         // students do not submit suggestions
         if (this.self_reported_role === 'student') { return 'ABORT'; }
-        return this.api.request(urlFor('suggestCourseSubject'), { subject })
+        return this.api.request(urlFor('suggestCourseSubject'), { data: { subject } })
     }
 
     @computed get metrics() {

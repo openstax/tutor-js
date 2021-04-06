@@ -1,7 +1,7 @@
 import { ExercisesMap as Exercises } from '../../src/models/exercises';
-import Factory, { FactoryBot } from '../factories';
 import { sampleSize, keys, forEach } from 'lodash';
 import { TutorExerciseObj } from '../../src/models/types';
+import { fetchMock, Factory } from '../helpers'
 
 describe('Exercises Map', () => {
     let book: ReturnType<typeof Factory.book>
@@ -27,7 +27,6 @@ describe('Exercises Map', () => {
         expect(exercises.noneForPageIds([page_ids[0]])).toBe(false);
         expect(exercises.noneForPageIds([(null as any as number), 12345, page_ids[0]])).toBe(false);
         expect(exercises.noneForPageIds([123, 456])).toBe(true);
-
     });
 
     it('filters', () => {
@@ -43,25 +42,30 @@ describe('Exercises Map', () => {
         expect(exercises.reading.array).not.toContain(ex);
     });
 
-    it('includes course id when course is provided to load', () => {
-        expect(
-            exercises.fetch({ course, book, page_ids, limit: false })
-        ).toEqual({ url: `ecosystems/${book.id}/exercises`,
-            query: { course_id: course.id, page_ids },
-        });
+    it('includes course id when course is provided to load', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify([
+            Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
+        ]))
+        await exercises.fetch({ course, book, page_ids, limit: 'homework_core' })
+        expect(fetchMock.mock.calls).toHaveLength(1)
+        expect(fetchMock.mock.calls[0][0]).toContain(`course_id=${course.id}`)
     });
 
-    it('can be loaded and group by page', () => {
+    it('can be loaded and group by page', async () => {
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(false); });
+        expect(fetchMock.mock.calls).toHaveLength(0)
+        fetchMock.mockResponseOnce(JSON.stringify([
+            Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
+        ]))
 
-        expect(
-            exercises.fetch({ book, page_ids })
-        ).toEqual({ url: `ecosystems/${book.id}/exercises/homework_core`, query: { page_ids } });
+        exercises.fetch({ book, page_ids })
+        expect(fetchMock.mock.calls).toHaveLength(1)
+        expect(fetchMock.mock.calls[0][0]).toContain(`ecosystems/${book.id}/exercises/homework_core`)
 
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(true); });
 
         const items = page_ids.map(page_id =>
-            FactoryBot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }) as TutorExerciseObj,
+            Factory.bot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }) as TutorExerciseObj,
         )
 
         exercises.onLoaded(items, undefined, book, page_ids);
@@ -77,11 +81,16 @@ describe('Exercises Map', () => {
 
     });
 
-    it('can check if any page is loading', () => {
-        exercises.fetch({ book, page_ids });
+    it('can check if any page is loading', async () => {
+        fetchMock.mockResponseOnce(() => new Promise((done) => {
+            setTimeout(() => done(JSON.stringify([
+                Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
+            ])), 10)
+        }))
+        const fetchPromise = exercises.fetch({ book, page_ids })
         expect(exercises.isFetching({ page_id: page_ids[0] })).toBe(true);
-        expect(exercises.isFetching({ pageIds: [ 1011, 1023, 1034 ] })).toBe(false);
-        expect(exercises.isFetching({ pageIds: [ 1011, 1023, 1034, page_ids[0] ] })).toBe(true);
+        await fetchPromise
+        expect(exercises.isFetching({ page_id: page_ids[0] })).toBe(false);
     });
 
 });

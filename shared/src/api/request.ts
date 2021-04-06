@@ -3,8 +3,8 @@ import qs from 'qs';
 import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-export type RequestOptions = { nothrow?: boolean }
-export type NoThrowOptions = { nothrow: true }
+export type RequestOptions = { data?: any, origin?: string }
+export type NoThrowOptions = { data?: any, origin?: string, nothrow: true }
 
 export type MethodUrl = [HttpMethod, string]
 
@@ -13,7 +13,7 @@ export function r<P, Q=Record<string, any>>(method: HttpMethod, pattern: string)
     return (params?: P, query?: Q) => {
         let url = params ? interpolate(pattern, params) : pattern
         if (query) {
-            url += '?' + qs.stringify(query, { arrayFormat: 'brackets', encode: false })
+            url += '?' + qs.stringify(query, { arrayFormat: 'brackets', encode: true })
         }
         return [method, interpolate(url, params)] as MethodUrl
     }
@@ -37,12 +37,20 @@ export class ApiError extends CustomError {
     requestOptions: RequestOptions
     apiResponse: Response
 
+    isHidden = false
+
     constructor(request: string, resp: Response, options?: RequestOptions) {
         super(`${request} failed with ${resp.status}: ${resp.statusText}`)
         this.request = request
         this.requestOptions = options || {}
         this.apiResponse = resp
     }
+
+
+    preventDefault() {
+        this.isHidden = true
+    }
+
 }
 
 export function isApiError(err: any): err is ApiError {
@@ -54,16 +62,17 @@ const baseUrl = process.env.BACKEND_SERVER_URL ?
         'http://localhost:3001/api' : `${window.location.origin}/api`;
 
 
-async function request<RetT>(methodUrl: MethodUrl, data: any, options: NoThrowOptions): Promise<RetT | ApiError> // eslint-disable-line
-async function request<RetT>(methodUrl: MethodUrl, data?: any, options?: any): Promise<RetT> // eslint-disable-line
-async function request<RetT>(methodUrl: MethodUrl, data?: any, options?: RequestOptions): Promise<RetT|ApiError> {  // eslint-disable-line
+async function request<RetT>(methodUrl: MethodUrl, options: NoThrowOptions): Promise<RetT | ApiError> // eslint-disable-line
+async function request<RetT>(methodUrl: MethodUrl, options?: RequestOptions): Promise<RetT> // eslint-disable-line
+async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|ApiError> {  // eslint-disable-line
     const [method, url] = methodUrl
-    let req: { method: string, body?: any } = { method }
-    if (data) {
-        req.body = JSON.stringify(data)
-    }
     try {
-        const resp = await fetch(`${baseUrl}/${url}`, req)
+        let req: { method: string, body?: any } = { method }
+        if (options?.data) {
+            req.body = JSON.stringify(options.data)
+        }
+        const origin = options?.origin || baseUrl
+        const resp = await fetch(`${origin}/${url}`, req)
         if (resp.ok) {
             const respJson = await resp.json()
             return await respJson as RetT
