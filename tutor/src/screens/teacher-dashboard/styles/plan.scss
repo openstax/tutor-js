@@ -23,6 +23,8 @@ $calendar-inactive-background: $tutor-neutral;
       $active-plan-color: task-plan-color($plan-type);
       $plan-color: fade_out($active-plan-color, 0.75);
 
+
+
       &.type-#{$plan-type} {
         &.is-continued {
           &::after {
@@ -39,7 +41,13 @@ $calendar-inactive-background: $tutor-neutral;
         &:hover,
         &.active {
           background-color: $active-plan-color;
-
+          
+          @if $plan-type == external {
+            label {
+              color: white;
+            }
+          }
+          
           &.is-continued {
             &::after {
               border-color: transparent transparent transparent $active-plan-color;
@@ -110,6 +118,14 @@ $calendar-inactive-background: $tutor-neutral;
       &.is-open.is-trouble {
         label:not(.continued)::before {
           margin-right: $calendar-plan-left-label-offset;
+        }
+      }
+    }
+
+    &.is-published[data-assignment-type="external"] {
+      &:not(.is-open):not(.is-publishing) {
+        label:not(.continued):hover::before {
+          color: white;
         }
       }
     }
