@@ -101,20 +101,21 @@ const ExitWarningModal = observer(({ ux }) => {
             backdrop="static"
         >
             <StyledHeader>
-        Exit without publishing?
+                Exit without publishing?
             </StyledHeader>
             <StyledBody>
                 <p>The question is not published yet and will not be saved. Are you sure you want to exit this form?</p>
                 <ControlsWrapper>
                     <Controls>
                         <Button variant="default" size="lg" onClick={() => {
+                            ux.clearAutosave();
                             ux.showExitWarningModal = false;
                             ux.onDisplayModal(false);
                         }}>
-                Yes, exit
+                            Yes, exit
                         </Button>
                         <Button variant="primary" size="lg" onClick={() => ux.showExitWarningModal = false}>
-                Cancel
+                            Cancel
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -136,7 +137,7 @@ const CoursePreviewOnlyModal = observer(({ onDisplayModal }) => {
         This is a demo course!
             </StyledHeader>
             <StyledBody>
-                <p>Adding or editing a question is <strong>not allowed</strong> in a demo course. 
+                <p>Adding or editing a question is <strong>not allowed</strong> in a demo course.
             You can create a live course to add or edit questions.</p>
                 <ControlsWrapper>
                     <Controls>
@@ -210,11 +211,11 @@ const QuestionPreviewModal = observer(({ ux }) => {
             </Button>
             </>
         }
-        
+
       </>;
     }
     else {
-        QuestionComponent = 
+        QuestionComponent =
       <>
         <Question question={question}/>
         <textarea

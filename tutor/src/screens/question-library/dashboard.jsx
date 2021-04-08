@@ -26,6 +26,23 @@ class QuestionsDashboard extends React.Component {
   @observable chapterIds;
   @observable pageIds = [];
 
+  constructor(props) {
+      super(props)
+
+      if (localStorage['ql-pageIds']) {
+          this.pageIds = JSON.parse(localStorage['ql-pageIds']);
+
+          if (!isEmpty(this.pageIds) && localStorage['ql-showing-exercises'] === 'true') {
+              this.isShowingExercises = true;
+              this.props.exercises.fetch({
+                  limit: false,
+                  course: this.props.course,
+                  page_ids: this.pageIds,
+              });
+          }
+      }
+  }
+
   @action.bound onShowDetailsViewClick() {
       this.showingDetails = true;
   }
@@ -37,11 +54,14 @@ class QuestionsDashboard extends React.Component {
   @action.bound onSelectionsChange(pageIds) {
       this.pageIds = pageIds;
       this.isShowingExercises = !isEmpty(pageIds);
+      localStorage['ql-pageIds'] = JSON.stringify(pageIds);
+      localStorage['ql-showing-exercises'] = !isEmpty(pageIds);
   }
 
   @action.bound onSelectSections() {
       this.showingDetails = false;
       this.isShowingExercises = false;
+      localStorage['ql-showing-exercises'] = false;
   }
 
   render() {
