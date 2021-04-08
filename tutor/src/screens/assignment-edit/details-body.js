@@ -11,7 +11,6 @@ import TutorDropdown from '../../components/dropdown';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
 import isUrl from 'validator/lib/isURL';
-import NewIcon from '../../components/new-icon';
 
 const lengthLimit = (n) =>
     (v) => (v && v.length > n) && `Cannot be longer than ${n} characters`;
@@ -101,9 +100,7 @@ const TemplateField = observer(({ ux }) => {
     return (
         <SplitRow>
             <RowLabel htmlFor="">
-                <NewIcon>
-                    <span>Grading template</span>
-                </NewIcon>
+                <span>Grading template</span>
                 <HintText>(Apply a pre-set submission and grading policy template)</HintText>
             </RowLabel>
             <div>
