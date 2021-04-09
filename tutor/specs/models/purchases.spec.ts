@@ -1,7 +1,7 @@
 import { Purchase, PurchasesMap } from '../../src/models/purchases';
 
 describe('Purchases', () => {
-    let purchases;
+    let purchases: PurchasesMap;
 
     beforeEach(() => {
         purchases = new PurchasesMap();
