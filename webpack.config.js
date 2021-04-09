@@ -96,6 +96,7 @@ const config = {
     maxAssetSize: 2.1 * 1000000,
   },
   watchOptions: {
+    ignored: /node_modules/,
     aggregateTimeout: 500,
     poll: 1000,
   },
