@@ -1,7 +1,6 @@
 import type Course from './course'
-import { ID } from 'shared/model'
+import { ID, getParentOf, hydrateModel, Map } from 'shared/model'
 import urlFor from '../api'
-import Map, { getParentOf, hydrateModel } from 'shared/model/map';
 import StudentTask from './student-tasks/task';
 import StudentTaskStep from './student-tasks/step';
 
@@ -24,11 +23,11 @@ class StudentTasks extends Map<ID, StudentTask> {
     }
 
     async practice(query: { type: 'worst' | 'saved', page_ids?: string[], practice_question_ids?: string[] }) {
-        const url = (query.type === 'worst')  ? urlFor('practiceWorstTasks', { courseId: this.course.id }) :
+        const url = (query.type === 'worst') ? urlFor('practiceWorstTasks', { courseId: this.course.id }) :
             urlFor('practiceSavedTasks', { courseId: this.course.id })
 
         return await this.api.request(url, {
-            data: { page_ids: query.page_ids, }
+            data: { page_ids: query.page_ids },
         })
     }
 }

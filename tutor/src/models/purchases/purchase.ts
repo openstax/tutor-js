@@ -1,7 +1,5 @@
 import { find, pick, extend } from 'lodash';
-import moment from 'moment';
 import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/model';
-import Time from 'shared/model/time';
 import Time from 'shared/model/time';
 import Courses from '../courses-map';
 import S from '../../helpers/string';
@@ -56,8 +54,7 @@ export default class Purchase extends BaseModel {
     }
 
     @computed get isRefundable() {
-        return !this.is_refunded &&
-           moment(this.purchased_at.toString()).add(14, 'days').isAfter(Time.now);
+        return !this.is_refunded && this.purchased_at.plus({ days: 14 }).isInFuture
     }
 
     @computed get invoiceURL() {

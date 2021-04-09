@@ -1,4 +1,4 @@
-import { computed, action, modelize } from 'shared/model';
+import { action, modelize } from 'shared/model';
 
 import BookUX from '../../models/reference-book/ux';
 

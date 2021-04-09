@@ -4,7 +4,7 @@ import {
 import { Icon } from 'shared';
 import { Row, Col, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
-import Time from '../../components/date-time-input';
+import DateTime from '../../components/date-time-input';
 import NewIcon from '../../components/new-icon';
 import CheckboxInput from '../../components/checkbox-input';
 import { GreyPopover } from './builder';
