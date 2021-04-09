@@ -20,7 +20,7 @@ class QuestionsDashboard extends React.Component {
           open: PropTypes.func,
       }),
       history: PropTypes.shape({
-          push: PropTypes.func,
+          replace: PropTypes.func,
       }).isRequired,
   };
 
@@ -80,7 +80,7 @@ class QuestionsDashboard extends React.Component {
 
   @action.bound setPageIdsQuery(pageIds = []) {
       const query = extend(Router.currentQuery(this.windowImpl), { pageIds: pageIds.join(',') })
-      this.props.history.push(this.windowImpl.location.pathname + '?' + qs.stringify(query))
+      this.props.history.replace(this.windowImpl.location.pathname + '?' + qs.stringify(query))
   }
 
   render() {
