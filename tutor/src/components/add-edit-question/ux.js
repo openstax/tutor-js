@@ -126,6 +126,7 @@ export default class AddEditQuestionUX {
   }
 
   @action populateFromStorage() {
+      // No catch here needed because we check the parse a step up in autosaveIsValid
       const state = JSON.parse(localStorage['ql-editor-state'])
       Object.assign(this, state)
   }
@@ -210,8 +211,14 @@ export default class AddEditQuestionUX {
   }
 
   get autosaveIsValid() {
+      let state;
+      try {
+          state = JSON.parse(localStorage.getItem('ql-editor-state'))
+      } catch {
+          localStorage.removeItem('ql-editor-state')
+          return false
+      }
       const now = new Date().getTime()
-      const state = JSON.parse(localStorage.getItem('ql-editor-state'))
       const expiry = new Date(state?.autosave?.expiry)?.getTime()
       const version = state?.autosave?.version
 
