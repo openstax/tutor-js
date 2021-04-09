@@ -199,7 +199,7 @@ export default class AddEditQuestionUX {
       this.autosaveDisposer = autorun(() => {
           if (!this.hasAnyChanges) { return null; }
           localStorage['ql-editor-state'] = JSON.stringify(toJS(this.toAutosaveData))
-      }, { delay: 300 })
+      })
   }
 
   @action.bound disableAutosave() {
