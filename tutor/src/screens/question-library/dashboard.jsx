@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, extend } from 'lodash';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
@@ -8,16 +8,26 @@ import Course from '../../models/course';
 import Exercises, { ExercisesMap } from '../../models/exercises';
 import SectionsChooser from './sections-chooser';
 import ExercisesDisplay from './exercises-display';
+import Router from '../../helpers/router';
+import qs from 'qs'
 
 @observer
 class QuestionsDashboard extends React.Component {
   static propTypes = {
       course: PropTypes.instanceOf(Course).isRequired,
       exercises: PropTypes.instanceOf(ExercisesMap),
+      windowImpl: PropTypes.shape({
+          open: PropTypes.func,
+      }),
+      history: PropTypes.shape({
+          replace: PropTypes.func,
+      }).isRequired,
   };
 
   static defaultProps = {
       exercises: Exercises,
+      windowImpl: window,
+      history: history,
   }
 
   @observable isShowingExercises = false;
@@ -25,6 +35,28 @@ class QuestionsDashboard extends React.Component {
   @observable focusedExercise = false;
   @observable chapterIds;
   @observable pageIds = [];
+  windowImpl;
+  history;
+
+  constructor(props) {
+      super(props)
+
+      this.windowImpl = props.windowImpl
+      this.history = props.history
+
+      const queriedPageIds = Router.currentQuery().pageIds
+
+      if (queriedPageIds) {
+          this.pageIds = queriedPageIds.split(',')
+
+          this.isShowingExercises = true;
+          this.props.exercises.fetch({
+              limit: false,
+              course: this.props.course,
+              page_ids: this.pageIds,
+          });
+      }
+  }
 
   @action.bound onShowDetailsViewClick() {
       this.showingDetails = true;
@@ -37,11 +69,18 @@ class QuestionsDashboard extends React.Component {
   @action.bound onSelectionsChange(pageIds) {
       this.pageIds = pageIds;
       this.isShowingExercises = !isEmpty(pageIds);
+      this.setPageIdsQuery(pageIds)
   }
 
   @action.bound onSelectSections() {
       this.showingDetails = false;
       this.isShowingExercises = false;
+      this.setPageIdsQuery()
+  }
+
+  @action.bound setPageIdsQuery(pageIds = []) {
+      const query = extend(Router.currentQuery(this.windowImpl), { pageIds: pageIds.join(',') })
+      this.props.history.replace(this.windowImpl.location.pathname + '?' + qs.stringify(query))
   }
 
   render() {

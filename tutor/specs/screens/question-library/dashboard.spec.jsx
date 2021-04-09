@@ -6,6 +6,7 @@ import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
 import User from '../../../src/models/user';
 import { Term, UserTerms } from '../../../src/models/user/terms';
+import { TestRouter } from '../../helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
     html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -53,6 +54,7 @@ describe('Questions Dashboard Component', function() {
         props = {
             course,
             exercises,
+            history: new TestRouter().history,
         };
     });
 

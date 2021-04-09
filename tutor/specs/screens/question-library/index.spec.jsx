@@ -10,7 +10,7 @@ jest.mock('../../../src/models/courses-map', () => ({
 describe('Questions Library Screen', function() {
 
     it('clears exercises', () => {
-        const qa = shallow(<QA />)
+        const qa = shallow(<QA history={{ push: jest.fn() }} />)
         expect(Exercises.clear).toHaveBeenCalled()
         qa.unmount();
     })
