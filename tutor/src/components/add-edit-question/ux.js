@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'vendor';
-import { filter, some, find, forEach, pickBy, every, map, isEqual, omit, pick } from 'lodash';
+import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import Toasts from '../../models/toasts';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import User from '../../models/user';
@@ -7,6 +7,8 @@ import S from '../../helpers/string';
 import { autorun, toJS } from 'mobx';
 
 const TERMS_NAME = 'exercise_editing';
+const AUTOSAVE_VERSION = 1; // Iterate this if the form changes significantly
+const AUTOSAVE_TTL = 900000; // in milliseconds
 
 export default class AddEditQuestionUX {
 
@@ -210,13 +212,14 @@ export default class AddEditQuestionUX {
   get autosaveIsValid() {
       const now = new Date().getTime()
       const state = JSON.parse(localStorage.getItem('ql-editor-state'))
-      const expiry = new Date(state?.expiry)?.getTime()
+      const expiry = new Date(state?.autosave?.expiry)?.getTime()
+      const version = state?.autosave?.version
 
-      if (state && now < expiry) {
-          return true;
+      if (state && now < expiry && version === AUTOSAVE_VERSION) {
+          return true
       } else {
           localStorage.removeItem('ql-editor-state')
-          return false;
+          return false
       }
   }
 
@@ -243,8 +246,13 @@ export default class AddEditQuestionUX {
   }
 
   get toAutosaveData() {
+      const autosave = {
+          expiry: new Date().getTime() + AUTOSAVE_TTL,
+          version: AUTOSAVE_VERSION,
+      }
+
       const data = {
-          expiry: new Date().getTime() + 900000,
+          autosave: autosave,
           author: { id: parseInt(this.author.id, 10) },
           from_exercise_id: this.from_exercise_id,
           questionText: this.questionText,

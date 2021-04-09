@@ -8,10 +8,13 @@ describe('Add/Edit Questions', () => {
         await setTimeouts()
         await setRole('teacher')
         await visitPage(page, '/course/1/questions')
+        await page.evaluate(() => {
+            window.localStorage.clear()
+        })
         await page.waitForSelector('[data-tour-region-id="question-library-sections-chooser"]')
         await page.evaluate(() => {
-            window._MODELS.user.terms.get('exercise_editing').is_signed = true;
-            window._MODELS.feature_flags.set('tours', false);
+            window._MODELS.user.terms.get('exercise_editing').is_signed = true
+            window._MODELS.feature_flags.set('tours', false)
         })
         await page.click('[data-section-id] .tri-state-checkbox')
         await page.click('testEl=show-questions')
@@ -19,7 +22,7 @@ describe('Add/Edit Questions', () => {
 
     it('shows terms before editing exercise', async () => {
         await page.evaluate(() => {
-            window._MODELS.user.terms.get('exercise_editing').is_signed = false;
+            window._MODELS.user.terms.get('exercise_editing').is_signed = false
         })
         await page.route(/terms/, route => route.fulfill({
             status: 200,
@@ -35,8 +38,8 @@ describe('Add/Edit Questions', () => {
     });
 
     it('edits an existing exercise', async () => {
-    // make page larger so it doesn't scroll when hovering card controls
-    // scrolling will unfocus, making controls unclickable
+        // make page larger so it doesn't scroll when hovering card controls
+        // scrolling will unfocus, making controls unclickable
         await page.setViewportSize({ width: 1280, height: 1600 })
         await expect(page).toHaveSelector('.openstax-exercise-preview')
         const exId = await page.$eval('.openstax-exercise-preview' , ex => ex.dataset.exerciseId)
@@ -54,5 +57,24 @@ describe('Add/Edit Questions', () => {
         await page.type(editorSel, 'Hello World!')
         await page.click('.two-step-info') // really just clicking outside editor
         await page.click('testEl=publish-btn')
+    })
+
+    it('autosaves', async() => {
+        await page.click('testEl=create-question')
+        const stemSel = 'testEl=add-edit-question >> .question-text >> .editor'
+        await page.click(stemSel)
+        const editorSel = `${stemSel} >> .pw-prosemirror-editor`
+        await page.focus(editorSel)
+        await page.type(editorSel, 'Hello World!')
+        await page.click('testEl=add-edit-question >> .detailed-solution')
+        await page.waitForTimeout(500) // Give the debounce time
+        await page.reload()
+        await page.waitForSelector('testEl=create-question')
+        await page.evaluate(() => {
+            window._MODELS.user.terms.get('exercise_editing').is_signed = true
+            window._MODELS.feature_flags.set('tours', false)
+        })
+        await page.click('testEl=create-question')
+        await expect(page).toHaveText('testEl=add-edit-question >> .question-text', 'Hello World!')
     })
 })

@@ -95,11 +95,11 @@ FormButtons.propTypes = {
 
 const AddEditQuestionForm = observer(({ ux }) => {
     useEffect(() => {
-      ux.enableAutosave()
+        ux.enableAutosave()
 
-      return () => {
-        ux.disableAutosave()
-      }
+        return () => {
+            ux.disableAutosave()
+        }
     }, [])
     return (
         <StyledAddEditQuestionModal
