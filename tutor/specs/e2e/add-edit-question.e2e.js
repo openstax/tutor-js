@@ -67,7 +67,7 @@ describe('Add/Edit Questions', () => {
         await page.focus(editorSel)
         await page.type(editorSel, 'Hello World!')
         await page.click('testEl=add-edit-question >> .detailed-solution')
-        await page.waitForTimeout(500) // Give the debounce time
+        await page.waitForTimeout(10) // Give the autosave time
         await page.reload()
         await page.waitForSelector('testEl=create-question')
         await page.evaluate(() => {
