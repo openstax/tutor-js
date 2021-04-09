@@ -190,7 +190,7 @@ export default class TaskUX {
 
     @action.bound onStepChange() {
         const step = this.currentGroupedStep;
-return
+
         // events do not have steps
         if (!step) { return; }
 

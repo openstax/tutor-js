@@ -1,28 +1,38 @@
-import { extend } from 'lodash';
-import { BaseModel, field, modelize, computed, action, NEW_ID } from 'shared/model';
+import { BaseModel, ID, field, modelize, action, NEW_ID, getParentOf } from 'shared/model';
+import type { PracticeQuestions as Map } from '../practice-questions'
+import urlFor from '../../api'
+import { PracticeQuestionObj } from '../types';
 
 export default class PracticeQuestion extends BaseModel {
 
-    @field id = NEW_ID;
-    @field tasked_exercise_id;
-    @field exercise_id;
-    @field available;
+    @field id:ID = NEW_ID;
+    @field tasked_exercise_id:ID = NEW_ID;
+    @field exercise_id:ID = NEW_ID;
+    @field available = false;
 
-    constructor(attrs = {}, map) {
-        super(attrs);
+    get map() {
+        return getParentOf<Map>(this)
+    }
+
+    get course() {
+        return this.map.course
+    }
+
+    constructor() {
+        super();
         modelize(this);
-        this.map = map;
     }
 
-    save() {
-        return extend(this.urlParams, {
-            data: {
-                tasked_exercise_id: this.tasked_exercise_id,
-            },
-        });
+    async save() {
+        const data = await this.api.request<PracticeQuestionObj>(
+            urlFor('createPracticeQuestion', { courseId: this.course.id }), {
+                data: { tasked_exercise_id: this.tasked_exercise_id },
+            }
+        )
+        this.onSaved(data)
     }
 
-    @action onSaved({ data }) {
+    @action onSaved(data: PracticeQuestionObj) {
         this.update(data);
         if (!this.map.get(this.id)) {
             // delete the pending key, and set the new one with its id and the data
@@ -31,21 +41,13 @@ export default class PracticeQuestion extends BaseModel {
         }
     }
 
-    destroy() {
-        return this.urlParams;
-    }
-
-    onDestroyed() {
-        if (this.map.get(this.id)) {
-            this.map.delete(this.id);
-        }
-    }
-
-    @computed get urlParams() {
-        return {
-            id: this.id,
-            courseId: this.map.course.id,
-        };
+    async destroy() {
+        await this.api.request(
+            urlFor('deletePracticeQuestion', { courseId: this.course.id, practiceQuestionId: this.id }), {
+                data: { tasked_exercise_id: this.tasked_exercise_id },
+            }
+        )
+        this.map.delete(this.id);
     }
 
 }

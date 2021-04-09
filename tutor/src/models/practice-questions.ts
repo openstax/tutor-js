@@ -1,38 +1,37 @@
 import { action, computed } from 'mobx';
-import { find, map } from 'lodash';
-import Map from 'shared/model/map';
-import { field, modelize } from 'shared/model';
+import { map } from 'lodash';
+import type Course from './course'
+import { Map, ID, getParentOf, field, modelize, hydrateModel } from 'shared/model';
 import PracticeQuestion from './practice-questions/practice-question';
+import urlFor from '../api'
+import { PracticeQuestionObj } from './types';
 
-class PracticeQuestions extends Map {
+class PracticeQuestions extends Map<ID, PracticeQuestion> {
     static Model = PracticeQuestion
 
-    @field current_task_id;
+    @field current_task_id?: ID;
 
-    constructor({ course }) {
+    constructor() {
         super();
         modelize(this);
-        this.course = course;
     }
 
-    fetch() {
+    get course() { return getParentOf<Course>(this) }
 
-        return { courseId: this.course.id };
+    async fetch() {
+        const questions = await this.api.request(urlFor('fetchPracticeQuestions', { courseId: this.course.id }))
+        this.mergeModelData(questions);
     }
 
     checkExisting() {
         return { courseId: this.course.id };
     }
 
-    @action onLoaded({ data: questions }) {
-        this.mergeModelData(questions);
-    }
-
-    @action onFoundExistingPractice({ data }) {
+    @action onFoundExistingPractice(data: PracticeQuestionObj) {
         this.current_task_id = data.id;
     }
 
-    @action onQuestionDeleted(question) {
+    @action onQuestionDeleted(question: PracticeQuestion) {
         this.delete(question.id);
     }
 
@@ -40,18 +39,18 @@ class PracticeQuestions extends Map {
         return Boolean(this.array.find(e => e.api.isPending));
     }
 
-    findByExerciseId(exerciseId) {
-        return find(this.array, ['exercise_id', parseInt(exerciseId, 10)]);
+    findByExerciseId(exerciseId: ID) {
+        return this.array.find(prc => prc.exercise_id == exerciseId);
     }
 
     getAllExerciseIds() {
         return map(this.array, a => a.exercise_id);
     }
 
-    async create({ tasked_exercise_id }) {
-        const question = new PracticeQuestion({
+    async create(tasked_exercise_id: ID) {
+        const question = hydrateModel(PracticeQuestion, {
             tasked_exercise_id: tasked_exercise_id,
-        }, this);
+        }, this)
         // add the question to the array with a pending key
         // this is to track the state of the request
         this.set('pending', question);

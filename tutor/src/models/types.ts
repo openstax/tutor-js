@@ -410,3 +410,10 @@ export interface PeriodPerformanceObj {
     overall_reading_progress: number
     overall_reading_score: number
 }
+
+export interface PracticeQuestionObj {
+    id: ID
+    exercise_id: ID
+    available: boolean
+    tasked_exercise_id: ID
+}

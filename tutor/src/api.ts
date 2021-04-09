@@ -24,98 +24,98 @@ interface TermIds { termIds: ID[] }
 interface TaskStepId { taskStepId: ID }
 interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
-
+interface PQCourseId extends CourseId { practiceQuestionId: ID }
 
 const Definitions = {
-    bootstrap:             r('GET', '/user/bootstrap'),
+    bootstrap:              r('GET', '/user/bootstrap'),
 
-    saveOwnStudentId:      r<CourseId>('POST', 'user/courses/{courseId}/student'),
-    updateStudent:         r<StudentId>('POST', 'students{studentId}'),
-    dropStudent:           r<StudentId>('DELETE', 'students/{studentId}'),
-    unDropStudent:         r<StudentId>('POST', 'students/{studentId}/undrop'),
+    saveOwnStudentId:       r<CourseId>('POST', 'user/courses/{courseId}/student'),
+    updateStudent:          r<StudentId>('POST', 'students{studentId}'),
+    dropStudent:            r<StudentId>('DELETE', 'students/{studentId}'),
+    unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
 
-    fetchReferenceBook:    r<BookId>('POST', 'ecosystems/{bookId}/readings'),
+    fetchReferenceBook:     r<BookId>('POST', 'ecosystems/{bookId}/readings'),
 
-    fetchCourseRoster:     r<CourseId>('GET', 'courses/{courseId}/roster'),
+    fetchCourseRoster:      r<CourseId>('GET', 'courses/{courseId}/roster'),
 
-    fetchCourseLMS:        r<CourseId>('GET', 'lms/courses/{courseId}'),
+    fetchCourseLMS:         r<CourseId>('GET', 'lms/courses/{courseId}'),
 
-    practiceWorstTasks:    r<CourseId>('GET', 'courses/{courseId}/practice/worst'),
-    practiceSavedTasks:    r<CourseId>('GET', 'courses/{courseId}/practice/saved'),
+    practiceWorstTasks:     r<CourseId>('GET', 'courses/{courseId}/practice/worst'),
+    practiceSavedTasks:     r<CourseId>('GET', 'courses/{courseId}/practice/saved'),
 
-    fetchStudentTaskStep:  r<StepId>('GET', 'steps/{stepId}'),
-    saveStudentTaskStep:   r<StepId>('POST', 'steps/{stepId}'),
+    fetchStudentTaskStep:   r<StepId>('GET', 'steps/{stepId}'),
+    saveStudentTaskStep:    r<StepId>('POST', 'steps/{stepId}'),
 
-    fetchStudentTask:      r<TaskId>('GET', 'tasks/{taskId}'),
-    saveStudentTask:       r<TaskId>('PUT', 'tasks/{taskId}'),
+    fetchStudentTask:       r<TaskId>('GET', 'tasks/{taskId}'),
+    saveStudentTask:        r<TaskId>('PUT', 'tasks/{taskId}'),
 
-    createExercise:        r<CourseId>('POST', 'courses/{courseId}/exercises'),
-    deleteExercise:        r<ExerciseNumber>('DELETE', 'courses/{courseId}/exercises/{exerciseNumber}'),
+    createExercise:         r<CourseId>('POST', 'courses/{courseId}/exercises'),
+    deleteExercise:         r<ExerciseNumber>('DELETE', 'courses/{courseId}/exercises/{exerciseNumber}'),
 
-    fetchExercises:        r<EcosystemIdAction>('GET', 'ecosystems/{ecosystemId}/{action}'),
-    fetchLimitedExercises: r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystemId}/{action}/{limit}'),
+    fetchExercises:         r<EcosystemIdAction>('GET', 'ecosystems/{ecosystemId}/{action}'),
+    fetchLimitedExercises:  r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystemId}/{action}/{limit}'),
 
-    fetchCourses:          r('GET', 'courses'),
+    fetchCourses:           r('GET', 'courses'),
 
-    fetchCourse:           r<CourseId>('GET', 'course/{courseId}'),
-    updateCourse:          r<CourseId>('POST', 'course/{courseId}'),
-    createCourse:          r('POST', 'course'),
-    saveExerciseExclusion: r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
+    fetchCourse:            r<CourseId>('GET', 'course/{courseId}'),
+    updateCourse:           r<CourseId>('POST', 'course/{courseId}'),
+    createCourse:           r('POST', 'course'),
+    saveExerciseExclusion:  r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
 
-    createCoursePeriod:    r<CourseId>('POST', 'courses/{courseId}/periods'),
-    updateCoursePeriod:    r<PeriodId>('PUT', 'periods/{periodId}'),
-    archiveCoursePeriod:   r<PeriodId>('DELETE', 'periods/{periodId}'),
-    restoreCoursePeriod:   r<PeriodId>('PUT', 'periods/{periodId}'),
+    createCoursePeriod:     r<CourseId>('POST', 'courses/{courseId}/periods'),
+    updateCoursePeriod:     r<PeriodId>('PUT', 'periods/{periodId}'),
+    archiveCoursePeriod:    r<PeriodId>('DELETE', 'periods/{periodId}'),
+    restoreCoursePeriod:    r<PeriodId>('PUT', 'periods/{periodId}'),
 
-    createTeacherStudent:  r<PeriodId>('PUT', 'periods/{periodId}/teacher_student'),
+    createTeacherStudent:   r<PeriodId>('PUT', 'periods/{periodId}/teacher_student'),
 
-    fetchPageNotes:        r<PageUUID>('GET', 'pages/{pageUUID}/notes'),
-    fetchHighlightedPages: r<BookUUID>('GET', 'books/{bookUuid}/highlighted_sections'),
+    fetchPageNotes:         r<PageUUID>('GET', 'pages/{pageUUID}/notes'),
+    fetchHighlightedPages:  r<BookUUID>('GET', 'books/{bookUuid}/highlighted_sections'),
 
-    createNote:            r<PageUUID>('POST', 'pages/{pageUUID}/notes'),
-    saveNote:              r<NoteId>('PUT', 'notes/{noteId}'),
-    deleteNote:            r<NoteId>('DELETE', 'notes/{noteId}'),
+    createNote:             r<PageUUID>('POST', 'pages/{pageUUID}/notes'),
+    saveNote:               r<NoteId>('PUT', 'notes/{noteId}'),
+    deleteNote:             r<NoteId>('DELETE', 'notes/{noteId}'),
 
-    fetchGradingTemplates: r<CourseId>('GET','courses/{courseId}/grading_templates'),
-    createGradingTemplate: r<CourseId>('POST', 'courses/{courseId}/grading_templates'),
-    saveGradingTemplate:   r<GradingTemplateId>('PUT', 'grading_templates/{id}'),
-    deleteGradingTemplate: r<GradingTemplateId>('DELETE', 'grading_templates/{id}'),
+    fetchGradingTemplates:  r<CourseId>('GET','courses/{courseId}/grading_templates'),
+    createGradingTemplate:  r<CourseId>('POST', 'courses/{courseId}/grading_templates'),
+    saveGradingTemplate:    r<GradingTemplateId>('PUT', 'grading_templates/{id}'),
+    deleteGradingTemplate:  r<GradingTemplateId>('DELETE', 'grading_templates/{id}'),
 
-    saveTourView:          r<TourId>('PUT', 'user/tours/{tourId}'),
-    logUserEvent:          r<EventCategory>('POST', 'log/event/{category}/{code}'),
+    saveTourView:           r<TourId>('PUT', 'user/tours/{tourId}'),
+    logUserEvent:           r<EventCategory>('POST', 'log/event/{category}/{code}'),
 
-    suggestCourseSubject:  r('POST', 'user/suggest'),
+    suggestCourseSubject:   r('POST', 'user/suggest'),
 
-    fetchEcosystems:       r('GET', 'ecosystems'),
+    fetchEcosystems:        r('GET', 'ecosystems'),
 
-    fetchUserTerms:        r('GET', 'terms'),
-    signUserTerms:         r<TermIds>('PUT', 'terms/{termIds}'),
+    fetchUserTerms:         r('GET', 'terms'),
+    signUserTerms:          r<TermIds>('PUT', 'terms/{termIds}'),
 
-    gradeTaskStep:         r<TaskStepId>('PUT', 'steps/{taskStepId}/grade'),
+    gradeTaskStep:          r<TaskStepId>('PUT', 'steps/{taskStepId}/grade'),
 
-    fetchTaskPlans:        r<CourseId, TaskPlanQuery>('GET', 'courses/{course.id}/dashboard'),
+    fetchTaskPlans:         r<CourseId, TaskPlanQuery>('GET', 'courses/{course.id}/dashboard'),
 
-    fetchPastTaskPlans:    r<CourseId>('GET', 'courses/{courseId}/plans'),
-    fetchTaskPlan:         r<TaskPlanId>('GET', 'plans/{taskPlanId}'),
-    deleteTaskPlan:        r<TaskPlanId>('DELETE', 'plans/{id}'),
-    saveTaskPlan:          r<TaskPlanId>('PUT', 'plans/{id}'),
-    saveDroppedQuestions:  r<TaskPlanId>('PUT', 'plans/{id}'),
-    createTaskPlan:        r<CourseId>('POST', 'courses/${courseId}/plans'),
+    fetchPastTaskPlans:     r<CourseId>('GET', 'courses/{courseId}/plans'),
+    fetchTaskPlan:          r<TaskPlanId>('GET', 'plans/{taskPlanId}'),
+    deleteTaskPlan:         r<TaskPlanId>('DELETE', 'plans/{id}'),
+    saveTaskPlan:           r<TaskPlanId>('PUT', 'plans/{id}'),
+    saveDroppedQuestions:   r<TaskPlanId>('PUT', 'plans/{id}'),
+    createTaskPlan:         r<CourseId>('POST', 'courses/${courseId}/plans'),
 
-    grantTaskExtensions:   r<TaskPlanId>('PUT', 'plans/{id}'),
+    grantTaskExtensions:    r<TaskPlanId>('PUT', 'plans/{id}'),
 
-    fetchStudentTasks:     r<CourseId>('GET', 'courses/{courseId}/dashboard'),
+    fetchStudentTasks:      r<CourseId>('GET', 'courses/{courseId}/dashboard'),
 
-    fetchTaskPlanStats:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
+    fetchTaskPlanStats:     r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
+    fetchTaskPlanReview:    r<TaskPlanId>('GET', 'plans/{id}/review'),
+    fetchTaskPlanScores:    r<TaskPlanId>('GET', 'plans/{id}/scores'),
+    fetchCourseScores:      r<CourseId>('GET', 'courses/{courseId}/performance'),
 
-    fetchTaskPlanReview:   r<TaskPlanId>('GET', 'plans/{id}/review'),
+    responseValidation:     r<any, {uid: string, response: string}>('GET', 'validate'),
 
-    fetchTaskPlanScores:   r<TaskPlanId>('GET', 'plans/{id}/scores'),
-
-    fetchCourseScores:     r<CourseId>('GET', 'courses/{courseId}/performance'),
-
-    responseValidation:    r<any, {uid: string, response: string}>('GET', 'validate'),
-
+    fetchPracticeQuestions: r<CourseId>('GET', 'courses/{courseId}/practice_questions'),
+    createPracticeQuestion: r<CourseId>('POST', 'courses/{courseId}/practice_questions'),
+    deletePracticeQuestion: r<PQCourseId>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
 }
 
 export { Definitions }
@@ -169,26 +169,6 @@ export default urlFor
 //             onFail: 'setApiErrors',
 //         },
 //     );
-
-
-//     connectModelRead(PracticeQuestions, 'fetch', {
-//         pattern: 'courses/{courseId}/practice_questions',
-//         onSuccess: 'onLoaded',
-//     });
-//     connectModelRead(PracticeQuestions, 'checkExisting', {
-//         pattern: 'courses/{courseId}/practice/saved',
-//         onSuccess: 'onFoundExistingPractice',
-//     });
-//     connectModelCreate(PracticeQuestion, 'save', {
-//         method: 'POST',
-//         pattern: 'courses/{courseId}/practice_questions',
-//         onSuccess: 'onSaved',
-//     });
-//     connectModelDelete(PracticeQuestion, 'destroy', {
-//         pattern: 'courses/{courseId}/practice_questions/{id}',
-//         onSuccess: 'onDestroyed',
-//     });
-
 //     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
 
