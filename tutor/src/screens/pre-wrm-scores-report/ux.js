@@ -1,6 +1,5 @@
-import { observable, computed, action, modelize } from 'shared/model';
+import { observable, computed, action, lazyGetter, modelize } from 'shared/model';
 import { filter, sortBy } from 'lodash';
-import lazyGetter from 'shared/helpers/lazy-getter';
 import studentDataSorter from './student-data-sorter';
 import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';

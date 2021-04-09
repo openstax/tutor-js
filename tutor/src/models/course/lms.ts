@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import urlFor from '../../api'
 import type Course from '../course'
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
@@ -17,8 +17,8 @@ export default class CourseLMS extends BaseModel {
     @observable configuration_url = '';
     @observable xml = '';
 
-    @model(DateTime) created_at = DateTime.unknown;
-    @model(DateTime) updated_at = DateTime.unknown;
+    @model(Time) created_at = Time.unknown;
+    @model(Time) updated_at = Time.unknown;
 
     get course():Course { return getParentOf(this) }
 

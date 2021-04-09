@@ -23,7 +23,7 @@ import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
 import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 import { GradingTemplates } from './grading/templates';
 import { PracticeQuestions } from './practice-questions';
 import ReferenceBook from './reference-book';
@@ -67,8 +67,8 @@ export default class Course extends BaseModel {
     @field is_access_switchable = true;
     @field salesforce_book_name = '';
     @field current_role_id = NEW_ID;
-    @model(DateTime) starts_at = DateTime.unknown;
-    @model(DateTime) ends_at = DateTime.unknown;
+    @model(Time) starts_at = Time.unknown;
+    @model(Time) ends_at = Time.unknown;
 
     @field term = '';
     @field webview_url = '';
@@ -127,7 +127,7 @@ export default class Course extends BaseModel {
     }
 
     @computed get sortKey() {
-        return this.primaryRole?.joined_at || DateTime.unknown;
+        return this.primaryRole?.joined_at || Time.unknown;
     }
 
     @computed get offering() {
@@ -226,7 +226,7 @@ export default class Course extends BaseModel {
     }
 
     // bind to this so it can be used in disabledDate check
-    isInvalidAssignmentDate = (date: DateTime) => {
+    isInvalidAssignmentDate = (date: Time) => {
         return date.isBefore(this.starts_at.startOf('day')) || date.isAfter(this.ends_at.endOf('day'))
     }
 
@@ -266,7 +266,7 @@ export default class Course extends BaseModel {
         return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
     }
 
-    dateTimeInZone(date:DateTime = DateTime.now) {
+    dateTimeInZone(date:Time = Time.now) {
         return date.inZone(this.timezone);
     }
 

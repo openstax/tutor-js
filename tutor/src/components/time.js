@@ -1,4 +1,4 @@
-import TimeModel from '../models/time';
+import TimeModel from 'shared/model/time';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TimeHelper from '../helpers/time';

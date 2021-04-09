@@ -12,7 +12,7 @@ import {
     NEW_ID,
     array,
 } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
 import urlFor from '../api'
@@ -46,7 +46,7 @@ export default class ReferenceBook extends BaseModel {
     @field title = '';
     @field type = '';
     @field uuid = '';
-    @model(DateTime) baked_at = DateTime.unknown;
+    @model(Time) baked_at = Time.unknown;
     @field is_collated = true;
 
     @computed get pages() {

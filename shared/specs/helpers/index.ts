@@ -7,10 +7,11 @@ import FakeWindow from './fake-window';
 export * from 'mobx';
 import ld from 'lodash';
 import { FetchMock } from 'jest-fetch-mock';
-import DateTime from '../../src/model/date-time'
+import Time from '../../src/model/time'
+import ApiMock from './api-mock'
 
 const fetchMock = fetch as FetchMock;
 
 export {
-    ld, Factory, React, Router, Renderer, Provider, FakeWindow, fetchMock, DateTime,
+    ld, Factory, React, Router, Renderer, Provider, FakeWindow, fetchMock, Time, ApiMock,
 };

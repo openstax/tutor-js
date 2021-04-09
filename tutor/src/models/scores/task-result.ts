@@ -1,6 +1,6 @@
 import { findIndex, isNil } from 'lodash';
 import { BaseModel, computed, model, field, NEW_ID, getParentOf } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import type Student from './student'
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
@@ -15,7 +15,7 @@ export default class TaskResult extends BaseModel {
     @field is_provisional_score = false;
     @field step_count = 0;
     @field completed_step_count = 0;
-    @model(DateTime) due_at = DateTime.unknown;
+    @model(Time) due_at = Time.unknown;
     @field progress = 0;
     @field is_late_work_accepted = false;
     @field available_points = 0;

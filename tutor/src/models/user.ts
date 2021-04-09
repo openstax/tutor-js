@@ -1,5 +1,5 @@
 import { BaseModel, field, model, array, action, computed, observable, modelize, hydrateInstance, hydrateModel } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import Courses, { Course } from './courses-map';
@@ -48,7 +48,7 @@ export class User extends BaseModel {
     @model(Term) available_terms = array<Term>()
 
     @model(ViewedTourStat) viewed_tour_stats = array<ViewedTourStat>()
-    @model(DateTime) created_at = DateTime.unknown;
+    @model(Time) created_at = Time.unknown;
 
     @computed get firstName() {
         return this.first_name || (this.name ? this.name.replace(/ .*/, '') : '');

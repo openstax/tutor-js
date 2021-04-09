@@ -7,7 +7,7 @@ import TagsAssociation, { Tag } from './exercise/tags-association';
 import Question from './exercise/question'
 import Attachment from './exercise/attachment'
 import Author from './exercise/author'
-import DateTime from './date-time'
+import Time from './time'
 
 export { Attachment, Author, Question, Tag };
 
@@ -23,7 +23,7 @@ export default class SharedExercise extends BaseModel {
 
     stimulus_html = '';
 
-    published_at?: DateTime | Date
+    published_at?: Time | Date
     wrapper = '';
     stem_html = ''
     attachments:Attachment[] = [];
@@ -42,7 +42,7 @@ export default class SharedExercise extends BaseModel {
             versions: field,
             is_vocab: field,
             stimulus_html: field,
-            published_at: model(DateTime),
+            published_at: model(Time),
             attachments: model(Attachment),
             authors: model(Author),
             copyright_holders: model(Author),

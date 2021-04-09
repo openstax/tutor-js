@@ -1,5 +1,5 @@
 import { BaseModel, field, model, action, computed, observable, NEW_ID, getParentOf } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import type { StudentTasks } from '../student-tasks';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import StudentTaskStep from './step';
@@ -23,8 +23,8 @@ export default class StudentTask extends BaseModel {
     @field published_late_work_point_penalty = 0; // point penalty that is visible to the student
     @field published_points = 0; // points that are visible to the student
     @field spy?: any;
-    @model(DateTime) due_at = DateTime.unknown;
-    @model(DateTime) closes_at = DateTime.unknown;
+    @model(Time) due_at = Time.unknown;
+    @model(Time) closes_at = Time.unknown;
 
     @field is_provisional_score = false;
 

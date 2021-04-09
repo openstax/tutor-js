@@ -4,7 +4,7 @@ import Course from '../../../../src/models/course';
 import TourContext from '../../../../src/models/tour/context'
 import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
 import { hydrateModel } from 'modeled-mobx';
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 
 let mockCourses = observable.array();
 Object.defineProperties(mockCourses, {
@@ -58,7 +58,7 @@ describe('Course Preview Onboarding', () => {
     it('#nagComponent', () => {
         mockCourses.clear();
         expect(ux.nagComponent).toBeNull();
-        ux.course.ends_at = DateTime.now.minus({ minute: 100 });
+        ux.course.ends_at = Time.now.minus({ minute: 100 });
         (ux.course as any).hasEnded = true;
         mockActiveCoursePlans.clear();
         expect(ux.nagComponent).not.toBeNull();

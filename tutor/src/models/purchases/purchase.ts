@@ -1,7 +1,7 @@
 import { find, pick, extend } from 'lodash';
 import moment from 'moment';
 import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import Time from 'shared/model/time';
 import Courses from '../courses-map';
 import S from '../../helpers/string';
@@ -28,8 +28,8 @@ export default class Purchase extends BaseModel {
     @field is_refunded = false;
     @field sales_tax = 0;
     @field total = 0;
-    @model(DateTime) updated_at = DateTime.unknown;
-    @model(DateTime) purchased_at = DateTime.unknown;
+    @model(Time) updated_at = Time.unknown;
+    @model(Time) purchased_at = Time.unknown;
     @model(Product) product = new Product();
 
     constructor() {

@@ -1,7 +1,7 @@
 import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import { BaseModel, field, modelize, observable, computed, model, NEW_ID } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 
 export default class StudentTask extends BaseModel {
 
@@ -28,10 +28,10 @@ export default class StudentTask extends BaseModel {
     @field completed_on_time_steps_count = 0;
     @field completed_accepted_late_steps_count = 0;
     @field description = '';
-    @model(DateTime) last_worked_at = DateTime.unknown
-    @model(DateTime) due_at = DateTime.unknown
-    @model(DateTime) opens_at = DateTime.unknown
-    @model(DateTime) accepted_late_at = DateTime.unknown
+    @model(Time) last_worked_at = Time.unknown
+    @model(Time) due_at = Time.unknown
+    @model(Time) opens_at = Time.unknown
+    @model(Time) accepted_late_at = Time.unknown
 
     constructor() {
         super()

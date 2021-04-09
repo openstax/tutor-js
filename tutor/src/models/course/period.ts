@@ -2,7 +2,7 @@ import { find, pick, last } from 'lodash';
 import Student from './student';
 import type Course from '../course'
 import type Role from './role'
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 import urlFor from '../../api'
 import { CoursePeriodObj, RoleObj } from '../types'
 import {
@@ -91,7 +91,7 @@ export default class CoursePeriod extends BaseModel {
         }
         runInAction(() => {
             if (!role) throw 'failed to find role for becoming teacher-student'
-            role.joined_at = DateTime.now; // adjust the date so it always appears new
+            role.joined_at = Time.now; // adjust the date so it always appears new
             let student = find(this.course.students, { id: Student.TEACHER_AS_STUDENT_ID });
             if (!student) {
                 this.course.students.push({ id: Student.TEACHER_AS_STUDENT_ID } as Student);

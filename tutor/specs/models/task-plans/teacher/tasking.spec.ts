@@ -1,6 +1,6 @@
 import TeacherTaskPlan from '../../../../src/models/task-plans/teacher/plan';
 import TaskingPlan from '../../../../src/models/task-plans/teacher/tasking';
-import { Factory, TimeMock, DateTime } from '../../../helpers';
+import { Factory, TimeMock, Time } from '../../../helpers';
 
 describe('Teacher tasking plan tasking', () => {
     const now = TimeMock.setTo('2015-10-14T12:00:00.000Z')
@@ -18,7 +18,7 @@ describe('Teacher tasking plan tasking', () => {
 
     it('converts to course time for save', () => {
         expect(tasking.closes_at).toEqual('2015-10-19T12:00:00.000Z')
-        expect(DateTime.now.format('YYYY-MM-DD')).toEqual('2015-10-14')
+        expect(Time.now.format('YYYY-MM-DD')).toEqual('2015-10-14')
         expect(tasking.due_at).toEqual('2015-10-14T12:00:00.000Z')
         expect(course.timezone).toEqual('US/Central');
 
@@ -49,7 +49,7 @@ describe('Teacher tasking plan tasking', () => {
     it('sets the closes_at the same as due_at if the plan type is an event', () => {
         const due_at = '2015-10-15 07:00';
         plan.type = 'event';
-        tasking.setDueDate(new DateTime(due_at))
+        tasking.setDueDate(new Time(due_at))
         expect(tasking.due_at).toEqual(tasking.closes_at);
     });
 
@@ -64,26 +64,26 @@ describe('Teacher tasking plan tasking', () => {
         tasking.opens_at = '2015-10-21T12:00:00.000Z';
 
         // simple case, no conflict with opens
-        tasking.initializeWithDueAt({ dueAt: new DateTime('2015-10-25T12:00:00.000Z'), ...defaults });
+        tasking.initializeWithDueAt({ dueAt: new Time('2015-10-25T12:00:00.000Z'), ...defaults });
         expect(tasking.due_at).toEqual('2015-10-25T20:40:00.000Z'); // same date but -5hours tz
         expect(tasking.opens_at).toEqual('2015-10-21T12:00:00.000Z'); // unchanged
 
         // set to before the opens_at
-        tasking.initializeWithDueAt({ dueAt: new DateTime('2015-10-20T12:00:00.000Z'), ...defaults });
+        tasking.initializeWithDueAt({ dueAt: new Time('2015-10-20T12:00:00.000Z'), ...defaults });
         expect(tasking.due_at).toEqual('2015-10-20T20:40:00.000Z'); // same date but -5hours tz
         expect(tasking.opens_at).toEqual('2015-10-14T15:20:00.000Z'); // set to now but with time -5hours tz
 
         // set to before the now
-        tasking.initializeWithDueAt({ dueAt: new DateTime('2015-10-01T12:00:00.000Z'), ...defaults });
-        expect(tasking.due_at).toEqual(DateTime.now.plus({ minutes: 30 }).toISOString());
-        expect(tasking.opens_at).toEqual(DateTime.now.plus({ minutes: 29 }).toISOString());
+        tasking.initializeWithDueAt({ dueAt: new Time('2015-10-01T12:00:00.000Z'), ...defaults });
+        expect(tasking.due_at).toEqual(Time.now.plus({ minutes: 30 }).toISOString());
+        expect(tasking.opens_at).toEqual(Time.now.plus({ minutes: 29 }).toISOString());
     });
 
     it('should return invalid if dates are not in order', () => {
         // opens_at is after due_at
-        let opens_at = new DateTime('2015-10-17T12:00:00.000Z');
-        let due_at = new DateTime('2015-10-15T12:00:00.000Z');
-        let closes_at = new DateTime('2015-10-16T12:00:00.000Z');
+        let opens_at = new Time('2015-10-17T12:00:00.000Z');
+        let due_at = new Time('2015-10-15T12:00:00.000Z');
+        let closes_at = new Time('2015-10-16T12:00:00.000Z');
     
         tasking.setOpensDate(opens_at);
         tasking.setDueDate(due_at);
@@ -91,9 +91,9 @@ describe('Teacher tasking plan tasking', () => {
         expect(tasking.isValid).toEqual(false);
 
         // closes_at is before due_at
-        opens_at = new DateTime('2015-10-15T12:00:00.000Z')
-        due_at = new DateTime('2015-10-18T12:00:00.000Z')
-        closes_at = new DateTime('2015-10-16T12:00:00.000Z')
+        opens_at = new Time('2015-10-15T12:00:00.000Z')
+        due_at = new Time('2015-10-18T12:00:00.000Z')
+        closes_at = new Time('2015-10-16T12:00:00.000Z')
     
         tasking.setOpensDate(opens_at)
         tasking.setDueDate(due_at)
@@ -103,9 +103,9 @@ describe('Teacher tasking plan tasking', () => {
         expect(tasking.isValid).toEqual(false);
 
         // due_at is before current time
-        opens_at = new DateTime('2015-10-11T12:00:00.000Z')
-        due_at = new DateTime('2015-10-13T12:00:00.000Z')
-        closes_at = new DateTime('2015-10-14T12:00:00.000Z')
+        opens_at = new Time('2015-10-11T12:00:00.000Z')
+        due_at = new Time('2015-10-13T12:00:00.000Z')
+        closes_at = new Time('2015-10-14T12:00:00.000Z')
     
         tasking.setOpensDate(opens_at)
         tasking.setDueDate(due_at)
@@ -115,9 +115,9 @@ describe('Teacher tasking plan tasking', () => {
     });
 
     it('should return valid if dates are in order', () => {
-        let opens_at = new DateTime('2015-10-18T12:00:00.000Z')
-        let due_at = new DateTime('2015-10-20T12:00:00.000Z')
-        let closes_at = new DateTime('2015-10-31T12:00:00.000Z')
+        let opens_at = new Time('2015-10-18T12:00:00.000Z')
+        let due_at = new Time('2015-10-20T12:00:00.000Z')
+        let closes_at = new Time('2015-10-31T12:00:00.000Z')
     
         tasking.setOpensDate(opens_at)
         tasking.setDueDate(due_at)

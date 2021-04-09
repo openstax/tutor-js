@@ -24,17 +24,12 @@ class StudentTasks extends Map<ID, StudentTask> {
     }
 
     async practice(query: { type: 'worst' | 'saved', page_ids?: string[], practice_question_ids?: string[] }) {
-        let reply: any
-        if (query.type === 'worst') {
-            reply = await this.api.request(urlFor('practiceWorstTasks', { courseId: this.course.id }), {
-                page_ids: query.page_ids,
-            })
-        } else {
-            reply = await this.api.request(urlFor('practiceSavedTasks', { courseId: this.course.id }), {
-                page_ids: query.practice_question_ids,
-            })
-        }
-        return reply
+        const url = (query.type === 'worst')  ? urlFor('practiceWorstTasks', { courseId: this.course.id }) :
+            urlFor('practiceSavedTasks', { courseId: this.course.id })
+
+        return await this.api.request(url, {
+            data: { page_ids: query.page_ids, }
+        })
     }
 }
 

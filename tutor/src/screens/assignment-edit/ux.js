@@ -12,9 +12,11 @@ import { StepUX, Step } from './step';
 import { Actions } from './actions';
 import Validations from './validations';
 import moment from '../../helpers/moment-range';
-import Time, { WRM_START_DATE } from '../../models/time';
+import Time from '../../models/time';
 import DetailsBody from './details-body';
 
+
+const WRM_START_DATE = new Date('2020-06-18');
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
 
 export default class AssignmentUX {

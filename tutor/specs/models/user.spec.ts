@@ -7,7 +7,7 @@ import UiSettings from 'shared/model/ui-settings';
 
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 
 describe('User Model', () => {
     beforeEach(() => fetchMock.resetMocks())
@@ -123,10 +123,10 @@ describe('User Model', () => {
 
     it('calculates new users', action(() => {
         // one hour ago
-        User.created_at = new DateTime('2021-01-15T11:00:00.000Z')
+        User.created_at = new Time('2021-01-15T11:00:00.000Z')
         expect(User.wasNewlyCreated).toBe(true)
         // a day + hour ago
-        User.created_at = new DateTime('202-0-0T14:11:00.000Z')
+        User.created_at = new Time('202-0-0T14:11:00.000Z')
         expect(User.wasNewlyCreated).toBe(false)
     }))
 });

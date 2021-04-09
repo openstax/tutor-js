@@ -11,7 +11,7 @@ import ReferenceBookNode from '../reference-book/node';
 //import type StepGroup from './step-group'
 import { extractCnxId } from '../../helpers/content';
 import { MediaActions } from '../../flux/media';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import urlFor from '../../api'
 
 class TaskStepContent extends BaseModel {
@@ -89,7 +89,7 @@ export default class StudentTaskStep extends BaseModel {
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
-    @model(DateTime) last_completed_at = DateTime.unknown
+    @model(Time) last_completed_at = Time.unknown
     @field response_validation?: any = {}
     @field spy?: any = {}
     @field external_url = ''

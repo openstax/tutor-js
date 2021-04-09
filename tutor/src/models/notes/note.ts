@@ -13,7 +13,7 @@ import {
     NEW_ID,
     ID,
 } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import type { PageNotes } from '../notes'
 
 export default class Note extends BaseModel {
@@ -27,8 +27,8 @@ export default class Note extends BaseModel {
     @field contents: any = {};
     @field page_id: ID = NEW_ID;
     @model(ChapterSection) chapter_section?: ChapterSection;
-    @model(DateTime) created_at = DateTime.unknown;
-    @model(DateTime) updated_at = DateTime.unknown;
+    @model(Time) created_at = Time.unknown;
+    @model(Time) updated_at = Time.unknown;
 
     page!: PageNotes
 

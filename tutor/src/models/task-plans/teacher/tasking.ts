@@ -5,7 +5,7 @@ import type Course from '../../course'
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Toasts from '../../toasts';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import { GradingTemplate } from '../../grading/templates';
 
 export default class TaskingPlan extends BaseModel {
@@ -23,7 +23,7 @@ export default class TaskingPlan extends BaseModel {
 
     get plan() { return getParentOf<TaskPlan>(this) }
 
-    // Note: These are deliberatly NOT set using @model(DateTime)
+    // Note: These are deliberatly NOT set using @model(Time)
     // doing so causes strings in YYYY-MM-DD format to be converted to a date
     // that's in the user's timezone.  The date is later coverted to UTC causing
     // it to possibily refer to a different day.
@@ -32,9 +32,9 @@ export default class TaskingPlan extends BaseModel {
     @field due_at = ''
     @field closes_at = ''
 
-    @computed get dueAt() { return new DateTime(this.due_at) }
-    @computed get opensAt() { return new DateTime(this.opens_at) }
-    @computed get closesAt() { return new DateTime(this.closes_at) }
+    @computed get dueAt() { return new Time(this.due_at) }
+    @computed get opensAt() { return new Time(this.opens_at) }
+    @computed get closesAt() { return new Time(this.closes_at) }
 
     @observable originalDueAt?: string
 
@@ -52,7 +52,7 @@ export default class TaskingPlan extends BaseModel {
         return this.course.periods.find(p => p.id == this.target_id) || null;
     }
 
-    limitDateToCourse(date: DateTime) {
+    limitDateToCourse(date: Time) {
         if (date.isAfter(this.course.allowedAssignmentDateRange.end)) {
             return this.course.allowedAssignmentDateRange.end;
         }
@@ -62,7 +62,7 @@ export default class TaskingPlan extends BaseModel {
         return date;
     }
 
-    @action onGradingTemplateUpdate(template: GradingTemplate, dueAt: DateTime, options: { dateWasManuallySet?: boolean } = {}) {
+    @action onGradingTemplateUpdate(template: GradingTemplate, dueAt: Time, options: { dateWasManuallySet?: boolean } = {}) {
         const dueDateOffsetDays = template.default_due_date_offset_days;
         const closeDateOffsetDays = template.default_close_date_offset_days;
         const { opens, due } = template.defaultTimes
@@ -71,7 +71,7 @@ export default class TaskingPlan extends BaseModel {
         if (dueAt) {
             defaultOpensAt = this.course.dateTimeInZone(dueAt).minus({ days: dueDateOffsetDays });
         } else if (this.opens_at) {
-            defaultOpensAt = this.course.dateTimeInZone(new DateTime(this.opens_at));
+            defaultOpensAt = this.course.dateTimeInZone(new Time(this.opens_at));
         } else {
             defaultOpensAt = this.course.dateTimeInZone().plus({ days: 1 });
         }
@@ -166,7 +166,7 @@ export default class TaskingPlan extends BaseModel {
         });
     }
 
-    @computed get unmodified():TaskingPlan | null {
+    @computed get unmodified() {
         return find(this.plan.unmodified_plans, {
             target_type: this.target_type, target_id: this.target_id,
         }) || null;
@@ -176,13 +176,13 @@ export default class TaskingPlan extends BaseModel {
         return Boolean(
             !this.plan.isPublished ||
                 !this.unmodified ||
-                new DateTime(this.unmodified.opens_at).isInFuture,
+                new Time(this.unmodified.opens_at).isInFuture,
         );
     }
 
     // resets the due at time to course default
     // and sets opens at date to match the give due at
-    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: DateTime, defaultOpenTime: string, defaultDueTime: string }) {
+    initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }: { dueAt: Time, defaultOpenTime: string, defaultDueTime: string }) {
         dueAt = this.course.dateTimeInZone(dueAt)
         if(!dueAt.isValid) { return; }
 
@@ -208,18 +208,18 @@ export default class TaskingPlan extends BaseModel {
         }
     }
 
-    @action setOpensDate(date: DateTime) {
+    @action setOpensDate(date: Time) {
         this.opens_at = date.toISOString();
     }
 
-    @action setDueDate(date: DateTime) {
+    @action setDueDate(date: Time) {
         this.due_at = date.toISOString();
         if (this.plan.isEvent) { // closes_at === due_at for events
             this.closes_at = this.due_at;
         }
     }
 
-    @action setClosesDate(date: DateTime) {
+    @action setClosesDate(date: Time) {
         this.closes_at = date.toISOString();
     }
 

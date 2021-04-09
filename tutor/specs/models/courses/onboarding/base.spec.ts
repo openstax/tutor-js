@@ -3,7 +3,7 @@ import TourContext from '../../../../src/models/tour/context'
 import Course from '../../../../src/models/course';
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 import OnboardingUX from '../../../../src/models/course/onboarding/preview';
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 
 describe('Course Onboarding base class', () => {
     let ux: OnboardingUX;
@@ -16,11 +16,11 @@ describe('Course Onboarding base class', () => {
 
     it('#courseIsNaggable', () => {
         expect(ux.course.isActive).toBe(true);
-        (ux.course as any).roles[0].joined_at = DateTime.now.minus({ hour: 1 });
+        (ux.course as any).roles[0].joined_at = Time.now.minus({ hour: 1 });
         expect(ux.courseIsNaggable).toBe(false);
-        (ux.course as any).roles[0].joined_at = DateTime.now.minus({ hour: 5 });
+        (ux.course as any).roles[0].joined_at = Time.now.minus({ hour: 5 });
         expect(ux.courseIsNaggable).toBe(true);
-        (ux.course as any).ends_at = DateTime.now.minus({ day: 1 });
+        (ux.course as any).ends_at = Time.now.minus({ day: 1 });
         expect(ux.courseIsNaggable).toBe(false);
     });
 });

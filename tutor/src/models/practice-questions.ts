@@ -16,6 +16,7 @@ class PracticeQuestions extends Map {
     }
 
     fetch() {
+
         return { courseId: this.course.id };
     }
 

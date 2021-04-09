@@ -14,7 +14,7 @@ const NON_ASSIGNABLE_TITLES = [
     'Key Terms',
     /Problems \S+ Exercises/,
     /Summary$/,
-    /Resources$/,
+    /Suggested Resource$/,
     /Test Prep/,
     /\w+ Questions$/,
     'Section Quiz',

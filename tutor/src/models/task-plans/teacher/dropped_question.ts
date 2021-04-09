@@ -1,12 +1,12 @@
 import { BaseModel, model, ID, field, action, modelize, observable, NEW_ID } from 'shared/model';
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 
 
 class DroppedQuestion extends BaseModel {
     @field id = NEW_ID;
     @field question_id:ID = '';
     @field drop_method = 'zeroed';
-    @model(DateTime) updated_at = DateTime.unknown;
+    @model(Time) updated_at = Time.unknown;
     @observable isChanged = false;
 
     constructor() {

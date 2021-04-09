@@ -6,7 +6,7 @@ import { createAtom, IAtom, toJS } from 'mobx'
 import type Page from '../../reference-book/node'
 import type Course from '../../course'
 import type Period from '../../course/period'
-import DateTime, { Interval, findEarliest, findLatest } from 'shared/model/date-time';
+import Time, { Interval, findEarliest, findLatest } from 'shared/model/time';
 import Exercises, { Exercise, ExercisesMap } from '../../exercises';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
@@ -34,7 +34,7 @@ const SELECTION_COUNTS = {
 export { SELECTION_COUNTS };
 
 const calculateDefaultOpensAt = ({ course }: { course: Course }) => {
-    const defaultOpensAt = DateTime.now.plus({ day: 1 }).startOf('minute');
+    const defaultOpensAt = Time.now.plus({ day: 1 }).startOf('minute');
     if (!course) {
         return defaultOpensAt.toISOString();
     }
@@ -66,11 +66,11 @@ export default class TeacherTaskPlan extends BaseModel {
     @field type = '';
 
     @field ecosystem_id = NEW_ID;
-    @model(DateTime) first_published_at?: DateTime;
-    @model(DateTime) last_published_at?: DateTime;
-    @model(DateTime) publish_last_requested_at?: DateTime;
-    @field failed_at?: DateTime ;
-    @field killed_at?: DateTime ;
+    @model(Time) first_published_at?: Time;
+    @model(Time) last_published_at?: Time;
+    @model(Time) publish_last_requested_at?: Time;
+    @field failed_at?: Time ;
+    @field killed_at?: Time ;
     @field is_draft = false;
     @field is_preview = false;
     @field is_published = false;
@@ -193,7 +193,7 @@ export default class TeacherTaskPlan extends BaseModel {
         if (opens.isInPast) {
             return null;
         }
-        if (opens.isSame(DateTime.now, 'day')) {
+        if (opens.isSame(Time.now, 'day')) {
             return opens.format('h:mm a z');
         }
         return opens.format('M/D');
@@ -205,7 +205,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
     intervalFor(attr: 'opensAt' | 'dueAt' | 'closesAt') {
         const dates = map(this.tasking_plans, attr).sort()
-        return new Interval(first(dates) as DateTime, last(dates) as DateTime)
+        return new Interval(first(dates) as Time, last(dates) as Time)
     }
 
     get dateRanges() {
@@ -501,7 +501,7 @@ export default class TeacherTaskPlan extends BaseModel {
         this.course.teacherTaskPlans.delete(this.id);
     }
 
-    isValidCloseDate(taskings: TaskingPlan[], date: DateTime) {
+    isValidCloseDate(taskings: TaskingPlan[], date: Time) {
         if (date.isAfter(this.course.ends_at)) {
             return true;
         }

@@ -1,14 +1,14 @@
 import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import Big from 'big.js';
 import { BaseModel, field, model, modelize, computed, NEW_ID, getParentOf } from 'shared/model';
-import DateTime from 'shared/model/date-time';
+import Time from 'shared/model/time';
 import Bignum from 'shared/model/bignum'
 import type PeriodScores from './period'
 
 export default class Heading extends BaseModel {
     @model(Bignum) average_score = Bignum.unknown;
     @model(Bignum) average_progress = Bignum.unknown;
-    @model(DateTime) due_at = DateTime.unknown;
+    @model(Time) due_at = Time.unknown;
     @field plan_id = NEW_ID;
     @field title = '';
     @field type = '';

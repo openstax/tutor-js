@@ -13,16 +13,16 @@ export default class PageContentUX extends BookUX {
         });
     }
 
-    @computed get course() {
+    get course() {
         return this.mainUX.course;
     }
 
-    @computed get page() {
+    get page() {
         const step = this.mainUX.currentStep;
         return step.isReading ? step.content.page : null;
     }
 
-    @computed get courseDataProps() {
+    get courseDataProps() {
         const { course } = this.mainUX;
         return {
             'data-title': course.name,

@@ -1,6 +1,6 @@
 import type CoursePeriod from './period'
 import type Course from '../course'
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 import urlFor from '../../api'
 import {
     BaseModel, ID, NEW_ID, field, model, hydrateModel, modelize,
@@ -46,7 +46,7 @@ export default class CourseStudent extends BaseModel {
     @field period_id: ID = NEW_ID;
     @field role_id: ID = NEW_ID;
     @field student_identifier = '';
-    @model(DateTime) payment_due_at = DateTime.unknown
+    @model(Time) payment_due_at = Time.unknown
 
     get course() { return getParentOf<Course>(this) }
 

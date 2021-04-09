@@ -1,6 +1,6 @@
 import { isNil, defaults } from 'lodash';
 import type Course from '../course'
-import DateTime from 'shared/model/date-time'
+import Time from 'shared/model/time'
 import { GradingTemplateObj } from '../types'
 import {
     BaseModel, model, action, field, getParentOf, computed,
@@ -22,7 +22,7 @@ class GradingTemplate extends BaseModel {
     @field task_plan_type?: 'homework' | 'reading';
     @field completion_weight = 0;
     @field correctness_weight = 0;
-    @model(DateTime) deleted_at?: DateTime;
+    @model(Time) deleted_at?: Time;
     @field auto_grading_feedback_on = 'answer';
     @field manual_grading_feedback_on = false;
     @field late_work_penalty = 0.1;
@@ -143,7 +143,7 @@ class GradingTemplate extends BaseModel {
     }
 
     @action onRemoved() {
-        this.deleted_at = DateTime.now
+        this.deleted_at = Time.now
     }
 
     // Validate happens if template name, case insensitive, equals to any of the other template names.

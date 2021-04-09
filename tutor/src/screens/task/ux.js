@@ -1,6 +1,5 @@
-import { observable, runInAction, computed, action, when, observe, modelize } from 'shared/model'
+import { observable, runInAction, computed, action, when, observe, lazyGetter, modelize } from 'shared/model'
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
-import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
 import UiSettings from 'shared/model/ui-settings';
@@ -52,8 +51,8 @@ export default class TaskUX {
         );
     }
 
-    @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
-    @lazyGetter pageContentUX = new PageContentUX({ main: this });
+    @lazyGetter get scroller() { return new ScrollTo({ windowImpl: this.window }) }
+    @lazyGetter get pageContentUX() { return new PageContentUX({ main: this }) }
 
     @action becomeStudentIfNeeded() {
         if (!this.course.roles.teacher) { return; }
@@ -191,7 +190,7 @@ export default class TaskUX {
 
     @action.bound onStepChange() {
         const step = this.currentGroupedStep;
-
+return
         // events do not have steps
         if (!step) { return; }
 

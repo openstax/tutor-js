@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateTimeInput matches snapshot 1`] = `
+exports[`TimeInput matches snapshot 1`] = `
 .c5 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;

@@ -1,4 +1,4 @@
-import { TimeMock, Factory, DateTime } from '../../../helpers';
+import { TimeMock, Factory, Time } from '../../../helpers';
 import TeacherTaskPlan from '../../../../src/models/task-plans/teacher/plan';
 
 describe('Task Plan for Teachers', () => {
@@ -15,13 +15,13 @@ describe('Task Plan for Teachers', () => {
 
     it('calculates due range', () => {
         plan.tasking_plans.forEach((tp, i) => {
-            tp.due_at = DateTime.now.plus({ day: i }).asISOString
+            tp.due_at = Time.now.plus({ day: i }).asISOString
         });
         expect(
-            DateTime.now.isSame(plan.interval.start, 'minute')
+            Time.now.isSame(plan.interval.start, 'minute')
         ).toBe(true);
         expect(
-            DateTime.now.plus({ day: plan.tasking_plans.length - 1 }).isSame(
+            Time.now.plus({ day: plan.tasking_plans.length - 1 }).isSame(
                 plan.interval.end, 'minute'
             )
         ).toBe(true);
