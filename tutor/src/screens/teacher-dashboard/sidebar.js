@@ -117,9 +117,6 @@ export default class AddAssignmentSidebar extends React.Component {
                       <GradingTemplateLink course={this.props.course} />
                       <Separator />
                   </GradingTemplateLinkWrapper>
-                  <div className="section-label">
-            New
-                  </div>
                   <ul
                       className={cn('new-assignments', { 'is-intro': this.shouldShowIntro })}
                       ref="newAssignments"
