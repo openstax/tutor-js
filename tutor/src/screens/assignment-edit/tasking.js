@@ -193,7 +193,6 @@ class Tasking extends React.Component {
   }
 
   renderDateTimeInputs(tasking) {
-      const { ux } = this.props;
       const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
       return (
           <Row className="tasking-date-time">
