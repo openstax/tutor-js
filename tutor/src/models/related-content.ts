@@ -1,18 +1,24 @@
-import { BaseModel, model, field, NEW_ID } from 'shared/model';
+import { BaseModel, ID, model, field, NEW_ID, modelize } from 'shared/model';
 import ChapterSection from './chapter-section';
 
 export default class RelatedContent extends BaseModel {
 
-    @field uuid = NEW_ID;
-    @field page_id;
-    @field title;
-    @model(ChapterSection) chapter_section;
+    @field uuid = ''
+    @field page_id:ID = NEW_ID
+    @field title = ''
+    @model(ChapterSection) chapter_section = ChapterSection.blank;
 
-    constructor(attrs) {
+    constructor() {
+        super()
+        modelize(this)
+    }
+
+    hydrate(attrs: any) {
         if (attrs.book_location) {
             attrs.chapter_section = attrs.book_location;
             delete attrs.book_location;
         }
-        super(attrs);
+        Object.assign(this, attrs)
     }
+
 }
