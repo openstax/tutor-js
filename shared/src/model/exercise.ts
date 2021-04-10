@@ -1,5 +1,5 @@
 import {
-    BaseModel, field, computed, action, observable, model, modelize, ID, NEW_ID,
+    BaseModel, field, computed, action, observable, model, modelize, ID, NEW_ID, array,
 } from '../model';
 import { reduce, map, filter, inRange, every, some, isNil } from 'lodash';
 import invariant from 'invariant';
@@ -15,47 +15,49 @@ export default class SharedExercise extends BaseModel {
 
     static idField = 'uid'
     id = NEW_ID;
-    uuid = '';
-    uid = '';
-    nickname = '';
-    versions: string[] = [];
-    is_vocab = false;
+    @field uuid = '';
+    @field uid = '';
+    @field nickname = '';
+    @field versions: string[] = [];
+    @field is_vocab = false;
 
-    stimulus_html = '';
+    @field stimulus_html = '';
 
-    published_at?: Time | Date
-    wrapper = '';
-    stem_html = ''
-    attachments:Attachment[] = [];
-    authors:Author[] = [];
-    copyright_holders:Author[] = [];
-    questions:Question[] = [];
+    @field published_at?: Time | Date
+    @field stem_html = ''
 
+    @model(Attachment) attachments = array<Attachment>()
+    @model(Author) authors = array<Author>()
+    @model(Author) copyright_holders = array<Author>()
+    @model(Question) questions = array<Question>()
     @model(Tag) tags = new TagsAssociation()
+
+    @observable wrapper = '';
 
     constructor() {
         super()
-        modelize(this, {
-            uuid: field,
-            uid: field,
-            nickname: field,
-            versions: field,
-            is_vocab: field,
-            stimulus_html: field,
-            published_at: model(Time),
-            attachments: model(Attachment),
-            authors: model(Author),
-            copyright_holders: model(Author),
-            questions: model(Question),
-            tags: model(TagsAssociation),
-            wrapper: observable,
-            pool_types: computed,
-            cnxModuleUUIDs: computed,
-            validity: computed,
-            toggleMultiPart: action,
-            onQuestionFreeResponseSelected: action,
-            moveQuestion: action,
-        })
+        modelize(this)
+        // , {
+        //     uuid: field,
+        //     uid: field,
+        //     nickname: field,
+        //     versions: field,
+        //     is_vocab: field,
+        //     stimulus_html: field,
+        //     published_at: model(Time),
+        //     attachments: model(Attachment),
+        //     authors: model(Author),
+        //     copyright_holders: model(Author),
+        //     questions: model(Question),
+        //     tags: model(TagsAssociation),
+        //     wrapper: observable,
+        //     pool_types: computed,
+        //     cnxModuleUUIDs: computed,
+        //     validity: computed,
+        //     toggleMultiPart: action,
+        //     onQuestionFreeResponseSelected: action,
+        //     moveQuestion: action,
+        // })
     }
 
     get pool_types() {
@@ -85,9 +87,9 @@ export default class SharedExercise extends BaseModel {
         }), { valid: true, part: true });
     }
 
-    toggleMultiPart() {
+    @action toggleMultiPart() {
         if (this.isMultiPart) {
-            this.questions = [this.questions[0]];
+            this.questions.replace([this.questions[0]])
             this.stimulus_html = '';
         } else {
             this.questions.push({} as any);
@@ -116,7 +118,7 @@ export default class SharedExercise extends BaseModel {
         return Boolean(!this.isNew && this.validity.valid && !this.published_at);
     }
 
-    onQuestionFreeResponseSelected() {
+    @action onQuestionFreeResponseSelected() {
         this.tags.findOrAddWithType('type').value = 'practice';
     }
 
