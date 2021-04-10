@@ -44,8 +44,8 @@ export default class Time {
 
     @readonly static unknown = new Time(new Date(0))
 
-    static hydrate(iso: string) {
-        return new Time(iso)
+    static hydrate(dateThing: TimeInputs) {
+        return new Time(dateThing)
     }
 
     _value!: LDT
@@ -114,7 +114,7 @@ function toLDT(dateThing: TimeInputs):LDT {
     } else if (LDT.isDateTime(dateThing)) {
         return dateThing
     } else if (moment.isMoment(dateThing)) {
-        return LDT.fromMillis((dateThing as any).millisecond())
+        return LDT.fromMillis((dateThing as any).valueOf())
     } else {
         throw new Error(`attempted to hydrate unknown date type ${typeof dateThing} (${dateThing})`)
     }
