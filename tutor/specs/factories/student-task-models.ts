@@ -12,13 +12,15 @@ const TaskStepTypes = {
     interactive: 'StudentTaskInteractiveStepContent',
 };
 
-export function studentTask(attrs: any = {}, course: Course) {
+export function studentTask(attrs: any = {}, course: Course = hydrateModel(Course, FactoryBot.create('Course'))) {
     if (attrs.type && !TASK_TYPES[attrs.type]){ throw(`Unknown task type ${attrs.type}`); }
-    const st = hydrateModel(StudentTask, FactoryBot.create('StudentTask', attrs), course.studentTasks);
+    const data = FactoryBot.create('StudentTask', attrs)
+    const st = hydrateModel(StudentTask, data, course.studentTasks);
     course.studentTasks.set(st.id, st)
     st.steps.forEach((s) => {
         if (TaskStepTypes[s.type]) {
-            s.onLoaded({ data: FactoryBot.create(TaskStepTypes[s.type]) });
+            const data = FactoryBot.create(TaskStepTypes[s.type])
+            s.onLoaded(data);
         }
     })
     return st;
