@@ -1,17 +1,28 @@
 import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
+import { observable } from 'mobx'
 import User from '../../src/models/user';
+import { hydrateModel } from '../helpers';
+
 jest.mock('../../src/models/user', () => ({
-    replayTour: jest.fn(),
-    viewedTour: jest.fn(function(t){
-        this.viewed_tour_stats = [{ id: t.id, view_count: 1 }];
-    }),
+    __esModule: true,
+    default: {
+        replayTour: jest.fn(),
+        get viewed_tour_stats() {
+            const value = observable.array()
+            Object.defineProperty(this, 'viewed_tour_stats', { value })
+            return value
+        },
+        viewedTour: jest.fn(function(this: typeof User, t: any){
+            this.viewed_tour_stats.replace([{ id: t.id, view_count: 1 } as any]);
+        }),
+    },
 }));
 
 
 describe('Tour Model', () => {
     it('can be created', () => {
-        const tour = new Tour({
+        const tour = hydrateModel(Tour, {
             id: 2, steps: map(
                 range(0, 4), i => ({ id: i, title: `step ${i}`, content: `# Step num ${i}` })
             ),
@@ -60,14 +71,14 @@ describe('Tour Model', () => {
     });
 
     it('calculates when an autoplay tour is viewable', () => {
-        User.viewed_tour_stats = [];
+        User.viewed_tour_stats.clear()
         const tour = Tour.forIdentifier('question-library-super');
         expect(tour.autoplay).toBe(true);
         expect(tour.isViewed).toBe(false);
         expect(tour.standalone).toBe(true);
         expect(tour.isViewable).toBe(true);
 
-        User.viewed_tour_stats = [{ id: 'question-library-super', view_count: 1 }];
+        User.viewed_tour_stats.replace([{ id: 'question-library-super', view_count: 1 }] as any);
         expect(tour.isViewable).toBe(false);
     });
 

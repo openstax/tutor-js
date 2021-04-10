@@ -160,7 +160,6 @@ Factory.define('StudentTaskExerciseStepContent')
     .context(({ object: { exIndex } }) => EXERCISES[exIndex].context)
     .content(({ object: { exIndex }, wrm }) => {
         const ex = EXERCISES[exIndex];
-
         if (!wrm) { return ex.content }
         const wrmEx = cloneDeep(ex);
         wrmEx.content.questions.forEach(q => {

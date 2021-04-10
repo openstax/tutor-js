@@ -1,7 +1,7 @@
-import { ExercisesMap as Exercises } from '../../src/models/exercises';
+import { ExercisesMap as Exercises, Exercise } from '../../src/models/exercises';
 import { sampleSize, keys, forEach } from 'lodash';
 import { TutorExerciseObj } from '../../src/models/types';
-import { fetchMock, Factory } from '../helpers'
+import { fetchMock, Factory, hydrateModel } from '../helpers'
 
 describe('Exercises Map', () => {
     let book: ReturnType<typeof Factory.book>
@@ -14,6 +14,13 @@ describe('Exercises Map', () => {
         course = Factory.course();
         exercises = new Exercises();
         page_ids = sampleSize(Array.from(book.pages.byId.keys()), 3);
+    });
+
+    it('it hydrates', () => {
+        const data = Factory.bot.create('TutorExercise')
+        const ex = hydrateModel(Exercise, data)
+        expect(data.content.nickname).toEqual(ex.content.nickname )
+        expect(ex.content.questions).toHaveLength(data.content.questions.length )
     });
 
     it('collects important tag info', () => {

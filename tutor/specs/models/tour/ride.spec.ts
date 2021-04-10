@@ -1,19 +1,24 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
 import TourContext from '../../../src/models/tour/context';
 import TourRegion from '../../../src/models/tour/region';
+import TourRide from '../../../src/models/tour/ride';
+import { hydrateModel } from 'modeled-mobx';
+import { runInAction } from 'mobx';
 
 describe('Tour Ride Model', () => {
-    let context;
-    let region;
-    let ride;
+    let context: TourContext;
+    let region:TourRegion;
+    let ride:TourRide;
 
     beforeEach(() => {
         bootstrapCoursesList();
-        context = new TourContext({ isEnabled: true });
-        region = new TourRegion({ id: 'teacher-calendar', courseId: '2', tour_ids: ['teacher-calendar'] });
-        context.openRegion(region);
-        context.playTriggeredTours();
-        ride = context.tourRide;
+        runInAction(() => {
+            context = hydrateModel(TourContext, { isEnabled: true })
+            region = hydrateModel(TourRegion, { id: 'teacher-calendar', courseId: '2' })
+            context.openRegion(region);
+            context.playTriggeredTours();
+            ride = context.tourRide!;
+        })
     });
 
     it('calculates props for joyride', () => {
@@ -21,17 +26,23 @@ describe('Tour Ride Model', () => {
             ride: ride,
             step: ride.validSteps[0],
         });
-        ride.tour.steps[0].anchor_id = null;
+        runInAction(() => {
+            ride.tour.steps[0].anchor_id = null;
+        })
         expect(ride.props.step).toBe(ride.validSteps[0]);
         expect(ride.validSteps).toHaveLength(1);
     });
 
     it ('calculates if steps should show progress', () => {
-        ride.tour.steps.forEach((s) => s.anchor_id = null);
+        runInAction(() => {
+            ride.tour.steps.forEach((s) => s.anchor_id = null);
+        })
         expect(ride.validSteps).toHaveLength(ride.tour.steps.length);
         expect(ride.hasMultipleSteps).toBe(true);
-        ride.tour.steps.forEach((s) => s.anchor_id = '1234');
-        jest.spyOn(document, 'querySelector').mockImplementation(() => false);
+        runInAction(() => {
+            ride.tour.steps.forEach((s) => s.anchor_id = '1234');
+        })
+        jest.spyOn(document, 'querySelector').mockImplementation(() => null);
         expect(ride.hasMultipleSteps).toBe(false);
     });
 

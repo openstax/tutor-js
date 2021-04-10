@@ -2,9 +2,9 @@
 
 exports[`Reload Button reloads when clicked 1`] = `
 "<ReloadPageButton windowImpl={{...}}>
-  <AsyncButton className=\\"reload-page\\" isWaiting={false} variant=\\"primary\\" size=\\"small\\" waitingText=\\"Reloading…\\" onClick={[Function: res]} isDone={false} isFailed={false} failedState={[Function: RefreshButton]} failedProps={{...}} doneText=\\"\\" isJob={false}>
-    <Button size=\\"small\\" variant=\\"primary\\" onClick={[Function: res]} className={{...}} active={false} disabled={false} type=\\"button\\">
-      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"async-button reload-page btn btn-primary btn-small\\">
+  <AsyncButton className=\\"reload-page\\" isWaiting={false} variant=\\"primary\\" size=\\"small\\" waitingText=\\"Reloading…\\" onClick={[Function: onReload]} isDone={false} isFailed={false} failedState={[Function: RefreshButton] { defaultProps: { beforeText: 'There was a problem loading. ', buttonText: 'Refresh', afterText: ' to try again.' }, displayName: 'RefreshButton', propTypes: { beforeText: [Function: bound checkType] { isRequired: [Function: bound checkType] }, buttonText: [Function: bound checkType] { isRequired: [Function: bound checkType] }, afterText: [Function: bound checkType] { isRequired: [Function: bound checkType] } } }} failedProps={{...}} doneText=\\"\\" isJob={false}>
+    <Button size=\\"small\\" variant=\\"primary\\" onClick={[Function: onReload]} className={{...}} active={false} disabled={false} type=\\"button\\">
+      <button onClick={[Function: onReload]} disabled={false} type=\\"button\\" className=\\"async-button reload-page btn btn-primary btn-small\\">
         Reload Page
       </button>
     </Button>

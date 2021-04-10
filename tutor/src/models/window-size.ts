@@ -22,7 +22,8 @@ export default class WindowSize {
             () => {
                 windowImpl.removeEventListener('resize', this.updater);
                 this.updater = null;
-            }
+            },
+            this.readSize(windowImpl)
         ) as any;
     }
 

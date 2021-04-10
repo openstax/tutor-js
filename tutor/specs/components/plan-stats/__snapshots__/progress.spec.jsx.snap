@@ -11,15 +11,17 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
       <span
         className="text-success"
       >
-        1.2
+        0
       </span>
        
+      
     </strong>
      
     <span
       className="reading-progress-student-count"
     >
       (
+      0
        students)
     </span>
   </div>

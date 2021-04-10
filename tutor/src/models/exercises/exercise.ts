@@ -27,6 +27,7 @@ export default class TutorExercise extends BaseModel {
 
     @observable book?:ReferenceBook
     @observable course?:Course
+
     @field is_excluded = false;
     @field is_copyable = true;
     @field has_interactive = false;

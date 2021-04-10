@@ -1,5 +1,6 @@
 import { FetchMock, MockResponseInitFunction } from 'jest-fetch-mock';
 import { map } from 'lodash';
+import { JSON } from '../../src/types'
 
 const fetchMock = fetch as FetchMock;
 

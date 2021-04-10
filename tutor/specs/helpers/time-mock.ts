@@ -1,4 +1,4 @@
-import Time from '../../../shared/src/model/time'
+import Time from 'shared/model/time'
 import MockDate from 'mockdate';
 
 import { partial, isString } from 'lodash';
@@ -16,9 +16,9 @@ const TimeMock = {
     },
 
     mock(dateTime: string | Date) {
-        const now = new Date(dateTime);
+        const now = new Time(dateTime);
         // const tz  = 'America/Chicago';
-        MockDate.set(now, -360);
+        MockDate.set(now.asDate, -360);
         FactoryBot.defaults!.now = dateTime;
         const spy = jest.spyOn(Time, 'now', 'get');
         spy.mockImplementation(() => now);

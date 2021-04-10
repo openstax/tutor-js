@@ -21,7 +21,7 @@ exports[`Free trial ended modal renders and matches snapshot 1`] = `
         >
           <p>
             You will have access to 
-            Local Test Course One
+            
              for 14 days.
           </p>
           <p>

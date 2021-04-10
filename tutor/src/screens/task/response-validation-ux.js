@@ -70,6 +70,7 @@ class ResponseValidationUX {
     }
 
     @action.bound async onSave() {
+
         // we have text but it hasn't changed, go to next
         // allow go to next if assignment is closed
         if (!this.step.can_be_updated || (this.response && !this.textHasChanged || this.step.task.isAssignmentClosed)) {
@@ -88,13 +89,15 @@ class ResponseValidationUX {
         }
 
         const result = await this.validate();
+        this.recordResult(result)
+    }
 
+    @action recordResult(result) {
         if (this.validator.isUIEnabled) {
             this.advanceUI(result);
         } else {
             this.recordFinalResponse(result.response);
         }
-
         this.results.push(result);
         this.step.response_validation = { attempts: this.results };
     }
@@ -113,7 +116,7 @@ class ResponseValidationUX {
                 uid: this.step.uid,
                 response: submitted,
             })) || {};
-            const validation = extend({}, reply.data, {
+            const validation = extend({}, reply, {
                 timestamp: (new Date()).toISOString(),
                 response: submitted, nudge,
             });

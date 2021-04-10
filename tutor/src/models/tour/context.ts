@@ -14,6 +14,10 @@ import Region    from './region'
 // Created by the upper-most React element (the Conductor)
 // Regions and Anchors check in and out as they're mounted/unmounted
 
+interface Modal {
+    isDisplaying?: boolean
+}
+
 export default class TourContext extends BaseModel {
 
     @observable regions = observable.array<Region>([], { deep: false });
@@ -27,8 +31,10 @@ export default class TourContext extends BaseModel {
 
     @observable forcePastToursIndication = false;
 
-    @observable otherModal?: any;
-    @observable tourRide?: TourRide;
+    @field foo = 1
+    @observable otherModal?: Modal
+
+    @observable tourRide: TourRide | null = null;
 
     constructor() {
         super();
@@ -84,7 +90,7 @@ export default class TourContext extends BaseModel {
         const checkRegion = region || first(this.regions);
         const remindersTourId = 'page-tips-reminders';
         if ( checkRegion && this.autoRemind && !this.tour &&
-      this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
+            this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
         ) {
             delay(() => checkRegion.otherTours?.push(remindersTourId), 500);
         }
@@ -108,7 +114,7 @@ export default class TourContext extends BaseModel {
     @action.bound pickTourRide() {
         const { tour } = this;
         if (this.tourRide && this.tourRide.tour === tour) { return; }
-        this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion }) : undefined;
+        this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion! }) : null;
     }
 
     @computed get audienceTags() {

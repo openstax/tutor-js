@@ -206,7 +206,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               <th>
                 Invoice
               </th>
-              <th />
             </tr>
           </thead>
           <tbody>
@@ -217,7 +216,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 unit test product refund
               </td>
               <td>
-                Jul 19th 2017
+                Jun 30th 2017
               </td>
               <td>
                 cufu6hr4xicy:refund
@@ -228,9 +227,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 -1591.48
               </td>
               <td />
-              <td
-                className="refund"
-              />
             </tr>
             <tr
               className=""
@@ -239,7 +235,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 unit test product
               </td>
               <td>
-                Jul 16th 2017
+                Jun 30th 2017
               </td>
               <td>
                 cufu6hr4xicy
@@ -258,267 +254,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 >
                   Invoice
                 </a>
-              </td>
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className="refunded"
-            >
-              <td>
-                unit test product refund
-              </td>
-              <td>
-                Jul 18th 2017
-              </td>
-              <td>
-                kjxdvs9wd7rw:refund
-              </td>
-              <td
-                className="total"
-              >
-                -1388.07
-              </td>
-              <td />
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                unit test product
-              </td>
-              <td>
-                Jul 16th 2017
-              </td>
-              <td>
-                kjxdvs9wd7rw
-              </td>
-              <td
-                className="total"
-              >
-                1388.07
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="kjxdvs9wd7rw"
-                  href="url-for-test/invoice/kjxdvs9wd7rw"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              />
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                unit test product
-              </td>
-              <td>
-                Jul 16th 2017
-              </td>
-              <td>
-                3dmy8nu4v4bg
-              </td>
-              <td
-                className="total"
-              >
-                357.25
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="3dmy8nu4v4bg"
-                  href="url-for-test/invoice/3dmy8nu4v4bg"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="3dmy8nu4v4bg"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                OpenStax Tutor
-              </td>
-              <td>
-                Jul 14th 2017
-              </td>
-              <td>
-                fxa4s2kj75fr
-              </td>
-              <td
-                className="total"
-              >
-                13.41
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="fxa4s2kj75fr"
-                  href="url-for-test/invoice/fxa4s2kj75fr"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="fxa4s2kj75fr"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                OpenStax Tutor
-              </td>
-              <td>
-                Jul 13th 2017
-              </td>
-              <td>
-                ru6ifviicwki
-              </td>
-              <td
-                className="total"
-              >
-                13.41
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="ru6ifviicwki"
-                  href="url-for-test/invoice/ru6ifviicwki"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="ru6ifviicwki"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                OpenStax Tutor
-              </td>
-              <td>
-                Jul 13th 2017
-              </td>
-              <td>
-                nuvwqun23ztq
-              </td>
-              <td
-                className="total"
-              >
-                13.41
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="nuvwqun23ztq"
-                  href="url-for-test/invoice/nuvwqun23ztq"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="nuvwqun23ztq"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
-              </td>
-            </tr>
-            <tr
-              className=""
-            >
-              <td>
-                OpenStax Tutor
-              </td>
-              <td>
-                Jul 13th 2017
-              </td>
-              <td>
-                33uqbxbi324n
-              </td>
-              <td
-                className="total"
-              >
-                13.41
-              </td>
-              <td>
-                <a
-                  className="invoice-link"
-                  data-identifier="33uqbxbi324n"
-                  href="url-for-test/invoice/33uqbxbi324n"
-                  onClick={[Function]}
-                >
-                  Invoice
-                </a>
-              </td>
-              <td
-                className="refund"
-              >
-                <button
-                  className="async-button btn btn-primary"
-                  data-identifier="33uqbxbi324n"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Request Refund
-                </button>
               </td>
             </tr>
           </tbody>

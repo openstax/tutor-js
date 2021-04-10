@@ -1,6 +1,8 @@
 import {
-    BaseModel, field, observable, computed, array, action, model, NEW_ID, lazyGetter, hydrateModel, hydrateInstance,
+    BaseModel, field, observable, computed, array, action, model, modelize,
+    NEW_ID, lazyGetter, hydrateModel, hydrateInstance, getParentOf,
 } from 'shared/model';
+import type StudentTask from './task'
 import type StudentTaskStepGroup from './step-group'
 import S from '../../helpers/string';
 import { pick, get, isNil } from 'lodash';
@@ -32,6 +34,11 @@ class StudentTaskReadingStep extends TaskStepContent {
     html = ''
     chapter_section = ''
 
+    constructor() {
+        super()
+        modelize(this)
+    }
+
     @model(RelatedContent) related_content = array<RelatedContent>()
 
     @lazyGetter get chapterSection() { return new ChapterSection(this.chapter_section) }
@@ -53,7 +60,10 @@ class StudentTaskReadingStep extends TaskStepContent {
 
 export
 class StudentTaskExerciseStep extends Exercise {
-
+    constructor() {
+        super()
+        modelize(this)
+    }
     get stem_html() { return this.content.stem_html; }
     get questions() { return this.content.questions; }
     get stimulus_html() { return this.content.stimulus_html; }
@@ -105,11 +115,18 @@ export default class StudentTaskStep extends BaseModel {
     @field published_late_work_point_penalty = 0
     @field tasked_id = NEW_ID
     @field exercise_id = NEW_ID
-    @field task?: any;
+
     @observable content?: any
     @observable isFetched = false
 
     @observable multiPartGroup?: StudentTaskStepGroup
+
+    constructor() {
+        super()
+        modelize(this)
+    }
+
+    get task() { return getParentOf<StudentTask>(this) }
 
     @computed get canAnnotate() {
         return this.isReading;
@@ -274,7 +291,7 @@ export default class StudentTaskStep extends BaseModel {
         if (!Klass) {
             throw new Error(`Attempted to set content on unknown step type ${this.type}`);
         }
-        this.content = new Klass(data);
+        this.content = hydrateModel(Klass, data, this)
         if (this.isReading) {
             MediaActions.parse(this.content.html);
         }

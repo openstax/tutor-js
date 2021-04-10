@@ -53,7 +53,7 @@ const RavenErrorLogging = {
         });
     },
 
-    captureException(error: any, xtra: any) {
+    captureException(error: any, xtra?: any) {
         if (!isProd) {
             console.warn(error); // eslint-disable-line no-console
         }

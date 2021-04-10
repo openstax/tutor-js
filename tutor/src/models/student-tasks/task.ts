@@ -113,7 +113,6 @@ export default class StudentTask extends BaseModel {
         if (steps.length < this.steps.length) {
             this.steps.splice(steps.length, this.steps.length - steps.length);
         }
-        this.steps.forEach(s => s.task = this);
     }
 
     exit() {

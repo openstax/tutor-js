@@ -1,16 +1,16 @@
-import { BaseModel, field, model, modelize, computed, NEW_ID } from 'shared/model';
+import { BaseModel, field, modelize, computed, NEW_ID, getParentOf } from 'shared/model';
+
 
 export default class EcosystemBook extends BaseModel {
     @field id = NEW_ID;
-    @field title;
-    @field uuid;
-    @field version;
-    @model('ecosystems/ecosystem') ecosystem;
+    @field title = '';
+    @field uuid = '';
+    @field version = '';
+
+    get ecosystem() { return getParentOf<this>(this) }
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 

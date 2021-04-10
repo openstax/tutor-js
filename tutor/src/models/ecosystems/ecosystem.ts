@@ -1,4 +1,4 @@
-import { BaseModel, model, modelize, computed, field, NEW_ID, lazyGetter, hydrateModel } from 'shared/model';
+import { BaseModel, model, modelize, array, computed, field, NEW_ID, lazyGetter, hydrateModel } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
@@ -7,7 +7,7 @@ import Book from './book';
 export default class Ecosystem extends BaseModel {
     @field id = NEW_ID;
 
-    @model(Book) books:Book[] = [];
+    @model(Book) books = array<Book>()
 
     constructor() {
         super();

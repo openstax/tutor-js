@@ -1,10 +1,14 @@
 import TourStep from '../../../src/models/tour/step';
+import { hydrateModel } from 'modeled-mobx';
+import { runInAction } from 'mobx';
+import WindowSize from '../../../src/models/window-size';
 
 describe('TourStep Model', () => {
 
-    let step;
+    let step: TourStep;
+
     beforeEach(() => {
-        step = new TourStep({ id: 1, title: 'a step', body: '# Step heading\n### Subheading' });
+        step = hydrateModel(TourStep, { id: 1, title: 'a step', body: '# Step heading\n### Subheading' })
     });
 
     it('can be created from JSON', () => {
@@ -18,7 +22,9 @@ describe('TourStep Model', () => {
     });
 
     it('renders best practices', () => {
-        step = new TourStep({ id: 1, title: 'a step', body: 'you should :best-practices: take note' });
+        runInAction(() => {
+            step.body = 'you should :best-practices: take note'
+        })
         expect(step.HTML).toEqual('<p>you should <i class="tour-step-best-practices"></i> take note</p>\n');
     });
 
@@ -26,7 +32,7 @@ describe('TourStep Model', () => {
         expect(step.isViewable).toBe(true);
         step.anchor_id = '1234';
         expect(step.isViewable).toBe(false);
-        jest.spyOn(document, 'querySelector').mockImplementation(() => true);
+        jest.spyOn(document, 'querySelector').mockImplementation(() => '<div>hi</div>' as any as HTMLElement);
         expect(step.target).toBeTruthy();
         expect(step.element).toBeTruthy();
         expect(document.querySelector).toHaveBeenCalledWith(step.target);
@@ -36,7 +42,7 @@ describe('TourStep Model', () => {
     it('is not viewable if the viewport matches a disabled breakpoint', () => {
         expect(step.isViewable).toBe(true);
         step.disabledBreakpoints = ['mobile', 'tablet'];
-        step.windowSize = { currentBreakpoint: 'mobile' };
+        step.windowSize = { currentBreakpoint: 'mobile' } as any as WindowSize;
         expect(step.isViewable).toBe(false);
     });
 

@@ -5,10 +5,7 @@ exports[`Section Title Component renders and matches snapshot 1`] = `
   ux={
     Object {
       "page": Object {
-        "chapter_section": ChapterSection {
-          "chapter": "1",
-          "section": "2",
-        },
+        "chapter_section": "1.2",
         "title": "A good chapter section",
       },
     }

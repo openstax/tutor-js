@@ -1,4 +1,4 @@
-import { BaseModel, field, computed, NEW_ID, ID } from 'shared/model';
+import { BaseModel, modelize, field, array, computed, NEW_ID, ID } from 'shared/model';
 
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
@@ -8,7 +8,12 @@ export default class TourRegion extends BaseModel {
     @field id: string = ''
     @field courseId: ID = NEW_ID;
 
-    @field otherTours: string[] = [];
+    @field otherTours = array<string>()
+
+    constructor() {
+        super();
+        modelize(this);
+    }
 
     @computed get tour_ids() {
         // this seems convoluted, but this makes it so that `tour_ids` will react

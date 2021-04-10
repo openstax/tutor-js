@@ -22,7 +22,7 @@ export default class TourStep extends BaseModel {
     @field position = '';
     @field isCancelable = true;
     @field is_fixed = false;
-    @field anchor_id = '';
+    @field anchor_id: string | null = null;
     @field customComponent: any;
     @field spotlight = true;
     @field displayAs = 'standard';
@@ -36,9 +36,7 @@ export default class TourStep extends BaseModel {
     windowSize = new WindowSize();
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 

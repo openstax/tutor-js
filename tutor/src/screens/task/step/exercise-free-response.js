@@ -1,6 +1,7 @@
 import {
     React, PropTypes, observer, styled, action, css, moment,
 } from 'vendor';
+import { modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';
 import ResponseValidation from '../../../models/response_validation';
@@ -100,7 +101,7 @@ const RevertButton = observer(({ ux }) => {
             disabled={!ux.textHasChanged}
             onClick={ux.cancelWRQResubmit}
         >
-      Cancel
+            Cancel
         </StyledRevertButton>
     );
 
@@ -143,6 +144,11 @@ class FreeResponseInput extends React.Component {
         validator: this.props.response_validation,
     });
 
+    constructor(props) {
+        super(props)
+        modelize(this)
+    }
+
     @action.bound onSave() {
         const { taskUX, step } = this.props;
         taskUX.setCurrentMultiPartStep(step);
@@ -151,6 +157,7 @@ class FreeResponseInput extends React.Component {
 
     render() {
         const { ux, props: { questionNumber, course, step, question } } = this;
+
         return (
             <StyledFreeResponse
                 data-test-id="student-free-response"
@@ -177,8 +184,9 @@ class FreeResponseInput extends React.Component {
 
                 </InfoRow>
                 <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
-                    {ux.isDisplayingNudge &&
-            <NudgeMessage course={course} step={step} ux={ux} />}
+                    {ux.isDisplayingNudge && (
+                        <NudgeMessage course={course} step={step} ux={ux} />
+                    )}
                     <PointsAndFeedback step={step} />
                     <ControlButtons>
                         <RevertButton size="lg" ux={ux} />
@@ -186,7 +194,8 @@ class FreeResponseInput extends React.Component {
                             size="lg"
                             data-test-id="submit-answer-btn"
                             disabled={ux.isSubmitDisabled}
-                            onClick={this.onSave}>
+                            onClick={this.onSave}
+                        >
                             {ux.submitBtnLabel}
                         </AnswerButton>
                     </ControlButtons>

@@ -19,7 +19,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                               <MobXProvider tourContext={{...}}>
                                 <div data-purpose=\\"tour-conductor-wrapper\\">
                                   <TutorSpecLayout>
-                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls]}>
                                       <div>
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepFooter course={{...}} step={{...}}>
@@ -34,7 +34,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                       </span>
                                                     </styled.span>
                                                     <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
-                                                      <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                                                      <a aria-label=\\"Browse course reference book\\" onClick={[Function: onClick]} tabIndex={-1} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
                                                           <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>
                                                             <div className=\\"sc-AxirZ jSNLok book-part-title\\" style={[undefined]}>
@@ -54,13 +54,13 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                   </div>
                                                 </styled.div>
                                               </RelatedContentLink>
-                                              <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"99e127f8-f722-4907-a6b3-2d62fca135d6\\" related_content={{...}}>
-                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"99e127f8-f722-4907-a6b3-2d62fca135d6\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
+                                              <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}}>
+                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
                                                   <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
                                                     ID# 
                                                     1@1
                                                      | 
-                                                    <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Nerve%20Conduction%E2%80%93Electrocardiograms&book=Anatomy%20and%20Physiology\\">
+                                                    <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Newton%27s%20First%20Law%20of%20Motion%3A%20Inertia&book=The%20AP%20Physics%20Collection\\">
                                                       Suggest a correction
                                                     </a>
                                                   </div>
@@ -86,7 +86,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                           </inject-with-modalManager-spyMode(TourConductor)>
                         </MobXProvider>
                       </ModalManager>
-                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: toggleDebug] { isMobxAction: true }} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
                         π
                       </a>
                     </div>

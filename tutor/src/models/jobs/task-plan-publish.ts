@@ -41,8 +41,10 @@ export default class TaskPlanPublish extends Job {
     @observable plan;
 
     constructor(plan: TaskPlan) {
-        super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
+        super(); // every 10 seconds for max of 10 mins
         modelize(this);
+        this.maxAttempts = 60
+        this.interval = 10
         this.plan = plan;
     }
 

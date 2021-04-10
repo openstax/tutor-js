@@ -2,7 +2,7 @@ import {
     FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
 import TaskUX from '../../../../src/screens/task/ux';
-import { Factory, TestRouter, TimeMock, delay, C } from '../../../helpers';
+import { ApiMock, Factory, TestRouter, runInAction, TimeMock, C } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
@@ -16,11 +16,19 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 
 describe('Exercise Free Response', () => {
     let props;
+    let task;
+
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'), //task.steps[0].toJSON(),
+        'courses/\\d+/practice_questions': [],
+    })
 
     beforeEach(() => {
-        const task = Factory.studentTask({ type: 'homework', stepCount: 1 });
+        const course = Factory.course()
+        task = Factory.studentTask({ type: 'homework', stepCount: 1 }, course)
         const step = task.steps[0];
+        step.onLoaded = jest.fn()
         props = {
             step,
             questionNumber: 42,
@@ -41,30 +49,30 @@ describe('Exercise Free Response', () => {
     });
 
     it('reviews text', () => {
-        const fr = mount(<FreeResponseReview {...props} />);
-        props.step.free_response = null;
-        expect(fr.isEmptyRender()).toBeTruthy();
-        props.step.free_response = 'test';
-        fr.update();
-        expect(fr.text()).toContain('test');
-        fr.unmount();
+        const fr = mount(<FreeResponseReview {...props} />)
+        runInAction(() => props.step.free_response = null )
+        expect(fr.isEmptyRender()).toBeTruthy()
+        runInAction(() => props.step.free_response = 'test' )
+        fr.update()
+        expect(fr.text()).toContain('test')
+        fr.unmount()
     });
 
     it('displays question number and stem', () => {
-        props.response_validation.isEnabled = false;
+        runInAction(() => props.response_validation.isEnabled = false )
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         expect(fr).toHaveRendered('QuestionStem div[data-question-number=42]');
         fr.unmount();
     });
 
     it('saves text immediately when not validating', async () => {
-        props.step.can_be_updated = true
-
-        props.response_validation.isEnabled = false;
+        runInAction(() => {
+            props.step.can_be_updated = true
+            props.response_validation.isEnabled = false
+        })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         const value = 'test test test';
-        setFreeResponse(fr, { value });
-        await delay();
+        await setFreeResponse(fr, { value });
         expect(props.step.response_validation).toEqual({ })
         expect(props.step.free_response).toEqual(value);
         expect(props.step.canEditFreeResponse).toBe(false);
@@ -72,14 +80,15 @@ describe('Exercise Free Response', () => {
     });
 
     it('only submits validation when ui is disabled', async () => {
-        props.response_validation.validate = jest.fn()
-            .mockResolvedValue({ data: { valid: false } });
-        props.response_validation.isEnabled = true;
-        props.response_validation.isUIEnabled = false;
+        runInAction(() => {
+            props.response_validation.validate = jest.fn().mockResolvedValue({ valid: false });
+            props.response_validation.isEnabled = true;
+            props.response_validation.isUIEnabled = false;
+        })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         const value = 'test test test';
-        setFreeResponse(fr, { value });
-        await delay();
+        await setFreeResponse(fr, { value });
+
         expect(props.step.response_validation.attempts).toHaveLength(1);
         expect(props.step.response_validation.attempts[0]).toMatchObject({
             valid: false, response: value,
@@ -92,23 +101,28 @@ describe('Exercise Free Response', () => {
     });
 
     it('validates text and has retry ui', async () => {
-        props.response_validation.isEnabled = true;
-        props.response_validation.isUIEnabled = true;
-        props.response_validation.validate = jest.fn()
-            .mockResolvedValue({ data: { valid: false } });
+        runInAction(() => {
+            props.response_validation.isEnabled = true;
+            props.response_validation.isUIEnabled = true;
+            props.response_validation.validate = jest.fn().mockResolvedValue({
+                valid: false,
+                response: '1ad',
+                timestamp: (new Date()).toISOString(),
+            })
+        })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
 
         const value = 'test test test';
         expect(fr).toHaveRendered('StepFooter RelatedContentLink');
 
-        setFreeResponse(fr, { value });
+        await setFreeResponse(fr, { value });
 
         expect(props.response_validation.validate).toHaveBeenCalledWith(
             { response: value, uid: props.step.uid },
-        );
-        await delay();
+        )
 
-        expect(props.step.response_validation.attempts).toHaveLength(1);
+        expect(props.step.response_validation.attempts).toHaveLength(1)
+
         expect(props.step.response_validation.attempts[0]).toMatchObject({
             valid: false, response: value,
         });
@@ -120,12 +134,10 @@ describe('Exercise Free Response', () => {
         expect(fr.find('NudgeMessage').text()).toContain('Not sure? Here’s a hint');
         expect(fr).toHaveRendered('AnswerButton[disabled=true]');
         expect(fr.find('AnswerButton').text()).toEqual('Submit');
-        expect(props.step.free_response).toBeUndefined();
+        expect(props.step.free_response).toEqual('')
 
         const updatedValue = 'a new value';
-        setFreeResponse(fr, { value: updatedValue });
-
-        await delay();
+        await setFreeResponse(fr, { value: updatedValue });
 
         expect(props.response_validation.validate).toHaveBeenCalledWith(
             { response: updatedValue, uid: props.step.uid },
@@ -142,40 +154,38 @@ describe('Exercise Free Response', () => {
     });
 
     it('hides nudge ui when free response is valid', async () => {
-        props.response_validation.isEnabled = true;
-        props.response_validation.isUIEnabled = true;
-        props.response_validation.validate = jest.fn()
-            .mockResolvedValue({ data: { valid: true } });
+        runInAction(() => {
+            props.response_validation.isEnabled = true;
+            props.response_validation.isUIEnabled = true;
+            props.response_validation.validate = jest.fn().mockResolvedValue({ valid: true });
+        })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         const value = 'test test test';
-        setFreeResponse(fr, { value });
-
-        await delay();
-
+        await setFreeResponse(fr, { value });
         expect(props.step.free_response).toEqual(value);
         expect(props.step.canEditFreeResponse).toBe(false);
         expect(props.step.response_validation.attempts).toHaveLength(1);
         expect(props.step.response_validation.attempts[0]).toMatchObject({
             valid: true, response: value,
         });
-
         fr.unmount();
     });
 
     it('hides nudge ui and saves free_response validation has an error', async () => {
-        props.response_validation.isEnabled = true;
-        props.response_validation.isUIEnabled = true;
-        props.response_validation.validate = jest.fn(() => Promise.reject(new Error('timeout')));
+        runInAction(() => {
+            props.response_validation.isEnabled = true;
+            props.response_validation.isUIEnabled = true;
+            props.response_validation.validate = jest.fn().mockRejectedValue(new Error('timeout'))
+        })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         const value = 'test test test';
-        setFreeResponse(fr, { value });
-
-        await delay();
+        await setFreeResponse(fr, { value });
 
         expect(props.step.free_response).toEqual(value);
         expect(props.step.response_validation.attempts[0]).toMatchObject({
             valid: true, response: value, exception: 'Error: timeout',
         });
         expect(Raven.captureException).toHaveBeenCalled();
+        fr.unmount();
     });
 });

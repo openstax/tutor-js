@@ -8,7 +8,9 @@ export default class OpenDowndownMenu extends BaseAction {
         modelize(this);
     }
 
-    menu?: HTMLElement
+    get menu(): HTMLDivElement | null {
+        return null
+    }
 
     preValidate() {
     // click menu twice to force it to render

@@ -3,9 +3,9 @@ import { BaseModel, field, modelize, computed, NEW_ID } from 'shared/model';
 
 export default class ResearchSurvey extends BaseModel {
     @field id = NEW_ID;
-    @field title;
+    @field title = '';
     @field model?: any;
-    @field response;
+    @field response?: any;
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

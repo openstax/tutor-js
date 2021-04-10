@@ -19,7 +19,7 @@ import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
-import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj }from '../../src/models/types'
+import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj }from '../../src/models/types'
 
 export interface Model extends Function {
     new(..._args: any[]): any;
@@ -94,9 +94,9 @@ const Factories = {
     },
 
     scores: ({ course }: { course: Course }) => {
-        course.scores.onFetchComplete({
-            data: course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period })),
-        });
+        course.scores.onFetchComplete(
+            course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period }) as PeriodPerformanceObj),
+        );
         return course.scores;
     },
 

@@ -1,4 +1,4 @@
-import { BaseModel, model, field, modelize, array } from 'shared/model';
+import { BaseModel, model, field, modelize, array, ID, NEW_ID, hydrateModel } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -12,12 +12,7 @@ import User from './user';
 const TourInstances = new Map();
 
 export default class Tour extends BaseModel {
-    constructor() {
-        super();
-        modelize(this);
-    }
-
-    static forIdentifier(id, options = {}) {
+    static forIdentifier(id: string, options: { courseId?: ID } = {}) {
         const tourSettings = TourData[id];
 
         if (!tourSettings) {
@@ -44,31 +39,36 @@ export default class Tour extends BaseModel {
 
         tour = TourInstances.get(tourId);
         if (!tour){
-            tour = new Tour(tourData);
+            tour = hydrateModel(Tour, tourData);
             TourInstances.set(tourId, tour);
         }
         return tour;
     }
 
     @computed static get all() {
-        return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
+        return compact(map(TourData, (_, id) => this.forIdentifier(id)));
     }
 
     @field id: string = ''
 
-    @field group_id;
-    @field name;
-    @field audience_tags?: any[];
-    @field scrollToSteps;
-    @field showOverlay;
+    @field group_id = '';
+    @field name = '';
+    @field audience_tags: string[] = [];
+    @field scrollToSteps:any;
+    @field showOverlay = false;
     @field autoplay = false;
     @field standalone = false;
     @field perCourse = false;
     @field sticky = false;
     @field isEnabled = false;
     @field justViewed = false;
-    @field className;
-    @field courseId;
+    @field className = '';
+    @field courseId:ID = NEW_ID;
+
+    constructor() {
+        super();
+        modelize(this);
+    }
 
     @model(TourStep) steps = array<TourStep>()
 
@@ -109,7 +109,7 @@ export default class Tour extends BaseModel {
     }
 
     @computed get maxRequiredViewCounts() {
-        return max(map(this.steps, 'requiredViewsCount'));
+        return max(map(this.steps, 'requiredViewsCount')) || 1;
     }
 
     @action
@@ -119,7 +119,7 @@ export default class Tour extends BaseModel {
     }
 
     @action
-    markViewed({ exitedEarly } = {}) {
+    markViewed({ exitedEarly }: {exitedEarly?: boolean} = {}) {
         this.justViewed = true;
         this.isEnabled = false;
         User.viewedTour(this, { exitedEarly });
