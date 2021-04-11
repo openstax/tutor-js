@@ -25,6 +25,7 @@ interface TaskStepId { taskStepId: ID }
 interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
 interface PQCourseId extends CourseId { practiceQuestionId: ID }
+interface EcosystemCnxId { ecosystemId: ID, cnxId: ID }
 
 const Definitions = {
     bootstrap:              r('GET', '/user/bootstrap'),
@@ -35,6 +36,7 @@ const Definitions = {
     unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
 
     fetchReferenceBook:     r<BookId>('POST', 'ecosystems/{bookId}/readings'),
+    fetchReferenceBookPage: r<EcosystemCnxId>('GET', 'ecosystems/{ecosystemId}/pages/{cnxId}'),
 
     fetchCourseRoster:      r<CourseId>('GET', 'courses/{courseId}/roster'),
 
@@ -124,12 +126,6 @@ const urlFor = makeUrlFunc(Definitions)
 export default urlFor
 
 //export default Api
-//     connectModelRead(ReferenceBookNode, 'fetchContent', {
-//         pattern: 'ecosystems/{ecosystemId}/pages/{cnx_id}',
-//         onSuccess: 'onContentFetchComplete',
-//         onFail: 'onContentFetchFail',
-//     });
-
 //     // "User" is actually an instance, but connectModel works at the class level
 //     connectModelRead(User.constructor, 'fetch',
 //         { pattern: 'user' }

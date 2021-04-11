@@ -17,6 +17,8 @@ import ChapterSection from './chapter-section';
 import Node from './reference-book/node';
 import urlFor from '../api'
 
+export { Node as Page }
+
 function mapPages(page: ReferenceBook | Node, pages: any) {
     if (page.isPage) {
         const lastPage = last(Array.from(pages.byId.values())) as Node | undefined;
@@ -52,7 +54,7 @@ export default class ReferenceBook extends BaseModel {
     @computed get pages() {
         return mapPages(this, {
             all: observable.array(),
-            byId: new Map({}, { keyType: String }),
+            byId: new Map({}, { keyType: Number }),
             byUUID: observable.map(),
             byChapterSection: observable.map(),
         });

@@ -1,11 +1,12 @@
-import { autorun } from 'mobx';
+import { autorun, runInAction } from 'mobx';
 import Factory from '../factories';
 import { sample } from 'lodash';
 import Node from '../../src/models/reference-book/node';
 
 
 describe('Reference Book', () => {
-    let book;
+    let book: ReturnType<typeof Factory.book>;
+
     beforeEach(() => {
         book = Factory.book({ type: 'biology' });
     });
@@ -18,16 +19,20 @@ describe('Reference Book', () => {
         const page = book.pages.byId.get(oldId);
         expect(book.pages.byId.keys()).toContain(oldId);
         expect(recomputeSpy).toHaveBeenCalledTimes(1);
-        page.id = '99999';
-        expect(book.pages.byId.keys()).not.toContain(oldId);
-        expect(book.pages.byId.keys()).toContain(page.id);
+        runInAction(() => {
+            page.id = '99999';
+        })
+        expect(book.pages.byId.keys()).not.toContain(oldId)
+        expect(book.pages.byId.keys()).toContain(99999);
         expect(recomputeSpy).toHaveBeenCalledTimes(2);
     });
 
     it('reads 2 level toc', () => {
         book = Factory.book({ type: 'physics' });
         expect(book.children[0]).toBeInstanceOf(Node);
-        book.chapters.forEach(c => expect(c.isChapter).toBe(true));
+        runInAction(() => {
+            book.chapters.forEach(c => expect(c.isChapter).toBe(true));
+        })
     });
 
     it('reads 3 level toc', () => {

@@ -135,9 +135,6 @@ export default class QaScreenUX extends BookUX {
         };
     }
 
-    @action.bound onNavSetSection(path) {
-        this.history.push(path);
-    }
 
     @action setNavBar(nav) {
         nav.childProps.set('ux', this);

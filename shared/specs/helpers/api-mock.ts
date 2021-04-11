@@ -5,7 +5,7 @@ import { JSON } from '../../src/types'
 const fetchMock = fetch as FetchMock;
 
 interface FetchMocks {
-    [match: string]: JSON | MockResponseInitFunction
+    [match: string]: JSON | [JSON] | MockResponseInitFunction
 }
 
 type Matcher = [RegExp, string]

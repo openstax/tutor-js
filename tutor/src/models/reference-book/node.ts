@@ -8,6 +8,7 @@ import {
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
 import ReferenceBook from '../reference-book';
+import urlFor from '../../api';
 
 const NON_ASSIGNABLE_TITLES = [
     'Glossary',
@@ -51,7 +52,7 @@ export default class ReferenceBookNode extends BaseModel {
     @field cnx_id = '';
     @field short_id = '';
     @field uuid = '';
-    @field(ChapterSection) chapter_section = ChapterSection.blank
+    @model(ChapterSection) chapter_section = ChapterSection.blank
 
     @observable chapter = '';
 
@@ -131,11 +132,14 @@ export default class ReferenceBookNode extends BaseModel {
         return n as ReferenceBook;
     }
 
-    fetchContent() {
-        return { cnx_id: this.cnx_id, ecosystemId: this.book.id };
+    async fetchContent() {
+        const data = await this.api.request(urlFor('fetchReferenceBookPage', {
+            cnxId: this.cnx_id, ecosystemId: this.book.id,
+        }));
+        this.onContentFetchComplete(data);
     }
 
-    @action onContentFetchComplete({ data }: any) {
+    @action onContentFetchComplete( data: any) {
         this.update(pick(data, UPDATEABLE_FIELDS));
         MediaActions.parse(this.content_html);
     }

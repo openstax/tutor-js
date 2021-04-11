@@ -1,10 +1,15 @@
-import { observable, computed, action, observe, when, modelize } from 'shared/model'
+import {
+    observable, computed, lazyGetter, hydrateModel,
+    action, ID, NEW_ID, observe, when, modelize,
+} from 'shared/model'
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
-import Book from '../reference-book';
+import Book, { Page } from '../reference-book';
 import Courses from '../courses-map';
+import type Course from '../course'
 import Router from '../../helpers/router';
 import Scroller from '../../helpers/scroll-to';
+import type TourContext from '../tour/context'
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @book-page-width and @book-menu-width in variables.scss
@@ -13,20 +18,23 @@ const MENU_VISIBLE_BREAKPOINT = 1350;
 export default class BookUX {
 
     @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
-    @observable pageId;
-    @observable ecosystemId;
-    @observable courseId;
-    @observable book;
+    @observable pageId: ID = NEW_ID;
+    @observable ecosystemId: ID = NEW_ID;
+    @observable courseId: ID = NEW_ID;;
+    @observable book?: Book;
+    disposers: any[]
+    windowImpl: any
+    history: any
+    @observable tours?: TourContext
+    @lazyGetter get windowSize() { return new WindowSize({ windowImpl: this.windowImpl }) }
+    @lazyGetter get scroller() { return new Scroller({ windowImpl: this.windowImpl } as any) }
 
-    windowSize = new WindowSize({ windowImpl: this.windowImpl });
-    scroller = new Scroller({ windowImpl: this.windowImpl });
-
-    constructor({ windowImpl } = {}) {
+    constructor({ windowImpl }: { windowImpl?: any } = {}) {
         modelize(this);
         this.windowImpl = windowImpl;
         this.disposers = [
             observe(this, 'ecosystemId', this.onEcosystemChange),
-            observe(this, 'pageId', this.onPageChange),
+            observe(this, 'page', this.onPageChange),
         ];
     }
 
@@ -35,12 +43,12 @@ export default class BookUX {
         this.disposers = [];
     }
 
-    @action.bound onEcosystemChange({ newValue: ecosystemId }) {
+    @action.bound onEcosystemChange({ newValue: ecosystemId }: any) {
         if (this.book && this.book.id == ecosystemId){ return; }
         if (this.course) {
             this.book = this.course.referenceBook;
         } else {
-            this.book =  new Book({ id: ecosystemId });
+            this.book =  hydrateModel(Book, { id: ecosystemId });
         }
         this.book.fetch().then(() => {
             if (!this.pageId) {
@@ -49,22 +57,22 @@ export default class BookUX {
         });
     }
 
+    @action.bound onPageChange({ newValue: section }: any) {
+        if (section && this.page) {
+            this.page.ensureLoaded();
+        }
+    }
+
     @computed get isFetching() {
         return Boolean(
             (this.book && this.book.api.isPending) || (this.page && this.page.api.isPending)
         );
     }
 
-    @action.bound onMenuSelection(section) {
-        this.setCurrentPage(section);
+    @action.bound onMenuSelection(pageId: ID) {
+        this.setCurrentPage(pageId);
         if (this.isMenuOnTop) { this.isMenuVisible = false; }
         this.scroller.scrollToTop({ deferred: true });
-    }
-
-    @action.bound onPageChange({ newValue: section }) {
-        if (section && this.page) {
-            this.page.ensureLoaded();
-        }
     }
 
     @computed get isMenuOnTop() {
@@ -75,7 +83,7 @@ export default class BookUX {
         this.isMenuVisible = !this.isMenuVisible;
     }
 
-    @action.bound update(props) {
+    @action.bound update(props: any) {
         if (props.ecosystemId) {
             this.ecosystemId = props.ecosystemId;
         } else if (props.courseId) {
@@ -89,16 +97,16 @@ export default class BookUX {
                 if (course.id != this.courseId) {
                     this.courseId = course.id;
                     const pageURL = props.pageId ? `/page/${props.pageId}` : '';
-                    this.history.push(`/book/${this.courseId}${pageURL}`);
+                    this.history?.push(`/book/${this.courseId}${pageURL}`);
                 }
                 this.ecosystemId = course.ecosystem_id;
             }
         }
         if (props.chapterSection) {
             if (this.book) {
-                when(() => this.book.pages.byChapterSection.get(props.chapterSection))
+                when(() => this.book?.pages.byChapterSection.get(props.chapterSection))
                     .then(() => {
-                        const pageId = this.book.pages.byChapterSection.get(props.chapterSection).id;
+                        const pageId = this.book?.pages.byChapterSection.get(props.chapterSection).id;
                         this.history.push(`/book/${this.courseId}/page/${pageId}`);
                     });
             }
@@ -108,7 +116,7 @@ export default class BookUX {
         this.setCurrentPage(props.pageId);
     }
 
-    @action setCurrentPage(pageId) {
+    @action setCurrentPage(pageId?: ID) {
         if (this.book && !pageId) {
             pageId = first(Array.from(this.book.pages.byId.keys()));
         }
@@ -116,18 +124,23 @@ export default class BookUX {
             // wait for React to re-render, mathjax to run, and the page to reflow
             setTimeout(() => invoke(this, 'tours.tourRide.joyrideRef.calcPlacement'), 10);
         }
-        this.pageId = pageId;
+        if (pageId) {
+            this.pageId = pageId;
+        }
     }
 
     @computed get pages() {
-        return this.book.pages;
+        return this.book?.pages;
     }
 
-    @computed get course() {
+    @computed get course(): Course | undefined {
         if (this.courseId) {
             return Courses.get(this.courseId);
         }
-        return this.ecosystemId && Courses.forEcosystemId(this.ecosystemId);
+        if (this.ecosystemId) {
+            return Courses.forEcosystemId(this.ecosystemId);
+        }
+        return undefined
     }
 
     @computed get page() {
@@ -135,7 +148,7 @@ export default class BookUX {
     }
 
     @computed get toc() {
-        return this.book.children;
+        return this.book?.children;
     }
 
     @computed get isCollated() {
@@ -151,11 +164,11 @@ export default class BookUX {
         };
     }
 
-    propsForPage = (page) => {
+    propsForPage = (page: Page) => {
         return {
             tabIndex: this.isMenuVisible ? 0 : -1,
             to: 'viewReferenceBookPage',
-            params: { pageId: page.id, courseId: this.course.id },
+            params: { pageId: page.id, courseId: this.course?.id },
             onClick: this.onMenuSelection,
         };
     }
@@ -169,8 +182,8 @@ export default class BookUX {
         } : {};
     }
 
-    bookLinkFor(props) {
-        let { courseId } = Router.currentParams();
+    bookLinkFor(props: any) {
+        let { courseId } = Router.currentParams() as any;
         const { query } = props;
 
         return Router.makePathname(
@@ -179,8 +192,15 @@ export default class BookUX {
         );
     }
 
-    rewriteBookLink(link) {
+    rewriteBookLink(link: HTMLAnchorElement) {
         link.href = link.href.replace(/\/book\/\d+/, `/book/${this.courseId}`);
+    }
+
+    @action.bound onNavSetSection(path: string) {
+        this.history?.push(path);
+    }
+
+    sectionHref(_page: { id: ID }) {
     }
 
     @computed get pagingProps() {
