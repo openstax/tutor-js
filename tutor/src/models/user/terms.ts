@@ -2,6 +2,7 @@ import { BaseModel, field, model, modelize, computed, action, array, NEW_ID, ID,
 import { isProd } from '../../helpers/production'
 import type { User } from '../user'
 import urlFor from '../../api'
+import { UserTermObj } from '../types';
 
 const REQUIRED_FOR_EVERYONE = [
     'general_terms_of_use',
@@ -70,13 +71,13 @@ class UserTerms extends BaseModel {
         this.onLoaded(terms)
     }
 
-    @action onLoaded(terms: Term[]) {
+    @action onLoaded(terms: UserTermObj[]) {
         terms.forEach((termData) => {
             const term = this.get(termData.name);
             if (term) {
-                term.update(termData);
+                term.update(termData)
             } else {
-                this.user.available_terms.push(termData);
+                this.user.available_terms.push(termData as Term)
             }
         });
     }

@@ -21,21 +21,21 @@ describe('Current User Store', function() {
     });
 
     it('should return expected menu routes for a teacher', () => {
-        User.canCreateCourses = true;
+        UntypedUser.canCreateCourses = true;
         const course = Factory.course({ is_teacher: true });
         expect(course.currentRole.isTeacher).toBe(true);
         expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
     });
 
     it('should return expected menu routes for a student', () => {
-        User.canCreateCourses = false;
+        UntypedUser.canCreateCourses = false;
         const course = Factory.course({ is_teacher: false });
         expect(course.currentRole.isTeacher).toBe(false);
         expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
     });
 
     it('hides course creation from non- faculty', () => {
-        User.canCreateCourses = false;
+        UntypedUser.canCreateCourses = false;
         const course = Factory.course({ is_teacher: true });
         const options = ld.map(UserMenu.getRoutes(course), 'name');
         expect(options).not.toContain('createNewCourse');

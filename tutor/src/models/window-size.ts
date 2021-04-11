@@ -1,6 +1,7 @@
 import { computed, modelize } from 'shared/model'
 import { fromResource } from 'mobx-utils';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+
 import { BREAKPOINTS } from '../theme';
 
 export default class WindowSize {
