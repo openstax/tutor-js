@@ -82,6 +82,8 @@ export default class StudentTask extends BaseModel {
     }
 
     @computed get isAssignmentClosed() {
+        // console.log(this.closes_at.isValid, this.closes_at.isInPast)
+        // console.log(this.closes_at.asISOString, Time.unknown.asISOString , this.closes_at.isUnknown)
         return this.closes_at.isValid && this.closes_at.isInPast
     }
 

@@ -2,6 +2,7 @@ import { modelize } from 'modeled-mobx'
 import { observable, computed, action } from 'mobx'
 import { isArray, isObject } from 'lodash'
 import { ModelApi } from './api'
+import { hydrateModel } from 'modeled-mobx'
 import { ID } from '../types'
 import { LazyGetter } from 'lazy-get-decorator'
 
@@ -107,7 +108,7 @@ export default class Map<K, V extends MapableObject> {
             const model = this.get(modelData.id)
             model ? (model as any).update(modelData) : this.set(
                 modelData.id,
-                new (this.constructor as any).Model(modelData, this)
+                hydrateModel((this.constructor as any).Model, modelData, this)
             )
         })
     }

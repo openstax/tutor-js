@@ -99,6 +99,8 @@ export default class Time {
     get isUnknown() { return this._value === Time.unknown._value }
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
 
+    toFormat(fmt: string) { return this._value.toFormat(fmt) }
+    // left for comatibility with momentjs
     format(fmt: string) { return this.asMoment.format(fmt) }
 }
 

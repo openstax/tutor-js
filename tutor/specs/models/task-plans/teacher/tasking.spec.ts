@@ -75,8 +75,11 @@ describe('Teacher tasking plan tasking', () => {
 
         // set to before the now
         tasking.initializeWithDueAt({ dueAt: new Time('2015-10-01T12:00:00.000Z'), ...defaults });
-        expect(tasking.due_at).toEqual(Time.now.plus({ minutes: 30 }).toISOString());
-        expect(tasking.opens_at).toEqual(Time.now.plus({ minutes: 29 }).toISOString());
+
+        expect(tasking.due_at).toEqual(
+            tasking.course.dateTimeInZone().plus({ minute: 30 }).toISOString()
+        )
+        expect(tasking.opens_at).toEqual(tasking.dueAt.minus({ minutes: 1 }).toISOString());
     });
 
     it('should return invalid if dates are not in order', () => {

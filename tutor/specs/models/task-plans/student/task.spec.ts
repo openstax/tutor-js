@@ -1,10 +1,11 @@
 import { TimeMock, Factory } from '../../../helpers';
-import COURSE_1_DATA from '../../../../api/courses/1/dashboard.json';
-import moment from 'moment';
+//import Time from 'shared/model/time'
+//import COURSE_1_DATA from '../../../../api/courses/1/dashboard.json';
+//import moment from 'moment';
 
 describe('Student Dashboard Task Model', () => {
 
-    let task;
+    let task: ReturnType<typeof Factory.studentDashboardTask>;
     const now = TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
     beforeEach(() => {
@@ -12,9 +13,9 @@ describe('Student Dashboard Task Model', () => {
     });
 
     it('#isViewable', () => {
-        task.opens_at = moment(now).add(1, 'day');
+        task.opens_at = now.plus({ day: 1 })
         expect(task.isViewable).toBe(false);
-        task.opens_at = moment(now).subtract(1, 'day');
+        task.opens_at = now.minus({ day: 1 })
         expect(task.isViewable).toBe(true);
         task.is_deleted = true;
         task.complete_exercise_count = 0;
@@ -35,7 +36,7 @@ describe('Student Dashboard Task Model', () => {
         task.exercise_count = 3;
         task.steps_count = 8;
         expect(task.humanProgress).toEqual('1/8 completed');
-        task.due_at = moment(now).subtract(1, 'day');
+        task.due_at = now.minus({ day: 1 })
         task.complete = true;
         expect(task.humanProgress).toEqual('Complete');
     });

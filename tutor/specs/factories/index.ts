@@ -19,7 +19,7 @@ import Page from '../../src/models/reference-book/node';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
-import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj }from '../../src/models/types'
+import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj, StudentTaskObj }from '../../src/models/types'
 
 export interface Model extends Function {
     new(..._args: any[]): any;
@@ -80,12 +80,14 @@ const Factories = {
         return course.teacherTaskPlans;
     },
 
-    studentTaskPlans: ({ course, count = 4, attributes = {} }: { course: Course, count: number, attributes: any}) => {
-        course.studentTaskPlans.onLoaded(
-            range(count).map(() => FactoryBot.create(
+    studentTaskPlans: ({ course, count = 4, attributes = {} }: { course: Course, count?: number, attributes?: any}) => {
+        course.studentTaskPlans.onLoaded({
+            research_surveys: null,
+            all_tasks_are_ready: true,
+            tasks: range(count).map(() => FactoryBot.create(
                 'StudentDashboardTask', Object.assign({ course }, attributes)
-            )) as any
-        );
+            )) as StudentTaskObj[],
+        });
     },
 
 
