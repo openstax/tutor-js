@@ -30,4 +30,10 @@ describe('Preview Courses', () => {
         await visitPage(page, '/course/1')
         await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
     })
+
+    it('hides preview panel for non-available offerings', async () => {
+        mock.current.course(1).offering.is_available = false
+        await visitPage(page, '/course/1')
+        await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
+    })
 })
