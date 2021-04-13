@@ -15,7 +15,6 @@ const BOOKS = {
     physics: {
         title:      'Physics',
         subject:    SUBJECTS.PHYSICS,
-        bp_doc:     'college-physics',
     },
     hs_physics: {
         title:      'High School Physics',
@@ -24,12 +23,10 @@ const BOOKS = {
     college_physics: {
         title:      'College Physics',
         subject:    SUBJECTS.PHYSICS,
-        bp_doc:     'college-physics',
     },
     biology: {
         title:      'Biology',
         subject:    SUBJECTS.BIOLOGY,
-        bp_doc:     'biology',
     },
     ap_biology: {
         title:      'Biology for AP® Courses',
@@ -46,7 +43,6 @@ const BOOKS = {
     college_biology: {
         title:      'College Biology',
         subject:    SUBJECTS.BIOLOGY,
-        bp_doc:     'biology',
     },
     principles_economics: {
         title:      'Principles of Economics',
@@ -63,7 +59,6 @@ const BOOKS = {
     intro_sociology: {
         title:      'Introduction to Sociology',
         subject:    SUBJECTS.SOCIOLOGY,
-        bp_doc:     'sociology',
     },
     anatomy_physiology: {
         title:      'Anatomy & Physiology',
