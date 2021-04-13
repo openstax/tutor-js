@@ -9,9 +9,21 @@ import TagModel from 'shared/model/exercise/tag';
 import { Icon } from 'shared';
 import Error from './error';
 import Wrapper from './wrapper';
+import BookSelection from './book-selection';
 
 const TYPE = 'lo';
-import BookSelection from './book-selection';
+const LO_PATTERNS = {
+    default: {
+        placeholder: "##-##-##",
+        excluded_characters: /[^0-9.-]/g,
+        match: /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/
+    },
+    "stax-worldhist": {
+        placeholder: "[AB]##-##-##",
+        excluded_characters: /[^AB0-9.-]/g,
+        match: /^[AB]\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/
+    }
+}
 
 @observer
 class Input extends React.Component {
@@ -30,8 +42,28 @@ class Input extends React.Component {
       return this.props.tag.value;
   }
 
+  lo_pattern(book) {
+      if (!book) { book = this.book; }
+      if (book in LO_PATTERNS) {
+          return LO_PATTERNS[book];
+      }
+      return LO_PATTERNS.default;
+  }
+
+  placeholder(book) {
+      return this.lo_pattern(book).placeholder;
+  }
+
+  excluded_characters_pattern(book) {
+      return this.lo_pattern(book).excluded_characters;
+  }
+
+  match_pattern(book) {
+      return this.lo_pattern(book).match;
+  }
+
   @action.bound onTextChange(ev) {
-      this.value = ev.target.value.replace(/[^0-9.-]/g, '');
+      this.value = ev.target.value.replace(this.excluded_characters_pattern(), '');
       this.errorMsg = null;
   }
 
@@ -40,17 +72,17 @@ class Input extends React.Component {
       const { tag } = this.props;
       const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
 
-      if (!book || (lo != null && !lo.match( /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/ ))) {
-          this.errorMsg = 'Must have book and match LO pattern of dd-dd-dd';
+      if (!book || (lo != null && !lo.match( this.match_pattern(book) ))) {
+          this.errorMsg = 'Must have book and match LO pattern of ' + this.placeholder(book);
+          console.log(this.errorMsg);
       } else {
           tag.value = lo;
       }
       tag.specifier = book;
-
   }
 
   @action.bound onTextBlur() {
-      return this.validateAndSave({ lo: this.value });
+      this.validateAndSave({ lo: this.value });
   }
 
   @action.bound updateBook(ev) {
@@ -76,7 +108,7 @@ class Input extends React.Component {
                   onChange={this.onTextChange}
                   onBlur={this.onTextBlur}
                   value={this.value}
-                  placeholder="##-##-##"
+                  placeholder={this.placeholder()}
               />
               <Error error={this.errorMsg} />
               <span className="controls">
