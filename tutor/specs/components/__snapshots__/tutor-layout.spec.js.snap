@@ -124,7 +124,6 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                         </SafeAnchor>
                                                                       </DropdownItem>
                                                                     </SupportDocumentLink>
-                                                                    <BestPracticesGuide course={[undefined]} />
                                                                     <DropdownItem className=\\"-help-link\\" onSelect={[Function: res]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} as={{...}} disabled={false}>
                                                                       <SafeAnchor href=\\"/accessibility-statement/\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
                                                                         <a href=\\"/accessibility-statement/\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
