@@ -1,5 +1,6 @@
 import { React, action, observer } from 'vendor';
 import pluralize from 'pluralize';
+import { modelize } from 'shared/model'
 import S from '../../helpers/string';
 import PropTypes from 'prop-types';
 import { Alert, FormControl, InputGroup, Form } from 'react-bootstrap';
@@ -14,6 +15,11 @@ class CourseNumbers extends React.Component {
     static title = 'Estimate your course size';
     static propTypes = {
         ux: PropTypes.instanceOf(BuilderUX).isRequired,
+    }
+
+    constructor(props) {
+        super(props)
+        modelize(this)
     }
 
     @action.bound

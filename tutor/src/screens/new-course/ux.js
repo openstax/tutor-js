@@ -1,6 +1,6 @@
 import { BaseModel, modelize } from 'shared/model';
 import {
-    invoke, filter, result, isEmpty, pick, values, every, delay, find,
+    filter, result, isEmpty, pick, values, every, delay, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -51,7 +51,9 @@ export default class CourseBuilderUX extends BaseModel {
             return;
         }
 
-        invoke(this.offerings.fetch(), 'then', this.onOfferingsAvailable);
+        if (this.preselectedOfferingId) {
+            this.newCourse.offering = find(this.offerings.available.array, a => a.id == this.preselectedOfferingId );
+        }
 
         observe(this, 'source', ({ newValue: newSource }) => {
             if (!newSource) { return; }
@@ -85,12 +87,6 @@ export default class CourseBuilderUX extends BaseModel {
 
     @computed get params() {
         return this.router.match.params || {};
-    }
-
-    @action.bound onOfferingsAvailable() {
-        if (this.preselectedOfferingId) {
-            this.newCourse.offering = find(this.offerings.available.array, a => a.id == this.preselectedOfferingId );
-        }
     }
 
     @computed get isLastStage() {
