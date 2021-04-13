@@ -9,7 +9,7 @@ export default class ModelLoader {
     @observable _model: any;
     @observable _method;
 
-    constructor({ model, method = 'fetch', fetch = false }: { model: any, method: string, fetch: boolean }) {
+    constructor({ model, method = 'fetch', fetch = false }: { model: any, method?: string, fetch?: any }) {
         modelize(this);
         this._model = model;
         this._method = method;

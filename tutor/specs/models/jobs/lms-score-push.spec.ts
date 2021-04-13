@@ -1,7 +1,6 @@
-import { TimeMock } from '../../helpers';
+import { TimeMock, Factory } from '../../helpers';
 import UiSettings from 'shared/model/ui-settings';
 import Push from '../../../src/models/jobs/lms-score-push';
-import { bootstrapCoursesList } from '../../courses-test-data';
 import Toasts from '../../../src/models/toasts';
 
 jest.useFakeTimers();
@@ -13,13 +12,13 @@ jest.mock('shared/model/ui-settings', () => ({
 
 describe('LMS Score push job', () => {
 
-    let course;
-    let job;
+    let course: ReturnType<typeof Factory.course>;
+    let job: Push;
 
     const mockedNow = TimeMock.setTo(new Date());
 
     beforeEach(() => {
-        course = bootstrapCoursesList().get(2);
+        course = Factory.course({ id: '2' })
         job = new Push(course);
     });
 

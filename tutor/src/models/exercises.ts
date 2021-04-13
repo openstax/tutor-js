@@ -45,6 +45,8 @@ interface FetchArg {
 }
 
 export class ExercisesMap extends Map<ID, Exercise> {
+    static Model = Exercise
+
     @readonly fetched = observable.map<ID, FETCHED_TYPE>()
 
     constructor() {

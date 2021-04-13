@@ -1,4 +1,4 @@
-import { BaseModel, field, model, action, computed, observable, NEW_ID, getParentOf } from 'shared/model';
+import { BaseModel, field, modelize, model, action, computed, observable, array, NEW_ID, getParentOf } from 'shared/model';
 import Time from 'shared/model/time';
 import type { StudentTasks } from '../student-tasks';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
@@ -6,6 +6,7 @@ import StudentTaskStep from './step';
 import Student from './student';
 import S from '../../helpers/string';
 import urlFor from '../../api'
+import { StudentTaskObj } from '../types';
 
 export { StudentTaskStep };
 
@@ -28,8 +29,15 @@ export default class StudentTask extends BaseModel {
 
     @field is_provisional_score = false;
 
-    @model(Student) students: Student[] = [];
-    @model(StudentTaskStep) steps: StudentTaskStep[] = [];
+    @model(Student) students = array<Student>()
+    @model(StudentTaskStep) steps = array<StudentTaskStep>()
+
+
+    constructor() {
+        super();
+        modelize(this);
+    }
+
 
     get tasksMap() { return getParentOf<StudentTasks>(this) }
 
@@ -41,6 +49,7 @@ export default class StudentTask extends BaseModel {
     @computed get isPractice() { return ['practice_saved', 'page_practice', 'practice_worst_topics'].includes(this.type); }
     @computed get isSavedPractice() { return this.type === 'practice_saved'; }
     @observable isLoading = false
+
 
     @computed get publishedLateWorkPenalty() {
         return sumBy(this.steps, 'published_late_work_point_penalty');
@@ -97,11 +106,11 @@ export default class StudentTask extends BaseModel {
 
     // called by API
     async fetch() {
-        const data = this.api.request(urlFor('fetchStudentTask', { taskId: this.id }))
+        const data = await this.api.request<StudentTaskObj>(urlFor('fetchStudentTask', { taskId: this.id }))
         this.onFetchComplete(data)
     }
 
-    @action onFetchComplete(data:any) {
+    @action onFetchComplete(data: StudentTaskObj) {
         const { steps, ...task } = data;
         this.api.errors.clear()
         this.update(task);

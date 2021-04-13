@@ -1,12 +1,16 @@
 import { readonly } from 'core-decorators';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
-import { computed, observable, makeAutoObservable } from 'mobx';
-import { BaseModel, hydrateModel, action } from '../model';
+import { computed, observable } from 'mobx';
+import { BaseModel, array, hydrateModel } from '../model';
 
 const Handlers = observable.map({});
 interface ToastAttrs {
-    handler: 'scoresPublished' | 'reload'
+    info?:any
+    type?: string
+    status?: string
+    errors?: any
+    handler: 'scoresPublished' | 'reload' | 'job'
 }
 
 class Toast extends BaseModel {
@@ -29,22 +33,18 @@ class Toast extends BaseModel {
 }
 
 
-const current = observable.array<Toast>()
+const Store = array( (current: Toast[]) => ({
 
-const Store = makeAutoObservable({
-    push(attrs: ToastAttrs) {
-        current.push(hydrateModel(Toast, attrs))
-    },
-
-    shift() {
-        return current.shift()
+    add(attrs: ToastAttrs) {
+        current.push(hydrateModel(Toast, attrs, current))
     },
 
     get isEmpty() {
         return current.length == 0
     },
 
-}, { shift: action })
+}))
+//                           , { shift: action })
 
 const setHandlers = (handlers: any) => {
     Handlers.replace(handlers);

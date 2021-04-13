@@ -28,7 +28,7 @@ describe('Student Task Step', () => {
         expect(step.content.isMultiChoice).toBe(true)
         expect(step.isTwoStep).toBe(true);
         step.formats = ['free-response', 'multiple-choice'];
-        step.content.content.questions.forEach(q => q.answers.clear())
+        step.content.content.questions.forEach((q:any) => q.answers.clear())
         expect(step.isTwoStep).toBe(false);
         expect(step.canEditFreeResponse).toBe(true);
         step.free_response = 'a question with answers';

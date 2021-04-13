@@ -50,7 +50,8 @@ export default class Job extends BaseModel {
         return 'unknown';
     }
 
-    startPolling(job: string) {
+    startPolling(job: string | null) {
+        if (!job) return
         this.jobId = last(job.split('/')) as string;
         invariant((!this.pollingId || this.pollingId === 'pending'),
             'poll already in progress, cannot start polling twice!');

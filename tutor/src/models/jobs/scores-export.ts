@@ -1,17 +1,17 @@
-import { observable, computed, modelize } from 'shared/model';
-import moment from 'moment';
+import { observable, computed, ID, modelize, action } from 'shared/model';
+import type Course from '../course'
 import Job from '../job';
-import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
-import Time from '../../models/time';
+import Time from 'shared/model/time'
 import Toasts from '../toasts';
+import urlFor from '../../api';
 
-const CURRENT = new Map();
+const CURRENT = observable.map<ID, ScoresExport>();
 const LAST_EXPORT = 'sce';
 
 export default class ScoresExport extends Job {
 
-    static forCourse(course) {
+    static forCourse(course: Course) {
         let exp = CURRENT.get(course.id);
         if (!exp){
             exp = new ScoresExport(course);
@@ -20,36 +20,42 @@ export default class ScoresExport extends Job {
         return exp;
     }
 
-    @observable course;
-    @observable url;
+
+    @observable course: Course;
+    @observable url?: string;
 
     @computed get lastExportedAt() {
         const date = UiSettings.get(LAST_EXPORT, this.course.id);
-        return date ? moment(date).format('M/D/YY, h:mma') : null;
+        return date ? new Time(date).toFormat('M/d/yy, h:mma') : null;
     }
 
-    constructor(course) {
-        super({ maxAttempts: 120, interval: 5 }); // every 5 seconds for max of 10 mins
+    constructor(course: Course) {
+        super();
         modelize(this);
+        this.maxAttempts = 120
+        this.interval = 5
         this.course = course;
     }
 
-    onPollComplete(info) {
+    onPollComplete(info: any) {
         UiSettings.set(LAST_EXPORT, this.course.id, Time.now.toISOString());
-        Toasts.push({
+        Toasts.add({
             info,
             type: 'scores',
             handler: 'job',
             status: this.hasFailed ? 'failed' : 'ok',
         });
+
     }
 
-    create() {
+    @action async create() {
         // set this now so status updates immediately
         this.pollingId = 'pending';
+        const data = await this.api.request(urlFor('scoresExport', { courseId: this.course.id }))
+        this.onCreated(data)
     }
 
-    onCreated({ data }) {
+    @action onCreated(data: any) {
         this.startPolling(data.job);
     }
 

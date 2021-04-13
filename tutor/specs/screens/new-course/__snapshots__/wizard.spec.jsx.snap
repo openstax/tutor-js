@@ -48,13 +48,14 @@ exports[`Creating a course matches snapshot 1`] = `
       <div
         aria-pressed={false}
         className="list-group-item choice"
+        data-appearance=""
         onClick={[Function]}
         role="button"
       >
         <div
           className="content"
         >
-          Test Offering
+          
         </div>
         <svg
           aria-hidden="true"

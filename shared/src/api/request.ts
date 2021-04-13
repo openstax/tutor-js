@@ -8,6 +8,11 @@ export type NoThrowOptions = { data?: any, origin?: string, nothrow: true }
 
 export type MethodUrl = [HttpMethod, string]
 
+export interface ApiErrorData {
+    code: string
+    message: string
+    data?: any
+}
 
 export function r<P, Q=Record<string, any>>(method: HttpMethod, pattern: string) {
     return (params?: P, query?: Q) => {
@@ -33,19 +38,26 @@ export function makeUrlFunc<T extends Record<string, any>>(definitions: T) {
 }
 
 export class ApiError extends CustomError {
-    request: string
-    requestOptions: RequestOptions
-    apiResponse: Response
-
+    request?: string
+    requestOptions?: RequestOptions
+    apiResponse?: Response
+    data?: ApiErrorData
     isHidden = false
 
-    constructor(request: string, resp: Response, options?: RequestOptions) {
-        super(`${request} failed with ${resp.status}: ${resp.statusText}`)
-        this.request = request
-        this.requestOptions = options || {}
-        this.apiResponse = resp
+    static fromMessage(request: string, message: string, data?: ApiErrorData) {
+        const err = new ApiError(`${request} failed with ${message}`)
+        err.request = request
+        err.data = data
+        return err
     }
 
+    static fromError(request: string, resp: Response, options?: RequestOptions) {
+        const err = new ApiError(`${request} failed with ${resp.status}: ${resp.statusText}`)
+        err.request = request
+        err.requestOptions = options || {}
+        err.apiResponse = resp
+        return err
+    }
 
     preventDefault() {
         this.isHidden = true
@@ -77,15 +89,21 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
             const respJson = await resp.json()
             return await respJson as RetT
         } else {
-            throw new ApiError(`${method} ${url}`, resp, options)
+            const err = ApiError.fromError(`${method} api/${url}`, resp, options)
+            try {
+                const respJson = await resp.json()
+                if (respJson && respJson.errors) {
+                    err.data = respJson.errors[0]
+                }
+            } catch { } // eslint-disable-line no-empty
+            throw err
         }
     } catch (err) {
-        const apiErr = (err instanceof ApiError) ? err : new ApiError(`${method} ${url}`, { status: 418, statusText: String(err) } as Response, options)
+        const apiErr = (err instanceof ApiError) ? err : ApiError.fromError(`${method} api/${url}`, { status: 418, statusText: String(err) } as Response, options)
         if  (options?.nothrow) {
             return apiErr
         }
         throw apiErr
-
     }
 
 }

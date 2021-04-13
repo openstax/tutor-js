@@ -80,7 +80,7 @@ describe('Exercises Map', () => {
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(false); });
         page_ids.forEach(page_id => { expect(exercises.hasFetched({ page_id })).toBe(true); });
 
-        expect(keys(exercises.byPageId).sort()).toEqual( page_ids.sort() );
+        expect(keys(exercises.byPageId).sort()).toEqual( page_ids.sort().map(String) )
         forEach(exercises.byPageId, (exs, pageId) => {
             expect(exs).toHaveLength(1);
             expect(exs[0].page.id).toEqual(pageId);

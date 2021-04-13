@@ -4,7 +4,7 @@ import {
     BaseModel, model, action, observable, computed, field, modelize, ID, array,
 } from 'shared/model'
 import ChapterSection from './chapter-section';
-import Map, { hydrateModel } from 'shared/model/map';
+import Map, { getParentOf, hydrateModel } from 'shared/model/map';
 import Note from './notes/note';
 import urlFor from '../api'
 import { HighlightedPageObj } from './types'
@@ -23,8 +23,8 @@ class HighlightedSection extends BaseModel {
 
 class Notes extends BaseModel {
     uuid: string = ''
-    pages = observable.map();
-    course: Course
+    pages = observable.map<ID, PageNotes>();
+
 
     @model(HighlightedSection) summary = array((a: HighlightedSection[]) => ({
         sorted() { return sortBy(a, 'chapter_section.asNumber'); },
@@ -33,12 +33,12 @@ class Notes extends BaseModel {
         },
     }))
 
-    constructor({ course }: { course: Course }) {
+    constructor() {
         super();
         modelize(this);
-        this.course = course;
-        this.fetchHighlightedPages();
     }
+
+    get course() { return getParentOf<Course>(this) }
 
     hasNotesForPage(page: Page) {
         return Boolean(this.pages.get(page.uuid));
@@ -52,16 +52,19 @@ class Notes extends BaseModel {
         return this.pages.get(page.uuid);
     }
 
-    @action ensurePageExists(page: Page) {
+    @action ensurePageExists(page: Page): PageNotes {
         if (!this.hasNotesForPage(page)) {
             const notes = new PageNotes({ page, notes: this });
             this.pages.set(page.uuid, notes);
+            return notes
         }
-        return this.forPage(page);
+        return this.forPage(page) as PageNotes;
     }
 
     async fetchHighlightedPages() {
-        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(urlFor('fetchHighlightedPages', { bookUUID: this.course.ecosystem_book_uuid }))
+        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(
+            urlFor('fetchHighlightedPages', { bookUUID: this.course.ecosystem_book_uuid })
+        )
         this.onHighlightedPagesLoaded(data.pages)
     }
 
@@ -121,13 +124,13 @@ class PageNotes extends Map<ID, Note> {
         this.notes.onNoteDeleted(this);
     }
 
-    async create({ anchor, page, ...attrs }: { anchor: string, page: Page, attrs: any[] }) {
+    async create({ anchor, page, ...contents }: { anchor: string, page: Page, contents: any }) {
         const note = hydrateModel(Note, {
             anchor,
             chapter_section: page.chapter_section,
             page_id: page.id,
-            contents: attrs,
-        }, this);
+            contents,
+        }, this)
         await note.save();
         if (!this.notes.summary.forPage(page)) {
             this.notes.summary.push(page);

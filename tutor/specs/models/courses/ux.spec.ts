@@ -1,18 +1,16 @@
+import { Factory } from '../../helpers';
 import CourseUX from '../../../src/models/course/ux';
 
-import { bootstrapCoursesList } from '../../courses-test-data';
-
 describe('Course UX Model', () => {
-    let ux;
+    let ux:CourseUX;
     beforeEach(() => {
-        const courses = bootstrapCoursesList();
-        ux = new CourseUX(courses.get(1));
+        ux = new CourseUX(Factory.course({ type: 'physics', name: 'Local Test Course One' }))
     });
 
     it('#dataProps', () => {
-        expect(ux.dataProps).toEqual({
-            'data-appearance': 'testing',
-            'data-book-title': 'Testing',
+        expect(ux.dataProps).toMatchObject({
+            'data-appearance': 'college_physics',
+            'data-book-title': 'College Physics',
             'data-is-preview': false,
             'data-term': 'Spring 2017',
             'data-title': 'Local Test Course One',

@@ -2,7 +2,7 @@ import { Factory } from '../helpers';
 import { StudentTask } from '../../src/models/student-tasks';
 
 describe('Student Tasks Map', () => {
-    let tasks;
+    let tasks: ReturnType<typeof Factory.studentTasks>
 
     beforeEach(() => {
         tasks = Factory.studentTasks();

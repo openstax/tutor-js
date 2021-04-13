@@ -61,6 +61,7 @@
     "@sentry/browser": "^6.0.3",
     "@types/big.js": "^6.0.2",
     "@types/classnames": "^2.2.11",
+    "@types/enzyme": "^3.10.8",
     "@types/eventemitter2": "^4.1.0",
     "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",

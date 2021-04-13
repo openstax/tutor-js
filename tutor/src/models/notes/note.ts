@@ -12,6 +12,7 @@ import {
     modelize,
     NEW_ID,
     ID,
+    getParentOf,
 } from 'shared/model';
 import Time from 'shared/model/time';
 import type { PageNotes } from '../notes'
@@ -30,7 +31,7 @@ export default class Note extends BaseModel {
     @model(Time) created_at = Time.unknown;
     @model(Time) updated_at = Time.unknown;
 
-    page!: PageNotes
+    get page() { return getParentOf<PageNotes>(this) }
 
     constructor() {
         super();

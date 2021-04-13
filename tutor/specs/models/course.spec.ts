@@ -65,7 +65,7 @@ describe('Course Model', () => {
         course.roles.teacher!.become();
         course.is_preview = false;
         expect(course.currentRole.isTeacher).toEqual(true);
-        course.teacherTaskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true } as any);
+        course.teacherTaskPlans.set('1', { id: 1, type: 'reading', is_publishing: true } as any);
         expect(course.teacherTaskPlans.reading.hasPublishing).toEqual(true);
         expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published' ]);
     });

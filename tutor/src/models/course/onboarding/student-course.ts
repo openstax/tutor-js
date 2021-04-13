@@ -83,7 +83,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
         }
     }
 
-    mount() {
+    @action mount() {
         super.mount();
         if (this.paymentIsPastDue) {
             this.priority = 0;
@@ -94,8 +94,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
         this.tourContext.otherModal = this;
     }
 
-    close() {
+    @action close() {
         super.close();
-        this.tourContext.otherModal = null;
+        this.tourContext.otherModal = undefined;
     }
 }

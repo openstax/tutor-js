@@ -58,6 +58,7 @@ class NoteSummaryPage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.notes.fetchHighlightedPages()
         this.resetCurrentPage();
         this.prepareFocus();
     }

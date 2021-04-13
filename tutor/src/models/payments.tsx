@@ -74,7 +74,7 @@ export default class Payments extends BaseModel {
         return Boolean(this.errorMessage);
     }
 
-    async fetch() {
+    @action.bound async fetch() {
         if (!Payments.config.js_url) { return this.logFailure('Attempted to load payments without a url set'); }
         this.pendingTimeout = setTimeout(this.onTimeout, this.options.timeoutLength);
         if (this.OSaymentClass) { // may already be loaded
@@ -98,9 +98,9 @@ export default class Payments extends BaseModel {
         this.logFailure('Payments load timed out');
         this.errorMessage = (
             <p>
-        Sorry, we’re unable to process a payment right now. Please try again,
-        and if the problem persists please
-        contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>.
+                Sorry, we’re unable to process a payment right now. Please try again,
+                and if the problem persists please
+                contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>.
             </p>
         );
         clearTimeout(this.pendingTimeout);

@@ -102,7 +102,7 @@ const Factories = {
         return course.scores;
     },
 
-    notesPageMap: ({ course, page, count = 4 }: { course: Course, page: Page, count: number }) => {
+    notesPageMap: ({ course, page, count = 4 }: { course: Course, page: Page, count?: number }) => {
         const notes = course.notes.ensurePageExists(page);
         range(count).forEach(() => {
             const note = hydrateModel(Note, FactoryBot.create('Note', { page }), page)
@@ -141,7 +141,7 @@ const Factories = {
     },
 
 
-    gradingTemplates: ({ course, count = 2 }: { course: Course, count: number }) => {
+    gradingTemplates: ({ course, count = 2 }: { course: Course, count?: number }) => {
         const map = course.gradingTemplates;
         map.onLoaded(
             range(count).map(() => FactoryBot.create('GradingTemplate', { course }) as GradingTemplateObj),

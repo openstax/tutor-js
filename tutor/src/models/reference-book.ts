@@ -10,6 +10,7 @@ import {
     observable,
     computed,
     NEW_ID,
+    ID,
     array,
 } from 'shared/model';
 import Time from 'shared/model/time';
@@ -18,6 +19,10 @@ import Node from './reference-book/node';
 import urlFor from '../api'
 
 export { Node as Page }
+
+class PageIdMap extends Map<ID, Node>{
+    static Model = Node
+} 
 
 function mapPages(page: ReferenceBook | Node, pages: any) {
     if (page.isPage) {
@@ -54,7 +59,7 @@ export default class ReferenceBook extends BaseModel {
     @computed get pages() {
         return mapPages(this, {
             all: observable.array(),
-            byId: new Map({}, { keyType: Number }),
+            byId: new PageIdMap(),
             byUUID: observable.map(),
             byChapterSection: observable.map(),
         });

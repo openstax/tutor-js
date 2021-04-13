@@ -1,4 +1,5 @@
 import App from '../../src/models/app';
+import { ApiMock, Factory } from '../helpers'
 import Toasts from '../../src/models/toasts';
 import { documentReady } from '../../src/helpers/dom';
 import Raven from '../../src/models/app/raven';
@@ -14,16 +15,20 @@ jest.mock('../../src/models/toasts', () => ({
 
 
 describe('Tutor App model', () => {
-    let app;
+    let app: App;
+
+    const mocks = ApiMock.intercept({
+        '/user/bootstrap$': Factory.bot.create('BootstrapData'),
+    })
 
     beforeEach(() => app = new App());
 
     it('sends a toast notice when assets change', () => {
-        app.onNotice({ tutor_assets_hash: 'jasdlkfjla' });
+        app.onNotice({ tutor_assets_hash: 'jasdlkfjla', feature_flags: {} });
         expect(app.tutor_assets_hash).toEqual('jasdlkfjla');
         expect(Toasts.push).not.toHaveBeenCalled();
 
-        app.onNotice({ tutor_assets_hash: 'zjklub' });
+        app.onNotice({ tutor_assets_hash: 'zjklub',  feature_flags: {} });
         // will not update if it's non-null and different
         expect(app.tutor_assets_hash).toEqual('jasdlkfjla');
         // instead it'll reload
@@ -31,17 +36,8 @@ describe('Tutor App model', () => {
     });
 
     it('boots after document is ready, starts raven and reads data', async () => {
-        App.fetch = jest.fn(() => Promise.new())
-        const spy = jest.spyOn(App.prototype, 'fetch').mockImplementation(() => Promise.resolve({
-            data: {
-                courses: [] ,
-                user: { },
-                offerings: [],
-            },
-        }))
         await App.boot();
-        expect(spy).toHaveBeenCalled();
-        spy.mockRestore();
+        expect(mocks['/user/bootstrap$']).toHaveBeenCalled()
         expect(documentReady).toHaveBeenCalled();
         expect(Raven.boot).toHaveBeenCalled();
     });

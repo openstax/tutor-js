@@ -7,7 +7,7 @@ export default {
         if (!Flags.pulse_insights) {
             return Promise.resolve({});
         }
-        const w = window;
+        const w = window as any;
         w.pi = function() {
             w.pi.commands = (w.pi.commands || []);
             w.pi.commands.push(arguments);

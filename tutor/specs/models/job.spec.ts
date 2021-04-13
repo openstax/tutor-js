@@ -4,10 +4,11 @@ jest.useFakeTimers();
 
 describe('Job Helper', function() {
 
-    let job;
+    let job: Job;
 
     beforeEach(() => {
-        job = new Job({ interval: 0 });
+        job = new Job()
+        job.interval = 0
     });
 
     it('should be able to queue a job for something', () => {

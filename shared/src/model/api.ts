@@ -60,6 +60,14 @@ export class ModelApi {
         return this.errors.size > 0
     }
 
+    errorWithCode(code: string): ApiError | void {
+        for (const err of this.errors.values()) {
+            if (err.data?.code == code) {
+                return err
+            }
+        }
+    }
+
     @action reset() {
         this.errors.clear()
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)

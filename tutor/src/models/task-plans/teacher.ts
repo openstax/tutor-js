@@ -8,6 +8,7 @@ import { TeacherTaskPlanObj } from '../types'
 
 export
 class TeacherTaskPlans extends Map<ID, TaskPlan> {
+    static Model = TaskPlan
 
     constructor() {
         super();

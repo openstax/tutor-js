@@ -1,8 +1,11 @@
 import { computed, action } from 'mobx';
 import Map, { ID, modelize } from 'shared/model/map';
 import Offering from './offering';
+import { OfferingObj } from '../../types'
 
-class OfferingsMap extends Map<ID, Offering> {
+export class OfferingsMap extends Map<ID, Offering> {
+    static Model = Offering
+
     constructor() {
         super();
         modelize(this);
@@ -28,14 +31,15 @@ class OfferingsMap extends Map<ID, Offering> {
         return this.available.where(c => c.appearance_code == 'biology_2e');
     }
 
-    @action bootstrap(items: any) {
-        this.replace(items)
+
+    @action bootstrap(items: OfferingObj[] ) {
+        this.replace(this.arrayToObject(items))
     }
 
 }
 
 const offeringsMap = new OfferingsMap();
 
-export { Offering, OfferingsMap };
+export { Offering };
 
 export default offeringsMap;

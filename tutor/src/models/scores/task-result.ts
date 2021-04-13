@@ -5,6 +5,7 @@ import type Student from './student'
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
 import Bignum from 'shared/model/bignum';
+import { TaskPlanType } from '../types';
 
 export default class TaskResult extends BaseModel {
     @field id = NEW_ID;
@@ -20,7 +21,7 @@ export default class TaskResult extends BaseModel {
     @field is_late_work_accepted = false;
     @field available_points = 0;
     @field recovered_exercise_count = 0;
-
+    @field type: TaskPlanType = ''
     // can be removed once old scores is removed
     @field completed_on_time_steps_count = 0;
 
@@ -59,9 +60,9 @@ export default class TaskResult extends BaseModel {
         return this.period.data_headings[this.columnIndex];
     }
 
-    @computed get type() {
-        return this.reportHeading.type;
-    }
+    // @computed get type() {
+    //     return this.reportHeading.type;
+    // }
 
     @computed get isExtended() {
         return this.due_at.isAfter(this.reportHeading.due_at);

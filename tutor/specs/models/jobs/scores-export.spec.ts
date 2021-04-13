@@ -1,8 +1,7 @@
 import UiSettings from 'shared/model/ui-settings';
 import Export from '../../../src/models/jobs/scores-export';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Toasts from '../../../src/models/toasts';
-import { TimeMock } from '../../helpers';
+import Toasts, { Toast } from '../../../src/models/toasts';
+import { TimeMock, Factory } from '../../helpers';
 
 jest.useFakeTimers();
 
@@ -13,13 +12,13 @@ jest.mock('shared/model/ui-settings', () => ({
 
 describe('Scores export job', () => {
 
-    let course;
-    let job;
+    let course: ReturnType<typeof Factory.course>;
+    let job: Export;
 
     const now = TimeMock.setTo('2019-01-14T12:00:00.000Z');
 
     beforeEach(() => {
-        course = bootstrapCoursesList().get(2);
+        course = Factory.course({ id: '2' })
         job = new Export(course);
     });
 
@@ -43,6 +42,7 @@ describe('Scores export job', () => {
         );
         expect(Toasts.length).toBe(1);
         const q = Toasts[0];
+        expect(q).toBeInstanceOf(Toast)
         expect(q.status).toEqual('ok');
         expect(q.handler).toEqual('job');
         expect(q.type).toBe('scores');

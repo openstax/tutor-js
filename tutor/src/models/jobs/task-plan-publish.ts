@@ -1,10 +1,9 @@
 import { modelize, ID } from 'shared/model';
 import type TaskPlan from '../task-plans/teacher/plan'
-//import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
 import Job from '../job';
 
-const CURRENT = new Map<ID, TaskPlanPublish>();
+const CURRENT = observable.map<ID, TaskPlanPublish>();
 
 export default class TaskPlanPublish extends Job {
 
@@ -40,6 +39,8 @@ export default class TaskPlanPublish extends Job {
 
     @observable plan;
 
+    @observable publishChangeListener?: () => void
+
     constructor(plan: TaskPlan) {
         super(); // every 10 seconds for max of 10 mins
         modelize(this);
@@ -51,7 +52,7 @@ export default class TaskPlanPublish extends Job {
     stopListening() {
         if (this.publishChangeListener) {
             this.publishChangeListener();
-            this.publishChangeListener = null;
+            this.publishChangeListener = undefined;
             this.stopPolling();
         }
     }
@@ -61,10 +62,9 @@ export default class TaskPlanPublish extends Job {
         this.publishChangeListener = reaction(
             () => this.shouldPoll,
             () => (this.shouldPoll && !this.isPolling) ?
-                this.startPolling(this.plan.publish_job_url) : this.stopPolling(),
+                this.startPolling(this.plan?.publish_job_url) : this.stopPolling(),
             { fireImmediately: true }
         );
-
     }
 
     @computed get shouldPoll() {

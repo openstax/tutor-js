@@ -5,6 +5,8 @@ import { map, flatten } from 'lodash';
 import Purchase from './purchases/purchase';
 
 class PurchasesMap extends Map<ID, Purchase> {
+    static Model = Purchase
+
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();

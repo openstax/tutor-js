@@ -24,6 +24,11 @@ export interface StudentObj {
     student_identifier: string
 }
 
+export interface StudentRoleObj {
+    role_id: ID
+    name: string
+}
+
 export interface TeacherObj {
     id: ID
     course_id: ID
@@ -416,4 +421,18 @@ export interface PracticeQuestionObj {
     exercise_id: ID
     available: boolean
     tasked_exercise_id: ID
+}
+
+export interface StudentTaskStepObj {
+    id: ID
+    tasked_id: ID
+    can_be_updated: boolean
+    chapter_section: number[]
+    content_url: string
+    group: string
+    is_completed: boolean
+    is_core: boolean
+    preview: string
+    title: string
+    type: string
 }

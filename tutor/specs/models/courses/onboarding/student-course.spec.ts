@@ -1,4 +1,4 @@
-import { hydrateModel } from '../../../helpers'
+import { hydrateModel, runInAction } from '../../../helpers'
 import Nags from '../../../../src/components/onboarding/nags';
 import Course from '../../../../src/models/course';
 import TourContext from '../../../../src/models/tour/context'
@@ -22,27 +22,31 @@ describe('Student Course Onboarding', () => {
 
     beforeEach(() => {
         mockedSettings.get.mockImplementation(() => undefined);
-        User.available_terms.push({
-            id: 1, name: 'general_terms_of_use', title: 'T&C', is_signed: false,
-        } as any)
+        runInAction(() => {
+            User.available_terms.push({
+                id: 1, name: 'general_terms_of_use', title: 'T&C', is_signed: false,
+            } as any)
+        })
         window.location.reload = jest.fn();
         ux = new CourseUX(
             hydrateModel(Course, { id: 1 }),
             hydrateModel(TourContext, {}),
         );
-        Object.assign(ux.course, {
-            id: 1,
-            primaryRole: { joinedAgo: jest.fn(() => 18120) },
-            userStudentRecord: { is_comped: false },
-            studentTaskPlans: {
-                startFetching: jest.fn(),
-                refreshTasks: jest.fn(),
-            },
-        });
+        runInAction(() => {
+            Object.assign(ux.course, {
+                id: 1,
+                primaryRole: { joinedAgo: jest.fn(() => 18120) },
+                userStudentRecord: { is_comped: false },
+                studentTaskPlans: {
+                    startFetching: jest.fn(),
+                    refreshTasks: jest.fn(),
+                },
+            });
+        })
     });
 
     afterEach(() => {
-        ux!.close();
+        runInAction(() => ux!.close() )
     });
 
     it('#nagComponent', () => {
@@ -77,15 +81,19 @@ describe('Student Course Onboarding', () => {
     });
 
     it('silences tours', () => {
-        (ux.course as any).userStudentRecord = { mustPayImmediately: false };
+        runInAction(() => {
+            (ux.course as any).userStudentRecord = { mustPayImmediately: false };
+        });
         (UiSettings.get as any).mockImplementation(() => true);
-        ux.mount();
+        runInAction(() => ux.mount() )
         expect(ux.tourContext.otherModal).toBe(ux);
-        (ux.course as any).needsPayment = true;
-        ux.displayPayment = true;
-        expect(ux.tourContext.otherModal.isDisplaying).toBe(true);
-        ux.close();
-        expect(ux.tourContext.otherModal).toBeNull();
+        runInAction(() => {
+            (ux.course as any).needsPayment = true
+            ux.displayPayment = true
+        })
+        expect(ux.tourContext.otherModal?.isDisplaying).toBe(true);
+        ux.close()
+        expect(ux.tourContext.otherModal).toBeUndefined()
     });
 
     it('fetches tasks on mount and periodically after that', () => {

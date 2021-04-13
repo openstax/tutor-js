@@ -14,7 +14,7 @@ export interface MapableObject {
     update(data: any): void // eslint-disable-line no-unused-vars
 }
 
-export default class Map<K, V extends MapableObject> {
+export default class Map<K extends ID, V extends MapableObject> {
 
     keyType = Number
 
@@ -49,6 +49,14 @@ export default class Map<K, V extends MapableObject> {
         return this.keyType(k) as any as K // inherited class will do more
     }
 
+    coerceValue(v: V): V {
+        const M = (this.constructor as any).Model
+        if (v instanceof M) {
+            return v
+        }
+        return hydrateModel(M, v, this)
+    }
+
     keys() {
         return Array.from(this._map.keys())
     }
@@ -66,7 +74,7 @@ export default class Map<K, V extends MapableObject> {
     }
 
     set(key: ID, value: V) {
-        return this._map.set(this.coerceKey(key), value)
+        return this._map.set(this.coerceKey(key), this.coerceValue(value))
     }
 
     delete(key: ID) {
@@ -107,15 +115,23 @@ export default class Map<K, V extends MapableObject> {
         data.forEach((modelData: V) => {
             const model = this.get(modelData.id)
             model ? (model as any).update(modelData) : this.set(
-                modelData.id,
-                hydrateModel((this.constructor as any).Model, modelData, this)
+                this.coerceKey(modelData.id) as any, this.coerceValue(modelData)
             )
         })
     }
+
+    arrayToObject(data: any[]): Record<K, V> {
+        return data.reduce((acc, modelData) => {
+            acc[this.coerceKey(modelData.id)] = this.coerceValue(modelData)
+            return acc
+        }, {} as Record<K, V>)
+    }
+
     @action reset() {
         this.clear()
         this.api.reset()
     }
+
     // eslint-disable-next-line no-unused-vars
     forEach(callback: (value: V, key: K, object: Map<K, V>) => void, thisArg?: any) {
         this._map.forEach(callback as any, thisArg)
@@ -124,6 +140,7 @@ export default class Map<K, V extends MapableObject> {
     replace(values: any) {
         return this._map.replace(values)
     }
+
     clear() {
         return this._map.clear()
     }

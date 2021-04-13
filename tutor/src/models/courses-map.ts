@@ -8,6 +8,8 @@ import urlFor from '../api'
 export { Course };
 
 export class CoursesMap extends Map<ID, Course> {
+    static Model = Course
+
     constructor(data: Array<object> | object = {}, options = {}) {
         super(data, options);
         modelize(this);
@@ -80,7 +82,7 @@ export class CoursesMap extends Map<ID, Course> {
         return this.where(c => c.dashboardViewCount > 0);
     }
 
-    @action addNew(courseData: any) {
+    @action addNew(courseData: CourseObj) {
         const course = hydrateModel(Course, courseData, this);
         course.just_created = true;
         this.set(course.id, course);

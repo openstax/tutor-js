@@ -1,18 +1,30 @@
 import CourseCreate from '../../../src/models/course/create';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Offerings from '../../../src/models/course/offerings';
+/// import Offerings from '../../../src/models/course/offerings';
+import { hydrateInstance } from 'modeled-mobx';
+import { ApiMock, Factory } from '../../helpers'
+import { NEW_ID } from 'shared/model';
 
 jest.mock('../../../src/helpers/router');
-jest.mock('../../../src/models/course/offerings', () => ({
-    get: jest.fn(() => undefined),
-}));
 
 describe('Course Builder UX Model', () => {
-    let creator;
+    let creator: CourseCreate;
+    let coursesMap: ReturnType<typeof Factory.coursesMap>
+    let offeringsMap: ReturnType<typeof Factory.offeringsMap>
+
+    const mocks = ApiMock.intercept({
+        'course$': Factory.bot.create('Course'),
+        'courses/\\d+/clone': Factory.bot.create('Course'),
+    })
 
     beforeEach(() => {
+        coursesMap = Factory.coursesMap()
+        offeringsMap = Factory.offeringsMap()
 
         creator = new CourseCreate({
+            offerings: offeringsMap,
+            courses: coursesMap,
+        })
+        hydrateInstance(creator, {
             name: 'TEST COURSE FOR TESTING',
             estimated_student_count: 100,
             offering_id: 1,
@@ -21,11 +33,10 @@ describe('Course Builder UX Model', () => {
 
     });
 
-    it('creates a course', () => {
-        expect(creator.cloned_from_id).toBe(false);
-        const saved = creator.save();
-        expect(saved.url).toEqual('/courses');
-        expect(saved.data).toMatchSnapshot();
+    it('creates a course', async () => {
+        expect(creator.cloned_from_id).toBe(NEW_ID);
+        await creator.save();
+        expect(mocks['course$']).toHaveBeenCalled()
     });
 
     it('validates ranges', () => {
@@ -40,33 +51,28 @@ describe('Course Builder UX Model', () => {
 
     describe('cloning a course', () => {
         const prepCourseClone = () => {
-            const course = bootstrapCoursesList().get('2');
+            const course = coursesMap.array[0]
+            offeringsMap.set(course.offering_id, Factory.offering({ id: course.offering_id }))
             creator.cloned_from = course;
             expect(creator.cloned_from_id).toBe(course.id);
             expect(creator.cloned_from).toBe(course);
-            return { saved: creator.save(), course };
+            return { creator, course };
         };
 
-        it('clones a course', () => {
-            const mockOffering = { is_available: true };
-            Offerings.get.mockImplementation(() => mockOffering);
-            const { saved, course } = prepCourseClone();
-            expect(creator.cloned_from_offering).toBe(mockOffering);
+        it('clones a course', async () => {
+            const { creator, course } = prepCourseClone();
+            await creator.save()
             expect(creator.name).toEqual(course.name);
-            expect(saved.url).toEqual('/courses/2/clone');
-            expect(saved.data).toMatchSnapshot();
         });
 
         it('does not clone if the course offering is no longer available', () => {
+            const { creator } = prepCourseClone();
+            const offering = Factory.offering({ id: creator.offering_id, is_available: false })
+            creator.offerings.set(offering.id, offering)
+            expect(creator.offerings.get(creator.offering_id)).toBe(offering)
+            expect(creator.offering).toBe(offering)
             expect(creator.term).not.toBeUndefined();
-            const mockOffering = { name: 'My Test Course', is_available: false };
-            Offerings.get.mockImplementation(() => mockOffering);
-            const { course, saved } = prepCourseClone();
-            expect(creator.cloned_from_offering).toBe(mockOffering);
-            expect(creator.name).not.toEqual(course.name);
-            expect(Offerings.get).toHaveBeenCalledWith(course.offering_id);
-            expect(saved.url).toEqual('/courses');
-            expect(saved.data.cloned_from_id).toBeUndefined();
+            expect(creator.canCloneCourse).toBeFalsy()
         });
     });
 

@@ -10,6 +10,7 @@ const PRACTICE = {
 };
 
 class StudentTasks extends Map<ID, StudentTask> {
+    static Model = StudentTask
 
     get course() { return getParentOf<Course>(this) }
 

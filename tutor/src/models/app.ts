@@ -43,7 +43,7 @@ window._MODELS = Object.assign({
 
 
 export default class TutorApp {
-    @observable tutor_assets_hash = '';
+    @observable tutor_assets_hash: string | null = null;
     @observable osweb_base_url = '';
     @observable is_impersonating = false;
     @observable data?: BootstrapData
@@ -118,7 +118,7 @@ export default class TutorApp {
     }
 
     async fetch() {
-        return request<BootstrapData>(urlFor('bootstrap'))
+        return request<BootstrapData>(urlFor('bootstrap').methodUrl)
     }
 
 }

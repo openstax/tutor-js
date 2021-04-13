@@ -38,7 +38,11 @@ const Definitions = {
     fetchReferenceBook:     r<BookId>('POST', 'ecosystems/{bookId}/readings'),
     fetchReferenceBookPage: r<EcosystemCnxId>('GET', 'ecosystems/{ecosystemId}/pages/{cnxId}'),
 
-    fetchCourseRoster:      r<CourseId>('GET', 'courses/{courseId}/roster'),
+    courseEnroll:           r('POST', 'enrollment'),
+    fetchEnrollmentChoices: r<{enrollmentCode: string}>('GET', 'enrollment/{enrollmentCode}/choices'),
+    confirmCourseEnroll:    r<{enrollmentId: ID}>('PUT', 'enrollment/{enrollmentId}/approve'),
+
+    fetchCourseRoster:      r('GET', 'courses/{enrollmentCode}/roster'),
 
     fetchCourseLMS:         r<CourseId>('GET', 'lms/courses/{courseId}'),
 
@@ -62,7 +66,8 @@ const Definitions = {
     fetchCourse:            r<CourseId>('GET', 'course/{courseId}'),
     updateCourse:           r<CourseId>('POST', 'course/{courseId}'),
     createCourse:           r('POST', 'course'),
-    saveExerciseExclusion:  r<CourseId>('PUT', 'courses/{courseid}/exercises/exclude'),
+    cloneCourse:            r<CourseId>('PUT', 'courses/{courseId}/clone'),
+    saveExerciseExclusion:  r<CourseId>('PUT', 'courses/{courseId}/exercises/exclude'),
 
     createCoursePeriod:     r<CourseId>('POST', 'courses/{courseId}/periods'),
     updateCoursePeriod:     r<PeriodId>('PUT', 'periods/{periodId}'),
@@ -118,6 +123,10 @@ const Definitions = {
     fetchPracticeQuestions: r<CourseId>('GET', 'courses/{courseId}/practice_questions'),
     createPracticeQuestion: r<CourseId>('POST', 'courses/{courseId}/practice_questions'),
     deletePracticeQuestion: r<PQCourseId>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
+
+    pushLmsScores:          r<CourseId>('PUT', 'lms/courses/{courseId}/push_scores'),
+    scoresExport:           r<CourseId>('PUT', 'courses/{courseId}/performance/export'),
+
 }
 
 export { Definitions }
@@ -154,24 +163,10 @@ export default urlFor
 //     );
 //     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
 //
-//     connectModelCreate(CourseEnroll, 'create', { url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors' });
-//     connectModelUpdate(
-//         CourseEnroll,
-//         'confirm',
-//         {
-//             pattern: 'enrollment/{id}/approve',
-//             method: 'PUT',
-//             onSuccess: 'onApiRequestComplete',
-//             onFail: 'setApiErrors',
-//         },
-//     );
 //     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
 
 //     connectModelUpdate(CoursePairLMS, 'save', { method: 'POST', pattern: 'lms/courses/{course.id}/pair', onSuccess: 'onPaired' });
-
-//     connectModelUpdate(LmsPushScores, 'start', { method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted' });
-
 
 //     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 //     connectModelUpdate(TaskResult, 'acceptLate', { method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted' });
@@ -179,9 +174,6 @@ export default urlFor
 //     connectModelUpdate(TaskResult, 'rejectLate', { method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected' });
 
 //     connectModelRead(Job, 'requestJobStatus', { onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}' });
-
-//     connectModelCreate(ScoresExport, 'create', { onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export' });
-
 //     connectModelRead(TaskPlanStats, 'fetch', {
 //         onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats',
 //     });

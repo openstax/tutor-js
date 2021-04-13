@@ -1,12 +1,12 @@
-import { autorun } from 'mobx';
+import { action, autorun, runInAction } from 'mobx';
 
 import FeatureFlags, { FeatureFlagsApi, defaultValues } from '../../src/models/feature_flags';
 
 describe('Feature Flags', () => {
 
-    afterEach(() => {
+    afterEach(action(() => {
         FeatureFlagsApi.bootstrap(defaultValues);
-    });
+    }));
 
     it('has defaults', () => {
         expect(FeatureFlags.is_payments_enabled).toBe(true);
@@ -19,7 +19,7 @@ describe('Feature Flags', () => {
 
     it('does not allow setting new values', () => {
         expect(() => {
-            FeatureFlags.foo = 'bar';
+            (FeatureFlags as any).foo = 'bar';
         }).toThrow(TypeError);
     });
 
@@ -33,7 +33,7 @@ describe('Feature Flags', () => {
         const changeSpy = jest.fn();
         autorun(() => changeSpy(FeatureFlags.is_payments_enabled));
         expect(changeSpy).toHaveBeenCalledTimes(1);
-        FeatureFlagsApi.bootstrap({ is_payments_enabled: false });
+        runInAction(()=> FeatureFlagsApi.bootstrap({ is_payments_enabled: false }) )
         expect(changeSpy).toHaveBeenCalledTimes(2);
     });
 

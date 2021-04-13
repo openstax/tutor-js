@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notes Summary Page matches snapshot 1`] = `
-"<NoteCard note={{...}} onDelete={[Function: mockConstructor]}>
+"<NoteCard note={{...}} onDelete={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }}>
   <div className=\\"note-card\\">
     <div className=\\"note-body\\">
       <div className=\\"note-content\\">
@@ -13,7 +13,7 @@ exports[`Notes Summary Page matches snapshot 1`] = `
         <div className=\\"plain-text\\" />
       </div>
       <div className=\\"controls\\">
-        <button title=\\"Edit\\" onClick={[Function: res]}>
+        <button title=\\"Edit\\" onClick={[Function: startEditing] { isMobxAction: true }}>
           <Icon type=\\"edit\\" buttonProps={{...}} tooltipProps={{...}}>
             <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-edit\\" icon={{...}}>
               <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-edit\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
@@ -35,10 +35,10 @@ exports[`Notes Summary Page matches snapshot 1`] = `
             </IconWrapper>
           </Icon>
         </a>
-        <SuretyGuard title=\\"Are you sure you want to delete this note?\\" message=\\"If you delete this note, your work cannot be recovered.\\" okButtonLabel=\\"Delete\\" onConfirm={[Function: res]} placement=\\"top\\" cancelButtonLabel=\\"Cancel\\">
-          <OverlayTrigger trigger=\\"click\\" onClick={[Function]} placement=\\"top\\" rootClose={true} overlay={{...}} defaultOverlayShown={false}>
+        <SuretyGuard title=\\"Are you sure you want to delete this note?\\" message=\\"If you delete this note, your work cannot be recovered.\\" okButtonLabel=\\"Delete\\" onConfirm={[Function: doDelete] { isMobxAction: true }} placement=\\"top\\" cancelButtonLabel=\\"Cancel\\">
+          <OverlayTrigger trigger=\\"click\\" onClick={[Function (anonymous)]} placement=\\"top\\" rootClose={true} overlay={{...}} defaultOverlayShown={false}>
             <RefHolder>
-              <button title=\\"Delete\\" onClick={[Function]}>
+              <button title=\\"Delete\\" onClick={[Function (anonymous)]}>
                 <Icon type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
                     <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-trash\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
@@ -50,8 +50,8 @@ exports[`Notes Summary Page matches snapshot 1`] = `
                 </Icon>
               </button>
             </RefHolder>
-            <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-              <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} containerPadding={5} />
+            <Overlay onClick={[Function (anonymous)]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} transition={{...}}>
+              <Overlay onClick={[Function (anonymous)]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function (anonymous)]} target={[Function (anonymous)]} transition={{...}} containerPadding={5} />
             </Overlay>
           </OverlayTrigger>
         </SuretyGuard>

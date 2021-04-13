@@ -9,8 +9,8 @@ class TestModel {
 
 
 describe('Model Loader', () => {
-    let model;
-    let loader;
+    let model: TestModel;
+    let loader: Loader;
 
     beforeEach(() => {
         model = new TestModel();
@@ -20,6 +20,7 @@ describe('Model Loader', () => {
     it('fetches immediately', () => {
         const props = { foo: 'bar' };
         const fetcher = new Loader({ model, fetch: props });
+
         expect(model.fetch).toHaveBeenCalledWith(props);
         expect(fetcher.isLoading(props)).toBeTruthy();
     });
