@@ -74,7 +74,6 @@ class Input extends React.Component {
 
       if (!book || (lo != null && !lo.match( this.match_pattern(book) ))) {
           this.errorMsg = 'Must have book and match LO pattern of ' + this.placeholder(book);
-          console.log(this.errorMsg);
       } else {
           tag.value = lo;
       }
