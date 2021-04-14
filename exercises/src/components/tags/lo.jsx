@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { defaults, map } from 'lodash';
+import { map } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
@@ -14,15 +14,15 @@ import BookSelection from './book-selection';
 const TYPE = 'lo';
 const LO_PATTERNS = {
     default: {
-        placeholder: "##-##-##",
+        placeholder: '##-##-##',
         excluded_characters: /[^0-9.-]/g,
-        match: /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/
+        match: /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/,
     },
-    "stax-worldhist": {
-        placeholder: "[AB]##-##-##",
+    'stax-worldhist': {
+        placeholder: '[AB]##-##-##',
         excluded_characters: /[^AB0-9.-]/g,
-        match: /^[AB]\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/
-    }
+        match: /^[AB]\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/,
+    },
 }
 
 @observer
