@@ -4,18 +4,17 @@ import {
 } from 'shared/model'
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
-import Book, { Page } from '../reference-book';
-import Courses from '../courses-map';
-import type Course from '../course'
+import { currentCourses, ReferenceBook as Book, ReferenceBookNode as Page } from '../../models'
+import type { Course, TourContext } from '../../models'
 import Router from '../../helpers/router';
 import Scroller from '../../helpers/scroll-to';
-import type TourContext from '../tour/context'
+
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @book-page-width and @book-menu-width in variables.scss
 const MENU_VISIBLE_BREAKPOINT = 1350;
 
-export default class BookUX {
+export class BookUX {
 
     @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
     @observable pageId: ID = NEW_ID;
@@ -50,7 +49,7 @@ export default class BookUX {
         } else {
             this.book =  hydrateModel(Book, { id: ecosystemId });
         }
-        this.book.fetch().then(() => {
+        this.book?.fetch().then(() => {
             if (!this.pageId) {
                 this.setCurrentPage();  // will default to first section
             }
@@ -91,8 +90,8 @@ export default class BookUX {
             // the finding by ecosystem id fallback is
             // a hack in case users access from a old bookmark
             // in that case the id that's present will be the ecosystem
-            const course = Courses.get(this.courseId) ||
-        Courses.forEcosystemId(this.courseId);
+            const course = currentCourses.get(this.courseId) ||
+                currentCourses.forEcosystemId(this.courseId);
             if (course) {
                 if (course.id != this.courseId) {
                     this.courseId = course.id;
@@ -135,10 +134,10 @@ export default class BookUX {
 
     @computed get course(): Course | undefined {
         if (this.courseId) {
-            return Courses.get(this.courseId);
+            return currentCourses.get(this.courseId);
         }
         if (this.ecosystemId) {
-            return Courses.forEcosystemId(this.ecosystemId);
+            return currentCourses.forEcosystemId(this.ecosystemId);
         }
         return undefined
     }

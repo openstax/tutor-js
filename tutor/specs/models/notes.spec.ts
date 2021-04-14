@@ -1,5 +1,5 @@
 import { Factory, ApiMock } from '../helpers';
-import { Notes } from '../../src/models/notes';
+import { Notes } from '../../src/models'
 
 describe('Notes Model', () => {
     let course: ReturnType<typeof Factory.course>

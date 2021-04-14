@@ -8,11 +8,10 @@ import { map, extend, isFunction } from 'lodash';
 import styled from 'styled-components';
 import cn from 'classnames';
 import backInfo from '../../helpers/backInfo';
-import Purchases from '../../models/purchases';
+import { currentPurchases, UserMenu } from '../../models';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
-import UserMenu from '../../models/user/menu';
 import RefundModal from './refund-modal';
 import Header from '../header';
 import Responsive from '../responsive';
@@ -160,7 +159,7 @@ class ManagePayments extends React.Component {
     UNSAFE_componentWillMount() {
         // for testing, it's helpful to insert a dummy payment record
         // to do this, comment out the fetch and uncomment the rest
-        Purchases.fetch();
+        currentPurchases.fetch();
         // setTimeout(() => {
         //   Purchases.onLoaded({ data: { orders: [
         //     {
@@ -178,7 +177,7 @@ class ManagePayments extends React.Component {
 
     @action.bound
     onRequestRefund(ev) {
-        this.refunding = Purchases.get(ev.target.dataset.identifier);
+        this.refunding = currentPurchases.get(ev.target.dataset.identifier);
     }
 
     onShowInvoiceClick(ev) {
@@ -226,7 +225,7 @@ class ManagePayments extends React.Component {
     }
 
     renderTable() {
-        if (Purchases.isEmpty) { return this.renderEmpty(); }
+        if (currentPurchases.isEmpty) { return this.renderEmpty(); }
 
         return (
             <Table striped>
@@ -237,11 +236,11 @@ class ManagePayments extends React.Component {
                         <th>Order number</th>
                         <th>Amount</th>
                         <th>Invoice</th>
-                        {Purchases.isAnyRefundable && <th></th>}
+                        {currentPurchases.isAnyRefundable && <th></th>}
                     </tr>
                 </thead>
                 <tbody>
-                    {Purchases.withRefunds.map(purchase =>
+                    {currentPurchases.withRefunds.map(purchase =>
                         <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
                             <td>{purchase.product.name}</td>
                             <td>{formatDate(purchase.purchased_at)}</td>
@@ -250,7 +249,7 @@ class ManagePayments extends React.Component {
                                 {purchase.formattedTotal}
                             </td>
                             <td>{this.renderInvoiceButton(purchase)}</td>
-                            {Purchases.isAnyRefundable && <td className="refund">{this.renderRefundCell(purchase)}</td>}
+                            {currentPurchases.isAnyRefundable && <td className="refund">{this.renderRefundCell(purchase)}</td>}
                         </tr>
                     )}
                 </tbody>
@@ -259,10 +258,10 @@ class ManagePayments extends React.Component {
     }
 
     renderList() {
-        if (Purchases.isEmpty) { return this.renderEmpty(); }
+        if (currentPurchases.isEmpty) { return this.renderEmpty(); }
         return (
             <PaymentInfoRows>
-                {Purchases.withRefunds.map(purchase =>
+                {currentPurchases.withRefunds.map(purchase =>
                     <div className="manage-payment-info-row" key={purchase.identifier}>
                         <div className="manage-payment-info">
                             <span>Item</span> 
@@ -328,7 +327,7 @@ class ManagePayments extends React.Component {
                         onRefund={this.onRefundConfirm}
                         onCancel={this.onRefundCancel}
                     />
-                    {Purchases.api.isPending
+                    {currentPurchases.api.isPending
                         ? <OXFancyLoader isLoading />
                         : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
                     }

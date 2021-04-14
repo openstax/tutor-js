@@ -1,20 +1,9 @@
 import {
-    BaseModel,
-    observable,
-    computed,
-    model,
-    field,
-    modelize,
-    NEW_ID,
-    ID,
-    getParentOf,
-    array,
+    BaseModel, observable, computed, model, field, modelize, NEW_ID, ID, getParentOf, array,
 } from 'shared/model';
 import { find, isEmpty } from 'lodash';
-import ChapterSection from '../../chapter-section';
-import Exercise from '../../exercises/exercise';
-import { TaskPlanType } from '../../types'
-import type TeacherTaskPlan from './plan'
+import { TaskPlanType } from '../../../models'
+import type { TeacherTaskPlan } from './plan'
 import urlFor from '../../../api'
 
 class AnswerStat extends BaseModel {
@@ -87,22 +76,22 @@ class QuestionStats extends BaseModel {
 
 }
 
-class Page extends BaseModel {
-    @field id = NEW_ID;
-    @field({ model: ChapterSection }) chapter_section = ChapterSection.blank
-    @observable title = '';
-    @observable correct_count = 0;
-    @observable incorrect_count = 0;
-    @observable is_trouble = false;
-    @observable student_count = 0;
+// class Page extends BaseModel {
+//     @field id = NEW_ID;
+//     @field({ model: ChapterSection }) chapter_section = ChapterSection.blank
+//     @observable title = '';
+//     @observable correct_count = 0;
+//     @observable incorrect_count = 0;
+//     @observable is_trouble = false;
+//     @observable student_count = 0;
 
-    @model(Exercise) exercises = array<Exercise>()
+//     @model(Exercise) exercises = array<Exercise>()
 
-    constructor() {
-        super();
-        modelize(this);
-    }
-}
+//     constructor() {
+//         super();
+//         modelize(this);
+//     }
+// }
 
 class Stats extends BaseModel {
     @observable period_id:ID = NEW_ID;
@@ -119,7 +108,7 @@ class Stats extends BaseModel {
 
 }
 
-export default class TaskPlanStats extends BaseModel {
+export class TaskPlanStats extends BaseModel {
     @field id = NEW_ID;
     @observable title = '';
     @observable type: TaskPlanType = '';
@@ -147,4 +136,4 @@ export default class TaskPlanStats extends BaseModel {
 
 }
 
-export { QuestionStats, Page, Stats };
+//export { QuestionStats, Page, Stats };

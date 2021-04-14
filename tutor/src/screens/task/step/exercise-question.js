@@ -6,7 +6,7 @@ import keymaster from 'keymaster';
 import { StepFooter } from './footer';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
-import Step from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
 import SavePracticeButton from '../../../components/buttons/save-practice';
@@ -56,7 +56,7 @@ export default class ExerciseQuestion extends React.Component {
 
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
-        step: PropTypes.instanceOf(Step).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
         question: PropTypes.instanceOf(QuestionModel).isRequired,
     }
 

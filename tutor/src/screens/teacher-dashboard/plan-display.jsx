@@ -2,8 +2,7 @@
 import PropTypes from 'prop-types';
 import { React, observer, styled } from 'vendor';
 import { partial } from 'lodash';
-import TaskPlan from '../../models/task-plans/teacher/plan';
-import Course from '../../models/course';
+import { TeacherTaskPlan, Course } from '../../models';
 import TutorLink from '../../components/link';
 
 const Ribbon = styled.div`
@@ -15,7 +14,7 @@ const Ribbon = styled.div`
 class CoursePlanDisplay extends React.Component {
 
     static propTypes = {
-        plan: PropTypes.instanceOf(TaskPlan).isRequired,
+        plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
         label: PropTypes.node.isRequired,
         course: PropTypes.instanceOf(Course).isRequired,
         className: PropTypes.string.isRequired,

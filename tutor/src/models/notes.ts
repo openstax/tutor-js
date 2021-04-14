@@ -1,14 +1,11 @@
-import type Course from './course'
+import type { Course } from './course'
 import { sortBy, values } from 'lodash';
 import {
     BaseModel, model, action, observable, computed, field, modelize, ID, array,
 } from 'shared/model'
-import ChapterSection from './chapter-section';
+import { ChapterSection, HighlightedPageObj, Note, ReferenceBookNode as Page } from '../models'
 import Map, { getParentOf, hydrateModel } from 'shared/model/map';
-import Note from './notes/note';
 import urlFor from '../api'
-import { HighlightedPageObj } from './types'
-import Page from './reference-book/node'
 
 class HighlightedSection extends BaseModel {
     @field uuid: string = ''
@@ -21,7 +18,7 @@ class HighlightedSection extends BaseModel {
     }
 }
 
-class Notes extends BaseModel {
+export class Notes extends BaseModel {
     uuid: string = ''
     pages = observable.map<ID, PageNotes>();
 
@@ -88,10 +85,10 @@ class Notes extends BaseModel {
 
 }
 
-class PageNotes extends Map<ID, Note> {
+export class PageNotes extends Map<ID, Note> {
+    static Model = Note
     keyType = Number
 
-    static Model = Note
     notes: Notes
     page: Page
     constructor({ page, notes }: { page: Page, notes: Notes }) {
@@ -141,4 +138,4 @@ class PageNotes extends Map<ID, Note> {
 }
 
 
-export { Note, Notes, PageNotes };
+// export { Note, Notes, PageNotes };

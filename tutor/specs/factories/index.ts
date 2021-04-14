@@ -3,23 +3,30 @@ import { range } from 'lodash';
 import { hydrateModel } from 'shared/model'
 import '../../../shared/specs/factories';
 import faker from 'faker';
-import Course from '../../src/models/course';
-import TutorExercise from '../../src/models/exercises/exercise';
-import Book from '../../src/models/reference-book';
-import TaskPlanStat from '../../src/models/task-plans/teacher/stats';
-import { OfferingsMap, Offering } from '../../src/models/course/offerings';
-import { CoursesMap } from '../../src/models/courses-map';
-import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
-import { ExercisesMap } from '../../src/models/exercises';
-import ResearchSurvey from '../../src/models/research-surveys/survey';
-import StudentDashboardTask from '../../src/models/task-plans/student/task';
-import Note from '../../src/models/notes/note';
-import { GradingTemplate } from '../../src/models/grading/templates';
-import Page from '../../src/models/reference-book/node';
-import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
+import {
+    CoursesMap, Course, Exercise, ReferenceBook, TaskPlanStats, Note, TeacherTaskPlan,
+    ReferenceBookNode,
+    OfferingsMap, Offering,
+    EcosystemsMap,
+    Ecosystem,
+    ExercisesMap,
+    ResearchSurvey,
+    StudentDashboardTask,
+    GradingTemplate,
+}  from '../../src/models'
+
+//import  from '../../src/models/task-plans/teacher/stats';
+// import {  } from '../../src/models/course/offerings';
+// import {  } from '../../src/models/ecosystems';
+// import {  } from '../../src/models/exercises';
+// import  from '../../src/models/research-surveys/survey';
+// import  from '../../src/models/task-plans/student/task';
+
+// import {  } from '../../src/models/grading/templates';
+
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
-import { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj, StudentTaskObj }from '../../src/models/types'
+import type { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj, StudentTaskObj }from '../../src/models/types'
 
 export interface Model extends Function {
     new(..._args: any[]): any;
@@ -42,19 +49,19 @@ const Factories = {
     },
 
     note: factoryFactory('Note', Note),
-    book: factoryFactory('Book', Book),
-    page: factoryFactory('Page', Page),
+    book: factoryFactory('Book', ReferenceBook),
+    page: factoryFactory('Page', ReferenceBookNode),
     course: factoryFactory('Course', Course),
     offering: factoryFactory('Offering', Offering),
     ecosystem: factoryFactory('Ecosystem', Ecosystem),
-    taskPlanStat: factoryFactory('TaskPlanStat', TaskPlanStat),
-    tutorExercise: factoryFactory('TutorExercise', TutorExercise),
+    taskPlanStats: factoryFactory('TaskPlanStats', TaskPlanStats),
+    tutorExercise: factoryFactory('TutorExercise', Exercise),
     researchSurvey: factoryFactory('ResearchSurvey', ResearchSurvey),
     teacherTaskPlan: factoryFactory('TeacherTaskPlan', TeacherTaskPlan),
     gradingTemplate: factoryFactory('GradingTemplate', GradingTemplate),
     studentDashboardTask: factoryFactory('StudentDashboardTask', StudentDashboardTask),
 
-    coursesMap: ({ count = 2, ...attrs } = {}) => {
+    coursesMap: ({ count = 2, ...attrs }:any = {}) => {
         const map = new CoursesMap();
         map.onLoaded(range(count).map(() => FactoryBot.create('Course', attrs) as CourseObj));
         return map;
@@ -102,7 +109,7 @@ const Factories = {
         return course.scores;
     },
 
-    notesPageMap: ({ course, page, count = 4 }: { course: Course, page: Page, count?: number }) => {
+    notesPageMap: ({ course, page, count = 4 }: { course: Course, page: ReferenceBookNode, count?: number }) => {
         const notes = course.notes.ensurePageExists(page);
         range(count).forEach(() => {
             const note = hydrateModel(Note, FactoryBot.create('Note', { page }), page)
@@ -111,14 +118,14 @@ const Factories = {
         return notes;
     },
 
-    exercisesMap: ({ now, book, pageIds = [], count = 4 }: { now?: Date, book?: Book, pageIds?: number[], count?: number} = {}) => {
+    exercisesMap: ({ now, book, pageIds = [], count = 4 }: { now?: Date, book?: ReferenceBook, pageIds?: number[], count?: number} = {}) => {
         const map = new ExercisesMap();
         if (!book) { return map; }
         if (book.children.length == 0) {
             book.update( FactoryBot.create('Book') );
         }
         if (pageIds.length == 0) {
-            pageIds = book.children[1].children.map((pg: Page) => pg.id);
+            pageIds = book.children[1].children.map((pg: ReferenceBookNode) => pg.id);
         }
         pageIds.forEach(pgId => {
             map.onLoaded(

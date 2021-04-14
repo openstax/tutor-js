@@ -1,10 +1,12 @@
 import loadjs from 'loadjs';
-import Raven from './raven';
-import Flags from '../feature_flags';
+import { FeatureFlags, Raven } from '../../models'
+import type { User } from '../../models'
 
-export default {
-    boot({ app }) {
-        if (!Flags.pulse_insights) {
+//import  from '../feature_flags';
+
+export const PulseInsights = {
+    boot(currentUser: User) {
+        if (!FeatureFlags.pulse_insights) {
             return Promise.resolve({});
         }
         const w = window as any;
@@ -13,8 +15,8 @@ export default {
             w.pi.commands.push(arguments);
         };
         w.pi('identify', 'PI-16384954');
-        w.pi('identify_client', app.user.account_uuid);
-        w.pi('set_custom_data', app.user.metrics);
+        w.pi('identify_client', currentUser.account_uuid);
+        w.pi('set_custom_data', currentUser.metrics);
         w.pi('pushBeforeGet', true);
         w.pi('get', 'surveys');
         return loadjs('//js.pulseinsights.com/surveys.js', {

@@ -1,10 +1,7 @@
 import { autorun, action } from 'mobx';
 import { TimeMock, fetchMock } from '../helpers';
-import User from '../../src/models/user';
-import { UserTerms } from '../../src/models/user/terms';
-import Courses from '../../src/models/courses-map';
+import { currentCourses, UserTermsMap, currentUser as User } from '../../src/models';
 import UiSettings from 'shared/model/ui-settings';
-
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
 import Time from 'shared/model/time'
@@ -24,7 +21,7 @@ describe('User Model', () => {
         expect(spy).toHaveBeenCalledWith('');
         User.bootstrap(USER_DATA);
         expect(spy).toHaveBeenCalledWith(USER_DATA.name);
-        expect(User.terms).toBeInstanceOf(UserTerms);
+        expect(User.terms).toBeInstanceOf(UserTermsMap);
     });
 
     it('calculates metrics tags', () => {
@@ -37,31 +34,31 @@ describe('User Model', () => {
     it('calculates audience tags', () => {
         bootstrapCoursesList();
         expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-not-previewed']);
-        const course = Courses.get(2)!;
+        const course = currentCourses.get(2)!;
         course.is_preview = true;
         UiSettings.set('DBVC', course.id, 1);
 
         expect(User.tourAudienceTags).toEqual(['teacher']);
 
-        Courses.forEach((c) => { c.trackDashboardView(); });
+        currentCourses.forEach((c) => { c.trackDashboardView(); });
         expect(User.tourAudienceTags).toEqual(['teacher']);
 
-        Courses.forEach((c) => {
+        currentCourses.forEach((c) => {
             c.appearance_code = 'intro_sociology';
         });
         expect(User.tourAudienceTags).toEqual(['teacher']);
 
-        Courses.clear();
+        currentCourses.clear();
         expect(User.tourAudienceTags).toEqual([]);
     });
 
     it('#verifiedRoleForCourse', () => {
         bootstrapCoursesList();
-        expect(User.verifiedRoleForCourse(Courses.get(1)!)).toEqual('student');
+        expect(User.verifiedRoleForCourse(currentCourses.get(1)!)).toEqual('student');
         User.can_create_courses = true;
-        expect(User.verifiedRoleForCourse(Courses.get(2)!)).toEqual('student');
+        expect(User.verifiedRoleForCourse(currentCourses.get(2)!)).toEqual('student');
         User.faculty_status = 'confirmed_faculty';
-        expect(User.verifiedRoleForCourse(Courses.get(2)!)).toEqual('teacher');
+        expect(User.verifiedRoleForCourse(currentCourses.get(2)!)).toEqual('teacher');
     });
 
     it('#recordSessionStart', () => {
@@ -79,12 +76,12 @@ describe('User Model', () => {
         User.faculty_status = 'nope' as any;
         User.can_create_courses = false;
         User.self_reported_role = 'student';
-        Courses.clear();
+        currentCourses.clear();
         expect(User.isProbablyTeacher).toBe(false);
         bootstrapCoursesList();
         expect(User.isProbablyTeacher).toBe(true);
         expect(User.canViewPreviewCourses).toBe(false);
-        Courses.clear();
+        currentCourses.clear();
         User.can_create_courses = false;
         User.self_reported_role = 'instructor';
         expect(User.isProbablyTeacher).toBe(true);

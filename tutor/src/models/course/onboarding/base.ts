@@ -1,8 +1,5 @@
 import { observable, computed, modelize } from 'shared/model'
-import type Course from '../../course'
-import type TourContext from '../../tour/context'
-
-export type { Course, TourContext }
+import type { Course, TourContext } from '../../../models'
 
 const SPY_MODE = observable.box(false);
 

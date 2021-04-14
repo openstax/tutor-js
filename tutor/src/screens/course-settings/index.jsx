@@ -1,6 +1,6 @@
 import { React, PropTypes, observable, observer, action, computed, styled } from 'vendor';
 import { Redirect } from 'react-router-dom';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import Router from '../../../src/helpers/router';
 import CoursePage from '../../components/course-page';
 import Tabs from '../../components/tabs';
@@ -38,7 +38,7 @@ class CourseSettings extends React.Component {
     @observable tabIndex;
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
     @action.bound onTabSelect(tabIndex) {

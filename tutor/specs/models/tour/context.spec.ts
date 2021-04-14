@@ -2,16 +2,14 @@ import { bootstrapCoursesList } from '../../courses-test-data';
 import { autorun, observable } from 'mobx';
 import { each } from 'lodash';
 import { ApiMock, runInAction } from '../../helpers'
-import TourRegion from '../../../src/models/tour/region';
-import TourContext from '../../../src/models/tour/context';
-import User from '../../../src/models/user';
-import Tour from '../../../src/models/tour';
+import { TourRegion, TourContext, currentUser, Tour } from '../../../src/models'
 import browser from 'detect-browser';
 import { hydrateModel } from 'modeled-mobx';
 
 jest.mock('detect-browser', () => ({
-    name: 'not-ie',
+    detect: () => ({ name: 'not-ie' }),
 }));
+
 describe('Tour Context Model', () => {
     let context: TourContext;
     let region: TourRegion;
@@ -26,7 +24,7 @@ describe('Tour Context Model', () => {
     afterEach(() => {
         (browser as any).name = 'not-ie';
         runInAction(() => {
-            User.viewed_tour_stats.clear();
+            currentUser.viewed_tour_stats.clear();
             each(Tour.all, t => {
                 t.isEnabled = false;
             });

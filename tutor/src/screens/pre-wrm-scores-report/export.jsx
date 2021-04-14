@@ -4,8 +4,7 @@ import { computed, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
 import { Icon } from 'shared';
-import Course from '../../models/course';
-import Export from '../../models/jobs/scores-export';
+import { Course, ScoresExportJob as Export } from '../../models';
 
 @observer
 export default

@@ -3,7 +3,7 @@ import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
 import UiSettings from 'shared/model/ui-settings';
-import StepGroup from '../../models/student-tasks/step-group';
+import { StudentTaskStepGroup as StepGroup } from '../../models';
 import ScrollTo from '../../helpers/scroll-to';
 import PageContentUX from './page-content-ux';
 

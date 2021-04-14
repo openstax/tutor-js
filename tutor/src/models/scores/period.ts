@@ -1,13 +1,14 @@
 import { find, filter } from 'lodash';
 import { computed } from 'mobx';
-import type CourseScores from '../scores'
 //import type TaskResult from './task-result'
 import Bignum from 'shared/model/bignum'
 import { BaseModel, field, model, modelize, array, NEW_ID, getParentOf } from 'shared/model';
-import Heading from './heading';
-import Student from './student';
+//import Heading from './heading';
+// import Student from './student';
+import type { CourseScores } from '../../models'
+import { CourseScoresStudent as Student, CourseScoresHeading as Heading } from '../../models'
 
-export default class CourseScoresPeriod extends BaseModel {
+export class CourseScoresPeriod extends BaseModel {
     // id is needed to make mapable
     get id(){ return this.period_id }
     @model(Bignum) overall_course_average = Bignum.unknown;

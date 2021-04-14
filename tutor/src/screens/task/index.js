@@ -4,8 +4,7 @@ import {
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { isNil } from 'lodash';
-import Courses, { Course } from '../../models/courses-map';
-import StudentTask from '../../models/student-tasks/task';
+import { StudentTask, currentCourses, Course } from '../../models'
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { BulletList as PendingLoad } from 'react-content-loader';
 import Warning from '../../components/warning-modal';
@@ -119,7 +118,7 @@ export default class TaskGetter extends React.Component {
     }
 
     @computed get course() {
-        return this.props.course || Courses.get(this.props.params.courseId);
+        return this.props.course || currentCourses.get(this.props.params.courseId);
     }
 
     @computed get task() {

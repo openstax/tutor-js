@@ -1,6 +1,6 @@
 import { observable, computed, modelize } from 'shared/model'
 import { readonly } from 'core-decorators';
-import type Task from './task'
+import type { StudentTask } from '../../models'
 
 const TITLES = {
     'individual-review-intro':  'Your individual review',
@@ -9,14 +9,14 @@ const TITLES = {
     'spaced-practice-intro': 'About spaced practice',
 };
 
-export default
+export
 class StudentTaskInfoStep {
 
     constructor(info: any) {
         modelize(this);
         Object.assign(this, info);
     }
-    @observable task?: Task
+    @observable task?: StudentTask
     @observable wasViewed = false;
     @observable type = '';
     @readonly is_completed = true;

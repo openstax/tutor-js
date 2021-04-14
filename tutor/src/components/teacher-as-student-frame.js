@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import { withRouter } from 'react-router';
 import { Icon } from 'shared';
-import Course from '../models/course';
+import { Course } from '../models';
 import Theme from '../theme';
 
 const StyledTeacherAsStudentFrame = styled.div`

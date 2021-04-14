@@ -1,16 +1,14 @@
-import type CoursePeriod from './period'
-import type Course from '../course'
-import Time from 'shared/model/time'
-import urlFor from '../../api'
 import {
     BaseModel, ID, NEW_ID, field, model, hydrateModel, modelize,
     observable, computed, action, readonly, getParentOf,
 } from 'shared/model';
-import { StudentObj } from '../types'
+import type { StudentObj, CoursePeriod, Course } from '../../models'
+import { Payments } from '../../models'
+import Time from 'shared/model/time'
+import urlFor from '../../api'
 import { pick } from 'lodash';
-import Payments from '../payments';
 
-export class Students {
+export class CourseStudents {
 
     course: Course
 
@@ -29,7 +27,7 @@ export class Students {
 
 }
 
-export default class CourseStudent extends BaseModel {
+export class CourseStudent extends BaseModel {
 
     @readonly static TEACHER_AS_STUDENT_ID = -9;
     @field id: ID = NEW_ID

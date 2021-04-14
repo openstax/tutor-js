@@ -5,7 +5,7 @@ import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import { AsyncButton } from 'shared';
-import Purchase from '../../models/purchases/purchase';
+import { Purchase } from '../../models';
 
 @observer
 class ProcessRefund extends React.Component {

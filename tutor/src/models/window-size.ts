@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 
 import { BREAKPOINTS } from '../theme';
 
-export default class WindowSize {
+export class WindowSize {
 
     size: {
         current: () => { width: number, height: number }

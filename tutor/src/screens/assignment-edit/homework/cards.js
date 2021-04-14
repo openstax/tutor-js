@@ -5,9 +5,7 @@ import { map, isEmpty } from 'lodash';
 import ExercisePreview from '../../../components/exercises/preview';
 import BookPartTitle from '../../../components/book-part-title';
 import ScrollTo from '../../../helpers/scroll-to';
-import { ExercisesMap } from '../../../models/exercises';
-import Exercise from '../../../models/exercises/exercise';
-import Book from '../../../models/reference-book';
+import { ExercisesMap, Exercise, ReferenceBook as Book } from '../../../models'
 import NoExercisesFound from '../../../components/exercises/no-exercises-found';
 import { colors, breakpoints } from '../../../theme';
 

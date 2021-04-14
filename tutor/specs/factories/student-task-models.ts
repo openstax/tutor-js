@@ -1,10 +1,9 @@
-import StudentTask from '../../src/models/student-tasks/task';
 import { TASK_TYPES } from './student-tasks';
 import { range } from 'lodash'
 import { hydrateModel } from 'shared/model'
 import FactoryBot from 'object-factory-bot';
-import Course from '../../src/models/course';
 
+import { StudentTask, Course } from '../../src/models'
 
 const TaskStepTypes = {
     reading: 'StudentTaskReadingStepContent',

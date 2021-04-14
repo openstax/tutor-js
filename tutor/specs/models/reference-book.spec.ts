@@ -1,7 +1,7 @@
 import { autorun, runInAction } from 'mobx';
 import Factory from '../factories';
 import { sample } from 'lodash';
-import Node from '../../src/models/reference-book/node';
+import { ReferenceBookNode as Node } from '../../src/models'
 
 
 describe('Reference Book', () => {

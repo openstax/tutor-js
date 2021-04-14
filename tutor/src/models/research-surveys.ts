@@ -1,10 +1,10 @@
 import Map, { ID } from 'shared/model/map';
 import { readonly } from 'core-decorators';
-import Survey from './research-surveys/survey';
 
+import { ResearchSurvey } from '../models'
 
-export default class ResearchSurveys extends Map<ID, Survey> {
-    @readonly static Model = Survey;
+export class ResearchSurveysMap extends Map<ID, ResearchSurvey> {
+    @readonly static Model = ResearchSurvey;
 
 
 }

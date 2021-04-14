@@ -2,15 +2,13 @@ import { BaseModel, field, modelize, model, action, computed, observable, array,
 import Time from 'shared/model/time';
 import type { StudentTasks } from '../student-tasks';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
-import StudentTaskStep from './step';
-import Student from './student';
 import S from '../../helpers/string';
 import urlFor from '../../api'
-import { StudentTaskObj } from '../types';
+import type { StudentTaskObj } from '../types';
+import { StudentTaskStep, TaskedStudent as Student } from '../../models'
 
-export { StudentTaskStep };
-
-export default class StudentTask extends BaseModel {
+// this is a task as it's beeing worked or displayed
+export class StudentTask extends BaseModel {
 
     @field id = NEW_ID;
     @field title = '';

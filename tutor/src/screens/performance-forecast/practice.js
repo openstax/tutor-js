@@ -3,7 +3,7 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import Router from '../../helpers/router';
 import { withRouter } from 'react-router-dom';
-import { PRACTICE } from '../../models/student-tasks';
+import { STUDENT_PRACTICE_TYPES } from '../../config'
 
 
 @withRouter
@@ -18,7 +18,7 @@ export default class PracticeButton extends React.Component {
 
     onClick = () => {
         const { courseId, page_ids } = this.props;
-        const route = Router.makePathname('practiceTopics', { courseId }, { query: { page_ids, type: PRACTICE.WORST } });
+        const route = Router.makePathname('practiceTopics', { courseId }, { query: { page_ids, type: STUDENT_PRACTICE_TYPES.WORST } });
         return this.props.history.push(route);
     };
 

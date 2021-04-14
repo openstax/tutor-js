@@ -2,13 +2,13 @@ import React from 'react';
 import { observable, computed, action, modelize } from 'shared/model';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
-import User from '../../models/user';
+import { currentUser } from '../../models';
 import MenuToggle from '../../components/book-menu/toggle';
 import BookTitle from './book-title';
 import SectionTitle from './section-title';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
-import BookUX from '../../models/reference-book/ux';
+import { BookUX } from '../../models';
 
 const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
@@ -37,7 +37,7 @@ export default class ReferenceBookUX extends BookUX {
     }
 
     @computed get allowsAnnotating() {
-        return User.canAnnotate;
+        return currentUser.canAnnotate;
     }
 
     @action setNavBar(nav) {

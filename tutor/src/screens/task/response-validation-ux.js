@@ -1,8 +1,7 @@
 import { extend, last, random } from 'lodash';
 import S from '../../helpers/string';
 import { observable, computed, action, modelize } from 'shared/model';
-import ResponseValidation from '../../models/response_validation';
-import Raven from '../../models/app/raven';
+import { Raven, ResponseValidation } from '../../models'
 
 export
 class ResponseValidationUX {

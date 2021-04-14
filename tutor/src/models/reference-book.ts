@@ -1,24 +1,13 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
-import { readonly } from 'core-decorators';
+import { readonly } from 'core-decorators'
 import Map from 'shared/model/map';
 import { ReferenceBookObj } from './types'
-import {
-    BaseModel,
-    field,
-    model,
-    modelize,
-    observable,
-    computed,
-    NEW_ID,
-    ID,
-    array,
-} from 'shared/model';
-import Time from 'shared/model/time';
-import ChapterSection from './chapter-section';
-import Node from './reference-book/node';
+import { BaseModel, field, model, modelize, observable, computed, NEW_ID, ID, array } from 'shared/model';
+import Time from 'shared/model/time'
+import { ChapterSection, ReferenceBookNode as Node } from '../models'
 import urlFor from '../api'
 
-export { Node as Page }
+// export { Node as Page }
 
 class PageIdMap extends Map<ID, Node>{
     static Model = Node
@@ -39,7 +28,7 @@ function mapPages(page: ReferenceBook | Node, pages: any) {
     return pages;
 }
 
-export default class ReferenceBook extends BaseModel {
+export class ReferenceBook extends BaseModel {
     @field id = NEW_ID;
 
     @field({ model: ChapterSection }) chapter_section = ChapterSection.blank;

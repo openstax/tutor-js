@@ -1,4 +1,4 @@
-import ChapterSection from '../../src/models/chapter-section';
+import { ChapterSection } from '../../src/models'
 
 describe('ChapterSection Model', () => {
 

@@ -1,14 +1,11 @@
 import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, ID, modelize, hydrateInstance } from 'shared/model';
-import type TaskPlan from './plan'
-import type Period from '../../course/period'
-import type Course from '../../course'
+import type { GradingTemplate, Course, CoursePeriod, TeacherTaskPlan } from '../../../models'
+import { Toasts } from '../../../models'
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
-import Toasts from '../../toasts';
 import Time from 'shared/model/time';
-import { GradingTemplate } from '../../grading/templates';
 
-export default class TaskingPlan extends BaseModel {
+export class TaskingPlan extends BaseModel {
 
     static hydrate(attrs: any) {
         const tasking = new TaskingPlan()
@@ -21,7 +18,7 @@ export default class TaskingPlan extends BaseModel {
     @field target_id:ID = NEW_ID;
     @field target_type?: 'course' | 'period';
 
-    get plan() { return getParentOf<TaskPlan>(this) }
+    get plan() { return getParentOf<TeacherTaskPlan>(this) }
 
     // Note: These are deliberatly NOT set using @model(Time)
     // doing so causes strings in YYYY-MM-DD format to be converted to a date
@@ -47,7 +44,7 @@ export default class TaskingPlan extends BaseModel {
         return get(this.plan, 'course');
     }
 
-    get period():Period | null {
+    get period():CoursePeriod | null {
         if (this.target_type !== 'period') { return null; }
         return this.course.periods.find(p => p.id == this.target_id) || null;
     }

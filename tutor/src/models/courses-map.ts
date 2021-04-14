@@ -1,11 +1,8 @@
 import Map, { hydrateModel } from 'shared/model/map';
 import { ID, modelize, computed, action, override } from 'shared/model'
-import Course from './course';
+import { CourseObj, Course } from '../models'
 import { isEmpty, find } from 'lodash';
-import { CourseObj } from './types'
 import urlFor from '../api'
-
-export { Course };
 
 export class CoursesMap extends Map<ID, Course> {
     static Model = Course
@@ -119,6 +116,4 @@ export class CoursesMap extends Map<ID, Course> {
     }
 }
 
-const coursesMap = new CoursesMap();
-
-export default coursesMap;
+export const currentCourses = new CoursesMap();

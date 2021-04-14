@@ -1,7 +1,6 @@
 import { TimeMock, Factory } from '../../helpers';
 import UiSettings from 'shared/model/ui-settings';
-import Push from '../../../src/models/jobs/lms-score-push';
-import Toasts from '../../../src/models/toasts';
+import { LmsScorePushJob, currentToasts } from '../../../src/models'
 
 jest.useFakeTimers();
 
@@ -13,16 +12,16 @@ jest.mock('shared/model/ui-settings', () => ({
 describe('LMS Score push job', () => {
 
     let course: ReturnType<typeof Factory.course>;
-    let job: Push;
+    let job: LmsScorePushJob;
 
     const mockedNow = TimeMock.setTo(new Date());
 
     beforeEach(() => {
         course = Factory.course({ id: '2' })
-        job = new Push(course);
+        job = new LmsScorePushJob(course);
     });
 
-    afterEach(() => Toasts.clear());
+    afterEach(() => currentToasts.clear());
 
     it('reports last sync time', () => {
         UiSettings.get = jest.fn(() => undefined);
@@ -41,8 +40,8 @@ describe('LMS Score push job', () => {
         expect(UiSettings.set).toHaveBeenCalledWith(
             'sclp', '2', mockedNow.toISOString()
         );
-        expect(Toasts.length).toBe(1);
-        const q = Toasts[0];
+        expect(currentToasts.length).toBe(1);
+        const q = currentToasts[0];
         expect(q.status).toEqual('ok');
         expect(q.handler).toEqual('job');
         expect(q.type).toBe('lms');

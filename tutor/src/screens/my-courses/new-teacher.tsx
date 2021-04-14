@@ -5,9 +5,8 @@ import { useDispatch } from 'react-redux'
 import scrollIntoView from 'scroll-into-view'
 import { createPreviewCourse } from '../../store/courses'
 import { useAvailableOfferings } from '../../store/offering'
-import User from '../../models/user'
+import { currentUser, CourseInformation } from '../../model'
 import { Offering } from '../../store/types'
-import CourseInformation from '../../models/course/information'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
 import { groupBy, sortBy, map, extend } from 'lodash'
@@ -16,7 +15,7 @@ import AsyncButton from 'shared/components/buttons/async-button'
 import TutorLink from '../../components/link'
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper'
 import qs from 'qs'
-import { SubjectOrder } from '../../models/subject-order'
+import { SubjectOrder } from '../../models'
 
 import './styles.scss'
 
@@ -464,7 +463,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     const onSubmitSuggestion = (e) => {
         e.preventDefault()
         setSubmittingSuggestion(true)
-        Promise.resolve(User.suggestSubject({ data: suggestedSubject }))
+        Promise.resolve(currentUser.suggestSubject({ data: suggestedSubject }))
             .then(() => setActiveScreen(Screens.AfterSuggest))
     }
 
@@ -569,7 +568,7 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
     const offering = Object.values(offerings).flat().find(o => o.id == selectedSubject)
 
     const createPreview = () => {
-        if (!User.canViewPreviewCourses) {
+        if (!currentUser.canViewPreviewCourses) {
             return null
         }
 

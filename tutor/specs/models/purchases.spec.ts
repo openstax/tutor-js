@@ -1,4 +1,4 @@
-import { Purchase, PurchasesMap } from '../../src/models/purchases';
+import { Purchase, PurchasesMap } from '../../src/models'
 
 describe('Purchases', () => {
     let purchases: PurchasesMap;

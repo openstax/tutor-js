@@ -3,18 +3,18 @@ import type Course from '../course'
 import Job from '../job';
 import UiSettings from 'shared/model/ui-settings';
 import Time from 'shared/model/time'
-import Toasts from '../toasts';
+import { currentToasts } from'../../models'
 import urlFor from '../../api';
 
-const CURRENT = observable.map<ID, ScoresExport>();
+const CURRENT = observable.map<ID, ScoresExportJob>();
 const LAST_EXPORT = 'sce';
 
-export default class ScoresExport extends Job {
+export class ScoresExportJob extends Job {
 
     static forCourse(course: Course) {
         let exp = CURRENT.get(course.id);
         if (!exp){
-            exp = new ScoresExport(course);
+            exp = new ScoresExportJob(course);
             CURRENT.set(course.id, exp);
         }
         return exp;
@@ -39,7 +39,7 @@ export default class ScoresExport extends Job {
 
     onPollComplete(info: any) {
         UiSettings.set(LAST_EXPORT, this.course.id, Time.now.toISOString());
-        Toasts.add({
+        currentToasts.add({
             info,
             type: 'scores',
             handler: 'job',

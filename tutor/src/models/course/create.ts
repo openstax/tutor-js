@@ -1,13 +1,15 @@
 import { BaseModel, field, model, computed, observable, action, ID, NEW_ID, modelize } from 'shared/model';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
-import Offerings, { Offering, OfferingsMap } from './offerings';
-import Courses, { CoursesMap, Course } from '../courses-map';
-import Term from './offerings/term';
-import urlFor from '../../api'
-import { CourseObj } from '../types';
 
-export default class CourseCreate extends BaseModel {
+import { currentCourses, currentOfferings,
+    CourseTerm,
+    CoursesMap, Course, Offering, OfferingsMap } from '../../models'
+
+import urlFor from '../../api'
+import type { CourseObj } from '../types';
+
+export class CourseCreate extends BaseModel {
 
     @field name = ''
     @field offering_id: ID = ''
@@ -21,7 +23,7 @@ export default class CourseCreate extends BaseModel {
 
     @observable createdCourse?: Course
 
-    @model(Term) term?: Term
+    @model(CourseTerm) term?: CourseTerm
     @observable errors = observable.map()
 
     courses: CoursesMap
@@ -38,7 +40,7 @@ export default class CourseCreate extends BaseModel {
         },
     }
 
-    constructor({ courses = Courses, offerings = Offerings }: { offerings?: OfferingsMap, courses?: CoursesMap } = {}) {
+    constructor({ courses = currentCourses, offerings = currentOfferings }: { offerings?: OfferingsMap, courses?: CoursesMap } = {}) {
         super()
         modelize(this)
         this.courses = courses

@@ -1,15 +1,15 @@
 import { BaseModel, field, model, modelize, computed, action, array, NEW_ID, ID, getParentOf } from 'shared/model';
 import { isProd } from '../../helpers/production'
-import type { User } from '../user'
+import type { User } from '../../models'
+import { UserTermObj } from '../../models'
 import urlFor from '../../api'
-import { UserTermObj } from '../types';
 
 const REQUIRED_FOR_EVERYONE = [
     'general_terms_of_use',
     'privacy_policy',
 ];
 
-class Term extends BaseModel {
+export class UserTerm extends BaseModel {
     @field id = NEW_ID;
     @field title = '';
     @field content = '';
@@ -33,8 +33,8 @@ class Term extends BaseModel {
 }
 
 
-class UserTerms extends BaseModel {
-    @model(Term) terms = array<Term>()
+export class UserTermsMap extends BaseModel {
+    @model(UserTerm) terms = array<UserTerm>()
 
     constructor() {
         super();
@@ -61,13 +61,13 @@ class UserTerms extends BaseModel {
         if (this.areSignaturesNeeded) { this.fetch(); }
     }
 
-    get(name: string): Term | undefined {
+    get(name: string): UserTerm | undefined {
         return this.user.available_terms.find(t => t.name == name);
     }
 
     // will be overwritten by api
     async fetch() {
-        const terms = await this.api.request<Term[]>(urlFor('fetchUserTerms'))
+        const terms = await this.api.request<UserTerm[]>(urlFor('fetchUserTerms'))
         this.onLoaded(terms)
     }
 
@@ -77,7 +77,7 @@ class UserTerms extends BaseModel {
             if (term) {
                 term.update(termData)
             } else {
-                this.user.available_terms.push(termData as Term)
+                this.user.available_terms.push(termData as UserTerm)
             }
         });
     }
@@ -100,5 +100,3 @@ class UserTerms extends BaseModel {
 
 
 }
-
-export { Term, UserTerms };

@@ -7,11 +7,10 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Name from '../../components/name';
 import { AsyncButton } from 'shared';
+import { Course, CourseTeacher }from '../../models'
 
 const WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redirected to the dashboard.';
 
-import Course from '../../models/course';
-import Teacher from '../../models/course/teacher';
 
 @withRouter
 @observer
@@ -19,7 +18,7 @@ export default
 class RemoveTeacherLink extends React.Component {
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
-        teacher: PropTypes.instanceOf(Teacher).isRequired,
+        teacher: PropTypes.instanceOf(CourseTeacher).isRequired,
         history: PropTypes.object.isRequired,
     }
 

@@ -1,8 +1,6 @@
 import { observable } from 'mobx';
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
-import Course from '../../../../src/models/course';
-import TourContext from '../../../../src/models/tour/context'
-import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
+import { PreviewOnboarding, Course, TourContext } from '../../../../src/models'
 import { hydrateModel } from 'modeled-mobx';
 import Time from 'shared/model/time'
 
@@ -17,13 +15,15 @@ Object.defineProperties(mockCourses, {
 });
 
 jest.mock('../../../../src/models/courses-map', () => ({
-    tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
+    currentCourses: {
+        tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
+    },
 }));
 jest.mock('../../../../src/models/course');
 jest.mock('../../../../src/models/task-plans/teacher');
 
 describe('Course Preview Onboarding', () => {
-    let ux:CoursePreviewUX;
+    let ux:PreviewOnboarding;
     const mockActiveCoursePlans = observable.array()
 
     beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Course Preview Onboarding', () => {
         mockActiveCoursePlans.clear();
         (course as any).teacherTaskPlans = { active: mockActiveCoursePlans, api: { isPending: false } };
         (course as any).offering = { is_available: true };
-        ux = new CoursePreviewUX(course, hydrateModel(TourContext, {}));
+        ux = new PreviewOnboarding(course, hydrateModel(TourContext, {}));
         ux._setTaskPlanPublish(false);
     });
 

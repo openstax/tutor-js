@@ -1,20 +1,18 @@
 import { BaseModel, computed, action, observable, modelize } from 'shared/model';
 import { find, filter, each } from 'lodash';
-import type Tour from '../tour'
-import type Context from './context'
-import type Region from './region'
+import type { Tour, TourContext, TourRegion } from '../tour'
 
-export default class TourRide extends BaseModel {
+export class TourRide extends BaseModel {
 
     @observable tour: Tour
-    @observable context: Context
-    @observable region?: Region
+    @observable context: TourContext
+    @observable region?: TourRegion
 
     @observable _stepIndex = 0;
     @observable _isReady = false;
-    @observable joyrideRef;
+    @observable joyrideRef: any;
 
-    constructor({ tour, context, region }: { tour: Tour, context: Context, region: Region }) {
+    constructor({ tour, context, region }: { tour: Tour, context: TourContext, region: TourRegion }) {
         super();
         modelize(this);
         this.tour = tour

@@ -1,24 +1,21 @@
-import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
 import { observable } from 'mobx'
-import User from '../../src/models/user';
+import { Tour, User, currentUser } from '../../src/models'
 import { hydrateModel } from '../helpers';
 
 jest.mock('../../src/models/user', () => ({
-    __esModule: true,
-    default: {
+    currentUser: {
         replayTour: jest.fn(),
         get viewed_tour_stats() {
             const value = observable.array()
             Object.defineProperty(this, 'viewed_tour_stats', { value })
             return value
         },
-        viewedTour: jest.fn(function(this: typeof User, t: any){
+        viewedTour: jest.fn(function(this: User, t: any){
             this.viewed_tour_stats.replace([{ id: t.id, view_count: 1 } as any]);
         }),
     },
 }));
-
 
 describe('Tour Model', () => {
     it('can be created', () => {
@@ -59,7 +56,7 @@ describe('Tour Model', () => {
     it ('marks itself viewed', () => {
         const tour = Tour.forIdentifier('homework-assignment-editor');
         tour.markViewed({ exitedEarly: false });
-        expect(User.viewedTour).toHaveBeenCalledWith(tour, { exitedEarly: false });
+        expect(currentUser.viewedTour).toHaveBeenCalledWith(tour, { exitedEarly: false });
         expect(tour.isEnabled).toBeFalsy();
     });
 
@@ -71,14 +68,14 @@ describe('Tour Model', () => {
     });
 
     it('calculates when an autoplay tour is viewable', () => {
-        User.viewed_tour_stats.clear()
+        currentUser.viewed_tour_stats.clear()
         const tour = Tour.forIdentifier('question-library-super');
         expect(tour.autoplay).toBe(true);
         expect(tour.isViewed).toBe(false);
         expect(tour.standalone).toBe(true);
         expect(tour.isViewable).toBe(true);
 
-        User.viewed_tour_stats.replace([{ id: 'question-library-super', view_count: 1 }] as any);
+        currentUser.viewed_tour_stats.replace([{ id: 'question-library-super', view_count: 1 }] as any);
         expect(tour.isViewable).toBe(false);
     });
 

@@ -2,7 +2,7 @@ import { React, PropTypes, observer, styled } from 'vendor';
 import BookPage from '../../../components/book-page';
 import UX from '../ux';
 import { TaskStepCard } from './card';
-import Step from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models'
 import ContinueBtn from './continue-btn';
 
 const StyledReading = styled(TaskStepCard)`
@@ -14,7 +14,7 @@ export default class ReadingTaskStep extends React.Component {
 
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
-        step: PropTypes.instanceOf(Step).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
         windowImpl: PropTypes.object,
     }
 

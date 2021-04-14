@@ -1,5 +1,5 @@
 import { React, PropTypes, observer } from 'vendor';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import TourAnchor from '../../components/tours/anchor';
 import TutorLink from '../../components/link';
 import BrowseTheBook from '../../components/buttons/browse-the-book';

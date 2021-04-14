@@ -5,7 +5,7 @@ import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
 import NoPeriods from '../../components/no-periods';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import ScoresReportExportControls from './export-controls';
 import ScoresReportNav from './nav';
 import DroppedStudentsCaption from './dropped-students-caption';
@@ -27,7 +27,7 @@ class StudentScores extends React.Component {
     }
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
     ux = this.props.ux || new UX(this.course);

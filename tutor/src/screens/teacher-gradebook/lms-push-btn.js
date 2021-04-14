@@ -4,8 +4,7 @@ import { computed, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon, AsyncButton } from 'shared';
-import Course from '../../models/course';
-import Push from '../../models/jobs/lms-score-push';
+import { Course, LmsScorePushJob } from '../../models';
 
 @observer
 export default
@@ -20,7 +19,7 @@ class LmsPush extends React.Component {
     }
 
     @computed get lmsPush() {
-        return Push.forCourse(this.props.course);
+        return LmsScorePushJob.forCourse(this.props.course);
     }
 
     @action.bound startPush() {

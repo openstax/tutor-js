@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import TaskResult from '../../models/scores/task-result';
+import { ScoresTaskResult as TaskResult } from '../../models'
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 

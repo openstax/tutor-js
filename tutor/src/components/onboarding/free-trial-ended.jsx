@@ -5,8 +5,7 @@ import { action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
-import CourseUX from '../../models/course/ux';
-import Courses from '../../models/courses-map';
+import { CourseUX, currentCourses }  from '../../models';
 import TutorRouter from '../../helpers/router';
 
 @withRouter
@@ -32,7 +31,7 @@ class FreeTrialEnded extends React.Component {
     }
 
     renderBackLink() {
-        if (Courses.size <= 1) { return null; }
+        if (currentCourses.size <= 1) { return null; }
 
         return (
             <Button variant="link" onClick={this.goToMyCourses}>

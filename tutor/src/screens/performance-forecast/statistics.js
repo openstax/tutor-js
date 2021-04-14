@@ -2,12 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isArray } from 'lodash';
 import { SpyMode } from 'shared';
-
-import Courses from '../../models/courses-map';
-
+import { currentCourses } from '../../models';
 import ChapterSectionType from './chapter-section-type';
-
 import pluralize from 'pluralize';
+
 pluralize.addIrregularRule(' has', ' have');
 
 
@@ -41,7 +39,7 @@ ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
             role = 'teacher-student';
         } else {
             // else use the course role of teacher or student
-            role = Courses.get(this.props.courseId).primaryRole.type;
+            role = currentCourses.get(this.props.courseId).primaryRole.type;
         }
 
         return (

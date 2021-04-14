@@ -1,10 +1,14 @@
 import { find, pick, last } from 'lodash';
-import Student from './student';
-import type Course from '../course'
-import type Role from './role'
+import { CourseStudent as Student } from '../../models'
+import type {
+    CoursePeriodObj, RoleObj,
+    Course,
+    CourseRole as Role,
+} from '../../models'
+
 import Time from 'shared/model/time'
 import urlFor from '../../api'
-import { CoursePeriodObj, RoleObj } from '../types'
+
 import {
     BaseModel,
     field,
@@ -16,7 +20,7 @@ import {
     getParentOf,
 } from 'shared/model';
 
-export default class CoursePeriod extends BaseModel {
+export class CoursePeriod extends BaseModel {
     @field id = NEW_ID;
 
     @field name = '';

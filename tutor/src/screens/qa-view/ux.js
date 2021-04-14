@@ -7,9 +7,7 @@ import Router from '../../helpers/router';
 import ViewToggle from './view-toggle';
 import AppearanceSelector from './appearance-selector';
 import UserMenu from '../../components/navbar/user-menu';
-import DefaultExercises from '../../models/exercises';
-import DefaultEcosystems from '../../models/ecosystems';
-import BookUX from '../../models/reference-book/ux';
+import { currentExercises, currentEcosystems, BookUX } from '../../models';
 
 
 // menu width (300) + page width (1000) + 50 px padding
@@ -29,8 +27,8 @@ export default class QaScreenUX extends BookUX {
   
     constructor({
         history,
-        exercises = DefaultExercises,
-        ecosystems = DefaultEcosystems,
+        exercises = currentExercises,
+        ecosystems = currentEcosystems,
     }) {
         super();
         modelize(this);

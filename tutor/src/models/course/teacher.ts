@@ -1,7 +1,7 @@
-import { BaseModel, computed, field, NEW_ID, getParentOf } from 'shared/model';
-import type CourseRoster from './roster'
+import { BaseModel, computed, field, modelize,NEW_ID, getParentOf } from 'shared/model';
+import type { CourseRoster } from './roster'
 
-export default class CourseTeacher extends BaseModel {
+export class CourseTeacher extends BaseModel {
 
     @field id = NEW_ID;
     @field role_id = NEW_ID;
@@ -9,7 +9,12 @@ export default class CourseTeacher extends BaseModel {
     @field last_name = '';
     @field is_active = false;
 
-    get roster():CourseRoster { return getParentOf(this) }
+    get roster() { return getParentOf<CourseRoster>(this) }
+
+    constructor() {
+        super()
+        modelize(this);
+    }
 
     drop() {
         return { id: this.id };

@@ -4,7 +4,7 @@ import { observer, observable, action, modelize } from 'shared/model'
 import { Modal, Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 @observer
 class DeleteCourseModal extends React.Component {

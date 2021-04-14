@@ -1,7 +1,7 @@
 import { React, observable, observer, action, cn } from 'vendor';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { Icon } from 'shared';
 import CalendarHelper from './helper';
 

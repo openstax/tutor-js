@@ -1,23 +1,13 @@
 import { isString, get, pick, extend } from 'lodash';
-import ChapterSection from '../chapter-section';
+import { ChapterSection } from '../../models'
 import { SerializedHighlight } from '@openstax/highlighter';
 import { intercept, runInAction, toJS } from 'mobx'
 import urlFor from '../../api'
-import {
-    BaseModel,
-    field,
-    computed,
-    action,
-    model,
-    modelize,
-    NEW_ID,
-    ID,
-    getParentOf,
-} from 'shared/model';
+import { BaseModel, field, computed, action, model, modelize, NEW_ID, ID, getParentOf } from 'shared/model';
 import Time from 'shared/model/time';
 import type { PageNotes } from '../notes'
 
-export default class Note extends BaseModel {
+export class Note extends BaseModel {
 
     static MAX_TEXT_LEN = 500
 

@@ -17,7 +17,7 @@ const ACTIONS = {
 
 export type TourActionID = keyof typeof ACTIONS
 
-export default {
+export const TourActions = {
 
     forIdentifier(id: TourActionID) {
         return ACTIONS[id]

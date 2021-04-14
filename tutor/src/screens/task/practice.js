@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
-import Courses, { Course } from '../../models/courses-map';
+import { currentCourses, Course } from '../../models';
 import { BulletList as PendingLoad } from 'react-content-loader';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { StepCard } from './step/card';
@@ -20,7 +20,7 @@ export default class TaskPractice extends React.Component {
     }
 
     @computed get course() {
-        return this.props.course || Courses.get(this.props.params.courseId);
+        return this.props.course || currentCourses.get(this.props.params.courseId);
     }
 
     @observable taskId;

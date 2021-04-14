@@ -4,7 +4,6 @@ import { map, partial } from 'lodash';
 import { ProgressBar } from 'react-bootstrap';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { Page } from '../../models/task-plans/teacher/stats';
 
 @observer
 export default
@@ -13,7 +12,7 @@ class Progress extends React.Component {
     static propTypes = {
         index: PropTypes.number,
         previous: PropTypes.any,
-        data: PropTypes.instanceOf(Page).isRequired,
+        data: PropTypes.object.isRequired,
         type: PropTypes.string.isRequired,
         activeSection: PropTypes.string,
     }

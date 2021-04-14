@@ -1,12 +1,11 @@
 import {
     React, PropTypes, observer, action, observable, styled,
 } from 'vendor';
-import Course from '../../models/course';
+import { FeatureFlags, Course } from '../../models';
 import { withRouter } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Theme from '../../theme';
-import FeatureFlags from '../../models/feature_flags';
 
 const BecomeButton = styled(Button).attrs({
     className: 'd-inline-flex align-items-center',

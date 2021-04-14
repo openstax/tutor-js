@@ -1,7 +1,7 @@
 import { BaseModel, field, computed, getParentOf } from 'shared/model';
-import ChapterSection from '../chapter-section';
+import type { Exercise } from '../../models'
+import { ChapterSection } from '../../models'
 import { compact, includes } from 'lodash';
-import type Exercise from './exercise'
 
 const TAGS = {
     LO: ['lo', 'aplo'],

@@ -5,9 +5,10 @@ import {
     modelize, getParentOf, hydrateModel, array,
     action, computed, override,
 } from 'shared/model';
-import ChapterSection from '../chapter-section';
-import { MediaActions } from '../../flux/media';
-import ReferenceBook from '../reference-book';
+import { ChapterSection }from '../../models'
+import { MediaActions } from '../../flux/media'
+import type { ReferenceBook } from '../reference-book'
+
 import urlFor from '../../api';
 
 const NON_ASSIGNABLE_TITLES = [
@@ -37,7 +38,7 @@ const NOT_FOUND_CONTENT = {
   `,
 };
 
-export default class ReferenceBookNode extends BaseModel {
+export class ReferenceBookNode extends BaseModel {
 
 
     // a mock page for use by entities such as exercises that need to indicate

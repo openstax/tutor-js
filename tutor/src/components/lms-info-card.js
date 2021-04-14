@@ -8,8 +8,7 @@ import { autobind } from 'core-decorators';
 import CopyOnFocusInput from './copy-on-focus-input';
 import { Icon } from 'shared';
 import { compact } from 'lodash';
-import Courses from '../models/courses-map';
-import TeacherTaskPlan from '../models/task-plans/teacher/plan';
+import { TeacherTaskPlan, currentCourses } from '../models';
 import styled from 'styled-components';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
@@ -61,7 +60,7 @@ export default class LmsInfoCard extends React.Component {
                 />
             );
         }
-        const course = Courses.get(this.props.courseId);
+        const course = currentCourses.get(this.props.courseId);
         const periodDates = compact(course.periods.map(period => {
             const tp = plan.tasking_plans.forPeriod(period);
             return tp && (
@@ -88,7 +87,7 @@ export default class LmsInfoCard extends React.Component {
     }
 
     @computed get isPreview() {
-        return Courses.get(this.props.courseId).is_preview;
+        return currentCourses.get(this.props.courseId).is_preview;
     }
 
     @computed get popOverBody() {

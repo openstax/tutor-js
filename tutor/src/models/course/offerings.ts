@@ -1,7 +1,7 @@
 import { computed, action } from 'mobx';
 import Map, { ID, modelize } from 'shared/model/map';
-import Offering from './offering';
-import { OfferingObj } from '../../types'
+import type { OfferingObj } from '../../models'
+import { Offering } from '../../models'
 
 export class OfferingsMap extends Map<ID, Offering> {
     static Model = Offering
@@ -38,8 +38,4 @@ export class OfferingsMap extends Map<ID, Offering> {
 
 }
 
-const offeringsMap = new OfferingsMap();
-
-export { Offering };
-
-export default offeringsMap;
+export const currentOfferings = new OfferingsMap();

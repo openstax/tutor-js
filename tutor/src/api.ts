@@ -178,7 +178,6 @@ export default urlFor
 //         onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats',
 //     });
 
-//     connectModelUpdate(TaskingPlan, 'publishScores', { method: 'PUT', onSuccess: 'onPublishScoresComplete', pattern: 'tasking_plans/{id}/grade' });
 //     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
 // };
 // export default {

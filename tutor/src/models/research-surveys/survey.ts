@@ -1,16 +1,14 @@
 import { pick } from 'lodash';
 import { BaseModel, field, modelize, computed, NEW_ID } from 'shared/model';
 
-export default class ResearchSurvey extends BaseModel {
+export class ResearchSurvey extends BaseModel {
     @field id = NEW_ID;
     @field title = '';
     @field model?: any;
     @field response?: any;
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 

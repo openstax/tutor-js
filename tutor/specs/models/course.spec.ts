@@ -1,18 +1,19 @@
-import Courses from '../../src/models/courses-map';
 import UiSettings from 'shared/model/ui-settings';
 import { map, cloneDeep, shuffle } from 'lodash';
-// import Course from '../../src/models/course';
-import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
 import { autorun, runInAction } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
-import Course from '../../src/models/course'
 import { hydrateInstance, fetchMock } from '../helpers'
 import COURSE from '../../api/courses/1.json';
 import { hydrateModel } from 'modeled-mobx';
+import { currentCourses, Course, Payments } from '../../src/models'
+
+
 jest.mock('../../src/models/payments');
 jest.mock('../../src/models/feature_flags',() => ({
-    tours: true,
+    FeatureFlags: {
+        tours: true,
+    },
 }));
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
@@ -23,24 +24,14 @@ describe('Course Model', () => {
 
     beforeEach(() => bootstrapCoursesList());
 
-    // it('can be bootstrapped and size observed', () => {
-    //     Courses.clear();
-    //     const lenSpy = jest.fn();
-    //     autorun(() => lenSpy(Courses.size));
-    //     expect(lenSpy).toHaveBeenCalledWith(0);
-    //     bootstrapCoursesList();
-    //     expect(lenSpy).toHaveBeenCalledWith(3);
-    //     expect(Courses.size).toEqual(3);
-    // });
-
     it('#userStudentRecord', () => {
-        expect(Courses.get(1)?.userStudentRecord).not.toBeNull();
-        expect(Courses.get(1)?.userStudentRecord?.student_identifier).toEqual('1234');
-        expect(Courses.get(2)?.userStudentRecord).toBeNull();
+        expect(currentCourses.get(1)?.userStudentRecord).not.toBeNull();
+        expect(currentCourses.get(1)?.userStudentRecord?.student_identifier).toEqual('1234');
+        expect(currentCourses.get(2)?.userStudentRecord).toBeNull();
     });
 
     it('#currentRole', () => {
-        const c = Courses.get(1)!;
+        const c = currentCourses.get(1)!;
         expect(c.currentRole).toBe(c.primaryRole);
         const newRoleAttrs = { id: 92, type: 'unknown' };
         c.roles.push(newRoleAttrs as any);
@@ -49,8 +40,8 @@ describe('Course Model', () => {
     });
 
     it('calculates audience tags', () => {
-        expect(Courses.get(1)!.tourAudienceTags).toEqual(['student']);
-        const teacher = Courses.get(2)!;
+        expect(currentCourses.get(1)!.tourAudienceTags).toEqual(['student']);
+        const teacher = currentCourses.get(2)!;
         teacher.just_created = true;
         expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-with-previous-courses']);
         UiSettings.get = jest.fn(() => 2)!;
@@ -58,7 +49,7 @@ describe('Course Model', () => {
         expect(teacher.tourAudienceTags).toEqual(['teacher']);
         teacher.is_preview = true;
         expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
-        const course = Courses.get(3)!;
+        const course = currentCourses.get(3)!;
         expect(course.tourAudienceTags).toEqual(['teacher']);
         course.roles.student!.become();
         expect(course.tourAudienceTags).toEqual(['student']);
@@ -72,14 +63,14 @@ describe('Course Model', () => {
 
 
     it('should return expected roles for courses', function() {
-        expect(Courses.get(1)?.primaryRole.type).toEqual('student');
-        expect(Courses.get(2)?.primaryRole.type).toEqual('teacher');
-        expect(Courses.get(3)?.primaryRole.type).toEqual('teacher');
-        expect(Courses.get(1)?.primaryRole.joinedAgo('days')).toEqual(7);
+        expect(currentCourses.get(1)?.primaryRole.type).toEqual('student');
+        expect(currentCourses.get(2)?.primaryRole.type).toEqual('teacher');
+        expect(currentCourses.get(3)?.primaryRole.type).toEqual('teacher');
+        expect(currentCourses.get(1)?.primaryRole.joinedAgo('days')).toEqual(7);
     });
 
     it('restricts joining to links', () => {
-        const course = Courses.get(2)!
+        const course = currentCourses.get(2)!
         expect(course.is_lms_enabling_allowed).toEqual(false);
         expect(course.canOnlyUseEnrollmentLinks).toEqual(true);
         course.is_lms_enabling_allowed = true;
@@ -140,14 +131,14 @@ describe('Course Model', () => {
     });
 
     it('calculates if terms are before', () => {
-        const course = Courses.get(2)!;
+        const course = currentCourses.get(2)!;
         expect(course.isBeforeTerm('spring', 2013)).toBe(false);
         expect(course.isBeforeTerm('spring', (new Date()).getFullYear()+1)).toBe(true);
         expect(course.isBeforeTerm(course.term, course.year)).toBe(false);
     });
 
     it('returns bounds', () => {
-        const course = Courses.get(1)!;
+        const course = currentCourses.get(1)!;
         expect(
             course.bounds.start.isSame(course.starts_at, 'day'),
         ).toBe(true);
@@ -157,7 +148,7 @@ describe('Course Model', () => {
     });
 
     it('calculates payments needed', () => {
-        const course = Courses.get(1)!;
+        const course = currentCourses.get(1)!;
         expect(course.needsPayment).toBe(false);
         course.does_cost = true;
         expect(course.needsPayment).toBe(false);
@@ -166,7 +157,7 @@ describe('Course Model', () => {
     })
 
     it('can be saved', async () => {
-        const course = Courses.get(1)!;
+        const course = currentCourses.get(1)!;
         fetchMock.mockResponseOnce(JSON.stringify({ id: 1234 }))
         await course.save()
         expect(fetchMock.mock.calls.length).toEqual(1)

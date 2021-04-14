@@ -3,8 +3,7 @@ import { React, PropTypes, cn, observer, computed, action, withRouter } from 've
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 import { Icon } from 'shared';
-import CourseModel from '../../models/course';
-import CourseUX from '../../models/course/ux';
+import { CourseUX, Course as CourseModel } from '../../models';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import CourseBranding from '../branding/course';
 

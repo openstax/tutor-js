@@ -1,4 +1,4 @@
-import CoursesMap from '../src/models/courses-map';
+import { currentCourses } from '../src/models';
 import moment from 'moment';
 
 const STUDENT_COURSE_ONE_MODEL = {
@@ -176,6 +176,6 @@ const MASTER_COURSES_LIST = [
 const TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor';
 const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach';
 
-const bootstrapCoursesList = () => CoursesMap.bootstrap(MASTER_COURSES_LIST);
+const bootstrapCoursesList = () => currentCourses.bootstrap(MASTER_COURSES_LIST);
 
 export { STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, STUDENT_ARCHIVED_COURSE, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE, bootstrapCoursesList };

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import EventsCard from './events-panel';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 @observer
 export default

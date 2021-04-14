@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-
-import User from '../models/course';
-import Courses from '../models/courses-map';
+import { currentUser, currentCourses } from '../models';
 import LogoutLink from './navbar/logout';
 import CountdownRedirect from './countdown-redirect';
 
@@ -19,13 +17,13 @@ class CCStudentRedirect extends React.Component {
 
     render() {
         const { courseId } = this.props;
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
 
         return (
             <Card className="cc-student-redirect">
                 <p>
                     {'You are logged in as a student account '}
-                    {User.name}.
+                    {currentUser.name}.
                 </p>
                 <div className="countdown">
                     <CountdownRedirect

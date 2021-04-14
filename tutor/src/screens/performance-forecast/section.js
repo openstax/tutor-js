@@ -4,7 +4,7 @@ import BookPartTitle from '../../components/book-part-title';
 import ChapterSectionType from './chapter-section-type';
 import ProgressBar from './progress-bar';
 import Statistics from './statistics';
-import ChapterSection from '../../models/chapter-section';
+import { ChapterSection } from '../../models';
 
 const PerformanceForecastSection = (props) => {
     const { courseId, roleId, section } = props;

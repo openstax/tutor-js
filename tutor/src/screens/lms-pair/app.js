@@ -1,6 +1,4 @@
-import User from '../../models/user';
-import Courses from '../../models/courses-map';
-import Raven from '../../models/app/raven';
+import { Raven,currentCourses, currentUser } from '../../models';
 import urlFor from '../../api';
 import UX from './ux';
 import adapters from '../../api/adapter';
@@ -10,8 +8,8 @@ class App {
         Raven.boot();
         urlFor('boot');
         const { data: { user, courses } } = await this.fetch();
-        User.bootstrap(user);
-        Courses.bootstrap(courses);
+        currentUser.bootstrap(user);
+        currentCourses.bootstrap(courses);
         this.ux = new UX();
     }
 }

@@ -1,13 +1,14 @@
 import { Map, getParentOf, modelize, computed, action, ID, hydrateModel, hydrateInstance } from 'shared/model'
 import { find, last, sortBy, filter } from 'lodash'
-import TaskPlan from './teacher/plan'
-import type Course from '../course'
 import urlFor from '../../api'
-import { TeacherTaskPlanObj } from '../types'
+import {
+    TeacherTaskPlan as TaskPlan,
+}from '../../models'
+import type { Course } from '../course'
+import type { TeacherTaskPlanObj } from '../types'
 // import TaskingPlan from './teacher/tasking'
 
-export
-class TeacherTaskPlans extends Map<ID, TaskPlan> {
+export class TeacherTaskPlans extends Map<ID, TaskPlan> {
     static Model = TaskPlan
 
     constructor() {

@@ -7,7 +7,7 @@ const ELEMENT_ID      = '573U0000000k9cB';
 
 const win = window as any
 
-export default {
+export const Chat = {
     initialized: false,
 
     get isEnabled() {

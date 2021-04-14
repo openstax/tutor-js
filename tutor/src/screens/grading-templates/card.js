@@ -1,5 +1,5 @@
 import { React, styled, PropTypes, observer } from 'vendor';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models';
 import { Col, Card } from 'react-bootstrap';
 import moment from 'moment';
 import Theme from '../../theme';

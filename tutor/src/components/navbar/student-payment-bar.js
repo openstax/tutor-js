@@ -1,9 +1,8 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import Theme from 'theme';
-import WindowSize from '../../models/window-size';
+import { Course, WindowSize } from '../../models';
 import { Nav } from './nav';
 import { willDisplayPayment, StudentPayNowBtn } from './student-pay-now-btn';
-import Course from '../../models/course';
 
 const PaymentBar = styled(Nav)`
   top: ${Theme.navbars.top.height};

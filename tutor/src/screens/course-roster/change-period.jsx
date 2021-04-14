@@ -7,15 +7,15 @@ import { autobind } from 'core-decorators';
 import { Nav, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import CGL from '../../components/course-grouping-label';
-import Student from '../../models/course/student';
-import Period from '../../models/course/period';
+import { CourseStudent, CoursePeriod } from '../../models'
+
 
 @observer
 export default
 class ChangePeriodLink extends React.Component {
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
-        student: PropTypes.instanceOf(Student).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
+        student: PropTypes.instanceOf(CourseStudent).isRequired,
     }
 
     constructor(props) {

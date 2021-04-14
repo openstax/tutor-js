@@ -3,8 +3,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
-import Courses from '../models/courses-map';
-import User from '../models/user'
+import { currentCourses, currentUser } from '../models'
 import { OXMatchByRouter } from 'shared';
 
 const StudentCourses = asyncComponent(
@@ -40,7 +39,7 @@ const getConditionalHandlers = (Router) => {
 
     const renderTeacherStudentMyCourses = () => {
         return (props) => {
-            if(User.isProbablyTeacher) {
+            if(currentUser.isProbablyTeacher) {
                 return <TeacherCourses {...props} />
             }
             return <StudentCourses {...props} />
@@ -51,7 +50,7 @@ const getConditionalHandlers = (Router) => {
         return (props) => {
             const { courseId } = props.params;
             extend(props, { courseId });
-            const course = Courses.get(courseId);
+            const course = currentCourses.get(courseId);
 
             if (!props.match.isExact) {
                 return (
@@ -69,7 +68,7 @@ const getConditionalHandlers = (Router) => {
     const renderGradeBook = () => {
         const gradeBookRenderer = renderTeacherStudentCourseScreen(TeacherGradebook, StudentGradebook);
         return (props) => {
-            const course = Courses.get(props.params.courseId);
+            const course = currentCourses.get(props.params.courseId);
             if (course && course.currentRole.isTeacher && course.uses_pre_wrm_scores) {
                 return <PreWRMGradebook {...props} />;
             }
@@ -79,7 +78,7 @@ const getConditionalHandlers = (Router) => {
     // eslint-disable-next-line react/prop-types
     const renderBecomeRole = ({ params: { courseId, roleId } }) => {
         const location = useLocation();
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
         if (!course) { return <CourseNotFoundWarning />; }
 
         const role = course.roles.find(r => r.id == roleId);

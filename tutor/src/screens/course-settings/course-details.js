@@ -4,8 +4,7 @@ import { Formik } from 'formik';
 import { isEmpty } from 'lodash';
 import DeleteCourseModal from './delete-course-button';
 import Timezone from './timezone';
-import { Course } from '../../models/courses-map';
-import Toasts from '../../models/toasts';
+import { Course, currentToasts } from '../../models'
 import { AsyncButton } from 'shared';
 import { colors, breakpoint } from 'theme';
 
@@ -151,7 +150,7 @@ const CourseDetails = observer(({ course, history }) => {
         course.timezone = timezone;
         course.save().then(() => {
             setIsSaving(false);
-            Toasts.push({ handler: 'courseSettingsSaved', status: 'ok' });
+            currentToasts.add({ handler: 'courseSettingsSaved', status: 'ok' });
         });
     };
 

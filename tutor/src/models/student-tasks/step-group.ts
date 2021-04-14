@@ -1,5 +1,5 @@
 import { BaseModel, model, computed, action, field, NEW_ID, array } from 'shared/model';
-import StudentTaskStep from './step'
+import { StudentTaskStep } from '../../models'
 import { readonly } from 'core-decorators';
 
 interface StudentTaskStepGroupKey {
@@ -8,7 +8,8 @@ interface StudentTaskStepGroupKey {
     type: string
 }
 
-export default class StudentTaskStepGroup extends BaseModel {
+export class StudentTaskStepGroup extends BaseModel {
+
 
     @field uid = NEW_ID;
     @model(StudentTaskStep) steps = array<StudentTaskStep>()

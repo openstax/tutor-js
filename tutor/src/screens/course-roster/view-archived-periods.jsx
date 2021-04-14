@@ -8,13 +8,12 @@ import { SpyMode, AsyncButton } from 'shared';
 import Time from '../../components/time';
 import { Icon } from 'shared';
 import CourseGroupingLabel from '../../components/course-grouping-label';
-import Course from '../../models/course';
-import Period from '../../models/course/period';
+import { Course, CoursePeriod } from '../../models';
 
 @observer
 class ArchivedPeriodRow extends React.Component {
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
         onComplete: PropTypes.func.isRequired,
     }
 

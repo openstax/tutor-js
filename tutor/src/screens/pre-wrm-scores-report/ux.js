@@ -2,7 +2,7 @@ import { observable, computed, action, lazyGetter, modelize } from 'shared/model
 import { filter, sortBy } from 'lodash';
 import studentDataSorter from './student-data-sorter';
 import bezierAnimation from '../../helpers/bezier';
-import WindowSize from '../../models/window-size';
+import { WindowSize } from '../../models';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import {

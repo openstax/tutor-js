@@ -2,10 +2,9 @@ import { get, merge } from 'lodash';
 import { APIHandler } from 'shared';
 import { APIActionAdapter } from 'shared';
 import { observe } from 'mobx';
-import { setNow } from '../models/time';
+import { setNow } from 'shared/model/time';
 import { AppActions } from '../flux/app';
-import User from '../models/user';
-import Courses from '../models/courses-map';
+import { currentUser, currentCourses } from '../models';
 
 let tutorAPIHandler = null;
 const baseUrl =
@@ -36,8 +35,8 @@ const OPTIONS = {
         baseURL: baseUrl,
 
         headers: {
-            'X-CSRF-Token': User.csrf_token,
-            token: User.csrf_token,
+            'X-CSRF-Token': currentUser.csrf_token,
+            token: currentUser.csrf_token,
         },
     },
 
@@ -69,7 +68,7 @@ tutorAPIHandler.channel.on('*.*.*.receive.*', function(response = {}) {
     }
 });
 
-observe(User, 'csrf_token', function(change) {
+observe(currentUser, 'csrf_token', function(change) {
     if (change.newValue) {
         tutorAPIHandler.channel.emit('set.tokens', change.newValue);
     }
@@ -77,7 +76,7 @@ observe(User, 'csrf_token', function(change) {
 
 const setRole = (config) => {
     if (config.courseId) {
-        const course = Courses.get(config.courseId);
+        const course = currentCourses.get(config.courseId);
         if (course && course.current_role_id) {
             config.query = (config.query || {});
             config.query.role_id = course.current_role_id;

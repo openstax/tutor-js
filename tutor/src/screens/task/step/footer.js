@@ -2,8 +2,7 @@ import {
     React, PropTypes, observer, styled,
 } from 'vendor';
 import Theme from '../../../theme';
-import Course from '../../../models/course';
-import TaskStep from '../../../models/student-tasks/step';
+import { StudentTaskStep, Course } from '../../../models'
 import { ExerciseIdentifierLink } from 'shared';
 import RelatedContentLink from '../../../components/related-content-link';
 
@@ -47,7 +46,7 @@ const StepFooter = observer(({ course, step, hideContentLink }) => {
 
 StepFooter.propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    step: PropTypes.instanceOf(TaskStep).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
     hideContentLink: PropTypes.bool,
 };
 StepFooter.displayName = 'StepFooter';

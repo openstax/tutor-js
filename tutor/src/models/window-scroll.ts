@@ -2,7 +2,7 @@ import { computed, modelize } from 'shared/model'
 import { fromResource } from 'mobx-utils';
 import { debounce } from 'lodash';
 
-export default class WindowScroll {
+export class WindowScroll {
 
     position: {
         current: () => { x: number, y: number }

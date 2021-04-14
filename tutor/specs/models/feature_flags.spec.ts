@@ -1,11 +1,11 @@
 import { action, autorun, runInAction } from 'mobx';
 
-import FeatureFlags, { FeatureFlagsApi, defaultValues } from '../../src/models/feature_flags';
+import { FeatureFlags, FeatureFlagsApi, FeatureFlagDefaultValues } from '../../src/models'
 
 describe('Feature Flags', () => {
 
     afterEach(action(() => {
-        FeatureFlagsApi.bootstrap(defaultValues);
+        FeatureFlagsApi.bootstrap(FeatureFlagDefaultValues);
     }));
 
     it('has defaults', () => {

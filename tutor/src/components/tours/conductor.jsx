@@ -2,8 +2,7 @@ import { React, PropTypes } from 'vendor';
 import { observe, computed, observable, modelize } from 'shared/model'
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
-import TourContext from '../../models/tour/context';
-import User from '../../models/user';
+import { currentUser, TourContext } from '../../models';
 import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
 import ModalManager from '../modal-manager';
 import Step from './step';
@@ -39,7 +38,7 @@ class TourConductor extends React.Component {
     @autobind
     onSpyModelChange({ newValue: isEnabled }) {
         if (isEnabled) {
-            User.resetTours();
+            currentUser.resetTours();
         }
     }
 

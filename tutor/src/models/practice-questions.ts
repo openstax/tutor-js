@@ -1,12 +1,11 @@
 import { action, computed } from 'mobx';
 import { map } from 'lodash';
-import type Course from './course'
 import { Map, ID, getParentOf, field, modelize, hydrateModel } from 'shared/model';
 import PracticeQuestion from './practice-questions/practice-question';
 import urlFor from '../api'
-import { PracticeQuestionObj } from './types';
+import type { PracticeQuestionObj, Course } from '../models'
 
-class PracticeQuestions extends Map<ID, PracticeQuestion> {
+export class PracticeQuestions extends Map<ID, PracticeQuestion> {
     static Model = PracticeQuestion
 
     @field current_task_id?: ID;
@@ -58,5 +57,3 @@ class PracticeQuestions extends Map<ID, PracticeQuestion> {
     }
 
 }
-
-export { PracticeQuestion, PracticeQuestions };

@@ -5,8 +5,7 @@ import { observable, action, computed, modelize } from 'shared/model'
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import classnames from 'classnames';
-
-import Period from '../../models/course/period';
+import { CoursePeriod } from '../../models';
 import { TutorInput } from '../../components/tutor-input';
 import { Icon } from 'shared';
 import CourseGroupingLabel from '../../components/course-grouping-label';
@@ -42,7 +41,7 @@ class RenamePeriodField extends React.Component {
 export default
 class RenamePeriod extends React.Component {
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
     }
 
 

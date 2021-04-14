@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import AddEditQuestionTermsOfUseModal from '../course-modal';
 import CheckboxInput from '../checkbox-input';
 import { colors } from 'theme';
-import User from '../../models/user';
+import { currentUser } from '../../models';
 
 const TERMS_NAME = 'exercise_editing';
 
@@ -60,9 +60,9 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
 `;
 
 const agreeTermsOfUse = () => {
-    const term = User.terms.get(TERMS_NAME);
+    const term = currentUser.terms.get(TERMS_NAME);
     if (term) {
-        User.terms.sign([term.id]);
+        currentUser.terms.sign([term.id]);
     }
 };
 
@@ -102,12 +102,12 @@ TermAgreement.propTypes = {
 const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
     const [termContent, setTermContent] = useState(null);
 
-    const term = useMemo(() => User.terms.get(TERMS_NAME),
-        [User.terms.get(TERMS_NAME).content]);
+    const term = useMemo(() => currentUser.terms.get(TERMS_NAME),
+        [currentUser.terms.get(TERMS_NAME).content]);
 
     useEffect(() => {
         if (show) {
-            User.terms.fetch();
+            currentUser.terms.fetch();
         }
     }, [show]);
     useEffect(() => {

@@ -8,14 +8,14 @@ import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
-import Period from '../../models/course/period';
+import { CoursePeriod } from '../../models';
 
 @observer
 export default
 class PeriodRoster extends React.Component {
 
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
     }
 
     @autobind

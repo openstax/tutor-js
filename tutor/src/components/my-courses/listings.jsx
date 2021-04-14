@@ -4,11 +4,8 @@ import {
 import { isEmpty, merge, map } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
-import Courses from '../../models/courses-map';
-import User from '../../models/user';
-import CourseModel from '../../models/course';
+import { Course, CourseTeacher, currentUser, currentCourses } from '../../models';
 import CreateACourse from './create-a-course';
-import { Course, CourseTeacher } from './course';
 import { breakpoint } from 'theme';
 
 const StyledContainer = styled(Container)`
@@ -63,7 +60,7 @@ const DEFAULT_COURSE_ITEMS = {
 class MyCoursesBase extends React.Component {
 
     static propTypes = {
-        courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+        courses:    PropTypes.arrayOf( PropTypes.instanceOf(Course) ).isRequired,
         items:      PropTypes.objectOf(PropTypes.element),
         className:  PropTypes.string,
         before:     PropTypes.element,
@@ -75,7 +72,7 @@ class MyCoursesBase extends React.Component {
     }
 
     renderCourse(course) {
-        const Item = this.items[User.verifiedRoleForCourse(course)];
+        const Item = this.items[currentUser.verifiedRoleForCourse(course)];
         return Item ? wrapCourse(Item, course) : null;
     }
 
@@ -123,7 +120,7 @@ class MyCoursesCurrent extends React.Component {
 
     render () {
         const baseName = 'my-courses-current';
-        const courses = Courses.tutor.nonPreview.currentAndFuture.array;
+        const courses = currentCourses.tutor.nonPreview.currentAndFuture.array;
         return (
             <div data-test-id="current-courses" className={baseName}>
                 <StyledContainer>
@@ -132,7 +129,7 @@ class MyCoursesCurrent extends React.Component {
                     <MyCoursesBase
                         className={`${baseName}-section`}
                         courses={courses}
-                        after={User.canCreateCourses ? <MyCoursesCreate /> : undefined} />
+                        after={currentUser.canCreateCourses ? <MyCoursesCreate /> : undefined} />
                 </StyledContainer>
             </div>
         );
@@ -144,7 +141,7 @@ class MyCoursesBasic extends React.Component {
     static propTypes = {
         title:    PropTypes.string.isRequired,
         baseName: PropTypes.string.isRequired,
-        courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+        courses:  PropTypes.arrayOf( PropTypes.instanceOf(Course) ).isRequired,
         before:   PropTypes.element,
         after:    PropTypes.element,
     }
@@ -177,7 +174,7 @@ class MyCoursesPast extends React.Component {
     render() {
         return (
             <MyCoursesBasic
-                courses={Courses.tutor.nonPreview.completed.array}
+                courses={currentCourses.tutor.nonPreview.completed.array}
                 baseName={'my-courses-past'}
                 title="Past Courses"
             />
@@ -191,7 +188,7 @@ class MyCoursesFuture extends React.Component {
     render() {
         return (
             <MyCoursesBasic
-                courses={Courses.tutor.nonPreview.future.array}
+                courses={currentCourses.tutor.nonPreview.future.array}
                 baseName={'my-courses-future'}
                 title="Future Courses"
             />

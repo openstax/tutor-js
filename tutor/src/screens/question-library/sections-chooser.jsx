@@ -3,8 +3,7 @@ import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
-import Course from '../../models/course';
-import { ExercisesMap } from '../../models/exercises';
+import { Course,  ExercisesMap } from '../../models';
 import Router from '../../helpers/router';
 import TourRegion from '../../components/tours/region';
 import Chooser from '../../components/sections-chooser';

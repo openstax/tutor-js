@@ -4,7 +4,7 @@ import {
 import { ScrollToTop } from 'shared';
 import { Container, Row, Col } from 'react-bootstrap';
 import { first, find } from 'lodash';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../../components/plan-stats';
 import Review from './review';
@@ -26,7 +26,7 @@ class TeacherReviewMetrics extends React.Component {
     };
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
     // not computed since withPlanId will add a missing plan

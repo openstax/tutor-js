@@ -2,13 +2,13 @@ import {
     BaseModel, action, observable, computed, model, modelize, NEW_ID, field, getParentOf, hydrateInstance,
 } from 'shared/model';
 import urlFor from '../../api'
-import type Course from '../course'
+import type { Course } from '../../models'
 import Time from 'shared/model/time';
 import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
 
-export default class CourseLMS extends BaseModel {
+export class CourseLMS extends BaseModel {
 
     @field id = NEW_ID;
     @observable key = '';

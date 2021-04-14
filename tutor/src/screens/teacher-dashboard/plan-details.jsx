@@ -4,14 +4,12 @@ import {
 } from 'vendor';
 import { first } from 'lodash';
 import { Modal, Row, Col, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
-import Course from '../../models/course';
-import TourContext from '../../models/tour/context';
+import { Course, TourContext, TeacherTaskPlan } from '../../models'
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
 import Event from '../../components/plan-stats/event';
 import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import SupportEmailLink from '../../components/support-email-link';
 import BookPartTitle from '../../components/book-part-title';
 import TemplateModal from '../../components/course-modal';

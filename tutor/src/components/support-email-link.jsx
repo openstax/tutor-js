@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import UserMenu from '../models/user/menu';
+import { SUPPORT_EMAIL } from '../config'
+
 
 export default function SupportEmailLink({ displayEmail = false, label = 'Support' }) {
-    if (displayEmail) { label = UserMenu.supportEmail; }
+    if (displayEmail) { label = SUPPORT_EMAIL; }
     return (
-        <a href={`mailto:${UserMenu.supportEmail}`}>{label}</a>
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{label}</a>
     );
 }
 

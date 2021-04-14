@@ -5,11 +5,8 @@ import { map, isEmpty } from 'lodash';
 import ExercisePreview from './preview';
 import BookPartTitle from '../book-part-title';
 import ScrollTo from '../../helpers/scroll-to';
-import { ExercisesMap, exerciseSort } from '../../models/exercises';
-import Exercise from '../../models/exercises/exercise';
-import Course from '../../models/course';
+import { currentUser, Course, Exercise, ExercisesMap, exerciseSort } from '../../models';
 import NoExercisesFound from './no-exercises-found';
-import User from '../../models/user';
 
 const SectionLabel = styled.label`
   font-size: 2.8rem;
@@ -34,7 +31,7 @@ class SectionsExercises extends React.Component {
         return exerciseSort(
             this.props.exercises.byPageId[this.props.pageId],
             this.props.course,
-            User,
+            currentUser,
         );
     }
 

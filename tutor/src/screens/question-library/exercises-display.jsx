@@ -15,10 +15,7 @@ import TourRegion from '../../components/tours/region';
 import AddEditQuestionModal from '../../components/add-edit-question';
 import { DeleteExerciseModal } from '../../components/add-edit-question/modals';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
-import Course from '../../models/course';
-import User from '../../models/user';
-import sharedExercises, { ExercisesMap } from '../../models/exercises';
-import WindowScroll from '../../models/window-scroll';
+import { Course, currentUser, currentExercises, WindowScroll, ExercisesMap } from '../../models';
 import Scroller from '../../helpers/scroll-to';
 import { colors } from 'theme';
 
@@ -93,7 +90,7 @@ class ExercisesDisplay extends React.Component {
     };
 
     static defaultProps = {
-        exercises: sharedExercises,
+        exercises: currentExercises,
     };
 
     @observable exerciseTypeFilter = 'homework';
@@ -212,7 +209,7 @@ class ExercisesDisplay extends React.Component {
 
     getExerciseActions = (exercise) => {
         const actions = {};
-        const isUserGeneratedQuestion = exercise.belongsToUser(User);
+        const isUserGeneratedQuestion = exercise.belongsToUser(currentUser);
 
         if (this.getExerciseIsSelected(exercise)) {
             actions.include = {
@@ -270,7 +267,7 @@ class ExercisesDisplay extends React.Component {
 
     addCopyEdit = (actions, exercise) => {
         if (exercise.canCopy) {
-            const isUserGeneratedQuestion = exercise.belongsToUser(User);
+            const isUserGeneratedQuestion = exercise.belongsToUser(currentUser);
             actions.copyEdit = {
                 message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,
                 handler: this.onEditExercise,

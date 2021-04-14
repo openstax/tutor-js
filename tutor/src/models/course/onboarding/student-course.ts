@@ -1,14 +1,14 @@
 import { computed, override, observable, action, modelize } from 'shared/model';
 import { get } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
-import { BaseOnboarding, Course, TourContext } from './base';
+import { BaseOnboarding } from './base';
 import Nags from '../../../components/onboarding/nags';
-import Payments from '../../payments';
+import { Course, TourContext, Payments } from '../../../models';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
 
-export default class StudentCourseOnboarding extends BaseOnboarding {
+export class StudentCourseOnboarding extends BaseOnboarding {
     @observable displayPayment = false;
     @observable displayTrialActive = false;
     @observable needsTermsSigned = false

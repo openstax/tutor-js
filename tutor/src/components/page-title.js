@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, Theme } from 'vendor';
 import { isEmpty } from 'lodash';
-import ChapterSectionModel from '../models/chapter-section';
+import { ChapterSection as ChapterSectionModel } from '../models';
 import BookPartTitle from './book-part-title';
 
 const PageTitleWrapper = styled.div.attrs({ className: 'page-title' })`

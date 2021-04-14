@@ -1,6 +1,6 @@
 import { React, PropTypes, styled } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models';
 
 const StyledHeader = styled(Modal.Header)`
   font-weight: bold;

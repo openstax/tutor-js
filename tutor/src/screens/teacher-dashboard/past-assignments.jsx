@@ -2,7 +2,7 @@ import { React, observer, action, observable, styled, cn  } from 'vendor';
 import { partial } from 'lodash';
 import { Icon } from 'shared';
 import PropTypes from 'prop-types';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { CloneAssignmentLink } from './task-dnd';
 import TimeHelper from '../../helpers/time';
 

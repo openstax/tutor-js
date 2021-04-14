@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-
-import Offering from '../../models/course/offerings/offering';
-import CourseInformation from '../../models/course/information';
+import { Offering, CourseInformation } from '../../models';
 
 @observer
 export default

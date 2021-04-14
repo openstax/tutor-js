@@ -1,5 +1,5 @@
 import { Factory } from '../helpers';
-import { StudentTask } from '../../src/models/student-tasks';
+import { StudentTask } from '../../src/models'
 
 describe('Student Tasks Map', () => {
     let tasks: ReturnType<typeof Factory.studentTasks>

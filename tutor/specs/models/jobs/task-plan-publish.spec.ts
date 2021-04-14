@@ -1,8 +1,7 @@
 import { Factory } from '../../helpers';
-import TaskPlanPublish from '../../../src/models/jobs/task-plan-publish';
-import TaskPlan from '../../../src/models/task-plans/teacher/plan';
 import { autorun } from 'mobx';
 import { hydrateModel } from 'modeled-mobx';
+import { TaskPlanPublishJob, TeacherTaskPlan as TaskPlan } from '../../../src/models'
 
 jest.useFakeTimers();
 
@@ -11,7 +10,7 @@ const PLAN_ID = 1;
 describe('Task Plan Publish job', () => {
 
     let plan: TaskPlan;
-    let job: TaskPlanPublish;
+    let job: TaskPlanPublishJob;
 
     beforeEach(() => {
         const course = Factory.course({ id: '2' })
@@ -19,11 +18,11 @@ describe('Task Plan Publish job', () => {
             id: PLAN_ID,
             course,
         }, );
-        job = TaskPlanPublish.forPlan(plan);
+        job = TaskPlanPublishJob.forPlan(plan);
     });
 
     afterEach(() => {
-        TaskPlanPublish._reset();
+        TaskPlanPublishJob._reset();
     });
 
     it('starts/stops listening', () => {

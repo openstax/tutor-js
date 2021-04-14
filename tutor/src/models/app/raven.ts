@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import { first, isEmpty, isObject, each } from 'lodash';
 import { isProd } from '../../helpers/production';
-import type { User } from '../user'
+import type { User } from '../../models'
 
 const isMathJaxUrl = /mathjax/;
 
@@ -25,7 +25,7 @@ const sendWithXtras = (method: 'captureException' | 'captureMessage', arg: any, 
     }
 };
 
-const RavenErrorLogging = {
+export const Raven = {
 
     boot() {
         if (!isProd) { return; }
@@ -65,6 +65,3 @@ const RavenErrorLogging = {
     },
 
 };
-
-
-export default RavenErrorLogging;

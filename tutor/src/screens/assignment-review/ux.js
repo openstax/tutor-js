@@ -1,7 +1,7 @@
 import { React, observable, action, computed } from 'vendor';
 import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import DropQuestion from '../../models/task-plans/teacher/dropped_question';
+import { DropQuestion } from '../../models';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';

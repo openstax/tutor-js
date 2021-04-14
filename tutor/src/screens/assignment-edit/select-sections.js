@@ -9,9 +9,7 @@ import BrowseTheBook from '../../components/buttons/browse-the-book';
 import TriStateCheckbox from '../../components/tri-state-checkbox';
 import cn from 'classnames';
 import Loading from 'shared/components/loading-animation';
-import BookModel from '../../models/reference-book';
-import CourseModel from '../../models/course';
-import Node from '../../models/reference-book/node';
+import { Course as CourseModel, ReferenceBook as BookModel, ReferenceBookNode as Node } from '../../models';
 import BookPartTitle from '../../components/book-part-title';
 
 const SectionWrapper = styled.div`

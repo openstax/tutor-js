@@ -4,12 +4,9 @@ import {
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
-import Course from '../../models/course';
-import Courses from '../../models/courses-map';
-import Offerings from '../../models/course/offerings';
-import CreateCourse from '../../models/course/create';
+import { Course, CreateCourse, currentUser, currentOfferings, currentCourses } from '../../models';
 import Router from '../../helpers/router';
-import User from '../../models/user';
+
 
 export default class CourseBuilderUX extends BaseModel {
 
@@ -31,8 +28,8 @@ export default class CourseBuilderUX extends BaseModel {
 
     constructor({
         router,
-        offerings = Offerings,
-        courses = Courses,
+        offerings = currentOfferings,
+        courses = currentCourses,
     } = {}) {
         super();
         modelize(this);
@@ -41,7 +38,7 @@ export default class CourseBuilderUX extends BaseModel {
         this.courses = courses;
         this.newCourse = new CreateCourse({ courses, offerings, offering_id: this.preselectedOfferingId });
 
-        if (!User.canCreateCourses) {
+        if (!currentUser.canCreateCourses) {
             delay(() => // use delay in case we're called from a React constructor
                 router.history.replace(
                     Router.makePathname('nonAllowedTeacher')

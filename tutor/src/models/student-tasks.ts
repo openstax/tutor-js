@@ -1,15 +1,11 @@
-import type Course from './course'
 import { ID, getParentOf, hydrateModel, Map } from 'shared/model'
 import urlFor from '../api'
-import StudentTask from './student-tasks/task';
-import StudentTaskStep from './student-tasks/step';
 
-const PRACTICE = {
-    WORST: 'worst',
-    SAVED: 'saved',
-};
+import type { Course } from '../models'
+import { StudentTask } from '../models'
 
-class StudentTasks extends Map<ID, StudentTask> {
+
+export class StudentTasks extends Map<ID, StudentTask> {
     static Model = StudentTask
 
     get course() { return getParentOf<Course>(this) }
@@ -32,5 +28,3 @@ class StudentTasks extends Map<ID, StudentTask> {
         })
     }
 }
-
-export { StudentTasks, StudentTask, StudentTaskStep, PRACTICE };

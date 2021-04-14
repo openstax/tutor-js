@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-import User from '../../models/user';
+import { currentUser } from '../../models';
 import { observer } from 'mobx-react';
 
 @observer
@@ -13,7 +13,7 @@ class AccountLink extends React.Component {
     }
 
     render() {
-        const { profile_url } = User;
+        const { profile_url } = currentUser;
         if (!profile_url) { return null; }
         return (
             <Dropdown.Item {...this.props} href={profile_url} target="_blank">

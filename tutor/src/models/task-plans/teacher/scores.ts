@@ -1,16 +1,16 @@
-import { BaseModel, ID, field, model, computed, NEW_ID, getParentOf, array } from 'shared/model';
-import Exercises from '../../exercises';
+import { BaseModel, ID, field, model, modelize, computed, NEW_ID, getParentOf, array } from 'shared/model';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
     get, some, reduce, every, uniq, isNumber, isEmpty, groupBy, orderBy,
 } from 'lodash';
-import { TaskPlanType } from '../../types'
-import { GradingTemplate } from '../../grading/templates'
-import DroppedQuestion from './dropped_question';
-import type TaskPlan from '../../task-plans/teacher/plan'
 import ScoresHelper, { UNWORKED, UNGRADED } from '../../../helpers/scores';
 import urlFor from '../../../api'
-import CoursePeriod from '../../course/period';
+import type {
+    TaskPlanType, TeacherTaskPlan,
+} from '../../../models'
+import {
+    DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises,
+} from '../../../models'
 
 class TaskPlanScoreStudentQuestion extends BaseModel {
     @field question_id = NEW_ID;
@@ -27,6 +27,11 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     @field grader_points = 0 ;
     @field grader_comments = '';
     @field submitted_late = false;
+
+    constructor() {
+        super();
+        modelize(this);
+    }
 
     get student() { return getParentOf<TaskPlanScoreStudent>(this) }
 
@@ -144,6 +149,11 @@ class TaskPlanScoreStudent extends BaseModel {
 
     get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
 
+    constructor() {
+        super();
+        modelize(this);
+    }
+
     resultForHeading(heading: TaskPlanScoreHeading) {
         return this.questions.length > heading.index ? this.questions[heading.index] : null;
     }
@@ -184,11 +194,18 @@ class TaskPlanScoreHeading extends BaseModel {
     @field points_without_dropping = 0;
     @field ecosystem_id = NEW_ID;
 
+    exercises = currentExercises
+
+    get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
+
+    constructor() {
+        super();
+        modelize(this);
+    }
+    
     @computed get isCore() {
         return 'Tutor' !== this.type;
     }
-
-    get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
 
     @computed get index() {
         return this.tasking && this.tasking.question_headings.indexOf(this);
@@ -208,7 +225,7 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get exercise() {
-        return Exercises.get(this.exercise_id);
+        return this.exercises.get(this.exercise_id);
     }
 
     @computed get question() {
@@ -299,8 +316,14 @@ class TaskPlanScoresTasking extends BaseModel {
     @field period_name = '';
     @field total_fraction = 0;
 
+    exercises = currentExercises
+
     get scores() { return getParentOf<TaskPlanScores>(this) }
 
+    constructor() {
+        super();
+        modelize(this);
+    }
 
     @model(TaskPlanScoreHeading) question_headings = array((headings: TaskPlanScoreHeading[]) => ({
         gradable() { return filter(headings, h => h.question && h.question.isOpenEnded); },
@@ -320,7 +343,7 @@ class TaskPlanScoresTasking extends BaseModel {
         const info = {};
         for (const student of this.students) {
             for (const studentQuestion of student.questions) {
-                const exercise = Exercises.get(studentQuestion.exercise_id);
+                const exercise = this.exercises.get(studentQuestion.exercise_id);
                 if (exercise) {
                     const question = exercise.content.questions?.find(q => q.id == studentQuestion.question_id);
                     if (!question) continue;
@@ -428,7 +451,7 @@ class TaskPlanScoresTasking extends BaseModel {
     }
 }
 
-export default class TaskPlanScores extends BaseModel {
+export class TaskPlanScores extends BaseModel {
 
     @field id = NEW_ID;
     @field title = '';
@@ -436,7 +459,14 @@ export default class TaskPlanScores extends BaseModel {
     @field type: TaskPlanType = '';
     @field ecosystem_id: ID = NEW_ID;
 
-    get taskPlan() { return getParentOf<TaskPlan>(this) }
+    exercises = currentExercises
+
+    get taskPlan() { return getParentOf<TeacherTaskPlan>(this) }
+
+    constructor() {
+        super();
+        modelize(this);
+    }
 
     @model(DroppedQuestion) dropped_questions:DroppedQuestion[] = []
 
@@ -462,7 +492,7 @@ export default class TaskPlanScores extends BaseModel {
 
     async ensureExercisesLoaded() {
         if (this.exerciseIds.length) {
-            await Exercises.ensureExercisesLoaded({
+            await this.exercises.ensureExercisesLoaded({
                 course: this.course, ecosystem_id: this.ecosystem_id, exercise_ids: this.exerciseIds,
             });
         }

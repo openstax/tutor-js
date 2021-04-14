@@ -8,28 +8,42 @@ import {
 import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
-import Offerings, { Offering } from './course/offerings';
-import Period  from './course/period';
-import Role    from './course/role';
-import Student from './course/student';
-import CourseInformation from './course/information';
-import Roster from './course/roster';
-import Scores from './scores';
-import LMS from './course/lms';
+import {
+    Notes,
+    CourseObj,
+    currentOfferings,
+    Offering,
+    CourseScores as Scores,
+    CoursePeriod as Period,
+    CourseRole as Role,
+    CourseStudent as Student,
+    CourseRoster as Roster,
+    TeacherProfile,
+    StudentTasks,
+    PastTaskPlans,
+    CourseLMS as LMS,
+    TeacherTaskPlans,
+    StudentTaskPlans,
+    GradingTemplates,
+    PracticeQuestions,
+    ReferenceBook,
+    FeatureFlags,
+    Exercise,
+    CourseInformation,
+} from '../models'
 import PH from '../helpers/period';
-import { TeacherProfile } from './course/teacher-profile'
-import { StudentTasks } from './student-tasks';
-import { StudentTaskPlans } from './task-plans/student';
-import { TeacherTaskPlans } from './task-plans/teacher';
-import { PastTaskPlans } from './task-plans/teacher/past';
-import { Notes } from './notes';
+//import {  } from './grading/templates';
+//import {  } from './practice-questions';
+//import Scores from './scores';
+//import LMS from './course/lms';
+// import { TeacherProfile } from './course/teacher-profile'
+// import {  } from './task-plans/teacher';
+// import {  } from './task-plans/teacher/past';
+//import {  } from './notes';
 import Time from 'shared/model/time'
-import { GradingTemplates } from './grading/templates';
-import { PracticeQuestions } from './practice-questions';
-import ReferenceBook from './reference-book';
-import Flags from './feature_flags';
-import { CourseObj } from './types';
-import Exercise from './exercises/exercise'
+//import Flags from './feature_flags';
+
+//import type { TutorExercise as  } from './exercises/exercise'
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -38,7 +52,7 @@ const SAVEABLE_ATTRS = [
     'homework_weight', 'reading_weight', 'code',
 ];
 
-export default class Course extends BaseModel {
+export class Course extends BaseModel {
 
     @field id = NEW_ID;
 
@@ -131,7 +145,7 @@ export default class Course extends BaseModel {
     }
 
     @computed get offering() {
-        return Offerings.get(this.offering_id);
+        return currentOfferings.get(this.offering_id);
     }
 
     @computed get num_enrolled_students() {
@@ -272,7 +286,7 @@ export default class Course extends BaseModel {
 
     @computed get tourAudienceTags() {
         let tags: string[] = [];
-        if (!Flags.tours){ return tags; }
+        if (!FeatureFlags.tours){ return tags; }
 
         if (this.currentRole.isTeacher) {
             tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
@@ -314,9 +328,9 @@ export default class Course extends BaseModel {
         return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type))) as Role;
     }
 
-    @computed get currentUser() {
-        return find(this.teacher_profiles, tp => tp.isCurrentUser);
-    }
+    // @computed get currentUser() {
+    //     return find(this.teacher_profiles, tp => tp.isCurrentUser);
+    // }
 
     @computed get currentCourseTeacher() {
         const teacherRole = find(this.roles, r => r.type === 'teacher');

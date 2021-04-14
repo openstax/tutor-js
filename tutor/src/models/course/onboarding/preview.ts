@@ -1,7 +1,8 @@
 import { computed, observable, modelize, override } from 'shared/model'
 import { filter, includes, isEmpty } from 'lodash';
-import { Course, BaseOnboarding, TourContext } from './base';
-import Courses from '../../courses-map';
+import { BaseOnboarding } from './base';
+import type { Course, TourContext } from '../../../models'
+import { currentCourses } from '../../../models'
 import UiSettings from 'shared/model/ui-settings';
 import Nags from '../../../components/onboarding/nags';
 
@@ -9,7 +10,7 @@ const HAS_PUBLISHED = observable.box(false);
 const VIEWED_PREVIEW_MESSAGE  = 'VPM';
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
-export default class PreviewOnboarding extends BaseOnboarding {
+export class PreviewOnboarding extends BaseOnboarding {
 
     constructor(course: Course, tourContext: TourContext) {
         super(course, tourContext);
@@ -80,7 +81,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
     }
 
     @computed get hasCreatedRealCourse() {
-        return !Courses.tutor.currentAndFuture.nonPreview.isEmpty;
+        return !currentCourses.tutor.currentAndFuture.nonPreview.isEmpty;
     }
 
     @computed get showCreateCourseAction() {

@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import Responsive from '../../components/responsive';
 import Time from '../../components/time';
 import moment from 'moment';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import EmptyCard from './empty-panel';
 import EventRow from './event-row';
 import { Row, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';

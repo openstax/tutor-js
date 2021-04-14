@@ -1,5 +1,5 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import Task from '../../models/student-tasks/task';
+import { StudentTask } from '../../models';
 import Time from '../../components/time';
 
 const StyledTaskInfo = styled.div`
@@ -20,7 +20,7 @@ const DueDate = styled.div`
 class TaskInfo extends React.Component {
     static displayName = 'TaskInfo'
     static propTypes = {
-        task: PropTypes.instanceOf(Task).isRequired,
+        task: PropTypes.instanceOf(StudentTask).isRequired,
     }
 
     render() {

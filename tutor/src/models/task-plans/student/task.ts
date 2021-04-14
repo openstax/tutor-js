@@ -3,7 +3,8 @@ import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
 import { BaseModel, field, modelize, observable, computed, model, NEW_ID } from 'shared/model';
 import Time from 'shared/model/time';
 
-export default class StudentTask extends BaseModel {
+// a task on the student's dashboard
+export class StudentDashboardTask extends BaseModel {
 
     @observable hidden = false;
 

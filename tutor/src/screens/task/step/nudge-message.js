@@ -3,8 +3,7 @@ import {
 } from 'vendor';
 import Theme from '../../../theme';
 import { ResponseValidationUX } from '../response-validation-ux';
-import Course from '../../../models/course';
-import TaskStep from '../../../models/student-tasks/step';
+import { Course, StudentTaskStep } from '../../../models';
 import RelatedContentLink from '../../../components/related-content-link';
 
 const StyledNudgeMessage = styled.div`
@@ -50,7 +49,7 @@ const Review = ({ step, course, prefix = '' }) => ( // eslint-disable-line react
 );
 
 Review.propTypes = {
-    step: PropTypes.instanceOf(TaskStep).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
 };
 
 const Submit = ({ ux }) => ( // eslint-disable-line react/prop-types
@@ -122,7 +121,7 @@ const NudgeMessage = observer(({ course, step, ux }) => {
 
 NudgeMessage.propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    step: PropTypes.instanceOf(TaskStep).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
     ux: PropTypes.instanceOf(ResponseValidationUX).isRequired,
 };
 NudgeMessage.displayName = 'NudgeMessage';

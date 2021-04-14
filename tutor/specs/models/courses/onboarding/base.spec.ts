@@ -1,16 +1,14 @@
 import { hydrateModel } from 'modeled-mobx';
-import TourContext from '../../../../src/models/tour/context'
-import Course from '../../../../src/models/course';
+import { TourContext, Course, PreviewOnboarding } from '../../../../src/models'
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
-import OnboardingUX from '../../../../src/models/course/onboarding/preview';
 import Time from 'shared/model/time'
 
 describe('Course Onboarding base class', () => {
-    let ux: OnboardingUX;
+    let ux: PreviewOnboarding;
 
     beforeEach(() => {
         const course = hydrateModel(Course, TEACHER_COURSE_TWO_MODEL);
-        ux = new OnboardingUX(course, hydrateModel(TourContext, {}));
+        ux = new PreviewOnboarding(course, hydrateModel(TourContext, {}));
         ux._setTaskPlanPublish(false);
     });
 

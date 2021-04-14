@@ -1,9 +1,9 @@
 import { ID, action, modelize } from 'shared/model'
 import Map, { getParentOf, hydrateModel } from 'shared/model/map';
-import TaskPlan from './plan';
+//import {  from './plan';
 import urlFor from '../../../api'
 import type Course from '../../course';
-import { TeacherTaskPlanObj } from '../../types'
+import { TeacherTaskPlan as TaskPlan, TeacherTaskPlanObj } from '../../../models'
 
 export
 class PastTaskPlans extends Map<ID, TaskPlan> {

@@ -1,5 +1,4 @@
-import Course from '../../../src/models/course';
-import CourseTeacher from '../../../src/models/course/teacher';
+import { Course, CourseTeacher } from '../../../src/models'
 import { Factory } from '../../helpers';
 
 describe('Roster Model', function() {

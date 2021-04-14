@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 import FakeWindow from 'shared/../specs/helpers/fake-window';
-import WindowSize from '../../src/models/window-size';
+import { WindowSize } from '../../src/models';
 
 // https://github.com/facebook/jest/issues/3465#issuecomment-351186130
 jest.mock('lodash/debounce', () => jest.fn(fn => fn));

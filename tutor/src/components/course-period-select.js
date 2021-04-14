@@ -1,8 +1,7 @@
 import { React, PropTypes, observer, styled, css } from 'vendor';
 import { find, without } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
-import Course  from '../models/course';
-import Period from '../models/course/period';
+import { Course, CoursePeriod } from '../models';
 import { colors } from 'theme';
 import CGL from './course-grouping-label';
 
@@ -71,7 +70,7 @@ const CoursePeriodSelect = observer(({ course, periods, period, onChange }) => {
 CoursePeriodSelect.displayName = 'CoursePeriodSelect';
 CoursePeriodSelect.propTypes = {
     course: PropTypes.instanceOf(Course),
-    period: PropTypes.instanceOf(Period),
+    period: PropTypes.instanceOf(CoursePeriod),
     onChange: PropTypes.func.isRequired,
 };
 

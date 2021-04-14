@@ -10,7 +10,7 @@ import DatePicker from 'react-datepicker';
 import supportsTime from 'time-input-polyfill/supportsTime';
 import TimePolyfill from 'time-input-polyfill';
 import * as TutorErrors from './tutor-errors';
-import Time from '../models/time';
+import { Time } from '../models';
 import TimeHelper from '../helpers/time';
 import { Icon } from 'shared';
 import S from '../helpers/string';

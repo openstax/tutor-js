@@ -1,7 +1,6 @@
 import UiSettings from 'shared/model/ui-settings';
-import Export from '../../../src/models/jobs/scores-export';
-import Toasts, { Toast } from '../../../src/models/toasts';
 import { TimeMock, Factory } from '../../helpers';
+import { ScoresExportJob as Export, currentToasts, Toast } from '../../../src/models'
 
 jest.useFakeTimers();
 
@@ -22,7 +21,7 @@ describe('Scores export job', () => {
         job = new Export(course);
     });
 
-    afterEach(() => Toasts.clear());
+    afterEach(() => currentToasts.clear());
 
     it('reports last sync time', () => {
         UiSettings.get = jest.fn(() => undefined);
@@ -40,8 +39,8 @@ describe('Scores export job', () => {
         expect(UiSettings.set).toHaveBeenCalledWith(
             'sce', '2', now.toISOString()
         );
-        expect(Toasts.length).toBe(1);
-        const q = Toasts[0];
+        expect(currentToasts.length).toBe(1);
+        const q = currentToasts[0];
         expect(q).toBeInstanceOf(Toast)
         expect(q.status).toEqual('ok');
         expect(q.handler).toEqual('job');

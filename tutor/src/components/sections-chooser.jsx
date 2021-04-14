@@ -9,9 +9,7 @@ import BrowseTheBook from './buttons/browse-the-book';
 import TriStateCheckbox from './tri-state-checkbox';
 import cn from 'classnames';
 import Loading from  'shared/components/loading-animation';
-import BookModel from '../models/reference-book';
-import CourseModel from '../models/course';
-import ReferenceBookNode from '../models/reference-book/node';
+import { ReferenceBook as BookModel, Course as CourseModel, ReferenceBookNode } from '../models';
 import BookPartTitle from './book-part-title';
 import { colors } from 'theme';
 

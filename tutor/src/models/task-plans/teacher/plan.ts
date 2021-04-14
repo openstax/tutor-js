@@ -3,35 +3,28 @@ import {
     array, modelize, NEW_ID, ID, override, hydrateInstance, hydrateModel,
 } from 'shared/model';
 import { createAtom, IAtom, toJS } from 'mobx'
-import type Page from '../../reference-book/node'
-import type Course from '../../course'
-import type Period from '../../course/period'
 import Time, { Interval, findEarliest, findLatest } from 'shared/model/time';
-import Exercises, { Exercise, ExercisesMap } from '../../exercises';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
     compact, findIndex, filter, includes, uniq, unionBy,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
-import TaskingPlan from './tasking';
-import TaskPlanPublish from '../../jobs/task-plan-publish';
-import TaskPlanStats from './stats';
-import DroppedQuestion from './dropped_question';
-import moment from '../../../helpers/moment-range';
-import TaskPlanScores from './scores';
 import urlFor from '../../../api';
-import {
+import moment from '../../../helpers/moment-range';
+import { TASK_PLAN_SELECTION_COUNTS } from '../../../config';
+
+import type {
+    CoursePeriod, Course, ReferenceBookNode as Page,
     TaskPlanExtensionObj, TeacherTaskPlanObj, TeacherTaskPlanSettingsObj,
     TeacherTaskPlanTaskingPlanObj,
-} from '../../types'
+} from '../../../models'
 
-const SELECTION_COUNTS = {
-    default: 3,
-    max: 4,
-    min: 0,
-};
+import {
+    TaskPlanPublishJob as TaskPlanPublish,
+    TaskingPlan, DroppedQuestion, TaskPlanScores,
+    currentExercises, TaskPlanStats, Exercise, ExercisesMap,
+} from '../../../models'
 
-export { SELECTION_COUNTS };
 
 const calculateDefaultOpensAt = ({ course }: { course: Course }) => {
     const defaultOpensAt = Time.now.plus({ day: 1 }).startOf('minute');
@@ -57,8 +50,7 @@ class QuestionInfo {
     }
 }
 
-
-export default class TeacherTaskPlan extends BaseModel {
+export class TeacherTaskPlan extends BaseModel {
 
     @field id:ID = NEW_ID;
     @field title = '';
@@ -89,7 +81,7 @@ export default class TeacherTaskPlan extends BaseModel {
     @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = [];
 
     @model(TaskingPlan) tasking_plans = array((plans: TaskingPlan[]) => ({
-        forPeriod(period: Period) { return find(plans, { target_id: period.id, target_type: 'period' }); },
+        forPeriod(period: CoursePeriod) { return find(plans, { target_id: period.id, target_type: 'period' }); },
         areValid() { return Boolean(plans.length > 0 && every(this, 'isValid')); },
     }))
 
@@ -109,7 +101,7 @@ export default class TeacherTaskPlan extends BaseModel {
         super();
         modelize(this);
         this.course = course
-        this.exercisesMap = map || Exercises
+        this.exercisesMap = map || currentExercises
     }
 
     static hydrate(attrs: any) {
@@ -132,7 +124,7 @@ export default class TeacherTaskPlan extends BaseModel {
         if (this.isHomework) {
             return {
                 exercises: [],
-                exercises_count_dynamic: SELECTION_COUNTS.default,
+                exercises_count_dynamic: TASK_PLAN_SELECTION_COUNTS.default,
             };
         }
         if (this.isReading) {
@@ -153,7 +145,7 @@ export default class TeacherTaskPlan extends BaseModel {
     @lazyGetter get scores() { return hydrateModel(TaskPlanScores, { taskPlan: this, id: this.id }, this) }
     @lazyGetter get analytics() {  return hydrateModel(TaskPlanStats, { taskPlan: this }, this) }
 
-    findOrCreateTaskingForPeriod(period: Period, defaultAttrs:any = {}) {
+    findOrCreateTaskingForPeriod(period: CoursePeriod, defaultAttrs:any = {}) {
         let tp = this.tasking_plans.forPeriod(period);
         if (tp) { return tp; }
 
@@ -322,7 +314,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
     @computed get questionsInfo() {
 
-        return flatMap(this.exercises, (exercise, exerciseIndex) => (
+        return flatMap(this.exercises, (exercise:Exercise, exerciseIndex:number) => (
             exercise.content.questions.map((question, questionIndex) => {
                 const points = (this.settings.exercises?.[exerciseIndex]?.points[questionIndex]) || 0;
                 return new QuestionInfo({

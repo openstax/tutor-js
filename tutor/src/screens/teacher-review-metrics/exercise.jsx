@@ -4,9 +4,7 @@ import {
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
-import Exercise from '../../models/exercises/exercise';
-import Course from '../../models/course';
-import { QuestionStats } from '../../models/task-plans/teacher/stats';
+import { Exercise, Course, QuestionStats } from '../../models';
 import { Icon } from 'shared';
 import {
     ArbitraryHtmlAndMath, Question, ExerciseIdentifierLink,

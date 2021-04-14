@@ -1,7 +1,7 @@
 import { computed, observable, modelize } from 'shared/model'
-import Course from '../course'
+import type { Course } from '../../models'
 
-export default class CourseUX {
+export class CourseUX {
 
     static get displayCourseCost() {
         return false;

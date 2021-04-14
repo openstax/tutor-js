@@ -1,11 +1,9 @@
 import { hydrateModel, runInAction } from '../../../helpers'
 import Nags from '../../../../src/components/onboarding/nags';
-import Course from '../../../../src/models/course';
-import TourContext from '../../../../src/models/tour/context'
-import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/model/ui-settings';
-import User from '../../../../src/models/user';
-import Payments from '../../../../src/models/payments';
+import {
+    Course, TourContext, StudentCourseOnboarding as CourseUX, currentUser, Payments,
+} from '../../../../src/models'
 
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
@@ -23,7 +21,7 @@ describe('Student Course Onboarding', () => {
     beforeEach(() => {
         mockedSettings.get.mockImplementation(() => undefined);
         runInAction(() => {
-            User.available_terms.push({
+            currentUser.available_terms.push({
                 id: 1, name: 'general_terms_of_use', title: 'T&C', is_signed: false,
             } as any)
         })
@@ -58,7 +56,7 @@ describe('Student Course Onboarding', () => {
         (ux.course as any).needsPayment = true;
         (ux.course as any).userStudentRecord = {};
         expect(ux.nagComponent).toBe(Nags.payNowOrLater);
-        expect(User.terms.areSignaturesNeeded).toEqual(true);
+        expect(currentUser.terms.areSignaturesNeeded).toEqual(true);
         (ux.course as any).userStudentRecord = { mustPayImmediately: true };
         expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
     });

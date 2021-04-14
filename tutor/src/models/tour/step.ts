@@ -2,9 +2,9 @@ import { BaseModel, field, modelize, computed, action, NEW_ID, getParentOf } fro
 import { isEmpty, intersection } from 'lodash';
 import Markdown from 'markdown-it';
 import MDRegex from 'markdown-it-regexp';
-import Actions from './actions';
+import { TourActions } from '../../models'
+import type { Tour } from '../../models'
 import WindowSize from '../window-size';
-import type Tour from '../tour'
 
 const MD = Markdown({ html: true, linkify: true, typographer: true });
 MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></i>' ))
@@ -14,7 +14,7 @@ MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></
 // Can be linked to either an anchor or region
 // Has a title and rich text body.
 
-export default class TourStep extends BaseModel {
+export class TourStep extends BaseModel {
     @field id = NEW_ID;
 
     @field title = '';
@@ -61,7 +61,7 @@ export default class TourStep extends BaseModel {
 
     @computed get actionClass() {
         if (!this.action) { return null; }
-        return Actions.forIdentifier(this.action.id);
+        return TourActions.forIdentifier(this.action.id);
     }
 
     @computed get actionInstance() {
@@ -98,7 +98,4 @@ export default class TourStep extends BaseModel {
         return this.body ? MD.render(this.body) : '';
     }
 
-    @computed get shouldReplay() {
-        return this.requiredViewsCount > this.tour.viewCounts;
-    }
 }

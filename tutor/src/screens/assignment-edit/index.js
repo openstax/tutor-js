@@ -1,7 +1,7 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
 import { Formik } from 'formik';
@@ -44,7 +44,7 @@ class AssignmentBuilder extends React.Component {
     let { id, courseId, type } = props.params;
 
         // eslint-disable-next-line
-    const course = props.course || Courses.get(courseId);
+    const course = props.course || currentCourses.get(courseId);
 
         this.ux = new UX();
 

@@ -7,13 +7,10 @@ import { action, computed, observable, when, modelize } from 'shared/model'
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
-import Chat from '../../models/chat';
-import UserMenu from '../../models/user/menu';
+import { TourContext, Course, Chat, UserMenu } from '../../models';
 import { Icon } from 'shared';
 import SupportDocument from './support-document-link';
 import BestPracticesGuide from './best-practices-guide';
-import TourContext from '../../models/tour/context';
-import Course from '../../models/course';
 import Theme from '../../theme';
 import Responsive from '../../components/responsive';
 

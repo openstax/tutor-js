@@ -1,8 +1,5 @@
 import { TimeMock, Factory, ld, Time } from '../../helpers';
-import Course from '../../../src/models/course'
-import Student from '../../../src/models/course/student';
-//import { bootstrapCoursesList } from '../../courses-test-data';
-import Payments from '../../../src/models/payments';
+import { Payments, Course, CourseStudent } from '../../../src/models'
 
 jest.mock('../../../src/models/payments');
 
@@ -17,7 +14,7 @@ describe('Course Student', () => {
     });
 
     test('#needsPayment', () => {
-        course.students.push(Factory.bot.create('Student') as Student)
+        course.students.push(Factory.bot.create('Student') as CourseStudent)
         const student = ld.last(course.students)!
         expect(student.isUnPaid).toBe(true)
         expect(student.needsPayment).toBe(false);
@@ -31,7 +28,7 @@ describe('Course Student', () => {
 
     test('#mustPayImmediately', () => {
         Payments.config.is_enabled = true;
-        course.students.push(Factory.bot.create('Student', { payment_due_at: '1999-12-30' }) as Student)
+        course.students.push(Factory.bot.create('Student', { payment_due_at: '1999-12-30' }) as CourseStudent)
         const student = ld.last(course.students)!
         expect(student.needsPayment).toBe(true);
         expect(student.mustPayImmediately).toBe(true);

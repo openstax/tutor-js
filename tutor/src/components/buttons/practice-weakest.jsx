@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import TutorLink from '../link';
-import { PRACTICE } from '../../models/student-tasks';
+import { STUDENT_PRACTICE_TYPES } from '../../config';
 
 export default
 class PracticeWeakestButton extends React.Component { // eslint-disable-line
@@ -21,7 +21,7 @@ class PracticeWeakestButton extends React.Component { // eslint-disable-line
         return (
             <TutorLink
                 className="weakest btn btn-outline-secondary view-performance-forecast"
-                params={{ courseId }} to="practiceTopics" query={{ type: PRACTICE.WORST }}
+                params={{ courseId }} to="practiceTopics" query={{ type: STUDENT_PRACTICE_TYPES.WORST }}
             >
                 {this.props.title}
             </TutorLink>

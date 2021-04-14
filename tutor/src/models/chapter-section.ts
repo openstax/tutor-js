@@ -3,7 +3,7 @@ import { isArray, reduceRight } from 'lodash';
 import { computed } from 'mobx';
 import { readonly } from 'core-decorators'
 
-export default class ChapterSection extends BaseModel {
+export class ChapterSection extends BaseModel {
 
     @readonly static blank = new ChapterSection()
 

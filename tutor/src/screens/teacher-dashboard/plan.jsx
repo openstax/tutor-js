@@ -2,10 +2,9 @@ import {
     React, observer, cn, computed,
 } from 'vendor';
 import PropTypes from 'prop-types';
-import Course from '../../models/course';
+import { Course, TeacherTaskPlan } from '../../models';
 import CoursePlanLabel from './plan-label';
 import { CoursePlanDisplayEdit, CoursePlanDisplayQuickLook } from './plan-display';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
 @observer
 export default

@@ -2,12 +2,12 @@ import { isNil } from 'lodash';
 import type CourseScoresPeriod from './period'
 import { BaseModel, field, model, modelize, ID, computed, NEW_ID, getParentOf, array } from 'shared/model';
 
-import TaskResult from './task-result';
+import { ScoresTaskResult } from '../../models'
 import Bignum from 'shared/model/bignum';
 
-export default class Student extends BaseModel {
+export class CourseScoresStudent extends BaseModel {
     @field id:ID = NEW_ID
-    @model(TaskResult) data = array<TaskResult>()
+    @model(ScoresTaskResult) data = array<ScoresTaskResult>()
     @field first_name = ''
     @field last_name = ''
     @field is_dropped = false

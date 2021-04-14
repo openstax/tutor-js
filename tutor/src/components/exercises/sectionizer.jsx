@@ -6,9 +6,8 @@ import { first, partial, find, findIndex, isEmpty, sortBy } from 'lodash';
 import cn from 'classnames';
 import classnames from 'classnames';
 import Pagination from 'ultimate-pagination';
-import WindowSize from '../../models/window-size';
+import { WindowSize, ChapterSection } from '../../models';
 import ScrollTo from '../../helpers/scroll-to';
-import ChapterSection from '../../models/chapter-section';
 
 /**
  * If fullWidth prop is passed, show all the sections without the arrows

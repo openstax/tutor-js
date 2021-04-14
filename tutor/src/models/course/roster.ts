@@ -1,13 +1,12 @@
-import type Course from '../course'
 import { filter, groupBy } from 'lodash';
 import {
     BaseModel, field, model, array, getParentOf, modelize,
 } from 'shared/model';
 import urlFor from '../../api'
-import Teacher from './teacher';
-import Student from './student';
+import { CourseTeacher as Teacher, CourseStudent as Student } from '../../models'
+import type { Course  } from '../../models'
 
-export default class CourseRoster extends BaseModel {
+export class CourseRoster extends BaseModel {
 
     @field teach_url = '';
 
@@ -16,7 +15,7 @@ export default class CourseRoster extends BaseModel {
         modelize(this);
     }
 
-    get course():Course { return getParentOf(this) }
+    get course() { return getParentOf<Course>(this) }
 
     @model(Teacher) teachers = array((teachers: Teacher[]) => ({
         get active() { return filter(teachers, t => t.is_active); },

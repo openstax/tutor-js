@@ -5,7 +5,7 @@ import TutorLink from '../../components/link';
 import UX from './ux';
 import QuestionsBar from './questions-bar';
 import Question from './question';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { BackgroundWrapper } from '../../helpers/background-wrapper';
 import CoursePeriodSelect from '../../components/course-period-select';
@@ -47,7 +47,7 @@ class AssignmentGrading extends React.Component {
         this.ux = new UX();
         this.ux.initialize({
             ...props.params,
-            course: props.course || Courses.get(props.params.courseId),
+            course: props.course || currentCourses.get(props.params.courseId),
             history: props.history,
             onComplete: this.onComplete,
         });

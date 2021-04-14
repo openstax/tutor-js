@@ -1,8 +1,7 @@
 import { action, observable, computed } from 'vendor';
 import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
-import Toasts from '../../models/toasts';
+import { currentUser, currentToasts } from '../../models';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
-import User from '../../models/user';
 import S from '../../helpers/string';
 
 const TERMS_NAME = 'exercise_editing';
@@ -175,7 +174,7 @@ export default class AddEditQuestionUX {
     }
 
     @computed get didUserAgreeTermsOfUse() {
-        return User.terms.hasAgreedTo(TERMS_NAME);
+        return currentUser.terms.hasAgreedTo(TERMS_NAME);
     }
 
     // Chapters that the user has selected
@@ -197,11 +196,11 @@ export default class AddEditQuestionUX {
 
     // other users or OpenStax
     @computed get isNonUserGeneratedQuestion() {
-        return this.fromExercise && !this.fromExercise.belongsToUser(User);
+        return this.fromExercise && !this.fromExercise.belongsToUser(currentUser);
     }
 
     @computed get isUserGeneratedQuestion() {
-        return this.fromExercise && this.fromExercise.belongsToUser(User);
+        return this.fromExercise && this.fromExercise.belongsToUser(currentUser);
     }
 
     @computed get authors() {
@@ -440,7 +439,7 @@ export default class AddEditQuestionUX {
         });
 
         // notify UI
-        Toasts.push({ handler: 'questionPublished', status: 'ok' });
+        currentToasts.push({ handler: 'questionPublished', status: 'ok' });
         // exclude original exercise
         if (this.excludeOriginal && exercise) {
             this.course.saveExerciseExclusion({ exercise, is_excluded: true });

@@ -1,9 +1,6 @@
 import { when } from 'mobx';
-import UX from '../../../src/models/reference-book/ux';
+import { BookUX as UX } from '../../../src/models'
 import { ApiMock, deferred, FactoryBot } from '../../helpers';
-
-//import Book from '../../../src/models/reference-book';
-// import Node from '../../../src/models/reference-book/node';
 
 describe(UX, () => {
 
@@ -16,21 +13,7 @@ describe(UX, () => {
 
 
     beforeEach(() => {
-        ux = new UX();// eslint-disable-next-line
-        // jest.spyOn(Book.prototype, 'fetch').mockImplementation(function(this: Book) {
-        //     this.update(
-        //         FactoryBot.create('Book', { id: this.id, type: 'biology' }),
-        //     );
-        //     return Promise.resolve();
-        // });
-        // jest.spyOn(Node.prototype, 'ensureLoaded').mockImplementation(function() {
-        //     return Promise.resolve();
-        // });
-    });
-
-    afterEach(() => {
-        // Book.prototype.fetch.mockRestore();
-        // Node.prototype.ensureLoaded.mockRestore();
+        ux = new UX();
     });
 
     it('sets and fetches book and then page when ecosystem is set', async () => {

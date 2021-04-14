@@ -1,8 +1,7 @@
 import { without, findIndex, forEach } from 'lodash';
 import { insert } from '../../helpers/immutable';
 import UiSettings from 'shared/model/ui-settings';
-import InfoStep from '../../models/student-tasks/info-step';
-import StepGroup from '../../models/student-tasks/step-group';
+import { StudentTaskInfoStep as InfoStep, StudentTaskStepGroup as StepGroup } from '../../models';
 
 function insertBeforeMatch(type, task, steps, match) {
     const cleanSteps = without(steps, { type });

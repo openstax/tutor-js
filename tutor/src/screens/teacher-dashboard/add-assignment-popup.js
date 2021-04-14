@@ -1,8 +1,7 @@
 import { React, observer, cn } from 'vendor';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
-import Course from '../../models/course';
-import Time from '../../models/time';
+import { Course, Time } from '../../models';
 import { withRouter } from 'react-router-dom';
 import AddMenu from './add-menu';
 

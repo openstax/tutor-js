@@ -1,6 +1,5 @@
 import { action, observable, computed, modelize } from 'shared/model'
-import LMSPair from '../../models/course/pair-to-lms';
-import Courses from '../../models/courses-map';
+import { LMSPair, currentCourses } from '../../models';
 import NewOrExising from './new-or-existing';
 import CreateCourse from './create-course';
 import CreateCourseUX from './create-course-ux';
@@ -16,7 +15,7 @@ export default class LmsPairUX {
     @observable createCourseUX = new CreateCourseUX(this);
 
     constructor({
-        courses = Courses.nonPreview.teaching.currentAndFuture,
+        courses = currentCourses.nonPreview.teaching.currentAndFuture,
     } = {}) {
         modelize(this);
         this.courses = courses.where(c => c.is_access_switchable);

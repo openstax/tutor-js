@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import EventsCard from './events-panel';
 import StatusLegend from './status-legend';
 import TeacherPendingLoad from './teacher-pending-load';

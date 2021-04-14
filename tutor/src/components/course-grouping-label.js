@@ -1,11 +1,11 @@
 import { React, PropTypes, idType, cn } from 'vendor';
 import { capitalize } from 'lodash';
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models';
 
 const CourseGroupingLabel = ({ course, courseId, plural, lowercase, className }) => {
 
     if (!course) {
-        course = Courses.get(courseId);
+        course = currentCourses.get(courseId);
     }
     if (!course) { return null; }
 

@@ -10,7 +10,7 @@ import { ReferenceBookExerciseShell } from './book-page/exercise';
 import PageTitle from './page-title';
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models'
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
 import { MediaStore } from '../flux/media';
@@ -237,7 +237,7 @@ class BookPage extends React.Component {
         const canonicalCNXId = first(cnxId.split('@'));
 
         const { courseId, ecosystemId } = Router.currentParams();
-        const course = courseId ? Courses.get(courseId) : Courses.forEcosystemId(ecosystemId);
+        const course = courseId ? currentCourses.get(courseId) : currentCourses.forEcosystemId(ecosystemId);
         if (!course) { return; }
         const { webview_url } = course;
         if (!webview_url) { return; }

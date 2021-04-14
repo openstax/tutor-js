@@ -5,7 +5,7 @@ import { Course, Role } from './types'
 import { updateCourse, createPreviewCourse } from './api'
 import { bootstrap } from './bootstrap'
 import UiSettings from 'shared/model/ui-settings'
-import CourseInformation from '../models/course/information'
+import { CourseInformation } from '../models'
 
 const ROLE_PRIORITY = ['guest', 'student', 'teacher', 'admin'];
 

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
-import User from '../models/user';
+import { currentUser } from '../models';
 import { map } from 'lodash';
 import String from '../helpers/string';
 import ModalManager from './modal-manager';
@@ -24,7 +24,7 @@ class TermsModal extends React.Component {
     }
 
     @computed get terms() {
-        return User.terms.requiredAndUnsigned;
+        return currentUser.terms.requiredAndUnsigned;
     }
 
     @computed get title() {
@@ -32,23 +32,23 @@ class TermsModal extends React.Component {
     }
 
     @action.bound onAgreement() {
-        User.terms.sign(map(this.terms, 'id'));
+        currentUser.terms.sign(map(this.terms, 'id'));
     }
 
     componentDidMount() {
         this.props.modalManager.queue(this, 1);
-        User.terms.fetchIfNeeded();
+        currentUser.terms.fetchIfNeeded();
     }
 
     // for terms to be displayed the user must be in a course and need them signed
     @computed get isReady() {
-        return User.terms.areSignaturesNeeded;
+        return currentUser.terms.areSignaturesNeeded;
     }
 
     render() {
         if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
-        const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
+        const className = classnames('user-terms', { 'is-loading': currentUser.terms.api.isPending });
 
         return (
             <Modal

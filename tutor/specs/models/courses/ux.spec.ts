@@ -1,5 +1,5 @@
 import { Factory } from '../../helpers';
-import CourseUX from '../../../src/models/course/ux';
+import { CourseUX }from '../../../src/models'
 
 describe('Course UX Model', () => {
     let ux:CourseUX;

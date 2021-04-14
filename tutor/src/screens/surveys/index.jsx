@@ -5,8 +5,7 @@ import { computed, action, modelize } from 'shared/model'
 import { Card } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { observer } from 'mobx-react';
-import Courses from '../../models/courses-map';
-import Course from '../../models/course';
+import { Course, currentCourses } from '../../models';
 import { idType } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import NotFound from '../../components/invalid-page';
@@ -53,7 +52,7 @@ class Surveys extends React.Component {
     }
 
     @computed get course() {
-        return this.props.course || Courses.get(this.props.params.courseId);
+        return this.props.course || currentCourses.get(this.props.params.courseId);
     }
 
     @computed get studentTaskPlans() {

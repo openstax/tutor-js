@@ -1,8 +1,7 @@
 import { BaseModel, model, ID, field, action, modelize, observable, NEW_ID } from 'shared/model';
 import Time from 'shared/model/time'
 
-
-class DroppedQuestion extends BaseModel {
+export class DroppedQuestion extends BaseModel {
     @field id = NEW_ID;
     @field question_id:ID = '';
     @field drop_method = 'zeroed';
@@ -19,5 +18,3 @@ class DroppedQuestion extends BaseModel {
         this.isChanged = true;
     }
 }
-
-export default DroppedQuestion;

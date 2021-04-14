@@ -1,23 +1,23 @@
 import { observable, computed, action, modelize, ID } from 'shared/model';
 import { isEmpty } from 'lodash';
-import type Course from '../course'
 import UiSettings from 'shared/model/ui-settings';
 import Time from 'shared/model/time'
-import Toasts from '../toasts';
+import { currentToasts } from'../../models'
+import type { Course } from '../../models'
 
 import Job from '../job';
 import urlFor from '../../api';
 
 
-const CURRENT = observable.map<ID, LmsScorePush>();
+const CURRENT = observable.map<ID, LmsScorePushJob>();
 const LAST_PUSH = 'sclp';
 
-export default class LmsScorePush extends Job {
+export class LmsScorePushJob extends Job {
 
     static forCourse(course: Course) {
         let exp = CURRENT.get(course.id);
         if (!exp){
-            exp = new LmsScorePush(course);
+            exp = new LmsScorePushJob(course);
             CURRENT.set(course.id, exp);
         }
         return exp;
@@ -46,7 +46,7 @@ export default class LmsScorePush extends Job {
         info.data.num_callbacks &&
         isEmpty(info.errors)
         );
-        Toasts.add({
+        currentToasts.add({
             info,
             type: 'lms',
             handler: 'job',

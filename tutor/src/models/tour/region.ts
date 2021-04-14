@@ -3,7 +3,7 @@ import { BaseModel, modelize, field, array, computed, NEW_ID, ID } from 'shared/
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
 
-export default class TourRegion extends BaseModel {
+export class TourRegion extends BaseModel {
 
     @field id: string = ''
     @field courseId: ID = NEW_ID;

@@ -9,7 +9,7 @@ import Name from '../../components/name';
 import BindStoreMixin from '../../components/bind-store-mixin';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models'
 import Guide from './guide';
 import InfoLink from './info-link';
 import ColorKey from './color-key';
@@ -31,7 +31,7 @@ const Display = createReactClass({
     },
 
     UNSAFE_componentWillMount() {
-        Courses.get(this.props.courseId).roster.ensureLoaded();
+        currentCourses.get(this.props.courseId).roster.ensureLoaded();
         return PerformanceForecast.TeacherStudent.actions.load(this.props.courseId, { roleId: this.props.roleId });
     },
 
@@ -47,7 +47,7 @@ const Display = createReactClass({
     },
 
     renderHeading() {
-        const { students } = Courses.get(this.props.courseId).roster;
+        const { students } = currentCourses.get(this.props.courseId).roster;
         const selected = students.find(matches({ role_id: this.state.roleId }));
         if (!selected) { return null; }
 

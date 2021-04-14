@@ -9,9 +9,8 @@ import CoursePlanDetails from './plan-details';
 import { DropTarget } from 'react-dnd';
 import Dayz from 'dayz';
 import { ItemTypes, TaskDrop, DropInjector } from './task-dnd';
-import Course from '../../models/course';
+import { Time, Course } from '../../models';
 import Plan from './plan';
-import Time from '../../models/time';
 
 @observer
 class Month extends React.Component {

@@ -6,8 +6,7 @@ import { observable, computed, action, modelize } from 'shared/model'
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { isNil, map } from 'lodash';
 import classnames from 'classnames';
-import Course from '../models/course';
-import Courses from '../models/courses-map';
+import { Course, currentCourses } from '../models';
 import Tabs from './tabs';
 
 @observer
@@ -35,7 +34,7 @@ class CoursePeriodsNav extends React.Component {
     }
 
     @computed get course() {
-        return this.props.course || Courses.get(this.props.courseId);
+        return this.props.course || currentCourses.get(this.props.courseId);
     }
 
     @computed get sortedPeriods() {

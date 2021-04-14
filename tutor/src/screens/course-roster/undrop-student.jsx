@@ -5,14 +5,14 @@ import { action, modelize } from 'shared/model'
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Name from '../../components/name';
-import Student from '../../models/course/student';
+import { CourseStudent } from '../../models'
 
 
 @observer
 export default
 class UnDropStudentLink extends React.Component {
     static propTypes = {
-        student: PropTypes.instanceOf(Student).isRequired,
+        student: PropTypes.instanceOf(CourseStudent).isRequired,
     }
 
     constructor(props) {

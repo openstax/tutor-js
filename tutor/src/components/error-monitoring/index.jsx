@@ -1,6 +1,6 @@
 import { React, PropTypes, action, inject, observer, withRouter } from 'vendor';
 import ErrorHandlers from './handlers';
-import Course  from '../../models/course';
+import { Course } from '../../models';
 import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 

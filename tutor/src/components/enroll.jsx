@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
-import Enroll from '../models/course/enroll';
+import { CourseEnrollment as Enroll } from '../models';
 import Router from '../helpers/router';
 import { withRouter } from 'react-router-dom';
 import studentIDForm from './enroll/student-id';

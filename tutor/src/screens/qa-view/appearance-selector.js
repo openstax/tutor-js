@@ -1,7 +1,7 @@
 import { React, observer, PropTypes } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { map } from 'lodash';
-import { BookTitles, AppearanceCodes } from '../../models/appearance_codes';
+import { BookTitles, AppearanceCodes } from '../../models';
 
 @observer
 export default class AppearanceSelector extends React.Component {

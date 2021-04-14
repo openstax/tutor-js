@@ -2,19 +2,15 @@ import {
     BaseModel, field, observable, computed, array, action, model, modelize,
     NEW_ID, lazyGetter, hydrateModel, hydrateInstance, getParentOf,
 } from 'shared/model';
-import type StudentTask from './task'
-import type StudentTaskStepGroup from './step-group'
 import S from '../../helpers/string';
 import { pick, get, isNil } from 'lodash';
-import Exercise from '../exercises/exercise';
-import ChapterSection from '../chapter-section';
-import RelatedContent from '../related-content';
-import ReferenceBookNode from '../reference-book/node';
-//import type StepGroup from './step-group'
 import { extractCnxId } from '../../helpers/content';
 import { MediaActions } from '../../flux/media';
 import Time from 'shared/model/time';
-import urlFor from '../../api'
+import urlFor from '../../api';
+import {
+    ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup,
+} from '../../models';
 
 class TaskStepContent extends BaseModel {
     update(data: any) {
@@ -87,7 +83,7 @@ const NO_ADDITIONAL_CONTENT = [
     'external_url',
 ];
 
-export default class StudentTaskStep extends BaseModel {
+export class StudentTaskStep extends BaseModel {
 
     @field id = NEW_ID;
     @field uid = '';

@@ -7,7 +7,7 @@ import TimeHelper from '../../helpers/time';
 import ServerErrorMessage from './server-error-message';
 import { reloadOnce } from '../../helpers/reload';
 import { AppStore, AppActions } from '../../flux/app';
-import UserMenu from '../../models/user/menu';
+import { UserMenu } from '../../models';
 
 const goToDashboard = function(context) {
     const { course } = context;

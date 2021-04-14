@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
 import RemoveTeacherLink from './remove-teacher';
 import AddTeacherLink from './add-teacher-link';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 @observer
 export default

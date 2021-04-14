@@ -1,14 +1,12 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
-import TourContext from '../../../src/models/tour/context';
-import TourRegion from '../../../src/models/tour/region';
-import TourRide from '../../../src/models/tour/ride';
 import { hydrateModel } from 'modeled-mobx';
 import { runInAction } from 'mobx';
+import { TourRide, TourRegion, TourContext } from '../../../src/models'
 
 describe('Tour Ride Model', () => {
     let context: TourContext;
-    let region:TourRegion;
-    let ride:TourRide;
+    let region: TourRegion;
+    let ride: TourRide;
 
     beforeEach(() => {
         bootstrapCoursesList();

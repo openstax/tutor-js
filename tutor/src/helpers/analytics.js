@@ -1,7 +1,7 @@
 import { partial, get } from 'lodash';
 
 import Router from '../helpers/router';
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models'
 
 // generate custom event data for routes
 const Events = {
@@ -17,9 +17,9 @@ const Events = {
 };
 
 // a bit shorter helper methods
-const isTeacher = courseId => get(Courses.get(courseId), 'currentRole.isTeacher', false);
+const isTeacher = courseId => get(currentCourses.get(courseId), 'currentRole.isTeacher', false);
 const getRole = function(courseId) {
-    if (Courses.get(courseId).is_teacher) { return 'teacher'; } else { return 'student'; }
+    if (currentCourses.get(courseId).is_teacher) { return 'teacher'; } else { return 'student'; }
 };
 
 const assignmentTypeTranslator = function(assignmentType, { courseId, id }) {
@@ -32,7 +32,7 @@ function viewReferenceBook({ courseId, pageId }) {
     if (!pageId) {
         return url;
     }
-    const course = Courses.get(courseId);
+    const course = currentCourses.get(courseId);
     const page = course.referenceBook.pages.byId.get(pageId);
     return page ? `${url}/section/${page.chapter_section.key}` : url;
 }
@@ -58,7 +58,7 @@ const Translators = {
 
     // Task steps are viewed by both teacher and student with no difference in params
     viewTaskStep({ courseId }) {
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
         const role = course ? course.primaryRole.type : 'unknown';
         return `/${role}/task-step/${courseId}`;
     },
@@ -120,7 +120,7 @@ var Analytics = {
     },
 
     recordCourseDimension(courseId) {
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
         if (course) {
             this.ga('set', 'dimension1', course.appearance_code);
             this.ga('set', 'dimension2', course.currentRole.type);

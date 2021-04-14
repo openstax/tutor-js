@@ -4,7 +4,7 @@ import {
 import { Overlay, Popover } from 'react-bootstrap';
 import Loading from 'shared/components/loading-animation';
 import Editor from './editor';
-import Course from '../../../models/course';
+import { Course } from '../../../models';
 import UX from '../ux';
 
 const StyledEditorPlacement = styled.div`

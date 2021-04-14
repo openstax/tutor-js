@@ -59,6 +59,6 @@ class AnnotatorUX {
     @readonly statusMessage = new StatusMessage();
 }
 
-const ux = new AnnotatorUX();
+const NotesUX = new AnnotatorUX();
 
-export default ux;
+export { NotesUX };

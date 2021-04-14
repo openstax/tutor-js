@@ -1,8 +1,7 @@
 import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
-import Course from '../models/course';
-import CourseUX from '../models/course/ux';
+import { Course, CourseUX } from '../models';
 
 const TitleWrapper = styled.div`
   display: flex;

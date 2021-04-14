@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import { React, observer, action, computed, idType, cn } from 'vendor';
-import Course from '../../models/course';
+import { ChapterSection, Course } from '../../models';
 import Router from '../../helpers/router';
-import ChapterSection from '../../models/chapter-section';
 
 @observer
 export default

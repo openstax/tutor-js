@@ -3,9 +3,9 @@ import Big from 'big.js';
 import { BaseModel, field, model, modelize, computed, NEW_ID, getParentOf } from 'shared/model';
 import Time from 'shared/model/time';
 import Bignum from 'shared/model/bignum'
-import type PeriodScores from './period'
+import type { CourseScoresPeriod } from '../../models'
 
-export default class Heading extends BaseModel {
+export class CourseScoresHeading extends BaseModel {
     @model(Bignum) average_score = Bignum.unknown;
     @model(Bignum) average_progress = Bignum.unknown;
     @model(Time) due_at = Time.unknown;
@@ -14,7 +14,7 @@ export default class Heading extends BaseModel {
     @field type = '';
     @field available_points = 0;
 
-    get period():PeriodScores { return getParentOf(this) }
+    get period() { return getParentOf<CourseScoresPeriod>(this) }
 
     constructor() {
         // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call

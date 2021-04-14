@@ -1,14 +1,14 @@
 import { hydrateModel, ID, Map, modelize, observable } from 'shared/model'
-import type Course from './course'
-import type { User } from './user'
 import { computed, action, toJS } from 'mobx';
-import Exercise from './exercises/exercise';
 import { groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
-import Page from './reference-book/node'
-import ReferenceBook from './reference-book'
 import urlFor from '../api'
-import { TutorExerciseObj } from './types'
+import type {
+    Course, User, TutorExerciseObj,
+} from '../models'
+import {
+    Exercise, ReferenceBookNode as Page, ReferenceBook,
+} from '../models'
 
 const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
@@ -224,7 +224,4 @@ export class ExercisesMap extends Map<ID, Exercise> {
     }
 }
 
-const exercisesMap = new ExercisesMap();
-
-export { Exercise };
-export default exercisesMap;
+export const currentExercises = new ExercisesMap();

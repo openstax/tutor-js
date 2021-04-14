@@ -9,8 +9,7 @@ import { TutorInput } from '../../components/tutor-input';
 import { AsyncButton } from 'shared';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import { Icon } from 'shared';
-import Course from '../../models/course';
-import Period from '../../models/course/period';
+import { Course, CoursePeriod } from '../../models';
 import classnames from 'classnames';
 
 @observer
@@ -74,7 +73,7 @@ class AddPeriodLink extends React.Component {
 
     @action.bound performUpdate() {
         this.isWaiting = true;
-        const period = new Period({ course: this.props.course, name: this.period_name });
+        const period = new CoursePeriod({ course: this.props.course, name: this.period_name });
         period.create().then(() => {
             this.isWaiting = false;
             this.close();

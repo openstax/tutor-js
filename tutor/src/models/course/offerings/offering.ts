@@ -1,9 +1,9 @@
 import { BaseModel, field, NEW_ID, array, modelize, model, computed } from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
-import Term from './term';
+import { CourseTerm } from '../../../models'
 
-export default class Offering extends BaseModel {
+export class Offering extends BaseModel {
     @readonly static possibleTerms = [
         'spring', 'summer', 'fall', 'winter',
     ];
@@ -18,7 +18,7 @@ export default class Offering extends BaseModel {
     @field preview_message = '';
     @field appearance_code = '';
 
-    @model(Term) active_term_years = array<Term>()
+    @model(CourseTerm) active_term_years = array<CourseTerm>()
 
     constructor() {
         super();

@@ -3,7 +3,7 @@ import React from 'react';
 
 import TutorLink from '../link';
 import { get } from 'lodash';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { Icon } from 'shared';
 
 // eslint-disable-next-line

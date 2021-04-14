@@ -1,9 +1,9 @@
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models'
 import Router from '../helpers/router';
 
 export default {
     getCourseDataProps(courseId = Router.currentParams()) {
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
         return {
             'data-title': course.name,
             'data-book-title': course.bookName || '',

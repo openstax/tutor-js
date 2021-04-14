@@ -1,10 +1,9 @@
 import { observable, action, computed, moment } from 'vendor';
 import { first, filter, isEmpty, findIndex } from 'lodash';
-import Courses from '../../models/courses-map';
+import { currentCourses, TeacherTaskStepGrade as Grade } from '../../models';
 import ScrollTo from '../../helpers/scroll-to';
-import Grade from '../../models/task-plans/teacher/grade';
 import UiSettings from 'shared/model/ui-settings';
-import Time from '../../models/time';
+import Time from 'shared/model/time';
 
 
 export default class AssignmentGradingUX {
@@ -37,7 +36,7 @@ export default class AssignmentGradingUX {
     }) {
 
         this.scroller = new ScrollTo({ windowImpl });
-        this.course = course || Courses.get(courseId);
+        this.course = course || currentCourses.get(courseId);
         this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
       first(this.course.periods.active);
         this.planScores = scores;

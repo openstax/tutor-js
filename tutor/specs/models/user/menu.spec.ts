@@ -1,22 +1,25 @@
+import { currentUser, UserMenu } from '../../../src/models'
 import { ld, Factory } from '../../helpers';
-import UserMenu from '../../../src/models/user/menu';
-import User from '../../../src/models/user';
-
-const UntypedUser = User as any
 
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
-    isConfirmedFaculty: true,
+    currentUser: {
+        canCreateCourses: true,
+        isConfirmedFaculty: true,
+
+    },
 }));
+
+const UntypedUser = currentUser as any
 
 describe('Current User Store', function() {
 
-    it('computes help URL', () => {
+    fit('computes help URL', () => {
         expect(UserMenu.helpURL).toContain('help');
     });
 
     it('should return expected menu routes when course is missing', () => {
         UntypedUser.canCreateCourses = true;
+        // @ts-ignore
         expect.snapshot(UserMenu.getRoutes()).toMatchSnapshot();
     });
 
@@ -24,6 +27,7 @@ describe('Current User Store', function() {
         UntypedUser.canCreateCourses = true;
         const course = Factory.course({ is_teacher: true });
         expect(course.currentRole.isTeacher).toBe(true);
+        // @ts-ignore
         expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
     });
 
@@ -31,6 +35,7 @@ describe('Current User Store', function() {
         UntypedUser.canCreateCourses = false;
         const course = Factory.course({ is_teacher: false });
         expect(course.currentRole.isTeacher).toBe(false);
+        // @ts-ignore
         expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
     });
 

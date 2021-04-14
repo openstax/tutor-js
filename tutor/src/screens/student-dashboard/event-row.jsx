@@ -6,7 +6,7 @@ import Router from '../../helpers/router';
 import { Icon } from 'shared';
 import HideButton from './hide-button';
 import { TaskStatus, TaskScore } from './task-info';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import EventTypeIcon from './event-type-icon';
 import { Row, MobileRow, TitleCell, DueCell, StatusCell, ScoreCell } from './cells';
 import { EIcon } from '../../components/icons/extension';

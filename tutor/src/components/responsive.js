@@ -1,6 +1,6 @@
 import { React, PropTypes, computed, observer } from 'vendor';
 import { defaults } from 'lodash';
-import WindowSize from '../models/window-size';
+import { WindowSize } from '../models';
 
 const DEFAULT_BREAKPOINTS = {
     tablet: 600,

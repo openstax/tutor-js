@@ -1,8 +1,7 @@
 import { React, PropTypes, action, observable, observer } from 'vendor';
 import { Button } from 'react-bootstrap';
 import PaymentsModal from '../payments/modal';
-import Payments from '../../models/payments';
-import Course from '../../models/course';
+import { Payments, Course } from '../../models'
 import { Icon } from 'shared';
 
 const FREE_TRIAL_MESSAGE = `

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Time from '../models/time';
+import { Time } from '../models';
 import PropTypes from 'prop-types';
 import React from 'react';
 

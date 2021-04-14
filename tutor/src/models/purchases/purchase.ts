@@ -1,9 +1,8 @@
 import { pick, extend } from 'lodash';
 import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/model';
 import Time from 'shared/model/time';
-import Courses from '../courses-map';
 import S from '../../helpers/string';
-import Payments from '../payments';
+import { currentCourses, Payments } from '../../models'
 
 class Product extends BaseModel {
     @field uuid = '';
@@ -16,7 +15,7 @@ class Product extends BaseModel {
     }
 }
 
-export default class Purchase extends BaseModel {
+export class Purchase extends BaseModel {
 
     @field id = NEW_ID;
     @field product_instance_uuid = '';
@@ -29,14 +28,15 @@ export default class Purchase extends BaseModel {
     @model(Time) purchased_at = Time.unknown;
     @model(Product) product = new Product();
 
+    courses = currentCourses
+
     constructor() {
         super();
         modelize(this);
     }
 
     @computed get course() {
-        return Courses.array.find(c => c.userStudentRecord && c.userStudentRecord.uuid == this.product_instance_uuid)
-        // ) as Course | undefined;
+        return this.courses.array.find(c => c.userStudentRecord && c.userStudentRecord.uuid == this.product_instance_uuid)
     }
 
     @computed get refundRecord() {

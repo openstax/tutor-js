@@ -3,8 +3,7 @@ import { Factory, TimeMock } from '../../helpers';
 // import COURSE_2_DATA from '../../../api/courses/2/dashboard.json';
 import { keys } from 'lodash';
 import Time from 'shared/model/time'
-import Course from '../../../src/models/course';
-import { StudentTaskPlans } from '../../../src/models/task-plans/student';
+import { Course, StudentTaskPlans } from '../../../src/models'
 
 jest.useFakeTimers();
 

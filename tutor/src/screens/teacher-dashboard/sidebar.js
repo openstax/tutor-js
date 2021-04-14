@@ -7,7 +7,7 @@ import UiSettings from 'shared/model/ui-settings';
 import { AddAssignmentLink } from './task-dnd';
 import PastAssignments from './past-assignments';
 import TourAnchor from '../../components/tours/anchor';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import AddMenu from './add-menu';
 import GradingTemplateLink from '../grading-templates/link';
 import CalendarHelper from './helper';

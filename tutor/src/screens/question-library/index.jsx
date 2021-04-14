@@ -1,6 +1,5 @@
 import { React, PropTypes, computed, observer } from 'vendor';
-import Exercises from '../../models/exercises';
-import Courses from '../../models/courses-map';
+import { currentExercises , currentCourses } from '../../models';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
 import Loading from 'shared/components/loading-animation';
@@ -15,12 +14,12 @@ class QuestionsDashboardShell extends React.Component {
     }
 
     static defaultProps = {
-        exercises: Exercises,
+        exercises: currentExercises,
     }
 
     @computed get course() {
         const { courseId } = Router.currentParams();
-        return Courses.get(courseId);
+        return currentCourses.get(courseId);
     }
 
     componentDidMount() {
@@ -29,7 +28,7 @@ class QuestionsDashboardShell extends React.Component {
     }
 
     componentWillUnmount() {
-        Exercises.clear();
+        currentExercises.clear();
     }
 
     render() {

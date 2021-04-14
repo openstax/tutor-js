@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import Payments from '../../models/payments';
+import { Payments } from '../../models'
 import OXFancyLoader from 'shared/components/staxly-animation';
 import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 

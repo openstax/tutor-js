@@ -1,9 +1,7 @@
 import { React, PropTypes, observer } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import TourAnchor from '../tours/anchor';
-import Course from '../../models/course';
-import User from '../../models/user';
-import CourseInformation from '../../models/course/information';
+import { CourseInformation, Course, currentUser } from '../../models';
 
 @observer
 export default
@@ -21,7 +19,7 @@ class SupportDocumentLink extends React.Component {
             }
             return course.currentRole.type;
         }
-        return User.isProbablyTeacher ? 'teacher' : 'student';
+        return currentUser.isProbablyTeacher ? 'teacher' : 'student';
     }
 
     render() {

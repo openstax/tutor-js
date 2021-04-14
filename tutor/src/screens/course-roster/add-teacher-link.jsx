@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action, modelize } from 'shared/model'
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { Icon } from 'shared';
 
 @observer

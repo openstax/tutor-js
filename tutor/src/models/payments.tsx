@@ -6,15 +6,15 @@ import loadjs from 'loadjs';
 import { readonly } from 'core-decorators';
 import invariant from 'invariant';
 import { NotificationActions, Logging } from 'shared';
-import User from './user';
-import UserMenu from './user/menu';
+import type { Course, User } from '../models'
+import { SUPPORT_EMAIL } from '../config'
 import Chat from './chat';
 
 const REQUIRED_OPTIONS = [
     'course',
 ];
 
-export default class Payments extends BaseModel {
+export class Payments extends BaseModel {
 
     @readonly static config = observable({
         base_url: '',
@@ -34,7 +34,7 @@ export default class Payments extends BaseModel {
     @observable options: any
     @observable remote: any
 
-    constructor(options = {}) {
+    constructor(options: {user: User, course: Course, windowImpl?: any, timeoutLength?: number }) {
         super();
         modelize(this);
         this.options = merge({
@@ -100,7 +100,7 @@ export default class Payments extends BaseModel {
             <p>
                 Sorry, we’re unable to process a payment right now. Please try again,
                 and if the problem persists please
-                contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>.
+                contact <a href={`mailto:${SUPPORT_EMAIL}`}>Customer Support</a>.
             </p>
         );
         clearTimeout(this.pendingTimeout);
@@ -116,10 +116,10 @@ export default class Payments extends BaseModel {
     }
 
     get remotePaymentOptions() {
-        const { options: { course } } = this;
+        const { options: { user, course } } = this;
         return extend({}, this.options, {
             product_uuid: Payments.config.product_uuid,
-            purchaser_account_uuid: User.account_uuid,
+            purchaser_account_uuid: user.account_uuid,
             registration_date: course.primaryRole.joined_at,
             product_instance_uuid: course.userStudentRecord.uuid,
             course_uuid: course.uuid,

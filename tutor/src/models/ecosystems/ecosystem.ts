@@ -1,13 +1,11 @@
 import { BaseModel, model, modelize, array, computed, field, NEW_ID, lazyGetter, hydrateModel } from 'shared/model';
-
-import ReferenceBook from '../reference-book';
-import Book from './book';
+import { ReferenceBook, EcosystemBook } from '../../models'
 
 
-export default class Ecosystem extends BaseModel {
+export class Ecosystem extends BaseModel {
     @field id = NEW_ID;
 
-    @model(Book) books = array<Book>()
+    @model(EcosystemBook) books = array<EcosystemBook>()
 
     constructor() {
         super();

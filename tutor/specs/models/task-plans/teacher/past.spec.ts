@@ -1,5 +1,4 @@
-import Course from '../../../../src/models/course';
-import { PastTaskPlans } from '../../../../src/models/task-plans/teacher/past';
+import { Course, PastTaskPlans } from '../../../../src/models' // /task-plans/teacher/past';
 import { Factory, fetchMock } from '../../../helpers'
 
 

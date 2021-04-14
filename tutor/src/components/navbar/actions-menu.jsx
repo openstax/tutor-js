@@ -5,8 +5,7 @@ import { flatMap, isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
-import UserMenu from '../../models/user/menu';
-import Course from '../../models/course';
+import { UserMenu, Course } from '../../models';
 import Responsive from '../../components/responsive';
 
 const RoutedDropdownItem = (props) => {

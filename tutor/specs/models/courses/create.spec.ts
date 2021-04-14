@@ -1,5 +1,4 @@
-import CourseCreate from '../../../src/models/course/create';
-/// import Offerings from '../../../src/models/course/offerings';
+import { CourseCreate } from '../../../src/models'
 import { hydrateInstance } from 'modeled-mobx';
 import { ApiMock, Factory } from '../../helpers'
 import { NEW_ID } from 'shared/model';

@@ -1,6 +1,6 @@
 import { React, PropTypes, inject, observer } from 'vendor';
 import { extend } from 'lodash';
-import TourContext from '../../models/tour/context';
+import { TourContext } from '../../models';
 import cn from 'classnames';
 import { ReactHelpers } from 'shared';
 

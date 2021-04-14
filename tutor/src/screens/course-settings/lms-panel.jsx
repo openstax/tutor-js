@@ -6,7 +6,7 @@ import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import Link from '../../components/new-tab-link';
 import LoadingScreen from 'shared/components/loading-animation';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import { Icon } from 'shared';
 

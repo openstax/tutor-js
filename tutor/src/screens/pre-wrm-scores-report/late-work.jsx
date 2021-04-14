@@ -6,7 +6,7 @@ import { observable, action, computed, modelize } from 'shared/model'
 import Time from '../../components/time';
 import classnames from 'classnames';
 import omit from 'lodash/omit';
-import TaskResult from '../../models/scores/task-result';
+import { ScoresTaskResult } from '../../models'
 
 class LateWorkMessages {
 
@@ -132,7 +132,7 @@ class LateWorkPopover extends React.Component {
     static propTypes = {
         columnIndex: PropTypes.number.isRequired,
         hide: PropTypes.func.isRequired,
-        task: PropTypes.instanceOf(TaskResult).isRequired,
+        task: PropTypes.instanceOf(ScoresTaskResult).isRequired,
     }
 
     constructor(props) {
@@ -190,7 +190,7 @@ class LateWork extends React.Component {
         onMouseOver:  PropTypes.func.isRequired,
         onMouseLeave: PropTypes.func.isRequired,
         columnIndex: PropTypes.number.isRequired,
-        task: PropTypes.instanceOf(TaskResult).isRequired,
+        task: PropTypes.instanceOf(ScoresTaskResult).isRequired,
     }
 
     @observable isShown = false;

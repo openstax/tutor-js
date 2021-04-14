@@ -1,8 +1,8 @@
 import { ID, Map, modelize, action }  from 'shared/model'
-import Ecosystem from './ecosystems/ecosystem'
+import { Ecosystem } from '../models'
 import urlFor from '../api'
 
-class EcosystemsMap extends Map<ID, Ecosystem> {
+export class EcosystemsMap extends Map<ID, Ecosystem> {
     static Model = Ecosystem;
 
     constructor() {
@@ -16,7 +16,4 @@ class EcosystemsMap extends Map<ID, Ecosystem> {
     }
 }
 
-const ecosystemsMap = new EcosystemsMap();
-
-export { Ecosystem, EcosystemsMap };
-export default ecosystemsMap;
+export const currentEcosystems = new EcosystemsMap();

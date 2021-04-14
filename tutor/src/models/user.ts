@@ -1,23 +1,26 @@
-import { BaseModel, field, model, array, action, computed, observable, modelize, hydrateInstance, hydrateModel } from 'shared/model';
+import {
+    BaseModel, field, model, action, computed, observable, modelize, hydrateInstance,
+    hydrateModel, array,
+} from 'shared/model';
 import Time from 'shared/model/time';
 import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
-import Courses, { Course } from './courses-map';
-import { UserTerms, Term } from './user/terms';
+import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
-import Flags from './feature_flags';
 import { FacultyStatus, SelfReportedRoles } from './types'
 import urlFor from '../api'
-import type Tour from './tour'
 
-interface UserEventPayload {
+export interface UserEventPayload {
     category: string
     code: string
     data: any
 }
 
 export class User extends BaseModel {
+
+    courses = currentCourses
+
     constructor() {
         super();
         modelize(this);
@@ -30,7 +33,8 @@ export class User extends BaseModel {
 
     @observable csrf_token = '';
 
-    terms = hydrateModel(UserTerms, {}, this);
+    terms = hydrateModel(UserTermsMap, {}, this);
+
     get id() { return this.profile_id }
     @field account_uuid = '';
     @field name = '';
@@ -45,7 +49,7 @@ export class User extends BaseModel {
     @field is_admin = false;
     @field is_content_analyst = false;
     @field is_customer_service = false;
-    @model(Term) available_terms = array<Term>()
+    @model(UserTerm) available_terms = array<UserTerm>()
 
     @model(ViewedTourStat) viewed_tour_stats = array<ViewedTourStat>()
     @model(Time) created_at = Time.unknown;
@@ -66,11 +70,11 @@ export class User extends BaseModel {
     }
 
     @computed get canAnnotate() {
-        return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
+        return !!find(this.courses.nonPreview.active.array, { canAnnotate: true });
     }
 
     @computed get hasPreviewed() {
-        return Courses.teaching.preview.any && Courses.teaching.preview.isViewed.any;
+        return this.courses.teaching.preview.any && this.courses.teaching.preview.isViewed.any;
     }
 
     @computed get shouldPreview() {
@@ -98,26 +102,26 @@ export class User extends BaseModel {
     }
 
     @computed get isProbablyTeacher() {
-        return Boolean(this.can_create_courses || this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
+        return Boolean(this.can_create_courses || this.isConfirmedFaculty || this.self_reported_role === 'instructor' || this.courses.teaching.any);
     }
 
     @computed get tourAudienceTags() {
         let tags:string[] = [];
-        if (!Flags.tours){ return tags; }
+        if (!FeatureFlags.tours){ return tags; }
 
         if (
-            (Courses.active.isEmpty && this.canCreateCourses) ||
-          Courses.active.teaching.nonPreview.any
+            (this.courses.active.isEmpty && this.canCreateCourses) ||
+          this.courses.active.teaching.nonPreview.any
         ) {
             tags.push('teacher');
-        } else if (Courses.active.teaching.any) {
+        } else if (this.courses.active.teaching.any) {
             tags.push('teacher-preview');
         }
 
         if (
-            Courses.teaching.any &&
+            this.courses.teaching.any &&
           this.hasPreviewed &&
-          Courses.teaching.nonPreview.isEmpty
+          this.courses.teaching.nonPreview.isEmpty
         ) {
         // Teacher has previewed a course but has no active real course.
         // This means the teacher needs a reminder about how to create a course.
@@ -184,13 +188,13 @@ export class User extends BaseModel {
     }
 
     @computed get metrics() {
-        const courses = Courses.nonPreview.array;
+        const courses = this.courses.nonPreview.array;
         const getValues = (attr: any) => uniq(map(courses, attr)).join(';');
         return {
             role: this.isProbablyTeacher ? 'instructor' : 'student',
-            is_new_user: Courses.completed.nonPreview.isEmpty,
+            is_new_user: this.courses.completed.nonPreview.isEmpty,
             is_test_user: this.is_test,
-            has_viewed_preview: Courses.preview.any,
+            has_viewed_preview: this.courses.preview.any,
             has_per_cost_course: Boolean(find(courses, 'does_cost')),
             course_subjects: getValues('appearance_code'),
             course_types: getValues((c:Course) => c.is_preview ? 'preview' : 'real'),
@@ -201,6 +205,4 @@ export class User extends BaseModel {
     }
 }
 
-const currentUser = new User;
-
-export default currentUser;
+export const currentUser = new User();

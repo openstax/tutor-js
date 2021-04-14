@@ -1,7 +1,8 @@
-import Courses, { Course } from '../../../src/models/courses-map';
 import { autorun, action, runInAction } from 'mobx';
 import { map } from 'lodash';
-import { TeacherTaskPlanObj } from '../../../src/models/types';
+
+import type { TeacherTaskPlanObj } from '../../../src/models'
+import { currentCourses, Course } from '../../../src/models'
 
 const COURSE_ID = '123';
 
@@ -9,11 +10,11 @@ describe('Teacher Task Plans', function() {
     let course!: Course;
 
     beforeEach(action(() => {
-        Courses.bootstrap([{ id: COURSE_ID } as any], { clear: true });
-        course = Courses.get(COURSE_ID)!;
+        currentCourses.bootstrap([{ id: COURSE_ID } as any], { clear: true });
+        course = currentCourses.get(COURSE_ID)!;
     }));
     afterEach(action(() => {
-        Courses.clear();
+        currentCourses.clear();
         course.teacherTaskPlans.clear();
     }));
 

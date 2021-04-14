@@ -15,17 +15,16 @@ import {
 } from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
-import { CoursesMap, Course } from '../courses-map';
 import CoursePeriod from '../course/period'
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
-import type { User } from '../user';
 import urlFor from '../../api';
 import { ApiErrorData, isApiError } from 'shared/api/request';
+import type { User, CoursesMap, Course } from '../../models';
 
-export default class CourseEnrollment extends BaseModel {
+export class CourseEnrollment extends BaseModel {
 
     @field id: ID = NEW_ID
     @field enrollment_code = ''

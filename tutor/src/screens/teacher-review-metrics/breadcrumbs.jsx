@@ -2,8 +2,7 @@ import { React, PropTypes, observer, inject, styled, autobind, computed, action,
 import { map } from 'lodash';
 import TutorBreadcrumb from '../../components/breadcrumb';
 import BackButton from '../../components/buttons/back-button';
-import { Stats } from '../../models/task-plans/teacher/stats';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
+import { TaskPlanStats, TeacherTaskPlan } from '../../models';
 
 const StyledBreadcrumbs = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ class Breadcrumbs extends React.Component {
 
     static propTypes = {
         taskPlan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-        stats: PropTypes.instanceOf(Stats),
+        stats: PropTypes.instanceOf(TaskPlanStats),
         courseId: idType.isRequired,
         currentStep: PropTypes.number,
         scrollToStep: PropTypes.func.isRequired,

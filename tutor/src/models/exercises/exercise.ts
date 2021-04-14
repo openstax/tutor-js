@@ -5,15 +5,12 @@ import {
 } from 'shared/model';
 import Tag, { ImportantTags } from './tag';
 import ExerciseContent from 'shared/model/exercise';
-import ReferenceBookNode from '../reference-book/node';
+import { RelatedContent, ReferenceBook, ReferenceBookNode } from '../../models'
 import type { User }from '../user'
-import RelatedContent from '../related-content';
-import ReferenceBook from '../reference-book';
-import type Course from '../course'
-import type Page from '../reference-book/node'
+import type { Course } from '../course'
 import type { QuestionStats } from '../task-plans/teacher/stats'
 
-export default class TutorExercise extends BaseModel {
+export class Exercise extends BaseModel {
 
     constructor() {
         super();
@@ -50,7 +47,7 @@ export default class TutorExercise extends BaseModel {
 
     @observable isSelected = false;
 
-    @observable _page?: Page;
+    @observable _page?: ReferenceBookNode;
 
     @computed get page() {
         if (this._page) { return this._page; }

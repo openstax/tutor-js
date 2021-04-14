@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 @observer
 export default

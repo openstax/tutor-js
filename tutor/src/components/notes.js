@@ -1,6 +1,5 @@
 import { React, PropTypes, observer, cn } from 'vendor';
 import { observable, action, when, modelize } from 'shared/model'
-import Raven from '../models/app/raven';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import { last, debounce } from 'lodash';
@@ -8,17 +7,14 @@ import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
 import imagesComplete from '../helpers/images-complete';
-import Course from '../models/course';
-import { PageNotes } from '../models/notes';
 import EditBox from './notes/edit-box';
-import NotesUX from '../models/notes/ux';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
-import ReferenceBookNode from '../models/reference-book/node';
 import { Modal } from 'react-bootstrap';
 import scrollIntoView from 'scroll-into-view';
+import { Raven, Course, PageNotes, NotesUX, ReferenceBookNode } from '../models';
 
 const ignoreMutation = (m) => m.target.matches('.tutor-highlight,.MathJax,.MathJax_Preview,.media-preview-wrapper');
 

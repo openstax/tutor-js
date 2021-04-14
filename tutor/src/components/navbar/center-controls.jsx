@@ -1,7 +1,7 @@
 import { React, PropTypes, observer, observable, computed } from 'vendor';
 import { get } from 'lodash';
 import NotesSummaryToggle from '../notes/summary-toggle';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import MilestonesToggle from '../../screens/task/reading-milestones-toggle';
 
 @observer

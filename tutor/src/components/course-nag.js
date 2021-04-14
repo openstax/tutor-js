@@ -4,11 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { action, computed, observe, observable, modelize } from 'shared/model'
 import { Modal } from 'react-bootstrap';
 import { pick } from 'lodash';
-import Course from '../models/course';
-import onboardingForCourse from '../models/course/onboarding';
+import { TourContext, BaseOnboarding as Onboarding, Course, onboardingForCourse } from '../models';
 import ModalManager from './modal-manager';
-import TourContext from '../models/tour/context';
-import Onboarding from '../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import EmptyCard from './empty-panel';
 import EventsCard from './events-panel';
 import { map } from 'lodash';

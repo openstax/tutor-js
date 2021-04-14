@@ -3,11 +3,10 @@ import React from 'react';
 import { get } from 'lodash';
 import { computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
-import Course from '../../models/course';
+import { Course, NotesUX } from '../../models';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import MyHighlightsIcon from './my-highlights-icon';
-import NotesUX from '../../models/notes/ux';
 import SecondaryToolbarButton from '../navbar/secondary-toolbar-button';
 
 @observer

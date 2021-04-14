@@ -1,7 +1,7 @@
 import { React, PropTypes, observer, inject, styled } from 'vendor';
 import { first } from 'lodash';
 import { TaskInfo } from './task-info';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { BackButton } from './back-button';
 import UX from './ux';
 

@@ -1,9 +1,9 @@
 import { BaseModel, ID, field, modelize, action, NEW_ID, getParentOf } from 'shared/model';
-import type { PracticeQuestions as Map } from '../practice-questions'
 import urlFor from '../../api'
-import { PracticeQuestionObj } from '../types';
+import type { PracticeQuestionObj, PracticeQuestions as Map } from '../../models'
 
-export default class PracticeQuestion extends BaseModel {
+
+export class PracticeQuestion extends BaseModel {
 
     @field id:ID = NEW_ID;
     @field tasked_exercise_id:ID = NEW_ID;

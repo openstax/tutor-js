@@ -1,6 +1,6 @@
 import { observable, computed, action, modelize } from 'shared/model'
 import { orderBy } from 'lodash';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import Router from '../../helpers/router';
 
 export default class StudentGradeBookUX {
@@ -29,7 +29,7 @@ export default class StudentGradeBookUX {
 
     async initialize({
         courseId,
-        course = Courses.get(courseId),
+        course = currentCourses.get(courseId),
     }) {
         this.course = course;
         await this.course.scores.fetch();

@@ -7,10 +7,7 @@ import { ExercisePreview } from 'shared';
 import ControlsOverlay from 'shared/components/exercise-preview/controls-overlay';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
-import ChapterSection from '../../models/chapter-section';
-import { ExercisesMap, exerciseSort } from '../../models/exercises';
-import Course from '../../models/course';
-import User from '../../models/user';
+import { currentUser, Course, ExercisesMap, exerciseSort, ChapterSection } from '../../models'
 import BookPartTitle from '../book-part-title';
 
 @observer
@@ -47,7 +44,7 @@ class ExerciseDetails extends React.Component {
         return exerciseSort(
             this.props.exercises.array,
             this.props.course,
-            User,
+            currentUser,
         );
     }
 

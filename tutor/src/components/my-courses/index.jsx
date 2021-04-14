@@ -2,9 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { computed, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
-import User from '../../models/user';
+import { currentCourses, currentUser } from '../../models';
 import Router from '../../helpers/router';
-import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
 import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';
@@ -20,34 +19,34 @@ class MyCourses extends React.Component {
     }
 
     componentDidMount() {
-        User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
+        currentUser.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
     }
 
     @computed get firstCourse() {
-        return Courses.array[0];
+        return currentCourses.array[0];
     }
 
     @computed get shouldRedirect() {
-        if (Courses.size !== 1){
+        if (currentCourses.size !== 1){
             return false;
         }
         return (
-            !User.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
+            !currentUser.canCreateCourses && this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
         );
     }
 
     render() {
-        if (Courses.isEmpty) {
-            if (!User.isProbablyTeacher) {
+        if (currentCourses.isEmpty) {
+            if (!currentUser.isProbablyTeacher) {
                 return <EmptyCourses />;
             }
-            if (User.wasNewlyCreated && !User.canCreateCourses) {
+            if (currentUser.wasNewlyCreated && !currentUser.canCreateCourses) {
                 return <PendingVerification />;
-            } else if (User.isConfirmedFaculty) {
-                if (!User.canCreateCourses) {
+            } else if (currentUser.isConfirmedFaculty) {
+                if (!currentUser.canCreateCourses) {
                     return <NonAllowedTeacher />;
                 }
-            } else if (User.isUnverifiedInstructor) {
+            } else if (currentUser.isUnverifiedInstructor) {
                 return <PendingVerification />;
             } else {
                 return <EmptyCourses />;

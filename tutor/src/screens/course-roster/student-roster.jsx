@@ -8,7 +8,7 @@ import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import NoStudentsMessage from '../../components/no-students-message';
 import StudentIdField from './student-id-field';
-import Period from '../../models/course/period';
+import { CoursePeriod } from '../../models';
 import LoadingScreen from 'shared/components/loading-animation';
 
 @observer
@@ -16,7 +16,7 @@ export default
 class StudentsRoster extends React.Component {
 
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
     }
 
     @autobind

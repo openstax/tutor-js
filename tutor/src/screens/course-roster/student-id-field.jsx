@@ -5,13 +5,13 @@ import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { observable, action, computed, modelize } from 'shared/model'
 import { Icon } from 'shared';
-import Student from '../../models/course/student';
+import { CourseStudent } from '../../models';
 
 @observer
 export default
 class StudentIdField extends React.Component {
     static propTypes = {
-        student: PropTypes.instanceOf(Student).isRequired,
+        student: PropTypes.instanceOf(CourseStudent).isRequired,
     }
 
     @observable identifier = '';

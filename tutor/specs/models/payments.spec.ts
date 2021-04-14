@@ -1,16 +1,16 @@
 import { delay, Factory, runInAction } from '../helpers'
-// import { bootstrapCoursesList } from '../courses-test-data';
-import Payments from '../../src/models/payments';
+import { Payments, User } from '../../src/models'
 
 describe('Course Student', () => {
     let course: ReturnType<typeof Factory.course>;
     let windowImpl: any;
     let createIframeImpl: any;
+    let user: User
 
     beforeEach(() => {
         Payments.config.js_url = 'http://test.test.com/test.js';
         course = Factory.course({ id: '1' })
-        // course = bootstrapCoursesList().get('1');
+        user = new User()
         createIframeImpl = () => Promise.resolve();
         class OSPaymentStub {
             options: any
@@ -24,13 +24,13 @@ describe('Course Student', () => {
     });
 
     it('fetches when mounted', () => {
-        const pay = new Payments({ course, windowImpl });
+        const pay = new Payments({ user, course, windowImpl });
         runInAction(() => pay.element = document.createElement('div') )
         expect(pay.remote.createIframe).toHaveBeenCalled();
     });
 
     it('sets options on remote', () => {
-        const pay = new Payments({ course, windowImpl });
+        const pay = new Payments({ user, course, windowImpl });
         runInAction(() => pay.element = document.createElement('div') )
         expect(pay.remote.options).toMatchObject({
             course_uuid: course.uuid,
@@ -43,7 +43,7 @@ describe('Course Student', () => {
         const thenSpy = jest.fn();
         createIframeImpl = () => ({ then: thenSpy });
 
-        const pay = new Payments({ course, windowImpl, timeoutLength: 2 })
+        const pay = new Payments({ user, course, windowImpl, timeoutLength: 2 })
         runInAction(() => pay.element = document.createElement('div') )
         pay.logFailure = jest.fn();
         expect(pay.remote.createIframe).toHaveBeenCalled();

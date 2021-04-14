@@ -3,8 +3,7 @@ import { isEmpty } from 'lodash';
 import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
-import { Notes } from '../../models/notes';
-import ReferenceBookNode from '../../models/reference-book/node';
+import { Notes, ReferenceBookNode } from '../../models';
 import LoadingAnimation from 'shared/components/loading-animation';
 import BookPartTitle from '../book-part-title';
 

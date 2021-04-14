@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Export from './export';
 import LmsPush from './lms-push';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 const ScoresReportExportControls = ({ course }) => {
     if (!course.currentRole.isTeacher) {

@@ -4,7 +4,7 @@ import {
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
-import Courses, { Course }  from '../models/courses-map';
+import { currentCourses, Course }  from '../models'
 import { Logo }             from './navbar/logo';
 import { Menus }            from './navbar/menus';
 import TermsModal           from './terms-modal';
@@ -98,7 +98,7 @@ const PreviewCourseSidePanel = ({ course }) => {
         !course.is_preview ||
         !course.currentRole.isTeacher ||
         !course.appearanceCode ||
-        !Courses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty
+        !currentCourses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty
     ) {
         return null
     }

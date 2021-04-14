@@ -1,4 +1,4 @@
-import { ExercisesMap as Exercises, Exercise } from '../../src/models/exercises';
+import { ExercisesMap as Exercises, Exercise } from '../../src/models'
 import { sampleSize, keys, forEach } from 'lodash';
 import { TutorExerciseObj } from '../../src/models/types';
 import { fetchMock, Factory, hydrateModel } from '../helpers'

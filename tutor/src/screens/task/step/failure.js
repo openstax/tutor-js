@@ -4,8 +4,7 @@ import {
 import { StepCard } from './card';
 import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';
-import Raven from '../../../models/app/raven';
-import Task from '../../../models/student-tasks/task';
+import { Raven, StudentTask } from '../../../models';
 import SupportEmailLink from '../../../components/support-email-link';
 import ReloadPageButton from '../../../components/buttons/reload-page';
 
@@ -19,7 +18,7 @@ const StyledFailure = styled(StepCard)`
 class Failure extends React.Component {
 
     static propTypes = {
-        task: PropTypes.instanceOf(Task).isRequired,
+        task: PropTypes.instanceOf(StudentTask).isRequired,
         step: PropTypes.object,
     }
 

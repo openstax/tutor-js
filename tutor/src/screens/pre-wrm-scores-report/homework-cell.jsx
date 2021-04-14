@@ -7,7 +7,7 @@ import { observable, action, modelize } from 'shared/model'
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
 import Correctness from './correctness-value';
-import TaskResult from '../../models/scores/task-result';
+import { ScoresTaskResult } from '../../models'
 import UX from './ux';
 
 @observer
@@ -17,7 +17,7 @@ class HomeworkCell extends React.Component {
         ux: PropTypes.instanceOf(UX).isRequired,
         className: PropTypes.string,
         columnIndex: PropTypes.number.isRequired,
-        task: PropTypes.instanceOf(TaskResult).isRequired,
+        task: PropTypes.instanceOf(ScoresTaskResult).isRequired,
     }
 
     @observable isShowingPopover = false;

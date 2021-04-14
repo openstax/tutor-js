@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { action, observable, modelize } from 'shared/model'
 import { isEmpty } from 'lodash';
 import { Modal, Button, Form } from 'react-bootstrap';
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
@@ -20,7 +20,7 @@ class ChangeStudentId extends React.Component {
         history: PropTypes.object.isRequired,
     }
     courseId = Router.currentParams().courseId;
-    student = Courses.get(this.courseId).userStudentRecord;
+    student = currentCourses.get(this.courseId).userStudentRecord;
 
     @observable isSaved = false;
     @observable isValid = true;

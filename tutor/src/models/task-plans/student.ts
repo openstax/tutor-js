@@ -1,14 +1,12 @@
-import type Course from '../course'
 import Map from 'shared/model/map';
 import Time from 'shared/model/time'
 import { modelize, ID, getParentOf } from 'shared/model'
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
-import StudentTask from './student/task';
-import ResearchSurveys from '../research-surveys';
-import Raven from '../app/raven';
 import urlFor from '../../api'
-import { StudentTaskObj } from '../types'
+
+import { ResearchSurveysMap, Raven, StudentDashboardTask as StudentTask } from '../../models'
+import type { Course, StudentTaskObj } from '../../models'
 
 const MAX_POLLING_ATTEMPTS = 30;
 const WEEK_FORMAT = 'kkkkWW';
@@ -25,7 +23,7 @@ export
 class StudentTaskPlans extends Map<ID, StudentTask> {
     static Model = StudentTask
 
-    @observable researchSurveys: ResearchSurveys|null = null;
+    @observable researchSurveys: ResearchSurveysMap|null = null;
     @observable expecting_assignments_count = 0;
     @observable all_tasks_are_ready = false;
     @observable refreshTimer: number | null = null;
@@ -36,7 +34,7 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
         modelize(this);
     }
 
-    get course(): Course { return getParentOf(this) }
+    get course() { return getParentOf<Course>(this) }
 
     @computed get byWeek() {
         const weeks = groupBy(this.array, event => event.due_at.startOf('week').toFormat(WEEK_FORMAT));
@@ -83,7 +81,7 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
     // note: the response also contains limited course and role information but they're currently unused
     onLoaded({ tasks, research_surveys, all_tasks_are_ready }: TasksPayload) {
         // console.log(tasks)
-        this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
+        this.researchSurveys = research_surveys ? new ResearchSurveysMap(research_surveys) : null;
         this.mergeModelData(tasks);
         this.all_tasks_are_ready = !!all_tasks_are_ready;
     }

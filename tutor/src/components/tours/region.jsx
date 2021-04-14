@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import invariant from 'invariant';
-import TourRegionModel from '../../models/tour/region';
-import TourContext from '../../models/tour/context';
-
+import { TourContext, TourRegion as TourRegionModel } from '../../models';
 import { delay } from 'lodash';
 
 @inject((allStores, props) => ({

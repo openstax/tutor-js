@@ -4,7 +4,7 @@ import { partial } from 'lodash';
 import { observable, computed, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Button, Modal, Card } from 'react-bootstrap';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { Icon } from 'shared';
 import cn from 'classnames';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';

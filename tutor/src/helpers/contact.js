@@ -1,4 +1,4 @@
-import UserMenu from '../models/user/menu';
+import { UserMenu } from '../models';
 import { isNil, isObject } from 'lodash';
 
 const makeContactMessage = function(

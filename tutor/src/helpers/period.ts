@@ -1,4 +1,4 @@
-import type CoursePeriod from '../models/course/period'
+import type { CoursePeriod } from '../models'
 import { sortBy, isNumber } from 'lodash';
 import S from './string';
 

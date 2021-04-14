@@ -1,9 +1,13 @@
 import { pickBy, extend, pick, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
-import User from '../user';
-import Courses, { Course } from '../courses-map';
-import Payments from '../payments';
+import { CurrentCourses as Courses, Course, CurrentUser as User } from '../../models'
+//import User from '../user';
+//import , { Course } from '../courses-map';
+// import  from '../payments';
 import { ID } from '../../store/types';
+
+import { TUTOR_HELP, SUPPORT_EMAIL } from '../../config'
+
 
 const ROUTES = {
 
@@ -134,7 +138,7 @@ const ROUTES = {
         label: 'Manage Payments',
         locked(course: Course) { return get(course, 'currentRole.isTeacherStudent'); },
         isAllowed(course: Course) { return Boolean(
-            this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any
+            this.locked(course) || Courses.costing.student.any
         ); },
     },
     qaHome: {
@@ -146,8 +150,6 @@ const ROUTES = {
 
 };
 
-const TUTOR_HELP = 'https://openstax.secure.force.com/help?search=tutor';
-const SUPPORT_EMAIL = 'support@openstax.org';
 
 function getRouteByRole(routeName: string, menuRole: string) {
     if (!ROUTES[routeName].roles) { return routeName; }
@@ -167,7 +169,7 @@ function addRouteProperty(route: any, property: string, rules: any, options: any
 }
 
 
-const UserMenu = observable({
+export const UserMenu = observable({
 
     get helpURL() {
         return TUTOR_HELP;
@@ -215,5 +217,3 @@ const UserMenu = observable({
     },
 
 });
-
-export default UserMenu;

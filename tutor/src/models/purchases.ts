@@ -2,13 +2,12 @@ import Map from 'shared/model/map';
 import { find } from 'lodash';
 import { computed, modelize, ID, hydrateInstance, hydrateModel } from 'shared/model'
 import { map, flatten } from 'lodash';
-import Purchase from './purchases/purchase';
+import { Purchase } from '../models'
 
-class PurchasesMap extends Map<ID, Purchase> {
+export class PurchasesMap extends Map<ID, Purchase> {
     static Model = Purchase
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
         modelize(this);
     }
@@ -34,6 +33,4 @@ class PurchasesMap extends Map<ID, Purchase> {
         });    }
 }
 
-const purchasesMap = new PurchasesMap();
-export { PurchasesMap, Purchase };
-export default purchasesMap;
+export const currentPurchases = new PurchasesMap();

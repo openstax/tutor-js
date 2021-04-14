@@ -1,7 +1,6 @@
 import React from 'react';
-import Chat from '../../models/chat';
+import { Chat, currentUser } from '../../models';
 import IconAdd from '../icons/add';
-import User from '../../models/user';
 import { Icon } from 'shared';
 
 // make poller be global so we'll only poll once even if multiple
@@ -14,8 +13,8 @@ export default class PendingVerification extends React.Component {
     componentDidMount() {
         Chat.setElementVisiblity(this.onlineChatButton);
         if (!POLLER) {
-            User.fetch();
-            POLLER = setInterval(User.fetch, 3 * 60 * 1000); // poll every 3 minutes
+            currentUser.fetch();
+            POLLER = setInterval(currentUser.fetch, 3 * 60 * 1000); // poll every 3 minutes
         }
     }
 

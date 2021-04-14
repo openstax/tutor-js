@@ -4,7 +4,7 @@ import { modelize } from 'shared/model'
 import S from '../../helpers/string';
 import PropTypes from 'prop-types';
 import { Alert, FormControl, InputGroup, Form } from 'react-bootstrap';
-import UserMenu from '../../models/user/menu';
+import { UserMenu } from '../../models';
 import BuilderUX from './ux';
 import BestPracticesTip from '../../components/best-practices-tip';
 

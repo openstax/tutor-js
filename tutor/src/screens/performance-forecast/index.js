@@ -7,7 +7,7 @@ import Header from '../../components/header';
 import TeacherComponent from './teacher';
 import StudentComponent from './student';
 import TeacherStudentComponent from './teacher-student';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import './styles.scss';
 
 //eslint-disable-next-line react/prefer-stateless-function
@@ -61,7 +61,7 @@ class Guide extends React.Component {
 
     render() {
         const { courseId, roleId } = Router.currentParams();
-        const { isTeacher } = Courses.get(courseId).currentRole;
+        const { isTeacher } = currentCourses.get(courseId).currentRole;
 
         let body;
         if ((roleId != null) && isTeacher) {

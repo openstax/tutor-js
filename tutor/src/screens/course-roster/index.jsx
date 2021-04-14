@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import Tabs from '../../components/tabs';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import TeacherRoster from './teacher-roster';
 import StudentRoster from './student-roster';
 import ViewArchivedPeriods from './view-archived-periods';
@@ -34,7 +34,7 @@ class CourseRoster extends React.Component {
 
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
     componentDidMount() {

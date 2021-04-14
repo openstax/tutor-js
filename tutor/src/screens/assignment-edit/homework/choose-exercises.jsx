@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, observable, action, styled } from 'vendor';
+import { React, PropTypes, observer, observable, action, styled, modelize } from 'vendor';
 import Loading from 'shared/components/loading-animation';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
@@ -7,7 +7,7 @@ import AddEditQuestionModal from '../../../components/add-edit-question';
 import { DeleteExerciseModal } from '../../../components/add-edit-question/modals';
 import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
-import User from '../../../models/user';
+import { currentUser } from '../../../models'
 import { Body } from '../builder';
 import { colors } from '../../../theme';
 
@@ -23,7 +23,7 @@ class ChooseExercises extends React.Component {
 
     constructor(props) {
         super(props);
-    
+        modelize(this)
     }
 
     @observable currentView = 'cards';
@@ -61,7 +61,7 @@ class ChooseExercises extends React.Component {
 
     getExerciseActions = (exercise) => {
         const { ux } = this.props;
-        const isUserGeneratedQuestion = exercise.belongsToUser(User);
+        const isUserGeneratedQuestion = exercise.belongsToUser(currentUser);
 
         const actions = {};
         if (exercise.isSelected) {
@@ -112,7 +112,7 @@ class ChooseExercises extends React.Component {
     };
 
     addCopyEditAction = (actions, exercise) => {
-        const isUserGeneratedQuestion = exercise.belongsToUser(User);
+        const isUserGeneratedQuestion = exercise.belongsToUser(currentUser);
         if (exercise.canCopy) {
             actions.copyEdit = {
                 message: `${!isUserGeneratedQuestion ? 'Copy & Edit' : 'Edit'}`,

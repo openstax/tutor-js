@@ -7,7 +7,7 @@ import S from '../../helpers/string';
 import Bignum from 'shared/model/bignum';
 import { TaskPlanType } from '../types';
 
-export default class TaskResult extends BaseModel {
+export class ScoresTaskResult extends BaseModel {
     @field id = NEW_ID;
     @model(Bignum) score = Bignum.unknown;
     @field points = 0;

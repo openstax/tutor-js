@@ -6,9 +6,7 @@ import { observable, computed, action, observe, modelize } from 'shared/model'
 import { Redirect, withRouter } from 'react-router-dom';
 import { NotificationsBar, ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
-import ModelLoader from '../../models/loader';
-import Courses, { Course } from '../../models/courses-map';
-import Time from '../../models/time';
+import { Time, ModelLoader, currentCourses, Course } from '../../models';
 import TimeHelper from '../../helpers/time';
 import NotificationHelpers from '../../helpers/notifications';
 import TeacherBecomesStudent from '../../components/buttons/teacher-become-student';
@@ -171,15 +169,13 @@ class TeacherDashboardDateWrapper extends React.Component {
         }).isRequired,
     }
 
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
-
+    constructor(props) {
+        super(props);
         modelize(this);
     }
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
     render() {

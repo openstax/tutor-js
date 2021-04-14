@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, observer } from 'vendor';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 

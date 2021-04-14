@@ -3,8 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import OXColoredStripe from 'shared/components/ox-colored-stripe';
 import { reloadOnce, forceReload } from '../../helpers/reload';
-
-import Raven from '../../models/app/raven';
+import { Raven } from '../../models';
 
 class AsyncLoadError extends React.Component {
 

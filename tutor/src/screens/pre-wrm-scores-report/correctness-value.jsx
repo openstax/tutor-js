@@ -3,7 +3,7 @@ import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
 import S from '../../helpers/string';
-import TaskResult from '../../models/scores/task-result';
+import { ScoresTaskResult } from '../../models';
 import TutorLink from '../../components/link';
 import UX from './ux';
 
@@ -24,7 +24,7 @@ const ReviewLink = ({ task, children }) => {
 };
 
 ReviewLink.propTypes = {
-    task: PropTypes.instanceOf(TaskResult).isRequired,
+    task: PropTypes.instanceOf(ScoresTaskResult).isRequired,
     children: PropTypes.node.isRequired,
 };
 
@@ -46,7 +46,7 @@ class CorrectnessValue extends React.Component {
 
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
-        task: PropTypes.instanceOf(TaskResult).isRequired,
+        task: PropTypes.instanceOf(ScoresTaskResult).isRequired,
     }
 
     render() {

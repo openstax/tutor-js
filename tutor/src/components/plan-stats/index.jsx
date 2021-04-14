@@ -1,11 +1,10 @@
 import { React, PropTypes, styled, observer, observable, computed, action } from 'vendor';
 import { isEmpty, find } from 'lodash';
 import { SmartOverflow } from 'shared';
-import Course from '../../models/course';
+import { TeacherTaskPlan, Course } from '../../models';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
 import { ChaptersPerformance, PracticesPerformance } from './performances';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import LoadingScreen from 'shared/components/loading-animation';
 import NoStudents from './no-students';
 import RadioInput from  '../radio-input';

@@ -1,13 +1,12 @@
 import { React, PropTypes, observer, inject, autobind, styled, cn } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
-import Course from '../../models/course';
+import { Course, ExercisesMap } from '../../models';
 import TourAnchor from '../../components/tours/anchor';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
-import { ExercisesMap } from '../../models/exercises';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 

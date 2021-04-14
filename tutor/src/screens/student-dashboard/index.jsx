@@ -1,8 +1,7 @@
 import { React, PropTypes, computed, observer, inject } from 'vendor';
 import { ScrollToTop } from 'shared';
 import StudentDashboard from './dashboard';
-import Courses from '../../models/courses-map';
-import User from '../../models/user';
+import { currentCourses, currentUser } from '../../models';
 import LoadingScreen from 'shared/components/loading-animation';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import './styles.scss';
@@ -20,7 +19,7 @@ class StudentDashboardShell extends React.Component {
     }
 
     @computed get course() {
-        return Courses.get(this.props.params.courseId);
+        return currentCourses.get(this.props.params.courseId);
     }
 
 
@@ -42,7 +41,7 @@ class StudentDashboardShell extends React.Component {
     render() {
         // keep rendering loading screen if the user needs to agree to terms
         // this way the screen stays the same without a flash of other content
-        if (User.shouldSignTerms) {
+        if (currentUser.shouldSignTerms) {
             return <LoadingScreen />;
         }
 

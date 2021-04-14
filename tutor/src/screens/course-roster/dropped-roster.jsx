@@ -4,10 +4,9 @@ import { observer } from 'mobx-react';
 import { Table } from 'react-bootstrap';
 import { map, sortBy, isEmpty } from 'lodash';
 import { autobind } from 'core-decorators';
-
 import UnDropStudentLink from './undrop-student';
 import StudentIdField from './student-id-field';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 
 @observer

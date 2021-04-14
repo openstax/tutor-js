@@ -76,7 +76,7 @@ each(BOOKS, (properties: any, code: string) => properties.code = code);
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
 //  * These codes must be kept in sync with the styles in variables/book-content.less
-export default {
+export const CourseInformation = {
     ...BOOKS,
 
     bestPracticesDocumentURLFor(code: string) {

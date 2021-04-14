@@ -4,7 +4,7 @@ import { Alert } from 'react-bootstrap';
 import { isEmpty, map, compact, flatMap } from 'lodash';
 import ReviewExercise from './exercise';
 import TourRegion from '../../components/tours/region';
-import { Stats } from '../../models/task-plans/teacher/stats';
+import { TaskPlanStats } from '../../models';
 import NoStats from './no-stats';
 
 function ReviewHeading(props) {
@@ -70,5 +70,5 @@ Review.propTypes = {
     currentStep: PropTypes.number,
     course: PropTypes.object.isRequired,
     period: PropTypes.object.isRequired,
-    stats: PropTypes.instanceOf(Stats).isRequired,
+    stats: PropTypes.instanceOf(TaskPlanStats).isRequired,
 };

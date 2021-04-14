@@ -1,17 +1,16 @@
 import { BaseModel, model, field, modelize, array, ID, NEW_ID, hydrateModel } from 'shared/model';
 import { compact, map, filter, max, defaults } from 'lodash';
-import TourStep from './tour/step';
 import { computed, action } from 'mobx';
 // compiles and exports the data for tours from the JSON files
 import TourData from '../tours';
-import User from './user';
+import { currentUser, TourStep } from '../models'
 
 // Tour
 // A set of instructions for viewing a Training Wheel, has-many TourSteps and TourActions
 
 const TourInstances = new Map();
 
-export default class Tour extends BaseModel {
+export class Tour extends BaseModel {
     static forIdentifier(id: string, options: { courseId?: ID } = {}) {
         const tourSettings = TourData[id];
 
@@ -72,6 +71,10 @@ export default class Tour extends BaseModel {
 
     @model(TourStep) steps = array<TourStep>()
 
+    shouldReplayStep(step: TourStep) {
+        return step.requiredViewsCount > this.viewCounts;
+    }
+
     @computed get countId() {
         if (this.perCourse && this.courseId) {
             return `${this.id}-${this.courseId}`;
@@ -104,7 +107,7 @@ export default class Tour extends BaseModel {
     }
 
     @computed get viewCounts() {
-        const stat = User.viewed_tour_stats.find((stat) => stat.id === this.countId);
+        const stat = currentUser.viewed_tour_stats.find((stat) => stat.id === this.countId);
         return stat? stat.view_count : 0;
     }
 
@@ -122,7 +125,7 @@ export default class Tour extends BaseModel {
     markViewed({ exitedEarly }: {exitedEarly?: boolean} = {}) {
         this.justViewed = true;
         this.isEnabled = false;
-        User.viewedTour(this, { exitedEarly });
+        currentUser.viewedTour(this, { exitedEarly });
         if (exitedEarly) {
             this.othersInGroup.forEach(tour => tour.isEnabled = false);
         }

@@ -1,9 +1,8 @@
 import { observable, computed, action, modelize } from 'shared/model'
 import studentDataSorter from './student-data-sorter';
-import WindowSize from '../../models/window-size';
+import { WindowSize, currentCourses } from '../../models';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import Courses from '../../models/courses-map';
 import {
     find, pick, pickBy, mapValues,
     groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
@@ -43,7 +42,7 @@ export default class GradeBookUX {
 
     async initialize({
         courseId,
-    course = Courses.get(courseId), // eslint-disable-line
+        course = currentCourses.get(courseId), // eslint-disable-line
         tab = 0,
     }) {
         this.course = course;

@@ -1,15 +1,15 @@
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Purchase from '../../../src/models/purchases/purchase';
-import Course from '../../../src/models/course';
-import { hydrateModel } from 'modeled-mobx';
+import { Purchase, Course } from '../../../src/models'
+import { Factory, hydrateModel } from '../../helpers'
 
 describe('Purchase Model', () => {
     let course!:Course
     let purchase!:Purchase;
 
     beforeEach(() => {
-        course = bootstrapCoursesList().get('1')!
+        const courses = Factory.coursesMap({ is_teacher: false })
+        course = courses.array[0]
         purchase = hydrateModel(Purchase, { product_instance_uuid: course.userStudentRecord!.uuid })
+        purchase.courses = courses
     });
 
     test('#course', () => {

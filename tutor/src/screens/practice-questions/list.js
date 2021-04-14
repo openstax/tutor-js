@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
 import Router from '../../helpers/router';
-import { PRACTICE } from '../../models/student-tasks';
+import { STUDENT_PRACTICE_TYPES } from '../../config'
 import { colors, breakpoint } from 'theme';
 import UX from './ux';
 import DeleteQuestionModal from './delete-modal';
@@ -203,7 +203,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
                 { courseId: ux.course.id },
                 { 
                     query: { 
-                        type: PRACTICE.SAVED,
+                        type: STUDENT_PRACTICE_TYPES.SAVED,
                         practice_question_ids: practiceQuestionIds,
                     },
                 }

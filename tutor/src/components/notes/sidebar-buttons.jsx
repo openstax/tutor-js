@@ -4,9 +4,8 @@ import { observer } from 'mobx-react';
 import { action, observable, modelize } from 'shared/model'
 import cn from 'classnames';
 import { Icon } from 'shared';
-import { Note, PageNotes } from '../../models/notes';
+import { Note, PageNotes, WindowSize } from '../../models';
 import getRangeRect from './getRangeRect';
-import WindowSize from '../../models/window-size';
 
 @observer
 class NoteButton extends React.Component {

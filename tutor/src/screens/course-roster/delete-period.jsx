@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
-import Period from '../../models/course/period';
+import { CoursePeriod } from '../../models';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 
 const EMPTY_WARNING = 'EMPTY';
@@ -57,14 +57,14 @@ const DeletePeriodModal = ({ onClose, period, isBusy, onDelete }) => {
 };
 
 DeletePeriodModal.propTypes = {
-    period: PropTypes.instanceOf(Period),
+    period: PropTypes.instanceOf(CoursePeriod),
 };
 
 @observer
 export default
 class DeletePeriodLink extends React.Component {
     static propTypes = {
-        period: PropTypes.instanceOf(Period).isRequired,
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
         onDelete: PropTypes.func.isRequired,
     }
 

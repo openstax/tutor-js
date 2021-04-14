@@ -1,8 +1,7 @@
 import { React, withRouter, action, observer }  from 'vendor';
 import { Button } from 'react-bootstrap';
 import { OnboardingNag, GotItOnboardingNag, Body, Footer } from './onboarding-nag';
-import User from '../../models/user';
-import CourseUX from '../../models/course/ux';
+import { currentUser, CourseUX } from '../../models'
 
 @withRouter
 @observer
@@ -11,13 +10,13 @@ class SecondSessionWarning extends React.Component {
 
     @action.bound
     onLoggedContinue(cb) {
-        User.logEvent({ category: 'onboarding', code: 'like_preview_ask_later' });
+        currentUser.logEvent({ category: 'onboarding', code: 'like_preview_ask_later' });
         cb();
     }
 
     @action.bound
     onLoggedAddCourse(cb) {
-        User.logEvent({ category: 'onboarding', code: 'like_preview_yes' });
+        currentUser.logEvent({ category: 'onboarding', code: 'like_preview_yes' });
         cb();
     }
 

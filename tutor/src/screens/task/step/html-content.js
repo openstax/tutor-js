@@ -4,7 +4,7 @@ import UX from '../ux';
 import { StepCard } from './card';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ContinueBtn from './continue-btn';
-import Step from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models';
 import Badges from 'shared/components/exercise-badges';
 
 const HtmlContent = styled(StepCard)`
@@ -28,7 +28,7 @@ export default class HtmlContentTaskStep extends React.Component {
 
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
-        step: PropTypes.instanceOf(Step).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
     }
 
     render() {

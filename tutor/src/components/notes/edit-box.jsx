@@ -6,7 +6,7 @@ import { action, observable, computed, modelize } from 'shared/model'
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
-import Note from '../../models/notes/note';
+import { Note } from '../../models';
 import Responsive from '../responsive';
 
 @observer

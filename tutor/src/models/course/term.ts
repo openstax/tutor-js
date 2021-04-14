@@ -2,7 +2,7 @@ import {
     BaseModel, field, modelize,
 } from 'shared/model';
 
-export default class Term extends BaseModel {
+export class CourseTerm extends BaseModel {
 
     @field term = '';
     @field year = 0;
@@ -16,7 +16,7 @@ export default class Term extends BaseModel {
         return this.term == term && this.year === year;
     }
 
-    isEqual(other: Term) {
+    isEqual(other: CourseTerm) {
         return Boolean(other && this.is(other.term, other.year));
     }
 }

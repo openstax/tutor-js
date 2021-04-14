@@ -1,7 +1,7 @@
 import { React, PropTypes, styled, Theme, cn, observer } from 'vendor';
 import { Icon } from 'shared';
 import TutorLink from './link';
-import { Course } from '../models/courses-map';
+import { Course } from '../models';
 import { TruncatedText } from '../components/text';
 
 const Wrapper = styled.div`

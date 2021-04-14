@@ -1,7 +1,7 @@
 import { BaseModel, ID, model, field, NEW_ID, modelize } from 'shared/model';
-import ChapterSection from './chapter-section';
+import { ChapterSection } from '../models'
 
-export default class RelatedContent extends BaseModel {
+export class RelatedContent extends BaseModel {
 
     @field uuid = ''
     @field page_id:ID = NEW_ID

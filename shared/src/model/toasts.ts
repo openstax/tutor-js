@@ -2,10 +2,11 @@ import { readonly } from 'core-decorators';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
 import { computed, observable } from 'mobx';
-import { BaseModel, array, hydrateModel } from '../model';
+import { BaseModel, array, hydrateModel, modelize } from '../model';
 
 const Handlers = observable.map({});
-interface ToastAttrs {
+
+export interface ToastAttrs {
     info?:any
     type?: string
     status?: string
@@ -21,6 +22,11 @@ class Toast extends BaseModel {
     @observable type = '';
     @observable info: any = {};
 
+    constructor() {
+        super()
+        modelize(this);
+    }
+
     @computed get isOk() {
         return 'ok' === this.status;
     }
@@ -33,7 +39,7 @@ class Toast extends BaseModel {
 }
 
 
-const Store = array( (current: Toast[]) => ({
+const currentToasts = array( (current: Toast[]) => ({
 
     add(attrs: ToastAttrs) {
         current.push(hydrateModel(Toast, attrs, current))
@@ -44,10 +50,9 @@ const Store = array( (current: Toast[]) => ({
     },
 
 }))
-//                           , { shift: action })
 
 const setHandlers = (handlers: any) => {
     Handlers.replace(handlers);
 };
 
-export { Store, Toast, setHandlers };
+export { currentToasts, Toast, setHandlers };

@@ -7,11 +7,8 @@ import { get } from 'lodash';
 import { Icon } from 'shared';
 import { withRouter } from 'react-router-dom';
 import TourAnchor from '../tours/anchor';
-import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import Course from '../../models/course.js';
-
-import onboardingForCourse from '../../models/course/onboarding';
+import { Course, TourContext, onboardingForCourse }from '../../models';
 
 @withRouter
 @inject((allStores, props) => ({

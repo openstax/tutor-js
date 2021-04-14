@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import moment from 'moment-timezone';
 import TimeHelper from '../helpers/time';
 import S from '../helpers/string';
-import Course from '../models/course';
+import { Course } from '../models';
 
 const timezonePropType = PropTypes.oneOf(values(TimeHelper.getTimezones()));
 

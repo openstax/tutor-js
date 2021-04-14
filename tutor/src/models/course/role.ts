@@ -3,7 +3,7 @@ import { BaseModel, field, model, modelize, getParentOf, NEW_ID } from 'shared/m
 import Time, { DurationUnit } from 'shared/model/time';
 import { computed, action } from 'mobx';
 
-export default class CourseRole extends BaseModel {
+export class CourseRole extends BaseModel {
     @field id = NEW_ID;
     @model(Time) joined_at = Time.unknown;
     @field type = '';

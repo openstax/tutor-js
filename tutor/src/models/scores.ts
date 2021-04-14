@@ -1,15 +1,15 @@
 import { find } from 'lodash';
-import type Course from './course'
 import { observable, action } from 'mobx';
 import { BaseModel, getParentOf, ID, modelize, hydrateModel } from 'shared/model';
-import ScoresForPeriod from './scores/period';
 import urlFor from '../api';
-import { PeriodPerformanceObj } from './types'
 
-export default class Scores extends BaseModel {
+import type { PeriodPerformanceObj, Course } from '../models'
+import { CourseScoresPeriod } from '../models'
+
+export class CourseScores extends BaseModel {
 
     get course() { return getParentOf<Course>(this) }
-    @observable periods = observable.map<ID, ScoresForPeriod>();
+    @observable periods = observable.map<ID, CourseScoresPeriod>();
 
     constructor() {
         super();
@@ -22,7 +22,7 @@ export default class Scores extends BaseModel {
     }
 
     @action onFetchComplete(data: PeriodPerformanceObj[]) {
-        data.forEach(s => this.periods.set(s.period_id, hydrateModel(ScoresForPeriod, s, this)))
+        data.forEach(s => this.periods.set(s.period_id, hydrateModel(CourseScoresPeriod, s, this)))
     }
 
     getTask(taskId: ID) {

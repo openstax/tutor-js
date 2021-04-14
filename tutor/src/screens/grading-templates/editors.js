@@ -1,7 +1,7 @@
 import { React, PropTypes, action, observer, styled } from 'vendor';
 import { Button, Modal, Alert } from 'react-bootstrap';
 import { isEmpty, range, map } from 'lodash';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models';
 import { colors, fonts } from '../../theme';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import NumberInput from '../../components/number-input';

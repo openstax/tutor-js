@@ -1,13 +1,13 @@
 import { BaseModel, field, modelize, computed, NEW_ID, getParentOf } from 'shared/model';
+import type { Ecosystem } from '../../models'
 
-
-export default class EcosystemBook extends BaseModel {
+export class EcosystemBook extends BaseModel {
     @field id = NEW_ID;
     @field title = '';
     @field uuid = '';
     @field version = '';
 
-    get ecosystem() { return getParentOf<this>(this) }
+    get ecosystem() { return getParentOf<Ecosystem>(this) }
 
     constructor() {
         super();

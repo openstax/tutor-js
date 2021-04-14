@@ -1,6 +1,6 @@
 export type ID = string | number
 
-export type CourseTerm = 'spring' | 'summer' | 'fall' | 'winter' | 'unknown'
+export type CourseTermName = 'spring' | 'summer' | 'fall' | 'winter' | 'unknown'
 
 export interface RoleObj {
     id: ID
@@ -79,7 +79,7 @@ export interface CourseObj {
     students: StudentObj[]
     teachers: TeacherObj[]
     teacher_profiles: TeacherProfileObj[]
-    term: CourseTerm
+    term: CourseTermName
     timezone: string
     uses_pre_wrm_scores: boolean
     uuid: string
@@ -89,7 +89,7 @@ export interface CourseObj {
 }
 
 export interface ActiveTermYearsObj {
-    term: CourseTerm
+    term: CourseTermName
     year: number
 }
 

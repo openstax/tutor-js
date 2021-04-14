@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import String from '../../helpers/string';
 import { ExercisePreview } from 'shared';
 import UX from './ux';
-import Exercise from '../../models/exercises/exercise';
+import { Exercise } from '../../models';
 
 export default class ExerciseCard extends React.Component {
 

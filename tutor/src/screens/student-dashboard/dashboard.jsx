@@ -7,7 +7,7 @@ import ThisWeekCard from './this-week-panel';
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import CourseTitleBanner from '../../components/course-title-banner';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import Tabs from '../../components/tabs';
 import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';

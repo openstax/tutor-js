@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 import { observable, action, modelize } from 'shared/model'
 import { Modal } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
-import Courses from '../../models/courses-map';
-import Course from '../../models/course';
+import { Course, currentCourses } from '../../models';
 import { TutorInput } from '../../components/tutor-input';
 import { Icon } from 'shared';
 
@@ -36,7 +35,7 @@ class RenameCourse extends React.Component {
 
     @action.bound validate(name) {
         this.isValid = (
-            name != this.props.course.name && Courses.isNameValid(name)
+            name != this.props.course.name && currentCourses.isNameValid(name)
         );
     }
 

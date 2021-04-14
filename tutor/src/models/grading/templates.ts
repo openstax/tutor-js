@@ -1,5 +1,4 @@
 import { isNil, defaults } from 'lodash';
-import type Course from '../course'
 import Time from 'shared/model/time'
 import { GradingTemplateObj } from '../types'
 import {
@@ -8,6 +7,7 @@ import {
 } from 'shared/model';
 import S from '../../helpers/string';
 import urlFor from '../../api'
+import type { Course } from '../../models'
 
 class GradingTemplate extends BaseModel {
 

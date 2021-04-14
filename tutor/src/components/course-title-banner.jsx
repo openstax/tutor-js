@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, modelize } from 'shared/model'
-import Courses from '../models/courses-map';
-import CourseUX from '../models/course/ux';
+import { currentCourses, CourseUX } from '../models';
 
 @observer
 export default
@@ -21,7 +20,7 @@ class CourseTitleBanner extends React.Component {
     }
 
     @computed get course () {
-        return Courses.get(this.props.courseId);
+        return currentCourses.get(this.props.courseId);
     }
 
     @computed get ux () {

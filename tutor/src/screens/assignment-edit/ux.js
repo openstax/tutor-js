@@ -5,14 +5,14 @@ import ScrollTo from '../../helpers/scroll-to';
 import {
     filter, isEmpty, compact, map, get, first, difference, flatMap, omit, pick, extend, every,
 } from 'lodash';
-import Exercises from '../../models/exercises';
-import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
-import ReferenceBook from '../../models/reference-book';
+import { TASK_PLAN_SELECTION_COUNTS } from '../../config'
+import {
+    currentExercises, TeacherTaskPlan as TaskPlan, ReferenceBook, Time,
+} from '../../models';
 import { StepUX, Step } from './step';
 import { Actions } from './actions';
 import Validations from './validations';
 import moment from '../../helpers/moment-range';
-import Time from '../../models/time';
 import DetailsBody from './details-body';
 
 
@@ -42,7 +42,7 @@ export default class AssignmentUX {
     @action async initialize({
         id, type, plan, course, history, due_at, step,
         gradingTemplates = course.gradingTemplates,
-        exercises = Exercises,
+        exercises = currentExercises,
         windowImpl = window,
     }) {
         if ('clone' === type) {
@@ -365,11 +365,11 @@ export default class AssignmentUX {
     }
 
     @computed get canIncreaseTutorExercises() {
-        return this.canEdit && this.numTutorSelections < SELECTION_COUNTS.max;
+        return this.canEdit && this.numTutorSelections < TASK_PLAN_SELECTION_COUNTS.max;
     }
 
     @computed get canDecreaseTutorExercises() {
-        return this.canEdit && this.numTutorSelections > SELECTION_COUNTS.min;
+        return this.canEdit && this.numTutorSelections > TASK_PLAN_SELECTION_COUNTS.min;
     }
 
     @computed get numMCQs() {

@@ -1,6 +1,5 @@
 import { action, computed, observable } from 'vendor';
-import Courses from '../../models/courses-map';
-import Exercises from '../../models/exercises';
+import { currentExercises, currentCourses } from '../../models'
 import Router from '../../helpers/router';
 
 export default class PracticeQuestionsUX {
@@ -10,7 +9,7 @@ export default class PracticeQuestionsUX {
 
     @action async initialize({ courseId, history }) {
         this.isInitializing = true;
-        this.course = Courses.get(courseId);
+        this.course = currentCourses.get(courseId);
 
         // if existing practice exists, it will redirect to that practice step
         await this.checkExistingPractice(history);
@@ -19,7 +18,7 @@ export default class PracticeQuestionsUX {
         if(!this.isPracticeQuestionsEmpty) {
             await this.course.referenceBook.ensureLoaded();
             this.clear();
-            await Exercises.fetch(
+            await currentExercises.fetch(
                 {
                     course: this.course,
                     exercise_ids: this.practiceQuestions.getAllExerciseIds(),
@@ -52,7 +51,7 @@ export default class PracticeQuestionsUX {
     }
 
     @computed get exercises() {
-        return Exercises;
+        return currentExercises;
     }
 
     /**
@@ -60,6 +59,6 @@ export default class PracticeQuestionsUX {
    * Otherwise it will still have the same exercises even if students deletes from the assignments.
    */
     @action clear() {
-        Exercises.clear();
+        currentExercises.clear();
     }
 }

@@ -1,16 +1,16 @@
 import { modelize, ID } from 'shared/model';
-import type TaskPlan from '../task-plans/teacher/plan'
+import type { TeacherTaskPlan as TaskPlan } from '../../models'
 import { observable, computed, reaction } from 'mobx';
 import Job from '../job';
 
-const CURRENT = observable.map<ID, TaskPlanPublish>();
+const CURRENT = observable.map<ID, TaskPlanPublishJob>();
 
-export default class TaskPlanPublish extends Job {
+export class TaskPlanPublishJob extends Job {
 
     static forPlan(plan: TaskPlan) {
         let pub = CURRENT.get(plan.id);
         if (!pub) {
-            pub = new TaskPlanPublish(plan);
+            pub = new TaskPlanPublishJob(plan);
             CURRENT.set(plan.id, pub);
         }
         return pub;

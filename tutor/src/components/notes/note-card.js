@@ -5,7 +5,7 @@ import { observable, action, modelize } from 'shared/model'
 import { Form } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import { ArbitraryHtmlAndMath } from 'shared';
-import Note from '../../models/notes/note';
+import { Note } from '../../models';
 import { Icon } from 'shared';
 import SuretyGuard from 'shared/components/surety-guard';
 

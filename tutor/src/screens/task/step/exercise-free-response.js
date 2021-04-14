@@ -3,14 +3,12 @@ import {
 } from 'vendor';
 import { modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
-import TaskStep from '../../../models/student-tasks/step';
-import ResponseValidation from '../../../models/response_validation';
+import { Course, StudentTaskStep, ResponseValidation } from '../../../models';
 import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
 import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
 import { colors, breakpoint } from '../../../theme';
-import Course from '../../../models/course';
 import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
@@ -111,7 +109,7 @@ const RevertButton = observer(({ ux }) => {
 @observer
 class FreeResponseReview extends React.Component {
     static propTypes = {
-        step: PropTypes.instanceOf(TaskStep).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
     };
     render() {
         const { step } = this.props;
@@ -131,7 +129,7 @@ class FreeResponseInput extends React.Component {
     static propTypes = {
         questionNumber: PropTypes.number,
         course: PropTypes.instanceOf(Course).isRequired,
-        step: PropTypes.instanceOf(TaskStep).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
         question: PropTypes.instanceOf(Question).isRequired,
         taskUX: PropTypes.instanceOf(TaskUX).isRequired,
         response_validation: PropTypes.instanceOf(ResponseValidation),

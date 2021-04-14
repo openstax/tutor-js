@@ -4,8 +4,7 @@ import { isEmpty } from 'lodash';
 import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import Course from '../../models/course';
-import Exercises, { ExercisesMap } from '../../models/exercises';
+import { Course, currentExercises, ExercisesMap } from '../../models';
 import SectionsChooser from './sections-chooser';
 import ExercisesDisplay from './exercises-display';
 
@@ -17,7 +16,7 @@ class QuestionsDashboard extends React.Component {
     };
 
     static defaultProps = {
-        exercises: Exercises,
+        exercises: currentExercises,
     }
 
     @observable isShowingExercises = false;
