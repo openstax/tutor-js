@@ -14,31 +14,43 @@ import * as EDIT_TYPES from './editors';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 const Heading = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 20px;
-  border-bottom: 1px solid ${Theme.colors.neutral.pale};
-  padding-bottom: 1.6rem;
-  > :first-child {
-    margin: 0;
-    h2 { margin-bottom: 0; }
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    border-bottom: 1px solid ${Theme.colors.neutral.pale};
+    padding-bottom: 1.6rem;
+
+    > :first-child {
+        margin: 0;
+        h2 { margin-bottom: 0; }
+    }
 `;
 
 const Instructions = styled.p`
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  a {
-    text-decoration: underline;
-  }
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    a {
+        text-decoration: underline;
+    }
 `;
 
 const Templates = styled(CoursePage)`
-  min-height: calc(100vh - ${Theme.navbars.top.height});
-  background-color: #fff;
+    min-height: calc(100vh - ${Theme.navbars.top.height});
+    background-color: ${Theme.colors.neutral.bright};
+    header {
+        display: none;
+    }
+    .body-wrapper {
+        padding: 0;
+    }
 `;
 
+const StyledContainer = styled(Container)`
+    background-color: #fff;
+    padding: 22px 40px;
+    min-height: calc(100vh - ${Theme.navbars.top.height});
+`;
 
 @observer
 export default class GradingTemplatesScreen extends React.Component {
@@ -143,7 +155,7 @@ export default class GradingTemplatesScreen extends React.Component {
                   course={this.course}
                   titleAppearance="light"
               >
-                  <Container fluid={true}>
+                  <StyledContainer fluid={true}>
                       {this.modal}
                       <Heading>
                           <CourseBreadcrumb
@@ -155,9 +167,9 @@ export default class GradingTemplatesScreen extends React.Component {
                       <Row>
                           <Col>
                               <Instructions>
-                  Manage pre-set submission and grading policy templates here. These
-                  templates can be applied to multiple assignments. Template applied
-                  to open assignments cannot be edited or deleted. <a href="https://openstax.secure.force.com/help/articles/FAQ/What-are-Grading-templates" target="__blank">Learn more</a>
+                                  Manage pre-set submission and grading policy templates here. These
+                                  templates can be applied to multiple assignments. Template applied
+                                  to open assignments cannot be edited or deleted. <a href="https://openstax.secure.force.com/help/articles/FAQ/What-are-Grading-templates" target="__blank">Learn more</a>
                               </Instructions>
                           </Col>
                       </Row>
@@ -171,7 +183,7 @@ export default class GradingTemplatesScreen extends React.Component {
                                   onDelete={this.onConfirmDelete}
                               />))}
                       </Row>
-                  </Container>
+                  </StyledContainer>
               </Templates>
           </ScrollToTop>
       );
