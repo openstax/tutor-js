@@ -48,7 +48,7 @@ const Templates = styled(CoursePage)`
 
 const StyledContainer = styled(Container)`
     background-color: #fff;
-    padding: 22px 40px;
+    padding: 26px 40px;
     min-height: calc(100vh - ${Theme.navbars.top.height});
 `;
 
