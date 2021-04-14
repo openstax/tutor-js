@@ -32,7 +32,6 @@ class Input extends React.Component {
       tag: PropTypes.instanceOf(TagModel).isRequired,
   };
 
-  @observable errorMsg;
   @observable value = this.props.tag.value;
   @computed get book() {
       return this.props.tag.specifier;
@@ -42,50 +41,46 @@ class Input extends React.Component {
       return this.props.tag.value;
   }
 
-  lo_pattern(book) {
-      if (!book) { book = this.book; }
-      if (book in LO_PATTERNS) {
-          return LO_PATTERNS[book];
+  @computed get lo_pattern() {
+      if (this.book in LO_PATTERNS) {
+          return LO_PATTERNS[this.book];
       }
+
       return LO_PATTERNS.default;
   }
 
-  placeholder(book) {
-      return this.lo_pattern(book).placeholder;
+  @computed get placeholder() {
+      return this.lo_pattern.placeholder;
   }
 
-  excluded_characters_pattern(book) {
-      return this.lo_pattern(book).excluded_characters;
+  @computed get excluded_characters_pattern() {
+      return this.lo_pattern.excluded_characters;
   }
 
-  match_pattern(book) {
-      return this.lo_pattern(book).match;
+  @computed get match_pattern() {
+      return this.lo_pattern.match;
+  }
+
+  @computed get errorMsg() {
+      if (!this.book) { return 'Must have book'; }
+
+      if (this.lo != null && !this.lo.match(this.match_pattern)) {
+          return 'Must match LO pattern of ' + this.placeholder;
+      }
+
+      return null;
   }
 
   @action.bound onTextChange(ev) {
-      this.value = ev.target.value.replace(this.excluded_characters_pattern(), '');
-      this.errorMsg = null;
-  }
-
-  @action.bound validateAndSave(attrs) {
-      if (attrs == null) { attrs = {}; }
-      const { tag } = this.props;
-      const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
-
-      if (!book || (lo != null && !lo.match( this.match_pattern(book) ))) {
-          this.errorMsg = 'Must have book and match LO pattern of ' + this.placeholder(book);
-      } else {
-          tag.value = lo;
-      }
-      tag.specifier = book;
+      this.value = ev.target.value.replace(this.excluded_characters_pattern, '');
   }
 
   @action.bound onTextBlur() {
-      this.validateAndSave({ lo: this.value });
+      this.props.tag.value = this.value;
   }
 
   @action.bound updateBook(ev) {
-      this.validateAndSave({ book: ev.target.value });
+      this.props.tag.specifier = ev.target.value;
   }
 
   @action.bound onDelete() {
@@ -107,7 +102,7 @@ class Input extends React.Component {
                   onChange={this.onTextChange}
                   onBlur={this.onTextBlur}
                   value={this.value}
-                  placeholder={this.placeholder()}
+                  placeholder={this.placeholder}
               />
               <Error error={this.errorMsg} />
               <span className="controls">
@@ -125,7 +120,12 @@ class LoTags extends React.Component {
   };
 
   @action.bound onAdd() {
-      this.props.exercise.tags.push({ type: TYPE, value: '' });
+      let newTag = { type: TYPE, value: '' };
+      const tags = this.props.exercise.tags;
+      const bookTag = tags.withType('book');
+      if (bookTag) { newTag.specifier = bookTag.value; }
+
+      tags.push(newTag);
   }
 
   render() {
