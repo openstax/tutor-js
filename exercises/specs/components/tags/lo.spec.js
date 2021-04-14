@@ -28,12 +28,12 @@ describe('Lo tags component', () => {
         input.simulate('blur');
         expect(lo).toHaveRendered('TagError');
         expect(lo.find('TagError').props()).toMatchObject({
-            error: expect.stringContaining('Must have book and match LO pattern'),
+            error: expect.stringContaining('Must match LO pattern of ##-##-##'),
         });
 
         input.simulate('change', { target: { value: '12-11-42' } });
         input.simulate('blur');
-        expect(lo.find('TagError').props().error).toBeUndefined();
+        expect(lo.find('TagError').props().error).toBeNull();
 
         lo.unmount();
     });
@@ -52,12 +52,12 @@ describe('Lo tags component', () => {
         input.simulate('blur');
         expect(lo).toHaveRendered('TagError');
         expect(lo.find('TagError').props()).toMatchObject({
-            error: expect.stringContaining('Must have book and match LO pattern'),
+            error: expect.stringContaining('Must match LO pattern of [AB]##-##-##'),
         });
 
         input.simulate('change', { target: { value: 'A12-11-42' } });
         input.simulate('blur');
-        expect(lo.find('TagError').props().error).toBeUndefined();
+        expect(lo.find('TagError').props().error).toBeNull();
 
         lo.unmount();
     });
