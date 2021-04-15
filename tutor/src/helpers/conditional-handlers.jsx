@@ -3,7 +3,18 @@ import { Redirect, useLocation } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
-import { currentCourses, currentUser } from '../models'
+//import { TutorApp } from '../models/app'
+import { currentUser, currentCourses } from '../models'
+// let currentUser;
+// let currentCourses;
+
+
+// TutorApp.initRouter = (app) => {
+//     currentUser = app.currentUser
+//     currentCourses = app.currentCourses
+
+// }
+
 import { OXMatchByRouter } from 'shared';
 
 const StudentCourses = asyncComponent(
@@ -34,7 +45,8 @@ const PreWRMGradebook =  asyncComponent(
     () => import('../screens/pre-wrm-scores-report'), 'Gradebook'
 );
 
-const getConditionalHandlers = (Router) => {
+
+export const getConditionalHandlers = (Router) => {
     const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
     const renderTeacherStudentMyCourses = () => {
@@ -79,7 +91,7 @@ const getConditionalHandlers = (Router) => {
     const renderBecomeRole = ({ params: { courseId, roleId } }) => {
         const location = useLocation();
         const course = currentCourses.get(courseId);
-        if (!course) { return <CourseNotFoundWarning />; }
+        //if (!course) { return <CourseNotFoundWarning />; }
 
         const role = course.roles.find(r => r.id == roleId);
         // only teachers can switch their role
@@ -105,5 +117,3 @@ const getConditionalHandlers = (Router) => {
         becomeRole() { return renderBecomeRole; },
     };
 };
-
-export { getConditionalHandlers };

@@ -35,7 +35,7 @@ const Definitions = {
     dropStudent:            r<StudentId>('DELETE', 'students/{studentId}'),
     unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
 
-    fetchReferenceBook:     r<BookId>('POST', 'ecosystems/{bookId}/readings'),
+    fetchReferenceBook:     r<BookId>('GET', 'ecosystems/{bookId}/readings'),
     fetchReferenceBookPage: r<EcosystemCnxId>('GET', 'ecosystems/{ecosystemId}/pages/{cnxId}'),
 
     courseEnroll:           r('POST', 'enrollment'),

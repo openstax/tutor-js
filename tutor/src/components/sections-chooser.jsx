@@ -137,11 +137,12 @@ class ChapterAccordion extends React.Component {
         const { chapter, course } = this.props;
         const selected = filter(chapter.children, this.isSectionSelected);
 
-        const checkBoxType = selected.length === chapter.children.assignable.length ? 'checked'
-            : selected.length ? 'partial' : 'unchecked';
+        const checkBoxType = selected.length === chapter.children.assignable.length ?
+            'checked' : selected.length ? 'partial' : 'unchecked';
 
         return (
-            <ChapterWrapper className="chapter"
+            <ChapterWrapper
+                className="chapter"
                 data-is-expanded={this.expanded}
             >
                 <ChapterHeading
@@ -161,15 +162,15 @@ class ChapterAccordion extends React.Component {
                         displayChapterSection
                         part={chapter}
                     />
-                    {course &&
-              <BrowseTheBook
-                  unstyled
-                  onClick={this.browseBook}
-                  page={chapter.children.first}
-                  course={course}
-              >
-                Browse this Chapter
-              </BrowseTheBook>}
+                    {course && (
+                        <BrowseTheBook
+                            unstyled
+                            onClick={this.browseBook}
+                            page={chapter.children.first}
+                            course={course}
+                        >
+                            Browse this Chapter
+                        </BrowseTheBook>)}
                 </ChapterHeading>
                 <Collapse in={this.expanded}>
                     <div className="sections">

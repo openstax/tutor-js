@@ -1,7 +1,7 @@
 import { React, PropTypes, action, observable, observer } from 'vendor';
 import { Button } from 'react-bootstrap';
 import PaymentsModal from '../payments/modal';
-import { Payments, Course } from '../../models'
+import { FeatureFlags, Course } from '../../models'
 import { Icon } from 'shared';
 
 const FREE_TRIAL_MESSAGE = `
@@ -10,7 +10,7 @@ to your course. You will not lose any of the work you have completed
 during the free trial.
 `;
 const isInTrialPeriod = (course) => {
-    return Boolean(course && !Payments.config.is_enabled && course.isInTrialPeriod);
+    return Boolean(course && !FeatureFlags.is_payments_enabled && course.isInTrialPeriod);
 };
 
 const willDisplayPayment = (course) => {

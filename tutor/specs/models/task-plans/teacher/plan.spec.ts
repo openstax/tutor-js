@@ -1,8 +1,6 @@
-import type TeacherTaskPlan from '../../../../src/models/task-plans/teacher/plan';
-import Page from '../../../../src/models/reference-book/node'
 import { Factory, ld, TimeMock } from '../../../helpers';
 import { serialize } from 'modeled-mobx'
-import { TeacherTaskPlanObj } from '../../../../src/models/types';
+import { TeacherTaskPlan, TeacherTaskPlanObj, ReferenceBookNode as Page } from '../../../../src/models'
 
 describe('Task Plan Model', function() {
     TimeMock.setTo('2015-01-12T10:00:00.000Z');

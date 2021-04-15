@@ -1,8 +1,7 @@
 import { Factory, TimeMock } from '../../helpers';
 import GetAccess from '../../../src/components/navbar/student-pay-now-btn';
-import Payments from '../../../src/models/payments';
+import { FeatureFlagsApi } from '../../../src/models'
 
-jest.mock('../../../src/models/payments');
 jest.mock('../../../src/models/course');
 
 describe('Student get access button', function() {
@@ -30,7 +29,7 @@ describe('Student get access button', function() {
     });
 
     it('renders trial message when payments is disabled', () => {
-        Payments.config.is_enabled = false;
+        FeatureFlagsApi.set('is_payments_enabled', false)
         props.course.isInTrialPeriod = true;
         const btn = shallow(<GetAccess {...props} />);
         expect(btn.text()).toContain('Free trial');

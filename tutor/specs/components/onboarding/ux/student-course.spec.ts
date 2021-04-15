@@ -2,8 +2,11 @@ import { hydrateModel, runInAction } from '../../../helpers'
 import Nags from '../../../../src/components/onboarding/nags';
 import UiSettings from 'shared/model/ui-settings';
 import {
-    Course, TourContext, StudentCourseOnboarding as CourseUX, currentUser, Payments,
+    Course, TourContext, currentUser, Payments,
 } from '../../../../src/models'
+import {
+    StudentCourseOnboarding as CourseUX,
+} from '../../../../src/components/onboarding/ux/student-course'
 
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),

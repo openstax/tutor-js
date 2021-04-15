@@ -1,9 +1,7 @@
 import { isNil } from 'lodash';
-import type CourseScoresPeriod from './period'
 import { BaseModel, field, model, modelize, ID, computed, NEW_ID, getParentOf, array } from 'shared/model';
-
-import { ScoresTaskResult } from '../../models'
-import Bignum from 'shared/model/bignum';
+import type { CourseScoresPeriod } from '../../models'
+import { ScoresTaskResult, Bignum } from '../../models'
 
 export class CourseScoresStudent extends BaseModel {
     @field id:ID = NEW_ID
@@ -15,7 +13,7 @@ export class CourseScoresStudent extends BaseModel {
     @field role = NEW_ID
     @field student_identifier = ''
 
-    get period():CourseScoresPeriod { return getParentOf(this) }
+    get period() { return getParentOf<CourseScoresPeriod>(this) }
 
     @model(Bignum) reading_score = Bignum.unknown
     @model(Bignum) course_average = Bignum.unknown

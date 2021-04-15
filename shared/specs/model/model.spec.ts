@@ -1,4 +1,5 @@
-import { BaseModel, hydrateModel, modelize, observable, array, field, model } from 'shared/model'
+import { ObservableMap } from 'mobx';
+import { BaseModel, hydrateModel, modelize, observable, array, map, field, model } from 'shared/model'
 
 describe('Model base class', () => {
 
@@ -29,5 +30,14 @@ describe('Model base class', () => {
         foo.bars.forEach(bar => {
             expect(bar).toBeInstanceOf(Bar)
         })
+    });
+
+    it('can extend map', () => {
+        const m = map((_s: ObservableMap<number, Foo>) => ({
+            get one() {
+                return 1
+            },
+        }))
+        expect(m.one).toEqual(1)
     });
 })

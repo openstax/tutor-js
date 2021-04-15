@@ -1,10 +1,6 @@
 import { pickBy, extend, pick, each, isFunction, get } from 'lodash';
-import { observable } from 'mobx';
-import { CurrentCourses as Courses, Course, CurrentUser as User } from '../../models'
-//import User from '../user';
-//import , { Course } from '../courses-map';
-// import  from '../payments';
-import { ID } from '../../store/types';
+import { observable, ID } from 'shared/model'
+import { currentCourses as Courses, Course, currentUser as User } from '../../models'
 
 import { TUTOR_HELP, SUPPORT_EMAIL } from '../../config'
 

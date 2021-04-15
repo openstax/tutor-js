@@ -1,12 +1,12 @@
 import invariant from 'invariant';
 import { currentToasts, Toast, ToastAttrs, setHandlers } from 'shared/model/toasts';
 
-import * as lms from '../components/toasts/lms';
-import * as scores from '../components/toasts/scores';
-import Reload from '../components/toasts/reload';
-import ScoresPublished from '../components/toasts/scores-published';
-import QuestionPublished from '../components/toasts/add-edit';
-import CourseSettingsSaved from '../components/toasts/course-settings-saved';
+import * as lms from './toasts/lms';
+import * as scores from './toasts/scores';
+import Reload from './toasts/reload';
+import ScoresPublished from './toasts/scores-published';
+import QuestionPublished from './toasts/add-edit';
+import CourseSettingsSaved from './toasts/course-settings-saved';
 
 const JobToasts = { lms, scores };
 

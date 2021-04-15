@@ -1,11 +1,11 @@
 import React from 'react';
 import AsyncErrorBoundary from '../components/error-monitoring/async-load-error';
-import Loading from 'shared/components/loading-animation';
-
+import LoadingAnimation from '../../../shared/src/components/loading-animation'
 
 export function asyncComponent(loader, name = '') {
+
     const Component = React.lazy(loader);
-    const loading = <Loading message={`Loading ${name}…`} />;
+    const loading = <LoadingAnimation message={`Loading ${name}…`} />;
 
     const Loader = (props) => (
         <AsyncErrorBoundary>

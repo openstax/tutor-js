@@ -1,7 +1,8 @@
 import { delay, Factory, runInAction } from '../helpers'
-import { Payments, User } from '../../src/models'
+import { User } from '../../src/models'
+import { Payments } from '../../src/helpers/payments'
 
-describe('Course Student', () => {
+describe('Course Student Payments', () => {
     let course: ReturnType<typeof Factory.course>;
     let windowImpl: any;
     let createIframeImpl: any;

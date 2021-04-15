@@ -7,7 +7,6 @@ import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
-import { read_csrf } from '../helpers/dom';
 import { FacultyStatus, SelfReportedRoles } from './types'
 import urlFor from '../api'
 
@@ -28,7 +27,6 @@ export class User extends BaseModel {
 
     @action.bound bootstrap(data: any) {
         hydrateInstance(this, data);
-        this.csrf_token = read_csrf() as string;
     }
 
     @observable csrf_token = '';

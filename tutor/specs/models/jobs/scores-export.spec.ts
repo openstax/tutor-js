@@ -1,6 +1,7 @@
 import UiSettings from 'shared/model/ui-settings';
 import { TimeMock, Factory } from '../../helpers';
-import { ScoresExportJob as Export, currentToasts, Toast } from '../../../src/models'
+import { Toast, ScoresExportJob as Export, currentToasts } from '../../../src/models'
+
 
 jest.useFakeTimers();
 

@@ -1,5 +1,5 @@
 import { observable, computed, ID, modelize, action } from 'shared/model';
-import type Course from '../course'
+import type { Course } from '../course'
 import Job from '../job';
 import UiSettings from 'shared/model/ui-settings';
 import Time from 'shared/model/time'

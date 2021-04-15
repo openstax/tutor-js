@@ -2,6 +2,7 @@ import React from 'react';
 import Map from 'shared/model/map';
 import { observable, computed, action, modelize } from 'shared/model'
 
+
 class Region extends Map {
 
     keyType = String
@@ -14,6 +15,10 @@ class Region extends Map {
 
     remove(id) {
         this.widgets.delete(id);
+    }
+
+    coerceValue(v) {
+        return v
     }
 
     @computed get components() {

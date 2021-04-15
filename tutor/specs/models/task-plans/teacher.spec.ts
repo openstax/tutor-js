@@ -1,17 +1,26 @@
 import { autorun, action, runInAction } from 'mobx';
 import { map } from 'lodash';
-
-import type { TeacherTaskPlanObj } from '../../../src/models'
+import { TimeMock, Time, Factory } from '../../helpers'
+import type { TeacherTaskPlan, TeacherTaskPlanObj } from '../../../src/models'
 import { currentCourses, Course } from '../../../src/models'
 
 const COURSE_ID = '123';
 
 describe('Teacher Task Plans', function() {
     let course!: Course;
+    let plan!: TeacherTaskPlan
+
+    const now = new Date('Thu Aug 3 2017 16:53:12 GMT-0500 (CDT)');
+
+    TimeMock.setTo(now);
 
     beforeEach(action(() => {
         currentCourses.bootstrap([{ id: COURSE_ID } as any], { clear: true });
         course = currentCourses.get(COURSE_ID)!;
+
+        const plans = Factory.teacherTaskPlans({ course });
+        plan = plans.array[0];
+
     }));
     afterEach(action(() => {
         currentCourses.clear();
@@ -23,6 +32,7 @@ describe('Teacher Task Plans', function() {
     });
 
     it('should load tasks and notify', () => {
+        runInAction(() => course.teacherTaskPlans.clear() )
         const changeSpy = jest.fn();
         autorun(() => {
             changeSpy(map(course.teacherTaskPlans.array, 'id'));
@@ -35,6 +45,7 @@ describe('Teacher Task Plans', function() {
     });
 
     it('filters out deleting plans', () => {
+        course.teacherTaskPlans.clear()
         course.teacherTaskPlans.onLoaded([
             { id: '1', hello: 'world', steps: [] },
             { id: '2', hello: 'world', steps: [] },
@@ -86,6 +97,7 @@ describe('Teacher Task Plans', function() {
     });
 
     it('lastPublished', () => {
+        course.teacherTaskPlans.clear()
         course.teacherTaskPlans.onLoaded([
             { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' },
             { id: '2', last_published_at: '2017-01-01T00:00:00.000Z' },
@@ -94,4 +106,20 @@ describe('Teacher Task Plans', function() {
         ] as any as TeacherTaskPlanObj[]);
         expect(course.teacherTaskPlans.lastPublished?.id).toEqual('3');
     });
+
+    it('calculates due range', () => {
+
+        plan.tasking_plans.forEach((tp, i) => {
+            tp.due_at = Time.now.plus({ day: i }).asISOString
+        });
+        expect(
+            Time.now.isSame(plan.interval.start, 'minute')
+        ).toBe(true);
+        expect(
+            Time.now.plus({ day: plan.tasking_plans.length - 1 }).isSame(
+                plan.interval.end, 'minute'
+            )
+        ).toBe(true);
+    });
+
 });

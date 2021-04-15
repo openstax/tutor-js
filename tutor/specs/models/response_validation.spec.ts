@@ -1,5 +1,5 @@
 import { fetchMock } from '../helpers'
-import ResponseValidation from '../../src/models/response_validation';
+import { ResponseValidation } from '../../src/models'
 
 describe(ResponseValidation, () => {
     let rv:ResponseValidation;

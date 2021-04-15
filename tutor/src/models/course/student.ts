@@ -3,7 +3,7 @@ import {
     observable, computed, action, readonly, getParentOf,
 } from 'shared/model';
 import type { StudentObj, CoursePeriod, Course } from '../../models'
-import { Payments } from '../../models'
+import { FeatureFlags } from '../../models'
 import Time from 'shared/model/time'
 import urlFor from '../../api'
 import { pick } from 'lodash';
@@ -70,7 +70,7 @@ export class CourseStudent extends BaseModel {
     // https://github.com/openstax/tutor-server/blob/master/app/representers/api/v1/student_representer.rb#L68-L84
     @computed get needsPayment() {
         return Boolean(
-            Payments.config.is_enabled && this.isUnPaid
+            FeatureFlags.is_payments_enabled && this.isUnPaid
         );
     }
 

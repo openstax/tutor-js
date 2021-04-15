@@ -7,7 +7,8 @@ import { action, computed, observable, when, modelize } from 'shared/model'
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
-import { TourContext, Course, Chat, UserMenu } from '../../models';
+import { TourContext, Course,UserMenu } from '../../models';
+import { Chat } from '../../helpers/chat'
 import { Icon } from 'shared';
 import SupportDocument from './support-document-link';
 import BestPracticesGuide from './best-practices-guide';

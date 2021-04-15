@@ -1,4 +1,4 @@
-import { action, observable, IObservableArray } from 'mobx'
+import { action, observable, IObservableArray, ObservableMap } from 'mobx'
 import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
 import { hydrateInstance, modelize, serialize } from 'modeled-mobx'
@@ -85,4 +85,20 @@ function array<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {  // eslin
     return ary as IObservableArray<T> & E
 }
 
-export { array }
+
+function map<V, K=ID>(): ObservableMap<K,V>  // eslint-disable-line
+function map<V, E, K=ID>(fn: (_m: ObservableMap<K, V>) => E): ObservableMap<K, V> & E  // eslint-disable-line
+function map<V, E, K=ID>(fn?: (_m: ObservableMap<K, V>) => E): ObservableMap<K, V> & E {  // eslint-disable-line
+    const m = observable.map<K, V>()
+    if (fn) {
+        const extensions = fn(m)
+        Object.keys(extensions).forEach(prop => {
+            const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
+            Object.defineProperty(m, prop, desc)
+        })
+    }
+    return m as ObservableMap<K,V> & E
+}
+
+export type { ObservableMap }
+export { array, map }

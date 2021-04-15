@@ -61,7 +61,7 @@ export const useNameCleaned = (courseId: string | number) => useSelector<CourseS
 
 export const useBookName = (courseId: string | number) => useSelector<CourseSlice, string>(state => {
     const course = selectors.selectById(state, courseId)
-    return get(CourseInformation.information(course?.appearance_code), 'title', '');
+    return get(CourseInformation?.information(course?.appearance_code || ''), 'title', '') || '';
 })
 
 export const usePrimaryRole = (courseId: string | number) => useSelector<CourseSlice, Role | undefined>(state => {

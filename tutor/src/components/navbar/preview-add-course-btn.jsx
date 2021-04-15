@@ -8,7 +8,8 @@ import { Icon } from 'shared';
 import { withRouter } from 'react-router-dom';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
-import { Course, TourContext, onboardingForCourse }from '../../models';
+import { Course, TourContext }from '../../models';
+import { onboardingForCourse } from '../onboarding/ux'
 
 @withRouter
 @inject((allStores, props) => ({

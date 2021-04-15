@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { BaseModel, modelize } from 'shared/model';
 import { merge, extend } from 'lodash';
 import { action, observable, when, computed } from 'mobx';
@@ -8,7 +8,7 @@ import invariant from 'invariant';
 import { NotificationActions, Logging } from 'shared';
 import type { Course, User } from '../models'
 import { SUPPORT_EMAIL } from '../config'
-import Chat from './chat';
+import { Chat } from './chat';
 
 const REQUIRED_OPTIONS = [
     'course',

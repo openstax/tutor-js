@@ -1,5 +1,9 @@
 import { hydrateModel } from 'modeled-mobx';
-import { TourContext, Course, PreviewOnboarding } from '../../../../src/models'
+import { TourContext, Course } from '../../../../src/models'
+import {
+    PreviewOnboarding,
+} from '../../../../src/components/onboarding/ux/preview'
+
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 import Time from 'shared/model/time'
 

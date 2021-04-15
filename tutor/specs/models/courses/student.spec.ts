@@ -1,7 +1,7 @@
 import { TimeMock, Factory, ld, Time } from '../../helpers';
-import { Payments, Course, CourseStudent } from '../../../src/models'
+import { FeatureFlagsApi, Course, CourseStudent } from '../../../src/models'
 
-jest.mock('../../../src/models/payments');
+// jest.mock('../../../src/models/payments');
 
 describe('Course Student', () => {
     let course: Course;
@@ -9,7 +9,7 @@ describe('Course Student', () => {
     TimeMock.setTo(now);
 
     beforeEach(() => {
-        Payments.config.is_enabled = false
+        FeatureFlagsApi.set('is_payments_enabled', false)
         course = Factory.course({ does_cost: true, is_preview: false })
     });
 
@@ -18,7 +18,8 @@ describe('Course Student', () => {
         const student = ld.last(course.students)!
         expect(student.isUnPaid).toBe(true)
         expect(student.needsPayment).toBe(false);
-        Payments.config.is_enabled = true;
+        FeatureFlagsApi.set('is_payments_enabled', true)
+        //Payments.config.is_enabled = true;
         expect(student.needsPayment).toBe(true);
         student.is_paid = true;
         expect(student.needsPayment).toBe(false);
@@ -27,7 +28,8 @@ describe('Course Student', () => {
     });
 
     test('#mustPayImmediately', () => {
-        Payments.config.is_enabled = true;
+        FeatureFlagsApi.set('is_payments_enabled', true)
+        //Payments.config.is_enabled = true;
         course.students.push(Factory.bot.create('Student', { payment_due_at: '1999-12-30' }) as CourseStudent)
         const student = ld.last(course.students)!
         expect(student.needsPayment).toBe(true);

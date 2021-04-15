@@ -1,8 +1,8 @@
-import onboardingForCourse from '../../../../src/models/course/onboarding';
 import {
+    onboardingForCourse,
     PreviewOnboarding,
     StudentCourseOnboarding,
-} from '../../../../src/models'
+} from '../../../../src/components/onboarding/ux'
 
 describe('Basic Course UX Model', () => {
 

@@ -2,9 +2,8 @@ import { BaseModel, field, modelize, computed, action, NEW_ID, getParentOf } fro
 import { isEmpty, intersection } from 'lodash';
 import Markdown from 'markdown-it';
 import MDRegex from 'markdown-it-regexp';
-import { TourActions } from '../../models'
+import { WindowSize, TourActions } from '../../models'
 import type { Tour } from '../../models'
-import WindowSize from '../window-size';
 
 const MD = Markdown({ html: true, linkify: true, typographer: true });
 MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></i>' ))

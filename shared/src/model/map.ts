@@ -20,6 +20,14 @@ export default class Map<K extends ID, V extends MapableObject> {
 
     _map = observable.map<K, V>()
 
+    static toObject(map: any) {
+        const obj = {};
+        for(let prop of map){
+            obj[prop[0]] = prop[1];
+        }
+        return obj;
+    }
+
     constructor(data: Array<object> | object = {}, options = {}) {
         modelize(this)
         Object.assign(this, options)

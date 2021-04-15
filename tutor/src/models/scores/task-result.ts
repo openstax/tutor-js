@@ -1,11 +1,12 @@
 import { findIndex, isNil } from 'lodash';
 import { BaseModel, computed, model, field, NEW_ID, getParentOf } from 'shared/model';
 import Time from 'shared/model/time';
-import type Student from './student'
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import S from '../../helpers/string';
-import Bignum from 'shared/model/bignum';
-import { TaskPlanType } from '../types';
+import type { TaskPlanType, CourseScoresStudent as Student } from '../../models'
+//import { Bignum } from '../../models'
+import Bignum  from 'shared/model/bignum';
+
 
 export class ScoresTaskResult extends BaseModel {
     @field id = NEW_ID;

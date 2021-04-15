@@ -1,5 +1,4 @@
-import TeacherTaskPlan from '../../../../src/models/task-plans/teacher/plan';
-import TaskingPlan from '../../../../src/models/task-plans/teacher/tasking';
+import { TaskingPlan, TeacherTaskPlan } from '../../../../src/models'
 import { Factory, TimeMock, Time } from '../../../helpers';
 
 describe('Teacher tasking plan tasking', () => {

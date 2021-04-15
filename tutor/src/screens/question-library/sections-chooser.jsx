@@ -82,10 +82,8 @@ class QLSectionsChooser extends React.Component {
 
     @observable pageIds = this.props.pageIds;
 
-    constructor() {
-    // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
-
+    constructor(props) {
+        super(props);
         modelize(this);
     }
 
@@ -130,7 +128,7 @@ class QLSectionsChooser extends React.Component {
                             aria-label="Browse the book"
                             href={`/book/${this.props.course.id}`}
                             target="_blank">
-            Browse the book
+                            Browse the book
                         </a>
                     </div>
                     <h2>Select chapter and section to view questions</h2>
@@ -148,7 +146,7 @@ class QLSectionsChooser extends React.Component {
                             disabled={isEmpty(this.pageIds)}
                             onClick={this.clearQuestions}
                         >
-              Clear selection
+                            Clear selection
                         </Button>
                         <Button
                             variant="primary"
@@ -156,7 +154,7 @@ class QLSectionsChooser extends React.Component {
                             disabled={isEmpty(this.pageIds)}
                             onClick={this.showQuestions}
                         >
-              Show questions
+                            Show questions
                         </Button>
                     </div>
                 </StyledFooter>

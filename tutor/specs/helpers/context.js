@@ -43,13 +43,15 @@ class TutorSpecLayout extends React.Component {
                 setSecondaryTopControls={this.setSecondaryTopControls}
             >
                 <div>
-                    <Navbar area="header" context={this.topNavbarContext}
-                        isDocked={Boolean(this.secondaryTopControls)} />
+                    <Navbar
+                        area="header" context={this.topNavbarContext}
+                        isDocked={Boolean(this.secondaryTopControls)}
+                    />
                     {this.secondaryTopControls &&
-            <SecondaryToolbar
-                controls={this.secondaryTopControls}
-                setCollapsed={this.setTopToolbarCollapsed}
-            />}
+                     <SecondaryToolbar
+                         controls={this.secondaryTopControls}
+                         setCollapsed={this.setTopToolbarCollapsed}
+                     />}
                     {this.props.children}
                     <Navbar area="footer" context={this.bottomNavbarContext} />
                 </div>

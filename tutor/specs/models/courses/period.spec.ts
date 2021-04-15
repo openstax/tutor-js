@@ -1,5 +1,4 @@
-import Course from '../../../src/models/course';
-import CoursePeriod from '../../../src/models/course/period';
+import { Course, CoursePeriod } from '../../../src/models'
 import Factories from '../../factories';
 
 describe('Course Periods Model', () => {

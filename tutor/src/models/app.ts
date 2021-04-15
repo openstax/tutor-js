@@ -5,22 +5,23 @@ import UiSettings from 'shared/model/ui-settings';
 import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import { TransitionAssistant } from '../components/unsaved-state';
-import { documentReady } from '../helpers/dom';
+import { read_csrf, documentReady } from '../helpers/dom';
+import { Payments } from '../helpers/payments'
+import { Chat } from '../helpers/chat'
+//import { setDataDependentRoutes } from '../helpers/conditional-handlers'
 
 import urlFor from '../api';
 import {
-    FeatureFlagsApi, PulseInsights, Raven,  Payments,
+    FeatureFlagsApi, PulseInsights, Raven, ResponseValidation,
     currentOfferings, currentUser, currentCourses, currentExercises, currentToasts,
 } from '../models'
+import type { BootstrapData } from '../models'
 
 import Notices from '../helpers/notifications';
-import Chat from './chat';
 import Tutor from '../components/root';
-import ResponseValidation from './response_validation';
-
 import store, { bootstrap } from '../store'
 import { request } from 'shared/api/request'
-import { BootstrapData } from './types';
+
 
 const BOOTSTRAPED_MODELS = {
     user:     currentUser,
@@ -46,6 +47,10 @@ export class TutorApp {
     @observable osweb_base_url = '';
     @observable is_impersonating = false;
     @observable data?: BootstrapData
+    currentUser = currentUser
+    currentCourses = currentCourses
+
+    @observable initRouter?: (_app:TutorApp) => void
 
     static rootComponent = Tutor;
 
@@ -71,6 +76,7 @@ export class TutorApp {
     }
 
     @action.bound initializeApp(data: BootstrapData) {
+
         window._MODELS.bootstrapData = this.data = data;
         window._MODELS.app = this;
         store.dispatch(bootstrap(data as any))
@@ -99,6 +105,13 @@ export class TutorApp {
         TransitionAssistant.startMonitoring();
         Raven.setUser(currentUser)
         PulseInsights.boot(currentUser)
+
+        currentUser.csrf_token = read_csrf() as string;
+
+        this.initRouter?.(this)
+        //this.router
+        //    setDataDependentRoutes(currentUser, currentCourses)
+
         return Promise.resolve(this);
     }
 

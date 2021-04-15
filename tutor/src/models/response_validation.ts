@@ -1,5 +1,5 @@
 import {
-    BaseModel, action, field,
+    BaseModel, action, field, modelize,
 } from 'shared/model';
 import urlFor from '../api'
 
@@ -9,7 +9,7 @@ const Config = {
     is_ui_enabled: false,
 };
 
-class ResponseValidation extends BaseModel {
+export class ResponseValidation extends BaseModel {
 
     static bootstrap(config: typeof Config) {
         Object.assign(Config, config);
@@ -38,6 +38,7 @@ class ResponseValidation extends BaseModel {
 
     constructor() {
         super();
+        modelize(this)
         this.config = Object.assign({}, Config);
     }
 
@@ -67,5 +68,3 @@ class ResponseValidation extends BaseModel {
     }
 
 }
-
-export default ResponseValidation;

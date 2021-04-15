@@ -3,11 +3,10 @@ import {
     action, ID, NEW_ID, observe, when, modelize,
 } from 'shared/model'
 import { first, invoke } from 'lodash';
-import WindowSize from '../window-size';
-import { currentCourses, ReferenceBook as Book, ReferenceBookNode as Page } from '../../models'
-import type { Course, TourContext } from '../../models'
-import Router from '../../helpers/router';
-import Scroller from '../../helpers/scroll-to';
+import { WindowSize, currentCourses, ReferenceBook as Book, ReferenceBookNode as Page } from '../models'
+import type { Course, TourContext } from '../models'
+import Router from './router';
+import Scroller from './scroll-to';
 
 
 // menu width (300) + page width (1000) + 50 px padding

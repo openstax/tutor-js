@@ -1,8 +1,10 @@
 import { observable } from 'mobx';
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
-import { PreviewOnboarding, Course, TourContext } from '../../../../src/models'
 import { hydrateModel } from 'modeled-mobx';
-import Time from 'shared/model/time'
+import { Time, Course, TourContext } from '../../../../src/models'
+import {
+    PreviewOnboarding,
+} from '../../../../src/components/onboarding/ux/preview'
 
 let mockCourses = observable.array();
 Object.defineProperties(mockCourses, {

@@ -6,13 +6,13 @@ import { bootstrapCoursesList } from '../courses-test-data';
 import { hydrateInstance, fetchMock } from '../helpers'
 import COURSE from '../../api/courses/1.json';
 import { hydrateModel } from 'modeled-mobx';
-import { currentCourses, Course, Payments } from '../../src/models'
+import { currentCourses, Course, FeatureFlags } from '../../src/models'
 
 
-jest.mock('../../src/models/payments');
 jest.mock('../../src/models/feature_flags',() => ({
     FeatureFlags: {
         tours: true,
+        is_payments_enabled: false,
     },
 }));
 jest.mock('shared/model/ui-settings', () => ({
@@ -152,7 +152,7 @@ describe('Course Model', () => {
         expect(course.needsPayment).toBe(false);
         course.does_cost = true;
         expect(course.needsPayment).toBe(false);
-        Payments.config.is_enabled = true;
+        FeatureFlags.is_payments_enabled = true
         expect(course.needsPayment).toBe(true);
     })
 

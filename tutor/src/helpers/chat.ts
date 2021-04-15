@@ -1,4 +1,4 @@
-import Raven from './app/raven';
+import { Raven } from '../models'
 
 const DEPLOYMENT_ID   = '572U0000000k9cB';
 const ORGANIZATION_ID = '00DU0000000Kwch';

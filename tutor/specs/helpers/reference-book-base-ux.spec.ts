@@ -1,6 +1,6 @@
 import { when } from 'mobx';
-import { BookUX as UX } from '../../../src/models'
-import { ApiMock, deferred, FactoryBot } from '../../helpers';
+import { BookUX as UX } from '../../src/helpers/reference-book-base-ux'
+import { ApiMock, deferred, FactoryBot } from '../helpers';
 
 describe(UX, () => {
 
