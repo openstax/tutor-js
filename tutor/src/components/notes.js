@@ -86,8 +86,8 @@ class NotesWidget extends React.Component {
     @observable activeNote;
     @observable pendingHighlight;
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         modelize(this);
     }
 
@@ -130,7 +130,7 @@ class NotesWidget extends React.Component {
         });
     }
 
-    initializeHighlighter() {
+    @action initializeHighlighter() {
         // if page changes quickly and then unmounts
         // a debounced call may be pending
         if (!this.isMounted) {
@@ -166,7 +166,7 @@ class NotesWidget extends React.Component {
 
     }
 
-    initializePage = debounce(async () => {
+    initializePage = debounce(action(async () => {
         if (!this.isMounted) {
             return;
         }
@@ -192,7 +192,7 @@ class NotesWidget extends React.Component {
                 Raven.captureException(err);
             }
         }
-    }, 100)
+    }), 100)
 
     @action.bound onHighlightClick(highlight) {
         const note = highlight ? this.props.notes.get(highlight.id) : null;
