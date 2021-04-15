@@ -1,6 +1,4 @@
-import {
-    React, action, observer, PropTypes, styled, css,
-} from 'vendor';
+import { React, action, observer, PropTypes, styled, css, modelize } from 'vendor';
 import keymaster from 'keymaster';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 
@@ -28,7 +26,6 @@ const Page = styled.div`
 
 @observer
 export default class ObscuredPage extends React.Component {
-
     static propTypes = {
         children: PropTypes.node.isRequired,
         registry: PropTypes.instanceOf(OverlayRegistry),
@@ -36,6 +33,11 @@ export default class ObscuredPage extends React.Component {
 
     static defaultProps = {
         registry: DefaultRegistry,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound setPage(el) {
@@ -71,5 +73,4 @@ export default class ObscuredPage extends React.Component {
             </div>
         );
     }
-
 }

@@ -1,10 +1,9 @@
-import { React, PropTypes, cn, observer, action, observable } from 'vendor';
+import { React, PropTypes, cn, observer, action, observable, modelize } from 'vendor';
 import { forceReload } from '../../helpers/reload';
 import { AsyncButton } from 'shared';
 
 @observer
 class ReloadPageButton extends React.Component {
-
     static propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
@@ -16,6 +15,11 @@ class ReloadPageButton extends React.Component {
     }
 
     @observable isReloading = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onReload() {
         this.isReloading = true;
@@ -37,7 +41,6 @@ class ReloadPageButton extends React.Component {
             </AsyncButton>
         );
     }
-
 }
 
 export default ReloadPageButton;

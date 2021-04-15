@@ -1,5 +1,5 @@
-import { React, PropTypes, observer, cn } from 'vendor';
-import { observable, action, when, modelize } from 'shared/model'
+import { React, PropTypes, observer, cn, modelize } from 'vendor';
+import { observable, action, when } from 'shared/model'
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import { last, debounce } from 'lodash';
@@ -87,9 +87,7 @@ class NotesWidget extends React.Component {
     @observable pendingHighlight;
 
     constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
         super();
-
         modelize(this);
     }
 

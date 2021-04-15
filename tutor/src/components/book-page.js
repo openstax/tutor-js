@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, observable } from 'vendor';
+import { React, PropTypes, observer, action, observable, modelize } from 'vendor';
 import {
     get, map, forEach, first, last, invoke, defer, compact, uniq,
 } from 'lodash';
@@ -118,6 +118,7 @@ class BookPage extends React.Component {
 
     constructor(props) {
         super(props);
+        modelize(this);
         this.props.ux.page.ensureLoaded();
     }
 

@@ -1,4 +1,4 @@
-import { React, PropTypes, action, inject, observer, withRouter } from 'vendor';
+import { React, PropTypes, action, inject, observer, withRouter, modelize } from 'vendor';
 import ErrorHandlers from './handlers';
 import { Course } from '../../models';
 import { AppStore } from '../../flux/app';
@@ -9,7 +9,6 @@ import Dialog from '../tutor-dialog';
 @observer
 export default
 class ServerErrorMonitoring extends React.Component {
-
     static propTypes = {
         history: PropTypes.shape({
             push: PropTypes.func,
@@ -17,6 +16,11 @@ class ServerErrorMonitoring extends React.Component {
         courseContext: PropTypes.shape({
             course: PropTypes.instanceOf(Course),
         }),
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     componentDidMount() {

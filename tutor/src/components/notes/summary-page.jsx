@@ -1,4 +1,4 @@
-import { React, PropTypes, readonly, observer, observable, action } from 'vendor';
+import { React, PropTypes, readonly, observer, observable, action, modelize } from 'vendor';
 import { isEmpty } from 'lodash';
 import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
@@ -38,7 +38,6 @@ NotesForPage.displayName = 'NotesForPage';
 @observer
 export default
 class NoteSummaryPage extends React.Component {
-
     static propTypes = {
         page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
         notes: PropTypes.instanceOf(Notes).isRequired,
@@ -46,6 +45,11 @@ class NoteSummaryPage extends React.Component {
     };
 
     @readonly selectedPages = observable.array();
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     resetCurrentPage() {
         this.selectedPages.clear();
@@ -157,5 +161,4 @@ class NoteSummaryPage extends React.Component {
             </div>
         );
     }
-
 }

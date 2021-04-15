@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { styled, css } from 'vendor';
+import { styled, css, modelize } from 'vendor';
 import { isFunction, partial, defer } from 'lodash';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 import { PrevIcon, NextIcon } from './icons/pagination';
-import { observable, action, computed, modelize } from 'shared/model'
+import { observable, action, computed } from 'shared/model'
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 import S from '../helpers/string';

@@ -1,4 +1,5 @@
 import mobxPropTypes from 'prop-types';
+import { modelize } from 'modeled-mobx'
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, autorun, action } from 'mobx';
@@ -10,7 +11,6 @@ const REMOVE_AFTER = 1000 * 7;
 @observer
 export default
 class BackgroundToasts extends React.Component {
-
     static propTypes = {
         toasts: mobxPropTypes.observableArray,
     }
@@ -30,6 +30,11 @@ class BackgroundToasts extends React.Component {
 
     @observable currentToast;
     @observable pendingRemoval;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound removeToast() {
         this.currentToast = null;
@@ -53,5 +58,4 @@ class BackgroundToasts extends React.Component {
             </div>
         );
     }
-
 }

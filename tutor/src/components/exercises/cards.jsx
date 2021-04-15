@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, ArrayOrMobxType, styled, computed,
-} from 'vendor';
+import { React, PropTypes, observer, ArrayOrMobxType, styled, computed, modelize } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ExercisePreview from './preview';
 import BookPartTitle from '../book-part-title';
@@ -26,6 +24,11 @@ class SectionsExercises extends React.Component {
         onShowDetailsViewClick:     PropTypes.func,
         onExerciseToggle:           PropTypes.func,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get exercises() {
         return exerciseSort(
@@ -58,7 +61,6 @@ class SectionsExercises extends React.Component {
             </div>
         );
     }
-
 }
 
 

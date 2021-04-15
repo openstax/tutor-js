@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { React, PropTypes, cn, observer, computed, action, withRouter } from 'vendor';
+import { React, PropTypes, cn, observer, computed, action, withRouter, modelize } from 'vendor';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 import { Icon } from 'shared';
@@ -19,11 +19,15 @@ const CoursePropType = PropTypes.shape({
 @withRouter
 @observer
 class CoursePreview extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(CourseModel).isRequired,
         className: PropTypes.string,
         history: PropTypes.object.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get ux () {
@@ -91,11 +95,15 @@ class CoursePreview extends React.Component {
 
 
 class Course extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(CourseModel).isRequired,
         className:        PropTypes.string,
         controls:         PropTypes.element,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get ux () {

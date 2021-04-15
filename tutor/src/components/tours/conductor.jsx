@@ -1,5 +1,5 @@
-import { React, PropTypes } from 'vendor';
-import { observe, computed, observable, modelize } from 'shared/model'
+import { React, PropTypes, modelize } from 'vendor';
+import { observe, computed, observable } from 'shared/model'
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import { currentUser, TourContext } from '../../models';

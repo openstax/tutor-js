@@ -3,6 +3,7 @@ import React from 'react';
 import {
     trimEnd, sortBy, map, isEmpty, last, filter,
 } from 'lodash';
+import { modelize } from 'modeled-mobx'
 import classnames from 'classnames';
 import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
@@ -15,7 +16,6 @@ import ControlsOverlay from './controls-overlay';
 
 @observer
 class ExercisePreview extends React.Component {
-
     static propTypes = {
         exercise:        PropTypes.instanceOf(Exercise).isRequired,
         displayFeedback: PropTypes.bool,
@@ -49,6 +49,11 @@ class ExercisePreview extends React.Component {
         overlayActions:  {},
         extractedInfo:   {},
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     get exercise() {
         return this.props.exercise;

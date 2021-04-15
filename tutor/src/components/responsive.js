@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer } from 'vendor';
+import { React, PropTypes, computed, observer, modelize } from 'vendor';
 import { defaults } from 'lodash';
 import { WindowSize } from '../models';
 
@@ -10,7 +10,6 @@ const DEFAULT_BREAKPOINTS = {
 
 @observer
 class Responsive extends React.Component {
-
     static propTypes = {
         windowImpl: PropTypes.object,
         breakpoints: PropTypes.object,
@@ -20,6 +19,11 @@ class Responsive extends React.Component {
     }
 
     windowSize = new WindowSize({ windowImpl: this.props.windowImpl });
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get breakpoints() {
         return defaults({}, this.props.breakpoints, DEFAULT_BREAKPOINTS);
@@ -36,7 +40,6 @@ class Responsive extends React.Component {
         }
         return mobile;
     }
-
 }
 
 export default Responsive;

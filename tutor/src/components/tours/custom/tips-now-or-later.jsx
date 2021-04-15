@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, action, observer, inject,
-} from 'vendor';
+import { React, PropTypes, action, observer, inject, modelize } from 'vendor';
 import Standard from './standard';
 import { Primary, TextAction } from './buttons';
 
@@ -8,13 +6,17 @@ import { Primary, TextAction } from './buttons';
 @observer
 export default
 class TipsNowOrLater extends React.Component {
-
     static propTypes = {
         ride: PropTypes.object.isRequired,
         step: PropTypes.object.isRequired,
         className: PropTypes.string,
         buttons: PropTypes.object,
         style: PropTypes.object,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound onViewNowClick() {

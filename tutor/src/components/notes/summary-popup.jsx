@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, observable } from 'vendor';
+import { React, PropTypes, observer, action, observable, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
 import PopoutWindow from 'shared/components/popout-window';
@@ -52,7 +52,6 @@ NotesForPage.displayName = 'NotesForPage';
 @observer
 export default
 class SummaryPopup extends React.Component {
-
     static propTypes = {
         windowImpl: PropTypes.shape({
             open: PropTypes.func,
@@ -65,6 +64,11 @@ class SummaryPopup extends React.Component {
 
     static defaultProps = {
         windowImpl: window,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     componentDidMount() {

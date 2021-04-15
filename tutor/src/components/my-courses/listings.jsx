@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, computed, observer, styled,
-} from 'vendor';
+import { React, PropTypes, computed, observer, styled, modelize } from 'vendor';
 import { isEmpty, merge, map } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -58,13 +56,17 @@ const DEFAULT_COURSE_ITEMS = {
 
 @observer
 class MyCoursesBase extends React.Component {
-
     static propTypes = {
         courses:    PropTypes.arrayOf( PropTypes.instanceOf(Course) ).isRequired,
         items:      PropTypes.objectOf(PropTypes.element),
         className:  PropTypes.string,
         before:     PropTypes.element,
         after:      PropTypes.element,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get items() {

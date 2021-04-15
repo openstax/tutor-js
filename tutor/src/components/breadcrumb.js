@@ -1,9 +1,8 @@
-import { React, PropTypes, observer, action, cn } from 'vendor';
+import { React, PropTypes, observer, action, cn, modelize } from 'vendor';
 import { map } from 'lodash';
 
 @observer
 class Breadcrumb extends React.Component {
-
     static propTypes = {
         step: PropTypes.object.isRequired,
         stepIndex: PropTypes.oneOfType([
@@ -15,6 +14,11 @@ class Breadcrumb extends React.Component {
         canReview: PropTypes.bool,
         dataStepIndex: PropTypes.number,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound goToStep() {
         this.props.goToStep(this.props.step);
@@ -96,7 +100,6 @@ class Breadcrumb extends React.Component {
             </span>
         );
     }
-
 }
 
 export default Breadcrumb;

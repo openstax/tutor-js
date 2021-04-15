@@ -3,14 +3,13 @@
 // after the parent component unmounts
 
 import PropTypes from 'prop-types';
-
+import { modelize } from 'modeled-mobx'
 import React from 'react';
 import ReactDOM     from 'react-dom';
 import { isFunction, invoke, defaults, map, uniqueId } from 'lodash';
 import { autobind } from 'core-decorators';
 
 export default class PopoutWindow extends React.Component {
-
     static propTypes = {
         title:      PropTypes.string.isRequired,
         children:   PropTypes.node.isRequired,
@@ -45,6 +44,11 @@ export default class PopoutWindow extends React.Component {
         top: (o, w) => ((w.innerHeight - o.height) / 2) + w.screenY,
         left: (o, w) => ((w.innerWidth - o.width) / 2) + w.screenX,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         // re-render
@@ -124,5 +128,4 @@ export default class PopoutWindow extends React.Component {
     render(){
         return null; // don't need to render anything directly
     }
-
 }

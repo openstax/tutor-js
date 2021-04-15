@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observer, action, computed, idType, cn } from 'vendor';
+import { React, observer, action, computed, idType, cn, modelize } from 'vendor';
 import { ChapterSection, Course } from '../../models';
 import Router from '../../helpers/router';
 
@@ -31,6 +31,11 @@ class extends React.Component {
         tag: 'a',
         windowImpl: window,
         children: 'Browse the Book',
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get routeName() {

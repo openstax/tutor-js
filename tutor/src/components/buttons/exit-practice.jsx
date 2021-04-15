@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, computed, observer, action, withRouter } from 'vendor';
+import { React, PropTypes, styled, computed, observer, action, withRouter, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import Router from '../../../src/helpers/router';
 
@@ -15,10 +15,14 @@ const StyledExitPracticeButton = styled(Button)`
 @observer
 export default
 class ExitPractice extends React.Component {
-
     static propTypes = {
         task: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get destinationPath() {
@@ -50,5 +54,4 @@ class ExitPractice extends React.Component {
         );
 
     }
-
 }

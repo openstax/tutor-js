@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, action, observable, styled,
-} from 'vendor';
+import { React, PropTypes, observer, action, observable, styled, modelize } from 'vendor';
 import { FeatureFlags, Course } from '../../models';
 import { withRouter } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';
@@ -63,7 +61,6 @@ const PeriodSelector = styled(Dropdown)`
 @withRouter
 @observer
 export default class TeacherBecomesStudent extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course),
         history: PropTypes.object.isRequired,
@@ -71,6 +68,11 @@ export default class TeacherBecomesStudent extends React.Component {
 
     @observable isCreating = false;
     @observable periodMenuIsOpen = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onBecomeStudentPeriodSelect(periodId) {
         this.becomeStudentInPeriod(

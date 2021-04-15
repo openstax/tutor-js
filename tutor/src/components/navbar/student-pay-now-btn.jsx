@@ -1,4 +1,4 @@
-import { React, PropTypes, action, observable, observer } from 'vendor';
+import { React, PropTypes, action, observable, observer, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import PaymentsModal from '../payments/modal';
 import { FeatureFlags, Course } from '../../models'
@@ -30,12 +30,16 @@ const willDisplayPayment = (course) => {
 @observer
 export default
 class StudentPayNowBtn extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course),
     }
 
     @observable isShowingModal = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound
     onClick() {

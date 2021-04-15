@@ -1,4 +1,4 @@
-import { React, withRouter, action, observer }  from 'vendor';
+import { React, withRouter, action, observer, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { OnboardingNag, GotItOnboardingNag, Body, Footer } from './onboarding-nag';
 import { currentUser, CourseUX } from '../../models'
@@ -7,6 +7,10 @@ import { currentUser, CourseUX } from '../../models'
 @observer
 export default
 class SecondSessionWarning extends React.Component {
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound
     onLoggedContinue(cb) {
@@ -54,6 +58,4 @@ class SecondSessionWarning extends React.Component {
             />
         );
     }
-
-
 }

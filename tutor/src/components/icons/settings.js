@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observable, observer, action } from 'vendor';
+import { React, PropTypes, styled, observable, observer, action, modelize } from 'vendor';
 import { createRef } from 'react';
 import { map } from 'lodash';
 import { Button, Popover, Overlay } from 'react-bootstrap';
@@ -94,6 +94,11 @@ export default class Settings extends React.Component {
     target = createRef();
     @observable showPopoverInfo = false;
     @observable showPopoverSettings = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onBtnClick() {
         this.showPopoverInfo = false;

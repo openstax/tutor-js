@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
+import { React, PropTypes, cn, computed, styled, css, Theme, modelize } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
 import { Course, CourseUX } from '../models';
@@ -59,7 +59,6 @@ const Subtitle = styled.h3`
 `;
 
 export default class CoursePage extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         children: PropTypes.node.isRequired,
@@ -74,6 +73,11 @@ export default class CoursePage extends React.Component {
         fullWidthChildren: PropTypes.node,
         titleAppearance: PropTypes.string,
         shouldShowDivider: PropTypes.bool,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get ux () {

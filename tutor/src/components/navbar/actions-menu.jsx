@@ -89,9 +89,12 @@ const CustomComponents = {
 @observer
 export default
 class ActionsMenu extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course),
+    }
+
+    constructor(props) {
+        super(props);
     }
 
     @autobind
@@ -177,5 +180,4 @@ class ActionsMenu extends React.Component {
             />
         );
     }
-
 }

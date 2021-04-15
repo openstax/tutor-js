@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, observable, computed, action } from 'vendor';
+import { React, PropTypes, styled, observer, observable, computed, action, modelize } from 'vendor';
 import { isEmpty, find } from 'lodash';
 import { SmartOverflow } from 'shared';
 import { TeacherTaskPlan, Course } from '../../models';
@@ -26,7 +26,6 @@ const StatsWrapper = styled.div`
 @observer
 export default
 class Stats extends React.Component {
-
     static propTypes = {
         plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
         course: PropTypes.instanceOf(Course).isRequired,
@@ -42,6 +41,11 @@ class Stats extends React.Component {
     };
 
     @observable currentPeriodIndex = 0;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get course() {
         return this.props.course;

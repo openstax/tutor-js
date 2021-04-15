@@ -1,4 +1,4 @@
-import { React, PropTypes, observable, observer, action, styled } from 'vendor';
+import { React, PropTypes, observable, observer, action, styled, modelize } from 'vendor';
 import { map, values } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
@@ -30,7 +30,6 @@ const StyledText = styled.div`
 
 @observer
 class TimezonePreview extends React.Component {
-
     static propTypes = {
         timezone: timezonePropType,
         interval: PropTypes.number,
@@ -43,6 +42,11 @@ class TimezonePreview extends React.Component {
 
     @observable time = moment();
     @observable timeout;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     UNSAFE_componentWillMount() {
         this.update();
@@ -81,7 +85,6 @@ class TimezonePreview extends React.Component {
 
 @observer
 class SetTimezoneField extends React.Component {
-
     static propTypes = {
         courseId: PropTypes.string,
         name: PropTypes.string.isRequired,
@@ -91,6 +94,11 @@ class SetTimezoneField extends React.Component {
     }
 
     @observable courseTimezone = this.props.defaultValue;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onChange(e) {
         const value = e.target.value;
@@ -137,7 +145,6 @@ class SetTimezoneField extends React.Component {
 
 @observer
 export default class TimezoneModal extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         onClose: PropTypes.func.isRequired,
@@ -147,6 +154,11 @@ export default class TimezoneModal extends React.Component {
     @observable invalid = false;
     @observable course_timezone = this.props.course.timezone;
     @observable showingConfirm = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound close() {
         this.showingConfirm = false;

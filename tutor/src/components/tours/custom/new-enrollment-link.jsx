@@ -1,13 +1,10 @@
-import {
-    React, PropTypes, withRouter, action,
-} from 'vendor';
+import { React, PropTypes, withRouter, action, modelize } from 'vendor';
 import StepPanel from './standard';
 import Router from '../../../helpers/router';
 
 @withRouter
 export default
 class NewEnrollmentLink extends React.Component {
-
     className = 'new-enrollment-link-wheel'
 
     static propTypes = {
@@ -15,6 +12,11 @@ class NewEnrollmentLink extends React.Component {
         ride: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onNavigate() {
         const { courseId } = this.props.ride.tour;
