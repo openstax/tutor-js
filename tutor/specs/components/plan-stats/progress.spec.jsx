@@ -1,6 +1,6 @@
 import Progress from '../../../src/components/plan-stats/progress';
-
-import { Page } from '../../../src/models/task-plans/teacher/stats';
+import { hydrateModel } from '../../helpers'
+import { TaskPlanPageStats } from '../../../src/models/task-plans/teacher/stats';
 
 describe('TaskPlan stats progress bar', function() {
     let props;
@@ -9,7 +9,7 @@ describe('TaskPlan stats progress bar', function() {
         props = {
             type: 'reading',
             activeSection: '1.1',
-            data: new Page({
+            data:  hydrateModel(TaskPlanPageStats, {
                 id: 1,
                 chapter_section: [1,2],
                 correct_count: 1,

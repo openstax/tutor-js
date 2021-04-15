@@ -11,7 +11,7 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
       <span
         className="text-success"
       >
-        0
+        1.2
       </span>
        
       

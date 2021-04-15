@@ -2,7 +2,7 @@ import {
     BaseModel, observable, computed, model, field, modelize, NEW_ID, ID, getParentOf, array,
 } from 'shared/model';
 import { find, isEmpty } from 'lodash';
-import { TaskPlanType } from '../../../models'
+import { TaskPlanType, ChapterSection, Exercise } from '../../../models'
 import type { TeacherTaskPlan } from './plan'
 import urlFor from '../../../api'
 
@@ -76,22 +76,21 @@ class QuestionStats extends BaseModel {
 
 }
 
-// class Page extends BaseModel {
-//     @field id = NEW_ID;
-//     @field({ model: ChapterSection }) chapter_section = ChapterSection.blank
-//     @observable title = '';
-//     @observable correct_count = 0;
-//     @observable incorrect_count = 0;
-//     @observable is_trouble = false;
-//     @observable student_count = 0;
+export class TaskPlanPageStats extends BaseModel {
+    @field id = NEW_ID;
+    @observable title = '';
+    @observable correct_count = 0;
+    @observable incorrect_count = 0;
+    @observable is_trouble = false;
+    @observable student_count = 0;
+    @model(ChapterSection) chapter_section = ChapterSection.blank
+    @model(Exercise) exercises = array<Exercise>()
 
-//     @model(Exercise) exercises = array<Exercise>()
-
-//     constructor() {
-//         super();
-//         modelize(this);
-//     }
-// }
+    constructor() {
+        super();
+        modelize(this);
+    }
+}
 
 class Stats extends BaseModel {
     @observable period_id:ID = NEW_ID;

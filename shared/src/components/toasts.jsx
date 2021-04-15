@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import {  modelize, observable, autorun, action, runInAction } from '../model'
-import { Store } from '../model/toasts';
+import { currentToasts } from '../model/toasts'
 
 const REMOVE_AFTER = 1000 * 7;
 
@@ -11,11 +11,11 @@ export default
 class Toasts extends React.Component {
 
     static propTypes = {
-        toasts: PropTypes.object,
+        toasts: PropTypes.array,
     }
 
     static defaultProps = {
-        toasts: Store,
+        toasts: currentToasts,
     }
 
     constructor(props) {
