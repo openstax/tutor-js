@@ -8,7 +8,7 @@ const sortPeriods = [
             name: '0th',
         },
         {
-            name: 0,
+            name: '0',
         },
         {
             name: '1st',
@@ -17,13 +17,13 @@ const sortPeriods = [
             name: '1th',
         },
         {
-            name: 1,
+            name: '1',
         },
         {
             name: 'Period 2',
         },
         {
-            name: 2,
+            name: '2',
         },
         {
             name: '9th',
@@ -38,7 +38,7 @@ const sortPeriods = [
             name: '10th',
         },
         {
-            name: 10.25,
+            name: '10.25',
         },
         {
             name: '10.5th',
@@ -50,7 +50,7 @@ const sortPeriods = [
             name: '12.246th',
         },
         {
-            name: 90,
+            name: '90',
         },
 
         {

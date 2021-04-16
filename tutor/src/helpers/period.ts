@@ -1,30 +1,28 @@
 import type { CoursePeriod } from '../models'
-import { sortBy, isNumber } from 'lodash';
+import { sortBy } from 'lodash';
 import S from './string';
+
 
 const PeriodHelper = {
     getOrder(period: CoursePeriod) {
         return S.getNumberAndStringOrder(period.name);
     },
 
-    sort(periods: CoursePeriod[]): CoursePeriod[] {
-        // expects either numbers, names with numbers or just names
+    sort(periods: CoursePeriod[]) {
+        // sort first by non number values, then by numbers
         periods = sortBy(periods, (period) => { // eslint-disable-line consistent-return
-            if (!isNumber(period.name)) {
-                const name = period.name.match(/[^0-9]+/ig);
-                if (name) {
-                    return name;
-                }
+            const name = period.name.match(/[^0-9]+/ig);
+            if (name) {
+                return name;
             }
-            return ''
+            return undefined
         });
-        return sortBy(periods, (period) => { // eslint-disable-line consistent-return
-            if (!isNumber(period.name)) {
-                const number = period.name.match(/[0-9.-]+/g);
-                return number ? parseFloat(number[0]) : '';
-            } else {
-                return period.name;
+        return sortBy(periods, (period ) => { // eslint-disable-line consistent-return
+            const number = period.name.match(/[0-9.-]+/g);
+            if (number) {
+                return parseFloat(number[0]);
             }
+            return undefined
         });
     },
 
