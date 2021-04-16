@@ -1,6 +1,4 @@
-import {
-    React, cn, observable, computed, observer, action,
-} from 'vendor';
+import { React, cn, observable, computed, observer, action, modelize } from 'vendor';
 import TimeHelper from '../../helpers/time';
 import { partial } from 'lodash';
 import 'moment-timezone';
@@ -14,7 +12,6 @@ import Plan from './plan';
 
 @observer
 class Month extends React.Component {
-
     static propTypes = {
         date: TimeHelper.PropTypes.moment,
         course: PropTypes.instanceOf(Course).isRequired,
@@ -26,6 +23,11 @@ class Month extends React.Component {
     }
 
     @observable viewingPlan;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onPlanView(plan) {
         this.viewingPlan = plan;
@@ -112,7 +114,6 @@ class Month extends React.Component {
             </React.Fragment>
         );
     }
-
 }
 
 export default DropTarget([ItemTypes.NewTask, ItemTypes.CloneTask], TaskDrop, DropInjector)(Month);

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, inject, autobind, styled, cn } from 'vendor';
+import { React, PropTypes, observer, inject, autobind, styled, cn, modelize } from 'vendor';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { partial } from 'lodash';
 import { Course, ExercisesMap } from '../../models';
@@ -99,6 +99,11 @@ class ExerciseControls extends React.Component {
             this.props.onExerciseTypeFilterChange( exerciseTypeFilter )
         );
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @autobind renderControls() {
         const {

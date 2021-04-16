@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, styled, computed, action, observer,
-} from 'vendor';
+import { React, PropTypes, styled, computed, action, observer, modelize } from 'vendor';
 import { Icon } from 'shared';
 import { Row, Col, OverlayTrigger } from 'react-bootstrap';
 import { compact } from 'lodash';
@@ -38,6 +36,11 @@ class Tasking extends React.Component {
         period: PropTypes.object,
         ux: PropTypes.object,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     setAsDefaultOption() {
         return null;

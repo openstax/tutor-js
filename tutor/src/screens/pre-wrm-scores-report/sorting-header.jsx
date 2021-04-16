@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import Theme from '../../../src/theme';
@@ -10,7 +8,6 @@ import UX from './ux';
 @observer
 export default
 class SortingHeader extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
         sortKey: PropTypes.any.isRequired,
@@ -18,6 +15,11 @@ class SortingHeader extends React.Component {
         dataType: PropTypes.string,
         type: PropTypes.string,
         children: PropTypes.element,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @autobind

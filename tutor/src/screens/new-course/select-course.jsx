@@ -1,14 +1,18 @@
-import { React, observer, action, mobxPropTypes } from 'vendor';
+import { React, observer, action, mobxPropTypes, modelize } from 'vendor';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 
 @observer
 export default
 class SelectCourse extends React.Component {
-
     static title = (ux) => ux.selectOfferingTitle;
     static propTypes = {
         ux: mobxPropTypes.observableObject.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound

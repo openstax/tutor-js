@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, cn, observable } from 'vendor';
+import { React, PropTypes, observer, cn, observable, modelize } from 'vendor';
 import { Button, Card } from 'react-bootstrap';
 import { pick, isFunction } from 'lodash';
 import { withRouter } from 'react-router-dom';
@@ -71,7 +71,6 @@ Header.propTypes = {
 @observer
 export default
 class NewCourseWizard extends React.Component {
-
     static propTypes = {
         ux: PropTypes.object,
     }
@@ -79,6 +78,11 @@ class NewCourseWizard extends React.Component {
     @observable ux = this.props.ux || new BuilderUX({
         router: pick(this.props, 'history', 'match'),
     });
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     render() {
         const wizardClasses = cn('new-course-wizard', this.ux.stage, {

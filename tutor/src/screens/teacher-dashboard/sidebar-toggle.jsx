@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from 'vendor';
+import { React, observable, observer, action, cn, modelize } from 'vendor';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { Course } from '../../models';
@@ -11,7 +11,6 @@ const CLOSED_ICON = 'bars';
 @observer
 export default
 class CalendarSidebarToggle extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         onToggle: PropTypes.func.isRequired,
@@ -23,6 +22,11 @@ class CalendarSidebarToggle extends React.Component {
     @observable isOpen = CalendarHelper.isSidebarOpen(this.props.course);
     @observable iconType = this.isOpen ? OPEN_ICON : CLOSED_ICON;
     @observable pendingIntroTimeout;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     componentDidMount() {
         if (this.isOpen) {

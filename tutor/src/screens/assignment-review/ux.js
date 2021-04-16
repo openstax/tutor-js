@@ -1,4 +1,4 @@
-import { React, observable, action, computed } from 'vendor';
+import { React, observable, action, computed, modelize } from 'vendor';
 import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import { DropQuestion } from '../../models';
@@ -30,6 +30,7 @@ export default class AssignmentReviewUX {
     pendingDroppedQuestions = observable.map();
 
     constructor(attrs = null) {
+        modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
 

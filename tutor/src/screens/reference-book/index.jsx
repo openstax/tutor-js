@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observable, withRouter, action, inject, observer, cn } from 'vendor';
+import { React, observable, withRouter, action, inject, observer, cn, modelize } from 'vendor';
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import { NavbarContext } from '../../components/navbar/context';
@@ -11,7 +11,6 @@ import './styles.scss';
 @observer
 export default
 class ReferenceBookShell extends React.Component {
-
     static propTypes = {
         params: PropTypes.shape({
             courseId: PropTypes.string.isRequired,
@@ -24,6 +23,11 @@ class ReferenceBookShell extends React.Component {
     }
 
     @observable ux;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action componentDidMount() {
         this.ux = this.props.ux || new UX(this.props.history, this.props.tourContext);
@@ -51,5 +55,4 @@ class ReferenceBookShell extends React.Component {
             />
         );
     }
-
 }

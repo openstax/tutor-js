@@ -1,6 +1,4 @@
-import {
-    React, observer, cn, computed,
-} from 'vendor';
+import { React, observer, cn, computed, modelize } from 'vendor';
 import PropTypes from 'prop-types';
 import { Course, TeacherTaskPlan } from '../../models';
 import CoursePlanLabel from './plan-label';
@@ -9,7 +7,6 @@ import { CoursePlanDisplayEdit, CoursePlanDisplayQuickLook } from './plan-displa
 @observer
 export default
 class CoursePlan extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         isViewingStats: PropTypes.bool.isRequired,
@@ -18,6 +15,11 @@ class CoursePlan extends React.Component {
     };
 
     static defaultProps = { activeHeight: 35 };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get className() {
         const { plan, isViewingStats } = this.props;

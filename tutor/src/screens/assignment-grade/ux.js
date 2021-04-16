@@ -1,4 +1,4 @@
-import { observable, action, computed, moment } from 'vendor';
+import { observable, action, computed, moment, modelize } from 'vendor';
 import { first, filter, isEmpty, findIndex } from 'lodash';
 import { currentCourses, TeacherTaskStepGrade as Grade } from '../../models';
 import ScrollTo from '../../helpers/scroll-to';
@@ -26,6 +26,7 @@ export default class AssignmentGradingUX {
 
     viewedQuestions = observable.map();
     constructor(attrs = null) {
+        modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
 

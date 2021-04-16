@@ -1,5 +1,5 @@
 import {
-    React, PropTypes, observer, inject,
+    React, PropTypes, observer, inject, modelize,
     computed, observable, action, styled, cn,
 } from 'vendor';
 import { first } from 'lodash';
@@ -65,7 +65,6 @@ const StyledTemplateModal = styled(TemplateModal)`
 @observer
 export default
 class CoursePlanDetails extends React.Component {
-
     static defaultProps = {
         hasReview: false,
     }
@@ -77,6 +76,11 @@ class CoursePlanDetails extends React.Component {
         tourContext: PropTypes.instanceOf(TourContext),
         course: PropTypes.instanceOf(Course).isRequired,
         plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     async UNSAFE_componentWillMount() {
@@ -231,7 +235,7 @@ class CoursePlanDetails extends React.Component {
             t.target_id == periodId && t.target_type === 'period'
         );
     }
-  
+
 
     renderDateFields() {
         const { isEvent } = this.props.plan;

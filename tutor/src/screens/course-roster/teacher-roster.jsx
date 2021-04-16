@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { Table } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
-import { observer } from 'mobx-react';
 import RemoveTeacherLink from './remove-teacher';
 import AddTeacherLink from './add-teacher-link';
 import { Course } from '../../models';
@@ -10,9 +8,13 @@ import { Course } from '../../models';
 @observer
 export default
 class TeacherRoster extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @autobind renderRow(teacher) {
@@ -43,7 +45,7 @@ class TeacherRoster extends React.Component {
             <div className="teachers-table">
                 <div className="heading">
                     <span className="course-settings-subtitle">
-            Instructors
+                        Instructors
                     </span>
                     <AddTeacherLink course={course} />
                 </div>
@@ -56,13 +58,13 @@ class TeacherRoster extends React.Component {
                     <thead>
                         <tr>
                             <th>
-                First Name
+                                First Name
                             </th>
                             <th>
-                Last Name
+                                Last Name
                             </th>
                             <th>
-                Actions
+                                Actions
                             </th>
                         </tr>
                     </thead>

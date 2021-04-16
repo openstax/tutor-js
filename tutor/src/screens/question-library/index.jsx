@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer } from 'vendor';
+import { React, PropTypes, computed, observer, modelize } from 'vendor';
 import { currentExercises , currentCourses } from '../../models';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
@@ -15,6 +15,11 @@ class QuestionsDashboardShell extends React.Component {
 
     static defaultProps = {
         exercises: currentExercises,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get course() {
@@ -35,5 +40,4 @@ class QuestionsDashboardShell extends React.Component {
         if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
         return <Dashboard exercises={this.props.exercises} course={this.course} />;
     }
-
 }

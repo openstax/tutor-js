@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { range, isEmpty } from 'lodash';
-import { observer } from 'mobx-react';
 import { Table, Column, ColumnGroup } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
@@ -41,9 +39,13 @@ NameHeader.propTypes = {
 @observer
 export default
 class ScoresTable extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     get courseId() {

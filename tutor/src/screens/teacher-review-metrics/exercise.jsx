@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, computed, observable, action,
-} from 'vendor';
+import { React, PropTypes, observer, computed, observable, action, modelize } from 'vendor';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -39,12 +37,16 @@ const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
 @observer
 class TaskTeacherReviewQuestion extends React.Component {
-
     static propTypes = {
         question: PropTypes.instanceOf(QuestionStats).isRequired,
     };
 
     @observable showNamesAndFreeResponse = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get isExpandable() {
         return this.props.question.answers.withFreeResponse().length > TOGGLE_FREE_RESPONSE_LIMIT;
@@ -179,6 +181,11 @@ class TaskTeacherReviewExercise extends React.Component {
                 sectionKey={`${this.props.exercise.content.uid}-${index}`} />
         );
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get stimulusHTML() {
         const { stimulus_html } = this.props.exercise.content;

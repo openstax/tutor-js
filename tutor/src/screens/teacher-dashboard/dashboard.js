@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from 'vendor';
+import { React, observable, observer, action, cn, modelize } from 'vendor';
 import moment from 'moment';
 import { get, invoke } from 'lodash';
 import 'moment-timezone';
@@ -18,7 +18,6 @@ import AddAssignmentPopup from './add-assignment-popup';
 @withRouter
 @observer
 export default class TeacherDashboard extends React.Component {
-
     static propTypes = {
         date: TimeHelper.PropTypes.moment,
         className: PropTypes.string,
@@ -39,6 +38,11 @@ export default class TeacherDashboard extends React.Component {
     @observable hoveredDay;
     @observable cloningPlan;
     @observable editingPlan;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound setDate(date) {
         const { course, params } = this.props;
@@ -170,5 +174,4 @@ export default class TeacherDashboard extends React.Component {
             </TourRegion>
         );
     }
-
 }

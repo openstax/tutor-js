@@ -1,10 +1,11 @@
-import { computed } from 'vendor';
+import { computed, modelize } from 'vendor';
 import { isEmpty } from 'lodash';
 
 class Validations {
 
     constructor(ux) {
         this.ux = ux;
+        modelize(this)
     }
 
     get form() {

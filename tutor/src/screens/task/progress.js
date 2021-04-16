@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn, styled } from 'vendor';
+import { React, PropTypes, observer, action, cn, styled, modelize } from 'vendor';
 import { Milestones } from './milestones';
 import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';
@@ -46,9 +46,13 @@ const StyledModal = styled(Modal)`
 
 @observer
 export default class ProgressCard extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound closeMilestones() {

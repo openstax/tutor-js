@@ -1,4 +1,4 @@
-import { React, PropTypes, action, observer, styled } from 'vendor';
+import { React, PropTypes, action, observer, styled, modelize } from 'vendor';
 import { Button, Modal, Alert } from 'react-bootstrap';
 import { isEmpty, range, map } from 'lodash';
 import { GradingTemplate } from '../../models';
@@ -213,11 +213,15 @@ FieldsetRow.propTypes = {
 
 @observer
 class TemplateForm extends React.Component {
-
     static propTypes = {
         onComplete: PropTypes.func.isRequired,
         body: PropTypes.func.isRequired,
         ...propTypes,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound async onSubmit(values) {
@@ -429,7 +433,6 @@ class TemplateForm extends React.Component {
             </StyledTemplateModal>
         );
     }
-
 }
 
 

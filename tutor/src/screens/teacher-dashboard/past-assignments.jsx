@@ -1,4 +1,4 @@
-import { React, observer, action, observable, styled, cn  } from 'vendor';
+import { React, observer, action, observable, styled, cn, modelize } from 'vendor';
 import { partial } from 'lodash';
 import { Icon } from 'shared';
 import PropTypes from 'prop-types';
@@ -27,7 +27,6 @@ PastAssignmentsLoading.propTypes = {
 @observer
 export default
 class PastAssignments extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         className: PropTypes.string,
@@ -35,6 +34,11 @@ class PastAssignments extends React.Component {
     }
 
     @observable hoveredPlan;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound offTaskHover() {
         this.hoveredPlan = null;

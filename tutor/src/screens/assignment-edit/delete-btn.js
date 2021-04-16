@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, observable, action } from 'vendor';
+import { React, PropTypes, styled, observer, observable, action, modelize } from 'vendor';
 import { Icon } from 'shared';
 import TourAnchor from '../../components/tours/anchor';
 import { Modal, Button } from 'react-bootstrap';
@@ -41,12 +41,16 @@ const DeleteModal = observer(({ isVisible, show, onClose, isBusy, onDelete }) =>
 
 @observer
 export default class DeleteButton extends React.Component {
-
     static propTypes = {
         ux: PropTypes.object.isRequired,
     }
 
     @observable showModal = false;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound close() {
         this.showModal = false;
@@ -84,5 +88,4 @@ export default class DeleteButton extends React.Component {
             </DeleteWrapper>
         );
     }
-
 }

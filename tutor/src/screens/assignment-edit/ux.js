@@ -1,4 +1,4 @@
-import { React, observable, computed, action } from 'vendor';
+import { React, observable, computed, action, modelize } from 'vendor';
 import Router from '../../helpers/router';
 import { runInAction, observe } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
@@ -36,6 +36,7 @@ export default class AssignmentUX {
     @observable dueAt;
 
     constructor(attrs = null) {
+        modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
 

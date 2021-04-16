@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action  } from 'vendor';
+import { React, PropTypes, observer, action, modelize } from 'vendor';
 import { Icon } from 'shared';
 import TimeHelper from '../../helpers/time';
 
@@ -24,6 +24,11 @@ class CourseCalendarTitleNav extends React.Component {
         clickEvent.preventDefault();
         this.props.setDate(date);
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound handleNext(clickEvent) {
         this.handleNavigate('add', clickEvent);

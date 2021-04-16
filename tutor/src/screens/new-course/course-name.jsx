@@ -1,4 +1,4 @@
-import { React, action, observer } from 'vendor';
+import { React, action, observer, modelize } from 'vendor';
 import PropTypes from 'prop-types';
 import { Form, InputGroup } from 'react-bootstrap';
 import { map } from 'lodash';
@@ -9,10 +9,14 @@ import BuilderUX from './ux';
 @observer
 export default
 class CourseName extends React.Component {
-
     static title = 'Choose a name for your course …';
     static propTypes = {
         ux: PropTypes.instanceOf(BuilderUX).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound

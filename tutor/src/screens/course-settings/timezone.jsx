@@ -1,11 +1,10 @@
-import { React, PropTypes, observable, observer, action } from 'vendor';
+import { React, PropTypes, observable, observer, action, modelize } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import TimeHelper from '../../helpers/time';
 import TutorDropdown from '../../components/dropdown';
 
 @observer
 class Timezone extends React.Component {
-
     static propTypes = {
         value: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -13,6 +12,11 @@ class Timezone extends React.Component {
     }
 
     @observable showModal = false
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound onOpen() {
         this.showModal = true;

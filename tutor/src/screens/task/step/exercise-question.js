@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, styled, action, observable, computed,
-} from 'vendor';
+import { React, PropTypes, observer, styled, action, observable, computed, modelize } from 'vendor';
 import UX from '../ux';
 import keymaster from 'keymaster';
 import { StepFooter } from './footer';
@@ -53,7 +51,6 @@ const StyledExerciseQuestion = styled.div`
 
 @observer
 export default class ExerciseQuestion extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
         step: PropTypes.instanceOf(StudentTaskStep).isRequired,
@@ -61,6 +58,11 @@ export default class ExerciseQuestion extends React.Component {
     }
 
     @observable selectedAnswer = null;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get needsSaved() {
         const { step } = this.props;

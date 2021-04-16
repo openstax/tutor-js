@@ -1,4 +1,4 @@
-import { React, PropTypes, action, observable, observer, withRouter, styled } from 'vendor';
+import { React, PropTypes, action, observable, observer, withRouter, styled, modelize } from 'vendor';
 import { Row, Col, Card } from 'react-bootstrap';
 import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
@@ -24,7 +24,6 @@ const DashboardSectionRow = styled(Row)`
 @observer
 export default
 class StudentDashboard extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         params: PropTypes.object.isRequired,
@@ -33,6 +32,11 @@ class StudentDashboard extends React.Component {
     }
 
     @observable tabIndex = 0;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound
     onTabSelection(tabIndex, ev) {
@@ -105,5 +109,4 @@ class StudentDashboard extends React.Component {
             </div>
         );
     }
-
 }

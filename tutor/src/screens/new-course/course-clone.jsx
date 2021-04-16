@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, action, observer } from 'vendor';
+import { React, action, observer, modelize } from 'vendor';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
@@ -7,11 +7,15 @@ import BuilderUX from './ux';
 @observer
 export default
 class CourseClone extends React.Component {
-
     static title = 'Which course do you want to copy?';
 
     static propTypes = {
         ux: PropTypes.instanceOf(BuilderUX).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound

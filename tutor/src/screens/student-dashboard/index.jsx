@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer, inject } from 'vendor';
+import { React, PropTypes, computed, observer, inject, modelize } from 'vendor';
 import { ScrollToTop } from 'shared';
 import StudentDashboard from './dashboard';
 import { currentCourses, currentUser } from '../../models';
@@ -10,12 +10,16 @@ import './styles.scss';
 @observer
 export default
 class StudentDashboardShell extends React.Component {
-
     static propTypes = {
         params: PropTypes.shape({
             courseId: PropTypes.string,
         }).isRequired,
         tourContext: PropTypes.object,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get course() {
@@ -53,5 +57,4 @@ class StudentDashboardShell extends React.Component {
             </ScrollToTop>
         );
     }
-
 }

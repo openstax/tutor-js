@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, computed, styled, css,
-} from 'vendor';
+import { React, PropTypes, observer, computed, styled, css, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
@@ -141,6 +139,11 @@ class ExerciseControls extends React.Component {
         onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
         showingDetails: PropTypes.bool,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     renderSectionizer() {
         if (this.props.hideSectionizer) {

@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, action, observer } from 'vendor';
+import { React, PropTypes, styled, action, observer, modelize } from 'vendor';
 import { AssignmentBuilder } from './builder';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import QuestionsOverview from './questions-overview';
@@ -77,13 +77,17 @@ const QuestionTags = observer(({ info: { exercise } }) => {
 });
 
 class QuestionHeading extends React.Component {
-
     static propTypes = {
         ux:    PropTypes.object.isRequired,
         info:  PropTypes.object.isRequired,
         styleVariant: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound moveExerciseUp() {
         this.props.ux.plan.moveExercise(this.props.info.exercise, -1);

@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, observable, computed, action, idType,
-} from 'vendor';
+import { React, PropTypes, observer, observable, computed, action, idType, modelize } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { Container, Row, Col } from 'react-bootstrap';
 import { first, find } from 'lodash';
@@ -24,6 +22,11 @@ class TeacherReviewMetrics extends React.Component {
         }).isRequired,
         windowImpl: PropTypes.object,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get course() {
         return currentCourses.get(this.props.params.courseId);

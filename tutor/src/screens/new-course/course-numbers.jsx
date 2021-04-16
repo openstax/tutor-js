@@ -1,6 +1,5 @@
-import { React, action, observer } from 'vendor';
+import { React, action, observer, modelize } from 'vendor';
 import pluralize from 'pluralize';
-import { modelize } from 'shared/model'
 import S from '../../helpers/string';
 import PropTypes from 'prop-types';
 import { Alert, FormControl, InputGroup, Form } from 'react-bootstrap';

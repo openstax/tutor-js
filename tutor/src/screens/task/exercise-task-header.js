@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject, autobind, cn } from 'vendor';
+import { React, PropTypes, observer, styled, inject, autobind, cn, modelize } from 'vendor';
 import ExitPracticeButton from '../../components/buttons/exit-practice';
 import TaskProgress from '../../components/task-progress';
 import Header from '../../components/header';
@@ -129,6 +129,7 @@ class ExercisesTaskHeader extends React.Component {
 
     constructor(props) {
         super(props);
+        modelize(this);
         if (!props.unDocked) {
             props.setSecondaryTopControls(this.renderExerciseHeader);
         }

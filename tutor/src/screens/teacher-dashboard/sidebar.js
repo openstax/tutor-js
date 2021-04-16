@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn, styled } from 'vendor';
+import { React, observable, observer, action, cn, styled, modelize } from 'vendor';
 import { partial } from 'lodash';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -51,7 +51,6 @@ const Separator = styled.div`
 @observer
 @withRouter
 export default class AddAssignmentSidebar extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
         isOpen: PropTypes.bool.isRequired,
@@ -70,6 +69,11 @@ export default class AddAssignmentSidebar extends React.Component {
         history: this.props.history, renderMenuLink: this.renderMenuLink,
         isSidebar: true,
     });
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     componentDidUpdate(oldProps) {
         // kickoff intro if we're opening after being closed

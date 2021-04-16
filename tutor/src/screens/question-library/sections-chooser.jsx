@@ -1,6 +1,4 @@
-import { styled, PropTypes, React } from 'vendor';
-import { observable, action, modelize } from 'shared/model'
-import { observer } from 'mobx-react';
+import { observer, styled, PropTypes, React, modelize, observable, action } from 'vendor';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { Course,  ExercisesMap } from '../../models';

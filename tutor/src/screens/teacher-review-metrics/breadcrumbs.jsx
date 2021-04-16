@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType } from 'vendor';
+import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType, modelize } from 'vendor';
 import { map } from 'lodash';
 import TutorBreadcrumb from '../../components/breadcrumb';
 import BackButton from '../../components/buttons/back-button';
@@ -35,6 +35,7 @@ class Breadcrumbs extends React.Component {
 
     constructor(props) {
         super(props);
+        modelize(this);
         if (!props.unDocked) {
             props.setSecondaryTopControls(this.renderBreadcrumbs);
         }

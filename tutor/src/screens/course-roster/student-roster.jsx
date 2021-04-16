@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { isEmpty, sortBy } from 'lodash';
 import { Table } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
@@ -14,9 +12,13 @@ import LoadingScreen from 'shared/components/loading-animation';
 @observer
 export default
 class StudentsRoster extends React.Component {
-
     static propTypes = {
         period: PropTypes.instanceOf(CoursePeriod).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @autobind

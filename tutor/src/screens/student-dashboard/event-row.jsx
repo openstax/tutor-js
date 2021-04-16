@@ -1,4 +1,4 @@
-import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from 'vendor';
+import { React, PropTypes, withRouter, observer, computed, action, cn, styled, modelize } from 'vendor';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import TimeHelper from '../../helpers/time';
@@ -87,11 +87,15 @@ EventTime.propTypes = {
 @observer
 export default
 class EventRow extends React.Component {
-
     static propTypes = {
         event:   PropTypes.object.isRequired,
         course:  PropTypes.instanceOf(Course).isRequired,
         history: PropTypes.object.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound onClick(ev) {

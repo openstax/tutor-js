@@ -43,10 +43,8 @@ class TeacherDashboardWrapper extends React.Component {
     }
 
 
-    constructor() {
-        // TODO: [mobx-undecorate] verify the constructor arguments and the arguments of this automatically generated super call
-        super();
-
+    constructor(props) {
+        super(props);
         modelize(this);
     }
 

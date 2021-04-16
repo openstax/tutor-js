@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, ArrayOrMobxType, computed, styled,
-} from 'vendor';
+import { React, PropTypes, observer, ArrayOrMobxType, computed, styled, modelize } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ExercisePreview from '../../../components/exercises/preview';
 import BookPartTitle from '../../../components/book-part-title';
@@ -105,6 +103,11 @@ class SectionsExercises extends React.Component {
         getExerciseIsSelected:  PropTypes.func.isRequired,
         getExerciseActions:     PropTypes.func.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @computed get pageExercises() {
         return this.props.exercises.byPageId[this.props.pageId];

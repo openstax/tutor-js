@@ -1,4 +1,4 @@
-import { React, PropTypes, observable, observer, action, computed, styled } from 'vendor';
+import { React, PropTypes, observable, observer, action, computed, styled, modelize } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import { currentCourses } from '../../models';
 import Router from '../../../src/helpers/router';
@@ -21,7 +21,6 @@ const StyledCourseSettings = styled(CoursePage)`
 @observer
 export default
 class CourseSettings extends React.Component {
-
     static propTypes = {
         params: PropTypes.shape({
             courseId: PropTypes.string.isRequired,
@@ -29,6 +28,11 @@ class CourseSettings extends React.Component {
         history: PropTypes.shape({
             push: PropTypes.func,
         }).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     componentDidMount() {

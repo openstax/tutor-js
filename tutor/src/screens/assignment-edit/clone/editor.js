@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, action, cn } from 'vendor';
+import { React, PropTypes, styled, observer, action, cn, modelize } from 'vendor';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import UX from '../ux';
@@ -50,11 +50,15 @@ const StyledTemplateModal = styled(CloneModal)`
 
 @observer
 class Editor extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
         showModal: PropTypes.bool.isRequired,
         onHide: PropTypes.func.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound

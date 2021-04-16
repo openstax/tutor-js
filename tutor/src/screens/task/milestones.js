@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn, styled } from 'vendor';
+import { React, PropTypes, observer, action, cn, styled, modelize } from 'vendor';
 import { Col } from 'react-bootstrap';
 import { ArbitraryHtmlAndMath, Icon } from 'shared';
 import Breadcrumb from '../../components/breadcrumb';
@@ -48,13 +48,17 @@ const StyledCol = styled(Col)`
 
 @observer
 class Milestone extends React.Component {
-
     static propTypes = {
         goToStep: PropTypes.func.isRequired,
         step: PropTypes.object.isRequired,
         currentStep: PropTypes.number.isRequired,
         stepIndex: PropTypes.number,
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound goToStep() {
         this.props.goToStep(this.props.step);
@@ -109,10 +113,15 @@ class Milestone extends React.Component {
 
 @observer
 class Milestones extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
         onHide: PropTypes.func.isRequired,
+    }
+
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
 
@@ -139,7 +148,6 @@ class Milestones extends React.Component {
             </div>
         );
     }
-
 }
 
 export { Milestones, Milestone };

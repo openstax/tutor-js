@@ -1,4 +1,4 @@
-import { React, PropTypes, action, withRouter } from 'vendor';
+import { React, PropTypes, action, withRouter, modelize } from 'vendor';
 import { Button, Card } from 'react-bootstrap';
 import { SpyMode } from 'shared';
 import Router from '../../helpers/router';
@@ -50,10 +50,14 @@ class ProgressGuide extends React.Component {
 
 @withRouter
 class ProgressGuideCards extends React.Component {
-
     static propTypes = {
         courseId: PropTypes.string.isRequired,
         history: PropTypes.object.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @action.bound viewPerformanceForecast() {

@@ -1,5 +1,5 @@
 import {
-    React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled, cn,
+    React, PropTypes, observable, action, observer, computed, ArrayOrMobxType, styled, cn, modelize,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty, uniq, compact, map } from 'lodash';
@@ -76,7 +76,6 @@ ExerciseCardsWrapper.propTypes = {
 
 @observer
 class ExercisesDisplay extends React.Component {
-
     static displayName = 'ExercisesDisplay';
 
     static propTypes = {
@@ -106,6 +105,11 @@ class ExercisesDisplay extends React.Component {
 
     scroller = new Scroller({ windowImpl: this.windowImpl });
     windowScroll = new WindowScroll(this.windowImpl);
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     // Checking if the controls-bar is sticked to the top.
     // If so, show box-shadow.

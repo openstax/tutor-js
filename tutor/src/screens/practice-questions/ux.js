@@ -1,11 +1,14 @@
-import { action, computed, observable } from 'vendor';
+import { action, computed, observable, modelize } from 'vendor';
 import { currentExercises, currentCourses } from '../../models'
 import Router from '../../helpers/router';
 
 export default class PracticeQuestionsUX {
-
     @observable isInitializing = false;
     @observable course;
+
+    constructor() {
+        modelize(this);
+    }
 
     @action async initialize({ courseId, history }) {
         this.isInitializing = true;

@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, action } from 'vendor';
+import { React, PropTypes, styled, observer, action, modelize } from 'vendor';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import TourRegion from '../../components/tours/region';
@@ -38,7 +38,6 @@ const SectionsList = styled.ul`
 
 @observer
 class ReadingSection extends React.Component {
-
     static propTypes = {
         ux: PropTypes.object.isRequired,
         page: PropTypes.object.isRequired,
@@ -59,6 +58,11 @@ class ReadingSection extends React.Component {
             </span>
         );
     };
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     @action.bound moveDown() {
         this.props.ux.plan.movePage(this.props.page, 1);

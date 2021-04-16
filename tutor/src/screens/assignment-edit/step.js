@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, observable, computed, action } from 'vendor';
+import { React, PropTypes, observer, observable, computed, action, modelize } from 'vendor';
 import details from './details';
 import chapters from './chapters';
 import questions from './questions';
@@ -45,6 +45,7 @@ Step.propTypes = {
 class StepUX {
 
     constructor(ux, stepIndex = 'details') {
+        modelize(this)
         this.ux = ux;
         this.setIndex(stepIndex);
     }

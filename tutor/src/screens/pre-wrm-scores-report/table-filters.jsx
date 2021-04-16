@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { map } from 'lodash';
-import { observer } from 'mobx-react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import UX from './ux';
@@ -14,9 +12,13 @@ const FILTERS = {
 @observer
 export default
 class TableFilters extends React.Component {
-
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @autobind renderButton(filter, label) {

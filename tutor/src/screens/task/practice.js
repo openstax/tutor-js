@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, observer, observable, computed, idType,
-} from 'vendor';
+import { React, PropTypes, observer, observable, computed, idType, modelize } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { currentCourses, Course } from '../../models';
@@ -11,12 +9,16 @@ import { StepCard } from './step/card';
 
 @observer
 export default class TaskPractice extends React.Component {
-
     static propTypes = {
         params: PropTypes.shape({
             courseId: idType.isRequired,
         }).isRequired,
         course: PropTypes.instanceOf(Course),
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get course() {
@@ -49,5 +51,4 @@ export default class TaskPractice extends React.Component {
         })} />;
 
     }
-
 }

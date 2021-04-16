@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, withRouter, observer, computed, idType, styled,
-} from 'vendor';
+import { React, PropTypes, withRouter, observer, computed, idType, styled, modelize } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { isNil } from 'lodash';
@@ -127,6 +125,7 @@ export default class TaskGetter extends React.Component {
 
     constructor(props) {
         super(props);
+        modelize(this);
         if (this.task && !this.task.api.isFetchedOrFetching) {
             this.task.fetch();
         }

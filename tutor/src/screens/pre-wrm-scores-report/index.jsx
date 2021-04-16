@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, computed, action } from 'vendor';
+import { React, PropTypes, observer, computed, action, modelize } from 'vendor';
 import { isEmpty, get } from 'lodash';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
@@ -18,12 +18,16 @@ import UX from './ux';
 @observer
 export default
 class StudentScores extends React.Component {
-
     static propTypes = {
         params: PropTypes.shape({
             courseId: PropTypes.string.isRequired,
         }).isRequired,
         ux: PropTypes.instanceOf(UX),
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @computed get course() {

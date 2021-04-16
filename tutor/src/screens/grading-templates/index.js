@@ -1,6 +1,4 @@
-import {
-    React, action, PropTypes, observable, observer, computed, styled,
-} from 'vendor';
+import { React, action, PropTypes, observable, observer, computed, styled, modelize } from 'vendor';
 import { Col, Row, Container, Button } from 'react-bootstrap';
 import { currentCourses, Course } from '../../models';
 import Theme from '../../theme';
@@ -42,7 +40,6 @@ const Templates = styled(CoursePage)`
 
 @observer
 export default class GradingTemplatesScreen extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course),
         gradingTemplates: PropTypes.instanceOf(GradingTemplates),
@@ -54,6 +51,11 @@ export default class GradingTemplatesScreen extends React.Component {
     @observable editing = null;
     @observable deleting = null;
     @observable editError = null;
+
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
     componentDidMount() {
         this.store.fetch();
@@ -176,5 +178,4 @@ export default class GradingTemplatesScreen extends React.Component {
             </ScrollToTop>
         );
     }
-
 }

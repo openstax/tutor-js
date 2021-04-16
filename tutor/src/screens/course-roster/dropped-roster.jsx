@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, PropTypes, observer, modelize } from 'vendor'
 import { Table } from 'react-bootstrap';
 import { map, sortBy, isEmpty } from 'lodash';
 import { autobind } from 'core-decorators';
@@ -12,9 +10,13 @@ import { Course } from '../../models';
 @observer
 export default
 class DroppedRoster extends React.Component {
-
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+        modelize(this);
     }
 
     @autobind
@@ -46,7 +48,7 @@ class DroppedRoster extends React.Component {
             <div className="settings-section dropped-students">
                 <div>
                     <span className="course-settings-subtitle tabbed">
-            Dropped Students
+                        Dropped Students
                     </span>
                 </div>
                 <Table
@@ -58,16 +60,16 @@ class DroppedRoster extends React.Component {
                     <thead>
                         <tr>
                             <th>
-                First Name
+                                First Name
                             </th>
                             <th>
-                Last Name
+                                Last Name
                             </th>
                             <th className="student-id">
-                Student ID
+                                Student ID
                             </th>
                             <th>
-                Actions
+                                Actions
                             </th>
                         </tr>
                     </thead>
