@@ -1,8 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer, observable, action, modelize } from 'vendor'
 import { Modal, Button } from 'react-bootstrap';
-import { observer } from 'mobx-react';
-import { observable, action, modelize } from 'shared/model'
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import { Course } from '../../models';
 import { Icon } from 'shared';
