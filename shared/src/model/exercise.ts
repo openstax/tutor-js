@@ -30,7 +30,7 @@ export default class SharedExercise extends BaseModel {
     @model(Author) authors = array<Author>()
     @model(Author) copyright_holders = array<Author>()
     @model(Question) questions = array<Question>()
-    @model(Tag) tags = new TagsAssociation()
+    @model(TagsAssociation) tags = new TagsAssociation()
 
     @observable wrapper = '';
 

@@ -1,9 +1,12 @@
 import { C, React, Factory, runInAction } from '../../helpers';
 import ExerciseControls from '../../../src/components/exercise/controls';
-import ToastsStore from '../../../src/models/toasts';
+import { currentToasts } from '../../../../shared/src/model/toasts'
 
-jest.mock('../../../src/models/toasts', () => ({
-    push: jest.fn(),
+jest.mock('../../../../shared/src/model/toasts', () => ({
+    setHandlers: jest.fn(),
+    currentToasts: {
+        add: jest.fn(),
+    },
 }));
 
 describe('Exercise controls component', function() {
@@ -13,7 +16,6 @@ describe('Exercise controls component', function() {
     beforeEach(() => {
         const exercises = Factory.exercisesMap();
         exercise = exercises.array[0].array[0];
-
         props = {
             exercises,
             history: {
@@ -47,7 +49,7 @@ describe('Exercise controls component', function() {
         controls.unmount();
         return new Promise((done) => {
             setTimeout(() => {
-                expect(ToastsStore.push).toHaveBeenCalledWith({
+                expect(currentToasts.add).toHaveBeenCalledWith({
                     handler: 'published', status: 'ok',
                     info: { isDraft: true, exercise },
                 });
@@ -66,7 +68,7 @@ describe('Exercise controls component', function() {
         controls.unmount();
         return new Promise((done) => {
             setTimeout(() => {
-                expect(ToastsStore.push).toHaveBeenCalledWith({
+                expect(currentToasts.add).toHaveBeenCalledWith({
                     handler: 'published', status: 'ok',
                     info: { exercise },
                 });

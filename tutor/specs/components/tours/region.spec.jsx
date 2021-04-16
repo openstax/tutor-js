@@ -1,7 +1,7 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
 import TourRegion from '../../../src/components/tours/region';
+import { TourContext } from '../../../src/models';
 
-import TourContext from '../../../src/models/tour/context';
 jest.useFakeTimers();
 
 describe('Tour Region', () => {
@@ -11,6 +11,7 @@ describe('Tour Region', () => {
 
     it('checks in with tour context when mounting/unmounting', () => {
         const context = new TourContext({ isEnabled: true, autoRemind: false });
+        expect(context.isEnabled).toBe(true)
         const wrapper = mount(
             <TourRegion id='teacher-calendar' courseId='2' tourContext={context}>
                 <span>Hello</span>

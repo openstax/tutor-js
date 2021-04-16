@@ -40,7 +40,7 @@ class ExerciseControls extends React.Component {
         const { exercise } = this;
         await this.props.exercises.saveDraft(exercise)
         runInAction(() => {
-            Toasts.push({
+            Toasts.add({
                 handler: 'published',
                 status: 'ok',
                 info: { isDraft: true, exercise },
@@ -54,7 +54,7 @@ class ExerciseControls extends React.Component {
         await this.props.exercises.publish(exercise)
         runInAction(() => {
             this.props.exercises.createNewRecord();
-            Toasts.push({ handler: 'published', status: 'ok', info: { exercise } });
+            Toasts.add({ handler: 'published', status: 'ok', info: { exercise } });
             this.props.history.push('/search');
         });
     }

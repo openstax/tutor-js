@@ -6,7 +6,7 @@ jest.mock('../../../src/models/user');
 
 describe('Exercises model', () => {
 
-    it('calculates read-only status', () => {
+    fit('calculates read-only status', () => {
         const ex = hydrateModel(Exercise, {
             tags: [ 'assignment-type:reading', 'requires-context:true' ],
             authors: [ { user_id: 1, name: 'Auron' } ],

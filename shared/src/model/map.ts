@@ -59,7 +59,7 @@ export default class Map<K extends ID, V extends MapableObject> {
 
     coerceValue(v: V): V {
         const M = (this.constructor as any).Model
-        if (v instanceof M) {
+        if (!M || v instanceof M) {
             return v
         }
         return hydrateModel(M, v, this)

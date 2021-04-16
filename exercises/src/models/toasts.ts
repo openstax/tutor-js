@@ -1,4 +1,4 @@
-import { Store, setHandlers } from 'shared/model/toasts';
+import { currentToasts, setHandlers } from 'shared/model/toasts';
 import Published from '../components/exercise/published-toast';
 
 setHandlers({
@@ -7,4 +7,4 @@ setHandlers({
     },
 });
 
-export default Store;
+export default currentToasts;

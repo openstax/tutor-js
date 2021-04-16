@@ -8,7 +8,13 @@ const NEW = 'new';
 
 export class ExerciseVersions extends Map<ID, Exercise> {
     id: string = ''
+
     update(){}
+
+    coerceValue(v: Exercise): Exercise {
+        return v
+    }
+
     get(version: ID) {
         if (version === 'latest') {
             return last(sortBy(this.array, 'version'));
@@ -36,6 +42,10 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         if (id === NEW) { return super.get(id) as Exercise || this.createNewRecord(); }
         const versions = super.get(id) as ExerciseVersions;
         return versions ? versions.get(version) : undefined;
+    }
+
+    coerceValue(v: Exercise | ExerciseVersions): Exercise | ExerciseVersions {
+        return v
     }
 
     async fetch(id: string): Promise<any>{

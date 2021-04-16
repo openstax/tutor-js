@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import invariant from 'invariant';
+import { action, modelize, hydrateModel } from 'vendor'
 import { TourContext, TourRegion as TourRegionModel } from '../../models';
 import { delay } from 'lodash';
 
@@ -37,17 +38,18 @@ class TourRegion extends React.Component {
 
     constructor(props) {
         super(props);
-        this.region = new TourRegionModel(props);
+        modelize(this)
+        this.region = hydrateModel(TourRegionModel, props);
     }
 
-    componentDidMount() {
+    @action componentDidMount() {
         if (this.props.tourContext) {
             delay(() => this.props.tourContext.openRegion(this.region), this.delay);
         }
     }
 
     // not really sure this is needed, but we may update the courseId somwhere
-    componentDidUpdate(prevProps) {
+    @action componentDidUpdate(prevProps) {
         const { id, tours, courseId } = this.props;
 
         invariant(id === prevProps.id,
