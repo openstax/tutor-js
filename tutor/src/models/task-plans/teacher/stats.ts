@@ -37,7 +37,7 @@ class Answer extends BaseModel {
 
     @model(Student) students = [];
 
-    get question() { return getParentOf<QuestionStats>(this) }
+    get question() { return getParentOf<TaskPlanQuestionStats>(this) }
 
     constructor() {
         super();
@@ -50,8 +50,7 @@ class Answer extends BaseModel {
 
 }
 
-
-class QuestionStats extends BaseModel {
+export class TaskPlanQuestionStats extends BaseModel {
     @observable question_id:ID = NEW_ID;
     @observable answered_count = 0;
 
@@ -104,7 +103,6 @@ class Stats extends BaseModel {
         super();
         modelize(this);
     }
-
 }
 
 export class TaskPlanStats extends BaseModel {
@@ -132,7 +130,4 @@ export class TaskPlanStats extends BaseModel {
         const data = await this.api.request(urlFor('fetchTaskPlanReview', { taskPlanId: this.id }))
         this.update(data)
     }
-
 }
-
-//export { QuestionStats, Page, Stats };

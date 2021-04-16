@@ -58,17 +58,17 @@ export class TourContext extends BaseModel {
         return compact(this.courseIds.map(id => currentCourses.get(id)));
     }
 
-    addAnchor(id: string, domEl:HTMLElement) {
+    @action addAnchor(id: string, domEl:HTMLElement) {
         this.anchors.set(id, domEl);
         this.pickTourRide();
     }
 
-    removeAnchor(id: string) {
+    @action removeAnchor(id: string) {
         this.anchors.delete(id);
         this.pickTourRide();
     }
 
-    openRegion(region: TourRegion) {
+    @action openRegion(region: TourRegion) {
         const existing = find(this.regions, { id: region.id });
         if (!existing){
             this.regions.push(region);
@@ -77,7 +77,7 @@ export class TourContext extends BaseModel {
         this.pickTourRide();
     }
 
-    closeRegion(region: TourRegion) {
+    @action closeRegion(region: TourRegion) {
         forEach(this.allTours, (tour) => {
             tour.justViewed = false;
         });
@@ -85,7 +85,7 @@ export class TourContext extends BaseModel {
         this.pickTourRide();
     }
 
-    checkReminders(region: TourRegion) {
+    @action checkReminders(region: TourRegion) {
         const checkRegion = region || first(this.regions);
         const remindersTourId = 'page-tips-reminders';
         if ( checkRegion && this.autoRemind && !this.tour &&

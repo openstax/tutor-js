@@ -2,7 +2,7 @@ import { ID, action, modelize } from 'shared/model'
 import Map, { getParentOf, hydrateModel } from 'shared/model/map';
 //import {  from './plan';
 import urlFor from '../../../api'
-import type Course from '../../course';
+import type { Course } from '../../../models'
 import { TeacherTaskPlan as TaskPlan, TeacherTaskPlanObj } from '../../../models'
 
 export

@@ -1,7 +1,7 @@
 import { action, computed } from 'mobx';
 import { map } from 'lodash';
 import { Map, ID, getParentOf, field, modelize, hydrateModel } from 'shared/model';
-import PracticeQuestion from './practice-questions/practice-question';
+import { PracticeQuestion } from './practice-questions/practice-question';
 import urlFor from '../api'
 import type { PracticeQuestionObj, Course } from '../models'
 

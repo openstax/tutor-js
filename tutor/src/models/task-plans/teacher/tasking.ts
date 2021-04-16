@@ -1,6 +1,6 @@
 import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, ID, modelize, hydrateInstance } from 'shared/model';
 import type { GradingTemplate, Course, CoursePeriod, TeacherTaskPlan } from '../../../models'
-import { Toasts } from '../../../models'
+import { currentToasts } from '../../../models'
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from 'shared/model/time';
@@ -98,7 +98,7 @@ export class TaskingPlan extends BaseModel {
 
     @action publishScores() {}
     @action onPublishScoresComplete() {
-        Toasts.push({ handler: 'scoresPublished' });
+        currentToasts.add({ handler: 'scoresPublished' });
     }
 
     @computed get isPastDue() {

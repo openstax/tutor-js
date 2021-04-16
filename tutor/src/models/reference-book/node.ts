@@ -1,4 +1,3 @@
-import type Book from '../reference-book'
 import { merge, pick, filter } from 'lodash';
 import {
     BaseModel, model, NEW_ID, field, observable,
@@ -97,7 +96,7 @@ export class ReferenceBookNode extends BaseModel {
         return path.join('-');
     }
 
-    get parent(): ReferenceBookNode | Book { return getParentOf(this) }
+    get parent(): ReferenceBookNode | ReferenceBook { return getParentOf(this) }
 
     // nb these are not observable, othewise they can't be set from within mapPages computed
     nextPage: ReferenceBookNode | null = null;

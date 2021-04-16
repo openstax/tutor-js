@@ -315,6 +315,7 @@ export interface StudentTaskObj {
     title: string
     type: TaskPlanType
     ungraded_step_count: number
+    steps: StudentTaskStepObj[]
 }
 
 export interface TaskPlanDroppedQuestionObj {
@@ -329,7 +330,6 @@ export interface TeacherTaskPlanSettingsObj {
     }[]
     page_ids?: ID[]
     external_url?: string
-
 }
 
 export interface TeacherTaskPlanTaskingPlanObj {

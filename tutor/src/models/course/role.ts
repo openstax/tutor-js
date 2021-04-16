@@ -1,7 +1,7 @@
-import type Course from '../course'
 import { BaseModel, field, model, modelize, getParentOf, NEW_ID } from 'shared/model';
 import Time, { DurationUnit } from 'shared/model/time';
 import { computed, action } from 'mobx';
+import type { Course } from '../../models';
 
 export class CourseRole extends BaseModel {
     @field id = NEW_ID;
@@ -10,7 +10,7 @@ export class CourseRole extends BaseModel {
     @field period_id = NEW_ID;
     @field research_identifier = '';
 
-    get course(): Course { return  getParentOf(this); }
+    get course() { return  getParentOf<Course>(this); }
 
     constructor() {
         super();

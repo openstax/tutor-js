@@ -6,9 +6,8 @@ import {
 import Tag, { ImportantTags } from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import { RelatedContent, ReferenceBook, ReferenceBookNode } from '../../models'
-import type { User }from '../user'
-import type { Course } from '../course'
-import type { QuestionStats } from '../task-plans/teacher/stats'
+import type { TaskPlanQuestionStats, User, Course } from '../../models'
+
 
 export class Exercise extends BaseModel {
 
@@ -61,7 +60,7 @@ export class Exercise extends BaseModel {
         this._page = pg;
     }
 
-    get question_stats() { return getParentOf<QuestionStats>(this) }
+    get question_stats() { return getParentOf<TaskPlanQuestionStats>(this) }
 
     @observable average_step_number?: number;
 
