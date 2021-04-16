@@ -76,7 +76,7 @@ export class CourseEnrollment extends BaseModel {
                 // most likely because they're coming from LMS or have a non-standard enrollment
                 return <Redirect to={Router.makePathname('myCourses')} />
             }
-        } else if (this.api.hasErrors) {
+        } else if (this.api.errors.any) {
             if (this.error?.code == 'dropped_student') {
                 return this.renderComponent('droppedStudent')
             } else if (this.error?.code == 'course_ended') {
@@ -153,11 +153,11 @@ export class CourseEnrollment extends BaseModel {
     }
 
     @computed get isPending() {
-        return Boolean(!this.api.hasErrors && isEmpty(this.to))
+        return Boolean(!this.api.errors.any && isEmpty(this.to))
     }
 
     @computed get isInvalid() {
-        return Boolean(this.api.errorWithCode('invalid_enrollment_code'))
+        return Boolean(this.api.errors.withCode('invalid_enrollment_code'))
     }
 
     @computed get isTeacher() {

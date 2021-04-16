@@ -100,7 +100,7 @@ export default class Time {
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
 
     toFormat(fmt: string) { return this._value.toFormat(fmt) }
-    // left for comatibility with momentjs
+    // left for comatibility with momentjs, do not use for new code
     format(fmt: string) { return this.asMoment.format(fmt) }
 }
 

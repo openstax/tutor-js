@@ -1,7 +1,9 @@
 import { modelize } from 'modeled-mobx'
-import { observable, computed, action, runInAction } from 'mobx'
+import { sortBy, last } from 'lodash'
+import { observable, computed, action, runInAction, ObservableMap } from 'mobx'
 import { readonly } from 'core-decorators'
 import { request, MethodUrl, NoThrowOptions, RequestOptions, ApiError, isApiError } from '../api/request'
+import { map } from '../helpers/collections'
 
 const httpMethodToType = {
     GET: 'read',
@@ -14,7 +16,19 @@ type RequestUrlKey = { key: string, methodUrl: MethodUrl }
 
 export class ModelApi {
     @readonly requestsInProgress = observable.map<string,MethodUrl>({}, { deep: false })
-    @readonly errors = observable.map<string, ApiError>({}, { deep: false })
+    @readonly errors = map((m: ObservableMap<string, ApiError>) => ({
+        get latest() {
+            return last(sortBy(Array.from(m.values()), 'occuredAt'))
+        },
+        get any() { return m.size !== 0 },
+        withCode(code: string) {
+            for (const err of m.values()) {
+                if (err.data?.code == code) { return err }
+            }
+            return null
+        },
+    })) //observable.map<string, ApiError>({}, { deep: false })
+
     @readonly requestCounts = observable({
         read: 0,
         create: 0,
@@ -54,18 +68,6 @@ export class ModelApi {
 
     @computed get isFetchedOrFetching() {
         return Boolean(this.isFetchInProgress || this.hasBeenFetched)
-    }
-
-    @computed get hasErrors() {
-        return this.errors.size > 0
-    }
-
-    errorWithCode(code: string): ApiError | void {
-        for (const err of this.errors.values()) {
-            if (err.data?.code == code) {
-                return err
-            }
-        }
     }
 
     @action reset() {

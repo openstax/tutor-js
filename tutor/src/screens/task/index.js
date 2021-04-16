@@ -137,7 +137,7 @@ export default class TaskGetter extends React.Component {
         }
 
         const { task } = this;
-        if (!task || (task.api && task.api.hasErrors)) {
+        if (!task || (task.api.errors.any)) {
             return <Failure task={task} />;
         }
 

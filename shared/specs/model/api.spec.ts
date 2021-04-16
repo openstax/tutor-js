@@ -46,7 +46,7 @@ describe('model api class', () => {
         fetchMock.mockResponseOnce('bad! bad! bad!', { status: 511, statusText: 'no!' })
         const reply = await model.api.request<{ name: string }>({ key: 'saveThings', methodUrl: ['PUT', 'model/bar'] }, { nothrow: true })
         expect(isApiError(reply)).toBe(true)
-        expect(model.api.hasErrors).toBe(true)
+        expect(model.api.errors.any).toBe(true)
         expect(model.api.errors.get('saveThings')?.apiResponse?.status).toBe(511)
     })
 

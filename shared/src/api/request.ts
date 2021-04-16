@@ -43,6 +43,7 @@ export class ApiError extends CustomError {
     apiResponse?: Response
     data?: ApiErrorData
     isHidden = false
+    occuredAt = new Date()
 
     static fromMessage(request: string, message: string, data?: ApiErrorData) {
         const err = new ApiError(`${request} failed with ${message}`)

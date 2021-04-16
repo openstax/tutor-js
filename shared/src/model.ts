@@ -1,4 +1,4 @@
-import { action, observable, IObservableArray, ObservableMap } from 'mobx'
+import { action, ObservableMap } from 'mobx'
 import { isEmpty } from 'lodash'
 import { readonly } from 'core-decorators';
 import { hydrateInstance, modelize, serialize } from 'modeled-mobx'
@@ -6,10 +6,14 @@ import { LazyGetter } from 'lazy-get-decorator'
 import { ID } from './types'
 import { ModelApi } from './model/api'
 import Map from './model/map'
+import { map, array } from './helpers/collections'
 
 export { isApiError, ApiError } from './api/request'
 
 export const NEW_ID: number = 0
+
+export type { ObservableMap }
+export { map, array }
 
 export class BaseModel {
 
@@ -73,35 +77,3 @@ export {
     when,
 } from 'mobx'
 
-
-function array<T>(): IObservableArray<T>  // eslint-disable-line
-function array<T, E>(fn: (_ary: T[]) => E): IObservableArray<T> & E  // eslint-disable-line
-function array<T, E>(fn?: (_ary: T[]) => E): IObservableArray<T> & E {  // eslint-disable-line
-    const ary = observable.array<T>()
-    if (fn) {
-        const extensions = fn(ary)
-        Object.keys(extensions).forEach(prop => {
-            const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
-            Object.defineProperty(ary, prop, desc)
-        })
-    }
-    return ary as IObservableArray<T> & E
-}
-
-
-function map<V, K=ID>(): ObservableMap<K,V>  // eslint-disable-line
-function map<V, E, K=ID>(fn: (_m: ObservableMap<K, V>) => E): ObservableMap<K, V> & E  // eslint-disable-line
-function map<V, E, K=ID>(fn?: (_m: ObservableMap<K, V>) => E): ObservableMap<K, V> & E {  // eslint-disable-line
-    const m = observable.map<K, V>()
-    if (fn) {
-        const extensions = fn(m)
-        Object.keys(extensions).forEach(prop => {
-            const desc = Object.getOwnPropertyDescriptor(extensions, prop) as PropertyDescriptor
-            Object.defineProperty(m, prop, desc)
-        })
-    }
-    return m as ObservableMap<K,V> & E
-}
-
-export type { ObservableMap }
-export { array, map }
