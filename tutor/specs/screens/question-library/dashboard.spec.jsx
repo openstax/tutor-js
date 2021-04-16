@@ -1,4 +1,4 @@
-import { Factory, C, hydrateModel } from '../../helpers';
+import { Factory, C, hydrateModel, ApiMock } from '../../helpers';
 import { last } from 'lodash';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
@@ -15,9 +15,9 @@ jest.mock('../../../src/helpers/scroll-to');
 describe('Questions Dashboard Component', function() {
     let props, course, exercises, book, page_ids, terms;
 
-    // const mocks = ApiMock.intercept({
-    //     '/user/bootstrap$': Factory.bot.create('BootstrapData'),
-    // })
+    ApiMock.intercept({
+        'ecosystems/\\d+/readings': [ Factory.data('Book') ],
+    })
 
     beforeEach(function() {
         course = Factory.course();
