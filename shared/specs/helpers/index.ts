@@ -14,5 +14,5 @@ export * from './errors'
 const fetchMock = fetch as FetchMock;
 
 export {
-    ld, Factory, React, Router, Renderer, Provider, FakeWindow, fetchMock, Time, ApiMock,
+    ld, Factory, React, Router, Renderer, Provider, FakeWindow, fetchMock, Time,
 };
