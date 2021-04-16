@@ -48,9 +48,6 @@ describe('Assignment Grade', () => {
                     exercises: mock.data.exercises(id),
                 })
                 _scores.tasking_plans.forEach((tp: any) => {
-                    // tp.question_headings.forEach((qh: any) => {
-                    //     qh.question_id = qh.exercise.content.questions[0].id
-                    // })
                     tp.students.forEach((s: any) => {
                         s.questions.forEach((q: any) => {
                             const grade = GRADES[q.task_step_id]
@@ -63,10 +60,11 @@ describe('Assignment Grade', () => {
                 })
                 return _scores
             },
-            '/api/plans/:planId/stats': async ({ mock, params: { planId } }) => (
+            '/api/plans/:id/stats': async ({ mock, params: { id } }) => (
                 Factory.create('TaskPlanStat', {
-                    task_plan: mock.data.plan(planId),
-                    exercises: mock.data.exercises(planId),
+                    task_plan: mock.data.plan(id),
+                    exercises: mock.data.exercises(id),
+                    course: mock.course(COURSE_ID),
                 })
             ),
             '/api/courses/:courseId/roster': async ({ mock }) => {
@@ -88,7 +86,6 @@ describe('Assignment Grade', () => {
     it('loads and views questions', async () => {
         await visitPage(page, `/course/${COURSE_ID}/assignment/grade/3`)
         await expect(page).toHaveSelector('testEl=question-0')
-        // await page.waitForTimeout(9999100)
     })
 
     it('changes focused student once graded', async () => {

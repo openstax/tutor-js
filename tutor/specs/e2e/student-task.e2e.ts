@@ -28,7 +28,7 @@ xdescribe('Student Tasks', () => {
 
     it('can change and re-submit answers to questions', async () => {
         await visitPage(page, '/course/1/task/2')
-        await page.click('.sticky-table [data-step-index="4"]')
+        await page.click('.sticky-table [data-step-index="2"]')
         const stepUrl = await page.evaluate(() => document.location.pathname)
         await selectAnswer(page, 'b', 'why do i need to fill this out?')
         // go back and resubmit

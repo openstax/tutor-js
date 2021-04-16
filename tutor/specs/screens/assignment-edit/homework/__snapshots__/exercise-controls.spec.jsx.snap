@@ -219,7 +219,7 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
                 MCQs
               </div>
               <span
-                data-test-id="selection-count"
+                data-test-id="selection-count-mcq"
               >
                 1
               </span>
@@ -238,7 +238,7 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
                 WRQs
               </div>
               <span
-                data-test-id="selection-count"
+                data-test-id="selection-count-wrq"
               >
                 2
               </span>
