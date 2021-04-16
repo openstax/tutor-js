@@ -2,7 +2,8 @@ import { pick, extend } from 'lodash';
 import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/model';
 import Time from 'shared/model/time';
 import S from '../../helpers/string';
-import { currentCourses, Payments } from '../../models'
+import { currentCourses } from '../../../src/models'
+import { Payments } from '../../helpers/payments'
 
 class Product extends BaseModel {
     @field uuid = '';

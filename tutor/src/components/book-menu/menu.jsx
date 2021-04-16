@@ -1,4 +1,4 @@
-import { React, cn, PropTypes, styled, observer, useObserver } from 'vendor';
+import { React, cn, PropTypes, styled, observer } from 'vendor';
 import { Icon } from 'shared';
 import { map, isEmpty } from 'lodash';
 import TutorLink from '../link';
@@ -13,29 +13,27 @@ const StyledTitle = styled.div`
   color: ${Theme.colors.neutral.dark};
 `;
 
-const Title = ({ node, pageLinkProps }) => {
-    return useObserver(() => {
-        const title =  (
-            <StyledTitle>
-                <BookPartTitle
-                    part={node}
-                    boldChapterSection={node.isPage}
-                    displayChapterSection
-                />
-            </StyledTitle>
-        );
+const Title = observer(({ node, pageLinkProps }) => {
+    const title = (
+        <StyledTitle>
+            <BookPartTitle
+                part={node}
+                boldChapterSection={node.isPage}
+                displayChapterSection
+            />
+        </StyledTitle>
+    );
 
-        if (!node.hasContent) { return title; }
+    if (!node.hasContent) { return title; }
 
-        return (
-            <TutorLink
-                {...pageLinkProps(node)}
-            >
-                {title}
-            </TutorLink>
-        );
-    });
-};
+    return (
+        <TutorLink
+            {...pageLinkProps(node)}
+        >
+            {title}
+        </TutorLink>
+    );
+});
 
 Title.propTypes = {
     pageLinkProps: PropTypes.func.isRequired,
@@ -91,36 +89,34 @@ const Summary = styled.summary`
   }
 `;
 
-const Branch = ({ node, depth, ux, ...props }) => {
-    return useObserver(() => {
-        const isExpanded = ux.isExpanded(node);
-        return (
-            <Ol
-                className="section"
-                data-depth={node.depth}
-            >
-                <Li>
-                    <Details
-                        open={isExpanded}
-                        data-node-id={node.pathId}
-                    >
-                        <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
-                            <div>
-                                <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
-                                <Title {...props} node={node} />
-                            </div>
-                        </Summary>
-                        <Ol>
-                            {map(node.children, (child, i) => (
-                                <Node key={i} {...props} depth={depth+1} ux={ux} node={child} />
-                            ))}
-                        </Ol>
-                    </Details>
-                </Li>
-            </Ol>
-        );
-    });
-};
+const Branch = observer(({ node, depth, ux, ...props }) => {
+    const isExpanded = ux.isExpanded(node);
+    return (
+        <Ol
+            className="section"
+            data-depth={node.depth}
+        >
+            <Li>
+                <Details
+                    open={isExpanded}
+                    data-node-id={node.pathId}
+                >
+                    <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
+                        <div>
+                            <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
+                            <Title {...props} node={node} />
+                        </div>
+                    </Summary>
+                    <Ol>
+                        {map(node.children, (child, i) => (
+                            <Node key={i} {...props} depth={depth+1} ux={ux} node={child} />
+                        ))}
+                    </Ol>
+                </Details>
+            </Li>
+        </Ol>
+    );
+});
 Branch.propTypes = {
     ux: PropTypes.instanceOf(MenuUX).isRequired,
     pageLinkProps: PropTypes.func.isRequired,
@@ -129,17 +125,17 @@ Branch.propTypes = {
 };
 
 
-const Leaf = ({ node, ux, depth, ...props }) => {
+const Leaf = observer(({ node, ux, depth, ...props }) => {
     const title = <Title {...props} node={node} />;
     if (0 == depth) {
         return title;
     }
-    return useObserver(() => (
+    return (
         <Li data-node-id={node.pathId} className={cn({ active: ux.currentPage == node })}>
             {title}
         </Li>
-    ));
-};
+    );
+});
 
 Leaf.propTypes = {
     pageLinkProps: PropTypes.func.isRequired,
