@@ -1,8 +1,7 @@
 import { isFunction } from 'lodash';
 import Analytics from '../../src/helpers/analytics';
-import Courses from '../../src/models/courses-map';
+import { currentCourses } from '../../src/models'
 import { bootstrapCoursesList } from '../courses-test-data';
-import ReferenceBookNode from '../../src/models/reference-book/node';
 
 
 function mockGa(name = 'tutor') {
@@ -71,11 +70,8 @@ describe('Analytics', function() {
     });
 
     it('translates reference-view sections', () => {
-        const book = Courses.get(COURSE.id).referenceBook;
-        book.children.push(new ReferenceBookNode({ id: 1, chapter_section: '2', type: 'chapter' }));
-        book.children[0].children.push(
-            new ReferenceBookNode({ id: 1234, chapter_section: '2.2', type: 'page' })
-        );
+        const book = currentCourses.get(COURSE.id).referenceBook;
+        book.children.push({ id: 1234, chapter_section: '2.2', type: 'page' })
         Analytics.onNavigation('/book/1/page/1234');
         expect(ga).toHaveBeenCalledWith('tutor.set', 'page',
             '/reference-view/1/section/2.2',
