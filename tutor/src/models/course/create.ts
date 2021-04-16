@@ -2,9 +2,9 @@ import { BaseModel, field, model, computed, observable, action, ID, NEW_ID, mode
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
 
-import { currentCourses, currentOfferings,
-    CourseTerm,
-    CoursesMap, Course, Offering, OfferingsMap } from '../../models'
+import {
+    currentCourses, currentOfferings, CourseTerm, CoursesMap, Course, Offering, OfferingsMap,
+} from '../../models'
 
 import urlFor from '../../api'
 import type { CourseObj } from '../types';
@@ -40,8 +40,10 @@ export class CourseCreate extends BaseModel {
         },
     }
 
-    constructor({ courses = currentCourses, offerings = currentOfferings }: { offerings?: OfferingsMap, courses?: CoursesMap } = {}) {
-        super()
+    constructor(
+        { courses = currentCourses, offerings = currentOfferings, ...attrs}: { offerings?: OfferingsMap, courses?: CoursesMap, offering_id?: ID } = {}
+    ) {
+        super(attrs)
         modelize(this)
         this.courses = courses
         this.offerings = offerings

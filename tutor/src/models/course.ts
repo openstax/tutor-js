@@ -9,41 +9,12 @@ import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import {
-    Notes,
-    CourseObj,
-    currentOfferings,
-    Offering,
-    CourseScores as Scores,
-    CoursePeriod as Period,
-    CourseRole as Role,
-    CourseStudent as Student,
-    CourseRoster as Roster,
-    TeacherProfile,
-    StudentTasks,
-    PastTaskPlans,
-    CourseLMS as LMS,
-    TeacherTaskPlans,
-    StudentTaskPlans,
-    GradingTemplates,
-    PracticeQuestions,
-    ReferenceBook,
-    FeatureFlags,
-    Exercise,
-    CourseInformation,
+    Time, Notes, CourseObj, currentOfferings, Offering,
+    CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
+    TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
+    PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation,
 } from '../models'
 import PH from '../helpers/period';
-//import {  } from './grading/templates';
-//import {  } from './practice-questions';
-//import Scores from './scores';
-//import LMS from './course/lms';
-// import { TeacherProfile } from './course/teacher-profile'
-// import {  } from './task-plans/teacher';
-// import {  } from './task-plans/teacher/past';
-//import {  } from './notes';
-import Time from 'shared/model/time'
-//import Flags from './feature_flags';
-
-//import type { TutorExercise as  } from './exercises/exercise'
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -281,7 +252,7 @@ export class Course extends BaseModel {
     }
 
     dateTimeInZone(date:Time = Time.now) {
-        return date.inZone(this.timezone);
+        return new Time(date).inZone(this.timezone);
     }
 
     @computed get tourAudienceTags() {

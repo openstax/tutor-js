@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, styled,
-} from 'vendor';
+import { React, PropTypes, styled } from 'vendor';
 import { StepCard } from './card';
 import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';
@@ -26,8 +24,10 @@ class Failure extends React.Component {
         const { task, step } = this.props;
 
         let errMsg = [];
-        if (get(task, 'api.hasErrors')) {
-            const { last: _, ...errors } = task.api.errors;
+        if (task.api.errors.any) {
+            const errors = Array.from(task.api.errors.values)
+            // const { last: _, ...errors } = task.api.errors;
+            // task.api.lastError
             errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
         }
         // step may not be present if the task had errors
@@ -39,6 +39,7 @@ class Failure extends React.Component {
             Raven.log(errMsg.join('\n'), {
                 taskId: task.id,
                 stepId: step.id,
+                errorData: task.api.last
             });
         }
     }
@@ -52,20 +53,20 @@ class Failure extends React.Component {
         return (
             <StyledFailure>
                 <h3>
-          We’re sorry! An error occurred
-          when {this.isLoading ? 'loading' : 'saving'} this step.
+                    We’re sorry! An error occurred
+                    when {this.isLoading ? 'loading' : 'saving'} this step.
                 </h3>
                 <h4>
-          Please either go back and retry or
-          reload this page and try again.
+                    Please either go back and retry or
+                    reload this page and try again.
                 </h4>
                 <p>
-          We’ve received an automated notification
-          that this error occurred and we’ll look into it.
+                    We’ve received an automated notification
+                    that this error occurred and we’ll look into it.
                 </p>
                 <p>
-          Please <SupportEmailLink label="contact support" /> if
-          you continue to get this error.
+                    Please <SupportEmailLink label="contact support" /> if
+                    you continue to get this error.
                 </p>
                 <ReloadPageButton />
             </StyledFailure>

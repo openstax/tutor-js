@@ -4,9 +4,8 @@ import {
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
-import { Course, CreateCourse, currentUser, currentOfferings, currentCourses } from '../../models';
+import { Course, CourseCreate, currentUser, currentOfferings, currentCourses } from '../../models';
 import Router from '../../helpers/router';
-
 
 export default class CourseBuilderUX extends BaseModel {
 
@@ -36,7 +35,7 @@ export default class CourseBuilderUX extends BaseModel {
         this.router = router;
         this.offerings = offerings;
         this.courses = courses;
-        this.newCourse = new CreateCourse({ courses, offerings, offering_id: this.preselectedOfferingId });
+        this.newCourse = new CourseCreate({ courses: currentCourses, offerings: currentOfferings, offering_id: this.preselectedOfferingId });
 
         if (!currentUser.canCreateCourses) {
             delay(() => // use delay in case we're called from a React constructor

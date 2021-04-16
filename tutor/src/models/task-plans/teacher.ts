@@ -6,7 +6,6 @@ import {
 }from '../../models'
 import type { Course } from '../course'
 import type { TeacherTaskPlanObj } from '../types'
-// import TaskingPlan from './teacher/tasking'
 
 export class TeacherTaskPlans extends Map<ID, TaskPlan> {
     static Model = TaskPlan

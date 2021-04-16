@@ -83,12 +83,8 @@ class CoursePlanDetails extends React.Component {
         modelize(this);
     }
 
-    async UNSAFE_componentWillMount() {
+    @action UNSAFE_componentWillMount() {
         this.props.tourContext.otherModal = this;
-    }
-
-    componentWillUnmount() {
-        this.props.tourContext.otherModal = null;
     }
 
     @observable showAssignmentLinks = false;
@@ -258,14 +254,14 @@ class CoursePlanDetails extends React.Component {
                 </Row>
                 <Row className="tasking-date-time">
                     <Col xs={12} md={mdWidth} className="opens-at">
-                        {course.momentInZone(this.tasking.opens_at).format(format)}
+                        {course.dateTimeInZone (this.tasking.opens_at).toFormat(format)}
                     </Col>
                     <Col xs={12} md={mdWidth} className="due-at">
-                        {course.momentInZone(this.tasking.due_at).format(format)}
+                        {course.dateTimeInZone(this.tasking.due_at).toFormat(format)}
                     </Col>
                     {!isEvent && (
                         <Col xs={12} md={mdWidth} className="closes-at">
-                            {course.momentInZone(this.tasking.closes_at).format(format)}
+                            {course.dateTimeInZone(this.tasking.closes_at).toFormat(format)}
                         </Col>)}
                 </Row>
             </DateFieldsWrapper>

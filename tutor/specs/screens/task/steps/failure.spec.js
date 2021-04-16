@@ -1,8 +1,6 @@
 import Failure from '../../../../src/screens/task/step/failure';
-import Task from '../../../../src/models/student-tasks/task';
-import Step from '../../../../src/models/student-tasks/step';
-import Raven from '../../../../src/models/app/raven';
-import { C } from '../../../helpers';
+import { StudentTask as Task, StudentTaskStep as Step, Raven } from '../../../../src/models'
+import { C, hydrateModel, stimulateApiError } from '../../../helpers';
 jest.mock('../../../../src/models/app/raven');
 
 
@@ -11,8 +9,8 @@ describe('Task Failure', () => {
 
     beforeEach(() => {
         props = {
-            task: new Task({ id: 4321 }),
-            step: new Step({ id: 1234 }),
+            task: hydrateModel(Task, { id: 4321 }),
+            step: hydrateModel(Step, { id: 1234 }),
         };
     });
 
@@ -29,13 +27,11 @@ describe('Task Failure', () => {
         fail.unmount();
     });
 
-    it('logs task message', () => {
-        props.task.api.errors = {
-            foo: 'bar', last: { config: { method: 'get' } },
-        };
-        props.step.api.errors = {
-            test: 'nope', last: { config: { method: 'get' } },
-        };
+    fit('logs task message', () => {
+        stimulateApiError(props.task, 'fetchStudentTask', 'a error', {
+            code: 'not_valid_task',
+            message: 'no!',
+        })
 
         const fail = mount(<C><Failure {...props} /></C>);
 
