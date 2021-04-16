@@ -61,7 +61,7 @@ class TaskStep extends React.Component {
             api: PropTypes.shape({
                 errors: {
                     any: PropTypes.bool,
-                }
+                },
             }),
             task: PropTypes.shape({
                 type: PropTypes.string.isRequired,

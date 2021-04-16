@@ -39,7 +39,7 @@ class Failure extends React.Component {
             Raven.log(errMsg.join('\n'), {
                 taskId: task.id,
                 stepId: step.id,
-                errorData: task.api.last
+                errorData: task.api.last,
             });
         }
     }

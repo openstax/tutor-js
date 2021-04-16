@@ -41,7 +41,7 @@ export class CourseCreate extends BaseModel {
     }
 
     constructor(
-        { courses = currentCourses, offerings = currentOfferings, ...attrs}: { offerings?: OfferingsMap, courses?: CoursesMap, offering_id?: ID } = {}
+        { courses = currentCourses, offerings = currentOfferings, ...attrs }: { offerings?: OfferingsMap, courses?: CoursesMap, offering_id?: ID } = {}
     ) {
         super(attrs)
         modelize(this)
