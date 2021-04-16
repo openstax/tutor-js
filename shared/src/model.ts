@@ -15,8 +15,11 @@ export class BaseModel {
 
     static idField = 'id'
 
-    constructor() {
+    constructor(data?: any) {
         modelize(this)
+        if (data) {
+            this.update(data)
+        }
     }
 
     toJSON() {
