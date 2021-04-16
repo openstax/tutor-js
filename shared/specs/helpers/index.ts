@@ -8,7 +8,8 @@ export * from 'mobx';
 import ld from 'lodash';
 import { FetchMock } from 'jest-fetch-mock';
 import Time from '../../src/model/time'
-import ApiMock from './api-mock'
+export * from './api-mock'
+export * from './errors'
 
 const fetchMock = fetch as FetchMock;
 

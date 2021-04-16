@@ -12,12 +12,12 @@ interface FetchMocks {
 
 type Matcher = [RegExp, string]
 
-const MockApi = {
+export const ApiMock = {
 
     intercept<T extends FetchMocks>(mocks: T) {
         const spys: Record<keyof T, jest.Mock> = {} as any
         beforeEach(() => {
-            Object.assign(spys, MockApi.mock(mocks))
+            Object.assign(spys, ApiMock.mock(mocks))
         })
 
         afterEach(() => fetchMock.resetMocks())
@@ -53,5 +53,3 @@ const MockApi = {
     },
 
 };
-
-export default MockApi;
