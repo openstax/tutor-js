@@ -1,15 +1,15 @@
 import { fetchMock } from '../../helpers'
 import PendingVerification from '../../../src/components/my-courses/pending-verification';
-import User from '../../../src/models/user';
+import { currentUser } from '../../../src/models';
 
-jest.mock('../../../src/models/chat');
+jest.mock('../../../src/helpers/chat');
 
 describe('My Courses Pending Verification Component', function() {
 
     it('renders and matches snapshot', () => {
-        User.fetch = jest.fn()
+        currentUser.fetch = jest.fn()
         fetchMock.mockResponseOnce(JSON.stringify({ test: true }))
-        expect.snapshot(<PendingVerification />).toMatchSnapshot();
+        expect.snapshot(<PendingVerification />).toMatchSnapshot()
     });
 
 });
