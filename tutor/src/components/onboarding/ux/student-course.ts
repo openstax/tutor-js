@@ -3,7 +3,8 @@ import { get } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { BaseOnboarding } from './base';
 import Nags from '../../../components/onboarding/nags';
-import { Course, TourContext, Payments } from '../../../models';
+import { Course, TourContext } from '../../../models';
+import { Payments } from '../../../helpers/payments';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';

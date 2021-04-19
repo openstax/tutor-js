@@ -1,5 +1,5 @@
 import PreviewAddCourseBtn from '../../../src/components/navbar/preview-add-course-btn';
-import TourContext from '../../../src/models/tour/context';
+import { TourContext } from '../../../src/models';
 import { C, Factory } from '../../helpers';
 
 describe('Preview Add Course Button', () => {

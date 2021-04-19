@@ -1,5 +1,6 @@
 import React from 'react';
-import { Chat, currentUser } from '../../models';
+import { currentUser } from '../../models';
+import { Chat } from '../../helpers/chat';
 import IconAdd from '../icons/add';
 import { Icon } from 'shared';
 

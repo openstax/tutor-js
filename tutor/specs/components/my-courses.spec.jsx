@@ -1,13 +1,15 @@
 import { C, TimeMock, action, fetchMock } from '../helpers';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
-import Courses from '../../src/models/courses-map';
-import User from '../../src/models/user';
+import { currentCourses, currentUser } from '../../src/models';
 import moment from 'moment';
 import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
 
-jest.mock('../../src/models/chat');
+jest.mock('../../src/helpers/chat');
 jest.mock('react-floater', () => () => null);
+
+const User = currentUser;
+const Courses = currentCourses;
 
 const loadTeacherUser = action(() => {
     User.faculty_status = 'confirmed_faculty';
