@@ -1,7 +1,7 @@
 import { R, runInAction } from '../../helpers';
 import TBS from '../../../src/components/buttons/teacher-become-student';
 import Factory from '../../factories';
-import { FeatureFlags } from '../../../src/models/feature_flags';
+import { FeatureFlags } from '../../../src/models';
 
 jest.mock('../../../src/models/feature_flags');
 

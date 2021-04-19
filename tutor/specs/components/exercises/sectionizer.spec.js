@@ -1,6 +1,6 @@
 import { FakeWindow } from '../../helpers';
 import Sectionizer from '../../../src/components/exercises/sectionizer';
-import { ChapterSection } from '../../../src/models/chapter-section';
+import { ChapterSection } from '../../../src/models';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
     html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
