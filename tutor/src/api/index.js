@@ -45,7 +45,6 @@ import TaskPlanStats from '../models/task-plans/teacher/stats';
 import TaskPlanScores from '../models/task-plans/teacher/scores';
 import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
-import Stats from '../models/stats';
 import { GradingTemplate, GradingTemplates } from '../models/grading/templates';
 import { PracticeQuestions, PracticeQuestion } from '../models/practice-questions';
 
@@ -90,11 +89,6 @@ const startAPI = function() {
     connectModelUpdate(User.constructor, 'saveTourView',
         { pattern: 'user/tours/{id}' }
     );
-
-    // notes
-    connectModelRead(Stats, 'fetch', {
-        url: '/stats', onSuccess: 'onLoaded',
-    });
 
     // notes
     connectModelUpdate(Note, 'save', {

@@ -112,12 +112,6 @@ const ROUTES = {
         options: { redirect: true },
         isAllowed() { return !!User.is_customer_service; },
     },
-    stats: {
-        label: 'Usage Stats',
-        href: '/stats',
-        options: { redirect: true },
-        isAllowed() { return !!User.is_admin; },
-    },
     admin: {
         label: 'Admin',
         href: '/admin',

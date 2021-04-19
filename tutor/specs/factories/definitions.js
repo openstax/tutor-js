@@ -9,7 +9,6 @@ import './exercise';
 import './scores';
 import './task-scores';
 import './offering';
-import './stats';
 import './course-roster';
 import './note';
 import './grading-template';
