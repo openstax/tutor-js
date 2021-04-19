@@ -93,6 +93,7 @@ class NotesWidget extends React.Component {
 
     componentDidMount() {
         this.isMounted = true;
+        this.props.notes.ensureLoaded()
         if (!this.props.course.canAnnotate) { return; }
         when(
             () => !this.props.notes.api.isPending,

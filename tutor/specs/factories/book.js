@@ -21,7 +21,7 @@ Factory.define('Page')
         chapter || fake.random.number({ min: 1, max: 10 }),
         section || fake.random.number({ min: 1, max: 5 }),
     ])
-    .content_html(fake.lorem.paragraphs)
+    .content_html(() => fake.lorem.paragraphs())
 
 
 Factory.define('Book')

@@ -96,7 +96,6 @@ export class PageNotes extends Map<ID, Note> {
         modelize(this);
         this.notes = notes;
         this.page = page;
-        this.fetch();
     }
 
     @computed get uuid() {
