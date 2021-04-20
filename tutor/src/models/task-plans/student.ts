@@ -1,4 +1,4 @@
-import Map from 'shared/model/map';
+import Map, { hydrateModel } from 'shared/model/map';
 import Time from 'shared/model/time'
 import { modelize, ID, getParentOf } from 'shared/model'
 import { computed, action, observable } from 'mobx';
@@ -80,8 +80,10 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
 
     // note: the response also contains limited course and role information but they're currently unused
     onLoaded({ tasks, research_surveys, all_tasks_are_ready }: TasksPayload) {
-        // console.log(tasks)
-        this.researchSurveys = research_surveys ? new ResearchSurveysMap(research_surveys) : null;
+        if (research_surveys) {
+            this.researchSurveys = hydrateModel(ResearchSurveysMap, {}, this)
+            this.researchSurveys.mergeModelData(research_surveys)
+        }
         this.mergeModelData(tasks);
         this.all_tasks_are_ready = !!all_tasks_are_ready;
     }

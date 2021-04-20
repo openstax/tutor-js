@@ -45,7 +45,7 @@ class Surveys extends React.Component {
         modelize(this);
     }
 
-    UNSAFE_componentWillMount() {
+    @action componentDidMount() {
         if (!this.studentTaskPlans.api.isFetchedOrFetching) {
             this.studentTaskPlans.fetch();
         }

@@ -78,11 +78,6 @@ export * from './models/course'
 
 export * from './models/courses-map'
 
-// export * from './models/course/onboarding/base'
-// export * from './models/course/onboarding/student-course'
-// export * from './models/course/onboarding/preview'
-// export * from './models/course/onboarding'
-
 export * from './models/tour/actions'
 export * from './models/tour/step'
 export * from './models/tour/context'
@@ -93,13 +88,9 @@ export * from './models/tour'
 export * from './models/user/terms'
 export * from './models/user'
 export * from './models/user/menu'
-// export * from './models/payments'
 
-export * from './models/research-surveys'
 export * from './models/research-surveys/survey'
-
-// export * from './models/chat'
-
+export * from './models/research-surveys'
 
 export * from './models/courses-map'
 

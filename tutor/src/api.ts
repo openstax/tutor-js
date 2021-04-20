@@ -129,6 +129,8 @@ const Definitions = {
 
     fetchOfferings:         r('GET', 'offerings'),
 
+    saveResearchSurvey:     r<{ surveyId: ID }>('PUT', 'research_surveys/{id}'),
+
 }
 
 export { Definitions }
@@ -150,7 +152,6 @@ export default urlFor
 //     // notes
 //
 //     connectModelUpdate(Survey, 'save',
-//         { pattern: 'research_surveys/{id}' }
 //     );
 //     connectModelRead(Purchases.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'purchases' });
 //     connectModelUpdate(
