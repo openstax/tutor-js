@@ -96,7 +96,29 @@ exports[`Course Settings, student access can switch to links 1`] = `
             className={null}
             onFocus={[Function]}
             readOnly={true}
-            value="http://test/period/1/Local-Test-Course-Two-Spring-2017"
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          2nd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          3rd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
           />
         </label>
       </div>
@@ -251,7 +273,29 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             className={null}
             onFocus={[Function]}
             readOnly={true}
-            value="http://test/period/1/Local-Test-Course-Two-Spring-2017"
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          2nd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          3rd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
           />
         </label>
       </div>
@@ -566,7 +610,29 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
             className={null}
             onFocus={[Function]}
             readOnly={true}
-            value="http://test/period/1/Local-Test-Course-Two-Spring-2017"
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          2nd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+          />
+        </label>
+        <label
+          className="copy-on-focus"
+        >
+          3rd
+          <input
+            className={null}
+            onFocus={[Function]}
+            readOnly={true}
+            value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
           />
         </label>
       </div>
@@ -653,7 +719,29 @@ exports[`Course Settings, student access renders with only link for non-lms enab
         className={null}
         onFocus={[Function]}
         readOnly={true}
-        value="http://test/period/1/Local-Test-Course-Two-Spring-2017"
+        value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+      />
+    </label>
+    <label
+      className="copy-on-focus"
+    >
+      2nd
+      <input
+        className={null}
+        onFocus={[Function]}
+        readOnly={true}
+        value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
+      />
+    </label>
+    <label
+      className="copy-on-focus"
+    >
+      3rd
+      <input
+        className={null}
+        onFocus={[Function]}
+        readOnly={true}
+        value="http://localhost:3001/enroll/78629/College-Physics-Spring-2017"
       />
     </label>
   </div>

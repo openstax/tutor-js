@@ -39,7 +39,6 @@ class StudentAccess extends React.Component {
         const isLMSEnabled = (type === 'lms');
         const { course } = this.props;
         if (course.is_lms_enabled === isLMSEnabled){ return; }
-
         if (!isLMSEnabled) {
             this.displayLinksWarning = displayLinksWarning;
             if (this.displayLinksWarning) {
@@ -62,10 +61,10 @@ class StudentAccess extends React.Component {
                 <div className="heading">
                     <h3 className="title">
                         <SelectedIcon checked={checked} />
-              Give students direct links
+                        Give students direct links
                     </h3>
                     <p className="info">
-              You will give students links to access OpenStax Tutor directly.
+                        You will give students links to access OpenStax Tutor directly.
                     </p>
                 </div>
             </div>
@@ -84,11 +83,11 @@ class StudentAccess extends React.Component {
                 <div className="heading">
                     <h3 className="title">
                         <SelectedIcon checked={checked} />
-              Integrate with your learning management system (LMS)
+                        Integrate with your learning management system (LMS)
                     </h3>
                     <p className="info">
-              Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send
-              student course averages to your LMS and enable single sign on.
+                        Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send
+                        student course averages to your LMS and enable single sign on.
                     </p>
                 </div>
             </div>
@@ -101,13 +100,11 @@ class StudentAccess extends React.Component {
         return (
             <div className="student-access direct-links-only">
                 <p>
-            Interested in learning management system (LMS)
-            integration? <a target="_blank" className="external-icon" href="https://openstax.secure.force.com/help/articles/FAQ/LMS-integration-for-OpenStax-Tutor-Beta">
-            Find out more.
-                    </a>
+                    Interested in learning management system (LMS)
+                    integration? <a target="_blank" className="external-icon" href="https://openstax.secure.force.com/help/articles/FAQ/LMS-integration-for-OpenStax-Tutor-Beta">Find out more.</a>
                 </p>
                 <p>
-            If not, send your students their section’s direct links (below) to enroll.
+                    If not, send your students their section’s direct links (below) to enroll.
                 </p>
                 {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
             </div>
@@ -138,10 +135,10 @@ class StudentAccess extends React.Component {
                     <Modal.Title>Direct links instead of LMS integration?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-            If you give students direct links, you won't be able to use
-            LMS integration features such as single sign on and sending
-            course averages to your LMS.  Are you sure you want students
-            to enroll using direct links?
+                    If you give students direct links, you won't be able to use
+                    LMS integration features such as single sign on and sending
+                    course averages to your LMS.  Are you sure you want students
+                    to enroll using direct links?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={this.forceLinksSwitch}>I'm sure</Button>
@@ -183,8 +180,8 @@ class StudentAccess extends React.Component {
             <div className="student-access">
                 {this.renderLinkSwitchWarning()}
                 <p>
-            Choose how students access OpenStax Tutor.
-            Access settings cannot be changed after students begin to enroll.
+                    Choose how students access OpenStax Tutor.
+                    Access settings cannot be changed after students begin to enroll.
                 </p>
                 <a href="https://openstax.secure.force.com/help/articles/FAQ/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots" target="_blank">
                     <Icon type="info-circle" /> Which option is right for my course?
