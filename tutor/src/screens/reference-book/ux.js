@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable, computed, action, modelize } from 'shared/model';
+import { observable, computed, action, modelize, override } from 'shared/model';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
 import { currentUser } from '../../models';
@@ -8,7 +8,7 @@ import BookTitle from './book-title';
 import SectionTitle from './section-title';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
-import { BookUX } from '../../models';
+import { BookUX } from '../../helpers/reference-book-base-ux';
 
 const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
@@ -80,7 +80,7 @@ export default class ReferenceBookUX extends BookUX {
         };
     }
 
-    @action.bound onNavSetSection(path) {
+    @override onNavSetSection(path) {
         this.history.push(path);
     }
 

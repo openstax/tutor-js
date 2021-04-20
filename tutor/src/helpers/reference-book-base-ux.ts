@@ -202,6 +202,7 @@ export class BookUX {
     }
 
     @computed get pagingProps() {
+
         return {
             onForwardNavigation: this.onNavSetSection,
             onBackwardNavigation: this.onNavSetSection,

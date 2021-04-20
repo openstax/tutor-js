@@ -1,5 +1,6 @@
-import ChapterSection from '../../../src/models/chapter-section';
+import { ChapterSection } from '../../../src/models';
 import SectionTitle from '../../../src/screens/reference-book/section-title';
+
 jest.mock('../../../src/models/student-tasks/task');
 
 describe('Section Title Component', () => {
