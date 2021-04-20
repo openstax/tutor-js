@@ -4,9 +4,14 @@ import { readonly } from 'core-decorators'
 import { isString, isNumber, isDate } from 'lodash'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
-import moment from 'moment'
+import moment from 'moment';
+import { extendMoment } from 'moment-range';
 import pluralize from 'pluralize';
 import { now as getNow } from 'mobx-utils'
+
+const { range } = extendMoment(moment as any);
+
+//console.log({ range })
 
 let shiftMs = 0;
 const defaultResolution = 1000 * 60; // one minute resolution
@@ -150,5 +155,9 @@ export class Interval {
         if (hours) str.push(pluralize('hour', hours, true))
         if (minutes) str.push(pluralize('minute', minutes, true))
         return str.join(' ')
+    }
+
+    get asMoment() {
+        return range(this.start.asDate, this.end.asDate)
     }
 }

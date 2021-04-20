@@ -13,7 +13,7 @@ import Plan from './plan';
 @observer
 class Month extends React.Component {
     static propTypes = {
-        date: TimeHelper.PropTypes.moment,
+        date: TimeHelper.PropTypes.time,
         course: PropTypes.instanceOf(Course).isRequired,
         onDrop: PropTypes.func.isRequired,
         onDrag: PropTypes.func.isRequired,
@@ -42,7 +42,7 @@ class Month extends React.Component {
 
         const plans = teacherTaskPlans.active.array.map(plan => ({
             plan,
-            range: plan.dateRanges.due,
+            range: plan.dateRanges.due.asMoment,
             className: `type-${plan.type}`,
             render: ({ event }) => (
                 <Plan
@@ -94,7 +94,7 @@ class Month extends React.Component {
                     <div className="month-wrapper">
                         <Dayz
                             highlightDays={this.getClassNameForDate}
-                            date={date}
+                            date={date.asMoment}
                             events={this.events}
                             dayEventHandlers={{
                                 onClick: onDayClick,
