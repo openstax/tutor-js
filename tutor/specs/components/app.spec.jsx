@@ -1,23 +1,27 @@
 import { C } from '../helpers';
 import App from '../../src/components/app';
-import User from '../../src/models/user';
+import { currentUser } from '../../src/models';
+
 jest.mock('../../src/models/user', () => ({
-    recordSessionStart: jest.fn(),
-    logEvent: jest.fn(),
-    verifiedRoleForCourse() {
-        return 'teacher';
-    },
-    can_create_courses: true,
-    terms: {
-        areSignaturesNeeded: false,
-        fetchIfNeeded() {},
-        api: {
-            isPending: false,
+    currentUser: {
+        tourAudienceTags: [],
+        recordSessionStart: jest.fn(),
+        logEvent: jest.fn(),
+        verifiedRoleForCourse() {
+            return 'teacher';
         },
-    },
+        can_create_courses: true,
+        terms: {
+            areSignaturesNeeded: false,
+            fetchIfNeeded() {},
+            api: {
+                isPending: false,
+            },
+        },
+    }
 }));
 
-jest.mock('../../src/models/chat');
+jest.mock('../../src/helpers/chat');
 
 describe('main Tutor App', () => {
 
@@ -37,7 +41,7 @@ describe('main Tutor App', () => {
 
     it('records user session', () => {
         mount(<C><App {...props} /></C>);
-        expect(User.recordSessionStart).toHaveBeenCalled();
+        expect(currentUser.recordSessionStart).toHaveBeenCalled();
     });
 
 });

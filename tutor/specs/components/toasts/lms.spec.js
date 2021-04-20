@@ -1,7 +1,7 @@
 import { LMSErrors } from '../../../src/components/toasts/lms';
-import { getPortalNode as PC } from '../../helpers';
+import { hydrateModel, runInAction, getPortalNode as PC } from '../../helpers';
 
-import { Toast } from 'shared/model/toasts';
+import { Toast } from '../../../src/models';
 jest.useFakeTimers();
 
 describe('LMS Background job toasts', () => {
@@ -10,7 +10,7 @@ describe('LMS Background job toasts', () => {
     let props;
 
     beforeEach(() => {
-        const toast = new Toast({
+        const toast = hydrateModel(Toast, {
             succeeded: true,
             handler: 'job',
             type: 'lms',
@@ -32,9 +32,11 @@ describe('LMS Background job toasts', () => {
         expect(PC(toast).textContent).toContain(
             'Course averages for 1 student could not be sent'
         );
-        toast.props().toast.info.errors.push({
-            student_identifier: '4321', student_name: 'Jane', score: 0.923,
-        });
+        runInAction(() =>
+          toast.props().toast.info.errors.push({
+              student_identifier: '4321', student_name: 'Jane', score: 0.923,
+          })
+        );
         toast = mount(<LMSErrors {...props} />);
         expect(PC(toast).textContent).toContain(
             'Course averages for 2 students could not be sent'
