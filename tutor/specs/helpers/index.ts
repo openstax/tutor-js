@@ -22,6 +22,16 @@ const delay = async (timeout = 3) =>
 
 const deferred = (fn: any, timeout = 3) => delay(timeout).then(fn);
 
+export const waitFor = async (cb: () => any) => {
+    for (let i = 0; i < 30; i++) {
+        const result = cb()
+        if (result) {
+            return result
+        }
+        await delay(100)
+    }
+}
+
 export {
     Router, TimeMock, TestRouter, TutorRouter, delay,
     Factory, FactoryBot, deferred, C, R,

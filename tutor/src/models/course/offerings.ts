@@ -1,5 +1,6 @@
 import { computed, action } from 'mobx';
 import Map, { ID, modelize } from 'shared/model/map';
+import urlFor from '../../api';
 import type { OfferingObj } from '../../models'
 import { Offering } from '../../models'
 
@@ -34,6 +35,11 @@ export class OfferingsMap extends Map<ID, Offering> {
 
     @action bootstrap(items: OfferingObj[] ) {
         this.replace(this.arrayToObject(items))
+    }
+
+    async fetch() {
+        const { items } = await this.api.request(urlFor('fetchOfferings'))
+        this.mergeModelData(items)
     }
 
 }

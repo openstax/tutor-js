@@ -1,6 +1,6 @@
 import { BaseModel, computed, action, observable, modelize } from 'shared/model';
 import { find, filter, each } from 'lodash';
-import type { Tour, TourContext, TourRegion } from '../tour'
+import type { Tour, TourContext, TourRegion, TourStep } from '../../models'
 
 export class TourRide extends BaseModel {
 
@@ -11,6 +11,7 @@ export class TourRide extends BaseModel {
     @observable _stepIndex = 0;
     @observable _isReady = false;
     @observable joyrideRef: any;
+    @observable windowStub: any
 
     constructor({ tour, context, region }: { tour: Tour, context: TourContext, region: TourRegion }) {
         super();
@@ -33,7 +34,7 @@ export class TourRide extends BaseModel {
     }
 
     @action.bound onCancel() {
-        this.currentStep.complete({ prevStep: this.prevStep });
+        this.currentStep?.complete({ prevStep: this.prevStep });
         this.markComplete(true);
     }
 
@@ -42,14 +43,14 @@ export class TourRide extends BaseModel {
         this.context.onTourComplete({ exitedEarly });
     }
 
-    @computed get props() {
+    @computed get props(): { ride: TourRide, step: TourStep | null } {
         return {
             ride: this,
             step: this.currentStep,
         };
     }
 
-    @computed get currentStep() {
+    @computed get currentStep(): TourStep | null {
         return (this.validSteps.length && this.validSteps[this._stepIndex]) || null;
     }
 
@@ -73,7 +74,7 @@ export class TourRide extends BaseModel {
 
     @action.bound async onPrevStep() {
         const { prevStep } = this;
-        await this.currentStep.complete({ nextStep: prevStep });
+        await this.currentStep?.complete({ nextStep: prevStep });
         if (!prevStep) {
             return Promise.resolve();
         }
@@ -84,7 +85,7 @@ export class TourRide extends BaseModel {
 
     @action.bound async onNextStep() {
         const { nextStep } = this;
-        await this.currentStep.complete({ nextStep });
+        await this.currentStep?.complete({ nextStep });
         if (!nextStep) {
             this.markComplete();
             return Promise.resolve();

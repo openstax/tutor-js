@@ -1,15 +1,21 @@
-import { React, Factory, TimeMock } from '../../helpers';
+import { ApiMock, React, Factory, TimeMock } from '../../helpers';
 import SelectDates from '../../../src/screens/new-course/select-dates';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
+    currentUser: {
+        canCreateCourses: true,
+    },
 }));
 
 describe('CreateCourse: Selecting course dates', function() {
     let ux;
 
     TimeMock.setTo('2018-12-01T12:00:00.000Z');
+
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     beforeEach(() => {
         ux = new BuilderUX({

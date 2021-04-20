@@ -127,6 +127,8 @@ const Definitions = {
     pushLmsScores:          r<CourseId>('PUT', 'lms/courses/{courseId}/push_scores'),
     scoresExport:           r<CourseId>('PUT', 'courses/{courseId}/performance/export'),
 
+    fetchOfferings:         r('GET', 'offerings'),
+
 }
 
 export { Definitions }
