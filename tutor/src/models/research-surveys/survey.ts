@@ -1,5 +1,6 @@
 import { pick } from 'lodash';
 import { BaseModel, field, modelize, computed, NEW_ID } from 'shared/model';
+import urlFor from '../../api';
 
 export class ResearchSurvey extends BaseModel {
     @field id = NEW_ID;
@@ -22,7 +23,9 @@ export class ResearchSurvey extends BaseModel {
     }
 
     // called from API
-    save() {
-        return { id: this.id, data: pick(this, 'response') };
+    async save() {
+        this.api.request(urlFor('saveResearchSurvey', { surveyId: this.id }, {
+            data: pick(this, 'response'),
+        }))
     }
 }

@@ -15142,10 +15142,10 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-survey-react@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/survey-react/-/survey-react-1.1.7.tgz#b37538d222aa64779ba2456f414639c25e2559a7"
-  integrity sha512-q+a0ZW2HWcjru+tjk7v7jibOtlVP47xxRjpmvUkyfgaKWtaI5UtVPRGtEXMBMY3V8Sxy8xnhznhdDBPHeecGFg==
+survey-react@^1.8.43:
+  version "1.8.43"
+  resolved "https://registry.yarnpkg.com/survey-react/-/survey-react-1.8.43.tgz#9b052abb75b3ce958948d6252282cc6e48bf4adf"
+  integrity sha512-sVxSXPRhAHyrRnifAZ3JrXg/6zKt+ti1VUYzcAUpQmDtN1naEOgdI9TFvJL+iuijzWCN6lN0hB0w3F2qgwLzzA==
 
 svg-url-loader@3.0.0:
   version "3.0.0"
