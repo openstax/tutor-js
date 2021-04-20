@@ -59,7 +59,7 @@ export default class AssignmentUX {
                 if (id && id != 'new') {
                     const existing = course.teacherTaskPlans.get(id);
                     if (existing) {
-                        this.plan.update( existing.serialize() );
+                        this.plan.update( existing.toJSON() );
                     }
                 }
             }
@@ -282,7 +282,7 @@ export default class AssignmentUX {
     }
 
     get formValues() {
-        return this.plan.serialize();
+        return this.plan.toJSON();
     }
 
     @computed get isApiPending() {
