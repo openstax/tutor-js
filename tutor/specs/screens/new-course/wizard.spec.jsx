@@ -1,25 +1,25 @@
-import { R, React } from '../../helpers';
+import { R, React, ApiMock, Factory, waitFor } from '../../helpers';
 import Router from '../../../src/helpers/router';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Wizard from '../../../src/screens/new-course/wizard';
-import { OfferingsMap, Offering } from '../../../src/models/course/offerings';
+import { OfferingsMap } from '../../../src/models'
 
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
+    currentUser: {
+        canCreateCourses: true,
+    },
 }));
 
 describe('Creating a course', function() {
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     let props;
     beforeEach(() => {
         Router.currentParams.mockReturnValue({});
         const offerings = new OfferingsMap();
-        offerings.fetch = jest.fn(function() {
-            this.api.requestsInProgress.set('fake','fake');
-            this.set(1, new Offering({ id: 1, title: 'Test Offering' }));
-            return Promise.resolve();
-        });
         props = {
             ux: new BuilderUX({
                 router: { match: { params: {} } },
@@ -28,27 +28,28 @@ describe('Creating a course', function() {
         };
     });
 
-    it('displays as loading and then sets stage when done', async function() {
+    it('displays as loading and then sets stage when done', async () => {
         const wrapper = mount(<R><Wizard {...props} /></R>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(props.ux.isBusy).toBe(true);
         expect(wrapper).toHaveRendered('StaxlyAnimation[isLoading=true]');
-        props.ux.offerings.api.requestsInProgress.clear();
+        await waitFor(() => !props.ux.isBusy)
+
+        // props.ux.offerings.api.requestsInProgress.clear();
         expect(wrapper).toHaveRendered('StaxlyAnimation[isLoading=false]');
     });
 
     it('advances and can go back', async function() {
         const wrapper = mount(<R><Wizard {...props} /></R>);
+        expect(props.ux.isBusy).toBe(true)
 
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(props.ux.currentStageIndex).toEqual(0);
-        props.ux.offerings.api.requestsInProgress.clear();
-        expect(props.ux.isBusy).toBe(false);
+        await waitFor(() => !props.ux.isBusy)
 
         expect(wrapper).toHaveRendered('SelectCourse');
         expect(wrapper).toHaveRendered('.btn.next[disabled=true]');
-
         wrapper.find('.choice').simulate('click');
+        expect(props.ux.isCurrentStageValid).toBe(true)
+        expect(props.ux.canGoForward).toBe(true)
         wrapper.find('.btn.next[disabled=false]').simulate('click');
         expect(props.ux.currentStageIndex).toEqual(1);
         expect(wrapper).toHaveRendered('SelectDates');

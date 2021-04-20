@@ -7,6 +7,7 @@ import { when, observable, computed, action, observe } from 'mobx';
 import { Course, CourseCreate, currentUser, currentOfferings, currentCourses } from '../../models';
 import Router from '../../helpers/router';
 
+
 export default class CourseBuilderUX extends BaseModel {
 
     @readonly course = new Course();
@@ -35,7 +36,11 @@ export default class CourseBuilderUX extends BaseModel {
         this.router = router;
         this.offerings = offerings;
         this.courses = courses;
-        this.newCourse = new CourseCreate({ courses: currentCourses, offerings: currentOfferings, offering_id: this.preselectedOfferingId });
+        this.newCourse = new CourseCreate({
+            courses: courses,
+            offerings: offerings,
+            offering_id: this.preselectedOfferingId,
+        });
 
         if (!currentUser.canCreateCourses) {
             delay(() => // use delay in case we're called from a React constructor
@@ -68,6 +73,7 @@ export default class CourseBuilderUX extends BaseModel {
             }
         });
         const { sourceId } = this.params;
+
         if (sourceId) {
             this.source = this.courses.get(sourceId);
         }
@@ -210,9 +216,10 @@ export default class CourseBuilderUX extends BaseModel {
 
     // skips
     skip_new_or_copy() {
-        return Boolean(
+        const sk = Boolean(
             this.source || isEmpty(this.cloneSources)
         );
+        return sk
     }
 
     skip_cloned_from_id() {

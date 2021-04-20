@@ -1,13 +1,18 @@
-import { React, Factory } from '../../helpers';
+import { ApiMock, React, Factory } from '../../helpers';
 import SelectCourse from '../../../src/screens/new-course/select-course';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
+    currentUser: {
+        canCreateCourses: true,
+    },
 }));
 
 describe('CreateCourse: Selecting course subject', function() {
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     let ux;
     beforeEach(() => {

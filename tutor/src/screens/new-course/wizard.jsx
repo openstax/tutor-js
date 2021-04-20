@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, cn, observable, modelize } from 'vendor';
+import { React, PropTypes, observer, cn, action, observable, modelize } from 'vendor';
 import { Button, Card } from 'react-bootstrap';
 import { pick, isFunction } from 'lodash';
 import { withRouter } from 'react-router-dom';
@@ -82,6 +82,10 @@ class NewCourseWizard extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
+    }
+
+    @action componentDidMount() {
+        this.ux.offerings.fetch()
     }
 
     render() {

@@ -15,8 +15,7 @@ class SelectCourse extends React.Component {
         modelize(this);
     }
 
-    @action.bound
-    onSelect(offering) {
+    @action.bound onSelect(offering) {
         this.props.ux.newCourse.offering = offering;
     }
 

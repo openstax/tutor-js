@@ -1,14 +1,19 @@
-import { C, React, Factory } from '../../helpers';
+import { ApiMock, C, React, Factory } from '../../helpers';
 import CourseNumbers from '../../../src/screens/new-course/course-numbers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
+    currentUser: {
+        canCreateCourses: true,
+    },
 }));
 
 describe('CreateCourse: entering details', function() {
 
     let ux;
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     beforeEach(() => {
         ux = new BuilderUX({
