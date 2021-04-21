@@ -1,6 +1,8 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 import { isEmpty, clone, first } from 'lodash';
+import { PropTypes } from 'prop-types'
+import Time from 'shared/model/time'
 
 // List of allowed http://www.iana.org/time-zones
 const TIMEZONES = [
@@ -87,6 +89,8 @@ const TimeHelper = {
     },
 
     PropTypes: {
+        time: PropTypes.instanceOf(Time),
+
         moment(props, propName, componentName) {
             if (!moment.isMoment(props[propName])) {
                 return new Error(`${propName} should be a moment for ${componentName}`);

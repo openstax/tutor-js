@@ -1,5 +1,4 @@
 import { React, observable, observer, action, cn, modelize } from 'vendor';
-import moment from 'moment';
 import { get, invoke } from 'lodash';
 import 'moment-timezone';
 import { withRouter } from 'react-router-dom';
@@ -19,7 +18,7 @@ import AddAssignmentPopup from './add-assignment-popup';
 @observer
 export default class TeacherDashboard extends React.Component {
     static propTypes = {
-        date: TimeHelper.PropTypes.moment,
+        date: TimeHelper.PropTypes.time,
         className: PropTypes.string,
         hasPeriods: PropTypes.bool.isRequired,
         dateFormat: PropTypes.string.isRequired,
@@ -27,10 +26,11 @@ export default class TeacherDashboard extends React.Component {
         showingSideBar: PropTypes.bool.isRequired,
         history: PropTypes.object.isRequired,
         params: PropTypes.object,
+        match: PropTypes.object,
     };
 
     static defaultProps = {
-        date: moment(Time.now),
+        date: Time.now,
         params: {},
     };
 
@@ -44,9 +44,16 @@ export default class TeacherDashboard extends React.Component {
         modelize(this);
     }
 
+    get date() {
+
+        const { date } = this.props.match.params
+
+        return date ? new Time(date) : this.props.date
+    }
+
     @action.bound setDate(date) {
         const { course, params } = this.props;
-        if (moment(date).isSame(this.props.date, 'month')) {
+        if (this.props.date.isSame(date, 'month')) {
             return;
         }
         const newParams = {
@@ -54,6 +61,7 @@ export default class TeacherDashboard extends React.Component {
             courseId: course.id,
             date: date.format(this.props.dateFormat),
         };
+
         this.props.history.push(
             TutorRouter.makePathname('calendarByDate', newParams)
         );
@@ -76,7 +84,7 @@ export default class TeacherDashboard extends React.Component {
     }
 
     getFullMonthName = () => {
-        return invoke(this.props.date, 'format', 'MMMM');
+        return invoke(this.date, 'format', 'MMMM');
     };
 
     @action.bound onDrop(item) {
@@ -117,7 +125,7 @@ export default class TeacherDashboard extends React.Component {
     }
 
     render() {
-        const { course, className, date, hasPeriods, history } = this.props;
+        const { date, props: { course, className, hasPeriods, history } } = this;
 
         const calendarClassName = cn('calendar-container', className,
             { 'with-sidebar-open': this.props.showingSideBar }

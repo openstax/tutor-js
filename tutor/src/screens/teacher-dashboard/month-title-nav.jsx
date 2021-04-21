@@ -8,7 +8,7 @@ class CourseCalendarTitleNav extends React.Component {
 
     static propTypes = {
         setDate: PropTypes.func.isRequired,
-        date: TimeHelper.PropTypes.moment,
+        date: TimeHelper.PropTypes.time,
         format: PropTypes.string.isRequired,
         duration: PropTypes.string.isRequired,
     };
@@ -20,7 +20,7 @@ class CourseCalendarTitleNav extends React.Component {
 
     handleNavigate = (subtractOrAdd, clickEvent) => {
         const { duration } = this.props;
-        const date = this.props.date.clone()[subtractOrAdd](1, duration);
+        const date = this.props.date[subtractOrAdd]({ [`${duration}`]: 1 });
         clickEvent.preventDefault();
         this.props.setDate(date);
     };
@@ -31,11 +31,11 @@ class CourseCalendarTitleNav extends React.Component {
     }
 
     @action.bound handleNext(clickEvent) {
-        this.handleNavigate('add', clickEvent);
+        this.handleNavigate('plus', clickEvent);
     }
 
     @action.bound handlePrevious(clickEvent) {
-        this.handleNavigate('subtract', clickEvent);
+        this.handleNavigate('minus', clickEvent);
     }
 
     render() {

@@ -48,7 +48,7 @@ class PastAssignments extends React.Component {
         this.hoveredPlan = plan;
     }
 
-    componentDidMount() {
+    @action componentDidMount() {
         const { course } = this.props;
         if (course.isCloned) { course.pastTaskPlans.fetch(); }
     }

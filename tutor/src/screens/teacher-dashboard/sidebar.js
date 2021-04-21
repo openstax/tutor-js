@@ -65,11 +65,6 @@ export default class AddAssignmentSidebar extends React.Component {
         CalendarHelper.shouldIntro() && !(USE_SETTINGS ? UiSettings.get(IS_INTRO_VIEWED) : false)
     )
 
-    addMenu = new AddMenu({
-        history: this.props.history, renderMenuLink: this.renderMenuLink,
-        isSidebar: true,
-    });
-
     constructor(props) {
         super(props);
         modelize(this);
@@ -103,13 +98,20 @@ export default class AddAssignmentSidebar extends React.Component {
         this.shouldShowIntro = false;
     }
 
-    @action.bound renderMenuLink(link, goToBuilder) {
+    @action renderMenuLink = (link, goToBuilder) => {
         return (
             <TourAnchor tag="li" key={link.type} id={`sidebar-add-${link.type}-assignment`}>
                 <AddAssignmentLink link={link} goToBuilder={partial(goToBuilder, link.pathname, null)} onDrag={this.onPopoverClose} />
             </TourAnchor>
         );
     }
+
+
+    addMenu = new AddMenu({
+        history: this.props.history, renderMenuLink: this.renderMenuLink,
+        isSidebar: true,
+    });
+
 
     render() {
         return (
@@ -122,7 +124,7 @@ export default class AddAssignmentSidebar extends React.Component {
                         <Separator />
                     </GradingTemplateLinkWrapper>
                     <div className="section-label">
-            New
+                        New
                     </div>
                     <ul
                         className={cn('new-assignments', { 'is-intro': this.shouldShowIntro })}
