@@ -1,6 +1,6 @@
 import { C, TimeMock } from '../../helpers';
 import Payments from '../../../src/components/payments/manage';
-import { Purchases, PaymentModel } from '../../../src/models/purchases';
+import { Purchases, PaymentModel } from '../../../src/models';
 import Router from '../../../src/helpers/router';
 import mockData from '../../../api/purchases.json';
 

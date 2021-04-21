@@ -7,7 +7,9 @@ import { hydrateModel, runInAction } from '../../helpers';
 jest.mock('../../../src/helpers/chat');
 // jest.mock('../../../src/models/tour/region');
 jest.mock('../../../src/models/user', () => ({
-    tourAudienceTags: ['teacher'],
+    currentUser: {
+        tourAudienceTags: ['teacher'],
+    }
 }));
 
 describe('Support Menu', () => {
@@ -18,8 +20,8 @@ describe('Support Menu', () => {
     beforeEach(() => {
         runInAction(() => {
             Chat.isEnabled = false;
+            tourContext = hydrateModel(TourContext, { isEnabled: true });
         });
-        tourContext = hydrateModel(TourContext, { isEnabled: true });
         region = hydrateModel(TourRegion, { id: 'teacher-calendar', courseId: '2' });
         props = {
             tourContext,

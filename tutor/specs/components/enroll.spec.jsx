@@ -1,6 +1,6 @@
-import { R, Factory, TutorRouter } from '../helpers';
+import { R, Factory, TutorRouter, hydrateModel, runInAction } from '../helpers';
 import Enroll from '../../src/components/enroll';
-import EnrollModel from '../../src/models/course/enroll';
+import { CourseEnrollment } from '../../src/helpers/enroll';
 
 jest.mock('../../src/helpers/router');
 jest.mock('../../src/models/user', () => ({
@@ -22,7 +22,7 @@ describe('Student Enrollment', () => {
         coursesMap.set(course.id, course);
         params = { courseId: course.id };
 
-        enrollment = new EnrollModel({
+        enrollment = hydrateModel(CourseEnrollment, {
             history: { push: jest.fn() },
             courses: coursesMap, enrollment_code: '1234',
         });
@@ -77,7 +77,10 @@ describe('Student Enrollment', () => {
 
     describe('select periods', () => {
         beforeEach(() => {
-            enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938';
+            runInAction(() =>
+                enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938'
+            );
+
 
             enrollment.onEnrollmentCreate({
                 data: {

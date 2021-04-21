@@ -1,10 +1,10 @@
+import { hydrateModel } from '../../helpers';
 import TourAnchor from '../../../src/components/tours/anchor';
-
-import TourContext from '../../../src/models/tour/context';
+import { TourContext } from '../../../src/models';
 
 describe('Tour Region', () => {
     it('checks in with tour context when mounting/unmounting', async () => {
-        const context = new TourContext();
+        const context = hydrateModel(TourContext, {});
         const wrapper = mount(
             <TourAnchor id='teacher-calendar-event' tourContext={context}>
                 <span>Hello</span>
