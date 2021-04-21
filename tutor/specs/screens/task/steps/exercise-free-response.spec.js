@@ -4,8 +4,7 @@ import {
 import TaskUX from '../../../../src/screens/task/ux';
 import { ApiMock, Factory, TestRouter, runInAction, TimeMock, C } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
-import ResponseValidation from '../../../../src/models/response_validation';
-import Raven from '../../../../src/models/app/raven';
+import { ResponseValidation, Raven } from '../../../../src/models'
 
 jest.mock('lodash/random', () => () => 1); // lock nudge message
 jest.mock('../../../../src/models/app/raven');

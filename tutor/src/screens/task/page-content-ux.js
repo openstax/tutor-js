@@ -1,5 +1,5 @@
 import { action, modelize } from 'shared/model';
-import { BookUX } from '../../models';
+import { BookUX } from '../../helpers/reference-book-base-ux'
 
 export default class PageContentUX extends BookUX {
 

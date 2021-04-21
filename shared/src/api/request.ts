@@ -86,6 +86,7 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
         }
         const origin = options?.origin || baseUrl
         const resp = await fetch(`${origin}/${url}`, req)
+
         if (resp.ok) {
             const respJson = await resp.json()
             return await respJson as RetT

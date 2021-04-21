@@ -136,7 +136,7 @@ class ExerciseControls extends React.Component {
         ux: PropTypes.object.isRequired,
         sectionizerProps: PropTypes.object,
         hideSectionizer: PropTypes.bool,
-        onDisplayAddEditQuestionModal: PropTypes.func.isRequired,
+        onDisplayAddEditQuestionModal: PropTypes.func,
         showingDetails: PropTypes.bool,
     };
 
@@ -227,11 +227,13 @@ class ExerciseControls extends React.Component {
                     // if we add or delete an element.
                     exercises={ux.exercises ? ux.exercises.homework : null}
                     returnFilteredExercises={(ex) => ux.onFilterHomeworkExercises(ex)}/>
-                <Button
-                    variant="primary"
-                    onClick={() => onDisplayAddEditQuestionModal(true)}>
-              Create question
-                </Button>
+                {onDisplayAddEditQuestionModal && (
+                    <Button
+                        variant="primary"
+                        onClick={() => onDisplayAddEditQuestionModal(true)}
+                    >
+                        Create question
+                    </Button>)}
             </Filters>
         );
     }

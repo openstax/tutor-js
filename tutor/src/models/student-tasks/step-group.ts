@@ -1,4 +1,4 @@
-import { BaseModel, model, computed, action, field, NEW_ID, array } from 'shared/model';
+import { BaseModel, model, modelize, computed, action, field, NEW_ID, array, hydrateInstance } from 'shared/model';
 import { StudentTaskStep } from '../../models'
 import { readonly } from 'core-decorators';
 
@@ -21,9 +21,16 @@ export class StudentTaskStepGroup extends BaseModel {
         return `${s.type}.${s.uid || s.id}`;
     }
 
+    static hydrate(attrs: any) {
+        const stg = new StudentTaskStepGroup()
+        hydrateInstance(stg, attrs)
+        stg.steps.forEach((s) => s.multiPartGroup = stg)
+        return stg
+    }
+
     constructor() {
         super()
-        this.steps.forEach((s) => s.multiPartGroup = this)
+        modelize(this)
     }
 
     @computed get needsFetched() {

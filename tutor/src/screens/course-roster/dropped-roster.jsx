@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, modelize } from 'vendor'
+import { React, PropTypes, observer } from 'vendor'
 import { Table } from 'react-bootstrap';
 import { map, sortBy, isEmpty } from 'lodash';
 import { autobind } from 'core-decorators';
@@ -12,11 +12,6 @@ export default
 class DroppedRoster extends React.Component {
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
-    }
-
-    constructor(props) {
-        super(props);
-        modelize(this);
     }
 
     @autobind

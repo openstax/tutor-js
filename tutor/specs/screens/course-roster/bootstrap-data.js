@@ -3,7 +3,7 @@ import COURSE from '../../../api/user/courses/1.json';
 import ROSTER from '../../../api/courses/1/roster.json';
 import Roster from '../../../src/screens/course-roster';
 
-export { Roster, currentCourses };
+export { ROSTER, Roster, currentCourses };
 
 const COURSE_ID = '1';
 

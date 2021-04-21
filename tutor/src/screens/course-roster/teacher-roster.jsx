@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, modelize } from 'vendor'
+import { React, PropTypes, observer } from 'vendor'
 import { Table } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import RemoveTeacherLink from './remove-teacher';
@@ -10,11 +10,6 @@ export default
 class TeacherRoster extends React.Component {
     static propTypes = {
         course: PropTypes.instanceOf(Course).isRequired,
-    }
-
-    constructor(props) {
-        super(props);
-        modelize(this);
     }
 
     @autobind renderRow(teacher) {

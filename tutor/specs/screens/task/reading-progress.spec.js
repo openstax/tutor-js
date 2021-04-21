@@ -1,11 +1,16 @@
 import UX from '../../../src/screens/task/ux';
 import ReadingNavbar from '../../../src/screens/task/reading-navbar';
-import { TestRouter, Factory, C, ld, TimeMock } from '../../helpers';
+import { ApiMock, TestRouter, Factory, C, ld, TimeMock } from '../../helpers';
 
 describe('Homework Breadcrumbs Component', () => {
     let props;
     let task;
     let history;
+
+    ApiMock.intercept({
+        'steps': Factory.data('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
 
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
     beforeEach(() => {

@@ -29,7 +29,11 @@ class StudentTaskInfoStep {
     @computed get id() {
         return this.type;
     }
-
+    api = {
+        errors: {
+            any: false,
+        },
+    }
     get preview() {
         return 'end' == this.type ? `${this.task?.title || 'Task'} Completed` : TITLES[this.type];
     }

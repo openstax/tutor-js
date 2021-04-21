@@ -105,7 +105,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
     <div>
       <div
         className="c0"
-        data-task-step-id={1}
+        data-task-step-id={0}
       >
         <div
           className="c1 reading-step "

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, modelize } from 'vendor'
+import { React, PropTypes, observer } from 'vendor'
 import { isEmpty, sortBy } from 'lodash';
 import { Table } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
@@ -14,11 +14,6 @@ export default
 class StudentsRoster extends React.Component {
     static propTypes = {
         period: PropTypes.instanceOf(CoursePeriod).isRequired,
-    }
-
-    constructor(props) {
-        super(props);
-        modelize(this);
     }
 
     @autobind
@@ -69,16 +64,16 @@ class StudentsRoster extends React.Component {
                 <thead>
                     <tr>
                         <th>
-              First Name
+                            First Name
                         </th>
                         <th>
-              Last Name
+                            Last Name
                         </th>
                         <th className="student-id">
-              Student ID
+                            Student ID
                         </th>
                         <th>
-              Actions
+                            Actions
                         </th>
                     </tr>
                 </thead>

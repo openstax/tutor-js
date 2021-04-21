@@ -1,6 +1,6 @@
 import { React, observable, computed, action, modelize } from 'vendor';
 import Router from '../../helpers/router';
-import { runInAction, observe } from 'mobx';
+import { runInAction, observe, hydrateModel } from 'shared/model'
 import ScrollTo from '../../helpers/scroll-to';
 import {
     filter, isEmpty, compact, map, get, first, difference, flatMap, omit, pick, extend, every,
@@ -222,7 +222,7 @@ export default class AssignmentUX {
             return this._referenceBook;
         }
         if (this.plan.ecosystem_id && this.plan.ecosystem_id != this.course.ecosystem_id) {
-            this._referenceBook = new ReferenceBook({ id: this.plan.ecosystem_id });
+            this._referenceBook = hydrateModel(ReferenceBook, { id: this.plan.ecosystem_id });
         } else {
             this._referenceBook = this.course.referenceBook;
         }

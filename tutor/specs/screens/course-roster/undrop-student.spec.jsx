@@ -1,5 +1,5 @@
-import Student from '../../../src/models/course/student';
-import { getPortalNode as PC } from '../../helpers';
+import { CourseStudent } from '../../../src/models'
+import { getPortalNode as PC, hydrateModel } from '../../helpers';
 import UndropStudent from '../../../src/screens/course-roster/undrop-student';
 import { courseRosterBootstrap } from './bootstrap-data';
 
@@ -9,7 +9,7 @@ describe('Course Settings, undrop student', function() {
 
     beforeEach(function() {
         props = courseRosterBootstrap();
-        props.student = new Student(props.course.roster.students[0]);
+        props.student = hydrateModel(CourseStudent, props.course.roster.students[0]);
         props.student.unDrop = jest.fn();
     });
 

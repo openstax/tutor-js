@@ -1,5 +1,5 @@
 import ExerciseQuestion from '../../../../src/screens/task/step/exercise-question';
-import { Factory, C, deferred } from '../../../helpers';
+import { ApiMock, Factory, C, deferred } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -11,6 +11,11 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 describe('Exercise Free Response', () => {
     let props;
 
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
+
     beforeEach(() => {
         const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
         const ux = new UX();
@@ -19,11 +24,11 @@ describe('Exercise Free Response', () => {
         props = { ux, step, question: step.content.questions[0] };
     });
 
-    it('switches from free response to m/c', () => {
+    it('switches from free response to m/c', async () => {
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
         expect(eq).toHaveRendered('FreeResponseInput');
         props.ux.canUpdateCurrentStep = true
-        setFreeResponse(eq, { value: 'this is real answer' });
+        await setFreeResponse(eq, { value: 'this is real answer' });
         return deferred(() => {
             expect(eq).not.toHaveRendered('FreeResponseInput');
             expect(eq).toHaveRendered('FreeResponseReview');
@@ -32,18 +37,18 @@ describe('Exercise Free Response', () => {
         })
     });
 
-    it('renders exercise questions', () => {
+    it('renders exercise questions', async () => {
         props.ux.questionNumberForStep = jest.fn(() => 42);
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
-        setFreeResponse(eq, { value: 'this is real answer' });
+        await setFreeResponse(eq, { value: 'this is real answer' });
         expect(eq).toHaveRendered('[data-question-number=42]');
         eq.unmount();
     });
 
-    it('can answer question', () => {
+    it('can answer question', async () => {
         const { step } = props;
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
-        setFreeResponse(eq, { value: 'this is real answer' });
+        await setFreeResponse(eq, { value: 'this is real answer' });
         expect(props.ux.onFreeResponseComplete).toHaveBeenCalledWith(
             step, { wasModified: false },
         );

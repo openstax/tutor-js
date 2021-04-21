@@ -1,9 +1,9 @@
 import {
     BaseModel, field, observable, computed, array, action, model, modelize,
-    NEW_ID, lazyGetter, hydrateModel, hydrateInstance, getParentOf,
+    NEW_ID, lazyGetter, hydrateModel, getParentOf,
 } from 'shared/model';
 import S from '../../helpers/string';
-import { pick, get, isNil } from 'lodash';
+import { pick, get, isNil, omit } from 'lodash';
 import { extractCnxId } from '../../helpers/content';
 import { MediaActions } from '../../flux/media';
 import Time from 'shared/model/time';
@@ -282,7 +282,7 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @action onLoaded(data: any) {
-        hydrateInstance(this, data)
+        this.update(omit(data, 'id'))
         const Klass = ContentClasses[this.type];
         if (!Klass) {
             throw new Error(`Attempted to set content on unknown step type ${this.type}`);

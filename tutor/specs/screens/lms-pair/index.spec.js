@@ -1,4 +1,4 @@
-import { Factory, C } from '../../helpers';
+import { Factory, C, ApiMock } from '../../helpers';
 import LmsPair from '../../../src/screens/lms-pair';
 import UX from '../../../src/screens/lms-pair/ux';
 
@@ -6,6 +6,10 @@ describe('pairing a course', () => {
 
     let props;
     let courses;
+
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     beforeEach(() => {
         courses = Factory.coursesMap({ is_teacher: true });
