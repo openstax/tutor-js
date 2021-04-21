@@ -1,4 +1,4 @@
-import { Factory, TimeMock } from '../../helpers';
+import { Factory, TimeMock, runInAction } from '../../helpers';
 import GetAccess from '../../../src/components/navbar/student-pay-now-btn';
 import { FeatureFlagsApi } from '../../../src/models'
 
@@ -29,7 +29,7 @@ describe('Student get access button', function() {
     });
 
     it('renders trial message when payments is disabled', () => {
-        FeatureFlagsApi.set('is_payments_enabled', false)
+        runInAction(() => FeatureFlagsApi.set('is_payments_enabled', false))
         props.course.isInTrialPeriod = true;
         const btn = shallow(<GetAccess {...props} />);
         expect(btn.text()).toContain('Free trial');

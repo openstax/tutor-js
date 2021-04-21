@@ -1,18 +1,20 @@
-import TaskPlan from '../../src/models/task-plans/teacher/plan';
+import { Factory, hydrateModel, runInAction } from '../helpers';
+import { TeacherTaskPlan, currentCourses } from '../../src/models';
 import LmsInfo from '../../src/components/lms-info-card';
-import { bootstrapCoursesList } from '../courses-test-data';
 
+jest.mock('../../src/models/courses-map');
 
 describe('LmsInfo Component', function() {
     let props;
-    let courses;
+    let course;
 
     beforeEach(function() {
-        courses = bootstrapCoursesList();
+        course = Factory.course();
+        currentCourses.get.mockImplementation(() => course);
         props = {
-            courseId: '1',
+            courseId: course.id.toString(),
             onBack: jest.fn(),
-            plan: new TaskPlan({
+            plan: hydrateModel(TeacherTaskPlan, {
                 id: '2',
                 title: 'A test plan',
                 description: '',
@@ -20,19 +22,20 @@ describe('LmsInfo Component', function() {
                 tasking_plans: [{
                     opens_at: '2012-01-01',
                     due_at: '2012-02-01',
+                    closes_at: '2012-02-01',
                 }],
             }),
         };
     });
 
     it('renders NO LINK when preview course', async () => {
-        courses.get(props.courseId).is_preview = true;
+        runInAction(() => { course.is_preview = true });
         const wrapper = mount(<LmsInfo {...props} />);
         expect(wrapper).toHaveRendered('.lms-info.preview');
     });
 
     it('renders with message even when there is no url', async function() {
-        props.plan.analytics.shareable_url = '';
+        runInAction(() => props.plan.analytics.shareable_url = '');
         const wrapper = mount(<LmsInfo {...props} />);
         expect(wrapper.html()).toBeTruthy();
     });

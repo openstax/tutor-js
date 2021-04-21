@@ -1,6 +1,6 @@
-import { TutorRouter, R, C } from '../helpers';
+import { TutorRouter, R, C, Factory, runInAction } from '../helpers';
+import { currentCourses } from '../../src/models';
 import ChangeStudentId from '../../src/components/change-student-id';
-import { bootstrapCoursesList } from '../courses-test-data';
 
 jest.mock('../../src/helpers/router');
 
@@ -9,12 +9,15 @@ describe('Change Student ID', () => {
 
     beforeEach(() => {
         params = { courseId: '1' };
-        courses = bootstrapCoursesList();
+        const course = Factory.course();
+        courses = currentCourses.bootstrap([course]);
         TutorRouter.currentParams.mockReturnValue(params);
         TutorRouter.makePathname.mockReturnValue('go-to-dash');
     });
 
     it('renders and matches snapshot for various states', () => {
+      const course = courses.get(params.courseId);
+        runInAction(() => course.userStudentRecord.student_identifier = '1234');
         expect.snapshot(<R><ChangeStudentId /></R>).toMatchSnapshot();
     });
 

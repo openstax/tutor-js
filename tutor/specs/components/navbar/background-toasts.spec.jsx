@@ -1,16 +1,14 @@
 import Toasts from 'shared/components/toasts';
-import { Toast } from '../../../src/models/toasts';
-import { createCollection } from 'mobx-decorated-models';
+import { currentToasts } from '../../../src/models';
+import { runInAction } from '../../helpers';
 
 jest.useFakeTimers();
 
 describe('Background job toasts', () => {
     let toast;
-    let toastsStore;
 
     beforeEach(() => {
-        toastsStore = createCollection({ model: Toast });
-        toast = mount(<Toasts toasts={toastsStore} />);
+        toast = mount(<Toasts toasts={currentToasts} />);
     });
 
     it('renders empty and matches snapshot', () => {
@@ -20,12 +18,14 @@ describe('Background job toasts', () => {
     describe('scores', () => {
 
         beforeEach(() => {
-            toastsStore.push({
-                handler: 'job',
-                type: 'scores',
-                status: 'ok',
-                info: { url: 'test.test.com' },
-            });
+            runInAction(() =>
+                currentToasts.add({
+                    handler: 'job',
+                    type: 'scores',
+                    status: 'ok',
+                    info: { url: 'test.test.com' },
+                })
+            )
         });
 
         it('renders success', () => {
@@ -57,7 +57,7 @@ describe('Background job toasts', () => {
     describe('lms', () => {
 
         beforeEach(() => {
-            toastsStore.push({
+            currentToasts.add({
                 status: 'ok',
                 handler: 'job',
                 type: 'lms',

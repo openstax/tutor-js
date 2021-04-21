@@ -1,12 +1,11 @@
 import { C, TimeMock } from '../../helpers';
 import Payments from '../../../src/components/payments/manage';
-import Purchases from '../../../src/models/purchases';
+import { Purchases, PaymentModel } from '../../../src/models';
 import Router from '../../../src/helpers/router';
-import PaymentModel from '../../../src/models/payments';
 import mockData from '../../../api/purchases.json';
 
 jest.mock('../../../src/helpers/router');
-jest.mock('../../../src/models/payments');
+jest.mock('../../../src/helpers/payments');
 
 
 describe('Student Payments Management', () => {

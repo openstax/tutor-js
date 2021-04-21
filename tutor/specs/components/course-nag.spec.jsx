@@ -1,8 +1,7 @@
 import CourseNag from '../../src/components/course-nag';
 import ModalManager from '../../src/components/modal-manager';
-import TourContext from '../../src/models/tour/context';
+import { TourContext, Onboarding } from '../../src/models';
 import { observable } from 'mobx';
-import Onboarding from '../../src/models/course/onboarding/base';
 
 jest.mock('../../src/models/tour/context', () => (
     class MockContext {

@@ -1,7 +1,7 @@
 import { Success, Failure } from '../../../src/components/toasts/scores';
-import { C } from '../../helpers';
+import { C, hydrateModel } from '../../helpers';
 
-import { Toast } from 'shared/model/toasts';
+import { Toast } from '../../../src/models';
 jest.useFakeTimers();
 
 describe('Scores Background job toasts', () => {
@@ -9,7 +9,7 @@ describe('Scores Background job toasts', () => {
     let props;
 
     beforeEach(() => {
-        const toast = new Toast({
+        const toast = hydrateModel(Toast, {
             succeeded: true,
             handler: 'job',
             type: 'scores',

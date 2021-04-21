@@ -1,12 +1,12 @@
 import { C } from '../../helpers';
 import ExpiredPreviewWarning from '../../../src/components/onboarding/expired-preview-warning';
-import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
+import { PreviewOnboarding } from '../../../src/models';
 
 describe('Expired Preview Warning', () => {
 
     let ux;
     beforeEach(() => {
-        ux = new CoursePreviewUX({});
+        ux = new PreviewOnboarding({});
         ux.dismissNag = jest.fn();
     });
 

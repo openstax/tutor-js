@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { Payments } from '../../models'
+import { runInAction } from 'mobx';
+import { Payments } from '../../helpers/payments';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
@@ -53,7 +54,7 @@ class PaymentsCard extends React.Component {
             <div className="payments-panel">
                 <OXFancyLoader isLoading={payments.isBusy} />
                 {this.renderErrors(payments)}
-                <div className="payments-wrapper" ref={el => payments.element=el} />
+                <div className="payments-wrapper" ref={el => runInAction(() => payments.element = el)} />
             </div>
         );
     }

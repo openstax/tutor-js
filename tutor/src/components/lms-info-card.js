@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action, computed, modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
-import moment from 'moment';
+import { Time } from '../models';
 import { autobind } from 'core-decorators';
 import CopyOnFocusInput from './copy-on-focus-input';
 import { Icon } from 'shared';
@@ -11,7 +11,7 @@ import { compact } from 'lodash';
 import { TeacherTaskPlan, currentCourses } from '../models';
 import styled from 'styled-components';
 
-const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
+const DUE_FORMAT = "M/d/yyyy 'at' h:mma";
 
 const BackLinkButton = styled(Button)`
   margin: 10px 0 20px 0;
@@ -52,21 +52,24 @@ export default class LmsInfoCard extends React.Component {
     @autobind
     renderDueDates() {
         const { plan } = this.props;
+
         if (plan.areTaskingDatesSame) {
+            const value = new Time(plan.dateRanges.due.start).toFormat(DUE_FORMAT)
             return (
                 <CopyOnFocusInput
                     label="Due date"
-                    value={moment(plan.dateRanges.due.start).format(DUE_FORMAT)}
+                    value={value.toLowerCase()}
                 />
             );
         }
         const course = currentCourses.get(this.props.courseId);
         const periodDates = compact(course.periods.map(period => {
             const tp = plan.tasking_plans.forPeriod(period);
+
             return tp && (
                 <CopyOnFocusInput
                     label={period.name}
-                    value={moment(tp.due_at).format(DUE_FORMAT)}
+                    value={new Time(tp.due_at).toFormat(DUE_FORMAT)}
                     key={period.id}
                 />);
         }));
@@ -115,10 +118,10 @@ export default class LmsInfoCard extends React.Component {
             <div className="lms-info preview">
                 <BackLink onClick={this.props.onBack} />
                 <p>
-            Assignment links are not available in preview courses. In
-            a live course, you can send assignment links directly
-            to your students or manually paste them into your
-            learning management system.
+                    Assignment links are not available in preview courses. In
+                    a live course, you can send assignment links directly
+                    to your students or manually paste them into your
+                    learning management system.
                 </p>
             </div>
         );
@@ -132,7 +135,7 @@ export default class LmsInfoCard extends React.Component {
             <div className="lms-info">
                 <BackLink onClick={this.props.onBack} />
                 <p>
-            Copy and send to your students directly, or paste manually into your LMS.
+                    Copy and send to your students directly, or paste manually into your LMS.
                 </p>
                 <CopyOnFocusInput label="Assignment URL" value={this.url} />
                 {this.renderDueDates()}

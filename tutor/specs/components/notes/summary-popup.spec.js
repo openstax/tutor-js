@@ -1,5 +1,5 @@
 import SummaryPopup from '../../../src/components/notes/summary-popup';
-import { Factory } from '../../helpers';
+import { Factory, ApiMock, runInAction } from '../../helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
     html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -23,16 +23,17 @@ describe('Notes Summary Popup', () => {
 
     beforeEach(() => {
         const course = Factory.course();
-        const note = Factory.note();
         pages = [Factory.page()];
-        note.annotation = 'This is a comment added by user';
+        const note = Factory.data('Note');
+
+        ApiMock.intercept({
+            'notes': [note],
+        })
+
+        runInAction(() => note.annotation = 'This is a comment added by user');
         const pageNotes = course.notes.ensurePageExists(pages[0]);
-        pageNotes.onLoaded({ data: [note] });
-        course.notes.onHighlightedPagesLoaded({
-            data: {
-                pages,
-            },
-        });
+        pageNotes.onLoaded([note]);
+        course.notes.onHighlightedPagesLoaded(pages);
         props = {
             page: pages[0],
             notes: course.notes,

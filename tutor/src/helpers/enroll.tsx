@@ -15,14 +15,14 @@ import {
 } from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
-import CoursePeriod from '../course/period'
-import S from '../../helpers/string';
-import Router from '../../../src/helpers/router';
+import { CoursePeriod, Course } from '../models'
+import S from '../helpers/string';
+import Router from '../helpers/router';
 import Activity from 'shared/components/staxly-animation';
-import Enroll from '../../../src/components/enroll';
-import urlFor from '../../api';
+import Enroll from '../components/enroll';
+import urlFor from '../api';
 import { ApiErrorData, isApiError } from 'shared/api/request';
-import type { User, CoursesMap, Course } from '../../models';
+import type { User, CoursesMap } from '../models';
 
 export class CourseEnrollment extends BaseModel {
 
