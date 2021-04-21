@@ -19,7 +19,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                               <MobXProvider tourContext={{...}}>
                                 <div data-purpose=\\"tour-conductor-wrapper\\">
                                   <TutorSpecLayout>
-                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls]}>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls] { isMobxAction: true }}>
                                       <div>
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepFooter course={{...}} step={{...}}>

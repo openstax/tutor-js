@@ -1,14 +1,9 @@
 import CreateCourseUX from '../new-course/ux';
 import Router from './router';
-import { computed, action, modelize } from 'shared/model';
+import { override, modelize } from 'shared/model';
 
 export default
 class PairingCreateCourseUX extends CreateCourseUX {
-
-    @computed get selectOfferingTitle() {
-        return this.parentUX.stage === 0 ?
-            'Which course would you like to use with your LMS?' : 'Which course are you teaching?';
-    }
 
     constructor(ux) {
         super({
@@ -20,11 +15,16 @@ class PairingCreateCourseUX extends CreateCourseUX {
         this.canCancel = false;
     }
 
-    @computed get canGoBackward() {
+    get selectOfferingTitle() {
+        return this.parentUX.stage === 0 ?
+            'Which course would you like to use with your LMS?' : 'Which course are you teaching?';
+    }
+
+    @override get canGoBackward() {
         return true;
     }
 
-    @action.bound goBackward() {
+    @override goBackward() {
         if (0 == this.currentStageIndex) {
             this.parentUX.stage = 0;
         } else {

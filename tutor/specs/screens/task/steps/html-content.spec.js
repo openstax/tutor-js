@@ -1,5 +1,5 @@
 import HtmlContent from '../../../../src/screens/task/step/html-content';
-import { Factory, TestRouter, TimeMock, C } from '../../../helpers';
+import { ApiMock, Factory, TestRouter, TimeMock, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -9,6 +9,12 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 describe('Html Content Tasks Screen', () => {
     let props;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
+
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
+
     beforeEach(() => {
         const task = Factory.studentTask({ type: 'reading', steps: [{ type: 'interactive' }] });
         const ux = new UX({

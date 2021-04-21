@@ -1,4 +1,4 @@
-import { observable, computed, action, autorun, modelize } from 'shared/model';
+import { observable, computed, action, autorun, modelize, override, runInAction } from 'shared/model';
 import { readonly } from 'core-decorators';
 import { extend, uniq, flatMap } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';
@@ -7,8 +7,8 @@ import Router from '../../helpers/router';
 import ViewToggle from './view-toggle';
 import AppearanceSelector from './appearance-selector';
 import UserMenu from '../../components/navbar/user-menu';
-import { currentExercises, currentEcosystems, BookUX } from '../../models';
-
+import { currentExercises, currentEcosystems } from '../../models';
+import { BookUX } from '../../helpers/reference-book-base-ux'
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @book-page-width and @book-menu-width in variables.scss
@@ -17,10 +17,8 @@ const MENU_VISIBLE_BREAKPOINT = 1350;
 export default class QaScreenUX extends BookUX {
 
     @readonly allowsAnnotating = false;
-    @observable ecosystemId;
 
     @observable isDisplayingExercises = true;
-    @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
     @observable isShowing2StepPreview = false;
     @observable ignoredExerciseTypes = [];
     @observable appearance_code = 'default';
@@ -38,7 +36,7 @@ export default class QaScreenUX extends BookUX {
 
         this.diposeExerciseFetcher = autorun(() => {
             if (this.ecosystem && !this.ecosystem.referenceBook.api.isFetchedOrFetching) {
-                this.ecosystemId = this.ecosystem.id;
+                runInAction(() => this.ecosystemId = this.ecosystem.id );
             }
             if (this.book && this.page) {
                 this.exercisesMap.ensurePagesLoaded({
@@ -151,8 +149,7 @@ export default class QaScreenUX extends BookUX {
         nav.resetToDefault();
     }
 
-
-    @computed get courseDataProps() {
+    @override get courseDataProps() {
         return { 'data-appearance': this.appearance_code };
     }
 }

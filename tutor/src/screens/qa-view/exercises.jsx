@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, modelize } from 'vendor'
+import { React, PropTypes, observer } from 'vendor'
 import { isEmpty } from 'lodash';
 import { autobind } from 'core-decorators';
 import ExerciseCard from './exercise-card';
@@ -11,11 +11,6 @@ class Exercises extends React.Component {
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
     };
-
-    constructor(props) {
-        super(props);
-        modelize(this);
-    }
 
     @autobind renderExercise(exercise) {
         return (

@@ -66,7 +66,7 @@ const NotOpenNotice = ({ task, course }) => {
     return (
         <NotOpenNoticeWrapper className="not-open-notice">
             <Icon type="eye" /> This assignment is only visible to instructors.
-      Open date for students is {course.momentInZone(task.opens_at).format(timeFormat)}
+            Open date for students is {course.dateTimeInZone(task.opens_at).format(timeFormat)}
         </NotOpenNoticeWrapper>
     );
 };

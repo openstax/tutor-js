@@ -1,4 +1,4 @@
-import { extendObservable as mockExtendObservable } from 'mobx';
+import { extendObservable as mockExtendObservable, runInAction } from 'mobx';
 import EmptyPanel from '../../../src/screens/student-dashboard/empty-panel';
 import Factory from '../../factories';
 
@@ -36,10 +36,10 @@ describe('Empty Panel', () => {
     it('shows the various states', () => {
         const panel = mount(<EmptyPanel {...props} />);
         expect(panel.text()).toContain('I be empty');
-        props.course.studentTaskPlans.api.isPendingInitialFetch = true;
+        runInAction(() => props.course.studentTaskPlans.api.isPendingInitialFetch = true )
         expect(panel.text()).toContain('Fetching assignments for your course');
         expect(panel.text()).not.toContain('This can take up to 10 minutes');
-        props.course.studentTaskPlans.isPendingTaskLoading = true;
+        runInAction(() => props.course.studentTaskPlans.isPendingTaskLoading = true )
         expect(panel.text()).toContain('This can take up to 10 minutes');
     });
 

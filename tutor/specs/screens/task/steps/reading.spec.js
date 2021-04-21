@@ -1,5 +1,5 @@
 import Reading from '../../../../src/screens/task/step/reading';
-import { Factory, FakeWindow, TestRouter, TimeMock, C } from '../../../helpers';
+import { ApiMock, Factory, FakeWindow, TestRouter, TimeMock, C } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 jest.mock('../../../../src/components/book-page', () => (({ children }) =>
@@ -9,6 +9,10 @@ jest.mock('../../../../src/components/book-page', () => (({ children }) =>
 describe('Reading Tasks Screen', () => {
     let props;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
 
     beforeEach(() => {
         const task = Factory.studentTask({

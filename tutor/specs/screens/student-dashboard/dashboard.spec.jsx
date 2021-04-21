@@ -2,7 +2,7 @@ import { React, TimeMock, C } from '../../helpers';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';
-import Raven from '../../../src/models/app/raven';
+import { Raven } from '../../../src/models';
 
 jest.mock('../../../src/models/app/raven');
 

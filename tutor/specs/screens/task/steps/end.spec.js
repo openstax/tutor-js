@@ -1,10 +1,15 @@
 import End from '../../../../src/screens/task/step/end';
-import { Factory, TestRouter, C, TimeMock } from '../../../helpers';
+import { ApiMock, Factory, TestRouter, C, TimeMock, runInAction } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 describe('Tasks Ending Screen', () => {
     let props;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
+
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
 
     beforeEach(() => {
         const task = Factory.studentTask({ type: 'homework', stepCount: 2 });
@@ -40,7 +45,9 @@ describe('Tasks Ending Screen', () => {
         expect(en.text()).toContain('Great job');
         en.unmount();
         expect.snapshot(<C noRef><End {...props} /></C>).toMatchSnapshot();
-        props.ux.task.type = 'reading';
+        runInAction(() => {
+            props.ux.task.type = 'reading';
+        })
         expect.snapshot(<C noRef><End {...props} /></C>).toMatchSnapshot();
     });
 

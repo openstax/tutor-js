@@ -70,8 +70,8 @@ class StudentDashboard extends React.Component {
         return (
             <div className="student-dashboard">
                 <NotificationsBar
-                    role={course.primaryRole.serialize()}
-                    course={course.serialize()}
+                    role={course.primaryRole.toJSON()}
+                    course={course.toJSON()}
                     callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
                 <CourseTitleBanner courseId={course.id} />
                 <TourRegion

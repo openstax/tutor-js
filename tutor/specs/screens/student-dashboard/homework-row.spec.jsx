@@ -1,4 +1,4 @@
-import { React, TimeMock, Factory, C } from '../../helpers';
+import { React, TimeMock, Factory, C, runInAction } from '../../helpers';
 
 import Theme from '../../../src/theme';
 import Row from '../../../src/screens/student-dashboard/event-row';
@@ -16,32 +16,40 @@ describe('Homework Row', function() {
     });
 
     it('renders in progress', () => {
-        props.event.completed_steps_count = 1;
-        props.event.due_at = new Date('2017-10-15T12:00:00.000Z');
+        runInAction(() => {
+            props.event.completed_steps_count = 1;
+            props.event.due_at = new Date('2017-10-15T12:00:00.000Z');
+        })
         expect.snapshot(<C><Row {...props} /></C>).toMatchSnapshot();
     });
 
     it('renders with completed count', function() {
-        props.event.correct_exercise_count = null;
+        runInAction(() => props.event.correct_exercise_count = null )
         expect.snapshot(<C><Row {...props} /></C>).toMatchSnapshot();
     });
 
     it('renders complete', function() {
-        props.event.complete = true;
-        props.event.completed_steps_count = 1;
+        runInAction(() => {
+            props.event.complete = true;
+            props.event.completed_steps_count = 1;
+        })
         const row = mount(<C><Row {...props} /></C>);
         expect(row.find('StatusCell').text()).toContain('Complete');
         row.unmount();
     });
 
     it('renders icon', () => {
-        props.event.completed_steps_count = 1;
-        props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
-        props.event.complete = false;
+        runInAction(() => {
+            props.event.completed_steps_count = 1;
+            props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
+            props.event.complete = false;
+        })
         const row = mount(<C><Row {...props} /></C>);
         expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
 
-        props.event.due_at = new Date(now.getTime() - ( 36*60*60*1000 ));
+        runInAction(() => {
+            props.event.due_at = new Date(now.getTime() - ( 36*60*60*1000 ));
+        })
         expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.danger}"]`);
 
         row.unmount();

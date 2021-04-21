@@ -1,4 +1,4 @@
-import { observable, runInAction, computed, action, when, observe, lazyGetter, modelize } from 'shared/model'
+import { observable, runInAction, computed, action, when, observe, lazyGetter, modelize, hydrateModel } from 'shared/model'
 import { reduce, filter, get, groupBy, map, find, invoke, last, isString } from 'lodash';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -114,7 +114,7 @@ export default class TaskUX {
             return map(
                 groupBy(steps, StepGroup.key),
                 (steps, uid) => steps.length > 1 ?
-                    new StepGroup({ steps, uid }) : steps[0]
+                    hydrateModel(StepGroup, { steps, uid }, this.task) : steps[0]
             );
         }
         return steps;
@@ -152,11 +152,8 @@ export default class TaskUX {
         step.answer_id = answer.id;
         step.is_completed = true;
         await step.save();
-        if (
-            step.multiPartGroup &&
-      step.is_feedback_available &&
-        this.currentStepIndex > this.indexOfStep(step)
-        ) {
+
+        if (step.multiPartGroup && step.is_feedback_available && this.currentStepIndex > this.indexOfStep(step)) {
             // fixes the scroll position in case loading the feedback pushes the steps around
             this.scrollToCurrentStep(true);
         }

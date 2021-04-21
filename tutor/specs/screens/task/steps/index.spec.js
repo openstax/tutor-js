@@ -1,8 +1,13 @@
-import { Factory, FakeWindow, ld, C } from '../../../helpers';
+import { ApiMock, Factory, FakeWindow, ld, C } from '../../../helpers';
 import { TaskStep } from '../../../../src/screens/task/step';
 
 describe('Tasks Steps', () => {
     let props;
+
+    ApiMock.intercept({
+        'steps': () => Factory.bot.create('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
 
     beforeEach(() => {
         const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
@@ -13,6 +18,7 @@ describe('Tasks Steps', () => {
             onAnswerChange: jest.fn(),
             canGoForward: true,
             goForward: jest.fn(),
+            goToStepId: jest.fn(),
             currentStep: step,
         };
         props = { ux, step, windowImpl: new FakeWindow };

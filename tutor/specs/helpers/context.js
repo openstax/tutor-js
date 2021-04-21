@@ -12,6 +12,7 @@ import { SpyMode } from 'shared';
 import { observable, action } from 'mobx';
 import { observer, Provider } from 'mobx-react';
 import { SecondaryToolbar } from '../../src/components/navbar/secondary-toolbar'
+import { modelize } from 'modeled-mobx';
 
 function wrapInDnDTestContext(DecoratedComponent) {
     return wrapInTestContext(DecoratedComponent);
@@ -28,11 +29,17 @@ class TutorSpecLayout extends React.Component {
     courseContext = new CourseContext(this.props.course);
     topNavbarContext = new NavbarContext();
     bottomNavbarContext = new NavbarContext();
-    @action.bound setSecondaryTopControls(controls) {
+    @observable secondaryTopControls = null
+    @observable isTopToolbarCollapsed = false
+    @action setSecondaryTopControls = (controls) => {
         this.secondaryTopControls = controls;
     }
-    @action.bound setTopToolbarCollapsed(isCollapsed) {
+    @action setTopToolbarCollapsed = (isCollapsed) => {
         this.isTopToolbarCollapsed = isCollapsed;
+    }
+    constructor(props) {
+        super(props)
+        modelize(this)
     }
     render() {
         return (
