@@ -91,7 +91,7 @@ export class TourContext extends BaseModel {
         if ( checkRegion && this.autoRemind && !this.tour &&
             this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
         ) {
-            delay(() => checkRegion.otherTours?.push(remindersTourId), 500);
+            delay(action(() => checkRegion.otherTours?.push(remindersTourId)), 500);
         }
     }
 

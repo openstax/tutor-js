@@ -47,11 +47,9 @@ const getRoutes = (router) => {
                             ],
                         },
                     ],
-                }, {
-                    path: 'metrics/:id', name: 'reviewTask',
-                    renderer: r(() => import('./screens/teacher-review-metrics')) },
-
-                { path: 'task/:id', name: 'viewTask',
+                },
+                {
+                    path: 'task/:id', name: 'viewTask',
                     renderer: r(() => import('./screens/task'), 'Assignment'),
                     routes: [
                         {

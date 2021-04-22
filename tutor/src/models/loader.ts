@@ -1,7 +1,7 @@
 import { observable, action, computed, modelize } from 'shared/model'
 import hash from 'object-hash'
 
-export default class ModelLoader {
+export class ModelLoader {
 
     @observable inProgress = observable.map();
     @observable completed = observable.map();
@@ -21,19 +21,19 @@ export default class ModelLoader {
     fetch(props: any, options = { reload: false }) {
         const key = hash(props);
         const isInProgress = this.inProgress.has(key);
-        return new Promise((resolve) => {
+        return new Promise<void>(action((resolve) => {
             if (!isInProgress && (options.reload || !this.completed.has(key))) {
                 this.inProgress.set(key, true);
-                this._model[this._method](props).then((args: any) => {
+                this._model[this._method](props).then(action((args: any) => {
                     this.completed.set(key, true);
                     this.inProgress.delete(key);
-                    resolve(this);
+                    resolve();
                     return args;
-                });
+                }));
             } else {
-                resolve(this);
+                resolve();
             }
-        });
+        }));
     }
 
     @computed get isBusy() {

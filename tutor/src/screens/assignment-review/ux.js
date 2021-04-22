@@ -6,6 +6,7 @@ import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
 import scrollIntoView from 'scroll-into-view';
+import { runInAction } from 'mobx';
 
 export default class AssignmentReviewUX {
 
@@ -58,14 +59,16 @@ export default class AssignmentReviewUX {
         await this.planScores.fetch();
         await this.planScores.taskPlan.fetch();
         await this.planScores.taskPlan.analytics.fetch();
-        const period = find(this.assignedPeriods, p => p.id == periodId);
-        this.selectedPeriod = period ? period : first(this.assignedPeriods);
-
+        runInAction(() => {
+            const period = find(this.assignedPeriods, p => p.id == periodId);
+            this.selectedPeriod = period ? period : first(this.assignedPeriods);
+        })
         await this.planScores.ensureExercisesLoaded();
         await this.course.referenceBook.ensureLoaded();
-
-        this.exercisesHaveBeenFetched = true;
-        this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
+        runInAction(() => {
+            this.exercisesHaveBeenFetched = true;
+            this.freeResponseQuestions.set(get(this.scores, 'questionsInfo[0].id'), true);
+        })
     }
 
     @computed get isExercisesReady() { return this.exercisesHaveBeenFetched; }
@@ -299,7 +302,7 @@ export default class AssignmentReviewUX {
                 course: this.course,
             });
 
-            this.isDisplayingEditAssignment = true;
+            runInAction(() => this.isDisplayingEditAssignment = true );
 
         } else {
             this.onEditAssignment();
@@ -312,9 +315,11 @@ export default class AssignmentReviewUX {
 
     @action.bound async onSavePlan() {
         await this.editUX.savePlan();
-        Object.assign(this.planScores, pick(this.editUX.plan, ['title', 'description']));
-        this.planScores.grading_template = this.editUX.plan.gradingTemplate;
-        this.isDisplayingEditAssignment = false;
+        runInAction(() => {
+            Object.assign(this.planScores, pick(this.editUX.plan, ['title', 'description']));
+            this.planScores.grading_template = this.editUX.plan.gradingTemplate;
+            this.isDisplayingEditAssignment = false;
+        })
     }
 
     @action.bound renderDetails(form) {

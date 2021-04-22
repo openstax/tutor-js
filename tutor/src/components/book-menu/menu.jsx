@@ -1,4 +1,4 @@
-import { React, cn, PropTypes, styled, observer } from 'vendor';
+import { React, cn, PropTypes, styled, observer, action, modelize } from 'vendor';
 import { Icon } from 'shared';
 import { map, isEmpty } from 'lodash';
 import TutorLink from '../link';
@@ -202,11 +202,16 @@ class BookMenu extends React.Component {
 
     menuWrapper = React.createRef()
 
-    componentDidMount() {
+    constructor(props) {
+        super(props)
+        modelize(this)
+    }
+
+    @action componentDidMount() {
         this.ux.wrapper = this.menuWrapper.current;
     }
 
-    componentDidUpdate() {
+    @action componentDidUpdate() {
         this.ux.currentPage = this.props.currentPage;
     }
 

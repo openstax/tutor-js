@@ -144,8 +144,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         } else {
             throw new Error('must specify limit or exercise_ids')
         }
-
-        this.onLoaded(replyData, course, book, page_ids)
+        this.onLoaded(replyData.items, course, book, page_ids)
     }
 
     @action onLoaded(exercises: TutorExerciseObj[], course?: Course, book?: ReferenceBook, page_ids?: ID[]) {

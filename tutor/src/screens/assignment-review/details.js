@@ -282,23 +282,23 @@ const TaskingDates = observer(({ tasking, title }) => {
                 <div>
                     <dt>Open date</dt>
                     <dd>
-                        <div>{tasking.opensAtMoment.format(dateFormat)}</div>
-                        <div>{tasking.opensAtMoment.format(timeFormat)}</div>
+                        <div>{tasking.opensAt.format(dateFormat)}</div>
+                        <div>{tasking.opensAt.format(timeFormat)}</div>
                     </dd>
                 </div>
                 <div>
                     <dt>Due date</dt>
                     <dd>
-                        <div>{tasking.dueAtMoment.format(dateFormat)}</div>
-                        <div>{tasking.dueAtMoment.format(timeFormat)}</div>
+                        <div>{tasking.dueAt.format(dateFormat)}</div>
+                        <div>{tasking.dueAt.format(timeFormat)}</div>
                     </dd>
                 </div>
                 {!tasking.plan.isEvent && (
                     <div>
                         <dt>Close date</dt>
                         <dd>
-                            <div>{tasking.closesAtMoment.format(dateFormat)}</div>
-                            <div>{tasking.closesAtMoment.format(timeFormat)}</div>
+                            <div>{tasking.closesAt.format(dateFormat)}</div>
+                            <div>{tasking.closesAt.format(timeFormat)}</div>
                         </dd>
                     </div>)}
             </dl>

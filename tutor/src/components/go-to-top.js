@@ -1,4 +1,4 @@
-import { React, styled, observable, observer } from 'vendor';
+import { React, styled, observable, observer, action } from 'vendor';
 import { Icon } from 'shared';
 import Theme, { breakpoint } from 'theme';
 import ScrollTracker from './scroll-tracker';
@@ -48,13 +48,13 @@ const scrollStore = observable({
 });
 
 const GoToTop = observer(() => {
-    const onScroll = ({ scrollTop, clientHeight }) => {
+    const onScroll = action(({ scrollTop, clientHeight }) => {
         scrollStore.scrollTop = scrollTop;
         scrollStore.clientHeight = clientHeight;
-    };
-    const onClick = () => {
+    });
+    const onClick = action(() => {
         document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    });
     ScrollTracker({ onScroll: onScroll });
 
     if (!(scrollStore.scrollTop > scrollStore.clientHeight * 4))

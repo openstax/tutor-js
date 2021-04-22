@@ -55,7 +55,7 @@ export default class AssignmentUX {
             if (plan) {
                 this.plan = plan;
             } else {
-                this.plan = new TaskPlan({ id, course, type });
+                this.plan = hydrateModel(TaskPlan, { id, course, type });
                 if (id && id != 'new') {
                     const existing = course.teacherTaskPlans.get(id);
                     if (existing) {
@@ -94,26 +94,27 @@ export default class AssignmentUX {
             ? get(this.gradingTemplates, '[0].id')
             : this.plan.grading_template_id;
         }
+        runInAction(() => {
+            this.history = history;
+            this.exercises = exercises;
+            this.filteredExercises = exercises;
+            // task plans can't contain "foreign" exercises
+            // We must clear out the exercises cache so that exercises
+            // that belong to other ecosystems aren't present.
+            this.exercises.clear({ exceptIds: this.plan.exerciseIds });
+            this.windowImpl = windowImpl;
 
-        this.history = history;
-        this.exercises = exercises;
-        this.filteredExercises = exercises;
-        // task plans can't contain "foreign" exercises
-        // We must clear out the exercises cache so that exercises
-        // that belong to other ecosystems aren't present.
-        this.exercises.clear({ exceptIds: this.plan.exerciseIds });
-        this.windowImpl = windowImpl;
+            this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
 
-        this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
+            this.scroller = new ScrollTo({ windowImpl });
 
-        this.scroller = new ScrollTo({ windowImpl });
+            // don't setup additional helpers until fully initialized
+            this.validations = new Validations(this);
+            this.steps = new StepUX(this, step);
+            this.actions = new Actions(this);
 
-        // don't setup additional helpers until fully initialized
-        this.validations = new Validations(this);
-        this.steps = new StepUX(this, step);
-        this.actions = new Actions(this);
-
-        this.isReady = true;
+            this.isReady = true;
+        })
     }
 
     setExternalAndEventDates(due_at) {
@@ -442,7 +443,7 @@ export default class AssignmentUX {
         await this.plan.save();
         await runInAction(() => {
             const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
-            destPlan.update(this.plan.serialize());
+            destPlan.update(this.plan.toJSON());
 
             // if cloning an assignment from previous course, delete the assignment after it was saved as draft, or published
             if(this.plan.isClone) {

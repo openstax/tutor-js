@@ -9,7 +9,7 @@ import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import {
-    Time, Notes, CourseObj, currentOfferings, Offering,
+    Time, Interval, Notes, CourseObj, currentOfferings, Offering,
     CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
     TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
     PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation,
@@ -193,10 +193,10 @@ export class Course extends BaseModel {
     }
 
     @computed get bounds() {
-        return {
+        return new Interval({
             start: this.dateTimeInZone(this.starts_at).startOf('day'),
             end: this.dateTimeInZone(this.ends_at).endOf('day'),
-        };
+        });
     }
 
     @computed get hasEnded() {
@@ -212,7 +212,10 @@ export class Course extends BaseModel {
 
     // bind to this so it can be used in disabledDate check
     isInvalidAssignmentDate = (date: Time) => {
-        return date.isBefore(this.starts_at.startOf('day')) || date.isAfter(this.ends_at.endOf('day'))
+        return !this.bounds.contains(date)
+        // return (this.bounds.start.isAfter(date).startOf('day') || this.ends_at.isBefore(date))N
+        // console.log(date)
+        // return date.isBefore(this.starts_at.startOf('day')) || date.isAfter(this.ends_at.endOf('day'))
     }
 
     @computed get hasStarted() {

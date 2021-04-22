@@ -1,5 +1,6 @@
-import { React, PropTypes, styled, moment, cn, css } from 'vendor';
+import { React, PropTypes, styled, cn, css } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Time } from '../../models'
 import { colors } from 'theme';
 
 const GreenCircle = styled.div`
@@ -47,7 +48,7 @@ const StyledTooltip = styled(Tooltip)`
 
 const ExtensionIcon = ({ className, extension, timezone, inline = false }) => {
     let msg = 'Student was granted an extension.';
-    const format = (dte) => moment.tz(dte, timezone).format('h:mm a z on MMM D');
+    const format = (dte) => new Time(dte).inZone(timezone).format('h:mm a z on MMM D');
 
     if (extension) {
         msg += ` Assignment is now due at ${format(extension.due_at)} and closes at ${format(extension.closes_at)}`;

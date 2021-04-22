@@ -26,7 +26,7 @@ import {
 } from '../../../models'
 
 
-const calculateDefaultOpensAt = ({ course }: { course: Course }) => {
+export const calculateDefaultOpensAt = ({ course }: { course: Course }) => {
     const defaultOpensAt = Time.now.plus({ day: 1 }).startOf('minute');
     if (!course) {
         return defaultOpensAt.toISOString();
@@ -40,8 +40,6 @@ const calculateDefaultOpensAt = ({ course }: { course: Course }) => {
         course.bounds.start.plus({ day: 1 }),
     ).set({ hour, minute }).startOf('minute').toISOString();
 };
-
-export { calculateDefaultOpensAt };
 
 
 class QuestionInfo {
@@ -69,7 +67,7 @@ export class TeacherTaskPlan extends BaseModel {
     @field is_publishing = false;
     @field is_deleting = false;
     @field is_trouble = false;
-    @field cloned_from_id = NEW_ID;
+    @field cloned_from_id: ID | null = null
     @field publish_job_url: string | null = null;
     @field grading_template_id = NEW_ID;
     @field ungraded_step_count = 0;
@@ -97,15 +95,15 @@ export class TeacherTaskPlan extends BaseModel {
     course: Course
     exercisesMap: ExercisesMap
 
-    constructor(course: Course, map?: ExercisesMap) {
+    constructor({ course, exercisesMap } : { course: Course, exercisesMap?: ExercisesMap }) {
         super();
         modelize(this);
         this.course = course
-        this.exercisesMap = map || currentExercises
+        this.exercisesMap = exercisesMap || currentExercises
     }
 
     static hydrate(attrs: any) {
-        const plan = new TeacherTaskPlan(attrs.course, attrs.exercisesMap)
+        const plan = new TeacherTaskPlan(attrs)
         hydrateInstance(plan, attrs)
         plan.unmodified_plans = attrs.tasking_plans;
 
@@ -142,8 +140,8 @@ export class TeacherTaskPlan extends BaseModel {
         return this.course.gradingTemplates.get(this.grading_template_id);
     }
 
-    @lazyGetter get scores() { return hydrateModel(TaskPlanScores, { taskPlan: this, id: this.id }, this) }
-    @lazyGetter get analytics() {  return hydrateModel(TaskPlanStats, { taskPlan: this }, this) }
+    @lazyGetter get scores() { return hydrateModel(TaskPlanScores, { id: this.id }, this) }
+    @lazyGetter get analytics() {  return hydrateModel(TaskPlanStats, { id: this.id }, this) }
 
     findOrCreateTaskingForPeriod(period: CoursePeriod, defaultAttrs:any = {}) {
         let tp = this.tasking_plans.forPeriod(period);
@@ -192,12 +190,12 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
     @computed get interval() {
-        return new Interval(this.dateRanges.opens.start, this.dateRanges.due.end)
+        return new Interval({ start: this.dateRanges.opens.start, end: this.dateRanges.due.end })
     }
 
     intervalFor(attr: 'opensAt' | 'dueAt' | 'closesAt') {
         const dates = map(this.tasking_plans, attr).sort()
-        return new Interval(first(dates) as Time, last(dates) as Time)
+        return new Interval({ start: first(dates) as Time, end: last(dates) as Time })
     }
 
     get dateRanges() {
