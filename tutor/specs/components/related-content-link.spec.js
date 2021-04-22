@@ -1,12 +1,11 @@
-import { Factory } from '../helpers';
-import ChapterSection from '../../src/models/chapter-section';
+import { Factory, hydrateModel } from '../helpers';
+import { ChapterSection, RelatedContent } from '../../src/models';
 import RelatedContentLink from '../../src/components/related-content-link';
-import RelatedContent from '../../src/models/related-content';
 
 describe('Related Content Link', () => {
     const content = [
-        new RelatedContent({
-            title: 'Intro', chapter_section: new ChapterSection([1,0]),
+        hydrateModel(RelatedContent, {
+            title: 'Intro', chapter_section: hydrateModel(ChapterSection, [1,0]),
         }),
     ];
 

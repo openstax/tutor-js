@@ -1,3 +1,4 @@
+import { runInAction } from '../helpers';
 import ObscuredPage from '../../src/components/obscured-page';
 import Overlay from '../../src/components/obscured-page/overlay';
 import { OverlayRegistry } from '../../src/components/obscured-page/overlay-registry';
@@ -13,11 +14,13 @@ const TestOverlay = () => <p>Hello From Overlay</p>;
 
 const renderPage = (props, olprops) => {
     const page = mount(<ObscuredPage {...props}><TestPage /></ObscuredPage>);
-    olprops = Object.assign({ ...props,
-        onHide: jest.fn(), id: 'test',
-        visible: false,
-        renderer: jest.fn(() => <TestOverlay />),
-    }, olprops);
+    runInAction(() => {
+      olprops = Object.assign({ ...props,
+          onHide: jest.fn(), id: 'test',
+          visible: false,
+          renderer: jest.fn(() => <TestOverlay />),
+      }, olprops);
+    });
     return { page, overlay: mount(<Overlay {...olprops} />) };
 };
 

@@ -2,7 +2,7 @@ import { Router as R } from '../helpers';
 import { TutorLayout } from '../../src/components/tutor-layout';
 import MM from '../../src/components/modal-manager';
 import TC from '../../src/components/tours/conductor';
-import User from '../../src/models/user';
+import { currentUser as User } from '../../src/models';
 import { SpyMode as SM } from 'shared';
 
 describe('Tutor Layout', () => {

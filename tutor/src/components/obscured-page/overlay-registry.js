@@ -1,5 +1,5 @@
 import { invoke, defer, pick } from 'lodash';
-import { observable, action, computed, modelize } from 'shared/model'
+import { observable, action, computed, modelize, runInAction } from 'shared/model'
 import cn from 'classnames';
 import Analytics from '../../helpers/analytics';
 
@@ -61,7 +61,7 @@ export class OverlayRegistry {
 
     @action expandOverlay() {
         this.isOverlayHidden = false;
-        defer(() => this.isOverlayExpanded = true);
+        defer(() => runInAction(() => this.isOverlayExpanded = true));
     }
 
     @action setOverlay({ visible, id, renderer, onHide }) {

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Related Content Link renders and matches snapshot 1`] = `
+.c3 {
+  font-weight: 700;
+  color: #424242;
+}
+
 .c2 {
   display: inline-block;
 }
@@ -59,7 +64,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   <a
     aria-label="Browse course reference book"
     className="browse-the-book"
-    href="/book/1/section/0.0"
+    href="/book/1/section/1.0"
     onClick={[Function]}
     tabIndex={-1}
     target="_blank"
@@ -68,9 +73,15 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
       className="c2 book-part-title"
     >
       <span
+        className="c3 chapter-section"
+        data-chapter-section="1.0"
+      >
+        1
+      </span>
+      <span
         dangerouslySetInnerHTML={
           Object {
-            "__html": "",
+            "__html": "Intro",
           }
         }
       />
