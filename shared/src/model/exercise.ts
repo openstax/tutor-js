@@ -1,5 +1,5 @@
 import {
-    BaseModel, field, computed, action, observable, model, modelize, ID, NEW_ID, array,
+    BaseModel, field, computed, action, getParentOf, model, modelize, ID, NEW_ID, array,
 } from '../model';
 import { reduce, map, filter, inRange, every, some, isNil } from 'lodash';
 import invariant from 'invariant';
@@ -32,32 +32,11 @@ export default class SharedExercise extends BaseModel {
     @model(Question) questions = array<Question>()
     @model(TagsAssociation) tags = new TagsAssociation()
 
-    @observable wrapper = '';
+    get wrapper() { return getParentOf<unknown>(this) }
 
     constructor() {
         super()
         modelize(this)
-        // , {
-        //     uuid: field,
-        //     uid: field,
-        //     nickname: field,
-        //     versions: field,
-        //     is_vocab: field,
-        //     stimulus_html: field,
-        //     published_at: model(Time),
-        //     attachments: model(Attachment),
-        //     authors: model(Author),
-        //     copyright_holders: model(Author),
-        //     questions: model(Question),
-        //     tags: model(TagsAssociation),
-        //     wrapper: observable,
-        //     pool_types: computed,
-        //     cnxModuleUUIDs: computed,
-        //     validity: computed,
-        //     toggleMultiPart: action,
-        //     onQuestionFreeResponseSelected: action,
-        //     moveQuestion: action,
-        // })
     }
 
     get pool_types() {

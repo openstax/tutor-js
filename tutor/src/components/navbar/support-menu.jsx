@@ -111,11 +111,11 @@ class SupportMenu extends React.Component {
 
     componentDidMount() {
         // the delay is necessary for the menu to actually be placed in the DOM
-        delay(() => {
+        delay(action(() => {
         // now that the menu is in the DOM, close it but allow it to be shown in the future
             this.onToggle(false);
             this.hide = false;
-        }, 0);
+        }), 0);
 
         when(
             () => this.chatEnabled && this.chatDisabled,

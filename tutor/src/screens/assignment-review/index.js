@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, action, observable } from 'vendor';
+import { React, PropTypes, observer, styled, action, modelize, observable } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { currentCourses } from '../../models'
 import Router from '../../helpers/router';
@@ -53,12 +53,13 @@ class AssignmentReview extends React.Component {
 
     constructor(props) {
         super(props);
+        modelize(this)
 
         // eslint-disable-next-line
-    let { id, courseId, type } = props.params;
+        let { id, courseId, type } = props.params;
 
         // eslint-disable-next-line
-    const course = props.course || currentCourses.get(courseId);
+        const course = props.course || currentCourses.get(courseId);
 
         this.ux = new UX();
 

@@ -142,7 +142,8 @@ export class BookUX {
     }
 
     @computed get page() {
-        return this.book && this.pageId && this.book.pages.byId.get(this.pageId);
+        if (this.book && this.pageId) { return this.book.pages.byId.get(this.pageId); }
+        return undefined
     }
 
     @computed get toc() {

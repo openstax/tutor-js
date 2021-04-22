@@ -152,6 +152,11 @@ const TimeHelper = {
         return preserve.hour(12).locale(moment.locale());
     },
 
+    getTimePreserveDate(value) {
+        const preserve = new Time(value)
+        return preserve.set({ hour: 12 }).startOf('hour')
+    },
+
     getZonedMoment(value, ...args) {
         const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
         if (this._local) { preserve.tz(this._local); }

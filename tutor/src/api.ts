@@ -100,22 +100,22 @@ const Definitions = {
 
     gradeTaskStep:          r<TaskStepId>('PUT', 'steps/{taskStepId}/grade'),
 
-    fetchTaskPlans:         r<CourseId, TaskPlanQuery>('GET', 'courses/{course.id}/dashboard'),
+    fetchTaskPlans:         r<CourseId, TaskPlanQuery>('GET', 'courses/{courseId}/dashboard'),
 
     fetchPastTaskPlans:     r<CourseId>('GET', 'courses/{courseId}/plans'),
     fetchTaskPlan:          r<TaskPlanId>('GET', 'plans/{taskPlanId}'),
-    deleteTaskPlan:         r<TaskPlanId>('DELETE', 'plans/{id}'),
-    saveTaskPlan:           r<TaskPlanId>('PUT', 'plans/{id}'),
-    saveDroppedQuestions:   r<TaskPlanId>('PUT', 'plans/{id}'),
-    createTaskPlan:         r<CourseId>('POST', 'courses/${courseId}/plans'),
+    deleteTaskPlan:         r<TaskPlanId>('DELETE', 'plans/{taskPlanId}'),
+    saveTaskPlan:           r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
+    saveDroppedQuestions:   r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
+    createTaskPlan:         r<CourseId>('POST', 'courses/{courseId}/plans'),
 
-    grantTaskExtensions:    r<TaskPlanId>('PUT', 'plans/{id}'),
+    grantTaskExtensions:    r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
 
     fetchStudentTasks:      r<CourseId>('GET', 'courses/{courseId}/dashboard'),
 
     fetchTaskPlanStats:     r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
-    fetchTaskPlanReview:    r<TaskPlanId>('GET', 'plans/{id}/review'),
-    fetchTaskPlanScores:    r<TaskPlanId>('GET', 'plans/{id}/scores'),
+    fetchTaskPlanReview:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/review'),
+    fetchTaskPlanScores:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/scores'),
     fetchCourseScores:      r<CourseId>('GET', 'courses/{courseId}/performance'),
 
     responseValidation:     r<any, {uid: string, response: string}>('GET', 'validate'),

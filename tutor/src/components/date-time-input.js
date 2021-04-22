@@ -1,8 +1,8 @@
-import { React, styled, PropTypes, useObserver, cn } from 'vendor';
+import { React, styled, PropTypes, observer, cn } from 'vendor';
 import { useField } from 'formik';
 import Picker from 'rc-picker';
 import { uniqueId, range, defaults } from 'lodash';
-import moment from 'moment';
+import { Time } from '../models'
 import locale from 'rc-picker/lib/locale/en_US';
 import generateConfig from 'rc-picker/lib/generate/moment';
 import 'rc-picker/assets/index.css';
@@ -67,7 +67,7 @@ const Error = styled.div`
   margin: 0.5rem;
 `;
 
-const DateTimeInput = (assignedProps) => useObserver(() => {
+const DateTimeInput = observer((assignedProps) => {
     const props = defaults({}, assignedProps, {
         type: 'text',
         format: 'MMM D | hh:mm A',
@@ -78,8 +78,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
     const id = props.id || uniqueId(props.name);
     const LabelWrapper = props.labelWrapper || React.Fragment;
 
-    const momentFunc = props.timezone ? moment.tz : moment;
-    const momentValue = field.value ? momentFunc(field.value, props.timezone) : null;
+    const timeValue = field.value ? new Time(field.value).asMoment : null
 
     const onUpdateDate = dt => {
         const ev = { target: { name: field.name, value: dt } };
@@ -116,7 +115,7 @@ const DateTimeInput = (assignedProps) => useObserver(() => {
                     }}
                     {...field}
                     {...props}
-                    value={momentValue}
+                    value={timeValue}
                     onSelect={onUpdateDate}
                     onChange={onUpdateDate}
                     prefixCls="oxdt"

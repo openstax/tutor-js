@@ -46,22 +46,21 @@ class TeacherDashboardWrapper extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
+        this.disposePlanObserver = observe(this, 'fetchParams', ({ newValue: fetchParam }) => {
+            this.loader.fetch(fetchParam);
+        });
     }
 
 
     @computed get date() {
-        return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
+        return TimeHelper.getTimePreserveDate(this.props.date, this.props.dateFormat);
     }
 
     @computed get bounds() {
         const { date } = this;
         return {
-            startAt: TimeHelper.toISO(
-                date.clone().startOf('month').startOf('week').subtract(1, 'day')
-            ),
-            endAt: TimeHelper.toISO(
-                date.clone().endOf('month').endOf('week').add(1, 'day')
-            ),
+            start_at: date.startOf('month').startOf('week').minus({ day: 1 }).asISODateString,
+            end_at: date.endOf('month').endOf('week').plus({ day: 1 }).asISODateString,
         };
     }
 
@@ -71,13 +70,8 @@ class TeacherDashboardWrapper extends React.Component {
 
     @observable loader = new ModelLoader({
         model: this.props.course.teacherTaskPlans,
-        fetch: true,
+        fetch: this.fetchParams,
     });
-
-    disposePlanObserver = observe(this, 'fetchParams', ({ newValue: fetchParam }) => {
-        this.loader.fetch(fetchParam);
-    });
-
 
     @observable displayAs = 'month';
     @observable showingSideBar = false;
@@ -113,7 +107,7 @@ class TeacherDashboardWrapper extends React.Component {
 
         const hasPeriods = !isEmpty(course.periods.active);
         const dashboardProps = {
-            course, date:  moment(this.props.date),
+            course, date:  new Time(this.props.date),
             displayAs, hasPeriods,
             showingSideBar, dateFormat,
         };

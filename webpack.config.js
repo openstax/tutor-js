@@ -112,7 +112,7 @@ const config = {
         quiet: false,
         noInfo: false,
         clientLogLevel: 'warning',
-        host: '0.0.0.0',
+        host: 'localhost',
         filename: '[name].js',
         hot: true,
         stats: 'errors-only',

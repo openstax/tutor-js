@@ -8,10 +8,10 @@
 export * from './models/types'
 
 import Bignum  from 'shared/model/bignum';
-import Time from 'shared/model/time';
+import Time, { Interval } from 'shared/model/time';
 import { Toast, currentToasts } from 'shared/model/toasts'
 
-export { Time, Bignum, Toast, currentToasts }
+export { Time, Interval, Bignum, Toast, currentToasts }
 
 export * from './models/feature_flags'
 

@@ -76,12 +76,15 @@ export default class Time {
     endOf(unit: DurationUnit) { return new Time(this._value.endOf(unit)) }
 
     get asISOString() { return this._value.toUTC().toISO() }
+    get asISODateString() { return this.toFormat('yyyy-LL-dd') }
+
+
     get asMoment() { return moment(this._value.toJSDate()) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
-    get intervalToNow() { return new Interval(this, new Time(Time.now)) }
-    intervalTo(other: TimeInputs) { return new Interval(this, toLDT(other)) }
+    get intervalToNow() { return new Interval({ start: this, end: Time.now }) }
+    intervalTo(other: TimeInputs) { return new Interval({ start: this, end: toLDT(other) }) }
 
     toISOString() { return this.asISOString }
     toString() { return this.asISOString }
@@ -123,7 +126,8 @@ function toLDT(dateThing: TimeInputs):LDT {
     } else if (moment.isMoment(dateThing)) {
         return LDT.fromMillis((dateThing as any).valueOf())
     } else {
-        throw new Error(`attempted to hydrate unknown date type ${typeof dateThing} (${dateThing})`)
+        const thing = dateThing ? `unknown date type ${typeof dateThing} (${dateThing})` : 'undefined/null value'
+        throw new Error(`attempted to hydrate ${thing} into a Time instance`)
     }
 }
 
@@ -138,7 +142,7 @@ export function findLatest(dateThing: TimeInputs, ...dateThings: TimeInputs[]): 
 export class Interval {
     start: Time
     end: Time
-    constructor(start: TimeInputs, end: TimeInputs) {
+    constructor({ start, end }: { start: TimeInputs, end: TimeInputs }) {
         this.start = new Time(start)
         this.end = new Time(end)
     }
@@ -159,5 +163,10 @@ export class Interval {
 
     get asMoment() {
         return range(this.start.asDate, this.end.asDate)
+    }
+
+    contains(date: TimeInputs) {
+        const d = new Time(date)
+        return Boolean(this.start.isSameOrBefore(d) && this.end.isSameOrAfter(d))
     }
 }

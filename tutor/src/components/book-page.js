@@ -253,7 +253,7 @@ class BookPage extends React.Component {
         return invoke(this.linkNode, 'remove');
     }
 
-    cleanUpAbstracts(root) {
+    @action cleanUpAbstracts(root) {
         const abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS);
         // dont clean up if abstract does not exist or if it has already been cleaned up
         if ((abstract == null) || !abstract.dataset || (abstract.dataset.isIntro != null)) { return; }
@@ -294,8 +294,8 @@ class BookPage extends React.Component {
         if (mediaDOM === false) { return link; }
 
         const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) ||
-      this.props.cnxId ||
-      this.getCnxId();
+              this.props.cnxId ||
+              this.getCnxId();
 
         const previewNode = document.createElement('span');
         previewNode.classList.add('media-preview-wrapper');
