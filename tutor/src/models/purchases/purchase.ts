@@ -3,7 +3,6 @@ import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/mode
 import Time from 'shared/model/time';
 import S from '../../helpers/string';
 import { currentCourses } from '../../../src/models'
-import { Payments } from '../../helpers/payments'
 
 class Product extends BaseModel {
     @field uuid = '';
@@ -17,6 +16,8 @@ class Product extends BaseModel {
 }
 
 export class Purchase extends BaseModel {
+
+    static invoice_base_url = ''
 
     @field id = NEW_ID;
     @field product_instance_uuid = '';
@@ -58,7 +59,7 @@ export class Purchase extends BaseModel {
     }
 
     @computed get invoiceURL() {
-        return `${Payments.config.base_url}/invoice/${this.identifier}`;
+        return `${Purchase.invoice_base_url}/invoice/${this.identifier}`;
     }
 
     @computed get formattedTotal() {

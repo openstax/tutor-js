@@ -50,9 +50,9 @@ describe('Exercises Map', () => {
     });
 
     it('includes course id when course is provided to load', async () => {
-        fetchMock.mockResponseOnce(JSON.stringify([
+        fetchMock.mockResponseOnce(JSON.stringify({ items: [
             Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
-        ]))
+        ] }))
         await exercises.fetch({ course, book, page_ids, limit: 'homework_core' })
         expect(fetchMock.mock.calls).toHaveLength(1)
         expect(fetchMock.mock.calls[0][0]).toContain(`course_id=${course.id}`)
@@ -61,9 +61,11 @@ describe('Exercises Map', () => {
     it('can be loaded and group by page', async () => {
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(false); });
         expect(fetchMock.mock.calls).toHaveLength(0)
-        fetchMock.mockResponseOnce(JSON.stringify([
-            Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
-        ]))
+        fetchMock.mockResponseOnce(JSON.stringify({
+            items: [
+                Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
+            ],
+        }))
 
         exercises.fetch({ book, page_ids })
         expect(fetchMock.mock.calls).toHaveLength(1)
@@ -90,9 +92,11 @@ describe('Exercises Map', () => {
 
     it('can check if any page is loading', async () => {
         fetchMock.mockResponseOnce(() => new Promise((done) => {
-            setTimeout(() => done(JSON.stringify([
-                Factory.bot.create('TutorExercise'), Factory.bot.create('TutorExercise'),
-            ])), 10)
+            setTimeout(() => done(JSON.stringify({
+                items: [
+                    Factory.data('TutorExercise'), Factory.data('TutorExercise'),
+                ],
+            })), 10)
         }))
         const fetchPromise = exercises.fetch({ book, page_ids })
         expect(exercises.isFetching({ page_id: page_ids[0] })).toBe(true);

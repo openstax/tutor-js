@@ -15,11 +15,11 @@ const TestOverlay = () => <p>Hello From Overlay</p>;
 const renderPage = (props, olprops) => {
     const page = mount(<ObscuredPage {...props}><TestPage /></ObscuredPage>);
     runInAction(() => {
-      olprops = Object.assign({ ...props,
-          onHide: jest.fn(), id: 'test',
-          visible: false,
-          renderer: jest.fn(() => <TestOverlay />),
-      }, olprops);
+        olprops = Object.assign({ ...props,
+            onHide: jest.fn(), id: 'test',
+            visible: false,
+            renderer: jest.fn(() => <TestOverlay />),
+        }, olprops);
     });
     return { page, overlay: mount(<Overlay {...olprops} />) };
 };

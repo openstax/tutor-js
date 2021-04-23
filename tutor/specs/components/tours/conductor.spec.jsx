@@ -6,9 +6,9 @@ import { runInAction } from '../../helpers';
 
 jest.mock('../../../src/models/user', () => ({
     currentUser: {
-      resetTours: jest.fn(),
-      tourAudienceTags: ['teacher'],
-    }
+        resetTours: jest.fn(),
+        tourAudienceTags: ['teacher'],
+    },
 }));
 
 describe('Tour Conductor', () => {

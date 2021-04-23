@@ -167,14 +167,14 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="2.4"
+          data-chapter-section="9.1"
         >
-          2.4
+          9.1
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "real-time",
+              "__html": "encompassing",
             }
           }
         />
@@ -211,14 +211,14 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="4.4"
+          data-chapter-section="10.3"
         >
-          4.4
+          10.3
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "stable",
+              "__html": "analyzing",
             }
           }
         />

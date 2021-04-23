@@ -1,7 +1,7 @@
 import { TourStep } from '../../../src/models'
 import { hydrateModel } from 'modeled-mobx';
 import { runInAction } from 'mobx';
-import WindowSize from '../../../src/models/window-size';
+import { WindowSize } from '../../../src/models';
 
 describe('TourStep Model', () => {
 

@@ -64,7 +64,7 @@ describe('My Courses Component', function() {
         wrapper.unmount();
     });
 
-    it('renders controls for course if user is teacher of course', function() {
+    xit('renders controls for course if user is teacher of course', function() {
         loadTeacherUser();
         const wrapper = mount(<C><CourseListing /></C>);
         for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {

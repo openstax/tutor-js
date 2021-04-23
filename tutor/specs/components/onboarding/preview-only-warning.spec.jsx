@@ -1,6 +1,9 @@
 import { R, C } from '../../helpers';
 import PreviewOnlyWarning from '../../../src/components/onboarding/preview-only-warning';
-import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
+import { PreviewOnboarding as CoursePreviewUX } from '../../../src/components/onboarding/ux'
+
+// import FreshlyCreatedCourse from '../../../src/components/onboarding/ux'
+// import  from '../../../src/models/course/onboarding/preview';
 
 describe('Preview Only Warning', () => {
 

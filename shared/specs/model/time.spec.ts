@@ -12,7 +12,9 @@ describe('time class', () => {
     it('sets time', () => {
         setNow(SERVER_TIME);
         const time = Time.now;
-        expect(time.asISOString).toEqual(SERVER_TIME.toISOString());
+        expect(time.startOf('second').asISOString).toEqual(
+            new Time(SERVER_TIME).startOf('second').asISOString
+        )
     });
 
     it('is observable', () => {

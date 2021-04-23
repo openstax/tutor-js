@@ -112,6 +112,7 @@ const TimeHelper = {
     syncCourseTimezone(courseTimezone) {
         if (this.isCourseTimezone(courseTimezone)) { return null; }
         if (this._local == null) { this._local = this.getLocalTimezone(); }
+        Time.defaultZoneName = courseTimezone
         const zonedMoment = moment.tz.setDefault(courseTimezone);
         return zonedMoment;
     },
@@ -119,6 +120,7 @@ const TimeHelper = {
     unsyncCourseTimezone() {
         if (this._local == null) { return null; }
         const unzonedMoment = moment.tz.setDefault(this._local);
+        Time.defaultZoneName = this._local
         this.unsetLocal();
         return unzonedMoment;
     },

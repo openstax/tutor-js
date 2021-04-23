@@ -5,11 +5,11 @@ describe('Purchases', () => {
 
     beforeEach(() => {
         purchases = new PurchasesMap();
-        purchases.onLoaded({ data: { orders: [{
+        purchases.mergeModelData([{
             identifier: '1234abcd',
             total: 12.82,
             product: { name: 'Foo' },
-        }] } });
+        }])
     });
 
     test('#get', () => {

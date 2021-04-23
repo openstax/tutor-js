@@ -11,11 +11,10 @@ import {
     ID,
     hydrateModel,
     runInAction,
-    //    hydrateInstance,
 } from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
-import { CoursePeriod, Course } from '../models'
+import { CoursePeriod, Course, currentUser, currentCourses } from '../models'
 import S from '../helpers/string';
 import Router from '../helpers/router';
 import Activity from 'shared/components/staxly-animation';
@@ -34,18 +33,18 @@ export class CourseEnrollment extends BaseModel {
     @observable originalEnrollmentCode = ''
     @observable to: any = {}
     @observable status = ''
-    @observable history?: any
     @observable isComplete = false
     @observable courseToJoin: Course|null = null
     @observable isLoadingCourses = false
     @observable courses: CoursesMap
     @observable user: User
+    history?: any
 
     constructor(attrs: { user:User, courses: CoursesMap }) {
         super()
         modelize(this)
-        this.user = attrs.user
-        this.courses = attrs.courses
+        this.user = attrs.user || currentUser
+        this.courses = attrs.courses || currentCourses
         this.originalEnrollmentCode = this.enrollment_code
         when(
             () => this.isRegistered,
@@ -115,8 +114,7 @@ export class CourseEnrollment extends BaseModel {
     }
 
     @computed get courseIsLmsEnabled(): boolean {
-        return this.courseToJoin ?
-            this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', false)
+        return this.courseToJoin ? this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', false)
     }
 
     @action.bound onCancel() {

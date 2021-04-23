@@ -5,10 +5,6 @@ import {
 import { action, observe } from 'mobx';
 import { currentCourses, currentUser, Tour, TourRide, TourRegion } from '../../models'
 
-// import Tour      from '../tour';
-// import TourRide  from './ride';
-// import Region    from './region'
-
 // TourContext
 // Created by the upper-most React element (the Conductor)
 // Regions and Anchors check in and out as they're mounted/unmounted

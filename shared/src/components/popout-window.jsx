@@ -4,10 +4,10 @@
 
 import PropTypes from 'prop-types';
 import { modelize } from 'modeled-mobx'
+import { action } from 'mobx';
 import React from 'react';
 import ReactDOM     from 'react-dom';
 import { isFunction, invoke, defaults, map, uniqueId } from 'lodash';
-import { autobind } from 'core-decorators';
 
 export default class PopoutWindow extends React.Component {
     static propTypes = {
@@ -97,21 +97,18 @@ export default class PopoutWindow extends React.Component {
         }
     }
 
-    @autobind
-    close() {
+    @action.bound close() {
         invoke(this.popup, 'close');
     }
 
-    @autobind
-    onWindowBeforeUnLoad() {
+    @action.bound onWindowBeforeUnLoad() {
         invoke(this.props, 'onClose');
         ReactDOM.unmountComponentAtNode(this.containerEl);
         this.containerEl.parentNode.removeChild( this.containerEl );
         this.popup = null;
     }
 
-    @autobind
-    onWindowLoad() {
+    @action.bound onWindowLoad() {
         // called twice
         if (this.containerEl) { return; }
 

@@ -1,8 +1,8 @@
-import { React, PropTypes } from 'vendor';
+import { React, PropTypes, action } from 'vendor';
 import { Modal, Button } from 'react-bootstrap';
 
 export default function StudentIDForm({ enrollment }) {
-    const onChange = ({ target: { value } }) => enrollment.student_identifier = value;
+    const onChange = action(({ target: { value } }) => enrollment.student_identifier = value);
     return (
         <div className="enroll-form">
             <Modal.Body>

@@ -1,13 +1,11 @@
-import { C } from '../../helpers';
+import { C, Factory } from '../../helpers';
 import FreeTrialActivated from '../../../src/components/onboarding/free-trial-activated';
-import { STUDENT_COURSE_ONE_MODEL } from '../../courses-test-data';
-import Course from '../../../src/models/course';
-import Student from '../../../src/models/course/onboarding/student-course';
+import { StudentCourseOnboarding as Student } from '../../../src/components/onboarding/ux'
 
 describe('Free trial ended modal', () => {
     let ux;
     beforeEach(() => {
-        ux = new Student(new Course(STUDENT_COURSE_ONE_MODEL));
+        ux = new Student(Factory.course({ does_cost: true }))
     });
 
     it('renders and matches snapshot', () => {

@@ -1,7 +1,10 @@
 import { C } from '../../helpers';
 import FreshlyCreatedCourse from '../../../src/components/onboarding/freshly-created-course';
-import StudentUX from '../../../src/models/course/onboarding/student-course';
-import PreviewUX from '../../../src/models/course/onboarding/preview';
+
+import {
+    StudentCourseOnboarding as StudentUX,
+    PreviewOnboarding as PreviewUX,
+} from '../../../src/components/onboarding/ux'
 
 describe('Freshly Created Course prompt', () => {
 

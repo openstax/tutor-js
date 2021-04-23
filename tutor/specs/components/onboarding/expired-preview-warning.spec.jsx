@@ -1,6 +1,6 @@
 import { C } from '../../helpers';
 import ExpiredPreviewWarning from '../../../src/components/onboarding/expired-preview-warning';
-import { PreviewOnboarding } from '../../../src/models';
+import { PreviewOnboarding } from '../../../src/components/onboarding/ux'
 
 describe('Expired Preview Warning', () => {
 

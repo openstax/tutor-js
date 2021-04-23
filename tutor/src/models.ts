@@ -80,8 +80,8 @@ export * from './models/courses-map'
 
 export * from './models/tour/actions'
 export * from './models/tour/step'
-export * from './models/tour/context'
 export * from './models/tour/region'
+export * from './models/tour/context'
 export * from './models/tour/ride'
 export * from './models/tour'
 

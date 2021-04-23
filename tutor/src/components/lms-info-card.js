@@ -11,7 +11,7 @@ import { compact } from 'lodash';
 import { TeacherTaskPlan, currentCourses } from '../models';
 import styled from 'styled-components';
 
-const DUE_FORMAT = "M/d/yyyy 'at' h:mma";
+const DUE_FORMAT = 'M/d/yyyy \'at\' h:mma';
 
 const BackLinkButton = styled(Button)`
   margin: 10px 0 20px 0;

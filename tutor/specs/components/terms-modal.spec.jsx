@@ -1,20 +1,26 @@
 import ModalManager from '../../src/components/modal-manager';
 import TermsModal from '../../src/components/terms-modal';
-import User from '../../src/models/user';
-import { Term, UserTerms } from '../../src/models/user/terms';
+import { hydrateModel } from 'shared/model'
+import { ApiMock } from '../helpers'
+import { currentUser, UserTerm as Term, UserTermsMap } from '../../src/models';
 
 jest.mock('../../src/models/user', () => ({
-    available_terms: [],
+    currentUser: {
+        available_terms: [],
+    },
 }));
 
 describe('Terms agreement modal', () => {
 
     let modalManager;
     let terms;
+    ApiMock.intercept({
+        'terms': [],
+    })
 
     beforeEach(() => {
-        terms = new UserTerms({ user: User });
-        User.terms = terms
+        terms = hydrateModel(UserTermsMap, {}, currentUser);
+        currentUser.terms = terms
         modalManager = new ModalManager();
         modalManager.canDisplay = () => true;
     });
@@ -29,12 +35,12 @@ describe('Terms agreement modal', () => {
 
     describe('when there are courses and', () => {
         beforeEach(() => {
-            User.terms_signatures_needed = true;
+            currentUser.terms_signatures_needed = true;
         });
 
         describe('only signed terms', () => {
             beforeEach(() => {
-                User.terms.available_terms = [
+                currentUser.terms.available_terms = [
                     {
                         id: 42,
                         name: 'general_terms_of_use',
@@ -57,7 +63,7 @@ describe('Terms agreement modal', () => {
         describe('some unsigned terms', () => {
             beforeEach(() => {
                 terms.user.available_terms = [
-                    new Term({
+                    hydrateModel(Term, {
                         id: 42,
                         name: 'general_terms_of_use',
                         title: 'Terms of Use',
@@ -66,7 +72,7 @@ describe('Terms agreement modal', () => {
                         is_signed: false,
                         has_signed_before: true,
                         is_proxy_signed: false,
-                    }),
+                    }, terms),
                 ];
             });
 
@@ -79,9 +85,9 @@ describe('Terms agreement modal', () => {
     });
 
     it('signs term when agreed', () => {
-        const term = new Term({
+        const term = hydrateModel(Term, {
             id: 1, is_signed: false, name: 'privacy_policy', content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
-        });
+        }, terms);
         term.sign = jest.fn();
         expect(term.isRequired).toBe(true)
         terms.user.available_terms = [term];

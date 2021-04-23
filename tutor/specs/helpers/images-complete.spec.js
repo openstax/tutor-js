@@ -1,7 +1,7 @@
 import imagesComplete from '../../src/helpers/images-complete';
 import { JSDOM } from 'jsdom';
 import { deferred } from './index';
-import Raven from '../../src/models/app/raven';
+import { Raven } from '../../src/models';
 jest.mock('../../src/models/app/raven');
 jest.useFakeTimers();
 

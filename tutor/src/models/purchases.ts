@@ -1,8 +1,10 @@
 import Map from 'shared/model/map';
 import { find } from 'lodash';
-import { computed, modelize, ID, hydrateInstance, hydrateModel } from 'shared/model'
+import { computed, modelize, ID } from 'shared/model'
 import { map, flatten } from 'lodash';
 import { Purchase } from '../models'
+import type { PurchaseObj } from '../models'
+import urlFor from '../api';
 
 export class PurchasesMap extends Map<ID, Purchase> {
     static Model = Purchase
@@ -22,15 +24,10 @@ export class PurchasesMap extends Map<ID, Purchase> {
         )).reverse();
     }
 
-    onLoaded({ data: { orders } } : {data: { orders: any[] } } ) {
-        orders.forEach((o:Purchase) => {
-            const purchase = this.get(o.identifier)
-            if(purchase) {
-                hydrateInstance(purchase, o, this)
-            } else {
-                this.set(o.identifier, hydrateModel(Purchase, o, this))
-            }
-        });    }
+    async fetch() {
+        const data = await this.api.request<{ orders: PurchaseObj[] }>(urlFor('fetchPaymentHistory'))
+        this.mergeModelData(data.orders)
+    }
 }
 
 export const currentPurchases = new PurchasesMap();

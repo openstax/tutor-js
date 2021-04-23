@@ -1,6 +1,6 @@
 import { C, Factory } from '../../helpers';
 import SupportMenu from '../../../src/components/navbar/support-menu';
-import { TourRegion, TourContext, currentUser } from '../../../src/models';
+import { TourRegion, TourContext } from '../../../src/models';
 import { Chat } from '../../../src/helpers/chat';
 import { hydrateModel, runInAction } from '../../helpers';
 
@@ -9,7 +9,7 @@ jest.mock('../../../src/helpers/chat');
 jest.mock('../../../src/models/user', () => ({
     currentUser: {
         tourAudienceTags: ['teacher'],
-    }
+    },
 }));
 
 describe('Support Menu', () => {

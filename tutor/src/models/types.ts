@@ -436,3 +436,20 @@ export interface StudentTaskStepObj {
     title: string
     type: string
 }
+
+export interface PurchaseProductObj {
+    uuid: string
+    name: string
+    price: string
+}
+
+export interface PurchaseObj {
+    order_id: ID
+    identifier: string
+    total: string
+    sales_tax: string
+    is_refunded: boolean
+    purchased_at: string
+    updated_at: string
+    product: PurchaseProductObj
+}

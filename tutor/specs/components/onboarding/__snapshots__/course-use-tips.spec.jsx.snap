@@ -21,12 +21,23 @@ exports[`Course Use Tips renders and matches snapshot 1`] = `
         >
           Your students can access your course as soon as you send them the enrollment code, found on the 
           <a
-            href="/course/0/settings"
+            href="/course/42/settings"
             onClick={[Function]}
           >
             Course settings
           </a>
           . 
+          <span>
+            Also, 
+            <a
+              className="best-practices"
+              href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+              target="_blank"
+            >
+              download our best practices PDF
+            </a>
+             so you can make the most of OpenStax Tutor.
+          </span>
         </div>
         <div
           className="footer got-it"

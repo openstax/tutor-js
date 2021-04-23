@@ -44,7 +44,7 @@ const Factories = {
     studentTask,
     studentTasks,
     bot: FactoryBot,
-    data: (name: string, data: any) => FactoryBot.create(name, data),
+    data: (name: string, data?: any) => FactoryBot.create(name, data),
     setSeed(seed: number) {
         return faker.seed(seed);
     },

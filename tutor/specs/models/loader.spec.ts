@@ -1,4 +1,4 @@
-import Loader from '../../src/models/loader';
+import { ModelLoader } from '../../src/models';
 import { deferred } from '../helpers';
 
 jest.useFakeTimers();
@@ -10,16 +10,16 @@ class TestModel {
 
 describe('Model Loader', () => {
     let model: TestModel;
-    let loader: Loader;
+    let loader: ModelLoader;
 
     beforeEach(() => {
         model = new TestModel();
-        loader = new Loader({ model });
+        loader = new ModelLoader({ model });
     });
 
     it('fetches immediately', () => {
         const props = { foo: 'bar' };
-        const fetcher = new Loader({ model, fetch: props });
+        const fetcher = new ModelLoader({ model, fetch: props });
 
         expect(model.fetch).toHaveBeenCalledWith(props);
         expect(fetcher.isLoading(props)).toBeTruthy();

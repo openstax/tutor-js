@@ -1,7 +1,8 @@
-import { DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone } from 'luxon'
-import { map, compact, flatten, max, min } from 'lodash';
+import {
+    DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings,
+} from 'luxon'
+import { map, compact, flatten, max, min, isString, isNumber, isDate } from 'lodash';
 import { readonly } from 'core-decorators'
-import { isString, isNumber, isDate } from 'lodash'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
 import moment from 'moment';
@@ -49,6 +50,9 @@ export default class Time {
 
     @readonly static unknown = new Time(new Date(0))
 
+    static get defaultZoneName() { return Settings.defaultZoneName }
+    static set defaultZoneName(zone: string) { Settings.defaultZoneName = zone }
+
     static hydrate(dateThing: TimeInputs) {
         return new Time(dateThing)
     }
@@ -78,7 +82,6 @@ export default class Time {
     get asISOString() { return this._value.toUTC().toISO() }
     get asISODateString() { return this.toFormat('yyyy-LL-dd') }
 
-
     get asMoment() { return moment(this._value.toJSDate()) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
@@ -90,6 +93,7 @@ export default class Time {
     toString() { return this.asISOString }
 
     inZone(zone: Zone|string) { return new Time(this._value.setZone(zone)) }
+    get zoneName() { return this._value.zoneName }
 
     minus(duration: DurationObject) { return new Time(this._value.minus(duration)) }
     plus(duration: DurationObject) { return new Time(this._value.plus(duration)) }

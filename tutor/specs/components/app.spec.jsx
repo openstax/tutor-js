@@ -18,7 +18,7 @@ jest.mock('../../src/models/user', () => ({
                 isPending: false,
             },
         },
-    }
+    },
 }));
 
 jest.mock('../../src/helpers/chat');

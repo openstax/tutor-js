@@ -46,7 +46,7 @@ export default class Map<K extends ID, V extends MapableObject> {
     }
 
     async fetch(..._args: any[]): Promise<any> {
-        throw new Error('abstract method, should be overriden')
+        throw new Error('abstract map.fetch method called, should be overriden')
     }
 
     @computed get array() {

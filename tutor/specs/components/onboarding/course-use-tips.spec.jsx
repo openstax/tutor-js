@@ -1,8 +1,6 @@
-import { C, R } from '../../helpers';
-import Course from '../../../src/models/course';
+import { C, R, Factory } from '../../helpers';
 import CourseUseTips from '../../../src/components/onboarding/course-use-tips';
-
-import { observable } from 'mobx';
+import { observable, runInAction } from 'mobx';
 
 
 describe('Course Use Tips', () => {
@@ -10,7 +8,7 @@ describe('Course Use Tips', () => {
     let ux, course, props;
 
     beforeEach(() => {
-        course = new Course({ appearance_code: 'biology', id: 42 });
+        course = Factory.course({ appearance_code: 'biology', id: 42 });
         ux = observable.object({ course });
         props = {
             ux,
@@ -27,7 +25,9 @@ describe('Course Use Tips', () => {
     it('has link to help', async () => {
         const wrapper = mount(<R><CourseUseTips {...props} /></R>);
         expect(wrapper).toHaveRendered('a.best-practices');
-        course.appearance_code = 'gibberish';
+        runInAction(() => {
+            course.appearance_code = 'gibberish';
+        })
         expect(wrapper).not.toHaveRendered('a.best-practices');
     });
 

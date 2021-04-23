@@ -1,5 +1,5 @@
 import invariant from 'invariant';
-import { currentToasts, Toast, ToastAttrs, setHandlers } from 'shared/model/toasts';
+import { currentToasts, Toast, ToastAttrs, setToastHandlers } from 'shared/model/toasts'
 
 import * as lms from './toasts/lms';
 import * as scores from './toasts/scores';
@@ -10,7 +10,7 @@ import CourseSettingsSaved from './toasts/course-settings-saved';
 
 const JobToasts = { lms, scores };
 
-setHandlers({
+setToastHandlers({
     job(toast: Toast) {
         invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
         return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];

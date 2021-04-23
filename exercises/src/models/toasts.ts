@@ -1,7 +1,7 @@
-import { currentToasts, setHandlers } from 'shared/model/toasts';
+import { currentToasts, setToastHandlers } from 'shared/model/toasts';
 import Published from '../components/exercise/published-toast';
 
-setHandlers({
+setToastHandlers({
     published() {
         return Published;
     },

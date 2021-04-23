@@ -347,15 +347,6 @@ exports[`ExerciseControls renders the correct question counts 1`] = `
   </div>
   <div
     className="c11"
-  >
-    <button
-      className="btn btn-primary"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Create question
-    </button>
-  </div>
+  />
 </div>
 `;

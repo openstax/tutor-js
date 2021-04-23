@@ -16,7 +16,7 @@ describe('Change Student ID', () => {
     });
 
     it('renders and matches snapshot for various states', () => {
-      const course = courses.get(params.courseId);
+        const course = courses.get(params.courseId);
         runInAction(() => course.userStudentRecord.student_identifier = '1234');
         expect.snapshot(<R><ChangeStudentId /></R>).toMatchSnapshot();
     });

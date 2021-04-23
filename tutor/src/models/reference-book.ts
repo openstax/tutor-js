@@ -7,8 +7,6 @@ import Time from 'shared/model/time'
 import { ChapterSection, ReferenceBookNode as Node } from '../models'
 import urlFor from '../api'
 
-// export { Node as Page }
-
 class PageIdMap extends Map<ID, Node>{
     static Model = Node
 } 

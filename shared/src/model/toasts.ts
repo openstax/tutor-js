@@ -51,8 +51,8 @@ const currentToasts = array( (current: Toast[]) => ({
 
 }))
 
-const setHandlers = (handlers: any) => {
+const setToastHandlers = (handlers: any) => {
     Handlers.replace(handlers);
 };
 
-export { currentToasts, Toast, setHandlers };
+export { currentToasts, Toast, setToastHandlers };

@@ -3,7 +3,7 @@ import ExerciseControls from '../../../src/components/exercise/controls';
 import { currentToasts } from '../../../../shared/src/model/toasts'
 
 jest.mock('../../../../shared/src/model/toasts', () => ({
-    setHandlers: jest.fn(),
+    setToastHandlers: jest.fn(),
     currentToasts: {
         add: jest.fn(),
     },

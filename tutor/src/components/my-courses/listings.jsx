@@ -2,7 +2,8 @@ import { React, PropTypes, computed, observer, styled, modelize } from 'vendor';
 import { isEmpty, merge, map } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
-import { Course, CourseTeacher, currentUser, currentCourses } from '../../models';
+import { Course as CourseModel, currentUser, currentCourses } from '../../models';
+import { Course, CourseTeacher } from './course';
 import CreateACourse from './create-a-course';
 import { breakpoint } from 'theme';
 
@@ -32,7 +33,7 @@ function MyCoursesNone() {
         <Row className="my-courses-none">
             <Col xs={12}>
                 <p>
-          There are no current courses.
+                    There are no current courses.
                 </p>
             </Col>
         </Row>
@@ -57,7 +58,7 @@ const DEFAULT_COURSE_ITEMS = {
 @observer
 class MyCoursesBase extends React.Component {
     static propTypes = {
-        courses:    PropTypes.arrayOf( PropTypes.instanceOf(Course) ).isRequired,
+        courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
         items:      PropTypes.objectOf(PropTypes.element),
         className:  PropTypes.string,
         before:     PropTypes.element,
@@ -82,7 +83,6 @@ class MyCoursesBase extends React.Component {
         const { courses, className, before, after } = this.props;
 
         const sectionClasses = classnames('my-courses-section', className);
-
         return (
             <Row className={sectionClasses}>
                 {before}
@@ -131,7 +131,8 @@ class MyCoursesCurrent extends React.Component {
                     <MyCoursesBase
                         className={`${baseName}-section`}
                         courses={courses}
-                        after={currentUser.canCreateCourses ? <MyCoursesCreate /> : undefined} />
+                        after={currentUser.canCreateCourses ? <MyCoursesCreate /> : undefined}
+                    />
                 </StyledContainer>
             </div>
         );

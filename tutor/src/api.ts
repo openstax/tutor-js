@@ -77,7 +77,7 @@ const Definitions = {
     createTeacherStudent:   r<PeriodId>('PUT', 'periods/{periodId}/teacher_student'),
 
     fetchPageNotes:         r<PageUUID>('GET', 'pages/{pageUUID}/notes'),
-    fetchHighlightedPages:  r<BookUUID>('GET', 'books/{bookUuid}/highlighted_sections'),
+    fetchHighlightedPages:  r<BookUUID>('GET', 'books/{bookUUID}/highlighted_sections'),
 
     createNote:             r<PageUUID>('POST', 'pages/{pageUUID}/notes'),
     saveNote:               r<NoteId>('PUT', 'notes/{noteId}'),
@@ -131,6 +131,22 @@ const Definitions = {
 
     saveResearchSurvey:     r<{ surveyId: ID }>('PUT', 'research_surveys/{id}'),
 
+    requestRefund:          r<{ itemUUID: string }>('PUT', 'purchases/{itemUUID}/refund'),
+    fetchPaymentHistory:    r('GET', 'purchases'),
+
+
+    //     connectModelUpdate(
+    //         Purchase,
+    //         'refund',
+    //         {
+    //             onSuccess: 'onRefunded',
+    //             pattern: 'purchases/{item_uuid}/refund',
+    //             method: 'PUT',
+    //             data() { return { survey: this.refund_survey }; },
+    //         },
+    //     );
+
+//     connectModelRead(Purchases.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'purchases' });
 }
 
 export { Definitions }
@@ -152,17 +168,6 @@ export default urlFor
 //     // notes
 //
 //     connectModelUpdate(Survey, 'save',
-//     );
-//     connectModelRead(Purchases.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'purchases' });
-//     connectModelUpdate(
-//         Purchase,
-//         'refund',
-//         {
-//             onSuccess: 'onRefunded',
-//             pattern: 'purchases/{item_uuid}/refund',
-//             method: 'PUT',
-//             data() { return { survey: this.refund_survey }; },
-//         },
 //     );
 //     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
 //

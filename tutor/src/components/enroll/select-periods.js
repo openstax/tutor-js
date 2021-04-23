@@ -21,12 +21,13 @@ export default class SelectPeriod extends React.Component {
                         <h4>{course.name}</h4>
                     </div>
                     <p>
-            Please select the OpenStax Tutor section you are a member of.
-            If you don't know which section to select, ask your instructor.
+                        Please select the OpenStax Tutor section you are a member of.
+                        If you don't know which section to select, ask your instructor.
                     </p>
                     <Listing>
                         {course.periods.map(pr => (
-                            <Choice key={pr.enrollment_code}
+                            <Choice
+                                key={pr.enrollment_code}
                                 record={pr}
                                 onClick={enrollment.selectPeriod}
                                 active={pr.enrollment_code == enrollment.pendingEnrollmentCode}
@@ -41,7 +42,7 @@ export default class SelectPeriod extends React.Component {
                         disabled={!enrollment.periodIsSelected}
                         variant="primary"
                         className="btn btn-success" onClick={enrollment.onSubmitPeriod}>
-            Continue
+                        Continue
                     </Button>
                 </Modal.Footer>
             </div>

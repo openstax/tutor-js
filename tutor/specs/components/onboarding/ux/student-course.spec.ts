@@ -2,18 +2,18 @@ import { hydrateModel, runInAction } from '../../../helpers'
 import Nags from '../../../../src/components/onboarding/nags';
 import UiSettings from 'shared/model/ui-settings';
 import {
-    Course, TourContext, currentUser, Payments,
+    Course, TourContext, currentUser,
 } from '../../../../src/models'
 import {
     StudentCourseOnboarding as CourseUX,
 } from '../../../../src/components/onboarding/ux/student-course'
-
+import { Payments } from '../../../../src/helpers/payments'
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
     get: jest.fn(),
-}));
-jest.mock('../../../../src/models/course');
-jest.mock('../../../../src/models/payments');
+}))
+jest.mock('../../../../src/models/course')
+jest.mock('../../../../src/helpers/payments')
 
 jest.useFakeTimers();
 

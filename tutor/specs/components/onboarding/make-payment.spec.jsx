@@ -1,16 +1,14 @@
-import { C } from '../../helpers';
+import { C, Factory } from '../../helpers';
 import MakePayment from '../../../src/components/onboarding/make-payment';
-import { STUDENT_COURSE_ONE_MODEL } from '../../courses-test-data';
-import Course from '../../../src/models/course';
-import Student from '../../../src/models/course/onboarding/student-course';
-import Payments from '../../../src/models/payments';
+import { StudentCourseOnboarding as Student } from '../../../src/components/onboarding/ux'
+import { Payments } from '../../../src/helpers/payments'
 
 describe('make payment modal', () => {
     let props;
     beforeEach(() => {
         Payments.config.js_url = 'test'; // silence warning about being unset
         props = {
-            ux: new Student(new Course(STUDENT_COURSE_ONE_MODEL)),
+            ux: new Student(Factory.course({ does_cost: true })),
             onDismiss: jest.fn(),
         };
     });

@@ -33,9 +33,9 @@ describe('LMS Background job toasts', () => {
             'Course averages for 1 student could not be sent'
         );
         runInAction(() =>
-          toast.props().toast.info.errors.push({
-              student_identifier: '4321', student_name: 'Jane', score: 0.923,
-          })
+            toast.props().toast.info.errors.push({
+                student_identifier: '4321', student_name: 'Jane', score: 0.923,
+            })
         );
         toast = mount(<LMSErrors {...props} />);
         expect(PC(toast).textContent).toContain(
