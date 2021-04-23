@@ -2,7 +2,7 @@
 
 exports[`Task Step Footer matches snapshot 1`] = `
 "<C>
-  <ThemeProvider theme={{...}}>
+  <Component theme={{...}}>
     <ForwardRef noRef={[undefined]} path=\\"/\\" withRef={false}>
       <MemoryRouter initialIndex={0} initialEntries={{...}}>
         <Router history={{...}}>
@@ -24,12 +24,12 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepFooter course={{...}} step={{...}}>
                                           <styled.div>
-                                            <div className=\\"sc-AxhUy BkIXc\\">
+                                            <div className=\\"sc-eCImvq jdwrWk\\">
                                               <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
                                                 <styled.div className=\\"related-content-link\\">
-                                                  <div className=\\"sc-AxiKw dcdLEl related-content-link\\">
+                                                  <div className=\\"sc-dkPtyc bIMEVU related-content-link\\">
                                                     <styled.span>
-                                                      <span className=\\"sc-AxhCb dFswVp preamble\\">
+                                                      <span className=\\"sc-hKwCoD eqSaQB preamble\\">
                                                         Comes from
                                                       </span>
                                                     </styled.span>
@@ -37,10 +37,10 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                       <a aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} tabIndex={-1} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
                                                           <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>
-                                                            <div className=\\"sc-AxirZ jSNLok book-part-title\\" style={[undefined]}>
+                                                            <div className=\\"sc-gsDJrp fbJPiw book-part-title\\" style={[undefined]}>
                                                               <ChapterSection chapterSection={{...}}>
                                                                 <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
-                                                                  <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
+                                                                  <span className=\\"sc-bdvvaa izOdpg chapter-section\\" data-chapter-section=\\"1.2\\">
                                                                     1.2
                                                                   </span>
                                                                 </styled.span>
@@ -55,8 +55,8 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                 </styled.div>
                                               </RelatedContentLink>
                                               <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}}>
-                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
-                                                  <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
+                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}} className=\\"sc-jRQAMF kygFFS\\">
+                                                  <div className=\\"exercise-identifier-link sc-jRQAMF kygFFS\\">
                                                     ID# 
                                                     1@1
                                                      | 
@@ -98,6 +98,6 @@ exports[`Task Step Footer matches snapshot 1`] = `
         </Router>
       </MemoryRouter>
     </ForwardRef>
-  </ThemeProvider>
+  </Component>
 </C>"
 `;

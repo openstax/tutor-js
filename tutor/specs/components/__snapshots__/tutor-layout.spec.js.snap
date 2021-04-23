@@ -15,12 +15,12 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fzqNJr dkwodz\\">
+                            <div className=\\"sc-fotPbf bHXEFN\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false} className=\\"\\">
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar nav-\\">
-                                  <nav className=\\"sc-AxjAm fhzKny tutor-navbar nav-\\">
+                                  <nav className=\\"sc-bdvvaa kNnFlL tutor-navbar nav-\\">
                                     <div className=\\"left-side-controls\\">
-                                      <Component>
+                                      <ObservableMap@61.logo>
                                         <Logo>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <TutorLink to=\\"myCourses\\" className=\\"brand\\" aria-label=\\"dashboard\\">
@@ -28,7 +28,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
-                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fznyAO djxuwb\\">
+                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-crHlIS dGMLIV\\">
                                                         <defs>
                                                           <style />
                                                         </defs>
@@ -51,11 +51,11 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             </TutorLink>
                                           </Memo(wrappedComponent)>
                                         </Logo>
-                                      </Component>
+                                      </ObservableMap@61.logo>
                                     </div>
                                     <div className=\\"center-control\\" />
                                     <div className=\\"right-side-controls\\">
-                                      <Component>
+                                      <ObservableMap@63.menu>
                                         <Menus>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <Responsive desktop={{...}} mobile={{...}}>
@@ -78,8 +78,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                             <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: onSelect] { isMobxAction: true }}>
                                                                               <Icon type=\\"question-circle\\" buttonProps={{...}} tooltipProps={{...}}>
                                                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle\\" icon={{...}}>
-                                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
+                                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                                       <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
                                                                                     </svg>
                                                                                   </FontAwesomeIcon>
@@ -154,8 +154,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                               <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
                                                                 <Icon type=\\"bars\\" buttonProps={{...}} tooltipProps={{...}}>
                                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}}>
-                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                         <path fill=\\"currentColor\\" d=\\"M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
@@ -195,7 +195,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             </Responsive>
                                           </Memo(wrappedComponent)>
                                         </Menus>
-                                      </Component>
+                                      </ObservableMap@63.menu>
                                     </div>
                                   </nav>
                                 </styled.nav>
@@ -215,7 +215,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div className=\\"\\" hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fzoyAV gpHiCY\\">
+                                <div className=\\"sc-fFehDp fVAPnE\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body

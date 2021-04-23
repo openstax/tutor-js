@@ -1,20 +1,20 @@
 import { Raven,currentCourses, currentUser } from '../../models';
 import urlFor from '../../api';
 import UX from './ux';
-import adapters from '../../api/adapter';
+import { ModelApi } from 'shared/model/api'
 
 class App {
+    api = new ModelApi()
+
     async bootstrap() {
         Raven.boot();
         urlFor('boot');
-        const { data: { user, courses } } = await this.fetch();
+        const { user, courses } = await this.api.request(['GET', 'user/bootstrap'])
         currentUser.bootstrap(user);
         currentCourses.bootstrap(courses);
         this.ux = new UX();
     }
 }
-
-adapters.connectModelRead(App, 'fetch', { url: '/user/bootstrap', onSuccess: 'onLoaded' });
 
 const app = new App();
 export default app;

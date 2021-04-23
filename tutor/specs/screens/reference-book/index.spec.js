@@ -17,7 +17,6 @@ describe('Reference Book Component', function() {
     ApiMock.intercept({
         'notes': [Factory.data('Note')],
         'ecosystems/\\d+/.*$': Factory.data('Page'),
-
     })
 
     beforeEach(function() {

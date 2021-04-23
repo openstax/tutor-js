@@ -25,18 +25,18 @@ describe('Second Session Warning', () => {
 
     it('dislays got it and dismisses on continue', async () => {
         const wrapper = mount(<C><SecondSessionWarning ux={ux} /></C>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('button.create').simulate('click');
         expect(currentUser.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
         expect(wrapper.find('Body').render().text()).toContain('Ready to create your real course');
+        wrapper.unmount()
     });
 
     it('navigates and logs on add', async () => {
         const wrapper = mount(<C><SecondSessionWarning ux={ux} /></C>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('button.create').simulate('click');
         expect(currentUser.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
         expect(wrapper.instance().pathname).toEqual('/courses');
+        wrapper.unmount()
     });
 
 });

@@ -1,5 +1,5 @@
 import { debounce, isNil, get, isObject } from 'lodash';
-import { toJS, observable } from 'mobx';
+import { toJS, observable, makeObservable, action } from 'mobx';
 import URLs from './urls';
 import Networking from './networking';
 
@@ -40,7 +40,9 @@ const UiSettings = {
         return SETTINGS.has(key);
     },
 
-    set(key:any, id?:any, value?:any) {
+    set(key:any, id?:any, value?:any) { this._set(key, id, value) },
+
+    _set(key:any, id?:any, value?:any) {
         if (isObject(key)) {
             SETTINGS.merge(key);
         } else {
@@ -69,5 +71,9 @@ const UiSettings = {
     // for debugging purposes
     _dump() { return SETTINGS.toJSON(); },
 };
+
+makeObservable(UiSettings, {
+    _set: action,
+})
 
 export default UiSettings;

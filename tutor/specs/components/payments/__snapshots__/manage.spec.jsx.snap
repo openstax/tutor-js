@@ -16,7 +16,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   max-width: 200px;
 }
 
-.c11 {
+.c16 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #77AF42;
@@ -25,12 +25,12 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   transform-origin: center left;
 }
 
-.staxly-animation:not(.paused) .c11 {
+.staxly-animation:not(.paused) .c15 {
   -webkit-animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c10 {
+.c14 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F47641;
@@ -39,12 +39,12 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c10 {
+.staxly-animation:not(.paused) .c13 {
   -webkit-animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c9 {
+.c12 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #5E6062;
@@ -53,12 +53,12 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c9 {
+.staxly-animation:not(.paused) .c11 {
   -webkit-animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c8 {
+.c10 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F4D019;
@@ -67,12 +67,12 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c8 {
+.staxly-animation:not(.paused) .c9 {
   -webkit-animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
 }
 
-.c7 {
+.c8 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #00246A;
@@ -291,23 +291,23 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
               y="0px"
             >
               <path
-                className="c7 blue"
+                className="c7 c8 blue"
                 d="M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2     c0.4,0,0.7,0.3,0.7,0.7V22z"
               />
               <path
-                className="c8 yellow"
+                className="c9 c10 yellow"
                 d="M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1     c0-0.4,0.3-0.7,0.7-0.7L41,15c0.4,0,0.7,0.3,0.7,0.7L41.8,17.8z"
               />
               <path
-                className="c9 gray"
+                className="c11 c12 gray"
                 d="M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5     c0.4,0,0.7,0.3,0.7,0.7V14z"
               />
               <path
-                className="c10 orange"
+                className="c13 c14 orange"
                 d="M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38     c0.5,0,1,0.2,1,0.5V8.1z"
               />
               <path
-                className="c11 green"
+                className="c15 c16 green"
                 d="M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1     l27.7,1.3c0.7,0,1.2,0.6,1.1,1.2L43.9,5z"
               />
               <path
@@ -381,7 +381,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   max-width: 200px;
 }
 
-.c11 {
+.c16 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #77AF42;
@@ -390,12 +390,12 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   transform-origin: center left;
 }
 
-.staxly-animation:not(.paused) .c11 {
+.staxly-animation:not(.paused) .c15 {
   -webkit-animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: jbRjab 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c10 {
+.c14 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F47641;
@@ -404,12 +404,12 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c10 {
+.staxly-animation:not(.paused) .c13 {
   -webkit-animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: fDtsSn 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c9 {
+.c12 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #5E6062;
@@ -418,12 +418,12 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c9 {
+.staxly-animation:not(.paused) .c11 {
   -webkit-animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: ctiCbS 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
 }
 
-.c8 {
+.c10 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #F4D019;
@@ -432,12 +432,12 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   transform-origin: center right;
 }
 
-.staxly-animation:not(.paused) .c8 {
+.staxly-animation:not(.paused) .c9 {
   -webkit-animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   animation: IYPNX 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
 }
 
-.c7 {
+.c8 {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
   fill: #00246A;
@@ -656,23 +656,23 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
               y="0px"
             >
               <path
-                className="c7 blue"
+                className="c7 c8 blue"
                 d="M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2     c0.4,0,0.7,0.3,0.7,0.7V22z"
               />
               <path
-                className="c8 yellow"
+                className="c9 c10 yellow"
                 d="M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1     c0-0.4,0.3-0.7,0.7-0.7L41,15c0.4,0,0.7,0.3,0.7,0.7L41.8,17.8z"
               />
               <path
-                className="c9 gray"
+                className="c11 c12 gray"
                 d="M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5     c0.4,0,0.7,0.3,0.7,0.7V14z"
               />
               <path
-                className="c10 orange"
+                className="c13 c14 orange"
                 d="M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38     c0.5,0,1,0.2,1,0.5V8.1z"
               />
               <path
-                className="c11 green"
+                className="c15 c16 green"
                 d="M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1     l27.7,1.3c0.7,0,1.2,0.6,1.1,1.2L43.9,5z"
               />
               <path

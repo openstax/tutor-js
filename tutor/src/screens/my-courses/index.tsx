@@ -1,9 +1,8 @@
-import React from 'react'
+import { React, observer } from 'vendor'
 import Dashboard from './dashboard'
-import { useHasAnyCourses } from '../../store/courses'
 import NewTeacher from './new-teacher'
 import PendingVerification from '../../components/my-courses/pending-verification';
-import { currentUser } from '../../models'
+import { currentUser, currentCourses } from '../../models'
 import EmptyCourses from '../../components/my-courses/empty'
 import NonAllowedTeacher from '../../components/my-courses/non-allowed-teacher';
 
@@ -11,9 +10,9 @@ interface MyCoursesProps {
     history: any
 }
 
-const MyCourses: React.FC<MyCoursesProps> = ({ history }) => {
+const MyCourses: React.FC<MyCoursesProps> = observer(({ history }) => {
     // always show their courses if they have any
-    if (useHasAnyCourses()) {
+    if (currentCourses.any) {
         return <Dashboard />
     }
 
@@ -36,6 +35,6 @@ const MyCourses: React.FC<MyCoursesProps> = ({ history }) => {
         // otherwise just show "nope, can't use Tutor"
         return <NonAllowedTeacher />;
     }
-}
+})
 
 export default MyCourses

@@ -19,9 +19,9 @@ describe('make payment modal', () => {
 
     it('calls onCancel', async () => {
         const wrapper = mount(<MakePayment {...props} />);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
-    // const onCancel = wrapper.ref('instance').props.onCancel;
-    // expect(onCancel).toBe(ux.onPayLater);
-    // expect(isFunction(onCancel)).toBe(true);
+        // const onCancel = wrapper.ref('instance').props.onCancel;
+        // expect(onCancel).toBe(ux.onPayLater);
+        // expect(isFunction(onCancel)).toBe(true);
+        wrapper.unmount()
     });
 });

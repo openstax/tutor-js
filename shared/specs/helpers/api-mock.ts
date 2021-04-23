@@ -20,7 +20,6 @@ export const ApiMock = {
             Object.assign(spys, ApiMock.mock(mocks))
         })
 
-        afterEach(() => setTimeout(() => fetchMock.resetMocks(), 10)) // dont reset immediatly to allow any pending calls to complete
         return spys
     },
 

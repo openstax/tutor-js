@@ -23,12 +23,6 @@ describe('CreateCourse: entering details', function() {
         });
     });
 
-    it('is accessible', async () => {
-        const wrapper = mount(<C><CourseNumbers ux={ux} /></C>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
-        wrapper.unmount();
-    });
-
     it('sets field values', function() {
         ux.newCourse.cloned_from = ux.courses.array[0];
         const wrapper = shallow(<CourseNumbers ux={ux} />);

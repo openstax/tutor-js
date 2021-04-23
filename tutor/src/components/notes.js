@@ -199,7 +199,6 @@ class NotesWidget extends React.Component {
         const note = highlight ? this.props.notes.get(highlight.id) : null;
         this.pendingHighlight = null;
         this.activeNote = note;
-
         this.highlighter.clearFocus();
         if (highlight) {
             highlight.focus().scrollTo(this.highlightScrollHandler);

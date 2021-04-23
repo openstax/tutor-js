@@ -93,7 +93,7 @@ class StudentDashboard extends React.Component {
                         </Col>
                         <Col xs={12} lg={3} className="sidebar">
                             <Surveys course={course} />
-                            <ProgressGuideShell courseId={course.id} />
+                            <ProgressGuideShell course={course} />
                             <Card className="actions-box browse-the-book">
                                 <BrowseTheBook
                                     unstyled

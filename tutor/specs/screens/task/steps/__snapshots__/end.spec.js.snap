@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tasks Ending Screen completed state 1`] = `
-.c3 {
+.c4 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
@@ -31,7 +31,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
   padding: 2rem;
 }
 
-.c2 {
+.c3 {
   padding: 50px 140px;
 }
 
@@ -39,7 +39,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
 
@@ -63,13 +63,13 @@ exports[`Tasks Ending Screen completed state 1`] = `
 }
 
 @media (min-width:601px) and (max-width:999px) {
-  .c2 {
+  .c3 {
     padding: 25px 30px 140px;
   }
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c3 {
     padding: 10px 25px 20px;
   }
 
@@ -77,24 +77,24 @@ exports[`Tasks Ending Screen completed state 1`] = `
     padding: 8px;
   }
 
-  .c2.c2 .question-feedback {
+  .c3.c3 .question-feedback {
     margin-left: 0;
   }
 
-  .c2.c2 .question-feedback .arrow {
+  .c3.c3 .question-feedback .arrow {
     margin-left: 12px;
   }
 }
 
 @media (min-width:1000px) {
   .video-step .c2 .openstax-exercise-badges,
-  .interactive-step .c2 .openstax-exercise-badges {
+  .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
   }
 }
 
 @media (max-width:600px) {
-  .c2 .openstax-exercise-badges svg {
+  .c3 .openstax-exercise-badges svg {
     margin-right: 8px;
   }
 }
@@ -113,7 +113,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
           className="c1 task-steps-end"
         >
           <div
-            className="c2"
+            className="c2 c3"
           >
             <h1>
               You are done.
@@ -124,7 +124,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
               .
             </h3>
             <a
-              className="btn btn-default c3"
+              className="btn btn-default c4"
               href="/course/6"
               onClick={[Function]}
             >
@@ -157,7 +157,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
 `;
 
 exports[`Tasks Ending Screen completed state 2`] = `
-.c3 {
+.c4 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
@@ -187,7 +187,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
   padding: 2rem;
 }
 
-.c2 {
+.c3 {
   padding: 50px 140px;
 }
 
@@ -195,7 +195,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
 
@@ -219,13 +219,13 @@ exports[`Tasks Ending Screen completed state 2`] = `
 }
 
 @media (min-width:601px) and (max-width:999px) {
-  .c2 {
+  .c3 {
     padding: 25px 30px 140px;
   }
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c3 {
     padding: 10px 25px 20px;
   }
 
@@ -233,24 +233,24 @@ exports[`Tasks Ending Screen completed state 2`] = `
     padding: 8px;
   }
 
-  .c2.c2 .question-feedback {
+  .c3.c3 .question-feedback {
     margin-left: 0;
   }
 
-  .c2.c2 .question-feedback .arrow {
+  .c3.c3 .question-feedback .arrow {
     margin-left: 12px;
   }
 }
 
 @media (min-width:1000px) {
   .video-step .c2 .openstax-exercise-badges,
-  .interactive-step .c2 .openstax-exercise-badges {
+  .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
   }
 }
 
 @media (max-width:600px) {
-  .c2 .openstax-exercise-badges svg {
+  .c3 .openstax-exercise-badges svg {
     margin-right: 8px;
   }
 }
@@ -269,7 +269,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
           className="c1 task-steps-end"
         >
           <div
-            className="c2"
+            className="c2 c3"
           >
             <h1>
               You are done.
@@ -280,7 +280,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
               .
             </h3>
             <a
-              className="btn btn-default c3"
+              className="btn btn-default c4"
               href="/course/6"
               onClick={[Function]}
             >
@@ -313,7 +313,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
 `;
 
 exports[`Tasks Ending Screen not started state 1`] = `
-.c3 {
+.c4 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
@@ -343,7 +343,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
   padding: 2rem;
 }
 
-.c2 {
+.c3 {
   padding: 50px 140px;
 }
 
@@ -351,7 +351,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
 
@@ -375,13 +375,13 @@ exports[`Tasks Ending Screen not started state 1`] = `
 }
 
 @media (min-width:601px) and (max-width:999px) {
-  .c2 {
+  .c3 {
     padding: 25px 30px 140px;
   }
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c3 {
     padding: 10px 25px 20px;
   }
 
@@ -389,24 +389,24 @@ exports[`Tasks Ending Screen not started state 1`] = `
     padding: 8px;
   }
 
-  .c2.c2 .question-feedback {
+  .c3.c3 .question-feedback {
     margin-left: 0;
   }
 
-  .c2.c2 .question-feedback .arrow {
+  .c3.c3 .question-feedback .arrow {
     margin-left: 12px;
   }
 }
 
 @media (min-width:1000px) {
   .video-step .c2 .openstax-exercise-badges,
-  .interactive-step .c2 .openstax-exercise-badges {
+  .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
   }
 }
 
 @media (max-width:600px) {
-  .c2 .openstax-exercise-badges svg {
+  .c3 .openstax-exercise-badges svg {
     margin-right: 8px;
   }
 }
@@ -425,7 +425,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
           className="c1 task-steps-end"
         >
           <div
-            className="c2"
+            className="c2 c3"
           >
             <h1>
               No steps have been completed.
@@ -439,7 +439,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
               </a>
             </h4>
             <a
-              className="btn btn-default c3"
+              className="btn btn-default c4"
               href="/course/2"
               onClick={[Function]}
             >
@@ -472,7 +472,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
 `;
 
 exports[`Tasks Ending Screen partial state 1`] = `
-.c3 {
+.c4 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
@@ -502,7 +502,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
   padding: 2rem;
 }
 
-.c2 {
+.c3 {
   padding: 50px 140px;
 }
 
@@ -510,7 +510,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
 
@@ -534,13 +534,13 @@ exports[`Tasks Ending Screen partial state 1`] = `
 }
 
 @media (min-width:601px) and (max-width:999px) {
-  .c2 {
+  .c3 {
     padding: 25px 30px 140px;
   }
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c3 {
     padding: 10px 25px 20px;
   }
 
@@ -548,24 +548,24 @@ exports[`Tasks Ending Screen partial state 1`] = `
     padding: 8px;
   }
 
-  .c2.c2 .question-feedback {
+  .c3.c3 .question-feedback {
     margin-left: 0;
   }
 
-  .c2.c2 .question-feedback .arrow {
+  .c3.c3 .question-feedback .arrow {
     margin-left: 12px;
   }
 }
 
 @media (min-width:1000px) {
   .video-step .c2 .openstax-exercise-badges,
-  .interactive-step .c2 .openstax-exercise-badges {
+  .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
   }
 }
 
 @media (max-width:600px) {
-  .c2 .openstax-exercise-badges svg {
+  .c3 .openstax-exercise-badges svg {
     margin-right: 8px;
   }
 }
@@ -584,7 +584,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
           className="c1 task-steps-end"
         >
           <div
-            className="c2"
+            className="c2 c3"
           >
             <h1>
               Assignment is partially complete.
@@ -597,7 +597,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
                steps.
             </h3>
             <a
-              className="btn btn-default c3"
+              className="btn btn-default c4"
               href="/course/4"
               onClick={[Function]}
             >

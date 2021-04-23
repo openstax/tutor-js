@@ -10,6 +10,7 @@ export class Offering extends BaseModel {
 
     @field id = NEW_ID;
     @field title = '';
+    @field number = 0;
     @field description = '';
     @field is_concept_coach = false;
     @field is_tutor = false;

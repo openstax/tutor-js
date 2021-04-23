@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Free Response Nudge Messages matches snapshot 1`] = `
-<Memo(NudgeMessage)
+<UNDEFINED
   course={
     Object {
       "appearance_code": "college_physics",
@@ -157,7 +157,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
 `;
 
 exports[`Free Response Nudge Messages matches snapshot 2`] = `
-<Memo(NudgeMessage)
+<UNDEFINED
   course={
     Object {
       "appearance_code": "college_physics",
@@ -317,7 +317,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
 `;
 
 exports[`Free Response Nudge Messages matches snapshot 3`] = `
-<Memo(NudgeMessage)
+<UNDEFINED
   course={
     Object {
       "appearance_code": "college_physics",
@@ -477,7 +477,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
 `;
 
 exports[`Free Response Nudge Messages matches snapshot 4`] = `
-<Memo(NudgeMessage)
+<UNDEFINED
   course={
     Object {
       "appearance_code": "college_physics",
@@ -637,7 +637,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
 `;
 
 exports[`Free Response Nudge Messages matches snapshot 5`] = `
-<Memo(NudgeMessage)
+<UNDEFINED
   course={
     Object {
       "appearance_code": "college_physics",

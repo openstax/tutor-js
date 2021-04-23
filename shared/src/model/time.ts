@@ -130,8 +130,7 @@ function toLDT(dateThing: TimeInputs):LDT {
     } else if (moment.isMoment(dateThing)) {
         return LDT.fromMillis((dateThing as any).valueOf())
     } else {
-        const thing = dateThing ? `unknown date type ${typeof dateThing} (${dateThing})` : 'undefined/null value'
-        throw new Error(`attempted to hydrate ${thing} into a Time instance`)
+        return LDT.invalid(dateThing ? `unknown date type ${typeof dateThing} (${dateThing})` : 'undefined/null value')
     }
 }
 

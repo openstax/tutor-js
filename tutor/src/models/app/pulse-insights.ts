@@ -2,8 +2,6 @@ import loadjs from 'loadjs';
 import { FeatureFlags, Raven } from '../../models'
 import type { User } from '../../models'
 
-//import  from '../feature_flags';
-
 export const PulseInsights = {
     boot(currentUser: User) {
         if (!FeatureFlags.pulse_insights) {

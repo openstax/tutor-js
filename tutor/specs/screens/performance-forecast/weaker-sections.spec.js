@@ -1,19 +1,17 @@
-import { React } from '../../helpers';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import * as PerformanceForecast from '../../../src/flux/performance-forecast';
+import { Factory, React } from '../../helpers';
 import Weaker from '../../../src/screens/performance-forecast/weaker-sections';
 import GUIDE_DATA from '../../../api/courses/1/guide.json';
-const COURSE_ID = '1';
 
 describe('Weaker Sections listing', function() {
     let props;
 
     beforeEach(function() {
-        bootstrapCoursesList();
-        PerformanceForecast.Student.actions.loaded(GUIDE_DATA, COURSE_ID);
+        const course = Factory.course()
+        course.performance.periods.replace([ GUIDE_DATA ])
+        const performance = course.performance.periods[0]
         return props = {
-            courseId: COURSE_ID,
-            sections: PerformanceForecast.Student.store.getAllSections(COURSE_ID),
+            course,
+            performance,
             weakerEmptyMessage: 'Not enough data',
         };});
 

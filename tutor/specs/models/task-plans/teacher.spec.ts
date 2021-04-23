@@ -2,7 +2,7 @@ import { autorun, action, runInAction } from 'mobx';
 import { map } from 'lodash';
 import { TimeMock, Time, Factory } from '../../helpers'
 import type { TeacherTaskPlan, TeacherTaskPlanObj } from '../../../src/models'
-import { currentCourses, Course } from '../../../src/models'
+import { Course } from '../../../src/models'
 
 const COURSE_ID = '123';
 
@@ -15,21 +15,14 @@ describe('Teacher Task Plans', function() {
     TimeMock.setTo(now);
 
     beforeEach(action(() => {
-        currentCourses.bootstrap([{ id: COURSE_ID } as any], { clear: true });
-        course = currentCourses.get(COURSE_ID)!;
-
+        course = Factory.course({ id: COURSE_ID })
         const plans = Factory.teacherTaskPlans({ course });
         plan = plans.array[0];
 
     }));
     afterEach(action(() => {
-        currentCourses.clear();
         course.teacherTaskPlans.clear();
     }));
-
-    it('has api', () => {
-        expect(course.teacherTaskPlans.api).not.toBeUndefined();
-    });
 
     it('should load tasks and notify', () => {
         runInAction(() => course.teacherTaskPlans.clear() )

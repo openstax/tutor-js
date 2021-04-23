@@ -7,9 +7,6 @@ import Router from '../../helpers/router';
 import { sortBy, matches } from 'lodash';
 import Name from '../../components/name';
 import BindStoreMixin from '../../components/bind-store-mixin';
-import * as PerformanceForecast from '../../flux/performance-forecast';
-
-import { currentCourses } from '../../models'
 import Guide from './guide';
 import InfoLink from './info-link';
 import ColorKey from './color-key';
@@ -21,7 +18,7 @@ const Display = createReactClass({
     mixins: [BindStoreMixin],
 
     propTypes: {
-        courseId: PropTypes.string.isRequired,
+        course: PropTypes.string.isRequired,
         roleId:   PropTypes.string.isRequired,
         history:  PropTypes.object.isRequired,
     },
@@ -30,24 +27,21 @@ const Display = createReactClass({
         return { roleId: this.props.roleId };
     },
 
-    UNSAFE_componentWillMount() {
-        currentCourses.get(this.props.courseId).roster.ensureLoaded();
-        return PerformanceForecast.TeacherStudent.actions.load(this.props.courseId, { roleId: this.props.roleId });
+    componentDidMount() {
+        this.course.roster.ensureLoaded();
     },
 
-    bindStore: PerformanceForecast.TeacherStudent.store,
-
     onSelectStudent(roleId) {
-        const { courseId } = this.props;
-        PerformanceForecast.TeacherStudent.actions.load(courseId, { roleId });
+        const { course } = this.props;
+        course.performance.studentRoleId = roleId
         this.setState({ roleId });
         return this.props.history.push(
-            Router.makePathname('viewPerformanceGuide', { courseId, roleId })
+            Router.makePathname('viewPerformanceGuide', { courseId: course.id, roleId })
         );
     },
 
     renderHeading() {
-        const { students } = currentCourses.get(this.props.courseId).roster;
+        const { students } = this.props.course.roster
         const selected = students.find(matches({ role_id: this.state.roleId }));
         if (!selected) { return null; }
 
@@ -55,7 +49,7 @@ const Display = createReactClass({
             <div className="guide-heading">
                 <div className="teacher-student-page-heading guide-group-title">
                     <span className="preamble">
-            Performance Forecast for:
+                        Performance Forecast for:
                     </span>
                     <Dropdown
                         alignRight
@@ -90,10 +84,10 @@ const Display = createReactClass({
         return (
             <div className="explanation">
                 <p>
-          Tutor shows the weakest topics for a student.
+                    Tutor shows the weakest topics for a student.
                 </p>
                 <p>
-          Your help may be needed in these areas.
+                    Your help may be needed in these areas.
                 </p>
             </div>
         );
@@ -102,34 +96,27 @@ const Display = createReactClass({
     renderEmptyMessage() {
         return (
             <div className="no-data-message">
-                {'\
-    No questions have been answered yet.\
-    '}
+                No questions have been answered yet.
             </div>
         );
     },
 
     render() {
-        const { courseId } = this.props;
+        const { course } = this.props;
         const { roleId } = this.state;
-        const isLoaded = PerformanceForecast.TeacherStudent.store.isLoaded.bind(PerformanceForecast.TeacherStudent.store, courseId, { roleId });
-        const isLoading = PerformanceForecast.TeacherStudent.store.isLoading.bind(PerformanceForecast.TeacherStudent.store, courseId, { roleId });
 
         return (
             <Container className="performance-forecast teacher-student">
                 <Guide
-                    courseId={courseId}
+                    course={course}
                     roleId={roleId}
-                    isLoaded={isLoaded}
-                    isLoading={isLoading}
                     loadingMessage="Loading..."
                     heading={this.renderHeading()}
                     weakerExplanation={this.renderWeakerExplanation()}
                     emptyMessage={this.renderEmptyMessage()}
                     weakerTitle="Their weakest topics"
                     weakerEmptyMessage="Your student hasn't worked enough problems for Tutor to predict their weakest topics."
-                    allSections={PerformanceForecast.TeacherStudent.store.getAllSections(courseId, { roleId })}
-                    chapters={PerformanceForecast.TeacherStudent.store.getChapters(courseId, { roleId })} />
+                />
             </Container>
         );
     },

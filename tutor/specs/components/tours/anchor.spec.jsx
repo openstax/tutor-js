@@ -10,7 +10,6 @@ describe('Tour Region', () => {
                 <span>Hello</span>
             </TourAnchor>
         );
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(context.anchors.size).toBe(1);
         wrapper.unmount();
         expect(context.anchors.size).toBe(0);

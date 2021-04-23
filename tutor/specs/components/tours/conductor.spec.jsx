@@ -27,9 +27,9 @@ describe('Tour Conductor', () => {
                 <TourConductor {...props}><span>Hi</span></TourConductor>
             </ModalManager>
         );
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         runInAction(() => spyMode.isEnabled = true);
         expect(currentUser.resetTours).toHaveBeenCalled();
+        wrapper.unmount()
     });
 
 });

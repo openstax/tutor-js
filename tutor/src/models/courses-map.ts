@@ -1,7 +1,8 @@
 import Map, { hydrateModel } from 'shared/model/map';
 import { ID, modelize, computed, action, override } from 'shared/model'
 import { CourseObj, Course } from '../models'
-import { isEmpty, find } from 'lodash';
+import type { Offering } from '../models'
+import { isEmpty, find, maxBy } from 'lodash';
 import urlFor from '../api'
 
 export class CoursesMap extends Map<ID, Course> {
@@ -79,6 +80,14 @@ export class CoursesMap extends Map<ID, Course> {
         return this.where(c => c.dashboardViewCount > 0);
     }
 
+    latestForOffering(offering: Offering) {
+        return maxBy(this.forOffering(offering).array)
+    }
+
+    forOffering(offering: Offering) {
+        return this.where(c => c.offering_id == offering.id)
+    }
+
     @action addNew(courseData: CourseObj) {
         const course = hydrateModel(Course, courseData, this);
         course.just_created = true;
@@ -114,6 +123,13 @@ export class CoursesMap extends Map<ID, Course> {
             course ? course.update(cd) : this.set(cd.id, hydrateModel(Course, cd, this));
         });
     }
+
+    @action async createPreview() {
+        const preview = hydrateModel(Course, { is_preview: true })
+        await preview.save()
+        this.set(preview.id, preview)
+    }
+
 }
 
 export const currentCourses = new CoursesMap();

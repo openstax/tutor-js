@@ -1,19 +1,19 @@
 import { React, PropTypes, observer, action, observable, modelize } from 'vendor';
 import {
-    get, map, forEach, first, last, invoke, defer, compact, uniq,
+    get, forEach, first, last, invoke, defer, // map, compact, uniq,
 } from 'lodash';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
 import classnames from 'classnames';
-import { ReferenceBookExerciseShell } from './book-page/exercise';
+//import { ReferenceBookExerciseShell } from './book-page/exercise';
 import PageTitle from './page-title';
 import NotesWidget from './notes';
-import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
+//import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 import { currentCourses } from '../models'
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
-import { MediaStore } from '../flux/media';
+//import { MediaStore } from '../flux/media';
 import MediaPreview from './media-preview';
 import ScrollTo from '../helpers/scroll-to';
 import imagesComplete from '../helpers/images-complete';
@@ -332,13 +332,13 @@ class BookPage extends React.Component {
         defer(() => {
             if (!this.linkContentIsMounted) { return; }
             const { root } = this;
-            const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
+            // const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
             const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
-            const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
+            // const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
 
-            if (otherLinks != null ? otherLinks.length : undefined) { if (typeof this.renderOtherLinks === 'function') {
-                this.renderOtherLinks(otherLinks);
-            } }
+            // if (otherLinks != null ? otherLinks.length : undefined) { if (typeof this.renderOtherLinks === 'function') {
+            //     this.renderOtherLinks(otherLinks);
+            // } }
             if (exerciseLinks != null ? exerciseLinks.length : undefined) {
                 if (typeof this.renderExercises === 'function') {
                     this.renderExercises(exerciseLinks);
@@ -368,18 +368,18 @@ class BookPage extends React.Component {
     }
 
     renderExercises(exerciseLinks) {
-        ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length);
-        const links = map(exerciseLinks, 'href');
-        if (!ReferenceBookExerciseStore.isLoaded(links)) { ReferenceBookExerciseActions.loadMultiple(links); }
+        // ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length);
+        // const links = map(exerciseLinks, 'href');
+        // if (!ReferenceBookExerciseStore.isLoaded(links)) { ReferenceBookExerciseActions.loadMultiple(links); }
 
         return forEach(exerciseLinks, this.renderExercise);
     }
 
     renderExercise(link) {
-        const exerciseAPIUrl = link.href;
+        //const exerciseAPIUrl = link.href;
         const exerciseNode = link.parentNode.parentNode;
         if (exerciseNode != null) {
-            return ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl} />, exerciseNode);
+            //return ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl} />, exerciseNode);
         }
         return null;
     }

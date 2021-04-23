@@ -63,7 +63,7 @@ export class ModelApi {
     }
 
     @computed get isFetchInProgress() {
-        return Array.from(this.requestsInProgress.values()).find(([method]) => method == 'GET')
+        return Boolean(Array.from(this.requestsInProgress.values()).find(([method]) => method == 'GET'))
     }
 
     @computed get isFetchedOrFetching() {
@@ -82,11 +82,13 @@ export class ModelApi {
         try {
             const reply = await request<RetT>(methodUrl, options)
             runInAction(() => {
-                this.requestsInProgress.delete(key)
-                this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
                 if (isApiError(reply)) {
                     this.errors.set(key, reply)
                 }
+                setTimeout(action(() => { // wait until after value is returned before marking "done"
+                    this.requestsInProgress.delete(key)
+                    this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
+                }))
             })
             return reply
         } catch (e) {

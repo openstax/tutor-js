@@ -19,7 +19,6 @@ import type { BootstrapData } from '../models'
 
 import Notices from '../helpers/notifications';
 import Tutor from '../components/root';
-import store, { bootstrap } from '../store'
 import { request } from 'shared/api/request'
 
 
@@ -79,8 +78,6 @@ export class TutorApp {
 
         window._MODELS.bootstrapData = this.data = data;
         window._MODELS.app = this;
-        store.dispatch(bootstrap(data as any))
-        window._MODELS.store = store
         forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
             const mdata = data[storeId];
             if (mdata) { model.bootstrap(mdata); }

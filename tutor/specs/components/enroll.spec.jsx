@@ -1,6 +1,6 @@
 import { R, Factory, TutorRouter, hydrateModel, runInAction } from '../helpers';
 import Enroll from '../../src/components/enroll';
-import { CourseEnrollment } from '../../src/helpers/enroll';
+import { CourseEnrollment } from '../../src/helpers/course-enrollment'
 import { ApiError } from 'shared/model'
 
 
@@ -38,7 +38,6 @@ describe('Student Enrollment', () => {
     it('loads when mounted', async () => {
         enrollment.isLoadingCourses = true;
         const wrapper = mount(<R><Enroll enrollment={enrollment} /></R>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(enrollment.create).toHaveBeenCalled();
         expect(wrapper).toHaveRendered('StaxlyAnimation');
         expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot();

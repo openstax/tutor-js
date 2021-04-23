@@ -69,7 +69,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   min-height: 100vh;
 }
 
-.c4 {
+.c5 {
   padding-top: 60px;
   padding-bottom: 0;
 }
@@ -78,7 +78,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   padding-top: calc(60px*2);
 }
 
-.c4.viewQuestionsLibrary {
+.c5.viewQuestionsLibrary {
   padding-top: 0;
 }
 
@@ -390,7 +390,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 </div>
               </nav>
               <div
-                className="c4"
+                className="c4 c5"
               >
                 <div
                   className="invalid-page"

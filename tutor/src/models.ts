@@ -21,6 +21,7 @@ export * from './models/window-size'
 export * from './models/appearance_codes'
 export * from './models/chapter-section'
 export * from './models/related-content'
+export * from './models/media'
 
 export * from './models/reference-book/node'
 export * from './models/reference-book'
@@ -75,6 +76,7 @@ export * from './models/course/role'
 export * from './models/course/period'
 export * from './models/course/lms'
 export * from './models/course/pair-to-lms'
+export * from './models/course/performance'
 export * from './models/course'
 
 export * from './models/courses-map'
@@ -94,7 +96,6 @@ export * from './models/research-surveys/survey'
 export * from './models/research-surveys'
 
 export * from './models/courses-map'
-
 export * from './models/exercises'
 export * from './models/exercises'
 export * from './models/grading/templates'
@@ -124,6 +125,8 @@ export * from './models/scores'
 
 
 export * from './models/app/pulse-insights'
+export * from './models/app/errors'
+export * from './models/app/nav-history'
 export * from './models/app/raven'
 
 // export * from './models/reference-book/ux'

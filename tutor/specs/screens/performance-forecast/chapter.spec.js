@@ -1,5 +1,5 @@
 import { React } from '../../helpers';
-import { bootstrapCoursesList } from '../../courses-test-data';
+import { Factory } from '../../helpers'
 import Chapter from '../../../src/screens/performance-forecast/chapter';
 import GUIDE_DATA from '../../../api/courses/1/guide.json';
 
@@ -9,10 +9,13 @@ describe('Learning Guide Chapter Panel', function() {
     let props;
 
     beforeEach(function() {
-        bootstrapCoursesList();
+        const course = Factory.course()
+        course.performance.periods.replace([ GUIDE_DATA ])
+        const performance = course.performance.periods[0]
         props = {
-            chapter: GUIDE_DATA.children[0],
-            courseId: '1',
+            course,
+            performance,
+            chapter: performance.children[0],
         };});
 
     it('reports how many problems were worked', () => {
@@ -22,8 +25,4 @@ describe('Learning Guide Chapter Panel', function() {
             .toContain(`${pluralize(' problems', total, true)} worked in this chapter`);
     });
 
-    it('is accessible', async () => {
-        const chapter = mount(<Chapter {...props} />);
-        expect(await axe(chapter.html())).toHaveNoViolations();
-    });
 });

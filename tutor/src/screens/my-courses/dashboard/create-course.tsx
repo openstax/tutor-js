@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import TutorLink from '../../../components/link'
 import IconAdd from '../../../components/icons/add'
-import { Offering } from '../../../store/types'
+import { OfferingObj } from '../../../models/types'
 import TourAnchor from '../../../components/tours/anchor'
 import { colors } from 'theme'
 
@@ -24,7 +24,7 @@ const StyledCreateCourse = styled.div`
 `
 
 interface CreateCourseProps {
-    offering: Offering
+    offering: OfferingObj
 }
 
 const CreateCourse: React.FC<CreateCourseProps> = ({ offering }) => {

@@ -28,11 +28,11 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   padding: 0;
 }
 
-.c2.c2.c2 .openstax-has-html .splash .frame-wrapper {
+.c3.c3.c3 .openstax-has-html .splash .frame-wrapper {
   margin-top: 0;
 }
 
-.c3 {
+.c4 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: flex-end;
@@ -60,13 +60,13 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
 }
 
 @media (min-width:601px) and (max-width:999px) {
-  .c2 {
+  .c3 {
     padding: 25px 30px 140px;
   }
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c3 {
     padding: 10px 25px 20px;
   }
 
@@ -74,24 +74,24 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
     padding: 8px;
   }
 
-  .c2.c2 .question-feedback {
+  .c3.c3 .question-feedback {
     margin-left: 0;
   }
 
-  .c2.c2 .question-feedback .arrow {
+  .c3.c3 .question-feedback .arrow {
     margin-left: 12px;
   }
 }
 
 @media (min-width:1000px) {
   .video-step .c2 .openstax-exercise-badges,
-  .interactive-step .c2 .openstax-exercise-badges {
+  .interactive-step .c3 .openstax-exercise-badges {
     margin-right: 3.8rem;
   }
 }
 
 @media (max-width:600px) {
-  .c2 .openstax-exercise-badges svg {
+  .c3 .openstax-exercise-badges svg {
     margin-right: 8px;
   }
 }
@@ -111,11 +111,11 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           className="c1 reading-step "
         >
           <div
-            className="c2"
+            className="c2 c3"
           >
             <div />
             <button
-              className="c3 continue btn btn-primary btn-lg"
+              className="c4 continue btn btn-primary btn-lg"
               disabled={false}
               onClick={[Function]}
               type="button"

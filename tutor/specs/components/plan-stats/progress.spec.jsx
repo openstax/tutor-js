@@ -25,8 +25,8 @@ describe('TaskPlan stats progress bar', function() {
     it('renders as all incorrect', async () => {
         props.data.correct_count = 0;
         const wrapper = mount(<Progress {...props} />);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(wrapper).toHaveRendered('.reading-progress-bar[aria-valuenow=0]');
+        wrapper.unmount()
     });
 
 });

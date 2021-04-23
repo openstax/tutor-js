@@ -2,9 +2,9 @@ import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { map, groupBy, some } from 'lodash'
 import TutorDropdown from '../../../components/dropdown'
-import { useAllCourses } from '../../../store/courses'
-import { useAvailableOfferings } from '../../../store/offering'
-import { Offering, ID } from '../../../store/types'
+import { currentCourses } from '../../../models'
+import { useAvailableOfferings } from '../../../helpers/hooks'
+import { Offering, ID } from '../../../models'
 import Scroller from '../../../helpers/scroll-to'
 
 interface AddSubjectsDropdownProps {
@@ -15,7 +15,7 @@ interface AddSubjectsDropdownProps {
 const scroller = new Scroller()
 
 const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ displayedOfferings, setDisplayedOfferingIds }) => {
-    const courses = useAllCourses()
+    const courses = currentCourses
     const allOfferings = useAvailableOfferings(courses)
     const offeringsBySubject = groupBy(allOfferings, o => o.subject)
 

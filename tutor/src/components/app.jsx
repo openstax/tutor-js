@@ -11,16 +11,15 @@ import MatchForTutor from './match-for-tutor';
 import TeacherAsStudentFrame from '../components/teacher-as-student-frame';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { currentUser, currentCourses } from '../models';
+import { currentUser, currentCourses, navHistory } from '../models';
 import { SpyMode } from 'shared';
-import { TransitionActions } from '../flux/transition';
 import ModalManager from './modal-manager';
 import TourConductor from './tours/conductor';
 import ErrorBoundary from './error-monitoring/boundary';
 import { TutorLayout } from './tutor-layout';
 
 const RouteChange = function(props) {
-    TransitionActions.load(props.pathname);
+    navHistory.record(props.pathname)
     return <span />;
 };
 
@@ -51,7 +50,7 @@ class App extends React.Component {
 
     storeHistory() {
         Analytics.onNavigation(this.props.location.pathname);
-        TransitionActions.load(this.props.location.pathname);
+        navHistory.record(this.props.location.pathname);
     }
 
     render() {

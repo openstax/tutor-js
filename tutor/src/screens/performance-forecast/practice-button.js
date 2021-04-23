@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { uniqueId } from 'lodash';
 import classnames from 'classnames';
-import * as PerformanceForecast from '../../flux/performance-forecast';
-import ChapterSectionType from './chapter-section-type';
 import ButtonWithTip from '../../components/buttons/button-with-tip';
 import Practice from './practice';
 
@@ -13,10 +11,11 @@ class PracticeButton extends React.Component {
     static displayName = 'PracticeButton';
 
     static propTypes = {
-        courseId: PropTypes.string.isRequired,
+        course:       PropTypes.object.isRequired,
+        performance:  PropTypes.object.isRequired,
+        section:      PropTypes.object.isRequired,
         practiceType: PropTypes.string,
-        title:    PropTypes.string.isRequired,
-        sections: PropTypes.arrayOf(ChapterSectionType),
+        title:        PropTypes.string.isRequired,
     };
 
     id = uniqueId('practice-button-tooltip-');
@@ -29,12 +28,12 @@ class PracticeButton extends React.Component {
     };
 
     render() {
-        const { sections, courseId } = this.props;
-        const page_ids = PerformanceForecast.Helpers.pagesForSections(sections);
+        const { section, course } = this.props;
+
         const classes = classnames('practice', this.props.practiceType);
 
         return (
-            <Practice courseId={courseId} page_ids={page_ids}>
+            <Practice course={course} page_ids={section.page_ids}>
                 <ButtonWithTip
                     id={this.id}
                     variant="light"

@@ -1,7 +1,7 @@
-import { React, PropTypes, action, inject, observer, withRouter, modelize } from 'vendor';
+import { React, PropTypes, inject, observer, withRouter } from 'vendor';
 import ErrorHandlers from './handlers';
-import { Course } from '../../models';
-import { AppStore } from '../../flux/app';
+import { Course, currentErrors } from '../../models';
+// import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 
 @withRouter
@@ -18,21 +18,16 @@ class ServerErrorMonitoring extends React.Component {
         }),
     }
 
-    constructor(props) {
-        super(props);
-        modelize(this);
-    }
+    // componentDidMount() {
+    //     AppStore.on('server-error', this.onErrorChange);
+    // }
 
-    componentDidMount() {
-        AppStore.on('server-error', this.onErrorChange);
-    }
+    // componentWillUnmount() {
+    //     AppStore.off('server-error', this.onErrorChange);
+    // }
+    render() {
+        const error = currentErrors.latest
 
-    componentWillUnmount() {
-        AppStore.off('server-error', this.onErrorChange);
-    }
-
-    @action.bound onErrorChange() {
-        const error = AppStore.getError();
         if (error) {
 
             const dialogAttrs = ErrorHandlers.forError(
@@ -45,9 +40,6 @@ class ServerErrorMonitoring extends React.Component {
                 Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
             }
         }
-    }
-
-    render() {
         // We don't actually render anything
         return null;
     }

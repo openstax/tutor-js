@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { uniqueId } from 'lodash';
-import * as PerformanceForecast from '../../flux/performance-forecast';
 import Practice from './practice';
 
 export default class extends React.Component {
@@ -16,18 +15,18 @@ export default class extends React.Component {
 
     static propTypes = {
         id: PropTypes.string,
-        section:  PropTypes.object.isRequired,
+        section:     PropTypes.object.isRequired,
         canPractice: PropTypes.bool,
-        courseId:    PropTypes.string.isRequired,
+        course:      PropTypes.object.isRequired,
         ariaLabel:   PropTypes.string,
     };
 
     render() {
-        const { section, canPractice, courseId, id, ariaLabel } = this.props;
+        const { section, canPractice, course, id, ariaLabel } = this.props;
         const { page_ids } = section;
 
         const bar = (() => {
-            if (PerformanceForecast.Helpers.canDisplayForecast(section.clue)) {
+            if (section.canDisplayForecast) {
                 const percent = Math.round(Number(section.clue.most_likely) * 100);
                 const value_interpretation = percent >= 80 ? 'high' : (percent >= 30 ? 'medium' : 'low');
                 // always show at least 5% of bar, otherwise it just looks empty
@@ -49,7 +48,7 @@ export default class extends React.Component {
 
         if (canPractice) {
             return (
-                <Practice courseId={courseId} page_ids={page_ids}>
+                <Practice course={course.id} page_ids={page_ids}>
                     <Button id={id} block={true} variant="practice">
                         {bar}
                     </Button>

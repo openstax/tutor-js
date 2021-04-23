@@ -8,14 +8,14 @@ import Section from './section';
 import Statistics from './statistics';
 
 const PerformanceForecastChapter = (props) => {
-    const { chapter, roleId, courseId } = props;
+    const { chapter, roleId, course } = props;
 
     return (
         <div className="chapter-panel">
             <div className="chapter">
                 <div className="heading">
                     <span className="number">
-                        {chapter.chapter_section[0]}
+                        {chapter.chapter_section.chapter}
                     </span>
                     <div className="title" title={chapter.title}>
                         <BookPartTitle part={chapter} />
@@ -23,10 +23,11 @@ const PerformanceForecastChapter = (props) => {
                 </div>
                 <ProgressBar {...props} section={chapter} />
                 <Statistics
-                    courseId={courseId}
+                    course={course}
                     roleId={roleId}
                     section={chapter}
-                    displaying="chapter" />
+                    displaying="chapter"
+                />
             </div>
             {filter(chapter.children, 'clue.is_real').map((section, i) =>
                 <Section key={i} section={section} {...props} />)}
@@ -35,7 +36,7 @@ const PerformanceForecastChapter = (props) => {
 };
 
 PerformanceForecastChapter.propTypes = {
-    courseId: PropTypes.string.isRequired,
+    course:   PropTypes.object.isRequired,
     roleId:   PropTypes.string,
     chapter:  ChapterSectionType.isRequired,
     canPractice: PropTypes.bool,

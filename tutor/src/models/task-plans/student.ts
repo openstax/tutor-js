@@ -79,7 +79,7 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
     }
 
     // note: the response also contains limited course and role information but they're currently unused
-    onLoaded({ tasks, research_surveys, all_tasks_are_ready }: TasksPayload) {
+    @action onLoaded({ tasks, research_surveys, all_tasks_are_ready }: TasksPayload) {
         if (research_surveys) {
             this.researchSurveys = hydrateModel(ResearchSurveysMap, {}, this)
             this.researchSurveys.mergeModelData(research_surveys)

@@ -7,6 +7,7 @@ import { ID } from 'shared/types'
 // DELETE: 'delete',
 
 interface BookId { bookId: ID }
+interface RoleId { roleId: ID }
 interface StepId { stepId: ID }
 interface TaskId { taskId: ID }
 interface NoteId { noteId: ID }
@@ -136,19 +137,10 @@ const Definitions = {
     requestRefund:          r<{ itemUUID: string }>('PUT', 'purchases/{itemUUID}/refund'),
     fetchPaymentHistory:    r('GET', 'purchases'),
 
+    getMyPerformance:       r<CourseId>('GET', 'courses/{courseId}/guide'),
+    getTeacherPerformance:  r<CourseId>('GET', 'courses/{courseId}/teacher_guide'),
+    getStudentPerformance:  r<CourseId & RoleId>('GET', 'courses/{courseId}/guide/role/{roleId}'),
 
-    //     connectModelUpdate(
-    //         Purchase,
-    //         'refund',
-    //         {
-    //             onSuccess: 'onRefunded',
-    //             pattern: 'purchases/{item_uuid}/refund',
-    //             method: 'PUT',
-    //             data() { return { survey: this.refund_survey }; },
-    //         },
-    //     );
-
-//     connectModelRead(Purchases.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'purchases' });
 }
 
 export { Definitions }
@@ -156,42 +148,7 @@ export { Definitions }
 const urlFor = makeUrlFunc(Definitions)
 export default urlFor
 
-//export default Api
-//     // "User" is actually an instance, but connectModel works at the class level
-//     connectModelRead(User.constructor, 'fetch',
-//         { pattern: 'user' }
-//     );
 
-//     // notes
-//     connectModelRead(Stats, 'fetch', {
-//         url: '/stats', onSuccess: 'onLoaded',
-//     });
-
-//     // notes
-//
-//     connectModelUpdate(Survey, 'save',
-//     );
-//     connectModelRead(Offerings.constructor, 'fetch', { url: 'offerings', onSuccess: 'onLoaded' });
-//
-//     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
-
-
-//     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
-//     connectModelUpdate(TaskResult, 'acceptLate', { method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted' });
-
-//     connectModelUpdate(TaskResult, 'rejectLate', { method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected' });
-
-//     connectModelRead(Job, 'requestJobStatus', { onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}' });
-//     connectModelRead(TaskPlanStats, 'fetch', {
-//         onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats',
-//     });
-
-//     connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
-// };
-// export default {
-//     boot: startAPI,
-// };
-//
 // TODO: convert flux
 //     connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
 

@@ -12,7 +12,7 @@ import {
     Time, Interval, Notes, CourseObj, currentOfferings, Offering,
     CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
     TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
-    PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation,
+    PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation, CoursePerformance,
 } from '../models'
 import PH from '../helpers/period';
 
@@ -73,6 +73,7 @@ export class Course extends BaseModel {
     @lazyGetter get notes() { return hydrateModel(Notes, {}, this) }
     @lazyGetter get roster() { return hydrateModel(Roster, {}, this) }
     @lazyGetter get scores() { return hydrateModel(Scores, {}, this) }
+    @lazyGetter get performance() { return hydrateModel(CoursePerformance, {}, this) }
     @lazyGetter get studentTasks() { return hydrateModel(StudentTasks, {}, this) }
     @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.ecosystem_id }, this) }
     @lazyGetter get pastTaskPlans() { return hydrateModel(PastTaskPlans, {}, this) }

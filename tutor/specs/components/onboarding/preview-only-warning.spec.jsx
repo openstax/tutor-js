@@ -24,16 +24,16 @@ describe('Preview Only Warning', () => {
 
     it('dismisses on continue', async () => {
         const wrapper = mount(<R><PreviewOnlyWarning ux={ux} /></R>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('button.continue').simulate('click');
         expect(ux.hasViewedPublishWarning).toHaveBeenCalled();
+        wrapper.unmount()
     });
 
     it('navigates on add', async () => {
         const wrapper = mount(<C><PreviewOnlyWarning ux={ux} /></C>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('button.create').simulate('click');
         expect(wrapper.instance().pathname).toEqual('/courses');
+        wrapper.unmount()
     });
 
 });

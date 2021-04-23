@@ -7,8 +7,8 @@ describe('CreateCourse: choosing offering', function() {
         const offering = Factory.offering();
         offering.appearance_code = 'firefirefire';
         const wrapper = shallow(<OfferingTitle offering={offering} />);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(wrapper).toHaveRendered('[data-appearance="firefirefire"]');
+        wrapper.unmount()
     });
 
     it('matches snapshot', function() {

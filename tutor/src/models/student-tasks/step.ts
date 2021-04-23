@@ -5,11 +5,10 @@ import {
 import S from '../../helpers/string';
 import { pick, get, isNil, omit } from 'lodash';
 import { extractCnxId } from '../../helpers/content';
-import { MediaActions } from '../../flux/media';
 import Time from 'shared/model/time';
 import urlFor from '../../api';
 import {
-    ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup,
+    ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup, currentMedia,
 } from '../../models';
 
 class TaskStepContent extends BaseModel {
@@ -289,7 +288,7 @@ export class StudentTaskStep extends BaseModel {
         }
         this.content = hydrateModel(Klass, data, this)
         if (this.isReading) {
-            MediaActions.parse(this.content.html);
+            currentMedia.parse(this.content.html);
         }
         this.isFetched = true;
     }

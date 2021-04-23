@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isArray } from 'lodash';
 import { SpyMode } from 'shared';
-import { currentCourses } from '../../models';
 import ChapterSectionType from './chapter-section-type';
 import pluralize from 'pluralize';
 
@@ -11,7 +10,7 @@ pluralize.addIrregularRule(' has', ' have');
 
 class Statistics extends React.Component {
     static propTypes = {
-        courseId: PropTypes.string.isRequired,
+        course:   PropTypes.object.isRequired,
         roleId:   PropTypes.string,
         section:  ChapterSectionType.isRequired,
         displaying: PropTypes.string.isRequired,
@@ -39,7 +38,7 @@ ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
             role = 'teacher-student';
         } else {
             // else use the course role of teacher or student
-            role = currentCourses.get(this.props.courseId).primaryRole.type;
+            role = this.props.course.primaryRole.type;
         }
 
         return (

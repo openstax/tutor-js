@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import * as PerformanceForecast from '../../flux/performance-forecast';
 import Section from './section';
 
 export default
 class WeakerSections extends React.Component {
     static propTypes = {
-        courseId:     PropTypes.string.isRequired,
-        sections:     PropTypes.array.isRequired,
+        performance:  PropTypes.object.isRequired,
         weakerEmptyMessage:  PropTypes.string.isRequired,
     };
 
@@ -20,14 +18,15 @@ class WeakerSections extends React.Component {
     };
 
     renderSections = () => {
-        return PerformanceForecast.Helpers.weakestSections(this.props.sections).map((section, i) =>
+        return this.props.performance.weakestSections().map((section, i) =>
             <Section key={i} section={section} {...this.props} />);
     };
 
     render() {
+
         return (
             <React.Fragment>
-                {PerformanceForecast.Helpers.canDisplayWeakest(this.props) ? this.renderSections() : this.renderLackingData()}
+                {this.props.performance.canDisplayWeakest ? this.renderSections() : this.renderLackingData()}
             </React.Fragment>
         );
     }

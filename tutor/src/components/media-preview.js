@@ -7,7 +7,7 @@ import { ArbitraryHtmlAndMath } from 'shared';
 import _ from 'underscore';
 import S from '../helpers/string';
 
-import { MediaStore } from '../flux/media';
+//import { MediaStore } from '../flux/media';
 
 function getTargetClassList(el) {
     if (el.parentElement && el.parentElement.matches('.os-figure')) {
@@ -46,8 +46,8 @@ class MediaPreview extends React.Component {
     };
 
     componentWillUnmount() {
-        const { mediaId } = this.props;
-        return MediaStore.off(`loaded.${mediaId}`, this.updateMedia);
+        // const { mediaId } = this.props;
+        // return MediaStore.off(`loaded.${mediaId}`, this.updateMedia);
     }
 
     onMouseEnter = (mouseEvent) => {
@@ -100,9 +100,9 @@ class MediaPreview extends React.Component {
     };
 
     UNSAFE_componentWillMount() {
-        const { mediaId } = this.props;
-        const media = MediaStore.get(mediaId);
-        if (media != null) { this.updateMedia(media); }
+        // const { mediaId } = this.props;
+        // const media = MediaStore.get(mediaId);
+        // if (media != null) { this.updateMedia(media); }
     }
 
     checkShouldPop = () => {

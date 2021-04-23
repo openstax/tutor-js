@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import { React, useState, observer } from 'vendor'
 import { Button } from 'react-bootstrap'
 import { map, filter, findIndex, every, sumBy, find } from 'lodash'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { colors } from 'theme'
 import { Icon } from 'shared'
-import { ID } from '../../../store/types'
-import { dropCourseTeacher } from '../../../store/api'
-import { useAllCourses } from '../../../store/courses'
+import { ID } from '../../../models/types'
+import { currentCourses } from '../../../models'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
@@ -121,10 +119,10 @@ const StyledMyCoursesDashboard = styled.div`
  * Main component
  */
 
-export const MyCoursesDashboard = () => {
-    const dispatch = useDispatch()
+export const MyCoursesDashboard = observer(() => {
+    // const dispatch = useDispatch()
     // getting all the data: courses
-    const courses = useAllCourses()
+    const courses = currentCourses
 
     const [deleteOfferingIdModal, setDeleteOfferingIdModal] = useState<ID | null>(null)
     const [displayedOfferingIds, setDisplayedOfferingIds, displayedOfferings, swapOffering] = useDisplayedOfferings()
@@ -140,7 +138,7 @@ export const MyCoursesDashboard = () => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
                 const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
                 if(currentTeacher) {
-                    return dispatch(dropCourseTeacher(currentTeacher.id))
+                    return currentTeacher.drop() // dispatch(dropCourseTeacher(currentTeacher.id))
                 }
                 return Promise.resolve()
             }))
@@ -192,7 +190,7 @@ export const MyCoursesDashboard = () => {
                 <OfferingBlock
                     key={o.id}
                     offering={o}
-                    courses={filter(courses, c => c.offering_id === o.id && String(c.term) !== 'preview')}
+                    courses={courses.forOffering(o)}
                     swapOffering={swapOffering}
                     tryDeleteOffering={setDeleteOfferingIdModal}
                     isEditMode={isEditMode}
@@ -212,6 +210,6 @@ export const MyCoursesDashboard = () => {
             {renderDeleteModal()}
         </StyledMyCoursesDashboard>
     )
-}
+})
 
 export default MyCoursesDashboard

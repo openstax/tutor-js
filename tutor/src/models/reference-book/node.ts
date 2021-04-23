@@ -4,8 +4,7 @@ import {
     modelize, getParentOf, hydrateModel, array,
     action, computed, override,
 } from 'shared/model';
-import { ChapterSection }from '../../models'
-import { MediaActions } from '../../flux/media'
+import { currentMedia, ChapterSection }from '../../models'
 import type { ReferenceBook } from '../reference-book'
 
 import urlFor from '../../api';
@@ -141,7 +140,7 @@ export class ReferenceBookNode extends BaseModel {
 
     @action onContentFetchComplete( data: any) {
         this.update(pick(data, UPDATEABLE_FIELDS));
-        MediaActions.parse(this.content_html);
+        currentMedia.parse(this.content_html);
     }
 
     @computed get asTopic() {

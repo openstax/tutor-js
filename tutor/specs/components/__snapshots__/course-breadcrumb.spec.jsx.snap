@@ -1,9 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Course Breadcrumb renders and matches snapshot 1`] = `
-.c3 {
+.c4 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+}
+
+.c5 {
+  max-width: 1200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .c0 {
@@ -30,18 +37,17 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
 .c2 {
   color: #cdcdcd;
   margin: 0 0.8rem;
+}
+
+.c3 {
   margin-top: 2px;
 }
 
-.c2 svg {
+.c3 svg {
   margin: 0;
 }
 
-.c4 {
-  max-width: 1200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.c6 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -65,11 +71,11 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     >
       College Physics
       <span
-        className="sc-fzokOt c2"
+        className="c2 c3"
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-angle-right fa-w-8 c3 ox-icon ox-icon-angle-right"
+          className="svg-inline--fa fa-angle-right fa-w-8 c4 ox-icon ox-icon-angle-right"
           data-icon="angle-right"
           data-prefix="fas"
           focusable="false"
@@ -88,7 +94,7 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
     </a>
   </div>
   <h2
-    className="sc-fznyAO c4"
+    className="c5 c6"
   >
     Current Task
   </h2>
