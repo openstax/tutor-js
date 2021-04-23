@@ -1,6 +1,6 @@
 import { Factory, visitPage, Mocker, setTimeouts, setRole, deleteText } from './helpers'
 
-describe('Teacher Gradebook', () => {
+xdescribe('Teacher Gradebook', () => {
     Mocker.mock({
         page,
         options: {
