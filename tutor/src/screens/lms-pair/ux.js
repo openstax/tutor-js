@@ -1,5 +1,5 @@
 import { action, observable, computed, modelize } from 'shared/model'
-import { LMSPair, currentCourses } from '../../models';
+import { PairToLMS, currentCourses } from '../../models';
 import NewOrExising from './new-or-existing';
 import CreateCourse from './create-course';
 import CreateCourseUX from './create-course-ux';
@@ -55,7 +55,7 @@ export default class LmsPairUX {
     }
 
     @action.bound startPairing() {
-        this.lmsPair = new LMSPair(this.pairedCourse);
+        this.lmsPair = new PairToLMS(this.pairedCourse);
         this.lmsPair.save().then(this.onPaired);
     }
 

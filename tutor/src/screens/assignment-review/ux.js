@@ -1,7 +1,7 @@
 import { React, observable, action, computed, modelize } from 'vendor';
 import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import { DropQuestion } from '../../models';
+import { DroppedQuestion } from '../../models';
 import EditUX from '../assignment-edit/ux';
 import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
@@ -223,7 +223,7 @@ export default class AssignmentReviewUX {
 
     @action toggleDropQuestion(isDropped, { question_id }) {
         if (isDropped) {
-            this.pendingDroppedQuestions.set(question_id, new DropQuestion({ question_id }));
+            this.pendingDroppedQuestions.set(question_id, new DroppedQuestion({ question_id }));
         } else {
             this.pendingDroppedQuestions.delete(question_id);
         }

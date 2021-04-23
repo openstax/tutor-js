@@ -110,7 +110,7 @@ module.exports = {
         const plan = planForId(req.params.id, { course });
         const exercises = times(4).map(() => Factory.create('TutorExercise'));
 
-        const stat = Factory.create('TaskPlanStat', { task_plan: plan, course, exercises });
+        const stat = Factory.create('TaskPlanStats', { task_plan: plan, course, exercises });
         res.json(stat);
     },
 

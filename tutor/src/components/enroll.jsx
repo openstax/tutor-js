@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
-import { CourseEnrollment as Enroll } from '../models';
+import { CourseEnrollment } from '../helpers/course-enrollment'
 import Router from '../helpers/router';
 import { withRouter } from 'react-router-dom';
 import studentIDForm from './enroll/student-id';
@@ -38,8 +38,9 @@ class CourseEnroll extends React.Component {
     }
 
     enrollmentCode = Router.currentParams().enrollmentCode;
-    enrollment = this.props.enrollment ||
-    new Enroll({ enrollment_code: this.enrollmentCode, history: this.props.history });
+    enrollment = this.props.enrollment || new CourseEnrollment({
+        enrollment_code: this.enrollmentCode, history: this.props.history,
+    });
 
     UNSAFE_componentWillMount() {
         this.enrollment.create();

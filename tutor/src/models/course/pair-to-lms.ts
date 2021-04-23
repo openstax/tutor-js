@@ -1,21 +1,23 @@
-import { BaseModel, observable } from 'shared/model';
+import { BaseModel, observable, action } from 'shared/model';
+import type { Course } from '../../models'
+import urlFor from '../../api'
 
-export default class CoursePair extends BaseModel {
+export class PairToLMS extends BaseModel {
 
-    @observable course;
-    @observable success;
+    @observable course:Course;
+    @observable success = false;
 
-
-    constructor(course) {
+    constructor(course: Course) {
         super();
         this.course = course;
     }
 
-    save() {
-        return this;
+    async save() {
+        const reply = await this.api.request(urlFor('pairToLMS', { courseId: this.course.id }))
+        this.onPaired(reply)
     }
 
-    onPaired({ data: { success } }) {
-        this.success = success;
+    @action onPaired(reply: any) {
+        this.success = reply.success;
     }
 }

@@ -28,7 +28,7 @@ interface PQCourseId extends CourseId { practiceQuestionId: ID }
 interface EcosystemCnxId { ecosystemId: ID, cnxId: ID }
 
 const Definitions = {
-    bootstrap:              r('GET', '/user/bootstrap'),
+    bootstrap:              r('GET', 'user/bootstrap'),
 
     saveOwnStudentId:       r<CourseId>('POST', 'user/courses/{courseId}/student'),
     updateStudent:          r<StudentId>('POST', 'students{studentId}'),
@@ -124,6 +124,8 @@ const Definitions = {
     createPracticeQuestion: r<CourseId>('POST', 'courses/{courseId}/practice_questions'),
     deletePracticeQuestion: r<PQCourseId>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
 
+    pairToLMS:              r<CourseId>('POST', 'lms/courses/{courseId}/pair'),
+
     pushLmsScores:          r<CourseId>('PUT', 'lms/courses/{courseId}/push_scores'),
     scoresExport:           r<CourseId>('PUT', 'courses/{courseId}/performance/export'),
 
@@ -173,8 +175,6 @@ export default urlFor
 //
 //     connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
-
-//     connectModelUpdate(CoursePairLMS, 'save', { method: 'POST', pattern: 'lms/courses/{course.id}/pair', onSuccess: 'onPaired' });
 
 //     connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 //     connectModelUpdate(TaskResult, 'acceptLate', { method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted' });

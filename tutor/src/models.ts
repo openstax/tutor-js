@@ -74,6 +74,7 @@ export * from './models/course/roster'
 export * from './models/course/role'
 export * from './models/course/period'
 export * from './models/course/lms'
+export * from './models/course/pair-to-lms'
 export * from './models/course'
 
 export * from './models/courses-map'

@@ -1,6 +1,6 @@
 import {
-    BaseModel, ID, NEW_ID, field, model, hydrateModel, modelize,
-    observable, computed, action, readonly, getParentOf,
+    BaseModel, ID, NEW_ID, field, model, modelize,
+    computed, action, readonly, getParentOf,
 } from 'shared/model';
 import type { StudentObj, CoursePeriod, Course } from '../../models'
 import { FeatureFlags } from '../../models'
@@ -8,24 +8,6 @@ import Time from 'shared/model/time'
 import urlFor from '../../api'
 import { pick } from 'lodash';
 
-export class CourseStudents {
-
-    course: Course
-
-    @readonly all = observable.array<CourseStudent>()
-
-    constructor(course: Course) {
-        this.course = course
-        modelize(this)
-    }
-
-    hydrate(students: StudentObj[]) {
-        this.all.replace(students.map((r) => hydrateModel(CourseStudent, { ...r, course: this.course })))
-    }
-
-    serialize() { return null; } // students are not serialized
-
-}
 
 export class CourseStudent extends BaseModel {
 
