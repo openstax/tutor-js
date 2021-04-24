@@ -1,6 +1,6 @@
 import { ExercisesMap as Exercises, Exercise } from '../../src/models'
 import { sampleSize, keys, forEach } from 'lodash';
-import { TutorExerciseObj } from '../../src/models/types';
+import { TutorExerciseData } from '../../src/models/types';
 import { fetchMock, Factory, hydrateModel } from '../helpers'
 
 describe('Exercises Map', () => {
@@ -74,7 +74,7 @@ describe('Exercises Map', () => {
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(true); });
 
         const items = page_ids.map(page_id =>
-            Factory.bot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }) as TutorExerciseObj,
+            Factory.bot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }) as TutorExerciseData,
         )
 
         exercises.onLoaded(items, undefined, book, page_ids);

@@ -3,7 +3,7 @@ import { sortBy, values } from 'lodash';
 import {
     BaseModel, model, action, observable, computed, field, modelize, ID, array,
 } from 'shared/model'
-import { ChapterSection, HighlightedPageObj, Note, ReferenceBookNode as Page } from '../models'
+import { ChapterSection, HighlightedPageData, Note, ReferenceBookNode as Page } from '../models'
 import Map, { getParentOf, hydrateModel } from 'shared/model/map';
 import urlFor from '../api'
 
@@ -59,14 +59,14 @@ export class Notes extends BaseModel {
     }
 
     async fetchHighlightedPages() {
-        const data = await this.api.request<{ pages: HighlightedPageObj[] }>(
+        const data = await this.api.request<{ pages: HighlightedPageData[] }>(
             urlFor('fetchHighlightedPages', { bookUUID: this.course.ecosystem_book_uuid })
         )
         this.onHighlightedPagesLoaded(data.pages)
     }
 
-    onHighlightedPagesLoaded(pages: HighlightedPageObj[]) {
-        const summary:Record<string, HighlightedPageObj> = {};
+    onHighlightedPagesLoaded(pages: HighlightedPageData[]) {
+        const summary:Record<string, HighlightedPageData> = {};
         pages.forEach(pg => {
             const key = pg.uuid;
             if (!summary[key]) { summary[key] = pg; }

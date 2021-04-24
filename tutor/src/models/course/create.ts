@@ -7,7 +7,7 @@ import {
 } from '../../models'
 
 import urlFor from '../../api'
-import type { CourseObj } from '../types';
+import type { CourseData } from '../types';
 
 export class CourseCreate extends BaseModel {
 
@@ -108,14 +108,14 @@ export class CourseCreate extends BaseModel {
         if (this.canCloneCourse) {
             data.cloned_from_id = this.cloned_from_id
         }
-        const courseData = await this.api.request<CourseObj>(
+        const courseData = await this.api.request<CourseData>(
             this.canCloneCourse ? urlFor('cloneCourse', { courseId: this.cloned_from_id }) : urlFor('createCourse'),
             { data: { foo: 'bar' } },
         )
         this.onCreated(courseData)
     }
 
-    @action onCreated(data: CourseObj) {
+    @action onCreated(data: CourseData) {
         this.createdCourse = this.courses.addNew(data)
     }
 }

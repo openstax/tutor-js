@@ -1,6 +1,6 @@
 import Map, { hydrateModel } from 'shared/model/map';
 import { ID, modelize, computed, action, override } from 'shared/model'
-import { CourseObj, Course } from '../models'
+import { CourseData, Course } from '../models'
 import type { Offering } from '../models'
 import { isEmpty, find, maxBy } from 'lodash';
 import urlFor from '../api'
@@ -88,7 +88,7 @@ export class CoursesMap extends Map<ID, Course> {
         return this.where(c => c.offering_id == offering.id)
     }
 
-    @action addNew(courseData: CourseObj) {
+    @action addNew(courseData: CourseData) {
         const course = hydrateModel(Course, courseData, this);
         course.just_created = true;
         this.set(course.id, course);
@@ -105,7 +105,7 @@ export class CoursesMap extends Map<ID, Course> {
         return Boolean(!isEmpty(name) && !find(this.array, { name }));
     }
 
-    @action bootstrap( courseData: CourseObj[], options: { clear?: boolean } = {} ) {
+    @action bootstrap( courseData: CourseData[], options: { clear?: boolean } = {} ) {
         if (options.clear) { this.clear(); }
         courseData.forEach(cd => this.set(String(cd.id), hydrateModel(Course, cd, this)));
         return this;
@@ -113,11 +113,11 @@ export class CoursesMap extends Map<ID, Course> {
 
     async fetch(..._args: any[]): Promise<any> {
         this.onLoaded(
-            await this.api.request<CourseObj[]>(urlFor('fetchCourses'))
+            await this.api.request<CourseData[]>(urlFor('fetchCourses'))
         )
     }
 
-    @action onLoaded(courses: CourseObj[]) {
+    @action onLoaded(courses: CourseData[]) {
         courses.forEach((cd) => {
             const course = this.get(cd.id);
             course ? course.update(cd) : this.set(cd.id, hydrateModel(Course, cd, this));

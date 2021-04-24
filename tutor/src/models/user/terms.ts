@@ -1,7 +1,7 @@
 import { BaseModel, field, model, modelize, computed, action, array, NEW_ID, ID, getParentOf } from 'shared/model';
 import { isProd } from '../../helpers/production'
 import type { User } from '../../models'
-import { UserTermObj } from '../../models'
+import { UserTermData } from '../../models'
 import urlFor from '../../api'
 
 const REQUIRED_FOR_EVERYONE = [
@@ -71,7 +71,7 @@ export class UserTermsMap extends BaseModel {
         this.onLoaded(terms)
     }
 
-    @action onLoaded(terms: UserTermObj[]) {
+    @action onLoaded(terms: UserTermData[]) {
         terms.forEach((termData) => {
             const term = this.get(termData.name);
             if (term) {

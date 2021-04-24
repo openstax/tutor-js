@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import { Map, ID, getParentOf, field, modelize, hydrateModel } from 'shared/model';
 import { PracticeQuestion } from './practice-questions/practice-question';
 import urlFor from '../api'
-import type { PracticeQuestionObj, Course } from '../models'
+import type { PracticeQuestionData, Course } from '../models'
 
 export class PracticeQuestions extends Map<ID, PracticeQuestion> {
     static Model = PracticeQuestion
@@ -26,7 +26,7 @@ export class PracticeQuestions extends Map<ID, PracticeQuestion> {
         return { courseId: this.course.id };
     }
 
-    @action onFoundExistingPractice(data: PracticeQuestionObj) {
+    @action onFoundExistingPractice(data: PracticeQuestionData) {
         this.current_task_id = data.id;
     }
 

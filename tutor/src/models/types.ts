@@ -2,14 +2,14 @@ export type ID = string | number
 
 export type CourseTermName = 'spring' | 'summer' | 'fall' | 'winter' | 'unknown'
 
-export interface RoleObj {
+export interface RoleData {
     id: ID
     joined_at: string
     research_identifier: string
     type: 'teacher' | 'student' | 'teacher_student'
 }
 
-export interface StudentObj {
+export interface StudentData {
     id: ID
     role_id: ID
     period_id: ID
@@ -24,12 +24,12 @@ export interface StudentObj {
     student_identifier: string
 }
 
-export interface StudentRoleObj {
+export interface StudentRoleData {
     role_id: ID
     name: string
 }
 
-export interface TeacherObj {
+export interface TeacherData {
     id: ID
     course_id: ID
     role_id: ID
@@ -37,12 +37,12 @@ export interface TeacherObj {
     is_active: boolean
 }
 
-export interface TeacherProfileObj {
+export interface TeacherProfileData {
     id: ID
     name: string
 }
 
-export interface CoursePeriodObj {
+export interface CoursePeriodData {
     id: ID
     enrollment_code: string
     enrollment_url: string
@@ -51,7 +51,7 @@ export interface CoursePeriodObj {
     num_enrolled_students: number
 }
 
-export interface CourseObj {
+export interface CourseData {
     id: ID
     name: string
     appearance_code: string
@@ -69,16 +69,16 @@ export interface CourseObj {
     num_sections: number
     offering_id: string
     past_due_unattempted_ungraded_wrq_are_zero: boolean
-    periods: CoursePeriodObj[]
+    periods: CoursePeriodData[]
     reading_weight: number
     related_teacher_profile_ids: number[]
-    roles: RoleObj[]
+    roles: RoleData[]
     salesforce_book_name: string
     spy_info: any
     starts_at: string
-    students: StudentObj[]
-    teachers: TeacherObj[]
-    teacher_profiles: TeacherProfileObj[]
+    students: StudentData[]
+    teachers: TeacherData[]
+    teacher_profiles: TeacherProfileData[]
     term: CourseTermName
     timezone: string
     uses_pre_wrm_scores: boolean
@@ -88,12 +88,12 @@ export interface CourseObj {
     current_role_id?: string
 }
 
-export interface ActiveTermYearsObj {
+export interface ActiveTermYearsData {
     term: CourseTermName
     year: number
 }
 
-export interface OfferingObj {
+export interface OfferingData {
     id: ID
     title: string
     description: string
@@ -105,20 +105,20 @@ export interface OfferingObj {
     default_course_name: string
     does_cost: boolean
     subject: string
-    active_term_years: ActiveTermYearsObj[]
+    active_term_years: ActiveTermYearsData[]
     os_book_id: string
 }
 
-export interface UserTermObj {
+export interface UserTermData {
     id: ID
     name: string
     title: string
     is_signed: boolean
 }
 
-export interface UserObj {
+export interface UserData {
     account_uuid: string
-    available_terms: UserTermObj[]
+    available_terms: UserTermData[]
     can_create_courses: boolean
     faculty_status: 'confirmed_faculty' | 'no_faculty_info' | 'pending_faculty' | 'rejected_faculty'
     name: string
@@ -138,25 +138,25 @@ export interface UserObj {
 }
 
 export interface BootstrapData {
-    courses: CourseObj[]
+    courses: CourseData[]
     accounts_api_url: string
     accounts_profile_url: string
     errata_form_url: string
     feature_flags: { is_payments_enabled: boolean }
     flash: any
     hypothesis: any
-    offerings: OfferingObj[]
+    offerings: OfferingData[]
     payments: { is_enabled: boolean, js_url: string, base_url: string }
     tutor_api_url: string
     ui_settings: any
     assets_url: string
     is_impersonating: boolean
     osweb_base_url: string
-    user: UserObj
+    user: UserData
 }
 
 
-export interface GradingTemplateObj {
+export interface GradingTemplateData {
     id: ID
     auto_grading_feedback_on: string
     cloned_from_id: ID
@@ -176,22 +176,22 @@ export interface GradingTemplateObj {
     task_plan_type: 'reading' | 'homework'
 }
 
-export interface HighlightedPageObj {
+export interface HighlightedPageData {
     chapter_section: number[]
     id: number
     title: string
     uuid: string
 }
 
-export interface ReferenceBookNodeObj {
+export interface ReferenceBookNodeData {
     chapter_section: number[]
-    children: ReferenceBookNodeObj[]
+    children: ReferenceBookNodeData[]
     cnx_id: string
     type: 'unit' | 'chapter' | 'page'
     uuid: string
 }
 
-export interface ReferenceBookObj {
+export interface ReferenceBookData {
     id: ID
     title: string
     cnx_id: string
@@ -204,10 +204,10 @@ export interface ReferenceBookObj {
     webview_url: string
     baked_at: string
     chapter_section: number[]
-    children: ReferenceBookNodeObj
+    children: ReferenceBookNodeData
 }
 
-export interface ReferenceBookPageObj {
+export interface ReferenceBookPageData {
     chapter_section: number[]
     content_html: string
     spy: Record<string, any>
@@ -218,38 +218,38 @@ export interface ReferenceBookPageObj {
 export type FacultyStatus = 'no_faculty_info' | 'pending_faculty' | 'confirmed_faculty' | 'rejected_faculty' | 'no_faculty_info'
 export type SelfReportedRoles = 'unknown_role' | 'student' | 'instructor' | 'administrator' | 'librarian' | 'designer' | 'adjunct' | 'homeschool'
 
-export interface ExercisePersonObj {
+export interface ExercisePersonData {
     user_id: ID
     name: string
 }
 
-export interface ExerciseAnswerObj {
+export interface ExerciseAnswerData {
     id: ID
     content_html: string
     correctness: string
     feedback_html: string
 }
 
-export interface ExerciseTagObj {
+export interface ExerciseTagData {
     id: ID
     type: string
     is_visible: boolean
     data: string
 }
 
-export interface ExerciseQuestionObj {
+export interface ExerciseQuestionData {
     id: ID
     is_answer_order_important: boolean
     stimulus_html: string
     stem_html: string
-    answers: ExerciseAnswerObj[]
+    answers: ExerciseAnswerData[]
     hints: any[]
     formats: string[]
     combo_choices: any[]
     collaborator_solutions: any[]
 }
 
-export interface ExerciseObj {
+export interface ExerciseData {
     tags: string[]
     uuid: string
     group_uuid: string
@@ -257,34 +257,34 @@ export interface ExerciseObj {
     version: Number
     uid: string
     published_at: string
-    authors: ExercisePersonObj[]
-    copyright_holders: ExercisePersonObj[]
+    authors: ExercisePersonData[]
+    copyright_holders: ExercisePersonData[]
     derived_from: any[]
     is_vocab: boolean
     stimulus_html: string
-    questions: ExerciseQuestionObj[]
+    questions: ExerciseQuestionData[]
     versions: number[]
     attachments: any[]
     delegations: any[]
 
 }
 
-export interface TutorExerciseObj {
+export interface TutorExerciseData {
     id: ID
     url: string
-    content: ExerciseObj
+    content: ExerciseData
     images: any[]
-    tags: ExerciseTagObj[]
+    tags: ExerciseTagData[]
     pool_types: string[]
     is_excluded: boolean
     has_interactive: boolean
     has_video: boolean
     page_uuid: string
-    author: ExercisePersonObj
+    author: ExercisePersonData
     is_copyable: boolean
 }
 
-export interface TaskPlanExtensionObj {
+export interface TaskPlanExtensionData {
     role_id: ID
     due_at: string
     closes_at: string
@@ -292,7 +292,7 @@ export interface TaskPlanExtensionObj {
 
 export type TaskPlanType = 'homework' | 'reading' | 'external' | 'event' | ''
 
-export interface StudentTaskObj {
+export interface StudentTaskData {
     id: ID
     closes_at: string
     complete: boolean
@@ -315,15 +315,15 @@ export interface StudentTaskObj {
     title: string
     type: TaskPlanType
     ungraded_step_count: number
-    steps: StudentTaskStepObj[]
+    steps: StudentTaskStepData[]
 }
 
-export interface TaskPlanDroppedQuestionObj {
+export interface TaskPlanDroppedQuestionData {
     id: ID
     points: number
 }
 
-export interface TeacherTaskPlanSettingsObj {
+export interface TeacherTaskPlanSettingsData {
     exercises?: {
         id: ID
         points: number[]
@@ -332,7 +332,7 @@ export interface TeacherTaskPlanSettingsObj {
     external_url?: string
 }
 
-export interface TeacherTaskPlanTaskingPlanObj {
+export interface TeacherTaskPlanTaskingPlanData {
     id: ID
     opens_at: string
     due_at: string
@@ -343,9 +343,9 @@ export interface TeacherTaskPlanTaskingPlanObj {
     ungraded_step_count: number
 }
 
-export interface TeacherTaskPlanObj {
+export interface TeacherTaskPlanData {
     id: ID
-    dropped_questions: TaskPlanDroppedQuestionObj[]
+    dropped_questions: TaskPlanDroppedQuestionData[]
     ecosystem_id: ID
     extensions: any[]
     first_published_at: string
@@ -359,15 +359,15 @@ export interface TeacherTaskPlanObj {
     num_completed_tasks: number
     num_in_progress_tasks: number
     num_not_started_tasks: number
-    settings: TeacherTaskPlanSettingsObj
-    tasking_plans: TeacherTaskPlanTaskingPlanObj[]
+    settings: TeacherTaskPlanSettingsData
+    tasking_plans: TeacherTaskPlanTaskingPlanData[]
     title: string
     type: TaskPlanType
     ungraded_step_count: number
     wrq_count: number
 }
 
-export interface PeriodPerformanceHeadingObj {
+export interface PeriodPerformanceHeadingData {
     available_points: number
     average_progress: number
     average_score: number
@@ -377,7 +377,7 @@ export interface PeriodPerformanceHeadingObj {
     type: TaskPlanType
 }
 
-export interface StudentTaskPerformanceObj {
+export interface StudentTaskPerformanceData {
     available_points: number
     completed_on_time_steps_count: number
 
@@ -391,12 +391,12 @@ export interface StudentTaskPerformanceObj {
     step_count: number
 }
 
-export interface PeriodPerformanceStudentObj {
+export interface PeriodPerformanceStudentData {
     course_average: number
     name: string
     first_name: string
     last_name: string
-    data: StudentTaskPerformanceObj[]
+    data: StudentTaskPerformanceData[]
     homework_progress: number
     homework_score: number
     is_dropped: boolean
@@ -405,10 +405,10 @@ export interface PeriodPerformanceStudentObj {
     role: ID
 }
 
-export interface PeriodPerformanceObj {
+export interface PeriodPerformanceData {
     period_id: ID
-    data_headings: PeriodPerformanceHeadingObj[]
-    students: PeriodPerformanceStudentObj[]
+    data_headings: PeriodPerformanceHeadingData[]
+    students: PeriodPerformanceStudentData[]
     overall_course_average: number
     overall_homework_progress: number
     overall_homework_score: number
@@ -416,14 +416,14 @@ export interface PeriodPerformanceObj {
     overall_reading_score: number
 }
 
-export interface PracticeQuestionObj {
+export interface PracticeQuestionData {
     id: ID
     exercise_id: ID
     available: boolean
     tasked_exercise_id: ID
 }
 
-export interface StudentTaskStepObj {
+export interface StudentTaskStepData {
     id: ID
     tasked_id: ID
     can_be_updated: boolean
@@ -437,13 +437,13 @@ export interface StudentTaskStepObj {
     type: string
 }
 
-export interface PurchaseProductObj {
+export interface PurchaseProductData {
     uuid: string
     name: string
     price: string
 }
 
-export interface PurchaseObj {
+export interface PurchaseData {
     order_id: ID
     identifier: string
     total: string
@@ -451,5 +451,5 @@ export interface PurchaseObj {
     is_refunded: boolean
     purchased_at: string
     updated_at: string
-    product: PurchaseProductObj
+    product: PurchaseProductData
 }

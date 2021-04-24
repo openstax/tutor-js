@@ -8,6 +8,7 @@ import {
     StudentCourseOnboarding as CourseUX,
 } from '../../../../src/components/onboarding/ux/student-course'
 import { Payments } from '../../../../src/helpers/payments'
+
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
     get: jest.fn(),

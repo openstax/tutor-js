@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import { BaseModel, getParentOf, ID, modelize, hydrateModel } from 'shared/model';
 import urlFor from '../api';
 
-import type { PeriodPerformanceObj, Course } from '../models'
+import type { PeriodPerformanceData, Course } from '../models'
 import { CourseScoresPeriod } from '../models'
 
 export class CourseScores extends BaseModel {
@@ -17,11 +17,11 @@ export class CourseScores extends BaseModel {
     }
 
     async fetch() {
-        const data = await this.api.request<PeriodPerformanceObj[]>(urlFor('fetchCourseScores', { courseId: this.course.id }))
+        const data = await this.api.request<PeriodPerformanceData[]>(urlFor('fetchCourseScores', { courseId: this.course.id }))
         this.onFetchComplete(data)
     }
 
-    @action onFetchComplete(data: PeriodPerformanceObj[]) {
+    @action onFetchComplete(data: PeriodPerformanceData[]) {
         data.forEach(s => this.periods.set(s.period_id, hydrateModel(CourseScoresPeriod, s, this)))
     }
 

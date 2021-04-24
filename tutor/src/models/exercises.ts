@@ -4,7 +4,7 @@ import { groupBy, filter, isEmpty, find, uniq, map, sortBy } from 'lodash';
 import { readonly } from 'core-decorators';
 import urlFor from '../api'
 import type {
-    Course, User, TutorExerciseObj,
+    Course, User, TutorExerciseData,
 } from '../models'
 import {
     Exercise, ReferenceBookNode as Page, ReferenceBook,
@@ -147,7 +147,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         this.onLoaded(replyData.items, course, book, page_ids)
     }
 
-    @action onLoaded(exercises: TutorExerciseObj[], course?: Course, book?: ReferenceBook, page_ids?: ID[]) {
+    @action onLoaded(exercises: TutorExerciseData[], course?: Course, book?: ReferenceBook, page_ids?: ID[]) {
         if (course && !book) {
             book = course.referenceBook;
         }

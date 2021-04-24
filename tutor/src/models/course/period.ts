@@ -1,7 +1,7 @@
 import { find, pick, last } from 'lodash';
 import { CourseStudent as Student } from '../../models'
 import type {
-    CoursePeriodObj, RoleObj,
+    CoursePeriodData, RoleData,
     Course,
     CourseRole as Role,
 } from '../../models'
@@ -63,7 +63,7 @@ export class CoursePeriod extends BaseModel {
     // called from API
     async save() {
         const { isNew } = this
-        const periodData = await this.api.request<CoursePeriodObj>(
+        const periodData = await this.api.request<CoursePeriodData>(
             isNew ?
                 urlFor('createCoursePeriod', { courseId: this.course.id }) : urlFor('updateCoursePeriod', { periodId: this.id }),
             { data: pick(this, 'name') }
@@ -75,12 +75,12 @@ export class CoursePeriod extends BaseModel {
     }
 
     async archive() {
-        const periodData = await this.api.request<CoursePeriodObj>(urlFor('archiveCoursePeriod', { periodId: this.id }))
+        const periodData = await this.api.request<CoursePeriodData>(urlFor('archiveCoursePeriod', { periodId: this.id }))
         this.update(periodData)
     }
 
     async unarchive() {
-        const periodData = await this.api.request<CoursePeriodObj>(urlFor('restoreCoursePeriod', { periodId: this.id }))
+        const periodData = await this.api.request<CoursePeriodData>(urlFor('restoreCoursePeriod', { periodId: this.id }))
         this.update(periodData)
     }
 
@@ -116,6 +116,6 @@ export class CoursePeriod extends BaseModel {
     }
 
     createTeacherStudent() {
-        return this.api.request<RoleObj>(urlFor('createTeacherStudent', { periodId: this.id }))
+        return this.api.request<RoleData>(urlFor('createTeacherStudent', { periodId: this.id }))
     }
 }

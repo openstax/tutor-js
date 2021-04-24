@@ -1,7 +1,7 @@
 import { autorun, action, runInAction } from 'mobx';
 import { map } from 'lodash';
 import { TimeMock, Time, Factory } from '../../helpers'
-import type { TeacherTaskPlan, TeacherTaskPlanObj } from '../../../src/models'
+import type { TeacherTaskPlan, TeacherTaskPlanData } from '../../../src/models'
 import { Course } from '../../../src/models'
 
 const COURSE_ID = '123';
@@ -32,7 +32,7 @@ describe('Teacher Task Plans', function() {
         });
         expect(changeSpy).toHaveBeenCalledWith([]);
         course.teacherTaskPlans.onLoaded([
-            { id: '1', task_steps: [] } as any as TeacherTaskPlanObj,
+            { id: '1', task_steps: [] } as any as TeacherTaskPlanData,
         ]);
         expect(changeSpy).toHaveBeenCalledWith(['1']);
     });
@@ -42,7 +42,7 @@ describe('Teacher Task Plans', function() {
         course.teacherTaskPlans.onLoaded([
             { id: '1', hello: 'world', steps: [] },
             { id: '2', hello: 'world', steps: [] },
-        ] as any as TeacherTaskPlanObj[])
+        ] as any as TeacherTaskPlanData[])
         runInAction(() => { course.teacherTaskPlans.get(1)!.is_deleting = true  })
         expect(course.teacherTaskPlans.active.array).toHaveLength(1);
     });
@@ -96,7 +96,7 @@ describe('Teacher Task Plans', function() {
             { id: '2', last_published_at: '2017-01-01T00:00:00.000Z' },
             { id: '3', last_published_at: '2017-01-04T00:00:00.000Z' },
             { id: '4', last_published_at: '2016-01-01T00:00:00.000Z' },
-        ] as any as TeacherTaskPlanObj[]);
+        ] as any as TeacherTaskPlanData[]);
         expect(course.teacherTaskPlans.lastPublished?.id).toEqual('3');
     });
 

@@ -9,7 +9,7 @@ import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import {
-    Time, Interval, Notes, CourseObj, currentOfferings, Offering,
+    Time, Interval, Notes, CourseData, currentOfferings, Offering,
     CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
     TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
     PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation, CoursePerformance,
@@ -317,12 +317,12 @@ export class Course extends BaseModel {
 
     // called by API
     async fetch() {
-        const data = await this.api.request<CourseObj>(urlFor('fetchCourse', { courseId: this.id }))
+        const data = await this.api.request<CourseData>(urlFor('fetchCourse', { courseId: this.id }))
         runInAction(() => hydrateInstance(this, data))
     }
 
     async save() {
-        const data = await this.api.request<CourseObj>(
+        const data = await this.api.request<CourseData>(
             this.isNew ? urlFor('createCourse') : urlFor('updateCourse', { courseId: this.id }),
             { data: pick(this, SAVEABLE_ATTRS) },
         )

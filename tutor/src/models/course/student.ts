@@ -2,7 +2,7 @@ import {
     BaseModel, ID, NEW_ID, field, model, modelize,
     computed, action, readonly, getParentOf,
 } from 'shared/model';
-import type { StudentObj, CoursePeriod, Course } from '../../models'
+import type { StudentData, CoursePeriod, Course } from '../../models'
 import { FeatureFlags } from '../../models'
 import Time from 'shared/model/time'
 import urlFor from '../../api'
@@ -43,7 +43,7 @@ export class CourseStudent extends BaseModel {
         return this.payment_due_at.intervalToNow.humanized
     }
 
-    onSaved({ data }: { data: StudentObj }) {
+    onSaved({ data }: { data: StudentData }) {
         this.update(data);
     }
 

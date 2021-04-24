@@ -1,7 +1,7 @@
 import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { readonly } from 'core-decorators'
 import Map from 'shared/model/map';
-import { ReferenceBookObj } from './types'
+import { ReferenceBookData } from './types'
 import { BaseModel, field, model, modelize, observable, computed, NEW_ID, ID, array } from 'shared/model';
 import Time from 'shared/model/time'
 import { ChapterSection, ReferenceBookNode as Node } from '../models'
@@ -62,7 +62,7 @@ export class ReferenceBook extends BaseModel {
     }
 
     async fetch() {
-        const data = await this.api.request<ReferenceBookObj[]>(urlFor('fetchReferenceBook', { bookId: this.id }))
+        const data = await this.api.request<ReferenceBookData[]>(urlFor('fetchReferenceBook', { bookId: this.id }))
         this.update(omit(first(data), 'id'))
     }
 

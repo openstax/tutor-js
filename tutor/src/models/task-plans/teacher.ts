@@ -5,7 +5,7 @@ import {
     TeacherTaskPlan as TaskPlan,
 }from '../../models'
 import type { Course } from '../course'
-import type { TeacherTaskPlanObj } from '../types'
+import type { TeacherTaskPlanData } from '../types'
 
 export class TeacherTaskPlans extends Map<ID, TaskPlan> {
     static Model = TaskPlan
@@ -76,14 +76,14 @@ export class TeacherTaskPlans extends Map<ID, TaskPlan> {
 
     // called from api
     async fetch({ start_at, end_at }: { start_at: string, end_at: string }) {
-        const data = await this.api.request<{ plans: TeacherTaskPlanObj[] }>(
+        const data = await this.api.request<{ plans: TeacherTaskPlanData[] }>(
             urlFor('fetchTaskPlans', { courseId: this.course.id }, { start_at, end_at })
         )
         this.onLoaded(data.plans)
         return this;
     }
 
-    @action onLoaded(plans: TeacherTaskPlanObj[]) {
+    @action onLoaded(plans: TeacherTaskPlanData[]) {
         plans.forEach(plan => {
             const tp = this.get(plan.id);
             if (tp) {

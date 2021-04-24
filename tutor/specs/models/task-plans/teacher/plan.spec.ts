@@ -1,6 +1,6 @@
 import { Factory, ld, TimeMock } from '../../../helpers';
 import { serialize } from 'modeled-mobx'
-import { TeacherTaskPlan, TeacherTaskPlanObj, ReferenceBookNode as Page } from '../../../../src/models'
+import { TeacherTaskPlan, TeacherTaskPlanData, ReferenceBookNode as Page } from '../../../../src/models'
 
 describe('Task Plan Model', function() {
     TimeMock.setTo('2015-01-12T10:00:00.000Z');
@@ -90,7 +90,7 @@ describe('Task Plan Model', function() {
                 plan.tasking_plans[0].opens_at
             );
             const newPlan = Factory.teacherTaskPlan({ course: plan.course })
-            newPlan.update(serialize(plan) as any as TeacherTaskPlanObj);
+            newPlan.update(serialize(plan) as any as TeacherTaskPlanData);
             expect(newPlan.tasking_plans[0].opens_at).toEqual(
                 plan.tasking_plans[0].opens_at
             );

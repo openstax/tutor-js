@@ -6,7 +6,7 @@ import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import urlFor from '../../api'
 
 import { ResearchSurveysMap, Raven, StudentDashboardTask as StudentTask } from '../../models'
-import type { Course, StudentTaskObj } from '../../models'
+import type { Course, StudentTaskData } from '../../models'
 
 const MAX_POLLING_ATTEMPTS = 30;
 const WEEK_FORMAT = 'kkkkWW';
@@ -14,7 +14,7 @@ const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 10; // every 10 seconds
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60; // every hour
 
 interface TasksPayload {
-    tasks: StudentTaskObj[]
+    tasks: StudentTaskData[]
     all_tasks_are_ready: boolean
     research_surveys?: any
 }

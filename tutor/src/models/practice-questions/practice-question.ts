@@ -1,6 +1,6 @@
 import { BaseModel, ID, field, modelize, action, NEW_ID, getParentOf } from 'shared/model';
 import urlFor from '../../api'
-import type { PracticeQuestionObj, PracticeQuestions as Map } from '../../models'
+import type { PracticeQuestionData, PracticeQuestions as Map } from '../../models'
 
 
 export class PracticeQuestion extends BaseModel {
@@ -24,7 +24,7 @@ export class PracticeQuestion extends BaseModel {
     }
 
     async save() {
-        const data = await this.api.request<PracticeQuestionObj>(
+        const data = await this.api.request<PracticeQuestionData>(
             urlFor('createPracticeQuestion', { courseId: this.course.id }), {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
@@ -32,7 +32,7 @@ export class PracticeQuestion extends BaseModel {
         this.onSaved(data)
     }
 
-    @action onSaved(data: PracticeQuestionObj) {
+    @action onSaved(data: PracticeQuestionData) {
         this.update(data);
         if (!this.map.get(this.id)) {
             // delete the pending key, and set the new one with its id and the data

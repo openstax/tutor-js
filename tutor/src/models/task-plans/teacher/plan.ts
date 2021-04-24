@@ -15,8 +15,8 @@ import { TASK_PLAN_SELECTION_COUNTS } from '../../../config';
 
 import type {
     CoursePeriod, Course, ReferenceBookNode as Page,
-    TaskPlanExtensionObj, TeacherTaskPlanObj, TeacherTaskPlanSettingsObj,
-    TeacherTaskPlanTaskingPlanObj,
+    TaskPlanExtensionData, TeacherTaskPlanData, TeacherTaskPlanSettingsData,
+    TeacherTaskPlanTaskingPlanData,
 } from '../../../models'
 
 import {
@@ -73,8 +73,8 @@ export class TeacherTaskPlan extends BaseModel {
     @field ungraded_step_count = 0;
     @field gradable_step_count = 0;
     @field wrq_count = 0;
-    @field extensions: TaskPlanExtensionObj[] = []
-    @field settings: TeacherTaskPlanSettingsObj = {};
+    @field extensions: TaskPlanExtensionData[] = []
+    @field settings: TeacherTaskPlanSettingsData = {};
 
     @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = [];
 
@@ -83,7 +83,7 @@ export class TeacherTaskPlan extends BaseModel {
         areValid() { return Boolean(plans.length > 0 && every(this, 'isValid')); },
     }))
 
-    @observable unmodified_plans: TeacherTaskPlanTaskingPlanObj[] = [];
+    @observable unmodified_plans: TeacherTaskPlanTaskingPlanData[] = [];
 
     // only set when publishing
     @field is_feedback_immediate = false;
@@ -435,7 +435,7 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
     async saveDroppedQuestions() {
-        const data = await this.api.request<TeacherTaskPlanObj>(
+        const data = await this.api.request<TeacherTaskPlanData>(
             urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
             { data: { dropped_questions: toJS(this.dropped_questions) } },
         )
@@ -450,7 +450,7 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
     async save() {
-        const data = await this.api.request<TeacherTaskPlanObj>(
+        const data = await this.api.request<TeacherTaskPlanData>(
             this.isNew ?
                 urlFor('createTaskPlan', { courseId: this.course.id }) : urlFor('saveTaskPlan', { taskPlanId: this.id }),
             { data: this.dataForSave },
@@ -458,10 +458,10 @@ export class TeacherTaskPlan extends BaseModel {
         this.update(data)
     }
 
-    async grantExtensions(extensions: TaskPlanExtensionObj[]) {
+    async grantExtensions(extensions: TaskPlanExtensionData[]) {
         //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
-        const updatedExtensions = this.api.request<TaskPlanExtensionObj[]>(
+        const updatedExtensions = this.api.request<TaskPlanExtensionData[]>(
             urlFor('grantTaskExtensions', { taskPlanId: this.id }),
             { data: { extensions: grantedExtensions } },
         )
@@ -469,7 +469,7 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
 
-    @override update(data: TeacherTaskPlanObj) {
+    @override update(data: TeacherTaskPlanData) {
         this.api.errors.clear()
         super.update(data)
         this.is_publish_requested = false;
@@ -477,7 +477,7 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
     async fetch() {
-        const plan = await this.api.request<TeacherTaskPlanObj>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
+        const plan = await this.api.request<TeacherTaskPlanData>(urlFor('fetchTaskPlan', { taskPlanId: this.id }))
         this.update(plan)
     }
 

@@ -26,7 +26,7 @@ import {
 
 import './definitions';
 import { studentTasks, studentTask } from './student-task-models';
-import type { GradingTemplateObj, CourseObj, TutorExerciseObj, TeacherTaskPlanObj, PeriodPerformanceObj, StudentTaskObj }from '../../src/models/types'
+import type { GradingTemplateData, CourseData, TutorExerciseData, TeacherTaskPlanData, PeriodPerformanceData, StudentTaskData }from '../../src/models/types'
 
 export interface Model extends Function {
     new(..._args: any[]): any;
@@ -64,7 +64,7 @@ const Factories = {
 
     coursesMap: ({ count = 2, ...attrs }:any = {}) => {
         const map = new CoursesMap();
-        map.onLoaded(range(count).map(() => FactoryBot.create('Course', attrs) as CourseObj));
+        map.onLoaded(range(count).map(() => FactoryBot.create('Course', attrs) as CourseData));
         return map;
     },
 
@@ -76,7 +76,7 @@ const Factories = {
 
     pastTaskPlans: ({ course, count = 4, ...rest }: { course: Course, count?: number } & Record<string, any>) => {
         course.pastTaskPlans.onLoaded(
-            range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course, ...rest })) as TeacherTaskPlanObj[],
+            range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course, ...rest })) as TeacherTaskPlanData[],
         );
         return course.pastTaskPlans;
     },
@@ -94,7 +94,7 @@ const Factories = {
             all_tasks_are_ready: true,
             tasks: range(count).map(() => FactoryBot.create(
                 'StudentDashboardTask', Object.assign({ course }, attributes)
-            )) as StudentTaskObj[],
+            )) as StudentTaskData[],
         });
     },
 
@@ -105,7 +105,7 @@ const Factories = {
 
     scores: ({ course }: { course: Course }) => {
         course.scores.onFetchComplete(
-            course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period }) as PeriodPerformanceObj),
+            course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period }) as PeriodPerformanceData),
         );
         return course.scores;
     },
@@ -132,7 +132,7 @@ const Factories = {
             map.onLoaded(
                 range(count).map(() => FactoryBot.create('TutorExercise', {
                     now, page_uuid: book.pages.byId.get(pgId).uuid,
-                })) as TutorExerciseObj[],
+                })) as TutorExerciseData[],
                 undefined, book, [ pgId ],
             );
         });
@@ -152,7 +152,7 @@ const Factories = {
     gradingTemplates: ({ course, count = 2 }: { course: Course, count?: number }) => {
         const map = course.gradingTemplates;
         map.onLoaded(
-            range(count).map(() => FactoryBot.create('GradingTemplate', { course }) as GradingTemplateObj),
+            range(count).map(() => FactoryBot.create('GradingTemplate', { course }) as GradingTemplateData),
         );
         return map;
     },

@@ -3,7 +3,7 @@ import { find } from 'lodash';
 import { computed, modelize, ID } from 'shared/model'
 import { map, flatten } from 'lodash';
 import { Purchase } from '../models'
-import type { PurchaseObj } from '../models'
+import type { PurchaseData } from '../models'
 import urlFor from '../api';
 
 export class PurchasesMap extends Map<ID, Purchase> {
@@ -25,7 +25,7 @@ export class PurchasesMap extends Map<ID, Purchase> {
     }
 
     async fetch() {
-        const data = await this.api.request<{ orders: PurchaseObj[] }>(urlFor('fetchPaymentHistory'))
+        const data = await this.api.request<{ orders: PurchaseData[] }>(urlFor('fetchPaymentHistory'))
         this.mergeModelData(data.orders)
     }
 }

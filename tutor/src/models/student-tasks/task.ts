@@ -4,7 +4,7 @@ import type { StudentTasks } from '../student-tasks';
 import { defaults, countBy, isEmpty, sumBy } from 'lodash';
 import S from '../../helpers/string';
 import urlFor from '../../api'
-import type { StudentTaskObj } from '../types';
+import type { StudentTaskData } from '../types';
 import { StudentTaskStep, TaskedStudent as Student } from '../../models'
 
 // this is a task as it's beeing worked or displayed
@@ -104,11 +104,11 @@ export class StudentTask extends BaseModel {
 
     // called by API
     async fetch() {
-        const data = await this.api.request<StudentTaskObj>(urlFor('fetchStudentTask', { taskId: this.id }))
+        const data = await this.api.request<StudentTaskData>(urlFor('fetchStudentTask', { taskId: this.id }))
         this.onFetchComplete(data)
     }
 
-    @action onFetchComplete(data: StudentTaskObj) {
+    @action onFetchComplete(data: StudentTaskData) {
         const { steps, ...task } = data;
         this.api.errors.clear()
         this.update(task);

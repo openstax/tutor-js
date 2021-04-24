@@ -1,7 +1,7 @@
 import { computed, action } from 'mobx';
 import Map, { ID, modelize } from 'shared/model/map';
 import urlFor from '../../api';
-import type { OfferingObj } from '../../models'
+import type { OfferingData } from '../../models'
 import { Offering } from '../../models'
 
 export class OfferingsMap extends Map<ID, Offering> {
@@ -33,7 +33,7 @@ export class OfferingsMap extends Map<ID, Offering> {
     }
 
 
-    @action bootstrap(items: OfferingObj[] ) {
+    @action bootstrap(items: OfferingData[] ) {
         this.replace(this.arrayToObject(items))
     }
 

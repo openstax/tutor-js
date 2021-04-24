@@ -1,6 +1,6 @@
 import { isNil, defaults } from 'lodash';
 import Time from 'shared/model/time'
-import { GradingTemplateObj } from '../types'
+import { GradingTemplateData } from '../types'
 import {
     BaseModel, model, action, field, getParentOf, computed,
     ID, NEW_ID, Map, serialize, modelize, hydrateModel, hydrateInstance,
@@ -35,7 +35,7 @@ class GradingTemplate extends BaseModel {
 
     get map() { return getParentOf<GradingTemplates>(this) }
 
-    constructor(attrs?: GradingTemplateObj) {
+    constructor(attrs?: GradingTemplateData) {
         super();
         modelize(this)
 
@@ -120,7 +120,7 @@ class GradingTemplate extends BaseModel {
 
     // called from api
     async save() {
-        const data = await this.api.request<GradingTemplateObj>(
+        const data = await this.api.request<GradingTemplateData>(
             this.isNew ?
                 urlFor('createGradingTemplate', { courseId: this.course.id }) :
                 urlFor('saveGradingTemplate', { templateId: this.id }),
@@ -130,7 +130,7 @@ class GradingTemplate extends BaseModel {
     }
 
 
-    @action async onSaved(data: GradingTemplateObj) {
+    @action async onSaved(data: GradingTemplateData) {
         hydrateInstance(this, data);
         if (!this.map.get(this.id)) {
             this.map.set(this.id, this);
@@ -138,7 +138,7 @@ class GradingTemplate extends BaseModel {
     }
 
     async remove() {
-        await this.api.request<GradingTemplateObj>(urlFor('deleteGradingTemplate', { templateId: this.id }))
+        await this.api.request<GradingTemplateData>(urlFor('deleteGradingTemplate', { templateId: this.id }))
         this.onRemoved()
     }
 
@@ -168,20 +168,20 @@ class GradingTemplates extends Map<ID, GradingTemplate> {
         return this.where(gt => isNil(gt.deleted_at));
     }
 
-    newTemplate(attrs: GradingTemplateObj) {
+    newTemplate(attrs: GradingTemplateData) {
         return hydrateModel(GradingTemplate, attrs, this)
     }
 
     // called by API
     async fetch() {
-        const templates = await this.api.request<{ items: GradingTemplateObj[] }>(urlFor('fetchGradingTemplates', { courseId: this.course.id }))
+        const templates = await this.api.request<{ items: GradingTemplateData[] }>(urlFor('fetchGradingTemplates', { courseId: this.course.id }))
         this.onLoaded(templates.items)
         // this.onRemoved()
 
         // return { courseId: this.course.id };
     }
 
-    @action onLoaded(templates: GradingTemplateObj[] ) {
+    @action onLoaded(templates: GradingTemplateData[] ) {
         this.mergeModelData(templates)
     }
 
