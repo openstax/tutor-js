@@ -133,8 +133,8 @@ class LoTags extends React.Component {
 
       return (
           <Wrapper label="LO" onAdd={this.onAdd}>
-              {tags.map((tag) =>
-                  <Input key={tag.asString} {...this.props} tag={tag} />)}
+              {tags.map((tag, i) =>
+                  <Input key={i} {...this.props} tag={tag} />)}
           </Wrapper>
       );
   }
