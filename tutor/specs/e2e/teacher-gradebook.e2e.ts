@@ -42,8 +42,8 @@ xdescribe('Teacher Gradebook', () => {
     it('sets preferences', async () => {
         await page.click('testEl=settings-btn')
         const settings = ['displayScoresAsPoints', 'arrangeColumnsByType','showDroppedStudents']
-        await page.click(`testEl=${settings[0]}-checkbox`, { timeout: 500, force: true })
-        await page.click(`testEl=${settings[1]}-checkbox`, { timeout: 500, force: true })
-        await page.click(`testEl=${settings[2]}-checkbox`, { timeout: 500, force: true })
+        await page.click(`testEl=${settings[0]}-checkbox`, { timeout: 1000, force: true })
+        await page.click(`testEl=${settings[1]}-checkbox`, { timeout: 1000, force: true })
+        await page.click(`testEl=${settings[2]}-checkbox`, { timeout: 1000, force: true })
     })
 })
