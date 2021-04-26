@@ -11,7 +11,6 @@ import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import { Icon } from 'shared';
 import SupportDocument from './support-document-link';
-import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
 import Course from '../../models/course';
 import Theme from '../../theme';
@@ -164,7 +163,6 @@ class SupportMenu extends React.Component {
             <span>Help Articles</span>
         </Dropdown.Item>
         <SupportDocument course={course} />
-        <BestPracticesGuide course={course} />
         <Dropdown.Item
             key="nav-keyboard-shortcuts"
             className="-help-link"
