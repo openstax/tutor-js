@@ -578,14 +578,24 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="stax-phys"
                 >
                   <option
+                    value="stax-amfg"
+                  >
+                    Additive Manufacturing
+                  </option>
+                  <option
+                    value="stax-usgovt"
+                  >
+                    American Government
+                  </option>
+                  <option
                     value="stax-anp"
                   >
                     Anatomy and Physiology
                   </option>
                   <option
-                    value="stax-apbio"
+                    value="stax-anth"
                   >
-                    Biology for AP® Courses
+                    Anthropology
                   </option>
                   <option
                     value="stax-bio"
@@ -593,9 +603,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Biology
                   </option>
                   <option
-                    value="stax-apphys"
+                    value="stax-apbio"
                   >
-                    College Physics for AP® Courses
+                    Biology for AP® Courses
+                  </option>
+                  <option
+                    value="stax-bca"
+                  >
+                    Business Computer Applications
                   </option>
                   <option
                     value="stax-phys"
@@ -603,9 +618,29 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     College Physics
                   </option>
                   <option
+                    value="stax-apphys"
+                  >
+                    College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-pyth"
+                  >
+                    Computer Programming with Python
+                  </option>
+                  <option
+                    value="stax-cs"
+                  >
+                    Computer Science
+                  </option>
+                  <option
                     value="stax-cbio"
                   >
                     Concepts of Biology
+                  </option>
+                  <option
+                    value="stax-cmath"
+                  >
+                    Contemporary Math
                   </option>
                   <option
                     value="stax-econ"
@@ -613,9 +648,24 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Economics
                   </option>
                   <option
+                    value="stax-engcomp"
+                  >
+                    English Composition
+                  </option>
+                  <option
                     value="stax-eship"
                   >
                     Entrepreneurship
+                  </option>
+                  <option
+                    value="stax-fin"
+                  >
+                    Finance
+                  </option>
+                  <option
+                    value="stax-k12phys"
+                  >
+                    HS Physics
                   </option>
                   <option
                     value="stax-macro"
@@ -628,9 +678,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Micro Economics
                   </option>
                   <option
-                    value="stax-k12phys"
+                    value="stax-phi"
                   >
-                    HS Physics
+                    Philosophy
+                  </option>
+                  <option
+                    value="stax-polisci"
+                  >
+                    Political Science
                   </option>
                   <option
                     value="stax-psy"
@@ -643,9 +698,19 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Sociology
                   </option>
                   <option
+                    value="stax-ushist"
+                  >
+                    U.S. History
+                  </option>
+                  <option
                     value="stax-apush"
                   >
                     U.S. History for AP® Courses
+                  </option>
+                  <option
+                    value="stax-worldhist"
+                  >
+                    World History
                   </option>
                 </select>
                 <span
@@ -1265,6 +1330,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           <div
             className="attachment"
           >
+            
             <div
               className="controls"
             >
@@ -1482,61 +1548,73 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               >
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-lo"
                 >
                   lo:stax-phys:1-2-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-assignment-type"
                 >
                   assignment-type:reading
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-blooms"
                 >
                   blooms:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-book"
                 >
                   book:stax-phys
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxfeature"
                 >
                   context-cnxfeature:one-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxmod"
                 >
                   context-cnxmod:
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-dok"
                 >
                   dok:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-filter-type"
                 >
                   filter-type:test-prep
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-requires-context"
                 >
                   requires-context:true
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-time"
                 >
                   time:long
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-Nickname"
                 >
                   Nickname:maurine
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-ID"
                 >
                   ID:1@1
                 </span>
@@ -3445,14 +3523,24 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   value="stax-phys"
                 >
                   <option
+                    value="stax-amfg"
+                  >
+                    Additive Manufacturing
+                  </option>
+                  <option
+                    value="stax-usgovt"
+                  >
+                    American Government
+                  </option>
+                  <option
                     value="stax-anp"
                   >
                     Anatomy and Physiology
                   </option>
                   <option
-                    value="stax-apbio"
+                    value="stax-anth"
                   >
-                    Biology for AP® Courses
+                    Anthropology
                   </option>
                   <option
                     value="stax-bio"
@@ -3460,9 +3548,14 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Biology
                   </option>
                   <option
-                    value="stax-apphys"
+                    value="stax-apbio"
                   >
-                    College Physics for AP® Courses
+                    Biology for AP® Courses
+                  </option>
+                  <option
+                    value="stax-bca"
+                  >
+                    Business Computer Applications
                   </option>
                   <option
                     value="stax-phys"
@@ -3470,9 +3563,29 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     College Physics
                   </option>
                   <option
+                    value="stax-apphys"
+                  >
+                    College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-pyth"
+                  >
+                    Computer Programming with Python
+                  </option>
+                  <option
+                    value="stax-cs"
+                  >
+                    Computer Science
+                  </option>
+                  <option
                     value="stax-cbio"
                   >
                     Concepts of Biology
+                  </option>
+                  <option
+                    value="stax-cmath"
+                  >
+                    Contemporary Math
                   </option>
                   <option
                     value="stax-econ"
@@ -3480,9 +3593,24 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Economics
                   </option>
                   <option
+                    value="stax-engcomp"
+                  >
+                    English Composition
+                  </option>
+                  <option
                     value="stax-eship"
                   >
                     Entrepreneurship
+                  </option>
+                  <option
+                    value="stax-fin"
+                  >
+                    Finance
+                  </option>
+                  <option
+                    value="stax-k12phys"
+                  >
+                    HS Physics
                   </option>
                   <option
                     value="stax-macro"
@@ -3495,9 +3623,14 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Micro Economics
                   </option>
                   <option
-                    value="stax-k12phys"
+                    value="stax-phi"
                   >
-                    HS Physics
+                    Philosophy
+                  </option>
+                  <option
+                    value="stax-polisci"
+                  >
+                    Political Science
                   </option>
                   <option
                     value="stax-psy"
@@ -3510,9 +3643,19 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Sociology
                   </option>
                   <option
+                    value="stax-ushist"
+                  >
+                    U.S. History
+                  </option>
+                  <option
                     value="stax-apush"
                   >
                     U.S. History for AP® Courses
+                  </option>
+                  <option
+                    value="stax-worldhist"
+                  >
+                    World History
                   </option>
                 </select>
                 <span
@@ -4132,6 +4275,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
           <div
             className="attachment"
           >
+            
             <div
               className="controls"
             >
@@ -4795,61 +4939,73 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               >
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-lo"
                 >
                   lo:stax-phys:1-2-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-assignment-type"
                 >
                   assignment-type:reading
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-blooms"
                 >
                   blooms:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-book"
                 >
                   book:stax-phys
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxfeature"
                 >
                   context-cnxfeature:one-1
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-context-cnxmod"
                 >
                   context-cnxmod:
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-dok"
                 >
                   dok:3
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-filter-type"
                 >
                   filter-type:test-prep
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-requires-context"
                 >
                   requires-context:true
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-time"
                 >
                   time:long
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-Nickname"
                 >
                   Nickname:garnet
                 </span>
                 <span
                   className="exercise-tag"
+                  data-test-id="tag-type-ID"
                 >
                   ID:9@1
                 </span>
@@ -5366,29 +5522,59 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                         <div className=\\"tag\\">
                                           <BookSelection onChange={[Function: updateTag] { isMobxAction: true }} selected=\\"stax-phys\\" limit={{...}}>
                                             <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"stax-phys\\">
+                                              <option value=\\"stax-amfg\\">
+                                                Additive Manufacturing
+                                              </option>
+                                              <option value=\\"stax-usgovt\\">
+                                                American Government
+                                              </option>
                                               <option value=\\"stax-anp\\">
                                                 Anatomy and Physiology
                                               </option>
-                                              <option value=\\"stax-apbio\\">
-                                                Biology for AP® Courses
+                                              <option value=\\"stax-anth\\">
+                                                Anthropology
                                               </option>
                                               <option value=\\"stax-bio\\">
                                                 Biology
                                               </option>
-                                              <option value=\\"stax-apphys\\">
-                                                College Physics for AP® Courses
+                                              <option value=\\"stax-apbio\\">
+                                                Biology for AP® Courses
+                                              </option>
+                                              <option value=\\"stax-bca\\">
+                                                Business Computer Applications
                                               </option>
                                               <option value=\\"stax-phys\\">
                                                 College Physics
                                               </option>
+                                              <option value=\\"stax-apphys\\">
+                                                College Physics for AP® Courses
+                                              </option>
+                                              <option value=\\"stax-pyth\\">
+                                                Computer Programming with Python
+                                              </option>
+                                              <option value=\\"stax-cs\\">
+                                                Computer Science
+                                              </option>
                                               <option value=\\"stax-cbio\\">
                                                 Concepts of Biology
+                                              </option>
+                                              <option value=\\"stax-cmath\\">
+                                                Contemporary Math
                                               </option>
                                               <option value=\\"stax-econ\\">
                                                 Economics
                                               </option>
+                                              <option value=\\"stax-engcomp\\">
+                                                English Composition
+                                              </option>
                                               <option value=\\"stax-eship\\">
                                                 Entrepreneurship
+                                              </option>
+                                              <option value=\\"stax-fin\\">
+                                                Finance
+                                              </option>
+                                              <option value=\\"stax-k12phys\\">
+                                                HS Physics
                                               </option>
                                               <option value=\\"stax-macro\\">
                                                 Macro Economics
@@ -5396,8 +5582,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <option value=\\"stax-micro\\">
                                                 Micro Economics
                                               </option>
-                                              <option value=\\"stax-k12phys\\">
-                                                HS Physics
+                                              <option value=\\"stax-phi\\">
+                                                Philosophy
+                                              </option>
+                                              <option value=\\"stax-polisci\\">
+                                                Political Science
                                               </option>
                                               <option value=\\"stax-psy\\">
                                                 Psychology
@@ -5405,8 +5594,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <option value=\\"stax-soc\\">
                                                 Sociology
                                               </option>
+                                              <option value=\\"stax-ushist\\">
+                                                U.S. History
+                                              </option>
                                               <option value=\\"stax-apush\\">
                                                 U.S. History for AP® Courses
+                                              </option>
+                                              <option value=\\"stax-worldhist\\">
+                                                World History
                                               </option>
                                             </select>
                                           </BookSelection>
@@ -5464,7 +5659,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </select>
                                           </BookSelection>
                                           <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onTextChange] { isMobxAction: true }} onBlur={[Function: onTextBlur] { isMobxAction: true }} value=\\"1-2-1\\" placeholder=\\"##-##-##\\" />
-                                          <TagError error={[undefined]} />
+                                          <TagError error={{...}} />
                                           <span className=\\"controls\\">
                                             <Icon type=\\"trash\\" onClick={[Function: onDelete] { isMobxAction: true }} buttonProps={{...}} tooltipProps={{...}}>
                                               <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: onDelete] { isMobxAction: true }} onBlur={[undefined]} active={false} disabled={false} type=\\"button\\">
@@ -6034,40 +6229,40 @@ exports[`Exercises component resets fields when model is new 1`] = `
                               <div className=\\"exercise-footer\\">
                                 <div>
                                   <div className=\\"exercise-tags\\">
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-lo\\">
                                       lo:stax-phys:1-2-1
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-assignment-type\\">
                                       assignment-type:reading
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-blooms\\">
                                       blooms:3
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-book\\">
                                       book:stax-phys
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-context-cnxfeature\\">
                                       context-cnxfeature:one-1
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-context-cnxmod\\">
                                       context-cnxmod:
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-dok\\">
                                       dok:3
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-filter-type\\">
                                       filter-type:test-prep
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-requires-context\\">
                                       requires-context:true
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-time\\">
                                       time:long
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-Nickname\\">
                                       Nickname:desmond
                                     </span>
-                                    <span className=\\"exercise-tag\\">
+                                    <span className=\\"exercise-tag\\" data-test-id=\\"tag-type-ID\\">
                                       ID:14@1
                                     </span>
                                   </div>

@@ -1,7 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notes renders and matches snapshot 1`] = `
-<p>
-  hello
-</p>
+<div
+  className="annotater"
+>
+  <div
+    className="slide-out-edit-box closed"
+  />
+  <div
+    className="annotater-content"
+  >
+    <p>
+      hello
+    </p>
+  </div>
+</div>
 `;

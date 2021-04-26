@@ -185,10 +185,6 @@ export class Course extends BaseModel {
         return get(CourseInformation.information(this.appearanceCode), 'title', '');
     }
 
-    @computed get bestPracticesDocumentURL() {
-        return CourseInformation.bestPracticesDocumentURLFor(this.appearanceCode);
-    }
-
     @computed get appearanceCode() {
         return this.appearance_code || this.offering?.appearance_code || ''
     }

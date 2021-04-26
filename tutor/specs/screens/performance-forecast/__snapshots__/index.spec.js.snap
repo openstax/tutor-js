@@ -67,7 +67,6 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
           </span>
           <span
             className="title"
-            title="Newton's First Law of Motion: Inertia"
           >
             <div
               className="c0 book-part-title"
@@ -78,6 +77,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Newton's First Law of Motion: Inertia",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Newton's First Law of Motion: Inertia"
               />
             </div>
           </span>
@@ -182,6 +183,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Acceleration",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Acceleration"
               />
             </div>
           </div>
@@ -264,7 +267,6 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
           </span>
           <span
             className="title"
-            title="Acceleration"
           >
             <div
               className="c0 book-part-title"
@@ -275,6 +277,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Acceleration",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Acceleration"
               />
             </div>
           </span>
@@ -372,6 +376,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Force and Newton's Laws of Motion",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Force and Newton's Laws of Motion"
               />
             </div>
           </div>
@@ -454,7 +460,6 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
           </span>
           <span
             className="title"
-            title="Force"
           >
             <div
               className="c0 book-part-title"
@@ -465,6 +470,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Force",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Force"
               />
             </div>
           </span>
@@ -547,7 +554,6 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
           </span>
           <span
             className="title"
-            title="Newton's First Law of Motion: Inertia"
           >
             <div
               className="c0 book-part-title"
@@ -558,6 +564,8 @@ exports[`Learning Guide renders panel for each chapter 1`] = `
                     "__html": "Newton's First Law of Motion: Inertia",
                   }
                 }
+                data-test-id="book-title"
+                data-title="Newton's First Law of Motion: Inertia"
               />
             </div>
           </span>

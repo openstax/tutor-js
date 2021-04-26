@@ -2,9 +2,9 @@
 
 exports[`Grading Templates creates a store with models 1`] = `
 Object {
-  "auto_grading_feedback_on": true,
-  "completion_weight": 0.48,
-  "correctness_weight": 0.55,
+  "auto_grading_feedback_on": false,
+  "completion_weight": 0.05,
+  "correctness_weight": 0.34,
   "default_close_date_offset_days": 1,
   "default_due_date_offset_days": 1,
   "default_due_time": "17:00",
@@ -13,9 +13,9 @@ Object {
   "has_open_task_plans": false,
   "id": 1,
   "late_work_penalty": 0.1,
-  "late_work_penalty_applied": "immediately",
-  "manual_grading_feedback_on": "publish",
-  "name": "Default Reading",
-  "task_plan_type": "reading",
+  "late_work_penalty_applied": "daily",
+  "manual_grading_feedback_on": "grade",
+  "name": "Default Homework",
+  "task_plan_type": "homework",
 }
 `;

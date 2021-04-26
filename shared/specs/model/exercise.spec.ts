@@ -76,7 +76,7 @@ describe('Exercise Model', () => {
 
     it('can replace all of a tag', () => {
         exercise.tags.push({ type: 'assignment-type', value: 'reading' })
-        exercise.tags.replaceType('assignment-type', null)
+        exercise.tags.replaceType('assignment-type', [])
         expect(exercise.tags.withType('assignment-type')).toBeUndefined()
     })
 

@@ -1,6 +1,6 @@
 import { C, R, Factory } from '../../helpers';
 import CourseUseTips from '../../../src/components/onboarding/course-use-tips';
-import { observable, runInAction } from 'mobx';
+import { observable } from 'mobx';
 
 
 describe('Course Use Tips', () => {
@@ -20,15 +20,6 @@ describe('Course Use Tips', () => {
         expect.snapshot(
             <C><CourseUseTips {...props} /></C>
         ).toMatchSnapshot();
-    });
-
-    it('has link to help', async () => {
-        const wrapper = mount(<R><CourseUseTips {...props} /></R>);
-        expect(wrapper).toHaveRendered('a.best-practices');
-        runInAction(() => {
-            course.appearance_code = 'gibberish';
-        })
-        expect(wrapper).not.toHaveRendered('a.best-practices');
     });
 
     it('dismisses on btn click', () => {

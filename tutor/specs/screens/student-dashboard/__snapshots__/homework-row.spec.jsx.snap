@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Homework Row renders in progress 1`] = `
-.c8 {
+.c9 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c11 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -11,7 +16,7 @@ exports[`Homework Row renders in progress 1`] = `
   background: #5e5e5e;
 }
 
-.c6 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,11 +31,11 @@ exports[`Homework Row renders in progress 1`] = `
   align-items: center;
 }
 
-.c6 a {
+.c8 a {
   font-weight: 600;
 }
 
-.c3 {
+.c5 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -42,7 +47,7 @@ exports[`Homework Row renders in progress 1`] = `
   background-position: center;
 }
 
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,31 +60,22 @@ exports[`Homework Row renders in progress 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+}
+
+.c4 {
   padding: 0 6rem 0 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c2 i {
+.c4 i {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c6 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -87,41 +83,17 @@ exports[`Homework Row renders in progress 1`] = `
   padding-right: 1rem;
 }
 
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c7 {
   width: 15.5rem;
   padding-right: 1rem;
 }
 
-.c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c10 {
   padding-right: 1rem;
   width: 8rem;
 }
 
-.c7 svg.fa-star {
+.c10 svg.fa-star {
   padding: 3px;
 }
 
@@ -133,45 +105,33 @@ exports[`Homework Row renders in progress 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+}
+
+.c1 {
   background: white;
   border-top: 2px solid #f1f1f1;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
 }
 
-.c1 {
-  height: 60px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  color: #fafafa;
-  background: #929292;
+.c2 {
   display: contents;
   color: #424242;
 }
 
-.c1:hover {
+.c2:hover {
   color: #424242;
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c4 {
     min-width: 100%;
   }
 }
 
 @media (max-width:600px) {
-  .c4 {
+  .c6 {
     padding-left: 1.2rem;
-  }
-}
-
-@media (max-width:600px) {
-  .c5 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
   }
 }
 
@@ -184,7 +144,15 @@ exports[`Homework Row renders in progress 1`] = `
 }
 
 @media (max-width:600px) {
-  .c0.c0.c0 {
+  .c10 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:600px) {
+  .c1.c1.c1 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
@@ -193,7 +161,7 @@ exports[`Homework Row renders in progress 1`] = `
 }
 
 @media (max-width:999px) {
-  .c0.c0.c0 {
+  .c1.c1.c1 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
@@ -210,22 +178,22 @@ exports[`Homework Row renders in progress 1`] = `
     <div>
       <div
         aria-label="Work on homework: distributed integrate infomediaries"
-        className="sc-fzqBZW c0 task homework viewable"
+        className="c0 c1 task homework viewable"
         data-event-id={1}
         href="/course/1/task/1"
         onKeyDown={[Function]}
         tabIndex={0}
       >
         <a
-          className="sc-fzqBZW c1"
+          className="c0 c2"
           href="/course/1/task/1"
           onClick={[Function]}
         >
           <div
-            className="sc-fznZeY c2"
+            className="c3 c4"
           >
             <i
-              className="c3 icon-homework"
+              className="c5 icon-homework"
               type="homework"
             />
             <span>
@@ -233,7 +201,7 @@ exports[`Homework Row renders in progress 1`] = `
             </span>
           </div>
           <div
-            className="sc-fznZeY c4"
+            className="c3 c6"
           >
             <time
               onBlur={[Function]}
@@ -241,14 +209,14 @@ exports[`Homework Row renders in progress 1`] = `
               onMouseOut={[Function]}
               onMouseOver={[Function]}
             >
-              Sun, Oct 15, 7:00am
+              Sat, Oct 14, 12:00am
             </time>
           </div>
           <div
-            className="sc-fznZeY c5"
+            className="c3 c7"
           >
             <div
-              className="c6"
+              className="c8"
             >
               <span
                 className="tour-anchor"
@@ -256,14 +224,32 @@ exports[`Homework Row renders in progress 1`] = `
               >
                 1/5 completed
               </span>
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-exclamation-circle fa-w-16 c9 ox-icon ox-icon-exclamation-circle"
+                color="#f4d019"
+                data-icon="exclamation-circle"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
             </div>
           </div>
         </a>
         <div
-          className="sc-fznZeY c7"
+          className="c3 c10"
         >
           <div
-            className="c6"
+            className="c8"
           >
             <a
               href="/course/1/gradebook"
@@ -274,7 +260,7 @@ exports[`Homework Row renders in progress 1`] = `
             <svg
               aria-hidden="true"
               background="#5e5e5e"
-              className="svg-inline--fa fa-star fa-w-18 c8 ox-icon ox-icon-star"
+              className="svg-inline--fa fa-star fa-w-18 c11 ox-icon ox-icon-star"
               color="white"
               data-icon="star"
               data-prefix="fas"
@@ -318,7 +304,7 @@ exports[`Homework Row renders in progress 1`] = `
 `;
 
 exports[`Homework Row renders with completed count 1`] = `
-.c8 {
+.c10 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
@@ -328,7 +314,7 @@ exports[`Homework Row renders with completed count 1`] = `
   background: #5e5e5e;
 }
 
-.c6 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -343,11 +329,11 @@ exports[`Homework Row renders with completed count 1`] = `
   align-items: center;
 }
 
-.c6 a {
+.c8 a {
   font-weight: 600;
 }
 
-.c3 {
+.c5 {
   height: 100%;
   width: 4rem;
   margin-right: 1rem;
@@ -359,7 +345,7 @@ exports[`Homework Row renders with completed count 1`] = `
   background-position: center;
 }
 
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -372,31 +358,22 @@ exports[`Homework Row renders with completed count 1`] = `
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+}
+
+.c4 {
   padding: 0 6rem 0 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c2 i {
+.c4 i {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c6 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -404,41 +381,17 @@ exports[`Homework Row renders with completed count 1`] = `
   padding-right: 1rem;
 }
 
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c7 {
   width: 15.5rem;
   padding-right: 1rem;
 }
 
-.c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+.c9 {
   padding-right: 1rem;
   width: 8rem;
 }
 
-.c7 svg.fa-star {
+.c9 svg.fa-star {
   padding: 3px;
 }
 
@@ -450,45 +403,33 @@ exports[`Homework Row renders with completed count 1`] = `
   display: flex;
   color: #fafafa;
   background: #929292;
+}
+
+.c1 {
   background: white;
   border-top: 2px solid #f1f1f1;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
 }
 
-.c1 {
-  height: 60px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  color: #fafafa;
-  background: #929292;
+.c2 {
   display: contents;
   color: #424242;
 }
 
-.c1:hover {
+.c2:hover {
   color: #424242;
 }
 
 @media (max-width:600px) {
-  .c2 {
+  .c4 {
     min-width: 100%;
   }
 }
 
 @media (max-width:600px) {
-  .c4 {
+  .c6 {
     padding-left: 1.2rem;
-  }
-}
-
-@media (max-width:600px) {
-  .c5 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
   }
 }
 
@@ -501,7 +442,15 @@ exports[`Homework Row renders with completed count 1`] = `
 }
 
 @media (max-width:600px) {
-  .c0.c0.c0 {
+  .c9 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:600px) {
+  .c1.c1.c1 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
@@ -510,7 +459,7 @@ exports[`Homework Row renders with completed count 1`] = `
 }
 
 @media (max-width:999px) {
-  .c0.c0.c0 {
+  .c1.c1.c1 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
@@ -526,31 +475,31 @@ exports[`Homework Row renders with completed count 1`] = `
   >
     <div>
       <div
-        aria-label="Work on homework: sticky deliver solutions"
-        className="sc-fzqBZW c0 task homework viewable"
+        aria-label="Work on homework: customized harness eyeballs"
+        className="c0 c1 task homework viewable"
         data-event-id={2}
         href="/course/2/task/2"
         onKeyDown={[Function]}
         tabIndex={0}
       >
         <a
-          className="sc-fzqBZW c1"
+          className="c0 c2"
           href="/course/2/task/2"
           onClick={[Function]}
         >
           <div
-            className="sc-fznZeY c2"
+            className="c3 c4"
           >
             <i
-              className="c3 icon-homework"
+              className="c5 icon-homework"
               type="homework"
             />
             <span>
-              sticky deliver solutions
+              customized harness eyeballs
             </span>
           </div>
           <div
-            className="sc-fznZeY c4"
+            className="c3 c6"
           >
             <time
               onBlur={[Function]}
@@ -558,40 +507,40 @@ exports[`Homework Row renders with completed count 1`] = `
               onMouseOut={[Function]}
               onMouseOver={[Function]}
             >
-              Sat, Oct 14, 7:00am
+              Sat, Oct 14, 12:00am
             </time>
           </div>
           <div
-            className="sc-fznZeY c5"
+            className="c3 c7"
           >
             <div
-              className="c6"
+              className="c8"
             >
               <span
                 className="tour-anchor"
                 data-tour-anchor-id="assignment-progress-status"
               >
-                7/12 completed
+                3/12 completed
               </span>
             </div>
           </div>
         </a>
         <div
-          className="sc-fznZeY c7"
+          className="c3 c9"
         >
           <div
-            className="c6"
+            className="c8"
           >
             <a
               href="/course/2/gradebook"
               onClick={[Function]}
             >
-              5.0
+              7.0
             </a>
             <svg
               aria-hidden="true"
               background="#5e5e5e"
-              className="svg-inline--fa fa-star fa-w-18 c8 ox-icon ox-icon-star"
+              className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
               color="white"
               data-icon="star"
               data-prefix="fas"

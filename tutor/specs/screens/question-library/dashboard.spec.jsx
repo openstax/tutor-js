@@ -138,7 +138,7 @@ describe('Questions Dashboard Component', function() {
         dash.unmount();
     });
 
-    it('clears when cancel is clicked', () => {
+    fit('clears when cancel is clicked', () => {
         const dash = mount(<C><Dashboard {...props} /></C>);
         // dash.find('.chapter-checkbox button').at(1).simulate('click');
         // expect(dash.find('.section.selected').length).toBeGreaterThan(10);

@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Row renders and matches snapshot 1`] = `
+.c10 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  padding: 2px;
+  height: 1.125em;
+  width: 1.125em;
+  background: #5e5e5e;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c8 a {
+  font-weight: 600;
+}
+
+.c5 {
+  height: 100%;
+  width: 4rem;
+  margin-right: 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.c4 {
+  padding: 0 6rem 0 1rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c4 i {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c6 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 20rem;
+  padding-right: 1rem;
+}
+
+.c7 {
+  width: 15.5rem;
+  padding-right: 1rem;
+}
+
+.c9 {
+  padding-right: 1rem;
+  width: 8rem;
+}
+
+.c9 svg.fa-star {
+  padding: 3px;
+}
+
+.c0 {
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fafafa;
+  background: #929292;
+}
+
+.c1 {
+  background: white;
+  border-top: 2px solid #f1f1f1;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.c2 {
+  display: contents;
+  color: #424242;
+}
+
+.c2:hover {
+  color: #424242;
+}
+
+@media (max-width:600px) {
+  .c4 {
+    min-width: 100%;
+  }
+}
+
+@media (max-width:600px) {
+  .c6 {
+    padding-left: 1.2rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:600px) {
+  .c9 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+@media (max-width:600px) {
+  .c1.c1.c1 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
+@media (max-width:999px) {
+  .c1.c1.c1 {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: none;
+  }
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <div
+        aria-label="Work on homework: holistic revolutionize markets"
+        className="c0 c1 task homework viewable"
+        data-event-id={4}
+        href="/course/1/task/4"
+        onKeyDown={[Function]}
+        tabIndex={0}
+      >
+        <a
+          className="c0 c2"
+          href="/course/1/task/4"
+          onClick={[Function]}
+        >
+          <div
+            className="c3 c4"
+          >
+            <i
+              className="c5 icon-homework"
+              type="homework"
+            />
+            <span>
+              holistic revolutionize markets
+            </span>
+          </div>
+          <div
+            className="c3 c6"
+          >
+            <time
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+            >
+              Wed, Oct 30, 12:00am
+            </time>
+          </div>
+          <div
+            className="c3 c7"
+          >
+            <div
+              className="c8"
+            >
+              <span
+                className="tour-anchor"
+                data-tour-anchor-id="assignment-progress-status"
+              >
+                Complete
+              </span>
+            </div>
+          </div>
+        </a>
+        <div
+          className="c3 c9"
+        >
+          <div
+            className="c8"
+          >
+            <a
+              href="/course/1/gradebook"
+              onClick={[Function]}
+            >
+              0
+            </a>
+            <svg
+              aria-hidden="true"
+              background="#5e5e5e"
+              className="svg-inline--fa fa-star fa-w-18 c10 ox-icon ox-icon-star"
+              color="white"
+              data-icon="star"
+              data-prefix="fas"
+              data-variant="circledStar"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 576 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;

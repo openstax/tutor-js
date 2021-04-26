@@ -1,3 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Question Stem matches snapshot 1`] = `<UNDEFINED />`;
+exports[`Question Stem matches snapshot 1`] = `
+<UNDEFINED
+  question={
+    Object {
+      "answers": Array [
+        Object {
+          "content_html": "The rate of change of momentum of a body is inversely proportional to the external force applied on the body",
+          "correctness": "0.0",
+          "feedback_html": "Are you sure that rate of change of momentum of a body is inversely proportional to the external force applied on the body?",
+        },
+        Object {
+          "content_html": "The rate of change of momentum of a body is directly proportional to the external force applied on the body",
+          "correctness": "0.0",
+          "feedback_html": "Isn’t it the second law of motion? Can you recall all the three laws of motion given by Newton?",
+        },
+        Object {
+          "content_html": "A body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant velocity unless acted upon by a net external force",
+          "correctness": "1.0",
+          "feedback_html": "Correct! Newton’s first law states that a body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant velocity unless acted upon by a net external force.",
+        },
+        Object {
+          "content_html": "A body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant acceleration unless acted upon by a net external force",
+          "correctness": "0.0",
+          "feedback_html": "Do you think accelerated motion is different from the motion where a net external force is acting on the object?",
+        },
+      ],
+      "collaborator_solutions": Array [],
+      "formats": Array [
+        "multiple-choice",
+        "free-response",
+      ],
+      "hints": Array [],
+      "id": "494",
+      "is_answer_order_important": false,
+      "question_id": 0,
+      "stem_html": "What does Newton’s First Law state?",
+      "stimulus_html": "",
+      "title": "",
+    }
+  }
+  questionNumber={911}
+/>
+`;

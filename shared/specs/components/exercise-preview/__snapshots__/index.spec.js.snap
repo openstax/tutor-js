@@ -197,12 +197,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
           </span>
           <span
             className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
-          </span>
-          <span
-            className="exercise-tag"
             data-test-id="tag-type-time"
           >
             time:long
@@ -294,12 +288,6 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -488,12 +476,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -756,12 +738,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -1163,12 +1139,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
           </span>
           <span
             className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
-          </span>
-          <span
-            className="exercise-tag"
             data-test-id="tag-type-time"
           >
             time:long
@@ -1380,12 +1350,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
