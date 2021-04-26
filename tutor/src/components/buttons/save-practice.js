@@ -124,7 +124,7 @@ const SavePracticeButton = observer(({
     if(isMpq() && isSaved()) {
         return(
             <OverlayTrigger
-                placement="right"
+                placement="bottom"
                 overlay={mpqTooltip}
                 delay={{ show: 50, hide: 150 }}
             >

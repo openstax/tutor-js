@@ -249,26 +249,31 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
           >
             <span
               className="exercise-tag"
+              data-test-id="tag-type-lo"
             >
               lo:stax-phys:1-2-1
             </span>
             <span
               className="exercise-tag"
+              data-test-id="tag-type-blooms"
             >
               blooms:3
             </span>
             <span
               className="exercise-tag"
+              data-test-id="tag-type-dok"
             >
               dok:3
             </span>
             <span
               className="exercise-tag"
+              data-test-id="tag-type-time"
             >
               time:long
             </span>
             <span
               className="exercise-tag"
+              data-test-id="tag-type-ID"
             >
               ID:1@1
             </span>

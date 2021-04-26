@@ -3,8 +3,11 @@ import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from '
 import { currentUser, currentToasts } from '../../models';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import S from '../../helpers/string';
+import { autorun, toJS } from 'mobx';
 
 const TERMS_NAME = 'exercise_editing';
+const AUTOSAVE_VERSION = 1; // Iterate this if the form changes significantly
+const AUTOSAVE_TTL = 900000; // in milliseconds
 
 export default class AddEditQuestionUX {
 
@@ -64,6 +67,8 @@ export default class AddEditQuestionUX {
     @observable allowOthersCopyEdit = true;
     @observable anonymize = false;
     @observable excludeOriginal = false;
+    @observable changed = false;
+    autosaveDisposer;
 
     constructor(props = {}) {
         this.book = props.book;
@@ -76,17 +81,18 @@ export default class AddEditQuestionUX {
 
         //TODO: get from BE
         // edit or create
-        if(props.exercise) {
+        if (props.exercise) {
             this.populateExerciseContent(props.exercise);
+            this.clearAutosave();
+        }
+        else if (this.autosaveIsValid) {
+            this.populateFromStorage();
+            this.selectDefaultSectionAndChapter()
+            this.changed = true;
         }
         else {
             // auto selected if there is only one chapter or selected pre-selected
-            if(this.preSelectedChapters.length === 1) {
-                this.selectedChapter = this.preSelectedChapters[0];
-                if(this.preSelectedChapterSections.length === 1) {
-                    this.selectedChapterSection = this.preSelectedChapterSections[0];
-                }
-            }
+            this.selectDefaultSectionAndChapter()
             // show 4 options by default
             for(let i = 1; i <= 4; i++) {
                 this.options.push({
@@ -109,6 +115,21 @@ export default class AddEditQuestionUX {
         return this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
     }
 
+    @action selectDefaultSectionAndChapter() {
+        if(this.preSelectedChapters.length === 1) {
+            this.selectedChapter = this.preSelectedChapters[0];
+            if(this.preSelectedChapterSections.length === 1) {
+                this.selectedChapterSection = this.preSelectedChapterSections[0];
+            }
+        }
+    }
+
+    @action populateFromStorage() {
+        // No catch here needed because we check the parse a step up in autosaveIsValid
+        const state = JSON.parse(localStorage['ql-editor-state'])
+        Object.assign(this, state)
+    }
+
     @action populateExerciseContent(exercise) {
         // question - can only edit questions that are not MPQ
         const question = exercise.content.questions[0];
@@ -117,7 +138,7 @@ export default class AddEditQuestionUX {
         // chapter & section
         this.selectedChapter = find(this.preSelectedChapters, psc => some(psc.children, c => c.uuid === exercise.page_uuid));
         this.selectedChapterSection = find(this.preSelectedChapterSections, pscs => pscs.uuid === exercise.page_uuid);
-    
+
         this.questionText = question.stem_html;
         this.isTwoStep = question.isTwoStep;
         forEach(question.answers, a => {
@@ -130,7 +151,7 @@ export default class AddEditQuestionUX {
         });
         const detailedSolution = find(question.collaborator_solutions, cs => cs.solution_type === 'detailed');
         this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
-    
+
         // tags
         if(exercise.content.tags && exercise.tags.length > 0) {
             const exerciseTags = exercise.content.tags;
@@ -141,7 +162,7 @@ export default class AddEditQuestionUX {
             this.tagDok = this.populateExerciseTagLevel(exerciseTags, TAG_DOKS, 'dok');
             this.tagBloom = this.populateExerciseTagLevel(exerciseTags, TAG_BLOOMS, 'blooms');
         }
-    
+
         //general
         this.questionName = question.title;
     }
@@ -173,6 +194,92 @@ export default class AddEditQuestionUX {
         };
     }
 
+    @action.bound enableAutosave() {
+        this.autosaveDisposer = autorun(() => {
+            if (!this.hasAnyChanges) { return null; }
+            localStorage['ql-editor-state'] = JSON.stringify(toJS(this.toAutosaveData))
+        })
+    }
+
+    @action.bound disableAutosave() {
+        this.autosaveDisposer()
+    }
+
+    @action clearAutosave() {
+        localStorage.removeItem('ql-editor-state')
+    }
+
+    get autosaveIsValid() {
+        let state;
+        try {
+            state = JSON.parse(localStorage.getItem('ql-editor-state'))
+        } catch {
+            localStorage.removeItem('ql-editor-state')
+            return false
+        }
+        const now = new Date().getTime()
+        const expiry = new Date(state?.autosave?.expiry)?.getTime()
+        const version = state?.autosave?.version
+
+        if (state && now < expiry && version === AUTOSAVE_VERSION) {
+            return true
+        } else {
+            localStorage.removeItem('ql-editor-state')
+            return false
+        }
+    }
+
+    @computed get toFormData() {
+        return ({
+            course: this.course,
+            data: {
+                selectedChapterSection: this.selectedChapterSection?.id,
+                authorId: parseInt(this.author.id, 10),
+                derived_from_id: this.from_exercise_id,
+                questionText: this.questionText,
+                questionName: this.questionName,
+                options: this.isMCQ ? this.processOptions() : [],
+                detailedSolution: this.detailedSolution,
+                isTwoStep: this.isTwoStep,
+                tags: this.processTags(),
+                anonymize: this.anonymize,
+                copyable: this.allowOthersCopyEdit,
+                images: this.images.map(img => img.signed_id),
+            },
+            page_ids: this.selectedChapterSection ? [this.selectedChapterSection.id] : null,
+            book: this.course.referenceBook,
+        })
+    }
+
+    get toAutosaveData() {
+        const autosave = {
+            expiry: new Date().getTime() + AUTOSAVE_TTL,
+            version: AUTOSAVE_VERSION,
+        }
+
+        const data = {
+            autosave: autosave,
+            author: { id: parseInt(this.author.id, 10) },
+            from_exercise_id: this.from_exercise_id,
+            questionText: this.questionText,
+            questionName: this.questionName,
+            options: this.options,
+            detailedSolution: this.detailedSolution,
+            isTwoStep: this.isTwoStep,
+            tags: this.tags,
+            anonymize: this.anonymize,
+            allowOthersCopyEdit: this.allowOthersCopyEdit,
+            images: this.images,
+            isMCQ: this.isMCQ,
+            tagTime: this.tagTime,
+            tagDifficulty: this.tagDifficulty,
+            tagBloom: this.tagBloom,
+            tagDok: this.tagDok,
+        };
+
+        return data;
+    }
+
     @computed get didUserAgreeTermsOfUse() {
         return currentUser.terms.hasAgreedTo(TERMS_NAME);
     }
@@ -180,8 +287,8 @@ export default class AddEditQuestionUX {
     // Chapters that the user has selected
     @computed get preSelectedChapters() {
         // return the chapters by checking the section pageIds
-        return filter(this.book.chapters, bc => 
-            some(bc.children, c => 
+        return filter(this.book.chapters, bc =>
+            some(bc.children, c =>
                 some(this.pageIds, pi => pi === c.id)));
     }
 
@@ -190,7 +297,7 @@ export default class AddEditQuestionUX {
         if (!this.selectedChapter) {
             return null;
         }
-        return filter(this.selectedChapter.children, scc => 
+        return filter(this.selectedChapter.children, scc =>
             some(this.pageIds, pi => pi === scc.id) && scc.isAssignable);
     }
 
@@ -208,7 +315,7 @@ export default class AddEditQuestionUX {
         if(this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
             return [...this.course.teacher_profiles];
         }
-        else 
+        else
             return [this.course.currentUser];
     }
 
@@ -219,8 +326,8 @@ export default class AddEditQuestionUX {
             browseBookLink += `/page/${this.selectedChapterSection.id}`;
         }
         else if (this.selectedChapter &&
-      this.selectedChapter.children &&
-      this.selectedChapter.children.length > 0) {
+                 this.selectedChapter.children &&
+                 this.selectedChapter.children.length > 0) {
             browseBookLink += `/page/${this.selectedChapter.children[0].id}`;
         }
         return browseBookLink;
@@ -259,14 +366,14 @@ export default class AddEditQuestionUX {
         // ignore check for chapter, section and author
         // after publish, we reset everything except this three fields
         const tempInitialStateForm = omit(this.initialStateForm, ['selectedChapter', 'selectedChapterSection', 'author']);
-        return some(
+        return this.changed || some(
             map(tempInitialStateForm, (f, key) => isEqual(this[key], f)),
             t => !t
         );
     }
 
     @computed get hasAnyChanges() {
-        return some(
+        return this.changed || some(
             map(this.initialStateForm, (f, key) => isEqual(this[key], f)),
             t => !t
         );
@@ -418,24 +525,11 @@ export default class AddEditQuestionUX {
         // store exericse since saving the new one it might remove old from map
         const exercise = this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
 
-        await this.exercises.createExercise({
-            course: this.course,
-            data: {
-                selectedChapterSection: this.selectedChapterSection.id,
-                authorId: parseInt(this.author.id, 10),
-                derived_from_id: this.from_exercise_id,
-                questionText: this.questionText,
-                questionName: this.questionName,
-                options: this.processOptions(),
-                detailedSolution: this.detailedSolution,
-                isTwoStep: this.isTwoStep,
-                tags: this.processTags(),
-                anonymize: this.anonymize,
-                copyable: this.allowOthersCopyEdit,
-                images: this.images.map(img => img.signed_id),
-            },
-            page_ids: this.selectedChapterSection ? [this.selectedChapterSection.id] : null,
-            book: this.course.referenceBook,
+        await this.exercises.createExercise(this.toFormData).then(() => {
+            this.clearAutosave();
+            this.disableAutosave();
+            this.changed = false;
+            this.enableAutosave();
         });
 
         // notify UI
@@ -514,11 +608,11 @@ export default class AddEditQuestionUX {
     }
 
     /**
-   * This method checks if the `fields` (fields in the form) are empty.
-   * If so, set this.isEmpty[field] to true.
-   * NOTE: Each `field` name should match the observable variable name so we can check the thruthy of `this[field]`.
-   * @param {*} fields - an array of `field` 
-   */
+     * This method checks if the `fields` (fields in the form) are empty.
+     * If so, set this.isEmpty[field] to true.
+     * NOTE: Each `field` name should match the observable variable name so we can check the thruthy of `this[field]`.
+     * @param {*} fields - an array of `field`
+     */
     @action.bound checkValidityOfFields(fields = []) {
         let filterIsEmptyFields;
         // if `fields` is empty, then check all of the `this.isEmpty` fields

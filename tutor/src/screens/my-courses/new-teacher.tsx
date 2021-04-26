@@ -161,6 +161,17 @@ const Content = styled.div`
             }
         }
     }
+
+    .ap-disclaimer {
+        width: 592px;
+        margin: 4rem 0 2rem;
+        
+        p {
+            line-height: 2rem;
+            font-size: 1.4rem;
+            color: ${colors.neutral.thin};
+        }
+    }
 `
 
 const OfferingLabel = styled.label`
@@ -543,6 +554,9 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 </SuggestButton>
                             </div>
                         </label>
+                        <div className="ap-disclaimer">
+                            <p>Advanced Placement® and AP® are trademarks registered and/or owned by the College Board, which is not affiliated with, and does not endorse, this site.</p>
+                        </div>
                     </form>
                 </Content>
             </Wrapper>

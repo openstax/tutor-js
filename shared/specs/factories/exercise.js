@@ -149,6 +149,7 @@ Factory.define('Exercise')
         'book:stax-phys',
         'context-cnxmod:',
         'context-cnxfeature:one-1',
+        'science-practice:modeling',
     ])
     .nickname(fake.internet.domainWord)
     .uuid(uuid)

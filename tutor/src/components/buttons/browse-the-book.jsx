@@ -82,7 +82,7 @@ class extends React.Component {
         });
 
         return (
-            <Tag aria-label="Browse course reference book" onClick={this.onClick} {...tagProps}>
+            <Tag data-test-id="browse-the-book-btn" aria-label="Browse course reference book" onClick={this.onClick} {...tagProps}>
                 {children}
             </Tag>
         );

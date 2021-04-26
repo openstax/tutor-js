@@ -2,7 +2,7 @@ import { React, PropTypes, observer } from 'vendor';
 import AddEditQuestionUX from './ux';
 import AddEditQuestionForm from './form';
 import AddEditQuestionTermsOfUse from './terms-of-use';
-import { 
+import {
     FeedbackTipModal,
     ExitWarningModal,
     CoursePreviewOnlyModal,

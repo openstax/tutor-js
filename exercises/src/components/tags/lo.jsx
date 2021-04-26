@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { defaults, map } from 'lodash';
+import { map } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
@@ -10,9 +10,21 @@ import { Icon } from 'shared';
 import { modelize } from 'shared/model'
 import Error from './error';
 import Wrapper from './wrapper';
+import BookSelection from './book-selection';
 
 const TYPE = 'lo';
-import BookSelection from './book-selection';
+const LO_PATTERNS = {
+    default: {
+        placeholder: '##-##-##',
+        excluded_characters: /[^0-9.-]/g,
+        match: /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/,
+    },
+    'stax-worldhist': {
+        placeholder: '[AB]##-##-##',
+        excluded_characters: /[^AB0-9.-]/g,
+        match: /^[AB]\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/,
+    },
+}
 
 @observer
 class Input extends React.Component {
@@ -21,14 +33,12 @@ class Input extends React.Component {
         tag: PropTypes.instanceOf(TagModel).isRequired,
     };
 
-    @observable errorMsg;
-    @observable value = this.props.tag.value;
-
     constructor(props) {
         super(props);
         modelize(this);
     }
 
+    @observable value = this.props.tag.value;
     @computed get book() {
         return this.props.tag.specifier;
     }
@@ -37,31 +47,46 @@ class Input extends React.Component {
         return this.props.tag.value;
     }
 
-    @action.bound onTextChange(ev) {
-        this.value = ev.target.value.replace(/[^0-9.-]/g, '');
-        this.errorMsg = null;
+    @computed get lo_pattern() {
+        if (this.book in LO_PATTERNS) {
+            return LO_PATTERNS[this.book];
+        }
+
+        return LO_PATTERNS.default;
     }
 
-    @action.bound validateAndSave(attrs) {
-        if (attrs == null) { attrs = {}; }
-        const { tag } = this.props;
-        const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
+    @computed get placeholder() {
+        return this.lo_pattern.placeholder;
+    }
 
-        if (!book || (lo != null && !lo.match( /^\d{1,2}(-|\.)\d{1,2}(-|\.)\d{1,2}$/ ))) {
-            this.errorMsg = 'Must have book and match LO pattern of dd-dd-dd';
-        } else {
-            tag.value = lo;
+    @computed get excluded_characters_pattern() {
+        return this.lo_pattern.excluded_characters;
+    }
+
+    @computed get match_pattern() {
+        return this.lo_pattern.match;
+    }
+
+    @computed get errorMsg() {
+        if (!this.book) { return 'Must have book'; }
+
+        if (this.lo != null && !this.lo.match(this.match_pattern)) {
+            return 'Must match LO pattern of ' + this.placeholder;
         }
-        tag.specifier = book;
 
+        return null;
+    }
+
+    @action.bound onTextChange(ev) {
+        this.value = ev.target.value.replace(this.excluded_characters_pattern, '');
     }
 
     @action.bound onTextBlur() {
-        return this.validateAndSave({ lo: this.value });
+        this.props.tag.value = this.value;
     }
 
     @action.bound updateBook(ev) {
-        this.validateAndSave({ book: ev.target.value });
+        this.props.tag.specifier = ev.target.value;
     }
 
     @action.bound onDelete() {
@@ -83,7 +108,7 @@ class Input extends React.Component {
                     onChange={this.onTextChange}
                     onBlur={this.onTextBlur}
                     value={this.value}
-                    placeholder="##-##-##"
+                    placeholder={this.placeholder}
                 />
                 <Error error={this.errorMsg} />
                 <span className="controls">
@@ -92,10 +117,12 @@ class Input extends React.Component {
             </div>
         );
     }
+
 }
 
 @observer
 class LoTags extends React.Component {
+
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
     };
@@ -106,7 +133,12 @@ class LoTags extends React.Component {
     }
 
     @action.bound onAdd() {
-        this.props.exercise.tags.push({ type: TYPE, value: '' });
+        let newTag = { type: TYPE, value: '' };
+        const tags = this.props.exercise.tags;
+        const bookTag = tags.withType('book');
+        if (bookTag) { newTag.specifier = bookTag.value; }
+
+        tags.push(newTag);
     }
 
     render() {
@@ -114,11 +146,12 @@ class LoTags extends React.Component {
 
         return (
             <Wrapper label="LO" onAdd={this.onAdd}>
-                {tags.map((tag) =>
-                    <Input key={tag.asString} {...this.props} tag={tag} />)}
+                {tags.map((tag, i) =>
+                    <Input key={i} {...this.props} tag={tag} />)}
             </Wrapper>
         );
     }
+
 }
 
 export default LoTags;

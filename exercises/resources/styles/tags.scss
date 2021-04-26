@@ -20,7 +20,7 @@
         font-weight: bolder; font-size: 110%;
       }
     }
-    &.has-single-tag {
+    &:not(.cnxFeature):not(.cnxModule).has-single-tag {
       .tag .controls{ visibility: hidden; }
     }
     .tag {

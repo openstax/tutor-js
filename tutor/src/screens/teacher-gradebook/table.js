@@ -377,7 +377,7 @@ const StudentCell = observer(({ ux, student, striped, isLast }) => {
         <Cell striped={striped} drawBorderBottom={isLast}>
             <CellContents>
                 <Heading first={true}>
-                    <FirstRowCell data-cell="student-name">
+                    <FirstRowCell data-cell="student-name" data-test-id="student-name">
                         {
                             !student.is_dropped ? <TutorLink
                                 to="viewPerformanceGuide"

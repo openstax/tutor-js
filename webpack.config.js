@@ -2,7 +2,7 @@ const path    = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-assets-manifest');
-
+const isCI = !!process.env.CI
 const PORTS = {
     tutor:      '8000',
     shared:     '8000',
@@ -95,6 +95,7 @@ const config = {
         maxAssetSize: 2.1 * 1000000,
     },
     watchOptions: {
+        ignored: /node_modules/,
         aggregateTimeout: 500,
         poll: 1000,
     },
@@ -108,13 +109,14 @@ const config = {
         port,
         publicPath,
         historyApiFallback: true,
-        inline: true,
+        inline: !isCI,
         quiet: false,
         noInfo: false,
         clientLogLevel: 'warning',
         host: 'localhost',
         filename: '[name].js',
-        hot: true,
+        hot: !isCI,
+        liveReload: !isCI,
         stats: 'errors-only',
     },
 };

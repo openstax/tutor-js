@@ -13,14 +13,14 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                   <MobXProvider tourContext={{...}}>
                     <div data-purpose=\\"tour-conductor-wrapper\\">
                       <TutorLayout>
-                        <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls]}>
+                        <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fotPbf bHXEFN\\">
+                            <div className=\\"sc-fzqNJr dkwodz\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false} className=\\"\\">
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar nav-\\">
-                                  <nav className=\\"sc-bdvvaa kNnFlL tutor-navbar nav-\\">
+                                  <nav className=\\"sc-AxjAm fhzKny tutor-navbar nav-\\">
                                     <div className=\\"left-side-controls\\">
-                                      <ObservableMap@61.logo>
+                                      <Component>
                                         <Logo>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <TutorLink to=\\"myCourses\\" className=\\"brand\\" aria-label=\\"dashboard\\">
@@ -28,7 +28,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
-                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-crHlIS dGMLIV\\">
+                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-fznyAO djxuwb\\">
                                                         <defs>
                                                           <style />
                                                         </defs>
@@ -51,11 +51,11 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             </TutorLink>
                                           </Memo(wrappedComponent)>
                                         </Logo>
-                                      </ObservableMap@61.logo>
+                                      </Component>
                                     </div>
                                     <div className=\\"center-control\\" />
                                     <div className=\\"right-side-controls\\">
-                                      <ObservableMap@63.menu>
+                                      <Component>
                                         <Menus>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <Responsive desktop={{...}} mobile={{...}}>
@@ -66,20 +66,20 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     <Observer>
                                                       <SupportMenu course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}}>
                                                         <Responsive desktop={{...}} mobile={{...}}>
-                                                          <Dropdown show={true} onToggle={[Function: onToggle] { isMobxAction: true }} navbar={false}>
-                                                            <ReactOverlaysDropdown drop={[undefined]} show={true} alignEnd={[undefined]} onToggle={[Function (anonymous)]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                          <Dropdown show={true} onToggle={[Function: res]} navbar={false}>
+                                                            <ReactOverlaysDropdown drop={[undefined]} show={true} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
                                                               <div onKeyDown={[Function: handleKeyDown]} className=\\"show dropdown\\">
                                                                 <DropdownToggle id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
-                                                                  <Button onClick={[Function (anonymous)]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
-                                                                    <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
-                                                                      <inject(TourAnchor) id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: onSelect] { isMobxAction: true }}>
+                                                                  <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
+                                                                    <button onClick={[Function]} aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
+                                                                      <inject(TourAnchor) id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
                                                                         <Observer>
-                                                                          <TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: onSelect] { isMobxAction: true }} tourContext={{...}} tag=\\"div\\" className=\\"\\">
-                                                                            <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: onSelect] { isMobxAction: true }}>
+                                                                          <TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]} tourContext={{...}} tag=\\"div\\" className=\\"\\">
+                                                                            <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
                                                                               <Icon type=\\"question-circle\\" buttonProps={{...}} tooltipProps={{...}}>
                                                                                 <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-question-circle\\" icon={{...}}>
-                                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
-                                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"question-circle\\" className=\\"svg-inline--fa fa-question-circle fa-w-16 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-question-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                                       <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z\\" style={{...}} />
                                                                                     </svg>
                                                                                   </FontAwesomeIcon>
@@ -97,9 +97,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                 </DropdownToggle>
                                                                 <DropdownMenu className=\\" hide\\" alignRight={false} flip={true}>
                                                                   <div x-placement=\\"bottom-start\\" aria-labelledby=\\"support-menu\\" style={{...}} className=\\" hide dropdown-menu show\\">
-                                                                    <Memo(wrappedComponent) onPlayClick={[Function: onPlayTourClick] { isMobxAction: true }} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
-                                                                    <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: onSelect] { isMobxAction: true }} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
-                                                                      <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function (anonymous)]}>
+                                                                    <Memo(wrappedComponent) onPlayClick={[Function: res]} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
+                                                                    <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
+                                                                      <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
                                                                         <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
                                                                           <span>
                                                                             Help Articles
@@ -109,7 +109,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                     </DropdownItem>
                                                                     <SupportDocumentLink course={[undefined]}>
                                                                       <DropdownItem className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" as={{...}} disabled={false}>
-                                                                        <SafeAnchor target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" disabled={false} className=\\"support-document-link dropdown-item\\" onClick={[Function (anonymous)]}>
+                                                                        <SafeAnchor target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" disabled={false} className=\\"support-document-link dropdown-item\\" onClick={[Function]}>
                                                                           <a target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" className=\\"support-document-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
                                                                             <inject(TourAnchor) id=\\"menu-support-document\\">
                                                                               <Observer>
@@ -124,9 +124,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                         </SafeAnchor>
                                                                       </DropdownItem>
                                                                     </SupportDocumentLink>
-                                                                    <BestPracticesGuide course={[undefined]} />
-                                                                    <DropdownItem className=\\"-help-link\\" onSelect={[Function: onSelect] { isMobxAction: true }} href=\\"/accessibility-statement/\\" onClick={[Function: goToAccessibility] { isMobxAction: true }} as={{...}} disabled={false}>
-                                                                      <SafeAnchor href=\\"/accessibility-statement/\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function (anonymous)]}>
+                                                                    <DropdownItem className=\\"-help-link\\" onSelect={[Function: res]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} as={{...}} disabled={false}>
+                                                                      <SafeAnchor href=\\"/accessibility-statement/\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
                                                                         <a href=\\"/accessibility-statement/\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
                                                                           <span>
                                                                             Accessibility Statement
@@ -147,15 +146,15 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <ActionsMenu course={[undefined]}>
                                                   <Responsive desktop={{...}} mobile={{...}}>
                                                     <Dropdown className=\\"actions-menu\\" navbar={false}>
-                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function (anonymous)]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
                                                         <div onKeyDown={[Function: handleKeyDown]} className=\\"actions-menu dropdown\\">
                                                           <DropdownToggle id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\">
-                                                            <Button onClick={[Function (anonymous)]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
+                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
                                                                 <Icon type=\\"bars\\" buttonProps={{...}} tooltipProps={{...}}>
                                                                   <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}}>
-                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
-                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 fLVdNl ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 IconWrapper-ra27cp-0 gKKqUB ox-icon ox-icon-bars\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                         <path fill=\\"currentColor\\" d=\\"M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
@@ -176,11 +175,11 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <UserMenu>
                                                   <Responsive desktop={{...}} mobile={{...}}>
                                                     <Dropdown className=\\"user-menu\\" navbar={false}>
-                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function (anonymous)]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                      <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
                                                         <div onKeyDown={[Function: handleKeyDown]} className=\\"user-menu dropdown\\">
                                                           <DropdownToggle id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\">
-                                                            <Button onClick={[Function (anonymous)]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
+                                                            <Button onClick={[Function]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
                                                                 <span className=\\"initials\\" />
                                                               </button>
                                                             </Button>
@@ -195,7 +194,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             </Responsive>
                                           </Memo(wrappedComponent)>
                                         </Menus>
-                                      </ObservableMap@63.menu>
+                                      </Component>
                                     </div>
                                   </nav>
                                 </styled.nav>
@@ -215,7 +214,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div className=\\"\\" hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fFehDp fVAPnE\\">
+                                <div className=\\"sc-fzoyAV gpHiCY\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body
@@ -241,7 +240,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
               </inject-with-modalManager-spyMode(TourConductor)>
             </MobXProvider>
           </ModalManager>
-          <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: toggleDebug] { isMobxAction: true }} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+          <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
             π
           </a>
         </div>

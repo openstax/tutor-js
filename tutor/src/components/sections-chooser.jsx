@@ -144,6 +144,7 @@ class ChapterAccordion extends React.Component {
             <ChapterWrapper
                 className="chapter"
                 data-is-expanded={this.expanded}
+                data-test-id="section-chapter-chooser"
             >
                 <ChapterHeading
                     role="button"

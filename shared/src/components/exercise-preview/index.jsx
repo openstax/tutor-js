@@ -182,7 +182,7 @@ class ExercisePreview extends React.Component {
                                 this.props.questionType !== 'student-mpp' &&
                 <div className="exercise-tags">
                     {map(this.tags, (tag, index) => (
-                        <span key={index} className="exercise-tag">
+                        <span key={index} className="exercise-tag" data-test-id={`tag-type-${tag.type}`}>
                             {tag.title}
                         </span>
                     ))}

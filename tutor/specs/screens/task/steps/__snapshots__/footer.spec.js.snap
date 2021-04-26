@@ -2,7 +2,7 @@
 
 exports[`Task Step Footer matches snapshot 1`] = `
 "<C>
-  <Component theme={{...}}>
+  <ThemeProvider theme={{...}}>
     <ForwardRef noRef={[undefined]} path=\\"/\\" withRef={false}>
       <MemoryRouter initialIndex={0} initialEntries={{...}}>
         <Router history={{...}}>
@@ -19,33 +19,33 @@ exports[`Task Step Footer matches snapshot 1`] = `
                               <MobXProvider tourContext={{...}}>
                                 <div data-purpose=\\"tour-conductor-wrapper\\">
                                   <TutorSpecLayout>
-                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls] { isMobxAction: true }}>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                                       <div>
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepFooter course={{...}} step={{...}}>
                                           <styled.div>
-                                            <div className=\\"sc-eCImvq jdwrWk\\">
+                                            <div className=\\"sc-AxhUy BkIXc\\">
                                               <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
                                                 <styled.div className=\\"related-content-link\\">
-                                                  <div className=\\"sc-dkPtyc bIMEVU related-content-link\\">
+                                                  <div className=\\"sc-AxiKw dcdLEl related-content-link\\">
                                                     <styled.span>
-                                                      <span className=\\"sc-hKwCoD eqSaQB preamble\\">
+                                                      <span className=\\"sc-AxhCb dFswVp preamble\\">
                                                         Comes from
                                                       </span>
                                                     </styled.span>
                                                     <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
-                                                      <a aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} tabIndex={-1} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                                                      <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
                                                           <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>
-                                                            <div className=\\"sc-gsDJrp fbJPiw book-part-title\\" style={[undefined]}>
+                                                            <div className=\\"sc-AxirZ jSNLok book-part-title\\" style={[undefined]}>
                                                               <ChapterSection chapterSection={{...}}>
                                                                 <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
-                                                                  <span className=\\"sc-bdvvaa izOdpg chapter-section\\" data-chapter-section=\\"1.2\\">
+                                                                  <span className=\\"sc-AxjAm cssSBZ chapter-section\\" data-chapter-section=\\"1.2\\">
                                                                     1.2
                                                                   </span>
                                                                 </styled.span>
                                                               </ChapterSection>
-                                                              <span dangerouslySetInnerHTML={{...}} />
+                                                              <span dangerouslySetInnerHTML={{...}} data-title=\\"Nerve Conduction–Electrocardiograms\\" data-test-id=\\"book-title\\" />
                                                             </div>
                                                           </styled.div>
                                                         </BookPartTitle>
@@ -54,13 +54,13 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                   </div>
                                                 </styled.div>
                                               </RelatedContentLink>
-                                              <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}}>
-                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}} className=\\"sc-jRQAMF kygFFS\\">
-                                                  <div className=\\"exercise-identifier-link sc-jRQAMF kygFFS\\">
+                                              <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}}>
+                                                <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"3402dc53-113d-45f3-954e-8d2ad1e73659\\" related_content={{...}} className=\\"sc-AxgMl dfUuSq\\">
+                                                  <div className=\\"exercise-identifier-link sc-AxgMl dfUuSq\\">
                                                     ID# 
                                                     1@1
                                                      | 
-                                                    <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Newton%27s%20First%20Law%20of%20Motion%3A%20Inertia&book=The%20AP%20Physics%20Collection\\">
+                                                    <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Nerve%20Conduction%E2%80%93Electrocardiograms&book=Concept%20of%20Biology\\">
                                                       Suggest a correction
                                                     </a>
                                                   </div>
@@ -86,7 +86,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                           </inject-with-modalManager-spyMode(TourConductor)>
                         </MobXProvider>
                       </ModalManager>
-                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: toggleDebug] { isMobxAction: true }} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
                         π
                       </a>
                     </div>
@@ -98,6 +98,6 @@ exports[`Task Step Footer matches snapshot 1`] = `
         </Router>
       </MemoryRouter>
     </ForwardRef>
-  </Component>
+  </ThemeProvider>
 </C>"
 `;

@@ -133,10 +133,10 @@ export const MyCoursesDashboard = observer(() => {
         const tempDisplayedOfferingIds = [...displayedOfferingIds]
         const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
         if (index >= 0 && deleteOfferingIdModal) {
-            const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal && String(c.term) !== 'preview')
+            const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal && !c.is_preview)
             Promise.all(map(offeringCourses, async c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
-                const currentTeacher = currentRole && find(c.teachers, t => t.role_id === currentRole.id);
+                const currentTeacher = currentRole && find(c.teacher_profiles, t => t.role_id === currentRole.id);
                 if(currentTeacher) {
                     return currentTeacher.drop() // dispatch(dropCourseTeacher(currentTeacher.id))
                 }

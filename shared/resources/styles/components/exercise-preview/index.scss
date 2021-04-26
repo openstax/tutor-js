@@ -187,6 +187,8 @@
         align-items: center;
         .correct-incorrect {
           min-width: 1em; // match font-awesome icon width
+          align-self: baseline;
+          margin-top: 4px;
         }
         .ox-icon {
           margin: 0;
@@ -194,7 +196,7 @@
         .answer-label {
           font-weight: 400;
           display: flex;
-          align-items: center;
+          align-items: baseline;
         }
 
         .answer-letter {
@@ -215,7 +217,7 @@
         margin-bottom: 5px;
         color: $openstax-neutral;
         margin-left: 0;
-        font-size: 1.4rem;
+        font-size: 14px;
         line-height: 2rem;
       }
 

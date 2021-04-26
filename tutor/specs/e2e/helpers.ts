@@ -91,5 +91,10 @@ export const selectAnswer = async (page: Page, choice : string, freeResponse: st
         })
 }
 
+export const deleteText = async (page: Page, elementSelector: string) => {
+    await page.click(elementSelector, { clickCount: 3 })
+    page.keyboard.press('Backspace')
+}
+
 
 export { Factory }

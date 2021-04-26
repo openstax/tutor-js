@@ -1,4 +1,4 @@
-import { React, styled, observer, PropTypes } from 'vendor';
+import { React, styled, observer, PropTypes, useEffect } from 'vendor';
 import { Modal, Form, Button } from 'react-bootstrap';
 import AddEditQuestionModal from '../../course-modal';
 import AddEditQuestionFormTopic from './topic';
@@ -94,6 +94,13 @@ FormButtons.propTypes = {
 };
 
 const AddEditQuestionForm = observer(({ ux }) => {
+    useEffect(() => {
+        ux.enableAutosave()
+
+        return () => {
+            ux.disableAutosave()
+        }
+    }, [])
     return (
         <StyledAddEditQuestionModal
             data-test-id="add-edit-question"

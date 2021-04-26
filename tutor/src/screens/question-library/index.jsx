@@ -11,6 +11,9 @@ export default
 class QuestionsDashboardShell extends React.Component {
     static propTypes = {
         exercises: PropTypes.object,
+        history: PropTypes.shape({
+            push: PropTypes.func,
+        }).isRequired,
     }
 
     static defaultProps = {
@@ -38,6 +41,6 @@ class QuestionsDashboardShell extends React.Component {
 
     render() {
         if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
-        return <Dashboard exercises={this.props.exercises} course={this.course} />;
+        return <Dashboard exercises={this.props.exercises} course={this.course} history={this.props.history} />;
     }
 }

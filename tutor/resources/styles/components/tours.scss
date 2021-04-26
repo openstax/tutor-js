@@ -9,16 +9,9 @@
 @import './tours/joyride';
 
 .joyride-tooltip {
-
-  .tour-step-best-practices {
-
-  }
-
   &[data-target^='[data-tour-anchor-id="menu-option-'] {
     margin-top: -26px;
   }
-
-
 }
 
 .openstax-exercise-preview.has-actions .card-body.on-demo-hover .controls-overlay {

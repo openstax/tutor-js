@@ -64,6 +64,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   <a
     aria-label="Browse course reference book"
     className="browse-the-book"
+    data-test-id="browse-the-book-btn"
     href="/book/1/section/1.0"
     onClick={[Function]}
     tabIndex={-1}
@@ -84,6 +85,8 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
             "__html": "Intro",
           }
         }
+        data-test-id="book-title"
+        data-title="Intro"
       />
     </div>
   </a>

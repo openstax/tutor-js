@@ -37,7 +37,7 @@ const StyledPreviewCourse = styled.div`
     }
     }
     }
-    .my-courses-item-actions {
+    .my-preview-courses-item-actions {
     position: absolute;
     right: 10px;
     top: 40px;
@@ -92,10 +92,11 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
         return null
     }
     const goToPreviewCourse = (toSettings = false) => {
+        const routePath = toSettings ? 'courseSettings' : 'dashboard';
+        // course details is tab = 1
+        const queryPath = toSettings ? { query: { tab: 1 } } : {};
         if (previewCourse) {
-            history.push(Router.makePathname(
-                toSettings ? 'courseSettings' : 'dashboard', { courseId: previewCourse.id },
-            ))
+            history.push(Router.makePathname(routePath, { courseId: previewCourse.id }, queryPath))
         } else {
             setIsCreating(true)
             currentCourses
@@ -103,9 +104,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                 .then((result) => {
                     setIsCreating(false)
                     if (!result.error) {
-                        window.location = Router.makePathname(
-                            toSettings ? 'courseSettings' : 'dashboard', { courseId: result.payload.id },
-                        )
+                        window.location = Router.makePathname(routePath, { courseId: result.payload.id }, queryPath)
                     }
                 })
         }
@@ -126,10 +125,13 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     })
 
     return (
-        <StyledPreviewCourse className="my-courses-item-wrapper preview">
+        <StyledPreviewCourse
+            data-test-id="preview-course-card"
+            className="my-courses-item-wrapper preview"
+        >
             <div
                 data-appearance={offering.appearance_code}
-                data-test-id="preview-course-card"
+                data-test-id={`preview-course-card=${offering.id}`}
                 data-is-teacher={true}
                 data-offering-id={offering.id}
                 className={itemClasses}>
@@ -144,13 +146,23 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                     </div>
                 </a>
             </div>
-            <Dropdown className="my-courses-item-actions" data-appearance={offering.appearance_code}>
-                <Dropdown.Toggle variant="ox">
+            <Dropdown
+                className="my-preview-courses-item-actions"
+                data-appearance={offering.appearance_code}>
+                <Dropdown.Toggle variant="ox" data-test-id={`my-preview-courses-item-actions-${offering.id}`}>
                     <Icon type="ellipsis-v" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => goToPreviewCourse(true)}>Course Settings</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setIsPreviewInResource(!isPreviewInResource)}>
+                    <Dropdown.Item
+                        data-test-id={`my-preview-courses-item-actions-course-settings-${offering.id}`}
+                        onClick={() => goToPreviewCourse(true)}
+                    >
+                        Course Settings
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        data-test-id={`my-preview-courses-item-actions-move-preview-${offering.id}`}
+                        onClick={() => setIsPreviewInResource(!isPreviewInResource)}
+                    >
                         {`Move Preview to ${!isPreviewInResource ? 'resources' : 'current courses'}`}
                     </Dropdown.Item>
                 </Dropdown.Menu>

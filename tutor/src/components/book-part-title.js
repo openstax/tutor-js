@@ -43,7 +43,7 @@ const BookPartTitle = ({ part, style, label, className, boldChapterSection, disp
             {displayChapterSection && !part.title.match(hasChapterSection) && (
                 <ChapterSection chapterSection={part.chapter_section} />
             )}
-            <span dangerouslySetInnerHTML={{ __html: part.title }} />
+            <span dangerouslySetInnerHTML={{ __html: part.title }} data-title={part.title} data-test-id="book-title" />
         </StyledBookPartTitle>
     );
 };

@@ -431,6 +431,7 @@ class NotesWidget extends React.Component {
                         onHide={NotesUX.hideSummary}
                         dialogClassName="notes-modal"
                         scrollable={true}
+                        data-test-id="highlights-notes-modal"
                     >
                         <Modal.Header
                             closeButton={true}

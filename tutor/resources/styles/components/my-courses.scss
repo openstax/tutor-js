@@ -282,7 +282,7 @@ $my-courses-card-padding: 12px;
     }
   }
 
-  .my-courses-item-actions {
+  .my-courses-item-actions, .my-preview-courses-item-actions {
     @each $book in map-keys($openstax-books) {
       $fg: openstax-book-color($book, primary);
       &[data-appearance=#{$book}] {

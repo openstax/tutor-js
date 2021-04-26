@@ -103,7 +103,7 @@ class QLSectionsChooser extends React.Component {
         this.pageIds = pageIds;
     }
 
-    headerInfo = () => 
+    headerInfo = () =>
         <StyledHeaderInfo>The Question Library is a collection of peer-reviewed questions included with your course.</StyledHeaderInfo>
 
     render() {

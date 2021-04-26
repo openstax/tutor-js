@@ -3,8 +3,8 @@ import { last } from 'lodash';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
-
 import { UserTerm, UserTermsMap, currentUser, User } from '../../../src/models'
+import { TestRouter } from '../../helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
     html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -56,6 +56,7 @@ describe('Questions Dashboard Component', function() {
         props = {
             course,
             exercises,
+            history: new TestRouter().history,
         };
     });
 
@@ -66,7 +67,7 @@ describe('Questions Dashboard Component', function() {
         return dash;
     };
 
-    fit('fetches and displays', () => {
+    it('fetches and displays', () => {
         const dash = mount(<C><Dashboard {...props} /></C>)
         // expect(dash).not.toHaveRendered('NoExercisesFound');
         // dash.find(`div[data-section-id="${page_ids[0]}"]`).simulate('click');

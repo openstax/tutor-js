@@ -74,6 +74,12 @@ describe('Exercise Model', () => {
         expect(exercise.tags.includes({ type: 'book', value: 'new' })).toBe(false);
     });
 
+    it('can replace all of a tag', () => {
+        exercise.tags.push({ type: 'assignment-type', value: 'reading' })
+        exercise.tags.replaceType('assignment-type', null)
+        expect(exercise.tags.withType('assignment-type')).toBeUndefined()
+    })
+
     it('can replace all tags', () => {
         exercise.tags.push({ type: 'book', value: 'first' } as any)
         exercise.tags.push({ type: 'book', value: 'second' } as any);

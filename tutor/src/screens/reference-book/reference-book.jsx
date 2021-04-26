@@ -44,7 +44,7 @@ class ReferenceBook extends React.Component {
         });
 
         return (
-            <div {...ux.dataProps} className={className}>
+            <div {...ux.dataProps} className={className} data-test-id="reference-book">
                 <SpyMode.Wrapper>
                     <ObscuredPage>
                         <div className="content">

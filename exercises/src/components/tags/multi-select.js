@@ -16,6 +16,7 @@ const StyledSelect = styled(SelectWidget)`
 
 @observer
 class MultiSelect extends React.Component {
+
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
         label: PropTypes.string.isRequired,
@@ -35,7 +36,7 @@ class MultiSelect extends React.Component {
 
     @action.bound updateTags(tags) {
         const { tagType, exercise } = this.props;
-        exercise.tags.replaceType(tagType, tags);
+        exercise.tags.replaceType(tagType, tags || []);
     }
 
     render() {
@@ -58,6 +59,7 @@ class MultiSelect extends React.Component {
             </Wrapper>
         );
     }
+
 }
 
 
