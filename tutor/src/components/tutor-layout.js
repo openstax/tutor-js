@@ -96,6 +96,7 @@ const Content = styled.div`
 const PreviewCourseSidePanel = ({ course }) => {
     if (!course ||
         !course.is_preview ||
+        !course.offering.is_available ||
         !course.currentRole.isTeacher ||
         !course.appearanceCode ||
         !Courses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty

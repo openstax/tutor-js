@@ -63,6 +63,7 @@ export interface Course {
     is_concept_coach: boolean
     is_preview: boolean
     num_sections: number
+    offering: Offering
     offering_id: string
     past_due_unattempted_ungraded_wrq_are_zero: boolean
     periods: Period[]
