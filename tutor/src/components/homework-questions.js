@@ -121,6 +121,7 @@ const Body = styled.div`
       height: 2.5rem;
       width: 2.5rem;
       display: flex;
+      flex-shrink: 0;
       align-items: center;
       justify-content: center;
       background: #fff;
