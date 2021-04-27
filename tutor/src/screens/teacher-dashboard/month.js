@@ -61,19 +61,19 @@ class Month extends React.Component {
     getClassNameForDate = (date) => {
         const classes = [];
         const { course, cloningPlan } = this.props;
-        const { now } = Time;
-
-        if (date.isBefore(now, 'day')) {
-            classes.push('past');
-        } else if (date.isAfter(now, 'day')) {
-            classes.push('upcoming');
-        } else {
+        const now = Time.now
+        if (now.isSame(date, 'day')) {
             classes.push('today');
         }
+        if (now.startOf('day').isAfter(date)) {
+            classes.push('past')
+        } else if (now.isBefore(date)) {
+            classes.push('upcoming');
+        }
 
-        if (date.isBefore(course.starts_at, 'day')) {
+        if (course.starts_at.isAfter(date)) {
             classes.push('before-term');
-        } else if (date.isAfter(course.ends_at, 'day')) {
+        } else if (course.ends_at.isBefore(date, 'day')) {
             classes.push('after-term');
         } else {
             classes.push('in-term');

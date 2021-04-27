@@ -69,10 +69,15 @@ export default class Time {
     // called by modeled-mobx to store value as json
     serialize() { return this.asISOString }
 
-    diff(other: TimeInputs, unit: DurationUnit) {
-        return Math.trunc(this._value.diff(toLDT(other), unit).get(unit))
+    fractionalDiff(other: TimeInputs, unit: DurationUnit = 'millisecond') {
+        return this._value.diff(toLDT(other), unit).get(unit)
     }
-    distanceToNow(unit: DurationUnit) { return this.diff(Time.now, unit) }
+
+    diff(other: TimeInputs, unit: DurationUnit = 'millisecond') {
+        return Math.trunc(this.fractionalDiff(other, unit))
+    }
+
+    distanceToNow(unit: DurationUnit = 'millisecond') { return this.diff(Time.now, unit) }
 
     set(values: DateObjectUnits) { return new Time(this._value.set(values)) }
 
@@ -98,15 +103,19 @@ export default class Time {
     minus(duration: DurationObject) { return new Time(this._value.minus(duration)) }
     plus(duration: DurationObject) { return new Time(this._value.plus(duration)) }
 
-    isBefore(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(compareTo, unit) < 0 }
+    isBefore(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') {
+        return this.fractionalDiff(compareTo, unit) < -1.0
+    }
     get isInPast() { return this.isBefore(Time.now) }
 
-    isAfter(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(compareTo, unit) > 0 }
+    isAfter(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') {
+        return this.fractionalDiff(compareTo, unit) > 1.0
+    }
     get isInFuture() { return this.isAfter(Time.now) }
 
-    isSame(other: ComparableValue, unit: DurationUnit) { return this.diff(other, unit) == 0 }
-    isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this.diff(other, unit) <= 0 }
-    isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') { return this.diff(other, unit) >= 0 }
+    isSame(other: ComparableValue, unit: DurationUnit) { return this._value.hasSame(toLDT(other), unit) }
+    isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this.isSame(other, unit) || this.diff(other, unit) <= 0 }
+    isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') { return this.isSame(other, unit) || this.diff(other, unit) >= 0 }
 
     get isUnknown() { return this._value === Time.unknown._value }
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }

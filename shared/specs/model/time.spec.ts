@@ -33,4 +33,28 @@ describe('time class', () => {
         const t = new Time(m as any)
         expect(t.asISOString).toEqual(m.toISOString())
     });
+
+    it('diffs', () => {
+        const past = new Time('2021-01-15T10:00:00.000Z')
+        const future = new Time('2021-01-15T10:58:00.000Z')
+
+        expect(past.diff(future, 'minute')).toEqual(-58)
+        expect(past.fractionalDiff(future, 'hour')).toBeCloseTo(-0.9666)
+        expect(future.diff(past, 'hour')).toEqual(0)
+        expect(future.isSame(past, 'hour')).toBe(true)
+        expect(past.diff(future, 'hour')).toEqual(-0)
+
+        expect(past.isBefore(future)).toBe(true)
+        expect(past.isBefore(future, 'minute')).toBe(true)
+        expect(past.isBefore(future, 'hour')).toBe(false)
+
+        expect(past.isAfter(future)).toBe(false)
+        expect(past.isAfter(future, 'minute')).toBe(false)
+        expect(past.isAfter(future, 'hour')).toBe(false)
+
+        expect(future.isAfter(past)).toBe(true)
+        expect(future.isAfter(past, 'minute')).toBe(true)
+        expect(future.isAfter(past, 'hour')).toBe(false)
+    })
+
 })

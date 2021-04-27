@@ -140,10 +140,10 @@ describe('Course Model', () => {
     it('returns bounds', () => {
         const course = currentCourses.get(1)!;
         expect(
-            course.bounds.start.isSame(course.starts_at, 'day'),
+            course.bounds.start.isSame(course.dateTimeInZone(course.starts_at), 'day'),
         ).toBe(true);
         expect(
-            course.bounds.end.isSame(course.ends_at, 'day'),
+            course.bounds.end.isSame(course.dateTimeInZone(course.ends_at), 'day'),
         ).toBe(true);
     });
 

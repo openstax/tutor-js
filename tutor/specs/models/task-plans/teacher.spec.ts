@@ -101,16 +101,16 @@ describe('Teacher Task Plans', function() {
     });
 
     it('calculates due range', () => {
-
         plan.tasking_plans.forEach((tp, i) => {
             tp.due_at = Time.now.plus({ day: i }).asISOString
         });
         expect(
-            Time.now.isSame(plan.interval.start, 'minute')
+            course.dateTimeInZone(Time.now).isSame(plan.interval.start, 'minute')
         ).toBe(true);
+
         expect(
-            Time.now.plus({ day: plan.tasking_plans.length - 1 }).isSame(
-                plan.interval.end, 'minute'
+            course.dateTimeInZone(Time.now).plus({ day: plan.tasking_plans.length - 1 }).isSame(
+                plan.interval.end, 'day'
             )
         ).toBe(true);
     });

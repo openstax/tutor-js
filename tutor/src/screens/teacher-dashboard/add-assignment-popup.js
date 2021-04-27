@@ -41,12 +41,13 @@ export default class AddAssignmentPopUp extends React.Component {
 
     get dateType() {
         const { date } = this.props;
-        const { start, end } = this.props.course.bounds;
-        if (date.isBefore(start, 'day')) {
+        const { bounds } = this.props.course
+
+        if (bounds.start.isAfter(date, 'day')) {
             return 'day before term starts';
-        } else if (date.isAfter(end, 'day')) {
+        } else if (bounds.end.isBefore(date, 'day')) {
             return 'day after term ends';
-        } else if (date.isBefore(Time.now, 'day')) {
+        } else if (new Time(date).endOf('day').isInPast) {
             return 'past day';
         }
         return null;
