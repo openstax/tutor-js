@@ -70,6 +70,18 @@ const UiSettings = {
 
     // for debugging purposes
     _dump() { return SETTINGS.toJSON(); },
+
+    // a es7 decorator function to add a settings backing to a property
+    decorate(key: string) {
+        return (model:any, property: string) => {
+            Object.defineProperty(model, property, {
+                get() {
+                    return UiSettings.get(key);
+                },
+                set(val) { UiSettings.set(key, val); },
+            })
+        };
+    },
 };
 
 makeObservable(UiSettings, {

@@ -1,57 +1,44 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, PropTypes, observer } from 'vendor';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
-// NOTE: this selector must be kept in sync with CNX as well as
-// the style in components/reference-book/page.less
-@observer
-class TeacherContentToggle extends React.Component {
 
-    static propTypes = {
-        ux:  PropTypes.object.isRequired,
-    };
+const NoContent = (
+    <Popover id="no-content">
+        <Popover.Content>
+            No teacher edition content is available for this page.
+        </Popover.Content>
+    </Popover>
+)
 
-    renderNoContentTooltip = () => {
+const TeacherContentToggle = observer(({ ux }) => {
+    const teacherLinkText = ux.isShowingTeacherContent ? 'Hide Teacher Edition' : 'Show Teacher Edition';
+
+    if (ux.hasTeacherContent) {
         return (
-            <Popover id="no-content">
-                <Popover.Content>
-          No teacher edition content is available for this page.
-                </Popover.Content>
-            </Popover>
+            <button
+                className="teacher-content-toggle has-content"
+                onClick={ux.toggleTeacherContent}
+            >
+                {teacherLinkText}
+            </button>
         );
-    };
-
-    render() {
-        const { ux } = this.props;
-
-        const teacherLinkText = ux.isShowingTeacherContent ?
-            'Hide Teacher Edition' : 'Show Teacher Edition';
-
-        if (ux.hasTeacherContent) {
-            return (
-                <button
-                    className="teacher-content-toggle has-content"
-                    onClick={ux.toggleTeacherContent}
-                >
+    } else {
+        return (
+            <OverlayTrigger
+                placement="bottom"
+                trigger="click"
+                overlay={NoContent}
+            >
+                <span className="no-content teacher-content-toggle">
                     {teacherLinkText}
-                </button>
-            );
-        } else {
-            return (
-                <OverlayTrigger
-                    placement="bottom"
-                    trigger="click"
-                    overlay={this.renderNoContentTooltip()}
-                >
-                    <span className="no-content teacher-content-toggle">
-                        {teacherLinkText}
-                    </span>
-                </OverlayTrigger>
-            );
-        }
+                </span>
+            </OverlayTrigger>
+        );
     }
-}
+})
 
+TeacherContentToggle.propTypes = {
+    ux:  PropTypes.object.isRequired,
+};
 
-export default TeacherContentToggle;
+export default TeacherContentToggle

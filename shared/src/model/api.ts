@@ -15,6 +15,9 @@ const httpMethodToType = {
 type RequestUrlKey = { key: string, methodUrl: MethodUrl }
 
 export class ModelApi {
+
+    static errorListener: null | ((_err: ApiError) => void) = null
+
     @readonly requestsInProgress = observable.map<string,MethodUrl>({}, { deep: false })
     @readonly errors = map((m: ObservableMap<string, ApiError>) => ({
         get latest() {
@@ -93,6 +96,7 @@ export class ModelApi {
             return reply
         } catch (e) {
             this.errors.set(key, e)
+            ModelApi.errorListener?.(e)
             if (options?.nothrow) {
                 return e
             }

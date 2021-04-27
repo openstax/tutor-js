@@ -128,13 +128,6 @@ export default class Map<K extends ID, V extends MapableObject> {
         })
     }
 
-    arrayToObject(data: any[]): Record<K, V> {
-        return data.reduce((acc, modelData) => {
-            acc[this.coerceKey(modelData.id)] = this.coerceValue(modelData)
-            return acc
-        }, {} as Record<K, V>)
-    }
-
     @action reset() {
         this.clear()
         this.api.reset()

@@ -40,6 +40,13 @@ export class CourseCreate extends BaseModel {
         },
     }
 
+    static async createPreview(offering: Offering) {
+        const create = new CourseCreate()
+        create.is_preview = true
+        create.offering = offering
+        await create.save()
+        return create
+    }
     constructor(
         { courses = currentCourses, offerings = currentOfferings, ...attrs }: { offerings?: OfferingsMap, courses?: CoursesMap, offering_id?: ID } = {}
     ) {
@@ -110,9 +117,9 @@ export class CourseCreate extends BaseModel {
         }
         const courseData = await this.api.request<CourseData>(
             this.canCloneCourse ? urlFor('cloneCourse', { courseId: this.cloned_from_id }) : urlFor('createCourse'),
-            { data: { foo: 'bar' } },
+            { data },
         )
-        this.onCreated(courseData)
+        return this.onCreated(courseData)
     }
 
     @action onCreated(data: CourseData) {

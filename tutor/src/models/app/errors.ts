@@ -16,8 +16,10 @@ export class AppErrors {
         this.errors.clear()
     }
 
-    @action record(err: any) {
-        this.errors.push(err)
+    @action.bound record(err: any) {
+        if (!this.errors.includes(err)) {
+            this.errors.push(err)
+        }
     }
 
     get latest() {

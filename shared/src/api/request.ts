@@ -88,6 +88,9 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
         const resp = await fetch(`${origin}/${url}`, req)
 
         if (resp.ok) {
+            if (resp.status == 204) { // no content
+                return {} as RetT
+            }
             const respJson = await resp.json()
             return await respJson as RetT
         } else {

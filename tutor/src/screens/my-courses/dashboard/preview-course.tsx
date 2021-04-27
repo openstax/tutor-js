@@ -5,7 +5,7 @@ import { Dropdown } from 'react-bootstrap'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
-import { currentUser, Offering, currentCourses } from '../../../models'
+import { currentUser, Offering, currentCourses, CourseCreate } from '../../../models'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 
@@ -99,12 +99,14 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
             history.push(Router.makePathname(routePath, { courseId: previewCourse.id }, queryPath))
         } else {
             setIsCreating(true)
-            currentCourses
+            CourseCreate
                 .createPreview(offering)
-                .then((result) => {
+                .then((create) => {
                     setIsCreating(false)
-                    if (!result.error) {
-                        window.location = Router.makePathname(routePath, { courseId: result.payload.id }, queryPath)
+                    if (!create.api.errors.any) {
+                        history.push(
+                            Router.makePathname(routePath, { courseId: create.createdCourse.id }, queryPath)
+                        )
                     }
                 })
         }

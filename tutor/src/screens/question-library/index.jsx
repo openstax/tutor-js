@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer, modelize } from 'vendor';
+import { React, PropTypes, computed, observer, modelize, action, runInAction } from 'vendor';
 import { currentExercises , currentCourses } from '../../models';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
@@ -30,13 +30,13 @@ class QuestionsDashboardShell extends React.Component {
         return currentCourses.get(courseId);
     }
 
-    componentDidMount() {
+    @action componentDidMount() {
         this.props.exercises.clear();
         this.course.referenceBook.ensureLoaded();
     }
 
     componentWillUnmount() {
-        currentExercises.clear();
+        runInAction(() => currentExercises.clear() )
     }
 
     render() {

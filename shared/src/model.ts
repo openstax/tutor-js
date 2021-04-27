@@ -8,12 +8,11 @@ import { ModelApi } from './model/api'
 import Map from './model/map'
 import { map, array } from './helpers/collections'
 
+export { ModelApi }
 export { isApiError, ApiError } from './api/request'
-
-export const NEW_ID: number = 0
-
 export type { ObservableMap }
 export { map, array }
+export const NEW_ID: number = 0
 
 export class BaseModel {
 

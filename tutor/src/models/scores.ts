@@ -9,6 +9,7 @@ import { CourseScoresPeriod } from '../models'
 export class CourseScores extends BaseModel {
 
     get course() { return getParentOf<Course>(this) }
+
     @observable periods = observable.map<ID, CourseScoresPeriod>();
 
     constructor() {

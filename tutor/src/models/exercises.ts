@@ -134,15 +134,15 @@ export class ExercisesMap extends Map<ID, Exercise> {
         if(course) {
             query.course_id = course.id;
         }
-        const params = { ecosystemId: ecosystem_id as string, action }
-        let replyData: any
         if (exercise_ids) {
             query.exercise_ids = uniq(toJS(exercise_ids));
-            replyData = await this.api.request(urlFor('fetchExercises', params, query))
-        } else if (typeof limit == 'string') {
+        }
+        const params = { ecosystemId: ecosystem_id as string, action }
+        let replyData: any
+        if (typeof limit == 'string') {
             replyData = await this.api.request(urlFor('fetchLimitedExercises', { ...params, limit }, query))
         } else {
-            throw new Error('must specify limit or exercise_ids')
+            replyData = await this.api.request(urlFor('fetchExercises', params, query))
         }
         this.onLoaded(replyData.items, course, book, page_ids)
     }

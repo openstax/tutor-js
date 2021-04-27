@@ -26,7 +26,7 @@ export default class GradeBookUX {
 
     @observable sortIndex;
     @observable rowSort = { key: this.isNameInverted ? 'last_name' : 'first_name', asc: true, dataType: 'score' };
-    @observable weights = new WeightsUX(this);
+    @observable weights;
 
     @observable searchingMatcher = null;
 
@@ -38,6 +38,7 @@ export default class GradeBookUX {
         modelize(this);
         this.initialize(props);
         this.props = props;
+        this.weights = new WeightsUX(this);
     }
 
     async initialize({
@@ -56,13 +57,13 @@ export default class GradeBookUX {
         }
         this.periodId = this.course.periods.active[activeTab].id;
 
-        this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
+        this.currentPeriodScores = this.course.scores.periods.get(this.periodId)
         this.isReady = true;
     }
 
     @action.bound onSelectPeriod(period) {
         this.periodId = period.id;
-        this.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === this.periodId) || [];
+        this.currentPeriodScores = this.course.scores.periods.get(this.periodId);
     }
 
     @computed get pageTitle() {

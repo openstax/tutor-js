@@ -34,7 +34,8 @@ export class OfferingsMap extends Map<ID, Offering> {
 
 
     @action bootstrap(items: OfferingData[] ) {
-        this.replace(this.arrayToObject(items))
+        this.clear()
+        this.mergeModelData(items)
     }
 
     async fetch() {

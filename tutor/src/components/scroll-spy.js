@@ -1,9 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
-import { map, debounce, sortBy } from 'lodash';
-
-import ScrollListenerMixin from 'shared/mixins/ScrollListener';
+import { React, PropTypes, observer } from 'vendor';
+import { map, sortBy } from 'lodash';
+import { WindowScroll } from '../models'
 
 // A component that accepts a dom selector that matches portions of the document
 //
@@ -16,32 +13,29 @@ import ScrollListenerMixin from 'shared/mixins/ScrollListener';
 // For instance if the current page is made up of vertically stacked '.panels'
 // ScrollSpy will calculate which .panels are currently visible and notify it's component
 // when the selection changes
-const ScrollSpy = createReactClass({
-    displayName: 'ScrollSpy',
-    getInitialState() { return {}; },
-    mixins: [ScrollListenerMixin],
+@observer
+class ScrollSpy extends React.Component {
 
-    getDefaultProps() {
-        return { windowImpl: window };
-    },
-
-    propTypes: {
+    static propTypes = {
         dataSelector: PropTypes.string.isRequired,
         windowImpl: PropTypes.object,
         children: PropTypes.node,
-    },
-
-    UNSAFE_componentWillMount() {
-        return this.calculateScroll();
-    },
-
-    onPageScroll: debounce( function() {
-        return this.calculateScroll();
     }
-    , 100),
 
-    calculateScroll() {
+    static defaultProps = {
+        windowImpl: window,
+    }
+
+    scroll;
+
+    constructor(props) {
+        super(props)
+        this.scroll = new WindowScroll(props.windowImpl)
+    }
+
+    onScreenElements(position) {
         const onScreen = [];
+        if (!position) { return onScreen }
 
         const height = this.props.windowImpl.innerHeight;
 
@@ -51,7 +45,7 @@ const ScrollSpy = createReactClass({
             const el = elements[index];
             const bounds = el.getBoundingClientRect();
             const visibleHeight =
-        Math.min(height, bounds.bottom) - Math.max(0, bounds.top);
+                  Math.min(height, bounds.bottom) - Math.max(0, bounds.top);
             if (visibleHeight > 0) {
                 const key = el.getAttribute(this.props.dataSelector);
                 // Calculate the percentage of the screen the element occupies
@@ -61,14 +55,15 @@ const ScrollSpy = createReactClass({
             }
         }
 
-        return this.setState({
-            onScreen: map( sortBy(onScreen, '1').reverse(), '0' ),
-        });
-    },
+        return map( sortBy(onScreen, '1').reverse(), '0' )
+    }
 
     render() {
-        return React.cloneElement(this.props.children, { onScreenElements: this.state.onScreen, shouldUpdate: !this.state.isScrolling });
-    },
-});
+        return React.cloneElement(this.props.children, {
+            scroll: this.scroll.current,
+            onScreenElements: this.onScreenElements(this.scroll.current),
+        });
+    }
+}
 
 export default ScrollSpy;

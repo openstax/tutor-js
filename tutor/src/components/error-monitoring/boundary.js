@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeContactURL } from '../../helpers/contact';
 import Warning from '../warning-modal';
+import { currentErrors } from '../../models'
 
 export default
 class ErrorBoundary extends React.Component {
@@ -19,6 +20,7 @@ class ErrorBoundary extends React.Component {
     state = { hasError: false };
 
     componentDidCatch(error, info) {
+        currentErrors.record(error)
         // You can also log the error to an error reporting service
         this.props.app.logError(error, info);
     }

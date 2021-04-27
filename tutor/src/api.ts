@@ -66,8 +66,8 @@ const Definitions = {
 
     fetchCourse:            r<CourseId>('GET', 'course/{courseId}'),
     updateCourse:           r<CourseId>('POST', 'course/{courseId}'),
-    createCourse:           r('POST', 'course'),
-    cloneCourse:            r<CourseId>('PUT', 'courses/{courseId}/clone'),
+    createCourse:           r('POST', 'courses'),
+    cloneCourse:            r<CourseId>('POST', 'courses/{courseId}/clone'),
     saveExerciseExclusion:  r<CourseId>('PUT', 'courses/{courseId}/exercises/exclude'),
 
     createCoursePeriod:     r<CourseId>('POST', 'courses/{courseId}/periods'),

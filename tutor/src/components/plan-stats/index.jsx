@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, observer, observable, computed, action, modelize } from 'vendor';
 import { isEmpty, find } from 'lodash';
-import { SmartOverflow } from 'shared';
 import { TeacherTaskPlan, Course } from '../../models';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
@@ -32,12 +31,10 @@ class Stats extends React.Component {
         activeSection: PropTypes.string,
         initialActivePeriodIndex: PropTypes.number,
         handlePeriodSelect: PropTypes.func,
-        shouldOverflowData: PropTypes.bool,
     };
 
     static defaultProps = {
         initialActivePeriodIndex: 0,
-        shouldOverflowData: false,
     };
 
     @observable currentPeriodIndex = 0;
@@ -112,30 +109,21 @@ class Stats extends React.Component {
 
     render() {
         let courseBar, dataComponent;
-        const { course, stats, props: { shouldOverflowData } } = this;
+        const { course, stats } = this;
 
         if (!this.analytics.api.hasBeenFetched) {
             return <LoadingScreen />;
         }
 
         courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
-
-        if (shouldOverflowData) {
-            dataComponent = <SmartOverflow className="task-stats-data" heightBuffer={24}>
-                <section>
-                    {courseBar}
-                </section>
-                {this.renderCurrentPages()}
-                {this.renderSpacedPages()}
-            </SmartOverflow>;
-        } else {
-            dataComponent = <StatsWrapper>
+        dataComponent = (
+            <StatsWrapper>
                 <h6>Class progress</h6>
                 <section>
                     {courseBar}
                 </section>
-            </StatsWrapper>;
-        }
+            </StatsWrapper>
+        );
 
         return (
             <>

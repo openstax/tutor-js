@@ -3,17 +3,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
-//import { TutorApp } from '../models/app'
 import { currentUser, currentCourses } from '../models'
-// let currentUser;
-// let currentCourses;
-
-
-// TutorApp.initRouter = (app) => {
-//     currentUser = app.currentUser
-//     currentCourses = app.currentCourses
-
-// }
 
 import { OXMatchByRouter } from 'shared';
 

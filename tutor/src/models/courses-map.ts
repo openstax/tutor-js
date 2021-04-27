@@ -124,12 +124,6 @@ export class CoursesMap extends Map<ID, Course> {
         });
     }
 
-    @action async createPreview() {
-        const preview = hydrateModel(Course, { is_preview: true })
-        await preview.save()
-        this.set(preview.id, preview)
-    }
-
 }
 
 export const currentCourses = new CoursesMap();

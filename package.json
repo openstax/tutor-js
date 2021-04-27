@@ -90,7 +90,6 @@
     "concurrently": "^5.0.2",
     "core-decorators": "0.20.0",
     "core-js": "^3.2.1",
-    "create-react-class": "^15.6.3",
     "dateformat": "3.0.3",
     "dayz": "^2.6.0",
     "detect-browser": "^4.6.0",
