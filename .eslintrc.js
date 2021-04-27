@@ -72,10 +72,6 @@ module.exports = {
         'react/prop-types': 2,
         'react/jsx-uses-vars': ['error'],
         'react/jsx-uses-react':  ['error'],
-        // "indent": [
-        //     "error", 4,
-        //     { "SwitchCase": 1 },
-        // ],
         'indent': 'off',
         '@typescript-eslint/indent': ['error', 4, { 'SwitchCase': 1 }],
         'react/jsx-indent-props': [2, 4],
