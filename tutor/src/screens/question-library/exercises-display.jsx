@@ -118,12 +118,12 @@ class ExercisesDisplay extends React.Component {
         return this.windowScroll.y >= topOffset;
     }
 
-    onExerciseTypeFilterChange = (exerciseTypeFilter) => {
+    @action.bound onExerciseTypeFilterChange(exerciseTypeFilter) {
         this.exerciseTypeFilter = exerciseTypeFilter;
         this.filteredExercises = this.props.exercises[this.exerciseTypeFilter];
         // scroll to top if exercise type is changed
         this.scroller.scrollToTop({ deferred: true });
-    };
+    }
 
     @action.bound onDisplayAddEditQuestionModal(show) {
         if(!show) {this.selectedExercise = null;}
@@ -131,12 +131,12 @@ class ExercisesDisplay extends React.Component {
     }
 
     // called by sectionizer and details view
-    setCurrentSection = (currentSection) => {
+    @action.bound setCurrentSection(currentSection) {
         this.currentSection = currentSection;
-    };
+    }
 
     // called by question-filters that returns the filtered exercises
-    onFilterHomeworkExercises = (filteredExercises) => {
+    @action.bound onFilterHomeworkExercises(filteredExercises) {
         this.filteredExercises = filteredExercises;
     }
 

@@ -52,15 +52,11 @@ export class ResponseValidation extends BaseModel {
 
     async validate({ response, uid = '' }: { response: string, uid?: string }) {
         if (!this.isEnabled) { return }
-        try {
-            const data = await this.api.request(
-                urlFor('responseValidation', {}, { uid, response }),
-                { origin: this.config.url },
-            )
-            this.onValidationComplete(data)
-        } catch(err) {
-            err.preventDefault()
-        }
+        const data = await this.api.request(
+            urlFor('responseValidation', {}, { uid, response }),
+            { origin: this.config.url, ignoreErrors: true },
+        )
+        this.onValidationComplete(data)
     }
 
     @action onValidationComplete(data: any) {

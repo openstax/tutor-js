@@ -346,7 +346,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
                     </HeadingTop>
                 </OverlayTrigger>
                 <HeadingMiddle>
-                    {ux.course.momentInZone(heading.due_at).format('MMM D')}
+                    {ux.course.dateTimeInZone(heading.due_at).toFormat('MMM d')}
                 </HeadingMiddle>
                 <HeadingBottom>
                     {ux.hasProvisionalScores(heading.columnIndex) &&

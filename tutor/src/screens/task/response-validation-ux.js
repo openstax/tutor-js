@@ -1,6 +1,6 @@
 import { extend, last, random } from 'lodash';
 import S from '../../helpers/string';
-import { observable, computed, action, modelize } from 'shared/model';
+import { observable, computed, action, modelize, runInAction } from 'shared/model';
 import { Raven, ResponseValidation } from '../../models'
 
 export
@@ -119,7 +119,9 @@ class ResponseValidationUX {
                 timestamp: (new Date()).toISOString(),
                 response: submitted, nudge,
             });
-            this.step.spy.response_validation = validation;
+            runInAction(() => {
+                this.step.spy.response_validation = validation;
+            })
             return validation;
         } catch (err) {
             Raven.captureException(err);

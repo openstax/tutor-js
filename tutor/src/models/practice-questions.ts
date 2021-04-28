@@ -18,7 +18,12 @@ export class PracticeQuestions extends Map<ID, PracticeQuestion> {
     get course() { return getParentOf<Course>(this) }
 
     async fetch() {
-        const questions = await this.api.request(urlFor('fetchPracticeQuestions', { courseId: this.course.id }))
+        const questions = await this.api.request(
+            urlFor(
+                'fetchPracticeQuestions',
+                { courseId: this.course.id },
+                { role_id: this.course.currentRole.id },
+            ))
         this.mergeModelData(questions);
     }
 

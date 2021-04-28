@@ -40,5 +40,4 @@ export { default as NotificationActions } from './model/notifications';
 export { default as NotificationsBar } from './components/notifications/bar';
 export { default as Question } from './components/question';
 export { default as ResizeListenerMixin } from './components/resize-listener-mixin';
-export { default as SmartOverflow } from './components/smart-overflow';
 export { default as SpyMode } from './components/spy-mode';

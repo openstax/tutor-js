@@ -13,7 +13,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                   <MobXProvider tourContext={{...}}>
                     <div data-purpose=\\"tour-conductor-wrapper\\">
                       <TutorLayout>
-                        <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls]}>
+                        <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls] { isMobxAction: true }}>
                           <styled.div hasNavbar={true}>
                             <div className=\\"sc-fotPbf bHXEFN\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false} className=\\"\\">

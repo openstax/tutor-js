@@ -23,6 +23,7 @@ const hideModal = () => {
 
 const reloadOnceIfShouldReload = function() {
     const { navigation } = currentErrors
+    currentErrors.clear()
     if (isEmpty(navigation)) { return; }
     if (navigation.shouldReload) {
         reloadOnce();

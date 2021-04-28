@@ -1,8 +1,6 @@
-let TutorDialog;
 import { Button, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { flow, extend, clone } from 'lodash';
 
@@ -75,10 +73,9 @@ class DetachedTutorDialog extends React.Component {
     }
 }
 
-export default (TutorDialog = createReactClass({
-    displayName: 'TutorDialog',
+export default class TutorDialog extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         title:         PropTypes.string.isRequired,
         onOk:          PropTypes.func.isRequired,
         onCancel:      PropTypes.func.isRequired,
@@ -88,7 +85,7 @@ export default (TutorDialog = createReactClass({
         okBtnText:     PropTypes.string,
         cancelBtnText: PropTypes.string,
         className:     PropTypes.string,
-    },
+    }
 
     componentDidMount() {
     // While unlikely, the onOk and onCancel properties could have been updated while the dialog was visible
@@ -96,53 +93,51 @@ export default (TutorDialog = createReactClass({
         return TutorDialog.show(extend({}, this.props, { body: this.props.children })).then(
             ( function() { return (typeof this.props.onOk === 'function' ? this.props.onOk(...arguments) : undefined);  }.bind(this)) , ( typeof this.props.onCancel === 'function' ? this.props.onCancel(...arguments) : undefined)
         );
-    },
+    }
 
     componentWillUnmount() {
         return TutorDialog.hide(this.props);
-    },
+    }
 
     UNSAFE_componentWillReceiveProps(newProps) {
         return TutorDialog.update(newProps);
-    },
+    }
 
     // The render method doesn't add anything to the DOM
     // instead it shows/hides DetachedTutorDialog
-    render() { return null; },
+    render() { return null; }
 
-    statics: {
-        show(props) {
-            return new Promise((onOk, onCancel) => {
-                let div;
-                props = extend(
-                    clone(props),
-                    {
-                        onOk,
-                        onCancel,
-                        show: true,
-                    },
-                );
-                div = (() => {
-                    if (this.dialog) {
-                        return document.body.querySelector('.-tutor-dialog-parent');
-                    } else {
-                        div = document.body.appendChild( document.createElement('div') );
-                        div.className = '-tutor-dialog-parent';
-                        return div;
-                    }
-                })();
+    static show(props) {
+        return new Promise((onOk, onCancel) => {
+            let div;
+            props = extend(
+                clone(props),
+                {
+                    onOk,
+                    onCancel,
+                    show: true,
+                },
+            );
+            div = (() => {
+                if (this.dialog) {
+                    return document.body.querySelector('.-tutor-dialog-parent');
+                } else {
+                    div = document.body.appendChild( document.createElement('div') );
+                    div.className = '-tutor-dialog-parent';
+                    return div;
+                }
+            })();
 
-                this.dialog = ReactDOM.render(<DetachedTutorDialog {...props} />, div);
-                return this.dialog;
-            });
-        },
+            this.dialog = ReactDOM.render(<DetachedTutorDialog {...props} />, div);
+            return this.dialog;
+        });
+    }
 
-        hide() {
-            return (this.dialog != null ? this.dialog.hide() : undefined);
-        },
+    static hide() {
+        return (this.dialog != null ? this.dialog.hide() : undefined);
+    }
 
-        update(props) {
-            return (this.dialog != null ? this.dialog.setProps(props) : undefined);
-        },
-    },
-}));
+    static update(props) {
+        return (this.dialog != null ? this.dialog.setProps(props) : undefined);
+    }
+}

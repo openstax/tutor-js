@@ -1,35 +1,31 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import createReactClass from 'create-react-class';
+import { React, PropTypes, withRouter, observer } from 'vendor';
 import { Dropdown, Container } from 'react-bootstrap';
 import Router from '../../helpers/router';
-import { sortBy, matches } from 'lodash';
+import { sortBy } from 'lodash';
 import Name from '../../components/name';
-import BindStoreMixin from '../../components/bind-store-mixin';
 import Guide from './guide';
 import InfoLink from './info-link';
 import ColorKey from './color-key';
 
+@observer
+class Display extends React.Component {
+    displayName = 'PerformanceForecastTeacherStudentDisplay'
 
-const Display = createReactClass({
-    displayName: 'PerformanceForecastTeacherStudentDisplay',
-
-    mixins: [BindStoreMixin],
-
-    propTypes: {
-        course: PropTypes.string.isRequired,
-        roleId:   PropTypes.string.isRequired,
+    static propTypes = {
+        course: PropTypes.object.isRequired,
+        match: PropTypes.object.isRequired,
         history:  PropTypes.object.isRequired,
-    },
+    }
 
-    getInitialState() {
-        return { roleId: this.props.roleId };
-    },
+
+    constructor(props) {
+        super(props)
+        this.state = { ...props.match.params }
+    }
 
     componentDidMount() {
-        this.course.roster.ensureLoaded();
-    },
+        this.props.course.roster.ensureLoaded();
+    }
 
     onSelectStudent(roleId) {
         const { course } = this.props;
@@ -38,11 +34,11 @@ const Display = createReactClass({
         return this.props.history.push(
             Router.makePathname('viewPerformanceGuide', { courseId: course.id, roleId })
         );
-    },
+    }
 
     renderHeading() {
         const { students } = this.props.course.roster
-        const selected = students.find(matches({ role_id: this.state.roleId }));
+        const selected = students.find(s => s.role_id == this.state.roleId)
         if (!selected) { return null; }
 
         return (
@@ -78,7 +74,7 @@ const Display = createReactClass({
                 </div>
             </div>
         );
-    },
+    }
 
     renderWeakerExplanation() {
         return (
@@ -91,7 +87,7 @@ const Display = createReactClass({
                 </p>
             </div>
         );
-    },
+    }
 
     renderEmptyMessage() {
         return (
@@ -99,17 +95,19 @@ const Display = createReactClass({
                 No questions have been answered yet.
             </div>
         );
-    },
+    }
 
     render() {
         const { course } = this.props;
         const { roleId } = this.state;
+        const performance = course.performance.periods[0]
 
         return (
             <Container className="performance-forecast teacher-student">
                 <Guide
                     course={course}
                     roleId={roleId}
+                    performance={performance}
                     loadingMessage="Loading..."
                     heading={this.renderHeading()}
                     weakerExplanation={this.renderWeakerExplanation()}
@@ -119,7 +117,7 @@ const Display = createReactClass({
                 />
             </Container>
         );
-    },
-});
+    }
+}
 
 export default withRouter(Display);

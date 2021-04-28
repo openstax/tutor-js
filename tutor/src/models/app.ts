@@ -1,5 +1,5 @@
 import { forIn, isNil } from 'lodash';
-import { observable, action, modelize } from 'shared/model'
+import { observable, action, modelize, ModelApi } from 'shared/model'
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
 import { startMathJax } from 'shared/helpers/mathjax';
@@ -8,11 +8,9 @@ import { TransitionAssistant } from '../components/unsaved-state';
 import { read_csrf, documentReady } from '../helpers/dom';
 import { Payments } from '../helpers/payments'
 import { Chat } from '../helpers/chat'
-//import { setDataDependentRoutes } from '../helpers/conditional-handlers'
-
 import urlFor from '../api';
 import {
-    FeatureFlagsApi, PulseInsights, Raven, ResponseValidation,
+    FeatureFlagsApi, PulseInsights, Raven, ResponseValidation, currentErrors,
     currentOfferings, currentUser, currentCourses, currentExercises, currentToasts,
 } from '../models'
 import type { BootstrapData } from '../models'
@@ -48,8 +46,6 @@ export class TutorApp {
     @observable data?: BootstrapData
     currentUser = currentUser
     currentCourses = currentCourses
-
-    @observable initRouter?: (_app:TutorApp) => void
 
     static rootComponent = Tutor;
 
@@ -104,11 +100,7 @@ export class TutorApp {
         PulseInsights.boot(currentUser)
 
         currentUser.csrf_token = read_csrf() as string;
-
-        this.initRouter?.(this)
-        //this.router
-        //    setDataDependentRoutes(currentUser, currentCourses)
-
+        ModelApi.errorListener = currentErrors.record
         return Promise.resolve(this);
     }
 

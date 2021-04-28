@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import Guide from './guide';
 import ColorKey from './color-key';
 
-export default class extends React.Component {
+export default class PerformanceForecastStudentDisplay extends React.Component {
     static displayName = 'PerformanceForecastStudentDisplay';
 
     static propTypes = {

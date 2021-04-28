@@ -1,6 +1,6 @@
 import {
     React, Provider,
-    PropTypes, observer, observable, styled, action,
+    PropTypes, observer, observable, styled, action, modelize,
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
@@ -139,13 +139,17 @@ class TutorLayout extends React.Component {
     }
 
     @observable secondaryTopControls;
-
     courseContext = new CourseContext(this.props.course);
     topNavbarContext = new NavbarContext(function() {
         this.left.set('logo', () => <Logo />);
         this.right.set('menu', () => <Menus />);
     });
     bottomNavbarContext = new NavbarContext();
+
+    constructor(props) {
+        super(props)
+        modelize(this)
+    }
 
     @action.bound setSecondaryTopControls(controls) {
         this.secondaryTopControls = controls;

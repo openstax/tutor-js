@@ -25,7 +25,11 @@ export class PracticeQuestion extends BaseModel {
 
     async save() {
         const data = await this.api.request<PracticeQuestionData>(
-            urlFor('createPracticeQuestion', { courseId: this.course.id }), {
+            urlFor(
+                'createPracticeQuestion',
+                { courseId: this.course.id },
+                { role_id: this.course.currentRole.id  },
+            ), {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
         )
@@ -43,7 +47,11 @@ export class PracticeQuestion extends BaseModel {
 
     async destroy() {
         await this.api.request(
-            urlFor('deletePracticeQuestion', { courseId: this.course.id, practiceQuestionId: this.id }), {
+            urlFor(
+                'deletePracticeQuestion',
+                { courseId: this.course.id, practiceQuestionId: this.id },
+                { role_id: this.course.currentRole.id },
+            ), {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
         )

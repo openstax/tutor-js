@@ -1,4 +1,7 @@
-import { React, PropTypes, observer, styled, action, observable, computed, modelize } from 'vendor';
+import {
+    React, PropTypes, observer, styled, action,
+    observable, computed, modelize, runInAction,
+} from 'vendor';
 import UX from '../ux';
 import keymaster from 'keymaster';
 import { StepFooter } from './footer';
@@ -98,7 +101,9 @@ export default class ExerciseQuestion extends React.Component {
 
         ux.setCurrentMultiPartStep(step);
         await ux.onAnswerSave(step, this.selectedAnswer);
-        this.selectedAnswer = null;
+        runInAction(() => {
+            this.selectedAnswer = null;
+        })
     }
 
     @action.bound onNextStep() {

@@ -16,13 +16,13 @@ describe('Error monitoring: server-error message', function() {
     );
 
     it('renders for errors with status 500', function() {
-        props.status = 500;
+        props.apiResponse = { status: 500, statusText: 'bad things' }
         const wrapper = shallow(<ErrorMessage {...props} />);
-        expect(wrapper.text()).toContain('500');
+        expect(wrapper.text()).toContain('500 bad');
     });
 
     it('shows interrupted message', function() {
-        props.status = undefined;
+        props.apiResponse = undefined;
         const wrapper = shallow(<ErrorMessage {...props} />);
         expect(wrapper.text()).toContain('It looks like your internet connection was interrupted');
     });

@@ -1,8 +1,9 @@
 import { React, PropTypes, inject, observer, withRouter } from 'vendor';
 import ErrorHandlers from './handlers';
 import { Course, currentErrors } from '../../models';
-// import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
+import { autorun } from 'mobx'
+
 
 @withRouter
 @inject('courseContext')
@@ -18,14 +19,16 @@ class ServerErrorMonitoring extends React.Component {
         }),
     }
 
-    // componentDidMount() {
-    //     AppStore.on('server-error', this.onErrorChange);
-    // }
+    componentDidMount() {
+        this.stopErrorMonitor = autorun(this.displayErrors)
+    }
 
-    // componentWillUnmount() {
-    //     AppStore.off('server-error', this.onErrorChange);
-    // }
-    render() {
+    componentWillUnmount() {
+        this.stopErrorMonitor()
+    }
+
+
+    displayErrors = () => {
         const error = currentErrors.latest
 
         if (error) {
@@ -40,7 +43,11 @@ class ServerErrorMonitoring extends React.Component {
                 Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
             }
         }
-        // We don't actually render anything
+    }
+
+    render() {
+        // We don't actually render anything, is only a component so it can
+        // access context and start/stop observing on mount/unmount
         return null;
     }
 }

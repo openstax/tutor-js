@@ -11,7 +11,7 @@ describe('Course Builder UX Model', () => {
     let offeringsMap: ReturnType<typeof Factory.offeringsMap>
 
     const mocks = ApiMock.intercept({
-        'course$': Factory.bot.create('Course'),
+        'courses$': Factory.bot.create('Course'),
         'courses/\\d+/clone': Factory.bot.create('Course'),
     })
 
@@ -35,7 +35,7 @@ describe('Course Builder UX Model', () => {
     it('creates a course', async () => {
         expect(creator.cloned_from_id).toBe(NEW_ID);
         await creator.save();
-        expect(mocks['course$']).toHaveBeenCalled()
+        expect(mocks['courses$']).toHaveBeenCalled()
     });
 
     it('validates ranges', () => {
