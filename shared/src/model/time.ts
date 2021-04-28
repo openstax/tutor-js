@@ -53,8 +53,13 @@ export default class Time {
     static get defaultZoneName() { return Settings.defaultZoneName }
     static set defaultZoneName(zone: string) { Settings.defaultZoneName = zone }
 
-    static hydrate(dateThing: TimeInputs) {
-        return new Time(dateThing)
+    static hydrate<T extends undefined>(dateThing: T): undefined // eslint-disable-line
+    static hydrate<T extends TimeInputs>(dateThing: T): Time // eslint-disable-line
+    static hydrate<T extends TimeInputs | undefined>(dateThing: T)  { // eslint-disable-line
+        if (dateThing) {
+            return new Time(dateThing as TimeInputs)
+        }
+        return undefined
     }
 
     _value!: LDT
