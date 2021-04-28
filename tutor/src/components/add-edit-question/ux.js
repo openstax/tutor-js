@@ -508,8 +508,8 @@ export default class AddEditQuestionUX {
         this.excludeOriginal = checked;
     }
 
-    @action.bound hidePreviewQuestionModal() {
-        this.showPreviewQuestionModal = false;
+    @action.bound setShowPreviewQuestionModal(show) {
+        this.showPreviewQuestionModal = show;
     }
 
     @action async publish(shouldExit) {

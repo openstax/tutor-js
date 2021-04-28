@@ -230,7 +230,7 @@ const QuestionPreviewModal = observer(({ ux }) => {
         <PreviewModal
             show={ux.showPreviewQuestionModal}
             backdrop="static"
-            onHide={() => ux.hidePreviewQuestionModal()}>
+            onHide={() => ux.setShowPreviewQuestionModal(false)}>
             <StyledHeader closeButton>
                 Question Preview
             </StyledHeader>
