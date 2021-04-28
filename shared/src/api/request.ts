@@ -81,7 +81,7 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
     const [method, url] = methodUrl
     try {
         let req: { method: string, body?: any, headers?: any } = { method }
-        req.headers = { "Content-Type": "application/json" }
+        req.headers = { 'Content-Type': 'application/json' }
         if (options?.data) {
             req.body = JSON.stringify(options.data)
         }
