@@ -93,7 +93,7 @@ const StyledQuestionForm = styled.div`
         margin: 0.2rem 0.5rem;
         height: 1.4rem;
         width: 1.4rem;
-      } 
+      }
     }
     .context-info-wrapper {
       .left-side {
@@ -177,7 +177,7 @@ const StyledQuestionForm = styled.div`
 `;
 
 const Form = observer(({ ux }) => {
-    const twoStepLabel = 
+    const twoStepLabel =
     <>
         <span className="two-step-label">Make this Two-step question </span>
         <QuestionInfo
@@ -197,7 +197,7 @@ const Form = observer(({ ux }) => {
             }/>
     </>;
 
-    const renderOptions = () => map(ux.options, (o, index) => 
+    const renderOptions = () => map(ux.options, (o, index) =>
         <div className="options-feedback" key={index}>
             <div className="left-side">
                 <Icon
@@ -298,7 +298,7 @@ const Form = observer(({ ux }) => {
             </>
         );
     };
-  
+
     const contextInfo = () => {
         if(!ux.fromExercise || !ux.fromExercise.context) {
             return null;
@@ -308,9 +308,9 @@ const Form = observer(({ ux }) => {
             <div className="context-info-wrapper">
                 <div className="left-side">Context</div>
                 <div className="right-side">
-          This question comes with media.
-                    <Button variant="link" onClick={() => ux.showPreviewQuestionModal = true}>Preview</Button>
-          to see it.
+                    This question comes with media.
+                    <Button variant="link" onClick={() => ux.showPreviewQuestionModal(true)}>Preview</Button>
+                    to see it.
                 </div>
             </div>
         );
@@ -343,7 +343,7 @@ const QuestionForm = observer(({ ux }) => {
         let buttons;
         const isEditing = ux.from_exercise_id;
         if(!isEditing || ux.isMCQ) {
-            buttons = 
+            buttons =
         <Button
             variant="light"
             className={cn({ 'selected': ux.isMCQ })}
@@ -352,7 +352,7 @@ const QuestionForm = observer(({ ux }) => {
           Multiple-choice question
         </Button>;
         }
-        if(!isEditing || !ux.isMCQ) buttons = 
+        if(!isEditing || !ux.isMCQ) buttons =
       <>
           {buttons}
           <Button

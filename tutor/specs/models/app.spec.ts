@@ -13,6 +13,9 @@ jest.mock('../../../shared/src/model/toasts', () => ({
         add: jest.fn(),
     },
 }));
+jest.mock('../../src/components/toasts', () => ({
+    setToastHandlers: jest.fn(),
+}));
 
 
 describe('TutorApp model', () => {

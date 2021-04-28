@@ -80,7 +80,8 @@ async function request<RetT>(methodUrl: MethodUrl, options?: RequestOptions): Pr
 async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|ApiError> {  // eslint-disable-line
     const [method, url] = methodUrl
     try {
-        let req: { method: string, body?: any } = { method }
+        let req: { method: string, body?: any, headers?: any } = { method }
+        req.headers = { 'Content-Type': 'application/json' }
         if (options?.data) {
             req.body = JSON.stringify(options.data)
         }

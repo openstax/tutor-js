@@ -21,6 +21,7 @@ import { MobilePaymentBar } from './navbar/student-payment-bar';
 import GoToTop from './go-to-top';
 import SidePanel from './side-panel';
 import TutorLink from './link';
+import { currentToasts } from './toasts';
 
 
 const StyledLayout = styled.div`
@@ -207,7 +208,7 @@ class TutorLayout extends React.Component {
                     {this.isViewingCourseDashboard() && <MobilePaymentBar course={course} />}
                     <ErrorMonitoring />
                     <TermsModal />
-                    <Toasts />
+                    <Toasts toasts={currentToasts} />
                     <CourseNagModal
                         key={course || 'no-course'}
                         course={course}

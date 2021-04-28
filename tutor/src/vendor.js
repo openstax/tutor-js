@@ -24,5 +24,5 @@ export {
     useObserver, useLocalStore, useCallback, useMemo,
     modelize, hydrateModel,
 };
-export { observable, action, computed, runInAction } from 'mobx';
+export { observable, action, computed, runInAction, autorun, toJS } from 'mobx';
 export { observer, inject, Provider } from 'mobx-react';
