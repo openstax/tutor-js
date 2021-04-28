@@ -12,7 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
-      - uses: openstax/tutor-server@mini_book_docker
+      - uses: actions/checkout@v2
+        with:
+          repository: openstax/tutor-server
+          ref: mini_book_docker
+          path: tutor-server
+      - uses: ./tutor-server/
       - name: Run tests
         run: yarn run ci e2e
       - name: Save screenshots of failures
