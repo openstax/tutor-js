@@ -1,4 +1,4 @@
-import { observable, computed, action, modelize } from 'shared/model'
+import { observable, computed, action, modelize, runInAction } from 'shared/model'
 import { orderBy } from 'lodash';
 import { currentCourses } from '../../models';
 import Router from '../../helpers/router';
@@ -33,8 +33,9 @@ export default class StudentGradeBookUX {
     }) {
         this.course = course;
         await this.course.scores.fetch();
-
-        this.isReady = true;
+        runInAction(() => {
+            this.isReady = true;
+        })
     }
 
     @computed get role() {

@@ -1,4 +1,6 @@
-import { React, PropTypes, observer, observable, computed, idType, modelize } from 'vendor';
+import {
+    React, PropTypes, observer, observable, computed, idType, modelize, runInAction,
+} from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { currentCourses, Course } from '../../models';
@@ -27,11 +29,10 @@ export default class TaskPractice extends React.Component {
 
     @observable taskId;
 
-    componentDidMount() {
+    async componentDidMount() {
         if (!this.course) { return; }
-        this.course.studentTasks
-            .practice(Router.currentQuery())
-            .then(({ data: { id } }) => { this.taskId = id; });
+        const { id } = await this.course.studentTasks.practice(Router.currentQuery())
+        runInAction(() => this.taskId = id )
     }
 
     render() {

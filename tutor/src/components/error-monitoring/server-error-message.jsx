@@ -1,41 +1,19 @@
 import PropTypes from 'prop-types';
 import { React, observer } from 'vendor';
-import { map, get } from 'lodash';
 import { makeContactURL } from '../../helpers/contact';
 const SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q=';
 
-
 const ServerErrorMessage = observer((props) => {
+    let dataMessage;
+    let { apiResponse, message, config, data } = props;
 
-    let dataMessage, debugInfo;
-    let { status, statusMessage, message, config, debug, data } = props;
-    if (statusMessage == null) { statusMessage = message || 'No response was received'; }
-    if (status == null) { status = 0; }
+    const statusMessage = message || apiResponse?.statusText || 'No response was received'
+    const status = apiResponse?.status || 0
 
-    const noStatusMessage = status ? '' : <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
+    const noRsponseMessage = apiResponse ? '' : <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
 
-    const errorsMessage = (
-        <span>
-            {map(get(data, 'errors', [{ code: statusMessage }]),'code').join(', ')}
-        </span>
-    );
-
-    if (config.data) {
-        dataMessage = <span>with <pre>{JSON.stringify(config.data)}</pre></span>;
-    }
-
-    if (debug) {
-        debugInfo = [
-            <p key="error-note">
-        Additional error messages returned from the server is:
-            </p>,
-            <pre key="errors" className="response">
-                {errorsMessage}
-            </pre>,
-            <div key="request" className="request">
-                <kbd>{config.method}</kbd> on {config.url} {dataMessage}
-            </div>,
-        ];
+    if (data) {
+        dataMessage = <span>Information returned was: <pre>{JSON.stringify(data, null, 2)}</pre></span>;
     }
 
     const mailTo = makeContactURL({ status, statusMessage, config });
@@ -43,13 +21,13 @@ const ServerErrorMessage = observer((props) => {
     return (
         <div className="server-error">
             <h3>
-        An error with code {status} has occured
+                An error with code {status} {statusMessage} has occured
             </h3>
-            {noStatusMessage}
+            {noRsponseMessage}
             <p>
-        Please <a href={mailTo}>contact us</a> to file a bug report.
+                Please <a href={mailTo}>contact us</a> to file a bug report.
             </p>
-            {debugInfo}
+            {dataMessage}
         </div>
     );
 });

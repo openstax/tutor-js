@@ -18,7 +18,11 @@ export default class PracticeButton extends React.Component {
 
     onClick = () => {
         const { course, page_ids } = this.props;
-        const route = Router.makePathname('practiceTopics', { courseId: course.id }, { query: { page_ids, type: STUDENT_PRACTICE_TYPES.WORST } });
+        const route = Router.makePathname(
+            'practiceTopics',
+            { courseId: course.id },
+            { query: { page_ids, type: STUDENT_PRACTICE_TYPES.WORST } },
+        );
         return this.props.history.push(route);
     };
 

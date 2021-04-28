@@ -1,4 +1,4 @@
-import { action, computed, observable, modelize } from 'vendor';
+import { action, computed, observable, modelize, runInAction } from 'vendor';
 import { currentExercises, currentCourses } from '../../models'
 import Router from '../../helpers/router';
 
@@ -28,7 +28,9 @@ export default class PracticeQuestionsUX {
                     action: 'practice_exercises',
                 });
         }
-        this.isInitializing = false;
+        runInAction(() => {
+            this.isInitializing = false;
+        })
     }
 
     async checkExistingPractice(history) {

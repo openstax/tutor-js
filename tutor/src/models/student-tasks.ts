@@ -20,6 +20,7 @@ export class StudentTasks extends Map<ID, StudentTask> {
     }
 
     async practice(query: { type: 'worst' | 'saved', page_ids?: string[], practice_question_ids?: string[] }) {
+
         const url = (query.type === 'worst') ? urlFor('practiceWorstTasks', { courseId: this.course.id }) :
             urlFor('practiceSavedTasks', { courseId: this.course.id })
 
