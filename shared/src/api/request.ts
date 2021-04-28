@@ -3,8 +3,8 @@ import qs from 'qs';
 import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-export type RequestOptions = { data?: any, origin?: string }
-export type NoThrowOptions = { data?: any, origin?: string, nothrow: true }
+export type RequestOptions = { data?: any, origin?: string, ignoreErrors?: boolean }
+export type NoThrowOptions = { data?: any, origin?: string, ignoreErrors?: boolean, nothrow: true }
 
 export type MethodUrl = [HttpMethod, string]
 

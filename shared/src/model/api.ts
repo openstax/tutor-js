@@ -82,11 +82,14 @@ export class ModelApi {
     async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: RequestOptions): Promise<RetT> // eslint-disable-line
     async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: any): Promise<RetT|ApiError> { // eslint-disable-line
         this.requestsInProgress.set(key, methodUrl)
+        const recordErrors = Boolean(!options || options.ignoreErrors !== true)
         try {
             const reply = await request<RetT>(methodUrl, options)
             runInAction(() => {
-                if (isApiError(reply)) {
-                    this.errors.set(key, reply)
+                if(recordErrors) {
+                    if (isApiError(reply)) {
+                        this.errors.set(key, reply)
+                    }
                 }
                 setTimeout(action(() => { // wait until after value is returned before marking "done"
                     this.requestsInProgress.delete(key)
@@ -95,8 +98,10 @@ export class ModelApi {
             })
             return reply
         } catch (e) {
-            this.errors.set(key, e)
-            ModelApi.errorListener?.(e)
+            if (recordErrors) {
+                this.errors.set(key, e)
+                ModelApi.errorListener?.(e)
+            }
             if (options?.nothrow) {
                 return e
             }
