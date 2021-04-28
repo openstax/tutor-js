@@ -508,6 +508,10 @@ export default class AddEditQuestionUX {
         this.excludeOriginal = checked;
     }
 
+    @action.bound hidePreviewQuestionModal() {
+        this.showPreviewQuestionModal = false;
+    }
+
     @action async publish(shouldExit) {
         // only show feedback tip modal if form is MCQ
         if(this.shouldShowFeedbackTipModal) {
@@ -534,7 +538,7 @@ export default class AddEditQuestionUX {
         });
 
         // notify UI
-        currentToasts.push({ handler: 'questionPublished', status: 'ok' });
+        currentToasts.add({ handler: 'questionPublished', status: 'ok' });
         // exclude original exercise
         if (this.excludeOriginal && exercise) {
             this.course.saveExerciseExclusion({ exercise, is_excluded: true });
