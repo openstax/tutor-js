@@ -123,7 +123,7 @@
     "mobx-react": "^7.1.0",
     "mobx-utils": "^6.0.3",
     "mockdate": "^2.0.5",
-    "modeled-mobx": "0.6.1",
+    "modeled-mobx": "0.6.2",
     "moment": "2.29.1",
     "moment-range": "^4.0.2",
     "moment-timezone": "0.5.23",
