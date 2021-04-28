@@ -1,4 +1,4 @@
-import { action, observable, computed } from 'vendor';
+import { action, observable, computed, modelize } from 'vendor';
 import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import { currentUser, currentToasts } from '../../models';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
@@ -71,6 +71,7 @@ export default class AddEditQuestionUX {
     autosaveDisposer;
 
     constructor(props = {}) {
+        modelize(this);
         this.book = props.book;
         this.course = props.course;
         // props
@@ -154,7 +155,7 @@ export default class AddEditQuestionUX {
 
         // tags
         if(exercise.content.tags && exercise.tags.length > 0) {
-            const exerciseTags = exercise.content.tags;
+            const exerciseTags = exercise.content.tags.all;
             const time = find(exerciseTags, t => t.type === 'time');
             const difficulty = find(exerciseTags, t => t.type === 'difficulty');
             this.tagTime = time ? time.value : undefined;
@@ -312,14 +313,14 @@ export default class AddEditQuestionUX {
 
     @computed get authors() {
         // if creating or editing own question, show all teachers in course
-        if(this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
+        if (this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
             return [...this.course.teacher_profiles];
         }
         else
-            return [this.course.currentUser];
+            return [this.course.currentTeacherProfile];
     }
 
-    // Get the browe book link with the chapter or section selected
+    // Get the browse book link with the chapter or section selected
     @computed get browseBookLink() {
         let browseBookLink = `/book/${this.course.id}`;
         if (this.selectedChapterSection) {

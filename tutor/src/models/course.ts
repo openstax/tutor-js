@@ -299,9 +299,9 @@ export class Course extends BaseModel {
         return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type))) as Role;
     }
 
-    // @computed get currentUser() {
-    //     return find(this.teacher_profiles, tp => tp.isCurrentUser);
-    // }
+    @computed get currentTeacherProfile() {
+        return find(this.teacher_profiles, tp => tp.isCurrentUser);
+    }
 
     @computed get currentCourseTeacher() {
         const teacherRole = find(this.roles, r => r.type === 'teacher');

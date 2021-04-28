@@ -1,5 +1,5 @@
-import { BaseModel, ID, field, modelize, NEW_ID } from 'shared/model';
-// import User from '../user';
+import { BaseModel, ID, field, modelize, NEW_ID, computed } from 'shared/model';
+import { currentUser } from '../../models';
 
 
 export class TeacherProfile extends BaseModel {
@@ -12,9 +12,9 @@ export class TeacherProfile extends BaseModel {
         modelize(this);
     }
 
-    // @computed get isCurrentUser () {
-    //     return this.id == User.profile_id;
-    // }
+    @computed get isCurrentUser () {
+        return this.id == currentUser.profile_id;
+    }
 
 
 }
