@@ -108,7 +108,7 @@ class ChapterAccordion extends React.Component {
 
     isSectionSelected = (section) => { return this.props.selections[section.id]; };
 
-    toggleSectionSelections = (ev) => {
+    @action toggleSectionSelections = (ev) => {
         ev.stopPropagation();
         ev.preventDefault();
         const selected = !this.isAnySelected;

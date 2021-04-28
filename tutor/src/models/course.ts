@@ -325,13 +325,13 @@ export class Course extends BaseModel {
         runInAction(() => hydrateInstance(this, data))
     }
 
-    async saveExerciseExclusion({ exercise, is_excluded }: { exercise: Exercise, is_excluded: boolean }) {
+    @action async saveExerciseExclusion({ exercise, is_excluded }: { exercise: Exercise, is_excluded: boolean }) {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
         const data = await this.api.request(
             urlFor('saveExerciseExclusion', { courseId: this.id }),
             { data: [{ id: exercise.id, is_excluded }] },
         )
-        runInAction(() => hydrateInstance(exercise, data, this))
+        hydrateInstance(exercise, data, this)
     }
 
 }

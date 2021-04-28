@@ -1,9 +1,8 @@
-import { action, observable, computed, modelize } from 'vendor';
+import { action, observable, computed, modelize, runInAction, autorun, toJS } from 'vendor';
 import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import { currentUser, currentToasts } from '../../models';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
 import S from '../../helpers/string';
-import { autorun, toJS } from 'mobx';
 
 const TERMS_NAME = 'exercise_editing';
 const AUTOSAVE_VERSION = 1; // Iterate this if the form changes significantly
