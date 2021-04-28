@@ -5,7 +5,6 @@ import { ID } from 'shared/types'
 // GET: 'read',
 // PUT: 'update',
 // DELETE: 'delete',
-
 interface BookId { bookId: ID }
 interface RoleId { roleId: ID }
 interface StepId { stepId: ID }
@@ -14,6 +13,7 @@ interface NoteId { noteId: ID }
 interface TourId { tourId: ID }
 interface CourseId { courseId: ID }
 interface PeriodId { periodId: ID }
+interface RoleIdParam { role_id: ID }
 interface StudentId { studentId: ID }
 interface PageUUID { pageUUID: string }
 interface BookUUID { bookUUID: string }
@@ -31,7 +31,7 @@ interface EcosystemCnxId { ecosystemId: ID, cnxId: ID }
 const Definitions = {
     bootstrap:              r('GET', 'user/bootstrap'),
 
-    saveOwnStudentId:       r<CourseId>('POST', 'user/courses/{courseId}/student'),
+    saveOwnStudentId:       r<CourseId>('PUT', 'user/courses/{courseId}/student'),
     updateStudent:          r<StudentId>('POST', 'students{studentId}'),
     dropStudent:            r<StudentId>('DELETE', 'students/{studentId}'),
     unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
@@ -47,11 +47,11 @@ const Definitions = {
 
     fetchCourseLMS:         r<CourseId>('GET', 'lms/courses/{courseId}'),
 
-    practiceWorstTasks:     r<CourseId>('GET', 'courses/{courseId}/practice/worst'),
-    practiceSavedTasks:     r<CourseId>('GET', 'courses/{courseId}/practice/saved'),
+    practiceWorstTasks:     r<CourseId>('POST', 'courses/{courseId}/practice/worst'),
+    practiceSavedTasks:     r<CourseId>('POST', 'courses/{courseId}/practice/saved'),
 
     fetchStudentTaskStep:   r<StepId>('GET', 'steps/{stepId}'),
-    saveStudentTaskStep:    r<StepId>('POST', 'steps/{stepId}'),
+    saveStudentTaskStep:    r<StepId>('PUT', 'steps/{stepId}'),
 
     fetchStudentTask:       r<TaskId>('GET', 'tasks/{taskId}'),
     saveStudentTask:        r<TaskId>('PUT', 'tasks/{taskId}'),
@@ -121,9 +121,9 @@ const Definitions = {
 
     responseValidation:     r<any, {uid: string, response: string}>('GET', 'validate'),
 
-    fetchPracticeQuestions: r<CourseId>('GET', 'courses/{courseId}/practice_questions'),
-    createPracticeQuestion: r<CourseId>('POST', 'courses/{courseId}/practice_questions'),
-    deletePracticeQuestion: r<PQCourseId>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
+    fetchPracticeQuestions: r<CourseId, RoleIdParam>('GET', 'courses/{courseId}/practice_questions'),
+    createPracticeQuestion: r<CourseId, RoleIdParam>('POST', 'courses/{courseId}/practice_questions'),
+    deletePracticeQuestion: r<PQCourseId, RoleIdParam>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
 
     pairToLMS:              r<CourseId>('POST', 'lms/courses/{courseId}/pair'),
 
