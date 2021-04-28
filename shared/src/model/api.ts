@@ -1,6 +1,6 @@
 import { modelize } from 'modeled-mobx'
 import { sortBy, last } from 'lodash'
-import { observable, computed, action, runInAction, ObservableMap } from 'mobx'
+import { observable, computed, action, ObservableMap } from 'mobx'
 import { readonly } from 'core-decorators'
 import { request, MethodUrl, NoThrowOptions, RequestOptions, ApiError, isApiError } from '../api/request'
 import { map } from '../helpers/collections'
@@ -78,24 +78,27 @@ export class ModelApi {
         Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0)
     }
 
+    _recordReply(reply: any, req: RequestUrlKey, recordErrors: boolean) {
+        if(recordErrors) {
+            if (isApiError(reply)) {
+                this.errors.set(req.key, reply)
+            }
+        }
+        setTimeout(action(() => { // wait until after value is returned before marking "done"
+            this.requestsInProgress.delete(req.key)
+            this.requestCounts[httpMethodToType[req.methodUrl[0]]] += 1
+        }))
+    }
+
     async request<RetT>({ key, methodUrl }: RequestUrlKey, options: NoThrowOptions): Promise<RetT|ApiError> // eslint-disable-line
     async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: RequestOptions): Promise<RetT> // eslint-disable-line
-    async request<RetT>({ key, methodUrl }: RequestUrlKey, options?: any): Promise<RetT|ApiError> { // eslint-disable-line
+    @action async request<RetT>(req: RequestUrlKey, options?: any): Promise<RetT|ApiError> { // eslint-disable-line
+        const { key, methodUrl } = req
         this.requestsInProgress.set(key, methodUrl)
         const recordErrors = Boolean(!options || options.ignoreErrors !== true)
         try {
             const reply = await request<RetT>(methodUrl, options)
-            runInAction(() => {
-                if(recordErrors) {
-                    if (isApiError(reply)) {
-                        this.errors.set(key, reply)
-                    }
-                }
-                setTimeout(action(() => { // wait until after value is returned before marking "done"
-                    this.requestsInProgress.delete(key)
-                    this.requestCounts[httpMethodToType[methodUrl[0]]] += 1
-                }))
-            })
+            this._recordReply(reply, req, recordErrors)
             return reply
         } catch (e) {
             if (recordErrors) {
