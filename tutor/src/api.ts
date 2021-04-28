@@ -86,8 +86,8 @@ const Definitions = {
 
     fetchGradingTemplates:  r<CourseId>('GET','courses/{courseId}/grading_templates'),
     createGradingTemplate:  r<CourseId>('POST', 'courses/{courseId}/grading_templates'),
-    saveGradingTemplate:    r<GradingTemplateId>('PUT', 'grading_templates/{id}'),
-    deleteGradingTemplate:  r<GradingTemplateId>('DELETE', 'grading_templates/{id}'),
+    saveGradingTemplate:    r<GradingTemplateId>('PUT', 'grading_templates/{templateId}'),
+    deleteGradingTemplate:  r<GradingTemplateId>('DELETE', 'grading_templates/{templateId}'),
 
     saveTourView:           r<TourId>('PUT', 'user/tours/{tourId}'),
     logUserEvent:           r<EventCategory>('POST', 'log/event/{category}/{code}'),
@@ -123,7 +123,7 @@ const Definitions = {
 
     fetchPracticeQuestions: r<CourseId, RoleIdParam>('GET', 'courses/{courseId}/practice_questions'),
     createPracticeQuestion: r<CourseId, RoleIdParam>('POST', 'courses/{courseId}/practice_questions'),
-    deletePracticeQuestion: r<PQCourseId, RoleIdParam>('DELETE', 'courses/{courseId}/practice_questions/{id}'),
+    deletePracticeQuestion: r<PQCourseId, RoleIdParam>('DELETE', 'courses/{courseId}/practice_questions/{practiceQuestionId}'),
 
     pairToLMS:              r<CourseId>('POST', 'lms/courses/{courseId}/pair'),
 
@@ -132,7 +132,7 @@ const Definitions = {
 
     fetchOfferings:         r('GET', 'offerings'),
 
-    saveResearchSurvey:     r<{ surveyId: ID }>('PUT', 'research_surveys/{id}'),
+    saveResearchSurvey:     r<{ surveyId: ID }>('PUT', 'research_surveys/{surveyId}'),
 
     requestRefund:          r<{ itemUUID: string }>('PUT', 'purchases/{itemUUID}/refund'),
     fetchPaymentHistory:    r('GET', 'purchases'),
