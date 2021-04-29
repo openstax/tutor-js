@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, css } from 'vendor';
+import { React, PropTypes, observer, styled, css, runInAction } from 'vendor';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { AsyncButton } from 'shared';
@@ -125,7 +125,7 @@ const TutorQuestion = observer(({ heading }) => {
                 {heading.title}
             </Cell>
             <DetailsCell>
-        OpenStax Tutor Beta selection
+                OpenStax Tutor Beta selection
             </DetailsCell>
             <Cell>
                 {S.numberWithOneDecimalPlace(heading.points)}
@@ -137,7 +137,7 @@ const TutorQuestion = observer(({ heading }) => {
                 </Reallocate>
             </Cell>
             <Cell>
-        1.0
+                1.0
             </Cell>
         </QuestionRowWrapper>
     );
@@ -287,7 +287,7 @@ const DropQuestion = observer(({ ux }) => {
                     variant="light"
                     className="btn-standard"
                     data-test-id="drop-questions-btn"
-                    onClick={() => ux.isDisplayingDropQuestions=true}
+                    onClick={() => runInAction(() => ux.isDisplayingDropQuestions = true )}
                 >
           Drop questions
                 </Button>

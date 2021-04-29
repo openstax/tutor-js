@@ -529,12 +529,12 @@ export default class AddEditQuestionUX {
         // store exericse since saving the new one it might remove old from map
         const exercise = this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
 
-        await this.exercises.createExercise(this.toFormData).then(() => {
+        await this.exercises.createExercise(this.toFormData).then(action(() => {
             this.clearAutosave();
             this.disableAutosave();
             this.changed = false;
             this.enableAutosave();
-        });
+        }));
 
         // notify UI
         currentToasts.add({ handler: 'questionPublished', status: 'ok' });
