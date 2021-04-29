@@ -51,8 +51,6 @@ Factory.define('TaskPlanPeriodScore')
         total_points: exercises.length,
         total_fraction: 1,
     }))
-    .num_questions_dropped(0)
-    .points_dropped(0)
     .question_headings(({ exercises }) => {
         return flatMap(exercises, (exercise, i) => (
             exercise.content.questions.map((question) => ({
