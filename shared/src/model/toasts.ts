@@ -1,7 +1,7 @@
 import { readonly } from 'core-decorators';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
-import { computed, observable } from 'mobx';
+import { computed, observable, runInAction } from 'mobx';
 import { BaseModel, array, hydrateModel, modelize } from '../model';
 
 const Handlers = observable.map({});
@@ -42,7 +42,7 @@ class Toast extends BaseModel {
 const currentToasts = array( (current: Toast[]) => ({
 
     add(attrs: ToastAttrs) {
-        current.push(hydrateModel(Toast, attrs, current))
+        runInAction(() => current.push(hydrateModel(Toast, attrs, current)))
     },
 
     get isEmpty() {

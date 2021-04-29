@@ -1,4 +1,4 @@
-import { action, observable, computed, modelize, autorun, toJS } from 'vendor';
+import { action, observable, computed, modelize, autorun, toJS, runInAction } from 'vendor';
 import { filter, some, find, forEach, pickBy, every, map, isEqual, omit } from 'lodash';
 import { currentUser, currentToasts } from '../../models';
 import { TAG_BLOOMS, TAG_DOKS } from './form/tags/constants';
@@ -530,10 +530,12 @@ export default class AddEditQuestionUX {
         const exercise = this.from_exercise_id ? this.exercises.get(this.from_exercise_id) : null;
 
         await this.exercises.createExercise(this.toFormData).then(() => {
-            this.clearAutosave();
-            this.disableAutosave();
-            this.changed = false;
-            this.enableAutosave();
+            runInAction(() => {
+                this.clearAutosave();
+                this.disableAutosave();
+                this.changed = false;
+                this.enableAutosave();
+            })
         });
 
         // notify UI

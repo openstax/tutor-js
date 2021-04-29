@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, useState, useEffect } from 'vendor';
+import { React, PropTypes, styled, observer, useState, useEffect, hydrateModel } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
 import { map, find, isEmpty } from 'lodash';
 import { colors } from 'theme';
@@ -163,7 +163,7 @@ const QuestionPreviewModal = observer(({ ux }) => {
         setshowAnswers(!ux.isTwoStep);
     }, [ux.isTwoStep]);
 
-    const question = new QuestionModel({
+    const question = hydrateModel(QuestionModel, {
         stem_html: ux.questionText,
         answers: map(ux.filledOptions, o => {
             return {
