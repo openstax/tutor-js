@@ -1,8 +1,5 @@
-import { APIHandler, APIHandlerBase } from './api';
 import { idType } from './helpers/react';
-export {
-    APIHandler, APIHandlerBase, idType,
-};
+export { idType };
 export { default as LoadingAnimation } from './components/loading-animation';
 export { default as SuretyGuard } from './components/surety-guard';
 export { default as OXRouter } from './helpers/router';
@@ -15,7 +12,7 @@ export { OXButtonLink };
 export { default as Icon } from './components/icon';
 export { default as OXMatchByRouter } from './helpers/match-by-router';
 export { default as CornerRibbon } from './components/corner-ribbon';
-export { default as APIActionAdapter } from './api/action-adapter';
+
 import * as ReactHelpers from './helpers/react';
 export { ReactHelpers };
 export { default as ArbitraryHtmlAndMath } from './components/html';

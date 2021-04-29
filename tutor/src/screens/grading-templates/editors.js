@@ -267,7 +267,7 @@ class TemplateForm extends React.Component {
                         id="late_day_deduction_label"
                         htmlFor="late_day_deduction"
                     >
-            % for each late day
+                        % for each late day
                     </SettingLabel>
                 </Setting>
                 <Setting>
@@ -293,7 +293,7 @@ class TemplateForm extends React.Component {
                         id="late_assignment_deduction_label"
                         htmlFor="late_assignment_deduction"
                     >
-            % for each late assignment
+                        % for each late assignment
                     </SettingLabel>
                 </Setting>
             </FieldsetRow>
@@ -359,7 +359,7 @@ class TemplateForm extends React.Component {
                 <Line />
 
                 <Row>
-          Set up your preferred due dates and time as defaults
+                    Set up your preferred due dates and time as defaults
                     <HintText>(You can change this while building an assignment)</HintText>
                 </Row>
                 <FieldsetRow legend="Due date for assignments">
@@ -391,14 +391,14 @@ class TemplateForm extends React.Component {
                 <Line />
                 <ControlsWrapper>
                     <HintText>
-            (You can manage this template in <a>Grading Templates</a> under the 'Add assignment' menu)
+                        (You can manage this template in <a>Grading Templates</a> under the 'Add assignment' menu)
                     </HintText>
                     <Controls>
                         <Button variant="default" onClick={this.props.onComplete} size="lg">
-              Cancel
+                            Cancel
                         </Button>
                         <Button type="submit" size="lg" disabled={!form.isValid}>
-              Save
+                            Save
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -444,9 +444,9 @@ const reading = observer((props) => {
             body={({ form }) => (
                 <>
                     <Row>
-            Score calculations for questions
+                        Score calculations for questions
                         <HintText>
-              (OpenStax Tutor encourages grading for completion, not correctness. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn why</a>)
+                            (OpenStax Tutor encourages grading for completion, not correctness. <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn why</a>)
                         </HintText>
                     </Row>
 
@@ -480,8 +480,8 @@ const reading = observer((props) => {
                     </SplitRow>
                     <Line />
                     <Row>
-            Reading assignments are auto-graded by OpenStax Tutor. Scores and feedback are visible to students
-            immediately after they answer a question.
+                        Reading assignments are auto-graded by OpenStax Tutor. Scores and feedback are visible to students
+                        immediately after they answer a question.
                     </Row>
                 </>
             )}
@@ -501,7 +501,7 @@ const homework = observer((props) => {
             body={() => (
                 <>
                     <Row>
-            Select when students can see their scores and feedback
+                        Select when students can see their scores and feedback
                     </Row>
                     <FieldsetRow
                         legend="For auto-graded questions"
@@ -559,9 +559,9 @@ const homework = observer((props) => {
                     </FieldsetRow>
                     <Row>
                         <HintText>
-              For assignments with both auto and manually graded questions, students
-              will see a <strong>provisional score</strong> until scores for <strong>
-              ALL</strong> the manually-graded questions are published.
+                            For assignments with both auto and manually graded questions, students
+                            will see a <strong>provisional score</strong> until scores for <strong>
+                                                                                                      ALL</strong> the manually-graded questions are published.
                         </HintText>
                     </Row>
                 </>
@@ -584,23 +584,23 @@ const create = observer((props) => {
             templateType="neutral"
         >
             <Modal.Header closeButton>
-        Select assignment type
+                Select assignment type
             </Modal.Header>
             <Modal.Body>
                 <CenteredRow>
                     <Row>
                         <LargeText>
-              To make a grading template, select an assignment category
+                            To make a grading template, select an assignment category
                         </LargeText>
                     </Row>
                 </CenteredRow>
                 <CenteredRow>
                     <Row>
                         <Button variant="default" onClick={() => onSelection('homework')} size="lg">
-              Homework
+                            Homework
                         </Button>
                         <Button variant="default" onClick={() => onSelection('reading')} size="lg">
-              Reading
+                            Reading
                         </Button>
                     </Row>
                 </CenteredRow>
