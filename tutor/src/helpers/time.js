@@ -34,7 +34,7 @@ const TimeHelper = {
     ISO_TIME_FORMAT: 'HH:mm',
     HUMAN_TIME_FORMAT: 'h:mm a',
     HUMAN_DATE_FORMAT: 'MM/DD/YYYY',
-    HUMAN_DATE_TIME_TZ_FORMAT: 'ddd, MMM D, h:mma z',
+    HUMAN_DATE_TIME_TZ_FORMAT: 'ccc, MMM D, h:mma z',
 
     toHumanDate(datething) {
         return moment(datething).format(this.HUMAN_DATE_FORMAT);
