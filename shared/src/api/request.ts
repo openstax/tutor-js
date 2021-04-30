@@ -1,7 +1,6 @@
 import interpolate from 'interpolate'
 import qs from 'qs';
 import { CustomError } from 'ts-custom-error'
-import { pickBy, identity } from 'lodash'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type RequestOptions = { data?: any, origin?: string, ignoreErrors?: boolean }
@@ -84,8 +83,7 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
         let req: { method: string, body?: any, headers?: any } = { method }
         req.headers = { 'Content-Type': 'application/json' }
         if (options?.data) {
-            // Use identity no-op to filter out undefined/null properties
-            req.body = JSON.stringify(pickBy(options.data, identity))
+            req.body = JSON.stringify(options.data)
         }
         const origin = options?.origin || baseUrl
         const resp = await fetch(`${origin}/${url}`, req)
