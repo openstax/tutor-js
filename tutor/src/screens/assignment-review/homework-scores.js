@@ -57,7 +57,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     aria-label="Sort by student name"
                     role="button"
                 >
-          Student Name
+                    Student Name
                     <SortIcon sort={ux.sortForColumn(0, ux.reverseNameOrder ? 'first_name' : 'name')} />
                 </HeadingTop>
                 <HeadingMiddle>
@@ -69,7 +69,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     />
                 </HeadingMiddle>
                 <HeadingBottom>
-          Available Points
+                    Available Points
                 </HeadingBottom>
             </ColumnHeading>
             <ColumnHeading>
@@ -78,7 +78,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     aria-label="Sort by student total"
                     role="button"
                 >
-          Total
+                    Total
                     <SortIcon sort={ux.sortForColumn(0, 'total')} />
                 </HeadingTop>
                 <HeadingMiddle>
@@ -88,10 +88,10 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in points"
                         role="button"
                     >
-            #
+                        #
                     </SplitCell>
                     <SplitCell variant="divider">
-            |
+                        |
                     </SplitCell>
                     <SplitCell
                         variant={ux.displayTotalInPercent ? 'active' : ''}
@@ -99,7 +99,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in percent"
                         role="button"
                     >
-            %
+                        %
                     </SplitCell>
                 </HeadingMiddle>
                 <HeadingBottom>
@@ -108,15 +108,15 @@ const StudentColumnHeader = observer(({ ux }) => (
                         <InfoIcon
                             color="#f36a31"
                             tooltip="Students received different numbers of Tutor-selected questions.
-              This can happen when questions aren’t available, a student works an assignment
-              late, or a student hasn’t started the assignment."
+                                     This can happen when questions aren’t available, a student works an assignment
+                                     late, or a student hasn’t started the assignment."
                         />
                     }
                 </HeadingBottom>
             </ColumnHeading>
             <ColumnHeading>
                 <HeadingTop>
-          Late work
+                    Late work
                 </HeadingTop>
                 <HeadingMiddle>
                     {ux.planScores.grading_template.humanLateWorkPenaltyApplied}
@@ -152,7 +152,7 @@ const StudentCell = observer(({ ux, student, striped, border }) => (
                 {student.late_work_point_penalty ?
                     `${ScoresHelper.formatLatePenalty(student.late_work_point_penalty)}` : '0'}
                 {ux.wasGrantedExtension(student.role_id) &&
-          <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
+                    <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
             </LateWork>
         </CellContents>
     </Cell>
@@ -171,12 +171,12 @@ const AssignmentHeading = observer(({ ux, heading }) => (
             </HeadingMiddle>
             <HeadingBottom>
                 {heading.dropped &&
-          <CornerTriangle color="blue"
-              data-test-id="dropped-question-indicator"
-              data-question-id={`Q${heading.question_id}`}
-              tooltip={heading.dropped.drop_method == 'zeroed' ?
-                  'Points changed to 0' : 'Full credit given to all students'}
-          />}
+                    <CornerTriangle color="blue"
+                        data-test-id="dropped-question-indicator"
+                        data-question-id={`Q${heading.question_id}`}
+                        tooltip={heading.dropped.drop_method == 'zeroed' ?
+                            'Points changed to 0' : 'Full credit given to all students'}
+                    />}
                 {ScoresHelper.formatPoints(heading.displayPoints)}
             </HeadingBottom>
         </ColumnHeading>
@@ -224,7 +224,7 @@ const AverageScoreHeader = observer(({ ux }) => (
         <CellContents>
             <ColumnFooter first={true}>
                 <Heading first={true} noBorder={true}>
-          Average score
+                    Average score
                 </Heading>
             </ColumnFooter>
             <ColumnFooter>
@@ -234,7 +234,7 @@ const AverageScoreHeader = observer(({ ux }) => (
             </ColumnFooter>
             <ColumnFooter>
                 <Heading>
-          n/a
+                    n/a
                 </Heading>
             </ColumnFooter>
         </CellContents>
@@ -293,7 +293,7 @@ const Scores = observer(({ ux }) => {
                         <Cell key={i}>
                             <ResultWrapper>
                                 {isNaN(h.displayAverageGradedPoints) && UNWORKED ||
-                  ScoresHelper.formatPoints(h.displayAverageGradedPoints)}
+                                    ScoresHelper.formatPoints(h.displayAverageGradedPoints)}
                             </ResultWrapper>
                         </Cell>
                     ))}
@@ -332,8 +332,8 @@ const Scores = observer(({ ux }) => {
                 </Definitions>
                 <p>
                     <strong>Note:</strong> This page reflects both published and unpublished scores
-          for an assignment. Scores may differ from the Gradebook, where only published
-          scores are displayed. Students see their scores as they appear in your Gradebook.
+                    for an assignment. Scores may differ from the Gradebook, where only published
+                    scores are displayed. Students see their scores as they appear in your Gradebook.
                 </p>
             </TableBottom>
         </>

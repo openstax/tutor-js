@@ -199,8 +199,8 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                     <LegendBar>
                         <EIcon />
                         <ExtensionText>
-              Students who’ve been granted an extension are denoted with a green circle with E.
-              Hover over the icon to see the new due date for that student.
+                            Students who’ve been granted an extension are denoted with a green circle with E.
+                            Hover over the icon to see the new due date for that student.
                         </ExtensionText>
                     </LegendBar>
                 </Modal.Body>
