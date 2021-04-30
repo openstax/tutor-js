@@ -254,7 +254,7 @@ const GrantExtension = observer(({ ux }) => {
                 <Button
                     variant="light"
                     className="btn-standard"
-                    onClick={() => ux.isDisplayingGrantExtension=true}
+                    onClick={action(() => ux.isDisplayingGrantExtension = true)}
                 >
                     Grant Extension
                 </Button>
