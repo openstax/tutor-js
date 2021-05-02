@@ -6,7 +6,7 @@ import { createAtom, IAtom, toJS } from 'mobx'
 import Time, { Interval, findEarliest, findLatest } from 'shared/model/time';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
-    compact, findIndex, filter, includes, uniq, unionBy,
+    compact, findIndex, filter, includes, uniq, unionBy, pickBy, identity,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import urlFor from '../../../api';
@@ -407,7 +407,8 @@ export class TeacherTaskPlan extends BaseModel {
             pick(this, 'is_publish_requested', 'cloned_from_id'),
             { tasking_plans: map(this.tasking_plans, 'dataForSave') },
         );
-        return data;
+        // Use identity no-op to filter out undefined/null properties
+        return pickBy(data, identity);
     }
 
     @computed get isExternalUrlValid() {
