@@ -96,6 +96,7 @@ const Definitions = {
 
     fetchEcosystems:        r('GET', 'ecosystems'),
 
+    fetchUser:              r('GET', 'user'),
     fetchUserTerms:         r('GET', 'terms'),
     signUserTerms:          r<TermIds>('PUT', 'terms/{termIds}'),
 

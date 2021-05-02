@@ -7,7 +7,7 @@ import { find, startsWith, map, uniq, max, remove } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
-import { FacultyStatus, SelfReportedRoles } from './types'
+import { FacultyStatus, SelfReportedRoles, UserData } from './types'
 import urlFor from '../api'
 
 export interface UserEventPayload {
@@ -96,7 +96,7 @@ export class User extends BaseModel {
     }
 
     @computed get wasNewlyCreated() {
-        return this.created_at.distanceToNow('day') < 2
+        return this.created_at.distanceToNow('day') > -2
     }
 
     @computed get isProbablyTeacher() {
@@ -200,6 +200,11 @@ export class User extends BaseModel {
             course_enrollment_types: getValues((c:Course) => c.is_lms_enabled ? 'lms' : 'links'),
             max_course_enrollment: max(courses.map((c:Course) => c.currentRole.isTeacher ? c.num_enrolled_students : -1)),
         };
+    }
+
+    async fetch() {
+        const data = await this.api.request<UserData>(urlFor('fetchUser', { courseId: this.id }))
+        this.update(data)
     }
 }
 
