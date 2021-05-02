@@ -6,6 +6,8 @@ import TimeMock from './time-mock';
 import Factory, { FactoryBot } from '../factories';
 import Theme from '../../src/theme';
 import { R, C, wrapInDnDTestContext } from './context';
+import faker from 'faker';
+
 export * from 'modeled-mobx'
 
 export function getPortalNode(modal: any) {
@@ -35,5 +37,5 @@ export const waitFor = async (cb: () => any) => {
 export {
     Router, TimeMock, TestRouter, TutorRouter, delay,
     Factory, FactoryBot, deferred, C, R,
-    wrapInDnDTestContext, Theme,
+    wrapInDnDTestContext, Theme, faker,
 };

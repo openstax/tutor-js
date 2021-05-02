@@ -1,5 +1,4 @@
-const frontendPort = Number(process.env.BACKEND_PORT || 8110);
-const backendPort = Number(process.env.FRONTEND_PORT || 8111);
+const PORT = Number(process.env.PORT || 3001);
 const DEBUG = !!process.env.DEBUG;
 
 
@@ -13,10 +12,8 @@ const config = {
     },
     globals: {
         testConfig: {
-            backendPort,
-            frontendPort,
-            API_URL: `http://localhost:${backendPort}/api`,
-            URL: `http://localhost:${frontendPort}`,
+            PORT,
+            URL: `http://localhost:${PORT}`,
             DEBUG,
         },
     },

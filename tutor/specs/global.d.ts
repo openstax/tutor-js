@@ -3,10 +3,9 @@ export { };
 
 interface TutorTestConfig {
     URL: string
-    API_URL: string
+    URL: string
+    PORT: number
     DEBUG: boolean
-    frontendPort: number
-    backendPort: number
 }
 
 declare global {
