@@ -44,7 +44,7 @@ export class BaseModel {
     }
 
     async fetch(..._args: any[]): Promise<any> {
-        throw new Error('fetch called on base model')
+        throw new Error(`fetch called on base model, should be implemented in ${this.constructor.name}`)
     }
 
     @action update(data: any) {
