@@ -32,7 +32,8 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ displayedOffe
                 <Dropdown.Item
                     className="subject-item"
                     eventKey={subject}
-                    disabled>
+                    disabled
+                >
                     {subject || 'Subjects'}
                 </Dropdown.Item>
 

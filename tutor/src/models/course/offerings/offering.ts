@@ -18,6 +18,8 @@ export class Offering extends BaseModel {
     @field is_available = true;
     @field preview_message = '';
     @field appearance_code = '';
+    @field subject = ''
+    @field os_book_id = ''
 
     @model(CourseTerm) active_term_years = array<CourseTerm>()
 
