@@ -7,27 +7,27 @@ import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 export default
 class Overlay extends React.Component {
 
-  static propTypes = {
-      id: PropTypes.string.isRequired,
-      visible: PropTypes.bool.isRequired,
-      renderer: PropTypes.func.isRequired,
-      onHide: PropTypes.func.isRequired,
-      registry: PropTypes.instanceOf(OverlayRegistry),
-  }
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        visible: PropTypes.bool.isRequired,
+        renderer: PropTypes.func.isRequired,
+        onHide: PropTypes.func.isRequired,
+        registry: PropTypes.instanceOf(OverlayRegistry),
+    }
 
-  static defaultProps = {
-      registry: DefaultRegistry,
-  }
+    static defaultProps = {
+        registry: DefaultRegistry,
+    }
 
-  propsToRegistry() {
-      this.props.registry.setOverlay(pick(this.props, 'id', 'visible', 'onHide', 'renderer'));
-  }
+    propsToRegistry() {
+        this.props.registry.setOverlay(pick(this.props, 'id', 'visible', 'onHide', 'renderer'));
+    }
 
-  componentDidMount() {  this.propsToRegistry(); }
-  componentDidUpdate() { this.propsToRegistry(); }
+    componentDidMount() {  this.propsToRegistry(); }
+    componentDidUpdate() { this.propsToRegistry(); }
 
-  render() {
-      return null;
-  }
+    render() {
+        return null;
+    }
 
 }

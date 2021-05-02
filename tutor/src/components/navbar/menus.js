@@ -2,7 +2,7 @@ import { React, PropTypes, inject, observer } from 'vendor';
 import { Dropdown }        from 'react-bootstrap';
 import { Icon }            from 'shared';
 import Responsive          from '../responsive';
-import Course              from '../../models/course';
+import { Course }          from '../../models';
 import SupportMenu         from './support-menu';
 import StudentPayNowBtn    from './student-pay-now-btn';
 import ActionsMenu         from './actions-menu';
@@ -10,12 +10,12 @@ import UserMenu            from './user-menu';
 import dom                 from '../../helpers/dom';
 
 const DesktopMenus = observer(({ course }) => (
-  <>
-    <StudentPayNowBtn    course={course} />
-    <SupportMenu         course={course} />
-    <ActionsMenu         course={course} />
-    <UserMenu />
-  </>
+    <>
+        <StudentPayNowBtn    course={course} />
+        <SupportMenu         course={course} />
+        <ActionsMenu         course={course} />
+        <UserMenu />
+    </>
 ));
 
 const MobileMenus = observer(({ course }) => (

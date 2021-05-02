@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import TagModel from 'shared/model/exercise/tag';
 import { Icon } from 'shared';
+import { modelize } from 'shared/model'
 import Error from './error';
 import Wrapper from './wrapper';
 import BookSelection from './book-selection';
@@ -27,117 +28,130 @@ const LO_PATTERNS = {
 
 @observer
 class Input extends React.Component {
-  static propTypes = {
-      exercise: PropTypes.instanceOf(Exercise).isRequired,
-      tag: PropTypes.instanceOf(TagModel).isRequired,
-  };
+    static propTypes = {
+        exercise: PropTypes.instanceOf(Exercise).isRequired,
+        tag: PropTypes.instanceOf(TagModel).isRequired,
+    };
 
-  @observable value = this.props.tag.value;
-  @computed get book() {
-      return this.props.tag.specifier;
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @computed get lo() {
-      return this.props.tag.value;
-  }
+    @observable value = this.props.tag.value;
+    @computed get book() {
+        return this.props.tag.specifier;
+    }
 
-  @computed get lo_pattern() {
-      if (this.book in LO_PATTERNS) {
-          return LO_PATTERNS[this.book];
-      }
+    @computed get lo() {
+        return this.props.tag.value;
+    }
 
-      return LO_PATTERNS.default;
-  }
+    @computed get lo_pattern() {
+        if (this.book in LO_PATTERNS) {
+            return LO_PATTERNS[this.book];
+        }
 
-  @computed get placeholder() {
-      return this.lo_pattern.placeholder;
-  }
+        return LO_PATTERNS.default;
+    }
 
-  @computed get excluded_characters_pattern() {
-      return this.lo_pattern.excluded_characters;
-  }
+    @computed get placeholder() {
+        return this.lo_pattern.placeholder;
+    }
 
-  @computed get match_pattern() {
-      return this.lo_pattern.match;
-  }
+    @computed get excluded_characters_pattern() {
+        return this.lo_pattern.excluded_characters;
+    }
 
-  @computed get errorMsg() {
-      if (!this.book) { return 'Must have book'; }
+    @computed get match_pattern() {
+        return this.lo_pattern.match;
+    }
 
-      if (this.lo != null && !this.lo.match(this.match_pattern)) {
-          return 'Must match LO pattern of ' + this.placeholder;
-      }
+    @computed get errorMsg() {
+        if (!this.book) { return 'Must have book'; }
 
-      return null;
-  }
+        if (this.lo != null && !this.lo.match(this.match_pattern)) {
+            return 'Must match LO pattern of ' + this.placeholder;
+        }
 
-  @action.bound onTextChange(ev) {
-      this.value = ev.target.value.replace(this.excluded_characters_pattern, '');
-  }
+        return null;
+    }
 
-  @action.bound onTextBlur() {
-      this.props.tag.value = this.value;
-  }
+    @action.bound onTextChange(ev) {
+        this.value = ev.target.value.replace(this.excluded_characters_pattern, '');
+    }
 
-  @action.bound updateBook(ev) {
-      this.props.tag.specifier = ev.target.value;
-  }
+    @action.bound onTextBlur() {
+        this.props.tag.value = this.value;
+    }
 
-  @action.bound onDelete() {
-      this.props.exercise.tags.remove(this.props.tag);
-  }
+    @action.bound updateBook(ev) {
+        this.props.tag.specifier = ev.target.value;
+    }
 
-  render() {
-      const { exercise } = this.props;
+    @action.bound onDelete() {
+        this.props.exercise.tags.remove(this.props.tag);
+    }
 
-      return (
-          <div className={classnames('tag', { 'has-error': this.errorMsg })}>
-              <BookSelection
-                  onChange={this.updateBook}
-                  selected={this.book}
-                  limit={map(exercise.tags.withType('book', { multiple: true }), 'value')} />
-              <input
-                  className="form-control"
-                  type="text"
-                  onChange={this.onTextChange}
-                  onBlur={this.onTextBlur}
-                  value={this.value}
-                  placeholder={this.placeholder}
-              />
-              <Error error={this.errorMsg} />
-              <span className="controls">
-                  <Icon type="trash" onClick={this.onDelete} />
-              </span>
-          </div>
-      );
-  }
+    render() {
+        const { exercise } = this.props;
+
+        return (
+            <div className={classnames('tag', { 'has-error': this.errorMsg })}>
+                <BookSelection
+                    onChange={this.updateBook}
+                    selected={this.book}
+                    limit={map(exercise.tags.withType('book', { multiple: true }), 'value')} />
+                <input
+                    className="form-control"
+                    type="text"
+                    onChange={this.onTextChange}
+                    onBlur={this.onTextBlur}
+                    value={this.value}
+                    placeholder={this.placeholder}
+                />
+                <Error error={this.errorMsg} />
+                <span className="controls">
+                    <Icon type="trash" onClick={this.onDelete} />
+                </span>
+            </div>
+        );
+    }
+
 }
 
 @observer
 class LoTags extends React.Component {
-  static propTypes = {
-      exercise: PropTypes.instanceOf(Exercise).isRequired,
-  };
 
-  @action.bound onAdd() {
-      let newTag = { type: TYPE, value: '' };
-      const tags = this.props.exercise.tags;
-      const bookTag = tags.withType('book');
-      if (bookTag) { newTag.specifier = bookTag.value; }
+    static propTypes = {
+        exercise: PropTypes.instanceOf(Exercise).isRequired,
+    };
 
-      tags.push(newTag);
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  render() {
-      const tags = this.props.exercise.tags.withType(TYPE, { multiple: true });
+    @action.bound onAdd() {
+        let newTag = { type: TYPE, value: '' };
+        const tags = this.props.exercise.tags;
+        const bookTag = tags.withType('book');
+        if (bookTag) { newTag.specifier = bookTag.value; }
 
-      return (
-          <Wrapper label="LO" onAdd={this.onAdd}>
-              {tags.map((tag, i) =>
-                  <Input key={i} {...this.props} tag={tag} />)}
-          </Wrapper>
-      );
-  }
+        tags.push(newTag);
+    }
+
+    render() {
+        const tags = this.props.exercise.tags.withType(TYPE, { multiple: true });
+
+        return (
+            <Wrapper label="LO" onAdd={this.onAdd}>
+                {tags.map((tag, i) =>
+                    <Input key={i} {...this.props} tag={tag} />)}
+            </Wrapper>
+        );
+    }
+
 }
 
 export default LoTags;

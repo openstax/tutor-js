@@ -1,5 +1,5 @@
 import { React, styled, PropTypes, observer } from 'vendor';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models';
 import { Col, Card } from 'react-bootstrap';
 import moment from 'moment';
 import Theme from '../../theme';
@@ -119,13 +119,13 @@ const CardInfo = observer(({ template, header, children }) => {
                     <SettingValue>{template.isLateWorkAccepted ? 'Yes' : 'No'}</SettingValue>
 
                     {template.isLateWorkAccepted && (
-            <>
-              <SettingName>Late work penalty:</SettingName>
-              <SettingValue>
+                        <>
+                            <SettingName>Late work penalty:</SettingName>
+                            <SettingValue>
                 Deduct {toPerc(template.late_work_penalty)} for
                 each {template.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
-              </SettingValue>
-            </>)}
+                            </SettingValue>
+                        </>)}
 
                     <Line />
 

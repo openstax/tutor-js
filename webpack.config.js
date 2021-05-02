@@ -2,11 +2,11 @@ const path    = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-assets-manifest');
-
+const isCI = !!process.env.CI
 const PORTS = {
-  tutor:      '8000',
-  shared:     '8000',
-  exercises:  '8001',
+    tutor:      '8000',
+    shared:     '8000',
+    exercises:  '8001',
 };
 
 const production   = process.env.NODE_ENV === 'production';
@@ -17,121 +17,120 @@ const servePath    = `http://${host}:${port}`;
 const publicPath   = process.env.PUBLIC_PATH || (production ? '/dist/' : `${servePath}/dist/`);
 const defaultEntry = `./${project}/index.js`;
 const isTutor      = project == 'tutor';
-const isCI         = !!process.env.CI
 
 const ENTRIES = {
-  tutor: {
-    tutor: defaultEntry,
-    lmspair: './tutor/lms-pair.js',
-  },
-  exercises: { exercises: defaultEntry },
-  shared: { demo: './shared/demo.js' },
+    tutor: {
+        tutor: defaultEntry,
+        lmspair: './tutor/lms-pair.js',
+    },
+    exercises: { exercises: defaultEntry },
+    shared: { demo: './shared/demo.js' },
 };
 
 const config = {
-  mode: production ? 'production' : 'development',
-  entry: ENTRIES[project],
-  output: {
-    filename: production ? '[name]-[hash].min.js' : '[name].js',
-    path: path.resolve(__dirname, project, 'dist'),
-    chunkFilename: '[name]-chunk-[hash].js',
-    publicPath,
-  },
-  devtool: production ? 'source-map' : 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/,
-        options: {
-          transpileOnly: true,
+    mode: production ? 'production' : 'development',
+    entry: ENTRIES[project],
+    output: {
+        filename: production ? '[name]-[hash].min.js' : '[name].js',
+        path: path.resolve(__dirname, project, 'dist'),
+        chunkFilename: '[name]-chunk-[hash].js',
+        publicPath,
+    },
+    devtool: production ? 'source-map' : 'inline-source-map',
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/,
+                options: {
+                    transpileOnly: true,
+                },
+            },
+            { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'         },
+            { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
+            { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
+            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
+            { test: /\.(woff|woff2|eot|ttf)/, loader: 'url-loader',
+                options: { limit: 30000, name: '[name]-[hash].[ext]' } },
+        ],
+    },
+    resolve: {
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, project, 'src'),
+        ],
+        alias: {
+            shared: path.resolve(__dirname, 'shared', 'src'),
         },
-      },
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'         },
-      { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
-      { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
-      { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
-      { test: /\.(woff|woff2|eot|ttf)/, loader: 'url-loader',
-        options: { limit: 30000, name: '[name]-[hash].[ext]' } },
-    ],
-  },
-  resolve: {
-    modules: [
-      'node_modules',
-      path.resolve(__dirname, project, 'src'),
-    ],
-    alias: {
-      shared: path.resolve(__dirname, 'shared', 'src'),
+        extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     },
-    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
-  },
-  plugins: [
+    plugins: [
     // don't need locales and they're huge
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // use custom definitions containing only zones we support
-    new webpack.NormalModuleReplacementPlugin(
-      /moment-timezone\/data\/packed\/latest\.json/,
-      require.resolve('./configs/timezone-definitions')
-    ),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
-      },
-    }),
-    new ManifestPlugin({
-      assets: process.env.RELEASE_VERSION ? { version: process.env.RELEASE_VERSION } : {},
-      entrypoints: true,
-      writeToDisk: true,
-      output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-assets.json` : 'assets.json',
-    }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        // use custom definitions containing only zones we support
+        new webpack.NormalModuleReplacementPlugin(
+            /moment-timezone\/data\/packed\/latest\.json/,
+            require.resolve('./configs/timezone-definitions')
+        ),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
+            },
+        }),
+        new ManifestPlugin({
+            assets: process.env.RELEASE_VERSION ? { version: process.env.RELEASE_VERSION } : {},
+            entrypoints: true,
+            writeToDisk: true,
+            output: process.env.RELEASE_VERSION ? `${process.env.RELEASE_VERSION}-assets.json` : 'assets.json',
+        }),
 
-  ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      maxInitialRequests: (production && isTutor) ? 5 : 1,
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: (production && isTutor) ? 5 : 1,
+        },
     },
-  },
-  performance: {
-    maxEntrypointSize: 2.5 * 1000000, // 1MB
-    maxAssetSize: 2.1 * 1000000,
-  },
-  watchOptions: {
-    ignored: /node_modules/,
-    aggregateTimeout: 500,
-    poll: 1000,
-  },
-  devServer: {
-    contentBase: project,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+    performance: {
+        maxEntrypointSize: 2.5 * 1000000, // 1MB
+        maxAssetSize: 2.1 * 1000000,
     },
-    port,
-    publicPath,
-    historyApiFallback: true,
-    inline: !isCI,
-    quiet: false,
-    noInfo: false,
-    clientLogLevel: 'warning',
-    host: '0.0.0.0',
-    filename: '[name].js',
-    hot: !isCI,
-    liveReload: !isCI,
-    stats: 'errors-only',
-  },
+    watchOptions: {
+        ignored: /node_modules/,
+        aggregateTimeout: 500,
+        poll: 1000,
+    },
+    devServer: {
+        contentBase: project,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+        },
+        port,
+        publicPath,
+        historyApiFallback: true,
+        inline: !isCI,
+        quiet: false,
+        noInfo: false,
+        clientLogLevel: 'warning',
+        host: 'localhost',
+        filename: '[name].js',
+        hot: !isCI,
+        liveReload: !isCI,
+        stats: 'errors-only',
+    },
 };
 
 if (!production) {
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-  );
+    config.plugins.push(
+        new webpack.HotModuleReplacementPlugin(),
+    );
 }
 
 if (process.env.ANALYZE) {
-  config.plugins.push(
-    new BundleAnalyzerPlugin()
-  );
+    config.plugins.push(
+        new BundleAnalyzerPlugin()
+    );
 }
 
 module.exports = config;

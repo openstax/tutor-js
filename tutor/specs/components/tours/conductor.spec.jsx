@@ -1,10 +1,14 @@
 import ModalManager from '../../../src/components/modal-manager';
 import TourConductor from '../../../src/components/tours/conductor';
 import { SpyModeContext } from 'shared/components/spy-mode';
-import User from '../../../src/models/user';
+import { currentUser } from '../../../src/models';
+import { runInAction } from '../../helpers';
 
 jest.mock('../../../src/models/user', () => ({
-    resetTours: jest.fn(),
+    currentUser: {
+        resetTours: jest.fn(),
+        tourAudienceTags: ['teacher'],
+    },
 }));
 
 describe('Tour Conductor', () => {
@@ -23,9 +27,9 @@ describe('Tour Conductor', () => {
                 <TourConductor {...props}><span>Hi</span></TourConductor>
             </ModalManager>
         );
-        expect(await axe(wrapper.html())).toHaveNoViolations();
-        spyMode.isEnabled = true;
-        expect(User.resetTours).toHaveBeenCalled();
+        runInAction(() => spyMode.isEnabled = true);
+        expect(currentUser.resetTours).toHaveBeenCalled();
+        wrapper.unmount()
     });
 
 });

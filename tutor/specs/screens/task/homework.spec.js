@@ -1,16 +1,23 @@
 import UX from '../../../src/screens/task/ux';
 import Homework from '../../../src/screens/task/homework';
-import { TestRouter, Factory, C, FakeWindow, ld, TimeMock } from '../../helpers';
+import { ApiMock, TestRouter, Factory, C, FakeWindow, ld, TimeMock, runInAction } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
     let props, history;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
+    ApiMock.intercept({
+        'tasks/\\d+': Factory.data('StudentTask'),
+        'steps': Factory.data('StudentTaskExerciseStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
+
     function init(taskOptions = {}) {
+        const course = Factory.course()
         const task = Factory.studentTask({
-            type: 'homework', stepCount: 5, ...taskOptions,
+            type: 'homework', course, stepCount: 5, ...taskOptions,
         });
-        task.tasksMap = { course: Factory.course() }
+
         history = new TestRouter({
             push: (url) => {
                 const id = ld.last(url.split('/'));
@@ -42,17 +49,23 @@ describe('Reading Tasks Screen', () => {
         });
 
         it('renders task with placeholders', () => {
-            props.ux.task.steps.forEach(s => s.type = 'placeholder');
+            runInAction(() => {
+                props.ux.task.steps.forEach(s => s.type = 'placeholder');
+            })
             const h = mount(<C><Homework {...props} /></C>);
             expect(h).toHaveRendered('Instructions');
             expect(h.find('AssignmentClosedBanner').isEmptyRender()).toBe(true);
             props.ux.goForward();
             expect(h).toHaveRendered('IndividualReview');
-            props.ux.isLocked = false;
-            props.ux.goForward();
+            runInAction(() => {
+                props.ux.isLocked = false;
+                props.ux.goForward();
+            })
             h.render();
             expect(h).toHaveRendered('LoadingCard');
-            props.ux.currentStep.api.requestCounts.read = 1;
+            runInAction(() => {
+                props.ux.currentStep.api.requestCounts.read = 1;
+            })
             expect(h).toHaveRendered('PlaceHolderTaskStep');
             h.unmount();
         });

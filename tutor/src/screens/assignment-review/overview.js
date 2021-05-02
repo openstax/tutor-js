@@ -35,18 +35,18 @@ const StyledIcon = styled(Icon)`
 `;
 
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
-  <>
-    <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
-        {info.hasFreeResponse && (
-            <StyledIcon
-                type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
-                onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
-            />)}
-        {ux.planScores.isReading ? 'Question' :
-            (info.isCore ? label : 'OpenStax Tutor Selection')}
-    </ExerciseNumber>
-    <div>{ScoresHelper.formatPoints(info.availablePoints)} Points</div>
-  </>
+    <>
+        <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
+            {info.hasFreeResponse && (
+                <StyledIcon
+                    type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
+                    onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
+                />)}
+            {ux.planScores.isReading ? 'Question' :
+                (info.isCore ? label : 'OpenStax Tutor Selection')}
+        </ExerciseNumber>
+        <div>{ScoresHelper.formatPoints(info.availablePoints)} Points</div>
+    </>
 ));
 QuestionHeader.propTypes = {
     styleVariant: PropTypes.string.isRequired,
@@ -484,15 +484,15 @@ const QuestionList = observer(({ ux, scores }) => {
     }
 
     return (
-    <>
-      <StyledNamesToogleButtonWrapper>
-          <NamesToogleButton ux={ux}/>
-      </StyledNamesToogleButtonWrapper>
-      <HomeworkQuestionsWrapper
-          questionsInfo={scores.questionsInfo}
-          ux={ux}
-      />
-    </>
+        <>
+            <StyledNamesToogleButtonWrapper>
+                <NamesToogleButton ux={ux}/>
+            </StyledNamesToogleButtonWrapper>
+            <HomeworkQuestionsWrapper
+                questionsInfo={scores.questionsInfo}
+                ux={ux}
+            />
+        </>
     );
 
 });
@@ -503,44 +503,44 @@ QuestionList.propTypes = {
 
 
 const HomeWorkInfo = observer(({ ux }) => (
-  <>
-    <GradingBlock ux={ux}/>
-    <StyledStickyTable>
-        <Row>
-            <Header>Question Number</Header>
-            {ux.scores.question_headings.map((h, i) =>
-                <Header key={i} center={true}>
-                    {h.isCore ?
-                        <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                            {h.title}
-                        </StyledButton> : h.title}
-                </Header>)}
-        </Row>
-        <Row>
-            <Header>Question Type</Header>
-            {ux.scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
-        </Row>
-        <Row>
-            <Header>
+    <>
+        <GradingBlock ux={ux}/>
+        <StyledStickyTable>
+            <Row>
+                <Header>Question Number</Header>
+                {ux.scores.question_headings.map((h, i) =>
+                    <Header key={i} center={true}>
+                        {h.isCore ?
+                            <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
+                                {h.title}
+                            </StyledButton> : h.title}
+                    </Header>)}
+            </Row>
+            <Row>
+                <Header>Question Type</Header>
+                {ux.scores.question_headings.map((h, i) => <Cell key={i}>{h.type}</Cell>)}
+            </Row>
+            <Row>
+                <Header>
           Available Points <AvailablePoints value={(ux.scores.hasEqualTutorQuestions && ux.scores.availablePoints) || false} />
-            </Header>
-            {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
-        </Row>
-        <Row>
-            <Header>Correct Responses</Header>
-            {ux.scores.question_headings.map((h, i) => (
-                <StyledCell key={i} isTrouble={h.isTrouble}>
-                    {h.humanCorrectResponses}
-                </StyledCell>
-            ))}
-        </Row>
-    </StyledStickyTable>
-    <Legend>
+                </Header>
+                {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
+            </Row>
+            <Row>
+                <Header>Correct Responses</Header>
+                {ux.scores.question_headings.map((h, i) => (
+                    <StyledCell key={i} isTrouble={h.isTrouble}>
+                        {h.humanCorrectResponses}
+                    </StyledCell>
+                ))}
+            </Row>
+        </StyledStickyTable>
+        <Legend>
       MCQ: Multiple Choice Question (auto-graded);
       WRQ: Written Response Question (manually-graded);
       Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
-    </Legend>
-  </>
+        </Legend>
+    </>
 ));
 
 const Overview = observer(({ ux }) => {

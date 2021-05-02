@@ -1,26 +1,18 @@
 import moment from 'moment-timezone';
+import { Time } from '../../src/models'
 import TimeHelper from '../../src/helpers/time';
-import Courses from '../../src/models/courses-map';
 
-const COURSE_ID = 'TEST_COURSE_ID';
+
 const TEST_TIMEZONE = 'US/Alaska';
 const TODAY_IN_CURRENT_ZONE = moment().startOf('day').format();
 
 describe('Time Helpers', function() {
 
-    beforeEach(() => Courses.bootstrap([{ id: COURSE_ID, timezone: TEST_TIMEZONE }], { clear: true }));
-
-    afterEach(() => Courses.clear());
-
-
     it('will set the default timezone', function() {
-        const courseTimezone = Courses.get(COURSE_ID).timezone;
-
-        TimeHelper.syncCourseTimezone(courseTimezone);
-
+        TimeHelper.syncCourseTimezone(TEST_TIMEZONE);
         expect(moment().startOf('day').format()).not.toEqual(TODAY_IN_CURRENT_ZONE);
+        expect(Time.now.zoneName).toEqual(TEST_TIMEZONE)
     });
-
 
     it('will reset the default timezone to user time', function() {
         TimeHelper.unsyncCourseTimezone();
@@ -28,14 +20,13 @@ describe('Time Helpers', function() {
     });
 
     it('checks if browser is in same timezone as course', function() {
-        const courseTimezone = Courses.get(COURSE_ID).timezone;
         expect(
-            TimeHelper.isCourseTimezone(courseTimezone)
+            TimeHelper.isCourseTimezone(TEST_TIMEZONE)
         ).toBe(false);
 
-        TimeHelper.syncCourseTimezone(courseTimezone);
+        TimeHelper.syncCourseTimezone(TEST_TIMEZONE)
         expect(
-            TimeHelper.isCourseTimezone(courseTimezone),
+            TimeHelper.isCourseTimezone(TEST_TIMEZONE)
         ).toBe(true);
         TimeHelper.unsyncCourseTimezone();
     });

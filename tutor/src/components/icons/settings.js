@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observable, observer, action } from 'vendor';
+import { React, PropTypes, styled, observable, observer, action, modelize } from 'vendor';
 import { createRef } from 'react';
 import { map } from 'lodash';
 import { Button, Popover, Overlay } from 'react-bootstrap';
@@ -84,69 +84,74 @@ SettingsCheckbox.propTypes = {
 
 @observer
 export default class Settings extends React.Component {
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-      label: PropTypes.string.isRequired,
-      controls: PropTypes.object.isRequired,
-      moreInfo: PropTypes.string,
-  };
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+        label: PropTypes.string.isRequired,
+        controls: PropTypes.object.isRequired,
+        moreInfo: PropTypes.string,
+    };
 
-  target = createRef();
-  @observable showPopoverInfo = false;
-  @observable showPopoverSettings = false;
+    target = createRef();
+    @observable showPopoverInfo = false;
+    @observable showPopoverSettings = false;
 
-  @action.bound onBtnClick() {
-      this.showPopoverInfo = false;
-      this.showPopoverSettings = true;
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound onMouseEnter() {
-      this.showPopoverInfo = true;
-  }
+    @action.bound onBtnClick() {
+        this.showPopoverInfo = false;
+        this.showPopoverSettings = true;
+    }
 
-  @action.bound onMouseLeave() {
-      this.showPopoverInfo = false;
-  }
+    @action.bound onMouseEnter() {
+        this.showPopoverInfo = true;
+    }
 
-  render() {
-      const { ux, label, controls, moreInfo } = this.props;
-      return (
-      <>
-        <Button
-            ref={this.target}
-            data-test-id="settings-btn"
-            onClick={this.onBtnClick}
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}
-            variant='plain'
-            className={`${this.showPopoverSettings ? 'gradebook-btn-selected' : ''}`}
-        >
-            <Icon type="cog" />
-        </Button>
-        {/* Overlay for the settings controller */}
-        <Overlay
-            rootClose
-            target={this.target.current}
-            placement="bottom"
-            show={this.showPopoverSettings}
-            onHide={() => this.showPopoverSettings = false}>
-            <Popover className="scores-popover" >
-                <Toggles>
-                    {map(controls, (title, property) => <SettingsCheckbox key={property} ux={ux} property={property} title={title} />)}
-                </Toggles>
-                {moreInfo && <MoreInfo>{moreInfo}</MoreInfo>}
-            </Popover>
-        </Overlay>
-        {/* Overlay for the button information */}
-        <Overlay
-            target={this.target.current}
-            placement="bottom"
-            show={this.showPopoverInfo && !this.showPopoverSettings}>
-            <Popover className="scores-popover" >
-                <p>{label}</p>
-            </Popover>
-        </Overlay>
-      </>
-      );
-  }
+    @action.bound onMouseLeave() {
+        this.showPopoverInfo = false;
+    }
+
+    render() {
+        const { ux, label, controls, moreInfo } = this.props;
+        return (
+            <>
+                <Button
+                    ref={this.target}
+                    data-test-id="settings-btn"
+                    onClick={this.onBtnClick}
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave}
+                    variant='plain'
+                    className={`${this.showPopoverSettings ? 'gradebook-btn-selected' : ''}`}
+                >
+                    <Icon type="cog" />
+                </Button>
+                {/* Overlay for the settings controller */}
+                <Overlay
+                    rootClose
+                    target={this.target.current}
+                    placement="bottom"
+                    show={this.showPopoverSettings}
+                    onHide={() => this.showPopoverSettings = false}>
+                    <Popover className="scores-popover" >
+                        <Toggles>
+                            {map(controls, (title, property) => <SettingsCheckbox key={property} ux={ux} property={property} title={title} />)}
+                        </Toggles>
+                        {moreInfo && <MoreInfo>{moreInfo}</MoreInfo>}
+                    </Popover>
+                </Overlay>
+                {/* Overlay for the button information */}
+                <Overlay
+                    target={this.target.current}
+                    placement="bottom"
+                    show={this.showPopoverInfo && !this.showPopoverSettings}>
+                    <Popover className="scores-popover" >
+                        <p>{label}</p>
+                    </Popover>
+                </Overlay>
+            </>
+        );
+    }
 }

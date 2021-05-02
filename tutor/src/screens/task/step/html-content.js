@@ -4,7 +4,7 @@ import UX from '../ux';
 import { StepCard } from './card';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ContinueBtn from './continue-btn';
-import Step from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models';
 import Badges from 'shared/components/exercise-badges';
 
 const HtmlContent = styled(StepCard)`
@@ -24,27 +24,27 @@ const Loader = () => (
 @observer
 export default class HtmlContentTaskStep extends React.Component {
 
-  static Loader = Loader;
+    static Loader = Loader;
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      step: PropTypes.instanceOf(Step).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
+    }
 
-  render() {
-      const { ux, step } = this.props;
+    render() {
+        const { ux, step } = this.props;
 
-      return (
-          <HtmlContent
-              data-appearance={ux.course.appearance_code}
-              unpadded className={`${step.type}-step`}>
-              <Badges
-                  video={step.isVideo}
-                  interactive={step.isInteractive}
-              />
-              <ArbitraryHtmlAndMath html={step.content.html} />
-              <ContinueBtn ux={ux} />
-          </HtmlContent>
-      );
-  }
+        return (
+            <HtmlContent
+                data-appearance={ux.course.appearance_code}
+                unpadded className={`${step.type}-step`}>
+                <Badges
+                    video={step.isVideo}
+                    interactive={step.isInteractive}
+                />
+                <ArbitraryHtmlAndMath html={step.content.html} />
+                <ContinueBtn ux={ux} />
+            </HtmlContent>
+        );
+    }
 }

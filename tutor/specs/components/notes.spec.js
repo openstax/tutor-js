@@ -1,5 +1,5 @@
 import NotesWidget from '../../src/components/notes';
-import { Factory, FactoryBot, deferred } from '../helpers';
+import { Factory, FactoryBot, deferred, ApiMock } from '../helpers';
 import Router from '../../src/helpers/router';
 import loglevel from 'loglevel';
 
@@ -24,6 +24,14 @@ describe('Notes', () => {
 
     let props;
 
+    ApiMock.intercept({
+        'highlighted_sections$': { pages: [] },
+        'notes$': (req) => {
+            const note = Factory.note()
+            return Promise.resolve( req.method == 'GET' ? [note] : note)
+        },
+    })
+
     beforeEach(function() {
         const course = Factory.course();
 
@@ -34,10 +42,10 @@ describe('Notes', () => {
         const body = window.document.body;
         const notes = Factory.notesPageMap({ course, page });
         body.innerHTML = '<div id="mount"><div class="book-content">' +
-      page.contents;
+            page.contents;
         window.MutationObserver = class {
-      disconnect = jest.fn()
-      observe = jest.fn()
+            disconnect = jest.fn()
+            observe = jest.fn()
         };
         window.getSelection = jest.fn(() => ({
             removeAllRanges: jest.fn(),

@@ -1,6 +1,4 @@
-import {
-    React, PropTypes, action, observer, inject,
-} from 'vendor';
+import { React, PropTypes, action, observer, inject, modelize } from 'vendor';
 import Standard from './standard';
 import { Primary, TextAction } from './buttons';
 
@@ -8,34 +6,38 @@ import { Primary, TextAction } from './buttons';
 @observer
 export default
 class TipsNowOrLater extends React.Component {
+    static propTypes = {
+        ride: PropTypes.object.isRequired,
+        step: PropTypes.object.isRequired,
+        className: PropTypes.string,
+        buttons: PropTypes.object,
+        style: PropTypes.object,
+    }
 
-  static propTypes = {
-      ride: PropTypes.object.isRequired,
-      step: PropTypes.object.isRequired,
-      className: PropTypes.string,
-      buttons: PropTypes.object,
-      style: PropTypes.object,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound onViewNowClick() {
-      this.props.ride.markComplete();
-      this.props.ride.context.playTriggeredTours({
-          except: this.props.ride.tour.id,
-      });
-  }
+    @action.bound onViewNowClick() {
+        this.props.ride.markComplete();
+        this.props.ride.context.playTriggeredTours({
+            except: this.props.ride.tour.id,
+        });
+    }
 
-  @action.bound onViewLaterClick() {
-      this.props.ride.onCancel();
-  }
+    @action.bound onViewLaterClick() {
+        this.props.ride.onCancel();
+    }
 
-  render () {
-      const buttons = [
-          <Primary key="p" onClick={this.onViewNowClick}>View tips now</Primary>,
-          <TextAction key="l" onClick={this.onViewLaterClick}>View later</TextAction>,
-      ];
+    render () {
+        const buttons = [
+            <Primary key="p" onClick={this.onViewNowClick}>View tips now</Primary>,
+            <TextAction key="l" onClick={this.onViewLaterClick}>View later</TextAction>,
+        ];
 
-      return (
-          <Standard {...this.props} buttons={buttons} />
-      );
-  }
+        return (
+            <Standard {...this.props} buttons={buttons} />
+        );
+    }
 }

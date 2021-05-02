@@ -2,8 +2,7 @@ import { React, PropTypes, styled, css, cn } from 'vendor';
 import { forwardRef, useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import CheckboxInput from '../checkbox-input';
-import { ExercisesMap } from '../../models/exercises';
-import User from '../../models/user';
+import { ExercisesMap, currentUser } from '../../models';
 import { Icon } from 'shared';
 import { colors } from 'theme';
 
@@ -130,8 +129,8 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
         ex = ex.where(e => {
             const filterByQuestionSource =
       (filters.showTutor && e.belongsToOpenStax) ||
-      (filters.showOwned && e.belongsToUser(User)) ||
-      (filters.showOthers && e.belongsToOtherUser(User));
+      (filters.showOwned && e.belongsToUser(currentUser)) ||
+      (filters.showOthers && e.belongsToOtherUser(currentUser));
             const filterByQuestionType =
        (filters.showMPQ && e.isMultiChoice) ||
        (filters.showWRQ && e.isWrittenResponse);

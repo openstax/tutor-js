@@ -197,12 +197,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
           </span>
           <span
             className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
-          </span>
-          <span
-            className="exercise-tag"
             data-test-id="tag-type-time"
           >
             time:long
@@ -294,12 +288,6 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -488,12 +476,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -756,12 +738,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"
@@ -1163,12 +1139,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
           </span>
           <span
             className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
-          </span>
-          <span
-            className="exercise-tag"
             data-test-id="tag-type-time"
           >
             time:long
@@ -1189,7 +1159,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
 
 exports[`Exercise Preview Component sets the className when displaying feedback 1`] = `
 <div
-  className="openstax-exercise-preview is-displaying-feedback card"
+  className="openstax-exercise-preview card"
   data-exercise-id="2@1"
   tabIndex={-1}
 >
@@ -1250,15 +1220,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                         }
                       }
                     />
-                    <aside>
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "This would be chemistry rather than physics.",
-                          }
-                        }
-                      />
-                    </aside>
                   </div>
                 </label>
               </section>
@@ -1300,15 +1261,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                         }
                       }
                     />
-                    <aside>
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
-                          }
-                        }
-                      />
-                    </aside>
                   </div>
                 </label>
               </section>
@@ -1350,15 +1302,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                         }
                       }
                     />
-                    <aside>
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "This is true, but it is not involved in day to day weather prediction.",
-                          }
-                        }
-                      />
-                    </aside>
                   </div>
                 </label>
               </section>
@@ -1407,12 +1350,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             data-test-id="tag-type-dok"
           >
             dok:3
-          </span>
-          <span
-            className="exercise-tag"
-            data-test-id="tag-type-science-practice"
-          >
-            science-practice:modeling
           </span>
           <span
             className="exercise-tag"

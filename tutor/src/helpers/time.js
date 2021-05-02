@@ -1,6 +1,8 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 import { isEmpty, clone, first } from 'lodash';
+import { PropTypes } from 'prop-types'
+import Time from 'shared/model/time'
 
 // List of allowed http://www.iana.org/time-zones
 const TIMEZONES = [
@@ -32,7 +34,7 @@ const TimeHelper = {
     ISO_TIME_FORMAT: 'HH:mm',
     HUMAN_TIME_FORMAT: 'h:mm a',
     HUMAN_DATE_FORMAT: 'MM/DD/YYYY',
-    HUMAN_DATE_TIME_TZ_FORMAT: 'ddd, MMM D, h:mma z',
+    HUMAN_DATE_TIME_TZ_FORMAT: 'ccc, MMM D, h:mma z',
 
     toHumanDate(datething) {
         return moment(datething).format(this.HUMAN_DATE_FORMAT);
@@ -87,6 +89,8 @@ const TimeHelper = {
     },
 
     PropTypes: {
+        time: PropTypes.instanceOf(Time),
+
         moment(props, propName, componentName) {
             if (!moment.isMoment(props[propName])) {
                 return new Error(`${propName} should be a moment for ${componentName}`);
@@ -108,6 +112,7 @@ const TimeHelper = {
     syncCourseTimezone(courseTimezone) {
         if (this.isCourseTimezone(courseTimezone)) { return null; }
         if (this._local == null) { this._local = this.getLocalTimezone(); }
+        Time.defaultZoneName = courseTimezone
         const zonedMoment = moment.tz.setDefault(courseTimezone);
         return zonedMoment;
     },
@@ -115,6 +120,7 @@ const TimeHelper = {
     unsyncCourseTimezone() {
         if (this._local == null) { return null; }
         const unzonedMoment = moment.tz.setDefault(this._local);
+        Time.defaultZoneName = this._local
         this.unsetLocal();
         return unzonedMoment;
     },
@@ -146,6 +152,11 @@ const TimeHelper = {
     getMomentPreserveDate(value, ...args) {
         const preserve = TimeHelper.makeMoment(value, ...Array.from(args));
         return preserve.hour(12).locale(moment.locale());
+    },
+
+    getTimePreserveDate(value) {
+        const preserve = new Time(value)
+        return preserve.set({ hour: 12 }).startOf('hour')
     },
 
     getZonedMoment(value, ...args) {

@@ -1,4 +1,4 @@
-import { Offering } from '../store/types';
+import { Offering } from '../models'
 
 export const compareOfferings = (a: Offering, b: Offering) => {
     if(a.is_available && b.is_available) return a.number - b.number

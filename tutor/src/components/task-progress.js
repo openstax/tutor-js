@@ -205,77 +205,77 @@ const renderPointsScoredCell = (step) => {
 
 @observer
 class TaskProgress extends React.Component {
-  static propTypes = {
-      steps: PropTypes.array.isRequired,
-      goToStep: PropTypes.func.isRequired,
-      currentStep: PropTypes.object.isRequired,
-      hideTaskProgressTable: PropTypes.bool.isRequired,
-  };
+    static propTypes = {
+        steps: PropTypes.array.isRequired,
+        goToStep: PropTypes.func.isRequired,
+        currentStep: PropTypes.object.isRequired,
+        hideTaskProgressTable: PropTypes.bool.isRequired,
+    };
 
-  render() {
-      const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
-      let progressIndex = 0;
+    render() {
+        const { hideTaskProgressTable, steps, currentStep, currentStep: { task }, goToStep } = this.props;
+        let progressIndex = 0;
 
-      return (
-          <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
-              <Row>
-                  <Cell>Question number</Cell>
-                  {
-                      steps.map((step, stepIndex) => {
-                          if (!step.isInfo) {
-                              progressIndex += 1;
-                              return (
-                                  <Cell
-                                      key={stepIndex}
-                                      data-step-index={stepIndex}
-                                      className={cn({ 'current-step': step === currentStep, 'completed': step.is_completed })}
-                                      onClick={() => goToStep(step.id)}
-                                  >
-                                      {progressIndex}
-                                      {step.isDroppedQuestion &&
+        return (
+            <StyledStickyTable rightStickyColumnCount={1} borderWidth={'1px'} hideTaskProgressTable={hideTaskProgressTable}>
+                <Row>
+                    <Cell>Question number</Cell>
+                    {
+                        steps.map((step, stepIndex) => {
+                            if (!step.isInfo) {
+                                progressIndex += 1;
+                                return (
+                                    <Cell
+                                        key={stepIndex}
+                                        data-step-index={stepIndex}
+                                        className={cn({ 'current-step': step === currentStep, 'completed': step.is_completed })}
+                                        onClick={() => goToStep(step.id)}
+                                    >
+                                        {progressIndex}
+                                        {step.isDroppedQuestion &&
                       <CornerTriangle color="blue"
                           tooltip={step.dropped_method == 'zeroed' ?
                               'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
                       />}
-                                  </Cell>
-                              );
-                          }
-                          else if (step.isInfo) {
-                              // get the step info labels
-                              let crumbClasses = '';
-                              if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
-                              const iconClasses = cn(`icon-${step.type}`, crumbClasses);
-                              return (
-                                  <Cell
-                                      key={stepIndex}
-                                      data-step-index={stepIndex}
-                                      rowSpan="3"
-                                      className="icons"
-                                      onClick={() => goToStep(step.id)}>
-                                      <i className={`icon-sm ${iconClasses}`} />
-                                  </Cell>
-                              );
-                          }
-                          return null;
-                      })
-                  }
-                  <Cell>Total</Cell>
-              </Row>
-              <Row>
-                  <Cell>Available Points</Cell>
-                  {
-                      steps.map((step, stepIndex) => {
-                          if(!step.isInfo) {
-                              progressIndex += 1;
-                              return <Cell key={stepIndex}>{ScoresHelper.formatPoints(step.available_points)}</Cell>;
-                          }
-                          return <Cell key={stepIndex}></Cell>;
-                      })
-                  }
-                  <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
-              </Row>
-              {
-                  steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
+                                    </Cell>
+                                );
+                            }
+                            else if (step.isInfo) {
+                                // get the step info labels
+                                let crumbClasses = '';
+                                if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
+                                const iconClasses = cn(`icon-${step.type}`, crumbClasses);
+                                return (
+                                    <Cell
+                                        key={stepIndex}
+                                        data-step-index={stepIndex}
+                                        rowSpan="3"
+                                        className="icons"
+                                        onClick={() => goToStep(step.id)}>
+                                        <i className={`icon-sm ${iconClasses}`} />
+                                    </Cell>
+                                );
+                            }
+                            return null;
+                        })
+                    }
+                    <Cell>Total</Cell>
+                </Row>
+                <Row>
+                    <Cell>Available Points</Cell>
+                    {
+                        steps.map((step, stepIndex) => {
+                            if(!step.isInfo) {
+                                progressIndex += 1;
+                                return <Cell key={stepIndex}>{ScoresHelper.formatPoints(step.available_points)}</Cell>;
+                            }
+                            return <Cell key={stepIndex}></Cell>;
+                        })
+                    }
+                    <Cell>{ScoresHelper.formatPoints(sumBy(steps, s => s.available_points))}</Cell>
+                </Row>
+                {
+                    steps.some(s => s.correct_answer_id || !isNil(s.pointsScored)) &&
             <Row>
                 <Cell>Points Scored</Cell>
                 {
@@ -291,10 +291,10 @@ class TaskProgress extends React.Component {
                         UNWORKED : ScoresHelper.formatPoints(task.publishedPoints)}
                 </Cell>
             </Row>
-              }
-          </StyledStickyTable>
-      );
-  }
+                }
+            </StyledStickyTable>
+        );
+    }
 }
 
 export default TaskProgress;

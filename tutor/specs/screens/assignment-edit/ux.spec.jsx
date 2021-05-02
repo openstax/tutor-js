@@ -1,5 +1,5 @@
 import AssignmentUX from '../../../src/screens/assignment-edit/ux';
-import Exercises from '../../../src/models/exercises'
+import { currentExercises } from '../../../src/models'
 
 
 jest.mock('../../../src/models/exercises');
@@ -36,7 +36,7 @@ describe('AssignmentUX', function() {
     it('clears exercise cache', async () => {
         const ux = new AssignmentUX();
         await ux.initialize(attrs);
-        expect(Exercises.clear).toHaveBeenCalled();
+        expect(currentExercises.clear).toHaveBeenCalled();
     });
 
     it('sends ecosystem id when fetching', async () => {
@@ -47,9 +47,8 @@ describe('AssignmentUX', function() {
         ux.steps.setIndex('chapters')
         expect(ux.referenceBook.ensureLoaded).toHaveBeenCalled()
         ux.steps.setIndex('questions')
-        expect(Exercises.fetch).toHaveBeenCalledWith(expect.objectContaining({
+        expect(currentExercises.fetch).toHaveBeenCalledWith(expect.objectContaining({
             ecosystem_id: 142,
         }))
-
     });
 });

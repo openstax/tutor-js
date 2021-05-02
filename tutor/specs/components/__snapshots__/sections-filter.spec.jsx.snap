@@ -123,18 +123,18 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="2.3"
+          data-chapter-section="1.4"
         >
-          2.3
+          1.4
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "maximized",
+              "__html": "even-keeled",
             }
           }
           data-test-id="book-title"
-          data-title="maximized"
+          data-title="even-keeled"
         />
       </div>
     </div>
@@ -169,18 +169,18 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="4.1"
+          data-chapter-section="9.1"
         >
-          4.1
+          9.1
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "local",
+              "__html": "encompassing",
             }
           }
           data-test-id="book-title"
-          data-title="local"
+          data-title="encompassing"
         />
       </div>
     </div>
@@ -215,18 +215,18 @@ exports[`SectionsFilter component renders 1`] = `
       >
         <span
           className="c6 chapter-section"
-          data-chapter-section="5.4"
+          data-chapter-section="10.3"
         >
-          5.4
+          10.3
         </span>
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "modular",
+              "__html": "analyzing",
             }
           }
           data-test-id="book-title"
-          data-title="modular"
+          data-title="analyzing"
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn, styled } from 'vendor';
+import { React, PropTypes, observer, action, cn, styled, modelize } from 'vendor';
 import { Milestones } from './milestones';
 import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';
@@ -46,46 +46,50 @@ const StyledModal = styled(Modal)`
 
 @observer
 export default class ProgressCard extends React.Component {
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+    }
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound closeMilestones() {
-      MilestonesToggle.isActive = false;
-  }
+    @action.bound closeMilestones() {
+        MilestonesToggle.isActive = false;
+    }
 
-  @action.bound renderMilestones() {
-      const { ux } = this.props;
+    @action.bound renderMilestones() {
+        const { ux } = this.props;
 
-      return (
-          <Milestones
-              ux={ux}
-              id={ux.task.id}
-              onHide={this.closeMilestones}
-          />
-      );
-  }
+        return (
+            <Milestones
+                ux={ux}
+                id={ux.task.id}
+                onHide={this.closeMilestones}
+            />
+        );
+    }
 
-  render() {
-      return (
-          <StyledModal
-              dialogClassName={cn('task-milestones', 'openstax-wrapper')}
-              show={MilestonesToggle.isActive}
-              onHide={this.closeMilestones}
-              scrollable={true}
-          >
-              <Modal.Header
-                  closeButton={true}
-                  closeLabel={'Close'}
-              >
-                  <Modal.Title>Assignment Overview</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                  {this.renderMilestones()}
-              </Modal.Body>
-          </StyledModal>
+    render() {
+        return (
+            <StyledModal
+                dialogClassName={cn('task-milestones', 'openstax-wrapper')}
+                show={MilestonesToggle.isActive}
+                onHide={this.closeMilestones}
+                scrollable={true}
+            >
+                <Modal.Header
+                    closeButton={true}
+                    closeLabel={'Close'}
+                >
+                    <Modal.Title>Assignment Overview</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {this.renderMilestones()}
+                </Modal.Body>
+            </StyledModal>
 
-      );
-  }
+        );
+    }
 }

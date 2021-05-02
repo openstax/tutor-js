@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { action } from 'mobx';
+import { action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import Theme from '../theme';
@@ -37,71 +37,75 @@ const ClearAllButton = styled.a`
 
 @observer
 class TagList extends React.Component {
+    static propTypes = {
+        items: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.oneOfType([
+                    PropTypes.string, PropTypes.number,
+                ]),
+                uuid: PropTypes.string,
+                title: PropTypes.oneOfType([
+                    PropTypes.string, PropTypes.element,
+                ]),
+            })
+        ).isRequired,
 
-  static propTypes = {
-      items: PropTypes.arrayOf(
-          PropTypes.shape({
-              id: PropTypes.oneOfType([
-                  PropTypes.string, PropTypes.number,
-              ]),
-              uuid: PropTypes.string,
-              title: PropTypes.oneOfType([
-                  PropTypes.string, PropTypes.element,
-              ]),
-          })
-      ).isRequired,
+        onRemove: PropTypes.func,
+        onClearAll: PropTypes.func,
+    };
 
-      onRemove: PropTypes.func,
-      onClearAll: PropTypes.func,
-  };
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound onRemove(item) {
-      if (this.props.onRemove) {
-          this.props.onRemove(item);
-      }
-  }
+    @action.bound onRemove(item) {
+        if (this.props.onRemove) {
+            this.props.onRemove(item);
+        }
+    }
 
-  @action.bound onClearAll() {
-      if (this.props.onClearAll) {
-          this.props.onClearAll();
-      }
-  }
+    @action.bound onClearAll() {
+        if (this.props.onClearAll) {
+            this.props.onClearAll();
+        }
+    }
 
-  renderItem = (item) => {
-      return (
-          <TagListItem
-              key={item.id}
-          >
-              <IconWrapper
-                  onClick={() => this.onRemove(item)}
-                  className="remove-tag"
-                  aria-label="Remove"
-              >
-                  <Icon type="close" />
-              </IconWrapper>
-              {item.title}
-          </TagListItem>
-      );
-  };
+    renderItem = (item) => {
+        return (
+            <TagListItem
+                key={item.id}
+            >
+                <IconWrapper
+                    onClick={() => this.onRemove(item)}
+                    className="remove-tag"
+                    aria-label="Remove"
+                >
+                    <Icon type="close" />
+                </IconWrapper>
+                {item.title}
+            </TagListItem>
+        );
+    };
 
-  renderClearAllButton = () => {
-      if (isEmpty(this.props.items)) { return null; }
+    renderClearAllButton = () => {
+        if (isEmpty(this.props.items)) { return null; }
 
-      return (
-          <ClearAllButton href="#" onClick={this.onClearAll}>Clear All</ClearAllButton>
-      );
-  }
+        return (
+            <ClearAllButton href="#" onClick={this.onClearAll}>Clear All</ClearAllButton>
+        );
+    }
 
-  render() {
-      if (!this.props.items) { return null; }
+    render() {
+        if (!this.props.items) { return null; }
 
-      return (
-          <TagListWrapper>
-              {Array.from(this.props.items).map((item) => this.renderItem(item))}
-              {this.renderClearAllButton()}
-          </TagListWrapper>
-      );
-  }
+        return (
+            <TagListWrapper>
+                {Array.from(this.props.items).map((item) => this.renderItem(item))}
+                {this.renderClearAllButton()}
+            </TagListWrapper>
+        );
+    }
 }
 
 export default TagList;

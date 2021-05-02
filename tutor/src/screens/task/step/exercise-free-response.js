@@ -1,15 +1,14 @@
 import {
     React, PropTypes, observer, styled, action, css, moment,
 } from 'vendor';
+import { modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
-import TaskStep from '../../../models/student-tasks/step';
-import ResponseValidation from '../../../models/response_validation';
+import { Course, StudentTaskStep, ResponseValidation } from '../../../models';
 import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
 import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
 import { colors, breakpoint } from '../../../theme';
-import Course from '../../../models/course';
 import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
@@ -100,7 +99,7 @@ const RevertButton = observer(({ ux }) => {
             disabled={!ux.textHasChanged}
             onClick={ux.cancelWRQResubmit}
         >
-      Cancel
+            Cancel
         </StyledRevertButton>
     );
 
@@ -109,95 +108,103 @@ const RevertButton = observer(({ ux }) => {
 
 @observer
 class FreeResponseReview extends React.Component {
-  static propTypes = {
-      step: PropTypes.instanceOf(TaskStep).isRequired,
-  };
-  render() {
-      const { step } = this.props;
-      if (!step.free_response) { return null; }
-      return (
-      <>
-        <div className="free-response">{step.free_response}</div>
-        <PointsAndFeedback step={step} />
-      </>
-      );
-  }
+    static propTypes = {
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
+    };
+    render() {
+        const { step } = this.props;
+        if (!step.free_response) { return null; }
+        return (
+            <>
+                <div className="free-response">{step.free_response}</div>
+                <PointsAndFeedback step={step} />
+            </>
+        );
+    }
 }
 
 @observer
 class FreeResponseInput extends React.Component {
 
-  static propTypes = {
-      questionNumber: PropTypes.number,
-      course: PropTypes.instanceOf(Course).isRequired,
-      step: PropTypes.instanceOf(TaskStep).isRequired,
-      question: PropTypes.instanceOf(Question).isRequired,
-      taskUX: PropTypes.instanceOf(TaskUX).isRequired,
-      response_validation: PropTypes.instanceOf(ResponseValidation),
-  };
+    static propTypes = {
+        questionNumber: PropTypes.number,
+        course: PropTypes.instanceOf(Course).isRequired,
+        step: PropTypes.instanceOf(StudentTaskStep).isRequired,
+        question: PropTypes.instanceOf(Question).isRequired,
+        taskUX: PropTypes.instanceOf(TaskUX).isRequired,
+        response_validation: PropTypes.instanceOf(ResponseValidation),
+    };
 
-  ux = new ResponseValidationUX({
-      step: this.props.step,
-      taskUX: this.props.taskUX,
-      messages: NudgeMessages,
-      validator: this.props.response_validation,
-  });
+    ux = new ResponseValidationUX({
+        step: this.props.step,
+        taskUX: this.props.taskUX,
+        messages: NudgeMessages,
+        validator: this.props.response_validation,
+    });
 
-  @action.bound onSave() {
-      const { taskUX, step } = this.props;
-      taskUX.setCurrentMultiPartStep(step);
-      this.ux.onSave();
-  }
+    constructor(props) {
+        super(props)
+        modelize(this)
+    }
 
-  render() {
-      const { ux, props: { questionNumber, course, step, question } } = this;
-      return (
-          <StyledFreeResponse
-              data-test-id="student-free-response"
-          >
-              <QuestionStem
-                  questionNumber={questionNumber}
-                  question={question}
-              />
-              <TextArea
-                  value={ux.response}
-                  onChange={ux.setResponse}
-                  data-test-id="free-response-box"
-                  placeholder="Enter your response..."
-                  isErrored={ux.displayNudgeError}
-                  showWarning={ux.isOverWordLimit}
-                  aria-label="question response text box"
-                  readOnly={ux.taskUX.isReadOnly}
-              />
-              <InfoRow hasSubmitted={!!ux.lastSubmitted}>
-                  {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+    @action.bound onSave() {
+        const { taskUX, step } = this.props;
+        taskUX.setCurrentMultiPartStep(step);
+        this.ux.onSave();
+    }
 
-                  <span>{ux.responseWords} words</span>
-                  {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
+    render() {
+        const { ux, props: { questionNumber, course, step, question } } = this;
 
-              </InfoRow>
-              <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
-                  {ux.isDisplayingNudge &&
-            <NudgeMessage course={course} step={step} ux={ux} />}
-                  <PointsAndFeedback step={step} />
-                  <ControlButtons>
-                      <RevertButton size="lg" ux={ux} />
-                      <AnswerButton
-                          size="lg"
-                          data-test-id="submit-answer-btn"
-                          disabled={ux.isSubmitDisabled}
-                          onClick={this.onSave}>
-                          {ux.submitBtnLabel}
-                      </AnswerButton>
-                  </ControlButtons>
-              </ControlsRow>
-              <WRQStatus step={step} />
-              <StepFooter
-                  hideContentLink={ux.isDisplayingNudge}
-                  course={course} step={step} />
-          </StyledFreeResponse>
-      );
-  }
+        return (
+            <StyledFreeResponse
+                data-test-id="student-free-response"
+            >
+                <QuestionStem
+                    questionNumber={questionNumber}
+                    question={question}
+                />
+                <TextArea
+                    value={ux.response}
+                    onChange={ux.setResponse}
+                    data-test-id="free-response-box"
+                    placeholder="Enter your response..."
+                    isErrored={ux.displayNudgeError}
+                    showWarning={ux.isOverWordLimit}
+                    aria-label="question response text box"
+                    readOnly={ux.taskUX.isReadOnly}
+                />
+                <InfoRow hasSubmitted={!!ux.lastSubmitted}>
+                    {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+
+                    <span>{ux.responseWords} words</span>
+                    {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
+
+                </InfoRow>
+                <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
+                    {ux.isDisplayingNudge && (
+                        <NudgeMessage course={course} step={step} ux={ux} />
+                    )}
+                    <PointsAndFeedback step={step} />
+                    <ControlButtons>
+                        <RevertButton size="lg" ux={ux} />
+                        <AnswerButton
+                            size="lg"
+                            data-test-id="submit-answer-btn"
+                            disabled={ux.isSubmitDisabled}
+                            onClick={this.onSave}
+                        >
+                            {ux.submitBtnLabel}
+                        </AnswerButton>
+                    </ControlButtons>
+                </ControlsRow>
+                <WRQStatus step={step} />
+                <StepFooter
+                    hideContentLink={ux.isDisplayingNudge}
+                    course={course} step={step} />
+            </StyledFreeResponse>
+        );
+    }
 
 }
 

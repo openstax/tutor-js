@@ -1,6 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
+.c1 {
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #00c1de;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.c1:hover {
+  background-color: #00dcfd;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -12,13 +25,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   justify-content: center;
 }
 
-.c1 {
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 4px;
-  background-color: #00c1de;
-  -webkit-transition: background-color 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out;
+.c2 {
   background: #007297;
   font-weight: bold;
   border: none;
@@ -27,11 +34,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
   height: 48px;
 }
 
-.c1:hover {
-  background-color: #00dcfd;
-}
-
-.c1:hover {
+.c2:hover {
   background: #2092b7;
 }
 
@@ -100,7 +103,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
     className="c0"
   >
     <button
-      className="sc-AxjAm c1"
+      className="c1 c2"
     >
       Continue
     </button>

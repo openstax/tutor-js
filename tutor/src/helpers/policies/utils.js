@@ -2,7 +2,7 @@ import _ from 'underscore';
 
 import policies from './policies';
 import { TaskStore } from '../../flux/task';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models';
 import Router from '../router';
 const DEFAULT = 'default';
 
@@ -16,7 +16,7 @@ const utils = {
 
     _role() {
         const { courseId } = Router.currentParams();
-        const course = Courses.get(courseId);
+        const course = currentCourses.get(courseId);
         if (course) { return course.primaryRole.type; } else { return 'unknown'; }
     },
 

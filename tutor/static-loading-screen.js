@@ -5,9 +5,9 @@ import Loading from '../shared/src/components/loading-animation';
 
 const sheet = new ServerStyleSheet();
 const html = renderToString(
-  sheet.collectStyles(
-    <Loading className="boot-splash-screen" />
-  )
+    sheet.collectStyles(
+        <Loading className="boot-splash-screen" />
+    )
 ) + `
 <script>
 setTimeout(function() {

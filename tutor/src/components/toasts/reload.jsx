@@ -1,7 +1,7 @@
 import { React, observer, useState, useEffect } from 'vendor';
 import ReloadButton from '../buttons/reload-page';
 import { Button } from 'react-bootstrap';
-import FeatureFlags from '../../models/feature_flags';
+import { FeatureFlags } from '../../models';
 
 const UserInitiatedReload = () => (
     <div className="body">

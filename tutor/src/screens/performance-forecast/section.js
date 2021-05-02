@@ -4,10 +4,10 @@ import BookPartTitle from '../../components/book-part-title';
 import ChapterSectionType from './chapter-section-type';
 import ProgressBar from './progress-bar';
 import Statistics from './statistics';
-import ChapterSection from '../../models/chapter-section';
+import { ChapterSection } from '../../models';
 
 const PerformanceForecastSection = (props) => {
-    const { courseId, roleId, section } = props;
+    const { course, roleId, section } = props;
     const cs = new ChapterSection(section.chapter_section);
     return (
         <div className="section">
@@ -23,7 +23,7 @@ const PerformanceForecastSection = (props) => {
                 {...props}
                 ariaLabel={`${cs.asString} ${section.title}`} />
             <Statistics
-                courseId={courseId}
+                course={course}
                 roleId={roleId}
                 section={section}
                 displaying="section" />
@@ -32,7 +32,7 @@ const PerformanceForecastSection = (props) => {
 };
 
 PerformanceForecastSection.propTypes = {
-    courseId: PropTypes.string.isRequired,
+    course:   PropTypes.object.isRequired,
     roleId:   PropTypes.string,
     section:  ChapterSectionType.isRequired,
     canPractice: PropTypes.bool,

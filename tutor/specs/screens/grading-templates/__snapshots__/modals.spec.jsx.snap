@@ -5,7 +5,7 @@ exports[`Delete Modal matches snapshot 1`] = `
   onCancel={[MockFunction]}
   onDelete={[MockFunction]}
   template={
-    GradingTemplate {
+    Object {
       "auto_grading_feedback_on": true,
       "completion_weight": 0.59,
       "correctness_weight": 0.04,
@@ -14,12 +14,11 @@ exports[`Delete Modal matches snapshot 1`] = `
       "default_due_time": "17:00",
       "default_open_time": "07:00",
       "deleted_at": undefined,
-      "has_open_task_plans": undefined,
+      "has_open_task_plans": false,
       "id": 1,
       "late_work_penalty": 0.1,
       "late_work_penalty_applied": "immediately",
       "manual_grading_feedback_on": "publish",
-      "map": undefined,
       "name": "Default Reading",
       "task_plan_type": "reading",
     }

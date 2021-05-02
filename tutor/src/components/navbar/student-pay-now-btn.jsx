@@ -1,8 +1,7 @@
-import { React, PropTypes, action, observable, observer } from 'vendor';
+import { React, PropTypes, action, observable, observer, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import PaymentsModal from '../payments/modal';
-import Payments from '../../models/payments';
-import Course from '../../models/course';
+import { FeatureFlags, Course } from '../../models'
 import { Icon } from 'shared';
 
 const FREE_TRIAL_MESSAGE = `
@@ -11,7 +10,7 @@ to your course. You will not lose any of the work you have completed
 during the free trial.
 `;
 const isInTrialPeriod = (course) => {
-    return Boolean(course && !Payments.config.is_enabled && course.isInTrialPeriod);
+    return Boolean(course && !FeatureFlags.is_payments_enabled && course.isInTrialPeriod);
 };
 
 const willDisplayPayment = (course) => {
@@ -31,65 +30,69 @@ const willDisplayPayment = (course) => {
 @observer
 export default
 class StudentPayNowBtn extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    @observable isShowingModal = false;
 
-  @observable isShowingModal = false;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound
-  onClick() {
-      this.isShowingModal = true;
-  }
+    @action.bound
+    onClick() {
+        this.isShowingModal = true;
+    }
 
-  @action.bound
-  onComplete() {
-      this.props.course.userStudentRecord.markPaid();
-      this.isShowingModal = false;
-  }
+    @action.bound
+    onComplete() {
+        this.props.course.userStudentRecord.markPaid();
+        this.isShowingModal = false;
+    }
 
-  @action.bound
-  onCancel() {
-      this.isShowingModal = false;
-  }
+    @action.bound
+    onCancel() {
+        this.isShowingModal = false;
+    }
 
-  renderModal() {
-      if (this.isShowingModal) {
-          return (
-              <PaymentsModal
-                  onPaymentComplete={this.onComplete}
-                  onCancel={this.onCancel}
-                  course={this.props.course}
-              />
-          );
-      }
-      return null;
-  }
+    renderModal() {
+        if (this.isShowingModal) {
+            return (
+                <PaymentsModal
+                    onPaymentComplete={this.onComplete}
+                    onCancel={this.onCancel}
+                    course={this.props.course}
+                />
+            );
+        }
+        return null;
+    }
 
-  render() {
-      if (!willDisplayPayment(this.props.course)) { return null; }
+    render() {
+        if (!willDisplayPayment(this.props.course)) { return null; }
 
-      if (isInTrialPeriod(this.props.course)) {
-          return (
-              <span className="student-pay-now">
+        if (isInTrialPeriod(this.props.course)) {
+            return (
+                <span className="student-pay-now">
           Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
-              </span>
-          );
-      }
+                </span>
+            );
+        }
 
-      return (
-          <span className="student-pay-now">
-              <span className="days">
+        return (
+            <span className="student-pay-now">
+                <span className="days">
           You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
-              </span>
-              {this.renderModal()}
-              <Button variant="primary" onClick={this.onClick}>
+                </span>
+                {this.renderModal()}
+                <Button variant="primary" onClick={this.onClick}>
           Pay now
-              </Button>
-          </span>
-      );
-  }
+                </Button>
+            </span>
+        );
+    }
 }
 
 export { willDisplayPayment, StudentPayNowBtn };

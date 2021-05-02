@@ -1,5 +1,5 @@
 import { React, PropTypes } from 'vendor';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import TutorLink from '../../components/link';
 
 const GradingTemplateLink = ({ course }) => {

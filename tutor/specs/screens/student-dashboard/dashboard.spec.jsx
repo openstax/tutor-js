@@ -1,8 +1,9 @@
-import { React, TimeMock, C } from '../../helpers';
+import { ApiMock, React, TimeMock, C } from '../../helpers';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';
-import Raven from '../../../src/models/app/raven';
+import { Raven } from '../../../src/models';
+import GUIDE_DATA from '../../../api/courses/1/guide.json';
 
 jest.mock('../../../src/models/app/raven');
 
@@ -10,6 +11,10 @@ describe('Student Dashboard', () => {
     let props;
 
     TimeMock.setTo('2015-10-14T12:00:00.000Z');
+
+    ApiMock.intercept({
+        'guide': GUIDE_DATA,
+    })
 
     beforeEach(() => {
         const course = bootstrapCoursesList().get(1);

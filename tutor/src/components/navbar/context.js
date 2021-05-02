@@ -1,28 +1,34 @@
 import React from 'react';
 import Map from 'shared/model/map';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, modelize } from 'shared/model'
+
 
 class Region extends Map {
 
-  keyType = String
+    keyType = String
 
-  constructor(context) {
-      super();
-      this.context = context;
-  }
+    constructor(context) {
+        super();
+        modelize(this);
+        this.context = context;
+    }
 
-  remove(id) {
-      this.widgets.delete(id);
-  }
+    remove(id) {
+        this.widgets.delete(id);
+    }
 
-  @computed get components() {
-      return this.keys().map((k) => {
-          return React.createElement(
-              this.get(k),
-              Object.assign(Map.toObject(this.context.childProps), { key: k })
-          );
-      });
-  }
+    coerceValue(v) {
+        return v
+    }
+
+    @computed get components() {
+        return this.keys().map((k) => {
+            return React.createElement(
+                this.get(k),
+                Object.assign(Map.toObject(this.context.childProps), { key: k })
+            );
+        });
+    }
 
 }
 
@@ -30,11 +36,12 @@ export
 class NavbarContext {
 
     constructor(defaultSetter = null) {
+        modelize(this);
         this.defaultSetter = defaultSetter;
         this.resetToDefault();
     }
 
-  @action resetToDefault() {
+    @action resetToDefault() {
         this.left.clear();
         this.center.clear();
         this.right.clear();
@@ -43,16 +50,16 @@ class NavbarContext {
         }
     }
 
-  childProps = observable.map();
-  @observable className;
+    childProps = observable.map();
+    @observable className;
 
-  left = new Region(this);
-  right = new Region(this);
-  center = new Region(this);
+    left = new Region(this);
+    right = new Region(this);
+    center = new Region(this);
 
-  @computed get isEmpty() {
-      return !(
-          [this.left, this.right, this.center].find(c => !c.isEmpty)
-      );
-  }
+    @computed get isEmpty() {
+        return !(
+            [this.left, this.right, this.center].find(c => !c.isEmpty)
+        );
+    }
 }

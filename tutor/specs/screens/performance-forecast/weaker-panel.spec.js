@@ -1,26 +1,17 @@
-import { React, ld } from '../../helpers';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import * as PerformanceForecast from '../../../src/flux/performance-forecast';
+import { Factory, React, ld } from '../../helpers';
 import Weaker from '../../../src/screens/performance-forecast/weaker-panel';
 import GUIDE_DATA from '../../../api/courses/1/guide.json';
-const COURSE_ID = '1';
-
-// import { Testing, ld } from 'helpers';
-// import { bootstrapCoursesList } from '../../courses-test-data';
-//
-// import Weaker from '../../../src/components/performance-forecast/weaker-panel';
-// import PerformanceForecast from '../../../src/flux/performance-forecast';
-// import GUIDE from '../../../api/courses/1/guide.json';
 
 describe('Weaker Section Panel', function() {
     let props;
 
     beforeEach(function() {
-        bootstrapCoursesList();
-        PerformanceForecast.Student.actions.loaded(GUIDE_DATA, COURSE_ID);
-        return props = {
-            courseId: COURSE_ID,
-            sections: PerformanceForecast.Student.store.getAllSections(COURSE_ID),
+        const course = Factory.course()
+        course.performance.periods.replace([ GUIDE_DATA ])
+        const performance = course.performance.periods[0]
+        props = {
+            course,
+            performance,
             weakerTitle: 'Weaker',
             weakerExplanation: 'Stuff you suck at',
             weakerEmptyMessage: 'Not enough data',
@@ -37,8 +28,8 @@ describe('Weaker Section Panel', function() {
         expect(weaker).not.toHaveRendered('.practice.btn');
     });
 
-    it('does not render if there are no sections', function() {
-        props.sections = [];
+    fit('does not render if there are no sections', function() {
+        props.performance.children = [];
         const weaker = shallow(<Weaker {...props} />);
         expect(weaker.html()).toBeNull();
     });

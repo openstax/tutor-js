@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import Upcoming from '../../../src/screens/student-dashboard/upcoming-panel';
-import { TimeMock, C, React } from '../../helpers';
+import { TimeMock, C, React, runInAction } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Upcoming Events', () => {
@@ -22,17 +22,22 @@ describe('Upcoming Events', () => {
         const event = Factory.studentDashboardTask();
         const day = moment(now).endOf('week').add(1, 'day');
         expect(day.format('ddd')).toEqual('Sun');
-        event.due_at = day.toDate();
-        props.course.studentTaskPlans.set(event.id, event);
+        runInAction(() => {
+            event.due_at = day.toDate();
+            props.course.studentTaskPlans.set(event.id, event);
+        })
 
         expect(panel.text()).toContain(event.title);
-
         // subtract a day so it's due this week
-        event.due_at = moment(event.due_at).subtract(1, 'day').toDate();
+        runInAction(() => {
+            event.due_at = moment(event.due_at).subtract(1, 'day').toDate();
+        })
         expect(panel.text()).not.toContain(event.title);
 
         // go crazy and add a year
-        event.due_at = moment(event.due_at).add(1, 'year').toDate();
+        runInAction(() => {
+            event.due_at = moment(event.due_at).add(1, 'year').toDate();
+        })
         expect(panel.text()).toContain(event.title);
     });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import UserMenu from '../../models/user/menu';
+import { UserMenu } from '../../models';
 import PropTypes from 'prop-types';
 
 export default function InvalidTeacher({ enrollment }) {

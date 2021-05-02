@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { action, computed } from 'mobx';
+import { action, computed, modelize } from 'shared/model'
 import { observer, inject } from 'mobx-react';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
-import User from '../models/user';
+import { currentUser } from '../models';
 import { map } from 'lodash';
 import String from '../helpers/string';
 import ModalManager from './modal-manager';
@@ -14,59 +14,63 @@ import ModalManager from './modal-manager';
 @observer
 export default
 class TermsModal extends React.Component {
-    
-  static propTypes = {
-      modalManager: PropTypes.instanceOf(ModalManager).isRequired,
-  }
+    static propTypes = {
+        modalManager: PropTypes.instanceOf(ModalManager).isRequired,
+    }
 
-  @computed get terms() {
-      return User.terms.requiredAndUnsigned;
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @computed get title() {
-      return String.toSentence(map(this.terms, 'title'));
-  }
+    @computed get terms() {
+        return currentUser.terms.requiredAndUnsigned;
+    }
 
-  @action.bound onAgreement() {
-      User.terms.sign(map(this.terms, 'id'));
-  }
+    @computed get title() {
+        return String.toSentence(map(this.terms, 'title'));
+    }
 
-  componentDidMount() {
-      this.props.modalManager.queue(this, 1);
-      User.terms.fetchIfNeeded();
-  }
+    @action.bound onAgreement() {
+        currentUser.terms.sign(map(this.terms, 'id'));
+    }
 
-  // for terms to be displayed the user must be in a course and need them signed
-  @computed get isReady() {
-      return User.terms.areSignaturesNeeded;
-  }
+    componentDidMount() {
+        this.props.modalManager.queue(this, 1);
+        currentUser.terms.fetchIfNeeded();
+    }
 
-  render() {
-      if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
+    // for terms to be displayed the user must be in a course and need them signed
+    @computed get isReady() {
+        return currentUser.terms.areSignaturesNeeded;
+    }
 
-      const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
+    render() {
+        if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
-      return (
-          <Modal
-              show={true}
-              backdrop="static"
-              backdropClassName={className}
-              className={className}
-          >
-              <Modal.Header>
-                  <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
-              </Modal.Header>
-              <Modal.Body>
-                  {map(this.terms, (t) =>
-                      <div key={t.id}>
-                          <h1 className="title">{t.title}</h1>
-                          <div dangerouslySetInnerHTML={{ __html: t.content }} />
-                      </div>)}
-              </Modal.Body>
-              <Modal.Footer>
-                  <Button variant="primary" onClick={this.onAgreement}>I agree</Button>
-              </Modal.Footer>
-          </Modal>
-      );
-  }
+        const className = classnames('user-terms', { 'is-loading': currentUser.terms.api.isPending });
+
+        return (
+            <Modal
+                show={true}
+                backdrop="static"
+                backdropClassName={className}
+                className={className}
+            >
+                <Modal.Header>
+                    <Branding isBeta={true} /> <span className="header-title">{this.title}</span>
+                </Modal.Header>
+                <Modal.Body>
+                    {map(this.terms, (t) =>
+                        <div key={t.id}>
+                            <h1 className="title">{t.title}</h1>
+                            <div dangerouslySetInnerHTML={{ __html: t.content }} />
+                        </div>)}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={this.onAgreement}>I agree</Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
 }

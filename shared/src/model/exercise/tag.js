@@ -23,102 +23,102 @@ const TITLE_SUBSTITUTIONS = [
 export default
 class ExerciseTag extends BaseModel {
 
-  @observable raw;
+    @observable raw;
 
-  constructor(tag) {
-      super();
-      if (isObject(tag)) {
-          this.setParts(tag);
-      } else {
-          this.raw = tag;
-      }
-  }
+    constructor(tag) {
+        super();
+        if (isObject(tag)) {
+            this.setParts(tag);
+        } else {
+            this.raw = tag;
+        }
+    }
 
-  static serialize(t) {
-      return t.asString;
-  }
+    static serialize(t) {
+        return t.asString;
+    }
 
-  @computed get isImportant() {
-      return TYPES.IMPORTANT.includes(this.type);
-  }
+    @computed get isImportant() {
+        return TYPES.IMPORTANT.includes(this.type);
+    }
 
-  @computed get validity() {
-      // if it's an "important" tag it must have a value
-      if (!this.isImportant || this.value) {
-          return { valid: true };
-      }
-      return { valid: false, part: `${this.type} must have value` };
-  }
+    @computed get validity() {
+        // if it's an "important" tag it must have a value
+        if (!this.isImportant || this.value) {
+            return { valid: true };
+        }
+        return { valid: false, part: `${this.type} must have value` };
+    }
 
-  @computed get name() {
-      return this.asString;
-  }
+    @computed get name() {
+        return this.asString;
+    }
 
-  @computed get sortValue() {
-      // APLO should always appear first
-      if ('aplo' === this.type) { return 'A'; }
-      // and the LO
-      if ('lo' === this.type) { return 'AA'; }
-      return this.title.toLowerCase();
-  }
+    @computed get sortValue() {
+        // APLO should always appear first
+        if ('aplo' === this.type) { return 'A'; }
+        // and the LO
+        if ('lo' === this.type) { return 'AA'; }
+        return this.title.toLowerCase();
+    }
 
-  @computed get title() {
-      const [match, replacement] = TITLE_SUBSTITUTIONS.find(
-          ([m]) => this.asString.match(m),
-      ) || [];
-      if (match) {
-          return this.asString.replace(match, replacement);
-      }
-      return this.asString;
-  }
+    @computed get title() {
+        const [match, replacement] = TITLE_SUBSTITUTIONS.find(
+            ([m]) => this.asString.match(m),
+        ) || [];
+        if (match) {
+            return this.asString.replace(match, replacement);
+        }
+        return this.asString;
+    }
 
-  @computed get asString() {
-      return this.raw || '';
-  }
+    @computed get asString() {
+        return this.raw || '';
+    }
 
-  @computed get asObject() {
-      return pick(this, 'type', 'specifier', 'value');
-  }
+    @computed get asObject() {
+        return pick(this, 'type', 'specifier', 'value');
+    }
 
-  @computed get parts() {
-      return this.asString.split(':');
-  }
+    @computed get parts() {
+        return this.asString.split(':');
+    }
 
-  @computed get type() {
-      return first(this.parts);
-  }
+    @computed get type() {
+        return first(this.parts);
+    }
 
-  @computed get isLO() {
-      return Boolean(this.type === 'lo' || this.type === 'aplo');
-  }
+    @computed get isLO() {
+        return Boolean(this.type === 'lo' || this.type === 'aplo');
+    }
 
-  set type(type) {
-      this.setParts({ type });
-  }
+    set type(type) {
+        this.setParts({ type });
+    }
 
-  @computed get specifier() {
-      return this.parts.length == 3 ? this.parts[1] : null;
-  }
+    @computed get specifier() {
+        return this.parts.length == 3 ? this.parts[1] : null;
+    }
 
-  set specifier(specifier) {
-      this.setParts({ specifier });
-  }
+    set specifier(specifier) {
+        this.setParts({ specifier });
+    }
 
-  @computed get value() {
-      return last(this.parts);
-  }
+    @computed get value() {
+        return last(this.parts);
+    }
 
-  set value(value) {
-      this.setParts({ value });
-  }
+    set value(value) {
+        this.setParts({ value });
+    }
 
 
-  @action setParts(parts) {
-      this.raw = filter(
-          values(extend(this.asObject,
-              pick(parts, 'type', 'specifier', 'value')
-          )), v => !isNil(v)
-      ).join(':');
-  }
+    @action setParts(parts) {
+        this.raw = filter(
+            values(extend(this.asObject,
+                pick(parts, 'type', 'specifier', 'value')
+            )), v => !isNil(v)
+        ).join(':');
+    }
 
 }

@@ -29,31 +29,31 @@ const BookPage = observer(({ ux }) => {
 export default
 class ReferenceBook extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      className: PropTypes.string,
-  };
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        className: PropTypes.string,
+    };
 
-  render() {
-      const { ux } = this.props;
-      const Content = ux.isFetching ? LoadingScreen : BookPage;
+    render() {
+        const { ux } = this.props;
+        const Content = ux.isFetching ? LoadingScreen : BookPage;
 
-      const className = cn('reference-book', this.props.className, {
-          'menu-open': ux.isMenuVisible,
-          'menu-on-top': ux.isMenuOnTop,
-      });
+        const className = cn('reference-book', this.props.className, {
+            'menu-open': ux.isMenuVisible,
+            'menu-on-top': ux.isMenuOnTop,
+        });
 
-      return (
-          <div {...ux.dataProps} className={className} data-test-id="reference-book">
-              <SpyMode.Wrapper>
-                  <ObscuredPage>
-                      <div className="content">
-                          <Menu {...ux.bookMenuProps} />
-                          <Content ux={ux} />
-                      </div>
-                  </ObscuredPage>
-              </SpyMode.Wrapper>
-          </div>
-      );
-  }
+        return (
+            <div {...ux.dataProps} className={className} data-test-id="reference-book">
+                <SpyMode.Wrapper>
+                    <ObscuredPage>
+                        <div className="content">
+                            <Menu {...ux.bookMenuProps} />
+                            <Content ux={ux} />
+                        </div>
+                    </ObscuredPage>
+                </SpyMode.Wrapper>
+            </div>
+        );
+    }
 }

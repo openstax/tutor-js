@@ -1,9 +1,13 @@
-import { R } from '../../helpers';
-import { Roster, courseRosterBootstrap } from './bootstrap-data';
+import { R, ApiMock } from '../../helpers';
+import { Roster, courseRosterBootstrap, ROSTER } from './bootstrap-data';
 
 describe('Course Settings', function() {
 
     let props;
+
+    ApiMock.intercept({
+        '/courses/\\d+/roster$': ROSTER,
+    })
 
     beforeEach(function() {
         props = courseRosterBootstrap();

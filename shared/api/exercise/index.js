@@ -3,7 +3,7 @@ import multipleChoice from './multiple-choice';
 import review from './review';
 
 export default {
-  'free-response': freeResponse,
-  'multiple-choice': multipleChoice,
-  'review': review,
+    'free-response': freeResponse,
+    'multiple-choice': multipleChoice,
+    'review': review,
 };

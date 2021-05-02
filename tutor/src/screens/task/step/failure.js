@@ -1,11 +1,8 @@
-import {
-    React, PropTypes, styled,
-} from 'vendor';
+import { React, PropTypes, styled } from 'vendor';
 import { StepCard } from './card';
 import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';
-import Raven from '../../../models/app/raven';
-import Task from '../../../models/student-tasks/task';
+import { Raven, StudentTask } from '../../../models';
 import SupportEmailLink from '../../../components/support-email-link';
 import ReloadPageButton from '../../../components/buttons/reload-page';
 
@@ -18,60 +15,63 @@ const StyledFailure = styled(StepCard)`
 
 class Failure extends React.Component {
 
-  static propTypes = {
-      task: PropTypes.instanceOf(Task).isRequired,
-      step: PropTypes.object,
-  }
+    static propTypes = {
+        task: PropTypes.instanceOf(StudentTask).isRequired,
+        step: PropTypes.object,
+    }
 
-  componentDidMount() {
-      const { task, step } = this.props;
+    componentDidMount() {
+        const { task, step } = this.props;
 
-      let errMsg = [];
-      if (get(task, 'api.hasErrors')) {
-          const { last: _, ...errors } = task.api.errors;
-          errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
-      }
-      // step may not be present if the task had errors
-      if (!step) { return; }
+        let errMsg = [];
+        if (task.api.errors.any) {
+            const errors = Array.from(task.api.errors.values)
+            // const { last: _, ...errors } = task.api.errors;
+            // task.api.lastError
+            errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
+        }
+        // step may not be present if the task had errors
+        if (!step) { return; }
 
-      const { last: _, ...errors } = get(step, 'api.errors', {});
-      errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
-      if (errMsg.length) {
-          Raven.log(errMsg.join('\n'), {
-              taskId: task.id,
-              stepId: step.id,
-          });
-      }
-  }
+        const { last: _, ...errors } = get(step, 'api.errors', {});
+        errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
+        if (errMsg.length) {
+            Raven.log(errMsg.join('\n'), {
+                taskId: task.id,
+                stepId: step.id,
+                errorData: task.api.last,
+            });
+        }
+    }
 
-  get isLoading() {
-      const model = this.props.step || this.props.task;
-      return 'get' === get(model, 'api.errors.last.config.method');
-  }
+    get isLoading() {
+        const model = this.props.step || this.props.task;
+        return 'get' === get(model, 'api.errors.last.config.method');
+    }
 
-  render() {
-      return (
-          <StyledFailure>
-              <h3>
-          We’re sorry! An error occurred
-          when {this.isLoading ? 'loading' : 'saving'} this step.
-              </h3>
-              <h4>
-          Please either go back and retry or
-          reload this page and try again.
-              </h4>
-              <p>
-          We’ve received an automated notification
-          that this error occurred and we’ll look into it.
-              </p>
-              <p>
-          Please <SupportEmailLink label="contact support" /> if
-          you continue to get this error.
-              </p>
-              <ReloadPageButton />
-          </StyledFailure>
-      );
-  }
+    render() {
+        return (
+            <StyledFailure>
+                <h3>
+                    We’re sorry! An error occurred
+                    when {this.isLoading ? 'loading' : 'saving'} this step.
+                </h3>
+                <h4>
+                    Please either go back and retry or
+                    reload this page and try again.
+                </h4>
+                <p>
+                    We’ve received an automated notification
+                    that this error occurred and we’ll look into it.
+                </p>
+                <p>
+                    Please <SupportEmailLink label="contact support" /> if
+                    you continue to get this error.
+                </p>
+                <ReloadPageButton />
+            </StyledFailure>
+        );
+    }
 
 }
 

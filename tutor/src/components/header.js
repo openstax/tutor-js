@@ -50,40 +50,40 @@ const StyledTitle = styled.h1`
 
 @observer
 class Header extends React.Component {
-  static propTypes = {
-      unDocked: PropTypes.bool.isRequired,
-      backTo: PropTypes.string.isRequired,
-      backToText: PropTypes.string,
-      backToParams: PropTypes.object,
-      title: PropTypes.string,
-      headerContent: PropTypes.node,
-      className: PropTypes.string,
-  }
-  render() {
-      const { unDocked, title, headerContent, backTo, backToText, backToParams, className } = this.props;
-      return (
-          <HeaderWrapper
-              role="dialog"
-              tabIndex="-1"
-              unDocked={unDocked}
-              className={className}
-          >
-              <StyledBackLink>
-                  <TutorLink to={backTo} params={backToParams}>
-                      <Icon
-                          size="lg"
-                          type="angle-left"
-                      />
-                      {backToText || 'Back'}
-                  </TutorLink>
-              </StyledBackLink>
-              {Boolean(title) &&
+    static propTypes = {
+        unDocked: PropTypes.bool.isRequired,
+        backTo: PropTypes.string.isRequired,
+        backToText: PropTypes.string,
+        backToParams: PropTypes.object,
+        title: PropTypes.string,
+        headerContent: PropTypes.node,
+        className: PropTypes.string,
+    }
+    render() {
+        const { unDocked, title, headerContent, backTo, backToText, backToParams, className } = this.props;
+        return (
+            <HeaderWrapper
+                role="dialog"
+                tabIndex="-1"
+                unDocked={unDocked}
+                className={className}
+            >
+                <StyledBackLink>
+                    <TutorLink to={backTo} params={backToParams}>
+                        <Icon
+                            size="lg"
+                            type="angle-left"
+                        />
+                        {backToText || 'Back'}
+                    </TutorLink>
+                </StyledBackLink>
+                {Boolean(title) &&
           <StyledTitle>{title}</StyledTitle>
-              }
-              {Boolean(headerContent) && headerContent}
-          </HeaderWrapper>
-      );
-  }
+                }
+                {Boolean(headerContent) && headerContent}
+            </HeaderWrapper>
+        );
+    }
 
 }
 

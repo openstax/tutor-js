@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { filter, includes, indexOf, findIndex } from 'lodash'
-import { ID, Offering } from '../../../store/types'
+import { filter, includes, indexOf, findIndex, union } from 'lodash'
+import { ID, Offering, Course } from '../../../models'
 import UiSettings from 'shared/model/ui-settings'
-import { useAllCourses } from '../../../store/courses'
-import { useAvailableOfferings, useDisplayedOfferingsIds } from '../../../store/offering'
+import { currentCourses, currentOfferings } from '../../../models'
 
 type ReturnUseDisplayedOfferings = [ID[], React.Dispatch<React.SetStateAction<ID[]>>, Offering[], (offeringId: ID, flow?: string) => void]
 
+export const useDisplayedOfferingsIds = (courses: Course[] = []) => {
+    const defaultOfferingIds = currentOfferings.array.filter(o => courses.array.find(c => c.offering_id == o.id)).map(fo => fo.id)
+    const selectedIds = UiSettings.get('displayedOfferingIds') || []
+    return union(selectedIds, defaultOfferingIds)
+}
+
 const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     // getting all the data: offerings and courses
-    const courses = useAllCourses()
-    const offerings = useAvailableOfferings(courses)
+    const courses = currentCourses
+    const offerings = currentOfferings.available //useAvailableOfferings(courses)
+
     const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedOfferingsIds(courses))
 
     // update the `displayedOfferingIds` if users adds/delete offerings
@@ -20,7 +26,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
 
     // re-compute the `displayedOfferings` if `displayedOfferingIds` is modified
     const displayedOfferings = useMemo(() => {
-        const filteredOfferings = filter(offerings, o => includes(displayedOfferingIds, o.id))
+        const filteredOfferings = filter(offerings.array, o => includes(displayedOfferingIds, o.id))
         return filteredOfferings.sort((a, b) => {
             return indexOf(displayedOfferingIds, a.id) - indexOf(displayedOfferingIds, b.id)
         })

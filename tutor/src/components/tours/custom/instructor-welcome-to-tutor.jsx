@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseUX from '../../../models/course/ux';
+import { CourseUX } from '../../../models';
 
 import {
     WelcomeToTutorMessage,

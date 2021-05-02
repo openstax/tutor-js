@@ -18,7 +18,7 @@ describe('Exercise Details Component', function() {
             course,
             exercises,
             pageIds,
-            selectedSection:        book.chapter_section,
+            selectedSection:        null,
             windowImpl:             new FakeWindow,
             selectedExercise:       exercises.array[1],
             onExerciseToggle:       jest.fn(),

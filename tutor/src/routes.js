@@ -47,11 +47,9 @@ const getRoutes = (router) => {
                             ],
                         },
                     ],
-                }, {
-                    path: 'metrics/:id', name: 'reviewTask',
-                    renderer: r(() => import('./screens/teacher-review-metrics')) },
-
-                { path: 'task/:id', name: 'viewTask',
+                },
+                {
+                    path: 'task/:id', name: 'viewTask',
                     renderer: r(() => import('./screens/task'), 'Assignment'),
                     routes: [
                         {
@@ -116,10 +114,6 @@ const getRoutes = (router) => {
         {
             path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
             renderer: r(() => import('./screens/surveys/index.jsx')),
-        },
-        {
-            path: '/stats', name: 'Stats',
-            renderer: r(() => import('./screens/stats/index.jsx')),
         },
         {
             path: '/demo/editor', name: 'Test different editors',

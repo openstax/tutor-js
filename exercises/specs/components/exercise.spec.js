@@ -1,6 +1,5 @@
-import { Router, React, Factory } from '../helpers';
+import { Router, React, Factory, runInAction } from '../helpers';
 import Exercise from '../../src/components/exercise';
-import ExerciseModel from '../../src/models/exercises/exercise';
 
 // eslint-disable-next-line react/prop-types
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
@@ -31,9 +30,9 @@ describe('Exercises component', () => {
         expect.snapshot(<Router><Exercise {...props} /></Router>).toMatchSnapshot();
     });
 
-    it('renders with intro and a multiple questions when exercise is MC', () => {
-        const ex = new ExerciseModel(Factory.data('Exercise', { multipart: true }));
-        props.exercises.set(ex.uid, ex);
+    it('renders with intro and a multiple questions when exercise is MC', async () => {
+        const ex = Factory.data('Exercise', { multipart: true })
+        runInAction(() => props.exercises.onLoaded({ data: ex })) // set(ex.uid, ex) );
         props.match.params.uid = ex.uid;
         expect.snapshot(<Router><Exercise {...props} /></Router>).toMatchSnapshot();
     });

@@ -6,23 +6,23 @@ import Switch from 'react-bootstrap-switch';
 export default
 class ViewToggle extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-          <Switch
-              onText="Exercises"
-              offText="Book"
-              offColor="primary"
-              value={ux.isDisplayingExercises}
-              onChange={ux.setDisplayingCard}
-          />
+        return (
+            <Switch
+                onText="Exercises"
+                offText="Book"
+                offColor="primary"
+                value={ux.isDisplayingExercises}
+                onChange={ux.setDisplayingCard}
+            />
 
-      );
-  }
+        );
+    }
 
 }

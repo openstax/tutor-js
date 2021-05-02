@@ -17,29 +17,29 @@ const CellTypes = {
 @observer
 export default
 class AssignmentCell extends React.Component {
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      rowIndex: PropTypes.number,
-      columnIndex: PropTypes.number.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        rowIndex: PropTypes.number,
+        columnIndex: PropTypes.number.isRequired,
+    }
 
-  render() {
-      const { ux, rowIndex } = this.props;
-      const student = ux.students[rowIndex || 0];
-      const props = extend({}, this.props, {
-          student,
-          task: student.data[this.props.columnIndex],
-          headings: ux.period.data_headings,
-      });
+    render() {
+        const { ux, rowIndex } = this.props;
+        const student = ux.students[rowIndex || 0];
+        const props = extend({}, this.props, {
+            student,
+            task: student.data[this.props.columnIndex],
+            headings: ux.period.data_headings,
+        });
 
-      let Cell = CellTypes[props.task.type] || CellTypes.default;
+        let Cell = CellTypes[props.task.type] || CellTypes.default;
 
-      return (
-          <div className={cn('scores-cell', {
-              'is-dropped': student.is_dropped,
-          })}>
-              <Cell {...props} />
-          </div>
-      );
-  }
+        return (
+            <div className={cn('scores-cell', {
+                'is-dropped': student.is_dropped,
+            })}>
+                <Cell {...props} />
+            </div>
+        );
+    }
 }

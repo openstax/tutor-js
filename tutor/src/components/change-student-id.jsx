@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action, observable, modelize } from 'shared/model'
 import { isEmpty } from 'lodash';
 import { Modal, Button, Form } from 'react-bootstrap';
-import Courses from '../models/courses-map';
+import { currentCourses } from '../models';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
@@ -15,113 +15,117 @@ import Header from './header';
 @observer
 export default
 class ChangeStudentId extends React.Component {
+    static propTypes = {
+        courseId: PropTypes.string,
+        history: PropTypes.object.isRequired,
+    }
+    courseId = Router.currentParams().courseId;
+    student = currentCourses.get(this.courseId).userStudentRecord;
 
-  static propTypes = {
-      courseId: PropTypes.string,
-      history: PropTypes.object.isRequired,
-  }
-  courseId = Router.currentParams().courseId;
-  student = Courses.get(this.courseId).userStudentRecord;
+    @observable isSaved = false;
+    @observable isValid = true;
 
-  @observable isSaved = false;
-  @observable isValid = true;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound
-  onChange(ev) {
-      this.student.student_identifier = ev.target.value;
-  }
+    @action.bound
+    onChange(ev) {
+        this.student.student_identifier = ev.target.value;
+    }
 
-  @action.bound
-  onSubmit() {
-      this.student.student_identifier = this.input.value;
-      this.student.saveOwnStudentId().then(this.onSaved);
-  }
+    @action.bound
+    onSubmit() {
+        this.student.student_identifier = this.input.value;
+        this.student.saveOwnStudentId().then(this.onSaved);
+    }
 
-  @action.bound
-  onSaved() {
-      this.isSaved = true;
-  }
+    @action.bound
+    onSaved() {
+        this.isSaved = true;
+    }
 
-  @action.bound
-  goToDashboard() {
-      this.props.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
-  }
+    @action.bound
+    goToDashboard() {
+        this.props.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
+    }
 
-  @action.bound
-  checkValidity(ev) {
-      this.isValid = !isEmpty(ev.target.value);
-  }
+    @action.bound
+    checkValidity(ev) {
+        this.isValid = !isEmpty(ev.target.value);
+    }
 
-  renderSuccess() {
-      return (
-          <Modal.Dialog
-              className="change-student-id"
-          >
-              <Modal.Body>
-                  <h3>You have successfully updated your student ID.</h3>
-              </Modal.Body>
-              <Modal.Footer>
-                  <BackButton fallbackLink={{
-                      to: 'dashboard', text: 'Back to Dashboard', params: { courseId: this.courseId },
-                  }} />
-              </Modal.Footer>
-          </Modal.Dialog>
-      );
-  }
+    renderSuccess() {
+        return (
+            <Modal.Dialog
+                className="change-student-id"
+            >
+                <Modal.Body>
+                    <h3>You have successfully updated your student ID.</h3>
+                </Modal.Body>
+                <Modal.Footer>
+                    <BackButton fallbackLink={{
+                        to: 'dashboard', text: 'Back to Dashboard', params: { courseId: this.courseId },
+                    }} />
+                </Modal.Footer>
+            </Modal.Dialog>
+        );
+    }
 
-  renderWarning() {
-      return <div className="invalid-warning">You have not yet entered an ID</div>;
-  }
+    renderWarning() {
+        return <div className="invalid-warning">You have not yet entered an ID</div>;
+    }
 
-  render() {
-      if (this.isSaved) { return this.renderSuccess(); }
+    render() {
+        if (this.isSaved) { return this.renderSuccess(); }
 
-      return (
-      <>
-        <Header
-            unDocked={true}
-            backTo={Router.makePathname('dashboard', { courseId: this.courseId })}
-            backToText='Dashboard'
-            title='Change Student ID'
-        />
-        <Modal.Dialog
-            className="change-student-id"
-        >
-            <Modal.Body>
-                <div className="title">
-                    <h2>Update your student ID</h2>
-                </div>
-                <Form.Label className="id-number-body">
-                    <div className="sub-title">Enter your school-issued student ID number</div>
-                    <div className="inputs">
-
-                        <span className="student-id-icon"></span>
-                        <input
-                            autoFocus
-                            onKeyUp={this.checkValidity}
-                            ref={i => (this.input = i)}
-                            placeholder='School issued ID'
-                            defaultValue={this.student.student_identifier}
-                        />
-                    </div>
-                </Form.Label>
-                {this.isValid ? null : this.renderWarning()}
-            </Modal.Body>
-            <Modal.Footer>
-                <AsyncButton
-                    disabled={!this.isValid}
-                    variant="primary"
-                    className="btn btn-success"
-                    isWaiting={!!this.student.api.isPending}
-                    waitingText={'Confirming…'}
-                    onClick={this.onSubmit}
+        return (
+            <>
+                <Header
+                    unDocked={true}
+                    backTo={Router.makePathname('dashboard', { courseId: this.courseId })}
+                    backToText='Dashboard'
+                    title='Change Student ID'
+                />
+                <Modal.Dialog
+                    className="change-student-id"
                 >
-            Save
-                </AsyncButton>
-                <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
-            </Modal.Footer>
-        </Modal.Dialog>
-      </>
-      );
-  }
+                    <Modal.Body>
+                        <div className="title">
+                            <h2>Update your student ID</h2>
+                        </div>
+                        <Form.Label className="id-number-body">
+                            <div className="sub-title">Enter your school-issued student ID number</div>
+                            <div className="inputs">
+
+                                <span className="student-id-icon"></span>
+                                <input
+                                    autoFocus
+                                    onKeyUp={this.checkValidity}
+                                    ref={i => (this.input = i)}
+                                    placeholder='School issued ID'
+                                    defaultValue={this.student.student_identifier}
+                                />
+                            </div>
+                        </Form.Label>
+                        {this.isValid ? null : this.renderWarning()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <AsyncButton
+                            disabled={!this.isValid}
+                            variant="primary"
+                            className="btn btn-success"
+                            isWaiting={!!this.student.api.isPending}
+                            waitingText={'Confirming…'}
+                            onClick={this.onSubmit}
+                        >
+              Save
+                        </AsyncButton>
+                        <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+            </>
+        );
+    }
 }

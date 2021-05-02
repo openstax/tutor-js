@@ -1,10 +1,15 @@
-import { R, Factory, TutorRouter } from '../helpers';
+import { R, Factory, TutorRouter, hydrateModel, runInAction } from '../helpers';
 import Enroll from '../../src/components/enroll';
-import EnrollModel from '../../src/models/course/enroll';
+import { CourseEnrollment } from '../../src/helpers/course-enrollment'
+import { ApiError } from 'shared/model'
+
 
 jest.mock('../../src/helpers/router');
 jest.mock('../../src/models/user', () => ({
-    terms: { fetch: jest.fn() },
+    currentUser: {
+        terms: { fetch: jest.fn() },
+        //        api: { errors: { withCode: jest.fn() } },
+    },
 }));
 
 describe('Student Enrollment', () => {
@@ -21,8 +26,7 @@ describe('Student Enrollment', () => {
         course = coursesMap.array[0];
         coursesMap.set(course.id, course);
         params = { courseId: course.id };
-
-        enrollment = new EnrollModel({
+        enrollment = hydrateModel(CourseEnrollment, {
             history: { push: jest.fn() },
             courses: coursesMap, enrollment_code: '1234',
         });
@@ -34,26 +38,34 @@ describe('Student Enrollment', () => {
     it('loads when mounted', async () => {
         enrollment.isLoadingCourses = true;
         const wrapper = mount(<R><Enroll enrollment={enrollment} /></R>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         expect(enrollment.create).toHaveBeenCalled();
         expect(wrapper).toHaveRendered('StaxlyAnimation');
         expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot();
     });
 
 
-    it('blocks teacher enrollment', () => {
-        enrollment.api.errors = { is_teacher: { data: { course_name: 'My Fairly Graded Course' } } };
+    it('blocks teacher enrollment', async () => {
+        enrollment.api.errors.set('courseEnroll', ApiError.fromMessage('courseEnroll', 'a error', {
+            code: 'is_teacher',
+            message: 'no!',
+        }))
+
         expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot();
+
         const enroll = mount(<R><Enroll enrollment={enrollment} /></R>);
 
         TutorRouter.makePathname = jest.fn(() => '/courses');
         enroll.find('Button').simulate('click');
         expect(TutorRouter.makePathname).toHaveBeenCalledWith('myCourses');
         expect(enrollment.history.push).toHaveBeenCalledWith('/courses');
+        enroll.unmount()
     });
 
     it('forwards to your course if already a member', (done) => {
-        enrollment.api.errors = { already_enrolled: { data: { course_name: 'My Course' } } };
+        enrollment.api.errors.set('courseEnroll', ApiError.fromMessage('courseEnroll', 'a error', {
+            code: 'already_enrolled', message: 'no!',
+            data: { course_name: 'My Course' },
+        }))
         const enroll = mount(<R><Enroll enrollment={enrollment} /></R>);
         expect(enroll).toHaveRendered('StaxlyAnimation');
         enrollment.isComplete = true;
@@ -66,19 +78,22 @@ describe('Student Enrollment', () => {
     });
 
     it('displays an invalid message', () => {
-        enrollment.api.errors = { invalid_enrollment_code: true };
+        enrollment.api.errors.set('courseEnroll', ApiError.fromMessage('courseEnroll', 'a error', {
+            code: 'invalid_enrollment_code', message: 'no!',
+        }))
         expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot();
     });
 
     it('displays generic error message', () => {
-        enrollment.api.errors = [{ code: 'blah', message: 'this is a error that we cant handle' }];
-        expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot();
+        enrollment.api.errors.set('courseEnroll', ApiError.fromMessage('courseEnroll', 'a error'))
+        expect.snapshot(<R><Enroll enrollment={enrollment} /></R>).toMatchSnapshot()
     });
 
     describe('select periods', () => {
         beforeEach(() => {
-            enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938';
-
+            runInAction(() =>
+                enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938'
+            );
             enrollment.onEnrollmentCreate({
                 data: {
                     name: 'My Grand Course',
@@ -99,25 +114,32 @@ describe('Student Enrollment', () => {
         });
 
         it('can display a list of periods when joining from enrollment launch uuid', () => {
+            enrollment.onEnrollmentCreate({
+                is_lms_enabled: true,
+                name: 'My Grand Course', periods: [
+                    { name: '1st period', enrollment_code: '4321' },
+                    { name: '2nd period', enrollment_code: '1234' },
+                ],
+            });
             const enroll = mount(<R><Enroll enrollment={enrollment} /></R>);
-            expect(enroll).toHaveRendered('SelectPeriod');
+            expect(enroll).toHaveRendered('.enroll-form.periods');
             enroll.find('.choice').last().simulate('click');
             enroll.find('.btn-primary').simulate('click');
-            expect(enrollment.pendingEnrollmentCode).toEqual('4321');
+            expect(enrollment.pendingEnrollmentCode).toEqual('1234');
 
         });
 
         it('skips period selection when course has only one', () => {
+            enrollment.originalEnrollmentCode = '1234'
             enrollment.create = jest.fn();
             enrollment.onEnrollmentCreate({
-                data: {
-                    name: 'My Grand Course', periods: [{
-                        name: 'single period', enrollment_code: '4321',
-                    }],
-                },
+                name: 'My Grand Course', periods: [{
+                    name: 'single period', enrollment_code: '4321',
+                }],
             });
             const enroll = mount(<R><Enroll enrollment={enrollment} /></R>);
             expect(enroll).toHaveRendered('StudentIDForm');
+            enroll.unmount()
         });
     });
 

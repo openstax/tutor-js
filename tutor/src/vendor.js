@@ -14,6 +14,7 @@ import styled, { css } from 'styled-components';
 import { autobind, readonly } from 'core-decorators';
 import { idType, ArrayOrMobxType } from 'shared/helpers/react';
 import Theme from './theme';
+import { modelize, hydrateModel } from 'modeled-mobx'
 
 export {
     withRouter, ArrayOrMobxType, readonly, moment,
@@ -21,7 +22,7 @@ export {
     invariant, styled, css, idType, autobind, Theme,
     useState, useHistory, useLocation, useParams, useEffect, useRef,
     useObserver, useLocalStore, useCallback, useMemo,
-
+    modelize, hydrateModel,
 };
-export { observable, action, computed } from 'mobx';
+export { observable, action, computed, runInAction, autorun, toJS } from 'mobx';
 export { observer, inject, Provider } from 'mobx-react';

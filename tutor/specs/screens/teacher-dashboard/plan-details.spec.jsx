@@ -1,9 +1,9 @@
-import { React, R } from '../../helpers';
+import { React, R, runInAction } from '../../helpers';
 import { last } from 'lodash';
 import Factory from '../../factories';
 import { Provider } from 'mobx-react';
 import PlanDetails from '../../../src/screens/teacher-dashboard/plan-details';
-import TourContext from '../../../src/models/tour/context';
+import { TourContext } from '../../../src/models';
 
 const renderModal = props =>
     new Promise( function(resolve) {
@@ -35,9 +35,11 @@ describe('Plan Details Component', function() {
     });
 
     it('renders no students enrolled', () => {
-        plan.is_published = true;
-        plan.analytics = { api: { hasBeenFetched: true } };
-        course.periods[0].num_enrolled_students = 0;
+        runInAction(() => {
+            plan.is_published = true;
+            plan.analytics.api.requestCounts.read = 1 //  = { api: { hasBeenFetched: true } };
+            course.periods[0].num_enrolled_students = 0;
+        })
         return renderModal(props).then((m) => {
             expect(m.textContent).toContain('No students enrolled');
         });

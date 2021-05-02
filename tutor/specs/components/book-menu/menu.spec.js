@@ -1,4 +1,4 @@
-import { Factory, R, ld, deferred } from '../../helpers';
+import { Factory, R, ld, deferred, runInAction } from '../../helpers';
 import BookUX from '../../../src/components/book-menu/ux';
 import Menu from '../../../src/components/book-menu/menu';
 import FakeWindow from 'shared/specs/helpers/fake-window';
@@ -37,12 +37,12 @@ describe('Book Menu', () => {
         expect(m).toHaveRendered(`details[data-node-id="${lastChapter.pathId}"][open=true]`);
 
         // select a page on it
-        props.ux.currentPage = lastChapter.children[0];
+        runInAction(() => props.ux.currentPage = lastChapter.children[0]);
         // still selected
         expect(m).toHaveRendered(`details[data-node-id="${lastChapter.pathId}"][open=true]`);
 
         // now jump to the first page
-        props.ux.currentPage = props.book.pages.all[0];
+        runInAction(() => props.ux.currentPage = props.book.pages.all[0]);
 
         // should still be selected since it was manually set
         expect(m).toHaveRendered(`details[data-node-id="${lastChapter.pathId}"][open=true]`);
@@ -59,7 +59,7 @@ describe('Book Menu', () => {
         const m = mount(<R><Menu {...props} /></R>);
         expect(m).toHaveRendered(`[data-node-id="${page.parent.pathId}"][open=true]`);
         const lastPage = ld.last(page.book.pages.all);
-        props.ux.currentPage = lastPage;
+        runInAction(() => props.ux.currentPage = lastPage);
         expect(m).toHaveRendered(`[data-node-id="${page.parent.pathId}"][open=false]`);
         return deferred(() => {
             m.unmount();

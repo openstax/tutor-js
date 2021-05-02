@@ -180,55 +180,55 @@ const StackedBarChart = observer(({ stats, isReading = false }) => {
 
 const ViewSubmissions = observer(({ ux }) => {
     return (
-    <>
-      <p>View student submissions for this assignment</p>
-      <button
-          className="btn btn-standard btn-inline"
-          onClick={() => ux.onTabSelection(1)}
-      >
+        <>
+            <p>View student submissions for this assignment</p>
+            <button
+                className="btn btn-standard btn-inline"
+                onClick={() => ux.onTabSelection(1)}
+            >
         View submissions
-      </button>
-    </>
+            </button>
+        </>
     );
 });
 
 const UnpublishedScores = observer(({ ux }) => {
     return (
-    <>
-      <p>This assignment has unpublished scores</p>
-      <PublishScores ux={ux} />
-    </>
+        <>
+            <p>This assignment has unpublished scores</p>
+            <PublishScores ux={ux} />
+        </>
     );
 });
 
 const GradeableAnswers = observer(({ ux }) => {
     return (
-    <>
-      <p>This assignment is now open for grading</p>
-      <GradeAnswersButton ux={ux} />
-    </>
+        <>
+            <p>This assignment is now open for grading</p>
+            <GradeAnswersButton ux={ux} />
+        </>
     );
 });
 
 const RegradableAnswers = observer(({ ux }) => {
     return (
-    <>
-      <p>This assignment can be regraded.</p>
-      <GradeAnswersButton ux={ux} regrade={true} />
-    </>
+        <>
+            <p>This assignment can be regraded.</p>
+            <GradeAnswersButton ux={ux} regrade={true} />
+        </>
     );
 });
 
 const BlockWrapper = observer(({ header, children }) => {
     return (
-    <>
-      <Header>
-          <h6>{header}</h6>
-      </Header>
-      <Body>
-          {children}
-      </Body>
-    </>
+        <>
+            <Header>
+                <h6>{header}</h6>
+            </Header>
+            <Body>
+                {children}
+            </Body>
+        </>
     );
 });
 

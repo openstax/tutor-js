@@ -207,58 +207,58 @@ const StudentColumnHeader = observer(({ ux }) => (
 const StudentCell = observer(({ ux, student, striped }) => {
     const countData = ux.getReadingCountData(student);
     return (
-    <>
-      <Cell striped={striped}>
-          <CellContents>
+        <>
+            <Cell striped={striped}>
+                <CellContents>
 
-              <NameWrapper first>
-                  <TutorLink
-                      to="viewTask"
-                      params={{
-                          courseId: ux.course.id,
-                          id: student.task_id,
-                      }}
-                  >
-                      {ux.reverseNameOrder ? student.reversedName : student.name}
-                  </TutorLink>
-              </NameWrapper>
+                    <NameWrapper first>
+                        <TutorLink
+                            to="viewTask"
+                            params={{
+                                courseId: ux.course.id,
+                                id: student.task_id,
+                            }}
+                        >
+                            {ux.reverseNameOrder ? student.reversedName : student.name}
+                        </TutorLink>
+                    </NameWrapper>
 
-              <StyledTotal
-                  isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
-              >
-                  {/** BE does not returns total_fraction and total_points if student did not start the assingment and it is before due date; otherwise it returns 0 after the due date */}
-                  {ux.displayTotalInPercent
-                      ?`${ScoresHelper.asPercent(student.total_fraction || 0)}%`
-                      : isUndefined(student.total_points)
-                          ? UNWORKED
-                          : ScoresHelper.formatPoints(student.total_points)
-                  }
-              </StyledTotal>
-              <LateWork>
-                  {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
-                  {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
-              </LateWork>
-          </CellContents>
-      </Cell>
-      <StyledCompleteInfoCell
-          striped={striped}
-          isComplete={ux.didStudentComplete(student)}
-      >
-          <CellContents>
-              {countData.complete} of {countData.total}
-          </CellContents>
-      </StyledCompleteInfoCell>
-      <Cell striped={striped}>
-          <CellContents>
-              {countData.correct} of {countData.complete}
-          </CellContents>
-      </Cell>
-      <Cell striped={striped}>
-          <CellContents>
-              {countData.incorrect} of {countData.complete}
-          </CellContents>
-      </Cell>
-    </>
+                    <StyledTotal
+                        isAboveFiftyPercentage={ux.isStudentAboveFiftyPercentage(student)}
+                    >
+                        {/** BE does not returns total_fraction and total_points if student did not start the assingment and it is before due date; otherwise it returns 0 after the due date */}
+                        {ux.displayTotalInPercent
+                            ?`${ScoresHelper.asPercent(student.total_fraction || 0)}%`
+                            : isUndefined(student.total_points)
+                                ? UNWORKED
+                                : ScoresHelper.formatPoints(student.total_points)
+                        }
+                    </StyledTotal>
+                    <LateWork>
+                        {student.late_work_point_penalty ? ScoresHelper.formatLatePenalty(student.late_work_point_penalty) : '0'}
+                        {ux.wasGrantedExtension(student.role_id) && <ExtensionIcon extension={student.extension} timezone={ux.course.timezone} />}
+                    </LateWork>
+                </CellContents>
+            </Cell>
+            <StyledCompleteInfoCell
+                striped={striped}
+                isComplete={ux.didStudentComplete(student)}
+            >
+                <CellContents>
+                    {countData.complete} of {countData.total}
+                </CellContents>
+            </StyledCompleteInfoCell>
+            <Cell striped={striped}>
+                <CellContents>
+                    {countData.correct} of {countData.complete}
+                </CellContents>
+            </Cell>
+            <Cell striped={striped}>
+                <CellContents>
+                    {countData.incorrect} of {countData.complete}
+                </CellContents>
+            </Cell>
+        </>
     );
 });
 
@@ -319,46 +319,46 @@ const ReadingScores = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <TableHeader ux={ux} />
-      <ReadingStickyTable data-test-id="scores" borderWidth={'0px'}>
-          <Row>
-              <StudentColumnHeader scores={scores} ux={ux} />
-              {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
-          </Row>
-          {ux.sortedStudents.map((student,sIndex) => (
-              <Row key={sIndex}>
-                  <StudentCell
-                      ux={ux}
-                      student={student}
-                      striped={0 === sIndex % 2}
-                  />
-              </Row>))}
-          <Row>
-              <AverageScoreHeader ux={ux} />
-              <Cell borderTop />
-              <Cell borderTop />
-              <Cell borderTop />
-          </Row>
-      </ReadingStickyTable>
-      <Legend>
-          <div>
-              <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
-          </div>
-          <div>
-              <div className="needs-attention-legend-box"></div><span>Score less than 50% of total available points</span>
-          </div>
-          <div className="extension-legend">
-              <ExtIcon></ExtIcon><span>Extension granted</span>
-          </div>
-          <div>
-              <span>
+        <>
+            <TableHeader ux={ux} />
+            <ReadingStickyTable data-test-id="scores" borderWidth={'0px'}>
+                <Row>
+                    <StudentColumnHeader scores={scores} ux={ux} />
+                    {['Completed', 'Correct', 'Incorrect'].map((h, hi) => <AssignmentHeading headingName={h} key={hi} />)}
+                </Row>
+                {ux.sortedStudents.map((student,sIndex) => (
+                    <Row key={sIndex}>
+                        <StudentCell
+                            ux={ux}
+                            student={student}
+                            striped={0 === sIndex % 2}
+                        />
+                    </Row>))}
+                <Row>
+                    <AverageScoreHeader ux={ux} />
+                    <Cell borderTop />
+                    <Cell borderTop />
+                    <Cell borderTop />
+                </Row>
+            </ReadingStickyTable>
+            <Legend>
+                <div>
+                    <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
+                </div>
+                <div>
+                    <div className="needs-attention-legend-box"></div><span>Score less than 50% of total available points</span>
+                </div>
+                <div className="extension-legend">
+                    <ExtIcon></ExtIcon><span>Extension granted</span>
+                </div>
+                <div>
+                    <span>
           The late penalty is applied only to the points earned after the due date. {' '}
-                  <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
-              </span>
-          </div>
-      </Legend>
-    </>
+                        <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
+                    </span>
+                </div>
+            </Legend>
+        </>
     );
 });
 

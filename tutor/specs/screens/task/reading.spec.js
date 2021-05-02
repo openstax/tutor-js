@@ -1,14 +1,20 @@
 import UX from '../../../src/screens/task/ux';
 import Reading from '../../../src/screens/task/reading';
-import { TestRouter, Factory, FakeWindow, ld, TimeMock, C } from '../../helpers';
+import { TestRouter, Factory, FakeWindow, ld, TimeMock, C, ApiMock } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
     let props, history;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
+    ApiMock.intercept({
+        'steps': Factory.data('StudentTaskReadingStepContent'),
+        'courses/\\d+/practice_questions': [],
+    })
+
     beforeEach(() => {
-        const task = Factory.studentTask({ type: 'reading' });
-        task.tasksMap = { course: Factory.course() }
+        const course = Factory.course()
+        const task = Factory.studentTask({ type: 'reading' }, course);
+
         history = new TestRouter({
             push: (url) => {
                 props.ux.goToStepId(ld.last(url.split('/')), false);
@@ -39,7 +45,6 @@ describe('Reading Tasks Screen', () => {
 
     it('renders content', () => {
         const r = mount(<C><Reading {...props} /></C>);
-
         r.unmount();
     });
 
@@ -52,7 +57,7 @@ describe('Reading Tasks Screen', () => {
         r.unmount();
     });
 
-    it('pages through steps', () => {
+    fit('pages through steps', () => {
         const pr = mount(<C><Reading {...props} /></C>);
         expect(pr).toHaveRendered('a.paging-control.prev')
         expect(pr).toHaveRendered('a.paging-control.next');

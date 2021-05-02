@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import CoursePeriodsNav from '../../components/course-periods-nav';
-import Course from '../../models/course';
+import { Course } from '../../models';
 import { keys, pick } from 'lodash';
 
 const COURSE_PERIODS_NAV_PROPS = keys(CoursePeriodsNav.propTypes);

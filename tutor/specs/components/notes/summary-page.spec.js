@@ -1,20 +1,22 @@
 import SummaryPage from '../../../src/components/notes/summary-page';
-import { Router, Factory } from '../../helpers';
+import { Router, Factory, ApiMock } from '../../helpers';
 
 describe('Notes Summary Page', () => {
     let pages;
     let props;
 
+    ApiMock.intercept({
+        'highlighted_sections': () => ({
+            pages: [ pages[0] ],
+        }),
+    })
+
     beforeEach(() => {
         const course = Factory.course();
-        const note = Factory.note();
         pages = [Factory.page()];
-        course.notes.ensurePageExists(pages[0]).onLoaded({ data: [note] });
-        course.notes.onHighlightedPagesLoaded({
-            data: {
-                pages,
-            },
-        });
+        const note = Factory.note({}, { notes: { course } });
+        course.notes.ensurePageExists(pages[0]).onLoaded([note]);
+        course.notes.onHighlightedPagesLoaded(pages);
         props = {
             page: pages[0],
             notes: course.notes,

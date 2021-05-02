@@ -80,18 +80,18 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
           >
             <span
               className="c2 chapter-section"
-              data-chapter-section="5.4"
+              data-chapter-section="1.4"
             >
-              5.4
+              1.4
             </span>
             <span
               dangerouslySetInnerHTML={
                 Object {
-                  "__html": "modular",
+                  "__html": "even-keeled",
                 }
               }
               data-test-id="book-title"
-              data-title="modular"
+              data-title="even-keeled"
             />
           </div>
           <div

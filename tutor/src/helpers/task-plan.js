@@ -1,6 +1,6 @@
 import { get, first, map } from 'lodash';
 import moment from 'moment';
-import Time from '../models/time';
+import Time from 'shared/model/time';
 
 export default {
 

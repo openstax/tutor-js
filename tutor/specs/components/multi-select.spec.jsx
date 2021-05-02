@@ -27,7 +27,6 @@ describe('MultiSelect component', () => {
 
     it('fires callback when selected', async function() {
         const wrapper = mount(<MultiSelect {...props} />);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
         wrapper.find('button.dropdown-toggle').simulate('click');
         //    console.log(wrapper.update().debug());
         expect(wrapper).toHaveRendered('div.multi-select.dropdown.show');

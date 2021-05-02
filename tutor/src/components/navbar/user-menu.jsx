@@ -1,8 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-
-import User from '../../models/user';
+import { currentUser } from '../../models';
 import AccountLink from './account-link';
 import LogOut from './logout';
 import Responsive from '../../components/responsive';
@@ -13,12 +12,12 @@ class UserMenu extends React.Component {
 
     renderItems() {
         return (
-      <>
-        <Dropdown.Divider />
-        <AccountLink />
-        <Dropdown.Divider />
-        <LogOut />
-      </>
+            <>
+                <Dropdown.Divider />
+                <AccountLink />
+                <Dropdown.Divider />
+                <LogOut />
+            </>
         );
     }
 
@@ -32,7 +31,7 @@ class UserMenu extends React.Component {
                     variant="link"
                     aria-label="Account settings"
                 >
-                    <span className="initials">{User.initials}</span>
+                    <span className="initials">{currentUser.initials}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu alignRight>
                     {this.renderItems()}

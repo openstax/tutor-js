@@ -8,6 +8,10 @@
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "college_biology",
+      "is_preview_available": true,
+      "is_available": true,
+      "default_course_name": "Biology",
+      "does_cost": false,
       "active_term_years": [
         {
           "term": "fall",
@@ -34,6 +38,10 @@
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "college_physics",
+      "is_preview_available": true,
+      "is_available": true,
+      "default_course_name": "Physics",
+      "does_cost": false,
       "active_term_years": [
         {
           "term": "fall",
@@ -59,7 +67,11 @@
       "description": "Introduction to Sociology 2e with Courseware",
       "is_concept_coach": false,
       "is_tutor": true,
-      "appearance_code": "intro_sociology",
+       "appearance_code": "intro_sociology",
+      "is_preview_available": true,
+      "is_available": true,
+      "default_course_name": "Sociology 2e",
+      "does_cost": false,
       "active_term_years": [
         {
           "term": "fall",
@@ -86,32 +98,10 @@
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "ap_biology",
-      "active_term_years": [
-        {
-          "term": "fall",
-          "year": 2016
-        },
-        {
-          "term": "spring",
-          "year": 2017
-        },
-        {
-          "term": "summer",
-          "year": 2017
-        },
-        {
-          "term": "fall",
-          "year": 2017
-        }
-      ]
-    },
-    {
-      "id": "5",
-      "title": "HS Physics",
-      "description": "High School Physics",
-      "is_concept_coach": true,
-      "is_tutor": true,
-      "appearance_code": "hs_physics",
+      "is_preview_available": true,
+      "is_available": true,
+      "default_course_name": "Biology",
+      "does_cost": false,
       "active_term_years": [
         {
           "term": "fall",

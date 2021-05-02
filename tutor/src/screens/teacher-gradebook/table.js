@@ -346,7 +346,7 @@ const AssignmentHeading = observer(({ ux, heading }) => {
                     </HeadingTop>
                 </OverlayTrigger>
                 <HeadingMiddle>
-                    {ux.course.momentInZone(heading.due_at).format('MMM D')}
+                    {ux.course.dateTimeInZone(heading.due_at).toFormat('MMM d')}
                 </HeadingMiddle>
                 <HeadingBottom>
                     {ux.hasProvisionalScores(heading.columnIndex) &&
@@ -480,32 +480,32 @@ const AggregateData = observer(({ ux }) => {
 
 const GradebookTable = observer(({ ux }) => {
     return (
-    <>
-      <StyledStickyTable leftStickyColumnCount={1} borderWidth={'0px'}>
-          <Row>
-              <StudentColumnHeader ux={ux} />
-              {ux.headings.map((h, i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
-          </Row>
-          {ux.students.map((student, sIndex) => (
-              <Row key={sIndex}>
-                  <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
-                  {/* Correlation on student data and assignment header happens in the BE */}
-                  {ux.hasAnyAssignmentHeadings && ux.studentTasks(student).map((task, taskIndex) =>
-                      <TaskResultCell
-                          key={taskIndex}
-                          ux={ux}
-                          task={task}
-                          striped={sIndex % 2 === 0}
-                          isLast={sIndex === ux.students.length - 1}
-                      />)}
-              </Row>))}
-          <AggregateData ux={ux} />
-      </StyledStickyTable>
-      {!ux.hasAnyAssignmentHeadings && <NoAssignmentsDueMessage courseId={ux.course.id} />}
-      {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
-      <AverageInfoModal ux={ux} />
-      <SetWeightsModal ux={ux} />
-    </>
+        <>
+            <StyledStickyTable leftStickyColumnCount={1} borderWidth={'0px'}>
+                <Row>
+                    <StudentColumnHeader ux={ux} />
+                    {ux.headings.map((h, i) => <AssignmentHeading key={i} ux={ux} heading={h} />)}
+                </Row>
+                {ux.students.map((student, sIndex) => (
+                    <Row key={sIndex}>
+                        <StudentCell ux={ux} student={student} striped={sIndex % 2 === 0} isLast={sIndex === ux.students.length - 1} />
+                        {/* Correlation on student data and assignment header happens in the BE */}
+                        {ux.hasAnyAssignmentHeadings && ux.studentTasks(student).map((task, taskIndex) =>
+                            <TaskResultCell
+                                key={taskIndex}
+                                ux={ux}
+                                task={task}
+                                striped={sIndex % 2 === 0}
+                                isLast={sIndex === ux.students.length - 1}
+                            />)}
+                    </Row>))}
+                <AggregateData ux={ux} />
+            </StyledStickyTable>
+            {!ux.hasAnyAssignmentHeadings && <NoAssignmentsDueMessage courseId={ux.course.id} />}
+            {ux.hasDroppedStudents && <DroppedNote>* Dropped students’ scores are not included in the overall course averages</DroppedNote>}
+            <AverageInfoModal ux={ux} />
+            <SetWeightsModal ux={ux} />
+        </>
     );
 });
 GradebookTable.propTypes = {

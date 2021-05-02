@@ -1,4 +1,4 @@
-import { React } from '../../helpers';
+import { React, runInAction } from '../../helpers';
 import ExercisePreviewWrapper from '../../../src/components/exercises/preview';
 import Factory from '../../factories';
 
@@ -27,7 +27,7 @@ describe('Exercise Preview Wrapper Component', function() {
 
     it('re-renders when model is updated', () => {
         const preview = mount(<ExercisePreviewWrapper {...props} />);
-        exercise.content.questions[0].stem_html = 'THIS IS UPDATE!';
+        runInAction(() => exercise.content.questions[0].stem_html = 'THIS IS UPDATE!');
         expect(preview.text()).toContain('THIS IS UPDATE!');
     });
 

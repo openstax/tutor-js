@@ -1,6 +1,4 @@
-import Time from '../models/time';
-import user from '../models/user';
-import UserMenu from '../models/user/menu';
+import { UserMenu, Time, currentUser } from '../models';
 import { isNil, isObject } from 'lodash';
 
 const makeContactMessage = function(
@@ -20,9 +18,9 @@ const makeContactMessage = function(
             isObject(data) ? JSON.stringify(data, null, 2) : data}`;
     }
 
-    if (user) {
+    if (currentUser) {
         msg += `\n\nUser info:\n  UUID: ${
-            user.account_uuid}\n  Self-reported role: ${user.self_reported_role}`;
+            currentUser.account_uuid}\n  Self-reported role: ${currentUser.self_reported_role}`;
     }
 
     msg += `\n\nTime: ${Time.now}`;

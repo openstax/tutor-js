@@ -1,32 +1,30 @@
 import Toasts from 'shared/components/toasts';
-import { Toast } from '../../../src/models/toasts';
-import { createCollection } from 'mobx-decorated-models';
+import '../../../src/components/toasts'
+import { currentToasts } from '../../../src/models';
+import { action, runInAction } from '../../helpers';
 
 jest.useFakeTimers();
 
 describe('Background job toasts', () => {
-    let toast;
-    let toastsStore;
-
-    beforeEach(() => {
-        toastsStore = createCollection({ model: Toast });
-        toast = mount(<Toasts toasts={toastsStore} />);
-    });
 
     it('renders empty and matches snapshot', () => {
         expect.snapshot(<Toasts />).toMatchSnapshot();
     });
 
     describe('scores', () => {
+        let toast;
 
-        beforeEach(() => {
-            toastsStore.push({
+        beforeEach(action(() => {
+            toast = mount(<Toasts toasts={currentToasts} />);
+            currentToasts.clear()
+            currentToasts.add({
                 handler: 'job',
                 type: 'scores',
                 status: 'ok',
                 info: { url: 'test.test.com' },
-            });
-        });
+            })
+        }));
+
 
         it('renders success', () => {
             expect(toast).toHaveRendered('Success');
@@ -36,7 +34,9 @@ describe('Background job toasts', () => {
         });
 
         it('renders failure', () => {
-            toast.instance().currentToast.status = 'failed';
+            runInAction(() => {
+                toast.instance().currentToast.status = 'failed';
+            })
             toast.update();
             expect(toast).toHaveRendered('Failure');
             expect.snapshot(<Toasts />).toMatchSnapshot();
@@ -45,7 +45,9 @@ describe('Background job toasts', () => {
         });
 
         it('renders failure modal', () => {
-            toast.instance().currentToast.status = 'failed';
+            runInAction(() => {
+                toast.instance().currentToast.status = 'failed';
+            })
             toast.update();
             toast.find('button.details').simulate('click');
             expect(toast).toHaveRendered('WarningModal');
@@ -55,9 +57,12 @@ describe('Background job toasts', () => {
     });
 
     describe('lms', () => {
+        let toast;
 
-        beforeEach(() => {
-            toastsStore.push({
+        beforeEach(action(() => {
+            toast = mount(<Toasts toasts={currentToasts} />);
+            currentToasts.clear()
+            currentToasts.add({
                 status: 'ok',
                 handler: 'job',
                 type: 'lms',
@@ -67,7 +72,7 @@ describe('Background job toasts', () => {
                     },
                 },
             });
-        });
+        }));
 
         it('renders success', () => {
             expect(toast).toHaveRendered('Success');
@@ -77,7 +82,9 @@ describe('Background job toasts', () => {
         });
 
         it('renders failure', () => {
-            toast.instance().currentToast.status = 'failed';
+            runInAction(() => {
+                toast.instance().currentToast.status = 'failed';
+            })
             toast.update();
             expect(toast).toHaveRendered('Failure');
             expect.snapshot(<Toasts />).toMatchSnapshot();
@@ -86,7 +93,9 @@ describe('Background job toasts', () => {
         });
 
         it('renders failure modal', () => {
-            toast.instance().currentToast.status = 'failed';
+            runInAction(() => {
+                toast.instance().currentToast.status = 'failed';
+            })
             toast.update();
             toast.find('button.details').simulate('click');
             expect(toast).toHaveRendered('WarningModal');
@@ -95,8 +104,10 @@ describe('Background job toasts', () => {
 
         it('renders no scores failure modal', () => {
             const t = toast.instance().currentToast;
-            t.info.data.num_callbacks = 0;
-            t.status = 'failed';
+            runInAction(() => {
+                t.info.data.num_callbacks = 0;
+                t.status = 'failed';
+            })
             toast.update();
             toast.find('button.details').simulate('click');
             expect(toast).toHaveRendered('WarningModal');

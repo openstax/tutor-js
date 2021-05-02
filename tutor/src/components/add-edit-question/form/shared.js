@@ -121,22 +121,22 @@ export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
     </StyledPopover>;
 
     return (
-    <>
-      <StyledQuestionInfoIcon
-          type="question-circle"
-          className="question-info-icon"
-          onClick={handleClick}
-      />
-      <Overlay
-          rootClose
-          show={show}
-          target={target}
-          placement={placement}
-          onHide={() => setShow(false)}
-      >
-          {popover}
-      </Overlay>
-    </>
+        <>
+            <StyledQuestionInfoIcon
+                type="question-circle"
+                className="question-info-icon"
+                onClick={handleClick}
+            />
+            <Overlay
+                rootClose
+                show={show}
+                target={target}
+                placement={placement}
+                onHide={() => setShow(false)}
+            >
+                {popover}
+            </Overlay>
+        </>
   
     );
 };

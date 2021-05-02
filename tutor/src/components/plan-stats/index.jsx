@@ -1,11 +1,9 @@
-import { React, PropTypes, styled, observer, observable, computed, action } from 'vendor';
+import { React, PropTypes, styled, observer, observable, computed, action, modelize } from 'vendor';
 import { isEmpty, find } from 'lodash';
-import { SmartOverflow } from 'shared';
-import Course from '../../models/course';
+import { TeacherTaskPlan, Course } from '../../models';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
 import { ChaptersPerformance, PracticesPerformance } from './performances';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import LoadingScreen from 'shared/components/loading-animation';
 import NoStudents from './no-students';
 import RadioInput from  '../radio-input';
@@ -27,132 +25,125 @@ const StatsWrapper = styled.div`
 @observer
 export default
 class Stats extends React.Component {
+    static propTypes = {
+        plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+        course: PropTypes.instanceOf(Course).isRequired,
+        activeSection: PropTypes.string,
+        initialActivePeriodIndex: PropTypes.number,
+        handlePeriodSelect: PropTypes.func,
+    };
 
-  static propTypes = {
-      plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-      course: PropTypes.instanceOf(Course).isRequired,
-      activeSection: PropTypes.string,
-      initialActivePeriodIndex: PropTypes.number,
-      handlePeriodSelect: PropTypes.func,
-      shouldOverflowData: PropTypes.bool,
-  };
+    static defaultProps = {
+        initialActivePeriodIndex: 0,
+    };
 
-  static defaultProps = {
-      initialActivePeriodIndex: 0,
-      shouldOverflowData: false,
-  };
+    @observable currentPeriodIndex = 0;
 
-  @observable currentPeriodIndex = 0;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @computed get course() {
-      return this.props.course;
-  }
+    @computed get course() {
+        return this.props.course;
+    }
 
-  @computed get analytics() {
-      return this.props.plan.analytics;
-  }
+    @computed get analytics() {
+        return this.props.plan.analytics;
+    }
 
-  @computed get period() {
-      return this.periods[this.currentPeriodIndex];
-  }
+    @computed get period() {
+        return this.periods[this.currentPeriodIndex];
+    }
 
-  @computed get periods() {
-      return this.props.plan.activeAssignedPeriods;
-  }
+    @computed get periods() {
+        return this.props.plan.activeAssignedPeriods;
+    }
 
-  @computed get stats() {
-      return find(this.analytics.stats, { period_id: this.period.id }) || {};
-  }
+    @computed get stats() {
+        return find(this.analytics.stats, { period_id: this.period.id }) || {};
+    }
 
-  UNSAFE_componentWillMount() {
-      if (!this.analytics.api.hasBeenFetched) {
-          this.analytics.fetch();
-      }
-  }
+    UNSAFE_componentWillMount() {
+        if (!this.analytics.api.hasBeenFetched) {
+            this.analytics.fetch();
+        }
+    }
 
-  @action.bound handlePeriodSelect(period, index) {
-      const { handlePeriodSelect } = this.props;
-      this.currentPeriodIndex = index;
-      if (handlePeriodSelect) { handlePeriodSelect(period); }
-  }
+    @action.bound handlePeriodSelect(period, index) {
+        const { handlePeriodSelect } = this.props;
+        this.currentPeriodIndex = index;
+        if (handlePeriodSelect) { handlePeriodSelect(period); }
+    }
 
-  renderWithTabs(body) {
-      return (
-      <>
-        <CoursePeriodsNav
-            handleSelect={this.handlePeriodSelect}
-            periods={this.course.periods}
-            course={this.course}
-        />
-        {body}
-      </>
-      );
-  }
-
-  renderCurrentPages() {
-      if (isEmpty(this.stats.current_pages)) { return null; }
-      return (
-          <ChaptersPerformance
-              currentPages={this.stats.current_pages}
-              activeSection={this.props.activeSection} />
-      );
-  }
-
-  renderSpacedPages() {
-      if (isEmpty(this.stats.spaced_pages)) { return null; }
-      return (
-          <PracticesPerformance
-              spacedPages={this.stats.spaced_pages}
-              activeSection={this.props.activeSection} />
-      );
-  }
-
-  render() {
-      let courseBar, dataComponent;
-      const { course, stats, props: { shouldOverflowData } } = this;
-
-      if (!this.analytics.api.hasBeenFetched) {
-          return <LoadingScreen />;
-      }
-
-      courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
-
-      if (shouldOverflowData) {
-          dataComponent = <SmartOverflow className="task-stats-data" heightBuffer={24}>
-              <section>
-                  {courseBar}
-              </section>
-              {this.renderCurrentPages()}
-              {this.renderSpacedPages()}
-          </SmartOverflow>;
-      } else {
-          dataComponent = <StatsWrapper>
-              <h6>Class progress</h6>
-              <section>
-                  {courseBar}
-              </section>
-          </StatsWrapper>;
-      }
-
-      return (
-      <>
-        <h6>Select section</h6>
-        {this.periods.map((p, i) =>
-            <SectionWrapper key={`period-${p.id}`}>
-                <RadioInput
-                    id={`period-${p.id}`}
-                    name={`period-${p.id}`}
-                    standalone={true}
-                    onChange={() => this.handlePeriodSelect(p, i)}
-                    checked={this.period.id === p.id}
-                    label={p.name}
-                    labelSize="lg"
+    renderWithTabs(body) {
+        return (
+            <>
+                <CoursePeriodsNav
+                    handleSelect={this.handlePeriodSelect}
+                    periods={this.course.periods}
+                    course={this.course}
                 />
-            </SectionWrapper>
-        )}
-        {!this.period.hasEnrollments && <NoStudents courseId={course.id} />}
-        {this.period.hasEnrollments && dataComponent}
-      </>
-      );
-  }
+                {body}
+            </>
+        );
+    }
+
+    renderCurrentPages() {
+        if (isEmpty(this.stats.current_pages)) { return null; }
+        return (
+            <ChaptersPerformance
+                currentPages={this.stats.current_pages}
+                activeSection={this.props.activeSection} />
+        );
+    }
+
+    renderSpacedPages() {
+        if (isEmpty(this.stats.spaced_pages)) { return null; }
+        return (
+            <PracticesPerformance
+                spacedPages={this.stats.spaced_pages}
+                activeSection={this.props.activeSection} />
+        );
+    }
+
+    render() {
+        let courseBar, dataComponent;
+        const { course, stats } = this;
+
+        if (!this.analytics.api.hasBeenFetched) {
+            return <LoadingScreen />;
+        }
+
+        courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
+        dataComponent = (
+            <StatsWrapper>
+                <h6>Class progress</h6>
+                <section>
+                    {courseBar}
+                </section>
+            </StatsWrapper>
+        );
+
+        return (
+            <>
+                <h6>Select section</h6>
+                {this.periods.map((p, i) =>
+                    <SectionWrapper key={`period-${p.id}`}>
+                        <RadioInput
+                            id={`period-${p.id}`}
+                            name={`period-${p.id}`}
+                            standalone={true}
+                            onChange={() => this.handlePeriodSelect(p, i)}
+                            checked={this.period.id === p.id}
+                            label={p.name}
+                            labelSize="lg"
+                        />
+                    </SectionWrapper>
+                )}
+                {!this.period.hasEnrollments && <NoStudents courseId={course.id} />}
+                {this.period.hasEnrollments && dataComponent}
+            </>
+        );
+    }
 }

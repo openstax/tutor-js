@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, modelize } from 'shared/model'
 import { isEmpty } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
-import Period from '../../models/course/period';
+import { CoursePeriod } from '../../models';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 
 const EMPTY_WARNING = 'EMPTY';
@@ -23,20 +23,20 @@ const DeletePeriodModal = ({ onClose, period, isBusy, onDelete }) => {
             className="settings-delete-period-modal">
             <Modal.Header closeButton={true}>
                 <Modal.Title>
-          Delete {period.name}
+                    Delete {period.name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>
-          If you delete
-          this <CourseGroupingLabel courseId={period.course.id} /> you
-          will no longer have access to work
-          done in that <CourseGroupingLabel courseId={period.course.id} /> and
-          those students will be removed from the course.
+                    If you delete
+                    this <CourseGroupingLabel courseId={period.course.id} /> you
+                    will no longer have access to work
+                    done in that <CourseGroupingLabel courseId={period.course.id} /> and
+                    those students will be removed from the course.
                 </p>
                 <p>
-          Are you sure you want to delete
-          this <CourseGroupingLabel courseId={period.course.id} />?
+                    Are you sure you want to delete
+                    this <CourseGroupingLabel courseId={period.course.id} />?
                 </p>
             </Modal.Body>
             <Modal.Footer>
@@ -46,10 +46,10 @@ const DeletePeriodModal = ({ onClose, period, isBusy, onDelete }) => {
                     onClick={onDelete}
                     waitingText="Deleting…"
                     isWaiting={isBusy}>
-          Delete
+                    Delete
                 </AsyncButton>
                 <Button disabled={isBusy} onClick={onClose} variant="default">
-          Cancel
+                    Cancel
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -57,54 +57,58 @@ const DeletePeriodModal = ({ onClose, period, isBusy, onDelete }) => {
 };
 
 DeletePeriodModal.propTypes = {
-    period: PropTypes.instanceOf(Period),
+    period: PropTypes.instanceOf(CoursePeriod),
 };
 
 @observer
 export default
 class DeletePeriodLink extends React.Component {
+    static propTypes = {
+        period: PropTypes.instanceOf(CoursePeriod).isRequired,
+        onDelete: PropTypes.func.isRequired,
+    }
 
-  static propTypes = {
-      period: PropTypes.instanceOf(Period).isRequired,
-      onDelete: PropTypes.func.isRequired,
-  }
+    @observable showModalForPeriod;
 
-  @observable showModalForPeriod;
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound close() {
-      this.showModalForPeriod = null;
-  }
+    @action.bound close() {
+        this.showModalForPeriod = null;
+    }
 
-  @action.bound open() {
-      this.showModalForPeriod = this.props.period;
-  }
+    @action.bound open() {
+        this.showModalForPeriod = this.props.period;
+    }
 
-  @action.bound performDelete() {
-      this.props.onDelete();
-      this.props.period.archive().then(this.close);
-  }
+    @action.bound performDelete() {
+        this.props.onDelete();
+        this.props.period.archive().then(this.close);
+    }
 
-  render() {
-      const { period } = this.props;
-      const students = period.course.roster.students.activeByPeriod[period.id];
-      if (!isEmpty(students)) { return null; }
+    render() {
+        const { period } = this.props;
+        const students = period.course.roster.students.activeByPeriod[period.id];
+        if (!isEmpty(students)) { return null; }
 
-      return (
-          <React.Fragment>
-              <Button
-                  onClick={this.open}
-                  variant="link"
-                  className="control delete-period"
-              >
-                  <Icon type="trash" />Delete <CourseGroupingLabel courseId={period.course.id} />
-              </Button>
-              <DeletePeriodModal
-                  onClose={this.close}
-                  isBusy={this.showModalForPeriod && this.showModalForPeriod.api.isPending}
-                  onDelete={this.performDelete}
-                  period={this.showModalForPeriod}
-              />
-          </React.Fragment>
-      );
-  }
+        return (
+            <React.Fragment>
+                <Button
+                    onClick={this.open}
+                    variant="link"
+                    className="control delete-period"
+                >
+                    <Icon type="trash" />Delete <CourseGroupingLabel courseId={period.course.id} />
+                </Button>
+                <DeletePeriodModal
+                    onClose={this.close}
+                    isBusy={this.showModalForPeriod && this.showModalForPeriod.api.isPending}
+                    onDelete={this.performDelete}
+                    period={this.showModalForPeriod}
+                />
+            </React.Fragment>
+        );
+    }
 }

@@ -198,29 +198,29 @@ const ExternalScores = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <ControlsWrapper>
-          <SearchInput onChange={ux.onSearchStudentChange} />
-      </ControlsWrapper>
-      <StyledStickyTable data-test-id="scores">
-          <Row>
-              <StudentColumnHeader scores={scores} ux={ux} />
-              {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
-          </Row>
-          {ux.sortedStudents.map((student,sIndex) => (
-              <Row key={sIndex}>
-                  <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
-                  {scores.question_headings.map((heading, i) => (
-                      <TaskResult
-                          key={i}
-                          ux={ux}
-                          result={student.resultForHeading(heading)}
-                          striped={0 === sIndex % 2}
-                      />
-                  ))}
-              </Row>))}
-      </StyledStickyTable>
-    </>
+        <>
+            <ControlsWrapper>
+                <SearchInput onChange={ux.onSearchStudentChange} />
+            </ControlsWrapper>
+            <StyledStickyTable data-test-id="scores">
+                <Row>
+                    <StudentColumnHeader scores={scores} ux={ux} />
+                    {scores.question_headings.map((h, i) => <AssignmentHeading ux={ux} key={i} heading={h} />)}
+                </Row>
+                {ux.sortedStudents.map((student,sIndex) => (
+                    <Row key={sIndex}>
+                        <StudentCell ux={ux} student={student} striped={0 === sIndex % 2} />
+                        {scores.question_headings.map((heading, i) => (
+                            <TaskResult
+                                key={i}
+                                ux={ux}
+                                result={student.resultForHeading(heading)}
+                                striped={0 === sIndex % 2}
+                            />
+                        ))}
+                    </Row>))}
+            </StyledStickyTable>
+        </>
     );
 });
 ExternalScores.title = 'Assignment Scores';

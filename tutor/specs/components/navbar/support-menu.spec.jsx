@@ -1,22 +1,28 @@
 import { C, Factory } from '../../helpers';
 import SupportMenu from '../../../src/components/navbar/support-menu';
-import TourRegion from '../../../src/models/tour/region';
-import TourContext from '../../../src/models/tour/context';
-import Chat from '../../../src/models/chat';
+import { TourRegion, TourContext } from '../../../src/models';
+import { Chat } from '../../../src/helpers/chat';
+import { hydrateModel, runInAction } from '../../helpers';
 
-jest.mock('../../../src/models/chat');
+jest.mock('../../../src/helpers/chat');
+// jest.mock('../../../src/models/tour/region');
 jest.mock('../../../src/models/user', () => ({
-    tourAudienceTags: ['teacher'],
+    currentUser: {
+        tourAudienceTags: ['teacher'],
+    },
 }));
 
 describe('Support Menu', () => {
     let tourContext;
     let region;
     let props;
+
     beforeEach(() => {
-        Chat.isEnabled = false;
-        tourContext = new TourContext({ isEnabled: true });
-        region = new TourRegion({ id: 'teacher-calendar', courseId: '2' });
+        runInAction(() => {
+            Chat.isEnabled = false;
+            tourContext = hydrateModel(TourContext, { isEnabled: true });
+        });
+        region = hydrateModel(TourRegion, { id: 'teacher-calendar', courseId: '2' });
         props = {
             tourContext,
             course: Factory.course(),
@@ -26,8 +32,8 @@ describe('Support Menu', () => {
     it('only renders page tips option if available', () => {
         const menu = mount(<C withTours={tourContext}><SupportMenu  {...props} /></C>);
         expect(menu).not.toHaveRendered('.page-tips');
-        region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
-        tourContext.openRegion(region);
+        region = hydrateModel(TourRegion, { id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
+        runInAction(() => tourContext.openRegion(region));
         expect(tourContext.hasTriggeredTour).toBe(true);
         menu.find('button.dropdown-toggle').simulate('click');
         expect(menu).toHaveRendered('.page-tips');
@@ -35,7 +41,7 @@ describe('Support Menu', () => {
     });
 
     it('calls chat when clicked', () => {
-        Chat.isEnabled = true;
+        runInAction(() => Chat.isEnabled = true);
         const menu = mount(<C><SupportMenu {...props} /></C>);
         menu.find('button.dropdown-toggle').simulate('click');
         menu.find('.chat.enabled a').simulate('click');
@@ -44,7 +50,7 @@ describe('Support Menu', () => {
     });
 
     it('renders support links when in a course for teacher', () => {
-        props.course.appearance_code = 'college_biology';
+        runInAction(() => props.course.appearance_code = 'college_biology');
         const menu = mount(<C><SupportMenu {...props} /></C>);
         expect(menu).toHaveRendered('#menu-support-document');
         menu.unmount();

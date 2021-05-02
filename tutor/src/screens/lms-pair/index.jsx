@@ -6,17 +6,17 @@ import UX from './ux';
 @observer
 export default
 class LmsPairWrapper extends React.Component {
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+    }
 
-  render() {
-      const { ux, ux: { panel: Panel } } = this.props;
+    render() {
+        const { ux, ux: { panel: Panel } } = this.props;
 
-      return (
-          <div className="new-course-wizard">
-              <Panel {...ux.props} />
-          </div>
-      );
-  }
+        return (
+            <div className="new-course-wizard">
+                <Panel {...ux.props} />
+            </div>
+        );
+    }
 }

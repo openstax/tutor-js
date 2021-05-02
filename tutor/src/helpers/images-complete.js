@@ -1,5 +1,5 @@
 import { map, isFunction } from 'lodash';
-import Raven from '../models/app/raven';
+import { Raven } from '../models'
 
 export default function imagesComplete({
     body = document.body,

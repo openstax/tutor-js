@@ -6,8 +6,7 @@ import TutorRouter from '../../helpers/router';
 import TimeHelper from '../../helpers/time';
 import ServerErrorMessage from './server-error-message';
 import { reloadOnce } from '../../helpers/reload';
-import { AppStore, AppActions } from '../../flux/app';
-import UserMenu from '../../models/user/menu';
+import { UserMenu, currentErrors } from '../../models';
 
 const goToDashboard = function(context) {
     const { course } = context;
@@ -19,11 +18,12 @@ const goToDashboard = function(context) {
 
 const hideModal = () => {
     Dialog.hide();
-    AppActions.resetServerErrors();
+    currentErrors.clear()
 };
 
 const reloadOnceIfShouldReload = function() {
-    const navigation = AppStore.errorNavigation();
+    const { navigation } = currentErrors
+    currentErrors.clear()
     if (isEmpty(navigation)) { return; }
     if (navigation.shouldReload) {
         reloadOnce();
@@ -54,7 +54,6 @@ const cannotDeleteTemplate = (reason) => {
         ],
     };
 };
-
 
 const ERROR_HANDLERS = {
     // The course's starts_at is in the future
@@ -148,13 +147,13 @@ const ERROR_HANDLERS = {
             body: (
                 <div className="no-exercises">
                     <p className="lead">
-            There are no problems to show for this topic.
+                        There are no problems to show for this topic.
                     </p>
                 </div>
             ),
             buttons: [
                 <Button key="ok" onClick={navigateAction} variant="primary">
-          OK
+                    OK
                 </Button>,
             ],
             onOk: navigateAction,
@@ -187,7 +186,7 @@ const ERROR_HANDLERS = {
             body: (
                 <div className="template-del-failure">
                     <p className="lead">
-            Templated cannot be updated because this template is assigned to one or more assignments.
+                        Templated cannot be updated because this template is assigned to one or more assignments.
                     </p>
                 </div>
             ),
@@ -197,7 +196,7 @@ const ERROR_HANDLERS = {
                     onClick={hideModal}
                     variant="primary"
                 >
-          OK
+                    OK
                 </Button>,
             ],
         };
@@ -215,7 +214,7 @@ const ERROR_HANDLERS = {
             body: (
                 <div className="template-del-failure">
                     <p className="lead">
-            Assignment settings cannot be changed after the assignment is open.
+                        Assignment settings cannot be changed after the assignment is open.
                     </p>
                 </div>
             ),
@@ -225,7 +224,7 @@ const ERROR_HANDLERS = {
                     onClick={hideModal}
                     variant="primary"
                 >
-          OK
+                    OK
                 </Button>,
             ],
         };
@@ -243,7 +242,7 @@ const ERROR_HANDLERS = {
             body: <ServerErrorMessage {...error} />,
             buttons: [
                 <Button key="ok" onClick={function() { return Dialog.hide(); }} variant="primary">
-          OK
+                    OK
                 </Button>,
             ],
             onOk: reloadOnceIfShouldReload,
@@ -258,12 +257,8 @@ const ServerErrorHandlers = {
     forError(error, context) {
         const data = error.data;
         if (isObject(data)) {
-            const num_errors = data.errors != null ? data.errors.length : undefined;
-            if (num_errors === 1) {
-                const code = data.errors[0].code;
-                if (code in ERROR_HANDLERS) {
-                    return ERROR_HANDLERS[code](error, data, context);
-                }
+            if (data.code && ERROR_HANDLERS[data.code]) {
+                return ERROR_HANDLERS[data.code](error, data, context)
             }
         }
         return ERROR_HANDLERS.default(error, data, context);

@@ -1,5 +1,5 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import Task from '../../models/student-tasks/task';
+import { StudentTask } from '../../models';
 import Time from '../../components/time';
 
 const StyledTaskInfo = styled.div`
@@ -18,22 +18,22 @@ const DueDate = styled.div`
 
 @observer
 class TaskInfo extends React.Component {
-  static displayName = 'TaskInfo'
-  static propTypes = {
-      task: PropTypes.instanceOf(Task).isRequired,
-  }
+    static displayName = 'TaskInfo'
+    static propTypes = {
+        task: PropTypes.instanceOf(StudentTask).isRequired,
+    }
 
-  render() {
-      const { task } = this.props;
+    render() {
+        const { task } = this.props;
 
-      return (
-          <StyledTaskInfo>
-              <Title>{task.title}</Title>
-              {task.due_at &&
+        return (
+            <StyledTaskInfo>
+                <Title>{task.title}</Title>
+                {task.due_at &&
           <DueDate>Due {<Time date={task.due_at} format="concise" />}</DueDate>}
-          </StyledTaskInfo>
-      );
-  }
+            </StyledTaskInfo>
+        );
+    }
 
 }
 

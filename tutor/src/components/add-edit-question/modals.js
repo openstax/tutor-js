@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, useState, useEffect } from 'vendor';
+import { React, PropTypes, styled, observer, useState, useEffect, hydrateModel } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
 import { map, find, isEmpty } from 'lodash';
 import { colors } from 'theme';
@@ -71,7 +71,7 @@ const FeedbackTipModal = observer(({ ux }) => {
             backdrop="static"
         >
             <StyledHeader>
-        Tip: Add feedback!
+                Tip: Add feedback!
             </StyledHeader>
             <StyledBody>
                 <p>Add explanatory feedback for the answer choices. Students learn better when they recieve immediate and specific feedback.</p>
@@ -79,10 +79,10 @@ const FeedbackTipModal = observer(({ ux }) => {
                 <ControlsWrapper>
                     <Controls>
                         <Button variant="default" size="lg" onClick={() => ux.doPublish(ux.feedbackTipModal.shouldExitOnPublish)}>
-              Publish anyway
+                            Publish anyway
                         </Button>
                         <Button variant="primary" size="lg" onClick={() => ux.feedbackTipModal.show = false}>
-              Add feedback
+                            Add feedback
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -134,15 +134,15 @@ const CoursePreviewOnlyModal = observer(({ onDisplayModal }) => {
             backdrop="static"
             onHide={() => onDisplayModal(false)}>
             <StyledHeader closeButton>
-        This is a demo course!
+                This is a demo course!
             </StyledHeader>
             <StyledBody>
                 <p>Adding or editing a question is <strong>not allowed</strong> in a demo course.
-            You can create a live course to add or edit questions.</p>
+                    You can create a live course to add or edit questions.</p>
                 <ControlsWrapper>
                     <Controls>
                         <Button variant="primary" size="lg" onClick={() => onDisplayModal(false)}>
-                Okay
+                            Okay
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -163,7 +163,7 @@ const QuestionPreviewModal = observer(({ ux }) => {
         setshowAnswers(!ux.isTwoStep);
     }, [ux.isTwoStep]);
 
-    const question = new QuestionModel({
+    const question = hydrateModel(QuestionModel, {
         stem_html: ux.questionText,
         answers: map(ux.filledOptions, o => {
             return {
@@ -187,42 +187,42 @@ const QuestionPreviewModal = observer(({ ux }) => {
     if (ux.isMCQ) {
         const correctAnswer = find(ux.filledOptions, o => o.isCorrect);
         QuestionComponent =
-      <>
-        <Question
-            question={question}
-            answer_id={correctAnswer ? correctAnswer.id : null}
-            correct_answer_id={correctAnswer ? correctAnswer.id : null}
-            hideAnswers={!showAnswers}
-        />
-        {
-            !showAnswers &&
-          <>
-            <textarea
-                placeholder="Enter your response..."
-                aria-label="question response text box"
-                value={freeResponseText}
-                onChange={({ target: { value } }) => setFreeReponseText(value)} />
-            <Button
-                size="lg"
-                disabled={isEmpty(freeResponseText.trim())}
-                onClick={() => setshowAnswers(true)}
-            >
-              Submit
-            </Button>
-            </>
-        }
+            <>
+                <Question
+                    question={question}
+                    answer_id={correctAnswer ? correctAnswer.id : null}
+                    correct_answer_id={correctAnswer ? correctAnswer.id : null}
+                    hideAnswers={!showAnswers}
+                />
+                {
+                    !showAnswers &&
+                        <>
+                            <textarea
+                                placeholder="Enter your response..."
+                                aria-label="question response text box"
+                                value={freeResponseText}
+                                onChange={({ target: { value } }) => setFreeReponseText(value)} />
+                            <Button
+                                size="lg"
+                                disabled={isEmpty(freeResponseText.trim())}
+                                onClick={() => setshowAnswers(true)}
+                            >
+                                Submit
+                            </Button>
+                        </>
+                }
 
-      </>;
+            </>;
     }
     else {
         QuestionComponent =
-      <>
-        <Question question={question}/>
-        <textarea
-            placeholder="Enter your response..."
-            aria-label="question response text box"
-            readOnly />
-      </>
+            <>
+                <Question question={question}/>
+                <textarea
+                    placeholder="Enter your response..."
+                    aria-label="question response text box"
+                    readOnly />
+            </>
         ;
     }
 
@@ -230,9 +230,9 @@ const QuestionPreviewModal = observer(({ ux }) => {
         <PreviewModal
             show={ux.showPreviewQuestionModal}
             backdrop="static"
-            onHide={() => ux.showPreviewQuestionModal = false}>
+            onHide={() => ux.setShowPreviewQuestionModal(false)}>
             <StyledHeader closeButton>
-        Question Preview
+                Question Preview
             </StyledHeader>
             <StyledBody>
                 {context()}
@@ -249,7 +249,7 @@ const DeleteExerciseModal = ({ show, onHide, onDelete }) => {
             backdrop="static"
         >
             <StyledHeader>
-          Delete Question?
+                Delete Question?
             </StyledHeader>
             <StyledBody>
                 <p>Are you sure you want to permanently delete this question? Question <strong>will not</strong> be deleted from any open assignments.</p>
@@ -258,10 +258,10 @@ const DeleteExerciseModal = ({ show, onHide, onDelete }) => {
                 <ControlsWrapper>
                     <Controls>
                         <Button variant="default" size="lg" onClick={onDelete}>
-                  Yes, delete
+                            Yes, delete
                         </Button>
                         <Button variant="primary" size="lg" onClick={onHide}>
-                  Cancel
+                            Cancel
                         </Button>
                     </Controls>
                 </ControlsWrapper>

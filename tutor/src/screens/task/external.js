@@ -8,29 +8,29 @@ import Router from '../../helpers/router';
 @observer
 class ExternalTaskStep extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+    }
 
-  onContextMenu(ev) {
-      return ev.preventDefault();
-  }
+    onContextMenu(ev) {
+        return ev.preventDefault();
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-      <>
-        <Header
-            unDocked={true}
-            title={ux.task.title}
-            backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
-            backToText='Dashboard'
-        />
-        <Instructions ux={ux} />
-      </>
-      );
-  }
+        return (
+            <>
+                <Header
+                    unDocked={true}
+                    title={ux.task.title}
+                    backTo={Router.makePathname('dashboard', { courseId: ux.course.id })}
+                    backToText='Dashboard'
+                />
+                <Instructions ux={ux} />
+            </>
+        );
+    }
 }
 
 export default withFooter(ExternalTaskStep);

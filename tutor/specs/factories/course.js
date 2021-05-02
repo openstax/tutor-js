@@ -52,7 +52,6 @@ Factory.define('Course')
     .default_due_time('07:00')
     .cloned_from_id(null)
     .salesforce_book_name(({ object }) => object.name)
-    .offering(() => Factory.create('Offering'))
     .offering_id(({ offerings }) => offerings ? fake.random.arrayElement(offerings).id : 1)
     .appearance_code(({ offerings, object, type = 'physics' }) =>
         offerings ? offerings.find(o => o.id == object.offering_id).appearance_code : APPEARANCE_CODES[type]

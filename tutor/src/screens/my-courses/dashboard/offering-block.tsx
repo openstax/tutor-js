@@ -1,21 +1,16 @@
 import React, { useState, useCallback, useEffect, ReactElement, Dispatch, SetStateAction } from 'react'
-import { map, filter } from 'lodash'
+import { map } from 'lodash'
 import cn from 'classnames'
 import moment from 'moment'
 import { Icon } from 'shared'
 import UiSettings from 'shared/model/ui-settings'
 import Tabs from '../../../components/tabs'
-import CourseInformation from '../../../models/course/information'
-import { useNumberOfStudents } from '../../../store/courses'
+import { Course, CoursesMap, CourseInformation, Offering, ID } from '../../../models'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
 
-import { Offering, Course, ID } from '../../../store/types'
-
-const isCourseCurrent = (course: Course) => moment().isBefore(course.ends_at)
-const isCoursePast = (course: Course) => moment().isAfter(course.ends_at)
 
 const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
     if (moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
@@ -24,7 +19,7 @@ const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
 }
 const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {
     // no students courses put them at the end of the list
-    if (useNumberOfStudents(a.id) === 0) { return -1 }
+    if (a.num_enrolled_students == 0) return -1
     return sortByCourseEndsAt(a, b);
 })
 const sortPastCourses = (courses: Course[]) => courses.sort((a, b) => {
@@ -107,7 +102,7 @@ const CurrentCourses: React.FC<CurrentCoursesProps> = ({ courses, renderCreateCo
 
 interface OfferingBlockProps {
     offering: Offering
-    courses: Course[]
+    courses: CoursesMap
     swapOffering: (offeringId: ID, flow?: string) => void
     tryDeleteOffering: Dispatch<SetStateAction<string | number | null>>
     isEditMode: boolean
@@ -122,8 +117,8 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     const [tabIndex, setTabIndex] = useState(0)
     const [isPreviewInResource, setIsPreviewInResource] = useState<boolean>(UiSettings.get('isPreviewInResource')?.[offering.appearance_code] || false)
 
-    const currentCourses = sortCurrentCourses(filter(courses, c => isCourseCurrent(c)))
-    const pastCourses = sortPastCourses(filter(courses, c => isCoursePast(c)))
+    const currentCourses = sortCurrentCourses(courses.nonPreview.currentAndFuture.array)
+    const pastCourses = sortPastCourses(courses.nonPreview.completed.array)
 
     //Update the UI Settings for this offering
     useEffect(() => {

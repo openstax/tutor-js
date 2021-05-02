@@ -1,13 +1,13 @@
-import { Factory, TestRouter } from '../../helpers';
+import { Factory, ApiMock, TestRouter, runInAction, waitFor, delay } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
-import User from '../../../src/models/user';
+import { currentUser } from '../../../src/models';
 import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
-jest.useFakeTimers();
-
 jest.mock('../../../src/models/user', () => ({
-    canCreateCourses: true,
+    currentUser: {
+        canCreateCourses: true,
+    },
 }));
 
 const testRouter = new TestRouter();
@@ -20,12 +20,16 @@ const createTestUX = () => new BuilderUX({
 
 describe('Course Builder UX Model', () => {
     let ux;
+    ApiMock.intercept({
+        'offerings': { items: [Factory.data('Offering', { id: 1, title: 'Test Offering' })] },
+    })
 
     beforeEach(() => {
-        User.canCreateCourses = true;
+        testRouter.match.params = {}
+        currentUser.canCreateCourses = true;
         courses = Factory.coursesMap({ is_teacher: true });
         ux = createTestUX();
-        ux.courses.array[0].offering_id = ux.offerings.array[0].id;
+        ux.courses.array[0].offering_id = ux.offerings.array[0].id
     });
 
 
@@ -66,6 +70,9 @@ describe('Course Builder UX Model', () => {
     });
 
     it('can advance through steps for new course', () => {
+        testRouter.match.params = { }
+        ux.source = null
+
         expect(ux.stage).toEqual('offering');
         expect(ux.canGoBackward).toBe(false);
         expect(ux.canGoForward).toBe(false);
@@ -108,10 +115,12 @@ describe('Course Builder UX Model', () => {
         advanceToSave();
     });
 
-    it('can advance through steps for cloned course', () => {
+    it('can advance through steps for cloned course', async () => {
         const course = ux.courses.array[0];
         testRouter.match.params = { sourceId: course.id };
         ux = createTestUX();
+        await waitFor(() => !ux.offerings.api.isPending)
+        await delay(10)
         expect(ux.stage).toEqual('term');
         expect(ux.canGoForward).toBe(false);
         ux.newCourse.term = { year: 2018 };
@@ -134,9 +143,11 @@ describe('Course Builder UX Model', () => {
         expect(ux.router.history.push).toHaveBeenCalledWith('/courses');
     });
 
-    it('shows unavailable message for unavailable offerings', () => {
+    it('shows unavailable message for unavailable offerings', async () => {
+        await waitFor(() => !ux.offerings.api.isPending)
         const offering = ux.offerings.array[0];
-        offering.is_available = false;
+        expect(ux.isBusy).toBe(false)
+        runInAction( () => { offering.is_available = false; })
         ux.newCourse.offering_id = offering.id;
         expect(ux.stage).toEqual('offering_unavail');
     });
@@ -155,11 +166,12 @@ describe('Course Builder UX Model', () => {
         expect(ux.offering).toEqual(ux.offerings.array[1]);
     });
 
-    it('redirects to not allowed teacher page if teacher isnt allowed access', () => {
-        User.canCreateCourses = false;
+    it('redirects to not allowed teacher page if teacher isnt allowed access', async () => {
+        currentUser.canCreateCourses = false;
+        await waitFor(() => !ux.offerings.api.isPending)
         ux = createTestUX();
         Router.makePathname.mockReturnValue('/only-teacher');
-        jest.runOnlyPendingTimers();
+        await delay(10)
         expect(ux.router.history.replace).toHaveBeenCalledWith('/only-teacher');
     });
 

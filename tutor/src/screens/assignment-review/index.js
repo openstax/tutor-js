@@ -1,6 +1,6 @@
-import { React, PropTypes, observer, styled, action, observable } from 'vendor';
+import { React, PropTypes, observer, styled, action, modelize, observable } from 'vendor';
 import { ScrollToTop } from 'shared';
-import Courses from '../../models/courses-map';
+import { currentCourses } from '../../models'
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
 import { withRouter } from 'react-router';
@@ -35,127 +35,128 @@ const StyledTabs = styled(Tabs)`
 @observer
 class AssignmentReview extends React.Component {
 
-  static displayName = 'AssignmentReview';
+    static displayName = 'AssignmentReview';
 
-  static propTypes = {
-      params: PropTypes.shape({
-          id: PropTypes.string,
-          courseId: PropTypes.string.isRequired,
-      }),
-      history: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        params: PropTypes.shape({
+            id: PropTypes.string,
+            courseId: PropTypes.string.isRequired,
+        }),
+        history: PropTypes.object.isRequired,
+    }
 
-  @observable tabIndex = 0;
+    @observable tabIndex = 0;
 
-  @action.bound onTabSelection(tabIndex) {
-      this.tabIndex = tabIndex;
-  }
+    @action.bound onTabSelection(tabIndex) {
+        this.tabIndex = tabIndex;
+    }
 
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
+        modelize(this)
 
-      // eslint-disable-next-line
-    let { id, courseId, type } = props.params;
+        // eslint-disable-next-line
+        let { id, courseId, type } = props.params;
 
-      // eslint-disable-next-line
-    const course = props.course || Courses.get(courseId);
+        // eslint-disable-next-line
+        const course = props.course || currentCourses.get(courseId);
 
-      this.ux = new UX();
+        this.ux = new UX();
 
-      this.ux.initialize({
-          ...Router.currentQuery(),
-          ...props.params,
-          history: props.history,
-          course,
-          onCompleteDelete: this.onCompleteDelete,
-          onEditAssignment: this.onEditAssignment,
-          onTabSelection: this.onTabSelection,
-      });
-  }
+        this.ux.initialize({
+            ...Router.currentQuery(),
+            ...props.params,
+            history: props.history,
+            course,
+            onCompleteDelete: this.onCompleteDelete,
+            onEditAssignment: this.onEditAssignment,
+            onTabSelection: this.onTabSelection,
+        });
+    }
 
-  @action.bound onCompleteDelete(date) {
-      const { ux } = this;
-      this.props.history.push(
-          Router.makePathname('calendarByDate', {
-              courseId: ux.course.id,
-              date: date,
-          })
-      );
-  }
+    @action.bound onCompleteDelete(date) {
+        const { ux } = this;
+        this.props.history.push(
+            Router.makePathname('calendarByDate', {
+                courseId: ux.course.id,
+                date: date,
+            })
+        );
+    }
 
-  @action.bound onEditAssignment() {
-      const { courseId, id } = this.props.params;
-      this.props.history.push(
-          Router.makePathname('editAssignment', {
-              courseId: courseId,
-              type: this.ux.taskPlan.type,
-              id: id,
-          })
-      );
-  }
+    @action.bound onEditAssignment() {
+        const { courseId, id } = this.props.params;
+        this.props.history.push(
+            Router.makePathname('editAssignment', {
+                courseId: courseId,
+                type: this.ux.taskPlan.type,
+                id: id,
+            })
+        );
+    }
 
-  @action.bound renderTabs({ ux: { hasEnrollments, course, planScores }, tabIndex }) {
-      const AvailableTabs = [Details];
+    @action.bound renderTabs({ ux: { hasEnrollments, course, planScores }, tabIndex }) {
+        const AvailableTabs = [Details];
 
-      // pre-wrm courses have confusion around weights so we hide them
-      if (hasEnrollments && course.isWRM) {
-          if (planScores.isHomework) {
-              AvailableTabs.push(Overview, HomeworkScores);
-          }
-          if (planScores.isReading) {
-              AvailableTabs.push(Overview, ReadingScores);
-          }
-          if (planScores.isExternal) {
-              AvailableTabs.push(ExternalScores);
-          }
+        // pre-wrm courses have confusion around weights so we hide them
+        if (hasEnrollments && course.isWRM) {
+            if (planScores.isHomework) {
+                AvailableTabs.push(Overview, HomeworkScores);
+            }
+            if (planScores.isReading) {
+                AvailableTabs.push(Overview, ReadingScores);
+            }
+            if (planScores.isExternal) {
+                AvailableTabs.push(ExternalScores);
+            }
 
-      }
-      const Tab = AvailableTabs[tabIndex] || Details;
+        }
+        const Tab = AvailableTabs[tabIndex] || Details;
 
-      return (
-      <>
-        <StyledTabs
-            selectedIndex={tabIndex}
-            params={this.props.params}
-            onSelect={this.onTabSelection}
-            tabs={AvailableTabs.map(t => t.title)}
-        />
-        <Tab ux={this.ux} />
-      </>
-      );
-  }
+        return (
+            <>
+                <StyledTabs
+                    selectedIndex={tabIndex}
+                    params={this.props.params}
+                    onSelect={this.onTabSelection}
+                    tabs={AvailableTabs.map(t => t.title)}
+                />
+                <Tab ux={this.ux} />
+            </>
+        );
+    }
 
-  render() {
-      const {
-          isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
-      } = this.ux;
+    render() {
+        const {
+            isScoresReady, course, planScores, assignedPeriods, selectedPeriod, setSelectedPeriod,
+        } = this.ux;
 
-      if (!isScoresReady) {
-          return <LoadingScreen message="Loading Assignment…" />;
-      }
+        if (!isScoresReady) {
+            return <LoadingScreen message="Loading Assignment…" />;
+        }
 
-      return (
-          <BackgroundWrapper>
-              <ScrollToTop>
-                  <ContentWrapper>
-                      <Heading>
-                          <CourseBreadcrumb
-                              course={course}
-                              currentTitle={planScores.title}
-                          />
-                          <CoursePeriodSelect
-                              period={selectedPeriod}
-                              periods={assignedPeriods}
-                              course={course}
-                              onChange={setSelectedPeriod}
-                          />
-                      </Heading>
-                      {this.renderTabs({ ux: this.ux, tabIndex: this.tabIndex })}
-                  </ContentWrapper>
-              </ScrollToTop>
-          </BackgroundWrapper>
-      );
-  }
+        return (
+            <BackgroundWrapper>
+                <ScrollToTop>
+                    <ContentWrapper>
+                        <Heading>
+                            <CourseBreadcrumb
+                                course={course}
+                                currentTitle={planScores.title}
+                            />
+                            <CoursePeriodSelect
+                                period={selectedPeriod}
+                                periods={assignedPeriods}
+                                course={course}
+                                onChange={setSelectedPeriod}
+                            />
+                        </Heading>
+                        {this.renderTabs({ ux: this.ux, tabIndex: this.tabIndex })}
+                    </ContentWrapper>
+                </ScrollToTop>
+            </BackgroundWrapper>
+        );
+    }
 }
 
 export default AssignmentReview;

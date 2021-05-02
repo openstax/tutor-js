@@ -7,17 +7,14 @@ describe('SectionsFilter component', () => {
 
     beforeEach(() => {
         const course = Factory.course();
-        const note = Factory.note();
+        const note = Factory.note({}, { notes: { course } });
         const page = Factory.page();
         const pageNotes = course.notes.ensurePageExists({ uuid: page.uuid });
-        pageNotes.onLoaded({ data: [note] });
+        pageNotes.onLoaded([note]);
         const pages = observable([page, Factory.page(), Factory.page()]);
 
-        course.notes.onHighlightedPagesLoaded({
-            data: {
-                pages,
-            },
-        });
+        course.notes.onHighlightedPagesLoaded(pages)
+
 
         props = {
             notes: course.notes,

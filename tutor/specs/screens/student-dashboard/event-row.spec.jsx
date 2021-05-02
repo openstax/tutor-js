@@ -1,5 +1,6 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { React, C, moment, TimeMock } from '../../helpers';
+import { React, C, TimeMock } from '../../helpers';
+import { Time } from '../../../src/models'
 import Factory from '../../factories';
 
 describe('Event Row', function() {
@@ -75,7 +76,7 @@ describe('Event Row', function() {
 
     it('shows only visible to instructors message', () => {
         const task = Factory.studentDashboardTask();
-        task.opens_at = moment().add(1, 'day').toDate();
+        task.opens_at = Time.now.plus({ day: 1 }).asDate;
         expect(task.isOpen).toBe(false);
         task.tasks = { course: { currentRole: { isTeacherStudent: true } } };
         expect(task.isTeacherStudent).toBe(true);

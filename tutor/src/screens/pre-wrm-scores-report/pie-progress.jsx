@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import TaskResult from '../../models/scores/task-result';
+import { ScoresTaskResult as TaskResult } from '../../models'
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
@@ -139,34 +139,34 @@ const Q4 = (
 export default
 class PieProgress extends React.Component {
 
-  static propTypes = {
-      task: PropTypes.instanceOf(TaskResult).isRequired,
-      size: PropTypes.number,
-  };
+    static propTypes = {
+        task: PropTypes.instanceOf(TaskResult).isRequired,
+        size: PropTypes.number,
+    };
 
-  static defaultProps = {
-      size: 20,
-  }
+    static defaultProps = {
+        size: 20,
+    }
 
-  roundToQuarters(task) {
-      const value = task.completedPercent;
-      if (!value)                         { return 0;  }
-      if (value <= 49)                    { return 25; }
-      if ((value >= 50) && (value < 75))  { return 50; }
-      if ((value >= 75) && (value < 100)) { return 75; }
-      return 100;
-  }
+    roundToQuarters(task) {
+        const value = task.completedPercent;
+        if (!value)                         { return 0;  }
+        if (value <= 49)                    { return 25; }
+        if ((value >= 50) && (value < 75))  { return 50; }
+        if ((value >= 75) && (value < 100)) { return 75; }
+        return 100;
+    }
 
-  render() {
-      const { size, task, task: { isDue } } = this.props;
+    render() {
+        const { size, task, task: { isDue } } = this.props;
 
-      if (!isDue && !task.isStarted) {
-          return <div className="unstarted">---</div>;
-      }
+        if (!isDue && !task.isStarted) {
+            return <div className="unstarted">---</div>;
+        }
 
-      const progress = this.roundToQuarters(task);
+        const progress = this.roundToQuarters(task);
 
-      const pieCircle =
+        const pieCircle =
       <svg
           width={`${size}`}
           height={`${size}`}
@@ -180,7 +180,7 @@ class PieProgress extends React.Component {
           {progress === 100 && Q4}
       </svg>;
 
-      return pieCircle;
+        return pieCircle;
 
-  }
+    }
 }

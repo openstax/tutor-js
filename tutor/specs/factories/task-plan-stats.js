@@ -43,7 +43,7 @@ Factory.define('TaskPlanPeriodStat')
     .current_pages(reference('TaskPlanStatPage', { count: 3 }));
 
 
-Factory.define('TaskPlanStat')
+Factory.define('TaskPlanStats')
     .id(sequence)
     .type('homework')
     .title(({ object }) => `${capitalize(object.type)} Chapter ${object.id}`)

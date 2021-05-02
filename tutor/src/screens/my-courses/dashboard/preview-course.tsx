@@ -2,80 +2,77 @@ import React, { useState } from 'react'
 import cn from 'classnames'
 import styled from 'styled-components'
 import { Dropdown } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
-import User from '../../../models/user'
-import { createPreviewCourse, useLatestCoursePreview } from '../../../store/courses'
-import { Offering } from '../../../store/types'
+import { currentUser, Offering, currentCourses, CourseCreate } from '../../../models'
 import { colors } from 'theme'
 import { Icon } from 'shared'
 
 const StyledPreviewCourse = styled.div`
     &&& {
-        .my-courses-item-title {
-            padding: 0;
-            display: block;
-            .name {
-                padding-right: 3.2rem;
-                overflow-wrap: break-word;
-            }
-            h3 {
-                width: 20rem;
-                padding: 1.5rem;
-            }
-            .preview-belt {
-                background: white;
-                box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-                bottom: 40%;
-            h5 {
-                font-size: 1.8rem;
-                line-height: 2rem;
-                font-weight: 600;
-                color: ${colors.neutral.thin};
-            }
-            p {
-                color: ${colors.neutral.thin};
-            }
-          }
-        }
-        .my-preview-courses-item-actions {
-            position: absolute;
-            right: 10px;
-            top: 40px;
-            width: 18px;
+    .my-courses-item-title {
+    padding: 0;
+    display: block;
+    .name {
+    padding-right: 3.2rem;
+    overflow-wrap: break-word;
+    }
+    h3 {
+    width: 20rem;
+    padding: 1.5rem;
+    }
+    .preview-belt {
+    background: white;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    bottom: 40%;
+    h5 {
+    font-size: 1.8rem;
+    line-height: 2rem;
+    font-weight: 600;
+    color: ${colors.neutral.thin};
+    }
+    p {
+    color: ${colors.neutral.thin};
+    }
+    }
+    }
+    .my-preview-courses-item-actions {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    width: 18px;
 
-            .dropdown-toggle {
-              padding: 0;
+    .dropdown-toggle {
+    padding: 0;
 
-              &:after {
-                display: none;
-              }
-            }
+    &:after {
+    display: none;
+    }
+    }
 
-            .dropdown-menu {
-                border: 1px solid #d5d5d5;
-                box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
-                border-radius: 0;
+    .dropdown-menu {
+    border: 1px solid #d5d5d5;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 20%);
+    border-radius: 0;
 
-                a {
-                    padding: 1rem 1.5rem;
-                    color: #5e6062;
-                    font-size: 1.6rem;
+    a {
+    padding: 1rem 1.5rem;
+    color: #5e6062;
+    font-size: 1.6rem;
 
-                    &:hover {
-                        background: #f1f1f1;
-                        color: #424242;
-                        font-weight: 500;
-                    }
-                }
+    &:hover {
+    background: #f1f1f1;
+    color: #424242;
+    font-weight: 500;
+    }
+    }
 
-                svg {
-                    margin: 0;
-                }
-            }
-        }
+    svg {
+    margin: 0;
+    }
+    }
+    }
     }
 `
 
@@ -87,11 +84,11 @@ interface CoursePreviewProps {
     setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
 }
 
+
 const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource }) => {
-    const dispatch = useDispatch()
-    const previewCourse = useLatestCoursePreview(offering.id)
+    const previewCourse = currentCourses.preview.latestForOffering(offering) // array
     const [isCreating, setIsCreating] = useState(false)
-    if (!offering.is_preview_available || !User.canCreateCourses) {
+    if (!offering.is_preview_available || !currentUser.canCreateCourses) {
         return null
     }
     const goToPreviewCourse = (toSettings = false) => {
@@ -102,11 +99,14 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
             history.push(Router.makePathname(routePath, { courseId: previewCourse.id }, queryPath))
         } else {
             setIsCreating(true)
-            dispatch(createPreviewCourse(offering))
-                .then((result) => {
+            CourseCreate
+                .createPreview(offering)
+                .then((create) => {
                     setIsCreating(false)
-                    if (!result.error) {
-                        window.location = Router.makePathname(routePath, { courseId: result.payload.id }, queryPath)
+                    if (!create.api.errors.any) {
+                        history.push(
+                            Router.makePathname(routePath, { courseId: create.createdCourse.id }, queryPath)
+                        )
                     }
                 })
         }
@@ -127,7 +127,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     })
 
     return (
-        <StyledPreviewCourse 
+        <StyledPreviewCourse
             data-test-id="preview-course-card"
             className="my-courses-item-wrapper preview"
         >

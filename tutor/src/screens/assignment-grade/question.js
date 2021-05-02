@@ -109,35 +109,35 @@ const ExpandGraded = observer(({ ux }) => {
 
 const Overiew = observer(({ ux }) => {
     return (
-    <>
-      {
-          ux.headings.map((h, i) => (
-              <StyledQuestion key={i} marginBottom>
-                  <QuestionHeader questionIndex={i} ux={ux} />
-                  <QuestionBody>
-                      <Question
-                          question={h.question}
-                          hideAnswers={false}
-                          displaySolution={false}
-                          choicesEnabled={false}
-                          displayFormats={false}
-                      />
-                      <ExpandGradedWrapper>
-                          <Button
-                              onClick={() => ux.goToQuestionHeading(i, true)}
-                              variant="link"
-                          >
+        <>
+            {
+                ux.headings.map((h, i) => (
+                    <StyledQuestion key={i} marginBottom>
+                        <QuestionHeader questionIndex={i} ux={ux} />
+                        <QuestionBody>
+                            <Question
+                                question={h.question}
+                                hideAnswers={false}
+                                displaySolution={false}
+                                choicesEnabled={false}
+                                displayFormats={false}
+                            />
+                            <ExpandGradedWrapper>
+                                <Button
+                                    onClick={() => ux.goToQuestionHeading(i, true)}
+                                    variant="link"
+                                >
                   Expand graded answers {ux.showOnlyAttempted ? h.gradedProgress : h.gradedProgressWithUnAttemptedResponses}
-                          </Button>
-                          <label>
+                                </Button>
+                                <label>
                   Average Score: {ScoresHelper.formatPoints(h.averageGradedPoints)} out of {ScoresHelper.formatPoints(h.responseStats.availablePoints)}
-                          </label>
-                      </ExpandGradedWrapper>
-                  </QuestionBody>
-              </StyledQuestion>
-          ))
-      }
-    </>
+                                </label>
+                            </ExpandGradedWrapper>
+                        </QuestionBody>
+                    </StyledQuestion>
+                ))
+            }
+        </>
     );
 });
 

@@ -17,7 +17,7 @@ describe('Tasks Screen', () => {
             isLoaded: true,
             tasksMap: { course },
             api: observable({
-                hasErrors: false,
+                errors: { any: false },
                 hasBeenFetched: true,
             }),
             steps: [ { id: 1, is_completed: true } ],

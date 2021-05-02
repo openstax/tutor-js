@@ -1,6 +1,6 @@
 import { React, PropTypes, styled } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models';
 
 const StyledHeader = styled(Modal.Header)`
   font-weight: bold;
@@ -37,19 +37,19 @@ const DeleteModal = ({ onDelete, onCancel, template }) => {
             backdrop="static"
         >
             <StyledHeader closeButton>
-        Delete template?
+                Delete template?
             </StyledHeader>
             <StyledBody>
-        Are you sure you want to permanently
-        delete <strong>{template.name}</strong> template?
-        You can't undo this action.
+                Are you sure you want to permanently
+                delete <strong>{template.name}</strong> template?
+                You can't undo this action.
                 <ControlsWrapper>
                     <Controls>
                         <Button className="delete" variant="default" size="lg" onClick={() => onDelete(template)}>
-              Delete
+                            Delete
                         </Button>
                         <Button className="cancel" variant="primary" size="lg" onClick={onCancel}>
-              Cancel
+                            Cancel
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -72,15 +72,15 @@ const NoEditModal = ({ onOk, template }) => {
             backdrop="static"
         >
             <StyledHeader className="warning" closeButton>
-        Template cannot be edited
+                Template cannot be edited
             </StyledHeader>
             <StyledBody>
                 {template.name} template cannot be edited since
-        it is currently in use by assignments
+                it is currently in use by assignments
                 <ControlsWrapper>
                     <Controls>
                         <Button variant="default" size="lg" onClick={onOk}>
-              Okay
+                            Okay
                         </Button>
                     </Controls>
                 </ControlsWrapper>

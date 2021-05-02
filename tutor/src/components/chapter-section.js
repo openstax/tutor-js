@@ -1,5 +1,5 @@
 import { React, PropTypes, Theme, observer, cn, styled } from 'vendor';
-import ChapterSectionModel from '../models/chapter-section';
+import { ChapterSection as ChapterSectionModel } from '../models';
 
 const StyledChapterSection = styled.span`
   font-weight: 700;

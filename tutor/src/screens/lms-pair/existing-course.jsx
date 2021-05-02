@@ -27,34 +27,34 @@ const Footer = observer(({ ux }) => {
 export default
 class ExistingCourse extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-          <Card className={'new-course-wizard'}>
-              <Card.Header>
+        return (
+            <Card className={'new-course-wizard'}>
+                <Card.Header>
           Choose course to pair with
-              </Card.Header>
-              <Card.Body>
-                  <Listing>
-                      {ux.courses.array.map(course => (
-                          <Choice
-                              key={`course-choice-${course.id}`}
-                              data-appearance={course.appearance_code}
-                              active={(course === ux.pairedCourse)}
-                              onClick={partial(ux.pairCourse, course)}
-                          >
-                              {course.name}
-                          </Choice>
-                      ))}
-                  </Listing>
-              </Card.Body>
-              <Footer ux={ux} />
-          </Card>
-      );
-  }
+                </Card.Header>
+                <Card.Body>
+                    <Listing>
+                        {ux.courses.array.map(course => (
+                            <Choice
+                                key={`course-choice-${course.id}`}
+                                data-appearance={course.appearance_code}
+                                active={(course === ux.pairedCourse)}
+                                onClick={partial(ux.pairCourse, course)}
+                            >
+                                {course.name}
+                            </Choice>
+                        ))}
+                    </Listing>
+                </Card.Body>
+                <Footer ux={ux} />
+            </Card>
+        );
+    }
 }

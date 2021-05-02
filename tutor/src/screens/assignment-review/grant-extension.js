@@ -1,9 +1,10 @@
-import { React, PropTypes, observer, styled, moment } from 'vendor';
+import { React, PropTypes, observer, styled, action } from 'vendor';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import DateTimeInput from '../../components/date-time-input';
 import { Formik, Form } from 'formik';
 import { colors, fonts } from 'theme';
-import Time from '../../helpers/time';
+import { Time } from '../../models'
+// import Time from '../../helpers/time';
 import ExtensionIcon, { GreenCircle, EIcon  } from '../../components/icons/extension';
 import CheckBoxInput from '../../components/checkbox-input';
 import SearchInput from '../../components/search-input';
@@ -179,6 +180,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                             disabledDate={ux.course.isInvalidAssignmentDate}
                             timezone={ux.course.timezone}
                             validate={(d) => { // eslint-disable-line consistent-return
+                                if (!d) { return 'must be valid date' }
                                 if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
                                 if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
                             }}
@@ -188,7 +190,10 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                             name="extension_close_date"
                             timezone={ux.course.timezone}
                             disabledDate={ux.course.isInvalidAssignmentDate}
-                            validate={d => d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'}
+                            validate={d => {
+                                if (!d) { return 'must be valid date' }
+                                return d.isBefore(values.extension_due_date) && 'Close date cannot be before Due date'
+                            }}
                         />
                     </DateTimes>
                     <LegendBar>
@@ -224,7 +229,7 @@ const Student = observer(({ student, ux }) => {
     return (
         <StudentWrapper>
             <CheckBoxInput
-                onChange={({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked)}
+                onChange={action(({ target: { checked } }) => ux.pendingExtensions.set(student.role_id.toString(10), checked))}
                 checked={checked}
                 standalone={true}
                 label={`${student.first_name} ${student.last_name}`}
@@ -241,30 +246,30 @@ const GrantExtension = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
-      >
-          <Button
-              variant="light"
-              className="btn-standard"
-              onClick={() => ux.isDisplayingGrantExtension=true}
-          >
-          Grant Extension
-          </Button>
-      </OverlayTrigger>
-      {ux.isDisplayingGrantExtension && (
-          <Formik
-              onSubmit={ux.saveDisplayingGrantExtension}
-              initialValues={{
-                  extension_due_date: moment.tz(ux.course.timezone).add(1, 'day'),
-                  extension_close_date: moment.tz(ux.course.timezone).add(1, 'week'),
-              }}
-          >
-              {(form) => <ExtendModal ux={ux} form={form} />}
-          </Formik>)}
-    </>
+        <>
+            <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip>Select and grant time extension to student(s)</Tooltip>}
+            >
+                <Button
+                    variant="light"
+                    className="btn-standard"
+                    onClick={action(() => ux.isDisplayingGrantExtension = true)}
+                >
+                    Grant Extension
+                </Button>
+            </OverlayTrigger>
+            {ux.isDisplayingGrantExtension && (
+                <Formik
+                    onSubmit={ux.saveDisplayingGrantExtension}
+                    initialValues={{
+                        extension_due_date: ux.course.dateTimeInZone().plus({ day: 1 }),
+                        extension_close_date: ux.course.dateTimeInZone().plus({ week: 1 }),
+                    }}
+                >
+                    {(form) => <ExtendModal ux={ux} form={form} />}
+                </Formik>)}
+        </>
     );
 });
 

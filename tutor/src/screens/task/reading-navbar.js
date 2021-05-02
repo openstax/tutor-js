@@ -102,66 +102,66 @@ const TaskTitle = styled.div`
 @observer
 class ReadingNavbar extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.instanceOf(UX).isRequired,
-      setSecondaryTopControls: PropTypes.func.isRequired,
-      unDocked: PropTypes.bool,
-  }
+    static propTypes = {
+        ux: PropTypes.instanceOf(UX).isRequired,
+        setSecondaryTopControls: PropTypes.func.isRequired,
+        unDocked: PropTypes.bool,
+    }
 
-  constructor(props) {
-      super(props);
-      if (!props.unDocked) {
-          props.setSecondaryTopControls(this.renderNavbar);
-      }
-      this.renderNavbar.unpadded = true;
-  }
+    constructor(props) {
+        super(props);
+        if (!props.unDocked) {
+            props.setSecondaryTopControls(this.renderNavbar);
+        }
+        this.renderNavbar.unpadded = true;
+    }
 
-  componentWillUnmount() {
-      if (!this.props.unDocked) {
-          this.props.setSecondaryTopControls(null);
-      }
-  }
+    componentWillUnmount() {
+        if (!this.props.unDocked) {
+            this.props.setSecondaryTopControls(null);
+        }
+    }
 
-  // nothing is rendered directly, instead it's set in the secondaryToolbar
-  render() {
-      if (this.props.unDocked) {
-          return this.renderNavbar();
-      }
-      return null;
-  }
+    // nothing is rendered directly, instead it's set in the secondaryToolbar
+    render() {
+        if (this.props.unDocked) {
+            return this.renderNavbar();
+        }
+        return null;
+    }
 
-  @autobind renderNavbar() {
-      const { ux } = this.props;
+    @autobind renderNavbar() {
+        const { ux } = this.props;
 
-      return (
-          <StyledNavbar>
-              <Top>
-                  <StyledTutorLink to="dashboard" params={{ courseId: ux.course.id }}>
-                      <Icon type="chevron-left" /> Dashboard
-                  </StyledTutorLink>
-              </Top>
-              <Middle>
-                  <Left>
-                      <TaskTitle>{ux.task.title}</TaskTitle>
-                      <Divider className="hide-mobile">|</Divider>
-                      <span className="hide-mobile">
+        return (
+            <StyledNavbar>
+                <Top>
+                    <StyledTutorLink to="dashboard" params={{ courseId: ux.course.id }}>
+                        <Icon type="chevron-left" /> Dashboard
+                    </StyledTutorLink>
+                </Top>
+                <Middle>
+                    <Left>
+                        <TaskTitle>{ux.task.title}</TaskTitle>
+                        <Divider className="hide-mobile">|</Divider>
+                        <span className="hide-mobile">
               Due <Time date={ux.task.due_at} format="llll" />
-                      </span>
-                  </Left>
-                  <Right>
-                      <NotesSummaryToggle
-                          course={ux.course}
-                          type="reading"
-                          model={ux.currentStep}
-                      />
-                      <MilestonesToggle model={ux.currentStep} />
-                  </Right>
-              </Middle>
-              <StyledProgressBar now={ux.progressPercent} variant="success" />
-              <AssignmentClosedBanner ux={ux} />
-          </StyledNavbar>
-      );
-  }
+                        </span>
+                    </Left>
+                    <Right>
+                        <NotesSummaryToggle
+                            course={ux.course}
+                            type="reading"
+                            model={ux.currentStep}
+                        />
+                        <MilestonesToggle model={ux.currentStep} />
+                    </Right>
+                </Middle>
+                <StyledProgressBar now={ux.progressPercent} variant="success" />
+                <AssignmentClosedBanner ux={ux} />
+            </StyledNavbar>
+        );
+    }
 
 }
 

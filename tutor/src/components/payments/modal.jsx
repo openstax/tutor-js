@@ -7,20 +7,20 @@ import Card from './panel';
 @observer
 export default
 class PaymentsModal extends React.Component {
-  static propTypes = {
-      course: PropTypes.object.isRequired,
-      onCancel: PropTypes.func.isRequired,
-      onPaymentComplete: PropTypes.func.isRequired,
-  }
+    static propTypes = {
+        course: PropTypes.object.isRequired,
+        onCancel: PropTypes.func.isRequired,
+        onPaymentComplete: PropTypes.func.isRequired,
+    }
 
-  render() {
+    render() {
 
-      return (
-          <Modal show className="make-payment">
-              <Card {...this.props} />
-          </Modal>
-      );
-  }
+        return (
+            <Modal show className="make-payment">
+                <Card {...this.props} />
+            </Modal>
+        );
+    }
 
 
 }

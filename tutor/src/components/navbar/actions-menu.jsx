@@ -5,8 +5,7 @@ import { flatMap, isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
-import UserMenu from '../../models/user/menu';
-import Course from '../../models/course';
+import { UserMenu, Course } from '../../models';
 import Responsive from '../../components/responsive';
 
 const RoutedDropdownItem = (props) => {
@@ -90,93 +89,95 @@ const CustomComponents = {
 @observer
 export default
 class ActionsMenu extends React.Component {
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  @autobind
-  renderDropdownItem(menuOption) {
-      const options = menuOption.options || {};
-      const isActive = TutorRouter.isActive(menuOption.name, menuOption.params, menuOption.options);
-      const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
-      const Component = CustomComponents[menuOption.name];
+    @autobind
+    renderDropdownItem(menuOption) {
+        const options = menuOption.options || {};
+        const isActive = TutorRouter.isActive(menuOption.name, menuOption.params, menuOption.options);
+        const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
+        const Component = CustomComponents[menuOption.name];
 
-      if (Component) {
-          return <Component key={key} {...menuOption} course={this.props.course} active={isActive} />;
-      }
+        if (Component) {
+            return <Component key={key} {...menuOption} course={this.props.course} active={isActive} />;
+        }
 
-      let props;
-      if (menuOption.href) {
-          props = { href: menuOption.href, target: menuOption.target };
-      } else {
-          const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
-          props = { href };
-      }
+        let props;
+        if (menuOption.href) {
+            props = { href: menuOption.href, target: menuOption.target };
+        } else {
+            const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
+            props = { href };
+        }
 
-      const item = (
-          <RoutedDropdownItem
-              {...props}
-              {...menuOption}
-              route={menuOption}
-              key={key}
-              tourId={key}
-          />
-      );
+        const item = (
+            <RoutedDropdownItem
+                {...props}
+                {...menuOption}
+                route={menuOption}
+                key={key}
+                tourId={key}
+            />
+        );
 
-      if (options.separator) {
-          const separator = (suffix = 'divider') =>
-              <Dropdown.Divider key={`${key}-${suffix}`} />;
-          switch (options.separator) {
-              case 'after':
-                  return [item, separator()];
-              case 'before':
-                  return [separator(), item];
-              case 'both':
-                  return [separator('before'), item, separator('after')];
-          }
-      }
-      return item;
-  }
+        if (options.separator) {
+            const separator = (suffix = 'divider') =>
+                <Dropdown.Divider key={`${key}-${suffix}`} />;
+            switch (options.separator) {
+                case 'after':
+                    return [item, separator()];
+                case 'before':
+                    return [separator(), item];
+                case 'both':
+                    return [separator('before'), item, separator('after')];
+            }
+        }
+        return item;
+    }
 
-  renderDesktop(menuRoutes) {
-      return (
-          <Dropdown className="actions-menu">
-              <Dropdown.Toggle
-                  id="actions-menu"
-                  aria-label="Menu and settings"
-                  variant="ox"
-              >
-                  <Icon type="bars" />
-                  <span className="control-label" title="Menu and settings">Menu</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu alignRight={true}>
-                  {this.renderItems(menuRoutes)}
-              </Dropdown.Menu>
-          </Dropdown>
-      );
-  }
+    renderDesktop(menuRoutes) {
+        return (
+            <Dropdown className="actions-menu">
+                <Dropdown.Toggle
+                    id="actions-menu"
+                    aria-label="Menu and settings"
+                    variant="ox"
+                >
+                    <Icon type="bars" />
+                    <span className="control-label" title="Menu and settings">Menu</span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu alignRight={true}>
+                    {this.renderItems(menuRoutes)}
+                </Dropdown.Menu>
+            </Dropdown>
+        );
+    }
 
-  renderItems(menuRoutes) {
-      return (
-      <>
-        {flatMap(menuRoutes, this.renderDropdownItem)}
-      </>
-      );
-  }
+    renderItems(menuRoutes) {
+        return (
+            <>
+                {flatMap(menuRoutes, this.renderDropdownItem)}
+            </>
+        );
+    }
 
-  render() {
-      const menuRoutes = UserMenu.getRoutes(this.props.course);
-      if (isEmpty(menuRoutes)) {
-          return null;
-      }
+    render() {
+        const menuRoutes = UserMenu.getRoutes(this.props.course);
+        if (isEmpty(menuRoutes)) {
+            return null;
+        }
 
-      return (
-          <Responsive
-              desktop={this.renderDesktop(menuRoutes)}
-              mobile={this.renderItems(menuRoutes)}
-          />
-      );
-  }
-
+        return (
+            <Responsive
+                desktop={this.renderDesktop(menuRoutes)}
+                mobile={this.renderItems(menuRoutes)}
+            />
+        );
+    }
 }

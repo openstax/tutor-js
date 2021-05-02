@@ -3,7 +3,7 @@ import { find, flatten, map } from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import TutorDialog from './tutor-dialog';
-import { AppStore } from '../flux/app';
+import { currentErrors } from '../models'
 
 const UnsavedStateMixin = {
     UNSAFE_componentWillMount() { return ACTIVE.push(this); },
@@ -18,7 +18,7 @@ const UnsavedStateMixin = {
 
 const TransitionAssistant = {
     canTransition() {
-        return !find(ACTIVE, c => c._cannotTransition()) || (AppStore.getError() != null); },
+        return !find(ACTIVE, c => c._cannotTransition()) || currentErrors.any },
     unsavedMessages() { return flatten( map(ACTIVE, '_unsavedMessages'), 1); },
 
     checkTransitionStateTo(destination) {

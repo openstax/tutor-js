@@ -2,7 +2,7 @@ import {
     React, PropTypes, inject, observer, styled,
 } from 'vendor';
 import TutorLink from '../link';
-import Course from '../../models/course';
+import { Course } from '../../models';
 
 const TutorLogo = styled.svg`
 display: inline-block;

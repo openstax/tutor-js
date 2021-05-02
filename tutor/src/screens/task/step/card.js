@@ -2,7 +2,7 @@ import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
-import Step from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models';
 import ScoresHelper from '../../../helpers/scores';
 
 export
@@ -236,7 +236,7 @@ TaskStepCard.displayName = 'TaskStepCard';
 TaskStepCard.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
-    step: PropTypes.instanceOf(Step).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
     questionNumber: PropTypes.number,
 };
 

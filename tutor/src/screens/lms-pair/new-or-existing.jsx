@@ -23,40 +23,40 @@ const Footer = observer(({ ux }) => {
 export default
 class NewOrExisting extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+    }
 
-  render() {
-      const { ux } = this.props;
+    render() {
+        const { ux } = this.props;
 
-      return (
-          <Card
-              className={'new-course-wizard'}
-          >
-              <Card.Header>
-                  <h3>Do you want to use a new or existing Tutor Course with your LMS?</h3>
-              </Card.Header>
-              <Card.Body className="panel-content">
-                  <Listing>
-                      <Choice
-                          key="course-new"
-                          active={ux.newOrExisting === 'new'}
-                          onClick={ux.onSelectNew}
-                      >
+        return (
+            <Card
+                className={'new-course-wizard'}
+            >
+                <Card.Header>
+                    <h3>Do you want to use a new or existing Tutor Course with your LMS?</h3>
+                </Card.Header>
+                <Card.Body className="panel-content">
+                    <Listing>
+                        <Choice
+                            key="course-new"
+                            active={ux.newOrExisting === 'new'}
+                            onClick={ux.onSelectNew}
+                        >
               Create a new course
-                      </Choice>
-                      <Choice
-                          key="course-copy"
-                          active={ux.newOrExisting === 'existing'}
-                          onClick={ux.onSelectExisting}
-                      >
+                        </Choice>
+                        <Choice
+                            key="course-copy"
+                            active={ux.newOrExisting === 'existing'}
+                            onClick={ux.onSelectExisting}
+                        >
               Pair LMS to an existing course
-                      </Choice>
-                  </Listing>
-              </Card.Body>
-              <Footer ux={ux} />
-          </Card>
-      );
-  }
+                        </Choice>
+                    </Listing>
+                </Card.Body>
+                <Footer ux={ux} />
+            </Card>
+        );
+    }
 }

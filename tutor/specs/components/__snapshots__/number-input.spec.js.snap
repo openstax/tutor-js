@@ -84,22 +84,19 @@ exports[`Number Input renders and matches snapshot 1`] = `
 
 <div
   className="rc-input-number c0"
+  onBlur={[Function]}
+  onFocus={[Function]}
   style={Object {}}
 >
   <div
     className="rc-input-number-handler-wrap"
   >
     <span
-      aria-disabled={false}
       aria-label="Increase Value"
-      className="rc-input-number-handler rc-input-number-handler-up "
+      className="rc-input-number-handler rc-input-number-handler-up"
       onMouseDown={[Function]}
       onMouseLeave={[Function]}
       onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
       role="button"
       unselectable="unselectable"
     >
@@ -122,16 +119,11 @@ exports[`Number Input renders and matches snapshot 1`] = `
       </svg>
     </span>
     <span
-      aria-disabled={false}
       aria-label="Decrease Value"
-      className="rc-input-number-handler rc-input-number-handler-down "
+      className="rc-input-number-handler rc-input-number-handler-down"
       onMouseDown={[Function]}
       onMouseLeave={[Function]}
       onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
       role="button"
       unselectable="unselectable"
     >

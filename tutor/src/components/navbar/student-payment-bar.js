@@ -1,9 +1,8 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import Theme from 'theme';
-import WindowSize from '../../models/window-size';
+import { Course, WindowSize } from '../../models';
 import { Nav } from './nav';
 import { willDisplayPayment, StudentPayNowBtn } from './student-pay-now-btn';
-import Course from '../../models/course';
 
 const PaymentBar = styled(Nav)`
   top: ${Theme.navbars.top.height};
@@ -25,25 +24,25 @@ const PaymentBar = styled(Nav)`
 @observer
 class MobilePaymentBar extends React.Component {
 
-  static propTypes = {
-      course: PropTypes.instanceOf(Course),
-  }
+    static propTypes = {
+        course: PropTypes.instanceOf(Course),
+    }
 
-  windowSize = new WindowSize()
+    windowSize = new WindowSize()
 
-  render() {
-      const { course } = this.props;
+    render() {
+        const { course } = this.props;
 
-      if (!(this.windowSize.isMobile && willDisplayPayment(course))) {
-          return null;
-      }
+        if (!(this.windowSize.isMobile && willDisplayPayment(course))) {
+            return null;
+        }
 
-      return (
-          <PaymentBar area="header" className="mobile-payment-bar">
-              <StudentPayNowBtn course={course}/>
-          </PaymentBar>
-      );
-  }
+        return (
+            <PaymentBar area="header" className="mobile-payment-bar">
+                <StudentPayNowBtn course={course}/>
+            </PaymentBar>
+        );
+    }
 
 }
 

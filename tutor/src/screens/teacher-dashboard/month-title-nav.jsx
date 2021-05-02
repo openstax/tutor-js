@@ -1,59 +1,64 @@
-import { React, PropTypes, observer, action  } from 'vendor';
+import { React, PropTypes, observer, action, modelize } from 'vendor';
 import { Icon } from 'shared';
 import TimeHelper from '../../helpers/time';
 
 @observer
 class CourseCalendarTitleNav extends React.Component {
-  static displayName = 'CourseCalendarTitleNav';
+    static displayName = 'CourseCalendarTitleNav';
 
-  static propTypes = {
-      setDate: PropTypes.func.isRequired,
-      date: TimeHelper.PropTypes.moment,
-      format: PropTypes.string.isRequired,
-      duration: PropTypes.string.isRequired,
-  };
+    static propTypes = {
+        setDate: PropTypes.func.isRequired,
+        date: TimeHelper.PropTypes.time,
+        format: PropTypes.string.isRequired,
+        duration: PropTypes.string.isRequired,
+    };
 
-  static defaultProps = {
-      duration: 'month',
-      format: 'MMMM YYYY',
-  };
+    static defaultProps = {
+        duration: 'month',
+        format: 'MMMM YYYY',
+    };
 
-  handleNavigate = (subtractOrAdd, clickEvent) => {
-      const { duration } = this.props;
-      const date = this.props.date.clone()[subtractOrAdd](1, duration);
-      clickEvent.preventDefault();
-      this.props.setDate(date);
-  };
+    handleNavigate = (subtractOrAdd, clickEvent) => {
+        const { duration } = this.props;
+        const date = this.props.date[subtractOrAdd]({ [`${duration}`]: 1 });
+        clickEvent.preventDefault();
+        this.props.setDate(date);
+    };
 
-  @action.bound handleNext(clickEvent) {
-      this.handleNavigate('add', clickEvent);
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound handlePrevious(clickEvent) {
-      this.handleNavigate('subtract', clickEvent);
-  }
+    @action.bound handleNext(clickEvent) {
+        this.handleNavigate('plus', clickEvent);
+    }
 
-  render() {
-      return (
-          <div className="calendar-header-navigation">
-              <div className="calendar-header-label">
-                  <a
-                      href="#"
-                      className="calendar-header-control previous"
-                      onClick={this.handlePrevious}>
-                      <Icon type="caret-left" />
-                  </a>
-                  {this.props.date.format(this.props.format)}
-                  <a
-                      href="#"
-                      className="calendar-header-control next"
-                      onClick={this.handleNext}>
-                      <Icon type="caret-right" />
-                  </a>
-              </div>
-          </div>
-      );
-  }
+    @action.bound handlePrevious(clickEvent) {
+        this.handleNavigate('minus', clickEvent);
+    }
+
+    render() {
+        return (
+            <div className="calendar-header-navigation">
+                <div className="calendar-header-label">
+                    <a
+                        href="#"
+                        className="calendar-header-control previous"
+                        onClick={this.handlePrevious}>
+                        <Icon type="caret-left" />
+                    </a>
+                    {this.props.date.format(this.props.format)}
+                    <a
+                        href="#"
+                        className="calendar-header-control next"
+                        onClick={this.handleNext}>
+                        <Icon type="caret-right" />
+                    </a>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default CourseCalendarTitleNav;

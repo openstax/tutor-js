@@ -1,7 +1,641 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Learning Guide renders panel for each chapter 1`] = `
+.c0 {
+  display: inline-block;
+}
+
+.c0 .os-number {
+  display: none;
+}
+
+.c0 .os-number {
+  font-weight: normal;
+}
+
+.c0 .os-number .os-part-text {
+  font-weight: normal;
+}
+
+.c0 .chapter-section {
+  font-weight: normal;
+  margin-right: 0.5rem;
+}
+
+.c0 .label {
+  margin-right: 0.5rem;
+}
+
 <div
-  className="guide-container is-empty"
-/>
+  className="guide-container"
+>
+  <div
+    className="guide-group"
+  >
+    <div
+      className="weaker-header row"
+    >
+      <h3>
+        weak
+      </h3>
+    </div>
+    <div
+      className="chapter-panel weaker"
+    >
+      <div
+        className="chapter metric"
+      >
+        <span
+          className="title"
+        >
+          weak
+        </span>
+        <p>
+          this are weak sections
+        </p>
+      </div>
+      <div
+        className="section"
+      >
+        <h4
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            4.2
+          </span>
+          <span
+            className="title"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Newton's First Law of Motion: Inertia",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Newton's First Law of Motion: Inertia"
+              />
+            </div>
+          </span>
+        </h4>
+        <div
+          aria-label="Practice - 4.2 Newton's First Law of Motion: Inertia"
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={53}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "53%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.35736864708971516
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.5331585527121938
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.7331585527121938
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              2  problems worked in this section
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <h3>
+        Individual Chapters
+      </h3>
+    </div>
+    <div
+      className="chapter-panel"
+    >
+      <div
+        className="chapter"
+      >
+        <div
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            3
+          </span>
+          <div
+            className="title"
+            title="Acceleration"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Acceleration",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Acceleration"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          aria-label="Practice - "
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={68}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.48026796534380245
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.6802679653438024
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.9025196157281774
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              23  problems worked in this chapter
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="section"
+      >
+        <h4
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            3.1
+          </span>
+          <span
+            className="title"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Acceleration",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Acceleration"
+              />
+            </div>
+          </span>
+        </h4>
+        <div
+          aria-label="Practice - 3.1 Acceleration"
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={68}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.48026796534380245
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.6802679653438024
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.7216930483524373
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              11  problems worked in this section
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="chapter-panel"
+    >
+      <div
+        className="chapter"
+      >
+        <div
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            4
+          </span>
+          <div
+            className="title"
+            title="Force and Newton's Laws of Motion"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Force and Newton's Laws of Motion",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Force and Newton's Laws of Motion"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          aria-label="Practice - "
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={53}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "53%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.13278347571119187
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.5331585527121938
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.7331585527121938
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              3  problems worked in this chapter
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="section"
+      >
+        <h4
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            4.1
+          </span>
+          <span
+            className="title"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Force",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Force"
+              />
+            </div>
+          </span>
+        </h4>
+        <div
+          aria-label="Practice - 4.1 Force"
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={55}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "55%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.5331585527121938
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.5483725909317109
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.7331585527121938
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              1  problem worked in this section
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="section"
+      >
+        <h4
+          className="heading"
+        >
+          <span
+            className="number"
+          >
+            4.2
+          </span>
+          <span
+            className="title"
+          >
+            <div
+              className="c0 book-part-title"
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Newton's First Law of Motion: Inertia",
+                  }
+                }
+                data-test-id="book-title"
+                data-title="Newton's First Law of Motion: Inertia"
+              />
+            </div>
+          </span>
+        </h4>
+        <div
+          aria-label="Practice - 4.2 Newton's First Law of Motion: Inertia"
+          className="medium progress"
+        >
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={53}
+            className="progress-bar"
+            role="progressbar"
+            style={
+              Object {
+                "width": "53%",
+              }
+            }
+          />
+        </div>
+        <div
+          className="statistics"
+        >
+          <div
+            className="visible-when-debugging clue"
+          >
+            <ul>
+              <li>
+                <strong>
+                  minimum
+                </strong>
+                : 
+                0.35736864708971516
+              </li>
+              <li>
+                <strong>
+                  most_likely
+                </strong>
+                : 
+                0.5331585527121938
+              </li>
+              <li>
+                <strong>
+                  maximum
+                </strong>
+                : 
+                0.7331585527121938
+              </li>
+              <li>
+                <strong>
+                  is_real
+                </strong>
+                : 
+                true
+              </li>
+            </ul>
+          </div>
+          <div
+            className="amount-worked"
+          >
+            <span
+              className="count"
+            >
+              2  problems worked in this section
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, css } from 'vendor';
+import { React, PropTypes, observer, styled, css, runInAction } from 'vendor';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { AsyncButton } from 'shared';
@@ -125,7 +125,7 @@ const TutorQuestion = observer(({ heading }) => {
                 {heading.title}
             </Cell>
             <DetailsCell>
-        OpenStax Tutor Beta selection
+                OpenStax Tutor Beta selection
             </DetailsCell>
             <Cell>
                 {S.numberWithOneDecimalPlace(heading.points)}
@@ -137,7 +137,7 @@ const TutorQuestion = observer(({ heading }) => {
                 </Reallocate>
             </Cell>
             <Cell>
-        1.0
+                1.0
             </Cell>
         </QuestionRowWrapper>
     );
@@ -278,58 +278,58 @@ const DropQuestion = observer(({ ux }) => {
     }
 
     return (
-    <>
-      <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
-      >
-          <Button
-              variant="light"
-              className="btn-standard"
-              data-test-id="drop-questions-btn"
-              onClick={() => ux.isDisplayingDropQuestions=true}
-          >
+        <>
+            <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip>Select and drop question(s) from assignment</Tooltip>}
+            >
+                <Button
+                    variant="light"
+                    className="btn-standard"
+                    data-test-id="drop-questions-btn"
+                    onClick={() => runInAction(() => ux.isDisplayingDropQuestions = true )}
+                >
           Drop questions
-          </Button>
-      </OverlayTrigger>
-      <DropQuestionsModal
-          show={ux.isDisplayingDropQuestions}
-          data-test-id="drop-questions-modal"
-          backdrop="static"
-          onHide={ux.cancelDisplayingDropQuestions}
-      >
-          <Modal.Header closeButton>
+                </Button>
+            </OverlayTrigger>
+            <DropQuestionsModal
+                show={ux.isDisplayingDropQuestions}
+                data-test-id="drop-questions-modal"
+                backdrop="static"
+                onHide={ux.cancelDisplayingDropQuestions}
+            >
+                <Modal.Header closeButton>
           Drop question for all sections
-          </Modal.Header>
-          <Modal.Body>
-              <Instructions>Select question(s) to drop:</Instructions>
-              <Table>
-                  <TableHeader />
-                  {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
-              </Table>
-              <LegendBar>
+                </Modal.Header>
+                <Modal.Body>
+                    <Instructions>Select question(s) to drop:</Instructions>
+                    <Table>
+                        <TableHeader />
+                        {ux.scores.question_headings.map((heading, i) => <Question key={i} ux={ux} heading={heading} />)}
+                    </Table>
+                    <LegendBar>
             Note: Selected questions will be dropped for all sections.
-              </LegendBar>
-          </Modal.Body>
-          <Modal.Footer>
-              <Button
-                  variant="default"
-                  className="btn-standard"
-                  data-test-id="cancel-btn"
-                  onClick={ux.cancelDisplayingDropQuestions}
-              >Cancel</Button>
-              <AsyncButton
-                  variant="primary"
-                  className="btn-standard"
-                  data-test-id="save-btn"
-                  disabled={!ux.canSubmitDroppedQuestions || ux.isDroppedQuestionsSaving}
-                  isWaiting={ux.isDroppedQuestionsSaving}
-                  waitingText="Dropping…"
-                  onClick={ux.saveDropQuestions}
-              >Save</AsyncButton>
-          </Modal.Footer>
-      </DropQuestionsModal>
-    </>
+                    </LegendBar>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        variant="default"
+                        className="btn-standard"
+                        data-test-id="cancel-btn"
+                        onClick={ux.cancelDisplayingDropQuestions}
+                    >Cancel</Button>
+                    <AsyncButton
+                        variant="primary"
+                        className="btn-standard"
+                        data-test-id="save-btn"
+                        disabled={!ux.canSubmitDroppedQuestions || ux.isDroppedQuestionsSaving}
+                        isWaiting={ux.isDroppedQuestionsSaving}
+                        waitingText="Dropping…"
+                        onClick={ux.saveDropQuestions}
+                    >Save</AsyncButton>
+                </Modal.Footer>
+            </DropQuestionsModal>
+        </>
     );
 });
 DropQuestion.propTypes = {

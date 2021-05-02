@@ -8,36 +8,36 @@ import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onbo
 export default
 class ExpiredPreviewWarning extends React.Component {
 
-  static propTypes = {
-      ux: PropTypes.object.isRequired,
-      history: PropTypes.object.isRequired,
-  }
+    static propTypes = {
+        ux: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired,
+    }
 
-  render() {
-      return (
-          <GotItOnboardingNag
-              {...this.props}
-              promptRenderer={this.renderPrompt}
-          />
-      );
-  }
+    render() {
+        return (
+            <GotItOnboardingNag
+                {...this.props}
+                promptRenderer={this.renderPrompt}
+            />
+        );
+    }
 
-  renderPrompt(onAddCourse, onContinue) {
-      return (
-          <OnboardingNag className="only-preview">
-              <Heading>
+    renderPrompt(onAddCourse, onContinue) {
+        return (
+            <OnboardingNag className="only-preview">
+                <Heading>
                   This preview course has expired.
-              </Heading>
-              <Body>
+                </Heading>
+                <Body>
                   Want to create a real course that students can access? Click “Create a course” on the right of your dashboard.
-              </Body>
-              <Footer>
-                  <Button variant="primary" onClick={onAddCourse}>Create a course</Button>
-                  <Button variant="default" onClick={onContinue}>Stay in Preview course</Button>
-              </Footer>
-          </OnboardingNag>
-      );
-  }
+                </Body>
+                <Footer>
+                    <Button variant="primary" onClick={onAddCourse}>Create a course</Button>
+                    <Button variant="default" onClick={onContinue}>Stay in Preview course</Button>
+                </Footer>
+            </OnboardingNag>
+        );
+    }
 
 
 }

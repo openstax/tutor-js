@@ -2,7 +2,7 @@ import { React, useState, styled } from 'vendor';
 import { Button } from 'react-bootstrap';
 import Terms from '../../components/add-edit-question/terms-of-use';
 import { colors } from 'theme';
-import UserMenu from '../../models/user/menu';
+import { UserMenu } from '../../models';
 
 const StyledExercisesFooter = styled.div`
     display: flex;

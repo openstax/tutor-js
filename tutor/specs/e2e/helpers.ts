@@ -1,7 +1,7 @@
 import { Page } from 'playwright-core'
 import Factory from 'object-factory-bot'
 import { forEach } from 'lodash'
-import { BootstrapData } from '../../src/store/types'
+import { BootstrapData } from '../../src/models/types'
 import fetch from 'node-fetch'
 import '../factories/definitions'
 export * from './mocker'

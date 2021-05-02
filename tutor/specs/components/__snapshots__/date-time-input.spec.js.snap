@@ -94,6 +94,7 @@ exports[`DateTimeInput matches snapshot 1`] = `
         className="oxdt-input"
       >
         <input
+          autoComplete="off"
           id="dte1"
           name="dte"
           onBlur={[Function]}

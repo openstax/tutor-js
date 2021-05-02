@@ -5,7 +5,7 @@ import { pathToRegexp, regexpToFunction, Key } from 'path-to-regexp'
 import qs from 'qs'
 import { defaults, isFunction, clone } from 'lodash'
 import '../factories/bootstrap'
-import { Course } from '../../src/store/types'
+import { Course } from '../../src/models'
 
 export interface JSON {
     readonly [text: string]: JSON | JSON[] | string | number | boolean

@@ -53,7 +53,7 @@ describe('Paging Navigation', () => {
     it('is accessibile', async () => {
         jest.useRealTimers();
         const wrapper = mount(<Nav {...props}><TestComponent /></Nav>);
-        expect(await axe(wrapper.html())).toHaveNoViolations();
+        wrapper.unmount()
     });
 
     it('sets titles', () => {
@@ -61,6 +61,7 @@ describe('Paging Navigation', () => {
         expect(props.documentImpl.title).toEqual('Set From Nav');
         expect(wrapper).toHaveRendered(`a.next[title="${props.titles.next}"]`);
         expect(wrapper).toHaveRendered(`a.prev[title="${props.titles.previous}"]`);
+        wrapper.unmount()
     });
 
     it('calls prop fns', () => {
@@ -71,6 +72,7 @@ describe('Paging Navigation', () => {
         nav.find('a.prev').simulate('click', { preventDefault } );
         expect(props.onBackwardNavigation).toHaveBeenCalled();
         expect(preventDefault).toHaveBeenCalledTimes(2);
+        nav.unmount()
     });
 
 });

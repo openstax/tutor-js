@@ -93,7 +93,7 @@ const StyledQuestionForm = styled.div`
         margin: 0.2rem 0.5rem;
         height: 1.4rem;
         width: 1.4rem;
-      } 
+      }
     }
     .context-info-wrapper {
       .left-side {
@@ -177,27 +177,27 @@ const StyledQuestionForm = styled.div`
 `;
 
 const Form = observer(({ ux }) => {
-    const twoStepLabel = 
+    const twoStepLabel =
     <>
-      <span className="two-step-label">Make this Two-step question </span>
-      <QuestionInfo
-          placement="right"
-          popoverInfo={
-          <>
-            <p>
+        <span className="two-step-label">Make this Two-step question </span>
+        <QuestionInfo
+            placement="right"
+            popoverInfo={
+                <>
+                    <p>
               A two-step question requires students to recall an answer from memory
               before viewing the multiple-choice options.
               Our research shows that retrieval practice helps to improve knowledge retention.
-            </p>
-            <p>
+                    </p>
+                    <p>
               Students will be graded only on the multiple-choice step.
               You can view student reponses in the ‘Submission overview’ tab.
-            </p>
-          </>
-          }/>
+                    </p>
+                </>
+            }/>
     </>;
 
-    const renderOptions = () => map(ux.options, (o, index) => 
+    const renderOptions = () => map(ux.options, (o, index) =>
         <div className="options-feedback" key={index}>
             <div className="left-side">
                 <Icon
@@ -267,38 +267,38 @@ const Form = observer(({ ux }) => {
             );
         }
         return (
-      <>
-        <div className="two-step-wrapper">
-            <div className="left-side"></div>
-            <div className="right-side">
-                <CheckboxInput
-                    onChange={ux.changeIsTwoStep}
-                    label={twoStepLabel}
-                    checked={ux.isTwoStep}
-                    standalone
-                />
-                <p className="two-step-info">
+            <>
+                <div className="two-step-wrapper">
+                    <div className="left-side"></div>
+                    <div className="right-side">
+                        <CheckboxInput
+                            onChange={ux.changeIsTwoStep}
+                            label={twoStepLabel}
+                            checked={ux.isTwoStep}
+                            standalone
+                        />
+                        <p className="two-step-info">
             Ask students to answer in their own words before displaying the multiple-choice options.
-                </p>
-            </div>
-        </div>
-        <div className="option-choices-wrapper">
-            {ux.isEmpty.correctOption && <p className="check-correct-error">Check correct option</p>}
-            {renderOptions()}
-            {renderAddOptionButton()}
-        </div>
-        <AnswerHTMLEditor
-            onImageUpload={ux.onImageUpload}
-            onChange={ux.changeDetailedSolution}
-            html={ux.detailedSolution}
-            label='Detailed solution'
-            placeholder="Optional."
-            className="detailed-solution"
-        />
-      </>
+                        </p>
+                    </div>
+                </div>
+                <div className="option-choices-wrapper">
+                    {ux.isEmpty.correctOption && <p className="check-correct-error">Check correct option</p>}
+                    {renderOptions()}
+                    {renderAddOptionButton()}
+                </div>
+                <AnswerHTMLEditor
+                    onImageUpload={ux.onImageUpload}
+                    onChange={ux.changeDetailedSolution}
+                    html={ux.detailedSolution}
+                    label='Detailed solution'
+                    placeholder="Optional."
+                    className="detailed-solution"
+                />
+            </>
         );
     };
-  
+
     const contextInfo = () => {
         if(!ux.fromExercise || !ux.fromExercise.context) {
             return null;
@@ -308,29 +308,29 @@ const Form = observer(({ ux }) => {
             <div className="context-info-wrapper">
                 <div className="left-side">Context</div>
                 <div className="right-side">
-          This question comes with media.
-                    <Button variant="link" onClick={() => ux.showPreviewQuestionModal = true}>Preview</Button>
-          to see it.
+                    This question comes with media.
+                    <Button variant="link" onClick={() => ux.showPreviewQuestionModal(true)}>Preview</Button>
+                    to see it.
                 </div>
             </div>
         );
     };
 
     return (
-    <>
-      { ux.isMCQ && <p className="mcq-info">Add question, multiple distractors, and check the correct answer.</p> }
-      {contextInfo()}
-      <AnswerHTMLEditor
-          onImageUpload={ux.onImageUpload}
-          onChange={ux.changeQuestionText}
-          html={ux.questionText}
-          label='Question'
-          placeholder="Enter question or problem statement."
-          className="question-text"
-          errorInfo={ux.isEmpty.questionText ? 'Question field cannot be empty' : ''}
-      />
-      {renderQuestionInfo()}
-    </>
+        <>
+            { ux.isMCQ && <p className="mcq-info">Add question, multiple distractors, and check the correct answer.</p> }
+            {contextInfo()}
+            <AnswerHTMLEditor
+                onImageUpload={ux.onImageUpload}
+                onChange={ux.changeQuestionText}
+                html={ux.questionText}
+                label='Question'
+                placeholder="Enter question or problem statement."
+                className="question-text"
+                errorInfo={ux.isEmpty.questionText ? 'Question field cannot be empty' : ''}
+            />
+            {renderQuestionInfo()}
+        </>
     );
 });
 Form.propTypes = {
@@ -343,7 +343,7 @@ const QuestionForm = observer(({ ux }) => {
         let buttons;
         const isEditing = ux.from_exercise_id;
         if(!isEditing || ux.isMCQ) {
-            buttons = 
+            buttons =
         <Button
             variant="light"
             className={cn({ 'selected': ux.isMCQ })}
@@ -352,16 +352,16 @@ const QuestionForm = observer(({ ux }) => {
           Multiple-choice question
         </Button>;
         }
-        if(!isEditing || !ux.isMCQ) buttons = 
+        if(!isEditing || !ux.isMCQ) buttons =
       <>
-        {buttons}
-        <Button
-            variant="light"
-            className={cn({ 'selected': !ux.isMCQ })}
-            onClick={() => ux.isMCQ = false}
-            disabled={!ux.isMCQ}>
+          {buttons}
+          <Button
+              variant="light"
+              className={cn({ 'selected': !ux.isMCQ })}
+              onClick={() => ux.isMCQ = false}
+              disabled={!ux.isMCQ}>
           Written-response question
-        </Button>
+          </Button>
       </>;
         return buttons;
     };

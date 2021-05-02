@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import AddEditQuestionTermsOfUseModal from '../course-modal';
 import CheckboxInput from '../checkbox-input';
 import { colors } from 'theme';
-import User from '../../models/user';
+import { currentUser } from '../../models';
 
 const TERMS_NAME = 'exercise_editing';
 
@@ -60,39 +60,39 @@ const StyledAddEditQuestionTermsOfUseModal = styled(AddEditQuestionTermsOfUseMod
 `;
 
 const agreeTermsOfUse = () => {
-    const term = User.terms.get(TERMS_NAME);
+    const term = currentUser.terms.get(TERMS_NAME);
     if (term) {
-        User.terms.sign([term.id]);
+        currentUser.terms.sign([term.id]);
     }
 };
 
 const TermAgreement = ({ onClose }) => {
     const [agree, setAgree] = useState(false);
     return (
-    <>
-      <CheckboxInput
-          className="i-agree"
-          onChange={() => setAgree(prevState => !prevState)}
-          label="I have read and agree to these terms of use."
-          checked={agree}
-          standalone
-      />
-      <div className="buttons-wrapper">
-          <Button
-              variant="default"
-              className="cancel"
-              onClick={onClose}>
+        <>
+            <CheckboxInput
+                className="i-agree"
+                onChange={() => setAgree(prevState => !prevState)}
+                label="I have read and agree to these terms of use."
+                checked={agree}
+                standalone
+            />
+            <div className="buttons-wrapper">
+                <Button
+                    variant="default"
+                    className="cancel"
+                    onClick={onClose}>
           Cancel
-          </Button>
-          <Button
-              data-test-id="agree-to-terms"
-              variant="primary"
-              disabled={!agree}
-              onClick={agreeTermsOfUse}>
+                </Button>
+                <Button
+                    data-test-id="agree-to-terms"
+                    variant="primary"
+                    disabled={!agree}
+                    onClick={agreeTermsOfUse}>
           Accept and continue
-          </Button>
-      </div>
-    </>
+                </Button>
+            </div>
+        </>
     );
 };
 TermAgreement.propTypes = {
@@ -102,12 +102,12 @@ TermAgreement.propTypes = {
 const AddEditQuestionTermsOfUse = observer(({ show, onClose, displayOnly = false }) => {
     const [termContent, setTermContent] = useState(null);
 
-    const term = useMemo(() => User.terms.get(TERMS_NAME),
-        [User.terms.get(TERMS_NAME).content]);
+    const term = useMemo(() => currentUser.terms.get(TERMS_NAME),
+        [currentUser.terms.get(TERMS_NAME).content]);
 
     useEffect(() => {
         if (show) {
-            User.terms.fetch();
+            currentUser.terms.fetch();
         }
     }, [show]);
     useEffect(() => {

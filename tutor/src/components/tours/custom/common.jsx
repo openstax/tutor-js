@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { React, styled, cn } from 'vendor';
 import { Primary }  from './buttons';
-import CourseUX from '../../../models/course/ux';
+import { CourseUX }from '../../../models';
 import CourseBranding from '../../branding/course';
 
 const Footer = styled.div`

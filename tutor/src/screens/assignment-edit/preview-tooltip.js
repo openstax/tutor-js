@@ -1,7 +1,7 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
 import { TemplateBody } from '../grading-templates/card';
-import { GradingTemplate } from '../../models/grading/templates';
+import { GradingTemplate } from '../../models'
 
 const StyledButton = styled(Button)`
   &.btn {

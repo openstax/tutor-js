@@ -1,6 +1,5 @@
-import { React, PropTypes, computed, observer } from 'vendor';
-import Exercises from '../../models/exercises';
-import Courses from '../../models/courses-map';
+import { React, PropTypes, computed, observer, modelize, action, runInAction } from 'vendor';
+import { currentExercises , currentCourses } from '../../models';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
 import Loading from 'shared/components/loading-animation';
@@ -10,34 +9,38 @@ import './styles.scss';
 @observer
 export default
 class QuestionsDashboardShell extends React.Component {
-  static propTypes = {
-      exercises: PropTypes.object,
-      history: PropTypes.shape({
-          push: PropTypes.func,
-      }).isRequired,
-  }
+    static propTypes = {
+        exercises: PropTypes.object,
+        history: PropTypes.shape({
+            push: PropTypes.func,
+        }).isRequired,
+    }
 
-  static defaultProps = {
-      exercises: Exercises,
-  }
+    static defaultProps = {
+        exercises: currentExercises,
+    }
 
-  @computed get course() {
-      const { courseId } = Router.currentParams();
-      return Courses.get(courseId);
-  }
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  componentDidMount() {
-      this.props.exercises.clear();
-      this.course.referenceBook.ensureLoaded();
-  }
+    @computed get course() {
+        const { courseId } = Router.currentParams();
+        return currentCourses.get(courseId);
+    }
 
-  componentWillUnmount() {
-      Exercises.clear();
-  }
+    @action componentDidMount() {
+        this.props.exercises.clear();
+        this.course.referenceBook.ensureLoaded();
+    }
 
-  render() {
-      if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
-      return <Dashboard exercises={this.props.exercises} course={this.course} history={this.props.history} />;
-  }
+    componentWillUnmount() {
+        runInAction(() => currentExercises.clear() )
+    }
 
+    render() {
+        if (!this.course.referenceBook.api.hasBeenFetched) { return <Loading />; }
+        return <Dashboard exercises={this.props.exercises} course={this.course} history={this.props.history} />;
+    }
 }

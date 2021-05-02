@@ -1,40 +1,42 @@
-import {
-    React, PropTypes, withRouter, action,
-} from 'vendor';
+import { React, PropTypes, withRouter, action, modelize } from 'vendor';
 import StepPanel from './standard';
 import Router from '../../../helpers/router';
 
 @withRouter
 export default
 class NewEnrollmentLink extends React.Component {
+    className = 'new-enrollment-link-wheel'
 
-  className = 'new-enrollment-link-wheel'
+    static propTypes = {
+        step: PropTypes.object.isRequired,
+        ride: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired,
+    };
 
-  static propTypes = {
-      step: PropTypes.object.isRequired,
-      ride: PropTypes.object.isRequired,
-      history: PropTypes.object.isRequired,
-  };
+    constructor(props) {
+        super(props);
+        modelize(this);
+    }
 
-  @action.bound onNavigate() {
-      const { courseId } = this.props.ride.tour;
-      this.props.history.push(
-          Router.makePathname('courseSettings', { courseId })
-      );
-      this.props.ride.markComplete();
-  }
+    @action.bound onNavigate() {
+        const { courseId } = this.props.ride.tour;
+        this.props.history.push(
+            Router.makePathname('courseSettings', { courseId })
+        );
+        this.props.ride.markComplete();
+    }
 
-  render() {
-      const { step, ride } = this.props;
+    render() {
+        const { step, ride } = this.props;
 
-      return (
-          <StepPanel
-              step={step} ride={ride}
-              buttons={[
-                  <button key="1" onClick={this.onNavigate}>Go to the new links</button>,
-                  <button key="2" onClick={ride.onNextStep}>I’ll get them later</button>,
-              ]}
-          />
-      );
-  }
+        return (
+            <StepPanel
+                step={step} ride={ride}
+                buttons={[
+                    <button key="1" onClick={this.onNavigate}>Go to the new links</button>,
+                    <button key="2" onClick={ride.onNextStep}>I’ll get them later</button>,
+                ]}
+            />
+        );
+    }
 }

@@ -137,6 +137,7 @@ Factory.define('OpenEndedExerciseQuestion')
     .community_solutions(() => []);
 
 Factory.define('Exercise')
+    .id(sequence)
     .tags([
         'assignment-type:reading',
         'requires-context:true',
@@ -153,9 +154,9 @@ Factory.define('Exercise')
     .nickname(fake.internet.domainWord)
     .uuid(uuid)
     .group_uuid(uuid)
-    .number(sequence)
-    .version(1)
-    .uid(({ object }) => `${object.number}@${object.version}`)
+    .factnumber(sequence)
+    .factversion(1)
+    .uid(({ object }) => `${object.factnumber}@${object.factversion}`)
     .authors(reference('ExerciseUser', { count: 1 }))
     .copyright_holders(reference('ExerciseUser', { count: 1 }))
     .derived_from(() => [])

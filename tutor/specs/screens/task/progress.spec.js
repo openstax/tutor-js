@@ -1,11 +1,15 @@
 import UX from '../../../src/screens/task/ux';
 import Progress from '../../../src/screens/task/progress';
-import { TestRouter, Factory, TimeMock, ld } from '../../helpers';
+import { ApiMock, TestRouter, Factory, TimeMock, ld } from '../../helpers';
 
 describe('Reading Progress Component', () => {
     let props;
     let history;
     TimeMock.setTo('2017-10-14T12:00:00.000Z');
+
+    ApiMock.intercept({
+        'courses/\\d+/practice_questions': [],
+    })
 
     beforeEach(() => {
         const task = Factory.studentTasks({

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { React, PropTypes, styled } from 'vendor';
 import ExerciseCards from '../../components/exercises/cards';
 import Router from '../../helpers/router';
-import { PRACTICE } from '../../models/student-tasks';
+import { STUDENT_PRACTICE_TYPES } from '../../config'
 import { colors, breakpoint } from 'theme';
 import UX from './ux';
 import DeleteQuestionModal from './delete-modal';
@@ -203,7 +203,7 @@ const PracticeQuestionsList = ({ ux, history }) => {
                 { courseId: ux.course.id },
                 { 
                     query: { 
-                        type: PRACTICE.SAVED,
+                        type: STUDENT_PRACTICE_TYPES.SAVED,
                         practice_question_ids: practiceQuestionIds,
                     },
                 }
@@ -230,34 +230,34 @@ const PracticeQuestionsList = ({ ux, history }) => {
     };
 
     return (
-    <>
-      <StyledExerciseCardsWrapper className="practice-questions-list">
-          <ExerciseCards {...exerciseCardProps}/>
-      </StyledExerciseCardsWrapper>
-      <StyledFooterControls>
-          <Button
-              data-test-id="clear-practice-selection"
-              variant="default"
-              disabled={isEmpty(selectedExerciseIds)}
-              onClick={clearSelection}>
+        <>
+            <StyledExerciseCardsWrapper className="practice-questions-list">
+                <ExerciseCards {...exerciseCardProps}/>
+            </StyledExerciseCardsWrapper>
+            <StyledFooterControls>
+                <Button
+                    data-test-id="clear-practice-selection"
+                    variant="default"
+                    disabled={isEmpty(selectedExerciseIds)}
+                    onClick={clearSelection}>
               Clear Selection
-          </Button>
-          <Button
-              data-test-id="start-practice"
-              variant="primary"
-              disabled={isEmpty(selectedExerciseIds)}
-              onClick={startPractice}>
+                </Button>
+                <Button
+                    data-test-id="start-practice"
+                    variant="primary"
+                    disabled={isEmpty(selectedExerciseIds)}
+                    onClick={startPractice}>
             Start Practice
-          </Button>
-      </StyledFooterControls>
-      {exerciseToBeDeleted && 
+                </Button>
+            </StyledFooterControls>
+            {exerciseToBeDeleted && 
         <DeleteQuestionModal
             onDelete={() => {
                 deletePracticeQuestion(exerciseToBeDeleted.id);
                 setExerciseToBeDeleted(null);
             }}
             onCancel={() => setExerciseToBeDeleted(null)}/> }
-    </>
+        </>
     );
 };
 PracticeQuestionsList.propTypes = {

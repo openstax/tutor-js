@@ -5,7 +5,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import { isNil } from 'lodash';
 import ScoresHelper from '../../../helpers/scores';
-import TaskStep from '../../../models/student-tasks/step';
+import { StudentTaskStep } from '../../../models';
 
 const StyledMessage = styled.div`
   color: ${colors.neutral.thin};
@@ -51,7 +51,7 @@ const WRQStatus = observer(({ step }) => {
     return null;
 });
 WRQStatus.propTypes = {
-    step: PropTypes.instanceOf(TaskStep).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
 };
 
 const StyledPoints = styled.div`
@@ -90,7 +90,7 @@ const PointsAndFeedback = observer(({ step }) => {
     );
 });
 PointsAndFeedback.propTypes = {
-    step: PropTypes.instanceOf(TaskStep).isRequired,
+    step: PropTypes.instanceOf(StudentTaskStep).isRequired,
 };
 
 

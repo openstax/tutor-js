@@ -10,7 +10,7 @@ const Wrapper = props => <span>
 </span>;
 
 function error(code) {
-    return { data: { errors: [ { code } ] } };
+    return { data: { code } };
 }
 
 describe('Error monitoring: handlers', () => {

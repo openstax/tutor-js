@@ -1,13 +1,9 @@
 import { React, styled, css } from 'vendor'
 import { Icon, ScrollToTop } from 'shared'
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import scrollIntoView from 'scroll-into-view'
-import { createPreviewCourse } from '../../store/courses'
-import { useAvailableOfferings } from '../../store/offering'
-import User from '../../models/user'
-import { Offering } from '../../store/types'
-import CourseInformation from '../../models/course/information'
+import { useAvailableOfferings } from '../../helpers/hooks'
+import { currentUser, Offering, CourseInformation, SubjectOrder, currentCourses } from '../../models'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
 import { groupBy, sortBy, map, extend } from 'lodash'
@@ -16,7 +12,6 @@ import AsyncButton from 'shared/components/buttons/async-button'
 import TutorLink from '../../components/link'
 import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrapper'
 import qs from 'qs'
-import { SubjectOrder } from '../../models/subject-order'
 
 import './styles.scss'
 
@@ -475,7 +470,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     const onSubmitSuggestion = (e) => {
         e.preventDefault()
         setSubmittingSuggestion(true)
-        Promise.resolve(User.suggestSubject({ data: suggestedSubject }))
+        Promise.resolve(currentUser.suggestSubject({ data: suggestedSubject }))
             .then(() => setActiveScreen(Screens.AfterSuggest))
     }
 
@@ -579,16 +574,16 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
     offerings, selectedSubject,
 }) => {
     const [creatingPreview, setCreatingPreview] = useState(false)
-    const dispatch = useDispatch()
     const offering = Object.values(offerings).flat().find(o => o.id == selectedSubject)
 
     const createPreview = () => {
-        if (!User.canViewPreviewCourses) {
+        if (!currentUser.canViewPreviewCourses) {
             return null
         }
 
         setCreatingPreview(true)
-        dispatch(createPreviewCourse(offering))
+        currentCourses
+            .createPreview()
             .then((result) => {
                 setCreatingPreview(false)
                 if (!result.error) {

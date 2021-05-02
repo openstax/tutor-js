@@ -1,7 +1,6 @@
 import { React, PropTypes, styled, cn } from 'vendor';
 import { isEmpty } from 'lodash';
-import Course from '../models/course';
-import RelatedContent from '../models/related-content';
+import { Course, RelatedContent } from '../models';
 import BrowseTheBook from './buttons/browse-the-book';
 import BookPartTitle from './book-part-title';
 

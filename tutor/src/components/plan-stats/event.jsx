@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
-import Course from '../../models/course';
-import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
+import { Course, TeacherTaskPlan } from '../../models';
 import { Markdown } from 'shared';
 
 export default function Event({ plan, course }) {
