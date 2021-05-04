@@ -1,4 +1,4 @@
-import { React, PropTypes, moment, styled, cn, observer, useState } from 'vendor';
+import { React, PropTypes, moment, styled, cn, observer, useState, runInAction } from 'vendor';
 import { Form, Row, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { isEmpty } from 'lodash';
@@ -76,7 +76,7 @@ const StyledCourseDetails = styled.div`
               width: 100%;
             `}
           }
-          &#endDate, 
+          &#endDate,
           &#startDate {
             width: 57%;
             ${breakpoint.tablet`
@@ -119,7 +119,7 @@ const df = (d) => moment(d).format('MMM DD, YYYY');
 
 const CourseDetails = observer(({ course, history }) => {
     const [isSaving, setIsSaving] = useState(false);
-    
+
     const initialValues = {
         courseName: course.name,
         courseCode: course.code,
@@ -145,9 +145,12 @@ const CourseDetails = observer(({ course, history }) => {
 
     const onSubmit = ({ courseName, courseCode, timezone }) => {
         setIsSaving(true);
-        course.name = courseName;
-        course.code = courseCode;
-        course.timezone = timezone;
+        runInAction(() => {
+            course.name = courseName;
+            course.code = courseCode;
+            course.timezone = timezone;
+        })
+
         course.save().then(() => {
             setIsSaving(false);
             currentToasts.add({ handler: 'courseSettingsSaved', status: 'ok' });
@@ -166,7 +169,7 @@ const CourseDetails = observer(({ course, history }) => {
                     <Form className="course-detail-settings-form">
                         <Form.Group as={Row} controlId="course-name">
                             <Form.Label column sm="2" md="1">
-              Course name
+                                Course name
                             </Form.Label>
                             <Col sm="10" md="11">
                                 <Form.Control
@@ -182,7 +185,7 @@ const CourseDetails = observer(({ course, history }) => {
                         </Form.Group>
                         <Form.Group as={Row} controlId="course-code">
                             <Form.Label column sm="2" md="1">
-            Course code
+                                Course code
                             </Form.Label>
                             <Col sm="10" md="11">
                                 <Form.Control
@@ -196,7 +199,7 @@ const CourseDetails = observer(({ course, history }) => {
                         </Form.Group>
                         <Form.Group as={Row} controlId="term">
                             <Form.Label column sm="2" md="1">
-            Term
+                                Term
                             </Form.Label>
                             <Col sm="10" md="11">
                                 <Form.Control value={values.term} type="text" name="term" readOnly/>
@@ -204,7 +207,7 @@ const CourseDetails = observer(({ course, history }) => {
                         </Form.Group>
                         <Form.Group as={Row} className="dates">
                             <Form.Label column sm="2" md="1" htmlFor="startDate">
-            Start date
+                                Start date
                             </Form.Label>
                             <Col sm="4" md="5">
                                 <Form.Control
@@ -215,7 +218,7 @@ const CourseDetails = observer(({ course, history }) => {
                                     readOnly/>
                             </Col>
                             <Form.Label column sm="2" md="1" className="end-date-label" htmlFor="endDate">
-            End date
+                                End date
                             </Form.Label>
                             <Col sm="4" md="5">
                                 <Form.Control
@@ -247,7 +250,7 @@ const CourseDetails = observer(({ course, history }) => {
                                 isWaiting={isSaving}
                                 waitingText="Saving..."
                             >
-                Save changes
+                                Save changes
                             </AsyncButton>
                         </div>
                     </Form>
