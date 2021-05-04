@@ -161,7 +161,7 @@ describe('Course Model', () => {
         fetchMock.mockResponseOnce(JSON.stringify({ id: 1234 }))
         await course.save()
         expect(fetchMock.mock.calls.length).toEqual(1)
-        expect(fetchMock.mock.calls[0][0]).toContain('api/course/1')
+        expect(fetchMock.mock.calls[0][0]).toContain('api/courses/1')
         const body = fetchMock.mock.calls[0][1]?.body as string
         expect(JSON.parse(body)).toMatchObject({
             name: course.name,
