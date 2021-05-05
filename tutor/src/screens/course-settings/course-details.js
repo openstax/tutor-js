@@ -1,4 +1,4 @@
-import { React, PropTypes, moment, styled, cn, observer, useState, runInAction } from 'vendor';
+import { React, PropTypes, moment, styled, cn, observer, useState, action } from 'vendor';
 import { Form, Row, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { isEmpty } from 'lodash';
@@ -143,19 +143,17 @@ const CourseDetails = observer(({ course, history }) => {
         return errors;
     };
 
-    const onSubmit = ({ courseName, courseCode, timezone }) => {
+    const onSubmit = action(({ courseName, courseCode, timezone }) => {
         setIsSaving(true);
-        runInAction(() => {
-            course.name = courseName;
-            course.code = courseCode;
-            course.timezone = timezone;
-        })
+        course.name = courseName;
+        course.code = courseCode;
+        course.timezone = timezone;
 
         course.save().then(() => {
             setIsSaving(false);
             currentToasts.add({ handler: 'courseSettingsSaved', status: 'ok' });
         });
-    };
+    });
 
     return (
         <StyledCourseDetails data-test-id="course-details">

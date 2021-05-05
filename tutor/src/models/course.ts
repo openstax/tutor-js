@@ -311,8 +311,9 @@ export class Course extends BaseModel {
         return find(this.roster.teachers, t => t.role_id === teacherRole.id);
     }
 
-    @computed get saveAttrs() {
-        return this.is_access_switchable ? SAVEABLE_ATTRS : without(SAVEABLE_ATTRS, 'is_lms_enabled')
+    @computed get saveData() {
+        const attrs = this.is_access_switchable ? SAVEABLE_ATTRS : without(SAVEABLE_ATTRS, 'is_lms_enabled')
+        return pick(this, attrs)
     }
 
     // called by API
@@ -324,7 +325,7 @@ export class Course extends BaseModel {
     async save() {
         const data = await this.api.request<CourseData>(
             this.isNew ? urlFor('createCourse') : urlFor('updateCourse', { courseId: this.id }),
-            { data: pick(this, this.saveAttrs) },
+            { data: this.saveData },
         )
         runInAction(() => hydrateInstance(this, data))
     }
