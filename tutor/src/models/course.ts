@@ -3,7 +3,7 @@ import {
     NEW_ID, array, hydrateModel, getParentOf, hydrateInstance, runInAction,
 } from 'shared/model';
 import {
-    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter,
+    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter, without,
 } from 'lodash';
 import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
@@ -311,6 +311,11 @@ export class Course extends BaseModel {
         return find(this.roster.teachers, t => t.role_id === teacherRole.id);
     }
 
+    @computed get saveData() {
+        const attrs = this.is_access_switchable ? SAVEABLE_ATTRS : without(SAVEABLE_ATTRS, 'is_lms_enabled')
+        return pick(this, attrs)
+    }
+
     // called by API
     async fetch() {
         const data = await this.api.request<CourseData>(urlFor('fetchCourse', { courseId: this.id }))
@@ -320,7 +325,7 @@ export class Course extends BaseModel {
     async save() {
         const data = await this.api.request<CourseData>(
             this.isNew ? urlFor('createCourse') : urlFor('updateCourse', { courseId: this.id }),
-            { data: pick(this, SAVEABLE_ATTRS) },
+            { data: this.saveData },
         )
         runInAction(() => hydrateInstance(this, data))
     }
