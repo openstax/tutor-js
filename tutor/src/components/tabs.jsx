@@ -93,7 +93,7 @@ const Tabs = ({
                         >
                             <a
                                 href="#"
-                                data-test-id={`${S.dasherize(tab)}-tab`}
+                                data-test-id={`${S.dasherize(tab.toLowerCase())}-tab`}
                                 onClick={partial(onTabClick, index)}
                             >
                                 <h2>

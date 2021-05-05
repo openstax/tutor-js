@@ -22,7 +22,7 @@ describe('Course Settings', () => {
         await page.click('#actions-menu')
         await page.click('[data-item=courseSettings]')
 
-        await page.click('testEl=c-o-u-r-s-e-d-e-t-a-i-l-s-tab')
+        await page.click('testEl=course-details-tab-tab')
         await expect(page).toHaveSelector('.course-detail-settings-form')
         const courseName = page.$eval('input#course-name', (el: any) => el.value)
         await page.click('testEl=delete-course-btn')
