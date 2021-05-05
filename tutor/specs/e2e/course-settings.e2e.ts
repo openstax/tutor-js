@@ -1,39 +1,39 @@
-import { visitPage, setTimeouts, loginAs } from './helpers'
+import { visitPage, setTimeouts, loginAs } from './helpers';
 
 describe('Course Settings', () => {
     beforeEach(async () => {
-    await loginAs({ page, userName: 'reviewteacher' })
+        await loginAs({ page, userName: 'reviewteacher' })
         await setTimeouts()
     })
 
     describe('without any students', () => {
         it('deletes, then redirects to my-courses', async () => {
-        await visitPage(page, '/courses')
-        await page.click('testEl=create-course')
-        await page.click('[role=button].choice')
-        await page.click('testEl=next-btn')
-        await page.click('testEl=next-btn')
-        await page.click('testEl=next-btn')
+            await visitPage(page, '/courses')
+            await page.click('testEl=create-course')
+            await page.click('[role=button].choice')
+            await page.click('testEl=next-btn')
+            await page.click('testEl=next-btn')
+            await page.click('testEl=next-btn')
 
-        await page.fill('#number-students', '1')
-        await page.click('testEl=next-btn')
+            await page.fill('#number-students', '1')
+            await page.click('testEl=next-btn')
 
-        await page.waitForSelector('.course-page')
-        await page.click('#actions-menu')
-        await page.click('[data-item=courseSettings]')
+            await page.waitForSelector('.course-page')
+            await page.click('#actions-menu')
+            await page.click('[data-item=courseSettings]')
 
-        await page.click('testEl=course-details-tab-tab')
-        await expect(page).toHaveSelector('.course-detail-settings-form')
-        const courseName = page.$eval('input#course-name', (el: any) => el.value)
-        await page.click('testEl=delete-course-btn')
-        await expect(page).toHaveText('testEl=delete-course-message', 'delete')
-        await expect(page).not.toHaveSelector('testEl=disabled-delete-course-message-warning', { timeout: 100 })
-        await page.click('testEl=confirm-delete-btn')
-        await expect(page).toHaveSelector('testEl=existing-teacher-screen')
-        expect(
-            await page.evaluate(() => document.location.pathname)
-        ).toEqual('/courses')
-        await expect(page).not.toHaveSelector(`testEl=course-card >> text=${courseName}`, { timeout: 100 })
+            await page.click('testEl=course-details-tab-tab')
+            await expect(page).toHaveSelector('.course-detail-settings-form')
+            const courseName = page.$eval('input#course-name', (el: any) => el.value)
+            await page.click('testEl=delete-course-btn')
+            await expect(page).toHaveText('testEl=delete-course-message', 'delete')
+            await expect(page).not.toHaveSelector('testEl=disabled-delete-course-message-warning', { timeout: 100 })
+            await page.click('testEl=confirm-delete-btn')
+            await expect(page).toHaveSelector('testEl=existing-teacher-screen')
+            expect(
+                await page.evaluate(() => document.location.pathname)
+            ).toEqual('/courses')
+            await expect(page).not.toHaveSelector(`testEl=course-card >> text=${courseName}`, { timeout: 100 })
         });
     })
 
