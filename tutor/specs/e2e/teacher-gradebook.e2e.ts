@@ -1,4 +1,4 @@
-import { Factory, visitPage, Mocker, setTimeouts, setRole, deleteText } from './helpers'
+import { Factory, visitPage, Mocker, setTimeouts, loginAs, deleteText } from './helpers'
 
 xdescribe('Teacher Gradebook', () => {
     Mocker.mock({
@@ -19,7 +19,7 @@ xdescribe('Teacher Gradebook', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
+        await loginAs('reviewteacher')
         await visitPage(page, '/course/1/gradebook')
     });
 

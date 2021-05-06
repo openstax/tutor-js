@@ -1,4 +1,4 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { visitPage, setTimeouts, loginAs } from './helpers'
 
 // the BE mock api server is primarily in backend/exercises and backend/terms
 
@@ -6,7 +6,7 @@ describe('Add/Edit Questions', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
+        await loginAs('reviewteacher')
         await visitPage(page, '/course/1/questions')
         await page.evaluate(() => {
             window.localStorage.clear()

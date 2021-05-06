@@ -2,7 +2,7 @@ import { visitPage, setTimeouts, loginAs } from './helpers';
 
 xdescribe('Course Settings', () => {
     beforeEach(async () => {
-        await loginAs({ page, userName: 'reviewteacher' })
+        await loginAs('reviewteacher')
         await setTimeouts()
     })
 

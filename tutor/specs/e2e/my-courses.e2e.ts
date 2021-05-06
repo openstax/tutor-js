@@ -48,7 +48,7 @@ describe('My Courses', () => {
     describe('Dashboard', () => {
         describe('single course teacher', () => {
             beforeEach(async () => {
-                await loginAs({ page, userName: 'teacher01' })
+                await loginAs('teacher01')
             })
 
             it('can add an offering', async () => {
@@ -73,7 +73,7 @@ describe('My Courses', () => {
 
 
             beforeEach(async () => {
-                await loginAs({ page, userName: 'reviewteacher' })
+                await loginAs('reviewteacher')
                 await visitPage(page, '/courses')
             })
 
