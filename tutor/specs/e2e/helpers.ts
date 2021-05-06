@@ -54,6 +54,7 @@ export const findOrCreateTeacherAccount = async ({
         `puts User::FindOrCreateUser[
 username:'${userName}',
 role:'${role}',
+is_test:true,
 faculty_status:'${isVerified ? 'confirmed_faculty' : 'no_faculty_info'}',
 school_type:'${approvedSchool ? 'college' : 'unknown_school_type' }',
 school_location:'domestic_school'].id`
@@ -78,7 +79,7 @@ export const loginAs = async (userName: string, page: Page = (global as any).pag
         await page.click('.logout [type=submit]')
     }
     await page.goto(`${testConfig.URL}/accounts/dev/accounts`)
-    await page.click(`text=${userName}`)
+    await page.click(`text="${userName}"`)
 }
 
 export const setTimeouts = async () => {

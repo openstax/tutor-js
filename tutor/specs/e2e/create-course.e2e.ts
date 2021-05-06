@@ -1,15 +1,10 @@
-import { visitPage, Mocker, setTimeouts } from './helpers'
+import { visitPage, setTimeouts, loginAs } from './helpers'
 
 xdescribe('Create Course wizard', () => {
 
     beforeEach(async () => {
+        await loginAs({ page, userName: 'reviewteacher' })
         await setTimeouts()
-    })
-
-
-    const mock = Mocker.mock({
-        page,
-        routes: {},
     })
 
 
@@ -35,12 +30,8 @@ xdescribe('Create Course wizard', () => {
 
     xdescribe('create course', () => {
         beforeEach(async () => {
-            const bio = mock.current.bootstrapData.offerings.find((o: any) => o.appearance_code == 'college_biology')
-            mock.current.bootstrapData.courses.forEach((c: any) => {
-                c.offering_id = bio.id
-            })
             await visitPage(page, '/new-course')
-            await page.click('[role=button][data-appearance=college_biology]')
+            await page.click('[role=button][data-appearance=college_physics]')
             await page.click('testEl=next-btn')
             await page.click('.choice:nth-child(2)')
             await page.click('testEl=next-btn')
