@@ -1,4 +1,4 @@
-name: TutorJS
+name: Tutor End 2 End Tests
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: openstax/tutor-server
-          ref: mini_book_docker
+          ref: main
           path: tutor-server
       - uses: ./tutor-server/
       - name: Run tests
