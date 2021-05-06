@@ -1,6 +1,6 @@
 import { visitPage, Mocker, setTimeouts } from './helpers'
 
-describe('Browse the book', () => {
+xdescribe('Browse the book', () => {
 
     beforeEach(async () => {
         await setTimeouts()

@@ -1,12 +1,12 @@
 import { visitPage, setTimeouts, loginAs } from './helpers';
 
-describe('Course Settings', () => {
+xdescribe('Course Settings', () => {
     beforeEach(async () => {
         await loginAs({ page, userName: 'reviewteacher' })
         await setTimeouts()
     })
 
-    describe('without any students', () => {
+    xdescribe('without any students', () => {
         it('deletes, then redirects to my-courses', async () => {
             await visitPage(page, '/courses')
             await page.click('testEl=create-course')
@@ -37,7 +37,7 @@ describe('Course Settings', () => {
         });
     })
 
-    describe('with students', () => {
+    xdescribe('with students', () => {
 
         beforeEach(async () => {
             await visitPage(page, '/course/1/settings?tab=1')

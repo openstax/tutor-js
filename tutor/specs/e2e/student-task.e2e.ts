@@ -1,7 +1,7 @@
 import faker from 'faker'
 import { visitPage, Mocker, setTimeouts, selectAnswer } from './helpers'
 
-describe('Student Tasks', () => {
+xdescribe('Student Tasks', () => {
 
     Mocker.mock({
         page,

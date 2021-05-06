@@ -1,6 +1,6 @@
 import { visitPage, setTimeouts, withScreenSize, setRole } from './helpers'
 
-describe('Student Dashboard', () => {
+xdescribe('Student Dashboard', () => {
     beforeEach(async () => {
         await setRole('student')
         await setTimeouts()

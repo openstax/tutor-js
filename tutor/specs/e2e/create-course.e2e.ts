@@ -1,6 +1,6 @@
 import { visitPage, Mocker, setTimeouts } from './helpers'
 
-describe('Create Course wizard', () => {
+xdescribe('Create Course wizard', () => {
 
     beforeEach(async () => {
         await setTimeouts()
@@ -33,7 +33,7 @@ describe('Create Course wizard', () => {
         await expect(page).not.toHaveSelector('.choice.active', { timeout: 100 })
     })
 
-    describe('create course', () => {
+    xdescribe('create course', () => {
         beforeEach(async () => {
             const bio = mock.current.bootstrapData.offerings.find((o: any) => o.appearance_code == 'college_biology')
             mock.current.bootstrapData.courses.forEach((c: any) => {

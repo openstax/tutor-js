@@ -1,6 +1,6 @@
 import { visitPage, Mocker, setTimeouts } from './helpers'
 
-describe('Preview Courses', () => {
+xdescribe('Preview Courses', () => {
 
     const mock = Mocker.mock({
         page,

@@ -14,7 +14,7 @@ const PLAN_SETTINGS = {
     7: { type: 'homework', exercises: [] },
 }
 
-describe('Assignment Review', () => {
+xdescribe('Assignment Review', () => {
 
     Mocker.mock({
         page,
