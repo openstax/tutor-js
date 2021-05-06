@@ -25,16 +25,16 @@ export default class AssignmentGradingUX {
     // @UiSettings.decorate('grd.sak') showAnswerKey = false;
 
     get hideStudentNames() { return (UiSettings.get('grd.hsn') || false) }
-    set hideStudentNames(value) { return UiSettings.set('grd.hsn', value) }
+    set hideStudentNames(value) { UiSettings.set('grd.hsn', value) }
 
     get alphabetizeResponses() { return (UiSettings.get('grd.alpr') || false) }
-    set alphabetizeResponses(value) { return UiSettings.set('grd.alpr', value) }
+    set alphabetizeResponses(value) { UiSettings.set('grd.alpr', value) }
 
     get showOnlyAttempted() { return (UiSettings.get('grd.soa') || false) }
-    set showOnlyAttempted(value) { return UiSettings.set('grd.soa', value) }
+    set showOnlyAttempted(value) { UiSettings.set('grd.soa', value) }
 
     get showAnswerKey() { return (UiSettings.get('grd.sak') || false) }
-    set showAnswerKey(value) { return UiSettings.set('grd.sak', value) }
+    set showAnswerKey(value) { UiSettings.set('grd.sak', value) }
 
     viewedQuestions = observable.map();
     constructor(attrs = null) {
