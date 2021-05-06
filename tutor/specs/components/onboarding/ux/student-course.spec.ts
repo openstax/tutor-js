@@ -8,11 +8,13 @@ import {
     StudentCourseOnboarding as CourseUX,
 } from '../../../../src/components/onboarding/ux/student-course'
 import { Payments } from '../../../../src/helpers/payments'
+import { forceReload } from '../../../../src/helpers/reload'
 
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
     get: jest.fn(),
 }))
+jest.mock('../../../../src/helpers/reload')
 jest.mock('../../../../src/models/course')
 jest.mock('../../../../src/helpers/payments')
 
@@ -29,7 +31,6 @@ describe('Student Course Onboarding', () => {
                 id: 1, name: 'general_terms_of_use', title: 'T&C', is_signed: false,
             } as any)
         })
-        window.location.reload = jest.fn();
         ux = new CourseUX(
             hydrateModel(Course, { id: 1 }),
             hydrateModel(TourContext, {}),
@@ -116,7 +117,7 @@ describe('Student Course Onboarding', () => {
         ux.onPaymentComplete();
         expect(setTimeout).toHaveBeenCalled();
         jest.runOnlyPendingTimers();
-        expect(window.location.reload).toHaveBeenCalled();
+        expect(forceReload).toHaveBeenCalled();
     });
 
 });
