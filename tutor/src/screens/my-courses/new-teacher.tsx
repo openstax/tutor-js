@@ -3,7 +3,7 @@ import { Icon, ScrollToTop } from 'shared'
 import { useState, useEffect } from 'react'
 import scrollIntoView from 'scroll-into-view'
 import { useAvailableOfferings } from '../../helpers/hooks'
-import { currentUser, Offering, CourseInformation, SubjectOrder, currentCourses } from '../../models'
+import { currentUser, Offering, CourseInformation, SubjectOrder, CourseCreate } from '../../models'
 import { colors, navbars, breakpoint } from 'theme'
 import { Button } from 'react-bootstrap'
 import { groupBy, sortBy, map, extend } from 'lodash'
@@ -582,8 +582,8 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
         }
 
         setCreatingPreview(true)
-        currentCourses
-            .createPreview()
+        CourseCreate
+            .createPreview(offering)
             .then((result) => {
                 setCreatingPreview(false)
                 if (!result.error) {
