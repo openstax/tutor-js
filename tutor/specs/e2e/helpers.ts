@@ -116,6 +116,7 @@ export const loginAs = async ({ page, userName } : { page: Page, userName: strin
         await page.click('.logout [type=submit]')
     }
     await page.goto(`${testConfig.URL}/accounts/dev/accounts`)
+    console.log(`login as ${userName}`)
     await page.click(`text=${userName}`)
 }
 

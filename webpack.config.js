@@ -97,8 +97,6 @@ const config = {
     watch: !(isCI || isProduction),
     watchOptions: {
         ignored: /node_modules/,
-        aggregateTimeout: 500,
-        poll: 1000,
     },
     devServer: {
         contentBase: project,

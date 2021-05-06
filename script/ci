@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export CI=true
+
 export NODE_OPTIONS=–max_old_space_size=4096
 
 cd "$(dirname "$0")/.." || exit 111

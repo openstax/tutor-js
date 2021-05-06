@@ -3,24 +3,31 @@
 
 NPM=$(npm bin)
 
-cmd=${2:-run}
-args=${@:3}
-url=http://localhost:8112
+NOTIFY=8002
+URL=http://localhost:$NOTIFY
 
 # echo $cmd
 # echo $args
 
-yarn run tutor:test:server &
+echo starting webpack, will wait for $URL
+
+yarn run tutor:test:e2e:fe --notify-port $NOTIFY &
 
 PID=$!
 
 echo started server with PID=$PID
 
-echo Waiting for server to become available on $url
-$NPM/wait-on $url
+echo Waiting for server to become available on $URL
+$NPM/wait-on $URL
 echo Server is now available
 
-yarn run tutor:test:e2e --all
+docker ps
+
+curl -v http://localhost:3001/
+
+yarn run tutor:test:e2e my-courses
+
+# --all
 TEST_STATUS=$?
 
 pkill -P $PID
