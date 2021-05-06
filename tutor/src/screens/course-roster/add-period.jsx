@@ -11,6 +11,7 @@ import CourseGroupingLabel from '../../components/course-grouping-label';
 import { Icon } from 'shared';
 import { Course, CoursePeriod } from '../../models';
 import classnames from 'classnames';
+import { hydrateModel } from 'vendor';
 
 @observer
 class AddPeriodField extends React.Component {
@@ -73,8 +74,8 @@ class AddPeriodLink extends React.Component {
 
     @action.bound performUpdate() {
         this.isWaiting = true;
-        const period = new CoursePeriod({ course: this.props.course, name: this.period_name });
-        period.create().then(() => {
+        const period = hydrateModel(CoursePeriod, { name: this.period_name }, this.props.course);
+        period.save().then(() => {
             this.isWaiting = false;
             this.close();
         });
