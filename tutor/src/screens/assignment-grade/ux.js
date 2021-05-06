@@ -19,10 +19,22 @@ export default class AssignmentGradingUX {
     @observable isPublishingScores = false;
     @observable selectedHeadingStudentsIsGrading = [];
 
-    @UiSettings.decorate('grd.hsn') hideStudentNames = false;
-    @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
-    @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
-    @UiSettings.decorate('grd.sak') showAnswerKey = false;
+    // @UiSettings.decorate('grd.hsn') hideStudentNames = false;
+    // @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
+    // @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
+    // @UiSettings.decorate('grd.sak') showAnswerKey = false;
+
+    get hideStudentNames() { return (UiSettings.get('grd.hsn') || false) }
+    set hideStudentNames(value) { return UiSettings.set('grd.hsn', value) }
+
+    get alphabetizeResponses() { return (UiSettings.get('grd.alpr') || false) }
+    set alphabetizeResponses(value) { return UiSettings.set('grd.alpr', value) }
+
+    get showOnlyAttempted() { return (UiSettings.get('grd.soa') || false) }
+    set showOnlyAttempted(value) { return UiSettings.set('grd.soa', value) }
+
+    get showAnswerKey() { return (UiSettings.get('grd.sak') || false) }
+    set showAnswerKey(value) { return UiSettings.set('grd.sak', value) }
 
     viewedQuestions = observable.map();
     constructor(attrs = null) {
