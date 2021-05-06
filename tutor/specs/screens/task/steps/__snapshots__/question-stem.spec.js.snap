@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Question Stem matches snapshot 1`] = `
-<UNDEFINED
+<Memo(QuestionStem)
   question={
     Object {
       "answers": Array [
