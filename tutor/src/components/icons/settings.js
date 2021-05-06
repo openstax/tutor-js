@@ -71,7 +71,7 @@ const SettingsCheckbox = observer(({ ux, title, property }) => (
         <input
             type="checkbox"
             checked={ux[property]}
-            onChange={({ target }) => ux[property] = target.checked}
+            onChange={action(({ target }) => ux[property] = target.checked)}
         />
         <span className="check"></span>
     </StyledCheckbox>

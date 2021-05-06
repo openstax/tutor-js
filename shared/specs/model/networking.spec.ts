@@ -14,7 +14,9 @@ describe('Stand-alone Networking', () => {
         });
         expect(fetchMock.mock.calls.length).toEqual(1)
         expect(fetchMock.mock.calls[0][0]).toEqual('/test')
-        expect(fetchMock.mock.calls[0][1]).toEqual({ method: 'PUT', data: JSON.stringify({ 'foo': 'bar' }) })
+        expect(fetchMock.mock.calls[0][1]).toEqual(
+            { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ 'foo': 'bar' }) }
+        )
     });
 
 });

@@ -1,4 +1,4 @@
-import { React, observable, action, computed, modelize } from 'vendor';
+import { React, observable, action, computed, modelize, hydrateModel } from 'vendor';
 import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import { DroppedQuestion } from '../../models';
@@ -223,7 +223,7 @@ export default class AssignmentReviewUX {
 
     @action toggleDropQuestion(isDropped, { question_id }) {
         if (isDropped) {
-            this.pendingDroppedQuestions.set(question_id, new DroppedQuestion({ question_id }));
+            this.pendingDroppedQuestions.set(question_id, hydrateModel(DroppedQuestion, { question_id }));
         } else {
             this.pendingDroppedQuestions.delete(question_id);
         }

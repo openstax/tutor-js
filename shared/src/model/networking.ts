@@ -18,8 +18,9 @@ const Networking = {
 
     perform(opts: any) {
         const req = pick(opts, 'method') as any
+        req.headers = { 'Content-Type': 'application/json' }
         if (opts.data) {
-            req.data = JSON.stringify(opts.data)
+            req.body = JSON.stringify(opts.data)
         }
         return fetch(opts.url, req)
             .catch((err) => {

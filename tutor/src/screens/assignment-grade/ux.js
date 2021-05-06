@@ -1,4 +1,4 @@
-import { observable, action, computed, moment, modelize } from 'vendor';
+import { observable, action, computed, moment, modelize, runInAction } from 'vendor';
 import { first, filter, isEmpty, findIndex } from 'lodash';
 import { currentCourses, TeacherTaskStepGrade as Grade } from '../../models';
 import ScrollTo from '../../helpers/scroll-to';
@@ -19,10 +19,22 @@ export default class AssignmentGradingUX {
     @observable isPublishingScores = false;
     @observable selectedHeadingStudentsIsGrading = [];
 
-    @UiSettings.decorate('grd.hsn') hideStudentNames = false;
-    @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
-    @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
-    @UiSettings.decorate('grd.sak') showAnswerKey = false;
+    // @UiSettings.decorate('grd.hsn') hideStudentNames = false;
+    // @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
+    // @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
+    // @UiSettings.decorate('grd.sak') showAnswerKey = false;
+
+    get hideStudentNames() { return (UiSettings.get('grd.hsn') || false) }
+    set hideStudentNames(value) { UiSettings.set('grd.hsn', value) }
+
+    get alphabetizeResponses() { return (UiSettings.get('grd.alpr') || false) }
+    set alphabetizeResponses(value) { UiSettings.set('grd.alpr', value) }
+
+    get showOnlyAttempted() { return (UiSettings.get('grd.soa') || false) }
+    set showOnlyAttempted(value) { UiSettings.set('grd.soa', value) }
+
+    get showAnswerKey() { return (UiSettings.get('grd.sak') || false) }
+    set showAnswerKey(value) { UiSettings.set('grd.sak', value) }
 
     viewedQuestions = observable.map();
     constructor(attrs = null) {
@@ -39,7 +51,7 @@ export default class AssignmentGradingUX {
         this.scroller = new ScrollTo({ windowImpl });
         this.course = course || currentCourses.get(courseId);
         this.selectedPeriod = this.course.periods.active.find(p => p.id == periodId) ||
-      first(this.course.periods.active);
+          first(this.course.periods.active);
         this.planScores = scores;
 
         await this.planScores.fetch();
@@ -51,12 +63,14 @@ export default class AssignmentGradingUX {
 
         if (questionId) {
             const index = findIndex(this.headings, (h => h.question_id == questionId ));
-            if (index > -1) { this.selectedHeadingIndex = index; }
+            if (index > -1) {
+                runInAction(() => this.selectedHeadingIndex = index);
+            }
         }
         else {
             let index = findIndex(this.headings, (h => !h.gradedStats.complete));
             if (index <= -1) { index = 0; }
-            this.selectedHeadingIndex = index;
+            runInAction(() => this.selectedHeadingIndex = index);
         }
     }
 
