@@ -21,13 +21,8 @@ echo Waiting for server to become available on $URL
 $NPM/wait-on $URL
 echo Server is now available
 
-docker ps
+yarn run tutor:test:e2e --all
 
-curl -v http://localhost:3001/
-
-yarn run tutor:test:e2e my-courses
-
-# --all
 TEST_STATUS=$?
 
 pkill -P $PID
