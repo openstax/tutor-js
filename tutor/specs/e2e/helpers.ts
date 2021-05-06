@@ -92,6 +92,7 @@ export const findOrCreateTeacherAccount = async ({
         `puts User::FindOrCreateUser[
 username:'${userName}',
 role:'${role}',
+is_test:true,
 faculty_status:'${isVerified ? 'confirmed_faculty' : 'no_faculty_info'}',
 school_type:'${approvedSchool ? 'college' : 'unknown_school_type' }',
 school_location:'domestic_school'].id`
