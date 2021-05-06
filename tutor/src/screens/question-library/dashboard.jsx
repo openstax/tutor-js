@@ -69,6 +69,7 @@ class QuestionsDashboard extends React.Component {
     @action.bound onSelectionsChange(pageIds) {
         this.pageIds = pageIds;
         this.isShowingExercises = !isEmpty(pageIds);
+        this.setPageIdsQuery(this.pageIds);
     }
 
     @action.bound onSelectSections() {
