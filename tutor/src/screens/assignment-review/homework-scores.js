@@ -48,6 +48,15 @@ const UngradedIcon = styled.span`
   letter-spacing: 0.38px;
 `;
 
+const OrangeInfoIcon = (
+  <InfoIcon
+      color="#f36a31"
+      tooltip="Students received different numbers of Tutor-selected questions.
+      This can happen when questions aren’t available, a student works an assignment late,
+      a student hasn’t started the assignment, or a personalized question is dropped."
+  />
+);
+
 const StudentColumnHeader = observer(({ ux }) => (
     <Cell leftBorder={true}>
         <CellContents>
@@ -103,14 +112,9 @@ const StudentColumnHeader = observer(({ ux }) => (
                     </SplitCell>
                 </HeadingMiddle>
                 <HeadingBottom>
-                    {ux.scores.hasEqualTutorQuestions ?
+                    {ux.scores.hasEqualQuestions ?
                         ScoresHelper.formatPoints(ux.scores.availablePoints) :
-                        <InfoIcon
-                            color="#f36a31"
-                            tooltip="Students received different numbers of Tutor-selected questions.
-              This can happen when questions aren’t available, a student works an assignment
-              late, or a student hasn’t started the assignment."
-                        />
+                        <OrangeInfoIcon/>
                     }
                 </HeadingBottom>
             </ColumnHeading>
@@ -145,7 +149,7 @@ const StudentCell = observer(({ ux, student, striped, border }) => (
             </NameWrapper>
             <Total>
                 {ux.displayTotalInPercent ?
-                    student.humanTotalFraction : ( ux.scores.hasEqualTutorQuestions ?
+                    student.humanTotalFraction : ( ux.scores.hasEqualQuestions ?
                         student.humanTotalPoints : student.humanTotalWithAvailablePoints)}
             </Total>
             <LateWork>
@@ -170,14 +174,18 @@ const AssignmentHeading = observer(({ ux, heading }) => (
                 {heading.type}
             </HeadingMiddle>
             <HeadingBottom>
-                {heading.dropped &&
-          <CornerTriangle color="blue"
-              data-test-id="dropped-question-indicator"
-              data-question-id={`Q${heading.question_id}`}
-              tooltip={heading.dropped.drop_method == 'zeroed' ?
-                  'Points changed to 0' : 'Full credit given to all students'}
-          />}
-                {ScoresHelper.formatPoints(heading.displayPoints)}
+                {heading.someQuestionsDropped &&
+                <CornerTriangle color="blue"
+                    data-test-id="dropped-question-indicator"
+                    data-question-id={`Q${heading.question_id}`}
+                    tooltip={heading.everyQuestionZeroed ? 'Points changed to 0' :
+                             (heading.everyQuestionFullCredit ? 'Full credit given to all students':
+                             'Question dropped for one or more students')}
+                />}
+                {heading.someQuestionsDropped &&
+                     !heading.everyQuestionZeroed &&
+                     !heading.everyQuestionFullCredit ?
+                <OrangeInfoIcon/> : ScoresHelper.formatPoints(heading.points)}
             </HeadingBottom>
         </ColumnHeading>
     </Cell>

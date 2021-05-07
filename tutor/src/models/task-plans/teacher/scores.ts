@@ -69,6 +69,12 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
         return null;
     }
 
+    @computed get droppedQuestion() {
+        return this.questionHeading?.droppedQuestions?.find(
+          dq => dq.question_id == this.question_id
+        ) || null;
+    }
+
     @computed get availablePoints() {
         return get(this.questionHeading, 'points', 1.0);
     }
@@ -121,9 +127,8 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
    * If question is dropped with full points but student has not attempted the question yet, show 0
    */
     @computed get droppedQuestionPoints() {
-        const droppedQuestion = this.questionHeading?.dropped;
-        if(droppedQuestion) {
-            return droppedQuestion.drop_method == 'zeroed' || !this.is_completed
+        if (this.droppedQuestion) {
+            return this.droppedQuestion.drop_method == 'zeroed' || !this.is_completed
                 ? 0
                 : this.availablePointsWithoutDropping;
         }
@@ -187,8 +192,8 @@ class TaskPlanScoreStudent extends BaseModel {
 
 class TaskPlanScoreHeading extends BaseModel {
     @field title = NEW_ID;
-    @field exercise_id = NEW_ID;
-    @field question_id = NEW_ID;
+    @field exercise_ids:ID[] = [];
+    @field question_ids:ID[] = [];
     @field type = '';
     @field points = 0;
     @field points_without_dropping = 0;
@@ -202,7 +207,7 @@ class TaskPlanScoreHeading extends BaseModel {
         super();
         modelize(this);
     }
-    
+
     @computed get isCore() {
         return 'Tutor' !== this.type;
     }
@@ -212,28 +217,63 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get studentResponses() {
-        if (isNil(this.question_id)) {
-            // For Tutor-assigned questions, each student may get a question with a different ID
-            // so we can't really do better than using the index in this case
-            return compact(this.tasking.students.map(s => s.questions[this.index]));
-        }
-        else {
-            return compact(
-                this.tasking.students.map(s => s.questions.find(q => q.question_id == this.question_id))
-            );
-        }
+        // For Tutor-assigned questions, each student may get a question with a different ID
+        // so we can't really do better than using the index in this case
+        return compact(this.tasking.students.map(s => s.questions[this.index]));
     }
 
+    // exercise() and question() do not work with Tutor-selected questions
+    // They are here for backwards compatibility only
+    // TODO: Remove before release?
     @computed get exercise() {
-        return this.exercises.get(this.exercise_id);
+        if (this.exercise_ids.length != 1) { return null; }
+        return this.exercises.get(this.exercise_ids[0]);
     }
 
     @computed get question() {
-        return this.exercise && this.exercise.content.questions.find(q => q.id == this.question_id);
+        if (this.question_ids.length != 1) { return null; }
+        return this.exercise &&
+               this.exercise.content.questions.find(q => q.id == this.question_ids[0]);
     }
 
-    @computed get dropped() {
-        return this.tasking.scores.dropped_questions.find(drop => drop.question_id == this.question_id);
+    @computed get questionIdsSet() {
+      return new Set(this.question_ids);
+    }
+
+    @computed get droppedQuestions() {
+      return this.tasking.scores.droppedQuestions.filter(
+        dq => this.questionIdsSet.includes(dq.question_id)
+      );
+    }
+
+    @computed get someQuestionsDroppedByInstructor() {
+        return this.droppedQuestions.length > 0;
+    }
+
+    @computed get someQuestionsDroppedByAlgorithm() {
+        return this.tasking.students.some(s => s.questions.length <= this.index);
+    }
+
+    @computed get someQuestionsDropped() {
+        return this.someQuestionsDroppedByInstructor || this.someQuestionsDroppedByAlgorithm;
+    }
+
+    @computed get everyQuestionDropped() {
+        // We only have to check if the instructor dropped all questions,
+        // because the heading simply wouldn't be present if the algorithm dropped them
+        return this.droppedQuestions.length == this.questionIdsSet.length;
+    }
+
+    @computed get everyQuestionZeroed() {
+        return this.everyQuestionDropped && this.droppedQuestions.every(
+          dq => dq.drop_method == 'zeroed'
+        );
+    }
+
+    @computed get everyQuestionFullCredit() {
+        return this.everyQuestionDropped && this.droppedQuestions.every(
+          dq => dq.drop_method == 'full_credit'
+        );
     }
 
     @computed get gradedProgress() {
@@ -278,12 +318,6 @@ class TaskPlanScoreHeading extends BaseModel {
             remaining,
             complete: remaining == 0,
         };
-    }
-
-    @computed get displayPoints() {
-        const { dropped } = this;
-        return dropped ?
-            (dropped.drop_method == 'zeroed' ? 0 : this.points_without_dropping) : this.points;
     }
 
     @computed get averageGradedPoints() {
@@ -387,13 +421,10 @@ class TaskPlanScoresTasking extends BaseModel {
         return this.questionsInfo.filter(q => q.isCore);
     }
 
-    @computed get hasEqualTutorQuestions() {
-        for (const student of this.students) {
-            if (student.questions.length != this.question_headings.length) {
-                return false;
-            }
-        }
-        return true;
+    @computed get hasEqualQuestions() {
+        return this.question_headings.some(
+          heading => heading.someQuestionsDropped && !heading.everyQuestionDropped
+        );
     }
 
     @computed get hasUnPublishedScores() {
