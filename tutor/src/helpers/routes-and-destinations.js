@@ -1,6 +1,5 @@
-import _ from 'underscore';
 import Router from '../helpers/router';
-import isNil from 'lodash/isNil';
+import { find, isNil } from 'lodash';
 
 const COURSE_SETTINGS = 'Course Settings';
 const COURSE_ROSTER = 'Course Roster';
@@ -87,7 +86,7 @@ const destinationHelpers = {
 
     routeFromPath(path) {
         const match = Router.currentMatch(path);
-        return _.find(match != null ? match.entry.paths : undefined, pathName => REMEMBERED_ROUTES[pathName].label);
+        return find(match != null ? match.entry.paths : [], pathName => REMEMBERED_ROUTES[pathName].label);
     },
 
     destinationFromPath(path) {

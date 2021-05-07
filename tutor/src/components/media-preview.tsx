@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TutorPopover from './tutor-popover';
 import { ArbitraryHtmlAndMath } from 'shared';
+import { keys, union, omit, pick } from 'lodash'
 
-import _ from 'underscore';
 import S from '../helpers/string';
 
 //import { MediaStore } from '../flux/media';
@@ -64,14 +64,10 @@ class MediaPreview extends React.Component {
         const { mediaId, mediaDOMOnParent, bookHref, shouldLinkOut, originalHref } = this.props;
         const { media } = this.state;
 
-        const otherPropTypes = _.chain(otherProps)
-            .keys()
-            .union(['mediaId', 'children', 'mediaDOMOnParent', 'buffer'])
-            .union(_.keys(this.constructor.propTypes))
-            .value();
+        const otherPropTypes = union(keys(otherProps), ['mediaId', 'children', 'mediaDOMOnParent', 'buffer'])
 
         // most props should pass on
-        const linkProps = _.omit(this.props, otherPropTypes);
+        const linkProps = omit(this.props, otherPropTypes);
         linkProps['data-targeted'] = 'media';
 
         if (mediaDOMOnParent != null) {
@@ -96,7 +92,7 @@ class MediaPreview extends React.Component {
     };
 
     getOverlayProps = () => {
-        return _.pick(this.props, 'containerPadding', 'trigger');
+        return pick(this.props, 'containerPadding', 'trigger');
     };
 
     UNSAFE_componentWillMount() {
@@ -203,7 +199,7 @@ class MediaPreview extends React.Component {
                 </TutorPopover>
             );
         } else {
-            linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave');
+            linkProps = omit(linkProps, 'onMouseEnter', 'onMouseLeave');
             return (
                 <a {...linkProps} dangerouslySetInnerHTML={{ __html: html }} />
             );

@@ -1,9 +1,7 @@
-import _ from 'underscore';
-
 const SUPPORTED = typeof document.queryCommandSupported === 'function' ? document.queryCommandSupported('copy') : undefined;
 
 export default {
-    isSupported: _.constant(!!SUPPORTED),
+    isSupported: SUPPORTED,
 
     copy() {
         if (!SUPPORTED) { return; }

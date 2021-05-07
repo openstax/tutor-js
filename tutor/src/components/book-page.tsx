@@ -1,6 +1,6 @@
-import { React, PropTypes, observer, action, observable, modelize } from 'vendor';
+import { React, observer, action, observable, modelize } from 'vendor';
 import {
-    get, forEach, first, last, invoke, defer, // map, compact, uniq,
+    get, forEach, first, last, invoke, defer, map, compact, uniq,
 } from 'lodash';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router';
@@ -9,14 +9,14 @@ import classnames from 'classnames';
 //import { ReferenceBookExerciseShell } from './book-page/exercise';
 import PageTitle from './page-title';
 import NotesWidget from './notes';
-//import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
-import { currentCourses } from '../models'
+import { currentCourses, currentMedia } from '../models'
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
-//import { MediaStore } from '../flux/media';
+// import { MediaStore } from '../flux/media';
 import MediaPreview from './media-preview';
 import ScrollTo from '../helpers/scroll-to';
 import imagesComplete from '../helpers/images-complete';
+import { BookUX } from '../helpers/reference-book-base-ux'
 
 // According to the tagging legend exercises with a link should have `a.os-embed`
 // but in the content they are just a vanilla link.
@@ -91,21 +91,21 @@ async function scheduleSplashImageDetection(wrapper) {
     }
 }
 
+interface BookPageProps {
+    ux: BookUX,
+    className?: string
+    children?: any
+    query?: string
+    cnxId?: string
+    title?: string
+    history?: any
+}
+
 @withRouter
 @observer
-class BookPage extends React.Component {
+class BookPage extends React.Component<BookPageProps> {
 
     static displayName = 'BookPage';
-
-    static propTypes = {
-        ux: PropTypes.object.isRequired,
-        className: PropTypes.string,
-        children: PropTypes.node,
-        query: PropTypes.string,
-        cnxId: PropTypes.string,
-        title: PropTypes.string,
-        history: PropTypes.object,
-    }
 
     @observable needsLearningObjectivesPreamble = false;
     @observable linkContentIsMounted = false;
@@ -332,13 +332,15 @@ class BookPage extends React.Component {
         defer(() => {
             if (!this.linkContentIsMounted) { return; }
             const { root } = this;
-            // const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
+            const mediaLinks = root.querySelectorAll(currentMedia.selector);
             const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
-            // const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
+            const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
 
-            // if (otherLinks != null ? otherLinks.length : undefined) { if (typeof this.renderOtherLinks === 'function') {
-            //     this.renderOtherLinks(otherLinks);
-            // } }
+            if (otherLinks != null ? otherLinks.length : undefined) {
+                if (typeof this.renderOtherLinks === 'function') {
+                    this.renderOtherLinks(otherLinks);
+                }
+            }
             if (exerciseLinks != null ? exerciseLinks.length : undefined) {
                 if (typeof this.renderExercises === 'function') {
                     this.renderExercises(exerciseLinks);

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { compact, clone } from 'underscore';
+import { compact, clone } from 'lodash';
 
 class TutorPopover extends React.Component {
     static defaultProps = {

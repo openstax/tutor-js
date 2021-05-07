@@ -1,5 +1,4 @@
 import moment from 'moment';
-import _ from 'underscore';
 
 export default {
     getLateness({ due_at, last_worked_at }) {

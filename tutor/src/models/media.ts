@@ -1,5 +1,5 @@
 import { get, map, union, reduce } from 'lodash';
-import { observable } from 'shared/model'
+import { observable, computed } from 'shared/model'
 import { DomHandler, DomUtils, Parser } from 'htmlparser2'
 import { Node, Element } from 'domhandler';
 
@@ -101,17 +101,11 @@ export class Media {
         return MEDIA_LINK_EXCLUDES;
     }
 
-    getSelector() {
-        const notMedias = reduce(MEDIA_LINK_EXCLUDES, (current, exclude) => `${current}:not(${exclude})`
-            , '');
-
+    @computed get selector() {
+        const notMedias = reduce(MEDIA_LINK_EXCLUDES, (current, exclude) => `${current}:not(${exclude})`, '');
         return map(buildAllowed(LINKS_BEGIN, LINKS_CONTAIN), allowed => `${allowed}${notMedias}`).join(', ');
     }
 
 }
 
 export const currentMedia = new Media()
-
-// exports: {
-//     get(id) { return this._get(id); },
-// },
