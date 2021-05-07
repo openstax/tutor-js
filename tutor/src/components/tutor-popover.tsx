@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, createRef } from 'vendor';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { compact, clone } from 'lodash';
 
+export default
 class TutorPopover extends React.Component {
     static defaultProps = {
         maxHeightMultiplier: 0.75,
@@ -23,6 +23,9 @@ class TutorPopover extends React.Component {
         maxWidthMultiplier: PropTypes.number,
     }
 
+    popperRef = createRef<any>()
+    popContentRef = createRef<HTMLDivElement>()
+
     state = {
         firstShow: true,
         placement: 'auto',
@@ -32,7 +35,7 @@ class TutorPopover extends React.Component {
     };
 
     getImages = () => {
-        const content = this.refs.popcontent;
+        const content = this.popContentRef.current;
         return content.querySelectorAll('img');
     };
 
@@ -42,7 +45,7 @@ class TutorPopover extends React.Component {
 
     hide = () => {
         this.setState({ show: false });
-        return this.refs.popper.hide();
+        return this.popper.hide();
     };
 
     imageLoaded = (iter) => {
@@ -56,9 +59,12 @@ class TutorPopover extends React.Component {
 
     show = () => {
         this.setState({ show: true });
-        return this.refs.popper.show();
+        return this.popper.show();
     };
 
+    get popper() {
+        return this.popperRef.current
+    }
 
     render() {
         let contentClassName;
@@ -84,11 +90,10 @@ class TutorPopover extends React.Component {
             <Popover
                 {...popoverProps}
                 id={popoverId}
-                ref={this.setPopoverRef}
             >
                 {title && <Popover.Title>{title}</Popover.Title>}
                 <Popover.Content>
-                    <div ref="popcontent">
+                    <div ref={this.poperContentRef}>
                         {content}
                     </div>
                 </Popover.Content>
@@ -96,11 +101,9 @@ class TutorPopover extends React.Component {
         );
 
         return (
-            <OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref="popper">
+            <OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref={this.popperRef}>
                 {children}
             </OverlayTrigger>
         );
     }
 }
-
-export default TutorPopover;

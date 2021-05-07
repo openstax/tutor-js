@@ -1,4 +1,4 @@
-import { React, ReactDOM, observer } from 'vendor'
+import { React, ReactDOM, createRef, observer } from 'vendor'
 import TutorPopover from './tutor-popover';
 import { ArbitraryHtmlAndMath } from 'shared';
 import { omit, pick } from 'lodash'
@@ -38,6 +38,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
     };
 
     static displayName = 'MediaPreview';
+    overlayRef = createRef<TutorPopover>()
 
     state = {
         popped: false,
@@ -95,7 +96,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         if (this.state.popped) {
             if (!this.state.stick) {
                 this.setState({ popped: false });
-                this.refs.overlay.hide();
+                this.overlayRef.current.hide();
             }
         } else {
             this.unhighlightMedia();
@@ -117,9 +118,14 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
 
     // check that mouse has exited both the link and the overlay
     isMouseExited = (mouseEvent) => {
-        if (((mouseEvent.relatedTarget != null ? mouseEvent.relatedTarget.nodeType : undefined) == null) || (this.refs.overlay.refs.popover == null)) { return true; }
-        const linkDOM = ReactDOM.findDOMNode(this.refs.overlay.refs.popper);
-        const popoverDOM = ReactDOM.findDOMNode(this.refs.overlay.refs.popover);
+        if (
+            ((mouseEvent.relatedTarget != null ? mouseEvent.relatedTarget.nodeType : undefined) == null)
+            || (!this.overlayRef.current?.popover)
+        ) {
+            return true;
+        }
+        const linkDOM = ReactDOM.findDOMNode(this.overlayRef.current?.popper);
+        const popoverDOM = ReactDOM.findDOMNode(this.overlayRef.current?.popover);
         return !(popoverDOM.contains(mouseEvent.relatedTarget) || linkDOM.isEqualNode(mouseEvent.relatedTarget));
     };
 
@@ -129,7 +135,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         if (shouldPop) {
             if (!this.state.popped) {
                 this.setState({ popped: true });
-                this.refs.overlay.show();
+                this.overlayRef.current.show();
             }
         } else {
             this.highlightMedia();
@@ -140,7 +146,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         this.setState({ stick: true });
         if (!this.state.popped) {
             this.setState({ popped: true });
-            this.refs.overlay.show();
+            this.overlayRef.current.show();
         }
     };
 
@@ -177,7 +183,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
             if (linkText == null) { linkText = `See ${S.capitalize(media.name)}`; }
 
             return (
-                <TutorPopover {...allProps} ref="overlay">
+                <TutorPopover {...allProps} ref={this.overlayRef}>
                     <a {...linkProps} dangerouslySetInnerHTML={{ __html: linkText }} />
                 </TutorPopover>
             );
