@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as cn from 'classnames';
+import React, { createRef, useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import ReactDOM from 'react-dom';
+import cn from 'classnames';
 import {
     PropTypes as mobxPropTypes, useObserver, useLocalStore,
 } from 'mobx-react';
@@ -15,7 +15,6 @@ import { autobind, readonly } from 'core-decorators';
 import { idType, ArrayOrMobxType } from 'shared/helpers/react';
 import Theme from './theme';
 import { modelize, hydrateModel } from 'modeled-mobx'
-const { createRef, useState, useEffect, useRef, useMemo, useCallback } = React
 
 export {
     withRouter, ArrayOrMobxType, readonly, moment,
