@@ -1,6 +1,6 @@
 import { React, PropTypes, createRef } from 'vendor';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { compact, clone } from 'lodash';
+import { clone } from 'lodash';
 
 export default
 class TutorPopover extends React.Component {
@@ -31,7 +31,6 @@ class TutorPopover extends React.Component {
         placement: 'auto',
         show: false,
         scrollable: false,
-        imagesLoading: [],
     };
 
     getImages = () => {
@@ -39,20 +38,9 @@ class TutorPopover extends React.Component {
         return content ? content.querySelectorAll('img') : [];
     };
 
-    areImagesLoading = () => {
-        return compact(this.state.imagesLoading).length !== 0;
-    };
-
     hide = () => {
         this.setState({ show: false });
         return this.popper.hide();
-    };
-
-    imageLoaded = (iter: number) => {
-        const { imagesLoading } = this.state;
-        const currentImageStatus = clone(imagesLoading);
-        currentImageStatus[iter] = false;
-        return this.setState({ imagesLoading: currentImageStatus });
     };
 
     show = () => {
@@ -75,10 +63,6 @@ class TutorPopover extends React.Component {
             popoverProps = clone(popoverProps || {});
             if (popoverProps.className == null) { popoverProps.className = ''; }
             popoverProps.className += ' scrollable';
-        }
-
-        if (this.areImagesLoading()) {
-            contentClassName = 'image-loading';
         }
 
         content = React.cloneElement(content, { className: contentClassName });
