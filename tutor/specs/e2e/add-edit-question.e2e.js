@@ -1,7 +1,5 @@
 import { visitPage, setTimeouts, loginAs, disableTours } from './helpers'
 
-// the BE mock api server is primarily in backend/exercises and backend/terms
-
 describe('Add/Edit Questions', () => {
 
     beforeEach(async () => {
@@ -32,6 +30,7 @@ describe('Add/Edit Questions', () => {
         await page.click('input.i-agree + label')
         await page.click('testEl=agree-to-terms')
         await expect(page).not.toHaveSelector('testEl=terms-modal', { timeout: 10 })
+        await page.click('.close')
     });
 
     it('edits an existing exercise', async () => {
@@ -54,9 +53,10 @@ describe('Add/Edit Questions', () => {
         await page.type(editorSel, 'Hello World!')
         await page.click('.two-step-info') // really just clicking outside editor
         await page.click('testEl=publish-btn')
+        await page.waitForTimeout(1000)
     })
 
-    xit('autosaves', async() => {
+    it('autosaves', async() => {
         await page.click('testEl=create-question')
         const stemSel = 'testEl=add-edit-question >> .question-text >> .editor'
         await page.click(stemSel)
@@ -74,5 +74,6 @@ describe('Add/Edit Questions', () => {
         })
         await page.click('testEl=create-question')
         await expect(page).toHaveText('testEl=add-edit-question >> .question-text', 'Hello World!')
+        await page.click('.close')
     })
 })

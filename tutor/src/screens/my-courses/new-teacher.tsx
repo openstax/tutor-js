@@ -165,7 +165,7 @@ const Content = styled.div`
     .ap-disclaimer {
         width: 592px;
         margin: 4rem 0 2rem;
-        
+
         p {
             line-height: 2rem;
             font-size: 1.4rem;
