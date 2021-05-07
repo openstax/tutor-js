@@ -75,7 +75,7 @@ class TutorPopover extends React.Component {
             >
                 {title && <Popover.Title>{title}</Popover.Title>}
                 <Popover.Content>
-                    <div ref={this.poperContentRef}>
+                    <div ref={this.popContentRef}>
                         {content}
                     </div>
                 </Popover.Content>
