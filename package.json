@@ -14,7 +14,6 @@
   "scripts": {
     "test": "./bin/test",
     "tdd": "./bin/tdd",
-    "cypress": "yarn run tutor:test:cypress open",
     "ci": "./script/ci",
     "health-check": "./bin/health-check",
     "tutor:test:server": "node tutor/scripts/test-server/index.js",
@@ -22,7 +21,6 @@
     "tutor:test:server:be": "node tutor/scripts/test-server/backend.js --fe 8110 --be 8111",
     "tutor:test:unit": "./bin/test tutor",
     "tutor:test:e2e": "./bin/test e2e",
-    "tutor:test:integration": "concurrently yarn:tutor:test:cypress yarn:tutor:test:server",
     "serve": "./bin/serve",
     "cached-serve": "CACHE=true npm run serve",
     "debug": "./bin/debug",
@@ -193,7 +191,6 @@
     "chrome-launcher": "^0.11.2",
     "coveralls": "3.0.6",
     "css-loader": "3.2.0",
-    "cypress": "^3.8.1",
     "enzyme": "^3.11.0",
     "eslint": "7.22.0",
     "eslint-plugin-react": "^7.22.0",
