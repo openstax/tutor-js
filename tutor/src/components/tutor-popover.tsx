@@ -1,9 +1,23 @@
 import { React, PropTypes, createRef } from 'vendor';
+import { ID } from '../models/types'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { clone } from 'lodash';
 
+interface TutorPopoverProps {
+    id?: ID,
+    children?: any
+    title?: string
+    content: any
+    popoverProps?: any
+    contentProps?: any
+    overlayProps?: any
+    windowImpl?: Window
+    maxHeightMultiplier?: number
+    maxWidthMultiplier?: number
+}
+
 export default
-class TutorPopover extends React.Component {
+class TutorPopover extends React.Component<TutorPopoverProps> {
     static defaultProps = {
         maxHeightMultiplier: 0.75,
         maxWidthMultiplier: 0.75,
