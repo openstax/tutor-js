@@ -1,9 +1,8 @@
-import { visitPage, setTimeouts, findOrCreateTeacherAccount } from './helpers'
+import { visitPage, findOrCreateTeacherAccount, loaderNotVisible } from './helpers'
 
 describe('Preview Courses', () => {
     beforeAll(async () => {
         await findOrCreateTeacherAccount({ page, userName: 'previewteacher' })
-
         await page.waitForSelector('.tutor-navbar')
         const onOfferingScreen = await page.$('data-test-id=new-teacher-screen')
         if (onOfferingScreen) {
@@ -11,10 +10,6 @@ describe('Preview Courses', () => {
             await page.click('testEl=show-detail')
             await page.click('testEl=create-preview')
         }
-    })
-
-    beforeEach(async () => {
-        await setTimeouts()
     })
 
     it('displays a collapsible side panel that creates a course', async () => {
@@ -41,12 +36,12 @@ describe('Preview Courses', () => {
     it('hides preview panel for non-available offerings', async () => {
         await visitPage(page, '/courses')
         await page.click('testEl=preview-course-card=1')
-
         await page.goBack()
         await page.evaluate(() => {
-            window._MODELS.courses.array[0].offering.is_preview_available = false
+            window._MODELS.offerings.array.forEach((a:any) => a.is_preview_available = false)
         })
         await page.goForward()
+        await loaderNotVisible()
         await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
     })
 })

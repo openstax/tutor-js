@@ -79,6 +79,12 @@ export const disableTours = async (page: Page = (global as any).page) => {
     })
 }
 
+export const loaderNotVisible = async (page: Page = (global as any).page) => {
+    while (await page.$('css=.loading-animation')) {
+        await page.waitForTimeout(100)
+    }
+}
+
 export const loginAs = async (userName: string, page: Page = (global as any).page ) => {
     const userMenu = await page.$('#user-menu')
     if (userMenu) {
