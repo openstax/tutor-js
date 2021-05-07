@@ -3,7 +3,7 @@ import { visitPage, setTimeouts, loginAs } from './helpers'
 xdescribe('Create Course wizard', () => {
 
     beforeEach(async () => {
-        await loginAs({ page, userName: 'reviewteacher' })
+        await loginAs('reviewteacher')
         await setTimeouts()
     })
 

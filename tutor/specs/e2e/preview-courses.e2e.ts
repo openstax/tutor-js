@@ -3,6 +3,7 @@ import { visitPage, setTimeouts, findOrCreateTeacherAccount } from './helpers'
 describe('Preview Courses', () => {
     beforeAll(async () => {
         await findOrCreateTeacherAccount({ page, userName: 'previewteacher' })
+
         await page.waitForSelector('.tutor-navbar')
         const onOfferingScreen = await page.$('data-test-id=new-teacher-screen')
         if (onOfferingScreen) {
@@ -30,7 +31,7 @@ describe('Preview Courses', () => {
 
         await page.goBack()
         await page.evaluate(() => {
-            window._MODELS.courses.array[0].offering.is_available = false
+            window._MODELS.offerings.array.forEach((a:any) => a.is_available = false)
         })
         await page.goForward()
 

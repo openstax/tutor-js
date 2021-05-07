@@ -28,6 +28,7 @@ class UserMenu extends React.Component {
             >
                 <Dropdown.Toggle
                     id="user-menu"
+                    data-username={currentUser.username}
                     variant="link"
                     aria-label="Account settings"
                 >

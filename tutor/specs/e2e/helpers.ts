@@ -71,12 +71,23 @@ school_location:'domestic_school'].id`
     return userId
 }
 
+export const disableTours = async (page: Page = (global as any).page) => {
+    await page.evaluate(() => {
+        const editing = window._MODELS.user.terms.get('exercise_editing')
+        if (editing) { editing.is_signed = true }
+        window._MODELS.feature_flags.set('tours', false)
+    })
+}
 
 export const loginAs = async (userName: string, page: Page = (global as any).page ) => {
     const userMenu = await page.$('#user-menu')
     if (userMenu) {
-        await userMenu.click()
-        await page.click('.logout [type=submit]')
+        const currentUserName = await userMenu.getAttribute('data-username')
+        if (currentUserName == userName) {
+            return
+        }
+        await userMenu.click({ force: true })
+        await page.click('.logout [type=submit]', { force: true })
     }
     await page.goto(`${testConfig.URL}/accounts/dev/accounts`)
     await page.click(`text="${userName}"`)

@@ -177,9 +177,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     <Dropdown className=\\"user-menu\\" navbar={false}>
                                                       <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function (anonymous)]} focusFirstItemOnShow={[undefined]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
                                                         <div onKeyDown={[Function: handleKeyDown]} className=\\"user-menu dropdown\\">
-                                                          <DropdownToggle id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\">
-                                                            <Button onClick={[Function (anonymous)]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
+                                                          <DropdownToggle id=\\"user-menu\\" data-username=\\"\\" variant=\\"link\\" aria-label=\\"Account settings\\">
+                                                            <Button onClick={[Function (anonymous)]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" data-username=\\"\\" variant=\\"link\\" aria-label=\\"Account settings\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function (anonymous)]} aria-haspopup={true} aria-expanded={false} id=\\"user-menu\\" data-username=\\"\\" aria-label=\\"Account settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-link\\">
                                                                 <span className=\\"initials\\" />
                                                               </button>
                                                             </Button>
