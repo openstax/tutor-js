@@ -21,14 +21,14 @@ const IMAGE_SIZE_CLASSES = [
     'full-width', 'scaled-down', 'scaled-down-60', 'full-width', 'scaled-down-30',
 ];
 
-function getClosestFigureLikeElement(el) {
+function getClosestFigureLikeElement(el: HTMLElement) {
     return el.closest('.os-figure')
     || el.closest('figure')
     || el.closest('[data-type=media]');
 }
 
 // called with the context set to the image
-function processImage() {
+function processImage(this: HTMLImageElement) {
     const img = dom(this);
     const figure = getClosestFigureLikeElement(img);
     if (!figure) { return; }
@@ -329,7 +329,7 @@ class BookPage extends React.Component<BookPageProps> {
 
     @action.bound scrollToSelector(location) {
         if (!location.hash) { return; }
-        imagesComplete(this.root)
+        imagesComplete({ body: this.root })
             .then(() => {
                 this.scoller.scrollToSelector(location.hash, {
                     scrollTopOffset: 100,
@@ -346,13 +346,8 @@ class BookPage extends React.Component<BookPageProps> {
         let isLoading;
         let { title, ux, ux: { page } } = this.props;
 
-        if (!page || page.api.isPending) {
-            if (ux.lastSection) {
-                isLoading = true;
-                page = ux.pages.byChapterSection.get(ux.lastSection);
-            } else {
-                return <LoadingAnimation />;
-            }
+        if (page?.api.isPending) {
+            return <LoadingAnimation />;
         }
 
         return (

@@ -17,7 +17,7 @@ export default function imagesComplete({
             return;
         }
         let complete = 0;
-        let pendingTimeout = setTimeout(() => {
+        let pendingTimeout: number|null = window.setTimeout(() => {
             pendingTimeout = null;
             resolve([]);
             Raven.log('Timed out loading images', {
