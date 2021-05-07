@@ -19,11 +19,6 @@ export default class AssignmentGradingUX {
     @observable isPublishingScores = false;
     @observable selectedHeadingStudentsIsGrading = [];
 
-    // @UiSettings.decorate('grd.hsn') hideStudentNames = false;
-    // @UiSettings.decorate('grd.alpr') alphabetizeResponses = false;
-    // @UiSettings.decorate('grd.soa') showOnlyAttempted = false;
-    // @UiSettings.decorate('grd.sak') showAnswerKey = false;
-
     get hideStudentNames() { return (UiSettings.get('grd.hsn') || false) }
     set hideStudentNames(value) { UiSettings.set('grd.hsn', value) }
 
@@ -59,7 +54,7 @@ export default class AssignmentGradingUX {
         await this.planScores.taskPlan.analytics.fetch();
         await this.planScores.ensureExercisesLoaded();
 
-        this.exercisesHaveBeenFetched = true;
+        runInAction(() => this.exercisesHaveBeenFetched = true);
 
         if (questionId) {
             const index = findIndex(this.headings, (h => h.question_id == questionId ));
@@ -184,7 +179,7 @@ export default class AssignmentGradingUX {
         await this.planScores.taskPlan.fetch();
         await this.planScores.taskPlan.analytics.fetch();
         await this.planScores.ensureExercisesLoaded();
-        this.isPublishingScores = false;
+        runInAction(() => this.isPublishingScores = false);
     }
 
     @action.bound setSelectedPeriod(period) {
