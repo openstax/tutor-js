@@ -34,6 +34,7 @@ export class User extends BaseModel {
     terms = hydrateModel(UserTermsMap, {}, this);
 
     get id() { return this.profile_id }
+    @field username = ''
     @field account_uuid = '';
     @field name = '';
     @field first_name = '';

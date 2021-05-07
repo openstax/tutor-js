@@ -1,6 +1,6 @@
 import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
 
-describe('Course Roster', () => {
+xdescribe('Course Roster', () => {
 
     Mocker.mock({
         page,

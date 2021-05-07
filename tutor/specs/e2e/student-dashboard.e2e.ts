@@ -1,8 +1,9 @@
-import { visitPage, setTimeouts, withScreenSize, setRole } from './helpers'
+import { visitPage, setTimeouts, withScreenSize, loginAs } from './helpers'
 
-describe('Student Dashboard', () => {
+xdescribe('Student Dashboard', () => {
     beforeEach(async () => {
-        await setRole('student')
+        await loginAs('reviewstudent1')
+
         await setTimeouts()
         await visitPage(page, '/course/2')
         await page.evaluate(() => {

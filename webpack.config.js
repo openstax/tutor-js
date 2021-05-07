@@ -9,12 +9,12 @@ const PORTS = {
     exercises:  '8001',
 };
 
-const production   = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 const project      = process.env.OX_PROJECT || 'tutor';
 const port         = process.env.DEV_PORT || PORTS[project] || '8000';
 const host         = process.env.OX_PROJECT_HOST || 'localhost';
 const servePath    = `http://${host}:${port}`;
-const publicPath   = process.env.PUBLIC_PATH || (production ? '/dist/' : `${servePath}/dist/`);
+const publicPath   = process.env.PUBLIC_PATH || (isProduction ? '/dist/' : `${servePath}/dist/`);
 const defaultEntry = `./${project}/index.js`;
 const isTutor      = project == 'tutor';
 
@@ -28,15 +28,15 @@ const ENTRIES = {
 };
 
 const config = {
-    mode: production ? 'production' : 'development',
+    mode: isProduction ? 'production' : 'development',
     entry: ENTRIES[project],
     output: {
-        filename: production ? '[name]-[hash].min.js' : '[name].js',
+        filename: isProduction ? '[name]-[hash].min.js' : '[name].js',
         path: path.resolve(__dirname, project, 'dist'),
         chunkFilename: '[name]-chunk-[hash].js',
         publicPath,
     },
-    devtool: production ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
     module: {
         rules: [
             {
@@ -73,7 +73,7 @@ const config = {
         ),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
+                NODE_ENV: JSON.stringify(isProduction ? 'production' : 'development'),
             },
         }),
         new ManifestPlugin({
@@ -87,17 +87,16 @@ const config = {
     optimization: {
         splitChunks: {
             chunks: 'all',
-            maxInitialRequests: (production && isTutor) ? 5 : 1,
+            maxInitialRequests: (isProduction && isTutor) ? 5 : 1,
         },
     },
     performance: {
         maxEntrypointSize: 2.5 * 1000000, // 1MB
         maxAssetSize: 2.1 * 1000000,
     },
+    watch: !(isCI || isProduction),
     watchOptions: {
         ignored: /node_modules/,
-        aggregateTimeout: 500,
-        poll: 1000,
     },
     devServer: {
         contentBase: project,
@@ -121,7 +120,7 @@ const config = {
     },
 };
 
-if (!production) {
+if (!isProduction) {
     config.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
     );

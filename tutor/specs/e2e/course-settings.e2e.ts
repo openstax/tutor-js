@@ -1,29 +1,28 @@
-import { Factory, Mocker, visitPage, setTimeouts } from './helpers'
+import { visitPage, setTimeouts, loginAs } from './helpers';
 
-describe('Course Settings', () => {
-    let numStudents = 5
+xdescribe('Course Settings', () => {
     beforeEach(async () => {
+        await loginAs('reviewteacher')
         await setTimeouts()
     })
-    Mocker.mock({
-        page,
-        routes: {
-            '/api/courses/:id/roster': async ({ mock, params: { id } }) => (
-                Factory.create('CourseRoster', { id, numStudents, course: mock.course(id) })
-            ),
 
-            '/api/courses/:id': async ({ request }) => {
-                if (request.method() == 'PUT') { return request.postDataJSON() as any }
-                return null
-            },
-        },
-    })
-
-    describe('without any students', () => {
-
+    xdescribe('without any students', () => {
         it('deletes, then redirects to my-courses', async () => {
-            numStudents = 0
-            await visitPage(page, '/course/1/settings?tab=1')
+            await visitPage(page, '/courses')
+            await page.click('testEl=create-course')
+            await page.click('[role=button].choice')
+            await page.click('testEl=next-btn')
+            await page.click('testEl=next-btn')
+            await page.click('testEl=next-btn')
+
+            await page.fill('#number-students', '1')
+            await page.click('testEl=next-btn')
+
+            await page.waitForSelector('.course-page')
+            await page.click('#actions-menu')
+            await page.click('[data-item=courseSettings]')
+
+            await page.click('testEl=course-details-tab-tab')
             await expect(page).toHaveSelector('.course-detail-settings-form')
             const courseName = page.$eval('input#course-name', (el: any) => el.value)
             await page.click('testEl=delete-course-btn')
@@ -38,10 +37,9 @@ describe('Course Settings', () => {
         });
     })
 
-    describe('with students', () => {
+    xdescribe('with students', () => {
 
         beforeEach(async () => {
-            numStudents = 5
             await visitPage(page, '/course/1/settings?tab=1')
         })
 
@@ -83,6 +81,7 @@ describe('Course Settings', () => {
             await page.click('testEl=delete-course-btn')
             await expect(page).toHaveSelector('testEl=disabled-delete-course-message-warning')
             await expect(page).toHaveText('testEl=delete-course-message', 'leave')
+            await page.click('button.close')
         });
 
         it('should save changes, show a success toast and the save button dissapears', async () => {

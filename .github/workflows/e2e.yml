@@ -1,0 +1,31 @@
+name: Tutor End 2 End Tests
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+jobs:
+  e2e:
+    timeout-minutes: 30
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - uses: actions/checkout@v2
+        with:
+          repository: openstax/tutor-server
+          ref: main
+          path: tutor-server
+      - name: increase FS watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - name: Run Tutor server process
+        uses: ./tutor-server/
+      - name: Run tests
+        run: yarn run ci e2e
+      - name: Save screenshots of failures
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: failure-screenshots
+          path: screenshots/tutor

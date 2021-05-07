@@ -1,4 +1,4 @@
-import { visitPage, setTimeouts, setRole } from './helpers'
+import { visitPage, setTimeouts, loginAs, disableTours } from './helpers'
 
 // the BE mock api server is primarily in backend/exercises and backend/terms
 
@@ -6,16 +6,13 @@ describe('Add/Edit Questions', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-        await setRole('teacher')
+        await loginAs('reviewteacher')
         await visitPage(page, '/course/1/questions')
         await page.evaluate(() => {
             window.localStorage.clear()
         })
         await page.waitForSelector('[data-tour-region-id="question-library-sections-chooser"]')
-        await page.evaluate(() => {
-            window._MODELS.user.terms.get('exercise_editing').is_signed = true
-            window._MODELS.feature_flags.set('tours', false)
-        })
+        await disableTours(page)
         await page.click('[data-section-id] .tri-state-checkbox')
         await page.click('testEl=show-questions')
     });
@@ -59,7 +56,7 @@ describe('Add/Edit Questions', () => {
         await page.click('testEl=publish-btn')
     })
 
-    it('autosaves', async() => {
+    xit('autosaves', async() => {
         await page.click('testEl=create-question')
         const stemSel = 'testEl=add-edit-question >> .question-text >> .editor'
         await page.click(stemSel)
@@ -69,6 +66,7 @@ describe('Add/Edit Questions', () => {
         await page.click('testEl=add-edit-question >> .detailed-solution')
         await page.waitForTimeout(10) // Give the autosave time
         await page.reload()
+        await disableTours(page)
         await page.waitForSelector('testEl=create-question')
         await page.evaluate(() => {
             window._MODELS.user.terms.get('exercise_editing').is_signed = true

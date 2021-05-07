@@ -5,6 +5,7 @@ import { BaseOnboarding } from './base';
 import Nags from '../../../components/onboarding/nags';
 import { Course, TourContext } from '../../../models';
 import { Payments } from '../../../helpers/payments';
+import { forceReload } from '../../../helpers/reload';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
@@ -75,7 +76,7 @@ export class StudentCourseOnboarding extends BaseOnboarding {
     onPaymentComplete() {
         if (this.paymentIsPastDue) {
         // in this case we have to reload since network requests have been failing silently
-            setTimeout(() => window.location.reload());
+            setTimeout(forceReload);
         } else {
             this.displayPayment = false;
             this.course.userStudentRecord?.markPaid();
