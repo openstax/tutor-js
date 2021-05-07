@@ -37,6 +37,7 @@
         ],
         "typeRoots": [ "./types", "node_modules/@types" ],
         "paths": {
+            "vendor": ["./tutor/src/vendor.ts"],
             "shared": ["./shared/src/index.js"],
             "shared/*": ["./shared/src/*"]
         }

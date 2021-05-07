@@ -1,13 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { React, ReactDOM, observer } from 'vendor'
 import TutorPopover from './tutor-popover';
 import { ArbitraryHtmlAndMath } from 'shared';
-import { keys, union, omit, pick } from 'lodash'
-
+import { omit, pick } from 'lodash'
+import { currentMedia, Media } from '../models'
 import S from '../helpers/string';
-
-//import { MediaStore } from '../flux/media';
 
 function getTargetClassList(el) {
     if (el.parentElement && el.parentElement.matches('.os-figure')) {
@@ -16,39 +12,37 @@ function getTargetClassList(el) {
     return el.classList;
 }
 
+interface MediaPreviewProps {
+    mediaId: string
+    mediaStore: Media
+    bookHref: string
+    cnxId: string
+    mediaDOMOnParent?: any
+    windowImpl?: Window
+    buffer?: number
+    shouldLinkOut?: boolean
+    originalHref?: string
+    html?: string
+}
+
+@observer
 export default
-class MediaPreview extends React.Component {
+class MediaPreview extends React.Component<MediaPreviewProps> {
+
     static defaultProps = {
         buffer: 160,
         shouldLinkOut: false,
         windowImpl: window,
         trigger: 'focus',
+        mediaStore: currentMedia,
     };
 
     static displayName = 'MediaPreview';
 
-    static propTypes = {
-        mediaId: PropTypes.string.isRequired,
-        bookHref: PropTypes.string.isRequired,
-        cnxId: PropTypes.string.isRequired,
-        mediaDOMOnParent: PropTypes.object,
-        windowImpl: PropTypes.object,
-        buffer: PropTypes.number,
-        shouldLinkOut: PropTypes.bool,
-        originalHref: PropTypes.string,
-        html: PropTypes.string,
-    };
-
     state = {
         popped: false,
         stick: false,
-        media: null,
     };
-
-    componentWillUnmount() {
-        // const { mediaId } = this.props;
-        // return MediaStore.off(`loaded.${mediaId}`, this.updateMedia);
-    }
 
     onMouseEnter = (mouseEvent) => {
         mouseEvent.preventDefault();
@@ -62,12 +56,9 @@ class MediaPreview extends React.Component {
 
     getLinkProps = (otherProps) => {
         const { mediaId, mediaDOMOnParent, bookHref, shouldLinkOut, originalHref } = this.props;
-        const { media } = this.state;
+        const { media } = this;
 
-        const otherPropTypes = union(keys(otherProps), ['mediaId', 'children', 'mediaDOMOnParent', 'buffer'])
-
-        // most props should pass on
-        const linkProps = omit(this.props, otherPropTypes);
+        const linkProps = pick(otherProps, ['href', 'class'])
         linkProps['data-targeted'] = 'media';
 
         if (mediaDOMOnParent != null) {
@@ -94,12 +85,6 @@ class MediaPreview extends React.Component {
     getOverlayProps = () => {
         return pick(this.props, 'containerPadding', 'trigger');
     };
-
-    UNSAFE_componentWillMount() {
-        // const { mediaId } = this.props;
-        // const media = MediaStore.get(mediaId);
-        // if (media != null) { this.updateMedia(media); }
-    }
 
     checkShouldPop = () => {
         if (!this.props.mediaDOMOnParent) { return true; }
@@ -164,22 +149,20 @@ class MediaPreview extends React.Component {
         return (mediaDOMOnParent != null ? getTargetClassList(mediaDOMOnParent).remove('link-target') : undefined);
     };
 
-    updateMedia = (media) => {
-        return this.setState({ media });
-    };
+    get media() {
+        return this.props.mediaStore.get(this.props.mediaId)
+    }
 
     render() {
         const { html, windowImpl } = this.props;
-        const { media } = this.state;
-
+        const media = this.media
         const overlayProps = this.getOverlayProps();
         let linkProps = this.getLinkProps(overlayProps);
 
         if (media != null) {
             let linkText;
             const contentHtml = media.html;
-            const contentProps =
-        { className: 'media-preview-content' };
+            const contentProps = { className: 'media-preview-content' };
             const popoverProps = {
                 'data-content-type': media.name,
                 className: 'media-preview',

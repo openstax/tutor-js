@@ -1,18 +1,11 @@
-import { React, observer, action, observable, modelize } from 'vendor';
-import {
-    get, forEach, first, last, invoke, defer, map, compact, uniq,
-} from 'lodash';
-import ReactDOM from 'react-dom';
-import { withRouter } from 'react-router';
+import { React, ReactDOM, withRouter, cn, createRef, observer, action, observable, modelize } from 'vendor';
+import { get, forEach, first, last, invoke, defer } from 'lodash';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
-import classnames from 'classnames';
-//import { ReferenceBookExerciseShell } from './book-page/exercise';
 import PageTitle from './page-title';
 import NotesWidget from './notes';
-import { currentCourses, currentMedia } from '../models'
+import { currentCourses, Media } from '../models'
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
-// import { MediaStore } from '../flux/media';
 import MediaPreview from './media-preview';
 import ScrollTo from '../helpers/scroll-to';
 import imagesComplete from '../helpers/images-complete';
@@ -20,7 +13,6 @@ import { BookUX } from '../helpers/reference-book-base-ux'
 
 // According to the tagging legend exercises with a link should have `a.os-embed`
 // but in the content they are just a vanilla link.
-const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 const SPLASH_IMAGE_MIN_WIDTH = 400;
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
@@ -103,6 +95,7 @@ interface BookPageProps {
 
 @withRouter
 @observer
+export default
 class BookPage extends React.Component<BookPageProps> {
 
     static displayName = 'BookPage';
@@ -111,6 +104,8 @@ class BookPage extends React.Component<BookPageProps> {
     @observable linkContentIsMounted = false;
 
     scoller = new ScrollTo();
+
+    private rootRef = createRef<HTMLDivElement>()
 
     getCnxId() {
         return this.props.ux.page.cnx_id;
@@ -173,14 +168,6 @@ class BookPage extends React.Component<BookPageProps> {
         return last(beforeHash.split('/'));
     }
 
-    isMediaLink(link) {
-        // footnotes shouldn't show a preview of themselves
-        if (link.matches('[data-type="footnote-ref-link"]')) {
-            return false;
-        }
-        return true;
-    }
-
     hasCNXId(link) {
         const trueHref = link.getAttribute('href');
         return (link.hash.length > 0) && (trueHref.substr(0, 1) !== '#');
@@ -193,7 +180,7 @@ class BookPage extends React.Component<BookPageProps> {
         } catch (error) {
             // silently handle error in case selector is
             // still invalid.
-      console.warn(error); // eslint-disable-line
+            console.warn(error); // eslint-disable-line
             return false;
         }
     }
@@ -284,14 +271,14 @@ class BookPage extends React.Component<BookPageProps> {
             img.complete ? processImage.call(img) : (img.onload = processImage));
     }
 
-    linkPreview(link) {
-        let mediaDOM;
+    renderLinkPreview(link: HTMLAnchorElement) {
+        let mediaDOM = false;
         const mediaId = link.hash.replace('#', '');
         if (mediaId) { mediaDOM = this.getMedia(mediaId); }
 
         // no need to set up media preview if
         // media id is invalid.
-        if (mediaDOM === false) { return link; }
+        if (!mediaDOM) { return; }
 
         const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) ||
               this.props.cnxId ||
@@ -312,17 +299,15 @@ class BookPage extends React.Component<BookPageProps> {
             originalHref: link.getAttribute('href'),
         };
 
-        const mediaPreview = (
-            <MediaPreview {...mediaProps} html={link.innerHTML} />
+        ReactDOM.render(
+            <MediaPreview {...mediaProps} html={link.innerHTML} />,
+            previewNode
         );
-
-        ReactDOM.render(mediaPreview, previewNode);
-        return null;
     }
 
-    processLink(link) {
-        if (this.isMediaLink(link)) {
-            return this.linkPreview(link);
+    processLink = (link: HTMLElement) => {
+        if (Media.isMediaLink(link)) {
+            this.renderLinkPreview(link);
         } else {
             return link;
         }
@@ -332,30 +317,14 @@ class BookPage extends React.Component<BookPageProps> {
         defer(() => {
             if (!this.linkContentIsMounted) { return; }
             const { root } = this;
-            const mediaLinks = root.querySelectorAll(currentMedia.selector);
-            const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
-            const otherLinks = uniq(compact(map(mediaLinks, l => this.processLink(l))));
-
-            if (otherLinks != null ? otherLinks.length : undefined) {
-                if (typeof this.renderOtherLinks === 'function') {
-                    this.renderOtherLinks(otherLinks);
-                }
-            }
-            if (exerciseLinks != null ? exerciseLinks.length : undefined) {
-                if (typeof this.renderExercises === 'function') {
-                    this.renderExercises(exerciseLinks);
-                }
-            }
+            const mediaLinks = root.querySelectorAll(Media.selector);
+            mediaLinks.forEach(this.processLink)
 
             forEach(root.querySelectorAll(INTER_BOOK_LINKS), link => {
                 link.target = '_self';
                 this.props.ux.rewriteBookLink(link);
             });
         });
-    }
-
-    get root() {
-        return ReactDOM.findDOMNode(this);
     }
 
     @action.bound scrollToSelector(location) {
@@ -369,21 +338,8 @@ class BookPage extends React.Component<BookPageProps> {
             });
     }
 
-    renderExercises(exerciseLinks) {
-        // ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length);
-        // const links = map(exerciseLinks, 'href');
-        // if (!ReferenceBookExerciseStore.isLoaded(links)) { ReferenceBookExerciseActions.loadMultiple(links); }
-
-        return forEach(exerciseLinks, this.renderExercise);
-    }
-
-    renderExercise(link) {
-        //const exerciseAPIUrl = link.href;
-        const exerciseNode = link.parentNode.parentNode;
-        if (exerciseNode != null) {
-            //return ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl} />, exerciseNode);
-        }
-        return null;
+    get root() {
+        return this.rootRef.current
     }
 
     render() {
@@ -401,10 +357,11 @@ class BookPage extends React.Component<BookPageProps> {
 
         return (
             <div
-                className={classnames('book-page', this.props.className, {
+                className={cn('book-page', this.props.className, {
                     'page-loading loadable is-loading': isLoading,
                     'book-is-collated': page.bookIsCollated,
                 })}
+                ref={this.rootRef}
                 {...ux.courseDataProps}
             >
                 {this.props.children}
@@ -431,7 +388,7 @@ class BookPage extends React.Component<BookPageProps> {
                     </NotesWidget>
                 </div>
                 <SpyMode.Content className="ecosystem-info">
-          Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
+                    Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
                 </SpyMode.Content>
 
             </div>
@@ -439,5 +396,3 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
 }
-
-export default BookPage;
