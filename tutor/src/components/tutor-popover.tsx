@@ -36,7 +36,7 @@ class TutorPopover extends React.Component {
 
     getImages = () => {
         const content = this.popContentRef.current;
-        return content.querySelectorAll('img');
+        return content ? content.querySelectorAll('img') : [];
     };
 
     areImagesLoading = () => {
@@ -48,12 +48,10 @@ class TutorPopover extends React.Component {
         return this.popper.hide();
     };
 
-    imageLoaded = (iter) => {
+    imageLoaded = (iter: number) => {
         const { imagesLoading } = this.state;
-
         const currentImageStatus = clone(imagesLoading);
         currentImageStatus[iter] = false;
-
         return this.setState({ imagesLoading: currentImageStatus });
     };
 
