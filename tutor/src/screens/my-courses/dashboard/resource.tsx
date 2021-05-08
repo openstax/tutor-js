@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import cn from 'classnames'
 import styled from 'styled-components'
-import { colors } from 'theme'
+import { colors } from '../../../theme'
 import { Icon } from 'shared'
 
 const StyledResource = styled.div`

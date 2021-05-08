@@ -22,7 +22,7 @@ export default class ReferenceBookUX extends BookUX {
         this.isShowingTeacherContent = !this.isShowingTeacherContent;
     }
 
-    @action checkForTeacherContent() {
+    @override checkForTeacherContent() {
         this.hasTeacherContent = Boolean(
             document.querySelector(TEACHER_CONTENT_SELECTOR)
         );

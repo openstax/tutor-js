@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button, Modal } from 'react-bootstrap'
-import { colors } from 'theme'
+import { colors } from '../../../theme'
 import { Icon } from 'shared'
 
 const StyledHeader = styled(Modal.Header)`
@@ -13,7 +13,7 @@ const StyledHeader = styled(Modal.Header)`
         font-size: 3rem;
     }
     &.warning {
-        background-color: ${colors.trouble};
+        background-color: ${colors.states.trouble};
         svg[data-icon="exclamation-triangle"] {
             font-size: 1.8rem;
         }
@@ -72,11 +72,20 @@ const DeleteOfferingModal: React.FC<DeleteOfferingModalProps> = ({ show, onHide,
                 <p>You can’t undo this action.</p>
                 <ControlsWrapper>
                     <Controls>
-                        <Button data-test-id="delete-offering-modal-btn" variant="default" size="lg" onClick={onDelete}>
-                  Yes, delete
+                        <Button
+                            data-test-id="delete-offering-modal-btn"
+                            variant={'default' as any} size="lg"
+                            onClick={onDelete}
+                        >
+                            Yes, delete
                         </Button>
-                        <Button data-test-id="delete-offering-modal-cancel-btn" variant="primary" size="lg" onClick={onHide}>
-                  Cancel
+                        <Button
+                            data-test-id="delete-offering-modal-cancel-btn"
+                            variant="primary"
+                            size="lg"
+                            onClick={onHide}
+                        >
+                            Cancel
                         </Button>
                     </Controls>
                 </ControlsWrapper>
@@ -100,8 +109,8 @@ const DeleteOfferingWarningModal: React.FC<DeleteOfferingModalProps> = ({ show, 
                 <p className="note">Tip: Within this subject, you can still delete individual courses that have no students enrolled in them.</p>
                 <ControlsWrapper>
                     <Controls>
-                        <Button variant="default" size="lg" onClick={onHide}>
-                    Okay
+                        <Button variant={'default' as any} size="lg" onClick={onHide}>
+                            Okay
                         </Button>
                     </Controls>
                 </ControlsWrapper>

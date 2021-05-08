@@ -5,7 +5,7 @@ import { omit, pick } from 'lodash'
 import { currentMedia, Media } from '../models'
 import S from '../helpers/string';
 
-function getTargetClassList(el) {
+function getTargetClassList(el: HTMLElement) {
     if (el.parentElement && el.parentElement.matches('.os-figure')) {
         return el.parentElement.classList;
     }
@@ -21,8 +21,8 @@ interface MediaPreviewProps {
     windowImpl?: Window
     buffer?: number
     shouldLinkOut?: boolean
-    originalHref?: string
-    html?: string
+    originalHref?: string | null
+    html: string
 }
 
 @observer
@@ -45,21 +45,25 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         stick: false,
     };
 
-    onMouseEnter = (mouseEvent) => {
+    get window() {
+        return this.props.windowImpl || window
+    }
+
+    onMouseEnter = (mouseEvent: any) => {
         mouseEvent.preventDefault();
         return this.showMedia();
     };
 
-    onMouseLeave = (mouseEvent) => {
+    onMouseLeave = (mouseEvent: any) => {
         mouseEvent.preventDefault();
         if (this.isMouseExited(mouseEvent)) { this.hideMedia(); }
     };
 
-    getLinkProps = (otherProps) => {
+    getLinkProps = (otherProps: any) => {
         const { mediaId, mediaDOMOnParent, bookHref, shouldLinkOut, originalHref } = this.props;
         const { media } = this;
 
-        const linkProps = pick(otherProps, ['href', 'class'])
+        const linkProps: any = pick(otherProps, ['href', 'class', 'className'])
         linkProps['data-targeted'] = 'media';
 
         if (mediaDOMOnParent != null) {
@@ -96,7 +100,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         if (this.state.popped) {
             if (!this.state.stick) {
                 this.setState({ popped: false });
-                this.overlayRef.current.hide();
+                this.overlayRef.current?.hide();
             }
         } else {
             this.unhighlightMedia();
@@ -110,23 +114,25 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
 
     isMediaInViewport = () => {
         let middle;
-        const { mediaDOMOnParent, buffer, windowImpl } = this.props;
+        const { mediaDOMOnParent, buffer } = this.props;
         const mediaRect = mediaDOMOnParent != null ? mediaDOMOnParent.getBoundingClientRect() : undefined;
 
-        return 0 <= ((middle = mediaRect.top + buffer)) && middle <= windowImpl.innerHeight;
+        return 0 <= ((middle = mediaRect.top + buffer)) && middle <= this.window.innerHeight;
     };
 
     // check that mouse has exited both the link and the overlay
-    isMouseExited = (mouseEvent) => {
+    isMouseExited = (mouseEvent: any) => {
+        if (!this.overlayRef.current) { return }
         if (
             ((mouseEvent.relatedTarget != null ? mouseEvent.relatedTarget.nodeType : undefined) == null)
             || (!this.overlayRef.current?.popover)
         ) {
             return true;
         }
-        const linkDOM = ReactDOM.findDOMNode(this.overlayRef.current?.popper);
-        const popoverDOM = ReactDOM.findDOMNode(this.overlayRef.current?.popover);
-        return !(popoverDOM.contains(mouseEvent.relatedTarget) || linkDOM.isEqualNode(mouseEvent.relatedTarget));
+        const linkDOM = ReactDOM.findDOMNode(this.overlayRef.current.popper);
+        const popoverDOM = ReactDOM.findDOMNode(this.overlayRef.current.popover);
+        if (!linkDOM || !popoverDOM) { return false }
+        return !(popoverDOM.contains(mouseEvent.relatedTarget as Node) || linkDOM.isEqualNode(mouseEvent.relatedTarget as Node));
     };
 
     showMedia = () => {
@@ -135,7 +141,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         if (shouldPop) {
             if (!this.state.popped) {
                 this.setState({ popped: true });
-                this.overlayRef.current.show();
+                this.overlayRef.current?.show();
             }
         } else {
             this.highlightMedia();
@@ -146,7 +152,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
         this.setState({ stick: true });
         if (!this.state.popped) {
             this.setState({ popped: true });
-            this.overlayRef.current.show();
+            this.overlayRef.current?.show();
         }
     };
 
@@ -160,7 +166,7 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
     }
 
     render() {
-        const { html, windowImpl } = this.props;
+        const { html } = this.props;
         const media = this.media
         const overlayProps = this.getOverlayProps();
         let linkProps = this.getLinkProps(overlayProps);
@@ -176,8 +182,9 @@ class MediaPreview extends React.Component<MediaPreviewProps> {
                 onMouseLeave: this.onMouseLeave,
             };
 
-            const content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml} />;
-            const allProps = { content, overlayProps, popoverProps, windowImpl };
+            const HTML = ArbitraryHtmlAndMath as any
+            const content = <HTML {...contentProps} html={contentHtml} />;
+            const allProps = { content, overlayProps, popoverProps, windowImpl: this.window };
 
             if (html !== '[link]') { linkText = html; }
             if (linkText == null) { linkText = `See ${S.capitalize(media.name)}`; }

@@ -1,4 +1,7 @@
-import { React, ReactDOM, withRouter, cn, createRef, observer, action, observable, modelize } from 'vendor';
+import {
+    React, ReactDOM, cn, createRef, observer,
+    action, observable, modelize, useHistory,
+} from 'vendor';
 import { get, forEach, first, last, invoke, defer } from 'lodash';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
 import PageTitle from './page-title';
@@ -21,7 +24,7 @@ const IMAGE_SIZE_CLASSES = [
     'full-width', 'scaled-down', 'scaled-down-60', 'full-width', 'scaled-down-30',
 ];
 
-function getClosestFigureLikeElement(el: HTMLElement) {
+function getClosestFigureLikeElement(el: any) {
     return el.closest('.os-figure')
     || el.closest('figure')
     || el.closest('[data-type=media]');
@@ -75,7 +78,7 @@ function processImage(this: HTMLImageElement) {
     }
 }
 
-async function scheduleSplashImageDetection(wrapper) {
+async function scheduleSplashImageDetection(wrapper: any) {
     await imagesComplete(wrapper);
     const img = wrapper.querySelector('img');
     if (img.naturalWidth > SPLASH_IMAGE_MIN_WIDTH) {
@@ -84,7 +87,7 @@ async function scheduleSplashImageDetection(wrapper) {
 }
 
 interface BookPageProps {
-    ux: BookUX,
+    ux: BookUX
     className?: string
     children?: any
     query?: string
@@ -93,9 +96,8 @@ interface BookPageProps {
     history?: any
 }
 
-@withRouter
+
 @observer
-export default
 class BookPage extends React.Component<BookPageProps> {
 
     static displayName = 'BookPage';
@@ -106,18 +108,20 @@ class BookPage extends React.Component<BookPageProps> {
     scoller = new ScrollTo();
 
     private rootRef = createRef<HTMLDivElement>()
+    linkNode?: HTMLLinkElement
+    removeHistoryChangeListener?: any
 
     getCnxId() {
         return this.props.ux.page.cnx_id;
     }
 
-    constructor(props) {
-        super(props);
-        modelize(this);
-        this.props.ux.page.ensureLoaded();
+    constructor(props: BookPageProps) {
+        super(props)
+        modelize(this)
+        this.props.ux.page.ensureLoaded()
     }
 
-    processVideo(root) {
+    processVideo(root: any) {
         const video = root.querySelector('.splash-video');
         if (!video){ return; }
         const figure = getClosestFigureLikeElement(dom(video));
@@ -127,11 +131,11 @@ class BookPage extends React.Component<BookPageProps> {
         }
     }
 
-    cleanupContent(root) {
+    cleanupContent(root: any) {
         this.detectImgAspectRatio(root);
         this.cleanUpAbstracts(root);
         this.insertSplash(root);
-        this.processLinks(root);
+        this.processLinks();
         this.processVideo(root);
     }
 
@@ -139,7 +143,7 @@ class BookPage extends React.Component<BookPageProps> {
         this.props.ux.checkForTeacherContent();
         this.linkContentIsMounted = true;
         const { root } = this;
-        this.insertCanonicalLink(root);
+        this.insertCanonicalLink();
         this.cleanupContent(root);
         if (this.props.history) {
             this.removeHistoryChangeListener = this.props.history.listen(this.scrollToSelector);
@@ -150,10 +154,10 @@ class BookPage extends React.Component<BookPageProps> {
 
     componentDidUpdate() {
         const { root } = this;
-        this.props.ux.page.ensureLoaded();
-        this.props.ux.checkForTeacherContent();
-        this.updateCanonicalLink(root);
-        this.cleanupContent(root);
+        this.props.ux.page.ensureLoaded()
+        this.props.ux.checkForTeacherContent()
+        this.updateCanonicalLink()
+        this.cleanupContent(root)
     }
 
     componentWillUnmount() {
@@ -163,17 +167,17 @@ class BookPage extends React.Component<BookPageProps> {
         return this.removeCanonicalLink();
     }
 
-    getCnxIdOfHref(href) {
-        const beforeHash = first(href.split('#'));
+    getCnxIdOfHref(href: string) {
+        const beforeHash = first(href.split('#')) || '';
         return last(beforeHash.split('/'));
     }
 
-    hasCNXId(link) {
-        const trueHref = link.getAttribute('href');
+    hasCNXId(link: HTMLAnchorElement) {
+        const trueHref = link.getAttribute('href') || '';
         return (link.hash.length > 0) && (trueHref.substr(0, 1) !== '#');
     }
 
-    getMedia(mediaId) {
+    getMedia(mediaId: string) {
         const { root } = this;
         try {
             return root.querySelector(`#${mediaId}`);
@@ -192,7 +196,7 @@ class BookPage extends React.Component<BookPageProps> {
         forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
     }
 
-    insertSplash(root) {
+    insertSplash(root: any) {
         let splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure, [data-type="document-title"] + .os-figure`);
         if (!splashFigure) { return; }
 
@@ -212,10 +216,10 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
     insertCanonicalLink() {
-        this.linkNode = document.createElement('link');
-        this.linkNode.rel = 'canonical';
-        document.head.appendChild(this.linkNode);
-
+        const linkNode = document.createElement('link')
+        linkNode.rel = 'canonical';
+        document.head.appendChild(linkNode);
+        this.linkNode = linkNode
         return this.updateCanonicalLink();
     }
 
@@ -224,7 +228,7 @@ class BookPage extends React.Component<BookPageProps> {
         // leave versioning out of canonical link
         const canonicalCNXId = first(cnxId.split('@'));
 
-        const { courseId, ecosystemId } = Router.currentParams();
+        const { courseId, ecosystemId } = Router.currentParams() as any;
         const course = courseId ? currentCourses.get(courseId) : currentCourses.forEcosystemId(ecosystemId);
         if (!course) { return; }
         const { webview_url } = course;
@@ -233,19 +237,19 @@ class BookPage extends React.Component<BookPageProps> {
 
         // webview actually links to webview_url as it's canonical url.
         // will need to ask them why.
-        this.linkNode.href = `${baseWebviewUrl}/contents/${canonicalCNXId}`;
+        (this.linkNode as HTMLLinkElement).href = `${baseWebviewUrl}/contents/${canonicalCNXId}`;
     }
 
     removeCanonicalLink() {
         return invoke(this.linkNode, 'remove');
     }
 
-    @action cleanUpAbstracts(root) {
-        const abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS);
+    @action cleanUpAbstracts(root: HTMLDivElement) {
+        const abstract = root.querySelector<HTMLDivElement>(LEARNING_OBJECTIVE_SELECTORS);
         // dont clean up if abstract does not exist or if it has already been cleaned up
         if ((abstract == null) || !abstract.dataset || (abstract.dataset.isIntro != null)) { return; }
         abstract.classList.add('learning-objectives');
-        for (let abstractChild of abstract.childNodes) {
+        for (let abstractChild of (abstract.childNodes as any)) {
             // leave the list alone -- this is the main content
             if ((abstractChild == null) || (abstractChild.tagName === 'UL')) { continue; }
 
@@ -262,17 +266,17 @@ class BookPage extends React.Component<BookPageProps> {
             }
         }
 
-        abstract.dataset.isIntro = (root.querySelector(IS_INTRO_SELECTORS) != null);
+        abstract.dataset.isIntro = String(Boolean(root.querySelector(IS_INTRO_SELECTORS)))
         this.needsLearningObjectivesPreamble = !abstract.dataset.isIntro && !abstract.dataset.preamble && !abstract.querySelector('p');
     }
 
-    detectImgAspectRatio(root) {
+    detectImgAspectRatio(root: any) {
         forEach(root.querySelectorAll('figure img'), (img) =>
             img.complete ? processImage.call(img) : (img.onload = processImage));
     }
 
     renderLinkPreview(link: HTMLAnchorElement) {
-        let mediaDOM = false;
+        let mediaDOM: any = false;
         const mediaId = link.hash.replace('#', '');
         if (mediaId) { mediaDOM = this.getMedia(mediaId); }
 
@@ -280,7 +284,7 @@ class BookPage extends React.Component<BookPageProps> {
         // media id is invalid.
         if (!mediaDOM) { return; }
 
-        const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) ||
+        const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href') || '') ||
               this.props.cnxId ||
               this.getCnxId();
 
@@ -305,11 +309,9 @@ class BookPage extends React.Component<BookPageProps> {
         );
     }
 
-    processLink = (link: HTMLElement) => {
+    processLink = (link: HTMLAnchorElement) => {
         if (Media.isMediaLink(link)) {
             this.renderLinkPreview(link);
-        } else {
-            return link;
         }
     }
 
@@ -317,17 +319,17 @@ class BookPage extends React.Component<BookPageProps> {
         defer(() => {
             if (!this.linkContentIsMounted) { return; }
             const { root } = this;
-            const mediaLinks = root.querySelectorAll(Media.selector);
+            const mediaLinks = root.querySelectorAll<HTMLAnchorElement>(Media.selector);
             mediaLinks.forEach(this.processLink)
 
-            forEach(root.querySelectorAll(INTER_BOOK_LINKS), link => {
+            forEach(root.querySelectorAll<HTMLAnchorElement>(INTER_BOOK_LINKS), (link) => {
                 link.target = '_self';
                 this.props.ux.rewriteBookLink(link);
             });
         });
     }
 
-    @action.bound scrollToSelector(location) {
+    @action.bound scrollToSelector(location: any) {
         if (!location.hash) { return; }
         imagesComplete({ body: this.root })
             .then(() => {
@@ -339,7 +341,7 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
     get root() {
-        return this.rootRef.current
+        return this.rootRef.current as HTMLDivElement
     }
 
     render() {
@@ -349,6 +351,8 @@ class BookPage extends React.Component<BookPageProps> {
         if (page?.api.isPending) {
             return <LoadingAnimation />;
         }
+
+        const HTML = ArbitraryHtmlAndMath as any
 
         return (
             <div
@@ -375,7 +379,7 @@ class BookPage extends React.Component<BookPageProps> {
                         windowImpl={ux.windowImpl}
                         documentId={page.cnx_id}
                     >
-                        <ArbitraryHtmlAndMath
+                        <HTML
                             className="book-content"
                             block={true}
                             html={page.contents}
@@ -391,3 +395,10 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
 }
+
+const BookPageWrapper:React.FC<Omit<BookPageProps, 'history'>> = (props) => {
+    const history = useHistory()
+    return <BookPage {...props} history={history} />
+}
+
+export default BookPageWrapper

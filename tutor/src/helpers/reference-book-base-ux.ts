@@ -202,6 +202,10 @@ export class BookUX {
     sectionHref(_page: { id: ID }) {
     }
 
+    @action checkForTeacherContent() {
+
+    }
+
     @computed get pagingProps() {
 
         return {

@@ -35,7 +35,7 @@ export default function imagesComplete({
                 resolve(images);
             }
         };
-        const markFailure = (ev) => {
+        const markFailure = (ev: any) => {
             markComplete();
             Raven.log('Failed to load image', {
                 image: ev.target.src,

@@ -1,16 +1,7 @@
 import React from 'react';
 import {
-    BaseModel,
-    field,
-    computed,
-    action,
-    when,
-    observable,
-    modelize,
-    NEW_ID,
-    ID,
-    hydrateModel,
-    runInAction,
+    BaseModel, field, computed, action, when, observable, modelize,
+    NEW_ID, ID, hydrateModel, runInAction,
 } from 'shared/model';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';

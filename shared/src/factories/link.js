@@ -57,6 +57,9 @@ const make = function(router, name = 'OpenStax') {
         query:  PropTypes.object,
         className: PropTypes.string,
         primaryBtn:  PropTypes.bool,
+        role: PropTypes.string,
+        'data-test-id': PropTypes.string,
+        children: PropTypes.node.isRequired,
     };
 
     return Link;

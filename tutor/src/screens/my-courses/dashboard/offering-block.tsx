@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, ReactElement, Dispatch, SetStateAction } from 'react'
 import { map } from 'lodash'
 import cn from 'classnames'
-import moment from 'moment'
 import { Icon } from 'shared'
 import UiSettings from 'shared/model/ui-settings'
 import Tabs from '../../../components/tabs'
@@ -13,8 +12,8 @@ import Resource from './resource'
 
 
 const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
-    if (moment(courseA.ends_at).isAfter(courseB.ends_at)) { return 1 }
-    if (moment(courseA.ends_at).isBefore(courseB.ends_at)) { return -1 }
+    if (courseA.ends_at.isAfter(courseB.ends_at)) { return 1 }
+    if (courseA.ends_at.isBefore(courseB.ends_at)) { return -1 }
     return 0
 }
 const sortCurrentCourses = (courses: Course[]) => courses.sort((a, b) => {

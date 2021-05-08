@@ -66,6 +66,10 @@ class TutorPopover extends React.Component<TutorPopoverProps> {
         return this.popperRef.current
     }
 
+    get popover() {
+        return this.popContentRef.current
+    }
+
     render() {
         let contentClassName;
         let {

@@ -1,8 +1,8 @@
-import { fetchMock, Factory, deferred, ApiMock } from '../../helpers'
-import CourseEnroll from '../../../src/models/course/enroll';
-import User from '../../../src/models/user';
-import { runInAction } from 'mobx';
-import { ApiError, NEW_ID } from 'shared/model';
+import { fetchMock, Factory, deferred, ApiMock } from './index'
+import { currentUser } from '../../src/models'
+import { CourseEnrollment } from '../../src/helpers/course-enrollment'
+import { runInAction } from 'mobx'
+import { ApiError, NEW_ID } from 'shared/model'
 import { mount } from 'enzyme'
 
 jest.mock('../../../src/models/user', () => ({
@@ -10,12 +10,12 @@ jest.mock('../../../src/models/user', () => ({
 }));
 
 describe('Course Enrollment', function() {
-    let enroll: CourseEnroll
+    let enroll: CourseEnrollment
     let coursesMap: ReturnType<typeof Factory.coursesMap>
 
     beforeEach(() => {
         coursesMap = Factory.coursesMap();
-        enroll = new CourseEnroll({ courses: coursesMap, user: User });
+        enroll = new CourseEnrollment({ courses: coursesMap, user: currentUser });
     });
 
     it('#isInvalid', () => {
@@ -93,7 +93,7 @@ describe('Course Enrollment', function() {
         expect(enroll.isRegistered).toBe(true);
         await deferred(() => {
             expect(enroll.isComplete).toBe(true);
-            expect(User.terms.fetch).toHaveBeenCalled();
+            expect(currentUser.terms.fetch).toHaveBeenCalled();
             expect(enroll.course).toBeTruthy()
             expect(enroll.course?.studentTaskPlans.expecting_assignments_count).toEqual(42);
         })

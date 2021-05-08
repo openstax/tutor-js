@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import cn from 'classnames'
 import styled from 'styled-components'
 import { Dropdown } from 'react-bootstrap'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import OXFancyLoader from 'shared/components/staxly-animation'
 import Router from '../../../helpers/router'
 import { currentUser, Offering, currentCourses, CourseCreate } from '../../../models'
-import { colors } from 'theme'
+import { colors } from '../../../theme'
 import { Icon } from 'shared'
 
 const StyledPreviewCourse = styled.div`
@@ -78,14 +78,13 @@ const StyledPreviewCourse = styled.div`
 
 interface CoursePreviewProps {
     offering: Offering
-    className: string
-    history: RouteComponentProps
+    className?: string
     isPreviewInResource: boolean
-    setIsPreviewInResource: (isPreviewInResource: boolean) => React.Dispatch<React.SetStateAction<boolean>>
+    setIsPreviewInResource: (isPreviewInResource: boolean) => void
 }
 
-
-const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, history, isPreviewInResource, setIsPreviewInResource }) => {
+const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, isPreviewInResource, setIsPreviewInResource }) => {
+    const history = useHistory()
     const previewCourse = currentCourses.preview.latestForOffering(offering) // array
     const [isCreating, setIsCreating] = useState(false)
     if (!offering.is_preview_available || !currentUser.canCreateCourses) {
@@ -105,7 +104,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
                     setIsCreating(false)
                     if (!create.api.errors.any) {
                         history.push(
-                            Router.makePathname(routePath, { courseId: create.createdCourse.id }, queryPath)
+                            Router.makePathname(routePath, { courseId: create.createdCourse?.id }, queryPath)
                         )
                     }
                 })
@@ -151,7 +150,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
             <Dropdown
                 className="my-preview-courses-item-actions"
                 data-appearance={offering.appearance_code}>
-                <Dropdown.Toggle variant="ox" data-test-id={`my-preview-courses-item-actions-${offering.id}`}>
+                <Dropdown.Toggle id="actions" variant={'ox' as any} data-test-id={`my-preview-courses-item-actions-${offering.id}`}>
                     <Icon type="ellipsis-v" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -173,4 +172,4 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, hist
     )
 }
 
-export default withRouter(CoursePreview)
+export default CoursePreview
