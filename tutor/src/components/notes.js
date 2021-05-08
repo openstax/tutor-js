@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, cn, modelize } from 'vendor';
+import { React, PropTypes, observer, cn, modelize, runInAction } from 'vendor';
 import { observable, action, when } from 'shared/model'
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
@@ -261,7 +261,7 @@ class NotesWidget extends React.Component {
 
     @autobind
     openAnnotator() {
-        return this.highlightAndClose().then(note => this.activeNote = note);
+        return this.highlightAndClose().then(note => runInAction(() => this.activeNote = note));
     }
 
     @autobind

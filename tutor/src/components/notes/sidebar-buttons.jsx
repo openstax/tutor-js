@@ -86,10 +86,10 @@ class SidebarButtons extends React.Component {
     }
 
     renderNotes() {
-        return this.props.notes.array.map(note =>
+        return this.props.notes.array.map((note, index) =>
             note.annotation && (
                 <NoteButton
-                    key={note.id}
+                    key={index}
                     isActive={this.props.activeNote === note}
                     containerTop={this.containerTop}
                     {...this.props}
