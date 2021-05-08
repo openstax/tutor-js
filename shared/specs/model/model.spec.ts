@@ -1,5 +1,5 @@
 import { ObservableMap } from 'mobx';
-import { BaseModel, hydrateModel, modelize, observable, array, map, field, model } from 'shared/model'
+import { BaseModel, hydrateModel, modelize, observable, array, map, field, model, NEW_ID } from 'shared/model'
 
 describe('Model base class', () => {
 
@@ -8,6 +8,7 @@ describe('Model base class', () => {
     }
 
     class Foo extends BaseModel {
+        @field id = NEW_ID;
         @field foo = ''
         @model(Bar) bars = array((a: Bar[]) => ({
             eq(n: number) { return a.filter((b) => b.num == n) },
@@ -40,4 +41,11 @@ describe('Model base class', () => {
         }))
         expect(m.one).toEqual(1)
     });
+
+    it('checks if the model isNew', () => {
+        const foo = hydrateModel(Foo, {})
+        expect(foo.isNew).toEqual(true)
+        foo.id = 3
+        expect(foo.isNew).toEqual(false)
+    })
 })
