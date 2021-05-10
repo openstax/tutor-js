@@ -261,7 +261,7 @@ class TaskPlanScoreHeading extends BaseModel {
     @computed get everyQuestionDropped() {
         // We only have to check if the instructor dropped all questions,
         // because the heading simply wouldn't be present if the algorithm dropped them
-        return this.droppedQuestions.length == this.questionIdsSet.length;
+        return this.droppedQuestions.length == this.questionIdsSet.size;
     }
 
     @computed get everyQuestionZeroed() {
