@@ -1,4 +1,4 @@
-import { BaseModel, computed, action, observable, modelize } from 'shared/model';
+import { BaseModel, computed, action, observable, modelize, runInAction } from 'shared/model';
 import { find, filter, each } from 'lodash';
 import type { Tour, TourContext, TourRegion, TourStep } from '../../models'
 
@@ -22,10 +22,10 @@ export class TourRide extends BaseModel {
         each(this.tour.steps, s => s.preValidate());
         if (this.currentStep) {
             this.currentStep.prepare({ prevStep: null }).then(() => {
-                this._isReady = true;
+                runInAction(() => this._isReady = true);
             });
         } else {
-            this._isReady = true;
+            runInAction(() => this._isReady = true);
         }
     }
 
@@ -79,7 +79,7 @@ export class TourRide extends BaseModel {
             return Promise.resolve();
         }
         await prevStep.prepare({ prevStep: this.currentStep });
-        this._stepIndex -= 1;
+        runInAction(() => this._stepIndex -= 1);
         return Promise.resolve();
     }
 
@@ -91,7 +91,7 @@ export class TourRide extends BaseModel {
             return Promise.resolve();
         }
         await nextStep.prepare({ prevStep: this.currentStep });
-        this._stepIndex += 1;
+        runInAction(() => this._stepIndex += 1);
         return Promise.resolve();
     }
 
