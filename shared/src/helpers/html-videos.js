@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import { forEach } from 'lodash'
 
 const getRatioClass = function(frame) {
     if (!frame.width || !frame.height) {
@@ -18,7 +18,7 @@ const isEmbedded = frame => frame.parentNode != null ? frame.parentNode.classLis
 const isInteractive = frame => frame.classList.contains('interactive');
 
 const wrapFrames = function(dom, shouldExcludeFrame) {
-    _.each(dom.getElementsByTagName('iframe'), function(frame) {
+    forEach(dom.getElementsByTagName('iframe'), function(frame) {
         if (isEmbedded(frame) || isInteractive(frame) || (typeof shouldExcludeFrame === 'function' ? shouldExcludeFrame(frame) : undefined)) { return null; }
 
         const wrapper = document.createElement('div');

@@ -1,9 +1,23 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, createRef } from 'vendor';
+import { ID } from '../models/types'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { compact, clone } from 'underscore';
+import { clone } from 'lodash';
 
-class TutorPopover extends React.Component {
+interface TutorPopoverProps {
+    id?: ID,
+    children?: any
+    title?: string
+    content: any
+    popoverProps?: any
+    contentProps?: any
+    overlayProps?: any
+    windowImpl?: Window
+    maxHeightMultiplier?: number
+    maxWidthMultiplier?: number
+}
+
+export default
+class TutorPopover extends React.Component<TutorPopoverProps> {
     static defaultProps = {
         maxHeightMultiplier: 0.75,
         maxWidthMultiplier: 0.75,
@@ -23,42 +37,38 @@ class TutorPopover extends React.Component {
         maxWidthMultiplier: PropTypes.number,
     }
 
+    popperRef = createRef<any>()
+    popContentRef = createRef<HTMLDivElement>()
+
     state = {
         firstShow: true,
         placement: 'auto',
         show: false,
         scrollable: false,
-        imagesLoading: [],
     };
 
     getImages = () => {
-        const content = this.refs.popcontent;
-        return content.querySelectorAll('img');
-    };
-
-    areImagesLoading = () => {
-        return compact(this.state.imagesLoading).length !== 0;
+        const content = this.popContentRef.current;
+        return content ? content.querySelectorAll('img') : [];
     };
 
     hide = () => {
         this.setState({ show: false });
-        return this.refs.popper.hide();
-    };
-
-    imageLoaded = (iter) => {
-        const { imagesLoading } = this.state;
-
-        const currentImageStatus = clone(imagesLoading);
-        currentImageStatus[iter] = false;
-
-        return this.setState({ imagesLoading: currentImageStatus });
+        return this.popper.hide();
     };
 
     show = () => {
         this.setState({ show: true });
-        return this.refs.popper.show();
+        return this.popper.show();
     };
 
+    get popper() {
+        return this.popperRef.current
+    }
+
+    get popover() {
+        return this.popContentRef.current
+    }
 
     render() {
         let contentClassName;
@@ -73,10 +83,6 @@ class TutorPopover extends React.Component {
             popoverProps.className += ' scrollable';
         }
 
-        if (this.areImagesLoading()) {
-            contentClassName = 'image-loading';
-        }
-
         content = React.cloneElement(content, { className: contentClassName });
         const popoverId = `tutor-popover-${id || 'unknown'}`;
 
@@ -84,11 +90,10 @@ class TutorPopover extends React.Component {
             <Popover
                 {...popoverProps}
                 id={popoverId}
-                ref={this.setPopoverRef}
             >
                 {title && <Popover.Title>{title}</Popover.Title>}
                 <Popover.Content>
-                    <div ref="popcontent">
+                    <div ref={this.popContentRef}>
                         {content}
                     </div>
                 </Popover.Content>
@@ -96,11 +101,9 @@ class TutorPopover extends React.Component {
         );
 
         return (
-            <OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref="popper">
+            <OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref={this.popperRef}>
                 {children}
             </OverlayTrigger>
         );
     }
 }
-
-export default TutorPopover;

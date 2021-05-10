@@ -9,7 +9,9 @@ cd "$(dirname "$0")/.." || exit 111
 TEST=$1
 
 if [[ "$TEST" = "lint" ]]; then
-  ./bin/lint || exit 112
+    ./bin/lint || exit 112
+elif [[ "$TEST" = "typecheck" ]]; then
+    yarn run tsc --noemit
 elif [[ "$TEST" = "e2e" ]]; then
     ./bin/test-e2e
 else

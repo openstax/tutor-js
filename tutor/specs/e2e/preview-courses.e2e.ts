@@ -33,7 +33,7 @@ describe('Preview Courses', () => {
         await expect(page).not.toHaveSelector('testEl=side-panel >> testEl=preview-panel-create-course', { timeout: 100 })
     })
 
-    it('hides preview panel for non-available offerings', async () => {
+    xit('hides preview panel for non-available offerings', async () => {
         await visitPage(page, '/courses')
         await page.click('testEl=preview-course-card=1')
         await page.goBack()

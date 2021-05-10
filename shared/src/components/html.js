@@ -9,6 +9,17 @@ import { wrapFrames } from '../helpers/html-videos';
 
 const isLink = (a) => Boolean(a && 'A' == a.tagName);
 const isExternalLink = (a) => Boolean(isLink(a) && (a.origin !== window.location.origin || a.target == '_blank'));
+const propTypes = {
+    className: PropTypes.string,
+    html: PropTypes.string.isRequired,
+    block: PropTypes.bool.isRequired,
+    processHtmlAndMath: PropTypes.func,
+    shouldExcludeFrame: PropTypes.func,
+    windowImpl: PropTypes.object,
+    history: PropTypes.object,
+    forwardedRef: PropTypes.any,
+    onClick: PropTypes.func,
+}
 
 class ArbitraryHtmlAndMath extends React.Component {
 
@@ -17,17 +28,7 @@ class ArbitraryHtmlAndMath extends React.Component {
         shouldExcludeFrame() { return false; },
     };
 
-    static propTypes = {
-        className: PropTypes.string,
-        html: PropTypes.string,
-        block: PropTypes.bool.isRequired,
-        processHtmlAndMath: PropTypes.func,
-        shouldExcludeFrame: PropTypes.func,
-        windowImpl: PropTypes.object,
-        history: PropTypes.object,
-        forwardedRef: PropTypes.any,
-        onClick: PropTypes.func,
-    };
+    static propTypes = propTypes
 
     static contextType = RouterContext;
 
@@ -106,5 +107,6 @@ class ArbitraryHtmlAndMath extends React.Component {
 const HTML = React.forwardRef((props, ref) => (
     <ArbitraryHtmlAndMath forwardedRef={ref} {...props} />
 ));
+HTML.propTypes = propTypes
 
 export default HTML;

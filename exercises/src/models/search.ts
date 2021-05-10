@@ -104,7 +104,7 @@ class Search extends BaseModel {
 
         runInAction(() => {
             this.total_count = total_count;
-            this.exercises = items.map((ex:any) => hydrateModel(Exercise, ex, this));
+            this.exercises.replace( items.map((ex:any) => hydrateModel(Exercise, ex, this)) );
         })
     }
 

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Button, Dropdown } from 'react-bootstrap'
 import TutorLink from '../../../components/link'
 import type { Course } from '../../../models'
-import { colors } from 'theme'
+import { colors } from '../../../theme'
 import { Icon } from 'shared'
 
 const StyledViewCourse = styled.div`
@@ -39,7 +39,7 @@ const StyledViewCourse = styled.div`
     padding: 0;
     }
     .course-ended-info {
-    color: ${colors.thin};
+    color: ${colors.neutral.thin};
     font-size: 1.4rem;
     }
     }
@@ -120,7 +120,11 @@ const ViewCourse: React.FC<ViewCourseProps> = ({ course, className, isPast }) =>
                 </div>
             </div>
             <Dropdown className="my-courses-item-actions">
-                <Dropdown.Toggle variant="ox" data-test-id={`course-card-item-actions-${course.id}`}>
+                <Dropdown.Toggle
+                    id="my-course-action"
+                    variant={'ox' as any}
+                    data-test-id={`course-card-item-actions-${course.id}`}
+                >
                     <Icon type="ellipsis-v" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>

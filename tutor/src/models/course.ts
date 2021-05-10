@@ -40,7 +40,7 @@ export class Course extends BaseModel {
     @field default_open_time = '';
     @field ecosystem_book_uuid = '';
     @field ecosystem_id = NEW_ID;
-    @model(TeacherProfile) teacher_profiles:TeacherProfile[] = [];
+    @model(TeacherProfile) teacher_profiles = array<TeacherProfile>()
 
     @field is_active = false;
     @field is_college = false;

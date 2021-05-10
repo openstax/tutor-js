@@ -2,7 +2,7 @@ import { React, useState, observer } from 'vendor'
 import { Button } from 'react-bootstrap'
 import { map, filter, findIndex, every, sumBy, find } from 'lodash'
 import styled from 'styled-components'
-import { colors } from 'theme'
+import { colors } from '../../../theme'
 import { Icon } from 'shared'
 import { ID } from '../../../models/types'
 import { currentCourses } from '../../../models'
@@ -136,9 +136,9 @@ export const MyCoursesDashboard = observer(() => {
             const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal && !c.is_preview)
             Promise.all(map(offeringCourses, async c => {
                 const currentRole = find(c.roles, r => r.type === 'teacher')
-                const currentTeacher = currentRole && find(c.teacher_profiles, t => t.role_id === currentRole.id);
+                const currentTeacher = currentRole && find(c.teacher_profiles, t => t.id === currentRole.id);
                 if(currentTeacher) {
-                    return currentTeacher.drop() // dispatch(dropCourseTeacher(currentTeacher.id))
+                    return currentTeacher.drop()
                 }
                 return Promise.resolve()
             }))
@@ -151,9 +151,9 @@ export const MyCoursesDashboard = observer(() => {
     }
 
     const renderDeleteModal = () => {
-        const offeringCourses = filter(courses, c => c.offering_id === deleteOfferingIdModal)
+        const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal)
         const areAllPreviewCourses = every(offeringCourses, oc => oc.is_preview)
-        const areAllNonPreviewCoursesWithoutStudents = every(filter(offeringCourses, c => String(c.term) !== 'preview'), oc => sumBy(oc?.periods, p => {
+        const areAllNonPreviewCoursesWithoutStudents = every(filter(offeringCourses, c => String(c.term) !== 'preview'), oc => sumBy(oc?.periods, (p:any) => {
             return p.num_enrolled_students
         }) === 0)
         if (areAllPreviewCourses || areAllNonPreviewCoursesWithoutStudents) {

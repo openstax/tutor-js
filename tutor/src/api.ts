@@ -11,6 +11,7 @@ interface StepId { stepId: ID }
 interface TaskId { taskId: ID }
 interface NoteId { noteId: ID }
 interface TourId { tourId: ID }
+interface TeacherId { teacherId: ID }
 interface CourseId { courseId: ID }
 interface PeriodId { periodId: ID }
 interface RoleIdParam { role_id: ID }
@@ -35,6 +36,8 @@ const Definitions = {
     updateStudent:          r<StudentId>('POST', 'students{studentId}'),
     dropStudent:            r<StudentId>('DELETE', 'students/{studentId}'),
     unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
+
+    dropTeacher:            r<TeacherId>('DELETE', 'teachers/{teacherId}'),
 
     fetchReferenceBook:     r<BookId>('GET', 'ecosystems/{bookId}/readings'),
     fetchReferenceBookPage: r<EcosystemCnxId>('GET', 'ecosystems/{ecosystemId}/pages/{cnxId}'),

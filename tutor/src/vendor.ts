@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { createRef, useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 import {
@@ -20,7 +20,7 @@ export {
     withRouter, ArrayOrMobxType, readonly, moment,
     React, cn, ReactDOM, mobxPropTypes, PropTypes,
     invariant, styled, css, idType, autobind, Theme,
-    useState, useHistory, useLocation, useParams, useEffect, useRef,
+    createRef, useState, useHistory, useLocation, useParams, useEffect, useRef,
     useObserver, useLocalStore, useCallback, useMemo,
     modelize, hydrateModel,
 };

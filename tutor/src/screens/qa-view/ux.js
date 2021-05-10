@@ -85,8 +85,6 @@ export default class QaScreenUX extends BookUX {
         return this.ecosystemsMap.get(this.ecosystemId);
     }
 
-    checkForTeacherContent() { }
-
     @action.bound setDisplayingCard(el, checked) {
         this.isDisplayingExercises = checked;
     }

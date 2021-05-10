@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { filter, includes, indexOf, findIndex, union } from 'lodash'
-import { ID, Offering, Course } from '../../../models'
+//import {  Course } from '../../../models'
 import UiSettings from 'shared/model/ui-settings'
-import { currentCourses, currentOfferings } from '../../../models'
+import { ID, Offering, currentCourses, CoursesMap, currentOfferings } from '../../../models'
 
 type ReturnUseDisplayedOfferings = [ID[], React.Dispatch<React.SetStateAction<ID[]>>, Offering[], (offeringId: ID, flow?: string) => void]
 
-export const useDisplayedOfferingsIds = (courses: Course[] = []) => {
+export const useDisplayedOfferingsIds = (courses: CoursesMap = currentCourses) => {
     const defaultOfferingIds = currentOfferings.array.filter(o => courses.array.find(c => c.offering_id == o.id)).map(fo => fo.id)
     const selectedIds = UiSettings.get('displayedOfferingIds') || []
     return union(selectedIds, defaultOfferingIds)
@@ -17,7 +17,9 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     const courses = currentCourses
     const offerings = currentOfferings.available //useAvailableOfferings(courses)
 
-    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(useDisplayedOfferingsIds(courses))
+    const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
+        useDisplayedOfferingsIds(courses)
+    )
 
     // update the `displayedOfferingIds` if users adds/delete offerings
     useEffect(() => {

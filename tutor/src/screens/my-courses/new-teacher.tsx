@@ -1,10 +1,11 @@
-import { React, styled, css } from 'vendor'
+import { React, css } from 'vendor'
+import styled from 'styled-components'
 import { Icon, ScrollToTop } from 'shared'
 import { useState, useEffect } from 'react'
 import scrollIntoView from 'scroll-into-view'
 import { useAvailableOfferings } from '../../helpers/hooks'
 import { currentUser, Offering, CourseInformation, SubjectOrder, CourseCreate } from '../../models'
-import { colors, navbars, breakpoint } from 'theme'
+import { colors, navbars, breakpoint } from '../../theme'
 import { Button } from 'react-bootstrap'
 import { groupBy, sortBy, map, extend } from 'lodash'
 import Router from '../../helpers/router'
@@ -253,7 +254,7 @@ const TwoCol = styled.div`
     }
 `
 
-const Block = styled.div`
+const Block = styled.div<{ variant?: string }>`
     display: flex;
     background: ${colors.neutral.bright};
     padding: 3.2rem 2.4rem 3.2rem 3.2rem;
@@ -397,13 +398,12 @@ const OfferingList: React.FC<OfferingListProps> = ({ subject, offerings }) => {
         setListState(!showList);
     }
 
-    const scrollToBook = (event, id) => {
+    const scrollToBook = (event: React.MouseEvent<HTMLElement>, id: number) => {
         event.preventDefault()
-
-        scrollIntoView(document.querySelector(`[id="${id}"]`), {
-            time: 300,
-            align: { top: 0, topOffset: 80 },
-        })
+        const el = document.querySelector<HTMLElement>(`[id="${id}"]`)
+        if (el) {
+            scrollIntoView(el, { time: 300, align: { top: 0, topOffset: 80 } })
+        }
     }
 
     return (
@@ -429,8 +429,8 @@ const OfferingList: React.FC<OfferingListProps> = ({ subject, offerings }) => {
 }
 
 interface FooterProps {
-    setActiveScreen: void
-    selectedSubject: number
+    setActiveScreen: any
+    selectedSubject: number | undefined
 }
 
 const Footer: React.FC<FooterProps> = ({ setActiveScreen, selectedSubject }) => {
@@ -441,7 +441,7 @@ const Footer: React.FC<FooterProps> = ({ setActiveScreen, selectedSubject }) => 
                 variant="primary"
                 type="submit"
                 data-test-id="show-detail"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault()
                     setActiveScreen(Screens.Detail)
                 }}
@@ -454,9 +454,9 @@ const Footer: React.FC<FooterProps> = ({ setActiveScreen, selectedSubject }) => 
 }
 
 interface SubjectSelectProps {
-    selectedSubject: number
-    setSelectedSubject: void
-    setActiveScreen: void
+    selectedSubject: number | undefined
+    setSelectedSubject: any
+    setActiveScreen: any
     offerings: Offering[]
 }
 
@@ -467,20 +467,19 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
     const [suggestedSubject, setSuggestedSubject] = useState('')
     const [submittingSuggestion, setSubmittingSuggestion] = useState(false)
 
-    const onSubmitSuggestion = (e) => {
+    const onSubmitSuggestion = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
         setSubmittingSuggestion(true)
-        Promise.resolve(currentUser.suggestSubject({ data: suggestedSubject }))
+        Promise.resolve(currentUser.suggestSubject({ subject: suggestedSubject }))
             .then(() => setActiveScreen(Screens.AfterSuggest))
     }
 
-    const onChangeSuggestion = (value) => {
+    const onChangeSuggestion = (value?: string) => {
         if (value) {
             setSelectedSubject(null)
         }
-
-        setSuggestedSubject(value)
-        setShowSuggestSubmitButton(value.length > 0)
+        setSuggestedSubject(value || '')
+        setShowSuggestSubmitButton(Boolean(value && value.length > 0))
     }
 
     return (
@@ -543,7 +542,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 <SuggestButton
                                     type="submit"
                                     variant="primary"
-                                    onClick={(e) => onSubmitSuggestion(e)}
+                                    onClick={(e:React.MouseEvent<HTMLElement>) => onSubmitSuggestion(e)}
                                     hidden={!showSuggestSubmitButton}
                                     disabled={suggestedSubject.length === 0}
                                     isWaiting={submittingSuggestion}
@@ -567,7 +566,11 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
 
 interface SubjectDetailProps {
     offerings: Offering[]
-    selectedSubject: number
+    selectedSubject: number | undefined
+    setActiveScreen: any
+    setSelectedSubject: any
+    history: History
+
 }
 
 const SubjectDetail: React.FC<SubjectDetailProps> = ({
@@ -575,10 +578,12 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
 }) => {
     const [creatingPreview, setCreatingPreview] = useState(false)
     const offering = Object.values(offerings).flat().find(o => o.id == selectedSubject)
-
+    if (!offering) {
+        return null
+    }
     const createPreview = () => {
         if (!currentUser.canViewPreviewCourses) {
-            return null
+            return
         }
 
         setCreatingPreview(true)
@@ -586,9 +591,9 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
             .createPreview(offering)
             .then((result) => {
                 setCreatingPreview(false)
-                if (!result.error) {
+                if (!result.api.errors.any) {
                     // trigger a page reload so the course and offerings fully fetched
-                    window.location = Router.makePathname('dashboard', { courseId: result.payload.id })
+                    window.location = Router.makePathname('dashboard', { courseId: result.createdCourse?.id })
                 }
             })
     }
@@ -616,7 +621,6 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
                         <p className="note">Note: You can’t enroll students or add your own questions to a Preview Course.</p>
                         <AsyncButton
                             variant="primary"
-                            data-test-id="explore-course"
                             onClick={createPreview}
                             isWaiting={creatingPreview}
                             waitingText="Creating preview..."
@@ -656,7 +660,7 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
                     <TutorLink
                         className="btn btn-light"
                         to="createNewCourseFromOffering"
-                        params={{ offeringId: offering.id }}
+                        params={{ offeringId: offering?.id }}
                         data-test-id="create-course"
                     >
                         Create a course
@@ -668,7 +672,11 @@ const SubjectDetail: React.FC<SubjectDetailProps> = ({
 }
 
 interface SubjectSuggestedProps {
-    setActiveScreen: void
+    setActiveScreen: any
+    selectedSubject: number | undefined
+    setSelectedSubject: any
+    offerings: Offering[],
+    history: History
 }
 
 const SubjectSuggested: React.FC<SubjectSuggestedProps> = ({ setActiveScreen }) => {
@@ -709,8 +717,8 @@ const SubjectSuggested: React.FC<SubjectSuggestedProps> = ({ setActiveScreen }) 
 }
 
 interface NewUserProps {
-    history: History
-    windowImpl: any
+    history: any
+    windowImpl?: any
 }
 
 const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) => {
@@ -721,7 +729,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
 
     const [selectedSubject, setSelectedSubject] = useState()
 
-    let queriedScreen = parseInt(Router.currentQuery().onboarding) || Screens.Select
+    let queriedScreen = parseInt(Router.currentQuery().onboarding as any as string) || Screens.Select
     if (queriedScreen === Screens.Detail && !selectedSubject) {
         queriedScreen = Screens.Select
         history.push(windowImpl.location.pathname)
@@ -743,7 +751,7 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
         selectedSubject: selectedSubject,
         setSelectedSubject: setSelectedSubject,
         setActiveScreen: setActiveScreen,
-        offerings: offerings as Offering[],
+        offerings: offerings as any as Offering[],
         history: history,
     }
     const screens = [

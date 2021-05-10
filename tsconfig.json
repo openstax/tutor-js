@@ -6,6 +6,7 @@
             "dom",
             "esnext"
         ],
+        "baseUrl": "",
         "moduleResolution": "node",
         "jsx": "react",
         "sourceMap": true,
@@ -37,6 +38,8 @@
         ],
         "typeRoots": [ "./types", "node_modules/@types" ],
         "paths": {
+            "theme": ["./tutor/src/theme.ts"],
+            "vendor": ["./tutor/src/vendor.ts"],
             "shared": ["./shared/src/index.js"],
             "shared/*": ["./shared/src/*"]
         }

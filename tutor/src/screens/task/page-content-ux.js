@@ -1,4 +1,4 @@
-import { action, modelize } from 'shared/model';
+import { modelize } from 'shared/model';
 import { BookUX } from '../../helpers/reference-book-base-ux'
 
 export default class PageContentUX extends BookUX {
@@ -34,7 +34,5 @@ export default class PageContentUX extends BookUX {
     rewriteBookLink(link) {
         link.target = '_blank';
     }
-
-    @action checkForTeacherContent() { }
 
 }
