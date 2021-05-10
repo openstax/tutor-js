@@ -49,12 +49,12 @@ const UngradedIcon = styled.span`
 `;
 
 const OrangeInfoIcon = (
-  <InfoIcon
-      color="#f36a31"
-      tooltip="Students received different numbers of Tutor-selected questions.
-      This can happen when questions aren’t available, a student works an assignment late,
-      a student hasn’t started the assignment, or a personalized question is dropped."
-  />
+    <InfoIcon
+        color="#f36a31"
+        tooltip="Students received different numbers of Tutor-selected questions.
+        This can happen when questions aren’t available, a student works an assignment late,
+        a student hasn’t started the assignment, or a personalized question is dropped."
+    />
 );
 
 const StudentColumnHeader = observer(({ ux }) => (
@@ -179,13 +179,13 @@ const AssignmentHeading = observer(({ ux, heading }) => (
                     data-test-id="dropped-question-indicator"
                     data-question-id={`Q${heading.question_id}`}
                     tooltip={heading.everyQuestionZeroed ? 'Points changed to 0' :
-                             (heading.everyQuestionFullCredit ? 'Full credit given to all students':
-                             'Question dropped for one or more students')}
+                        (heading.everyQuestionFullCredit ? 'Full credit given to all students':
+                            'Question dropped for one or more students')}
                 />}
-                {heading.someQuestionsDropped &&
+                {(heading.someQuestionsDropped &&
                      !heading.everyQuestionZeroed &&
-                     !heading.everyQuestionFullCredit ?
-                <OrangeInfoIcon/> : ScoresHelper.formatPoints(heading.points)}
+                     !heading.everyQuestionFullCredit) ? <OrangeInfoIcon/> :
+                    ScoresHelper.formatPoints(heading.points)}
             </HeadingBottom>
         </ColumnHeading>
     </Cell>

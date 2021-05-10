@@ -71,7 +71,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
     @computed get droppedQuestion() {
         return this.questionHeading?.droppedQuestions?.find(
-          dq => dq.question_id == this.question_id
+            dq => dq.question_id == this.question_id
         ) || null;
     }
 
@@ -237,13 +237,13 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get questionIdsSet() {
-      return new Set(this.question_ids);
+        return new Set(this.question_ids);
     }
 
     @computed get droppedQuestions() {
-      return this.tasking.scores.droppedQuestions.filter(
-        dq => this.questionIdsSet.includes(dq.question_id)
-      );
+        return this.tasking.scores.droppedQuestions.filter(
+            dq => this.questionIdsSet.includes(dq.question_id)
+        );
     }
 
     @computed get someQuestionsDroppedByInstructor() {
@@ -266,13 +266,13 @@ class TaskPlanScoreHeading extends BaseModel {
 
     @computed get everyQuestionZeroed() {
         return this.everyQuestionDropped && this.droppedQuestions.every(
-          dq => dq.drop_method == 'zeroed'
+            dq => dq.drop_method == 'zeroed'
         );
     }
 
     @computed get everyQuestionFullCredit() {
         return this.everyQuestionDropped && this.droppedQuestions.every(
-          dq => dq.drop_method == 'full_credit'
+            dq => dq.drop_method == 'full_credit'
         );
     }
 
@@ -422,8 +422,8 @@ class TaskPlanScoresTasking extends BaseModel {
     }
 
     @computed get hasEqualQuestions() {
-        return this.question_headings.some(
-          heading => heading.someQuestionsDropped && !heading.everyQuestionDropped
+        return !this.question_headings.some(
+            heading => heading.someQuestionsDropped && !heading.everyQuestionDropped
         );
     }
 
