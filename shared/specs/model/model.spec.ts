@@ -3,12 +3,17 @@ import { BaseModel, hydrateModel, modelize, observable, array, map, field, model
 
 describe('Model base class', () => {
 
-    class Bar {
+    class Bar extends BaseModel {
+        @field id = ''
         @observable num = 1
+        constructor() {
+            super();
+            modelize(this);
+        }
     }
 
     class Foo extends BaseModel {
-        @field id = NEW_ID;
+        @field id = NEW_ID
         @field foo = ''
         @model(Bar) bars = array((a: Bar[]) => ({
             eq(n: number) { return a.filter((b) => b.num == n) },
@@ -43,9 +48,13 @@ describe('Model base class', () => {
     });
 
     it('checks if the model isNew', () => {
-        const foo = hydrateModel(Foo, {})
+        const foo = hydrateModel(Foo, {}) // Initialized with 0
+        const bar = hydrateModel(Bar, {}) // Initialized with ''
         expect(foo.isNew).toEqual(true)
+        expect(bar.isNew).toEqual(true)
         foo.id = 3
         expect(foo.isNew).toEqual(false)
+        bar.id = '3'
+        expect(bar.isNew).toEqual(false)
     })
 })

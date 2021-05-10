@@ -33,7 +33,7 @@ export class BaseModel {
 
     get isNew() {
         const id = this[(this.constructor as any).idField]
-        return isNil(id) || id === NEW_ID
+        return isNil(id) || id === NEW_ID || id === ''
     }
 
     @action async ensureLoaded(): Promise<void> {
