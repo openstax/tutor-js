@@ -40,4 +40,14 @@ describe('Change Student ID', () => {
         expect(props.onSelect).toHaveBeenCalledWith(0, expect.anything());
         tabs.unmount();
     });
+
+    it('inserts already rendered content into the tab', () => {
+        props.tabs = [ <p>hello tab</p> ]
+        const tabs = mount(
+            <R><Tabs {...props}><Body /></Tabs></R>
+        );
+        expect(tabs.find('[data-test-id="tab-0"]')).toHaveLength(1)
+        expect(tabs.text()).toContain('hello tab')
+        tabs.unmount();
+    })
 });

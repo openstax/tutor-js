@@ -1,5 +1,5 @@
 import { React, cn, useState, useHistory, useEffect, useRef } from 'vendor';
-import { isNil, extend, partial } from 'lodash';
+import { isNil, extend, partial, isString } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
 import S from '../helpers/string';
@@ -93,7 +93,7 @@ const Tabs = ({
                         >
                             <a
                                 href="#"
-                                data-test-id={`${S.dasherize(tab.toLowerCase())}-tab`}
+                                data-test-id={isString(tab) ? `${S.dasherize(tab.toLowerCase())}-tab` : `tab-${index}`}
                                 onClick={partial(onTabClick, index)}
                             >
                                 <h2>
