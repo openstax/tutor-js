@@ -241,8 +241,8 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get droppedQuestions() {
-        return this.tasking.scores.droppedQuestions.filter(
-            dq => this.questionIdsSet.includes(dq.question_id)
+        return this.tasking.scores.dropped_questions.filter(
+            dq => this.questionIdsSet.has(dq.question_id)
         );
     }
 

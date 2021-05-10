@@ -26,6 +26,15 @@ import {
     OrderIcon, NameWrapper,
 } from './table-elements';
 
+const ORANGE_INFO_ICON = (
+    <InfoIcon
+        color="#f36a31"
+        tooltip="Students received different numbers of Tutor-selected questions.
+        This can happen when questions aren’t available, a student works an assignment late,
+        a student hasn’t started the assignment, or a personalized question is dropped."
+    />
+);
+
 const ColumnHeading = styled(BasicColumnHeading)`
   background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
 `;
@@ -48,21 +57,12 @@ const UngradedIcon = styled.span`
   letter-spacing: 0.38px;
 `;
 
-const OrangeInfoIcon = (
-    <InfoIcon
-        color="#f36a31"
-        tooltip="Students received different numbers of Tutor-selected questions.
-        This can happen when questions aren’t available, a student works an assignment late,
-        a student hasn’t started the assignment, or a personalized question is dropped."
-    />
-);
-
 const TotalPointsHeading = observer(({ ux }) => {
     if (ux.scores.hasEqualQuestions) {
         return (<span>{ScoresHelper.formatPoints(ux.scores.availablePoints)}</span>);
     }
 
-    return (<OrangeInfoIcon/>);
+    return ORANGE_INFO_ICON;
 });
 
 const AssignmentHeadingPoints = observer(({ heading }) => {
@@ -78,7 +78,7 @@ const AssignmentHeadingPoints = observer(({ heading }) => {
         }
     }
     else {
-        cellContents = (<OrangeInfoIcon/>);
+        cellContents = ORANGE_INFO_ICON;
     }
 
     const triangleTooltip = heading.everyQuestionZeroed ? 'Points changed to 0' :
