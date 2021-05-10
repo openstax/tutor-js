@@ -52,14 +52,6 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     }
 
     @computed get questionHeading() {
-        // First try to find the heading by question_id
-        const heading = this.student.tasking.question_headings.find(
-            qh => qh.question_id == this.question_id
-        );
-        if (!isNil(heading)) {
-            return heading;
-        }
-
         // For Tutor-assigned questions, each student may get a question with a different ID
         // so we can't really do better than using the index in this case
         if (this.student.tasking.question_headings.length > this.index) {
@@ -106,13 +98,11 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     }
 
     @computed get displayValue() {
-        const { dropped } = this.questionHeading || {};
-
         if (this.needs_grading) { return UNGRADED; }
 
-        if (dropped && this.is_completed) {
+        if (this.droppedQuestion && this.is_completed) {
             return ScoresHelper.formatPoints(
-                dropped.drop_method == 'full_credit' ? this.availablePoints : 0
+                this.droppedQuestion.drop_method == 'full_credit' ? this.availablePoints : 0
             );
         }
 
@@ -340,7 +330,9 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get displayAverageGradedPoints() {
-        return this.dropped ? this.averageGradedPointsWithDroppedQuestion : this.averageGradedPoints;
+        return this.droppedQuestion ?
+            this.averageGradedPointsWithDroppedQuestion :
+            this.averageGradedPoints;
     }
 }
 
