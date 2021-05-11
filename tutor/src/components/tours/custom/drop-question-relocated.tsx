@@ -1,10 +1,11 @@
 import { React, styled } from 'vendor'
 import { Icon } from 'shared'
 import { GreenTooltip } from './common'
+import UiSettings from 'shared/model/ui-settings'
 
 const StyledGreenTooltip = styled(GreenTooltip)`
     margin-left: -8px;
-    margin-top: 8px;
+    margin-top: 15px;
 
     .header {
         padding: 10px 24px;
@@ -42,6 +43,7 @@ const StyledGreenTooltip = styled(GreenTooltip)`
 
 export const DropQuestionRelocated = (props: any) => {
     const close = () => {
+        UiSettings.set('has-viewed-drop-question-relocated', true)
         props.ride.markComplete()
     }
     return (

@@ -15,8 +15,8 @@ import GrantExtension from './grant-extension';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
 import TourRegion from '../../components/tours/region';
-import TourAnchor from '../../components/tours/anchor';
 import { GhostButton } from '../../components/ghost-button';
+import UiSettings from 'shared/model/ui-settings';
 
 import {
     StyledStickyTable, Cell, CellContents,
@@ -243,15 +243,14 @@ const AverageScoreHeader = observer(({ ux }) => (
     </Cell>
 ));
 
-const TableHeader = observer(({ ux }) => {
+const TableHeader = observer(({ ux, showGhostButton }) => {
     return (
         <ControlsWrapper>
             <ControlGroup>
                 <SearchInput onChange={ux.onSearchStudentChange} />
                 <GrantExtension ux={ux} />
-                <TourAnchor id="drop-question-relocated-button">
-                    <GhostButton />
-                </TourAnchor>
+                {showGhostButton &&
+                 <GhostButton tourAnchorId="drop-question-relocated-button" />}
             </ControlGroup>
             <ControlGroup>
                 <PublishScores ux={ux} />
@@ -270,9 +269,11 @@ const Scores = observer(({ ux }) => {
         return <LoadingScreen message="Loading Assignment…" />;
     }
 
+    const showGhostButton = !UiSettings.get('has-viewed-drop-question-relocated');
+
     return (
         <TourRegion id="drop-any">
-            <TableHeader ux={ux} />
+            <TableHeader ux={ux} showGhostButton={showGhostButton} />
             <StyledStickyTable data-test-id="scores">
                 <Row>
                     <StudentColumnHeader scores={scores} ux={ux} />
