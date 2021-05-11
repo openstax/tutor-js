@@ -216,16 +216,19 @@ class TaskPlanScoreHeading extends BaseModel {
         return compact(this.tasking.students.map(s => s.questions[this.index]));
     }
 
-    // exercise() and question() do not work with Tutor-selected questions
-    // They are here for backwards compatibility only
-    // TODO: Remove before release?
+    /*
+    * exercise and question methods don't work with Tutor-selected questions and should only be used
+    * in screens where Tutor-selected questions don't show up like the grader screen
+    */
     @computed get exercise() {
         if (this.exercise_ids.length != 1) { return null; }
+
         return this.exercises.get(this.exercise_ids[0]);
     }
 
     @computed get question() {
         if (this.question_ids.length != 1) { return null; }
+
         return this.exercise &&
                this.exercise.content.questions.find(q => q.id == this.question_ids[0]);
     }
