@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, runInAction } from '../../vendor'
 import { isEmpty, extend } from 'lodash';
 import { observable, action, modelize } from 'shared/model'
 import { observer } from 'mobx-react';
@@ -8,6 +7,7 @@ import { Course, currentExercises, ExercisesMap } from '../../models';
 import SectionsChooser from './sections-chooser';
 import ExercisesDisplay from './exercises-display';
 import Router from '../../helpers/router';
+import Loading from 'shared/components/loading-animation';
 import qs from 'qs'
 
 @observer
@@ -28,12 +28,13 @@ class QuestionsDashboard extends React.Component {
         windowImpl: window,
         history: history,
     }
-
+    @observable isReady = false;
     @observable isShowingExercises = false;
     @observable showingDetails = false;
     @observable focusedExercise = false;
     @observable chapterIds;
     @observable pageIds = [];
+    @observable defaultExercise;
     windowImpl;
     history;
 
@@ -43,19 +44,27 @@ class QuestionsDashboard extends React.Component {
 
         this.windowImpl = props.windowImpl
         this.history = props.history
-
-        const queriedPageIds = Router.currentQuery().pageIds
-
-        if (queriedPageIds) {
-            this.pageIds = queriedPageIds.split(',')
-
-            this.isShowingExercises = true;
-            this.props.exercises.fetch({
-                limit: false,
-                course: this.props.course,
-                page_ids: this.pageIds,
-            });
+        const { pageIds, exerciseId } = Router.currentQuery()
+        if (pageIds) {
+            this.displayExercises(pageIds.split(','), exerciseId)
+        } else {
+            this.isReady = true
         }
+    }
+
+    @action async displayExercises(pageIds, exerciseId) {
+        this.pageIds = pageIds
+        this.isShowingExercises = true
+        await this.props.exercises.fetch({
+            limit: false,
+            course: this.props.course,
+            page_ids: this.pageIds,
+        });
+        if (exerciseId) {
+            this.defaultExercise = this.props.exercises.get(exerciseId)
+            this.showingDetails = true
+        }
+        runInAction(() => this.isReady = true);
     }
 
     @action.bound onShowDetailsViewClick() {
@@ -85,6 +94,10 @@ class QuestionsDashboard extends React.Component {
 
     render() {
         const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
+        if (!this.isReady) {
+            return <Loading />
+        }
+
         return (
             <div className={classes}>
                 {!this.isShowingExercises && (
@@ -97,6 +110,7 @@ class QuestionsDashboard extends React.Component {
                 {this.isShowingExercises && (
                     <ExercisesDisplay
                         {...this.props}
+                        defaultExercise={this.defaultExercise}
                         onSelectSections={this.onSelectSections}
                         showingDetails={this.showingDetails}
                         onShowCardViewClick={this.onShowCardViewClick}
