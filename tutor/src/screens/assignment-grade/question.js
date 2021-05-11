@@ -96,11 +96,7 @@ const ExpandGraded = observer(({ ux }) => {
             </Button>
             <label>
         Average Score: {
-                    ScoresHelper.formatPoints(
-                        ux.selectedHeading.dropped
-                            ? ux.selectedHeading.averageGradedPointsWithDroppedQuestion
-                            : ux.selectedHeading.averageGradedPoints
-                    )
+                    ScoresHelper.formatPoints(ux.selectedHeading.averageGradedPoints)
                 } out of {ScoresHelper.formatPoints(ux.selectedHeading.points_without_dropping)}
             </label>
         </ExpandGradedWrapper>

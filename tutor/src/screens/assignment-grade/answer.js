@@ -49,6 +49,12 @@ const ScoreWrapper = styled.div`
   margin-bottom: .8rem;
 `;
 
+/*
+* When the question is not dropped, we want response.grader_points, not response.gradedPoints
+* This is why we don't simply use response.gradedPointsWithDropped
+* When dropped, response.gradedPointsWithDropped is guaranteed to not be null,
+* so we can just call ScoresHelper.formatPoints() on it
+*/
 const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
     return (
         <ScoreWrapper>
@@ -66,8 +72,8 @@ const Points = React.forwardRef(({ response, onChange, ux }, ref) => {
                     if(e.target.value === '') onChange(undefined);
                     else onChange(parseFloat(e.target.value, 10));
                 }}
-                defaultValue={ux.selectedHeading.dropped ? ScoresHelper.formatPoints(response.droppedQuestionPoints) : response.grader_points}
-                disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(ux.selectedHeading.dropped)}
+                defaultValue={response.droppedQuestion ? ScoresHelper.formatPoints(response.gradedPointsWithDropped) : response.grader_points}
+                disabled={Boolean(!onChange) || !ux.isStudentAvailableToGrade(response) || Boolean(response.droppedQuestion)}
             /> out of {ScoresHelper.formatPoints(response.availablePointsWithoutDropping)}
         </ScoreWrapper>
     );
@@ -175,19 +181,19 @@ const GradingStudent = observer(({ response, ux, index }) => {
         : ux.isLastStudent
             ? 'Save & open next question'
             : 'Save';
-    const droppedQuestion = ux.selectedHeading.dropped;
+    const droppedQuestion = response.droppedQuestion;
     const disabledInfoTooltipMessage = getDisabledInfoTooltipMessage(response, isStudentAvailableToGrade, droppedQuestion);
 
     return (
         <GradingStudentWrapper data-student-id={student.id} data-test-id="student-answer" showShadow={!ux.isResponseGraded(response)}>
             <Panel>
                 <StyledStudentAnswer>
-                    <div>        
+                    <div>
                         <StudentName ux={ux} student={student} index={index} />
                         <p>{response.free_response ? response.free_response : '(No response provided)'}</p>
                     </div>
                     {
-                        Boolean(droppedQuestion) && 
+                        Boolean(droppedQuestion) &&
             <div className="regraded-info">
                 <span>
                 Regraded on {moment(droppedQuestion.updated_at).format('MMM D, YYYY [at] h:mm a')}.

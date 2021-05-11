@@ -219,7 +219,9 @@ export default class AssignmentReviewUX {
         );
     }
 
-    // methods relating to droppping questions
+    // Methods relating to droppping questions
+    // TODO: Broken by drop any heading changes (headings can now have multiple dropped questions)
+    //       Maybe remove these since we are changing how questions are dropped
 
     @action toggleDropQuestion(isDropped, { question_id }) {
         if (isDropped) {

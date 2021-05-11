@@ -143,6 +143,8 @@ const TutorQuestion = observer(({ heading }) => {
     );
 });
 
+// TODO: Broken by drop any heading changes (headings can now have multiple dropped questions)
+//       Maybe remove this since we are changing how questions are dropped
 const CoreQuestion = observer(({ ux, heading }) => {
     const drop = ux.droppedQuestionRecord(heading);
 

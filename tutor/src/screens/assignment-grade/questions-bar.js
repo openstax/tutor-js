@@ -66,20 +66,22 @@ const StyledPublishScores = styled(PublishScores)`
 const Question = observer(({ heading, ux, index }) => {
     const stats = ux.showOnlyAttempted ? heading.gradedStats : heading.gradedStatsWithUnAttemptedResponses;
     const progress = ux.showOnlyAttempted ? heading.gradedProgress : heading.gradedProgressWithUnAttemptedResponses;
-    const droppedQuestion = heading.dropped;
+    const everyQuestionDropped = heading.everyQuestionDropped;
 
     return (
         <StyledQuestionWrapper>
             <StyledButton current={ux.selectedHeadingIndex == index} onClick={() => ux.goToQuestionHeading(index)} data-test-id={`question-${index}`}>
                 <h6>{heading.title}</h6>
-                {Boolean(droppedQuestion) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
-      
+                {Boolean(everyQuestionDropped) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
+
             </StyledButton>
             {
-                Boolean(droppedQuestion) &&
+                Boolean(everyQuestionDropped) &&
         <CornerTriangle color="blue"
-            tooltip={droppedQuestion.drop_method == 'zeroed' ?
-                'Question dropped: question is worth 0 points' : 'Question dropped: full credit assigned for this question'}
+            tooltip={heading.everyQuestionZeroed ?
+                'Question dropped: question is worth 0 points' : (heading.everyQuestionFullCredit ?
+                'Question dropped: full credit assigned for this question' :
+                'Question dropped: some questions worth 0 points, others assigned full credit')}
         />
             }
         </StyledQuestionWrapper>

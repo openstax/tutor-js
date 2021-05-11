@@ -327,8 +327,8 @@ const Scores = observer(({ ux }) => {
                     {scores.question_headings.map((h, i) => (
                         <Cell key={i}>
                             <ResultWrapper>
-                                {isNaN(h.displayAverageGradedPoints) && UNWORKED ||
-                  ScoresHelper.formatPoints(h.displayAverageGradedPoints)}
+                                {isNaN(h.averageGradedPoints) && UNWORKED ||
+                  ScoresHelper.formatPoints(h.averageGradedPoints)}
                             </ResultWrapper>
                         </Cell>
                     ))}

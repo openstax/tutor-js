@@ -35,10 +35,6 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
 
     get student() { return getParentOf<TaskPlanScoreStudent>(this) }
 
-    @computed get gradedPoints() {
-        return isNil(this.grader_points) ? this.points : this.grader_points;
-    }
-
     @computed get gradedComments() {
         return isNil(this.grader_comments) ? this.comments : this.grader_comments;
     }
@@ -71,6 +67,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
         return get(this.questionHeading, 'points', 1.0);
     }
 
+    // This method is only used in the ResultTooltip that shows up for late work
     @computed get finalPoints() {
         return ScoresHelper.formatPoints(
             get(this, 'gradedPoints', 0.0) - get(this, 'late_work_point_penalty', 0.0)
@@ -97,32 +94,39 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
         return this.points === 0 && !this.needs_grading && !this.is_completed;
     }
 
-    @computed get displayValue() {
-        if (this.needs_grading) { return UNGRADED; }
+    /*
+    * The following methods are used in Assignment Builder, Review and Grader screens
+    * since these screens displays grader-assigned points before publishing
+    * This is also why we do not simply use "this.points" directly
+    */
 
-        if (this.droppedQuestion && this.is_completed) {
-            return ScoresHelper.formatPoints(
-                this.droppedQuestion.drop_method == 'full_credit' ? this.availablePoints : 0
-            );
-        }
-
-        if (!isNil(this.gradedPoints)) {
-            return ScoresHelper.formatPoints(this.gradedPoints);
-        }
-
-        return UNWORKED;
+    // This method does not account for dropped WRQs, callers need to handle it
+    @computed get gradedPoints() {
+        return isNil(this.grader_points) ? this.points : this.grader_points;
     }
 
     /**
-   * If question is dropped with full points but student has not attempted the question yet, show 0
-   */
-    @computed get droppedQuestionPoints() {
+    * This method mimics the backend to handle gradedPoints taking dropped questions into account
+    * If question is dropped with full points but student has not attempted the question yet, show 0
+    */
+    @computed get gradedPointsWithDropped() {
         if (this.droppedQuestion) {
             return this.droppedQuestion.drop_method == 'zeroed' || !this.is_completed
                 ? 0
-                : this.availablePointsWithoutDropping;
+                : this.availablePoints;
         }
-        return 0;
+        return this.gradedPoints;
+    }
+
+    // This is the Student vs Question score value displayed in the Assignment Review table
+    @computed get displayValue() {
+        if (this.needs_grading) { return UNGRADED; }
+
+        if (!isNil(this.gradedPointsWithDropped)) {
+            return ScoresHelper.formatPoints(this.gradedPointsWithDropped);
+        }
+
+        return UNWORKED;
     }
 }
 
@@ -274,22 +278,8 @@ class TaskPlanScoreHeading extends BaseModel {
         return `(${this.gradedStatsWithUnAttemptedResponses.completed}/${this.gradedStatsWithUnAttemptedResponses.total})`;
     }
 
-    @computed get responseStats() {
-        const responses = this.studentResponses;
-        //don't include students who were dropped
-        const responsesInAvgs = filter(responses, response => !isNil(response.gradedPoints) && !response.student.is_dropped);
-        return {
-            completed: filter(responses, 'is_completed').length,
-            hasFreeResponse: Boolean(find(responses, 'free_response')),
-            availablePoints: this.points,
-            averageGradedPoints: sumBy(responsesInAvgs, 'gradedPoints') / responsesInAvgs.length,
-            correct: filter(responses, 'is_correct').length,
-            averageGradedPointsWithDroppedQuestion: sumBy(responsesInAvgs, 'droppedQuestionPoints') / responsesInAvgs.length,
-        };
-    }
-
     @computed get gradedStats() {
-        // Filter students who has completed the question
+        // Filter students who have completed the question
         const studentWithResponses = filter(this.studentResponses, 'is_completed');
         const remaining = filter(studentWithResponses, 'needs_grading').length;
         return {
@@ -310,12 +300,32 @@ class TaskPlanScoreHeading extends BaseModel {
         };
     }
 
-    @computed get averageGradedPoints() {
-        return this.responseStats.averageGradedPoints;
+    /*
+    * The following 2 methods are used in Assignment Builder, Review and Grader screens
+    * They use gradedPointsWithDropped, since those screens display grader-assigned points
+    * before publishing and we decided we do want dropped questions to affect these averages
+    */
+
+    @computed get responseStats() {
+        const responses = this.studentResponses;
+        //don't include students who were dropped
+        const responsesInAvgs = filter(
+            responses,
+            response => !isNil(response.gradedPointsWithDropped) && !response.student.is_dropped
+        );
+        return {
+            completed: filter(responses, 'is_completed').length,
+            hasFreeResponse: Boolean(find(responses, 'free_response')),
+            availablePoints: this.points,
+            correct: filter(responses, 'is_correct').length,
+            averageGradedPoints: sumBy(
+                responsesInAvgs, 'gradedPointsWithDropped'
+            ) / responsesInAvgs.length,
+        };
     }
 
-    @computed get averageGradedPointsWithDroppedQuestion() {
-        return this.responseStats.averageGradedPointsWithDroppedQuestion;
+    @computed get averageGradedPoints() {
+        return this.responseStats.averageGradedPoints;
     }
 
     @computed get isTrouble() {
@@ -327,12 +337,6 @@ class TaskPlanScoreHeading extends BaseModel {
     @computed get humanCorrectResponses() {
         const { correct, completed } = this.responseStats;
         return `${this.gradedStats.remaining > 0 ? UNWORKED : correct} / ${completed}`;
-    }
-
-    @computed get displayAverageGradedPoints() {
-        return this.droppedQuestion ?
-            this.averageGradedPointsWithDroppedQuestion :
-            this.averageGradedPoints;
     }
 }
 
@@ -362,9 +366,14 @@ class TaskPlanScoresTasking extends BaseModel {
         return sumBy(this.question_headings, 'points');
     }
 
-    // this returns all of the questions that were assigned
-    // this is trickier than just using the index from headings because tutor assigned questions
-    // will be in different order and different students will get different ones
+    /*
+    * This returns all of the questions that were assigned
+    * This is trickier than just using the index from headings because tutor assigned questions
+    * will be in different order and different students will get different ones
+    * This is used in the Assignment Builder, Grader, and
+    * Review Details and Submission Overview
+    * Seems like the current behavior is to not have dropped questions affect the averagePoints here
+    */
     @computed get questionsInfo() {
         const info = {};
         for (const student of this.students) {
