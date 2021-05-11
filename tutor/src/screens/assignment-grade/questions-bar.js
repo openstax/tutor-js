@@ -80,8 +80,8 @@ const Question = observer(({ heading, ux, index }) => {
         <CornerTriangle color="blue"
             tooltip={heading.everyQuestionZeroed ?
                 'Question dropped: question is worth 0 points' : (heading.everyQuestionFullCredit ?
-                'Question dropped: full credit assigned for this question' :
-                'Question dropped: some questions worth 0 points, others assigned full credit')}
+                    'Question dropped: full credit assigned for this question' :
+                    'Question dropped: some questions worth 0 points, others assigned full credit')}
         />
             }
         </StyledQuestionWrapper>
