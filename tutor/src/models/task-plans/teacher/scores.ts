@@ -131,7 +131,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     }
 }
 
-class TaskPlanScoreStudent extends BaseModel {
+export class TaskPlanScoreStudent extends BaseModel {
     @field role_id = NEW_ID;
     @field task_id = NEW_ID;
     @field first_name = '';
@@ -185,7 +185,7 @@ class TaskPlanScoreStudent extends BaseModel {
     }
 }
 
-class TaskPlanScoreHeading extends BaseModel {
+export class TaskPlanScoreHeading extends BaseModel {
     @field title = NEW_ID;
     @field exercise_id = NEW_ID;
     @field question_id = NEW_ID;
@@ -310,7 +310,7 @@ class TaskPlanScoreHeading extends BaseModel {
     }
 }
 
-class TaskPlanScoresTasking extends BaseModel {
+export class TaskPlanScoresTasking extends BaseModel {
     @field id = NEW_ID;
     @field period_id: ID = NEW_ID;
     @field period_name = '';
@@ -330,7 +330,9 @@ class TaskPlanScoresTasking extends BaseModel {
         core() { return filter(headings, h => h.type != 'Tutor'); },
     }))
 
-    @model(TaskPlanScoreStudent) students:TaskPlanScoreStudent[] = [];
+    @model(TaskPlanScoreStudent) students = array((s: TaskPlanScoreStudent[]) => ({
+        get active() { return filter(s, { is_dropped: false }) },
+    }))
 
     @computed get availablePoints() {
         return sumBy(this.question_headings, 'points');
