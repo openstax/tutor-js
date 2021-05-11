@@ -15,6 +15,7 @@ import GrantExtension from './grant-extension';
 
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
+import TourRegion from '../../components/tours/region';
 
 import {
     StyledStickyTable, Cell, CellContents,
@@ -266,7 +267,7 @@ const Scores = observer(({ ux }) => {
     }
 
     return (
-        <>
+        <TourRegion id="drop-any">
             <TableHeader ux={ux} />
             <StyledStickyTable data-test-id="scores">
                 <Row>
@@ -335,7 +336,7 @@ const Scores = observer(({ ux }) => {
           scores are displayed. Students see their scores as they appear in your Gradebook.
                 </p>
             </TableBottom>
-        </>
+        </TourRegion>
     );
 });
 

@@ -1,0 +1,19 @@
+[{
+  "id": "drop-any",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "customComponent": "DropQuestionRelocated",
+      "is_fixed": true,
+      "anchor_id": "drop-question-relocated-button",
+      "position": "right",
+      "spotlight": false,
+      "className": "green"
+    }
+  ]
+}]
