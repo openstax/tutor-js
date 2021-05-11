@@ -1,7 +1,7 @@
 import { React, styled } from 'vendor'
 import { Button } from 'react-bootstrap'
 import { Icon } from 'shared'
-import { colors } from 'theme'
+import { colors } from '../theme'
 
 const StyledButton = styled(Button)`
     &.btn.btn-standard:not(.btn-primary) {
