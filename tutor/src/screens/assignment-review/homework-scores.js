@@ -12,10 +12,11 @@ import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
 import { CornerTriangle, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
-
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
 import TourRegion from '../../components/tours/region';
+import TourAnchor from '../../components/tours/anchor';
+import { GhostButton } from '../../components/ghost-button';
 
 import {
     StyledStickyTable, Cell, CellContents,
@@ -248,6 +249,9 @@ const TableHeader = observer(({ ux }) => {
             <ControlGroup>
                 <SearchInput onChange={ux.onSearchStudentChange} />
                 <GrantExtension ux={ux} />
+                <TourAnchor id="drop-question-relocated-button">
+                    <GhostButton />
+                </TourAnchor>
             </ControlGroup>
             <ControlGroup>
                 <PublishScores ux={ux} />

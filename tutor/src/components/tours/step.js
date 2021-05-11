@@ -4,7 +4,7 @@ import {
 import Spotlight from './spotlight';
 import Floater from 'react-floater';
 import STEPS from './custom';
-import { colors } from 'Theme';
+import { colors } from 'theme';
 
 @observer
 export default class TourStep extends React.Component {
@@ -31,15 +31,15 @@ export default class TourStep extends React.Component {
         green: {
             arrow: {
                 color: colors.secondary,
-            }
-        }
+            },
+        },
     };
 
 
     render() {
         const { step, ride } = this.props;
         const Step = STEPS[step.customComponent || 'Standard'];
-        const styles = {...this.styles, ...this.classNameStyles[step.className]};
+        const styles = { ...this.styles, ...this.classNameStyles[step.className] };
 
         const tip = (
             <Floater

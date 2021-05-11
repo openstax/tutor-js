@@ -11,7 +11,7 @@
       "customComponent": "DropQuestionRelocated",
       "is_fixed": true,
       "anchor_id": "drop-question-relocated-button",
-      "position": "right",
+      "position": "right-start",
       "spotlight": false,
       "className": "green"
     }

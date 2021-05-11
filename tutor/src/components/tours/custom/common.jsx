@@ -3,7 +3,7 @@ import { React, styled, cn } from 'vendor';
 import { Primary } from './buttons';
 import { CourseUX } from '../../../models';
 import CourseBranding from '../../branding/course';
-import { colors } from 'Theme';
+import { colors } from 'theme';
 
 const Footer = styled.div`
     display: flex;
@@ -32,6 +32,18 @@ const GreenTooltip = styled.div`
         font-size: 1.6rem;
         line-height: 2rem;
         letter-spacing: -0.64px;
+        position: relative;
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            background-blend-mode: multiply;
+            min-width: 4rem;
+            color: #fff;
+        }
     }
 `;
 
