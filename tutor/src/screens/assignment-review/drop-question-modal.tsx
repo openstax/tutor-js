@@ -4,6 +4,7 @@ import { colors } from '../../theme';
 import type UX from './ux'
 import TutorLink from '../../components/link'
 import { Icon, AsyncButton } from 'shared';
+import { Exercise  } from 'tutor/src/models';
 
 const DetailsLink = styled(TutorLink)`
     color: ${colors.link};
@@ -21,23 +22,25 @@ interface DropQuestionModelProps {
 export
 const DropQuestionModel:React.FC<DropQuestionModelProps> = observer(({ ux }) => {
     const { displayingDropQuestion: question } = ux
-
+    if (!question) {
+        return null
+    }
+    const exercise = question?.exercise.wrapper as Exercise
     return (
         <StyledModal
-            show={!!question}
-
+            show={true}
             data-test-id="drop-questions-modal"
             backdrop="static"
             onHide={ux.cancelDisplayingDropQuestions}
         >
             <Modal.Header closeButton>
-                Drop question ID: #{question?.id}
+                Drop question ID: #{question.id}
             </Modal.Header>
             <Modal.Body>
                 <DetailsLink targetNewTab to="viewQuestionsLibrary" params={{ courseId: ux.course.id }}
                     query={{
-                        exerciseId: question?.exercise.wrapper.id,
-                        pageIds: question?.exercise.wrapper.page.id,
+                        exerciseId: exercise.id,
+                        pageIds: exercise.page.id,
                     }}
                 >
                     Question ID: #{question?.id}
@@ -47,7 +50,7 @@ const DropQuestionModel:React.FC<DropQuestionModelProps> = observer(({ ux }) => 
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    variant="default"
+                    variant={'default' as any}
                     className="btn-standard"
                     data-test-id="cancel-btn"
                     onClick={ux.cancelDisplayingDropQuestions}
