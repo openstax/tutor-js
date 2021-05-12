@@ -24,8 +24,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                         <Logo>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <TutorLink to=\\"myCourses\\" className=\\"brand\\" aria-label=\\"dashboard\\">
-                                              <Link to={{...}} className=\\"brand\\" aria-label=\\"dashboard\\">
-                                                <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
+                                              <Link to={{...}} onClick={[undefined]} className=\\"brand\\" aria-label=\\"dashboard\\">
+                                                <LinkAnchor onClick={[undefined]} className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
                                                       <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-crHlIS dGMLIV\\">

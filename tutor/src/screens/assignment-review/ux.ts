@@ -46,9 +46,9 @@ export default class AssignmentReviewUX {
     planScores!: TaskPlanScores
     scroller!: ScrollTo
     course!: Course
-    onCompleteDelete!: (date: string) => void
+    onCompleteDelete!: (_date: string) => void
     onEditAssignment!: () => void
-    onTabSelection!:   () => void
+    onTabSelection!: () => void
     params: any
 
     freeResponseQuestions = observable.map();
@@ -358,7 +358,7 @@ export default class AssignmentReviewUX {
 
     @action.bound renderDetails(form:any) {
         this.editUX.form = form;
-        return React.createElement(DetailsBody, {ux: this.editUX})
+        return React.createElement(DetailsBody, { ux: this.editUX })
     }
 
     @action.bound async onPublishScores() {
