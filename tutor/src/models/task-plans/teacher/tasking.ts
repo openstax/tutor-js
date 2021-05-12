@@ -4,6 +4,7 @@ import { currentToasts } from '../../../models'
 import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from 'shared/model/time';
+import urlFor from '../../../api'
 
 export class TaskingPlan extends BaseModel {
 
@@ -96,8 +97,8 @@ export class TaskingPlan extends BaseModel {
         ).toISOString();
     }
 
-    @action publishScores() {}
-    @action onPublishScoresComplete() {
+    @action async publishScores() {
+        await this.api.request(urlFor('publishTaskingScores', { taskingPlanId: this.id }))
         currentToasts.add({ handler: 'scoresPublished' });
     }
 

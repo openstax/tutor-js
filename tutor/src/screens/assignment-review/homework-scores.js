@@ -12,7 +12,7 @@ import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
 import { CornerTriangle, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
-import DropQuestions from './drop-questions';
+
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
 
@@ -247,7 +247,6 @@ const TableHeader = observer(({ ux }) => {
             <ControlGroup>
                 <SearchInput onChange={ux.onSearchStudentChange} />
                 <GrantExtension ux={ux} />
-                <DropQuestions ux={ux} />
             </ControlGroup>
             <ControlGroup>
                 <PublishScores ux={ux} />

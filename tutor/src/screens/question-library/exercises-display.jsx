@@ -86,6 +86,7 @@ class ExercisesDisplay extends React.Component {
         onSelectSections:       PropTypes.func.isRequired,
         onShowCardViewClick:    PropTypes.func.isRequired,
         onShowDetailsViewClick: PropTypes.func.isRequired,
+        defaultExercise:        PropTypes.object,
     };
 
     static defaultProps = {
@@ -97,7 +98,7 @@ class ExercisesDisplay extends React.Component {
     @observable selectedExercise;
 
     @observable currentSection;
-    @observable showingDetails = false;
+
     @observable displayFeedback = true;
 
     @observable showAddEditQuestionModal = false;
@@ -109,6 +110,7 @@ class ExercisesDisplay extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
+        this.selectedExercise = props.defaultExercise;
     }
 
     // Checking if the controls-bar is sticked to the top.

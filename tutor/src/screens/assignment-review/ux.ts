@@ -1,36 +1,61 @@
 import { React, observable, action, computed, modelize, hydrateModel } from 'vendor';
 import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
-import { DroppedQuestion } from '../../models';
+import { ID, NEW_ID } from 'shared/model'
+import {
+    DroppedQuestion, CoursePeriod, TaskPlanScores, Course,
+    TaskingPlan, TaskPlanScoresTasking, TaskPlanScoreHeading,
+    TaskPlanScoreStudent,
+} from '../../models';
 import EditUX from '../assignment-edit/ux';
-import DetailsBody from '../assignment-edit/details-body';
 import rowDataSorter from './scores-data-sorter';
 import scrollIntoView from 'scroll-into-view';
 import { runInAction } from 'mobx';
+import DetailsBody from '../assignment-edit/details-body';
+import { History } from 'history';
+import ExerciseQuestion from 'shared/model/exercise/question';
+
+interface DroppedChanged {
+    dropped: {
+        isChanged: true
+    }
+}
+function isDroppedChanged(h: any): h is DroppedChanged {
+    return h && h.dropped && h.dropped.isChanged
+}
 
 export default class AssignmentReviewUX {
 
-    @observable selectedPeriod;
+    @observable selectedPeriod?: CoursePeriod;
     @observable exercisesHaveBeenFetched = false;
+    @observable displayingDropQuestion: ExerciseQuestion|null = null
     @observable isDisplayingGrantExtension = false;
-    @observable isDisplayingDropQuestions = false;
     @observable isDisplayingConfirmDelete = false;
     @observable isDisplayingEditAssignment = false;
     @observable isDeleting = false;
-    @observable editUX;
-    @observable editablePlan;
+    @observable editUX: any;
+    @observable editablePlan: any;
     @observable rowSort = { key: 0, asc: true, dataType: 'name' };
-    @observable searchingMatcher = null;
-    @observable searchingExtensionsMatcher = null;
+    @observable searchingMatcher: RegExp|null = null;
+    @observable searchingExtensionsMatcher: RegExp|null = null;
     @observable reverseNameOrder = false;
     @observable displayTotalInPercent = false;
     @observable hideStudentsName = false;
+    @observable id:ID = NEW_ID
+    history!: History
+    planScores!: TaskPlanScores
+    scroller!: ScrollTo
+    course!: Course
+    onCompleteDelete!: (_date: string) => void
+    onEditAssignment!: () => void
+    onTabSelection!: () => void
+    params: any
 
     freeResponseQuestions = observable.map();
     @observable pendingExtensions = observable.map();
     pendingDroppedQuestions = observable.map();
 
-    constructor(attrs = null) {
+    constructor(attrs:any = null) {
         modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
@@ -40,10 +65,10 @@ export default class AssignmentReviewUX {
         scores = course.teacherTaskPlans.withPlanId(id).scores,
         windowImpl = window,
         tab = 0,
-    }) {
+    }: any) {
         this.id = id;
         this.history = history;
-        this.scroller = new ScrollTo({ windowImpl });
+        this.scroller = new ScrollTo({ windowImpl } as any);
         this.planScores = scores;
         this.course = course;
         this.onCompleteDelete = onCompleteDelete;
@@ -79,7 +104,7 @@ export default class AssignmentReviewUX {
     }
 
 
-    @action.bound setSelectedPeriod(period) {
+    @action.bound setSelectedPeriod(period: CoursePeriod) {
         this.selectedPeriod = period;
     }
 
@@ -87,13 +112,14 @@ export default class AssignmentReviewUX {
         return Boolean(this.selectedPeriod && this.selectedPeriod.hasEnrollments);
     }
 
-    @computed get scores() {
+    @computed get scores(): TaskPlanScoresTasking | null {
         if (!this.selectedPeriod) { return null; }
-        return this.planScores.tasking_plans.find(tp => this.selectedPeriod.id == tp.period_id);
+        return this.planScores.tasking_plans.find(tp => this.selectedPeriod?.id == tp.period_id) || null;
     }
 
-    @computed get taskingPlan() {
-        return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod);
+    @computed get taskingPlan(): TaskingPlan | null {
+        if (!this.selectedPeriod) { return null; }
+        return this.planScores.taskPlan.tasking_plans.forPeriod(this.selectedPeriod) || null;
     }
 
     @computed get taskPlan() {
@@ -105,7 +131,7 @@ export default class AssignmentReviewUX {
     }
 
     @computed get activeScoresStudents() {
-        return filter(this.scores.students, { 'is_dropped': false });
+        return this.scores?.students.active || []
     }
 
     // methods relating to sorting and filtering scores table
@@ -129,17 +155,17 @@ export default class AssignmentReviewUX {
         return filter(students, s => s.name.match(this.searchingExtensionsMatcher));
     }
 
-    @action.bound changeRowSortingOrder(key, dataType) {
+    @action.bound changeRowSortingOrder(key: number, dataType: string) {
         this.rowSort.asc = this.rowSort.key === key ? (!this.rowSort.asc) : false;
         this.rowSort.key = key;
         this.rowSort.dataType = dataType;
     }
 
-    isRowSortedBy({ sortKey, dataType }) {
+    isRowSortedBy({ sortKey, dataType }: { sortKey: number, dataType: string }) {
         return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType);
     }
 
-    sortForColumn(sortKey, dataType) {
+    sortForColumn(sortKey: number, dataType: string) {
         return (this.rowSort.key === sortKey) && (this.rowSort.dataType === dataType) ? this.rowSort : false;
     }
 
@@ -151,19 +177,19 @@ export default class AssignmentReviewUX {
         return this.reverseNameOrder ? 'Firstname, Lastname' : 'Lastname, Firstname';
     }
 
-    isShowingFreeResponseForQuestion(question) {
+    isShowingFreeResponseForQuestion(question: ExerciseQuestion) {
         return Boolean(this.freeResponseQuestions.get(question.id));
     }
 
-    @action.bound toggleFreeResponseForQuestion(question) {
+    @action.bound toggleFreeResponseForQuestion(question: ExerciseQuestion) {
         this.freeResponseQuestions.set(question.id, !this.isShowingFreeResponseForQuestion(question));
     }
 
-    @action.bound onSearchStudentChange({ target: { value } }) {
+    @action.bound onSearchStudentChange({ target: { value } }: React.ChangeEvent<HTMLInputElement>) {
         this.searchingMatcher = value ? RegExp(value, 'i') : null;
     }
 
-    @action.bound onSearchExtensionStudentChange({ target: { value } }) {
+    @action.bound onSearchExtensionStudentChange({ target: { value } }: React.ChangeEvent<HTMLInputElement>) {
         this.searchingExtensionsMatcher = value ? RegExp(value, 'i') : null;
     }
 
@@ -181,7 +207,7 @@ export default class AssignmentReviewUX {
         return this.activeScoresStudents.length != this.extensionStudents.length;
     }
 
-    @action.bound toggleGrantExtensionAllStudents({ target: { checked } }) {
+    @action.bound toggleGrantExtensionAllStudents({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) {
         this.extensionStudents.forEach(s => {
             this.pendingExtensions.set(s.role_id.toString(10), checked);
         });
@@ -197,10 +223,10 @@ export default class AssignmentReviewUX {
         this.isDisplayingGrantExtension = false;
     }
 
-    @action.bound async saveDisplayingGrantExtension(values) {
+    @action.bound async saveDisplayingGrantExtension(values: any) {
         const due_at = values.extension_due_date.format();
         const closes_at = values.extension_close_date.format();
-        const extensions = [];
+        const extensions: any[] = [];
         this.pendingExtensions.forEach((extend, role_id) => {
             if (extend) {
                 extensions.push({ role_id, due_at, closes_at });
@@ -213,7 +239,7 @@ export default class AssignmentReviewUX {
         this.cancelDisplayingGrantExtension();
     }
 
-    wasGrantedExtension(role_id) {
+    wasGrantedExtension(role_id: ID) {
         return Boolean(
             this.taskPlan.extensions.length > 0 && this.taskPlan.extensions.find(e => e.role_id == role_id)
         );
@@ -221,7 +247,7 @@ export default class AssignmentReviewUX {
 
     // methods relating to droppping questions
 
-    @action toggleDropQuestion(isDropped, { question_id }) {
+    @action toggleDropQuestion(isDropped: boolean, { question_id }: {question_id: ID}) {
         if (isDropped) {
             this.pendingDroppedQuestions.set(question_id, hydrateModel(DroppedQuestion, { question_id }));
         } else {
@@ -229,10 +255,14 @@ export default class AssignmentReviewUX {
         }
     }
 
+    @action displayDropQuestion(question: ExerciseQuestion) {
+        this.displayingDropQuestion = question
+    }
+
     @action.bound cancelDisplayingDropQuestions() {
         this.pendingDroppedQuestions.clear();
-        this.changedDroppedQuestions.forEach(dq => dq.dropped.isChanged = false);
-        this.isDisplayingDropQuestions = false;
+        this.changedDroppedQuestions.forEach(dq => (dq.dropped as any).isChanged = false);
+        this.displayingDropQuestion = null
     }
 
     @action.bound async saveDropQuestions() {
@@ -245,8 +275,12 @@ export default class AssignmentReviewUX {
 
         // Existing dropped Qs need to be updated to pick up allocation changes
         this.changedDroppedQuestions.forEach(h => {
-            const { question_id, drop_method } = h.dropped;
-            taskPlan.dropped_questions.find(dq => dq.question_id == question_id).drop_method = drop_method;
+            const { question_id, drop_method } = h.dropped || {};
+            const dropped = taskPlan.dropped_questions.find(dq => dq.question_id == question_id)
+            if (dropped) {
+                dropped.drop_method = drop_method;
+            }
+
         });
 
         await taskPlan.saveDroppedQuestions();
@@ -254,12 +288,12 @@ export default class AssignmentReviewUX {
         this.cancelDisplayingDropQuestions();
     }
 
-    droppedQuestionRecord(heading) {
-        return heading.dropped || this.pendingDroppedQuestions.get(heading.question_id);
+    droppedQuestionRecord(heading: TaskPlanScoreHeading) {
+        return Boolean(heading.dropped || this.pendingDroppedQuestions.get(heading.question_id));
     }
 
-    @computed get changedDroppedQuestions() {
-        return this.scores.question_headings.filter(h => h.dropped && h.dropped.isChanged);
+    @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {
+        return this.scores?.question_headings.filter(isDroppedChanged) as any || [];
     }
 
     @computed get canSubmitDroppedQuestions() {
@@ -322,14 +356,13 @@ export default class AssignmentReviewUX {
         })
     }
 
-    @action.bound renderDetails(form) {
+    @action.bound renderDetails(form:any) {
         this.editUX.form = form;
-        return <DetailsBody ux={this.editUX} />;
+        return React.createElement(DetailsBody, { ux: this.editUX })
     }
 
     @action.bound async onPublishScores() {
-        await this.taskingPlan.publishScores();
-
+        await this.taskingPlan?.publishScores();
         await this.planScores.fetch();
         await this.planScores.taskPlan.fetch();
         await this.planScores.taskPlan.analytics.fetch();
@@ -367,7 +400,7 @@ export default class AssignmentReviewUX {
     @computed get taskingPlanDetails() {
         return this.areTaskingDatesSame ?
             [first(this.planScores.taskPlan.tasking_plans)] :
-            sortBy(this.planScores.taskPlan.tasking_plans, tp => tp.period.name);
+            sortBy(this.planScores.taskPlan.tasking_plans, tp => tp.period?.name);
     }
 
     @computed get stats() {
@@ -376,7 +409,7 @@ export default class AssignmentReviewUX {
 
     @computed get progressStatsForPeriod() {
         // period stats will be undefined if no-ones worked the assignment in the period yet
-        const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod.id);
+        const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod?.id);
         const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || { };
         const notStartedCount = total_count - (complete_count + partially_complete_count);
 
@@ -403,30 +436,30 @@ export default class AssignmentReviewUX {
     }
 
     @computed get canDisplayGradingButton() {
-        return Boolean(this.taskingPlan.isPastDue && this.scores.hasAnyResponses);
+        return Boolean(this.taskingPlan?.isPastDue && this.scores?.hasAnyResponses);
     }
 
     @computed get hasUnPublishedScores() {
-        return Boolean(this.taskingPlan.isPastDue && this.scores.hasUnPublishedScores);
+        return Boolean(this.taskingPlan?.isPastDue && this.scores?.hasUnPublishedScores);
     }
 
     @computed get gradeableQuestionCount() {
-        return sumBy(this.scores.question_headings.map(qh => qh.gradedStats), 'remaining');
+        return sumBy(this.scores?.question_headings.map(qh => qh.gradedStats), 'remaining');
     }
 
     @computed get hasGradeableAnswers() {
         return Boolean(this.gradeableQuestionCount > 0);
     }
 
-    @action.bound scrollToQuestion(questionId, index) {
+    @action.bound scrollToQuestion(questionId: ID, index: number) {
         this.freeResponseQuestions.set(get(this.scores, `questionsInfo[${index}].id`), true);
-        scrollIntoView(document.querySelector(`[data-question-id="${questionId}"]`), {
+        scrollIntoView(document.querySelector<HTMLDivElement>(`[data-question-id="${questionId}"]`)!, {
             time: 300,
             align: { top: 0, topOffset: 80 },
         });
     }
 
-    getReadingCountData(student) {
+    getReadingCountData(student: TaskPlanScoreStudent) {
         const completedQuestions = filter(student.questions, 'is_completed');
         return {
             total: student.questions.length,
@@ -436,7 +469,7 @@ export default class AssignmentReviewUX {
         };
     }
 
-    didStudentComplete(student) {
+    didStudentComplete(student?: TaskPlanScoreStudent) {
         if(!student) {
             return false;
         }
@@ -444,14 +477,14 @@ export default class AssignmentReviewUX {
         return data.complete === data.total;
     }
 
-    isStudentAboveFiftyPercentage(student) {
+    isStudentAboveFiftyPercentage(student?: TaskPlanScoreStudent) {
         if(!student) {
             return false;
         }
         return student.total_fraction >= 0.5;
     }
 
-    getStudentName(student) {
+    getStudentName(student: TaskPlanScoreStudent) {
         return this.hideStudentsName ? 'Student response' : student.name;
     }
 }

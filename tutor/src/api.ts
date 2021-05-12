@@ -26,6 +26,7 @@ interface TermIds { termIds: ID[] }
 interface TaskStepId { taskStepId: ID }
 interface TaskPlanQuery { start_at: string, end_at: string }
 interface TaskPlanId { taskPlanId: ID }
+interface TaskingPlanId { taskingPlanId: ID }
 interface PQCourseId extends CourseId { practiceQuestionId: ID }
 interface EcosystemCnxId { ecosystemId: ID, cnxId: ID }
 
@@ -113,6 +114,7 @@ const Definitions = {
     saveTaskPlan:           r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
     saveDroppedQuestions:   r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
     createTaskPlan:         r<CourseId>('POST', 'courses/{courseId}/plans'),
+    publishTaskingScores:   r<TaskingPlanId>('PUT', 'tasking_plans/{taskingPlanId}/grade'),
 
     grantTaskExtensions:    r<TaskPlanId>('PUT', 'plans/{taskPlanId}'),
 

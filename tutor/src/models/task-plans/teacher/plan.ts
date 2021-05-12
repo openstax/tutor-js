@@ -482,9 +482,10 @@ export class TeacherTaskPlan extends BaseModel {
         this.update(plan)
     }
 
-    destroy() {
+    @action async destroy() {
         this.is_deleting = true;
-        return this;
+        await this.api.request(urlFor('deleteTaskPlan', { taskPlanId: this.id }))
+        this.onDeleteComplete()
     }
 
     @action onDeleteComplete() {
