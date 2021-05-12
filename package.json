@@ -86,6 +86,7 @@
     "babel7-jest": "^1.0.1",
     "big.js": "^5.2.2",
     "bootstrap": "^4.3.1",
+    "boxible": "0.1.1",
     "classnames": "^2.3.1",
     "concurrently": "^5.0.2",
     "core-decorators": "0.20.0",
