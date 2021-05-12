@@ -78,7 +78,7 @@ export const colors = {
     },
 
     controls: {
-        selected: '#63a524',
+        selected: colorDefinitions.secondary,
         active:   '#337eb5',
         muted:    neutral.lite,
         notice:   '#eba927',
@@ -112,7 +112,7 @@ export const colors = {
         },
         event: {
             background: '#63a52433',
-            border: '#63a524',
+            border: colorDefinitions.secondary,
         },
         neutral: {
             background: neutral.pale,
@@ -139,7 +139,7 @@ export const colors = {
                 background: '#ECF7D1',
                 foreground: '#3B7800',
                 inverse: {
-                    background: '#63A524',
+                    background: colorDefinitions.secondary,
                     foreground: '#FFFFFF',
                     border: '#4B8315',
                 },
