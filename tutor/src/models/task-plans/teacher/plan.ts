@@ -435,10 +435,14 @@ export class TeacherTaskPlan extends BaseModel {
         return 0 === this.invalidParts.length;
     }
 
+    @computed get droppedQuestionsSaveData() {
+        return this.dropped_questions.map(dq => pick(dq, ['question_id', 'drop_method']))
+    }
+
     async saveDroppedQuestions() {
         const data = await this.api.request<TeacherTaskPlanData>(
             urlFor('saveDroppedQuestions', { taskPlanId: this.id }),
-            { data: { dropped_questions: toJS(this.dropped_questions) } },
+            { data: { dropped_questions: toJS(this.droppedQuestionsSaveData) } },
         )
         this.update(data)
     }

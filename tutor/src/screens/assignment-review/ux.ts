@@ -23,7 +23,7 @@ interface DroppedChanged {
     }
 }
 function isDroppedChanged(h: any): h is DroppedChanged {
-    return h && h.dropped && h.dropped.isChanged
+    return h && h.droppedQuestions.filter((dq: DroppedQuestion) => dq.isChanged).length > 0
 }
 
 export default class AssignmentReviewUX {
@@ -255,41 +255,45 @@ export default class AssignmentReviewUX {
 
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
-        this.pendingDroppedQuestions.set(question.id, hydrateModel(DroppedQuestion, { question_id: question.id }))
-        const heading = this?.scores?.question_headings.find(qh => qh.question_id === question.id)
+        this.droppedQuestion = hydrateModel(DroppedQuestion, { question_id: question.id.toString() })
+        this.pendingDroppedQuestions.set(question.id.toString(), this.droppedQuestion)
+
+        const heading = this?.scores?.question_headings.find(qh => qh.question_ids.includes(question.id.toString()))
         if (!heading) { throw 'Could not find heading for question' }
         this.droppedHeading = heading
-        this.droppedQuestion = this.findDroppedQuestion(heading)
-        if (!this.droppedQuestion) { throw 'droppedQuestion is null' }
+
         this.droppedQuestion.exercise = question.exercise.wrapper as Exercise
-        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
+        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded
+            || isNil(heading.droppedQuestions.find(dq => dq.question_id === question.id.toString()))
     }
 
     @action.bound cancelDisplayingDropQuestions() {
         this.pendingDroppedQuestions.clear();
         this.droppedQuestion = null;
         this.droppedHeading = null;
-        this.changedDroppedQuestions.forEach(dq => (dq.dropped as any).isChanged = false);
+        this.changedDroppedQuestions.forEach(qh => qh.droppedQuestions.map(dq => dq.isChanged = false));
         this.displayingDropQuestion = null
     }
 
     @action.bound async saveDropQuestions() {
         const { taskPlan, droppedQuestion, course } = this;
         if (!droppedQuestion) { throw 'droppedQuestion is null' }
-        taskPlan.dropped_questions.push(droppedQuestion);
-        this.planScores.dropped_questions.push(droppedQuestion);
 
+        const existing = taskPlan.dropped_questions.find(
+            dq => dq.question_id.toString() === droppedQuestion.question_id.toString()
+        )
+        if (existing) {
+            existing.drop_method = droppedQuestion.drop_method
+        } else {
+            taskPlan.dropped_questions.push(droppedQuestion);
+        }
+
+        await taskPlan.saveDroppedQuestions();
         await course.saveExerciseExclusion({
             exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded,
         });
-
-        await taskPlan.saveDroppedQuestions();
         await this.planScores.fetch();
         this.cancelDisplayingDropQuestions();
-    }
-
-    findDroppedQuestion(heading: TaskPlanScoreHeading) {
-        return heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid));
     }
 
     @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {

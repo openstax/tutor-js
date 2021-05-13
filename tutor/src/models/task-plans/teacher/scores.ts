@@ -188,14 +188,12 @@ export class TaskPlanScoreStudent extends BaseModel {
 
 export class TaskPlanScoreHeading extends BaseModel {
     @field title = NEW_ID;
-    @field exercise_ids:ID[] = [];
-    @field question_ids:ID[] = [];
+    @field exercise_ids: ID[] = [];
+    @field question_ids: ID[] = [];
     @field type = '';
     @field points = 0;
     @field points_without_dropping = 0;
     @field ecosystem_id = NEW_ID;
-
-    @observable dropped?: boolean
 
     exercises = currentExercises
 
