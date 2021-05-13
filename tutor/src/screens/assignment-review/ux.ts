@@ -1,11 +1,11 @@
 import { React, observable, action, computed, modelize, hydrateModel } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find, isNil } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import { ID, NEW_ID } from 'shared/model'
 import {
     DroppedQuestion, CoursePeriod, TaskPlanScores, Course,
     TaskingPlan, TaskPlanScoresTasking, TaskPlanScoreHeading,
-    TaskPlanScoreStudent,
+    TaskPlanScoreStudent, Exercise,
 } from '../../models';
 import EditUX from '../assignment-edit/ux';
 import rowDataSorter from './scores-data-sorter';
@@ -23,14 +23,14 @@ interface DroppedChanged {
     }
 }
 function isDroppedChanged(h: any): h is DroppedChanged {
-    return h && h.dropped && h.dropped.isChanged
+    return h && h.droppedQuestions.filter((dq: DroppedQuestion) => dq.isChanged).length > 0
 }
 
 export default class AssignmentReviewUX {
 
     @observable selectedPeriod?: CoursePeriod;
     @observable exercisesHaveBeenFetched = false;
-    @observable displayingDropQuestion: ExerciseQuestion|null = null
+    @observable displayingDropQuestion: ExerciseQuestion | null = null
     @observable isDisplayingGrantExtension = false;
     @observable isDisplayingConfirmDelete = false;
     @observable isDisplayingEditAssignment = false;
@@ -38,12 +38,14 @@ export default class AssignmentReviewUX {
     @observable editUX: any;
     @observable editablePlan: any;
     @observable rowSort = { key: 0, asc: true, dataType: 'name' };
-    @observable searchingMatcher: RegExp|null = null;
-    @observable searchingExtensionsMatcher: RegExp|null = null;
+    @observable searchingMatcher: RegExp | null = null;
+    @observable searchingExtensionsMatcher: RegExp | null = null;
     @observable reverseNameOrder = false;
     @observable displayTotalInPercent = false;
     @observable hideStudentsName = false;
-    @observable id:ID = NEW_ID
+    @observable id: ID = NEW_ID
+    @observable droppedQuestion!: DroppedQuestion | null
+    @observable droppedHeading!: TaskPlanScoreHeading | null
     history!: History
     planScores!: TaskPlanScores
     scroller!: ScrollTo
@@ -57,7 +59,7 @@ export default class AssignmentReviewUX {
     @observable pendingExtensions = observable.map();
     pendingDroppedQuestions = observable.map();
 
-    constructor(attrs:any = null) {
+    constructor(attrs: any = null) {
         modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
@@ -79,7 +81,7 @@ export default class AssignmentReviewUX {
 
         const currentTab = parseInt(tab, 10);
         // default tab index is 0
-        if(currentTab > 0) {
+        if (currentTab > 0) {
             onTabSelection(currentTab);
         }
 
@@ -251,49 +253,47 @@ export default class AssignmentReviewUX {
     // TODO: Broken by drop any heading changes (headings can now have multiple dropped questions)
     //       Maybe remove these since we are changing how questions are dropped
 
-    @action toggleDropQuestion(isDropped: boolean, { question_id }: {question_id: ID}) {
-        if (isDropped) {
-            this.pendingDroppedQuestions.set(question_id, hydrateModel(DroppedQuestion, { question_id }));
-        } else {
-            this.pendingDroppedQuestions.delete(question_id);
-        }
-    }
-
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
+        this.droppedQuestion = hydrateModel(DroppedQuestion, { question_id: question.id.toString() })
+        this.pendingDroppedQuestions.set(question.id.toString(), this.droppedQuestion)
+
+        const heading = this?.scores?.question_headings.find(qh => qh.question_ids.includes(question.id.toString()))
+        if (!heading) { throw 'Could not find heading for question' }
+        this.droppedHeading = heading
+
+        this.droppedQuestion.exercise = question.exercise.wrapper as Exercise
+        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded
+            || isNil(heading.droppedQuestions.find(dq => dq.question_id === question.id.toString()))
     }
 
     @action.bound cancelDisplayingDropQuestions() {
         this.pendingDroppedQuestions.clear();
-        this.changedDroppedQuestions.forEach(dq => (dq.dropped as any).isChanged = false);
+        this.droppedQuestion = null;
+        this.droppedHeading = null;
+        this.changedDroppedQuestions.forEach(qh => qh.droppedQuestions.map(dq => dq.isChanged = false));
         this.displayingDropQuestion = null
     }
 
     @action.bound async saveDropQuestions() {
-        const { taskPlan } = this;
+        const { taskPlan, droppedQuestion, course } = this;
+        if (!droppedQuestion) { throw 'droppedQuestion is null' }
 
-        this.pendingDroppedQuestions.forEach(dq => {
-            taskPlan.dropped_questions.push(dq);
-            this.planScores.dropped_questions.push(dq);
-        });
-
-        // Existing dropped Qs need to be updated to pick up allocation changes
-        this.changedDroppedQuestions.forEach(h => {
-            const { question_id, drop_method } = h.dropped || {};
-            const dropped = taskPlan.dropped_questions.find(dq => dq.question_id == question_id)
-            if (dropped && drop_method) {
-                dropped.drop_method = drop_method;
-            }
-
-        });
+        const existing = taskPlan.dropped_questions.find(
+            dq => dq.question_id.toString() === droppedQuestion.question_id.toString()
+        )
+        if (existing) {
+            existing.drop_method = droppedQuestion.drop_method
+        } else {
+            taskPlan.dropped_questions.push(droppedQuestion);
+        }
 
         await taskPlan.saveDroppedQuestions();
+        await course.saveExerciseExclusion({
+            exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded,
+        });
         await this.planScores.fetch();
         this.cancelDisplayingDropQuestions();
-    }
-
-    droppedQuestionRecord(heading: TaskPlanScoreHeading) {
-        return Boolean(heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid)));
     }
 
     @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {
@@ -303,7 +303,7 @@ export default class AssignmentReviewUX {
     @computed get canSubmitDroppedQuestions() {
         return Boolean(
             this.changedDroppedQuestions.length > 0 ||
-      this.pendingDroppedQuestions.size > 0
+            this.pendingDroppedQuestions.size > 0
         );
     }
 
@@ -340,7 +340,7 @@ export default class AssignmentReviewUX {
                 course: this.course,
             });
 
-            runInAction(() => this.isDisplayingEditAssignment = true );
+            runInAction(() => this.isDisplayingEditAssignment = true);
 
         } else {
             this.onEditAssignment();
@@ -360,7 +360,7 @@ export default class AssignmentReviewUX {
         })
     }
 
-    @action.bound renderDetails(form:any) {
+    @action.bound renderDetails(form: any) {
         this.editUX.form = form;
         return React.createElement(DetailsBody, { ux: this.editUX })
     }
@@ -414,19 +414,22 @@ export default class AssignmentReviewUX {
     @computed get progressStatsForPeriod() {
         // period stats will be undefined if no-ones worked the assignment in the period yet
         const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod?.id);
-        const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || { };
+        const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || {};
         const notStartedCount = total_count - (complete_count + partially_complete_count);
 
         const items = [
-            { label: 'Completed',
+            {
+                label: 'Completed',
                 value: complete_count,
                 percent: (complete_count / total_count),
             },
-            { label: 'In progress',
+            {
+                label: 'In progress',
                 value: partially_complete_count,
                 percent: (partially_complete_count / total_count),
             },
-            { label: 'Not started',
+            {
+                label: 'Not started',
                 value: notStartedCount,
                 percent: (notStartedCount / total_count),
             },
@@ -474,7 +477,7 @@ export default class AssignmentReviewUX {
     }
 
     didStudentComplete(student?: TaskPlanScoreStudent) {
-        if(!student) {
+        if (!student) {
             return false;
         }
         const data = this.getReadingCountData(student);
@@ -482,7 +485,7 @@ export default class AssignmentReviewUX {
     }
 
     isStudentAboveFiftyPercentage(student?: TaskPlanScoreStudent) {
-        if(!student) {
+        if (!student) {
             return false;
         }
         return student.total_fraction >= 0.5;
