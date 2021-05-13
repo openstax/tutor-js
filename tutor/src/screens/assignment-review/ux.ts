@@ -1,11 +1,11 @@
 import { React, observable, action, computed, modelize, hydrateModel } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find } from 'lodash';
+import { first, pick, sortBy, filter, sumBy, get, find, isNil } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import { ID, NEW_ID } from 'shared/model'
 import {
     DroppedQuestion, CoursePeriod, TaskPlanScores, Course,
     TaskingPlan, TaskPlanScoresTasking, TaskPlanScoreHeading,
-    TaskPlanScoreStudent,
+    TaskPlanScoreStudent, Exercise,
 } from '../../models';
 import EditUX from '../assignment-edit/ux';
 import rowDataSorter from './scores-data-sorter';
@@ -44,6 +44,8 @@ export default class AssignmentReviewUX {
     @observable displayTotalInPercent = false;
     @observable hideStudentsName = false;
     @observable id: ID = NEW_ID
+    @observable droppedQuestion!: DroppedQuestion | null
+    @observable droppedHeading!: TaskPlanScoreHeading | null
     history!: History
     planScores!: TaskPlanScores
     scroller!: ScrollTo
@@ -254,30 +256,30 @@ export default class AssignmentReviewUX {
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
         this.pendingDroppedQuestions.set(question.id, hydrateModel(DroppedQuestion, { question_id: question.id }))
+        const heading = this?.scores.question_headings.find(qh => qh.question_id === question.id)
+        if (!heading) { throw "Could not find heading for question" }
+        this.droppedHeading = heading
+        this.droppedQuestion = this.findDroppedQuestion(heading)
+        this.droppedQuestion.exercise = question.exercise.wrapper as Exercise
+        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
     }
 
     @action.bound cancelDisplayingDropQuestions() {
         this.pendingDroppedQuestions.clear();
+        this.droppedQuestion = null;
+        this.droppedHeading = null;
         this.changedDroppedQuestions.forEach(dq => (dq.dropped as any).isChanged = false);
         this.displayingDropQuestion = null
     }
 
     @action.bound async saveDropQuestions() {
-        const { taskPlan } = this;
+        const { taskPlan, droppedQuestion, course } = this;
+        if (!droppedQuestion) { throw "droppedQuestion is null" }
+        taskPlan.dropped_questions.push(droppedQuestion);
+        this.planScores.dropped_questions.push(droppedQuestion);
 
-        this.pendingDroppedQuestions.forEach(dq => {
-            taskPlan.dropped_questions.push(dq);
-            this.planScores.dropped_questions.push(dq);
-        });
-
-        // Existing dropped Qs need to be updated to pick up allocation changes
-        this.changedDroppedQuestions.forEach(h => {
-            const { question_id, drop_method } = h.dropped || {};
-            const dropped = taskPlan.dropped_questions.find(dq => dq.question_id == question_id)
-            if (dropped && drop_method) {
-                dropped.drop_method = drop_method;
-            }
-
+        await course.saveExerciseExclusion({
+            exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded
         });
 
         await taskPlan.saveDroppedQuestions();
@@ -285,7 +287,7 @@ export default class AssignmentReviewUX {
         this.cancelDisplayingDropQuestions();
     }
 
-    droppedQuestionRecord(heading: TaskPlanScoreHeading) {
+    findDroppedQuestion(heading: TaskPlanScoreHeading) {
         return heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid));
     }
 

@@ -43,18 +43,14 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
     }
 
     render() {
-        const { ux, ux: { displayingDropQuestion: question } } = this.props;
+        const { ux, ux: { displayingDropQuestion: question, droppedHeading, droppedQuestion } } = this.props
+        const heading = droppedHeading
+        const drop = droppedQuestion
 
         if (!question) {
             return null
         }
-        const exercise = question?.exercise.wrapper as Exercise;
-        window.ux = ux
-        window.question = question
-        const heading = ux?.scores.question_headings.find(qh => qh.question_id === question.id)
-        if (!heading) { return null; }
-        const drop = ux.droppedQuestionRecord(heading)
-        if (!drop) { return null; }
+        const exercise = question?.exercise.wrapper as Exercise
 
         return (
             <StyledModal
@@ -93,7 +89,7 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
                                         }} />
                                 </Box>
                                 <Box as="label" htmlFor="full-credit" direction="column" margin={{ left: '8px' }}>
-                                    Give full credit {S.numberWithOneDecimalPlace(heading.points_without_dropping)} points)
+                                    Give full credit ({S.numberWithOneDecimalPlace(heading.points_without_dropping)} points)
                                     <Light>Students must attempt the question to get credit</Light>
                                 </Box>
                             </Box>
