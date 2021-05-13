@@ -62,7 +62,6 @@ export * from './models/task-plans/student/task'
 export * from './models/task-plans/student'
 
 export * from './models/course/term'
-// export * from './models/course/enroll'
 export * from './models/course/create'
 export * from './models/course/offerings/offering'
 export * from './models/course/offerings'
@@ -88,10 +87,6 @@ export * from './models/tour/context'
 export * from './models/tour/ride'
 export * from './models/tour'
 
-export * from './models/user/terms'
-export * from './models/user'
-export * from './models/user/menu'
-
 export * from './models/research-surveys/survey'
 export * from './models/research-surveys'
 
@@ -104,7 +99,6 @@ export * from './models/jobs/task-plan-publish'
 export * from './models/jobs/lms-score-push'
 export * from './models/jobs/scores-export'
 export * from './models/loader'
-
 
 export * from './models/practice-questions'
 
@@ -129,6 +123,6 @@ export * from './models/app/errors'
 export * from './models/app/nav-history'
 export * from './models/app/raven'
 
-// export * from './models/reference-book/ux'
-
-//export * from './models/app'
+export * from './models/user/terms'
+export * from './models/user'
+export * from './models/user/menu'
