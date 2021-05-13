@@ -9,7 +9,7 @@ export class DroppedQuestion extends BaseModel {
     @model(Time) updated_at = Time.unknown;
     @observable isChanged = false;
     @observable excluded = false;
-    @observable exercise: Exercise | undefined;
+    @observable exercise!: Exercise;
 
     constructor() {
         super();
