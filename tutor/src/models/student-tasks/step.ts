@@ -123,9 +123,7 @@ export class StudentTaskStep extends BaseModel {
 
     // alias dropped_method for compatibility with DroppedQuestionIndicator component
     @computed get drop_method() {
-        return Math.random() > 0.8 ? Math.random() < 0.5 ? 'full_credit' : 'zeroed' : null
-        //for real do:
-        // return this.dropped_method
+        return this.dropped_method
     }
     get task() { return getParentOf<StudentTask>(this) }
 
