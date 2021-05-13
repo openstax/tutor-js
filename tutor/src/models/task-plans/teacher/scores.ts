@@ -1,5 +1,5 @@
 import {
-    BaseModel, ID, field, model, modelize, computed, NEW_ID, getParentOf, array, observable,
+    BaseModel, ID, field, model, modelize, computed, NEW_ID, getParentOf, array,
 } from 'shared/model';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
