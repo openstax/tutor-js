@@ -10,7 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { CornerTriangle, TriangleCSS } from '../../components/dropped-question';
+import { DroppedQuestionIndicator, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
@@ -83,18 +83,9 @@ const AssignmentHeadingPoints = observer(({ heading }) => {
         cellContents = ORANGE_INFO_ICON;
     }
 
-    const triangleTooltip = heading.everyQuestionZeroed ? 'Points changed to 0' :
-        (heading.everyQuestionFullCredit ? 'Full credit given to all students':
-            'Question dropped for one or more students');
-
     return (
         <>
-            <CornerTriangle color="blue"
-                data-test-id="dropped-question-indicator"
-                data-question-id={`Q${heading.question_id}`}
-                tooltip={triangleTooltip}
-            />
-
+            <DroppedQuestionIndicator model={heading} />
             {cellContents}
         </>
     );

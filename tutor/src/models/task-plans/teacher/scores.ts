@@ -239,11 +239,26 @@ export class TaskPlanScoreHeading extends BaseModel {
         return new Set(this.question_ids);
     }
 
+    // for compatiblity with DroppedQuestionIndicator component
+    @computed get drop_method() {
+        if (this.droppedQuestions.length == 0) {
+            return null
+        }
+        if (this.everyQuestionFullCredit) {
+            return 'full_credit'
+        }
+        if (this.everyQuestionZeroed) {
+            return 'zeroed'
+        }
+        return 'partial'
+    }
+
     @computed get droppedQuestions() {
         return this.tasking.scores.dropped_questions.filter(
             dq => this.questionIdsSet.has(dq.question_id)
         );
     }
+
 
     @computed get someQuestionsDroppedByInstructor() {
         return this.droppedQuestions.length > 0;

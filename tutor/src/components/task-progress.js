@@ -4,7 +4,7 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { map, sumBy, isNil } from 'lodash';
 import { Icon } from 'shared';
 import { colors } from 'theme';
-import { CornerTriangle } from './dropped-question';
+import { DroppedQuestionIndicator } from './dropped-question';
 import LatePointsInfo from './late-points-info';
 import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
@@ -232,11 +232,7 @@ class TaskProgress extends React.Component {
                                         onClick={() => goToStep(step.id)}
                                     >
                                         {progressIndex}
-                                        {step.isDroppedQuestion &&
-                      <CornerTriangle color="blue"
-                          tooltip={step.dropped_method == 'zeroed' ?
-                              'Question dropped: question is worth zero points' : 'Question dropped: full credit assigned for this question'}
-                      />}
+                                        <DroppedQuestionIndicator model={step} />
                                     </Cell>
                                 );
                             }
