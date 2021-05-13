@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { defer } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, observable, computed, modelize } from 'shared/model'
+import { action, observable, computed, modelize, runInAction } from 'shared/model';
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
@@ -19,6 +19,7 @@ class EditBox extends React.Component {
         previous: PropTypes.instanceOf(Note),
         goToNote: PropTypes.func.isRequired,
         seeAll: PropTypes.func.isRequired,
+        textAreaDisabled: PropTypes.bool.isRequired,
     }
 
     constructor(props) {
@@ -37,14 +38,16 @@ class EditBox extends React.Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.note !== this.props.note) {
-            this.annotation = nextProps.note ? nextProps.note.annotation : '';
+            runInAction(() => this.annotation = nextProps.note ? nextProps.note.annotation : '');
             defer(() => this.input.focus());
         }
     }
 
     componentWillUnmount() {
         if (!this.isDeleted && (this.annotation !== this.props.note.annotation)) {
-            this.props.note.annotation = this.annotation;
+            runInAction(() => {
+                this.props.note.annotation = this.annotation;
+            });
             this.props.note.save();
         }
     }
@@ -126,9 +129,6 @@ class EditBox extends React.Component {
         );
     }
 }
-EditBox.propTypes = {
-    textAreaDisabled: PropTypes.boolean,
-};
 
 const renderDesktop = (props) => {
     return <EditBox {...props} textAreaDisabled={false} />;
@@ -143,7 +143,7 @@ export default function EditBoxWrapper(props) {
     const show = !!props.note;
     return (
         <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
-            {props.note && 
+            {props.note &&
         <Responsive desktop={renderDesktop(props)} tablet={renderTablet(props)} mobile={renderTablet(props)}/>
             }
         </div>

@@ -1,13 +1,19 @@
 import { ObservableMap } from 'mobx';
-import { BaseModel, hydrateModel, modelize, observable, array, map, field, model } from 'shared/model'
+import { BaseModel, hydrateModel, modelize, observable, array, map, field, model, NEW_ID } from 'shared/model'
 
 describe('Model base class', () => {
 
-    class Bar {
+    class Bar extends BaseModel {
+        @field id = ''
         @observable num = 1
+        constructor() {
+            super();
+            modelize(this);
+        }
     }
 
     class Foo extends BaseModel {
+        @field id = NEW_ID
         @field foo = ''
         @model(Bar) bars = array((a: Bar[]) => ({
             eq(n: number) { return a.filter((b) => b.num == n) },
@@ -40,4 +46,15 @@ describe('Model base class', () => {
         }))
         expect(m.one).toEqual(1)
     });
+
+    it('checks if the model isNew', () => {
+        const foo = hydrateModel(Foo, {}) // Initialized with 0
+        const bar = hydrateModel(Bar, {}) // Initialized with ''
+        expect(foo.isNew).toEqual(true)
+        expect(bar.isNew).toEqual(true)
+        foo.id = 3
+        expect(foo.isNew).toEqual(false)
+        bar.id = '3'
+        expect(bar.isNew).toEqual(false)
+    })
 })
