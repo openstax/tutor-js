@@ -1,4 +1,6 @@
-import { BaseModel, ID, field, model, modelize, computed, NEW_ID, getParentOf, array } from 'shared/model';
+import {
+    BaseModel, ID, field, model, modelize, computed, NEW_ID, getParentOf, array, observable,
+} from 'shared/model';
 import {
     filter, sumBy, find, isNil, compact, sortBy,
     get, some, reduce, every, uniq, isNumber, isEmpty, groupBy, orderBy,
@@ -192,6 +194,8 @@ export class TaskPlanScoreHeading extends BaseModel {
     @field points = 0;
     @field points_without_dropping = 0;
     @field ecosystem_id = NEW_ID;
+
+    @observable dropped?: boolean
 
     exercises = currentExercises
 
