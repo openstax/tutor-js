@@ -257,11 +257,11 @@ export default class AssignmentReviewUX {
         this.displayingDropQuestion = question
         this.pendingDroppedQuestions.set(question.id, hydrateModel(DroppedQuestion, { question_id: question.id }))
         const heading = this?.scores.question_headings.find(qh => qh.question_id === question.id)
-        if (!heading) { throw "Could not find heading for question" }
+        if (!heading) { throw 'Could not find heading for question' }
         this.droppedHeading = heading
         this.droppedQuestion = this.findDroppedQuestion(heading)
-        this.droppedQuestion.exercise = question.exercise.wrapper as Exercise
-        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
+        this.droppedQuestion?.exercise = question.exercise.wrapper as Exercise
+        this.droppedQuestion?.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
     }
 
     @action.bound cancelDisplayingDropQuestions() {
@@ -274,12 +274,12 @@ export default class AssignmentReviewUX {
 
     @action.bound async saveDropQuestions() {
         const { taskPlan, droppedQuestion, course } = this;
-        if (!droppedQuestion) { throw "droppedQuestion is null" }
+        if (!droppedQuestion) { throw 'droppedQuestion is null' }
         taskPlan.dropped_questions.push(droppedQuestion);
         this.planScores.dropped_questions.push(droppedQuestion);
 
         await course.saveExerciseExclusion({
-            exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded
+            exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded,
         });
 
         await taskPlan.saveDroppedQuestions();
