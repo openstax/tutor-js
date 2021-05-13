@@ -50,13 +50,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     }
 
     @computed get questionHeading() {
-        // For Tutor-assigned questions, each student may get a question with a different ID
-        // so we can't really do better than using the index in this case
-        if (this.student.tasking.question_headings.length > this.index) {
-            return this.student.tasking.question_headings[this.index];
-        }
-
-        return null;
+        return this.student.questionHeadings[this.index];
     }
 
     @computed get droppedQuestion() {
@@ -155,6 +149,28 @@ export class TaskPlanScoreStudent extends BaseModel {
         modelize(this);
     }
 
+    /*
+    * Looks only at headings whose index is greater than or equal to each question's index
+    * Assigns the first one that includes the current question's id in its list of question_ids
+    * except that repeats are not allowed
+    */
+    @computed get questionHeadings() {
+        const usedHeadings:TaskPlanScoreHeading[] = [];
+
+        return this.questions.map((question, questionIdx) => {
+            const heading = this.tasking.question_headings.slice(questionIdx).find(
+                heading => heading.question_ids.includes(question.question_id) &&
+                           !usedHeadings.includes(heading)
+            )
+
+            if (!heading) { return null; }
+
+            usedHeadings.push(heading);
+
+            return heading;
+        });
+    }
+
     resultForHeading(heading: TaskPlanScoreHeading) {
         return this.questions.length > heading.index ? this.questions[heading.index] : null;
     }
@@ -213,9 +229,10 @@ export class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get studentResponses() {
-        // For Tutor-assigned questions, each student may get a question with a different ID
-        // so we can't really do better than using the index in this case
-        return compact(this.tasking.students.map(s => s.questions[this.index]));
+        return compact(this.tasking.students.map(
+            // Can't use the index above, as this has to account for dropped questions
+            student => student.questions[student.questionHeadings.indexOf(this)]
+        ));
     }
 
     /*
