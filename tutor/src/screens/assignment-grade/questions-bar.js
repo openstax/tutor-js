@@ -3,7 +3,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
 import PublishScores from '../../components/buttons/publish-scores';
-import { CornerTriangle } from '../../components/dropped-question';
+import { DroppedQuestionIndicator } from '../../components/dropped-question';
 
 const Bar = styled.div`
   display: flex;
@@ -75,15 +75,7 @@ const Question = observer(({ heading, ux, index }) => {
                 {Boolean(everyQuestionDropped) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
 
             </StyledButton>
-            {
-                Boolean(everyQuestionDropped) &&
-        <CornerTriangle color="blue"
-            tooltip={heading.everyQuestionZeroed ?
-                'Question dropped: question is worth 0 points' : (heading.everyQuestionFullCredit ?
-                    'Question dropped: full credit assigned for this question' :
-                    'Question dropped: some questions worth 0 points, others assigned full credit')}
-        />
-            }
+            <DroppedQuestionIndicator model={heading} />
         </StyledQuestionWrapper>
     );
 });
