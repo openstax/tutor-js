@@ -46,6 +46,7 @@ export const DropQuestionRelocated = (props: any) => {
         UiSettings.set('has-viewed-drop-question-relocated', true)
         props.ride.markComplete()
     }
+
     return (
         <StyledGreenTooltip {...props}>
             <div className="header">
@@ -66,4 +67,4 @@ export const DropQuestionRelocated = (props: any) => {
     );
 }
 
-export default DropQuestionRelocated;
+export default DropQuestionRelocated

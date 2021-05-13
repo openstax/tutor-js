@@ -10,7 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
-import { DropQuestionModel } from './drop-question-modal';
+import { DropQuestionModal } from './drop-question-modal';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -553,7 +553,7 @@ const Overview = observer(({ ux }) => {
         <Wrapper data-test-id="overview">
             {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
             <QuestionList ux={ux} scores={ux.scores} />
-            <DropQuestionModel ux={ux} />
+            <DropQuestionModal ux={ux} />
         </Wrapper>
     );
 

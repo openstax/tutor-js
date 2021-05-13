@@ -30,7 +30,7 @@ export default class AssignmentReviewUX {
 
     @observable selectedPeriod?: CoursePeriod;
     @observable exercisesHaveBeenFetched = false;
-    @observable displayingDropQuestion: ExerciseQuestion|null = null
+    @observable displayingDropQuestion: ExerciseQuestion | null = null
     @observable isDisplayingGrantExtension = false;
     @observable isDisplayingConfirmDelete = false;
     @observable isDisplayingEditAssignment = false;
@@ -38,12 +38,12 @@ export default class AssignmentReviewUX {
     @observable editUX: any;
     @observable editablePlan: any;
     @observable rowSort = { key: 0, asc: true, dataType: 'name' };
-    @observable searchingMatcher: RegExp|null = null;
-    @observable searchingExtensionsMatcher: RegExp|null = null;
+    @observable searchingMatcher: RegExp | null = null;
+    @observable searchingExtensionsMatcher: RegExp | null = null;
     @observable reverseNameOrder = false;
     @observable displayTotalInPercent = false;
     @observable hideStudentsName = false;
-    @observable id:ID = NEW_ID
+    @observable id: ID = NEW_ID
     history!: History
     planScores!: TaskPlanScores
     scroller!: ScrollTo
@@ -57,7 +57,7 @@ export default class AssignmentReviewUX {
     @observable pendingExtensions = observable.map();
     pendingDroppedQuestions = observable.map();
 
-    constructor(attrs:any = null) {
+    constructor(attrs: any = null) {
         modelize(this);
         if (attrs) { this.initialize(attrs); }
     }
@@ -79,7 +79,7 @@ export default class AssignmentReviewUX {
 
         const currentTab = parseInt(tab, 10);
         // default tab index is 0
-        if(currentTab > 0) {
+        if (currentTab > 0) {
             onTabSelection(currentTab);
         }
 
@@ -251,16 +251,9 @@ export default class AssignmentReviewUX {
     // TODO: Broken by drop any heading changes (headings can now have multiple dropped questions)
     //       Maybe remove these since we are changing how questions are dropped
 
-    @action toggleDropQuestion(isDropped: boolean, { question_id }: {question_id: ID}) {
-        if (isDropped) {
-            this.pendingDroppedQuestions.set(question_id, hydrateModel(DroppedQuestion, { question_id }));
-        } else {
-            this.pendingDroppedQuestions.delete(question_id);
-        }
-    }
-
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
+        this.pendingDroppedQuestions.set(question.id, hydrateModel(DroppedQuestion, { question_id: question.id }))
     }
 
     @action.bound cancelDisplayingDropQuestions() {
@@ -293,7 +286,7 @@ export default class AssignmentReviewUX {
     }
 
     droppedQuestionRecord(heading: TaskPlanScoreHeading) {
-        return Boolean(heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid)));
+        return heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid));
     }
 
     @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {
@@ -303,7 +296,7 @@ export default class AssignmentReviewUX {
     @computed get canSubmitDroppedQuestions() {
         return Boolean(
             this.changedDroppedQuestions.length > 0 ||
-      this.pendingDroppedQuestions.size > 0
+            this.pendingDroppedQuestions.size > 0
         );
     }
 
@@ -340,7 +333,7 @@ export default class AssignmentReviewUX {
                 course: this.course,
             });
 
-            runInAction(() => this.isDisplayingEditAssignment = true );
+            runInAction(() => this.isDisplayingEditAssignment = true);
 
         } else {
             this.onEditAssignment();
@@ -360,7 +353,7 @@ export default class AssignmentReviewUX {
         })
     }
 
-    @action.bound renderDetails(form:any) {
+    @action.bound renderDetails(form: any) {
         this.editUX.form = form;
         return React.createElement(DetailsBody, { ux: this.editUX })
     }
@@ -414,19 +407,22 @@ export default class AssignmentReviewUX {
     @computed get progressStatsForPeriod() {
         // period stats will be undefined if no-ones worked the assignment in the period yet
         const periodStats = this.stats.find(s => s.period_id == this.selectedPeriod?.id);
-        const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || { };
+        const { total_count = 0, complete_count = 0, partially_complete_count = 0 } = periodStats || {};
         const notStartedCount = total_count - (complete_count + partially_complete_count);
 
         const items = [
-            { label: 'Completed',
+            {
+                label: 'Completed',
                 value: complete_count,
                 percent: (complete_count / total_count),
             },
-            { label: 'In progress',
+            {
+                label: 'In progress',
                 value: partially_complete_count,
                 percent: (partially_complete_count / total_count),
             },
-            { label: 'Not started',
+            {
+                label: 'Not started',
                 value: notStartedCount,
                 percent: (notStartedCount / total_count),
             },
@@ -474,7 +470,7 @@ export default class AssignmentReviewUX {
     }
 
     didStudentComplete(student?: TaskPlanScoreStudent) {
-        if(!student) {
+        if (!student) {
             return false;
         }
         const data = this.getReadingCountData(student);
@@ -482,7 +478,7 @@ export default class AssignmentReviewUX {
     }
 
     isStudentAboveFiftyPercentage(student?: TaskPlanScoreStudent) {
-        if(!student) {
+        if (!student) {
             return false;
         }
         return student.total_fraction >= 0.5;

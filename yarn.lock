@@ -3246,6 +3246,11 @@ boxen@^3.0.0:
     type-fest "^0.3.0"
     widest-line "^2.0.0"
 
+boxible@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/boxible/-/boxible-0.1.1.tgz#613da3ab2645958d1736d6ab91e80f93b5e12eac"
+  integrity sha512-52jT52pppUoWOqc+UQsZXW8G03J3mycqZ/VwQM96oI6s+wCiBGDoZi7awNP9WTyOq9lDwwG6VtxlMGIRzUsQaQ==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"

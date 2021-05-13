@@ -12,7 +12,7 @@ const isExternalLink = (a) => Boolean(isLink(a) && (a.origin !== window.location
 const propTypes = {
     className: PropTypes.string,
     html: PropTypes.string.isRequired,
-    block: PropTypes.bool.isRequired,
+    block: PropTypes.bool,
     processHtmlAndMath: PropTypes.func,
     shouldExcludeFrame: PropTypes.func,
     windowImpl: PropTypes.object,
