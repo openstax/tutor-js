@@ -10,6 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
+import { DropQuestionModel } from './drop-question-modal';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -45,7 +46,10 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
             {ux.planScores.isReading ? 'Question' :
                 (info.isCore ? label : 'OpenStax Tutor Selection')}
         </ExerciseNumber>
-        <div>{ScoresHelper.formatPoints(info.availablePoints)} Points</div>
+        <div>
+            <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
+            <Icon type="minus-circle" onClick={() => ux.displayDropQuestion(info.question)} />
+        </div>
     </>
 ));
 QuestionHeader.propTypes = {
@@ -60,7 +64,7 @@ const QuestionFooter = observer(({ ux, info }) => {
 
     return (<Footer>
         <strong>
-      Average score: {info.averagePoints ? ScoresHelper.formatPoints(info.averagePoints) : 'n/a'}
+            Average score: {info.averagePoints ? ScoresHelper.formatPoints(info.averagePoints) : 'n/a'}
         </strong>
         {ux.canDisplayGradingButton &&
       <GradeButton
@@ -549,6 +553,7 @@ const Overview = observer(({ ux }) => {
         <Wrapper data-test-id="overview">
             {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
             <QuestionList ux={ux} scores={ux.scores} />
+            <DropQuestionModel ux={ux} />
         </Wrapper>
     );
 

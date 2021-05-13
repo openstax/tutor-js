@@ -14,6 +14,7 @@ const TOURS = {};
     require('./new-enrollment-link.json'),
     require('./student-dashboard.json'),
     require('./student-highlighting.json'),
+    require('./drop-any.json'),
 ].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
 
 export default TOURS;

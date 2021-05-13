@@ -25,29 +25,28 @@ const filterProps = function(props, options = {}) {
 const make = function(router, name = 'OpenStax') {
     const Link = (props) => {
 
-        let { to, params, query, primaryBtn, className } = props;
+        let { to, params, query, primaryBtn, className, targetNewTab } = props;
 
         if (primaryBtn) {
             className = classnames(className, 'btn', 'btn-default', 'btn-primary');
         }
         if (!router.makePathname) {
-            return (
-                <p>
-          no router?
-                </p>
-            );
+            return (<p>no router?</p>);
         }
 
         const pathname = router.makePathname(to, params);
 
-        to =
-      { pathname: pathname || to };
+        to = { pathname: pathname || to };
         if (query) {
             to.search = qs.stringify(query);
         }
 
+        const clickHandler = targetNewTab ? (ev) => {
+            window.open(ev.target.href)
+            ev.preventDefault()
+        } : undefined
         // TODO see about isActive
-        return <RouterLink to={to} {...filterProps(props)} className={className} />;
+        return <RouterLink to={to} onClick={clickHandler} {...filterProps(props)} className={className} />;
     };
 
     Link.displayName = `${name}Link`;
@@ -60,6 +59,7 @@ const make = function(router, name = 'OpenStax') {
         role: PropTypes.string,
         'data-test-id': PropTypes.string,
         children: PropTypes.node.isRequired,
+        targetNewTab: PropTypes.bool,
     };
 
     return Link;

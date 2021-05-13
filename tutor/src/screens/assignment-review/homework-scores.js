@@ -12,9 +12,11 @@ import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
 import { CornerTriangle, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
-import DropQuestions from './drop-questions';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
+import TourRegion from '../../components/tours/region';
+import { GhostButton } from '../../components/ghost-button';
+import UiSettings from 'shared/model/ui-settings';
 
 import {
     StyledStickyTable, Cell, CellContents,
@@ -276,13 +278,14 @@ const AverageScoreHeader = observer(({ ux }) => (
     </Cell>
 ));
 
-const TableHeader = observer(({ ux }) => {
+const TableHeader = observer(({ ux, showGhostButton }) => {
     return (
         <ControlsWrapper>
             <ControlGroup>
                 <SearchInput onChange={ux.onSearchStudentChange} />
                 <GrantExtension ux={ux} />
-                <DropQuestions ux={ux} />
+                {showGhostButton &&
+                 <GhostButton tourAnchorId="drop-question-relocated-button" />}
             </ControlGroup>
             <ControlGroup>
                 <PublishScores ux={ux} />
@@ -301,9 +304,11 @@ const Scores = observer(({ ux }) => {
         return <LoadingScreen message="Loading Assignment…" />;
     }
 
+    const showGhostButton = !UiSettings.get('has-viewed-drop-question-relocated');
+
     return (
-        <>
-            <TableHeader ux={ux} />
+        <TourRegion id="drop-any">
+            <TableHeader ux={ux} showGhostButton={showGhostButton} />
             <StyledStickyTable data-test-id="scores">
                 <Row>
                     <StudentColumnHeader scores={scores} ux={ux} />
@@ -371,7 +376,7 @@ const Scores = observer(({ ux }) => {
           scores are displayed. Students see their scores as they appear in your Gradebook.
                 </p>
             </TableBottom>
-        </>
+        </TourRegion>
     );
 });
 

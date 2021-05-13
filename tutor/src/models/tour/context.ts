@@ -54,7 +54,7 @@ export class TourContext extends BaseModel {
         return compact(this.courseIds.map(id => currentCourses.get(id)));
     }
 
-    @action addAnchor(id: string, domEl:HTMLElement) {
+    @action addAnchor(id: string, domEl: HTMLElement) {
         this.anchors.set(id, domEl);
         this.pickTourRide();
     }
@@ -66,7 +66,7 @@ export class TourContext extends BaseModel {
 
     @action openRegion(region: TourRegion) {
         const existing = find(this.regions, { id: region.id });
-        if (!existing){
+        if (!existing) {
             this.regions.push(region);
             this.checkReminders(region);
         }
@@ -84,7 +84,7 @@ export class TourContext extends BaseModel {
     @action checkReminders(region: TourRegion) {
         const checkRegion = region || first(this.regions);
         const remindersTourId = 'page-tips-reminders';
-        if ( checkRegion && this.autoRemind && !this.tour &&
+        if (checkRegion && this.autoRemind && !this.tour &&
             this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
         ) {
             delay(action(() => checkRegion.otherTours?.push(remindersTourId)), 500);
@@ -138,7 +138,7 @@ export class TourContext extends BaseModel {
     get eligibleTours() {
         return this.allTours.filter(tour => (
             !isEmpty(intersection(tour.audience_tags, this.audienceTags)) &&
-        find(tour.steps, 'isViewable')
+            find(tour.steps, 'isViewable')
         ));
     }
 
@@ -153,7 +153,7 @@ export class TourContext extends BaseModel {
     }
 
     @computed get debugStatus() {
-        return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; eligible tours: [${map(this.eligibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+        return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; eligible tours: [${map(this.eligibleTours, 'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
     }
 
     @action playTriggeredTours(options: { except?: boolean } = {}) {

@@ -91,7 +91,7 @@ export class TaskPlanPageStats extends BaseModel {
     }
 }
 
-class Stats extends BaseModel {
+export class Stats extends BaseModel {
     @observable period_id:ID = NEW_ID;
     @observable name = '';
     @observable total_count = 0;

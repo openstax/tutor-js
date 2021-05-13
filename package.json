@@ -21,6 +21,7 @@
     "tutor:test:server:be": "node tutor/scripts/test-server/backend.js --fe 8110 --be 8111",
     "tutor:test:unit": "./bin/test tutor",
     "tutor:test:e2e": "./bin/test e2e",
+    "typecheck": "tsc --noemit",
     "serve": "./bin/serve",
     "cached-serve": "CACHE=true npm run serve",
     "debug": "./bin/debug",

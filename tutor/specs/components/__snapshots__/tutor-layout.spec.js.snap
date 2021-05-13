@@ -15,7 +15,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                       <TutorLayout>
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls] { isMobxAction: true }}>
                           <styled.div hasNavbar={true}>
-                            <div className=\\"sc-fotPbf bHXEFN\\">
+                            <div className=\\"sc-bkkfTU fRQQzR\\">
                               <Navbar area=\\"header\\" context={{...}} isDocked={false} className=\\"\\">
                                 <styled.nav area=\\"header\\" shouldHideNavbar={[undefined]} isDocked={false} className=\\"tutor-navbar nav-\\">
                                   <nav className=\\"sc-bdvvaa kNnFlL tutor-navbar nav-\\">
@@ -24,11 +24,11 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                         <Logo>
                                           <Memo(wrappedComponent) courseContext={{...}}>
                                             <TutorLink to=\\"myCourses\\" className=\\"brand\\" aria-label=\\"dashboard\\">
-                                              <Link to={{...}} className=\\"brand\\" aria-label=\\"dashboard\\">
-                                                <LinkAnchor className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
+                                              <Link to={{...}} onClick={[undefined]} className=\\"brand\\" aria-label=\\"dashboard\\">
+                                                <LinkAnchor onClick={[undefined]} className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" navigate={[Function: navigate]}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" href=\\"/courses\\" onClick={[Function: onClick]}>
                                                     <styled.svg viewBox=\\"0 0 264.62 40.7\\">
-                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-crHlIS dGMLIV\\">
+                                                      <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"sc-bqiQRQ cIEclK\\">
                                                         <defs>
                                                           <style />
                                                         </defs>
@@ -214,7 +214,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </Observer>
                               </inject(CourseNagModal)>
                               <styled.div className=\\"\\" hasFooter={false} hasNavbar={true}>
-                                <div className=\\"sc-fFehDp fVAPnE\\">
+                                <div className=\\"sc-ieebsP hRQpXF\\">
                                   <Memo(wrappedComponent) app={[undefined]} />
                                   <p>
                                     hi i am body
