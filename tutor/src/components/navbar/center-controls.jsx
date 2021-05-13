@@ -1,5 +1,6 @@
 import { React, PropTypes, observer, observable, computed, modelize } from 'vendor';
 import { get } from 'lodash';
+import { makeObservable } from 'mobx'
 import NotesSummaryToggle from '../notes/summary-toggle';
 import { Course } from '../../models';
 import MilestonesToggle from '../../screens/task/reading-milestones-toggle';
@@ -11,7 +12,7 @@ class CenterControls extends React.Component {
         course: PropTypes.instanceOf(Course),
     }
 
-    @observable static currentTaskStep;
+    static currentTaskStep;
 
     constructor(props) {
         super(props);
@@ -47,3 +48,7 @@ class CenterControls extends React.Component {
         );
     }
 }
+
+makeObservable(CenterControls, {
+    currentTaskStep: observable,
+})

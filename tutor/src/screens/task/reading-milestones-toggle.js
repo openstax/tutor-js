@@ -1,4 +1,5 @@
 import { React, observable, styled, action, modelize } from 'vendor';
+import { makeObservable } from 'mobx'
 import { Icon } from 'shared';
 import SecondaryToolbarButton from '../../components/navbar/secondary-toolbar-button';
 
@@ -8,11 +9,8 @@ const StyledButton = styled(SecondaryToolbarButton)`
 
 export default
 class MilestonesToggle extends React.Component {
-    static propTypes = {
 
-    }
-
-    @observable static isActive = false;
+    static isActive = false;
 
     constructor(props) {
         super(props);
@@ -36,3 +34,7 @@ class MilestonesToggle extends React.Component {
         );
     }
 }
+
+makeObservable(MilestonesToggle, {
+    isActive: observable,
+})
