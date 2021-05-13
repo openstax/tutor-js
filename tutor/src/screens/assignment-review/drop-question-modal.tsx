@@ -83,7 +83,7 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
                                 <Box pad="top" margin="right">
                                     <RadioInput standalone name="type"
                                         id="full-credit" value="full"
-                                        checked={Boolean(drop && drop.drop_method == 'full_credit')}
+                                        checked={drop.drop_method == 'full_credit'}
                                         onChange={({ target: { checked } }: { target: { checked: boolean } }) => {
                                             checked && (drop.setDropMethod('full_credit'))
                                         }} />
@@ -97,7 +97,7 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
                                 <Box pad="top" margin="right">
                                     <RadioInput standalone name="type"
                                         id="zero-credit" value="zero"
-                                        checked={Boolean(drop && drop.drop_method == 'zeroed')}
+                                        checked={drop.drop_method == 'zeroed'}
                                         onChange={({ target: { checked } }: { target: { checked: boolean } }) => {
                                             checked && (drop.setDropMethod('zeroed'))
                                         }} />
