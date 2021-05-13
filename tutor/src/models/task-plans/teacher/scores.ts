@@ -406,6 +406,9 @@ export class TaskPlanScoresTasking extends BaseModel {
                     if (!question) continue;
                     // while rare, heading will be null if this student received more exercises than others
                     const heading = studentQuestion.questionHeading;
+                    const droppedQuestion = heading && heading.droppedQuestions.find(
+                        dq => dq.question_id === question.id.toString()
+                    )
                     const questionInfo = info[question.id] || (info[question.id] = {
                         id: question.id,
                         key: question.id,
@@ -415,6 +418,7 @@ export class TaskPlanScoresTasking extends BaseModel {
                         remaining: heading ? heading.gradedStats.remaining : 0,
                         index: studentQuestion.index,
                         isCore: heading?.isCore,
+                        droppedQuestion: droppedQuestion,
                         exercise,
                         question,
                         responses: [],

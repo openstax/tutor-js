@@ -1,6 +1,7 @@
 import { React, PropTypes, cn, styled, observer, css } from 'vendor';
 import { colors } from 'theme';
 import Question from 'shared/components/question';
+import { DroppedQuestionIndicator } from './dropped-question';
 
 const HomeworkQuestionsWrapper = styled.div`
 
@@ -31,9 +32,10 @@ const QuestionHeader = styled.div`
   background: ${colors.neutral.lighter};
   padding: 1rem;
   font-weight: bold;
-
   ${props => (props.variant === 'submission' || props.variant === 'reading') && css`
-    background: ${props.variant === 'reading' ? colors.templates.reading.background : colors.templates.homework.background};
+    ${!props.isDropped && css`
+        background: ${props.variant === 'reading' ? colors.templates.reading.background : colors.templates.homework.background};
+    `}
     font-size: 1.8rem;
     font-weight: normal;
     padding: 1.4rem 2.2rem;
@@ -186,9 +188,11 @@ const ReviewExerciseCard = observer(({
     questionType = 'teacher-preview',
     styleVariant = 'points',
 }) => {
+    const isDropped = !!info.droppedQuestion;
     return (
         <QuestionPreview className="openstax-exercise-preview">
-            <QuestionHeader variant={styleVariant} className="question-header">
+            <QuestionHeader variant={styleVariant} isDropped={isDropped} className="question-header">
+                {isDropped && <DroppedQuestionIndicator model={info.droppedQuestion} size={1.6} />}
                 <HeaderContent
                     styleVariant={styleVariant}
                     info={info}
