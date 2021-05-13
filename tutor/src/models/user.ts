@@ -16,14 +16,16 @@ export interface UserEventPayload {
     data: any
 }
 
-export class User extends BaseModel {
+console.log({ FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm })
 
-    courses = currentCourses
+export class User extends BaseModel {
 
     constructor() {
         super();
         modelize(this);
     }
+
+    get courses() { return currentCourses }
 
     @action.bound bootstrap(data: any) {
         hydrateInstance(this, data);
