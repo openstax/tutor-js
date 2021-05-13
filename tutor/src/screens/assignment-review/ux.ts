@@ -17,6 +17,8 @@ import ExerciseQuestion from 'shared/model/exercise/question';
 
 interface DroppedChanged {
     dropped: {
+        drop_method: string
+        question_id: ID
         isChanged: true
     }
 }
@@ -245,7 +247,9 @@ export default class AssignmentReviewUX {
         );
     }
 
-    // methods relating to droppping questions
+    // Methods relating to droppping questions
+    // TODO: Broken by drop any heading changes (headings can now have multiple dropped questions)
+    //       Maybe remove these since we are changing how questions are dropped
 
     @action toggleDropQuestion(isDropped: boolean, { question_id }: {question_id: ID}) {
         if (isDropped) {
@@ -277,7 +281,7 @@ export default class AssignmentReviewUX {
         this.changedDroppedQuestions.forEach(h => {
             const { question_id, drop_method } = h.dropped || {};
             const dropped = taskPlan.dropped_questions.find(dq => dq.question_id == question_id)
-            if (dropped) {
+            if (dropped && drop_method) {
                 dropped.drop_method = drop_method;
             }
 
@@ -289,7 +293,7 @@ export default class AssignmentReviewUX {
     }
 
     droppedQuestionRecord(heading: TaskPlanScoreHeading) {
-        return Boolean(heading.dropped || this.pendingDroppedQuestions.get(heading.question_id));
+        return Boolean(heading.dropped || heading.question_ids.find(qid => this.pendingDroppedQuestions.get(qid)));
     }
 
     @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {

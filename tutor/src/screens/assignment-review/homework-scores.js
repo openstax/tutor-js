@@ -28,6 +28,15 @@ import {
     OrderIcon, NameWrapper,
 } from './table-elements';
 
+const ORANGE_INFO_ICON = (
+    <InfoIcon
+        color="#f36a31"
+        tooltip="Students received different numbers of Tutor-selected questions.
+        This can happen when questions aren’t available, a student works an assignment late,
+        a student hasn’t started the assignment, or a personalized question is dropped."
+    />
+);
+
 const ColumnHeading = styled(BasicColumnHeading)`
   background: ${props => props.variant === 'q' ? colors.templates.homework.background : colors.neutral.lighter};
 `;
@@ -49,6 +58,47 @@ const UngradedIcon = styled.span`
   line-height: 1.4rem;
   letter-spacing: 0.38px;
 `;
+
+const TotalPointsHeading = observer(({ ux }) => {
+    if (ux.scores.hasEqualQuestions) {
+        return (<span>{ScoresHelper.formatPoints(ux.scores.availablePoints)}</span>);
+    }
+
+    return ORANGE_INFO_ICON;
+});
+
+const AssignmentHeadingPoints = observer(({ heading }) => {
+    let cellContents;
+
+    if (!heading.someQuestionsDropped ||
+        heading.everyQuestionZeroed ||
+        heading.everyQuestionFullCredit) {
+        cellContents = (<span>{ScoresHelper.formatPoints(heading.points)}</span>);
+
+        if (!heading.someQuestionsDropped) {
+            return cellContents;
+        }
+    }
+    else {
+        cellContents = ORANGE_INFO_ICON;
+    }
+
+    const triangleTooltip = heading.everyQuestionZeroed ? 'Points changed to 0' :
+        (heading.everyQuestionFullCredit ? 'Full credit given to all students':
+            'Question dropped for one or more students');
+
+    return (
+        <>
+            <CornerTriangle color="blue"
+                data-test-id="dropped-question-indicator"
+                data-question-id={`Q${heading.question_id}`}
+                tooltip={triangleTooltip}
+            />
+
+            {cellContents}
+        </>
+    );
+});
 
 const StudentColumnHeader = observer(({ ux }) => (
     <Cell leftBorder={true}>
@@ -105,15 +155,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     </SplitCell>
                 </HeadingMiddle>
                 <HeadingBottom>
-                    {ux.scores.hasEqualTutorQuestions ?
-                        ScoresHelper.formatPoints(ux.scores.availablePoints) :
-                        <InfoIcon
-                            color="#f36a31"
-                            tooltip="Students received different numbers of Tutor-selected questions.
-              This can happen when questions aren’t available, a student works an assignment
-              late, or a student hasn’t started the assignment."
-                        />
-                    }
+                    <TotalPointsHeading ux={ux} />
                 </HeadingBottom>
             </ColumnHeading>
             <ColumnHeading>
@@ -147,7 +189,7 @@ const StudentCell = observer(({ ux, student, striped, border }) => (
             </NameWrapper>
             <Total>
                 {ux.displayTotalInPercent ?
-                    student.humanTotalFraction : ( ux.scores.hasEqualTutorQuestions ?
+                    student.humanTotalFraction : ( ux.scores.hasEqualQuestions ?
                         student.humanTotalPoints : student.humanTotalWithAvailablePoints)}
             </Total>
             <LateWork>
@@ -172,14 +214,7 @@ const AssignmentHeading = observer(({ ux, heading }) => (
                 {heading.type}
             </HeadingMiddle>
             <HeadingBottom>
-                {heading.dropped &&
-          <CornerTriangle color="blue"
-              data-test-id="dropped-question-indicator"
-              data-question-id={`Q${heading.question_id}`}
-              tooltip={heading.dropped.drop_method == 'zeroed' ?
-                  'Points changed to 0' : 'Full credit given to all students'}
-          />}
-                {ScoresHelper.formatPoints(heading.displayPoints)}
+                <AssignmentHeadingPoints heading={heading} />
             </HeadingBottom>
         </ColumnHeading>
     </Cell>
@@ -297,8 +332,8 @@ const Scores = observer(({ ux }) => {
                     {scores.question_headings.map((h, i) => (
                         <Cell key={i}>
                             <ResultWrapper>
-                                {isNaN(h.displayAverageGradedPoints) && UNWORKED ||
-                  ScoresHelper.formatPoints(h.displayAverageGradedPoints)}
+                                {isNaN(h.averageGradedPoints) && UNWORKED ||
+                  ScoresHelper.formatPoints(h.averageGradedPoints)}
                             </ResultWrapper>
                         </Cell>
                     ))}

@@ -526,7 +526,7 @@ const HomeWorkInfo = observer(({ ux }) => (
             </Row>
             <Row>
                 <Header>
-          Available Points <AvailablePoints value={(ux.scores.hasEqualTutorQuestions && ux.scores.availablePoints) || false} />
+          Available Points <AvailablePoints value={(ux.scores.hasEqualQuestions && ux.scores.availablePoints) || false} />
                 </Header>
                 {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
             </Row>
