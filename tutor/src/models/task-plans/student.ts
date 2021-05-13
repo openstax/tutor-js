@@ -153,7 +153,9 @@ class StudentTaskPlans extends Map<ID, StudentTask> {
 
     // called from API
     async fetch() {
-        const data = await this.api.request<TasksPayload>(urlFor('fetchStudentTasks', { courseId: this.course.id }))
+        const data = await this.api.request<TasksPayload>(
+            urlFor('fetchStudentTasks', { courseId: this.course.id }, { role_id: this.course.currentRole.id }),
+        )
         this.onLoaded(data)
     }
 

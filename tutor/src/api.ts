@@ -57,7 +57,7 @@ const Definitions = {
     fetchStudentTaskStep:   r<StepId>('GET', 'steps/{stepId}'),
     saveStudentTaskStep:    r<StepId>('PUT', 'steps/{stepId}'),
 
-    fetchStudentTask:       r<TaskId>('GET', 'tasks/{taskId}'),
+    fetchStudentTask:       r<TaskId, RoleIdParam>('GET', 'tasks/{taskId}'),
     saveStudentTask:        r<TaskId>('PUT', 'tasks/{taskId}'),
 
     createExercise:         r<CourseId>('POST', 'courses/{courseId}/exercises'),
