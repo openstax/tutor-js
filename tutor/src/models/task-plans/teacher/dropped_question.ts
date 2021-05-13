@@ -1,4 +1,5 @@
-import { BaseModel, model, ID, field, action, modelize, observable, NEW_ID, Exercise } from 'shared/model';
+import { BaseModel, model, ID, field, action, modelize, observable, NEW_ID } from 'shared/model';
+import { Exercise } from '../../../models';
 import Time from 'shared/model/time'
 
 export class DroppedQuestion extends BaseModel {
@@ -8,7 +9,7 @@ export class DroppedQuestion extends BaseModel {
     @model(Time) updated_at = Time.unknown;
     @observable isChanged = false;
     @observable excluded = false;
-    @observable exercise: Exercise;
+    @observable exercise: Exercise | undefined;
 
     constructor() {
         super();

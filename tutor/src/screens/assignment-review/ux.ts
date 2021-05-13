@@ -256,12 +256,13 @@ export default class AssignmentReviewUX {
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
         this.pendingDroppedQuestions.set(question.id, hydrateModel(DroppedQuestion, { question_id: question.id }))
-        const heading = this?.scores.question_headings.find(qh => qh.question_id === question.id)
+        const heading = this?.scores?.question_headings.find(qh => qh.question_id === question.id)
         if (!heading) { throw 'Could not find heading for question' }
         this.droppedHeading = heading
         this.droppedQuestion = this.findDroppedQuestion(heading)
-        this.droppedQuestion?.exercise = question.exercise.wrapper as Exercise
-        this.droppedQuestion?.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
+        if (!this.droppedQuestion) { throw 'droppedQuestion is null' }
+        this.droppedQuestion.exercise = question.exercise.wrapper as Exercise
+        this.droppedQuestion.excluded = this.droppedQuestion.exercise.is_excluded || isNil(heading.dropped)
     }
 
     @action.bound cancelDisplayingDropQuestions() {

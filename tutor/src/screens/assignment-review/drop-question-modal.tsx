@@ -33,7 +33,7 @@ const Light = styled.div`
 export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
     @observable selection?: string
 
-    constructor(props) {
+    constructor(props: any) {
         super(props)
         modelize(this)
     }
@@ -47,7 +47,7 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
         const heading = droppedHeading
         const drop = droppedQuestion
 
-        if (!question) {
+        if (!question || !drop || !heading) {
             return null
         }
         const exercise = question?.exercise.wrapper as Exercise
