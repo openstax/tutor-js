@@ -93,7 +93,7 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
                                     <Light>Students must attempt the question to get credit</Light>
                                 </Box>
                             </Box>
-                            <Box as="label">
+                            <Box>
                                 <Box pad="top" margin="right">
                                     <RadioInput standalone name="type"
                                         id="zero-credit" value="zero"
