@@ -1,5 +1,7 @@
 import { React, observable, action, computed, modelize, hydrateModel } from 'vendor';
-import { first, pick, sortBy, filter, sumBy, get, find, isNil } from 'lodash';
+import {
+    first, pick, sortBy, filter, sumBy, get, find, isNil, pickBy, identity,
+} from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import { ID, NEW_ID } from 'shared/model'
 import {
@@ -14,17 +16,6 @@ import { runInAction } from 'mobx';
 import DetailsBody from '../assignment-edit/details-body';
 import { History } from 'history';
 import ExerciseQuestion from 'shared/model/exercise/question';
-
-interface DroppedChanged {
-    dropped: {
-        drop_method: string
-        question_id: ID
-        isChanged: true
-    }
-}
-function isDroppedChanged(h: any): h is DroppedChanged {
-    return h && h.droppedQuestions.filter((dq: DroppedQuestion) => dq.isChanged).length > 0
-}
 
 export default class AssignmentReviewUX {
 
@@ -255,7 +246,13 @@ export default class AssignmentReviewUX {
 
     @action displayDropQuestion(question: ExerciseQuestion) {
         this.displayingDropQuestion = question
-        this.droppedQuestion = hydrateModel(DroppedQuestion, { question_id: question.id.toString() })
+        const existing = this.findDroppedQuestion(question.id)
+        const dqAttrs = pickBy({
+            question_id: question.id.toString(),
+            drop_method: existing?.drop_method,
+        }, identity)
+        this.droppedQuestion = hydrateModel(DroppedQuestion, dqAttrs)
+        if (!existing) { this.droppedQuestion.isChanged = true }
         this.pendingDroppedQuestions.set(question.id.toString(), this.droppedQuestion)
 
         const heading = this?.scores?.question_headings.find(qh => qh.question_ids.includes(question.id.toString()))
@@ -271,7 +268,6 @@ export default class AssignmentReviewUX {
         this.pendingDroppedQuestions.clear();
         this.droppedQuestion = null;
         this.droppedHeading = null;
-        this.changedDroppedQuestions.forEach(qh => qh.droppedQuestions.map(dq => dq.isChanged = false));
         this.displayingDropQuestion = null
     }
 
@@ -279,9 +275,7 @@ export default class AssignmentReviewUX {
         const { taskPlan, droppedQuestion, course } = this;
         if (!droppedQuestion) { throw 'droppedQuestion is null' }
 
-        const existing = taskPlan.dropped_questions.find(
-            dq => dq.question_id.toString() === droppedQuestion.question_id.toString()
-        )
+        const existing = this.findDroppedQuestion(droppedQuestion.question_id)
         if (existing) {
             existing.drop_method = droppedQuestion.drop_method
         } else {
@@ -296,15 +290,14 @@ export default class AssignmentReviewUX {
         this.cancelDisplayingDropQuestions();
     }
 
-    @computed get changedDroppedQuestions(): (TaskPlanScoreHeading & DroppedChanged)[] {
-        return this.scores?.question_headings.filter(isDroppedChanged) as any || [];
+    findDroppedQuestion(questionId: string | number) {
+        return this.taskPlan.dropped_questions.find(
+            dq => dq.question_id.toString() === questionId.toString()
+        )
     }
 
     @computed get canSubmitDroppedQuestions() {
-        return Boolean(
-            this.changedDroppedQuestions.length > 0 ||
-            this.pendingDroppedQuestions.size > 0
-        );
+        return Boolean(this.droppedQuestion?.isChanged);
     }
 
     @computed get isDroppedQuestionsSaving() {
