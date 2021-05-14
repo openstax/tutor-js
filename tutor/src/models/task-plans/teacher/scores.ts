@@ -177,6 +177,18 @@ export class TaskPlanScoreStudent extends BaseModel {
         return this.questions[heading.index];
     }
 
+    @computed get someQuestionsDroppedByInstructor() {
+        return this.questions.some(q => q.droppedQuestion);
+    }
+
+    @computed get someQuestionsDroppedByAlgorithm() {
+        return this.questions.length < this.tasking.question_headings.length;
+    }
+
+    @computed get someQuestionsDropped() {
+        return this.someQuestionsDroppedByInstructor || this.someQuestionsDroppedByAlgorithm;
+    }
+
     @computed get name() {
         return `${this.last_name}, ${this.first_name}`;
     }

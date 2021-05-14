@@ -209,7 +209,9 @@ const DroppedQuestionsIndicator = observer(({
     student,
     size = 1,
 }) => {
-    return (<DroppedIndicator model={{title: ''}} tooltip="Question(s) dropped" size={size}/>);
+    if (!student.someQuestionsDropped) return null
+
+    return (<DroppedIndicator model={{title: ''}} tooltip="Question(s) dropped" size={size}/>)
 })
 DroppedQuestionsIndicator.displayName = 'DroppedQuestionsIndicator'
 
