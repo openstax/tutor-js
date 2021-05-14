@@ -45,7 +45,7 @@ const QuestionId = styled.span`
 
 const QuestionWithId = ({ question, label, isReading, isCore }) => {
     label = isReading ? 'Question' : isCore ? label : 'OpenStax Tutor Selection'
-    return <span>{label}<QuestionId>{question.exercise.uid}</QuestionId></span>
+    return <span>{label}<QuestionId>ID: #{question.exercise.uid}</QuestionId></span>
 }
 
 QuestionWithId.propTypes = {
