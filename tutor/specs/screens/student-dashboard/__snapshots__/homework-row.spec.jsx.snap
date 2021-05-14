@@ -4,11 +4,15 @@ exports[`Homework Row renders in progress 1`] = `
 .c9 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .c11 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
   border-radius: 50%;
   padding: 2px;
   height: 1.125em;
@@ -307,6 +311,8 @@ exports[`Homework Row renders with completed count 1`] = `
 .c10 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
   border-radius: 50%;
   padding: 2px;
   height: 1.125em;

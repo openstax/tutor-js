@@ -73,6 +73,8 @@ exports[`Student Enrollment displays generic error message 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
@@ -266,6 +268,8 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
