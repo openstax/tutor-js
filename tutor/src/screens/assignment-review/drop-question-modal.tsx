@@ -1,4 +1,4 @@
-import { React, observer, observable, action, modelize, styled } from 'vendor'
+import { React, observer, observable, action, modelize, styled, Box } from 'vendor'
 import { Modal, Button } from 'react-bootstrap'
 import { colors } from '../../theme'
 import type UX from './ux'
@@ -7,7 +7,6 @@ import { Icon, AsyncButton } from 'shared'
 import { Exercise } from 'tutor/src/models'
 import RadioInput from '../../components/radio-input'
 import CheckboxInput from '../../components/checkbox-input'
-import { Box } from 'boxible'
 import S from '../../helpers/string'
 
 
@@ -72,10 +71,10 @@ export class DropQuestionModal extends React.Component<DropQuestionModalProps> {
                         Question ID: #{question?.id}
                         <Icon type="external-link-square" />
                     </DetailsLink>
-                    <p>
+                    <Box margin={{ top: 'large', bottom: 'xlarge' }}>
                         Drop question for all students in all sections. Question will be marked
                         as dropped but remain available to students.
-                    </p>
+                    </Box>
                     <Box margin={{ bottom: 'large' }}>
                         <b>Reallocate Points</b>
                         <Box direction="column" margin={{ left: '40px' }}>
