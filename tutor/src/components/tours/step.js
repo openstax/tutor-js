@@ -32,6 +32,10 @@ export default class TourStep extends React.Component {
             arrow: {
                 color: colors.secondary,
             },
+            container: {
+                minHeight: 0,
+                padding: 0,
+            },
         },
     };
 

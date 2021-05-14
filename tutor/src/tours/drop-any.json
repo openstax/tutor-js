@@ -1,5 +1,5 @@
 [{
-  "id": "drop-any",
+  "id": "drop-any-relocated",
   "autoplay": true,
   "standalone": true,
   "audience_tags": [
@@ -11,6 +11,25 @@
       "customComponent": "DropQuestionRelocated",
       "is_fixed": true,
       "anchor_id": "drop-question-relocated-button",
+      "position": "right-start",
+      "spotlight": false,
+      "className": "green"
+    }
+  ]
+},
+{
+  "id": "drop-any-new",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "customComponent": "DropQuestionNew",
+      "is_fixed": true,
+      "anchor_id": "drop-question-new",
       "position": "right-start",
       "spotlight": false,
       "className": "green"
