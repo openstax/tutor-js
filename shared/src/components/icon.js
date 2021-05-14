@@ -125,6 +125,8 @@ const IconWrapper = styled(FontAwesomeIcon).withConfig({
 })`
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  transition: color 0.3s ease;
+  ${({ hoverColor }) => css`&:hover { color: ${hoverColor}; }`}
   ${({ withCircle }) => withCircle && css`border-radius: 50%; padding: 2px; height: 1.125em; width: 1.125em;`}
   ${({ background }) => background && css`background: ${background};`}
 `;
@@ -195,6 +197,8 @@ class Icon extends React.Component {
         buttonProps: PropTypes.object,
         btnVariant: PropTypes.string,
         asButton: PropTypes.bool,
+        color: PropTypes.string,
+        hoverColor: PropTypes.string,
         variant: PropTypes.oneOf(Object.keys(Variants)),
         tooltip: PropTypes.oneOfType([
             PropTypes.string,
@@ -216,7 +220,7 @@ class Icon extends React.Component {
         }
         const {
             onClick, onBlur, buttonProps, tooltipProps, btnVariant,
-            type, className, tooltip, onNavbar, busy, asButton,
+            type, className, tooltip, onNavbar, busy, asButton, color, hoverColor,
             ...props
         } = providedProps;
         props.icon = Icons[type];
@@ -239,6 +243,7 @@ class Icon extends React.Component {
         let icon = (
             <IconWrapper
                 data-variant={variant}
+                color={color} hoverColor={hoverColor}
                 className={cn('ox-icon', `ox-icon-${type}`, className)}
                 {...props}
             />
