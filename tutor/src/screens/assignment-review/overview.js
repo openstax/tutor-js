@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, observer, cn } from 'vendor';
+import { React, PropTypes, styled, Theme, css, observer, cn, Box } from 'vendor';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import { isEmpty, compact } from 'lodash';
 import { Button } from 'react-bootstrap';
@@ -36,6 +36,18 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
+const QuestionId = styled.span`
+  border-left: 1px solid ${Theme.colors.neutral.pale};
+  padding-left: 0.8rem;
+  margin-left: 0.8rem;
+  font-weight: normal;
+`
+const QuestionWithId = ({ question }) => (
+    <span>Question:<QuestionId>{question.exercise.uid}</QuestionId></span>
+)
+QuestionWithId.propTypes = {
+    question: PropTypes.object.isRequired,
+}
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
     <>
         <ExerciseNumber variant={styleVariant} data-question-id={info.question.id}>
@@ -44,17 +56,23 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
                     type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
                     onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
                 />)}
-            {ux.planScores.isReading ? 'Question' :
+            {ux.planScores.isReading ? <QuestionWithId question={info.question} /> :
                 (info.isCore ? label : 'OpenStax Tutor Selection')}
         </ExerciseNumber>
-        <TourRegion id="drop-any-new">
-            <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
-            <Icon
-                type="minus-circle"
-                data-tour-anchor-id="drop-question-new"
-                onClick={() => ux.displayDropQuestion(info.question)}
-            />
-        </TourRegion>
+        <Box gap="large" align="center">
+            <TourRegion id="drop-any-new">
+                <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
+                <Icon
+                    type="minus-circle"
+                    data-tour-anchor-id="drop-question-new"
+                    tooltip="Drop question"
+                    color={Theme.colors.neutral.gray}
+                    hoverColor={Theme.colors.neutral.darker}
+                    tooltipProps={{ placement: 'bottom' }}
+                    onClick={() => ux.displayDropQuestion(info.question)}
+                />
+            </TourRegion>
+        </Box>
     </>
 ));
 QuestionHeader.propTypes = {
@@ -204,7 +222,12 @@ const MCQFreeResponse = observer(({ ux, question }) => (
             const studentQuestion = student.questions.find(sq => sq.selected_answer_id == answer.id);
             return (studentQuestion && studentQuestion.free_response) && (
                 <StyledQuestionFreeResponse key={i} data-student-id={student.id}>
-                    <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
+                    <div
+                        className="name"
+                        data-test-id="wrq-response-student-name"
+                    >
+                        {ux.getStudentName(student)}
+                    </div>
                     <div className="resp">{studentQuestion.free_response}</div>
                 </StyledQuestionFreeResponse>
             );
@@ -241,7 +264,12 @@ const WRQFreeResponse = observer(({ ux, info }) => {
                     longResponse={response.free_response.length > 2000}
                 >
                     <div>
-                        <div className="name" data-test-id="wrq-response-student-name">{ux.getStudentName(student)}</div>
+                        <div
+                            className="name"
+                            data-test-id="wrq-response-student-name"
+                        >
+                            {ux.getStudentName(student)}
+                        </div>
                         <div className="resp">
                             <p>{response.free_response}</p>
                         </div>
