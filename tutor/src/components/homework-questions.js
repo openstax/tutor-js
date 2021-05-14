@@ -179,7 +179,7 @@ const ExerciseNumber = styled.div`
 
 export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
-const DroppedReviewExerciseIndicator = observer(({info}) => {
+const DroppedReviewExerciseIndicator = observer(({ info }) => {
     const model = info.droppedQuestion
     let numStudents
     if (info.isCore) {

@@ -15,7 +15,7 @@ const CornerTriangle:React.FC<CornerTriangleProps> = (
     return (
         <OverlayTrigger
             overlay={<Tooltip id="corner-triangle">{tooltip}</Tooltip>}
-            popperConfig={{modifiers: {preventOverflow: { enabled: preventOverflow },},}}
+            popperConfig={ { modifiers: { preventOverflow: { enabled: preventOverflow } } } }
         >
             <StyledTriangle color={color} {...attrs} />
         </OverlayTrigger>
@@ -129,5 +129,5 @@ export {
     TriangleCSS,
     DroppedIndicator,
     DroppedQuestionHeadingIndicator,
-    DroppedStepIndicator
+    DroppedStepIndicator,
 };
