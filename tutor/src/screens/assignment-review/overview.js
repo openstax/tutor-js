@@ -49,11 +49,11 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
         </ExerciseNumber>
         <TourRegion id="drop-any-new">
             <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
-                <Icon
-                    type="minus-circle"
-                    data-tour-anchor-id="drop-question-new"
-                    onClick={() => ux.displayDropQuestion(info.question)}
-                />
+            <Icon
+                type="minus-circle"
+                data-tour-anchor-id="drop-question-new"
+                onClick={() => ux.displayDropQuestion(info.question)}
+            />
         </TourRegion>
     </>
 ));

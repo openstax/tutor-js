@@ -42,7 +42,7 @@ export default class TourStep extends React.Component {
                 minHeight: 0,
                 padding: 0,
             },
-        }
+        },
     };
 
 

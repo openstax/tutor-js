@@ -7,7 +7,7 @@ import InstructorWelcomeToTutor  from './instructor-welcome-to-tutor';
 import StudentWelcomeToTutor     from './student-welcome-to-tutor';
 import Standard                  from './standard';
 import {
-    DropQuestionRelocated, DropQuestionNew
+    DropQuestionRelocated, DropQuestionNew,
 } from './drop-any';
 
 export default {
