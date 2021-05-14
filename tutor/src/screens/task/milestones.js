@@ -35,10 +35,10 @@ const StyledCol = styled(Col)`
     }
   `}
 
-  .icon {
+  .ox-icon-clock {
     position: absolute;
-    top: 3px;
-    right: 3px;
+    top: 1rem;
+    left: 1rem;
 
     & svg {
       height: 12px;
@@ -77,6 +77,7 @@ class Milestone extends React.Component {
                     className={classes}
                     onClick={this.goToStep}
                 >
+                    {step.isLate && <Icon color={colors.danger} type='clock' />}
                     <Breadcrumb
                         canReview
                         step={step}
@@ -87,19 +88,15 @@ class Milestone extends React.Component {
                         currentStep={currentStep}
                         key={`breadstep-${step.type}-${stepIndex}`}
                     />
+
                     <ArbitraryHtmlAndMath
                         block={true}
                         className="milestone-preview"
                         html={step.preview}
                     />
                     <DroppedQuestionIndicator model={step} size={4} />
-                    <div className="icon">
-                        {step.isLate &&
-                         <Icon
-                             color={colors.danger}
-                             type='clock'
-                         />}
-                    </div>
+
+
                     {
                         step.isExercise && step.is_completed && (
                             <div className="points-info-container">
