@@ -172,7 +172,9 @@ export class TaskPlanScoreStudent extends BaseModel {
     }
 
     resultForHeading(heading: TaskPlanScoreHeading) {
-        return this.questions.length > heading.index ? this.questions[heading.index] : null;
+        const index = this.questionHeadings.indexOf(heading);
+        if (index < 0) { return null; }
+        return this.questions[heading.index];
     }
 
     @computed get name() {
@@ -229,10 +231,7 @@ export class TaskPlanScoreHeading extends BaseModel {
     }
 
     @computed get studentResponses() {
-        return compact(this.tasking.students.map(
-            // Can't use the index above, as this has to account for dropped questions
-            student => student.questions[student.questionHeadings.indexOf(this)]
-        ));
+        return compact(this.tasking.students.map(student => student.resultForHeading(this)));
     }
 
     /*
