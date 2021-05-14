@@ -35,9 +35,6 @@ const StyledGreenTooltip = styled(GreenTooltip)`
     }
 
     &.drop-relocated {
-        margin-left: -8px;
-        margin-top: 15px;
-
         .header {
             padding: 10px 24px;
             font-weight: bold;
@@ -48,8 +45,6 @@ const StyledGreenTooltip = styled(GreenTooltip)`
         .header {
             padding: 9px 10px;
             min-width: 196px;
-            margin-top: -10px;
-            z-index: 1;
         }
     }
 `
