@@ -4,6 +4,8 @@ exports[`TagList component renders items 1`] = `
 .c3 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .c0 > * {

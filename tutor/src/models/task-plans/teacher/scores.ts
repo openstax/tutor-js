@@ -26,7 +26,7 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     @field free_response = '';
     @field task_step_id: ID = NEW_ID;
     @field needs_grading = false;
-    @field grader_points = 0 ;
+    @field grader_points?: number;
     @field grader_comments = '';
     @field submitted_late = false;
 

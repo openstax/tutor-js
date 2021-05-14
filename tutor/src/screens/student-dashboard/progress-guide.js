@@ -115,7 +115,7 @@ class ProgressGuideCards extends React.Component {
             <Card className="progress-guide">
                 <div className="actions-box">
                     <ProgressGuide sections={recent} {...this.props} />
-                    <PracticeWeakestButton course={this.props.course} />
+                    <PracticeWeakestButton courseId={this.props.course.id} />
                     <Button
                         variant="outline-secondary"
                         onClick={this.viewPerformanceForecast}

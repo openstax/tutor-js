@@ -79,7 +79,7 @@ const SavePracticeButton = observer(({
             practiceQuestion.destroy();
         }
         else {
-            practiceQuestions.create({ tasked_exercise_id: taskStep.tasked_id });
+            practiceQuestions.create(taskStep.tasked_id);
         }
     };
 

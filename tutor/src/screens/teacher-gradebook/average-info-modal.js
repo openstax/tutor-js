@@ -1,4 +1,4 @@
-import { React, PropTypes, useObserver, styled } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { Modal, Table } from 'react-bootstrap';
 import { colors } from 'theme';
 import { ArbitraryHtmlAndMath } from 'shared';
@@ -82,8 +82,8 @@ const StyleTable = styled(Table)`
     }
 `;
 
-const AverageInfoModal = ({ ux }) => {
-    return useObserver(() =>
+const AverageInfoModal = observer(({ ux }) => {
+    return (
         <StyledModal
             show={ux.showAverageInfoModal}
             onHide={() => ux.hideAverageInfo()}
@@ -157,8 +157,9 @@ const AverageInfoModal = ({ ux }) => {
                     </li>
                 </List>
             </Modal.Body>
-        </StyledModal>);
-};
+        </StyledModal>
+    );
+});
 AverageInfoModal.propTypes = {
     ux: PropTypes.object.isRequired,
 };

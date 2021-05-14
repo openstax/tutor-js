@@ -4,6 +4,8 @@ exports[`Course Settings, student access can switch to links 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
@@ -181,6 +183,8 @@ exports[`Course Settings, student access can switch to lms 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
@@ -518,6 +522,8 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div

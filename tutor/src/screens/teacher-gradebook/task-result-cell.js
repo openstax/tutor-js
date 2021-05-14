@@ -1,5 +1,4 @@
-import { React, styled, useObserver, css } from 'vendor';
-import { observer } from 'mobx-react';
+import { React, styled, observer, css } from 'vendor';
 import { isNil } from 'lodash';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
@@ -18,7 +17,7 @@ const StyledCell = styled(Cell)`
     `}
 `;
 
-const ReviewLink = ({ task, children }) => useObserver(() => {
+const ReviewLink = observer(({ task, children }) => {
     const { course } = task.student.period;
     if (!course.currentRole.isTeacher) {
         return children;

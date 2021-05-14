@@ -100,7 +100,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     aria-label="Sort by student name"
                     role="button"
                 >
-          Student Name
+                    Student Name
                     <SortIcon sort={ux.sortForColumn(0, ux.reverseNameOrder ? 'first_name' : 'name')} />
                 </HeadingTop>
                 <HeadingMiddle>
@@ -112,7 +112,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                     />
                 </HeadingMiddle>
                 <HeadingBottom>
-          Available Points
+                    Available Points
                 </HeadingBottom>
             </ColumnHeading>
             <ColumnHeading>
@@ -131,7 +131,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in points"
                         role="button"
                     >
-            #
+                        #
                     </SplitCell>
                     <SplitCell variant="divider">
             |
@@ -142,7 +142,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in percent"
                         role="button"
                     >
-            %
+                        %
                     </SplitCell>
                 </HeadingMiddle>
                 <HeadingBottom>
@@ -151,7 +151,7 @@ const StudentColumnHeader = observer(({ ux }) => (
             </ColumnHeading>
             <ColumnHeading>
                 <HeadingTop>
-          Late work
+                    Late work
                 </HeadingTop>
                 <HeadingMiddle>
                     {ux.planScores.grading_template.humanLateWorkPenaltyApplied}
@@ -359,6 +359,10 @@ const Scores = observer(({ ux }) => {
                     <Entry wide={true}>
                         <Term variant="trouble" aria-label="Less than 50%"></Term>
                         <Definition>Scores less than 50% of question's point value</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" wide aria-label="Different # of questions">{ORANGE_INFO_ICON}</Term>
+                        <Definition>Different # of Tutor-selected questions</Definition>
                     </Entry>
                 </Definitions>
                 <p>

@@ -4,6 +4,8 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
@@ -51,6 +53,8 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
 .c0 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 <div
