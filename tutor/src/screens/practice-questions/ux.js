@@ -25,7 +25,7 @@ export default class PracticeQuestionsUX {
                 {
                     course: this.course,
                     exercise_ids: this.practiceQuestions.getAllExerciseIds(),
-                    action: 'practice_exercises',
+                    action: 'practice_exercises', limit: false,
                 });
         }
         runInAction(() => {
