@@ -298,7 +298,7 @@ const Scores = observer(({ ux }) => {
     const showGhostButton = !UiSettings.get('has-viewed-drop-question-relocated');
 
     return (
-        <TourRegion id="drop-any">
+        <TourRegion id="drop-any-relocated">
             <TableHeader ux={ux} showGhostButton={showGhostButton} />
             <StyledStickyTable data-test-id="scores">
                 <Row>

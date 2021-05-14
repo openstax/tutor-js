@@ -11,6 +11,7 @@ import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
 import { DropQuestionModal } from './drop-question-modal';
+import TourRegion from '../../components/tours/region';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -46,10 +47,14 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
             {ux.planScores.isReading ? 'Question' :
                 (info.isCore ? label : 'OpenStax Tutor Selection')}
         </ExerciseNumber>
-        <div>
+        <TourRegion id="drop-any-new">
             <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
-            <Icon type="minus-circle" onClick={() => ux.displayDropQuestion(info.question)} />
-        </div>
+            <Icon
+                type="minus-circle"
+                data-tour-anchor-id="drop-question-new"
+                onClick={() => ux.displayDropQuestion(info.question)}
+            />
+        </TourRegion>
     </>
 ));
 QuestionHeader.propTypes = {
@@ -526,7 +531,7 @@ const HomeWorkInfo = observer(({ ux }) => (
             </Row>
             <Row>
                 <Header>
-          Available Points <AvailablePoints value={(ux.scores.hasEqualQuestions && ux.scores.availablePoints) || false} />
+                    Available Points <AvailablePoints value={(ux.scores.hasEqualQuestions && ux.scores.availablePoints) || false} />
                 </Header>
                 {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
             </Row>
@@ -540,9 +545,9 @@ const HomeWorkInfo = observer(({ ux }) => (
             </Row>
         </StyledStickyTable>
         <Legend>
-      MCQ: Multiple Choice Question (auto-graded);
-      WRQ: Written Response Question (manually-graded);
-      Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
+            MCQ: Multiple Choice Question (auto-graded);
+            WRQ: Written Response Question (manually-graded);
+            Tutor: OpenStax Tutor Beta selection (MCQs and auto-graded)
         </Legend>
     </>
 ));

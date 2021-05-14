@@ -6,7 +6,9 @@ import NewEnrollmentLink         from './new-enrollment-link';
 import InstructorWelcomeToTutor  from './instructor-welcome-to-tutor';
 import StudentWelcomeToTutor     from './student-welcome-to-tutor';
 import Standard                  from './standard';
-import { DropQuestionRelocated } from './drop-question-relocated';
+import {
+    DropQuestionRelocated, DropQuestionNew,
+} from './drop-any';
 
 export default {
     HowToUseQL,
@@ -18,4 +20,5 @@ export default {
     StudentWelcomeToTutor,
     Standard,
     DropQuestionRelocated,
+    DropQuestionNew,
 };

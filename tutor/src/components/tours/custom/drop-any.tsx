@@ -4,13 +4,7 @@ import { GreenTooltip } from './common'
 import UiSettings from 'shared/model/ui-settings'
 
 const StyledGreenTooltip = styled(GreenTooltip)`
-    margin-left: -8px;
-    margin-top: 15px;
-
     .header {
-        padding: 10px 24px;
-        font-weight: bold;
-
         button {
             display: flex;
             flex-direction: column;
@@ -39,16 +33,35 @@ const StyledGreenTooltip = styled(GreenTooltip)`
             padding-inline-start: 16px;
         }
     }
+
+    &.drop-relocated {
+        margin-left: -8px;
+        margin-top: 15px;
+
+        .header {
+            padding: 10px 24px;
+            font-weight: bold;
+        }
+    }
+
+    &.drop-new {
+        .header {
+            padding: 9px 10px;
+            min-width: 196px;
+            margin-top: -10px;
+            z-index: 1;
+        }
+    }
 `
 
-export const DropQuestionRelocated = (props: any) => {
+const DropQuestionRelocated = (props: any) => {
     const close = () => {
         UiSettings.set('has-viewed-drop-question-relocated', true)
         props.ride.markComplete()
     }
 
     return (
-        <StyledGreenTooltip {...props}>
+        <StyledGreenTooltip {...props} className="drop-relocated">
             <div className="header">
                 Drop Question?
                 <button onClick={close} aria-label="Close" className="close">
@@ -64,7 +77,24 @@ export const DropQuestionRelocated = (props: any) => {
                 </ol>
             </div>
         </StyledGreenTooltip >
-    );
+    )
 }
 
-export default DropQuestionRelocated
+const DropQuestionNew = (props: any) => {
+    const close = () => {
+        props.ride.markComplete()
+    }
+
+    return (
+        <StyledGreenTooltip {...props} className="drop-new">
+            <div className="header">
+                <b>NEW!</b> Drop Question
+                <button onClick={close} aria-label="Close" className="close">
+                    <Icon type="close" />
+                </button>
+            </div>
+        </StyledGreenTooltip>
+    )
+}
+
+export { DropQuestionRelocated, DropQuestionNew }
