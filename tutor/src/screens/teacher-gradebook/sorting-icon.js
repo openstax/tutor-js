@@ -1,9 +1,9 @@
-import { React, PropTypes, useObserver } from 'vendor';
+import { React, PropTypes, observer } from 'vendor';
 import { colors } from 'theme';
 import { Icon } from 'shared';
 import UX from './ux';
 
-const SortingIcon = ({ ux, sortKey, dataType }) => useObserver(() => {
+const SortingIcon = observer(({ ux, sortKey, dataType }) => {
     const isSorted = ux.isRowSortedBy({ sortKey, dataType });
     return (
         <Icon

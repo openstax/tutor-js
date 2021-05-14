@@ -2,7 +2,7 @@ import React, { createRef, useState, useEffect, useRef, useMemo, useCallback } f
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 import {
-    PropTypes as mobxPropTypes, useObserver, useLocalStore,
+    PropTypes as mobxPropTypes, useLocalStore,
 } from 'mobx-react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
@@ -21,8 +21,9 @@ export {
     React, cn, ReactDOM, mobxPropTypes, PropTypes,
     invariant, styled, css, idType, autobind, Theme,
     createRef, useState, useHistory, useLocation, useParams, useEffect, useRef,
-    useObserver, useLocalStore, useCallback, useMemo,
+    useLocalStore, useCallback, useMemo,
     modelize, hydrateModel,
 };
+export { Box } from 'boxible'
 export { observable, action, computed, runInAction, autorun, toJS } from 'mobx';
 export { observer, inject, Provider } from 'mobx-react';
