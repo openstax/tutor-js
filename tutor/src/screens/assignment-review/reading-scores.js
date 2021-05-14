@@ -10,6 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
+import { DroppedIndicator } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import { EIcon } from '../../components/icons/extension';
 
@@ -204,6 +205,14 @@ const StudentColumnHeader = observer(({ ux }) => (
     </Cell>
 ));
 
+const DroppedQuestionsIndicator = observer(({
+    student,
+    size = 1,
+}) => {
+    return (<DroppedIndicator model={{title: ''}} tooltip="Question(s) dropped" size={size}/>);
+})
+DroppedQuestionsIndicator.displayName = 'DroppedQuestionsIndicator'
+
 const StudentCell = observer(({ ux, student, striped }) => {
     const countData = ux.getReadingCountData(student);
     return (
@@ -244,6 +253,7 @@ const StudentCell = observer(({ ux, student, striped }) => {
                 striped={striped}
                 isComplete={ux.didStudentComplete(student)}
             >
+                <DroppedQuestionsIndicator student={student}/>
                 <CellContents>
                     {countData.complete} of {countData.total}
                 </CellContents>

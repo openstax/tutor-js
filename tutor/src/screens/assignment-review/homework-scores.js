@@ -10,7 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { DroppedQuestionIndicator, TriangleCSS } from '../../components/dropped-question';
+import { DroppedQuestionHeadingIndicator, TriangleCSS } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
@@ -85,7 +85,7 @@ const AssignmentHeadingPoints = observer(({ heading }) => {
 
     return (
         <>
-            <DroppedQuestionIndicator model={heading} />
+            {heading.isCore && <DroppedQuestionHeadingIndicator heading={heading} />}
             {cellContents}
         </>
     );
@@ -211,7 +211,7 @@ const AssignmentHeading = observer(({ ux, heading }) => (
     </Cell>
 ));
 
-const TaskResult = observer(({ result, striped }) => {
+const TaskResult = observer(({ heading, result, striped }) => {
     let body;
 
     if (!result) {
@@ -240,6 +240,7 @@ const TaskResult = observer(({ result, striped }) => {
             isTrouble={result && !result.isUnattemptedAutoZero && result.isTrouble}
             isUnattemptedAutoZero={result && result.isUnattemptedAutoZero}
         >
+            {!heading.isCore && <DroppedQuestionHeadingIndicator heading={heading} />}
             <ResultWrapper>
                 {body}
             </ResultWrapper>
@@ -313,6 +314,7 @@ const Scores = observer(({ ux }) => {
                                 key={i}
                                 index={i}
                                 ux={ux}
+                                heading={heading}
                                 result={student.resultForHeading(heading)}
                                 striped={0 === sIndex % 2}
                             />

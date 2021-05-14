@@ -1,16 +1,22 @@
 import { React, styled, css, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { ID } from '../models/types'
+import { TaskPlanScoreHeading } from '../models/task-plans/teacher/scores'
 import { colors } from '../theme';
 
 interface CornerTriangleProps {
+    preventOverflow?: boolean
     size?: number
     color: string
     tooltip: string
 }
-const CornerTriangle:React.FC<CornerTriangleProps> = ({ color, tooltip, ...attrs }) => {
+const CornerTriangle:React.FC<CornerTriangleProps> = (
+    { color, tooltip, preventOverflow = true, ...attrs }
+) => {
     return (
-        <OverlayTrigger overlay={<Tooltip id="corner-triangle">{tooltip}</Tooltip>}>
+        <OverlayTrigger
+            overlay={<Tooltip id="corner-triangle">{tooltip}</Tooltip>}
+            popperConfig={{modifiers: {preventOverflow: { enabled: preventOverflow },},}}
+        >
             <StyledTriangle color={color} {...attrs} />
         </OverlayTrigger>
     );
@@ -37,37 +43,91 @@ const StyledTriangle = styled.div`
     ${TriangleCSS}
 `;
 
-interface DroppedQuestionIndicatorProps {
+interface DroppedIndicatorProps {
+    preventOverflow?: boolean
     size?: number
-    model: {
-        id?: ID
-        drop_method?: 'full_credit' | 'zeroed' | 'partial'
-    }
+    tooltip: string
 }
 
-const DroppedQuestionIndicator: React.FC<DroppedQuestionIndicatorProps> = observer(({
-    model,
+const DroppedIndicator: React.FC<DroppedIndicatorProps> = observer(({
+    tooltip,
+    preventOverflow = true,
     size = 1,
 }) => {
-    if (!model.drop_method) return null
-    let tooltip = 'Question dropped'
-    if (model.drop_method == 'partial') {
-        tooltip += ': some questions worth 0 points, others assigned full credit'
-    }
-    if (model.drop_method == 'zeroed') {
-        tooltip += ': question is worth 0 points'
-    }
-    if (model.drop_method == 'full_credit') {
-        tooltip += ': full credit assigned for this question'
-    }
     return (
         <CornerTriangle
-            data-test-id="dropped-question-indicator"
-            data-question-id={model.id ? `Q${model.id}` : ''}
+            preventOverflow={preventOverflow}
             size={size}
-            color="blue" tooltip={tooltip}
+            color="blue"
+            tooltip={tooltip}
         />
     )
 })
-DroppedQuestionIndicator.displayName = 'DroppedQuestionIndicator'
-export { CornerTriangle, TriangleCSS, DroppedQuestionIndicator };
+DroppedIndicator.displayName = 'DroppedIndicator'
+
+interface DroppedQuestionHeadingIndicatorProps {
+    preventOverflow?: boolean
+    size?: number
+    heading: TaskPlanScoreHeading
+}
+
+const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorProps> = observer(({
+    heading,
+    preventOverflow = true,
+    size = 1,
+}) => {
+    if (!heading.someQuestionsDropped) return null
+    let tooltip
+    if (heading.isCore) {
+        if (heading.everyQuestionFullCredit) {
+            tooltip = 'Full credit given to all students'
+        }
+        else /* if (heading.everyQuestionZeroed) */ {
+            tooltip = 'Points changed to 0 for all students'
+        }
+    }
+    else {
+        tooltip = 'Question dropped for one or more students'
+    }
+
+    return (
+        <DroppedIndicator
+            tooltip={tooltip}
+            preventOverflow={preventOverflow}
+            size={size}
+            data-test-id="dropped-question-indicator"
+            data-question-id={heading.title}
+        />
+    );
+})
+DroppedQuestionHeadingIndicator.displayName = 'DroppedQuestionHeadingIndicator'
+
+interface DroppedStepIndicatorProps {
+    size?: number
+    step: { drop_method?: 'full_credit' | 'zeroed' }
+}
+
+const DroppedStepIndicator: React.FC<DroppedStepIndicatorProps> = observer(({
+    step,
+    size = 1,
+}) => {
+    if (!step.drop_method) return null
+    let tooltip
+    if (step.drop_method == 'full_credit') {
+        tooltip = 'Full credit given'
+    }
+    else /*if (step.drop_method == 'zeroed')*/ {
+        tooltip = 'Points changed to 0'
+    }
+
+    return (<DroppedIndicator tooltip={tooltip} size={size}/>);
+})
+DroppedStepIndicator.displayName = 'DroppedStepIndicator'
+
+export {
+    CornerTriangle,
+    TriangleCSS,
+    DroppedIndicator,
+    DroppedQuestionHeadingIndicator,
+    DroppedStepIndicator
+};

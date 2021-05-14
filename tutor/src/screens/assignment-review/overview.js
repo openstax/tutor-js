@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import TutorLink from '../../components/link';
 import ScoresHelper from '../../helpers/scores';
 import { Icon, ArbitraryHtmlAndMath } from 'shared';
+import { DroppedQuestionHeadingIndicator } from '../../components/dropped-question';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import InfoIcon from '../../components/icons/info';
 import { colors } from 'theme';
@@ -557,10 +558,11 @@ const HomeWorkInfo = observer(({ ux }) => (
                 <Header>Question Number</Header>
                 {ux.scores.question_headings.map((h, i) =>
                     <Header key={i} center={true}>
+                        <DroppedQuestionHeadingIndicator heading={h} preventOverflow={false} />
                         {h.isCore ?
                             <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                                {h.title}
-                            </StyledButton> : h.title}
+                                {i+1}
+                            </StyledButton> : i+1}
                     </Header>)}
             </Row>
             <Row>

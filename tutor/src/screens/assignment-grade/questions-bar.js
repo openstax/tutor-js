@@ -3,7 +3,7 @@ import { Icon } from 'shared';
 import { colors } from 'theme';
 import SettingsIcon from '../../components/icons/settings';
 import PublishScores from '../../components/buttons/publish-scores';
-import { DroppedQuestionIndicator } from '../../components/dropped-question';
+import { DroppedQuestionHeadingIndicator } from '../../components/dropped-question';
 
 const Bar = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ const Question = observer(({ heading, ux, index }) => {
                 {Boolean(everyQuestionDropped) || stats.complete ? <Icon type="check" color="green" /> : <span>{progress}</span>}
 
             </StyledButton>
-            <DroppedQuestionIndicator model={heading} />
+            <DroppedQuestionHeadingIndicator heading={heading} />
         </StyledQuestionWrapper>
     );
 });
