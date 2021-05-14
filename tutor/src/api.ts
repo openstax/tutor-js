@@ -123,7 +123,7 @@ const Definitions = {
     fetchTaskPlanStats:     r<TaskPlanId>('GET', 'plans/{taskPlanId}/stats'),
     fetchTaskPlanReview:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/review'),
     fetchTaskPlanScores:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/scores'),
-    fetchCourseScores:      r<CourseId>('GET', 'courses/{courseId}/performance'),
+    fetchCourseScores:      r<CourseId, RoleIdParam>('GET', 'courses/{courseId}/performance'),
 
     responseValidation:     r<any, {uid: string, response: string}>('GET', 'validate'),
 

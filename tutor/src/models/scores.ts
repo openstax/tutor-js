@@ -18,7 +18,9 @@ export class CourseScores extends BaseModel {
     }
 
     async fetch() {
-        const data = await this.api.request<PeriodPerformanceData[]>(urlFor('fetchCourseScores', { courseId: this.course.id }))
+        const data = await this.api.request<PeriodPerformanceData[]>(
+            urlFor('fetchCourseScores', { courseId: this.course.id }, { role_id: this.course.currentRole.id }),
+        )
         this.onFetchComplete(data)
     }
 
