@@ -42,10 +42,16 @@ const QuestionId = styled.span`
   margin-left: 0.8rem;
   font-weight: normal;
 `
-const QuestionWithId = ({ question }) => (
-    <span>Question:<QuestionId>{question.exercise.uid}</QuestionId></span>
-)
+
+const QuestionWithId = ({ question, label, isReading, isCore }) => {
+    label = isReading ? 'Question' : isCore ? label : 'OpenStax Tutor Selection'
+    return <span>{label}<QuestionId>{question.exercise.uid}</QuestionId></span>
+}
+
 QuestionWithId.propTypes = {
+    isCore: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired,
+    isReading: PropTypes.bool.isRequired,
     question: PropTypes.object.isRequired,
 }
 const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
@@ -56,8 +62,12 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
                     type={ux.isShowingFreeResponseForQuestion(info.question) ? 'caret-down' : 'caret-right'}
                     onClick={() => ux.toggleFreeResponseForQuestion(info.question)}
                 />)}
-            {ux.planScores.isReading ? <QuestionWithId question={info.question} /> :
-                (info.isCore ? label : 'OpenStax Tutor Selection')}
+            <QuestionWithId
+                label={label}
+                isCore={info.isCore}
+                question={info.question}
+                isReading={ux.planScores.isReading}
+            />
         </ExerciseNumber>
         <Box gap="large" align="center">
             <TourRegion id="drop-any-new">
