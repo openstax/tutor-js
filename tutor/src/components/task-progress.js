@@ -4,7 +4,7 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { map, sumBy, isNil } from 'lodash';
 import { Icon } from 'shared';
 import { colors } from 'theme';
-import { DroppedQuestionIndicator } from './dropped-question';
+import { DroppedStepIndicator } from './dropped-question';
 import LatePointsInfo from './late-points-info';
 import ScoresHelper, { UNWORKED } from '../../src/helpers/scores';
 
@@ -232,7 +232,7 @@ class TaskProgress extends React.Component {
                                         onClick={() => goToStep(step.id)}
                                     >
                                         {progressIndex}
-                                        <DroppedQuestionIndicator model={step} />
+                                        <DroppedStepIndicator step={step} />
                                     </Cell>
                                 );
                             }

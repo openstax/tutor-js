@@ -6,7 +6,7 @@ import LatePointsInfo from '../../components/late-points-info';
 import { colors } from 'theme';
 import UX from './ux';
 import { breakpoint } from 'theme';
-import { DroppedQuestionIndicator } from '../../components/dropped-question'
+import { DroppedStepIndicator } from '../../components/dropped-question'
 
 const StyledCol = styled(Col)`
   .points-info-container {
@@ -94,9 +94,7 @@ class Milestone extends React.Component {
                         className="milestone-preview"
                         html={step.preview}
                     />
-                    <DroppedQuestionIndicator model={step} size={4} />
-
-
+                    <DroppedStepIndicator step={step} size={4} />
                     {
                         step.isExercise && step.is_completed && (
                             <div className="points-info-container">
