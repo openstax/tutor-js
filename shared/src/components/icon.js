@@ -120,8 +120,9 @@ const defaultTooltipProps = {
     trigger: ['hover', 'focus'],
 };
 
+const NON_DOM_PROPS = ['withCircle', 'hoverColor']
 const IconWrapper = styled(FontAwesomeIcon).withConfig({
-    shouldForwardProp: (prop) => prop != 'withCircle',
+    shouldForwardProp: (prop) => !NON_DOM_PROPS.includes(prop),
 })`
   margin-right: 0.5rem;
   margin-left: 0.5rem;

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Redirect, useLocation } from 'react-router-dom';
+import { React, useLocation, useEffect, useState } from '../vendor'
+import { Redirect } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
@@ -80,18 +80,25 @@ export const getConditionalHandlers = (Router) => {
     // eslint-disable-next-line react/prop-types
     const renderBecomeRole = ({ params: { courseId, roleId } }) => {
         const location = useLocation();
-        const course = currentCourses.get(courseId);
-        //if (!course) { return <CourseNotFoundWarning />; }
+        const [roleComponent, setRoleComponent] = useState(null)
+        useEffect(() => {
+            const course = currentCourses.get(courseId);
+            if (!course) { setRoleComponent(<CourseNotFoundWarning />); }
 
-        const role = course.roles.find(r => r.id == roleId);
-        // only teachers can switch their role
-        if (!role || !course.roles.teacher) {
-            return <CourseNotFoundWarning />;
-        }
-        role.become();
-        const { state } = location;
-        const returnTo = (state && state.returnTo) || `/course/${courseId}`;
-        return <Redirect push to={returnTo} />;
+            const role = course.roles.find(r => r.id == roleId);
+            // only teachers can switch their role
+            if (!role || !course.roles.teacher) {
+                return setRoleComponent(<CourseNotFoundWarning />);
+            }
+            role.become();
+
+            const { state } = location;
+            const returnTo = (state && state.returnTo) || `/course/${courseId}`;
+            setRoleComponent(<Redirect push to={returnTo} />);
+
+        }, [courseId, roleId])
+
+        return roleComponent
     };
 
     // care must be taken to always return the same function on every call.
