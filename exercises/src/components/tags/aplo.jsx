@@ -15,13 +15,13 @@ import BookSelection from './book-selection';
 
 const BOOKS = {
     'stax-apbio': {
-        r: /^[A-Z]{3}[-.]\d[-.][A-Z]$/,
-        pattern: '[A-Z]{3}-#.[A-Z]',
+        r: /^[A-Z]{3}[-.]\d{1,2}[-.][A-Z]$/,
+        pattern: '[A-Z]{3}-#{1,2}.[A-Z]',
         disallowed: /[^0-9A-Z.-]/g,
     },
     'stax-apphys': {
-        r: /^\d[-.][A-Z][-.]\d[-.]\d$/,
-        pattern: '#.[A-Z].#.#',
+        r: /^\d[-.][A-Z][-.]\d{1,2}[-.]\d$/,
+        pattern: '#.[A-Z].#{1,2}.#',
         disallowed: /[^0-9A-Z.-]/g,
     },
 };
@@ -42,7 +42,7 @@ class Input extends React.Component {
     }
 
     @computed get book() {
-        const { specifier } =  this.props.tag;
+        const { specifier } = this.props.tag;
         if (specifier && this.availableBooks.includes(specifier)) {
             return specifier;
         }
@@ -64,7 +64,7 @@ class Input extends React.Component {
 
     isLoValid(book, lo) {
         if (!lo || !this.validation) { return true; } // LO is not required
-        return lo.match( this.validation.r );
+        return lo.match(this.validation.r);
     }
 
     @action.bound validateAndSave(attrs) {
@@ -116,14 +116,14 @@ class Input extends React.Component {
                     limit={this.availableBooks}
                 />
                 {validation &&
-                 <input
-                     className="form-control"
-                     type="text"
-                     onChange={this.onTextChange}
-                     onBlur={this.onTextBlur}
-                     value={this.value}
-                     placeholder={validation.pattern}
-                 />}
+                    <input
+                        className="form-control"
+                        type="text"
+                        onChange={this.onTextChange}
+                        onBlur={this.onTextBlur}
+                        value={this.value}
+                        placeholder={validation.pattern}
+                    />}
                 <Error error={this.errorMsg} />
                 <span className="controls">
                     <Icon type="trash" onClick={this.onDelete} />

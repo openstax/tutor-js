@@ -24,7 +24,7 @@ describe('ApLo tags component', () => {
         });
         const input = lo.find('Input input[type="text"]');
         expect(input.props()).toMatchObject({
-            placeholder: '[A-Z]{3}-#.[A-Z]',
+            placeholder: '[A-Z]{3}-#{1,2}.[A-Z]',
         });
 
         input.simulate('change', { target: { value: '1.11111' } });
@@ -39,11 +39,15 @@ describe('ApLo tags component', () => {
         input.simulate('blur');
         expect(lo.find('TagError').props().error).toBeNull();
 
+        input.simulate('change', { target: { value: 'EVO-12.C' } });
+        input.simulate('blur');
+        expect(lo.find('TagError').props().error).toBeNull();
+
         lo.find('BookSelection select').simulate('change', {
             target: { value: 'stax-apphys' },
         });
         expect(lo.find('Input input[type="text"]').props()).toMatchObject({
-            placeholder: '#.[A-Z].#.#',
+            placeholder: '#.[A-Z].#{1,2}.#',
         });
 
         lo.unmount();
