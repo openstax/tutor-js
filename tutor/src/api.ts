@@ -135,7 +135,7 @@ const Definitions = {
     pairToLMS:              r<CourseId>('POST', 'lms/courses/{courseId}/pair'),
 
     pushLmsScores:          r<CourseId>('PUT', 'lms/courses/{courseId}/push_scores'),
-    scoresExport:           r<CourseId>('PUT', 'courses/{courseId}/performance/export'),
+    scoresExport:           r<CourseId>('POST', 'courses/{courseId}/performance/export'),
 
     fetchOfferings:         r('GET', 'offerings'),
 

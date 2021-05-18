@@ -46,7 +46,6 @@ class TeacherGradeBook extends React.Component {
         if (!ux.isReady) {
             return <LoadingScreen message="Loading Gradebook…" />;
         }
-
         if (!ux.hasAnyStudents) {
             return <NoStudentsMessage courseId={ux.course.id} />;
         }

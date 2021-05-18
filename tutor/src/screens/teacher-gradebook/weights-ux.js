@@ -1,5 +1,4 @@
 import { observable, computed, action, modelize } from 'shared/model'
-import { find } from 'lodash';
 
 const DEFAULTS = {
     ux_reading_weight: 50,
@@ -78,7 +77,7 @@ export default class ScoresReportWeightsUX {
     }
 
     @action updateCurrentPeriodScores(periodId) {
-        this.scoresUx.currentPeriodScores = find(this.course.scores.periods.array, s => s.period_id === periodId) || [];
+        this.scoresUx.currentPeriodScores = this.course.scores.periods.get(periodId) || [];
     }
 
     getDefaults() {
