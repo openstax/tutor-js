@@ -18,7 +18,7 @@ export default class Map<K extends ID, V extends MapableObject> {
 
     keyType = Number
 
-    _map = observable.map<K, V>()
+    _map = observable.map<K, V>({}, { deep: false })
 
     static toObject(map: any) {
         const obj = {};
