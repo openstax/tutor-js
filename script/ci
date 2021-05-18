@@ -13,7 +13,7 @@ if [[ "$TEST" = "lint" ]]; then
 elif [[ "$TEST" = "typecheck" ]]; then
     yarn run typecheck
 elif [[ "$TEST" = "e2e" ]]; then
-    ./bin/test-e2e --runInBand
+    ./bin/test-e2e
 else
   ./bin/test $TEST --all --verbose
 fi
