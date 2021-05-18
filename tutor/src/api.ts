@@ -5,6 +5,7 @@ import { ID } from 'shared/types'
 // GET: 'read',
 // PUT: 'update',
 // DELETE: 'delete',
+interface JobId { jobId: ID }
 interface BookId { bookId: ID }
 interface RoleId { roleId: ID }
 interface StepId { stepId: ID }
@@ -147,30 +148,10 @@ const Definitions = {
     getTeacherPerformance:  r<CourseId>('GET', 'courses/{courseId}/teacher_guide'),
     getStudentPerformance:  r<CourseId & RoleId>('GET', 'courses/{courseId}/guide/role/{roleId}'),
 
+    requestJobStatus:       r<JobId>('GET', 'jobs/{jobId}'),
 }
 
 export { Definitions }
 
 const urlFor = makeUrlFunc(Definitions)
 export default urlFor
-
-
-// TODO: convert flux
-//     connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
-
-//     connectRead(PerformanceForecast.Student.actions, function(id) {
-//         const course = Courses.get(id);
-//         const params = {};
-//         if (course && course.current_role_id) {
-//             params.role_id = course.current_role_id;
-//         }
-//         return { url: `courses/${id}/guide`, params };
-//     });
-//     connectRead(PerformanceForecast.Teacher.actions, { pattern: 'courses/{id}/teacher_guide' });
-//     connectRead(PerformanceForecast.TeacherStudent.actions, function(id, { roleId }) {
-//         const url = `courses/${id}/guide/role/${roleId}`;
-//         const data = { id, roleId };
-//         return { url, data };
-//     });
-
-//     connectRead(ReferenceBookExerciseActions, { url(url) { return url; } });
