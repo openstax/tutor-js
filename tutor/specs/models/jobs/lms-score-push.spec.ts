@@ -36,7 +36,7 @@ describe('LMS Score push job', () => {
             status: 'succeeded',
             data: { num_callbacks: 1 },
         };
-        job.onJobUpdate({ data });
+        job.onJobUpdate(data);
         expect(UiSettings.set).toHaveBeenCalledWith(
             'sclp', '2', mockedNow.toISOString()
         );

@@ -16,11 +16,11 @@ describe('Job Helper', function() {
         job.startPolling('/foo/bar/123456');
         jest.runAllTimers();
         expect(job.requestJobStatus).toHaveBeenCalledTimes(1);
-        job.onJobUpdate({ data: { progress: 0.1 } });
+        job.onJobUpdate({ progress: 0.1 });
         expect(job.progress).toBeCloseTo(0.1);
         jest.runAllTimers();
         expect(job.requestJobStatus).toHaveBeenCalledTimes(2);
-        job.onJobUpdate({ data: { status: 'succeeded' } });
+        job.onJobUpdate({ status: 'succeeded' });
         expect(job.isComplete).toEqual(true);
         jest.runAllTimers();
         expect(job.requestJobStatus).toHaveBeenCalledTimes(2);
@@ -31,7 +31,7 @@ describe('Job Helper', function() {
         job.startPolling('/foo/bar/123456');
         jest.runAllTimers();
         expect(job.requestJobStatus).toHaveBeenCalledTimes(1);
-        job.onJobUpdate({ data: { progress: 0.1 } });
+        job.onJobUpdate({ progress: 0.1 });
         job.stopPolling();
         jest.runAllTimers();
         expect(job.requestJobStatus).toHaveBeenCalledTimes(1);

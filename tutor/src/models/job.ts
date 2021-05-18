@@ -13,7 +13,7 @@ export default class Job extends BaseModel {
     @observable interval = 5;
     @observable maxAttempts = 30;
     @observable status = '';
-    @observable progress = '';
+    @observable progress = 0;
 
     constructor() {
         super();
