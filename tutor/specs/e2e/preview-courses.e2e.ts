@@ -1,7 +1,8 @@
-import { visitPage, findOrCreateTeacherAccount, loaderNotVisible } from './helpers'
+import { visitPage, setTimeouts, findOrCreateTeacherAccount, loaderNotVisible } from './helpers'
 
 describe('Preview Courses', () => {
     beforeAll(async () => {
+        setTimeouts()
         await findOrCreateTeacherAccount({ page, userName: 'previewteacher' })
         await page.waitForSelector('.tutor-navbar')
         const onOfferingScreen = await page.$('data-test-id=new-teacher-screen')
