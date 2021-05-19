@@ -1,7 +1,7 @@
 import { BaseModel, action, observable, field, computed, modelize } from 'shared/model';
 import { last } from 'lodash';
-
 import invariant from 'invariant';
+import urlFor from '../api'
 
 export const MAX_ATTEMPTS = 50;
 
@@ -13,15 +13,14 @@ export default class Job extends BaseModel {
     @observable interval = 5;
     @observable maxAttempts = 30;
     @observable status = '';
-    @observable progress = '';
+    @observable progress = 0;
 
     constructor() {
         super();
         modelize(this);
     }
 
-    @action.bound
-    checkForUpdate() {
+    @action.bound checkForUpdate() {
         if (this.attempts < this.maxAttempts) {
             this.attempts += 1;
             this.requestJobStatus();
@@ -71,14 +70,17 @@ export default class Job extends BaseModel {
     onPollFailure() {}
 
     // called by API
-    requestJobStatus() { }
+    @action async requestJobStatus() {
+        const data = await this.api.request(urlFor('requestJobStatus', { jobId: this.jobId }))
+        this.onJobUpdate(data)
+    }
 
     onJobUpdateFailure() {
         this.stopPolling();
         this.onPollFailure();
     }
 
-    onJobUpdate({ data }: any) {
+    @action onJobUpdate(data: any) {
         this.update(data);
         if (this.isComplete) {
             this.stopPolling();

@@ -132,7 +132,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, isPr
         >
             <div
                 data-appearance={offering.appearance_code}
-                data-test-id={`preview-course-card=${offering.id}`}
+                data-test-id="preview-course-card"
                 data-is-teacher={true}
                 data-offering-id={offering.id}
                 className={itemClasses}>

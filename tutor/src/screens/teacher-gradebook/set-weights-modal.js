@@ -6,7 +6,7 @@ import { colors } from 'theme';
 import NumberInput from '../../components/number-input';
 
 const StyledModal = styled(Modal)`
-.modal-dialog {
+    .modal-dialog {
         max-width: 600px
     }
     .modal-dialog .modal-header, .modal .modal-header {
@@ -59,7 +59,6 @@ const StyledModal = styled(Modal)`
           color: ${colors.danger};
         }
     }
-}
 `;
 
 const enforceNumberInput = (ev) => {
@@ -90,7 +89,7 @@ const SetWeightsModal = observer(({ ux }) => {
             onHide={() => uxWeights.hideWeights()}
         >
             <Modal.Header closeButton>
-          Set weights
+                Set weights
             </Modal.Header>
             <Modal.Body>
                 <p>Default Course average =</p>
@@ -130,7 +129,8 @@ const SetWeightsModal = observer(({ ux }) => {
                                         </div>
                                         <hr />
                                         <div className="flex-box total-weight">
-                                            <label>Total course average:</label><label className={uxWeights.total !== 100 ? 'percentage-error' : ''}>{uxWeights.total}%</label> 
+                                            <label>Total course average:</label>
+                                            <label className={uxWeights.total !== 100 ? 'percentage-error' : ''}>{uxWeights.total}%</label>
                                         </div>   
                                     </div>
                                     <div className="flex-box form-button">  
@@ -146,7 +146,7 @@ const SetWeightsModal = observer(({ ux }) => {
                                                 onClick={() => uxWeights.hideWeights()}
                                                 size="lg"
                                             >
-                        Cancel
+                                                Cancel
                                             </Button>
                                             <AsyncButton
                                                 isWaiting={uxWeights.isBusy}
@@ -156,7 +156,7 @@ const SetWeightsModal = observer(({ ux }) => {
                                                 variant="primary"
                                                 size="lg"
                                             >
-                        Save
+                                                Save
                                             </AsyncButton>
                                         </div>
                                     </div>

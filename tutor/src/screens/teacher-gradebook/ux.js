@@ -1,4 +1,4 @@
-import { observable, computed, action, modelize } from 'shared/model'
+import { observable, computed, action, modelize, runInAction } from 'shared/model'
 import studentDataSorter from './student-data-sorter';
 import { WindowSize, currentCourses } from '../../models';
 import WeightsUX from './weights-ux';
@@ -58,7 +58,7 @@ export default class GradeBookUX {
         this.periodId = this.course.periods.active[activeTab].id;
 
         this.currentPeriodScores = this.course.scores.periods.get(this.periodId)
-        this.isReady = true;
+        runInAction(() => { this.isReady = true })
     }
 
     @action.bound onSelectPeriod(period) {

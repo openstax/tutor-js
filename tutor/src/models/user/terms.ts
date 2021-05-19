@@ -67,7 +67,7 @@ export class UserTermsMap extends BaseModel {
 
     // will be overwritten by api
     async fetch() {
-        const terms = await this.api.request<UserTerm[]>(urlFor('fetchUserTerms'))
+        const terms = await this.api.request<UserTermData[]>(urlFor('fetchUserTerms'))
         this.onLoaded(terms)
     }
 

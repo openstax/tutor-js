@@ -36,7 +36,7 @@ describe('Scores export job', () => {
         const data = {
             status: 'succeeded',
         };
-        job.onJobUpdate({ data });
+        job.onJobUpdate(data);
         expect(UiSettings.set).toHaveBeenCalledWith(
             'sce', '2', now.toISOString()
         );

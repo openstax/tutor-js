@@ -341,7 +341,7 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
     get root() {
-        return this.rootRef.current as HTMLDivElement
+        return this.rootRef.current as HTMLDivElement || document.body
     }
 
     render() {
