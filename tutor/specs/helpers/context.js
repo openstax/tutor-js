@@ -20,10 +20,10 @@ export { wrapInTestContext as wrapInDnDTestContext };
 
 class CourseContext {
     @observable course;
-    constructor() {
+    constructor(c) {
         modelize(this)
+        this.course = c;
     }
-    constructor(c) { this.course = c; }
 }
 
 @observer
