@@ -67,7 +67,7 @@ const Definitions = {
     fetchExercises:         r<EcosystemIdAction>('GET', 'ecosystems/{ecosystemId}/{action}'),
     fetchLimitedExercises:  r<EcosystemIdAction & { limit: string }>('GET', 'ecosystems/{ecosystemId}/{action}/{limit}'),
 
-    fetchCourses:           r('GET', 'courses'),
+    fetchCourses:           r('GET', 'user/courses'),
 
     fetchCourse:            r<CourseId>('GET', 'course/{courseId}'),
     updateCourse:           r<CourseId>('PUT', 'courses/{courseId}'),
