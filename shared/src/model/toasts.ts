@@ -4,7 +4,7 @@ import invariant from 'invariant';
 import { computed, observable, runInAction } from 'mobx';
 import { BaseModel, array, hydrateModel, modelize } from '../model';
 
-const Handlers = observable.map({});
+const Handlers = observable.map({}, { deep: false });
 
 export interface ToastAttrs {
     info?:any
