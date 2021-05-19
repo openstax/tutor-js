@@ -127,7 +127,10 @@ PreviewCourseSidePanel.propTypes = {
 
 class CourseContext {
     @observable course;
-    constructor(c) { this.course = c; }
+    constructor(c) {
+        modelize(this)
+        this.course = c;
+    }
 }
 
 @observer

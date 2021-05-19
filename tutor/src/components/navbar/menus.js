@@ -41,12 +41,14 @@ const MobileMenus = observer(({ course }) => (
 
 const Menus = inject('courseContext')(
     observer(
-        ({ courseContext: { course } }) => (
-            <Responsive
-                desktop={<DesktopMenus course={course} />}
-                mobile={<MobileMenus course={course} />}
-            />
-        )
+        ({ courseContext: { course } }) => {
+            return (
+                <Responsive
+                    desktop={<DesktopMenus course={course} />}
+                    mobile={<MobileMenus course={course} />}
+                />
+            )
+        }
     )
 );
 
