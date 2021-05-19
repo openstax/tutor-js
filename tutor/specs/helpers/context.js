@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, modelize } from '../../src/vendor'
 import { wrapInTestContext } from 'react-dnd-test-utils';
 import { MemoryRouter as Router } from 'react-router-dom';
 import Theme from '../../src/theme';
@@ -12,7 +11,7 @@ import { SpyMode } from 'shared';
 import { observable, action } from 'mobx';
 import { observer, Provider } from 'mobx-react';
 import { SecondaryToolbar } from '../../src/components/navbar/secondary-toolbar'
-import { modelize } from 'modeled-mobx';
+
 
 function wrapInDnDTestContext(DecoratedComponent) {
     return wrapInTestContext(DecoratedComponent);
@@ -21,7 +20,10 @@ export { wrapInTestContext as wrapInDnDTestContext };
 
 class CourseContext {
     @observable course;
-    constructor(c) { this.course = c; }
+    constructor(c) {
+        modelize(this)
+        this.course = c;
+    }
 }
 
 @observer

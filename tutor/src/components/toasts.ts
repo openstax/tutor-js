@@ -1,6 +1,6 @@
 import invariant from 'invariant';
 import { currentToasts, Toast, ToastAttrs, setToastHandlers } from 'shared/model/toasts'
-
+import Toasts from 'shared/components/toasts'
 import * as lms from './toasts/lms';
 import * as scores from './toasts/scores';
 import Reload from './toasts/reload';
@@ -29,5 +29,6 @@ setToastHandlers({
     },
 });
 
+export default Toasts
 export type { ToastAttrs }
 export { Toast, currentToasts }

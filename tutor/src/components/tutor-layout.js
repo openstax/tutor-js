@@ -3,7 +3,7 @@ import {
     PropTypes, observer, observable, styled, action, modelize,
 } from 'vendor';
 import Theme                from '../theme';
-import Toasts               from 'shared/components/toasts';
+import Toasts               from './toasts';
 import { currentCourses, Course }  from '../models'
 import { Logo }             from './navbar/logo';
 import { Menus }            from './navbar/menus';
@@ -127,7 +127,10 @@ PreviewCourseSidePanel.propTypes = {
 
 class CourseContext {
     @observable course;
-    constructor(c) { this.course = c; }
+    constructor(c) {
+        modelize(this)
+        this.course = c;
+    }
 }
 
 @observer

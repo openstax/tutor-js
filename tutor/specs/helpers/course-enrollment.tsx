@@ -150,7 +150,9 @@ describe('Course Enrollment', function() {
 
     it('blocks lms and links from the wrong way', () => {
         enroll.to = { course: { is_lms_enabled: true } };
-        let comp = mount(enroll.bodyContents);
+        let body = enroll.bodyContents
+        if (!body) return
+        let comp = mount(body);
         expect(comp.text()).toContain('this enrollment link isn’t valid');
 
         enroll.to.is_lms_enabled = false;
@@ -158,7 +160,9 @@ describe('Course Enrollment', function() {
         enroll.courseToJoin = Factory.course({ is_lms_enabled: false })
         expect(enroll.isFromLms).toBe(true);
         expect(enroll.courseIsLmsEnabled).toBe(false);
-        comp = mount(enroll.bodyContents);
+        body = enroll.bodyContents
+        if (!body) return
+        comp = mount(body);
         expect(comp.text()).toContain('you need an enrollment link');
     });
 

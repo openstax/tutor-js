@@ -34,6 +34,7 @@ export class CourseEnrollment extends BaseModel {
     constructor(attrs: { user:User, courses: CoursesMap }) {
         super()
         modelize(this)
+        Object.assign(this, attrs)
         this.user = attrs.user || currentUser
         this.courses = attrs.courses || currentCourses
         this.originalEnrollmentCode = this.enrollment_code
@@ -44,9 +45,9 @@ export class CourseEnrollment extends BaseModel {
     }
 
     @computed get bodyContents() {
-        /* if (User.shouldSignTerms) {
-         *     return null
-         * } */
+        if (currentUser.terms.areSignaturesNeeded) {
+            return null
+        }
 
         if (this.isLoading) {
             return <Activity isLoading={true} />
