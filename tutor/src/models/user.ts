@@ -3,7 +3,7 @@ import {
     hydrateModel, array,
 } from 'shared/model';
 import Time from 'shared/model/time';
-import { find, startsWith, map, uniq, max, remove } from 'lodash';
+import { find, startsWith, map, uniq, max, remove, omit } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
@@ -206,7 +206,8 @@ export class User extends BaseModel {
 
     async fetch() {
         const data = await this.api.request<UserData>(urlFor('fetchUser', { courseId: this.id }))
-        this.update(data)
+        this.update(omit(data, 'available_terms'))
+        this.terms.onLoaded(data.available_terms)
     }
 }
 
