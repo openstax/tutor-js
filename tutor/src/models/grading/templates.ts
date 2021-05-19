@@ -1,4 +1,4 @@
-import { isNil, defaults } from 'lodash';
+import { isNil } from 'lodash';
 import Time from 'shared/model/time'
 import { GradingTemplateData } from '../types'
 import {
@@ -24,7 +24,7 @@ class GradingTemplate extends BaseModel {
     @field correctness_weight = 0;
     @model(Time) deleted_at?: Time;
     @field auto_grading_feedback_on = 'answer';
-    @field manual_grading_feedback_on = false;
+    @field manual_grading_feedback_on = '';
     @field late_work_penalty = 0.1;
     @field late_work_penalty_applied = '';
     @field default_open_time = '00:01';
@@ -39,9 +39,11 @@ class GradingTemplate extends BaseModel {
         super();
         modelize(this)
 
+        this.task_plan_type = attrs?.task_plan_type
         if (!attrs || !attrs.id) {
+
             if (this.isReading) {
-                defaults(this, {
+                Object.assign(this, {
                     completion_weight: 0.9,
                     correctness_weight: 0.1,
                     manual_grading_feedback_on: 'publish',
@@ -49,7 +51,7 @@ class GradingTemplate extends BaseModel {
                 });
             }
             if (this.isHomework) {
-                defaults(this,{
+                Object.assign(this, {
                     completion_weight: 0.0,
                     correctness_weight: 1.0,
                     late_work_penalty_applied: 'daily',
