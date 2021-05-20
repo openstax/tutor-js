@@ -8,6 +8,7 @@ import { Icon, ArbitraryHtmlAndMath } from 'shared';
 import { DroppedQuestionHeadingIndicator } from '../../components/dropped-question';
 import HomeworkQuestions, { ExerciseNumber } from '../../components/homework-questions';
 import InfoIcon from '../../components/icons/info';
+import DropQuestionIcon from './drop-question-icon';
 import { colors } from 'theme';
 import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
@@ -73,15 +74,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
         <Box gap="large" align="center">
             <TourRegion id="drop-any-new">
                 <span>{ScoresHelper.formatPoints(info.availablePoints)} Points</span>
-                <Icon
-                    type="minus-circle"
-                    data-tour-anchor-id="drop-question-new"
-                    tooltip="Drop question"
-                    color={Theme.colors.neutral.gray}
-                    hoverColor={Theme.colors.neutral.darker}
-                    tooltipProps={{ placement: 'bottom' }}
-                    onClick={() => ux.displayDropQuestion(info.question)}
-                />
+                <DropQuestionIcon ux={ux} info={info} />
             </TourRegion>
         </Box>
     </>
