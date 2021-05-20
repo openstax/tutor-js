@@ -87,13 +87,12 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
         }
         const origin = options?.origin || baseUrl
         const resp = await fetch(`${origin}/${url}`, req)
-
         if (resp.ok) {
-            if (resp.status == 204) { // no content
-                return {} as RetT
+            const body = await resp.text()
+            if (body) {
+                return JSON.parse(body) as RetT
             }
-            const respJson = await resp.json()
-            return await respJson as RetT
+            return {} as RetT
         } else {
             const err = ApiError.fromError(`${method} api/${url}`, resp, options)
             try {
