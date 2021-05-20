@@ -6,7 +6,7 @@ import { bootstrapCoursesList } from '../courses-test-data';
 import { hydrateInstance, fetchMock } from '../helpers'
 import COURSE from '../../api/courses/1.json';
 import { hydrateModel } from 'modeled-mobx';
-import { currentCourses, Course, FeatureFlags } from '../../src/models'
+import { currentCourses, Course, FeatureFlags, CoursesMap } from '../../src/models'
 
 
 jest.mock('../../src/models/feature_flags',() => ({
@@ -129,6 +129,14 @@ describe('Course Model', () => {
             expect(course.periods.active).toHaveLength(2);
         });
     });
+
+    it('gets latest course for offering', () => {
+        const courses = new CoursesMap()
+        courses.set(1, { id: 1, ends_at: '2020-01-01', offering_id: 1 } as any)
+        courses.set(2, { id: 2, ends_at: '2018-01-01', offering_id: 2 } as any)
+        courses.set(3, { id: 3, ends_at: '2019-01-01', offering_id: 2 } as any)
+        expect(courses.latestForOffering({ id: 2 } as any)?.id).toBe(3)
+    })
 
     it('calculates if terms are before', () => {
         const course = currentCourses.get(2)!;

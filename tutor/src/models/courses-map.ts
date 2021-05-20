@@ -81,7 +81,7 @@ export class CoursesMap extends Map<ID, Course> {
     }
 
     latestForOffering(offering: Offering) {
-        return maxBy(this.forOffering(offering).array)
+        return maxBy(this.forOffering(offering).array, 'ends_at')
     }
 
     forOffering(offering: Offering) {
