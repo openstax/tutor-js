@@ -7,7 +7,7 @@ import { readonly } from 'core-decorators';
 import invariant from 'invariant';
 import { NotificationActions, Logging } from 'shared';
 import type { Course, User } from '../models'
-import { Purchase } from '../models'
+import { Purchase, currentUser } from '../models'
 import { SUPPORT_EMAIL } from '../config'
 import { Chat } from './chat';
 
@@ -40,6 +40,7 @@ export class Payments extends BaseModel {
         super();
         modelize(this);
         this.options = merge({
+            user: currentUser,
             timeoutLength: 60000,
             messageHandlers: {
                 timeout: this.onTimeout,
