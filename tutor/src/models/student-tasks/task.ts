@@ -15,12 +15,12 @@ export class StudentTask extends BaseModel {
     @field description = '';
     @field type = '';
     @field is_deleted = false;
-    @field completion_weight = 0;
-    @field correctness_weight = 0;
+    @field completion_weight?: number;
+    @field correctness_weight?: number;
     @field late_work_penalty_applied?: string;
-    @field late_work_penalty_per_period = 0;
-    @field published_late_work_point_penalty = 0; // point penalty that is visible to the student
-    @field published_points = 0; // points that are visible to the student
+    @field late_work_penalty_per_period?: number;
+    @field published_late_work_point_penalty?: number; // point penalty that is visible to the student
+    @field published_points?: number; // points that are visible to the student
     @field spy?: any;
     @model(Time) due_at = Time.unknown;
     @model(Time) closes_at = Time.unknown;

@@ -22,7 +22,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
           "spy": Object {},
           "steps": Array [
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -53,7 +53,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               "uid": "22@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -84,7 +84,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               "uid": "23@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -115,7 +115,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               "uid": "24@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -146,7 +146,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
               "uid": "25@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -363,7 +363,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
           "spy": Object {},
           "steps": Array [
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -394,7 +394,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               "uid": "7@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -425,7 +425,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               "uid": "8@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -456,7 +456,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               "uid": "9@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -487,7 +487,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
               "uid": "10@1",
             },
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,

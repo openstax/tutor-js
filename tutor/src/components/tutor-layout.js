@@ -159,7 +159,7 @@ class TutorLayout extends React.Component {
         this.secondaryTopControls = controls;
     }
 
-    componentDidUpdate() {
+    @action componentDidUpdate() {
         this.courseContext.course = this.props.course;
     }
 

@@ -23,7 +23,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
         "spy": Object {},
         "steps": Array [
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -54,7 +54,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "1@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -85,7 +85,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "2@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -116,7 +116,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "3@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -147,7 +147,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "4@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -178,7 +178,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "5@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,
@@ -209,7 +209,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
             "uid": "6@1",
           },
           Object {
-            "answer_id": 0,
+            "answer_id": undefined,
             "available_points": 1,
             "can_be_updated": true,
             "correct_answer_id": 0,

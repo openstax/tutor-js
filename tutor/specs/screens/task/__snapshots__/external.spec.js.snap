@@ -22,7 +22,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
           "spy": Object {},
           "steps": Array [
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,

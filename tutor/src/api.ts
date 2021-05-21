@@ -126,7 +126,7 @@ const Definitions = {
     fetchTaskPlanScores:    r<TaskPlanId>('GET', 'plans/{taskPlanId}/scores'),
     fetchCourseScores:      r<CourseId, RoleIdParam>('GET', 'courses/{courseId}/performance'),
 
-    responseValidation:     r<any, {uid: string, response: string}>('GET', 'validate'),
+    responseValidation:     r<any, {uid: string, response: string}>('GET', ''), // url is set by validator config
 
     fetchPracticeQuestions: r<CourseId, RoleIdParam>('GET', 'courses/{courseId}/practice_questions'),
     createPracticeQuestion: r<CourseId, RoleIdParam>('POST', 'courses/{courseId}/practice_questions'),
