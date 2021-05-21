@@ -6,7 +6,7 @@ describe(ResponseValidation, () => {
 
     beforeEach(() => {
         rv = new ResponseValidation();
-        rv.config.url = 'http://test.com';
+        rv.config.url = 'http://test.com/validate';
         rv.config.is_enabled = true;
     })
 

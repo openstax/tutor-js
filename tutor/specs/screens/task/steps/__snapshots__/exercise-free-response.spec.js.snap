@@ -150,7 +150,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
     response_validation={undefined}
     step={
       Object {
-        "answer_id": 0,
+        "answer_id": undefined,
         "available_points": 1,
         "can_be_updated": true,
         "correct_answer_id": 0,
@@ -200,7 +200,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "spy": Object {},
           "steps": Array [
             Object {
-              "answer_id": 0,
+              "answer_id": undefined,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,

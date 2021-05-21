@@ -5,7 +5,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
   <ExerciseTaskStep
     step={
       Object {
-        "answer_id": 0,
+        "answer_id": undefined,
         "available_points": 1,
         "can_be_updated": true,
         "correct_answer_id": 0,
@@ -144,7 +144,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "year": 2017,
         },
         "currentStep": Object {
-          "answer_id": 0,
+          "answer_id": undefined,
           "available_points": 1,
           "can_be_updated": true,
           "correct_answer_id": 0,
