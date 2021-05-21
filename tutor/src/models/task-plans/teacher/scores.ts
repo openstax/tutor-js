@@ -18,10 +18,10 @@ class TaskPlanScoreStudentQuestion extends BaseModel {
     @field question_id = NEW_ID;
     @field exercise_id:ID = NEW_ID;
     @field is_completed = false;
-    @field points = 0;
+    @field points?: number;
     @field comments = ''
-    @field late_work_point_penalty = 0;
-    @field selected_answer_id = 0;
+    @field late_work_point_penalty?: number;
+    @field selected_answer_id?: ID;
     @field is_correct = false;
     @field free_response = '';
     @field task_step_id: ID = NEW_ID;

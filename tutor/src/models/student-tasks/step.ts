@@ -1,6 +1,6 @@
 import {
     BaseModel, field, observable, computed, array, action, model, modelize,
-    NEW_ID, lazyGetter, hydrateModel, getParentOf,
+    ID, NEW_ID, lazyGetter, hydrateModel, getParentOf,
 } from 'shared/model';
 import S from '../../helpers/string';
 import { pick, get, isNil, omit } from 'lodash';
@@ -87,10 +87,10 @@ export class StudentTaskStep extends BaseModel {
     @field id = NEW_ID;
     @field uid = '';
     @field preview = '';
-    @field available_points = 0;
+    @field available_points?: number;
     @field type = '';
     @field is_completed = false
-    @field answer_id? = NEW_ID;
+    @field answer_id?:ID;
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
@@ -104,12 +104,12 @@ export class StudentTaskStep extends BaseModel {
     @field can_be_updated = false
     @field dropped_method = ''
     @field is_feedback_available = false
-    @field published_points = 0
+    @field published_points?: number;
     @field published_comments = ''
-    @field published_points_without_lateness = 0
-    @field published_late_work_point_penalty = 0
-    @field tasked_id = NEW_ID
-    @field exercise_id = NEW_ID
+    @field published_points_without_lateness?: number
+    @field published_late_work_point_penalty?: number
+    @field tasked_id:ID = NEW_ID
+    @field exercise_id:ID = NEW_ID
 
     @observable content?: any
     @observable isFetched = false
