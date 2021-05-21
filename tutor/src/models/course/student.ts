@@ -86,10 +86,12 @@ export class CourseStudent extends BaseModel {
     }
 
     async drop() {
+        this.is_active = false
         return this.api.request(urlFor('dropStudent', { studentId: this.id }))
     }
 
     async unDrop() {
+        this.is_active = true
         return this.api.request(urlFor('unDropStudent', { studentId: this.id }))
     }
 
